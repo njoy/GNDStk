@@ -277,3 +277,10 @@ DoubleUncertaintySet(ConstHandle2Double This, ConstHandle2ConstUncertainty uncer
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Double/src/custom.cpp"

@@ -226,8 +226,10 @@ CrossSectionSumsCrossSectionSumSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/CrossSectionSums/src/custom.h"
 
 #undef extern_c
 #endif

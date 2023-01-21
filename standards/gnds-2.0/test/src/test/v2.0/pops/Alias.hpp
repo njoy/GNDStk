@@ -16,22 +16,27 @@ namespace pops {
 // class Alias
 // -----------------------------------------------------------------------------
 
-class Alias : public Component<pops::Alias> {
+class Alias :
+   public Component<pops::Alias>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Alias"; }
    static auto FIELD() { return "alias"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("id") |
@@ -43,6 +48,9 @@ class Alias : public Component<pops::Alias> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> id{this};
    Field<XMLName> pid{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->id, \
       this->pid)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Alias(
       const wrapper<XMLName> &id,
       const wrapper<XMLName> &pid = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Alias(const Alias &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       id(this,other.id),
       pid(this,other.pid)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Alias(Alias &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       pid(this,std::move(other.pid))
    {

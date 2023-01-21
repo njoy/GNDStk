@@ -383,3 +383,10 @@ AcknowledgementsAcknowledgementSetByType(
       (CLASSNAME, CLASSNAME+"AcknowledgementSetByType",
        This, extract::acknowledgement, meta::type, type, acknowledgement);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Acknowledgements/src/custom.cpp"

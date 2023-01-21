@@ -248,3 +248,10 @@ SummandsAddSetByHref(
       (CLASSNAME, CLASSNAME+"AddSetByHref",
        This, extract::add, meta::href, href, add);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Summands/src/custom.cpp"

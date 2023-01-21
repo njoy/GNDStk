@@ -18,7 +18,9 @@ namespace resonances {
 // class ScatteringRadius
 // -----------------------------------------------------------------------------
 
-class ScatteringRadius : public Component<resonances::ScatteringRadius> {
+class ScatteringRadius :
+   public Component<resonances::ScatteringRadius>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -31,15 +33,18 @@ class ScatteringRadius : public Component<resonances::ScatteringRadius> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ScatteringRadius"; }
    static auto FIELD() { return "scatteringRadius"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / --(Child<>("constant1d") || Child<>("XYs1d") || Child<>("regions1d"))
@@ -48,6 +53,9 @@ class ScatteringRadius : public Component<resonances::ScatteringRadius> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<_t> _constant1dXYs1dregions1d{this};
@@ -60,6 +68,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_constant1dXYs1dregions1d)
 
    // default
@@ -69,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ScatteringRadius(
       const wrapper<_t> &_constant1dXYs1dregions1d
    ) :
@@ -89,6 +98,7 @@ public:
    // copy
    ScatteringRadius(const ScatteringRadius &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _constant1dXYs1dregions1d(this,other._constant1dXYs1dregions1d)
    {
       Component::finish(other);
@@ -97,6 +107,7 @@ public:
    // move
    ScatteringRadius(ScatteringRadius &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _constant1dXYs1dregions1d(this,std::move(other._constant1dXYs1dregions1d))
    {
       Component::finish(other);

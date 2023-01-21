@@ -21,27 +21,33 @@ namespace pops {
 // class DecayMode
 // -----------------------------------------------------------------------------
 
-class DecayMode : public Component<pops::DecayMode> {
+class DecayMode :
+   public Component<pops::DecayMode>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "DecayMode"; }
    static auto FIELD() { return "decayMode"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          enums::DecayType{}
             / Meta<>("mode") |
+
          // children
          --Child<pops::Probability>("probability") |
          --Child<std::optional<pops::InternalConversionCoefficients>>("internalConversionCoefficients") |
@@ -54,6 +60,9 @@ class DecayMode : public Component<pops::DecayMode> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -72,6 +81,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->mode, \
       this->probability, \
@@ -88,7 +98,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DecayMode(
       const wrapper<XMLName> &label,
       const wrapper<enums::DecayType> &mode = {},
@@ -122,6 +132,7 @@ public:
    // copy
    DecayMode(const DecayMode &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       mode(this,other.mode),
       probability(this,other.probability),
@@ -137,6 +148,7 @@ public:
    // move
    DecayMode(DecayMode &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       mode(this,std::move(other.mode)),
       probability(this,std::move(other.probability)),

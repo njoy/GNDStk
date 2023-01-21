@@ -150,8 +150,10 @@ AxesHrefSet(ConstHandle2Axes This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Axes/src/custom.h"
 
 #undef extern_c
 #endif

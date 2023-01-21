@@ -416,3 +416,10 @@ DataSepSet(ConstHandle2Data This, const UTF8Text sep)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"SepSet", This, extract::sep, sep);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Data/src/custom.cpp"

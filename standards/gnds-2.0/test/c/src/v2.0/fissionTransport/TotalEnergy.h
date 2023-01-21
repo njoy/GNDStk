@@ -152,8 +152,10 @@ TotalEnergyPolynomial1dSet(ConstHandle2TotalEnergy This, ConstHandle2ConstPolyno
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/TotalEnergy/src/custom.h"
 
 #undef extern_c
 #endif

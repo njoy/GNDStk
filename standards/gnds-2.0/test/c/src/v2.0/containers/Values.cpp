@@ -591,3 +591,10 @@ ValuesCountSet(ConstHandle2Values This, const Integer32 count)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"CountSet", This, extract::count, count);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Values/src/custom.cpp"

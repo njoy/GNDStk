@@ -16,22 +16,27 @@ namespace transport {
 // class ResonancesLink
 // -----------------------------------------------------------------------------
 
-class ResonancesLink : public Component<transport::ResonancesLink> {
+class ResonancesLink :
+   public Component<transport::ResonancesLink>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ResonancesLink"; }
    static auto FIELD() { return "resonances"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -43,6 +48,9 @@ class ResonancesLink : public Component<transport::ResonancesLink> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<std::string> href{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->href)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ResonancesLink(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::string> &href = {}
@@ -84,6 +93,7 @@ public:
    // copy
    ResonancesLink(const ResonancesLink &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       href(this,other.href)
    {
@@ -93,6 +103,7 @@ public:
    // move
    ResonancesLink(ResonancesLink &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href))
    {

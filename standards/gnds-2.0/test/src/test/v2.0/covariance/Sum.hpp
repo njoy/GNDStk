@@ -16,22 +16,27 @@ namespace covariance {
 // class Sum
 // -----------------------------------------------------------------------------
 
-class Sum : public Component<covariance::Sum> {
+class Sum :
+   public Component<covariance::Sum>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Sum"; }
    static auto FIELD() { return "sum"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Float64{}
             / Meta<>("domainMin") |
@@ -41,6 +46,7 @@ class Sum : public Component<covariance::Sum> {
             / Meta<>("domainUnit") |
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          ++Child<std::optional<covariance::Summand>>("summand")
       ;
@@ -48,6 +54,9 @@ class Sum : public Component<covariance::Sum> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Float64> domainMin{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Sum(
       const wrapper<Float64> &domainMin,
       const wrapper<Float64> &domainMax = {},
@@ -104,6 +114,7 @@ public:
    // copy
    Sum(const Sum &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       domainMin(this,other.domainMin),
       domainMax(this,other.domainMax),
       domainUnit(this,other.domainUnit),
@@ -116,6 +127,7 @@ public:
    // move
    Sum(Sum &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       domainMin(this,std::move(other.domainMin)),
       domainMax(this,std::move(other.domainMax)),
       domainUnit(this,std::move(other.domainUnit)),

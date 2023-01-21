@@ -250,3 +250,10 @@ BraggEdgeStructureFactorSet(ConstHandle2BraggEdge This, ConstHandle2ConstStructu
    detail::setField<CPP,CPPStructureFactor>
       (CLASSNAME, CLASSNAME+"StructureFactorSet", This, extract::structureFactor, structureFactor);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEdge/src/custom.cpp"

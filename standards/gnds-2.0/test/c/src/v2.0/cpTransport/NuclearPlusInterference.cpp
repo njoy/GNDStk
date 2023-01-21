@@ -250,3 +250,10 @@ NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference This,
    detail::setField<CPP,CPPDistribution>
       (CLASSNAME, CLASSNAME+"DistributionSet", This, extract::distribution, distribution);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearPlusInterference/src/custom.cpp"

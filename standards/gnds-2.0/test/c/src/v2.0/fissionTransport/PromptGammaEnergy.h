@@ -176,8 +176,10 @@ PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/PromptGammaEnergy/src/custom.h"
 
 #undef extern_c
 #endif

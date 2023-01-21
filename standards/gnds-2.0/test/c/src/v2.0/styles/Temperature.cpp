@@ -320,3 +320,10 @@ TemperatureUncertaintySet(ConstHandle2Temperature This, ConstHandle2ConstUncerta
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Temperature/src/custom.cpp"

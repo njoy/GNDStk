@@ -398,3 +398,10 @@ XYs2dUncertaintySet(ConstHandle2XYs2d This, ConstHandle2ConstUncertainty uncerta
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/XYs2d/src/custom.cpp"

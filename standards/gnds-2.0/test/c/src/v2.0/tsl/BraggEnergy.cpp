@@ -172,3 +172,10 @@ BraggEnergyXYs1dSet(ConstHandle2BraggEnergy This, ConstHandle2ConstXYs1d XYs1d)
    detail::setField<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEnergy/src/custom.cpp"

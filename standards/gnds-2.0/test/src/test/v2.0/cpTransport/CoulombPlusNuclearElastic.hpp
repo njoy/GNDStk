@@ -17,22 +17,27 @@ namespace cpTransport {
 // class CoulombPlusNuclearElastic
 // -----------------------------------------------------------------------------
 
-class CoulombPlusNuclearElastic : public Component<cpTransport::CoulombPlusNuclearElastic> {
+class CoulombPlusNuclearElastic :
+   public Component<cpTransport::CoulombPlusNuclearElastic>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "CoulombPlusNuclearElastic"; }
    static auto FIELD() { return "CoulombPlusNuclearElastic"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("href") |
@@ -44,6 +49,7 @@ class CoulombPlusNuclearElastic : public Component<cpTransport::CoulombPlusNucle
             / Meta<>("pid") |
          std::optional<enums::Frame>{}
             / Meta<>("productFrame") |
+
          // children
          --Child<std::optional<cpTransport::RutherfordScattering>>("RutherfordScattering") |
          --Child<std::optional<cpTransport::NuclearAmplitudeExpansion>>("nuclearAmplitudeExpansion")
@@ -57,6 +63,9 @@ public:
    static inline const struct Defaults {
       static inline const bool identicalParticles = false;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> href{this};
@@ -74,6 +83,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href, \
       this->identicalParticles, \
       this->label, \
@@ -89,8 +99,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit CoulombPlusNuclearElastic(
       const wrapper<std::optional<XMLName>> &href,
       const wrapper<std::optional<bool>> &identicalParticles = {},
@@ -122,6 +132,7 @@ public:
    // copy
    CoulombPlusNuclearElastic(const CoulombPlusNuclearElastic &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href),
       identicalParticles(this,other.identicalParticles),
       label(this,other.label),
@@ -136,6 +147,7 @@ public:
    // move
    CoulombPlusNuclearElastic(CoulombPlusNuclearElastic &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       identicalParticles(this,std::move(other.identicalParticles)),
       label(this,std::move(other.label)),

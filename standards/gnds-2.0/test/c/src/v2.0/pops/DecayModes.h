@@ -226,8 +226,10 @@ DecayModesDecayModeSetByMode(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayModes/src/custom.h"
 
 #undef extern_c
 #endif

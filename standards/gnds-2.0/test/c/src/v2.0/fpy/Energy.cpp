@@ -172,3 +172,10 @@ EnergyDoubleSet(ConstHandle2Energy This, ConstHandle2ConstDouble Double)
    detail::setField<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Energy/src/custom.cpp"

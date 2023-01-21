@@ -17,27 +17,33 @@ namespace transport {
 // class OrphanProduct
 // -----------------------------------------------------------------------------
 
-class OrphanProduct : public Component<transport::OrphanProduct> {
+class OrphanProduct :
+   public Component<transport::OrphanProduct>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "OrphanProduct"; }
    static auto FIELD() { return "orphanProduct"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Integer32{}
             / Meta<>("ENDF_MT") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<transport::CrossSection>("crossSection") |
          --Child<transport::OutputChannel>("outputChannel")
@@ -46,6 +52,9 @@ class OrphanProduct : public Component<transport::OrphanProduct> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Integer32> ENDF_MT{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->ENDF_MT, \
       this->label, \
       this->crossSection, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit OrphanProduct(
       const wrapper<Integer32> &ENDF_MT,
       const wrapper<XMLName> &label = {},
@@ -98,6 +108,7 @@ public:
    // copy
    OrphanProduct(const OrphanProduct &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       ENDF_MT(this,other.ENDF_MT),
       label(this,other.label),
       crossSection(this,other.crossSection),
@@ -109,6 +120,7 @@ public:
    // move
    OrphanProduct(OrphanProduct &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
       label(this,std::move(other.label)),
       crossSection(this,std::move(other.crossSection)),

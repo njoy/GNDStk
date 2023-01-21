@@ -80,8 +80,8 @@ extern_c Handle2ConstUncorrelated
 UncorrelatedCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
-   ConstHandle2ConstEnergy_uncorrelated energy
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
+   ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated
 );
 
 // +++ Create, general
@@ -89,8 +89,8 @@ extern_c Handle2Uncorrelated
 UncorrelatedCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
-   ConstHandle2ConstEnergy_uncorrelated energy
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
+   ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated
 );
 
 // +++ Assign
@@ -174,7 +174,7 @@ UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName product
 
 
 // -----------------------------------------------------------------------------
-// Child: angular
+// Child: angular_uncorrelated
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -191,11 +191,11 @@ UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated This);
 
 // +++ Set
 extern_c void
-UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular);
+UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
 
 
 // -----------------------------------------------------------------------------
-// Child: energy
+// Child: energy_uncorrelated
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -212,12 +212,14 @@ UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated This);
 
 // +++ Set
 extern_c void
-UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy);
+UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Uncorrelated/src/custom.h"
 
 #undef extern_c
 #endif

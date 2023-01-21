@@ -130,8 +130,10 @@ APrintJSON(ConstHandle2ConstA This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/A/src/custom.h"
 
 #undef extern_c
 #endif

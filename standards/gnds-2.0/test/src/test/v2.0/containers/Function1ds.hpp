@@ -20,7 +20,9 @@ namespace containers {
 // class Function1ds
 // -----------------------------------------------------------------------------
 
-class Function1ds : public Component<containers::Function1ds> {
+class Function1ds :
+   public Component<containers::Function1ds>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -35,15 +37,18 @@ class Function1ds : public Component<containers::Function1ds> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Function1ds"; }
    static auto FIELD() { return "function1ds"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / ++(Child<>("XYs1d") || Child<>("constant1d") || Child<>("polynomial1d") || Child<>("Legendre") || Child<>("gridded1d"))
@@ -52,6 +57,9 @@ class Function1ds : public Component<containers::Function1ds> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<std::vector<_t>> _XYs1dconstant1dpolynomial1dLegendregridded1d{this};
@@ -66,6 +74,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_XYs1dconstant1dpolynomial1dLegendregridded1d)
 
    // default
@@ -75,7 +84,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Function1ds(
       const wrapper<std::vector<_t>> &_XYs1dconstant1dpolynomial1dLegendregridded1d
    ) :
@@ -95,6 +104,7 @@ public:
    // copy
    Function1ds(const Function1ds &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _XYs1dconstant1dpolynomial1dLegendregridded1d(this,other._XYs1dconstant1dpolynomial1dLegendregridded1d)
    {
       Component::finish(other);
@@ -103,6 +113,7 @@ public:
    // move
    Function1ds(Function1ds &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _XYs1dconstant1dpolynomial1dLegendregridded1d(this,std::move(other._XYs1dconstant1dpolynomial1dLegendregridded1d))
    {
       Component::finish(other);

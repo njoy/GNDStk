@@ -293,3 +293,10 @@ ListOfCovariancesCovarianceSetByHref(
       (CLASSNAME, CLASSNAME+"CovarianceSetByHref",
        This, extract::covariance, meta::href, href, covariance);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/ListOfCovariances/src/custom.cpp"

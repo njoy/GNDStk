@@ -486,3 +486,10 @@ NoteLabelSet(ConstHandle2Note This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Note/src/custom.cpp"

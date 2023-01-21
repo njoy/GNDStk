@@ -188,8 +188,10 @@ IntegerValueSet(ConstHandle2Integer This, const Integer32 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Integer/src/custom.h"
 
 #undef extern_c
 #endif

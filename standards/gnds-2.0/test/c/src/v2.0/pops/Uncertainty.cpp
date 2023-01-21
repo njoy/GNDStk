@@ -301,3 +301,10 @@ UncertaintyPdfSet(ConstHandle2Uncertainty This, ConstHandle2ConstPdf pdf)
    detail::setField<CPP,CPPPdf>
       (CLASSNAME, CLASSNAME+"PdfSet", This, extract::pdf, pdf);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Uncertainty/src/custom.cpp"

@@ -208,8 +208,10 @@ CodeRepoRevisionIDSet(ConstHandle2CodeRepo This, const XMLName revisionID);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/CodeRepo/src/custom.h"
 
 #undef extern_c
 #endif

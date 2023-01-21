@@ -80,7 +80,7 @@ ResonancesWithBackgroundDefault();
 extern_c Handle2ConstResonancesWithBackground
 ResonancesWithBackgroundCreateConst(
    const XMLName label,
-   ConstHandle2ConstResonancesLink resonances,
+   ConstHandle2ConstResonancesLink resonancesLink,
    ConstHandle2ConstBackground background,
    ConstHandle2ConstUncertainty uncertainty
 );
@@ -89,7 +89,7 @@ ResonancesWithBackgroundCreateConst(
 extern_c Handle2ResonancesWithBackground
 ResonancesWithBackgroundCreate(
    const XMLName label,
-   ConstHandle2ConstResonancesLink resonances,
+   ConstHandle2ConstResonancesLink resonancesLink,
    ConstHandle2ConstBackground background,
    ConstHandle2ConstUncertainty uncertainty
 );
@@ -157,7 +157,7 @@ ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, cons
 
 
 // -----------------------------------------------------------------------------
-// Child: resonances
+// Child: resonancesLink
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -174,7 +174,7 @@ ResonancesWithBackgroundResonancesLinkGet(ConstHandle2ResonancesWithBackground T
 
 // +++ Set
 extern_c void
-ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesLink resonances);
+ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesLink resonancesLink);
 
 
 // -----------------------------------------------------------------------------
@@ -220,8 +220,10 @@ ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground This
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ResonancesWithBackground/src/custom.h"
 
 #undef extern_c
 #endif

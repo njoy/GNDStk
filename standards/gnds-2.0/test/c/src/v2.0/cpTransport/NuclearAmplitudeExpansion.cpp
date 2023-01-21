@@ -258,3 +258,10 @@ NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitu
    detail::setField<CPP,CPPImaginaryInterferenceTerm>
       (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermSet", This, extract::imaginaryInterferenceTerm, imaginaryInterferenceTerm);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearAmplitudeExpansion/src/custom.cpp"

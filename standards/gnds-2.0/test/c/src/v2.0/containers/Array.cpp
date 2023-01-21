@@ -1026,3 +1026,10 @@ ArrayArraySetByOffset(
       (CLASSNAME, CLASSNAME+"ArraySetByOffset",
        This, extract::array, meta::offset, offset, array);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Array/src/custom.cpp"

@@ -21,25 +21,31 @@ namespace pops {
 // class GaugeBoson
 // -----------------------------------------------------------------------------
 
-class GaugeBoson : public Component<pops::GaugeBoson> {
+class GaugeBoson :
+   public Component<pops::GaugeBoson>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "GaugeBoson"; }
    static auto FIELD() { return "gaugeBoson"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("id") |
+
          // children
          --Child<std::optional<pops::Charge>>("charge") |
          --Child<std::optional<pops::Halflife>>("halflife") |
@@ -52,6 +58,9 @@ class GaugeBoson : public Component<pops::GaugeBoson> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> id{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->id, \
       this->charge, \
       this->halflife, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit GaugeBoson(
       const wrapper<XMLName> &id,
       const wrapper<std::optional<pops::Charge>> &charge = {},
@@ -116,6 +126,7 @@ public:
    // copy
    GaugeBoson(const GaugeBoson &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       id(this,other.id),
       charge(this,other.charge),
       halflife(this,other.halflife),
@@ -130,6 +141,7 @@ public:
    // move
    GaugeBoson(GaugeBoson &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       charge(this,std::move(other.charge)),
       halflife(this,std::move(other.halflife)),

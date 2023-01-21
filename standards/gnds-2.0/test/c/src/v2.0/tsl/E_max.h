@@ -168,8 +168,10 @@ E_maxValueSet(ConstHandle2E_max This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/E_max/src/custom.h"
 
 #undef extern_c
 #endif

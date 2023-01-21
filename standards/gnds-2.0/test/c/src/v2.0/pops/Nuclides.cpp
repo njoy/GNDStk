@@ -248,3 +248,10 @@ NuclidesNuclideSetById(
       (CLASSNAME, CLASSNAME+"NuclideSetById",
        This, extract::nuclide, meta::id, id, nuclide);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Nuclides/src/custom.cpp"

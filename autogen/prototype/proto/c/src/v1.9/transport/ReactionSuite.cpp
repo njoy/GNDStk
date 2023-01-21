@@ -382,3 +382,10 @@ ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReact
    detail::setField<CPP,CPPReactions>
       (CLASSNAME, CLASSNAME+"ReactionsSet", This, extract::reactions, reactions);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/transport/ReactionSuite/src/custom.cpp"

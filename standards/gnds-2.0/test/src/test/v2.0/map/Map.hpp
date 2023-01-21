@@ -18,22 +18,27 @@ namespace map {
 // class Map
 // -----------------------------------------------------------------------------
 
-class Map : public Component<map::Map> {
+class Map :
+   public Component<map::Map>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "map"; }
    static auto CLASS() { return "Map"; }
    static auto FIELD() { return "map"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("library") |
@@ -43,6 +48,7 @@ class Map : public Component<map::Map> {
             / Meta<>("checksum") |
          enums::HashAlgorithm{}
             / Meta<>("algorithm") |
+
          // children
          ++Child<std::optional<map::Import>>("import") |
          ++Child<std::optional<map::Protare>>("protare") |
@@ -52,6 +58,9 @@ class Map : public Component<map::Map> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> library{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->library, \
       this->format, \
       this->checksum, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Map(
       const wrapper<XMLName> &library,
       const wrapper<XMLName> &format = {},
@@ -116,6 +126,7 @@ public:
    // copy
    Map(const Map &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       library(this,other.library),
       format(this,other.format),
       checksum(this,other.checksum),
@@ -130,6 +141,7 @@ public:
    // move
    Map(Map &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       library(this,std::move(other.library)),
       format(this,std::move(other.format)),
       checksum(this,std::move(other.checksum)),

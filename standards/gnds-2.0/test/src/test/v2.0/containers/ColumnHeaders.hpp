@@ -16,22 +16,27 @@ namespace containers {
 // class ColumnHeaders
 // -----------------------------------------------------------------------------
 
-class ColumnHeaders : public Component<containers::ColumnHeaders> {
+class ColumnHeaders :
+   public Component<containers::ColumnHeaders>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "ColumnHeaders"; }
    static auto FIELD() { return "columnHeaders"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<containers::Column>("column")
       ;
@@ -39,6 +44,9 @@ class ColumnHeaders : public Component<containers::ColumnHeaders> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<containers::Column>> column{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->column)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ColumnHeaders(
       const wrapper<std::vector<containers::Column>> &column
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ColumnHeaders(const ColumnHeaders &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       column(this,other.column)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ColumnHeaders(ColumnHeaders &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       column(this,std::move(other.column))
    {
       Component::finish(other);

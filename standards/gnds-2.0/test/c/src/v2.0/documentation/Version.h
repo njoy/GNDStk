@@ -329,8 +329,10 @@ VersionLabelSet(ConstHandle2Version This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Version/src/custom.h"
 
 #undef extern_c
 #endif

@@ -248,3 +248,10 @@ GaugeBosonsGaugeBosonSetById(
       (CLASSNAME, CLASSNAME+"GaugeBosonSetById",
        This, extract::gaugeBoson, meta::id, id, gaugeBoson);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/GaugeBosons/src/custom.cpp"

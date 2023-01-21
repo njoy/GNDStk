@@ -16,22 +16,27 @@ namespace transport {
 // class IncompleteReactions
 // -----------------------------------------------------------------------------
 
-class IncompleteReactions : public Component<transport::IncompleteReactions> {
+class IncompleteReactions :
+   public Component<transport::IncompleteReactions>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "IncompleteReactions"; }
    static auto FIELD() { return "incompleteReactions"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<transport::Reaction>>("reaction")
       ;
@@ -39,6 +44,9 @@ class IncompleteReactions : public Component<transport::IncompleteReactions> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<transport::Reaction>> reaction{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->reaction)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit IncompleteReactions(
       const wrapper<std::optional<transport::Reaction>> &reaction
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    IncompleteReactions(const IncompleteReactions &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       reaction(this,other.reaction)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    IncompleteReactions(IncompleteReactions &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       reaction(this,std::move(other.reaction))
    {
       Component::finish(other);

@@ -312,3 +312,10 @@ PrimaryGammaAxesSet(ConstHandle2PrimaryGamma This, ConstHandle2ConstAxes axes)
    detail::setField<CPP,CPPAxes>
       (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/PrimaryGamma/src/custom.cpp"

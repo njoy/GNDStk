@@ -207,3 +207,10 @@ PositronEmissionIntensityUncertaintySet(ConstHandle2PositronEmissionIntensity Th
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/PositronEmissionIntensity/src/custom.cpp"

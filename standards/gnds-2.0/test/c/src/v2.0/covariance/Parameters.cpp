@@ -383,3 +383,10 @@ ParametersParameterLinkSetByNParameters(
       (CLASSNAME, CLASSNAME+"ParameterLinkSetByNParameters",
        This, extract::parameterLink, meta::nParameters, nParameters, parameterLink);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Parameters/src/custom.cpp"

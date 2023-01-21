@@ -486,3 +486,10 @@ ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments This, const XMLName la
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExecutionArguments/src/custom.cpp"

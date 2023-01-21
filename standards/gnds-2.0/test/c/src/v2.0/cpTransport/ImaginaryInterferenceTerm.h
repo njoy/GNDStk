@@ -176,8 +176,10 @@ ImaginaryInterferenceTermRegions2dSet(ConstHandle2ImaginaryInterferenceTerm This
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/ImaginaryInterferenceTerm/src/custom.h"
 
 #undef extern_c
 #endif

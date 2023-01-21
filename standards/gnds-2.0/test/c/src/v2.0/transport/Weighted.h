@@ -296,8 +296,10 @@ WeightedMadlandNixSet(ConstHandle2Weighted This, ConstHandle2ConstMadlandNix Mad
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Weighted/src/custom.h"
 
 #undef extern_c
 #endif

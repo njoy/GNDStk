@@ -18,25 +18,31 @@ namespace containers {
 // class Xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
-class Xs_pdf_cdf1d : public Component<containers::Xs_pdf_cdf1d> {
+class Xs_pdf_cdf1d :
+   public Component<containers::Xs_pdf_cdf1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Xs_pdf_cdf1d"; }
    static auto FIELD() { return "xs_pdf_cdf1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
+
          // children
          --Child<containers::Xs_in_xs_pdf_cdf1d>("xs") |
          --Child<containers::Pdf>("pdf") |
@@ -47,23 +53,27 @@ class Xs_pdf_cdf1d : public Component<containers::Xs_pdf_cdf1d> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<Float64>> outerDomainValue{this};
 
    // children
-   Field<containers::Xs_in_xs_pdf_cdf1d> xs{this};
+   Field<containers::Xs_in_xs_pdf_cdf1d> xs_in_xs_pdf_cdf1d{this};
    Field<containers::Pdf> pdf{this};
-   Field<containers::Cdf_in_xs_pdf_cdf1d> cdf{this};
+   Field<containers::Cdf_in_xs_pdf_cdf1d> cdf_in_xs_pdf_cdf1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->outerDomainValue, \
-      this->xs, \
+      this->xs_in_xs_pdf_cdf1d, \
       this->pdf, \
-      this->cdf)
+      this->cdf_in_xs_pdf_cdf1d)
 
    // default
    Xs_pdf_cdf1d() :
@@ -72,18 +82,18 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Xs_pdf_cdf1d(
       const wrapper<std::optional<Float64>> &outerDomainValue,
-      const wrapper<containers::Xs_in_xs_pdf_cdf1d> &xs = {},
+      const wrapper<containers::Xs_in_xs_pdf_cdf1d> &xs_in_xs_pdf_cdf1d = {},
       const wrapper<containers::Pdf> &pdf = {},
-      const wrapper<containers::Cdf_in_xs_pdf_cdf1d> &cdf = {}
+      const wrapper<containers::Cdf_in_xs_pdf_cdf1d> &cdf_in_xs_pdf_cdf1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       outerDomainValue(this,outerDomainValue),
-      xs(this,xs),
+      xs_in_xs_pdf_cdf1d(this,xs_in_xs_pdf_cdf1d),
       pdf(this,pdf),
-      cdf(this,cdf)
+      cdf_in_xs_pdf_cdf1d(this,cdf_in_xs_pdf_cdf1d)
    {
       Component::finish();
    }
@@ -98,10 +108,11 @@ public:
    // copy
    Xs_pdf_cdf1d(const Xs_pdf_cdf1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       outerDomainValue(this,other.outerDomainValue),
-      xs(this,other.xs),
+      xs_in_xs_pdf_cdf1d(this,other.xs_in_xs_pdf_cdf1d),
       pdf(this,other.pdf),
-      cdf(this,other.cdf)
+      cdf_in_xs_pdf_cdf1d(this,other.cdf_in_xs_pdf_cdf1d)
    {
       Component::finish(other);
    }
@@ -109,10 +120,11 @@ public:
    // move
    Xs_pdf_cdf1d(Xs_pdf_cdf1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
-      xs(this,std::move(other.xs)),
+      xs_in_xs_pdf_cdf1d(this,std::move(other.xs_in_xs_pdf_cdf1d)),
       pdf(this,std::move(other.pdf)),
-      cdf(this,std::move(other.cdf))
+      cdf_in_xs_pdf_cdf1d(this,std::move(other.cdf_in_xs_pdf_cdf1d))
    {
       Component::finish(other);
    }

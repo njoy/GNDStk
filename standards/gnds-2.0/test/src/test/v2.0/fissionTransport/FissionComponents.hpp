@@ -16,22 +16,27 @@ namespace fissionTransport {
 // class FissionComponents
 // -----------------------------------------------------------------------------
 
-class FissionComponents : public Component<fissionTransport::FissionComponents> {
+class FissionComponents :
+   public Component<fissionTransport::FissionComponents>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "FissionComponents"; }
    static auto FIELD() { return "fissionComponents"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<fissionTransport::FissionComponent>>("fissionComponent")
       ;
@@ -39,6 +44,9 @@ class FissionComponents : public Component<fissionTransport::FissionComponents> 
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<fissionTransport::FissionComponent>>> fissionComponent{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->fissionComponent)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit FissionComponents(
       const wrapper<std::optional<std::vector<fissionTransport::FissionComponent>>> &fissionComponent
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    FissionComponents(const FissionComponents &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       fissionComponent(this,other.fissionComponent)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    FissionComponents(FissionComponents &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       fissionComponent(this,std::move(other.fissionComponent))
    {
       Component::finish(other);

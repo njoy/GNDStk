@@ -23,22 +23,27 @@ namespace pops {
 // class PoPs_database
 // -----------------------------------------------------------------------------
 
-class PoPs_database : public Component<pops::PoPs_database> {
+class PoPs_database :
+   public Component<pops::PoPs_database>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "PoPs_database"; }
    static auto FIELD() { return "PoPs"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("name") |
@@ -46,6 +51,7 @@ class PoPs_database : public Component<pops::PoPs_database> {
             / Meta<>("version") |
          XMLName{}
             / Meta<>("format") |
+
          // children
          --Child<std::optional<styles::Styles>>("styles") |
          --Child<std::optional<documentation::Documentation>>("documentation") |
@@ -60,6 +66,9 @@ class PoPs_database : public Component<pops::PoPs_database> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> name{this};
@@ -81,6 +90,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->name, \
       this->version, \
       this->format, \
@@ -100,7 +110,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit PoPs_database(
       const wrapper<XMLName> &name,
       const wrapper<XMLName> &version = {},
@@ -140,6 +150,7 @@ public:
    // copy
    PoPs_database(const PoPs_database &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       name(this,other.name),
       version(this,other.version),
       format(this,other.format),
@@ -158,6 +169,7 @@ public:
    // move
    PoPs_database(PoPs_database &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       version(this,std::move(other.version)),
       format(this,std::move(other.format)),

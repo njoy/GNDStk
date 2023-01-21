@@ -18,27 +18,33 @@ namespace documentation {
 // class ExforDataSet
 // -----------------------------------------------------------------------------
 
-class ExforDataSet : public Component<documentation::ExforDataSet> {
+class ExforDataSet :
+   public Component<documentation::ExforDataSet>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ExforDataSet"; }
    static auto FIELD() { return "exforDataSet"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("subentry") |
          std::string{}
             / Meta<>("retrievalDate") |
+
          // children
          --Child<std::optional<documentation::CovarianceScript>>("covarianceScript") |
          --Child<std::optional<documentation::CorrectionScript>>("correctionScript") |
@@ -48,6 +54,9 @@ class ExforDataSet : public Component<documentation::ExforDataSet> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> subentry{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->subentry, \
       this->retrievalDate, \
       this->covarianceScript, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ExforDataSet(
       const wrapper<XMLName> &subentry,
       const wrapper<std::string> &retrievalDate = {},
@@ -104,6 +114,7 @@ public:
    // copy
    ExforDataSet(const ExforDataSet &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       subentry(this,other.subentry),
       retrievalDate(this,other.retrievalDate),
       covarianceScript(this,other.covarianceScript),
@@ -116,6 +127,7 @@ public:
    // move
    ExforDataSet(ExforDataSet &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       subentry(this,std::move(other.subentry)),
       retrievalDate(this,std::move(other.retrievalDate)),
       covarianceScript(this,std::move(other.covarianceScript)),

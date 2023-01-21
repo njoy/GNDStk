@@ -126,8 +126,10 @@ IncoherentPhotonPrintJSON(ConstHandle2ConstIncoherentPhoton This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/IncoherentPhoton/src/custom.h"
 
 #undef extern_c
 #endif

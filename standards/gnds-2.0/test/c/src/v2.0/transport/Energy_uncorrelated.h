@@ -392,8 +392,10 @@ Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated This, ConstHand
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Energy_uncorrelated/src/custom.h"
 
 #undef extern_c
 #endif

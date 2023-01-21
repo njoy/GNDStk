@@ -17,25 +17,31 @@ namespace containers {
 // class Gridded3d
 // -----------------------------------------------------------------------------
 
-class Gridded3d : public Component<containers::Gridded3d> {
+class Gridded3d :
+   public Component<containers::Gridded3d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Gridded3d"; }
    static auto FIELD() { return "gridded3d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<containers::Array>("array") |
          --Child<containers::Axes>("axes")
@@ -44,6 +50,9 @@ class Gridded3d : public Component<containers::Gridded3d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->array, \
       this->axes)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Gridded3d(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<containers::Array> &array = {},
@@ -92,6 +102,7 @@ public:
    // copy
    Gridded3d(const Gridded3d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       array(this,other.array),
       axes(this,other.axes)
@@ -102,6 +113,7 @@ public:
    // move
    Gridded3d(Gridded3d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       array(this,std::move(other.array)),
       axes(this,std::move(other.axes))

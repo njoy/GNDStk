@@ -209,3 +209,10 @@ ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time)
    detail::setField<CPP,CPPTime>
       (CLASSNAME, CLASSNAME+"TimeSet", This, extract::time, time);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ElapsedTime/src/custom.cpp"

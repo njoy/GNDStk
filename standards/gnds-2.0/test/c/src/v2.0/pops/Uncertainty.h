@@ -224,8 +224,10 @@ UncertaintyPdfSet(ConstHandle2Uncertainty This, ConstHandle2ConstPdf pdf);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Uncertainty/src/custom.h"
 
 #undef extern_c
 #endif

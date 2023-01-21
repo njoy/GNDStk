@@ -172,3 +172,10 @@ DebyeWallerIntegralXYs1dSet(ConstHandle2DebyeWallerIntegral This, ConstHandle2Co
    detail::setField<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/DebyeWallerIntegral/src/custom.cpp"

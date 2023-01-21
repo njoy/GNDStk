@@ -22,7 +22,7 @@ namespace extract {
    static auto interaction = [](auto &obj) { return &obj.interaction; };
    static auto externalFiles = [](auto &obj) { return &obj.externalFiles; };
    static auto styles = [](auto &obj) { return &obj.styles; };
-   static auto PoPs = [](auto &obj) { return &obj.PoPs; };
+   static auto PoPs_database = [](auto &obj) { return &obj.PoPs_database; };
    static auto resonances = [](auto &obj) { return &obj.resonances; };
    static auto reactions = [](auto &obj) { return &obj.reactions; };
    static auto orphanProducts = [](auto &obj) { return &obj.orphanProducts; };
@@ -78,7 +78,7 @@ ReactionSuiteCreateConst(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -98,7 +98,7 @@ ReactionSuiteCreateConst(
       interaction,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPResonances>(resonances),
       detail::tocpp<CPPReactions>(reactions),
       detail::tocpp<CPPOrphanProducts>(orphanProducts),
@@ -122,7 +122,7 @@ ReactionSuiteCreate(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -142,7 +142,7 @@ ReactionSuiteCreate(
       interaction,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPResonances>(resonances),
       detail::tocpp<CPPReactions>(reactions),
       detail::tocpp<CPPOrphanProducts>(orphanProducts),
@@ -482,7 +482,7 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // Has
@@ -490,7 +490,7 @@ int
 ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
 }
 
 // Get, const
@@ -498,7 +498,7 @@ Handle2ConstPoPs_database
 ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite This)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
 }
 
 // Get, non-const
@@ -506,15 +506,15 @@ Handle2PoPs_database
 ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
 }
 
 // Set
 void
-ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs)
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -812,3 +812,10 @@ ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite This, ConstHandle2Cons
    detail::setField<CPP,CPPApplicationData>
       (CLASSNAME, CLASSNAME+"ApplicationDataSet", This, extract::applicationData, applicationData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ReactionSuite/src/custom.cpp"

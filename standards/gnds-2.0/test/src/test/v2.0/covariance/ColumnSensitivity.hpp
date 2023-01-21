@@ -16,22 +16,27 @@ namespace covariance {
 // class ColumnSensitivity
 // -----------------------------------------------------------------------------
 
-class ColumnSensitivity : public Component<covariance::ColumnSensitivity> {
+class ColumnSensitivity :
+   public Component<covariance::ColumnSensitivity>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ColumnSensitivity"; }
    static auto FIELD() { return "columnSensitivity"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Array>("array")
       ;
@@ -39,6 +44,9 @@ class ColumnSensitivity : public Component<covariance::ColumnSensitivity> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Array> array{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->array)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ColumnSensitivity(
       const wrapper<containers::Array> &array
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ColumnSensitivity(const ColumnSensitivity &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       array(this,other.array)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ColumnSensitivity(ColumnSensitivity &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       array(this,std::move(other.array))
    {
       Component::finish(other);

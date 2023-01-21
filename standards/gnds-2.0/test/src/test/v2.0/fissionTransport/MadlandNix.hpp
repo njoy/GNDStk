@@ -18,22 +18,27 @@ namespace fissionTransport {
 // class MadlandNix
 // -----------------------------------------------------------------------------
 
-class MadlandNix : public Component<fissionTransport::MadlandNix> {
+class MadlandNix :
+   public Component<fissionTransport::MadlandNix>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "MadlandNix"; }
    static auto FIELD() { return "MadlandNix"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<fissionTransport::EFH>("EFH") |
          --Child<fissionTransport::EFL>("EFL") |
@@ -43,6 +48,9 @@ class MadlandNix : public Component<fissionTransport::MadlandNix> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<fissionTransport::EFH> EFH{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->EFH, \
       this->EFL, \
       this->T_M)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit MadlandNix(
       const wrapper<fissionTransport::EFH> &EFH,
       const wrapper<fissionTransport::EFL> &EFL = {},
@@ -89,6 +98,7 @@ public:
    // copy
    MadlandNix(const MadlandNix &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       EFH(this,other.EFH),
       EFL(this,other.EFL),
       T_M(this,other.T_M)
@@ -99,6 +109,7 @@ public:
    // move
    MadlandNix(MadlandNix &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       EFH(this,std::move(other.EFH)),
       EFL(this,std::move(other.EFL)),
       T_M(this,std::move(other.T_M))

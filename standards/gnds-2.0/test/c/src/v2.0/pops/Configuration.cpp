@@ -285,3 +285,10 @@ ConfigurationDecayDataSet(ConstHandle2Configuration This, ConstHandle2ConstDecay
    detail::setField<CPP,CPPDecayData>
       (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Configuration/src/custom.cpp"

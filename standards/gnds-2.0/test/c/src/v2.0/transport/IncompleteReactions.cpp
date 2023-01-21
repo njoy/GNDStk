@@ -172,3 +172,10 @@ IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions This, ConstHandle
    detail::setField<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSet", This, extract::reaction, reaction);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/IncompleteReactions/src/custom.cpp"

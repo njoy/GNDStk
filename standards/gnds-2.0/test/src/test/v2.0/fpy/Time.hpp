@@ -17,7 +17,9 @@ namespace fpy {
 // class Time
 // -----------------------------------------------------------------------------
 
-class Time : public Component<fpy::Time> {
+class Time :
+   public Component<fpy::Time>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class Time : public Component<fpy::Time> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Time"; }
    static auto FIELD() { return "time"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / --(Child<>("Double") || Child<>("string"))
@@ -46,6 +51,9 @@ class Time : public Component<fpy::Time> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<_t> _Doublestring{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_Doublestring)
 
    // default
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Time(
       const wrapper<_t> &_Doublestring
    ) :
@@ -86,6 +95,7 @@ public:
    // copy
    Time(const Time &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _Doublestring(this,other._Doublestring)
    {
       Component::finish(other);
@@ -94,6 +104,7 @@ public:
    // move
    Time(Time &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _Doublestring(this,std::move(other._Doublestring))
    {
       Component::finish(other);

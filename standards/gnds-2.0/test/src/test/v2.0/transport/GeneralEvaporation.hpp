@@ -18,22 +18,27 @@ namespace transport {
 // class GeneralEvaporation
 // -----------------------------------------------------------------------------
 
-class GeneralEvaporation : public Component<transport::GeneralEvaporation> {
+class GeneralEvaporation :
+   public Component<transport::GeneralEvaporation>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "GeneralEvaporation"; }
    static auto FIELD() { return "generalEvaporation"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<transport::U>>("U") |
          --Child<std::optional<transport::G>>("g") |
@@ -43,6 +48,9 @@ class GeneralEvaporation : public Component<transport::GeneralEvaporation> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<transport::U>> U{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->U, \
       this->g, \
       this->theta)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit GeneralEvaporation(
       const wrapper<std::optional<transport::U>> &U,
       const wrapper<std::optional<transport::G>> &g = {},
@@ -89,6 +98,7 @@ public:
    // copy
    GeneralEvaporation(const GeneralEvaporation &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       U(this,other.U),
       g(this,other.g),
       theta(this,other.theta)
@@ -99,6 +109,7 @@ public:
    // move
    GeneralEvaporation(GeneralEvaporation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       U(this,std::move(other.U)),
       g(this,std::move(other.g)),
       theta(this,std::move(other.theta))

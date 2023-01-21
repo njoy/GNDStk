@@ -486,3 +486,10 @@ ValuesLengthSet(ConstHandle2Values This, const int length)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LengthSet", This, extract::length, length);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Values/src/custom.cpp"

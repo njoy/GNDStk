@@ -602,3 +602,10 @@ Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated This, ConstHand
    detail::setField<CPP,CPPMadlandNix>
       (CLASSNAME, CLASSNAME+"MadlandNixSet", This, extract::MadlandNix, MadlandNix);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Energy_uncorrelated/src/custom.cpp"

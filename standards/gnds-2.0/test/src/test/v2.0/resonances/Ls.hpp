@@ -16,22 +16,27 @@ namespace resonances {
 // class Ls
 // -----------------------------------------------------------------------------
 
-class Ls : public Component<resonances::Ls> {
+class Ls :
+   public Component<resonances::Ls>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Ls"; }
    static auto FIELD() { return "Ls"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<resonances::L>("L")
       ;
@@ -39,6 +44,9 @@ class Ls : public Component<resonances::Ls> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<resonances::L>> L{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->L)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Ls(
       const wrapper<std::vector<resonances::L>> &L
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Ls(const Ls &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       L(this,other.L)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Ls(Ls &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       L(this,std::move(other.L))
    {
       Component::finish(other);

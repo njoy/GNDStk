@@ -252,8 +252,10 @@ Constant1dAxesSet(ConstHandle2Constant1d This, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Constant1d/src/custom.h"
 
 #undef extern_c
 #endif

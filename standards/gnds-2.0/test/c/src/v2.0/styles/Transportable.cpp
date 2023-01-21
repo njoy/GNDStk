@@ -242,3 +242,10 @@ TransportableMultiGroupSet(ConstHandle2Transportable This, ConstHandle2ConstMult
    detail::setField<CPP,CPPMultiGroup>
       (CLASSNAME, CLASSNAME+"MultiGroupSet", This, extract::multiGroup, multiGroup);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Transportable/src/custom.cpp"

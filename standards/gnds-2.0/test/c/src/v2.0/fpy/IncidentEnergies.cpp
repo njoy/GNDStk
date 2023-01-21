@@ -248,3 +248,10 @@ IncidentEnergiesIncidentEnergySetByLabel(
       (CLASSNAME, CLASSNAME+"IncidentEnergySetByLabel",
        This, extract::incidentEnergy, meta::label, label, incidentEnergy);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/IncidentEnergies/src/custom.cpp"

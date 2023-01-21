@@ -215,3 +215,10 @@ EvaporationThetaSet(ConstHandle2Evaporation This, ConstHandle2ConstTheta theta)
    detail::setField<CPP,CPPTheta>
       (CLASSNAME, CLASSNAME+"ThetaSet", This, extract::theta, theta);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Evaporation/src/custom.cpp"

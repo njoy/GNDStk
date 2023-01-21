@@ -152,8 +152,10 @@ ENDFconversionFlagsConversionSet(ConstHandle2ENDFconversionFlags This, ConstHand
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/appData/ENDFconversionFlags/src/custom.h"
 
 #undef extern_c
 #endif

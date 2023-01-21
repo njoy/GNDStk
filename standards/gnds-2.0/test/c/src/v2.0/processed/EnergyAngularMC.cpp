@@ -285,3 +285,10 @@ EnergyAngularMCEnergyAngularSet(ConstHandle2EnergyAngularMC This, ConstHandle2Co
    detail::setField<CPP,CPPEnergyAngular>
       (CLASSNAME, CLASSNAME+"EnergyAngularSet", This, extract::energyAngular, energyAngular);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/processed/EnergyAngularMC/src/custom.cpp"

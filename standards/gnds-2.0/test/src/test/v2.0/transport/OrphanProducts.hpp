@@ -16,22 +16,27 @@ namespace transport {
 // class OrphanProducts
 // -----------------------------------------------------------------------------
 
-class OrphanProducts : public Component<transport::OrphanProducts> {
+class OrphanProducts :
+   public Component<transport::OrphanProducts>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "OrphanProducts"; }
    static auto FIELD() { return "orphanProducts"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<transport::OrphanProduct>("orphanProduct")
       ;
@@ -39,6 +44,9 @@ class OrphanProducts : public Component<transport::OrphanProducts> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<transport::OrphanProduct>> orphanProduct{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->orphanProduct)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit OrphanProducts(
       const wrapper<std::vector<transport::OrphanProduct>> &orphanProduct
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    OrphanProducts(const OrphanProducts &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       orphanProduct(this,other.orphanProduct)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    OrphanProducts(OrphanProducts &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       orphanProduct(this,std::move(other.orphanProduct))
    {
       Component::finish(other);

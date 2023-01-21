@@ -168,8 +168,10 @@ DateValueSet(ConstHandle2Date This, const char *const value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Date/src/custom.h"
 
 #undef extern_c
 #endif

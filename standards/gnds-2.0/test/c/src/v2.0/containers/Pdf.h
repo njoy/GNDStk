@@ -176,8 +176,10 @@ PdfRegions1dSet(ConstHandle2Pdf This, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Pdf/src/custom.h"
 
 #undef extern_c
 #endif

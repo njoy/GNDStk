@@ -198,3 +198,10 @@ ReferenceLabelSet(ConstHandle2Reference This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Reference/src/custom.cpp"

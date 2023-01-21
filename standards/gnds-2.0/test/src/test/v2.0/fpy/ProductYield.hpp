@@ -17,25 +17,31 @@ namespace fpy {
 // class ProductYield
 // -----------------------------------------------------------------------------
 
-class ProductYield : public Component<fpy::ProductYield> {
+class ProductYield :
+   public Component<fpy::ProductYield>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ProductYield"; }
    static auto FIELD() { return "productYield"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<fpy::Nuclides>>("nuclides") |
          --Child<fpy::ElapsedTimes>("elapsedTimes")
@@ -44,6 +50,9 @@ class ProductYield : public Component<fpy::ProductYield> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->nuclides, \
       this->elapsedTimes)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ProductYield(
       const wrapper<XMLName> &label,
       const wrapper<std::optional<fpy::Nuclides>> &nuclides = {},
@@ -92,6 +102,7 @@ public:
    // copy
    ProductYield(const ProductYield &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       nuclides(this,other.nuclides),
       elapsedTimes(this,other.elapsedTimes)
@@ -102,6 +113,7 @@ public:
    // move
    ProductYield(ProductYield &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       nuclides(this,std::move(other.nuclides)),
       elapsedTimes(this,std::move(other.elapsedTimes))

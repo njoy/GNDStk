@@ -258,3 +258,10 @@ YieldsUncertaintySet(ConstHandle2Yields This, ConstHandle2ConstUncertainty uncer
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Yields/src/custom.cpp"

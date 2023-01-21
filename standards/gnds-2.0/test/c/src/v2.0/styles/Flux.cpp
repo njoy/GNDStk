@@ -207,3 +207,10 @@ FluxXYs2dSet(ConstHandle2Flux This, ConstHandle2ConstXYs2d XYs2d)
    detail::setField<CPP,CPPXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Flux/src/custom.cpp"

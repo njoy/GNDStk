@@ -207,3 +207,10 @@ InstitutionENDFconversionFlagsSet(ConstHandle2Institution This, ConstHandle2Cons
    detail::setField<CPP,CPPENDFconversionFlags>
       (CLASSNAME, CLASSNAME+"ENDFconversionFlagsSet", This, extract::ENDFconversionFlags, ENDFconversionFlags);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/appData/Institution/src/custom.cpp"

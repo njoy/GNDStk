@@ -328,3 +328,10 @@ WidthRegions1dSet(ConstHandle2Width This, ConstHandle2ConstRegions1d regions1d)
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Width/src/custom.cpp"

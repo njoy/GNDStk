@@ -284,8 +284,10 @@ ExternalFilesExternalFileSetByAlgorithm(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/ExternalFiles/src/custom.h"
 
 #undef extern_c
 #endif

@@ -172,3 +172,10 @@ RateDoubleSet(ConstHandle2Rate This, ConstHandle2ConstDouble Double)
    detail::setField<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/Rate/src/custom.cpp"

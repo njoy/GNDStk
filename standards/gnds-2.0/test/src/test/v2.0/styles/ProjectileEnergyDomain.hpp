@@ -16,22 +16,27 @@ namespace styles {
 // class ProjectileEnergyDomain
 // -----------------------------------------------------------------------------
 
-class ProjectileEnergyDomain : public Component<styles::ProjectileEnergyDomain> {
+class ProjectileEnergyDomain :
+   public Component<styles::ProjectileEnergyDomain>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "ProjectileEnergyDomain"; }
    static auto FIELD() { return "projectileEnergyDomain"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -47,6 +52,9 @@ class ProjectileEnergyDomain : public Component<styles::ProjectileEnergyDomain> 
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<Float64> max{this};
@@ -58,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->max, \
       this->min, \
@@ -70,7 +79,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ProjectileEnergyDomain(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<Float64> &max = {},
@@ -96,6 +105,7 @@ public:
    // copy
    ProjectileEnergyDomain(const ProjectileEnergyDomain &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       max(this,other.max),
       min(this,other.min),
@@ -107,6 +117,7 @@ public:
    // move
    ProjectileEnergyDomain(ProjectileEnergyDomain &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       max(this,std::move(other.max)),
       min(this,std::move(other.min)),

@@ -271,3 +271,10 @@ EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval This, const XMLName domai
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/EnergyInterval/src/custom.cpp"

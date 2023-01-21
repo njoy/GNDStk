@@ -16,22 +16,27 @@ namespace atomic {
 // class IncoherentPhotonScattering
 // -----------------------------------------------------------------------------
 
-class IncoherentPhotonScattering : public Component<atomic::IncoherentPhotonScattering> {
+class IncoherentPhotonScattering :
+   public Component<atomic::IncoherentPhotonScattering>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "atomic"; }
    static auto CLASS() { return "IncoherentPhotonScattering"; }
    static auto FIELD() { return "incoherentPhotonScattering"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("href") |
@@ -41,6 +46,7 @@ class IncoherentPhotonScattering : public Component<atomic::IncoherentPhotonScat
             / Meta<>("pid") |
          enums::Frame{}
             / Meta<>("productFrame") |
+
          // children
          --Child<std::optional<atomic::ScatteringFactor>>("scatteringFactor")
       ;
@@ -48,6 +54,9 @@ class IncoherentPhotonScattering : public Component<atomic::IncoherentPhotonScat
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<std::string>> href{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href, \
       this->label, \
       this->pid, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit IncoherentPhotonScattering(
       const wrapper<std::optional<std::string>> &href,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -104,6 +114,7 @@ public:
    // copy
    IncoherentPhotonScattering(const IncoherentPhotonScattering &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href),
       label(this,other.label),
       pid(this,other.pid),
@@ -116,6 +127,7 @@ public:
    // move
    IncoherentPhotonScattering(IncoherentPhotonScattering &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),

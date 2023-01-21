@@ -198,3 +198,10 @@ Branching3dProductFrameSet(ConstHandle2Branching3d This, const XMLName productFr
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Branching3d/src/custom.cpp"

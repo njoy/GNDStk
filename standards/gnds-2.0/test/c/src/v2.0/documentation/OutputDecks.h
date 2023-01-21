@@ -284,8 +284,10 @@ OutputDecksOutputDeckSetByFilename(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/OutputDecks/src/custom.h"
 
 #undef extern_c
 #endif

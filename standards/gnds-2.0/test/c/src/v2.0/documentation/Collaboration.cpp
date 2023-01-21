@@ -198,3 +198,10 @@ CollaborationHrefSet(ConstHandle2Collaboration This, const UTF8Text href)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Collaboration/src/custom.cpp"

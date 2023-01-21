@@ -152,8 +152,10 @@ PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum This, ConstHandle2ConstXYs1d X
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/PhononSpectrum/src/custom.h"
 
 #undef extern_c
 #endif

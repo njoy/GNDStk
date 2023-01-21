@@ -17,22 +17,27 @@ namespace atomic {
 // class RealAnomalousFactor
 // -----------------------------------------------------------------------------
 
-class RealAnomalousFactor : public Component<atomic::RealAnomalousFactor> {
+class RealAnomalousFactor :
+   public Component<atomic::RealAnomalousFactor>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "atomic"; }
    static auto CLASS() { return "RealAnomalousFactor"; }
    static auto FIELD() { return "realAnomalousFactor"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::XYs1d>>("XYs1d") |
          --Child<std::optional<containers::Regions1d>>("regions1d")
@@ -41,6 +46,9 @@ class RealAnomalousFactor : public Component<atomic::RealAnomalousFactor> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::XYs1d>> XYs1d{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs1d, \
       this->regions1d)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit RealAnomalousFactor(
       const wrapper<std::optional<containers::XYs1d>> &XYs1d,
       const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
@@ -83,6 +92,7 @@ public:
    // copy
    RealAnomalousFactor(const RealAnomalousFactor &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs1d(this,other.XYs1d),
       regions1d(this,other.regions1d)
    {
@@ -92,6 +102,7 @@ public:
    // move
    RealAnomalousFactor(RealAnomalousFactor &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d)),
       regions1d(this,std::move(other.regions1d))
    {

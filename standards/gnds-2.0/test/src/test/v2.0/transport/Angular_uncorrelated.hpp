@@ -18,22 +18,27 @@ namespace transport {
 // class Angular_uncorrelated
 // -----------------------------------------------------------------------------
 
-class Angular_uncorrelated : public Component<transport::Angular_uncorrelated> {
+class Angular_uncorrelated :
+   public Component<transport::Angular_uncorrelated>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Angular_uncorrelated"; }
    static auto FIELD() { return "angular"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::XYs2d>>("XYs2d") |
          --Child<std::optional<transport::Isotropic2d>>("isotropic2d") |
@@ -43,6 +48,9 @@ class Angular_uncorrelated : public Component<transport::Angular_uncorrelated> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::XYs2d>> XYs2d{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs2d, \
       this->isotropic2d, \
       this->forward)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Angular_uncorrelated(
       const wrapper<std::optional<containers::XYs2d>> &XYs2d,
       const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
@@ -89,6 +98,7 @@ public:
    // copy
    Angular_uncorrelated(const Angular_uncorrelated &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs2d(this,other.XYs2d),
       isotropic2d(this,other.isotropic2d),
       forward(this,other.forward)
@@ -99,6 +109,7 @@ public:
    // move
    Angular_uncorrelated(Angular_uncorrelated &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs2d(this,std::move(other.XYs2d)),
       isotropic2d(this,std::move(other.isotropic2d)),
       forward(this,std::move(other.forward))

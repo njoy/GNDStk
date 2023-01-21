@@ -14,7 +14,7 @@ using CPP = multigroup::Contributors;
 static const std::string CLASSNAME = "Contributors";
 
 namespace extract {
-   static auto contributor = [](auto &obj) { return &obj.contributor; };
+   static auto author = [](auto &obj) { return &obj.author; };
 }
 
 using CPPAuthor = documentation::Author;
@@ -44,28 +44,28 @@ ContributorsDefault()
 // Create, general, const
 Handle2ConstContributors
 ContributorsCreateConst(
-   ConstHandle2Author *const contributor, const size_t contributorSize
+   ConstHandle2Author *const author, const size_t authorSize
 ) {
    ConstHandle2Contributors handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       std::vector<CPPAuthor>{}
    );
-   for (size_t AuthorN = 0; AuthorN < contributorSize; ++AuthorN)
-      ContributorsAuthorAdd(handle, contributor[AuthorN]);
+   for (size_t AuthorN = 0; AuthorN < authorSize; ++AuthorN)
+      ContributorsAuthorAdd(handle, author[AuthorN]);
    return handle;
 }
 
 // Create, general
 Handle2Contributors
 ContributorsCreate(
-   ConstHandle2Author *const contributor, const size_t contributorSize
+   ConstHandle2Author *const author, const size_t authorSize
 ) {
    ConstHandle2Contributors handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       std::vector<CPPAuthor>{}
    );
-   for (size_t AuthorN = 0; AuthorN < contributorSize; ++AuthorN)
-      ContributorsAuthorAdd(handle, contributor[AuthorN]);
+   for (size_t AuthorN = 0; AuthorN < authorSize; ++AuthorN)
+      ContributorsAuthorAdd(handle, author[AuthorN]);
    return handle;
 }
 
@@ -142,7 +142,7 @@ ContributorsPrintJSON(ConstHandle2ConstContributors This)
 
 
 // -----------------------------------------------------------------------------
-// Child: contributor
+// Child: author
 // -----------------------------------------------------------------------------
 
 // Has
@@ -150,7 +150,7 @@ int
 ContributorsAuthorHas(ConstHandle2ConstContributors This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AuthorHas", This, extract::contributor);
+      (CLASSNAME, CLASSNAME+"AuthorHas", This, extract::author);
 }
 
 // Clear
@@ -158,7 +158,7 @@ void
 ContributorsAuthorClear(ConstHandle2Contributors This)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AuthorClear", This, extract::contributor);
+      (CLASSNAME, CLASSNAME+"AuthorClear", This, extract::author);
 }
 
 // Size
@@ -166,15 +166,15 @@ size_t
 ContributorsAuthorSize(ConstHandle2ConstContributors This)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AuthorSize", This, extract::contributor);
+      (CLASSNAME, CLASSNAME+"AuthorSize", This, extract::author);
 }
 
 // Add
 void
-ContributorsAuthorAdd(ConstHandle2Contributors This, ConstHandle2ConstAuthor contributor)
+ContributorsAuthorAdd(ConstHandle2Contributors This, ConstHandle2ConstAuthor author)
 {
    detail::addToContainer<CPP,CPPAuthor>
-      (CLASSNAME, CLASSNAME+"AuthorAdd", This, extract::contributor, contributor);
+      (CLASSNAME, CLASSNAME+"AuthorAdd", This, extract::author, author);
 }
 
 // Get, by index \in [0,size), const
@@ -182,7 +182,7 @@ Handle2ConstAuthor
 ContributorsAuthorGetConst(ConstHandle2ConstContributors This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAuthor>
-      (CLASSNAME, CLASSNAME+"AuthorGetConst", This, extract::contributor, index_);
+      (CLASSNAME, CLASSNAME+"AuthorGetConst", This, extract::author, index_);
 }
 
 // Get, by index \in [0,size), non-const
@@ -190,7 +190,7 @@ Handle2Author
 ContributorsAuthorGet(ConstHandle2Contributors This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Author>
-      (CLASSNAME, CLASSNAME+"AuthorGet", This, extract::contributor, index_);
+      (CLASSNAME, CLASSNAME+"AuthorGet", This, extract::author, index_);
 }
 
 // Set, by index \in [0,size)
@@ -198,10 +198,10 @@ void
 ContributorsAuthorSet(
    ConstHandle2Contributors This,
    const size_t index_,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 ) {
    detail::setByIndex<CPP,CPPAuthor>
-      (CLASSNAME, CLASSNAME+"AuthorSet", This, extract::contributor, index_, contributor);
+      (CLASSNAME, CLASSNAME+"AuthorSet", This, extract::author, index_, author);
 }
 
 // Has, by name
@@ -212,7 +212,7 @@ ContributorsAuthorHasByName(
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AuthorHasByName",
-       This, extract::contributor, meta::name, name);
+       This, extract::author, meta::name, name);
 }
 
 // Get, by name, const
@@ -223,7 +223,7 @@ ContributorsAuthorGetByNameConst(
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAuthor>
       (CLASSNAME, CLASSNAME+"AuthorGetByNameConst",
-       This, extract::contributor, meta::name, name);
+       This, extract::author, meta::name, name);
 }
 
 // Get, by name, non-const
@@ -234,7 +234,7 @@ ContributorsAuthorGetByName(
 ) {
    return detail::getByMetadatum<CPP,Handle2Author>
       (CLASSNAME, CLASSNAME+"AuthorGetByName",
-       This, extract::contributor, meta::name, name);
+       This, extract::author, meta::name, name);
 }
 
 // Set, by name
@@ -242,11 +242,11 @@ void
 ContributorsAuthorSetByName(
    ConstHandle2Contributors This,
    const UTF8Text name,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 ) {
    detail::setByMetadatum<CPP,CPPAuthor>
       (CLASSNAME, CLASSNAME+"AuthorSetByName",
-       This, extract::contributor, meta::name, name, contributor);
+       This, extract::author, meta::name, name, author);
 }
 
 // Has, by orcid
@@ -257,7 +257,7 @@ ContributorsAuthorHasByOrcid(
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AuthorHasByOrcid",
-       This, extract::contributor, meta::orcid, orcid);
+       This, extract::author, meta::orcid, orcid);
 }
 
 // Get, by orcid, const
@@ -268,7 +268,7 @@ ContributorsAuthorGetByOrcidConst(
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAuthor>
       (CLASSNAME, CLASSNAME+"AuthorGetByOrcidConst",
-       This, extract::contributor, meta::orcid, orcid);
+       This, extract::author, meta::orcid, orcid);
 }
 
 // Get, by orcid, non-const
@@ -279,7 +279,7 @@ ContributorsAuthorGetByOrcid(
 ) {
    return detail::getByMetadatum<CPP,Handle2Author>
       (CLASSNAME, CLASSNAME+"AuthorGetByOrcid",
-       This, extract::contributor, meta::orcid, orcid);
+       This, extract::author, meta::orcid, orcid);
 }
 
 // Set, by orcid
@@ -287,11 +287,11 @@ void
 ContributorsAuthorSetByOrcid(
    ConstHandle2Contributors This,
    const UTF8Text orcid,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 ) {
    detail::setByMetadatum<CPP,CPPAuthor>
       (CLASSNAME, CLASSNAME+"AuthorSetByOrcid",
-       This, extract::contributor, meta::orcid, orcid, contributor);
+       This, extract::author, meta::orcid, orcid, author);
 }
 
 // Has, by email
@@ -302,7 +302,7 @@ ContributorsAuthorHasByEmail(
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AuthorHasByEmail",
-       This, extract::contributor, meta::email, email);
+       This, extract::author, meta::email, email);
 }
 
 // Get, by email, const
@@ -313,7 +313,7 @@ ContributorsAuthorGetByEmailConst(
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAuthor>
       (CLASSNAME, CLASSNAME+"AuthorGetByEmailConst",
-       This, extract::contributor, meta::email, email);
+       This, extract::author, meta::email, email);
 }
 
 // Get, by email, non-const
@@ -324,7 +324,7 @@ ContributorsAuthorGetByEmail(
 ) {
    return detail::getByMetadatum<CPP,Handle2Author>
       (CLASSNAME, CLASSNAME+"AuthorGetByEmail",
-       This, extract::contributor, meta::email, email);
+       This, extract::author, meta::email, email);
 }
 
 // Set, by email
@@ -332,9 +332,16 @@ void
 ContributorsAuthorSetByEmail(
    ConstHandle2Contributors This,
    const UTF8Text email,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 ) {
    detail::setByMetadatum<CPP,CPPAuthor>
       (CLASSNAME, CLASSNAME+"AuthorSetByEmail",
-       This, extract::contributor, meta::email, email, contributor);
+       This, extract::author, meta::email, email, author);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Contributors/src/custom.cpp"

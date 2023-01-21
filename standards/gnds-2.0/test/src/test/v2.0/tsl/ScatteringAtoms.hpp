@@ -16,22 +16,27 @@ namespace tsl {
 // class ScatteringAtoms
 // -----------------------------------------------------------------------------
 
-class ScatteringAtoms : public Component<tsl::ScatteringAtoms> {
+class ScatteringAtoms :
+   public Component<tsl::ScatteringAtoms>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ScatteringAtoms"; }
    static auto FIELD() { return "scatteringAtoms"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<tsl::ScatteringAtom>("scatteringAtom")
       ;
@@ -39,6 +44,9 @@ class ScatteringAtoms : public Component<tsl::ScatteringAtoms> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<tsl::ScatteringAtom>> scatteringAtom{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->scatteringAtom)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ScatteringAtoms(
       const wrapper<std::vector<tsl::ScatteringAtom>> &scatteringAtom
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ScatteringAtoms(const ScatteringAtoms &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       scatteringAtom(this,other.scatteringAtom)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ScatteringAtoms(ScatteringAtoms &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       scatteringAtom(this,std::move(other.scatteringAtom))
    {
       Component::finish(other);

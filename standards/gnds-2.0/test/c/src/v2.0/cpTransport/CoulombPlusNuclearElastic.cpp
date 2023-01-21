@@ -390,3 +390,10 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuc
    detail::setField<CPP,CPPNuclearAmplitudeExpansion>
       (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionSet", This, extract::nuclearAmplitudeExpansion, nuclearAmplitudeExpansion);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/CoulombPlusNuclearElastic/src/custom.cpp"

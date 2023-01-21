@@ -16,22 +16,27 @@ namespace map {
 // class Import
 // -----------------------------------------------------------------------------
 
-class Import : public Component<map::Import> {
+class Import :
+   public Component<map::Import>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "map"; }
    static auto CLASS() { return "Import"; }
    static auto FIELD() { return "import"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("path") |
@@ -45,6 +50,9 @@ class Import : public Component<map::Import> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> path{this};
    Field<std::string> checksum{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->path, \
       this->checksum, \
       this->algorithm)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Import(
       const wrapper<XMLName> &path,
       const wrapper<std::string> &checksum = {},
@@ -90,6 +99,7 @@ public:
    // copy
    Import(const Import &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       path(this,other.path),
       checksum(this,other.checksum),
       algorithm(this,other.algorithm)
@@ -100,6 +110,7 @@ public:
    // move
    Import(Import &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       path(this,std::move(other.path)),
       checksum(this,std::move(other.checksum)),
       algorithm(this,std::move(other.algorithm))

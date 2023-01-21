@@ -17,7 +17,9 @@ namespace tsl {
 // class ThermalNeutronScatteringLaw_coherentElastic
 // -----------------------------------------------------------------------------
 
-class ThermalNeutronScatteringLaw_coherentElastic : public Component<tsl::ThermalNeutronScatteringLaw_coherentElastic> {
+class ThermalNeutronScatteringLaw_coherentElastic :
+   public Component<tsl::ThermalNeutronScatteringLaw_coherentElastic>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class ThermalNeutronScatteringLaw_coherentElastic : public Component<tsl::Therma
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ThermalNeutronScatteringLaw_coherentElastic"; }
    static auto FIELD() { return "thermalNeutronScatteringLaw_coherentElastic"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -45,6 +50,7 @@ class ThermalNeutronScatteringLaw_coherentElastic : public Component<tsl::Therma
             / Meta<>("pid") |
          Defaulted<enums::Frame>{enums::Frame::lab}
             / Meta<>("productFrame") |
+
          // children
          _t{}
             / --(Child<>("S_table") || Child<>("BraggEdges"))
@@ -59,6 +65,9 @@ public:
       static inline const XMLName pid = "enums::DecayType::Neutron";
       static inline const enums::Frame productFrame = enums::Frame::lab;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -75,6 +84,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
@@ -87,8 +97,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit ThermalNeutronScatteringLaw_coherentElastic(
       const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &pid = {},
@@ -114,6 +124,7 @@ public:
    // copy
    ThermalNeutronScatteringLaw_coherentElastic(const ThermalNeutronScatteringLaw_coherentElastic &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
       productFrame(this,other.productFrame),
@@ -125,6 +136,7 @@ public:
    // move
    ThermalNeutronScatteringLaw_coherentElastic(ThermalNeutronScatteringLaw_coherentElastic &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
       productFrame(this,std::move(other.productFrame)),

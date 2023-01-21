@@ -328,3 +328,10 @@ KalbachMannASet(ConstHandle2KalbachMann This, ConstHandle2ConstA a)
    detail::setField<CPP,CPPA>
       (CLASSNAME, CLASSNAME+"ASet", This, extract::a, a);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/KalbachMann/src/custom.cpp"

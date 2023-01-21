@@ -255,8 +255,10 @@ ReactionsReactionSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/transport/Reactions/src/custom.h"
 
 #undef extern_c
 #endif

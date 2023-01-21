@@ -152,8 +152,10 @@ ProbabilityDoubleSet(ConstHandle2Probability This, ConstHandle2ConstDouble Doubl
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/Probability/src/custom.h"
 
 #undef extern_c
 #endif

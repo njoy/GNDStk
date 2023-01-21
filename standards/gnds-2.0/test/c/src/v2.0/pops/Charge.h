@@ -238,8 +238,10 @@ ChargeUncertaintySet(ConstHandle2Charge This, ConstHandle2ConstUncertainty uncer
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Charge/src/custom.h"
 
 #undef extern_c
 #endif

@@ -16,22 +16,27 @@ namespace tsl {
 // class T_effective
 // -----------------------------------------------------------------------------
 
-class T_effective : public Component<tsl::T_effective> {
+class T_effective :
+   public Component<tsl::T_effective>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "T_effective"; }
    static auto FIELD() { return "T_effective"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::XYs1d>("XYs1d")
       ;
@@ -39,6 +44,9 @@ class T_effective : public Component<tsl::T_effective> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::XYs1d> XYs1d{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs1d)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit T_effective(
       const wrapper<containers::XYs1d> &XYs1d
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    T_effective(const T_effective &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs1d(this,other.XYs1d)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    T_effective(T_effective &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d))
    {
       Component::finish(other);

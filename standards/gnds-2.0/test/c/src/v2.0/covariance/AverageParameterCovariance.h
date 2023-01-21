@@ -217,8 +217,10 @@ AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance This
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/AverageParameterCovariance/src/custom.h"
 
 #undef extern_c
 #endif

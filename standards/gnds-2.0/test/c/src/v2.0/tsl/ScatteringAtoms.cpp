@@ -338,3 +338,10 @@ ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
       (CLASSNAME, CLASSNAME+"ScatteringAtomSetByNumberPerMolecule",
        This, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule, scatteringAtom);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ScatteringAtoms/src/custom.cpp"

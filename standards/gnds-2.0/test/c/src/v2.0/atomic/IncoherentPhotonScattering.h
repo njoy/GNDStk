@@ -232,8 +232,10 @@ IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScatte
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/IncoherentPhotonScattering/src/custom.h"
 
 #undef extern_c
 #endif

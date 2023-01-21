@@ -196,8 +196,10 @@ UnorthodoxMassSet(ConstHandle2Unorthodox This, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Unorthodox/src/custom.h"
 
 #undef extern_c
 #endif

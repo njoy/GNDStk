@@ -172,3 +172,10 @@ DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy This, ConstHand
    detail::setField<CPP,CPPPolynomial1d>
       (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedGammaEnergy/src/custom.cpp"

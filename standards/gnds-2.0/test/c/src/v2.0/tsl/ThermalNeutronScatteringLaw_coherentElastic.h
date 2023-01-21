@@ -190,8 +190,10 @@ ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNe
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_coherentElastic/src/custom.h"
 
 #undef extern_c
 #endif

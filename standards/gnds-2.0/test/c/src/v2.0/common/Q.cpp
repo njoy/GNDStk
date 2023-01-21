@@ -325,3 +325,10 @@ QUncertaintySet(ConstHandle2Q This, ConstHandle2ConstUncertainty uncertainty)
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/common/Q/src/custom.cpp"

@@ -176,8 +176,10 @@ RealInterferenceTermRegions2dSet(ConstHandle2RealInterferenceTerm This, ConstHan
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/RealInterferenceTerm/src/custom.h"
 
 #undef extern_c
 #endif

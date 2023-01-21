@@ -322,3 +322,10 @@ HalflifeUncertaintySet(ConstHandle2Halflife This, ConstHandle2ConstUncertainty u
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Halflife/src/custom.cpp"

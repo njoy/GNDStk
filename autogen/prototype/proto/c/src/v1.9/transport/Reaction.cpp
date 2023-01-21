@@ -277,3 +277,10 @@ ReactionCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstCrossSection
    detail::setField<CPP,CPPCrossSection>
       (CLASSNAME, CLASSNAME+"CrossSectionSet", This, extract::crossSection, crossSection);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/transport/Reaction/src/custom.cpp"

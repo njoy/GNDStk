@@ -228,8 +228,10 @@ SliceDimensionSet(ConstHandle2Slice This, const Integer32 dimension);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Slice/src/custom.h"
 
 #undef extern_c
 #endif

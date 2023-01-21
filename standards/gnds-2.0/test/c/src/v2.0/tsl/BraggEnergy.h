@@ -152,8 +152,10 @@ BraggEnergyXYs1dSet(ConstHandle2BraggEnergy This, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEnergy/src/custom.h"
 
 #undef extern_c
 #endif

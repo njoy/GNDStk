@@ -215,3 +215,10 @@ ScatteringFactorRegions1dSet(ConstHandle2ScatteringFactor This, ConstHandle2Cons
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/ScatteringFactor/src/custom.cpp"

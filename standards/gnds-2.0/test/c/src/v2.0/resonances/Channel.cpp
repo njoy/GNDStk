@@ -468,3 +468,10 @@ ChannelHardSphereRadiusSet(ConstHandle2Channel This, ConstHandle2ConstHardSphere
    detail::setField<CPP,CPPHardSphereRadius>
       (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", This, extract::hardSphereRadius, hardSphereRadius);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Channel/src/custom.cpp"

@@ -215,3 +215,10 @@ RealInterferenceTermRegions2dSet(ConstHandle2RealInterferenceTerm This, ConstHan
    detail::setField<CPP,CPPRegions2d>
       (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/RealInterferenceTerm/src/custom.cpp"

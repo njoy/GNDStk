@@ -188,8 +188,10 @@ StringValueSet(ConstHandle2String This, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/String/src/custom.h"
 
 #undef extern_c
 #endif

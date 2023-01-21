@@ -24,7 +24,9 @@ namespace transport {
 // class CrossSection
 // -----------------------------------------------------------------------------
 
-class CrossSection : public Component<transport::CrossSection> {
+class CrossSection :
+   public Component<transport::CrossSection>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -43,18 +45,22 @@ class CrossSection : public Component<transport::CrossSection> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "CrossSection"; }
    static auto FIELD() { return "crossSection"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          _t{}
             / --(Child<>("XYs1d") || Child<>("regions1d") || Child<>("resonancesWithBackground") || Child<>("CoulombPlusNuclearElastic") || Child<>("thermalNeutronScatteringLaw1d") || Child<>("reference") || Child<>("gridded1d") || Child<>("Ys1d") || Child<>("URR_probabilityTables1d"))
@@ -63,6 +69,9 @@ class CrossSection : public Component<transport::CrossSection> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -84,6 +93,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
 
@@ -94,7 +104,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CrossSection(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<_t> &_XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d = {}
@@ -116,6 +126,7 @@ public:
    // copy
    CrossSection(const CrossSection &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,other._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d)
    {
@@ -125,6 +136,7 @@ public:
    // move
    CrossSection(CrossSection &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       _XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(this,std::move(other._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d))
    {

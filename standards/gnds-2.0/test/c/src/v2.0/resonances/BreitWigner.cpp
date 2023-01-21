@@ -18,7 +18,7 @@ namespace extract {
    static auto approximation = [](auto &obj) { return &obj.approximation; };
    static auto calculateChannelRadius = [](auto &obj) { return &obj.calculateChannelRadius; };
    static auto useForSelfShieldingOnly = [](auto &obj) { return &obj.useForSelfShieldingOnly; };
-   static auto PoPs = [](auto &obj) { return &obj.PoPs; };
+   static auto PoPs_database = [](auto &obj) { return &obj.PoPs_database; };
    static auto scatteringRadius = [](auto &obj) { return &obj.scatteringRadius; };
    static auto hardSphereRadius = [](auto &obj) { return &obj.hardSphereRadius; };
    static auto resonanceParameters = [](auto &obj) { return &obj.resonanceParameters; };
@@ -58,7 +58,7 @@ BreitWignerCreateConst(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -69,7 +69,7 @@ BreitWignerCreateConst(
       approximation,
       calculateChannelRadius,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceParameters>(resonanceParameters)
@@ -84,7 +84,7 @@ BreitWignerCreate(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -95,7 +95,7 @@ BreitWignerCreate(
       approximation,
       calculateChannelRadius,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceParameters>(resonanceParameters)
@@ -296,7 +296,7 @@ BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool u
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // Has
@@ -304,7 +304,7 @@ int
 BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
 }
 
 // Get, const
@@ -312,7 +312,7 @@ Handle2ConstPoPs_database
 BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner This)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
 }
 
 // Get, non-const
@@ -320,15 +320,15 @@ Handle2PoPs_database
 BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner This)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
 }
 
 // Set
 void
-BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs)
+BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -441,3 +441,10 @@ BreitWignerResonanceParametersSet(ConstHandle2BreitWigner This, ConstHandle2Cons
    detail::setField<CPP,CPPResonanceParameters>
       (CLASSNAME, CLASSNAME+"ResonanceParametersSet", This, extract::resonanceParameters, resonanceParameters);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/BreitWigner/src/custom.cpp"

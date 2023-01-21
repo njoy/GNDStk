@@ -188,8 +188,10 @@ SummandHrefSet(ConstHandle2Summand This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Summand/src/custom.h"
 
 #undef extern_c
 #endif

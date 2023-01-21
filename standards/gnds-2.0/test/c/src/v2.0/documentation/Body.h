@@ -329,8 +329,10 @@ BodyLabelSet(ConstHandle2Body This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Body/src/custom.h"
 
 #undef extern_c
 #endif

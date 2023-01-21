@@ -312,3 +312,10 @@ EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins This, ConstHandl
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/EqualProbableBins/src/custom.cpp"

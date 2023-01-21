@@ -672,3 +672,10 @@ AxesGridSetByUnit(
       (CLASSNAME, CLASSNAME+"GridSetByUnit",
        This, extract::grid, meta::unit, unit, grid);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Axes/src/custom.cpp"

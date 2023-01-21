@@ -16,7 +16,7 @@ static const std::string CLASSNAME = "AngularEnergyMC";
 namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
    static auto productFrame = [](auto &obj) { return &obj.productFrame; };
-   static auto angular = [](auto &obj) { return &obj.angular; };
+   static auto angular_uncorrelated = [](auto &obj) { return &obj.angular_uncorrelated; };
    static auto angularEnergy = [](auto &obj) { return &obj.angularEnergy; };
 }
 
@@ -50,14 +50,14 @@ Handle2ConstAngularEnergyMC
 AngularEnergyMCCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
    ConstHandle2ConstAngularEnergy angularEnergy
 ) {
    ConstHandle2AngularEnergyMC handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       productFrame,
-      detail::tocpp<CPPAngular_uncorrelated>(angular),
+      detail::tocpp<CPPAngular_uncorrelated>(angular_uncorrelated),
       detail::tocpp<CPPAngularEnergy>(angularEnergy)
    );
    return handle;
@@ -68,14 +68,14 @@ Handle2AngularEnergyMC
 AngularEnergyMCCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
    ConstHandle2ConstAngularEnergy angularEnergy
 ) {
    ConstHandle2AngularEnergyMC handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       productFrame,
-      detail::tocpp<CPPAngular_uncorrelated>(angular),
+      detail::tocpp<CPPAngular_uncorrelated>(angular_uncorrelated),
       detail::tocpp<CPPAngularEnergy>(angularEnergy)
    );
    return handle;
@@ -214,7 +214,7 @@ AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName p
 
 
 // -----------------------------------------------------------------------------
-// Child: angular
+// Child: angular_uncorrelated
 // -----------------------------------------------------------------------------
 
 // Has
@@ -222,7 +222,7 @@ int
 AngularEnergyMCAngular_uncorrelatedHas(ConstHandle2ConstAngularEnergyMC This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular_uncorrelated);
 }
 
 // Get, const
@@ -230,7 +230,7 @@ Handle2ConstAngular_uncorrelated
 AngularEnergyMCAngular_uncorrelatedGetConst(ConstHandle2ConstAngularEnergyMC This)
 {
    return detail::getField<CPP,Handle2ConstAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular_uncorrelated);
 }
 
 // Get, non-const
@@ -238,15 +238,15 @@ Handle2Angular_uncorrelated
 AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC This)
 {
    return detail::getField<CPP,Handle2Angular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular_uncorrelated);
 }
 
 // Set
 void
-AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular)
+AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated)
 {
    detail::setField<CPP,CPPAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular, angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular_uncorrelated, angular_uncorrelated);
 }
 
 
@@ -285,3 +285,10 @@ AngularEnergyMCAngularEnergySet(ConstHandle2AngularEnergyMC This, ConstHandle2Co
    detail::setField<CPP,CPPAngularEnergy>
       (CLASSNAME, CLASSNAME+"AngularEnergySet", This, extract::angularEnergy, angularEnergy);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AngularEnergyMC/src/custom.cpp"

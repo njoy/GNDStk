@@ -328,3 +328,10 @@ ExforDataSetNoteSet(ConstHandle2ExforDataSet This, ConstHandle2ConstNote note)
    detail::setField<CPP,CPPNote>
       (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExforDataSet/src/custom.cpp"

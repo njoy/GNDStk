@@ -80,18 +80,18 @@ Xs_pdf_cdf1dDefault();
 extern_c Handle2ConstXs_pdf_cdf1d
 Xs_pdf_cdf1dCreateConst(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d
 );
 
 // +++ Create, general
 extern_c Handle2Xs_pdf_cdf1d
 Xs_pdf_cdf1dCreate(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d
 );
 
 // +++ Assign
@@ -157,7 +157,7 @@ Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 out
 
 
 // -----------------------------------------------------------------------------
-// Child: xs
+// Child: xs_in_xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -174,7 +174,7 @@ Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d);
 
 
 // -----------------------------------------------------------------------------
@@ -199,7 +199,7 @@ Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf);
 
 
 // -----------------------------------------------------------------------------
-// Child: cdf
+// Child: cdf_in_xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -216,12 +216,14 @@ Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Xs_pdf_cdf1d/src/custom.h"
 
 #undef extern_c
 #endif

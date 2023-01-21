@@ -433,3 +433,10 @@ Polynomial1dValuesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstValues val
    detail::setField<CPP,CPPValues>
       (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Polynomial1d/src/custom.cpp"

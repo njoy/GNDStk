@@ -172,3 +172,10 @@ ApplicationDataInstitutionSet(ConstHandle2ApplicationData This, ConstHandle2Cons
    detail::setField<CPP,CPPInstitution>
       (CLASSNAME, CLASSNAME+"InstitutionSet", This, extract::institution, institution);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/appData/ApplicationData/src/custom.cpp"

@@ -198,3 +198,10 @@ EFHValueSet(ConstHandle2EFH This, const Float64 value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/EFH/src/custom.cpp"

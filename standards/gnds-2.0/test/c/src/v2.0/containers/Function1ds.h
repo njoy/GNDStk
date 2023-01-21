@@ -133,8 +133,10 @@ Function1dsPrintJSON(ConstHandle2ConstFunction1ds This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Function1ds/src/custom.h"
 
 #undef extern_c
 #endif

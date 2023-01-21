@@ -208,8 +208,10 @@ ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const enums::HashAlgorit
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/ExternalFile/src/custom.h"
 
 #undef extern_c
 #endif

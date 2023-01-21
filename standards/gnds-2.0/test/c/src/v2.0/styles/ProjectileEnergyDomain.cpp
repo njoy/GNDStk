@@ -268,3 +268,10 @@ ProjectileEnergyDomainUnitSet(ConstHandle2ProjectileEnergyDomain This, const XML
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/ProjectileEnergyDomain/src/custom.cpp"

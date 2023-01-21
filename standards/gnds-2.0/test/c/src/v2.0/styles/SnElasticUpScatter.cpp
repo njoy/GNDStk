@@ -312,3 +312,10 @@ SnElasticUpScatterDocumentationSet(ConstHandle2SnElasticUpScatter This, ConstHan
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/SnElasticUpScatter/src/custom.cpp"

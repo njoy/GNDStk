@@ -212,8 +212,10 @@ ReactionCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstCrossSection
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/transport/Reaction/src/custom.h"
 
 #undef extern_c
 #endif

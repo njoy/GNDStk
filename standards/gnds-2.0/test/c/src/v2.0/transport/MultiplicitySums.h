@@ -226,8 +226,10 @@ MultiplicitySumsMultiplicitySumSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/MultiplicitySums/src/custom.h"
 
 #undef extern_c
 #endif

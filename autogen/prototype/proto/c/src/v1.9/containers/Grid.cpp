@@ -306,3 +306,10 @@ GridUnitSet(ConstHandle2Grid This, const char *const unit)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Grid/src/custom.cpp"

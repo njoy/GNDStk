@@ -16,22 +16,27 @@ namespace containers {
 // class Cdf_in_xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
-class Cdf_in_xs_pdf_cdf1d : public Component<containers::Cdf_in_xs_pdf_cdf1d> {
+class Cdf_in_xs_pdf_cdf1d :
+   public Component<containers::Cdf_in_xs_pdf_cdf1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Cdf_in_xs_pdf_cdf1d"; }
    static auto FIELD() { return "cdf"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Values>("values")
       ;
@@ -39,6 +44,9 @@ class Cdf_in_xs_pdf_cdf1d : public Component<containers::Cdf_in_xs_pdf_cdf1d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Values> values{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->values)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Cdf_in_xs_pdf_cdf1d(
       const wrapper<containers::Values> &values
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Cdf_in_xs_pdf_cdf1d(const Cdf_in_xs_pdf_cdf1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       values(this,other.values)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Cdf_in_xs_pdf_cdf1d(Cdf_in_xs_pdf_cdf1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       values(this,std::move(other.values))
    {
       Component::finish(other);

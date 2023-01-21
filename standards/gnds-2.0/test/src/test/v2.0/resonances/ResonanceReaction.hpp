@@ -19,22 +19,27 @@ namespace resonances {
 // class ResonanceReaction
 // -----------------------------------------------------------------------------
 
-class ResonanceReaction : public Component<resonances::ResonanceReaction> {
+class ResonanceReaction :
+   public Component<resonances::ResonanceReaction>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ResonanceReaction"; }
    static auto FIELD() { return "resonanceReaction"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -44,6 +49,7 @@ class ResonanceReaction : public Component<resonances::ResonanceReaction> {
             / Meta<>("boundaryConditionValue") |
          Defaulted<bool>{false}
             / Meta<>("eliminated") |
+
          // children
          --Child<std::optional<common::Q>>("Q") |
          --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
@@ -59,6 +65,9 @@ public:
    static inline const struct Defaults {
       static inline const bool eliminated = false;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -77,6 +86,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->ejectile, \
       this->boundaryConditionValue, \
@@ -93,8 +103,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit ResonanceReaction(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &ejectile = {},
@@ -128,6 +138,7 @@ public:
    // copy
    ResonanceReaction(const ResonanceReaction &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       ejectile(this,other.ejectile),
       boundaryConditionValue(this,other.boundaryConditionValue),
@@ -143,6 +154,7 @@ public:
    // move
    ResonanceReaction(ResonanceReaction &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       ejectile(this,std::move(other.ejectile)),
       boundaryConditionValue(this,std::move(other.boundaryConditionValue)),

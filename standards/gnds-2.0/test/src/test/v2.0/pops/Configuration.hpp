@@ -17,27 +17,33 @@ namespace pops {
 // class Configuration
 // -----------------------------------------------------------------------------
 
-class Configuration : public Component<pops::Configuration> {
+class Configuration :
+   public Component<pops::Configuration>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Configuration"; }
    static auto FIELD() { return "configuration"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("subshell") |
          Float64{}
             / Meta<>("electronNumber") |
+
          // children
          --Child<pops::BindingEnergy>("bindingEnergy") |
          --Child<std::optional<pops::DecayData>>("decayData")
@@ -46,6 +52,9 @@ class Configuration : public Component<pops::Configuration> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> subshell{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->subshell, \
       this->electronNumber, \
       this->bindingEnergy, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Configuration(
       const wrapper<std::string> &subshell,
       const wrapper<Float64> &electronNumber = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Configuration(const Configuration &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       subshell(this,other.subshell),
       electronNumber(this,other.electronNumber),
       bindingEnergy(this,other.bindingEnergy),
@@ -109,6 +120,7 @@ public:
    // move
    Configuration(Configuration &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       subshell(this,std::move(other.subshell)),
       electronNumber(this,std::move(other.electronNumber)),
       bindingEnergy(this,std::move(other.bindingEnergy)),

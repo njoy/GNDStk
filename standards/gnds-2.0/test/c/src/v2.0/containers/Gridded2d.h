@@ -196,8 +196,10 @@ Gridded2dAxesSet(ConstHandle2Gridded2d This, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Gridded2d/src/custom.h"
 
 #undef extern_c
 #endif

@@ -216,8 +216,10 @@ Ys1dValuesSet(ConstHandle2Ys1d This, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Ys1d/src/custom.h"
 
 #undef extern_c
 #endif

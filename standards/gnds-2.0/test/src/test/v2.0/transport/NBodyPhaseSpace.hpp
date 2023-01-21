@@ -16,25 +16,31 @@ namespace transport {
 // class NBodyPhaseSpace
 // -----------------------------------------------------------------------------
 
-class NBodyPhaseSpace : public Component<transport::NBodyPhaseSpace> {
+class NBodyPhaseSpace :
+   public Component<transport::NBodyPhaseSpace>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "NBodyPhaseSpace"; }
    static auto FIELD() { return "NBodyPhaseSpace"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Integer32>{}
             / Meta<>("numberOfProducts") |
+
          // children
          --Child<std::optional<tsl::Mass>>("mass")
       ;
@@ -42,6 +48,9 @@ class NBodyPhaseSpace : public Component<transport::NBodyPhaseSpace> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<Integer32>> numberOfProducts{this};
@@ -54,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->numberOfProducts, \
       this->mass)
 
@@ -64,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit NBodyPhaseSpace(
       const wrapper<std::optional<Integer32>> &numberOfProducts,
       const wrapper<std::optional<tsl::Mass>> &mass = {}
@@ -86,6 +96,7 @@ public:
    // copy
    NBodyPhaseSpace(const NBodyPhaseSpace &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       numberOfProducts(this,other.numberOfProducts),
       mass(this,other.mass)
    {
@@ -95,6 +106,7 @@ public:
    // move
    NBodyPhaseSpace(NBodyPhaseSpace &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       numberOfProducts(this,std::move(other.numberOfProducts)),
       mass(this,std::move(other.mass))
    {

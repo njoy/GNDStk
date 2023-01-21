@@ -349,8 +349,10 @@ InputDeckFilenameSet(ConstHandle2InputDeck This, const XMLName filename);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/InputDeck/src/custom.h"
 
 #undef extern_c
 #endif

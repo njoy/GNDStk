@@ -240,8 +240,10 @@ Regions3dUncertaintySet(ConstHandle2Regions3d This, ConstHandle2ConstUncertainty
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Regions3d/src/custom.h"
 
 #undef extern_c
 #endif

@@ -152,8 +152,10 @@ SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bo
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/SelfScatteringKernel/src/custom.h"
 
 #undef extern_c
 #endif

@@ -172,3 +172,10 @@ NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy This, ConstHandle2Const
    detail::setField<CPP,CPPPolynomial1d>
       (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/NeutrinoEnergy/src/custom.cpp"

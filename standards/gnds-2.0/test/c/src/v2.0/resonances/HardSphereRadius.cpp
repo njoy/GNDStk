@@ -172,3 +172,10 @@ HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius This, ConstHandle2Con
    detail::setField<CPP,CPPConstant1d>
       (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/HardSphereRadius/src/custom.cpp"

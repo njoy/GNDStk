@@ -17,7 +17,9 @@ namespace containers {
 // class Axes
 // -----------------------------------------------------------------------------
 
-class Axes : public Component<containers::Axes> {
+class Axes :
+   public Component<containers::Axes>
+{
    friend class Component;
 
    using axis_grid_t = std::variant<
@@ -29,18 +31,22 @@ class Axes : public Component<containers::Axes> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axes"; }
    static auto FIELD() { return "axes"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("href") |
+
          // children
          axis_grid_t{}
             / ++(Child<>("axis") || Child<>("grid"))
@@ -49,6 +55,9 @@ class Axes : public Component<containers::Axes> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<std::string>> href{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href, \
       this->axis_grid)
 
@@ -73,7 +83,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Axes(
       const wrapper<std::optional<std::string>> &href,
       const wrapper<std::vector<axis_grid_t>> &axis_grid = {}
@@ -95,6 +105,7 @@ public:
    // copy
    Axes(const Axes &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href),
       axis_grid(this,other.axis_grid)
    {
@@ -104,6 +115,7 @@ public:
    // move
    Axes(Axes &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       axis_grid(this,std::move(other.axis_grid))
    {

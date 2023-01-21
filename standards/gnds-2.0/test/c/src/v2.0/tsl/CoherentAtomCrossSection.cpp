@@ -198,3 +198,10 @@ CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection This, cons
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/CoherentAtomCrossSection/src/custom.cpp"

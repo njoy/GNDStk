@@ -250,3 +250,10 @@ ProductYieldElapsedTimesSet(ConstHandle2ProductYield This, ConstHandle2ConstElap
    detail::setField<CPP,CPPElapsedTimes>
       (CLASSNAME, CLASSNAME+"ElapsedTimesSet", This, extract::elapsedTimes, elapsedTimes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ProductYield/src/custom.cpp"

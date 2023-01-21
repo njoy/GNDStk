@@ -197,8 +197,10 @@ BraggEdgesBraggEdgeSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEdges/src/custom.h"
 
 #undef extern_c
 #endif

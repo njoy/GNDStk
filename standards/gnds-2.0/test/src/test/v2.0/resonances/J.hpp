@@ -17,27 +17,33 @@ namespace resonances {
 // class J
 // -----------------------------------------------------------------------------
 
-class J : public Component<resonances::J> {
+class J :
+   public Component<resonances::J>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "J"; }
    static auto FIELD() { return "J"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          Fraction32{}
             / Meta<>("value") |
+
          // children
          --Child<resonances::LevelSpacing>("levelSpacing") |
          --Child<resonances::Widths>("widths")
@@ -46,6 +52,9 @@ class J : public Component<resonances::J> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->value, \
       this->levelSpacing, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit J(
       const wrapper<XMLName> &label,
       const wrapper<Fraction32> &value = {},
@@ -98,6 +108,7 @@ public:
    // copy
    J(const J &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       value(this,other.value),
       levelSpacing(this,other.levelSpacing),
@@ -109,6 +120,7 @@ public:
    // move
    J(J &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       value(this,std::move(other.value)),
       levelSpacing(this,std::move(other.levelSpacing)),

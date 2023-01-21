@@ -18,22 +18,27 @@ namespace fpy {
 // class Yields
 // -----------------------------------------------------------------------------
 
-class Yields : public Component<fpy::Yields> {
+class Yields :
+   public Component<fpy::Yields>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Yields"; }
    static auto FIELD() { return "yields"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<fpy::Nuclides>("nuclides") |
          --Child<containers::Values>("values") |
@@ -43,6 +48,9 @@ class Yields : public Component<fpy::Yields> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<fpy::Nuclides> nuclides{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->nuclides, \
       this->values, \
       this->uncertainty)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Yields(
       const wrapper<fpy::Nuclides> &nuclides,
       const wrapper<containers::Values> &values = {},
@@ -89,6 +98,7 @@ public:
    // copy
    Yields(const Yields &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       nuclides(this,other.nuclides),
       values(this,other.values),
       uncertainty(this,other.uncertainty)
@@ -99,6 +109,7 @@ public:
    // move
    Yields(Yields &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       nuclides(this,std::move(other.nuclides)),
       values(this,std::move(other.values)),
       uncertainty(this,std::move(other.uncertainty))

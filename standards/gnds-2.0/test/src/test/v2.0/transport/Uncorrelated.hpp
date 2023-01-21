@@ -17,27 +17,33 @@ namespace transport {
 // class Uncorrelated
 // -----------------------------------------------------------------------------
 
-class Uncorrelated : public Component<transport::Uncorrelated> {
+class Uncorrelated :
+   public Component<transport::Uncorrelated>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Uncorrelated"; }
    static auto FIELD() { return "uncorrelated"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<transport::Angular_uncorrelated>("angular") |
          --Child<transport::Energy_uncorrelated>("energy")
@@ -47,23 +53,27 @@ class Uncorrelated : public Component<transport::Uncorrelated> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<XMLName> productFrame{this};
 
    // children
-   Field<transport::Angular_uncorrelated> angular{this};
-   Field<transport::Energy_uncorrelated> energy{this};
+   Field<transport::Angular_uncorrelated> angular_uncorrelated{this};
+   Field<transport::Energy_uncorrelated> energy_uncorrelated{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
-      this->angular, \
-      this->energy)
+      this->angular_uncorrelated, \
+      this->energy_uncorrelated)
 
    // default
    Uncorrelated() :
@@ -72,18 +82,18 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Uncorrelated(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
-      const wrapper<transport::Angular_uncorrelated> &angular = {},
-      const wrapper<transport::Energy_uncorrelated> &energy = {}
+      const wrapper<transport::Angular_uncorrelated> &angular_uncorrelated = {},
+      const wrapper<transport::Energy_uncorrelated> &energy_uncorrelated = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       productFrame(this,productFrame),
-      angular(this,angular),
-      energy(this,energy)
+      angular_uncorrelated(this,angular_uncorrelated),
+      energy_uncorrelated(this,energy_uncorrelated)
    {
       Component::finish();
    }
@@ -98,10 +108,11 @@ public:
    // copy
    Uncorrelated(const Uncorrelated &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
-      angular(this,other.angular),
-      energy(this,other.energy)
+      angular_uncorrelated(this,other.angular_uncorrelated),
+      energy_uncorrelated(this,other.energy_uncorrelated)
    {
       Component::finish(other);
    }
@@ -109,10 +120,11 @@ public:
    // move
    Uncorrelated(Uncorrelated &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
-      angular(this,std::move(other.angular)),
-      energy(this,std::move(other.energy))
+      angular_uncorrelated(this,std::move(other.angular_uncorrelated)),
+      energy_uncorrelated(this,std::move(other.energy_uncorrelated))
    {
       Component::finish(other);
    }

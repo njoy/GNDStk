@@ -11,7 +11,8 @@
 namespace proto {
 namespace v1_9 {
 
-using namespace njoy::GNDStk;
+using namespace njoy;
+using namespace GNDStk;
 
 
 // -----------------------------------------------------------------------------

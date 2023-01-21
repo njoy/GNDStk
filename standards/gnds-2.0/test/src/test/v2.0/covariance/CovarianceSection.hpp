@@ -20,7 +20,9 @@ namespace covariance {
 // class CovarianceSection
 // -----------------------------------------------------------------------------
 
-class CovarianceSection : public Component<covariance::CovarianceSection> {
+class CovarianceSection :
+   public Component<covariance::CovarianceSection>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -33,20 +35,24 @@ class CovarianceSection : public Component<covariance::CovarianceSection> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceSection"; }
    static auto FIELD() { return "covarianceSection"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<bool>{false}
             / Meta<>("crossTerm") |
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<covariance::RowData>("rowData") |
          --Child<std::optional<covariance::ColumnData>>("columnData") |
@@ -62,6 +68,9 @@ public:
    static inline const struct Defaults {
       static inline const bool crossTerm = false;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Defaulted<bool>> crossTerm{this,defaults.crossTerm};
@@ -82,6 +91,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->crossTerm, \
       this->label, \
       this->rowData, \
@@ -95,8 +105,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit CovarianceSection(
       const wrapper<std::optional<bool>> &crossTerm,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -124,6 +134,7 @@ public:
    // copy
    CovarianceSection(const CovarianceSection &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       crossTerm(this,other.crossTerm),
       label(this,other.label),
       rowData(this,other.rowData),
@@ -136,6 +147,7 @@ public:
    // move
    CovarianceSection(CovarianceSection &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       crossTerm(this,std::move(other.crossTerm)),
       label(this,std::move(other.label)),
       rowData(this,std::move(other.rowData)),

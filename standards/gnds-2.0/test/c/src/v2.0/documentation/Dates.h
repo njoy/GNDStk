@@ -226,8 +226,10 @@ DatesDateSetByValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Dates/src/custom.h"
 
 #undef extern_c
 #endif

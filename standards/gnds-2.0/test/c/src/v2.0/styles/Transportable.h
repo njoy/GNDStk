@@ -192,8 +192,10 @@ TransportableMultiGroupSet(ConstHandle2Transportable This, ConstHandle2ConstMult
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Transportable/src/custom.h"
 
 #undef extern_c
 #endif

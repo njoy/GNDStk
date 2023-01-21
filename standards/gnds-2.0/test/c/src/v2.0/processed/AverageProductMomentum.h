@@ -200,8 +200,10 @@ AverageProductMomentumRegions1dSet(ConstHandle2AverageProductMomentum This, Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AverageProductMomentum/src/custom.h"
 
 #undef extern_c
 #endif

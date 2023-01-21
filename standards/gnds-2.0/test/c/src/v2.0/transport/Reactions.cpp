@@ -338,3 +338,10 @@ ReactionsReactionSetByLabel(
       (CLASSNAME, CLASSNAME+"ReactionSetByLabel",
        This, extract::reaction, meta::label, label, reaction);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Reactions/src/custom.cpp"

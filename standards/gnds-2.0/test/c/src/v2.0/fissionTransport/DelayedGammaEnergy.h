@@ -152,8 +152,10 @@ DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy This, ConstHand
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedGammaEnergy/src/custom.h"
 
 #undef extern_c
 #endif

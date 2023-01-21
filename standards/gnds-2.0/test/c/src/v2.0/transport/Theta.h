@@ -176,8 +176,10 @@ ThetaRegions1dSet(ConstHandle2Theta This, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Theta/src/custom.h"
 
 #undef extern_c
 #endif

@@ -130,8 +130,10 @@ FPrintJSON(ConstHandle2ConstF This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/F/src/custom.h"
 
 #undef extern_c
 #endif

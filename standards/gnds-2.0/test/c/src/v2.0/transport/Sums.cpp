@@ -215,3 +215,10 @@ SumsMultiplicitySumsSet(ConstHandle2Sums This, ConstHandle2ConstMultiplicitySums
    detail::setField<CPP,CPPMultiplicitySums>
       (CLASSNAME, CLASSNAME+"MultiplicitySumsSet", This, extract::multiplicitySums, multiplicitySums);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Sums/src/custom.cpp"

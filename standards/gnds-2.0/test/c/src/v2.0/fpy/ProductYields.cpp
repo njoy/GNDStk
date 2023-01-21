@@ -248,3 +248,10 @@ ProductYieldsProductYieldSetByLabel(
       (CLASSNAME, CLASSNAME+"ProductYieldSetByLabel",
        This, extract::productYield, meta::label, label, productYield);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ProductYields/src/custom.cpp"

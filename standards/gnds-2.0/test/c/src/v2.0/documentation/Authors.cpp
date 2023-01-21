@@ -338,3 +338,10 @@ AuthorsAuthorSetByEmail(
       (CLASSNAME, CLASSNAME+"AuthorSetByEmail",
        This, extract::author, meta::email, email, author);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Authors/src/custom.cpp"

@@ -248,3 +248,10 @@ ElapsedTimesElapsedTimeSetByLabel(
       (CLASSNAME, CLASSNAME+"ElapsedTimeSetByLabel",
        This, extract::elapsedTime, meta::label, label, elapsedTime);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ElapsedTimes/src/custom.cpp"

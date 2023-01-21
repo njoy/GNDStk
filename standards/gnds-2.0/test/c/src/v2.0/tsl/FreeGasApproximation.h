@@ -126,8 +126,10 @@ FreeGasApproximationPrintJSON(ConstHandle2ConstFreeGasApproximation This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/FreeGasApproximation/src/custom.h"
 
 #undef extern_c
 #endif

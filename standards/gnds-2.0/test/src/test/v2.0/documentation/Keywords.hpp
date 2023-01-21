@@ -16,22 +16,27 @@ namespace documentation {
 // class Keywords
 // -----------------------------------------------------------------------------
 
-class Keywords : public Component<documentation::Keywords> {
+class Keywords :
+   public Component<documentation::Keywords>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Keywords"; }
    static auto FIELD() { return "keywords"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::Keyword>("keyword")
       ;
@@ -39,6 +44,9 @@ class Keywords : public Component<documentation::Keywords> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::Keyword>> keyword{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->keyword)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Keywords(
       const wrapper<std::vector<documentation::Keyword>> &keyword
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Keywords(const Keywords &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       keyword(this,other.keyword)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Keywords(Keywords &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       keyword(this,std::move(other.keyword))
    {
       Component::finish(other);

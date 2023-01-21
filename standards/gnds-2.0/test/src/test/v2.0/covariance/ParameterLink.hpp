@@ -16,22 +16,27 @@ namespace covariance {
 // class ParameterLink
 // -----------------------------------------------------------------------------
 
-class ParameterLink : public Component<covariance::ParameterLink> {
+class ParameterLink :
+   public Component<covariance::ParameterLink>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterLink"; }
    static auto FIELD() { return "parameterLink"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("href") |
@@ -53,6 +58,9 @@ public:
       static inline const Integer32 nParameters = 1;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> href{this};
    Field<std::optional<XMLName>> label{this};
@@ -64,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href, \
       this->label, \
       this->matrixStartIndex, \
@@ -76,8 +85,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit ParameterLink(
       const wrapper<std::optional<XMLName>> &href,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -103,6 +112,7 @@ public:
    // copy
    ParameterLink(const ParameterLink &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href),
       label(this,other.label),
       matrixStartIndex(this,other.matrixStartIndex),
@@ -114,6 +124,7 @@ public:
    // move
    ParameterLink(ParameterLink &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       label(this,std::move(other.label)),
       matrixStartIndex(this,std::move(other.matrixStartIndex)),

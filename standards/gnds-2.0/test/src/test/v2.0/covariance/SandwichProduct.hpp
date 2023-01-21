@@ -19,22 +19,27 @@ namespace covariance {
 // class SandwichProduct
 // -----------------------------------------------------------------------------
 
-class SandwichProduct : public Component<covariance::SandwichProduct> {
+class SandwichProduct :
+   public Component<covariance::SandwichProduct>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "SandwichProduct"; }
    static auto FIELD() { return "sandwichProduct"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Axes>("axes") |
          --Child<covariance::Covariance>("covariance") |
@@ -45,6 +50,9 @@ class SandwichProduct : public Component<covariance::SandwichProduct> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Axes> axes{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->axes, \
       this->covariance, \
       this->rowSensitivity, \
@@ -69,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit SandwichProduct(
       const wrapper<containers::Axes> &axes,
       const wrapper<covariance::Covariance> &covariance = {},
@@ -95,6 +104,7 @@ public:
    // copy
    SandwichProduct(const SandwichProduct &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       axes(this,other.axes),
       covariance(this,other.covariance),
       rowSensitivity(this,other.rowSensitivity),
@@ -106,6 +116,7 @@ public:
    // move
    SandwichProduct(SandwichProduct &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       axes(this,std::move(other.axes)),
       covariance(this,std::move(other.covariance)),
       rowSensitivity(this,std::move(other.rowSensitivity)),

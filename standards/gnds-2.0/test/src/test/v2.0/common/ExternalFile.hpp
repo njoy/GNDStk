@@ -16,22 +16,27 @@ namespace common {
 // class ExternalFile
 // -----------------------------------------------------------------------------
 
-class ExternalFile : public Component<common::ExternalFile> {
+class ExternalFile :
+   public Component<common::ExternalFile>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "ExternalFile"; }
    static auto FIELD() { return "externalFile"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -47,6 +52,9 @@ class ExternalFile : public Component<common::ExternalFile> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
    Field<XMLName> path{this};
@@ -58,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->path, \
       this->checksum, \
@@ -70,7 +79,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ExternalFile(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &path = {},
@@ -96,6 +105,7 @@ public:
    // copy
    ExternalFile(const ExternalFile &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       path(this,other.path),
       checksum(this,other.checksum),
@@ -107,6 +117,7 @@ public:
    // move
    ExternalFile(ExternalFile &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       path(this,std::move(other.path)),
       checksum(this,std::move(other.checksum)),

@@ -16,22 +16,27 @@ namespace containers {
 // class Link
 // -----------------------------------------------------------------------------
 
-class Link : public Component<containers::Link> {
+class Link :
+   public Component<containers::Link>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Link"; }
    static auto FIELD() { return "link"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("href")
@@ -41,6 +46,9 @@ class Link : public Component<containers::Link> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::string> href{this};
 
@@ -49,6 +57,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href)
 
    // default
@@ -58,7 +67,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Link(
       const wrapper<std::string> &href
    ) :
@@ -78,6 +87,7 @@ public:
    // copy
    Link(const Link &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href)
    {
       Component::finish(other);
@@ -86,6 +96,7 @@ public:
    // move
    Link(Link &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href))
    {
       Component::finish(other);

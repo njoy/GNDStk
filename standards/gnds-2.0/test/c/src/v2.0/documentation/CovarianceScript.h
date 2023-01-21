@@ -329,8 +329,10 @@ CovarianceScriptLabelSet(ConstHandle2CovarianceScript This, const XMLName label)
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/CovarianceScript/src/custom.h"
 
 #undef extern_c
 #endif

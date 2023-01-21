@@ -293,3 +293,10 @@ CollaborationsCollaborationSetByHref(
       (CLASSNAME, CLASSNAME+"CollaborationSetByHref",
        This, extract::collaboration, meta::href, href, collaboration);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Collaborations/src/custom.cpp"

@@ -197,8 +197,10 @@ BaryonsBaryonSetById(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Baryons/src/custom.h"
 
 #undef extern_c
 #endif

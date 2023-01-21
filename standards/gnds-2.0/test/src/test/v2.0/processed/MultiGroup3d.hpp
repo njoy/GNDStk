@@ -16,27 +16,33 @@ namespace processed {
 // class MultiGroup3d
 // -----------------------------------------------------------------------------
 
-class MultiGroup3d : public Component<processed::MultiGroup3d> {
+class MultiGroup3d :
+   public Component<processed::MultiGroup3d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "processed"; }
    static auto CLASS() { return "MultiGroup3d"; }
    static auto FIELD() { return "multiGroup3d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<containers::Gridded3d>("gridded3d")
       ;
@@ -44,6 +50,9 @@ class MultiGroup3d : public Component<processed::MultiGroup3d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->gridded3d)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit MultiGroup3d(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
@@ -92,6 +102,7 @@ public:
    // copy
    MultiGroup3d(const MultiGroup3d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       gridded3d(this,other.gridded3d)
@@ -102,6 +113,7 @@ public:
    // move
    MultiGroup3d(MultiGroup3d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       gridded3d(this,std::move(other.gridded3d))

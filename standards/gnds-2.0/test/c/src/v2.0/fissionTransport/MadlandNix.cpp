@@ -258,3 +258,10 @@ MadlandNixT_MSet(ConstHandle2MadlandNix This, ConstHandle2ConstT_M T_M)
    detail::setField<CPP,CPPT_M>
       (CLASSNAME, CLASSNAME+"T_MSet", This, extract::T_M, T_M);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/MadlandNix/src/custom.cpp"

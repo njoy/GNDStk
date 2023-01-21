@@ -17,22 +17,27 @@ namespace fissionTransport {
 // class SimpleMaxwellianFission
 // -----------------------------------------------------------------------------
 
-class SimpleMaxwellianFission : public Component<fissionTransport::SimpleMaxwellianFission> {
+class SimpleMaxwellianFission :
+   public Component<fissionTransport::SimpleMaxwellianFission>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "SimpleMaxwellianFission"; }
    static auto FIELD() { return "simpleMaxwellianFission"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<transport::U>>("U") |
          --Child<std::optional<transport::Theta>>("theta")
@@ -41,6 +46,9 @@ class SimpleMaxwellianFission : public Component<fissionTransport::SimpleMaxwell
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<transport::U>> U{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->U, \
       this->theta)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit SimpleMaxwellianFission(
       const wrapper<std::optional<transport::U>> &U,
       const wrapper<std::optional<transport::Theta>> &theta = {}
@@ -83,6 +92,7 @@ public:
    // copy
    SimpleMaxwellianFission(const SimpleMaxwellianFission &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       U(this,other.U),
       theta(this,other.theta)
    {
@@ -92,6 +102,7 @@ public:
    // move
    SimpleMaxwellianFission(SimpleMaxwellianFission &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       U(this,std::move(other.U)),
       theta(this,std::move(other.theta))
    {

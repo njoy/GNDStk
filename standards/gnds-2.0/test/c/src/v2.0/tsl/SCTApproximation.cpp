@@ -125,3 +125,10 @@ SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/SCTApproximation/src/custom.cpp"

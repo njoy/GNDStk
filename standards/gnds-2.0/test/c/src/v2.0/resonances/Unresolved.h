@@ -189,8 +189,10 @@ UnresolvedDomainUnitSet(ConstHandle2Unresolved This, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Unresolved/src/custom.h"
 
 #undef extern_c
 #endif

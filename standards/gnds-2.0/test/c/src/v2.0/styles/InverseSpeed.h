@@ -172,8 +172,10 @@ InverseSpeedGridded1dSet(ConstHandle2InverseSpeed This, ConstHandle2ConstGridded
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/InverseSpeed/src/custom.h"
 
 #undef extern_c
 #endif

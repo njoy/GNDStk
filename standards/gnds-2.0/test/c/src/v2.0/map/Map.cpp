@@ -1346,3 +1346,10 @@ MapTNSLSetByStandardEvaluation(
       (CLASSNAME, CLASSNAME+"TNSLSetByStandardEvaluation",
        This, extract::TNSL, meta::standardEvaluation, standardEvaluation, TNSL);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/map/Map/src/custom.cpp"

@@ -152,8 +152,10 @@ AtomicConfigurationsSet(ConstHandle2Atomic This, ConstHandle2ConstConfigurations
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Atomic/src/custom.h"
 
 #undef extern_c
 #endif

@@ -16,22 +16,27 @@ namespace pops {
 // class AverageEnergies
 // -----------------------------------------------------------------------------
 
-class AverageEnergies : public Component<pops::AverageEnergies> {
+class AverageEnergies :
+   public Component<pops::AverageEnergies>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "AverageEnergies"; }
    static auto FIELD() { return "averageEnergies"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::AverageEnergy>("averageEnergy")
       ;
@@ -39,6 +44,9 @@ class AverageEnergies : public Component<pops::AverageEnergies> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::AverageEnergy>> averageEnergy{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->averageEnergy)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit AverageEnergies(
       const wrapper<std::vector<pops::AverageEnergy>> &averageEnergy
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    AverageEnergies(const AverageEnergies &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       averageEnergy(this,other.averageEnergy)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    AverageEnergies(AverageEnergies &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       averageEnergy(this,std::move(other.averageEnergy))
    {
       Component::finish(other);

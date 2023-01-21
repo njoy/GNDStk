@@ -18,25 +18,31 @@ namespace transport {
 // class ResonancesWithBackground
 // -----------------------------------------------------------------------------
 
-class ResonancesWithBackground : public Component<transport::ResonancesWithBackground> {
+class ResonancesWithBackground :
+   public Component<transport::ResonancesWithBackground>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ResonancesWithBackground"; }
    static auto FIELD() { return "resonancesWithBackground"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<transport::ResonancesLink>("resonances") |
          --Child<transport::Background>("background") |
@@ -47,11 +53,14 @@ class ResonancesWithBackground : public Component<transport::ResonancesWithBackg
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
 
    // children
-   Field<transport::ResonancesLink> resonances{this};
+   Field<transport::ResonancesLink> resonancesLink{this};
    Field<transport::Background> background{this};
    Field<std::optional<containers::Uncertainty>> uncertainty{this};
 
@@ -60,8 +69,9 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
-      this->resonances, \
+      this->resonancesLink, \
       this->background, \
       this->uncertainty)
 
@@ -72,16 +82,16 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ResonancesWithBackground(
       const wrapper<XMLName> &label,
-      const wrapper<transport::ResonancesLink> &resonances = {},
+      const wrapper<transport::ResonancesLink> &resonancesLink = {},
       const wrapper<transport::Background> &background = {},
       const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
-      resonances(this,resonances),
+      resonancesLink(this,resonancesLink),
       background(this,background),
       uncertainty(this,uncertainty)
    {
@@ -98,8 +108,9 @@ public:
    // copy
    ResonancesWithBackground(const ResonancesWithBackground &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
-      resonances(this,other.resonances),
+      resonancesLink(this,other.resonancesLink),
       background(this,other.background),
       uncertainty(this,other.uncertainty)
    {
@@ -109,8 +120,9 @@ public:
    // move
    ResonancesWithBackground(ResonancesWithBackground &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
-      resonances(this,std::move(other.resonances)),
+      resonancesLink(this,std::move(other.resonancesLink)),
       background(this,std::move(other.background)),
       uncertainty(this,std::move(other.uncertainty))
    {

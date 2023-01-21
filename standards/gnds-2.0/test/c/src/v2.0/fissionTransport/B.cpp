@@ -125,3 +125,10 @@ BPrintJSON(ConstHandle2ConstB This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/B/src/custom.cpp"

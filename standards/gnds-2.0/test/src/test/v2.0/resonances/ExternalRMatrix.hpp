@@ -16,25 +16,31 @@ namespace resonances {
 // class ExternalRMatrix
 // -----------------------------------------------------------------------------
 
-class ExternalRMatrix : public Component<resonances::ExternalRMatrix> {
+class ExternalRMatrix :
+   public Component<resonances::ExternalRMatrix>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ExternalRMatrix"; }
    static auto FIELD() { return "externalRMatrix"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<XMLName>{"Froehner"}
             / Meta<>("type") |
+
          // children
          ++Child<containers::Double>("double")
       ;
@@ -48,6 +54,9 @@ public:
       static inline const XMLName type = "Froehner";
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<XMLName>> type{this,defaults.type};
 
@@ -59,6 +68,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->type, \
       this->Double)
 
@@ -69,8 +79,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit ExternalRMatrix(
       const wrapper<std::optional<XMLName>> &type,
       const wrapper<std::vector<containers::Double>> &Double = {}
@@ -92,6 +102,7 @@ public:
    // copy
    ExternalRMatrix(const ExternalRMatrix &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       type(this,other.type),
       Double(this,other.Double)
    {
@@ -101,6 +112,7 @@ public:
    // move
    ExternalRMatrix(ExternalRMatrix &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       type(this,std::move(other.type)),
       Double(this,std::move(other.Double))
    {

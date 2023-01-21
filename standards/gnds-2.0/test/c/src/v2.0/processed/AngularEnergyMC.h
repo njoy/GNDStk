@@ -80,7 +80,7 @@ extern_c Handle2ConstAngularEnergyMC
 AngularEnergyMCCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
    ConstHandle2ConstAngularEnergy angularEnergy
 );
 
@@ -89,7 +89,7 @@ extern_c Handle2AngularEnergyMC
 AngularEnergyMCCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
    ConstHandle2ConstAngularEnergy angularEnergy
 );
 
@@ -174,7 +174,7 @@ AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName p
 
 
 // -----------------------------------------------------------------------------
-// Child: angular
+// Child: angular_uncorrelated
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -191,7 +191,7 @@ AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC This);
 
 // +++ Set
 extern_c void
-AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular);
+AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
 
 
 // -----------------------------------------------------------------------------
@@ -216,8 +216,10 @@ AngularEnergyMCAngularEnergySet(ConstHandle2AngularEnergyMC This, ConstHandle2Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AngularEnergyMC/src/custom.h"
 
 #undef extern_c
 #endif

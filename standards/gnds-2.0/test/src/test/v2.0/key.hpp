@@ -11,7 +11,8 @@
 namespace test {
 namespace v2_0 {
 
-using namespace njoy::GNDStk;
+using namespace njoy;
+using namespace GNDStk;
 
 
 // -----------------------------------------------------------------------------
@@ -74,6 +75,7 @@ GNDSTK_MAKE_LOOKUP(finalState,finalState);
 GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
 GNDSTK_MAKE_LOOKUP(flags,flags);
 GNDSTK_MAKE_LOOKUP(format,format);
+GNDSTK_MAKE_LOOKUP(format,version);
 GNDSTK_MAKE_LOOKUP(generation,generation);
 GNDSTK_MAKE_LOOKUP(genre,genre);
 GNDSTK_MAKE_LOOKUP(href,href);
@@ -227,7 +229,7 @@ inline const Child<> Ys1d("Ys1d");
 inline const Child<> array("array");
 inline const Child<> axes("axes");
 inline const Child<> axis("axis");
-inline const Child<> cdf("cdf");
+inline const Child<> cdf_in_xs_pdf_cdf1d("cdf");
 inline const Child<> column("column");
 inline const Child<> columnHeaders("columnHeaders");
 inline const Child<> confidenceIntervals("confidenceIntervals");
@@ -248,6 +250,7 @@ inline const Child<> link("link");
 inline const Child<> listOfCovariances("listOfCovariances");
 inline const Child<> logNormal("logNormal");
 inline const Child<> pdf("pdf");
+inline const Child<> pdf_in_xs_pdf_cdf1d("pdf");
 inline const Child<> polynomial1d("polynomial1d");
 inline const Child<> regions1d("regions1d");
 inline const Child<> regions2d("regions2d");
@@ -257,7 +260,7 @@ inline const Child<> string("string");
 inline const Child<> table("table");
 inline const Child<> uncertainty("uncertainty");
 inline const Child<> values("values");
-inline const Child<> xs("xs");
+inline const Child<> xs_in_xs_pdf_cdf1d("xs");
 inline const Child<> xs_pdf_cdf1d("xs_pdf_cdf1d");
 
 } // namespace child
@@ -484,7 +487,7 @@ using namespace child;
 namespace pops {
 namespace child {
 
-inline const Child<> PoPs("PoPs");
+inline const Child<> PoPs_database("PoPs");
 inline const Child<> Q("Q");
 inline const Child<> alias("alias");
 inline const Child<> aliases("aliases");
@@ -655,9 +658,9 @@ inline const Child<> U("U");
 inline const Child<> URR_probabilityTables1d("URR_probabilityTables1d");
 inline const Child<> a("a");
 inline const Child<> add("add");
-inline const Child<> angular("angular");
 inline const Child<> angularEnergy("angularEnergy");
 inline const Child<> angularTwoBody("angularTwoBody");
+inline const Child<> angular_uncorrelated("angular");
 inline const Child<> background("background");
 inline const Child<> branching1d("branching1d");
 inline const Child<> branching3d("branching3d");
@@ -668,8 +671,8 @@ inline const Child<> crossSectionSums("crossSectionSums");
 inline const Child<> discreteGamma("discreteGamma");
 inline const Child<> distribution("distribution");
 inline const Child<> doubleDifferentialCrossSection("doubleDifferentialCrossSection");
-inline const Child<> energy("energy");
 inline const Child<> energyAngular("energyAngular");
+inline const Child<> energy_uncorrelated("energy");
 inline const Child<> evaporation("evaporation");
 inline const Child<> f("f");
 inline const Child<> fastRegion("fastRegion");
@@ -679,6 +682,7 @@ inline const Child<> generalEvaporation("generalEvaporation");
 inline const Child<> incoherentPhoton("incoherentPhoton");
 inline const Child<> incompleteReactions("incompleteReactions");
 inline const Child<> isotropic2d("isotropic2d");
+inline const Child<> multiGroup3d("scatteringMatrix");
 inline const Child<> multiplicity("multiplicity");
 inline const Child<> multiplicitySum("multiplicitySum");
 inline const Child<> multiplicitySums("multiplicitySums");
@@ -696,9 +700,8 @@ inline const Child<> reactions("reactions");
 inline const Child<> recoil("recoil");
 inline const Child<> reference("reference");
 inline const Child<> resolvedRegion("resolvedRegion");
-inline const Child<> resonances("resonances");
+inline const Child<> resonancesLink("resonances");
 inline const Child<> resonancesWithBackground("resonancesWithBackground");
-inline const Child<> scatteringMatrix("scatteringMatrix");
 inline const Child<> summands("summands");
 inline const Child<> sums("sums");
 inline const Child<> theta("theta");

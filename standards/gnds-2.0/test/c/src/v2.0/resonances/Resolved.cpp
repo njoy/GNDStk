@@ -237,3 +237,10 @@ ResolvedDomainUnitSet(ConstHandle2Resolved This, const XMLName domainUnit)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Resolved/src/custom.cpp"

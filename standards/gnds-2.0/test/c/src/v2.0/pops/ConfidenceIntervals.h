@@ -255,8 +255,10 @@ ConfidenceIntervalsIntervalSetByUpper(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/ConfidenceIntervals/src/custom.h"
 
 #undef extern_c
 #endif

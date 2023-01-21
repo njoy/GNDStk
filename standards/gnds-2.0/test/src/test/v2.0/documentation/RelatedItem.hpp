@@ -16,22 +16,27 @@ namespace documentation {
 // class RelatedItem
 // -----------------------------------------------------------------------------
 
-class RelatedItem : public Component<documentation::RelatedItem> {
+class RelatedItem :
+   public Component<documentation::RelatedItem>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "RelatedItem"; }
    static auto FIELD() { return "relatedItem"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          UTF8Text{}
             / Meta<>("name") |
@@ -45,6 +50,9 @@ class RelatedItem : public Component<documentation::RelatedItem> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<UTF8Text> name{this};
    Field<std::optional<UTF8Text>> href{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->name, \
       this->href, \
       this->relationType)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit RelatedItem(
       const wrapper<UTF8Text> &name,
       const wrapper<std::optional<UTF8Text>> &href = {},
@@ -90,6 +99,7 @@ public:
    // copy
    RelatedItem(const RelatedItem &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       name(this,other.name),
       href(this,other.href),
       relationType(this,other.relationType)
@@ -100,6 +110,7 @@ public:
    // move
    RelatedItem(RelatedItem &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       href(this,std::move(other.href)),
       relationType(this,std::move(other.relationType))

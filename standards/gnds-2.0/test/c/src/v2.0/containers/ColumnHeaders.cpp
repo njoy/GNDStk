@@ -383,3 +383,10 @@ ColumnHeadersColumnSetByTypes(
       (CLASSNAME, CLASSNAME+"ColumnSetByTypes",
        This, extract::column, meta::types, types, column);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/ColumnHeaders/src/custom.cpp"

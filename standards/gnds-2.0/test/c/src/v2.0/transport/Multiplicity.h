@@ -135,8 +135,10 @@ MultiplicityPrintJSON(ConstHandle2ConstMultiplicity This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Multiplicity/src/custom.h"
 
 #undef extern_c
 #endif

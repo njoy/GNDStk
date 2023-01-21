@@ -216,8 +216,10 @@ JWidthsSet(ConstHandle2J This, ConstHandle2ConstWidths widths);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/J/src/custom.h"
 
 #undef extern_c
 #endif

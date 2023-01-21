@@ -320,3 +320,10 @@ SpinGroupResonanceParametersSet(ConstHandle2SpinGroup This, ConstHandle2ConstRes
    detail::setField<CPP,CPPResonanceParameters>
       (CLASSNAME, CLASSNAME+"ResonanceParametersSet", This, extract::resonanceParameters, resonanceParameters);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/SpinGroup/src/custom.cpp"

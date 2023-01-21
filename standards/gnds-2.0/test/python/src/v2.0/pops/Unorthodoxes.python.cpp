@@ -38,13 +38,13 @@ void wrapUnorthodoxes(python::module &module)
          python::init<
             const std::vector<pops::Nuclide> &
          >(),
-         python::arg("unorthodox"),
+         python::arg("nuclide"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "unorthodox",
-         [](const Component &self) { return self.unorthodox(); },
-         Component::documentation("unorthodox").data()
+         "nuclide",
+         [](const Component &self) { return self.nuclide(); },
+         Component::documentation("nuclide").data()
       )
    ;
 

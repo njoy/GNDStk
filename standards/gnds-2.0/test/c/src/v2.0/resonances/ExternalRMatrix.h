@@ -275,8 +275,10 @@ ExternalRMatrixDoubleSetByValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ExternalRMatrix/src/custom.h"
 
 #undef extern_c
 #endif

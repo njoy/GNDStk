@@ -22,7 +22,7 @@ namespace extract {
    static auto calculatePenetrability = [](auto &obj) { return &obj.calculatePenetrability; };
    static auto useForSelfShieldingOnly = [](auto &obj) { return &obj.useForSelfShieldingOnly; };
    static auto supportsAngularReconstruction = [](auto &obj) { return &obj.supportsAngularReconstruction; };
-   static auto PoPs = [](auto &obj) { return &obj.PoPs; };
+   static auto PoPs_database = [](auto &obj) { return &obj.PoPs_database; };
    static auto resonanceReactions = [](auto &obj) { return &obj.resonanceReactions; };
    static auto spinGroups = [](auto &obj) { return &obj.spinGroups; };
 }
@@ -64,7 +64,7 @@ RMatrixCreateConst(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 ) {
@@ -78,7 +78,7 @@ RMatrixCreateConst(
       calculatePenetrability,
       useForSelfShieldingOnly,
       supportsAngularReconstruction,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
       detail::tocpp<CPPSpinGroups>(spinGroups)
    );
@@ -96,7 +96,7 @@ RMatrixCreate(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 ) {
@@ -110,7 +110,7 @@ RMatrixCreate(
       calculatePenetrability,
       useForSelfShieldingOnly,
       supportsAngularReconstruction,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
       detail::tocpp<CPPSpinGroups>(spinGroups)
    );
@@ -430,7 +430,7 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // Has
@@ -438,7 +438,7 @@ int
 RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
 }
 
 // Get, const
@@ -446,7 +446,7 @@ Handle2ConstPoPs_database
 RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix This)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
 }
 
 // Get, non-const
@@ -454,15 +454,15 @@ Handle2PoPs_database
 RMatrixPoPs_databaseGet(ConstHandle2RMatrix This)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
 }
 
 // Set
 void
-RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs)
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -538,3 +538,10 @@ RMatrixSpinGroupsSet(ConstHandle2RMatrix This, ConstHandle2ConstSpinGroups spinG
    detail::setField<CPP,CPPSpinGroups>
       (CLASSNAME, CLASSNAME+"SpinGroupsSet", This, extract::spinGroups, spinGroups);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/RMatrix/src/custom.cpp"

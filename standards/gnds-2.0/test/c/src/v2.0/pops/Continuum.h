@@ -152,8 +152,10 @@ ContinuumXYs1dSet(ConstHandle2Continuum This, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Continuum/src/custom.h"
 
 #undef extern_c
 #endif

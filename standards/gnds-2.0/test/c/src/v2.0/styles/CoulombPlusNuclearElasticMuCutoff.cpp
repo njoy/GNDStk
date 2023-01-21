@@ -312,3 +312,10 @@ CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclear
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/CoulombPlusNuclearElasticMuCutoff/src/custom.cpp"

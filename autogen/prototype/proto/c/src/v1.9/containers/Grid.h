@@ -230,8 +230,10 @@ GridUnitSet(ConstHandle2Grid This, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Grid/src/custom.h"
 
 #undef extern_c
 #endif

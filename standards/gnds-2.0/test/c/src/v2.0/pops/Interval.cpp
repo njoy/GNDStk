@@ -233,3 +233,10 @@ IntervalUpperSet(ConstHandle2Interval This, const Float64 upper)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UpperSet", This, extract::upper, upper);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Interval/src/custom.cpp"

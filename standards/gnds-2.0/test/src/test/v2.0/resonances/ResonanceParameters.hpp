@@ -16,22 +16,27 @@ namespace resonances {
 // class ResonanceParameters
 // -----------------------------------------------------------------------------
 
-class ResonanceParameters : public Component<resonances::ResonanceParameters> {
+class ResonanceParameters :
+   public Component<resonances::ResonanceParameters>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ResonanceParameters"; }
    static auto FIELD() { return "resonanceParameters"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Table>("table")
       ;
@@ -39,6 +44,9 @@ class ResonanceParameters : public Component<resonances::ResonanceParameters> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Table> table{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->table)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ResonanceParameters(
       const wrapper<containers::Table> &table
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ResonanceParameters(const ResonanceParameters &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       table(this,other.table)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ResonanceParameters(ResonanceParameters &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       table(this,std::move(other.table))
    {
       Component::finish(other);

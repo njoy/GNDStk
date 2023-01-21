@@ -232,8 +232,10 @@ EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins This, ConstHandl
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/EqualProbableBins/src/custom.h"
 
 #undef extern_c
 #endif

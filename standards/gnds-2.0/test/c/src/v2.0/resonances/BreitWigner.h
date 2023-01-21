@@ -84,7 +84,7 @@ BreitWignerCreateConst(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -97,7 +97,7 @@ BreitWignerCreate(
    const XMLName approximation,
    const bool calculateChannelRadius,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceParameters resonanceParameters
@@ -220,7 +220,7 @@ BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool u
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -237,7 +237,7 @@ BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner This);
 
 // +++ Set
 extern_c void
-BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs);
+BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -304,8 +304,10 @@ BreitWignerResonanceParametersSet(ConstHandle2BreitWigner This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/BreitWigner/src/custom.h"
 
 #undef extern_c
 #endif

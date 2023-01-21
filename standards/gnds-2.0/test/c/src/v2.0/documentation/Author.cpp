@@ -320,3 +320,10 @@ AuthorNoteSet(ConstHandle2Author This, ConstHandle2ConstNote note)
    detail::setField<CPP,CPPNote>
       (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Author/src/custom.cpp"

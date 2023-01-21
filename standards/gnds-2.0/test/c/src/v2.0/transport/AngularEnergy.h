@@ -192,8 +192,10 @@ AngularEnergyXYs3dSet(ConstHandle2AngularEnergy This, ConstHandle2ConstXYs3d XYs
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/AngularEnergy/src/custom.h"
 
 #undef extern_c
 #endif

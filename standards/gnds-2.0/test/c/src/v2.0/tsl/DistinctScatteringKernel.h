@@ -152,8 +152,10 @@ DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel This, 
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/DistinctScatteringKernel/src/custom.h"
 
 #undef extern_c
 #endif

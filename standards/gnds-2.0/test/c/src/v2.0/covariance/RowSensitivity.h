@@ -152,8 +152,10 @@ RowSensitivityArraySet(ConstHandle2RowSensitivity This, ConstHandle2ConstArray a
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/RowSensitivity/src/custom.h"
 
 #undef extern_c
 #endif

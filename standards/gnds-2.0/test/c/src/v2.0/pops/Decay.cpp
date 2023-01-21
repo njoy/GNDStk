@@ -277,3 +277,10 @@ DecayProductsSet(ConstHandle2Decay This, ConstHandle2ConstProducts products)
    detail::setField<CPP,CPPProducts>
       (CLASSNAME, CLASSNAME+"ProductsSet", This, extract::products, products);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Decay/src/custom.cpp"

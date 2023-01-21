@@ -131,3 +131,10 @@ RPrintJSON(ConstHandle2ConstR This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/R/src/custom.cpp"

@@ -240,8 +240,10 @@ XYs3dUncertaintySet(ConstHandle2XYs3d This, ConstHandle2ConstUncertainty uncerta
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/XYs3d/src/custom.h"
 
 #undef extern_c
 #endif

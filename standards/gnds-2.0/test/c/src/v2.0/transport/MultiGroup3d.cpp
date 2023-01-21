@@ -242,3 +242,10 @@ MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d This, ConstHandle2ConstGridded
    detail::setField<CPP,CPPGridded3d>
       (CLASSNAME, CLASSNAME+"Gridded3dSet", This, extract::gridded3d, gridded3d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/MultiGroup3d/src/custom.cpp"

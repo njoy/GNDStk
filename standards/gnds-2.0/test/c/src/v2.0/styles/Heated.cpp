@@ -320,3 +320,10 @@ HeatedDocumentationSet(ConstHandle2Heated This, ConstHandle2ConstDocumentation d
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Heated/src/custom.cpp"

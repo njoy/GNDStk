@@ -329,8 +329,10 @@ TitleLabelSet(ConstHandle2Title This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Title/src/custom.h"
 
 #undef extern_c
 #endif

@@ -196,8 +196,10 @@ Gridded1dAxesSet(ConstHandle2Gridded1d This, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Gridded1d/src/custom.h"
 
 #undef extern_c
 #endif

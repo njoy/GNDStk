@@ -152,8 +152,10 @@ CovarianceArraySet(ConstHandle2Covariance This, ConstHandle2ConstArray array);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Covariance/src/custom.h"
 
 #undef extern_c
 #endif

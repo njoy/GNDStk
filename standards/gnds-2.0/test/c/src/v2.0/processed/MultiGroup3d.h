@@ -192,8 +192,10 @@ MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d This, ConstHandle2ConstGridded
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/MultiGroup3d/src/custom.h"
 
 #undef extern_c
 #endif

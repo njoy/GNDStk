@@ -320,3 +320,10 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralSet(ConstHandle2
    detail::setField<CPP,CPPDebyeWallerIntegral>
       (CLASSNAME, CLASSNAME+"DebyeWallerIntegralSet", This, extract::DebyeWallerIntegral, DebyeWallerIntegral);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentElastic/src/custom.cpp"

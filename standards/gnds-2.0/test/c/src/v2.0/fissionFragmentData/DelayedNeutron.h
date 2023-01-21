@@ -196,8 +196,10 @@ DelayedNeutronProductSet(ConstHandle2DelayedNeutron This, ConstHandle2ConstProdu
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/DelayedNeutron/src/custom.h"
 
 #undef extern_c
 #endif

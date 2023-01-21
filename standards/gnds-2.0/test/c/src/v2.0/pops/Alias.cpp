@@ -198,3 +198,10 @@ AliasPidSet(ConstHandle2Alias This, const XMLName pid)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Alias/src/custom.cpp"

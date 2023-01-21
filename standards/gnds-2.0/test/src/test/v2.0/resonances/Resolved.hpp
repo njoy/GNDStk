@@ -18,7 +18,9 @@ namespace resonances {
 // class Resolved
 // -----------------------------------------------------------------------------
 
-class Resolved : public Component<resonances::Resolved> {
+class Resolved :
+   public Component<resonances::Resolved>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -31,15 +33,18 @@ class Resolved : public Component<resonances::Resolved> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Resolved"; }
    static auto FIELD() { return "resolved"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Float64{}
             / Meta<>("domainMin") |
@@ -47,6 +52,7 @@ class Resolved : public Component<resonances::Resolved> {
             / Meta<>("domainMax") |
          XMLName{}
             / Meta<>("domainUnit") |
+
          // children
          _t{}
             / --(Child<>("RMatrix") || Child<>("BreitWigner") || Child<>("energyIntervals"))
@@ -55,6 +61,9 @@ class Resolved : public Component<resonances::Resolved> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Float64> domainMin{this};
@@ -72,6 +81,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Resolved(
       const wrapper<Float64> &domainMin,
       const wrapper<Float64> &domainMax = {},
@@ -110,6 +120,7 @@ public:
    // copy
    Resolved(const Resolved &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       domainMin(this,other.domainMin),
       domainMax(this,other.domainMax),
       domainUnit(this,other.domainUnit),
@@ -121,6 +132,7 @@ public:
    // move
    Resolved(Resolved &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       domainMin(this,std::move(other.domainMin)),
       domainMax(this,std::move(other.domainMax)),
       domainUnit(this,std::move(other.domainUnit)),

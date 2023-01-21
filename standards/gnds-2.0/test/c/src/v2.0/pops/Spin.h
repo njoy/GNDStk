@@ -363,8 +363,10 @@ SpinFractionSetByValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Spin/src/custom.h"
 
 #undef extern_c
 #endif

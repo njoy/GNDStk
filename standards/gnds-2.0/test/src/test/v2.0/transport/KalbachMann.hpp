@@ -18,27 +18,33 @@ namespace transport {
 // class KalbachMann
 // -----------------------------------------------------------------------------
 
-class KalbachMann : public Component<transport::KalbachMann> {
+class KalbachMann :
+   public Component<transport::KalbachMann>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "KalbachMann"; }
    static auto FIELD() { return "KalbachMann"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<transport::F>("f") |
          --Child<transport::R>("r") |
@@ -48,6 +54,9 @@ class KalbachMann : public Component<transport::KalbachMann> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->f, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit KalbachMann(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
@@ -104,6 +114,7 @@ public:
    // copy
    KalbachMann(const KalbachMann &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       f(this,other.f),
@@ -116,6 +127,7 @@ public:
    // move
    KalbachMann(KalbachMann &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       f(this,std::move(other.f)),

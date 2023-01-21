@@ -16,22 +16,27 @@ namespace pops {
 // class Shell
 // -----------------------------------------------------------------------------
 
-class Shell : public Component<pops::Shell> {
+class Shell :
+   public Component<pops::Shell>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Shell"; }
    static auto FIELD() { return "shell"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -45,6 +50,9 @@ class Shell : public Component<pops::Shell> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
    Field<Float64> value{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->value, \
       this->unit)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Shell(
       const wrapper<XMLName> &label,
       const wrapper<Float64> &value = {},
@@ -90,6 +99,7 @@ public:
    // copy
    Shell(const Shell &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       value(this,other.value),
       unit(this,other.unit)
@@ -100,6 +110,7 @@ public:
    // move
    Shell(Shell &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       value(this,std::move(other.value)),
       unit(this,std::move(other.unit))

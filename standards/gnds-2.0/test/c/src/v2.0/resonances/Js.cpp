@@ -293,3 +293,10 @@ JsJSetByValue(
       (CLASSNAME, CLASSNAME+"JSetByValue",
        This, extract::J, meta::value, value, J);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Js/src/custom.cpp"

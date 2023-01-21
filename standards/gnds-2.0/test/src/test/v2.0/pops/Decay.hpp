@@ -16,22 +16,27 @@ namespace pops {
 // class Decay
 // -----------------------------------------------------------------------------
 
-class Decay : public Component<pops::Decay> {
+class Decay :
+   public Component<pops::Decay>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Decay"; }
    static auto FIELD() { return "decay"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Integer32{}
             / Meta<>("index") |
@@ -39,6 +44,7 @@ class Decay : public Component<pops::Decay> {
             / Meta<>("mode") |
          Defaulted<bool>{false}
             / Meta<>("complete") |
+
          // children
          --Child<std::optional<pops::Products>>("products")
       ;
@@ -51,6 +57,9 @@ public:
    static inline const struct Defaults {
       static inline const bool complete = false;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Integer32> index{this};
@@ -65,6 +74,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->index, \
       this->mode, \
       this->complete, \
@@ -77,8 +87,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Decay(
       const wrapper<Integer32> &index,
       const wrapper<std::optional<enums::DecayType>> &mode = {},
@@ -104,6 +114,7 @@ public:
    // copy
    Decay(const Decay &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       index(this,other.index),
       mode(this,other.mode),
       complete(this,other.complete),
@@ -115,6 +126,7 @@ public:
    // move
    Decay(Decay &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       mode(this,std::move(other.mode)),
       complete(this,std::move(other.complete)),

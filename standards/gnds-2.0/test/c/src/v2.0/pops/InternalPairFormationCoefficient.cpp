@@ -320,3 +320,10 @@ InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormation
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/InternalPairFormationCoefficient/src/custom.cpp"

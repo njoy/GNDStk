@@ -1641,8 +1641,10 @@ StylesSnElasticUpScatterSetByUpperCalculatedGroup(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Styles/src/custom.h"
 
 #undef extern_c
 #endif

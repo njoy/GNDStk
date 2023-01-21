@@ -268,8 +268,10 @@ ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorit
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/map/Protare/src/custom.h"
 
 #undef extern_c
 #endif

@@ -529,3 +529,10 @@ SpinFractionSetByValue(
       (CLASSNAME, CLASSNAME+"FractionSetByValue",
        This, extract::fraction, meta::value, value, fraction);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Spin/src/custom.cpp"

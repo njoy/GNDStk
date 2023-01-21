@@ -17,25 +17,31 @@ namespace cpTransport {
 // class NuclearPlusInterference
 // -----------------------------------------------------------------------------
 
-class NuclearPlusInterference : public Component<cpTransport::NuclearPlusInterference> {
+class NuclearPlusInterference :
+   public Component<cpTransport::NuclearPlusInterference>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearPlusInterference"; }
    static auto FIELD() { return "nuclearPlusInterference"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Float64{}
             / Meta<>("muCutoff") |
+
          // children
          --Child<transport::CrossSection>("crossSection") |
          --Child<transport::Distribution>("distribution")
@@ -44,6 +50,9 @@ class NuclearPlusInterference : public Component<cpTransport::NuclearPlusInterfe
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Float64> muCutoff{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->muCutoff, \
       this->crossSection, \
       this->distribution)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit NuclearPlusInterference(
       const wrapper<Float64> &muCutoff,
       const wrapper<transport::CrossSection> &crossSection = {},
@@ -92,6 +102,7 @@ public:
    // copy
    NuclearPlusInterference(const NuclearPlusInterference &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       muCutoff(this,other.muCutoff),
       crossSection(this,other.crossSection),
       distribution(this,other.distribution)
@@ -102,6 +113,7 @@ public:
    // move
    NuclearPlusInterference(NuclearPlusInterference &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       muCutoff(this,std::move(other.muCutoff)),
       crossSection(this,std::move(other.crossSection)),
       distribution(this,std::move(other.distribution))

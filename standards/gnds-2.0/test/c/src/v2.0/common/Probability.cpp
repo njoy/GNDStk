@@ -172,3 +172,10 @@ ProbabilityDoubleSet(ConstHandle2Probability This, ConstHandle2ConstDouble Doubl
    detail::setField<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/common/Probability/src/custom.cpp"

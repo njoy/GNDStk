@@ -152,8 +152,10 @@ ProductionsProductionSet(ConstHandle2Productions This, ConstHandle2ConstProducti
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Productions/src/custom.h"
 
 #undef extern_c
 #endif

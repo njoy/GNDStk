@@ -284,8 +284,10 @@ InputDecksInputDeckSetByFilename(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/InputDecks/src/custom.h"
 
 #undef extern_c
 #endif

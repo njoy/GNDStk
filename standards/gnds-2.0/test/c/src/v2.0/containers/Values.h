@@ -389,8 +389,10 @@ ValuesCountSet(ConstHandle2Values This, const Integer32 count);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Values/src/custom.h"
 
 #undef extern_c
 #endif

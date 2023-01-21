@@ -172,3 +172,10 @@ GaussianApproximationPhononSpectrumSet(ConstHandle2GaussianApproximation This, C
    detail::setField<CPP,CPPPhononSpectrum>
       (CLASSNAME, CLASSNAME+"PhononSpectrumSet", This, extract::phononSpectrum, phononSpectrum);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/GaussianApproximation/src/custom.cpp"

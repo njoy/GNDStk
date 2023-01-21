@@ -338,3 +338,10 @@ RelatedItemsRelatedItemSetByRelationType(
       (CLASSNAME, CLASSNAME+"RelatedItemSetByRelationType",
        This, extract::relatedItem, meta::relationType, relationType, relatedItem);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/RelatedItems/src/custom.cpp"

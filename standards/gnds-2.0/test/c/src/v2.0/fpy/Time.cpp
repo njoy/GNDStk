@@ -131,3 +131,10 @@ TimePrintJSON(ConstHandle2ConstTime This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Time/src/custom.cpp"

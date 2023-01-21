@@ -312,3 +312,10 @@ IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScatte
    detail::setField<CPP,CPPScatteringFactor>
       (CLASSNAME, CLASSNAME+"ScatteringFactorSet", This, extract::scatteringFactor, scatteringFactor);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/IncoherentPhotonScattering/src/custom.cpp"

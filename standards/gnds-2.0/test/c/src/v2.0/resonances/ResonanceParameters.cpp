@@ -172,3 +172,10 @@ ResonanceParametersTableSet(ConstHandle2ResonanceParameters This, ConstHandle2Co
    detail::setField<CPP,CPPTable>
       (CLASSNAME, CLASSNAME+"TableSet", This, extract::table, table);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceParameters/src/custom.cpp"

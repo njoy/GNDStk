@@ -18,22 +18,27 @@ namespace fissionTransport {
 // class Watt
 // -----------------------------------------------------------------------------
 
-class Watt : public Component<fissionTransport::Watt> {
+class Watt :
+   public Component<fissionTransport::Watt>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "Watt"; }
    static auto FIELD() { return "Watt"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<transport::U>("U") |
          --Child<fissionTransport::A>("a") |
@@ -43,6 +48,9 @@ class Watt : public Component<fissionTransport::Watt> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<transport::U> U{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->U, \
       this->a, \
       this->b)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Watt(
       const wrapper<transport::U> &U,
       const wrapper<fissionTransport::A> &a = {},
@@ -89,6 +98,7 @@ public:
    // copy
    Watt(const Watt &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       U(this,other.U),
       a(this,other.a),
       b(this,other.b)
@@ -99,6 +109,7 @@ public:
    // move
    Watt(Watt &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       U(this,std::move(other.U)),
       a(this,std::move(other.a)),
       b(this,std::move(other.b))

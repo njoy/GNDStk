@@ -15,7 +15,7 @@ static const std::string CLASSNAME = "Discrete";
 
 namespace extract {
    static auto type = [](auto &obj) { return &obj.type; };
-   static auto energy = [](auto &obj) { return &obj.energy; };
+   static auto discreteEnergy = [](auto &obj) { return &obj.discreteEnergy; };
    static auto intensity = [](auto &obj) { return &obj.intensity; };
    static auto internalConversionCoefficients = [](auto &obj) { return &obj.internalConversionCoefficients; };
    static auto internalPairFormationCoefficient = [](auto &obj) { return &obj.internalPairFormationCoefficient; };
@@ -56,7 +56,7 @@ DiscreteDefault()
 Handle2ConstDiscrete
 DiscreteCreateConst(
    const XMLName type,
-   ConstHandle2ConstDiscreteEnergy energy,
+   ConstHandle2ConstDiscreteEnergy discreteEnergy,
    ConstHandle2ConstIntensity intensity,
    ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients,
    ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient,
@@ -66,7 +66,7 @@ DiscreteCreateConst(
    ConstHandle2Discrete handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       type,
-      detail::tocpp<CPPDiscreteEnergy>(energy),
+      detail::tocpp<CPPDiscreteEnergy>(discreteEnergy),
       detail::tocpp<CPPIntensity>(intensity),
       detail::tocpp<CPPInternalConversionCoefficients>(internalConversionCoefficients),
       detail::tocpp<CPPInternalPairFormationCoefficient>(internalPairFormationCoefficient),
@@ -80,7 +80,7 @@ DiscreteCreateConst(
 Handle2Discrete
 DiscreteCreate(
    const XMLName type,
-   ConstHandle2ConstDiscreteEnergy energy,
+   ConstHandle2ConstDiscreteEnergy discreteEnergy,
    ConstHandle2ConstIntensity intensity,
    ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients,
    ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient,
@@ -90,7 +90,7 @@ DiscreteCreate(
    ConstHandle2Discrete handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       type,
-      detail::tocpp<CPPDiscreteEnergy>(energy),
+      detail::tocpp<CPPDiscreteEnergy>(discreteEnergy),
       detail::tocpp<CPPIntensity>(intensity),
       detail::tocpp<CPPInternalConversionCoefficients>(internalConversionCoefficients),
       detail::tocpp<CPPInternalPairFormationCoefficient>(internalPairFormationCoefficient),
@@ -203,7 +203,7 @@ DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type)
 
 
 // -----------------------------------------------------------------------------
-// Child: energy
+// Child: discreteEnergy
 // -----------------------------------------------------------------------------
 
 // Has
@@ -211,7 +211,7 @@ int
 DiscreteDiscreteEnergyHas(ConstHandle2ConstDiscrete This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyHas", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyHas", This, extract::discreteEnergy);
 }
 
 // Get, const
@@ -219,7 +219,7 @@ Handle2ConstDiscreteEnergy
 DiscreteDiscreteEnergyGetConst(ConstHandle2ConstDiscrete This)
 {
    return detail::getField<CPP,Handle2ConstDiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyGetConst", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyGetConst", This, extract::discreteEnergy);
 }
 
 // Get, non-const
@@ -227,15 +227,15 @@ Handle2DiscreteEnergy
 DiscreteDiscreteEnergyGet(ConstHandle2Discrete This)
 {
    return detail::getField<CPP,Handle2DiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyGet", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyGet", This, extract::discreteEnergy);
 }
 
 // Set
 void
-DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy energy)
+DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy discreteEnergy)
 {
    detail::setField<CPP,CPPDiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergySet", This, extract::energy, energy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergySet", This, extract::discreteEnergy, discreteEnergy);
 }
 
 
@@ -422,3 +422,10 @@ DiscretePositronEmissionIntensitySet(ConstHandle2Discrete This, ConstHandle2Cons
    detail::setField<CPP,CPPPositronEmissionIntensity>
       (CLASSNAME, CLASSNAME+"PositronEmissionIntensitySet", This, extract::positronEmissionIntensity, positronEmissionIntensity);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Discrete/src/custom.cpp"

@@ -233,3 +233,10 @@ FractionValueSet(ConstHandle2Fraction This, const Fraction32 value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Fraction/src/custom.cpp"

@@ -26,22 +26,27 @@ namespace transport {
 // class ReactionSuite
 // -----------------------------------------------------------------------------
 
-class ReactionSuite : public Component<transport::ReactionSuite> {
+class ReactionSuite :
+   public Component<transport::ReactionSuite>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
    static auto FIELD() { return "reactionSuite"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("evaluation") |
@@ -55,6 +60,7 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
             / Meta<>("target") |
          enums::Interaction{}
             / Meta<>("interaction") |
+
          // children
          --Child<std::optional<common::ExternalFiles>>("externalFiles") |
          --Child<styles::Styles>("styles") |
@@ -73,6 +79,9 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> evaluation{this};
    Field<XMLName> format{this};
@@ -84,7 +93,7 @@ public:
    // children
    Field<std::optional<common::ExternalFiles>> externalFiles{this};
    Field<styles::Styles> styles{this};
-   Field<pops::PoPs_database> PoPs{this};
+   Field<pops::PoPs_database> PoPs_database{this};
    Field<std::optional<resonances::Resonances>> resonances{this};
    Field<std::optional<transport::Reactions>> reactions{this};
    Field<std::optional<transport::OrphanProducts>> orphanProducts{this};
@@ -99,6 +108,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->evaluation, \
       this->format, \
       this->projectile, \
@@ -107,7 +117,7 @@ public:
       this->interaction, \
       this->externalFiles, \
       this->styles, \
-      this->PoPs, \
+      this->PoPs_database, \
       this->resonances, \
       this->reactions, \
       this->orphanProducts, \
@@ -124,7 +134,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ReactionSuite(
       const wrapper<XMLName> &evaluation,
       const wrapper<XMLName> &format = {},
@@ -134,7 +144,7 @@ public:
       const wrapper<enums::Interaction> &interaction = {},
       const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
       const wrapper<styles::Styles> &styles = {},
-      const wrapper<pops::PoPs_database> &PoPs = {},
+      const wrapper<pops::PoPs_database> &PoPs_database = {},
       const wrapper<std::optional<resonances::Resonances>> &resonances = {},
       const wrapper<std::optional<transport::Reactions>> &reactions = {},
       const wrapper<std::optional<transport::OrphanProducts>> &orphanProducts = {},
@@ -153,7 +163,7 @@ public:
       interaction(this,interaction),
       externalFiles(this,externalFiles),
       styles(this,styles),
-      PoPs(this,PoPs),
+      PoPs_database(this,PoPs_database),
       resonances(this,resonances),
       reactions(this,reactions),
       orphanProducts(this,orphanProducts),
@@ -176,6 +186,7 @@ public:
    // copy
    ReactionSuite(const ReactionSuite &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       evaluation(this,other.evaluation),
       format(this,other.format),
       projectile(this,other.projectile),
@@ -184,7 +195,7 @@ public:
       interaction(this,other.interaction),
       externalFiles(this,other.externalFiles),
       styles(this,other.styles),
-      PoPs(this,other.PoPs),
+      PoPs_database(this,other.PoPs_database),
       resonances(this,other.resonances),
       reactions(this,other.reactions),
       orphanProducts(this,other.orphanProducts),
@@ -200,6 +211,7 @@ public:
    // move
    ReactionSuite(ReactionSuite &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       evaluation(this,std::move(other.evaluation)),
       format(this,std::move(other.format)),
       projectile(this,std::move(other.projectile)),
@@ -208,7 +220,7 @@ public:
       interaction(this,std::move(other.interaction)),
       externalFiles(this,std::move(other.externalFiles)),
       styles(this,std::move(other.styles)),
-      PoPs(this,std::move(other.PoPs)),
+      PoPs_database(this,std::move(other.PoPs_database)),
       resonances(this,std::move(other.resonances)),
       reactions(this,std::move(other.reactions)),
       orphanProducts(this,std::move(other.orphanProducts)),

@@ -226,8 +226,10 @@ IsotopesIsotopeSetBySymbol(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Isotopes/src/custom.h"
 
 #undef extern_c
 #endif

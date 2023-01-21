@@ -16,22 +16,27 @@ namespace documentation {
 // class RelatedItems
 // -----------------------------------------------------------------------------
 
-class RelatedItems : public Component<documentation::RelatedItems> {
+class RelatedItems :
+   public Component<documentation::RelatedItems>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "RelatedItems"; }
    static auto FIELD() { return "relatedItems"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::RelatedItem>("relatedItem")
       ;
@@ -39,6 +44,9 @@ class RelatedItems : public Component<documentation::RelatedItems> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::RelatedItem>> relatedItem{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->relatedItem)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit RelatedItems(
       const wrapper<std::vector<documentation::RelatedItem>> &relatedItem
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    RelatedItems(const RelatedItems &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       relatedItem(this,other.relatedItem)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    RelatedItems(RelatedItems &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       relatedItem(this,std::move(other.relatedItem))
    {
       Component::finish(other);

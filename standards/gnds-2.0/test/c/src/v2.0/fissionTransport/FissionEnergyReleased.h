@@ -364,8 +364,10 @@ FissionEnergyReleasedTotalEnergySet(ConstHandle2FissionEnergyReleased This, Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionEnergyReleased/src/custom.h"
 
 #undef extern_c
 #endif

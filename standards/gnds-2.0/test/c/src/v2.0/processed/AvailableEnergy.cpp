@@ -215,3 +215,10 @@ AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstG
    detail::setField<CPP,CPPGridded1d>
       (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AvailableEnergy/src/custom.cpp"

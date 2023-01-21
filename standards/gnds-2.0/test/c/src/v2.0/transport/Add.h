@@ -148,8 +148,10 @@ AddHrefSet(ConstHandle2Add This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Add/src/custom.h"
 
 #undef extern_c
 #endif

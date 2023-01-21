@@ -14,7 +14,7 @@ using CPP = multigroup::Unorthodoxes;
 static const std::string CLASSNAME = "Unorthodoxes";
 
 namespace extract {
-   static auto unorthodox = [](auto &obj) { return &obj.unorthodox; };
+   static auto nuclide = [](auto &obj) { return &obj.nuclide; };
 }
 
 using CPPNuclide = pops::Nuclide;
@@ -44,28 +44,28 @@ UnorthodoxesDefault()
 // Create, general, const
 Handle2ConstUnorthodoxes
 UnorthodoxesCreateConst(
-   ConstHandle2Nuclide *const unorthodox, const size_t unorthodoxSize
+   ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
 ) {
    ConstHandle2Unorthodoxes handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       std::vector<CPPNuclide>{}
    );
-   for (size_t NuclideN = 0; NuclideN < unorthodoxSize; ++NuclideN)
-      UnorthodoxesNuclideAdd(handle, unorthodox[NuclideN]);
+   for (size_t NuclideN = 0; NuclideN < nuclideSize; ++NuclideN)
+      UnorthodoxesNuclideAdd(handle, nuclide[NuclideN]);
    return handle;
 }
 
 // Create, general
 Handle2Unorthodoxes
 UnorthodoxesCreate(
-   ConstHandle2Nuclide *const unorthodox, const size_t unorthodoxSize
+   ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
 ) {
    ConstHandle2Unorthodoxes handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       std::vector<CPPNuclide>{}
    );
-   for (size_t NuclideN = 0; NuclideN < unorthodoxSize; ++NuclideN)
-      UnorthodoxesNuclideAdd(handle, unorthodox[NuclideN]);
+   for (size_t NuclideN = 0; NuclideN < nuclideSize; ++NuclideN)
+      UnorthodoxesNuclideAdd(handle, nuclide[NuclideN]);
    return handle;
 }
 
@@ -142,7 +142,7 @@ UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This)
 
 
 // -----------------------------------------------------------------------------
-// Child: unorthodox
+// Child: nuclide
 // -----------------------------------------------------------------------------
 
 // Has
@@ -150,7 +150,7 @@ int
 UnorthodoxesNuclideHas(ConstHandle2ConstUnorthodoxes This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideHas", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"NuclideHas", This, extract::nuclide);
 }
 
 // Clear
@@ -158,7 +158,7 @@ void
 UnorthodoxesNuclideClear(ConstHandle2Unorthodoxes This)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideClear", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"NuclideClear", This, extract::nuclide);
 }
 
 // Size
@@ -166,15 +166,15 @@ size_t
 UnorthodoxesNuclideSize(ConstHandle2ConstUnorthodoxes This)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideSize", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"NuclideSize", This, extract::nuclide);
 }
 
 // Add
 void
-UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstNuclide unorthodox)
+UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstNuclide nuclide)
 {
    detail::addToContainer<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideAdd", This, extract::unorthodox, unorthodox);
+      (CLASSNAME, CLASSNAME+"NuclideAdd", This, extract::nuclide, nuclide);
 }
 
 // Get, by index \in [0,size), const
@@ -182,7 +182,7 @@ Handle2ConstNuclide
 UnorthodoxesNuclideGetConst(ConstHandle2ConstUnorthodoxes This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGetConst", This, extract::unorthodox, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGetConst", This, extract::nuclide, index_);
 }
 
 // Get, by index \in [0,size), non-const
@@ -190,7 +190,7 @@ Handle2Nuclide
 UnorthodoxesNuclideGet(ConstHandle2Unorthodoxes This, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Nuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGet", This, extract::unorthodox, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGet", This, extract::nuclide, index_);
 }
 
 // Set, by index \in [0,size)
@@ -198,10 +198,10 @@ void
 UnorthodoxesNuclideSet(
    ConstHandle2Unorthodoxes This,
    const size_t index_,
-   ConstHandle2ConstNuclide unorthodox
+   ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByIndex<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideSet", This, extract::unorthodox, index_, unorthodox);
+      (CLASSNAME, CLASSNAME+"NuclideSet", This, extract::nuclide, index_, nuclide);
 }
 
 // Has, by id
@@ -212,7 +212,7 @@ UnorthodoxesNuclideHasById(
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"NuclideHasById",
-       This, extract::unorthodox, meta::id, id);
+       This, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, const
@@ -223,7 +223,7 @@ UnorthodoxesNuclideGetByIdConst(
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstNuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetByIdConst",
-       This, extract::unorthodox, meta::id, id);
+       This, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, non-const
@@ -234,7 +234,7 @@ UnorthodoxesNuclideGetById(
 ) {
    return detail::getByMetadatum<CPP,Handle2Nuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetById",
-       This, extract::unorthodox, meta::id, id);
+       This, extract::nuclide, meta::id, id);
 }
 
 // Set, by id
@@ -242,9 +242,16 @@ void
 UnorthodoxesNuclideSetById(
    ConstHandle2Unorthodoxes This,
    const XMLName id,
-   ConstHandle2ConstNuclide unorthodox
+   ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByMetadatum<CPP,CPPNuclide>
       (CLASSNAME, CLASSNAME+"NuclideSetById",
-       This, extract::unorthodox, meta::id, id, unorthodox);
+       This, extract::nuclide, meta::id, id, nuclide);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Unorthodoxes/src/custom.cpp"

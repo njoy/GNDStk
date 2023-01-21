@@ -176,8 +176,10 @@ RealAnomalousFactorRegions1dSet(ConstHandle2RealAnomalousFactor This, ConstHandl
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/RealAnomalousFactor/src/custom.h"
 
 #undef extern_c
 #endif

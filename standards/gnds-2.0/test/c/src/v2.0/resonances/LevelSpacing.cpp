@@ -258,3 +258,10 @@ LevelSpacingRegions1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstRegions
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/LevelSpacing/src/custom.cpp"

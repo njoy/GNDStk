@@ -328,3 +328,10 @@ TransportablesTransportableSetByLabel(
       (CLASSNAME, CLASSNAME+"TransportableSetByLabel",
        This, extract::transportable, meta::label, label, transportable);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Transportables/src/custom.cpp"

@@ -240,8 +240,10 @@ WidthRegions1dSet(ConstHandle2Width This, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Width/src/custom.h"
 
 #undef extern_c
 #endif

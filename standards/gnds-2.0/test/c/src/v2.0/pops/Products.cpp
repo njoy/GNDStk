@@ -293,3 +293,10 @@ ProductsProductSetByPid(
       (CLASSNAME, CLASSNAME+"ProductSetByPid",
        This, extract::product, meta::pid, pid, product);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Products/src/custom.cpp"

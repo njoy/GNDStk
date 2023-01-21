@@ -16,8 +16,8 @@ static const std::string CLASSNAME = "Uncorrelated";
 namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
    static auto productFrame = [](auto &obj) { return &obj.productFrame; };
-   static auto angular = [](auto &obj) { return &obj.angular; };
-   static auto energy = [](auto &obj) { return &obj.energy; };
+   static auto angular_uncorrelated = [](auto &obj) { return &obj.angular_uncorrelated; };
+   static auto energy_uncorrelated = [](auto &obj) { return &obj.energy_uncorrelated; };
 }
 
 using CPPAngular_uncorrelated = transport::Angular_uncorrelated;
@@ -50,15 +50,15 @@ Handle2ConstUncorrelated
 UncorrelatedCreateConst(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
-   ConstHandle2ConstEnergy_uncorrelated energy
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
+   ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated
 ) {
    ConstHandle2Uncorrelated handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
       productFrame,
-      detail::tocpp<CPPAngular_uncorrelated>(angular),
-      detail::tocpp<CPPEnergy_uncorrelated>(energy)
+      detail::tocpp<CPPAngular_uncorrelated>(angular_uncorrelated),
+      detail::tocpp<CPPEnergy_uncorrelated>(energy_uncorrelated)
    );
    return handle;
 }
@@ -68,15 +68,15 @@ Handle2Uncorrelated
 UncorrelatedCreate(
    const XMLName label,
    const XMLName productFrame,
-   ConstHandle2ConstAngular_uncorrelated angular,
-   ConstHandle2ConstEnergy_uncorrelated energy
+   ConstHandle2ConstAngular_uncorrelated angular_uncorrelated,
+   ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated
 ) {
    ConstHandle2Uncorrelated handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
       productFrame,
-      detail::tocpp<CPPAngular_uncorrelated>(angular),
-      detail::tocpp<CPPEnergy_uncorrelated>(energy)
+      detail::tocpp<CPPAngular_uncorrelated>(angular_uncorrelated),
+      detail::tocpp<CPPEnergy_uncorrelated>(energy_uncorrelated)
    );
    return handle;
 }
@@ -214,7 +214,7 @@ UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName product
 
 
 // -----------------------------------------------------------------------------
-// Child: angular
+// Child: angular_uncorrelated
 // -----------------------------------------------------------------------------
 
 // Has
@@ -222,7 +222,7 @@ int
 UncorrelatedAngular_uncorrelatedHas(ConstHandle2ConstUncorrelated This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular_uncorrelated);
 }
 
 // Get, const
@@ -230,7 +230,7 @@ Handle2ConstAngular_uncorrelated
 UncorrelatedAngular_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This)
 {
    return detail::getField<CPP,Handle2ConstAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular_uncorrelated);
 }
 
 // Get, non-const
@@ -238,20 +238,20 @@ Handle2Angular_uncorrelated
 UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated This)
 {
    return detail::getField<CPP,Handle2Angular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular_uncorrelated);
 }
 
 // Set
 void
-UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular)
+UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated)
 {
    detail::setField<CPP,CPPAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular, angular);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular_uncorrelated, angular_uncorrelated);
 }
 
 
 // -----------------------------------------------------------------------------
-// Child: energy
+// Child: energy_uncorrelated
 // -----------------------------------------------------------------------------
 
 // Has
@@ -259,7 +259,7 @@ int
 UncorrelatedEnergy_uncorrelatedHas(ConstHandle2ConstUncorrelated This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedHas", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedHas", This, extract::energy_uncorrelated);
 }
 
 // Get, const
@@ -267,7 +267,7 @@ Handle2ConstEnergy_uncorrelated
 UncorrelatedEnergy_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This)
 {
    return detail::getField<CPP,Handle2ConstEnergy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGetConst", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGetConst", This, extract::energy_uncorrelated);
 }
 
 // Get, non-const
@@ -275,13 +275,20 @@ Handle2Energy_uncorrelated
 UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated This)
 {
    return detail::getField<CPP,Handle2Energy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGet", This, extract::energy);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGet", This, extract::energy_uncorrelated);
 }
 
 // Set
 void
-UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy)
+UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated)
 {
    detail::setField<CPP,CPPEnergy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedSet", This, extract::energy, energy);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedSet", This, extract::energy_uncorrelated, energy_uncorrelated);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Uncorrelated/src/custom.cpp"

@@ -293,3 +293,10 @@ CovarianceSectionsCovarianceSectionSetByLabel(
       (CLASSNAME, CLASSNAME+"CovarianceSectionSetByLabel",
        This, extract::covarianceSection, meta::label, label, covarianceSection);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSections/src/custom.cpp"

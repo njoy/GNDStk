@@ -293,3 +293,10 @@ SpectraSpectrumSetByPid(
       (CLASSNAME, CLASSNAME+"SpectrumSetByPid",
        This, extract::spectrum, meta::pid, pid, spectrum);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Spectra/src/custom.cpp"

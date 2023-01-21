@@ -172,3 +172,10 @@ ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets This, Cons
    detail::setField<CPP,CPPExforDataSets>
       (CLASSNAME, CLASSNAME+"ExforDataSetsSet", This, extract::exforDataSets, exforDataSets);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExperimentalDataSets/src/custom.cpp"

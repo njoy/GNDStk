@@ -292,8 +292,10 @@ BaryonDecayDataSet(ConstHandle2Baryon This, ConstHandle2ConstDecayData decayData
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Baryon/src/custom.h"
 
 #undef extern_c
 #endif

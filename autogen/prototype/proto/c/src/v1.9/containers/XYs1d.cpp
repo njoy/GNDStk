@@ -355,3 +355,10 @@ XYs1dValuesSet(ConstHandle2XYs1d This, ConstHandle2ConstValues values)
    detail::setField<CPP,CPPValues>
       (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/XYs1d/src/custom.cpp"

@@ -248,3 +248,10 @@ DelayedNeutronsDelayedNeutronSetByLabel(
       (CLASSNAME, CLASSNAME+"DelayedNeutronSetByLabel",
        This, extract::delayedNeutron, meta::label, label, delayedNeutron);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/DelayedNeutrons/src/custom.cpp"

@@ -16,27 +16,33 @@ namespace transport {
 // class AngularEnergy
 // -----------------------------------------------------------------------------
 
-class AngularEnergy : public Component<transport::AngularEnergy> {
+class AngularEnergy :
+   public Component<transport::AngularEnergy>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "AngularEnergy"; }
    static auto FIELD() { return "angularEnergy"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<containers::XYs3d>("XYs3d")
       ;
@@ -44,6 +50,9 @@ class AngularEnergy : public Component<transport::AngularEnergy> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->XYs3d)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit AngularEnergy(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
@@ -92,6 +102,7 @@ public:
    // copy
    AngularEnergy(const AngularEnergy &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       XYs3d(this,other.XYs3d)
@@ -102,6 +113,7 @@ public:
    // move
    AngularEnergy(AngularEnergy &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       XYs3d(this,std::move(other.XYs3d))

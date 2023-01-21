@@ -2608,3 +2608,10 @@ StylesSnElasticUpScatterSetByUpperCalculatedGroup(
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterSetByUpperCalculatedGroup",
        This, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup, SnElasticUpScatter);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Styles/src/custom.cpp"

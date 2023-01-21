@@ -215,3 +215,10 @@ PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle
    detail::setField<CPP,CPPPolynomial1d>
       (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/PromptGammaEnergy/src/custom.cpp"

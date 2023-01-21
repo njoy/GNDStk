@@ -255,8 +255,10 @@ ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ScatteringAtoms/src/custom.h"
 
 #undef extern_c
 #endif

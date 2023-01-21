@@ -16,22 +16,27 @@ namespace covariance {
 // class Slices
 // -----------------------------------------------------------------------------
 
-class Slices : public Component<covariance::Slices> {
+class Slices :
+   public Component<covariance::Slices>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Slices"; }
    static auto FIELD() { return "slices"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<covariance::Slice>("slice")
       ;
@@ -39,6 +44,9 @@ class Slices : public Component<covariance::Slices> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<covariance::Slice>> slice{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->slice)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Slices(
       const wrapper<std::vector<covariance::Slice>> &slice
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Slices(const Slices &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       slice(this,other.slice)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Slices(Slices &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       slice(this,std::move(other.slice))
    {
       Component::finish(other);

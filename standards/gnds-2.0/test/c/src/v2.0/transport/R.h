@@ -130,8 +130,10 @@ RPrintJSON(ConstHandle2ConstR This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/R/src/custom.h"
 
 #undef extern_c
 #endif

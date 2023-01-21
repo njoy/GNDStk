@@ -226,8 +226,10 @@ CovarianceSectionsCovarianceSectionSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSections/src/custom.h"
 
 #undef extern_c
 #endif

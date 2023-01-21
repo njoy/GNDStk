@@ -17,22 +17,27 @@ namespace containers {
 // class Table
 // -----------------------------------------------------------------------------
 
-class Table : public Component<containers::Table> {
+class Table :
+   public Component<containers::Table>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Table"; }
    static auto FIELD() { return "table"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Integer32{}
             / Meta<>("columns") |
@@ -40,6 +45,7 @@ class Table : public Component<containers::Table> {
             / Meta<>("rows") |
          Defaulted<XMLName>{"row-major"}
             / Meta<>("storageOrder") |
+
          // children
          --Child<containers::ColumnHeaders>("columnHeaders") |
          --Child<containers::Data>("data")
@@ -53,6 +59,9 @@ public:
    static inline const struct Defaults {
       static inline const XMLName storageOrder = "row-major";
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Integer32> columns{this};
@@ -68,6 +77,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->columns, \
       this->rows, \
       this->storageOrder, \
@@ -81,8 +91,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Table(
       const wrapper<Integer32> &columns,
       const wrapper<Integer32> &rows = {},
@@ -110,6 +120,7 @@ public:
    // copy
    Table(const Table &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       columns(this,other.columns),
       rows(this,other.rows),
       storageOrder(this,other.storageOrder),
@@ -122,6 +133,7 @@ public:
    // move
    Table(Table &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       columns(this,std::move(other.columns)),
       rows(this,std::move(other.rows)),
       storageOrder(this,std::move(other.storageOrder)),

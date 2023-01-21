@@ -176,8 +176,10 @@ PromptProductKEPolynomial1dSet(ConstHandle2PromptProductKE This, ConstHandle2Con
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/PromptProductKE/src/custom.h"
 
 #undef extern_c
 #endif

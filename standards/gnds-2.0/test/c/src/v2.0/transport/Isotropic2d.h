@@ -126,8 +126,10 @@ Isotropic2dPrintJSON(ConstHandle2ConstIsotropic2d This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Isotropic2d/src/custom.h"
 
 #undef extern_c
 #endif

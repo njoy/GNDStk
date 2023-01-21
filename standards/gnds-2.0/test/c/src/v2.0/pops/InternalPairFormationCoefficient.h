@@ -236,8 +236,10 @@ InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormation
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/InternalPairFormationCoefficient/src/custom.h"
 
 #undef extern_c
 #endif

@@ -176,8 +176,10 @@ DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2C
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedNeutronKE/src/custom.h"
 
 #undef extern_c
 #endif

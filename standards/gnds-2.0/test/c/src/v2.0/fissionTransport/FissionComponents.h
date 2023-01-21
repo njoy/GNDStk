@@ -255,8 +255,10 @@ FissionComponentsFissionComponentSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionComponents/src/custom.h"
 
 #undef extern_c
 #endif

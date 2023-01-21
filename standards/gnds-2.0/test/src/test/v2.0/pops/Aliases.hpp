@@ -17,22 +17,27 @@ namespace pops {
 // class Aliases
 // -----------------------------------------------------------------------------
 
-class Aliases : public Component<pops::Aliases> {
+class Aliases :
+   public Component<pops::Aliases>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Aliases"; }
    static auto FIELD() { return "aliases"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<pops::Alias>>("alias") |
          ++Child<std::optional<pops::MetaStable>>("metaStable")
@@ -41,6 +46,9 @@ class Aliases : public Component<pops::Aliases> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<pops::Alias>>> alias{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->alias, \
       this->metaStable)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Aliases(
       const wrapper<std::optional<std::vector<pops::Alias>>> &alias,
       const wrapper<std::optional<std::vector<pops::MetaStable>>> &metaStable = {}
@@ -83,6 +92,7 @@ public:
    // copy
    Aliases(const Aliases &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       alias(this,other.alias),
       metaStable(this,other.metaStable)
    {
@@ -92,6 +102,7 @@ public:
    // move
    Aliases(Aliases &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       alias(this,std::move(other.alias)),
       metaStable(this,std::move(other.metaStable))
    {

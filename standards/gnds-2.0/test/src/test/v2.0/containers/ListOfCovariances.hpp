@@ -16,22 +16,27 @@ namespace containers {
 // class ListOfCovariances
 // -----------------------------------------------------------------------------
 
-class ListOfCovariances : public Component<containers::ListOfCovariances> {
+class ListOfCovariances :
+   public Component<containers::ListOfCovariances>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "ListOfCovariances"; }
    static auto FIELD() { return "listOfCovariances"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<containers::Covariance>("covariance")
       ;
@@ -39,6 +44,9 @@ class ListOfCovariances : public Component<containers::ListOfCovariances> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<containers::Covariance>> covariance{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->covariance)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ListOfCovariances(
       const wrapper<std::vector<containers::Covariance>> &covariance
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ListOfCovariances(const ListOfCovariances &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       covariance(this,other.covariance)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ListOfCovariances(ListOfCovariances &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       covariance(this,std::move(other.covariance))
    {
       Component::finish(other);

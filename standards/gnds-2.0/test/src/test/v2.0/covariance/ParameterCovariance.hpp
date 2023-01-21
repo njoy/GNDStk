@@ -17,25 +17,31 @@ namespace covariance {
 // class ParameterCovariance
 // -----------------------------------------------------------------------------
 
-class ParameterCovariance : public Component<covariance::ParameterCovariance> {
+class ParameterCovariance :
+   public Component<covariance::ParameterCovariance>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovariance"; }
    static auto FIELD() { return "parameterCovariance"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<covariance::RowData>("rowData") |
          ++Child<covariance::ParameterCovarianceMatrix>("parameterCovarianceMatrix")
@@ -44,6 +50,9 @@ class ParameterCovariance : public Component<covariance::ParameterCovariance> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->rowData, \
       this->parameterCovarianceMatrix)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ParameterCovariance(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<covariance::RowData> &rowData = {},
@@ -92,6 +102,7 @@ public:
    // copy
    ParameterCovariance(const ParameterCovariance &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       rowData(this,other.rowData),
       parameterCovarianceMatrix(this,other.parameterCovarianceMatrix)
@@ -102,6 +113,7 @@ public:
    // move
    ParameterCovariance(ParameterCovariance &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       rowData(this,std::move(other.rowData)),
       parameterCovarianceMatrix(this,std::move(other.parameterCovarianceMatrix))

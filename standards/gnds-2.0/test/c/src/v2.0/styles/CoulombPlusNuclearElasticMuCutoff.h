@@ -232,8 +232,10 @@ CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclear
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/CoulombPlusNuclearElasticMuCutoff/src/custom.h"
 
 #undef extern_c
 #endif

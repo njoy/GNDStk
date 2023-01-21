@@ -226,8 +226,10 @@ ListOfCovariancesCovarianceSetByHref(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/ListOfCovariances/src/custom.h"
 
 #undef extern_c
 #endif

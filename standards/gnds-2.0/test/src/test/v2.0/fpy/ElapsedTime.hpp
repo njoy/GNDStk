@@ -18,7 +18,9 @@ namespace fpy {
 // class ElapsedTime
 // -----------------------------------------------------------------------------
 
-class ElapsedTime : public Component<fpy::ElapsedTime> {
+class ElapsedTime :
+   public Component<fpy::ElapsedTime>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -30,18 +32,22 @@ class ElapsedTime : public Component<fpy::ElapsedTime> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ElapsedTime"; }
    static auto FIELD() { return "elapsedTime"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<fpy::Time>("time") |
          _t{}
@@ -51,6 +57,9 @@ class ElapsedTime : public Component<fpy::ElapsedTime> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -68,6 +77,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->time, \
       this->_yieldsincidentEnergies)
@@ -79,7 +89,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ElapsedTime(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<fpy::Time> &time = {},
@@ -103,6 +113,7 @@ public:
    // copy
    ElapsedTime(const ElapsedTime &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       time(this,other.time),
       _yieldsincidentEnergies(this,other._yieldsincidentEnergies)
@@ -113,6 +124,7 @@ public:
    // move
    ElapsedTime(ElapsedTime &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       time(this,std::move(other.time)),
       _yieldsincidentEnergies(this,std::move(other._yieldsincidentEnergies))

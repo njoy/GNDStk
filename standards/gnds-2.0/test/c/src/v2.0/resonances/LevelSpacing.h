@@ -200,8 +200,10 @@ LevelSpacingRegions1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstRegions
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/LevelSpacing/src/custom.h"
 
 #undef extern_c
 #endif

@@ -83,7 +83,7 @@ DiscreteDefault();
 extern_c Handle2ConstDiscrete
 DiscreteCreateConst(
    const XMLName type,
-   ConstHandle2ConstDiscreteEnergy energy,
+   ConstHandle2ConstDiscreteEnergy discreteEnergy,
    ConstHandle2ConstIntensity intensity,
    ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients,
    ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient,
@@ -95,7 +95,7 @@ DiscreteCreateConst(
 extern_c Handle2Discrete
 DiscreteCreate(
    const XMLName type,
-   ConstHandle2ConstDiscreteEnergy energy,
+   ConstHandle2ConstDiscreteEnergy discreteEnergy,
    ConstHandle2ConstIntensity intensity,
    ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients,
    ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient,
@@ -166,7 +166,7 @@ DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
-// Child: energy
+// Child: discreteEnergy
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -183,7 +183,7 @@ DiscreteDiscreteEnergyGet(ConstHandle2Discrete This);
 
 // +++ Set
 extern_c void
-DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy energy);
+DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy discreteEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -292,8 +292,10 @@ DiscretePositronEmissionIntensitySet(ConstHandle2Discrete This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Discrete/src/custom.h"
 
 #undef extern_c
 #endif

@@ -258,3 +258,10 @@ BackgroundFastRegionSet(ConstHandle2Background This, ConstHandle2ConstFastRegion
    detail::setField<CPP,CPPFastRegion>
       (CLASSNAME, CLASSNAME+"FastRegionSet", This, extract::fastRegion, fastRegion);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Background/src/custom.cpp"

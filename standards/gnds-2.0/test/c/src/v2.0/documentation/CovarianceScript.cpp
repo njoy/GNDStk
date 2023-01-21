@@ -486,3 +486,10 @@ CovarianceScriptLabelSet(ConstHandle2CovarianceScript This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/CovarianceScript/src/custom.cpp"

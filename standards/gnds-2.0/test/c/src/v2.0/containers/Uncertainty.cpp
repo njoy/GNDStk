@@ -473,3 +473,10 @@ UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstL
    detail::setField<CPP,CPPListOfCovariances>
       (CLASSNAME, CLASSNAME+"ListOfCovariancesSet", This, extract::listOfCovariances, listOfCovariances);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Uncertainty/src/custom.cpp"

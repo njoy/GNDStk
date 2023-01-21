@@ -130,8 +130,10 @@ Function2dsPrintJSON(ConstHandle2ConstFunction2ds This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Function2ds/src/custom.h"
 
 #undef extern_c
 #endif

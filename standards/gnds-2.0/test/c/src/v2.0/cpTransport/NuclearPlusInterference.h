@@ -196,8 +196,10 @@ NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference This,
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearPlusInterference/src/custom.h"
 
 #undef extern_c
 #endif

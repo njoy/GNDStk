@@ -16,22 +16,27 @@ namespace transport {
 // class Branching1d
 // -----------------------------------------------------------------------------
 
-class Branching1d : public Component<transport::Branching1d> {
+class Branching1d :
+   public Component<transport::Branching1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Branching1d"; }
    static auto FIELD() { return "branching1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label")
@@ -41,6 +46,9 @@ class Branching1d : public Component<transport::Branching1d> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
 
@@ -49,6 +57,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label)
 
    // default
@@ -58,7 +67,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Branching1d(
       const wrapper<XMLName> &label
    ) :
@@ -78,6 +87,7 @@ public:
    // copy
    Branching1d(const Branching1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label)
    {
       Component::finish(other);
@@ -86,6 +96,7 @@ public:
    // move
    Branching1d(Branching1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label))
    {
       Component::finish(other);

@@ -150,8 +150,10 @@ URR_probabilityTables1dLabelSet(ConstHandle2URR_probabilityTables1d This, const 
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/URR_probabilityTables1d/src/custom.h"
 
 #undef extern_c
 #endif

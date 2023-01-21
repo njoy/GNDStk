@@ -152,8 +152,10 @@ ApplicationDataInstitutionSet(ConstHandle2ApplicationData This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/appData/ApplicationData/src/custom.h"
 
 #undef extern_c
 #endif

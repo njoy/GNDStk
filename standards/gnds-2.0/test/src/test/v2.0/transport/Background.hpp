@@ -18,22 +18,27 @@ namespace transport {
 // class Background
 // -----------------------------------------------------------------------------
 
-class Background : public Component<transport::Background> {
+class Background :
+   public Component<transport::Background>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Background"; }
    static auto FIELD() { return "background"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<transport::ResolvedRegion>>("resolvedRegion") |
          --Child<std::optional<transport::UnresolvedRegion>>("unresolvedRegion") |
@@ -43,6 +48,9 @@ class Background : public Component<transport::Background> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<transport::ResolvedRegion>> resolvedRegion{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->resolvedRegion, \
       this->unresolvedRegion, \
       this->fastRegion)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Background(
       const wrapper<std::optional<transport::ResolvedRegion>> &resolvedRegion,
       const wrapper<std::optional<transport::UnresolvedRegion>> &unresolvedRegion = {},
@@ -89,6 +98,7 @@ public:
    // copy
    Background(const Background &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       resolvedRegion(this,other.resolvedRegion),
       unresolvedRegion(this,other.unresolvedRegion),
       fastRegion(this,other.fastRegion)
@@ -99,6 +109,7 @@ public:
    // move
    Background(Background &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       resolvedRegion(this,std::move(other.resolvedRegion)),
       unresolvedRegion(this,std::move(other.unresolvedRegion)),
       fastRegion(this,std::move(other.fastRegion))

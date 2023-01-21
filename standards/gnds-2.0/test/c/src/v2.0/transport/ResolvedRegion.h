@@ -130,8 +130,10 @@ ResolvedRegionPrintJSON(ConstHandle2ConstResolvedRegion This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ResolvedRegion/src/custom.h"
 
 #undef extern_c
 #endif

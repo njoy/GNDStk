@@ -16,22 +16,27 @@ namespace resonances {
 // class ResonanceReactions
 // -----------------------------------------------------------------------------
 
-class ResonanceReactions : public Component<resonances::ResonanceReactions> {
+class ResonanceReactions :
+   public Component<resonances::ResonanceReactions>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ResonanceReactions"; }
    static auto FIELD() { return "resonanceReactions"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<resonances::ResonanceReaction>("resonanceReaction")
       ;
@@ -39,6 +44,9 @@ class ResonanceReactions : public Component<resonances::ResonanceReactions> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<resonances::ResonanceReaction>> resonanceReaction{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->resonanceReaction)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ResonanceReactions(
       const wrapper<std::vector<resonances::ResonanceReaction>> &resonanceReaction
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ResonanceReactions(const ResonanceReactions &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       resonanceReaction(this,other.resonanceReaction)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ResonanceReactions(ResonanceReactions &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       resonanceReaction(this,std::move(other.resonanceReaction))
    {
       Component::finish(other);

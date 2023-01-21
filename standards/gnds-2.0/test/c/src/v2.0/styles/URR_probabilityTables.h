@@ -212,8 +212,10 @@ URR_probabilityTablesDocumentationSet(ConstHandle2URR_probabilityTables This, Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/URR_probabilityTables/src/custom.h"
 
 #undef extern_c
 #endif

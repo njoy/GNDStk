@@ -196,8 +196,10 @@ ProductYieldElapsedTimesSet(ConstHandle2ProductYield This, ConstHandle2ConstElap
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ProductYield/src/custom.h"
 
 #undef extern_c
 #endif

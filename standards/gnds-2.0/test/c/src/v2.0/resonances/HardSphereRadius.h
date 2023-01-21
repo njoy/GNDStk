@@ -152,8 +152,10 @@ HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius This, ConstHandle2Con
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/HardSphereRadius/src/custom.h"
 
 #undef extern_c
 #endif

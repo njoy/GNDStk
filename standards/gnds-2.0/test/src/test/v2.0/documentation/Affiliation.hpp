@@ -16,22 +16,27 @@ namespace documentation {
 // class Affiliation
 // -----------------------------------------------------------------------------
 
-class Affiliation : public Component<documentation::Affiliation> {
+class Affiliation :
+   public Component<documentation::Affiliation>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Affiliation"; }
    static auto FIELD() { return "affiliation"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          UTF8Text{}
             / Meta<>("name") |
@@ -43,6 +48,9 @@ class Affiliation : public Component<documentation::Affiliation> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<UTF8Text> name{this};
    Field<std::optional<UTF8Text>> href{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->name, \
       this->href)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Affiliation(
       const wrapper<UTF8Text> &name,
       const wrapper<std::optional<UTF8Text>> &href = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Affiliation(const Affiliation &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       name(this,other.name),
       href(this,other.href)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Affiliation(Affiliation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       href(this,std::move(other.href))
    {

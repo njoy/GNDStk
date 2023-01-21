@@ -16,22 +16,27 @@ namespace resonances {
 // class HardSphereRadius
 // -----------------------------------------------------------------------------
 
-class HardSphereRadius : public Component<resonances::HardSphereRadius> {
+class HardSphereRadius :
+   public Component<resonances::HardSphereRadius>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "HardSphereRadius"; }
    static auto FIELD() { return "hardSphereRadius"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Constant1d>("constant1d")
       ;
@@ -39,6 +44,9 @@ class HardSphereRadius : public Component<resonances::HardSphereRadius> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Constant1d> constant1d{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->constant1d)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit HardSphereRadius(
       const wrapper<containers::Constant1d> &constant1d
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    HardSphereRadius(const HardSphereRadius &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       constant1d(this,other.constant1d)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    HardSphereRadius(HardSphereRadius &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       constant1d(this,std::move(other.constant1d))
    {
       Component::finish(other);

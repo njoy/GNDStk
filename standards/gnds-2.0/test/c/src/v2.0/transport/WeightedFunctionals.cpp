@@ -172,3 +172,10 @@ WeightedFunctionalsWeightedSet(ConstHandle2WeightedFunctionals This, ConstHandle
    detail::setField<CPP,CPPWeighted>
       (CLASSNAME, CLASSNAME+"WeightedSet", This, extract::weighted, weighted);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/WeightedFunctionals/src/custom.cpp"

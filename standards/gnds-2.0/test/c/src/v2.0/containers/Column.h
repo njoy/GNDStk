@@ -208,8 +208,10 @@ ColumnTypesSet(ConstHandle2Column This, const XMLName types);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Column/src/custom.h"
 
 #undef extern_c
 #endif

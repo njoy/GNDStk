@@ -19,27 +19,33 @@ namespace transport {
 // class AngularTwoBody
 // -----------------------------------------------------------------------------
 
-class AngularTwoBody : public Component<transport::AngularTwoBody> {
+class AngularTwoBody :
+   public Component<transport::AngularTwoBody>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "AngularTwoBody"; }
    static auto FIELD() { return "angularTwoBody"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<std::optional<containers::XYs2d>>("XYs2d") |
          --Child<std::optional<containers::Regions2d>>("regions2d") |
@@ -50,6 +56,9 @@ class AngularTwoBody : public Component<transport::AngularTwoBody> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -66,6 +75,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->XYs2d, \
@@ -80,7 +90,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit AngularTwoBody(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {},
@@ -110,6 +120,7 @@ public:
    // copy
    AngularTwoBody(const AngularTwoBody &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       XYs2d(this,other.XYs2d),
@@ -123,6 +134,7 @@ public:
    // move
    AngularTwoBody(AngularTwoBody &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       XYs2d(this,std::move(other.XYs2d)),

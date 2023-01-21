@@ -16,22 +16,27 @@ namespace containers {
 // class Array
 // -----------------------------------------------------------------------------
 
-class Array : public Component<containers::Array> {
+class Array :
+   public Component<containers::Array>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Array"; }
    static auto FIELD() { return "array"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          IntegerTuple{}
             / Meta<>("shape") |
@@ -45,6 +50,7 @@ class Array : public Component<containers::Array> {
             / Meta<>("storageOrder") |
          std::optional<IntegerTuple>{}
             / Meta<>("offset") |
+
          // children
          ++Child<std::optional<containers::Values>>("values") |
          ++Child<std::optional<containers::Array>>("array")
@@ -58,6 +64,9 @@ public:
    static inline const struct Defaults {
       static inline const UTF8Text storageOrder = "row-major";
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<IntegerTuple> shape{this};
@@ -76,6 +85,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->shape, \
       this->compression, \
       this->symmetry, \
@@ -92,8 +102,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Array(
       const wrapper<IntegerTuple> &shape,
       const wrapper<std::optional<UTF8Text>> &compression = {},
@@ -127,6 +137,7 @@ public:
    // copy
    Array(const Array &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       shape(this,other.shape),
       compression(this,other.compression),
       symmetry(this,other.symmetry),
@@ -142,6 +153,7 @@ public:
    // move
    Array(Array &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       shape(this,std::move(other.shape)),
       compression(this,std::move(other.compression)),
       symmetry(this,std::move(other.symmetry)),

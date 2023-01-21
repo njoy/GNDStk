@@ -19,7 +19,9 @@ namespace pops {
 // class Halflife
 // -----------------------------------------------------------------------------
 
-class Halflife : public Component<pops::Halflife> {
+class Halflife :
+   public Component<pops::Halflife>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -31,15 +33,18 @@ class Halflife : public Component<pops::Halflife> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Halflife"; }
    static auto FIELD() { return "halflife"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -47,6 +52,7 @@ class Halflife : public Component<pops::Halflife> {
             / Meta<>("unit") |
          std::optional<XMLName>{}
             / Meta<>("value") |
+
          // children
          --Child<std::optional<documentation::Documentation>>("documentation") |
          --Child<std::optional<pops::Uncertainty>>("uncertainty") |
@@ -57,6 +63,9 @@ class Halflife : public Component<pops::Halflife> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -77,6 +86,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->unit, \
       this->value, \
@@ -91,7 +101,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Halflife(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
@@ -121,6 +131,7 @@ public:
    // copy
    Halflife(const Halflife &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       unit(this,other.unit),
       value(this,other.value),
@@ -134,6 +145,7 @@ public:
    // move
    Halflife(Halflife &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       unit(this,std::move(other.unit)),
       value(this,std::move(other.value)),

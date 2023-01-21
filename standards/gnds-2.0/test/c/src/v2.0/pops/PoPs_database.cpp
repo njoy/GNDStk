@@ -578,3 +578,10 @@ PoPs_databaseUnorthodoxesSet(ConstHandle2PoPs_database This, ConstHandle2ConstUn
    detail::setField<CPP,CPPUnorthodoxes>
       (CLASSNAME, CLASSNAME+"UnorthodoxesSet", This, extract::unorthodoxes, unorthodoxes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/PoPs_database/src/custom.cpp"

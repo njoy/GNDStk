@@ -383,3 +383,10 @@ BibliographyBibitemSetByXref(
       (CLASSNAME, CLASSNAME+"BibitemSetByXref",
        This, extract::bibitem, meta::xref, xref, bibitem);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Bibliography/src/custom.cpp"

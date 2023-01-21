@@ -284,8 +284,10 @@ ResonanceReactionsResonanceReactionSetByEliminated(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceReactions/src/custom.h"
 
 #undef extern_c
 #endif

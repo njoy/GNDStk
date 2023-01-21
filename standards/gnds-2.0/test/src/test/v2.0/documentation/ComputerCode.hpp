@@ -20,22 +20,27 @@ namespace documentation {
 // class ComputerCode
 // -----------------------------------------------------------------------------
 
-class ComputerCode : public Component<documentation::ComputerCode> {
+class ComputerCode :
+   public Component<documentation::ComputerCode>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ComputerCode"; }
    static auto FIELD() { return "computerCode"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -43,6 +48,7 @@ class ComputerCode : public Component<documentation::ComputerCode> {
             / Meta<>("name") |
          XMLName{}
             / Meta<>("version") |
+
          // children
          --Child<std::optional<documentation::ExecutionArguments>>("executionArguments") |
          --Child<std::optional<documentation::CodeRepo>>("codeRepo") |
@@ -54,6 +60,9 @@ class ComputerCode : public Component<documentation::ComputerCode> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -72,6 +81,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->name, \
       this->version, \
@@ -88,7 +98,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ComputerCode(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<UTF8Text> &name = {},
@@ -122,6 +132,7 @@ public:
    // copy
    ComputerCode(const ComputerCode &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       name(this,other.name),
       version(this,other.version),
@@ -137,6 +148,7 @@ public:
    // move
    ComputerCode(ComputerCode &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       name(this,std::move(other.name)),
       version(this,std::move(other.version)),

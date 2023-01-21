@@ -242,3 +242,10 @@ LJsSet(ConstHandle2L This, ConstHandle2ConstJs Js)
    detail::setField<CPP,CPPJs>
       (CLASSNAME, CLASSNAME+"JsSet", This, extract::Js, Js);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/L/src/custom.cpp"

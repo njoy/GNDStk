@@ -521,3 +521,10 @@ OutputDeckFilenameSet(ConstHandle2OutputDeck This, const XMLName filename)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"FilenameSet", This, extract::filename, filename);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/OutputDeck/src/custom.cpp"

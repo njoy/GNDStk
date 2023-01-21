@@ -22,27 +22,33 @@ namespace pops {
 // class Nucleus
 // -----------------------------------------------------------------------------
 
-class Nucleus : public Component<pops::Nucleus> {
+class Nucleus :
+   public Component<pops::Nucleus>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Nucleus"; }
    static auto FIELD() { return "nucleus"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("id") |
          Integer32{}
             / Meta<>("index") |
+
          // children
          --Child<std::optional<pops::Charge>>("charge") |
          --Child<std::optional<pops::Energy>>("energy") |
@@ -56,6 +62,9 @@ class Nucleus : public Component<pops::Nucleus> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> id{this};
@@ -75,6 +84,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->id, \
       this->index, \
       this->charge, \
@@ -92,7 +102,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Nucleus(
       const wrapper<XMLName> &id,
       const wrapper<Integer32> &index = {},
@@ -128,6 +138,7 @@ public:
    // copy
    Nucleus(const Nucleus &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       id(this,other.id),
       index(this,other.index),
       charge(this,other.charge),
@@ -144,6 +155,7 @@ public:
    // move
    Nucleus(Nucleus &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       index(this,std::move(other.index)),
       charge(this,std::move(other.charge)),

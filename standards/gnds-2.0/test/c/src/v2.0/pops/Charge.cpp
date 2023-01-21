@@ -322,3 +322,10 @@ ChargeUncertaintySet(ConstHandle2Charge This, ConstHandle2ConstUncertainty uncer
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Charge/src/custom.cpp"

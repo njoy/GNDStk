@@ -241,8 +241,10 @@ QUncertaintySet(ConstHandle2Q This, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/Q/src/custom.h"
 
 #undef extern_c
 #endif

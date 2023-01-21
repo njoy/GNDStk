@@ -16,22 +16,27 @@ namespace resonances {
 // class SpinGroups
 // -----------------------------------------------------------------------------
 
-class SpinGroups : public Component<resonances::SpinGroups> {
+class SpinGroups :
+   public Component<resonances::SpinGroups>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "SpinGroups"; }
    static auto FIELD() { return "spinGroups"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<resonances::SpinGroup>("spinGroup")
       ;
@@ -39,6 +44,9 @@ class SpinGroups : public Component<resonances::SpinGroups> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<resonances::SpinGroup>> spinGroup{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->spinGroup)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit SpinGroups(
       const wrapper<std::vector<resonances::SpinGroup>> &spinGroup
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    SpinGroups(const SpinGroups &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       spinGroup(this,other.spinGroup)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    SpinGroups(SpinGroups &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       spinGroup(this,std::move(other.spinGroup))
    {
       Component::finish(other);

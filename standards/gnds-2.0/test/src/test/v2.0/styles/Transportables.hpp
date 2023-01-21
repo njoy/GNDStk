@@ -16,25 +16,31 @@ namespace styles {
 // class Transportables
 // -----------------------------------------------------------------------------
 
-class Transportables : public Component<styles::Transportables> {
+class Transportables :
+   public Component<styles::Transportables>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Transportables"; }
    static auto FIELD() { return "transportables"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          ++Child<styles::Transportable>("transportable")
       ;
@@ -42,6 +48,9 @@ class Transportables : public Component<styles::Transportables> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -54,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->transportable)
 
@@ -64,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Transportables(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::vector<styles::Transportable>> &transportable = {}
@@ -86,6 +96,7 @@ public:
    // copy
    Transportables(const Transportables &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       transportable(this,other.transportable)
    {
@@ -95,6 +106,7 @@ public:
    // move
    Transportables(Transportables &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       transportable(this,std::move(other.transportable))
    {

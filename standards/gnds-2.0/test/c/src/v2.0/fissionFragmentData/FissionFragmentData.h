@@ -200,8 +200,10 @@ FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData This, ConstH
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/FissionFragmentData/src/custom.h"
 
 #undef extern_c
 #endif

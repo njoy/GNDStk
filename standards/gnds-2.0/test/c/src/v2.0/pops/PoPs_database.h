@@ -380,8 +380,10 @@ PoPs_databaseUnorthodoxesSet(ConstHandle2PoPs_database This, ConstHandle2ConstUn
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/PoPs_database/src/custom.h"
 
 #undef extern_c
 #endif

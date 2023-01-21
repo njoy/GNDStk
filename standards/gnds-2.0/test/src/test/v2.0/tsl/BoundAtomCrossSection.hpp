@@ -16,22 +16,27 @@ namespace tsl {
 // class BoundAtomCrossSection
 // -----------------------------------------------------------------------------
 
-class BoundAtomCrossSection : public Component<tsl::BoundAtomCrossSection> {
+class BoundAtomCrossSection :
+   public Component<tsl::BoundAtomCrossSection>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "BoundAtomCrossSection"; }
    static auto FIELD() { return "boundAtomCrossSection"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("unit") |
@@ -43,6 +48,9 @@ class BoundAtomCrossSection : public Component<tsl::BoundAtomCrossSection> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> unit{this};
    Field<Float64> value{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->unit, \
       this->value)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit BoundAtomCrossSection(
       const wrapper<XMLName> &unit,
       const wrapper<Float64> &value = {}
@@ -84,6 +93,7 @@ public:
    // copy
    BoundAtomCrossSection(const BoundAtomCrossSection &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       unit(this,other.unit),
       value(this,other.value)
    {
@@ -93,6 +103,7 @@ public:
    // move
    BoundAtomCrossSection(BoundAtomCrossSection &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       unit(this,std::move(other.unit)),
       value(this,std::move(other.value))
    {

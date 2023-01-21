@@ -260,8 +260,10 @@ ReactionOutputChannelSet(ConstHandle2Reaction This, ConstHandle2ConstOutputChann
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Reaction/src/custom.h"
 
 #undef extern_c
 #endif

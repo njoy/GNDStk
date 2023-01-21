@@ -285,3 +285,10 @@ JWidthsSet(ConstHandle2J This, ConstHandle2ConstWidths widths)
    detail::setField<CPP,CPPWidths>
       (CLASSNAME, CLASSNAME+"WidthsSet", This, extract::widths, widths);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/J/src/custom.cpp"

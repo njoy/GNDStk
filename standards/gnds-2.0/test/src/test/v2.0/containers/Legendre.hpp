@@ -16,22 +16,27 @@ namespace containers {
 // class Legendre
 // -----------------------------------------------------------------------------
 
-class Legendre : public Component<containers::Legendre> {
+class Legendre :
+   public Component<containers::Legendre>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Legendre"; }
    static auto FIELD() { return "Legendre"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -43,6 +48,7 @@ class Legendre : public Component<containers::Legendre> {
             / Meta<>("domainMin") |
          Defaulted<Float64>{1.0}
             / Meta<>("domainMax") |
+
          // children
          --Child<containers::Values>("values")
       ;
@@ -57,6 +63,9 @@ public:
       static inline const Float64 domainMin = -1.0;
       static inline const Float64 domainMax = 1.0;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -73,6 +82,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->lowerIndex, \
@@ -87,8 +97,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Legendre(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
@@ -118,6 +128,7 @@ public:
    // copy
    Legendre(const Legendre &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       outerDomainValue(this,other.outerDomainValue),
       lowerIndex(this,other.lowerIndex),
@@ -131,6 +142,7 @@ public:
    // move
    Legendre(Legendre &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
       lowerIndex(this,std::move(other.lowerIndex)),

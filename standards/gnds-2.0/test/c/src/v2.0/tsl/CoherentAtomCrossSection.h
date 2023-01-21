@@ -168,8 +168,10 @@ CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection This, cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/CoherentAtomCrossSection/src/custom.h"
 
 #undef extern_c
 #endif

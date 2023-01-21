@@ -20,22 +20,27 @@ namespace extra {
 // class Uncertainty
 // -----------------------------------------------------------------------------
 
-class Uncertainty : public Component<extra::Uncertainty> {
+class Uncertainty :
+   public Component<extra::Uncertainty>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "extra"; }
    static auto CLASS() { return "Uncertainty"; }
    static auto FIELD() { return "uncertainty"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::Standard>>("standard") |
          --Child<std::optional<containers::LogNormal>>("logNormal") |
@@ -47,6 +52,9 @@ class Uncertainty : public Component<extra::Uncertainty> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::Standard>> standard{this};
@@ -60,6 +68,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->standard, \
       this->logNormal, \
       this->confidenceIntervals, \
@@ -73,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Uncertainty(
       const wrapper<std::optional<containers::Standard>> &standard,
       const wrapper<std::optional<containers::LogNormal>> &logNormal = {},
@@ -101,6 +110,7 @@ public:
    // copy
    Uncertainty(const Uncertainty &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       standard(this,other.standard),
       logNormal(this,other.logNormal),
       confidenceIntervals(this,other.confidenceIntervals),
@@ -113,6 +123,7 @@ public:
    // move
    Uncertainty(Uncertainty &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       standard(this,std::move(other.standard)),
       logNormal(this,std::move(other.logNormal)),
       confidenceIntervals(this,std::move(other.confidenceIntervals)),

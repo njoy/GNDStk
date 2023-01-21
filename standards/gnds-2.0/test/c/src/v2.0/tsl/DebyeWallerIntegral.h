@@ -152,8 +152,10 @@ DebyeWallerIntegralXYs1dSet(ConstHandle2DebyeWallerIntegral This, ConstHandle2Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/DebyeWallerIntegral/src/custom.h"
 
 #undef extern_c
 #endif

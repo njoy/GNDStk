@@ -17,22 +17,27 @@ namespace styles {
 // class CrossSectionReconstructed
 // -----------------------------------------------------------------------------
 
-class CrossSectionReconstructed : public Component<styles::CrossSectionReconstructed> {
+class CrossSectionReconstructed :
+   public Component<styles::CrossSectionReconstructed>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "CrossSectionReconstructed"; }
    static auto FIELD() { return "crossSectionReconstructed"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("date") |
@@ -40,6 +45,7 @@ class CrossSectionReconstructed : public Component<styles::CrossSectionReconstru
             / Meta<>("label") |
          std::optional<XMLName>{}
             / Meta<>("derivedFrom") |
+
          // children
          --Child<std::optional<styles::Temperature>>("temperature") |
          --Child<std::optional<documentation::Documentation>>("documentation")
@@ -48,6 +54,9 @@ class CrossSectionReconstructed : public Component<styles::CrossSectionReconstru
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> date{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date, \
       this->label, \
       this->derivedFrom, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CrossSectionReconstructed(
       const wrapper<std::string> &date,
       const wrapper<XMLName> &label = {},
@@ -104,6 +114,7 @@ public:
    // copy
    CrossSectionReconstructed(const CrossSectionReconstructed &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date),
       label(this,other.label),
       derivedFrom(this,other.derivedFrom),
@@ -116,6 +127,7 @@ public:
    // move
    CrossSectionReconstructed(CrossSectionReconstructed &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date)),
       label(this,std::move(other.label)),
       derivedFrom(this,std::move(other.derivedFrom)),

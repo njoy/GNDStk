@@ -50,7 +50,7 @@ void wrapCovarianceSuite(python::module &module)
          python::arg("projectile") = std::nullopt,
          python::arg("target") = std::nullopt,
          python::arg("interaction"),
-         python::arg("version") = std::nullopt,
+         python::arg("format") = std::nullopt,
          python::arg("external_files") = std::nullopt,
          python::arg("styles") = std::nullopt,
          python::arg("covariance_sections") = std::nullopt,
@@ -78,9 +78,9 @@ void wrapCovarianceSuite(python::module &module)
          Component::documentation("interaction").data()
       )
       .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
+         "format",
+         [](const Component &self) { return self.format(); },
+         Component::documentation("format").data()
       )
       .def_property_readonly(
          "external_files",

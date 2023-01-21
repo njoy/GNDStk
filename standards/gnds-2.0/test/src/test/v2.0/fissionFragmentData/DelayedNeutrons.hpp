@@ -16,22 +16,27 @@ namespace fissionFragmentData {
 // class DelayedNeutrons
 // -----------------------------------------------------------------------------
 
-class DelayedNeutrons : public Component<fissionFragmentData::DelayedNeutrons> {
+class DelayedNeutrons :
+   public Component<fissionFragmentData::DelayedNeutrons>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionFragmentData"; }
    static auto CLASS() { return "DelayedNeutrons"; }
    static auto FIELD() { return "delayedNeutrons"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<fissionFragmentData::DelayedNeutron>("delayedNeutron")
       ;
@@ -39,6 +44,9 @@ class DelayedNeutrons : public Component<fissionFragmentData::DelayedNeutrons> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<fissionFragmentData::DelayedNeutron>> delayedNeutron{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->delayedNeutron)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DelayedNeutrons(
       const wrapper<std::vector<fissionFragmentData::DelayedNeutron>> &delayedNeutron
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    DelayedNeutrons(const DelayedNeutrons &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       delayedNeutron(this,other.delayedNeutron)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    DelayedNeutrons(DelayedNeutrons &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       delayedNeutron(this,std::move(other.delayedNeutron))
    {
       Component::finish(other);

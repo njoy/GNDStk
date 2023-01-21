@@ -250,3 +250,10 @@ Gridded2dAxesSet(ConstHandle2Gridded2d This, ConstHandle2ConstAxes axes)
    detail::setField<CPP,CPPAxes>
       (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Gridded2d/src/custom.cpp"

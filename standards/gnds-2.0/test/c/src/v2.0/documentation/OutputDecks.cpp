@@ -383,3 +383,10 @@ OutputDecksOutputDeckSetByFilename(
       (CLASSNAME, CLASSNAME+"OutputDeckSetByFilename",
        This, extract::outputDeck, meta::filename, filename, outputDeck);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/OutputDecks/src/custom.cpp"

@@ -304,8 +304,10 @@ EnergyIntervalsEnergyIntervalSetByDomainUnit(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/EnergyIntervals/src/custom.h"
 
 #undef extern_c
 #endif

@@ -168,8 +168,10 @@ UValueSet(ConstHandle2U This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/U/src/custom.h"
 
 #undef extern_c
 #endif

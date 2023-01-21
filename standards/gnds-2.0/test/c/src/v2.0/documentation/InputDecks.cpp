@@ -383,3 +383,10 @@ InputDecksInputDeckSetByFilename(
       (CLASSNAME, CLASSNAME+"InputDeckSetByFilename",
        This, extract::inputDeck, meta::filename, filename, inputDeck);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/InputDecks/src/custom.cpp"

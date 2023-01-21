@@ -23,22 +23,27 @@ namespace tsl {
 // class ScatteringAtom
 // -----------------------------------------------------------------------------
 
-class ScatteringAtom : public Component<tsl::ScatteringAtom> {
+class ScatteringAtom :
+   public Component<tsl::ScatteringAtom>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ScatteringAtom"; }
    static auto FIELD() { return "scatteringAtom"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("pid") |
@@ -46,6 +51,7 @@ class ScatteringAtom : public Component<tsl::ScatteringAtom> {
             / Meta<>("primaryScatterer") |
          Integer32{}
             / Meta<>("numberPerMolecule") |
+
          // children
          --Child<tsl::Mass>("mass") |
          --Child<std::optional<tsl::E_critical>>("e_critical") |
@@ -60,6 +66,9 @@ class ScatteringAtom : public Component<tsl::ScatteringAtom> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> pid{this};
@@ -81,6 +90,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->pid, \
       this->primaryScatterer, \
       this->numberPerMolecule, \
@@ -100,7 +110,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ScatteringAtom(
       const wrapper<XMLName> &pid,
       const wrapper<bool> &primaryScatterer = {},
@@ -140,6 +150,7 @@ public:
    // copy
    ScatteringAtom(const ScatteringAtom &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       pid(this,other.pid),
       primaryScatterer(this,other.primaryScatterer),
       numberPerMolecule(this,other.numberPerMolecule),
@@ -158,6 +169,7 @@ public:
    // move
    ScatteringAtom(ScatteringAtom &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       pid(this,std::move(other.pid)),
       primaryScatterer(this,std::move(other.primaryScatterer)),
       numberPerMolecule(this,std::move(other.numberPerMolecule)),

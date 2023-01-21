@@ -168,8 +168,10 @@ ConversionHrefSet(ConstHandle2Conversion This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/appData/Conversion/src/custom.h"
 
 #undef extern_c
 #endif

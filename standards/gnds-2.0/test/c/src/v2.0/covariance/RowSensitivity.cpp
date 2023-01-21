@@ -172,3 +172,10 @@ RowSensitivityArraySet(ConstHandle2RowSensitivity This, ConstHandle2ConstArray a
    detail::setField<CPP,CPPArray>
       (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/RowSensitivity/src/custom.cpp"

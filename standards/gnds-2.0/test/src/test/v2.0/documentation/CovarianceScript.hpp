@@ -16,22 +16,27 @@ namespace documentation {
 // class CovarianceScript
 // -----------------------------------------------------------------------------
 
-class CovarianceScript : public Component<documentation::CovarianceScript,true> {
+class CovarianceScript :
+   public Component<documentation::CovarianceScript,true>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "CovarianceScript"; }
    static auto FIELD() { return "covarianceScript"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<XMLName>{"ascii"}
             / Meta<>("encoding") |
@@ -52,6 +57,9 @@ public:
       static inline const std::string markup = "enums::GridStyle::none";
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<XMLName>> encoding{this,defaults.encoding};
    Field<Defaulted<std::string>> markup{this,defaults.markup};
@@ -62,6 +70,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->encoding, \
       this->markup, \
       this->label)
@@ -73,8 +82,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit CovarianceScript(
       const wrapper<std::optional<XMLName>> &encoding,
       const wrapper<std::optional<std::string>> &markup = {},
@@ -106,6 +115,7 @@ public:
    // copy
    CovarianceScript(const CovarianceScript &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       encoding(this,other.encoding),
       markup(this,other.markup),
       label(this,other.label)
@@ -116,6 +126,7 @@ public:
    // move
    CovarianceScript(CovarianceScript &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       encoding(this,std::move(other.encoding)),
       markup(this,std::move(other.markup)),
       label(this,std::move(other.label))

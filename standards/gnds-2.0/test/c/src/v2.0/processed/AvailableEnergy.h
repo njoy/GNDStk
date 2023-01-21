@@ -176,8 +176,10 @@ AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstG
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AvailableEnergy/src/custom.h"
 
 #undef extern_c
 #endif

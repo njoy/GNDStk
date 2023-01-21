@@ -304,8 +304,10 @@ ResonanceReactionLinkSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstLi
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceReaction/src/custom.h"
 
 #undef extern_c
 #endif

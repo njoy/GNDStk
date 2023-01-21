@@ -16,32 +16,41 @@ namespace transport {
 // class Forward
 // -----------------------------------------------------------------------------
 
-class Forward : public Component<transport::Forward> {
+class Forward :
+   public Component<transport::Forward>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Forward"; }
    static auto FIELD() { return "forward"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
-      return std::tuple<>{};
+      return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{}
+      ;
    }
 
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata)
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment)
 
    // default
    Forward() :
@@ -59,14 +68,16 @@ public:
 
    // copy
    Forward(const Forward &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment)
    {
       Component::finish(other);
    }
 
    // move
    Forward(Forward &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment))
    {
       Component::finish(other);
    }

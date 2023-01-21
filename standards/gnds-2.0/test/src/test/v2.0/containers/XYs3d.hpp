@@ -18,27 +18,33 @@ namespace containers {
 // class XYs3d
 // -----------------------------------------------------------------------------
 
-class XYs3d : public Component<containers::XYs3d> {
+class XYs3d :
+   public Component<containers::XYs3d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs3d"; }
    static auto FIELD() { return "XYs3d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<XMLName>{}
             / Meta<>("interpolationQualifier") |
+
          // children
          --Child<std::optional<containers::Axes>>("axes") |
          --Child<containers::Function2ds>("function2ds") |
@@ -54,6 +60,9 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
    Field<std::optional<XMLName>> interpolationQualifier{this};
@@ -68,6 +77,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->interpolation, \
       this->interpolationQualifier, \
       this->axes, \
@@ -81,8 +91,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit XYs3d(
       const wrapper<std::optional<enums::Interpolation>> &interpolation,
       const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
@@ -110,6 +120,7 @@ public:
    // copy
    XYs3d(const XYs3d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       interpolation(this,other.interpolation),
       interpolationQualifier(this,other.interpolationQualifier),
       axes(this,other.axes),
@@ -122,6 +133,7 @@ public:
    // move
    XYs3d(XYs3d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       interpolation(this,std::move(other.interpolation)),
       interpolationQualifier(this,std::move(other.interpolationQualifier)),
       axes(this,std::move(other.axes)),

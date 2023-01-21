@@ -84,7 +84,7 @@ TabulatedWidthsCreateConst(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -97,7 +97,7 @@ TabulatedWidthsCreate(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -203,7 +203,7 @@ TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, cons
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -220,7 +220,7 @@ TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths This);
 
 // +++ Set
 extern_c void
-TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs);
+TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -308,8 +308,10 @@ TabulatedWidthsLsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstLs Ls);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/TabulatedWidths/src/custom.h"
 
 #undef extern_c
 #endif

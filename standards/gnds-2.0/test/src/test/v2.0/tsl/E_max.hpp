@@ -16,22 +16,27 @@ namespace tsl {
 // class E_max
 // -----------------------------------------------------------------------------
 
-class E_max : public Component<tsl::E_max> {
+class E_max :
+   public Component<tsl::E_max>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "E_max"; }
    static auto FIELD() { return "e_max"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("unit") |
@@ -43,6 +48,9 @@ class E_max : public Component<tsl::E_max> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> unit{this};
    Field<std::optional<Float64>> value{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->unit, \
       this->value)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit E_max(
       const wrapper<std::optional<XMLName>> &unit,
       const wrapper<std::optional<Float64>> &value = {}
@@ -84,6 +93,7 @@ public:
    // copy
    E_max(const E_max &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       unit(this,other.unit),
       value(this,other.value)
    {
@@ -93,6 +103,7 @@ public:
    // move
    E_max(E_max &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       unit(this,std::move(other.unit)),
       value(this,std::move(other.value))
    {

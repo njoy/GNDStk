@@ -17,22 +17,27 @@ namespace covariance {
 // class ParameterCovariances
 // -----------------------------------------------------------------------------
 
-class ParameterCovariances : public Component<covariance::ParameterCovariances> {
+class ParameterCovariances :
+   public Component<covariance::ParameterCovariances>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovariances"; }
    static auto FIELD() { return "parameterCovariances"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<covariance::AverageParameterCovariance>>("averageParameterCovariance") |
          ++Child<std::optional<covariance::ParameterCovariance>>("parameterCovariance")
@@ -41,6 +46,9 @@ class ParameterCovariances : public Component<covariance::ParameterCovariances> 
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<covariance::AverageParameterCovariance>>> averageParameterCovariance{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->averageParameterCovariance, \
       this->parameterCovariance)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ParameterCovariances(
       const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>> &averageParameterCovariance,
       const wrapper<std::optional<std::vector<covariance::ParameterCovariance>>> &parameterCovariance = {}
@@ -83,6 +92,7 @@ public:
    // copy
    ParameterCovariances(const ParameterCovariances &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       averageParameterCovariance(this,other.averageParameterCovariance),
       parameterCovariance(this,other.parameterCovariance)
    {
@@ -92,6 +102,7 @@ public:
    // move
    ParameterCovariances(ParameterCovariances &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       averageParameterCovariance(this,std::move(other.averageParameterCovariance)),
       parameterCovariance(this,std::move(other.parameterCovariance))
    {

@@ -320,3 +320,10 @@ CrossSectionReconstructedDocumentationSet(ConstHandle2CrossSectionReconstructed 
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/CrossSectionReconstructed/src/custom.cpp"

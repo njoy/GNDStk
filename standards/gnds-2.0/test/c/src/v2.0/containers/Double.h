@@ -212,8 +212,10 @@ DoubleUncertaintySet(ConstHandle2Double This, ConstHandle2ConstUncertainty uncer
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Double/src/custom.h"
 
 #undef extern_c
 #endif

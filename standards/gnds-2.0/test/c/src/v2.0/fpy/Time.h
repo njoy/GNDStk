@@ -130,8 +130,10 @@ TimePrintJSON(ConstHandle2ConstTime This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Time/src/custom.h"
 
 #undef extern_c
 #endif

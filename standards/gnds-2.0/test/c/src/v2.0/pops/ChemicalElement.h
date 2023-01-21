@@ -236,8 +236,10 @@ ChemicalElementIsotopesSet(ConstHandle2ChemicalElement This, ConstHandle2ConstIs
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/ChemicalElement/src/custom.h"
 
 #undef extern_c
 #endif

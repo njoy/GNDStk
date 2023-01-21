@@ -285,3 +285,10 @@ OrphanProductOutputChannelSet(ConstHandle2OrphanProduct This, ConstHandle2ConstO
    detail::setField<CPP,CPPOutputChannel>
       (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OrphanProduct/src/custom.cpp"

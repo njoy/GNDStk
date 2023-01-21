@@ -16,22 +16,27 @@ namespace pops {
 // class Isotopes
 // -----------------------------------------------------------------------------
 
-class Isotopes : public Component<pops::Isotopes> {
+class Isotopes :
+   public Component<pops::Isotopes>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Isotopes"; }
    static auto FIELD() { return "isotopes"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::Isotope>("isotope")
       ;
@@ -39,6 +44,9 @@ class Isotopes : public Component<pops::Isotopes> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::Isotope>> isotope{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->isotope)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Isotopes(
       const wrapper<std::vector<pops::Isotope>> &isotope
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Isotopes(const Isotopes &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       isotope(this,other.isotope)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Isotopes(Isotopes &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       isotope(this,std::move(other.isotope))
    {
       Component::finish(other);

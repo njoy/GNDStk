@@ -256,8 +256,10 @@ XYs1dValuesSet(ConstHandle2XYs1d This, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/XYs1d/src/custom.h"
 
 #undef extern_c
 #endif

@@ -373,3 +373,10 @@ ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorit
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/map/Protare/src/custom.cpp"

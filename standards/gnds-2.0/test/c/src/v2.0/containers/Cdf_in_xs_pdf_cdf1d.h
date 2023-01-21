@@ -152,8 +152,10 @@ Cdf_in_xs_pdf_cdf1dValuesSet(ConstHandle2Cdf_in_xs_pdf_cdf1d This, ConstHandle2C
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Cdf_in_xs_pdf_cdf1d/src/custom.h"
 
 #undef extern_c
 #endif

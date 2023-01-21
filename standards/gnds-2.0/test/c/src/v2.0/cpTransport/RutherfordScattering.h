@@ -126,8 +126,10 @@ RutherfordScatteringPrintJSON(ConstHandle2ConstRutherfordScattering This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/RutherfordScattering/src/custom.h"
 
 #undef extern_c
 #endif

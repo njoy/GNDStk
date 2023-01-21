@@ -168,8 +168,10 @@ AffiliationHrefSet(ConstHandle2Affiliation This, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Affiliation/src/custom.h"
 
 #undef extern_c
 #endif

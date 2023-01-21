@@ -163,3 +163,10 @@ AddHrefSet(ConstHandle2Add This, const char *const href)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Add/src/custom.cpp"

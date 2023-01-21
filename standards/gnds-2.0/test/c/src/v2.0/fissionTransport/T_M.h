@@ -152,8 +152,10 @@ T_MXYs1dSet(ConstHandle2T_M This, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/T_M/src/custom.h"
 
 #undef extern_c
 #endif

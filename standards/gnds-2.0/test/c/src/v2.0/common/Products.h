@@ -226,8 +226,10 @@ ProductsProductSetByPid(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/Products/src/custom.h"
 
 #undef extern_c
 #endif

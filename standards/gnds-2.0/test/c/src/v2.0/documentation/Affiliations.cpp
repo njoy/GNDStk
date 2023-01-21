@@ -293,3 +293,10 @@ AffiliationsAffiliationSetByHref(
       (CLASSNAME, CLASSNAME+"AffiliationSetByHref",
        This, extract::affiliation, meta::href, href, affiliation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Affiliations/src/custom.cpp"

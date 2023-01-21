@@ -373,3 +373,10 @@ ExternalRMatrixDoubleSetByValue(
       (CLASSNAME, CLASSNAME+"DoubleSetByValue",
        This, extract::Double, meta::value, value, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ExternalRMatrix/src/custom.cpp"

@@ -16,22 +16,27 @@ namespace tsl {
 // class GaussianApproximation
 // -----------------------------------------------------------------------------
 
-class GaussianApproximation : public Component<tsl::GaussianApproximation> {
+class GaussianApproximation :
+   public Component<tsl::GaussianApproximation>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "GaussianApproximation"; }
    static auto FIELD() { return "GaussianApproximation"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<tsl::PhononSpectrum>>("phononSpectrum")
       ;
@@ -39,6 +44,9 @@ class GaussianApproximation : public Component<tsl::GaussianApproximation> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<tsl::PhononSpectrum>> phononSpectrum{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->phononSpectrum)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit GaussianApproximation(
       const wrapper<std::optional<tsl::PhononSpectrum>> &phononSpectrum
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    GaussianApproximation(const GaussianApproximation &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       phononSpectrum(this,other.phononSpectrum)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    GaussianApproximation(GaussianApproximation &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       phononSpectrum(this,std::move(other.phononSpectrum))
    {
       Component::finish(other);

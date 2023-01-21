@@ -236,8 +236,10 @@ IntensityUncertaintySet(ConstHandle2Intensity This, ConstHandle2ConstUncertainty
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Intensity/src/custom.h"
 
 #undef extern_c
 #endif

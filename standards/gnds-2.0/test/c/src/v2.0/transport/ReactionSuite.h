@@ -95,7 +95,7 @@ ReactionSuiteCreateConst(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -117,7 +117,7 @@ ReactionSuiteCreate(
    const enums::Interaction interaction,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonances resonances,
    ConstHandle2ConstReactions reactions,
    ConstHandle2ConstOrphanProducts orphanProducts,
@@ -323,7 +323,7 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -340,7 +340,7 @@ ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This);
 
 // +++ Set
 extern_c void
-ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs);
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -512,8 +512,10 @@ ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ReactionSuite/src/custom.h"
 
 #undef extern_c
 #endif

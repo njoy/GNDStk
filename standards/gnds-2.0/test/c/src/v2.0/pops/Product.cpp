@@ -198,3 +198,10 @@ ProductPidSet(ConstHandle2Product This, const XMLName pid)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Product/src/custom.cpp"

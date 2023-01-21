@@ -285,3 +285,10 @@ ParameterCovarianceMatrixArraySet(ConstHandle2ParameterCovarianceMatrix This, Co
    detail::setField<CPP,CPPArray>
       (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterCovarianceMatrix/src/custom.cpp"

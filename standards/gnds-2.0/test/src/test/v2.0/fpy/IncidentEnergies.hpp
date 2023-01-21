@@ -16,22 +16,27 @@ namespace fpy {
 // class IncidentEnergies
 // -----------------------------------------------------------------------------
 
-class IncidentEnergies : public Component<fpy::IncidentEnergies> {
+class IncidentEnergies :
+   public Component<fpy::IncidentEnergies>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "IncidentEnergies"; }
    static auto FIELD() { return "incidentEnergies"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<fpy::IncidentEnergy>("incidentEnergy")
       ;
@@ -39,6 +44,9 @@ class IncidentEnergies : public Component<fpy::IncidentEnergies> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<fpy::IncidentEnergy>> incidentEnergy{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->incidentEnergy)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit IncidentEnergies(
       const wrapper<std::vector<fpy::IncidentEnergy>> &incidentEnergy
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    IncidentEnergies(const IncidentEnergies &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       incidentEnergy(this,other.incidentEnergy)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    IncidentEnergies(IncidentEnergies &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       incidentEnergy(this,std::move(other.incidentEnergy))
    {
       Component::finish(other);

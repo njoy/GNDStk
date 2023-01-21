@@ -16,32 +16,41 @@ namespace fissionTransport {
 // class B
 // -----------------------------------------------------------------------------
 
-class B : public Component<fissionTransport::B> {
+class B :
+   public Component<fissionTransport::B>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "B"; }
    static auto FIELD() { return "b"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
-      return std::tuple<>{};
+      return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{}
+      ;
    }
 
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata)
+   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment)
 
    // default
    B() :
@@ -59,14 +68,16 @@ public:
 
    // copy
    B(const B &other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment)
    {
       Component::finish(other);
    }
 
    // move
    B(B &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData())
+      GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment))
    {
       Component::finish(other);
    }

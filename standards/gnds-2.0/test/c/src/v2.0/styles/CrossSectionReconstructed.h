@@ -236,8 +236,10 @@ CrossSectionReconstructedDocumentationSet(ConstHandle2CrossSectionReconstructed 
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/CrossSectionReconstructed/src/custom.h"
 
 #undef extern_c
 #endif

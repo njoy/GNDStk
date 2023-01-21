@@ -338,3 +338,10 @@ AverageEnergiesAverageEnergySetByUnit(
       (CLASSNAME, CLASSNAME+"AverageEnergySetByUnit",
        This, extract::averageEnergy, meta::unit, unit, averageEnergy);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/AverageEnergies/src/custom.cpp"

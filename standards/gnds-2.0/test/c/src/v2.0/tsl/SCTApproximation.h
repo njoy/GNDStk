@@ -126,8 +126,10 @@ SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/SCTApproximation/src/custom.h"
 
 #undef extern_c
 #endif

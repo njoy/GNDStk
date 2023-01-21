@@ -441,3 +441,10 @@ ResonanceReactionLinkSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstLi
    detail::setField<CPP,CPPLink>
       (CLASSNAME, CLASSNAME+"LinkSet", This, extract::link, link);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceReaction/src/custom.cpp"

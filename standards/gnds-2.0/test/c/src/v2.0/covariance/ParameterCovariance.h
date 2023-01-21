@@ -270,8 +270,10 @@ ParameterCovarianceParameterCovarianceMatrixSetByType(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterCovariance/src/custom.h"
 
 #undef extern_c
 #endif

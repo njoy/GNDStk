@@ -320,3 +320,10 @@ AverageEnergyUncertaintySet(ConstHandle2AverageEnergy This, ConstHandle2ConstUnc
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/AverageEnergy/src/custom.cpp"

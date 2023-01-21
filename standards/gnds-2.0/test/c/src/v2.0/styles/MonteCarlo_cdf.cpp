@@ -277,3 +277,10 @@ MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf This, ConstHandle2Cons
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MonteCarlo_cdf/src/custom.cpp"

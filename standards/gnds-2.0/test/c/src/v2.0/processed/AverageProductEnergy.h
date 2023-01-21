@@ -200,8 +200,10 @@ AverageProductEnergyRegions1dSet(ConstHandle2AverageProductEnergy This, ConstHan
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AverageProductEnergy/src/custom.h"
 
 #undef extern_c
 #endif

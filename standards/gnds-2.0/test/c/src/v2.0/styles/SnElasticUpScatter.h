@@ -232,8 +232,10 @@ SnElasticUpScatterDocumentationSet(ConstHandle2SnElasticUpScatter This, ConstHan
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/SnElasticUpScatter/src/custom.h"
 
 #undef extern_c
 #endif

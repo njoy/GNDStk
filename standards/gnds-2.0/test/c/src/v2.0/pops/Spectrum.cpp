@@ -361,3 +361,10 @@ SpectrumDiscreteSetByType(
       (CLASSNAME, CLASSNAME+"DiscreteSetByType",
        This, extract::discrete, meta::type, type, discrete);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Spectrum/src/custom.cpp"

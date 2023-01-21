@@ -16,22 +16,27 @@ namespace containers {
 // class ConfidenceIntervals
 // -----------------------------------------------------------------------------
 
-class ConfidenceIntervals : public Component<containers::ConfidenceIntervals> {
+class ConfidenceIntervals :
+   public Component<containers::ConfidenceIntervals>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "ConfidenceIntervals"; }
    static auto FIELD() { return "confidenceIntervals"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<containers::Interval>("interval")
       ;
@@ -39,6 +44,9 @@ class ConfidenceIntervals : public Component<containers::ConfidenceIntervals> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<containers::Interval>> interval{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->interval)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ConfidenceIntervals(
       const wrapper<std::vector<containers::Interval>> &interval
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ConfidenceIntervals(const ConfidenceIntervals &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       interval(this,other.interval)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ConfidenceIntervals(ConfidenceIntervals &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       interval(this,std::move(other.interval))
    {
       Component::finish(other);

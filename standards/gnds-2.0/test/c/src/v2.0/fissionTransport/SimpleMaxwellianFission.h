@@ -176,8 +176,10 @@ SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission This, ConstH
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/SimpleMaxwellianFission/src/custom.h"
 
 #undef extern_c
 #endif

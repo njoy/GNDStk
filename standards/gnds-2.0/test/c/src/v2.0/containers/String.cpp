@@ -233,3 +233,10 @@ StringValueSet(ConstHandle2String This, const XMLName value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/String/src/custom.cpp"

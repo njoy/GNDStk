@@ -219,8 +219,10 @@ CovarianceSectionColumnDataSet(ConstHandle2CovarianceSection This, ConstHandle2C
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSection/src/custom.h"
 
 #undef extern_c
 #endif

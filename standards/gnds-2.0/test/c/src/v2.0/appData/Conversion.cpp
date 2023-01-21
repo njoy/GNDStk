@@ -198,3 +198,10 @@ ConversionHrefSet(ConstHandle2Conversion This, const char *const href)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/appData/Conversion/src/custom.cpp"

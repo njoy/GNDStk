@@ -17,27 +17,33 @@ namespace containers {
 // class Ys1d
 // -----------------------------------------------------------------------------
 
-class Ys1d : public Component<containers::Ys1d> {
+class Ys1d :
+   public Component<containers::Ys1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Ys1d"; }
    static auto FIELD() { return "Ys1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<containers::Axes>("axes") |
          --Child<containers::Values>("values")
@@ -52,6 +58,9 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
    Field<std::optional<XMLName>> label{this};
@@ -65,6 +74,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->interpolation, \
       this->label, \
       this->axes, \
@@ -77,8 +87,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Ys1d(
       const wrapper<std::optional<enums::Interpolation>> &interpolation,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -104,6 +114,7 @@ public:
    // copy
    Ys1d(const Ys1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       interpolation(this,other.interpolation),
       label(this,other.label),
       axes(this,other.axes),
@@ -115,6 +126,7 @@ public:
    // move
    Ys1d(Ys1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       interpolation(this,std::move(other.interpolation)),
       label(this,std::move(other.label)),
       axes(this,std::move(other.axes)),

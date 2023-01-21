@@ -293,3 +293,10 @@ WidthsWidthSetByDegreesOfFreedom(
       (CLASSNAME, CLASSNAME+"WidthSetByDegreesOfFreedom",
        This, extract::width, meta::degreesOfFreedom, degreesOfFreedom, width);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Widths/src/custom.cpp"

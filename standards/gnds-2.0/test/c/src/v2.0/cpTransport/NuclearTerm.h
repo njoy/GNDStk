@@ -176,8 +176,10 @@ NuclearTermRegions2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstRegions2d
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearTerm/src/custom.h"
 
 #undef extern_c
 #endif

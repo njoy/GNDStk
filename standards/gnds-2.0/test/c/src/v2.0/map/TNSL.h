@@ -308,8 +308,10 @@ TNSLStandardEvaluationSet(ConstHandle2TNSL This, const XMLName standardEvaluatio
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/map/TNSL/src/custom.h"
 
 #undef extern_c
 #endif

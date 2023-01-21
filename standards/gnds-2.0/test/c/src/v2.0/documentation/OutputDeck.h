@@ -349,8 +349,10 @@ OutputDeckFilenameSet(ConstHandle2OutputDeck This, const XMLName filename);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/OutputDeck/src/custom.h"
 
 #undef extern_c
 #endif

@@ -191,8 +191,10 @@ ResolvedDomainUnitSet(ConstHandle2Resolved This, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Resolved/src/custom.h"
 
 #undef extern_c
 #endif

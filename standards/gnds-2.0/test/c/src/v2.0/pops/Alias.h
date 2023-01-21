@@ -168,8 +168,10 @@ AliasPidSet(ConstHandle2Alias This, const XMLName pid);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Alias/src/custom.h"
 
 #undef extern_c
 #endif

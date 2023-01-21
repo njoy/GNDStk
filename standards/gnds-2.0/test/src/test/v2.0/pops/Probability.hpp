@@ -16,22 +16,27 @@ namespace pops {
 // class Probability
 // -----------------------------------------------------------------------------
 
-class Probability : public Component<pops::Probability> {
+class Probability :
+   public Component<pops::Probability>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Probability"; }
    static auto FIELD() { return "probability"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<containers::Double>("double")
       ;
@@ -39,6 +44,9 @@ class Probability : public Component<pops::Probability> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<containers::Double>> Double{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->Double)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Probability(
       const wrapper<std::vector<containers::Double>> &Double
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Probability(const Probability &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       Double(this,other.Double)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Probability(Probability &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       Double(this,std::move(other.Double))
    {
       Component::finish(other);

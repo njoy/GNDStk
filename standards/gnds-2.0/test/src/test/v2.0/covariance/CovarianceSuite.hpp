@@ -19,22 +19,27 @@ namespace covariance {
 // class CovarianceSuite
 // -----------------------------------------------------------------------------
 
-class CovarianceSuite : public Component<covariance::CovarianceSuite> {
+class CovarianceSuite :
+   public Component<covariance::CovarianceSuite>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceSuite"; }
    static auto FIELD() { return "covarianceSuite"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("evaluation") |
@@ -46,6 +51,7 @@ class CovarianceSuite : public Component<covariance::CovarianceSuite> {
             / Meta<>("interaction") |
          std::optional<Float64>{}
             / Meta<>("version") |
+
          // children
          --Child<std::optional<common::ExternalFiles>>("externalFiles") |
          --Child<std::optional<styles::Styles>>("styles") |
@@ -57,12 +63,15 @@ class CovarianceSuite : public Component<covariance::CovarianceSuite> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> evaluation{this};
    Field<std::optional<XMLName>> projectile{this};
    Field<std::optional<XMLName>> target{this};
    Field<enums::Interaction> interaction{this};
-   Field<std::optional<Float64>> version{this};
+   Field<std::optional<Float64>> format{this};
 
    // children
    Field<std::optional<common::ExternalFiles>> externalFiles{this};
@@ -75,11 +84,12 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->evaluation, \
       this->projectile, \
       this->target, \
       this->interaction, \
-      this->version, \
+      this->format, \
       this->externalFiles, \
       this->styles, \
       this->covarianceSections, \
@@ -92,13 +102,13 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CovarianceSuite(
       const wrapper<std::optional<XMLName>> &evaluation,
       const wrapper<std::optional<XMLName>> &projectile = {},
       const wrapper<std::optional<XMLName>> &target = {},
       const wrapper<enums::Interaction> &interaction = {},
-      const wrapper<std::optional<Float64>> &version = {},
+      const wrapper<std::optional<Float64>> &format = {},
       const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
       const wrapper<std::optional<styles::Styles>> &styles = {},
       const wrapper<std::optional<covariance::CovarianceSections>> &covarianceSections = {},
@@ -109,7 +119,7 @@ public:
       projectile(this,projectile),
       target(this,target),
       interaction(this,interaction),
-      version(this,version),
+      format(this,format),
       externalFiles(this,externalFiles),
       styles(this,styles),
       covarianceSections(this,covarianceSections),
@@ -128,11 +138,12 @@ public:
    // copy
    CovarianceSuite(const CovarianceSuite &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       evaluation(this,other.evaluation),
       projectile(this,other.projectile),
       target(this,other.target),
       interaction(this,other.interaction),
-      version(this,other.version),
+      format(this,other.format),
       externalFiles(this,other.externalFiles),
       styles(this,other.styles),
       covarianceSections(this,other.covarianceSections),
@@ -144,11 +155,12 @@ public:
    // move
    CovarianceSuite(CovarianceSuite &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       evaluation(this,std::move(other.evaluation)),
       projectile(this,std::move(other.projectile)),
       target(this,std::move(other.target)),
       interaction(this,std::move(other.interaction)),
-      version(this,std::move(other.version)),
+      format(this,std::move(other.format)),
       externalFiles(this,std::move(other.externalFiles)),
       styles(this,std::move(other.styles)),
       covarianceSections(this,std::move(other.covarianceSections)),

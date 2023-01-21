@@ -212,8 +212,10 @@ DecayProductsSet(ConstHandle2Decay This, ConstHandle2ConstProducts products);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Decay/src/custom.h"
 
 #undef extern_c
 #endif

@@ -418,3 +418,10 @@ EnergyIntervalsEnergyIntervalSetByDomainUnit(
       (CLASSNAME, CLASSNAME+"EnergyIntervalSetByDomainUnit",
        This, extract::energyInterval, meta::domainUnit, domainUnit, energyInterval);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/EnergyIntervals/src/custom.cpp"

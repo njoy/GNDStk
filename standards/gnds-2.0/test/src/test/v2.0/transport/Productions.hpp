@@ -16,22 +16,27 @@ namespace transport {
 // class Productions
 // -----------------------------------------------------------------------------
 
-class Productions : public Component<transport::Productions> {
+class Productions :
+   public Component<transport::Productions>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Productions"; }
    static auto FIELD() { return "productions"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<transport::Production>>("production")
       ;
@@ -39,6 +44,9 @@ class Productions : public Component<transport::Productions> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<transport::Production>> production{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->production)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Productions(
       const wrapper<std::optional<transport::Production>> &production
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Productions(const Productions &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       production(this,other.production)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Productions(Productions &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       production(this,std::move(other.production))
    {
       Component::finish(other);

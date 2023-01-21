@@ -152,8 +152,10 @@ RateDoubleSet(ConstHandle2Rate This, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/Rate/src/custom.h"
 
 #undef extern_c
 #endif

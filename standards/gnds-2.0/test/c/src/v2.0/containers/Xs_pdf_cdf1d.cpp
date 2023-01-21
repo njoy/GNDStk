@@ -15,9 +15,9 @@ static const std::string CLASSNAME = "Xs_pdf_cdf1d";
 
 namespace extract {
    static auto outerDomainValue = [](auto &obj) { return &obj.outerDomainValue; };
-   static auto xs = [](auto &obj) { return &obj.xs; };
+   static auto xs_in_xs_pdf_cdf1d = [](auto &obj) { return &obj.xs_in_xs_pdf_cdf1d; };
    static auto pdf = [](auto &obj) { return &obj.pdf; };
-   static auto cdf = [](auto &obj) { return &obj.cdf; };
+   static auto cdf_in_xs_pdf_cdf1d = [](auto &obj) { return &obj.cdf_in_xs_pdf_cdf1d; };
 }
 
 using CPPXs_in_xs_pdf_cdf1d = containers::Xs_in_xs_pdf_cdf1d;
@@ -50,16 +50,16 @@ Xs_pdf_cdf1dDefault()
 Handle2ConstXs_pdf_cdf1d
 Xs_pdf_cdf1dCreateConst(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d
 ) {
    ConstHandle2Xs_pdf_cdf1d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       outerDomainValue,
-      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs),
+      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs_in_xs_pdf_cdf1d),
       detail::tocpp<CPPPdf>(pdf),
-      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf)
+      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf_in_xs_pdf_cdf1d)
    );
    return handle;
 }
@@ -68,16 +68,16 @@ Xs_pdf_cdf1dCreateConst(
 Handle2Xs_pdf_cdf1d
 Xs_pdf_cdf1dCreate(
    const Float64 outerDomainValue,
-   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs,
+   ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d,
    ConstHandle2ConstPdf pdf,
-   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf
+   ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d
 ) {
    ConstHandle2Xs_pdf_cdf1d handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       outerDomainValue,
-      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs),
+      detail::tocpp<CPPXs_in_xs_pdf_cdf1d>(xs_in_xs_pdf_cdf1d),
       detail::tocpp<CPPPdf>(pdf),
-      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf)
+      detail::tocpp<CPPCdf_in_xs_pdf_cdf1d>(cdf_in_xs_pdf_cdf1d)
    );
    return handle;
 }
@@ -185,7 +185,7 @@ Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 out
 
 
 // -----------------------------------------------------------------------------
-// Child: xs
+// Child: xs_in_xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
 // Has
@@ -193,7 +193,7 @@ int
 Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dHas", This, extract::xs);
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dHas", This, extract::xs_in_xs_pdf_cdf1d);
 }
 
 // Get, const
@@ -201,7 +201,7 @@ Handle2ConstXs_in_xs_pdf_cdf1d
 Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::getField<CPP,Handle2ConstXs_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGetConst", This, extract::xs);
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGetConst", This, extract::xs_in_xs_pdf_cdf1d);
 }
 
 // Get, non-const
@@ -209,15 +209,15 @@ Handle2Xs_in_xs_pdf_cdf1d
 Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This)
 {
    return detail::getField<CPP,Handle2Xs_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGet", This, extract::xs);
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dGet", This, extract::xs_in_xs_pdf_cdf1d);
 }
 
 // Set
 void
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs)
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d)
 {
    detail::setField<CPP,CPPXs_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dSet", This, extract::xs, xs);
+      (CLASSNAME, CLASSNAME+"Xs_in_xs_pdf_cdf1dSet", This, extract::xs_in_xs_pdf_cdf1d, xs_in_xs_pdf_cdf1d);
 }
 
 
@@ -259,7 +259,7 @@ Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf)
 
 
 // -----------------------------------------------------------------------------
-// Child: cdf
+// Child: cdf_in_xs_pdf_cdf1d
 // -----------------------------------------------------------------------------
 
 // Has
@@ -267,7 +267,7 @@ int
 Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dHas", This, extract::cdf);
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dHas", This, extract::cdf_in_xs_pdf_cdf1d);
 }
 
 // Get, const
@@ -275,7 +275,7 @@ Handle2ConstCdf_in_xs_pdf_cdf1d
 Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This)
 {
    return detail::getField<CPP,Handle2ConstCdf_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGetConst", This, extract::cdf);
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGetConst", This, extract::cdf_in_xs_pdf_cdf1d);
 }
 
 // Get, non-const
@@ -283,13 +283,20 @@ Handle2Cdf_in_xs_pdf_cdf1d
 Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This)
 {
    return detail::getField<CPP,Handle2Cdf_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGet", This, extract::cdf);
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dGet", This, extract::cdf_in_xs_pdf_cdf1d);
 }
 
 // Set
 void
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf)
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d)
 {
    detail::setField<CPP,CPPCdf_in_xs_pdf_cdf1d>
-      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dSet", This, extract::cdf, cdf);
+      (CLASSNAME, CLASSNAME+"Cdf_in_xs_pdf_cdf1dSet", This, extract::cdf_in_xs_pdf_cdf1d, cdf_in_xs_pdf_cdf1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Xs_pdf_cdf1d/src/custom.cpp"

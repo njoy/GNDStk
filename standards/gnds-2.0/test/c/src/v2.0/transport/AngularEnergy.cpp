@@ -242,3 +242,10 @@ AngularEnergyXYs3dSet(ConstHandle2AngularEnergy This, ConstHandle2ConstXYs3d XYs
    detail::setField<CPP,CPPXYs3d>
       (CLASSNAME, CLASSNAME+"XYs3dSet", This, extract::XYs3d, XYs3d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/AngularEnergy/src/custom.cpp"

@@ -301,3 +301,10 @@ SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct This, ConstHandl
    detail::setField<CPP,CPPColumnSensitivity>
       (CLASSNAME, CLASSNAME+"ColumnSensitivitySet", This, extract::columnSensitivity, columnSensitivity);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/SandwichProduct/src/custom.cpp"

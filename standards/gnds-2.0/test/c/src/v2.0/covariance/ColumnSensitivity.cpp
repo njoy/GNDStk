@@ -172,3 +172,10 @@ ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity This, ConstHandle2ConstA
    detail::setField<CPP,CPPArray>
       (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ColumnSensitivity/src/custom.cpp"

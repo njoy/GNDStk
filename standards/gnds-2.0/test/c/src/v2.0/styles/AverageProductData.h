@@ -236,8 +236,10 @@ AverageProductDataDocumentationSet(ConstHandle2AverageProductData This, ConstHan
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/AverageProductData/src/custom.h"
 
 #undef extern_c
 #endif

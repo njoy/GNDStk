@@ -836,3 +836,10 @@ MixedSumSetByLabel(
       (CLASSNAME, CLASSNAME+"SumSetByLabel",
        This, extract::sum, meta::label, label, sum);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Mixed/src/custom.cpp"

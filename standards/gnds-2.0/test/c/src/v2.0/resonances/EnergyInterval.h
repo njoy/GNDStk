@@ -210,8 +210,10 @@ EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval This, const XMLName domai
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/EnergyInterval/src/custom.h"
 
 #undef extern_c
 #endif

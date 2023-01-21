@@ -16,22 +16,27 @@ namespace map {
 // class Protare
 // -----------------------------------------------------------------------------
 
-class Protare : public Component<map::Protare> {
+class Protare :
+   public Component<map::Protare>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "map"; }
    static auto CLASS() { return "Protare"; }
    static auto FIELD() { return "protare"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("projectile") |
@@ -53,6 +58,9 @@ class Protare : public Component<map::Protare> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> projectile{this};
    Field<XMLName> target{this};
@@ -67,6 +75,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->projectile, \
       this->target, \
       this->evaluation, \
@@ -82,7 +91,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Protare(
       const wrapper<XMLName> &projectile,
       const wrapper<XMLName> &target = {},
@@ -114,6 +123,7 @@ public:
    // copy
    Protare(const Protare &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       projectile(this,other.projectile),
       target(this,other.target),
       evaluation(this,other.evaluation),
@@ -128,6 +138,7 @@ public:
    // move
    Protare(Protare &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       projectile(this,std::move(other.projectile)),
       target(this,std::move(other.target)),
       evaluation(this,std::move(other.evaluation)),

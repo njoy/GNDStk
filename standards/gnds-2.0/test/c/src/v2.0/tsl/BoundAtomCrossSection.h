@@ -168,8 +168,10 @@ BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection This, const Floa
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BoundAtomCrossSection/src/custom.h"
 
 #undef extern_c
 #endif

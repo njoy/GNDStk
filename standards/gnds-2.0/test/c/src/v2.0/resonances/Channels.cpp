@@ -473,3 +473,10 @@ ChannelsChannelSetByColumnIndex(
       (CLASSNAME, CLASSNAME+"ChannelSetByColumnIndex",
        This, extract::channel, meta::columnIndex, columnIndex, channel);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Channels/src/custom.cpp"

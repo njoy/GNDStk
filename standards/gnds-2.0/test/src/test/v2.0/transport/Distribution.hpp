@@ -31,7 +31,9 @@ namespace transport {
 // class Distribution
 // -----------------------------------------------------------------------------
 
-class Distribution : public Component<transport::Distribution> {
+class Distribution :
+   public Component<transport::Distribution>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -57,15 +59,18 @@ class Distribution : public Component<transport::Distribution> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Distribution"; }
    static auto FIELD() { return "distribution"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / --(Child<>("angularTwoBody") || Child<>("uncorrelated") || Child<>("angularEnergy") || Child<>("energyAngular") || Child<>("KalbachMann") || Child<>("reference") || Child<>("branching3d") || Child<>("CoulombPlusNuclearElastic") || Child<>("thermalNeutronScatteringLaw") || Child<>("coherentPhotonScattering") || Child<>("incoherentPhotonScattering") || Child<>("unspecified") || Child<>("multiGroup3d") || Child<>("angularEnergyMC") || Child<>("energyAngularMC") || Child<>("XYs2d"))
@@ -74,6 +79,9 @@ class Distribution : public Component<transport::Distribution> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<_t> _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d{this};
@@ -99,6 +107,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d)
 
    // default
@@ -108,7 +117,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Distribution(
       const wrapper<_t> &_angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d
    ) :
@@ -128,6 +137,7 @@ public:
    // copy
    Distribution(const Distribution &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(this,other._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d)
    {
       Component::finish(other);
@@ -136,6 +146,7 @@ public:
    // move
    Distribution(Distribution &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(this,std::move(other._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d))
    {
       Component::finish(other);

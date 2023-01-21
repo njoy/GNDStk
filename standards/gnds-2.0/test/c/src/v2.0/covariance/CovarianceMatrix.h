@@ -190,8 +190,10 @@ CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix This, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceMatrix/src/custom.h"
 
 #undef extern_c
 #endif

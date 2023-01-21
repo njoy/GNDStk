@@ -284,8 +284,10 @@ ColumnHeadersColumnSetByTypes(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/ColumnHeaders/src/custom.h"
 
 #undef extern_c
 #endif

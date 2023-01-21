@@ -207,3 +207,10 @@ NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstMass m
    detail::setField<CPP,CPPMass>
       (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/NBodyPhaseSpace/src/custom.cpp"

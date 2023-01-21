@@ -18,22 +18,27 @@ namespace resonances {
 // class RMatrix
 // -----------------------------------------------------------------------------
 
-class RMatrix : public Component<resonances::RMatrix> {
+class RMatrix :
+   public Component<resonances::RMatrix>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "RMatrix"; }
    static auto FIELD() { return "RMatrix"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -51,6 +56,7 @@ class RMatrix : public Component<resonances::RMatrix> {
             / Meta<>("useForSelfShieldingOnly") |
          Defaulted<bool>{false}
             / Meta<>("supportsAngularReconstruction") |
+
          // children
          --Child<std::optional<pops::PoPs_database>>("PoPs") |
          --Child<resonances::ResonanceReactions>("resonanceReactions") |
@@ -70,6 +76,9 @@ public:
       static inline const bool supportsAngularReconstruction = false;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
    Field<XMLName> approximation{this};
@@ -81,7 +90,7 @@ public:
    Field<Defaulted<bool>> supportsAngularReconstruction{this,defaults.supportsAngularReconstruction};
 
    // children
-   Field<std::optional<pops::PoPs_database>> PoPs{this};
+   Field<std::optional<pops::PoPs_database>> PoPs_database{this};
    Field<resonances::ResonanceReactions> resonanceReactions{this};
    Field<resonances::SpinGroups> spinGroups{this};
 
@@ -90,6 +99,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->approximation, \
       this->boundaryCondition, \
@@ -98,7 +108,7 @@ public:
       this->calculatePenetrability, \
       this->useForSelfShieldingOnly, \
       this->supportsAngularReconstruction, \
-      this->PoPs, \
+      this->PoPs_database, \
       this->resonanceReactions, \
       this->spinGroups)
 
@@ -109,8 +119,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit RMatrix(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &approximation = {},
@@ -120,7 +130,7 @@ public:
       const wrapper<std::optional<bool>> &calculatePenetrability = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
       const wrapper<std::optional<bool>> &supportsAngularReconstruction = {},
-      const wrapper<std::optional<pops::PoPs_database>> &PoPs = {},
+      const wrapper<std::optional<pops::PoPs_database>> &PoPs_database = {},
       const wrapper<resonances::ResonanceReactions> &resonanceReactions = {},
       const wrapper<resonances::SpinGroups> &spinGroups = {}
    ) :
@@ -133,7 +143,7 @@ public:
       calculatePenetrability(this,defaults.calculatePenetrability,calculatePenetrability),
       useForSelfShieldingOnly(this,defaults.useForSelfShieldingOnly,useForSelfShieldingOnly),
       supportsAngularReconstruction(this,defaults.supportsAngularReconstruction,supportsAngularReconstruction),
-      PoPs(this,PoPs),
+      PoPs_database(this,PoPs_database),
       resonanceReactions(this,resonanceReactions),
       spinGroups(this,spinGroups)
    {
@@ -150,6 +160,7 @@ public:
    // copy
    RMatrix(const RMatrix &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       approximation(this,other.approximation),
       boundaryCondition(this,other.boundaryCondition),
@@ -158,7 +169,7 @@ public:
       calculatePenetrability(this,other.calculatePenetrability),
       useForSelfShieldingOnly(this,other.useForSelfShieldingOnly),
       supportsAngularReconstruction(this,other.supportsAngularReconstruction),
-      PoPs(this,other.PoPs),
+      PoPs_database(this,other.PoPs_database),
       resonanceReactions(this,other.resonanceReactions),
       spinGroups(this,other.spinGroups)
    {
@@ -168,6 +179,7 @@ public:
    // move
    RMatrix(RMatrix &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       approximation(this,std::move(other.approximation)),
       boundaryCondition(this,std::move(other.boundaryCondition)),
@@ -176,7 +188,7 @@ public:
       calculatePenetrability(this,std::move(other.calculatePenetrability)),
       useForSelfShieldingOnly(this,std::move(other.useForSelfShieldingOnly)),
       supportsAngularReconstruction(this,std::move(other.supportsAngularReconstruction)),
-      PoPs(this,std::move(other.PoPs)),
+      PoPs_database(this,std::move(other.PoPs_database)),
       resonanceReactions(this,std::move(other.resonanceReactions)),
       spinGroups(this,std::move(other.spinGroups))
    {

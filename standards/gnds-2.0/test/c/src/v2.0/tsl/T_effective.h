@@ -152,8 +152,10 @@ T_effectiveXYs1dSet(ConstHandle2T_effective This, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/T_effective/src/custom.h"
 
 #undef extern_c
 #endif

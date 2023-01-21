@@ -277,3 +277,10 @@ DiscreteGammaAxesSet(ConstHandle2DiscreteGamma This, ConstHandle2ConstAxes axes)
    detail::setField<CPP,CPPAxes>
       (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/DiscreteGamma/src/custom.cpp"

@@ -879,8 +879,10 @@ MapTNSLSetByStandardEvaluation(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/map/Map/src/custom.h"
 
 #undef extern_c
 #endif

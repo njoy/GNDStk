@@ -1,6 +1,24 @@
 {
     "namespace": "three",
 
+    "starts": {
+        "name": "values",
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "int"
+    },
+
+    "lengths": {
+        "name": "values",
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "int"
+    },
+
     "array": {
         "metadata": {
             "shape": {
@@ -13,7 +31,20 @@
             }
         },
         "children": {
-        },
-        "vector": "double"
+            "starts": {
+                "name": "values",
+                "times": "1",
+                "required": true
+            },
+            "lengths": {
+                "name": "values",
+                "times": "1",
+                "required": true
+            },
+            "values": {
+                "times": "1",
+                "required": true
+            }
+        }
     }
 }

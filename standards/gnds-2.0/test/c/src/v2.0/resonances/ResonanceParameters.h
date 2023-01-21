@@ -152,8 +152,10 @@ ResonanceParametersTableSet(ConstHandle2ResonanceParameters This, ConstHandle2Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceParameters/src/custom.h"
 
 #undef extern_c
 #endif

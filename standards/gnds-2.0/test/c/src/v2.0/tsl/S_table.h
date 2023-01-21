@@ -152,8 +152,10 @@ S_tableGridded2dSet(ConstHandle2S_table This, ConstHandle2ConstGridded2d gridded
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/S_table/src/custom.h"
 
 #undef extern_c
 #endif

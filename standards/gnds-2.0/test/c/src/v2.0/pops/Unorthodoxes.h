@@ -77,13 +77,13 @@ UnorthodoxesDefault();
 // --- Create, general, const
 extern_c Handle2ConstUnorthodoxes
 UnorthodoxesCreateConst(
-   ConstHandle2Nuclide *const unorthodox, const size_t unorthodoxSize
+   ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
 );
 
 // +++ Create, general
 extern_c Handle2Unorthodoxes
 UnorthodoxesCreate(
-   ConstHandle2Nuclide *const unorthodox, const size_t unorthodoxSize
+   ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
 );
 
 // +++ Assign
@@ -131,7 +131,7 @@ UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This);
 
 
 // -----------------------------------------------------------------------------
-// Child: unorthodox
+// Child: nuclide
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -148,7 +148,7 @@ UnorthodoxesNuclideSize(ConstHandle2ConstUnorthodoxes This);
 
 // +++ Add
 extern_c void
-UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstNuclide unorthodox);
+UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstNuclide nuclide);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstNuclide
@@ -163,7 +163,7 @@ extern_c void
 UnorthodoxesNuclideSet(
    ConstHandle2Unorthodoxes This,
    const size_t index_,
-   ConstHandle2ConstNuclide unorthodox
+   ConstHandle2ConstNuclide nuclide
 );
 
 // +++ Has, by id
@@ -192,13 +192,15 @@ extern_c void
 UnorthodoxesNuclideSetById(
    ConstHandle2Unorthodoxes This,
    const XMLName id,
-   ConstHandle2ConstNuclide unorthodox
+   ConstHandle2ConstNuclide nuclide
 );
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Unorthodoxes/src/custom.h"
 
 #undef extern_c
 #endif

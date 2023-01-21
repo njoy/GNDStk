@@ -148,8 +148,10 @@ LinkHrefSet(ConstHandle2Link This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Link/src/custom.h"
 
 #undef extern_c
 #endif

@@ -293,3 +293,10 @@ LeptonsLeptonSetById(
       (CLASSNAME, CLASSNAME+"LeptonSetById",
        This, extract::lepton, meta::id, id, lepton);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Leptons/src/custom.cpp"

@@ -293,3 +293,10 @@ ExforDataSetsExforDataSetSetByRetrievalDate(
       (CLASSNAME, CLASSNAME+"ExforDataSetSetByRetrievalDate",
        This, extract::exforDataSet, meta::retrievalDate, retrievalDate, exforDataSet);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExforDataSets/src/custom.cpp"

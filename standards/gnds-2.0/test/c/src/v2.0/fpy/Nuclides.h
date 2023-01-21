@@ -289,8 +289,10 @@ NuclidesHrefSet(ConstHandle2Nuclides This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Nuclides/src/custom.h"
 
 #undef extern_c
 #endif

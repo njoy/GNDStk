@@ -443,3 +443,10 @@ TNSLStandardEvaluationSet(ConstHandle2TNSL This, const XMLName standardEvaluatio
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"StandardEvaluationSet", This, extract::standardEvaluation, standardEvaluation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/map/TNSL/src/custom.cpp"

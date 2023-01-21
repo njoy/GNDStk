@@ -197,8 +197,10 @@ GaugeBosonsGaugeBosonSetById(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/GaugeBosons/src/custom.h"
 
 #undef extern_c
 #endif

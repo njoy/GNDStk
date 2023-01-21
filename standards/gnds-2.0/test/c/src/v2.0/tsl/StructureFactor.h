@@ -152,8 +152,10 @@ StructureFactorXYs1dSet(ConstHandle2StructureFactor This, ConstHandle2ConstXYs1d
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/StructureFactor/src/custom.h"
 
 #undef extern_c
 #endif

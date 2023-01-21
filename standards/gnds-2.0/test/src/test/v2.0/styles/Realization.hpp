@@ -16,22 +16,27 @@ namespace styles {
 // class Realization
 // -----------------------------------------------------------------------------
 
-class Realization : public Component<styles::Realization> {
+class Realization :
+   public Component<styles::Realization>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Realization"; }
    static auto FIELD() { return "realization"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("date") |
@@ -39,6 +44,7 @@ class Realization : public Component<styles::Realization> {
             / Meta<>("derivedFrom") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<documentation::Documentation>>("documentation")
       ;
@@ -46,6 +52,9 @@ class Realization : public Component<styles::Realization> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> date{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date, \
       this->derivedFrom, \
       this->label, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Realization(
       const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Realization(const Realization &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date),
       derivedFrom(this,other.derivedFrom),
       label(this,other.label),
@@ -109,6 +120,7 @@ public:
    // move
    Realization(Realization &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date)),
       derivedFrom(this,std::move(other.derivedFrom)),
       label(this,std::move(other.label)),

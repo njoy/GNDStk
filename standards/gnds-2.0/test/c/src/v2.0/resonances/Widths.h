@@ -226,8 +226,10 @@ WidthsWidthSetByDegreesOfFreedom(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Widths/src/custom.h"
 
 #undef extern_c
 #endif

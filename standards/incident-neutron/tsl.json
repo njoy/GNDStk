@@ -575,7 +575,6 @@
         "children": {
             "values": {
                 "times": "1",
-                "namespace": "doubles",
                 "required": true
             }
         }
@@ -1280,7 +1279,6 @@
             },
             "values": {
                 "times": "1",
-                "namespace": "doubles",
                 "required": true
             }
         }
@@ -1302,5 +1300,13 @@
                 "required": true
             }
         }
+    },
+
+    "values": {
+        "metadata": {
+        },
+        "children": {
+        },
+        "vector": "double"
     }
 }

@@ -16,22 +16,27 @@ namespace fpy {
 // class Energy
 // -----------------------------------------------------------------------------
 
-class Energy : public Component<fpy::Energy> {
+class Energy :
+   public Component<fpy::Energy>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Energy"; }
    static auto FIELD() { return "energy"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Double>("double")
       ;
@@ -39,6 +44,9 @@ class Energy : public Component<fpy::Energy> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Double> Double{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->Double)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Energy(
       const wrapper<containers::Double> &Double
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Energy(const Energy &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       Double(this,other.Double)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Energy(Energy &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       Double(this,std::move(other.Double))
    {
       Component::finish(other);

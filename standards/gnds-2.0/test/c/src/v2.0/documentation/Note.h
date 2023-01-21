@@ -329,8 +329,10 @@ NoteLabelSet(ConstHandle2Note This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Note/src/custom.h"
 
 #undef extern_c
 #endif

@@ -502,3 +502,10 @@ AliasesMetaStableSetByPid(
       (CLASSNAME, CLASSNAME+"MetaStableSetByPid",
        This, extract::metaStable, meta::pid, pid, metaStable);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Aliases/src/custom.cpp"

@@ -216,8 +216,10 @@ MultiplicitySumSummandsSet(ConstHandle2MultiplicitySum This, ConstHandle2ConstSu
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/MultiplicitySum/src/custom.h"
 
 #undef extern_c
 #endif

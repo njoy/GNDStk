@@ -212,8 +212,10 @@ DiscreteGammaAxesSet(ConstHandle2DiscreteGamma This, ConstHandle2ConstAxes axes)
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/DiscreteGamma/src/custom.h"
 
 #undef extern_c
 #endif

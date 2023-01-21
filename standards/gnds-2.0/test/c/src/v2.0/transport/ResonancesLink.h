@@ -168,8 +168,10 @@ ResonancesLinkHrefSet(ConstHandle2ResonancesLink This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ResonancesLink/src/custom.h"
 
 #undef extern_c
 #endif

@@ -16,22 +16,27 @@ namespace containers {
 // class Data
 // -----------------------------------------------------------------------------
 
-class Data : public Component<containers::Data,true> {
+class Data :
+   public Component<containers::Data,true>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Data"; }
    static auto FIELD() { return "data"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<UTF8Text>{"whiteSpace"}
             / Meta<>("sep")
@@ -47,6 +52,9 @@ public:
       static inline const UTF8Text sep = "whiteSpace";
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<UTF8Text>> sep{this,defaults.sep};
 
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->sep)
 
    // default
@@ -64,8 +73,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Data(
       const wrapper<std::optional<UTF8Text>> &sep
    ) :
@@ -93,6 +102,7 @@ public:
    // copy
    Data(const Data &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       sep(this,other.sep)
    {
       Component::finish(other);
@@ -101,6 +111,7 @@ public:
    // move
    Data(Data &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       sep(this,std::move(other.sep))
    {
       Component::finish(other);

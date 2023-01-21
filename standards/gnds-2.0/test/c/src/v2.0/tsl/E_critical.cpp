@@ -198,3 +198,10 @@ E_criticalValueSet(ConstHandle2E_critical This, const Float64 value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/E_critical/src/custom.cpp"

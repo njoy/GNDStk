@@ -303,3 +303,10 @@ SliceDimensionSet(ConstHandle2Slice This, const Integer32 dimension)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"DimensionSet", This, extract::dimension, dimension);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Slice/src/custom.cpp"

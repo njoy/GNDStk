@@ -450,8 +450,10 @@ ResonancesUnresolvedSetByDomainUnit(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Resonances/src/custom.h"
 
 #undef extern_c
 #endif

@@ -371,3 +371,10 @@ AngularTwoBodyRecoilSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstRecoil
    detail::setField<CPP,CPPRecoil>
       (CLASSNAME, CLASSNAME+"RecoilSet", This, extract::recoil, recoil);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/AngularTwoBody/src/custom.cpp"

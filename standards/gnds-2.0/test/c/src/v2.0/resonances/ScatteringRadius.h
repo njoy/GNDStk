@@ -131,8 +131,10 @@ ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ScatteringRadius/src/custom.h"
 
 #undef extern_c
 #endif

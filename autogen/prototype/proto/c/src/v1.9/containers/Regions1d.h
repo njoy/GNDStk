@@ -348,8 +348,10 @@ Regions1dXYs1dSetByOuterDomainValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Regions1d/src/custom.h"
 
 #undef extern_c
 #endif

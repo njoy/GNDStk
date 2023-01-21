@@ -16,22 +16,27 @@ namespace fissionTransport {
 // class NonNeutrinoEnergy
 // -----------------------------------------------------------------------------
 
-class NonNeutrinoEnergy : public Component<fissionTransport::NonNeutrinoEnergy> {
+class NonNeutrinoEnergy :
+   public Component<fissionTransport::NonNeutrinoEnergy>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "NonNeutrinoEnergy"; }
    static auto FIELD() { return "nonNeutrinoEnergy"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::Polynomial1d>>("polynomial1d")
       ;
@@ -39,6 +44,9 @@ class NonNeutrinoEnergy : public Component<fissionTransport::NonNeutrinoEnergy> 
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::Polynomial1d>> polynomial1d{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->polynomial1d)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit NonNeutrinoEnergy(
       const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    NonNeutrinoEnergy(const NonNeutrinoEnergy &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       polynomial1d(this,other.polynomial1d)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    NonNeutrinoEnergy(NonNeutrinoEnergy &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       polynomial1d(this,std::move(other.polynomial1d))
    {
       Component::finish(other);

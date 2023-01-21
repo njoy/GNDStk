@@ -173,3 +173,10 @@ CrossSectionLabelSet(ConstHandle2CrossSection This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/CrossSection/src/custom.cpp"

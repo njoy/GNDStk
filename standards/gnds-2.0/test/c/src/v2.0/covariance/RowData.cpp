@@ -277,3 +277,10 @@ RowDataSlicesSet(ConstHandle2RowData This, ConstHandle2ConstSlices slices)
    detail::setField<CPP,CPPSlices>
       (CLASSNAME, CLASSNAME+"SlicesSet", This, extract::slices, slices);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/RowData/src/custom.cpp"

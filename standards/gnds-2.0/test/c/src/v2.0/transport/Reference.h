@@ -168,8 +168,10 @@ ReferenceLabelSet(ConstHandle2Reference This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Reference/src/custom.h"
 
 #undef extern_c
 #endif

@@ -551,3 +551,10 @@ FissionEnergyReleasedTotalEnergySet(ConstHandle2FissionEnergyReleased This, Cons
    detail::setField<CPP,CPPTotalEnergy>
       (CLASSNAME, CLASSNAME+"TotalEnergySet", This, extract::totalEnergy, totalEnergy);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionEnergyReleased/src/custom.cpp"

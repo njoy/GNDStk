@@ -16,22 +16,27 @@ namespace documentation {
 // class Date
 // -----------------------------------------------------------------------------
 
-class Date : public Component<documentation::Date> {
+class Date :
+   public Component<documentation::Date>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Date"; }
    static auto FIELD() { return "date"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          enums::DateType{}
             / Meta<>("dateType") |
@@ -43,6 +48,9 @@ class Date : public Component<documentation::Date> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<enums::DateType> dateType{this};
    Field<std::string> value{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->dateType, \
       this->value)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Date(
       const wrapper<enums::DateType> &dateType,
       const wrapper<std::string> &value = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Date(const Date &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       dateType(this,other.dateType),
       value(this,other.value)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Date(Date &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       dateType(this,std::move(other.dateType)),
       value(this,std::move(other.value))
    {

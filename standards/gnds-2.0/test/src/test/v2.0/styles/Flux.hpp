@@ -16,25 +16,31 @@ namespace styles {
 // class Flux
 // -----------------------------------------------------------------------------
 
-class Flux : public Component<styles::Flux> {
+class Flux :
+   public Component<styles::Flux>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Flux"; }
    static auto FIELD() { return "flux"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<containers::XYs2d>("XYs2d")
       ;
@@ -42,6 +48,9 @@ class Flux : public Component<styles::Flux> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -54,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->XYs2d)
 
@@ -64,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Flux(
       const wrapper<XMLName> &label,
       const wrapper<containers::XYs2d> &XYs2d = {}
@@ -86,6 +96,7 @@ public:
    // copy
    Flux(const Flux &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       XYs2d(this,other.XYs2d)
    {
@@ -95,6 +106,7 @@ public:
    // move
    Flux(Flux &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       XYs2d(this,std::move(other.XYs2d))
    {

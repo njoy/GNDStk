@@ -293,3 +293,10 @@ LsLSetByValue(
       (CLASSNAME, CLASSNAME+"LSetByValue",
        This, extract::L, meta::value, value, L);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Ls/src/custom.cpp"

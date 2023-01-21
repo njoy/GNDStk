@@ -168,8 +168,10 @@ Branching3dProductFrameSet(ConstHandle2Branching3d This, const XMLName productFr
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Branching3d/src/custom.h"
 
 #undef extern_c
 #endif

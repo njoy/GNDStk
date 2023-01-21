@@ -168,8 +168,10 @@ ThermalNeutronScatteringLawHrefSet(ConstHandle2ThermalNeutronScatteringLaw This,
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw/src/custom.h"
 
 #undef extern_c
 #endif

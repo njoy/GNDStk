@@ -166,3 +166,10 @@ AxesHrefSet(ConstHandle2Axes This, const char *const href)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Axes/src/custom.cpp"

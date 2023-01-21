@@ -16,22 +16,27 @@ namespace containers {
 // class Double
 // -----------------------------------------------------------------------------
 
-class Double : public Component<containers::Double> {
+class Double :
+   public Component<containers::Double>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Double"; }
    static auto FIELD() { return "double"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -39,6 +44,7 @@ class Double : public Component<containers::Double> {
             / Meta<>("unit") |
          Float64{}
             / Meta<>("value") |
+
          // children
          --Child<std::optional<containers::Uncertainty>>("uncertainty")
       ;
@@ -46,6 +52,9 @@ class Double : public Component<containers::Double> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->unit, \
       this->value, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Double(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<XMLName>> &unit = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Double(const Double &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       unit(this,other.unit),
       value(this,other.value),
@@ -109,6 +120,7 @@ public:
    // move
    Double(Double &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       unit(this,std::move(other.unit)),
       value(this,std::move(other.value)),

@@ -383,3 +383,10 @@ KeywordsKeywordSetByType(
       (CLASSNAME, CLASSNAME+"KeywordSetByType",
        This, extract::keyword, meta::type, type, keyword);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Keywords/src/custom.cpp"

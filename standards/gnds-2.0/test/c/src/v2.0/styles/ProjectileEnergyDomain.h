@@ -208,8 +208,10 @@ ProjectileEnergyDomainUnitSet(ConstHandle2ProjectileEnergyDomain This, const XML
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/ProjectileEnergyDomain/src/custom.h"
 
 #undef extern_c
 #endif

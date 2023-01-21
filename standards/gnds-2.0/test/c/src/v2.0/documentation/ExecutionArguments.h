@@ -329,8 +329,10 @@ ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments This, const XMLName la
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExecutionArguments/src/custom.h"
 
 #undef extern_c
 #endif

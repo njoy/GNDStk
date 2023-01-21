@@ -16,22 +16,27 @@ namespace covariance {
 // class Summand
 // -----------------------------------------------------------------------------
 
-class Summand : public Component<covariance::Summand> {
+class Summand :
+   public Component<covariance::Summand>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Summand"; }
    static auto FIELD() { return "summand"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("ENDF_MFMT") |
@@ -45,6 +50,9 @@ class Summand : public Component<covariance::Summand> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> ENDF_MFMT{this};
    Field<std::optional<Float64>> coefficient{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->ENDF_MFMT, \
       this->coefficient, \
       this->href)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Summand(
       const wrapper<std::optional<XMLName>> &ENDF_MFMT,
       const wrapper<std::optional<Float64>> &coefficient = {},
@@ -90,6 +99,7 @@ public:
    // copy
    Summand(const Summand &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       ENDF_MFMT(this,other.ENDF_MFMT),
       coefficient(this,other.coefficient),
       href(this,other.href)
@@ -100,6 +110,7 @@ public:
    // move
    Summand(Summand &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
       coefficient(this,std::move(other.coefficient)),
       href(this,std::move(other.href))

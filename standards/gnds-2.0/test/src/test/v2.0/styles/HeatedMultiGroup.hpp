@@ -19,22 +19,27 @@ namespace styles {
 // class HeatedMultiGroup
 // -----------------------------------------------------------------------------
 
-class HeatedMultiGroup : public Component<styles::HeatedMultiGroup> {
+class HeatedMultiGroup :
+   public Component<styles::HeatedMultiGroup>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "HeatedMultiGroup"; }
    static auto FIELD() { return "heatedMultiGroup"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("date") |
@@ -42,6 +47,7 @@ class HeatedMultiGroup : public Component<styles::HeatedMultiGroup> {
             / Meta<>("derivedFrom") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<styles::Transportables>("transportables") |
          --Child<styles::Flux>("flux") |
@@ -52,6 +58,9 @@ class HeatedMultiGroup : public Component<styles::HeatedMultiGroup> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> date{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date, \
       this->derivedFrom, \
       this->label, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit HeatedMultiGroup(
       const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
@@ -116,6 +126,7 @@ public:
    // copy
    HeatedMultiGroup(const HeatedMultiGroup &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date),
       derivedFrom(this,other.derivedFrom),
       label(this,other.label),
@@ -130,6 +141,7 @@ public:
    // move
    HeatedMultiGroup(HeatedMultiGroup &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date)),
       derivedFrom(this,std::move(other.derivedFrom)),
       label(this,std::move(other.label)),

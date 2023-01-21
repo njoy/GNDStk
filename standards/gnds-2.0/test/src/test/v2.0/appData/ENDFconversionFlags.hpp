@@ -16,22 +16,27 @@ namespace appData {
 // class ENDFconversionFlags
 // -----------------------------------------------------------------------------
 
-class ENDFconversionFlags : public Component<appData::ENDFconversionFlags> {
+class ENDFconversionFlags :
+   public Component<appData::ENDFconversionFlags>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "ENDFconversionFlags"; }
    static auto FIELD() { return "ENDFconversionFlags"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<appData::Conversion>>("conversion")
       ;
@@ -39,6 +44,9 @@ class ENDFconversionFlags : public Component<appData::ENDFconversionFlags> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<appData::Conversion>> conversion{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->conversion)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ENDFconversionFlags(
       const wrapper<std::optional<appData::Conversion>> &conversion
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ENDFconversionFlags(const ENDFconversionFlags &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       conversion(this,other.conversion)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ENDFconversionFlags(ENDFconversionFlags &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       conversion(this,std::move(other.conversion))
    {
       Component::finish(other);

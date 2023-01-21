@@ -198,3 +198,10 @@ DateValueSet(ConstHandle2Date This, const char *const value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Date/src/custom.cpp"

@@ -363,8 +363,10 @@ ParityIntegerSetByValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Parity/src/custom.h"
 
 #undef extern_c
 #endif

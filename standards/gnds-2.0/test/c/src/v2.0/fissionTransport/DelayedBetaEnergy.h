@@ -152,8 +152,10 @@ DelayedBetaEnergyPolynomial1dSet(ConstHandle2DelayedBetaEnergy This, ConstHandle
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedBetaEnergy/src/custom.h"
 
 #undef extern_c
 #endif

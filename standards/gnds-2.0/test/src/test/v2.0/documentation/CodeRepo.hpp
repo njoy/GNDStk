@@ -16,22 +16,27 @@ namespace documentation {
 // class CodeRepo
 // -----------------------------------------------------------------------------
 
-class CodeRepo : public Component<documentation::CodeRepo> {
+class CodeRepo :
+   public Component<documentation::CodeRepo>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "CodeRepo"; }
    static auto FIELD() { return "codeRepo"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -47,6 +52,9 @@ class CodeRepo : public Component<documentation::CodeRepo> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<XMLName> revisionSystem{this};
@@ -58,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->revisionSystem, \
       this->href, \
@@ -70,7 +79,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CodeRepo(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &revisionSystem = {},
@@ -96,6 +105,7 @@ public:
    // copy
    CodeRepo(const CodeRepo &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       revisionSystem(this,other.revisionSystem),
       href(this,other.href),
@@ -107,6 +117,7 @@ public:
    // move
    CodeRepo(CodeRepo &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       revisionSystem(this,std::move(other.revisionSystem)),
       href(this,std::move(other.href)),

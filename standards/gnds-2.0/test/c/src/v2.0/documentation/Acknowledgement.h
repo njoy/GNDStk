@@ -349,8 +349,10 @@ AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Acknowledgement/src/custom.h"
 
 #undef extern_c
 #endif

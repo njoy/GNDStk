@@ -16,25 +16,31 @@ namespace styles {
 // class MultiGroup
 // -----------------------------------------------------------------------------
 
-class MultiGroup : public Component<styles::MultiGroup> {
+class MultiGroup :
+   public Component<styles::MultiGroup>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "MultiGroup"; }
    static auto FIELD() { return "multiGroup"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<containers::Grid>("grid")
       ;
@@ -42,6 +48,9 @@ class MultiGroup : public Component<styles::MultiGroup> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -54,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->grid)
 
@@ -64,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit MultiGroup(
       const wrapper<XMLName> &label,
       const wrapper<containers::Grid> &grid = {}
@@ -86,6 +96,7 @@ public:
    // copy
    MultiGroup(const MultiGroup &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       grid(this,other.grid)
    {
@@ -95,6 +106,7 @@ public:
    // move
    MultiGroup(MultiGroup &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       grid(this,std::move(other.grid))
    {

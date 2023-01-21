@@ -16,22 +16,27 @@ namespace documentation {
 // class Dates
 // -----------------------------------------------------------------------------
 
-class Dates : public Component<documentation::Dates> {
+class Dates :
+   public Component<documentation::Dates>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Dates"; }
    static auto FIELD() { return "dates"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::Date>("date")
       ;
@@ -39,6 +44,9 @@ class Dates : public Component<documentation::Dates> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::Date>> date{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Dates(
       const wrapper<std::vector<documentation::Date>> &date
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Dates(const Dates &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Dates(Dates &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date))
    {
       Component::finish(other);

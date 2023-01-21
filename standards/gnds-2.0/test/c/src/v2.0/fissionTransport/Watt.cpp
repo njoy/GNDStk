@@ -258,3 +258,10 @@ WattBSet(ConstHandle2Watt This, ConstHandle2ConstB b)
    detail::setField<CPP,CPPB>
       (CLASSNAME, CLASSNAME+"BSet", This, extract::b, b);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/Watt/src/custom.cpp"

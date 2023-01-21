@@ -255,8 +255,10 @@ ProbabilityDoubleSetByValue(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Probability/src/custom.h"
 
 #undef extern_c
 #endif

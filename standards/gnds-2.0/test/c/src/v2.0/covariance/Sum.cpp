@@ -478,3 +478,10 @@ SumSummandSetByHref(
       (CLASSNAME, CLASSNAME+"SummandSetByHref",
        This, extract::summand, meta::href, href, summand);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Sum/src/custom.cpp"

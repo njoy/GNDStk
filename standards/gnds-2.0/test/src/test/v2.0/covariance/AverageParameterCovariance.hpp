@@ -18,7 +18,9 @@ namespace covariance {
 // class AverageParameterCovariance
 // -----------------------------------------------------------------------------
 
-class AverageParameterCovariance : public Component<covariance::AverageParameterCovariance> {
+class AverageParameterCovariance :
+   public Component<covariance::AverageParameterCovariance>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,20 +31,24 @@ class AverageParameterCovariance : public Component<covariance::AverageParameter
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "AverageParameterCovariance"; }
    static auto FIELD() { return "averageParameterCovariance"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<bool>{}
             / Meta<>("crossTerm") |
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<covariance::ColumnData>>("columnData") |
          --Child<std::optional<covariance::RowData>>("rowData") |
@@ -53,6 +59,9 @@ class AverageParameterCovariance : public Component<covariance::AverageParameter
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<bool>> crossTerm{this};
@@ -71,6 +80,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->crossTerm, \
       this->label, \
       this->columnData, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit AverageParameterCovariance(
       const wrapper<std::optional<bool>> &crossTerm,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -112,6 +122,7 @@ public:
    // copy
    AverageParameterCovariance(const AverageParameterCovariance &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       crossTerm(this,other.crossTerm),
       label(this,other.label),
       columnData(this,other.columnData),
@@ -124,6 +135,7 @@ public:
    // move
    AverageParameterCovariance(AverageParameterCovariance &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       crossTerm(this,std::move(other.crossTerm)),
       label(this,std::move(other.label)),
       columnData(this,std::move(other.columnData)),

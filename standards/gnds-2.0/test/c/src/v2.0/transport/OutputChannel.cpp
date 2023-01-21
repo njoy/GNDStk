@@ -328,3 +328,10 @@ OutputChannelFissionFragmentDataSet(ConstHandle2OutputChannel This, ConstHandle2
    detail::setField<CPP,CPPFissionFragmentData>
       (CLASSNAME, CLASSNAME+"FissionFragmentDataSet", This, extract::fissionFragmentData, fissionFragmentData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OutputChannel/src/custom.cpp"

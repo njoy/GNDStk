@@ -16,22 +16,27 @@ namespace documentation {
 // class Contributors
 // -----------------------------------------------------------------------------
 
-class Contributors : public Component<documentation::Contributors> {
+class Contributors :
+   public Component<documentation::Contributors>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Contributors"; }
    static auto FIELD() { return "contributors"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::Author>("contributor")
       ;
@@ -40,15 +45,19 @@ class Contributors : public Component<documentation::Contributors> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // children
-   Field<std::vector<documentation::Author>> contributor{this};
+   Field<std::vector<documentation::Author>> author{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
-      this->contributor)
+      this->comment, \
+      this->author)
 
    // default
    Contributors() :
@@ -57,12 +66,12 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Contributors(
-      const wrapper<std::vector<documentation::Author>> &contributor
+      const wrapper<std::vector<documentation::Author>> &author
    ) :
       GNDSTK_COMPONENT(BlockData{}),
-      contributor(this,contributor)
+      author(this,author)
    {
       Component::finish();
    }
@@ -77,7 +86,8 @@ public:
    // copy
    Contributors(const Contributors &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      contributor(this,other.contributor)
+      comment(this,other.comment),
+      author(this,other.author)
    {
       Component::finish(other);
    }
@@ -85,7 +95,8 @@ public:
    // move
    Contributors(Contributors &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      contributor(this,std::move(other.contributor))
+      comment(this,std::move(other.comment)),
+      author(this,std::move(other.author))
    {
       Component::finish(other);
    }

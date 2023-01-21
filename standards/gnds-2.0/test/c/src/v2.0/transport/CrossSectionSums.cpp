@@ -293,3 +293,10 @@ CrossSectionSumsCrossSectionSumSetByLabel(
       (CLASSNAME, CLASSNAME+"CrossSectionSumSetByLabel",
        This, extract::crossSectionSum, meta::label, label, crossSectionSum);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/CrossSectionSums/src/custom.cpp"

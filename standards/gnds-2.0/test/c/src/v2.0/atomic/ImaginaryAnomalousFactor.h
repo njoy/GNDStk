@@ -176,8 +176,10 @@ ImaginaryAnomalousFactorRegions1dSet(ConstHandle2ImaginaryAnomalousFactor This, 
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/ImaginaryAnomalousFactor/src/custom.h"
 
 #undef extern_c
 #endif

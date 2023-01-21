@@ -320,8 +320,10 @@ ChannelHardSphereRadiusSet(ConstHandle2Channel This, ConstHandle2ConstHardSphere
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Channel/src/custom.h"
 
 #undef extern_c
 #endif

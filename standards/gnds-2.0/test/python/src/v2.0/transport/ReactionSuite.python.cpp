@@ -62,7 +62,7 @@ void wrapReactionSuite(python::module &module)
          python::arg("interaction"),
          python::arg("external_files") = std::nullopt,
          python::arg("styles"),
-         python::arg("po_ps"),
+         python::arg("po_ps_database"),
          python::arg("resonances") = std::nullopt,
          python::arg("reactions") = std::nullopt,
          python::arg("orphan_products") = std::nullopt,
@@ -114,9 +114,9 @@ void wrapReactionSuite(python::module &module)
          Component::documentation("styles").data()
       )
       .def_property_readonly(
-         "po_ps",
-         [](const Component &self) { return self.PoPs(); },
-         Component::documentation("po_ps").data()
+         "po_ps_database",
+         [](const Component &self) { return self.PoPs_database(); },
+         Component::documentation("po_ps_database").data()
       )
       .def_property_readonly(
          "resonances",

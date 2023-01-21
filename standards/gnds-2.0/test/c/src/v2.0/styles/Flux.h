@@ -172,8 +172,10 @@ FluxXYs2dSet(ConstHandle2Flux This, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Flux/src/custom.h"
 
 #undef extern_c
 #endif

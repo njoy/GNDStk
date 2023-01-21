@@ -363,3 +363,10 @@ ReactionOutputChannelSet(ConstHandle2Reaction This, ConstHandle2ConstOutputChann
    detail::setField<CPP,CPPOutputChannel>
       (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Reaction/src/custom.cpp"

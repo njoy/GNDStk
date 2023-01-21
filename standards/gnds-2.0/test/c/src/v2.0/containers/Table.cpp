@@ -320,3 +320,10 @@ TableDataSet(ConstHandle2Table This, ConstHandle2ConstData data)
    detail::setField<CPP,CPPData>
       (CLASSNAME, CLASSNAME+"DataSet", This, extract::data, data);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Table/src/custom.cpp"

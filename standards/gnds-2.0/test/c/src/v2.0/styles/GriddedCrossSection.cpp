@@ -320,3 +320,10 @@ GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection This, ConstH
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/GriddedCrossSection/src/custom.cpp"

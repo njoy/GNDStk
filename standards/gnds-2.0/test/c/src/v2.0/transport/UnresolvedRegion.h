@@ -130,8 +130,10 @@ UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/UnresolvedRegion/src/custom.h"
 
 #undef extern_c
 #endif

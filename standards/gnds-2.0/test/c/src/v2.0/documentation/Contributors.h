@@ -77,13 +77,13 @@ ContributorsDefault();
 // --- Create, general, const
 extern_c Handle2ConstContributors
 ContributorsCreateConst(
-   ConstHandle2Author *const contributor, const size_t contributorSize
+   ConstHandle2Author *const author, const size_t authorSize
 );
 
 // +++ Create, general
 extern_c Handle2Contributors
 ContributorsCreate(
-   ConstHandle2Author *const contributor, const size_t contributorSize
+   ConstHandle2Author *const author, const size_t authorSize
 );
 
 // +++ Assign
@@ -131,7 +131,7 @@ ContributorsPrintJSON(ConstHandle2ConstContributors This);
 
 
 // -----------------------------------------------------------------------------
-// Child: contributor
+// Child: author
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -148,7 +148,7 @@ ContributorsAuthorSize(ConstHandle2ConstContributors This);
 
 // +++ Add
 extern_c void
-ContributorsAuthorAdd(ConstHandle2Contributors This, ConstHandle2ConstAuthor contributor);
+ContributorsAuthorAdd(ConstHandle2Contributors This, ConstHandle2ConstAuthor author);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAuthor
@@ -163,7 +163,7 @@ extern_c void
 ContributorsAuthorSet(
    ConstHandle2Contributors This,
    const size_t index_,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 );
 
 // +++ Has, by name
@@ -192,7 +192,7 @@ extern_c void
 ContributorsAuthorSetByName(
    ConstHandle2Contributors This,
    const UTF8Text name,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 );
 
 // +++ Has, by orcid
@@ -221,7 +221,7 @@ extern_c void
 ContributorsAuthorSetByOrcid(
    ConstHandle2Contributors This,
    const UTF8Text orcid,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 );
 
 // +++ Has, by email
@@ -250,13 +250,15 @@ extern_c void
 ContributorsAuthorSetByEmail(
    ConstHandle2Contributors This,
    const UTF8Text email,
-   ConstHandle2ConstAuthor contributor
+   ConstHandle2ConstAuthor author
 );
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Contributors/src/custom.h"
 
 #undef extern_c
 #endif

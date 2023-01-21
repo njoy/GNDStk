@@ -496,3 +496,10 @@ Regions1dXYs1dSetByOuterDomainValue(
       (CLASSNAME, CLASSNAME+"XYs1dSetByOuterDomainValue",
        This, extract::XYs1d, meta::outerDomainValue, outerDomainValue, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Regions1d/src/custom.cpp"

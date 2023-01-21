@@ -516,3 +516,10 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet
    detail::setField<CPP,CPPThermalNeutronScatteringLaw_incoherentInelastic>
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticSet", This, extract::thermalNeutronScatteringLaw_incoherentInelastic, thermalNeutronScatteringLaw_incoherentInelastic);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/DoubleDifferentialCrossSection/src/custom.cpp"

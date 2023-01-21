@@ -236,8 +236,10 @@ HeatedDocumentationSet(ConstHandle2Heated This, ConstHandle2ConstDocumentation d
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Heated/src/custom.h"
 
 #undef extern_c
 #endif

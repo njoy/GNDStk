@@ -260,8 +260,10 @@ MassDoubleSet(ConstHandle2Mass This, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Mass/src/custom.h"
 
 #undef extern_c
 #endif

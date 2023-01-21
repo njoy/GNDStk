@@ -338,3 +338,10 @@ FissionComponentsFissionComponentSetByLabel(
       (CLASSNAME, CLASSNAME+"FissionComponentSetByLabel",
        This, extract::fissionComponent, meta::label, label, fissionComponent);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionComponents/src/custom.cpp"

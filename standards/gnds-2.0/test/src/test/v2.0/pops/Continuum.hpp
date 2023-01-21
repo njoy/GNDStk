@@ -16,22 +16,27 @@ namespace pops {
 // class Continuum
 // -----------------------------------------------------------------------------
 
-class Continuum : public Component<pops::Continuum> {
+class Continuum :
+   public Component<pops::Continuum>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Continuum"; }
    static auto FIELD() { return "continuum"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::XYs1d>>("XYs1d")
       ;
@@ -39,6 +44,9 @@ class Continuum : public Component<pops::Continuum> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::XYs1d>> XYs1d{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs1d)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Continuum(
       const wrapper<std::optional<containers::XYs1d>> &XYs1d
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Continuum(const Continuum &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs1d(this,other.XYs1d)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Continuum(Continuum &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d))
    {
       Component::finish(other);

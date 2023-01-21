@@ -264,8 +264,10 @@ AngularTwoBodyRecoilSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstRecoil
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/AngularTwoBody/src/custom.h"
 
 #undef extern_c
 #endif

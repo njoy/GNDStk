@@ -43,8 +43,8 @@ void wrapUncorrelated(python::module &module)
          >(),
          python::arg("label") = std::nullopt,
          python::arg("product_frame"),
-         python::arg("angular"),
-         python::arg("energy"),
+         python::arg("angular_uncorrelated"),
+         python::arg("energy_uncorrelated"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -58,14 +58,14 @@ void wrapUncorrelated(python::module &module)
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
-         "angular",
-         [](const Component &self) { return self.angular(); },
-         Component::documentation("angular").data()
+         "angular_uncorrelated",
+         [](const Component &self) { return self.angular_uncorrelated(); },
+         Component::documentation("angular_uncorrelated").data()
       )
       .def_property_readonly(
-         "energy",
-         [](const Component &self) { return self.energy(); },
-         Component::documentation("energy").data()
+         "energy_uncorrelated",
+         [](const Component &self) { return self.energy_uncorrelated(); },
+         Component::documentation("energy_uncorrelated").data()
       )
    ;
 

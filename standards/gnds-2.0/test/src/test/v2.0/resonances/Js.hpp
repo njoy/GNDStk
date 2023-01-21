@@ -16,22 +16,27 @@ namespace resonances {
 // class Js
 // -----------------------------------------------------------------------------
 
-class Js : public Component<resonances::Js> {
+class Js :
+   public Component<resonances::Js>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Js"; }
    static auto FIELD() { return "Js"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<resonances::J>("J")
       ;
@@ -39,6 +44,9 @@ class Js : public Component<resonances::Js> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<resonances::J>> J{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->J)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Js(
       const wrapper<std::vector<resonances::J>> &J
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Js(const Js &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       J(this,other.J)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Js(Js &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       J(this,std::move(other.J))
    {
       Component::finish(other);

@@ -240,8 +240,10 @@ ExforDataSetNoteSet(ConstHandle2ExforDataSet This, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExforDataSet/src/custom.h"
 
 #undef extern_c
 #endif

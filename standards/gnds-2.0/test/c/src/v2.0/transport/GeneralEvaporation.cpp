@@ -258,3 +258,10 @@ GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation This, ConstHandle2Cons
    detail::setField<CPP,CPPTheta>
       (CLASSNAME, CLASSNAME+"ThetaSet", This, extract::theta, theta);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/GeneralEvaporation/src/custom.cpp"

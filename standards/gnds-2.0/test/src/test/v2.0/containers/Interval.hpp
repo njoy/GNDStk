@@ -16,22 +16,27 @@ namespace containers {
 // class Interval
 // -----------------------------------------------------------------------------
 
-class Interval : public Component<containers::Interval> {
+class Interval :
+   public Component<containers::Interval>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Interval"; }
    static auto FIELD() { return "interval"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Float64{}
             / Meta<>("confidence") |
@@ -45,6 +50,9 @@ class Interval : public Component<containers::Interval> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Float64> confidence{this};
    Field<Float64> lower{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->confidence, \
       this->lower, \
       this->upper)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Interval(
       const wrapper<Float64> &confidence,
       const wrapper<Float64> &lower = {},
@@ -90,6 +99,7 @@ public:
    // copy
    Interval(const Interval &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       confidence(this,other.confidence),
       lower(this,other.lower),
       upper(this,other.upper)
@@ -100,6 +110,7 @@ public:
    // move
    Interval(Interval &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       confidence(this,std::move(other.confidence)),
       lower(this,std::move(other.lower)),
       upper(this,std::move(other.upper))

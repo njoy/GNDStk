@@ -236,8 +236,10 @@ AverageEnergyUncertaintySet(ConstHandle2AverageEnergy This, ConstHandle2ConstUnc
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/AverageEnergy/src/custom.h"
 
 #undef extern_c
 #endif

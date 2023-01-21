@@ -578,3 +578,10 @@ ScatteringAtomT_effectiveSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstT
    detail::setField<CPP,CPPT_effective>
       (CLASSNAME, CLASSNAME+"T_effectiveSet", This, extract::T_effective, T_effective);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ScatteringAtom/src/custom.cpp"

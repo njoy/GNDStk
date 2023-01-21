@@ -215,3 +215,10 @@ ImaginaryAnomalousFactorRegions1dSet(ConstHandle2ImaginaryAnomalousFactor This, 
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/ImaginaryAnomalousFactor/src/custom.cpp"

@@ -329,8 +329,10 @@ AbstractLabelSet(ConstHandle2Abstract This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Abstract/src/custom.h"
 
 #undef extern_c
 #endif

@@ -236,8 +236,10 @@ BondarenkoDocumentationSet(ConstHandle2Bondarenko This, ConstHandle2ConstDocumen
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Bondarenko/src/custom.h"
 
 #undef extern_c
 #endif

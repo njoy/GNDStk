@@ -272,8 +272,10 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet(ConstHandle2Th
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentInelastic/src/custom.h"
 
 #undef extern_c
 #endif

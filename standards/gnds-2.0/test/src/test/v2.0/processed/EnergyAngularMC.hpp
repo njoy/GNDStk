@@ -17,27 +17,33 @@ namespace processed {
 // class EnergyAngularMC
 // -----------------------------------------------------------------------------
 
-class EnergyAngularMC : public Component<processed::EnergyAngularMC> {
+class EnergyAngularMC :
+   public Component<processed::EnergyAngularMC>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "processed"; }
    static auto CLASS() { return "EnergyAngularMC"; }
    static auto FIELD() { return "energyAngularMC"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("productFrame") |
+
          // children
          --Child<common::Energy>("energy") |
          --Child<transport::EnergyAngular>("energyAngular")
@@ -46,6 +52,9 @@ class EnergyAngularMC : public Component<processed::EnergyAngularMC> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->energy, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit EnergyAngularMC(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &productFrame = {},
@@ -98,6 +108,7 @@ public:
    // copy
    EnergyAngularMC(const EnergyAngularMC &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       energy(this,other.energy),
@@ -109,6 +120,7 @@ public:
    // move
    EnergyAngularMC(EnergyAngularMC &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       energy(this,std::move(other.energy)),

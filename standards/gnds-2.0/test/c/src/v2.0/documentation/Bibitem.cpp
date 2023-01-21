@@ -521,3 +521,10 @@ BibitemXrefSet(ConstHandle2Bibitem This, const XMLName xref)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"XrefSet", This, extract::xref, xref);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Bibitem/src/custom.cpp"

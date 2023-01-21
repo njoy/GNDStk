@@ -529,3 +529,10 @@ ParityIntegerSetByValue(
       (CLASSNAME, CLASSNAME+"IntegerSetByValue",
        This, extract::integer, meta::value, value, integer);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Parity/src/custom.cpp"

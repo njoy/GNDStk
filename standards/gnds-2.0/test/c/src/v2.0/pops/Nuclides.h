@@ -197,8 +197,10 @@ NuclidesNuclideSetById(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Nuclides/src/custom.h"
 
 #undef extern_c
 #endif

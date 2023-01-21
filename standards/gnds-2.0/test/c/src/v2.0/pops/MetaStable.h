@@ -188,8 +188,10 @@ MetaStablePidSet(ConstHandle2MetaStable This, const XMLName pid);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/MetaStable/src/custom.h"
 
 #undef extern_c
 #endif

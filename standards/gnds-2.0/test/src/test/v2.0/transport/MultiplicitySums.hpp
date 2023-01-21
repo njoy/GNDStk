@@ -16,22 +16,27 @@ namespace transport {
 // class MultiplicitySums
 // -----------------------------------------------------------------------------
 
-class MultiplicitySums : public Component<transport::MultiplicitySums> {
+class MultiplicitySums :
+   public Component<transport::MultiplicitySums>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "MultiplicitySums"; }
    static auto FIELD() { return "multiplicitySums"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<transport::MultiplicitySum>>("multiplicitySum")
       ;
@@ -39,6 +44,9 @@ class MultiplicitySums : public Component<transport::MultiplicitySums> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<transport::MultiplicitySum>>> multiplicitySum{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->multiplicitySum)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit MultiplicitySums(
       const wrapper<std::optional<std::vector<transport::MultiplicitySum>>> &multiplicitySum
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    MultiplicitySums(const MultiplicitySums &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       multiplicitySum(this,other.multiplicitySum)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    MultiplicitySums(MultiplicitySums &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       multiplicitySum(this,std::move(other.multiplicitySum))
    {
       Component::finish(other);

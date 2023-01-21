@@ -236,8 +236,10 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralSet(ConstHandle2
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentElastic/src/custom.h"
 
 #undef extern_c
 #endif

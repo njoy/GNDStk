@@ -42,9 +42,9 @@ void wrapXs_pdf_cdf1d(python::module &module)
             const containers::Cdf_in_xs_pdf_cdf1d &
          >(),
          python::arg("outer_domain_value") = std::nullopt,
-         python::arg("xs"),
+         python::arg("xs_in_xs_pdf_cdf1d"),
          python::arg("pdf"),
-         python::arg("cdf"),
+         python::arg("cdf_in_xs_pdf_cdf1d"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -53,9 +53,9 @@ void wrapXs_pdf_cdf1d(python::module &module)
          Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
-         "xs",
-         [](const Component &self) { return self.xs(); },
-         Component::documentation("xs").data()
+         "xs_in_xs_pdf_cdf1d",
+         [](const Component &self) { return self.xs_in_xs_pdf_cdf1d(); },
+         Component::documentation("xs_in_xs_pdf_cdf1d").data()
       )
       .def_property_readonly(
          "pdf",
@@ -63,9 +63,9 @@ void wrapXs_pdf_cdf1d(python::module &module)
          Component::documentation("pdf").data()
       )
       .def_property_readonly(
-         "cdf",
-         [](const Component &self) { return self.cdf(); },
-         Component::documentation("cdf").data()
+         "cdf_in_xs_pdf_cdf1d",
+         [](const Component &self) { return self.cdf_in_xs_pdf_cdf1d(); },
+         Component::documentation("cdf_in_xs_pdf_cdf1d").data()
       )
    ;
 

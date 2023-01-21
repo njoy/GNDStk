@@ -16,22 +16,27 @@ namespace styles {
 // class SnElasticUpScatter
 // -----------------------------------------------------------------------------
 
-class SnElasticUpScatter : public Component<styles::SnElasticUpScatter> {
+class SnElasticUpScatter :
+   public Component<styles::SnElasticUpScatter>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "SnElasticUpScatter"; }
    static auto FIELD() { return "SnElasticUpScatter"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("date") |
@@ -41,6 +46,7 @@ class SnElasticUpScatter : public Component<styles::SnElasticUpScatter> {
             / Meta<>("label") |
          std::optional<Integer32>{}
             / Meta<>("upperCalculatedGroup") |
+
          // children
          --Child<std::optional<documentation::Documentation>>("documentation")
       ;
@@ -48,6 +54,9 @@ class SnElasticUpScatter : public Component<styles::SnElasticUpScatter> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> date{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->date, \
       this->derivedFrom, \
       this->label, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit SnElasticUpScatter(
       const wrapper<std::string> &date,
       const wrapper<XMLName> &derivedFrom = {},
@@ -104,6 +114,7 @@ public:
    // copy
    SnElasticUpScatter(const SnElasticUpScatter &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       date(this,other.date),
       derivedFrom(this,other.derivedFrom),
       label(this,other.label),
@@ -116,6 +127,7 @@ public:
    // move
    SnElasticUpScatter(SnElasticUpScatter &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       date(this,std::move(other.date)),
       derivedFrom(this,std::move(other.derivedFrom)),
       label(this,std::move(other.label)),

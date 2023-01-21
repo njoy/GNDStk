@@ -16,22 +16,27 @@ namespace fpy {
 // class ProductYields
 // -----------------------------------------------------------------------------
 
-class ProductYields : public Component<fpy::ProductYields> {
+class ProductYields :
+   public Component<fpy::ProductYields>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ProductYields"; }
    static auto FIELD() { return "productYields"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<fpy::ProductYield>("productYield")
       ;
@@ -39,6 +44,9 @@ class ProductYields : public Component<fpy::ProductYields> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<fpy::ProductYield>> productYield{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->productYield)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ProductYields(
       const wrapper<std::vector<fpy::ProductYield>> &productYield
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ProductYields(const ProductYields &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       productYield(this,other.productYield)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ProductYields(ProductYields &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       productYield(this,std::move(other.productYield))
    {
       Component::finish(other);

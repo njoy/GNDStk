@@ -152,8 +152,10 @@ GaussianApproximationPhononSpectrumSet(ConstHandle2GaussianApproximation This, C
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/GaussianApproximation/src/custom.h"
 
 #undef extern_c
 #endif

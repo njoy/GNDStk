@@ -172,3 +172,10 @@ ENDFconversionFlagsConversionSet(ConstHandle2ENDFconversionFlags This, ConstHand
    detail::setField<CPP,CPPConversion>
       (CLASSNAME, CLASSNAME+"ConversionSet", This, extract::conversion, conversion);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/appData/ENDFconversionFlags/src/custom.cpp"

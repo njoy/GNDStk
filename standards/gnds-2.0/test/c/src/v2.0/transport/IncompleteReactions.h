@@ -152,8 +152,10 @@ IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions This, ConstHandle
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/IncompleteReactions/src/custom.h"
 
 #undef extern_c
 #endif

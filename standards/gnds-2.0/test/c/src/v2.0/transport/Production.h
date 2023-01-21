@@ -216,8 +216,10 @@ ProductionOutputChannelSet(ConstHandle2Production This, ConstHandle2ConstOutputC
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Production/src/custom.h"
 
 #undef extern_c
 #endif

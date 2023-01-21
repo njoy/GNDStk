@@ -208,8 +208,10 @@ ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const Integer32 nPar
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterLink/src/custom.h"
 
 #undef extern_c
 #endif

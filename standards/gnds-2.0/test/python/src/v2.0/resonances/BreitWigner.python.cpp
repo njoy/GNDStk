@@ -49,7 +49,7 @@ void wrapBreitWigner(python::module &module)
          python::arg("approximation"),
          python::arg("calculate_channel_radius") = std::nullopt,
          python::arg("use_for_self_shielding_only") = std::nullopt,
-         python::arg("po_ps") = std::nullopt,
+         python::arg("po_ps_database") = std::nullopt,
          python::arg("scattering_radius") = std::nullopt,
          python::arg("hard_sphere_radius") = std::nullopt,
          python::arg("resonance_parameters") = std::nullopt,
@@ -76,9 +76,9 @@ void wrapBreitWigner(python::module &module)
          Component::documentation("use_for_self_shielding_only").data()
       )
       .def_property_readonly(
-         "po_ps",
-         [](const Component &self) { return self.PoPs(); },
-         Component::documentation("po_ps").data()
+         "po_ps_database",
+         [](const Component &self) { return self.PoPs_database(); },
+         Component::documentation("po_ps_database").data()
       )
       .def_property_readonly(
          "scattering_radius",

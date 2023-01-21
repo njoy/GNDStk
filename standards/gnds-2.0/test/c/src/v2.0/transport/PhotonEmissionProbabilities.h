@@ -152,8 +152,10 @@ PhotonEmissionProbabilitiesShellSet(ConstHandle2PhotonEmissionProbabilities This
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/PhotonEmissionProbabilities/src/custom.h"
 
 #undef extern_c
 #endif

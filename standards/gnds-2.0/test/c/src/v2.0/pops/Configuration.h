@@ -216,8 +216,10 @@ ConfigurationDecayDataSet(ConstHandle2Configuration This, ConstHandle2ConstDecay
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Configuration/src/custom.h"
 
 #undef extern_c
 #endif

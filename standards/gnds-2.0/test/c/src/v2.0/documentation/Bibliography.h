@@ -284,8 +284,10 @@ BibliographyBibitemSetByXref(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Bibliography/src/custom.h"
 
 #undef extern_c
 #endif

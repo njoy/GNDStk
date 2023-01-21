@@ -328,3 +328,10 @@ Regions2dUncertaintySet(ConstHandle2Regions2d This, ConstHandle2ConstUncertainty
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Regions2d/src/custom.cpp"

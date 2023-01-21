@@ -172,3 +172,10 @@ DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel This, 
    detail::setField<CPP,CPPGridded3d>
       (CLASSNAME, CLASSNAME+"Gridded3dSet", This, extract::gridded3d, gridded3d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/DistinctScatteringKernel/src/custom.cpp"

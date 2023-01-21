@@ -232,8 +232,10 @@ PrimaryGammaAxesSet(ConstHandle2PrimaryGamma This, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/PrimaryGamma/src/custom.h"
 
 #undef extern_c
 #endif

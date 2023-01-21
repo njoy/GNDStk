@@ -198,3 +198,10 @@ ThermalNeutronScatteringLaw1dHrefSet(ConstHandle2ThermalNeutronScatteringLaw1d T
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw1d/src/custom.cpp"

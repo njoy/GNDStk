@@ -268,3 +268,10 @@ ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const enums::HashAlgorit
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/common/ExternalFile/src/custom.cpp"

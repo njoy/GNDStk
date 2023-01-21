@@ -148,8 +148,10 @@ Branching1dLabelSet(ConstHandle2Branching1d This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Branching1d/src/custom.h"
 
 #undef extern_c
 #endif

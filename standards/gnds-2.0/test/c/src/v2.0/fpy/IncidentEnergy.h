@@ -196,8 +196,10 @@ IncidentEnergyYieldsSet(ConstHandle2IncidentEnergy This, ConstHandle2ConstYields
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/IncidentEnergy/src/custom.h"
 
 #undef extern_c
 #endif

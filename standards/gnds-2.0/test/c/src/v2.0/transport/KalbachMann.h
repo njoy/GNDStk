@@ -240,8 +240,10 @@ KalbachMannASet(ConstHandle2KalbachMann This, ConstHandle2ConstA a);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/KalbachMann/src/custom.h"
 
 #undef extern_c
 #endif

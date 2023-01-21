@@ -152,8 +152,10 @@ LogNormalDoubleSet(ConstHandle2LogNormal This, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/LogNormal/src/custom.h"
 
 #undef extern_c
 #endif

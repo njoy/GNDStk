@@ -17,7 +17,9 @@ namespace transport {
 // class R
 // -----------------------------------------------------------------------------
 
-class R : public Component<transport::R> {
+class R :
+   public Component<transport::R>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class R : public Component<transport::R> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "R"; }
    static auto FIELD() { return "r"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / --(Child<>("XYs2d") || Child<>("regions2d"))
@@ -46,6 +51,9 @@ class R : public Component<transport::R> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<_t> _XYs2dregions2d{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_XYs2dregions2d)
 
    // default
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit R(
       const wrapper<_t> &_XYs2dregions2d
    ) :
@@ -86,6 +95,7 @@ public:
    // copy
    R(const R &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _XYs2dregions2d(this,other._XYs2dregions2d)
    {
       Component::finish(other);
@@ -94,6 +104,7 @@ public:
    // move
    R(R &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _XYs2dregions2d(this,std::move(other._XYs2dregions2d))
    {
       Component::finish(other);

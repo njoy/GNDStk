@@ -312,8 +312,10 @@ LeptonDecayDataSet(ConstHandle2Lepton This, ConstHandle2ConstDecayData decayData
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Lepton/src/custom.h"
 
 #undef extern_c
 #endif

@@ -87,7 +87,7 @@ RMatrixCreateConst(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 );
@@ -103,7 +103,7 @@ RMatrixCreate(
    const bool calculatePenetrability,
    const bool useForSelfShieldingOnly,
    const bool supportsAngularReconstruction,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstResonanceReactions resonanceReactions,
    ConstHandle2ConstSpinGroups spinGroups
 );
@@ -297,7 +297,7 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // +++ Has
@@ -314,7 +314,7 @@ RMatrixPoPs_databaseGet(ConstHandle2RMatrix This);
 
 // +++ Set
 extern_c void
-RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs);
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -360,8 +360,10 @@ RMatrixSpinGroupsSet(ConstHandle2RMatrix This, ConstHandle2ConstSpinGroups spinG
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/RMatrix/src/custom.h"
 
 #undef extern_c
 #endif

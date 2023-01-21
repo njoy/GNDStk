@@ -236,8 +236,10 @@ TemperatureUncertaintySet(ConstHandle2Temperature This, ConstHandle2ConstUncerta
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Temperature/src/custom.h"
 
 #undef extern_c
 #endif

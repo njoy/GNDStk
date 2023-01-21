@@ -316,8 +316,10 @@ NuclideFissionFragmentDataSet(ConstHandle2Nuclide This, ConstHandle2ConstFission
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Nuclide/src/custom.h"
 
 #undef extern_c
 #endif

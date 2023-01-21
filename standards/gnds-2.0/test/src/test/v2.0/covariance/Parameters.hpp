@@ -16,22 +16,27 @@ namespace covariance {
 // class Parameters
 // -----------------------------------------------------------------------------
 
-class Parameters : public Component<covariance::Parameters> {
+class Parameters :
+   public Component<covariance::Parameters>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Parameters"; }
    static auto FIELD() { return "parameters"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<covariance::ParameterLink>>("parameterLink")
       ;
@@ -39,6 +44,9 @@ class Parameters : public Component<covariance::Parameters> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<covariance::ParameterLink>>> parameterLink{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->parameterLink)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Parameters(
       const wrapper<std::optional<std::vector<covariance::ParameterLink>>> &parameterLink
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Parameters(const Parameters &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       parameterLink(this,other.parameterLink)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Parameters(Parameters &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       parameterLink(this,std::move(other.parameterLink))
    {
       Component::finish(other);

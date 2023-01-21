@@ -216,8 +216,10 @@ EnergyAngularMCEnergyAngularSet(ConstHandle2EnergyAngularMC This, ConstHandle2Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/EnergyAngularMC/src/custom.h"
 
 #undef extern_c
 #endif

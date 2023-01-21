@@ -300,8 +300,10 @@ Polynomial1dValuesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstValues val
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Polynomial1d/src/custom.h"
 
 #undef extern_c
 #endif

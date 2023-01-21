@@ -349,8 +349,10 @@ CopyrightHrefSet(ConstHandle2Copyright This, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Copyright/src/custom.h"
 
 #undef extern_c
 #endif

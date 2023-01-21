@@ -17,27 +17,33 @@ namespace common {
 // class Product
 // -----------------------------------------------------------------------------
 
-class Product : public Component<common::Product> {
+class Product :
+   public Component<common::Product>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "Product"; }
    static auto FIELD() { return "product"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("pid") |
+
          // children
          --Child<transport::Multiplicity>("multiplicity") |
          --Child<transport::Distribution>("distribution")
@@ -46,6 +52,9 @@ class Product : public Component<common::Product> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->pid, \
       this->multiplicity, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Product(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &pid = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Product(const Product &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
       multiplicity(this,other.multiplicity),
@@ -109,6 +120,7 @@ public:
    // move
    Product(Product &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
       multiplicity(this,std::move(other.multiplicity)),

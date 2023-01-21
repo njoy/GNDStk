@@ -16,22 +16,27 @@ namespace pops {
 // class PhotonEmissionProbabilities
 // -----------------------------------------------------------------------------
 
-class PhotonEmissionProbabilities : public Component<pops::PhotonEmissionProbabilities> {
+class PhotonEmissionProbabilities :
+   public Component<pops::PhotonEmissionProbabilities>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "PhotonEmissionProbabilities"; }
    static auto FIELD() { return "photonEmissionProbabilities"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::Shell>("shell")
       ;
@@ -39,6 +44,9 @@ class PhotonEmissionProbabilities : public Component<pops::PhotonEmissionProbabi
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::Shell>> shell{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->shell)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit PhotonEmissionProbabilities(
       const wrapper<std::vector<pops::Shell>> &shell
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    PhotonEmissionProbabilities(const PhotonEmissionProbabilities &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       shell(this,other.shell)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    PhotonEmissionProbabilities(PhotonEmissionProbabilities &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       shell(this,std::move(other.shell))
    {
       Component::finish(other);

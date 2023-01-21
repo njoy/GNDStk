@@ -258,3 +258,10 @@ Angular_uncorrelatedForwardSet(ConstHandle2Angular_uncorrelated This, ConstHandl
    detail::setField<CPP,CPPForward>
       (CLASSNAME, CLASSNAME+"ForwardSet", This, extract::forward, forward);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Angular_uncorrelated/src/custom.cpp"

@@ -347,3 +347,10 @@ Constant1dAxesSet(ConstHandle2Constant1d This, ConstHandle2ConstAxes axes)
    detail::setField<CPP,CPPAxes>
       (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Constant1d/src/custom.cpp"

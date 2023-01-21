@@ -17,22 +17,27 @@ namespace cpTransport {
 // class NuclearTerm
 // -----------------------------------------------------------------------------
 
-class NuclearTerm : public Component<cpTransport::NuclearTerm> {
+class NuclearTerm :
+   public Component<cpTransport::NuclearTerm>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearTerm"; }
    static auto FIELD() { return "nuclearTerm"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::XYs2d>>("XYs2d") |
          --Child<std::optional<containers::Regions2d>>("regions2d")
@@ -41,6 +46,9 @@ class NuclearTerm : public Component<cpTransport::NuclearTerm> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::XYs2d>> XYs2d{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs2d, \
       this->regions2d)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit NuclearTerm(
       const wrapper<std::optional<containers::XYs2d>> &XYs2d,
       const wrapper<std::optional<containers::Regions2d>> &regions2d = {}
@@ -83,6 +92,7 @@ public:
    // copy
    NuclearTerm(const NuclearTerm &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs2d(this,other.XYs2d),
       regions2d(this,other.regions2d)
    {
@@ -92,6 +102,7 @@ public:
    // move
    NuclearTerm(NuclearTerm &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs2d(this,std::move(other.XYs2d)),
       regions2d(this,std::move(other.regions2d))
    {

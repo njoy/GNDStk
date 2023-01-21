@@ -293,3 +293,10 @@ OrphanProductsOrphanProductSetByLabel(
       (CLASSNAME, CLASSNAME+"OrphanProductSetByLabel",
        This, extract::orphanProduct, meta::label, label, orphanProduct);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OrphanProducts/src/custom.cpp"

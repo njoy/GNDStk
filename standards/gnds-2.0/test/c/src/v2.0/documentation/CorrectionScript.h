@@ -329,8 +329,10 @@ CorrectionScriptLabelSet(ConstHandle2CorrectionScript This, const XMLName label)
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/CorrectionScript/src/custom.h"
 
 #undef extern_c
 #endif

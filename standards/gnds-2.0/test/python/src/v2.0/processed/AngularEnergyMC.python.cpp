@@ -43,7 +43,7 @@ void wrapAngularEnergyMC(python::module &module)
          >(),
          python::arg("label"),
          python::arg("product_frame"),
-         python::arg("angular"),
+         python::arg("angular_uncorrelated"),
          python::arg("angular_energy"),
          Component::documentation("constructor").data()
       )
@@ -58,9 +58,9 @@ void wrapAngularEnergyMC(python::module &module)
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
-         "angular",
-         [](const Component &self) { return self.angular(); },
-         Component::documentation("angular").data()
+         "angular_uncorrelated",
+         [](const Component &self) { return self.angular_uncorrelated(); },
+         Component::documentation("angular_uncorrelated").data()
       )
       .def_property_readonly(
          "angular_energy",

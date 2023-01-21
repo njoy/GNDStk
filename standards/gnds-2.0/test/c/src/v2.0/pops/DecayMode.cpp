@@ -457,3 +457,10 @@ DecayModeSpectraSet(ConstHandle2DecayMode This, ConstHandle2ConstSpectra spectra
    detail::setField<CPP,CPPSpectra>
       (CLASSNAME, CLASSNAME+"SpectraSet", This, extract::spectra, spectra);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayMode/src/custom.cpp"

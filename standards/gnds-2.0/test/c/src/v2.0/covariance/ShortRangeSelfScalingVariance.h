@@ -212,8 +212,10 @@ ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVaria
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ShortRangeSelfScalingVariance/src/custom.h"
 
 #undef extern_c
 #endif

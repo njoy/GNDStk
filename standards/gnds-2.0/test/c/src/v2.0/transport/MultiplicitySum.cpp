@@ -285,3 +285,10 @@ MultiplicitySumSummandsSet(ConstHandle2MultiplicitySum This, ConstHandle2ConstSu
    detail::setField<CPP,CPPSummands>
       (CLASSNAME, CLASSNAME+"SummandsSet", This, extract::summands, summands);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/MultiplicitySum/src/custom.cpp"

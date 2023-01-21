@@ -16,22 +16,27 @@ namespace containers {
 // class Covariance
 // -----------------------------------------------------------------------------
 
-class Covariance : public Component<containers::Covariance> {
+class Covariance :
+   public Component<containers::Covariance>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Covariance"; }
    static auto FIELD() { return "covariance"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -43,6 +48,9 @@ class Covariance : public Component<containers::Covariance> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<std::optional<std::string>> href{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->href)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Covariance(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<std::string>> &href = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Covariance(const Covariance &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       href(this,other.href)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Covariance(Covariance &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href))
    {

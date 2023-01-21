@@ -19,7 +19,9 @@ namespace tsl {
 // class SelfScatteringKernel
 // -----------------------------------------------------------------------------
 
-class SelfScatteringKernel : public Component<tsl::SelfScatteringKernel> {
+class SelfScatteringKernel :
+   public Component<tsl::SelfScatteringKernel>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -33,18 +35,22 @@ class SelfScatteringKernel : public Component<tsl::SelfScatteringKernel> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "SelfScatteringKernel"; }
    static auto FIELD() { return "selfScatteringKernel"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<bool>{}
             / Meta<>("symmetric") |
+
          // children
          _t{}
             / --(Child<>("gridded3d") || Child<>("GaussianApproximation") || Child<>("SCTApproximation") || Child<>("freeGasApproximation"))
@@ -53,6 +59,9 @@ class SelfScatteringKernel : public Component<tsl::SelfScatteringKernel> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<bool>> symmetric{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->symmetric, \
       this->_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation)
 
@@ -79,7 +89,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit SelfScatteringKernel(
       const wrapper<std::optional<bool>> &symmetric,
       const wrapper<_t> &_gridded3dGaussianApproximationSCTApproximationfreeGasApproximation = {}
@@ -101,6 +111,7 @@ public:
    // copy
    SelfScatteringKernel(const SelfScatteringKernel &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       symmetric(this,other.symmetric),
       _gridded3dGaussianApproximationSCTApproximationfreeGasApproximation(this,other._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation)
    {
@@ -110,6 +121,7 @@ public:
    // move
    SelfScatteringKernel(SelfScatteringKernel &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       symmetric(this,std::move(other.symmetric)),
       _gridded3dGaussianApproximationSCTApproximationfreeGasApproximation(this,std::move(other._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation))
    {

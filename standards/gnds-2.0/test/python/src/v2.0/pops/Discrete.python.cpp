@@ -45,7 +45,7 @@ void wrapDiscrete(python::module &module)
             const std::optional<pops::PositronEmissionIntensity> &
          >(),
          python::arg("type") = std::nullopt,
-         python::arg("energy"),
+         python::arg("discrete_energy"),
          python::arg("intensity"),
          python::arg("internal_conversion_coefficients") = std::nullopt,
          python::arg("internal_pair_formation_coefficient") = std::nullopt,
@@ -59,9 +59,9 @@ void wrapDiscrete(python::module &module)
          Component::documentation("type").data()
       )
       .def_property_readonly(
-         "energy",
-         [](const Component &self) { return self.energy(); },
-         Component::documentation("energy").data()
+         "discrete_energy",
+         [](const Component &self) { return self.discreteEnergy(); },
+         Component::documentation("discrete_energy").data()
       )
       .def_property_readonly(
          "intensity",

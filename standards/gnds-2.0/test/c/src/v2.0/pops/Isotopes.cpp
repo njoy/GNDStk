@@ -293,3 +293,10 @@ IsotopesIsotopeSetBySymbol(
       (CLASSNAME, CLASSNAME+"IsotopeSetBySymbol",
        This, extract::isotope, meta::symbol, symbol, isotope);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Isotopes/src/custom.cpp"

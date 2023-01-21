@@ -197,8 +197,10 @@ ElapsedTimesElapsedTimeSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ElapsedTimes/src/custom.h"
 
 #undef extern_c
 #endif

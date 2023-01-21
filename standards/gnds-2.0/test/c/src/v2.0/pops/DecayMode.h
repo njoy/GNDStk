@@ -312,8 +312,10 @@ DecayModeSpectraSet(ConstHandle2DecayMode This, ConstHandle2ConstSpectra spectra
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayMode/src/custom.h"
 
 #undef extern_c
 #endif

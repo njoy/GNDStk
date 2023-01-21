@@ -200,8 +200,10 @@ Angular_uncorrelatedForwardSet(ConstHandle2Angular_uncorrelated This, ConstHandl
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Angular_uncorrelated/src/custom.h"
 
 #undef extern_c
 #endif

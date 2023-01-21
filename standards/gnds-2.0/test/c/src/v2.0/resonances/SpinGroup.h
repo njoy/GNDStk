@@ -236,8 +236,10 @@ SpinGroupResonanceParametersSet(ConstHandle2SpinGroup This, ConstHandle2ConstRes
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/SpinGroup/src/custom.h"
 
 #undef extern_c
 #endif

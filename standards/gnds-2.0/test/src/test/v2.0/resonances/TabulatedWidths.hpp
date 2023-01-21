@@ -20,22 +20,27 @@ namespace resonances {
 // class TabulatedWidths
 // -----------------------------------------------------------------------------
 
-class TabulatedWidths : public Component<resonances::TabulatedWidths> {
+class TabulatedWidths :
+   public Component<resonances::TabulatedWidths>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "TabulatedWidths"; }
    static auto FIELD() { return "tabulatedWidths"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -43,6 +48,7 @@ class TabulatedWidths : public Component<resonances::TabulatedWidths> {
             / Meta<>("approximation") |
          Defaulted<bool>{false}
             / Meta<>("useForSelfShieldingOnly") |
+
          // children
          --Child<std::optional<pops::PoPs_database>>("PoPs") |
          --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
@@ -60,13 +66,16 @@ public:
       static inline const bool useForSelfShieldingOnly = false;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
    Field<XMLName> approximation{this};
    Field<Defaulted<bool>> useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
 
    // children
-   Field<std::optional<pops::PoPs_database>> PoPs{this};
+   Field<std::optional<pops::PoPs_database>> PoPs_database{this};
    Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
    Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
    Field<resonances::ResonanceReactions> resonanceReactions{this};
@@ -77,10 +86,11 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->approximation, \
       this->useForSelfShieldingOnly, \
-      this->PoPs, \
+      this->PoPs_database, \
       this->scatteringRadius, \
       this->hardSphereRadius, \
       this->resonanceReactions, \
@@ -93,13 +103,13 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit TabulatedWidths(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &approximation = {},
       const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
-      const wrapper<std::optional<pops::PoPs_database>> &PoPs = {},
+      const wrapper<std::optional<pops::PoPs_database>> &PoPs_database = {},
       const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
       const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
       const wrapper<resonances::ResonanceReactions> &resonanceReactions = {},
@@ -109,7 +119,7 @@ public:
       label(this,label),
       approximation(this,approximation),
       useForSelfShieldingOnly(this,defaults.useForSelfShieldingOnly,useForSelfShieldingOnly),
-      PoPs(this,PoPs),
+      PoPs_database(this,PoPs_database),
       scatteringRadius(this,scatteringRadius),
       hardSphereRadius(this,hardSphereRadius),
       resonanceReactions(this,resonanceReactions),
@@ -128,10 +138,11 @@ public:
    // copy
    TabulatedWidths(const TabulatedWidths &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       approximation(this,other.approximation),
       useForSelfShieldingOnly(this,other.useForSelfShieldingOnly),
-      PoPs(this,other.PoPs),
+      PoPs_database(this,other.PoPs_database),
       scatteringRadius(this,other.scatteringRadius),
       hardSphereRadius(this,other.hardSphereRadius),
       resonanceReactions(this,other.resonanceReactions),
@@ -143,10 +154,11 @@ public:
    // move
    TabulatedWidths(TabulatedWidths &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       approximation(this,std::move(other.approximation)),
       useForSelfShieldingOnly(this,std::move(other.useForSelfShieldingOnly)),
-      PoPs(this,std::move(other.PoPs)),
+      PoPs_database(this,std::move(other.PoPs_database)),
       scatteringRadius(this,std::move(other.scatteringRadius)),
       hardSphereRadius(this,std::move(other.hardSphereRadius)),
       resonanceReactions(this,std::move(other.resonanceReactions)),

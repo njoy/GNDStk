@@ -16,22 +16,27 @@ namespace covariance {
 // class ShortRangeSelfScalingVariance
 // -----------------------------------------------------------------------------
 
-class ShortRangeSelfScalingVariance : public Component<covariance::ShortRangeSelfScalingVariance> {
+class ShortRangeSelfScalingVariance :
+   public Component<covariance::ShortRangeSelfScalingVariance>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ShortRangeSelfScalingVariance"; }
    static auto FIELD() { return "shortRangeSelfScalingVariance"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("dependenceOnProcessedGroupWidth") |
@@ -39,6 +44,7 @@ class ShortRangeSelfScalingVariance : public Component<covariance::ShortRangeSel
             / Meta<>("label") |
          std::optional<XMLName>{}
             / Meta<>("type") |
+
          // children
          --Child<std::optional<containers::Gridded2d>>("gridded2d")
       ;
@@ -46,6 +52,9 @@ class ShortRangeSelfScalingVariance : public Component<covariance::ShortRangeSel
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> dependenceOnProcessedGroupWidth{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->dependenceOnProcessedGroupWidth, \
       this->label, \
       this->type, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ShortRangeSelfScalingVariance(
       const wrapper<std::optional<XMLName>> &dependenceOnProcessedGroupWidth,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -98,6 +108,7 @@ public:
    // copy
    ShortRangeSelfScalingVariance(const ShortRangeSelfScalingVariance &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       dependenceOnProcessedGroupWidth(this,other.dependenceOnProcessedGroupWidth),
       label(this,other.label),
       type(this,other.type),
@@ -109,6 +120,7 @@ public:
    // move
    ShortRangeSelfScalingVariance(ShortRangeSelfScalingVariance &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       dependenceOnProcessedGroupWidth(this,std::move(other.dependenceOnProcessedGroupWidth)),
       label(this,std::move(other.label)),
       type(this,std::move(other.type)),

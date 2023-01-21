@@ -172,3 +172,10 @@ T_effectiveXYs1dSet(ConstHandle2T_effective This, ConstHandle2ConstXYs1d XYs1d)
    detail::setField<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/T_effective/src/custom.cpp"

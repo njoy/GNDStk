@@ -256,8 +256,10 @@ ContributorNoteSet(ConstHandle2Contributor This, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Contributor/src/custom.h"
 
 #undef extern_c
 #endif

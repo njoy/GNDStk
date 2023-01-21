@@ -236,8 +236,10 @@ GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection This, ConstH
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/GriddedCrossSection/src/custom.h"
 
 #undef extern_c
 #endif

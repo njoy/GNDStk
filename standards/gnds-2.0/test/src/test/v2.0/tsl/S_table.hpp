@@ -16,22 +16,27 @@ namespace tsl {
 // class S_table
 // -----------------------------------------------------------------------------
 
-class S_table : public Component<tsl::S_table> {
+class S_table :
+   public Component<tsl::S_table>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "S_table"; }
    static auto FIELD() { return "S_table"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::Gridded2d>("gridded2d")
       ;
@@ -39,6 +44,9 @@ class S_table : public Component<tsl::S_table> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::Gridded2d> gridded2d{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->gridded2d)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit S_table(
       const wrapper<containers::Gridded2d> &gridded2d
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    S_table(const S_table &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       gridded2d(this,other.gridded2d)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    S_table(S_table &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       gridded2d(this,std::move(other.gridded2d))
    {
       Component::finish(other);

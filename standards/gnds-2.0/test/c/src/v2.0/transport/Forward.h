@@ -126,8 +126,10 @@ ForwardPrintJSON(ConstHandle2ConstForward This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Forward/src/custom.h"
 
 #undef extern_c
 #endif

@@ -172,3 +172,10 @@ PhotonEmissionProbabilitiesShellSet(ConstHandle2PhotonEmissionProbabilities This
    detail::setField<CPP,CPPShell>
       (CLASSNAME, CLASSNAME+"ShellSet", This, extract::shell, shell);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/PhotonEmissionProbabilities/src/custom.cpp"

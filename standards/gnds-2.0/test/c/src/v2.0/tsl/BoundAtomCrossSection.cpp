@@ -198,3 +198,10 @@ BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection This, const Floa
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BoundAtomCrossSection/src/custom.cpp"

@@ -338,3 +338,10 @@ ComputerCodesComputerCodeSetByVersion(
       (CLASSNAME, CLASSNAME+"ComputerCodeSetByVersion",
        This, extract::computerCode, meta::version, version, computerCode);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ComputerCodes/src/custom.cpp"

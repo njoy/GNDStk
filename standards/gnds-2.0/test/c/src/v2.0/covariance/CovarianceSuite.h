@@ -84,7 +84,7 @@ CovarianceSuiteCreateConst(
    const XMLName projectile,
    const XMLName target,
    const enums::Interaction interaction,
-   const Float64 version,
+   const Float64 format,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
    ConstHandle2ConstCovarianceSections covarianceSections,
@@ -98,7 +98,7 @@ CovarianceSuiteCreate(
    const XMLName projectile,
    const XMLName target,
    const enums::Interaction interaction,
-   const Float64 version,
+   const Float64 format,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
    ConstHandle2ConstCovarianceSections covarianceSections,
@@ -222,21 +222,21 @@ CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const enums::Int
 
 
 // -----------------------------------------------------------------------------
-// Metadatum: version
+// Metadatum: format
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-CovarianceSuiteVersionHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite This);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-CovarianceSuiteVersionGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite This);
 
 // +++ Set
 extern_c void
-CovarianceSuiteVersionSet(ConstHandle2CovarianceSuite This, const Float64 version);
+CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const Float64 format);
 
 
 // -----------------------------------------------------------------------------
@@ -324,8 +324,10 @@ CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite This, ConstHa
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSuite/src/custom.h"
 
 #undef extern_c
 #endif

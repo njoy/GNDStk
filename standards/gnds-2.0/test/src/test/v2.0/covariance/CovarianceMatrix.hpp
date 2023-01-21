@@ -17,7 +17,9 @@ namespace covariance {
 // class CovarianceMatrix
 // -----------------------------------------------------------------------------
 
-class CovarianceMatrix : public Component<covariance::CovarianceMatrix> {
+class CovarianceMatrix :
+   public Component<covariance::CovarianceMatrix>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class CovarianceMatrix : public Component<covariance::CovarianceMatrix> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceMatrix"; }
    static auto FIELD() { return "covarianceMatrix"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -45,6 +50,7 @@ class CovarianceMatrix : public Component<covariance::CovarianceMatrix> {
             / Meta<>("productFrame") |
          XMLName{}
             / Meta<>("type") |
+
          // children
          _t{}
             / --(Child<>("gridded2d") || Child<>("sandwichProduct"))
@@ -53,6 +59,9 @@ class CovarianceMatrix : public Component<covariance::CovarianceMatrix> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame, \
       this->type, \
@@ -81,7 +91,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CovarianceMatrix(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<enums::Frame>> &productFrame = {},
@@ -107,6 +117,7 @@ public:
    // copy
    CovarianceMatrix(const CovarianceMatrix &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
       type(this,other.type),
@@ -118,6 +129,7 @@ public:
    // move
    CovarianceMatrix(CovarianceMatrix &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
       type(this,std::move(other.type)),

@@ -16,22 +16,27 @@ namespace containers {
 // class Column
 // -----------------------------------------------------------------------------
 
-class Column : public Component<containers::Column> {
+class Column :
+   public Component<containers::Column>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Column"; }
    static auto FIELD() { return "column"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Integer32{}
             / Meta<>("index") |
@@ -47,6 +52,9 @@ class Column : public Component<containers::Column> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Integer32> index{this};
    Field<XMLName> name{this};
@@ -58,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->index, \
       this->name, \
       this->unit, \
@@ -70,7 +79,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Column(
       const wrapper<Integer32> &index,
       const wrapper<XMLName> &name = {},
@@ -96,6 +105,7 @@ public:
    // copy
    Column(const Column &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       index(this,other.index),
       name(this,other.name),
       unit(this,other.unit),
@@ -107,6 +117,7 @@ public:
    // move
    Column(Column &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       name(this,std::move(other.name)),
       unit(this,std::move(other.unit)),

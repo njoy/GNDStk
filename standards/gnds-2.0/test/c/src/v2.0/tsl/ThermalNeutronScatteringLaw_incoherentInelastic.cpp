@@ -382,3 +382,10 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet(ConstHandle2Th
    detail::setField<CPP,CPPScatteringAtoms>
       (CLASSNAME, CLASSNAME+"ScatteringAtomsSet", This, extract::scatteringAtoms, scatteringAtoms);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_incoherentInelastic/src/custom.cpp"

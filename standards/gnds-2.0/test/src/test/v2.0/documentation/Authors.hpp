@@ -16,22 +16,27 @@ namespace documentation {
 // class Authors
 // -----------------------------------------------------------------------------
 
-class Authors : public Component<documentation::Authors> {
+class Authors :
+   public Component<documentation::Authors>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Authors"; }
    static auto FIELD() { return "authors"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::Author>("author")
       ;
@@ -39,6 +44,9 @@ class Authors : public Component<documentation::Authors> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::Author>> author{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->author)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Authors(
       const wrapper<std::vector<documentation::Author>> &author
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Authors(const Authors &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       author(this,other.author)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Authors(Authors &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       author(this,std::move(other.author))
    {
       Component::finish(other);

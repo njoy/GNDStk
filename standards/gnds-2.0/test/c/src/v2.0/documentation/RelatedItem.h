@@ -188,8 +188,10 @@ RelatedItemRelationTypeSet(ConstHandle2RelatedItem This, const enums::RelationTy
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/RelatedItem/src/custom.h"
 
 #undef extern_c
 #endif

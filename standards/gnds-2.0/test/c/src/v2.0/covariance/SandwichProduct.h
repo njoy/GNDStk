@@ -224,8 +224,10 @@ SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct This, ConstHandl
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/SandwichProduct/src/custom.h"
 
 #undef extern_c
 #endif

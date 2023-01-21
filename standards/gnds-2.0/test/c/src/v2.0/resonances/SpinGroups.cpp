@@ -338,3 +338,10 @@ SpinGroupsSpinGroupSetByParity(
       (CLASSNAME, CLASSNAME+"SpinGroupSetByParity",
        This, extract::spinGroup, meta::parity, parity, spinGroup);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/SpinGroups/src/custom.cpp"

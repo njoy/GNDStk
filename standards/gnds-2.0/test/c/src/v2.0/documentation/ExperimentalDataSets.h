@@ -152,8 +152,10 @@ ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets This, Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ExperimentalDataSets/src/custom.h"
 
 #undef extern_c
 #endif

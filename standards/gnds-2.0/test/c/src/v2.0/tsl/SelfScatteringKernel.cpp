@@ -168,3 +168,10 @@ SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bo
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"SymmetricSet", This, extract::symmetric, symmetric);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/SelfScatteringKernel/src/custom.cpp"

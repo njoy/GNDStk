@@ -21,27 +21,33 @@ namespace pops {
 // class Lepton
 // -----------------------------------------------------------------------------
 
-class Lepton : public Component<pops::Lepton> {
+class Lepton :
+   public Component<pops::Lepton>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Lepton"; }
    static auto FIELD() { return "lepton"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("generation") |
          XMLName{}
             / Meta<>("id") |
+
          // children
          --Child<std::optional<pops::Charge>>("charge") |
          --Child<std::optional<pops::Halflife>>("halflife") |
@@ -54,6 +60,9 @@ class Lepton : public Component<pops::Lepton> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> generation{this};
@@ -72,6 +81,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->generation, \
       this->id, \
       this->charge, \
@@ -88,7 +98,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Lepton(
       const wrapper<std::optional<XMLName>> &generation,
       const wrapper<XMLName> &id = {},
@@ -122,6 +132,7 @@ public:
    // copy
    Lepton(const Lepton &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       generation(this,other.generation),
       id(this,other.id),
       charge(this,other.charge),
@@ -137,6 +148,7 @@ public:
    // move
    Lepton(Lepton &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       generation(this,std::move(other.generation)),
       id(this,std::move(other.id)),
       charge(this,std::move(other.charge)),

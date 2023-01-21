@@ -233,3 +233,10 @@ ShellUnitSet(ConstHandle2Shell This, const XMLName unit)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Shell/src/custom.cpp"

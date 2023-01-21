@@ -465,3 +465,10 @@ NuclideFissionFragmentDataSet(ConstHandle2Nuclide This, ConstHandle2ConstFission
    detail::setField<CPP,CPPFissionFragmentData>
       (CLASSNAME, CLASSNAME+"FissionFragmentDataSet", This, extract::fissionFragmentData, fissionFragmentData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Nuclide/src/custom.cpp"

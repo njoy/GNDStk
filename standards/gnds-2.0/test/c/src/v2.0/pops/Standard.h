@@ -152,8 +152,10 @@ StandardDoubleSet(ConstHandle2Standard This, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Standard/src/custom.h"
 
 #undef extern_c
 #endif

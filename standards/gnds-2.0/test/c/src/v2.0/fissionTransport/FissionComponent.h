@@ -236,8 +236,10 @@ FissionComponentOutputChannelSet(ConstHandle2FissionComponent This, ConstHandle2
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionComponent/src/custom.h"
 
 #undef extern_c
 #endif

@@ -42,7 +42,7 @@ void wrapResonancesWithBackground(python::module &module)
             const std::optional<containers::Uncertainty> &
          >(),
          python::arg("label"),
-         python::arg("resonances"),
+         python::arg("resonances_link"),
          python::arg("background"),
          python::arg("uncertainty") = std::nullopt,
          Component::documentation("constructor").data()
@@ -53,9 +53,9 @@ void wrapResonancesWithBackground(python::module &module)
          Component::documentation("label").data()
       )
       .def_property_readonly(
-         "resonances",
-         [](const Component &self) { return self.resonances(); },
-         Component::documentation("resonances").data()
+         "resonances_link",
+         [](const Component &self) { return self.resonancesLink(); },
+         Component::documentation("resonances_link").data()
       )
       .def_property_readonly(
          "background",

@@ -233,3 +233,10 @@ RelatedItemRelationTypeSet(ConstHandle2RelatedItem This, const enums::RelationTy
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"RelationTypeSet", This, extract::relationType, relationType);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/RelatedItem/src/custom.cpp"

@@ -233,3 +233,10 @@ DoubleValueSet(ConstHandle2Double This, const Float64 value)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/extra/Double/src/custom.cpp"

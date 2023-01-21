@@ -18,7 +18,7 @@ namespace extract {
    static auto projectile = [](auto &obj) { return &obj.projectile; };
    static auto target = [](auto &obj) { return &obj.target; };
    static auto interaction = [](auto &obj) { return &obj.interaction; };
-   static auto version = [](auto &obj) { return &obj.version; };
+   static auto format = [](auto &obj) { return &obj.format; };
    static auto externalFiles = [](auto &obj) { return &obj.externalFiles; };
    static auto styles = [](auto &obj) { return &obj.styles; };
    static auto covarianceSections = [](auto &obj) { return &obj.covarianceSections; };
@@ -59,7 +59,7 @@ CovarianceSuiteCreateConst(
    const XMLName projectile,
    const XMLName target,
    const enums::Interaction interaction,
-   const Float64 version,
+   const Float64 format,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
    ConstHandle2ConstCovarianceSections covarianceSections,
@@ -71,7 +71,7 @@ CovarianceSuiteCreateConst(
       projectile,
       target,
       interaction,
-      version,
+      format,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
       detail::tocpp<CPPCovarianceSections>(covarianceSections),
@@ -87,7 +87,7 @@ CovarianceSuiteCreate(
    const XMLName projectile,
    const XMLName target,
    const enums::Interaction interaction,
-   const Float64 version,
+   const Float64 format,
    ConstHandle2ConstExternalFiles externalFiles,
    ConstHandle2ConstStyles styles,
    ConstHandle2ConstCovarianceSections covarianceSections,
@@ -99,7 +99,7 @@ CovarianceSuiteCreate(
       projectile,
       target,
       interaction,
-      version,
+      format,
       detail::tocpp<CPPExternalFiles>(externalFiles),
       detail::tocpp<CPPStyles>(styles),
       detail::tocpp<CPPCovarianceSections>(covarianceSections),
@@ -301,32 +301,32 @@ CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const enums::Int
 
 
 // -----------------------------------------------------------------------------
-// Metadatum: version
+// Metadatum: format
 // -----------------------------------------------------------------------------
 
 // Has
 int
-CovarianceSuiteVersionHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
 }
 
 // Get
 // Returns by value
 Float64
-CovarianceSuiteVersionGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite This)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
 }
 
 // Set
 void
-CovarianceSuiteVersionSet(ConstHandle2CovarianceSuite This, const Float64 version)
+CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const Float64 format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
 }
 
 
@@ -476,3 +476,10 @@ CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite This, ConstHa
    detail::setField<CPP,CPPParameterCovariances>
       (CLASSNAME, CLASSNAME+"ParameterCovariancesSet", This, extract::parameterCovariances, parameterCovariances);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSuite/src/custom.cpp"

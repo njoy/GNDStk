@@ -422,3 +422,10 @@ GaugeBosonDecayDataSet(ConstHandle2GaugeBoson This, ConstHandle2ConstDecayData d
    detail::setField<CPP,CPPDecayData>
       (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/GaugeBoson/src/custom.cpp"

@@ -172,3 +172,10 @@ StructureFactorXYs1dSet(ConstHandle2StructureFactor This, ConstHandle2ConstXYs1d
    detail::setField<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/StructureFactor/src/custom.cpp"

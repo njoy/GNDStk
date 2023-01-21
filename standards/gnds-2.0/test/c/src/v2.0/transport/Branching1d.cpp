@@ -163,3 +163,10 @@ Branching1dLabelSet(ConstHandle2Branching1d This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Branching1d/src/custom.cpp"

@@ -216,8 +216,10 @@ ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution d
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/common/Product/src/custom.h"
 
 #undef extern_c
 #endif

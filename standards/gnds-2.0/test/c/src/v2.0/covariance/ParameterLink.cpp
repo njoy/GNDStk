@@ -268,3 +268,10 @@ ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const Integer32 nPar
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"NParametersSet", This, extract::nParameters, nParameters);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterLink/src/custom.cpp"

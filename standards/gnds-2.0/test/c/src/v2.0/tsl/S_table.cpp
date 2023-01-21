@@ -172,3 +172,10 @@ S_tableGridded2dSet(ConstHandle2S_table This, ConstHandle2ConstGridded2d gridded
    detail::setField<CPP,CPPGridded2d>
       (CLASSNAME, CLASSNAME+"Gridded2dSet", This, extract::gridded2d, gridded2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/S_table/src/custom.cpp"

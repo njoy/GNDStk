@@ -16,22 +16,27 @@ namespace pops {
 // class DecayModes
 // -----------------------------------------------------------------------------
 
-class DecayModes : public Component<pops::DecayModes> {
+class DecayModes :
+   public Component<pops::DecayModes>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "DecayModes"; }
    static auto FIELD() { return "decayModes"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::DecayMode>("decayMode")
       ;
@@ -39,6 +44,9 @@ class DecayModes : public Component<pops::DecayModes> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::DecayMode>> decayMode{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->decayMode)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DecayModes(
       const wrapper<std::vector<pops::DecayMode>> &decayMode
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    DecayModes(const DecayModes &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       decayMode(this,other.decayMode)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    DecayModes(DecayModes &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       decayMode(this,std::move(other.decayMode))
    {
       Component::finish(other);

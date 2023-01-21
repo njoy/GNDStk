@@ -163,3 +163,10 @@ LinkHrefSet(ConstHandle2Link This, const char *const href)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Link/src/custom.cpp"

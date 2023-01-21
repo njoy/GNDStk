@@ -16,22 +16,27 @@ namespace common {
 // class ExternalFiles
 // -----------------------------------------------------------------------------
 
-class ExternalFiles : public Component<common::ExternalFiles> {
+class ExternalFiles :
+   public Component<common::ExternalFiles>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "ExternalFiles"; }
    static auto FIELD() { return "externalFiles"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<common::ExternalFile>("externalFile")
       ;
@@ -39,6 +44,9 @@ class ExternalFiles : public Component<common::ExternalFiles> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<common::ExternalFile>> externalFile{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->externalFile)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ExternalFiles(
       const wrapper<std::vector<common::ExternalFile>> &externalFile
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ExternalFiles(const ExternalFiles &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       externalFile(this,other.externalFile)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ExternalFiles(ExternalFiles &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       externalFile(this,std::move(other.externalFile))
    {
       Component::finish(other);

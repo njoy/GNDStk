@@ -176,8 +176,10 @@ DecayDataAverageEnergiesSet(ConstHandle2DecayData This, ConstHandle2ConstAverage
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayData/src/custom.h"
 
 #undef extern_c
 #endif

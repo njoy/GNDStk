@@ -17,22 +17,27 @@ namespace pops {
 // class ChemicalElement
 // -----------------------------------------------------------------------------
 
-class ChemicalElement : public Component<pops::ChemicalElement> {
+class ChemicalElement :
+   public Component<pops::ChemicalElement>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "ChemicalElement"; }
    static auto FIELD() { return "chemicalElement"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("symbol") |
@@ -40,6 +45,7 @@ class ChemicalElement : public Component<pops::ChemicalElement> {
             / Meta<>("Z") |
          std::optional<XMLName>{}
             / Meta<>("name") |
+
          // children
          --Child<std::optional<pops::Atomic>>("atomic") |
          --Child<std::optional<pops::Isotopes>>("isotopes")
@@ -48,6 +54,9 @@ class ChemicalElement : public Component<pops::ChemicalElement> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> symbol{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->symbol, \
       this->Z, \
       this->name, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ChemicalElement(
       const wrapper<XMLName> &symbol,
       const wrapper<Integer32> &Z = {},
@@ -104,6 +114,7 @@ public:
    // copy
    ChemicalElement(const ChemicalElement &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       symbol(this,other.symbol),
       Z(this,other.Z),
       name(this,other.name),
@@ -116,6 +127,7 @@ public:
    // move
    ChemicalElement(ChemicalElement &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       Z(this,std::move(other.Z)),
       name(this,std::move(other.name)),

@@ -40,16 +40,12 @@ class Foobar :
 
          // metadata
          std::string{}
-            / Meta<>("value") |
-
-         // data
-         --Child<DataNode>(special::anydata) / DataConverter{}
+            / Meta<>("value")
       ;
    }
 
 public:
    using Component::construct;
-   using DataNode::operator=;
 
    // comment
    Field<std::vector<std::string>> comment{this};
@@ -63,8 +59,7 @@ public:
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->comment, \
-      this->value, \
-      static_cast<DataNode &>(*this))
+      this->value)
 
    // default
    Foobar() :
@@ -101,7 +96,6 @@ public:
    // copy
    Foobar(const Foobar &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      DataNode(other),
       comment(this,other.comment),
       value(this,other.value)
    {
@@ -111,7 +105,6 @@ public:
    // move
    Foobar(Foobar &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      DataNode(std::move(other)),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value))
    {

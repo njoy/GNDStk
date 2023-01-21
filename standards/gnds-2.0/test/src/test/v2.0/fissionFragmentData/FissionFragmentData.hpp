@@ -18,22 +18,27 @@ namespace fissionFragmentData {
 // class FissionFragmentData
 // -----------------------------------------------------------------------------
 
-class FissionFragmentData : public Component<fissionFragmentData::FissionFragmentData> {
+class FissionFragmentData :
+   public Component<fissionFragmentData::FissionFragmentData>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionFragmentData"; }
    static auto CLASS() { return "FissionFragmentData"; }
    static auto FIELD() { return "fissionFragmentData"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<fissionFragmentData::DelayedNeutrons>>("delayedNeutrons") |
          --Child<std::optional<fissionTransport::FissionEnergyReleased>>("fissionEnergyReleased") |
@@ -43,6 +48,9 @@ class FissionFragmentData : public Component<fissionFragmentData::FissionFragmen
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<fissionFragmentData::DelayedNeutrons>> delayedNeutrons{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->delayedNeutrons, \
       this->fissionEnergyReleased, \
       this->productYields)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit FissionFragmentData(
       const wrapper<std::optional<fissionFragmentData::DelayedNeutrons>> &delayedNeutrons,
       const wrapper<std::optional<fissionTransport::FissionEnergyReleased>> &fissionEnergyReleased = {},
@@ -89,6 +98,7 @@ public:
    // copy
    FissionFragmentData(const FissionFragmentData &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       delayedNeutrons(this,other.delayedNeutrons),
       fissionEnergyReleased(this,other.fissionEnergyReleased),
       productYields(this,other.productYields)
@@ -99,6 +109,7 @@ public:
    // move
    FissionFragmentData(FissionFragmentData &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       delayedNeutrons(this,std::move(other.delayedNeutrons)),
       fissionEnergyReleased(this,std::move(other.fissionEnergyReleased)),
       productYields(this,std::move(other.productYields))

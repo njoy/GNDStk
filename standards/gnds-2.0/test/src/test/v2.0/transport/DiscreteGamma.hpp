@@ -16,22 +16,27 @@ namespace transport {
 // class DiscreteGamma
 // -----------------------------------------------------------------------------
 
-class DiscreteGamma : public Component<transport::DiscreteGamma> {
+class DiscreteGamma :
+   public Component<transport::DiscreteGamma>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "DiscreteGamma"; }
    static auto FIELD() { return "discreteGamma"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Float64>{}
             / Meta<>("domainMax") |
@@ -39,6 +44,7 @@ class DiscreteGamma : public Component<transport::DiscreteGamma> {
             / Meta<>("domainMin") |
          std::optional<Float64>{}
             / Meta<>("value") |
+
          // children
          --Child<std::optional<containers::Axes>>("axes")
       ;
@@ -46,6 +52,9 @@ class DiscreteGamma : public Component<transport::DiscreteGamma> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<Float64>> domainMax{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->domainMax, \
       this->domainMin, \
       this->value, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DiscreteGamma(
       const wrapper<std::optional<Float64>> &domainMax,
       const wrapper<std::optional<Float64>> &domainMin = {},
@@ -98,6 +108,7 @@ public:
    // copy
    DiscreteGamma(const DiscreteGamma &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       domainMax(this,other.domainMax),
       domainMin(this,other.domainMin),
       value(this,other.value),
@@ -109,6 +120,7 @@ public:
    // move
    DiscreteGamma(DiscreteGamma &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       domainMax(this,std::move(other.domainMax)),
       domainMin(this,std::move(other.domainMin)),
       value(this,std::move(other.value)),

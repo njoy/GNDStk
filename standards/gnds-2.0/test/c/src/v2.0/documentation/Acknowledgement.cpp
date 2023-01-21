@@ -521,3 +521,10 @@ AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Acknowledgement/src/custom.cpp"

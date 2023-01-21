@@ -131,3 +131,10 @@ CrossSectionPrintJSON(ConstHandle2ConstCrossSection This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v1.9/transport/CrossSection/src/custom.cpp"

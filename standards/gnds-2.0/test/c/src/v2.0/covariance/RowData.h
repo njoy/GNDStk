@@ -212,8 +212,10 @@ RowDataSlicesSet(ConstHandle2RowData This, ConstHandle2ConstSlices slices);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/RowData/src/custom.h"
 
 #undef extern_c
 #endif

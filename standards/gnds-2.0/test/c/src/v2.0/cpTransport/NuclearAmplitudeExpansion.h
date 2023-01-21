@@ -200,8 +200,10 @@ NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitu
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearAmplitudeExpansion/src/custom.h"
 
 #undef extern_c
 #endif

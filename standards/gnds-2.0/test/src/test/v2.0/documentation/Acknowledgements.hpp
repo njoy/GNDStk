@@ -16,22 +16,27 @@ namespace documentation {
 // class Acknowledgements
 // -----------------------------------------------------------------------------
 
-class Acknowledgements : public Component<documentation::Acknowledgements> {
+class Acknowledgements :
+   public Component<documentation::Acknowledgements>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Acknowledgements"; }
    static auto FIELD() { return "acknowledgements"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::Acknowledgement>("acknowledgement")
       ;
@@ -39,6 +44,9 @@ class Acknowledgements : public Component<documentation::Acknowledgements> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::Acknowledgement>> acknowledgement{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->acknowledgement)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Acknowledgements(
       const wrapper<std::vector<documentation::Acknowledgement>> &acknowledgement
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Acknowledgements(const Acknowledgements &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       acknowledgement(this,other.acknowledgement)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Acknowledgements(Acknowledgements &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       acknowledgement(this,std::move(other.acknowledgement))
    {
       Component::finish(other);

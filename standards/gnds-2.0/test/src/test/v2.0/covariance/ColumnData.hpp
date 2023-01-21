@@ -16,22 +16,27 @@ namespace covariance {
 // class ColumnData
 // -----------------------------------------------------------------------------
 
-class ColumnData : public Component<covariance::ColumnData> {
+class ColumnData :
+   public Component<covariance::ColumnData>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ColumnData"; }
    static auto FIELD() { return "columnData"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("ENDF_MFMT") |
@@ -39,6 +44,7 @@ class ColumnData : public Component<covariance::ColumnData> {
             / Meta<>("href") |
          std::optional<Integer32>{}
             / Meta<>("dimension") |
+
          // children
          --Child<std::optional<covariance::Slices>>("slices")
       ;
@@ -46,6 +52,9 @@ class ColumnData : public Component<covariance::ColumnData> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> ENDF_MFMT{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->ENDF_MFMT, \
       this->href, \
       this->dimension, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ColumnData(
       const wrapper<std::optional<XMLName>> &ENDF_MFMT,
       const wrapper<std::optional<XMLName>> &href = {},
@@ -98,6 +108,7 @@ public:
    // copy
    ColumnData(const ColumnData &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       ENDF_MFMT(this,other.ENDF_MFMT),
       href(this,other.href),
       dimension(this,other.dimension),
@@ -109,6 +120,7 @@ public:
    // move
    ColumnData(ColumnData &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
       href(this,std::move(other.href)),
       dimension(this,std::move(other.dimension)),

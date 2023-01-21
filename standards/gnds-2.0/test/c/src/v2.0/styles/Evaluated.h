@@ -300,8 +300,10 @@ EvaluatedDocumentationSet(ConstHandle2Evaluated This, ConstHandle2ConstDocumenta
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Evaluated/src/custom.h"
 
 #undef extern_c
 #endif

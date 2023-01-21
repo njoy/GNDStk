@@ -172,8 +172,10 @@ PositronEmissionIntensityUncertaintySet(ConstHandle2PositronEmissionIntensity Th
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/PositronEmissionIntensity/src/custom.h"
 
 #undef extern_c
 #endif

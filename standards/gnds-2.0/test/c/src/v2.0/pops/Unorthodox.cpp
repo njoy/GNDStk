@@ -250,3 +250,10 @@ UnorthodoxMassSet(ConstHandle2Unorthodox This, ConstHandle2ConstMass mass)
    detail::setField<CPP,CPPMass>
       (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Unorthodox/src/custom.cpp"

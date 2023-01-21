@@ -250,3 +250,10 @@ DelayedNeutronProductSet(ConstHandle2DelayedNeutron This, ConstHandle2ConstProdu
    detail::setField<CPP,CPPProduct>
       (CLASSNAME, CLASSNAME+"ProductSet", This, extract::product, product);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/DelayedNeutron/src/custom.cpp"

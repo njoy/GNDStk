@@ -172,8 +172,10 @@ NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstMass m
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/NBodyPhaseSpace/src/custom.h"
 
 #undef extern_c
 #endif

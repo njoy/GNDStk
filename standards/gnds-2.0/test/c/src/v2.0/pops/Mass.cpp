@@ -363,3 +363,10 @@ MassDoubleSet(ConstHandle2Mass This, ConstHandle2ConstDouble Double)
    detail::setField<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Mass/src/custom.cpp"

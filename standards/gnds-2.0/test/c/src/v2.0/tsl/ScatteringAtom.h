@@ -380,8 +380,10 @@ ScatteringAtomT_effectiveSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstT
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ScatteringAtom/src/custom.h"
 
 #undef extern_c
 #endif

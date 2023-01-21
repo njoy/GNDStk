@@ -236,8 +236,10 @@ AngularDistributionReconstructedDocumentationSet(ConstHandle2AngularDistribution
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/AngularDistributionReconstructed/src/custom.h"
 
 #undef extern_c
 #endif

@@ -293,3 +293,10 @@ DecayModesDecayModeSetByMode(
       (CLASSNAME, CLASSNAME+"DecayModeSetByMode",
        This, extract::decayMode, meta::mode, mode, decayMode);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayModes/src/custom.cpp"

@@ -215,3 +215,10 @@ ImaginaryInterferenceTermRegions2dSet(ConstHandle2ImaginaryInterferenceTerm This
    detail::setField<CPP,CPPRegions2d>
       (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/ImaginaryInterferenceTerm/src/custom.cpp"

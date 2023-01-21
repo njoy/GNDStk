@@ -176,8 +176,10 @@ FormFactorRegions1dSet(ConstHandle2FormFactor This, ConstHandle2ConstRegions1d r
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/FormFactor/src/custom.h"
 
 #undef extern_c
 #endif

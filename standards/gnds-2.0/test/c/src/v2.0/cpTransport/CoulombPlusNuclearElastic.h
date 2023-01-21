@@ -276,8 +276,10 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuc
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/CoulombPlusNuclearElastic/src/custom.h"
 
 #undef extern_c
 #endif

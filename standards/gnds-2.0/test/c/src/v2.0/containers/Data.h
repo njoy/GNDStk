@@ -289,8 +289,10 @@ DataSepSet(ConstHandle2Data This, const UTF8Text sep);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Data/src/custom.h"
 
 #undef extern_c
 #endif

@@ -130,8 +130,10 @@ FastRegionPrintJSON(ConstHandle2ConstFastRegion This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/FastRegion/src/custom.h"
 
 #undef extern_c
 #endif

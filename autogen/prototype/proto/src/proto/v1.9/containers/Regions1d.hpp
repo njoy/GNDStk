@@ -17,27 +17,33 @@ namespace containers {
 // class Regions1d
 // -----------------------------------------------------------------------------
 
-class Regions1d : public Component<containers::Regions1d> {
+class Regions1d :
+   public Component<containers::Regions1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Regions1d"; }
    static auto FIELD() { return "regions1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("label") |
          std::optional<double>{}
             / Meta<>("outerDomainValue") |
+
          // children
          --Child<std::optional<containers::Axes>>("axes") |
          ++Child<containers::XYs1d>("XYs1d")
@@ -46,6 +52,9 @@ class Regions1d : public Component<containers::Regions1d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<std::string>> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Regions1d(
       const wrapper<std::optional<std::string>> &label,
       const wrapper<std::optional<double>> &outerDomainValue = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Regions1d(const Regions1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       outerDomainValue(this,other.outerDomainValue),
       axes(this,other.axes),
@@ -109,6 +120,7 @@ public:
    // move
    Regions1d(Regions1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
       axes(this,std::move(other.axes)),

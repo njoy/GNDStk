@@ -188,8 +188,10 @@ DoubleValueSet(ConstHandle2Double This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/extra/Double/src/custom.h"
 
 #undef extern_c
 #endif

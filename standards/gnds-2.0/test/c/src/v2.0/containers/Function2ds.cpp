@@ -131,3 +131,10 @@ Function2dsPrintJSON(ConstHandle2ConstFunction2ds This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Function2ds/src/custom.cpp"

@@ -226,8 +226,10 @@ OrphanProductsOrphanProductSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OrphanProducts/src/custom.h"
 
 #undef extern_c
 #endif

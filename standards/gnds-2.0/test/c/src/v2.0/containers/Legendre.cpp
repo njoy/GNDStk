@@ -347,3 +347,10 @@ LegendreValuesSet(ConstHandle2Legendre This, ConstHandle2ConstValues values)
    detail::setField<CPP,CPPValues>
       (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Legendre/src/custom.cpp"

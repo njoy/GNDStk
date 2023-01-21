@@ -383,3 +383,10 @@ ResonanceReactionsResonanceReactionSetByEliminated(
       (CLASSNAME, CLASSNAME+"ResonanceReactionSetByEliminated",
        This, extract::resonanceReaction, meta::eliminated, eliminated, resonanceReaction);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/ResonanceReactions/src/custom.cpp"

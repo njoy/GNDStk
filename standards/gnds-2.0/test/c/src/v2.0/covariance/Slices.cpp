@@ -428,3 +428,10 @@ SlicesSliceSetByDimension(
       (CLASSNAME, CLASSNAME+"SliceSetByDimension",
        This, extract::slice, meta::dimension, dimension, slice);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Slices/src/custom.cpp"

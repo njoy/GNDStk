@@ -16,22 +16,27 @@ namespace pops {
 // class Nuclides
 // -----------------------------------------------------------------------------
 
-class Nuclides : public Component<pops::Nuclides> {
+class Nuclides :
+   public Component<pops::Nuclides>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Nuclides"; }
    static auto FIELD() { return "nuclides"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::Nuclide>("nuclide")
       ;
@@ -39,6 +44,9 @@ class Nuclides : public Component<pops::Nuclides> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::Nuclide>> nuclide{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->nuclide)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Nuclides(
       const wrapper<std::vector<pops::Nuclide>> &nuclide
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Nuclides(const Nuclides &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       nuclide(this,other.nuclide)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Nuclides(Nuclides &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       nuclide(this,std::move(other.nuclide))
    {
       Component::finish(other);

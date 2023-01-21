@@ -286,3 +286,10 @@ AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance This
    detail::setField<CPP,CPPRowData>
       (CLASSNAME, CLASSNAME+"RowDataSet", This, extract::rowData, rowData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/AverageParameterCovariance/src/custom.cpp"

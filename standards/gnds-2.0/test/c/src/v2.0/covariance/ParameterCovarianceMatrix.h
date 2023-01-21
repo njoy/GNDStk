@@ -216,8 +216,10 @@ ParameterCovarianceMatrixArraySet(ConstHandle2ParameterCovarianceMatrix This, Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterCovarianceMatrix/src/custom.h"
 
 #undef extern_c
 #endif

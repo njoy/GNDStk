@@ -17,27 +17,33 @@ namespace covariance {
 // class ParameterCovarianceMatrix
 // -----------------------------------------------------------------------------
 
-class ParameterCovarianceMatrix : public Component<covariance::ParameterCovarianceMatrix> {
+class ParameterCovarianceMatrix :
+   public Component<covariance::ParameterCovarianceMatrix>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovarianceMatrix"; }
    static auto FIELD() { return "parameterCovarianceMatrix"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          std::optional<XMLName>{}
             / Meta<>("type") |
+
          // children
          --Child<covariance::Parameters>("parameters") |
          --Child<containers::Array>("array")
@@ -46,6 +52,9 @@ class ParameterCovarianceMatrix : public Component<covariance::ParameterCovarian
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->type, \
       this->parameters, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ParameterCovarianceMatrix(
       const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &type = {},
@@ -98,6 +108,7 @@ public:
    // copy
    ParameterCovarianceMatrix(const ParameterCovarianceMatrix &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       type(this,other.type),
       parameters(this,other.parameters),
@@ -109,6 +120,7 @@ public:
    // move
    ParameterCovarianceMatrix(ParameterCovarianceMatrix &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       type(this,std::move(other.type)),
       parameters(this,std::move(other.parameters)),

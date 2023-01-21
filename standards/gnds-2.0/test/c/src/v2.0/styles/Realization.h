@@ -212,8 +212,10 @@ RealizationDocumentationSet(ConstHandle2Realization This, ConstHandle2ConstDocum
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Realization/src/custom.h"
 
 #undef extern_c
 #endif

@@ -268,3 +268,10 @@ ColumnTypesSet(ConstHandle2Column This, const XMLName types)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"TypesSet", This, extract::types, types);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Column/src/custom.cpp"

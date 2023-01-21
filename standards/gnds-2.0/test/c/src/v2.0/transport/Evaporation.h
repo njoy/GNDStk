@@ -176,8 +176,10 @@ EvaporationThetaSet(ConstHandle2Evaporation This, ConstHandle2ConstTheta theta);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Evaporation/src/custom.h"
 
 #undef extern_c
 #endif

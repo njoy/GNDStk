@@ -38,13 +38,13 @@ void wrapContributors(python::module &module)
          python::init<
             const std::vector<documentation::Author> &
          >(),
-         python::arg("contributor"),
+         python::arg("author"),
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "contributor",
-         [](const Component &self) { return self.contributor(); },
-         Component::documentation("contributor").data()
+         "author",
+         [](const Component &self) { return self.author(); },
+         Component::documentation("author").data()
       )
    ;
 

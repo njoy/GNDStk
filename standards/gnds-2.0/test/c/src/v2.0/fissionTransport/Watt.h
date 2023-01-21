@@ -200,8 +200,10 @@ WattBSet(ConstHandle2Watt This, ConstHandle2ConstB b);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/Watt/src/custom.h"
 
 #undef extern_c
 #endif

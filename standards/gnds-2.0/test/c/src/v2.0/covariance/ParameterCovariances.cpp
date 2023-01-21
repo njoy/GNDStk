@@ -412,3 +412,10 @@ ParameterCovariancesParameterCovarianceSetByLabel(
       (CLASSNAME, CLASSNAME+"ParameterCovarianceSetByLabel",
        This, extract::parameterCovariance, meta::label, label, parameterCovariance);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterCovariances/src/custom.cpp"

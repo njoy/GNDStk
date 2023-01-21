@@ -212,8 +212,10 @@ MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MonteCarlo_cdf/src/custom.h"
 
 #undef extern_c
 #endif

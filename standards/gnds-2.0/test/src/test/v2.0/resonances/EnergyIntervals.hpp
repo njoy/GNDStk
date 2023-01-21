@@ -16,25 +16,31 @@ namespace resonances {
 // class EnergyIntervals
 // -----------------------------------------------------------------------------
 
-class EnergyIntervals : public Component<resonances::EnergyIntervals> {
+class EnergyIntervals :
+   public Component<resonances::EnergyIntervals>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "EnergyIntervals"; }
    static auto FIELD() { return "energyIntervals"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          ++Child<resonances::EnergyInterval>("energyInterval")
       ;
@@ -42,6 +48,9 @@ class EnergyIntervals : public Component<resonances::EnergyIntervals> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -54,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->energyInterval)
 
@@ -64,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit EnergyIntervals(
       const wrapper<XMLName> &label,
       const wrapper<std::vector<resonances::EnergyInterval>> &energyInterval = {}
@@ -86,6 +96,7 @@ public:
    // copy
    EnergyIntervals(const EnergyIntervals &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       energyInterval(this,other.energyInterval)
    {
@@ -95,6 +106,7 @@ public:
    // move
    EnergyIntervals(EnergyIntervals &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       energyInterval(this,std::move(other.energyInterval))
    {

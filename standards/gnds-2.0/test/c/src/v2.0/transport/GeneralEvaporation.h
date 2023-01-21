@@ -200,8 +200,10 @@ GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/GeneralEvaporation/src/custom.h"
 
 #undef extern_c
 #endif

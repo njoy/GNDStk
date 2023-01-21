@@ -188,8 +188,10 @@ AxisUnitSet(ConstHandle2Axis This, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Axis/src/custom.h"
 
 #undef extern_c
 #endif

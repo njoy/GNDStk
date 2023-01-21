@@ -17,7 +17,9 @@ namespace transport {
 // class FastRegion
 // -----------------------------------------------------------------------------
 
-class FastRegion : public Component<transport::FastRegion> {
+class FastRegion :
+   public Component<transport::FastRegion>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class FastRegion : public Component<transport::FastRegion> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "FastRegion"; }
    static auto FIELD() { return "fastRegion"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / --(Child<>("XYs1d") || Child<>("regions1d"))
@@ -46,6 +51,9 @@ class FastRegion : public Component<transport::FastRegion> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<_t> _XYs1dregions1d{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_XYs1dregions1d)
 
    // default
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit FastRegion(
       const wrapper<_t> &_XYs1dregions1d
    ) :
@@ -86,6 +95,7 @@ public:
    // copy
    FastRegion(const FastRegion &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _XYs1dregions1d(this,other._XYs1dregions1d)
    {
       Component::finish(other);
@@ -94,6 +104,7 @@ public:
    // move
    FastRegion(FastRegion &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _XYs1dregions1d(this,std::move(other._XYs1dregions1d))
    {
       Component::finish(other);

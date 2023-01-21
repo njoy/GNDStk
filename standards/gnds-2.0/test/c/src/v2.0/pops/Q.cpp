@@ -529,3 +529,10 @@ QDoubleSetByValue(
       (CLASSNAME, CLASSNAME+"DoubleSetByValue",
        This, extract::Double, meta::value, value, Double);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Q/src/custom.cpp"

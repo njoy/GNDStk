@@ -16,22 +16,27 @@ namespace tsl {
 // class ThermalNeutronScatteringLaw1d
 // -----------------------------------------------------------------------------
 
-class ThermalNeutronScatteringLaw1d : public Component<tsl::ThermalNeutronScatteringLaw1d> {
+class ThermalNeutronScatteringLaw1d :
+   public Component<tsl::ThermalNeutronScatteringLaw1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ThermalNeutronScatteringLaw1d"; }
    static auto FIELD() { return "thermalNeutronScatteringLaw1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -43,6 +48,9 @@ class ThermalNeutronScatteringLaw1d : public Component<tsl::ThermalNeutronScatte
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> label{this};
    Field<XMLName> href{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->href)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw1d(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &href = {}
@@ -84,6 +93,7 @@ public:
    // copy
    ThermalNeutronScatteringLaw1d(const ThermalNeutronScatteringLaw1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       href(this,other.href)
    {
@@ -93,6 +103,7 @@ public:
    // move
    ThermalNeutronScatteringLaw1d(ThermalNeutronScatteringLaw1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href))
    {

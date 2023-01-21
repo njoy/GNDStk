@@ -17,22 +17,27 @@ namespace resonances {
 // class SpinGroup
 // -----------------------------------------------------------------------------
 
-class SpinGroup : public Component<resonances::SpinGroup> {
+class SpinGroup :
+   public Component<resonances::SpinGroup>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "SpinGroup"; }
    static auto FIELD() { return "spinGroup"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -40,6 +45,7 @@ class SpinGroup : public Component<resonances::SpinGroup> {
             / Meta<>("spin") |
          Defaulted<Integer32>{1}
             / Meta<>("parity") |
+
          // children
          --Child<resonances::Channels>("channels") |
          --Child<resonances::ResonanceParameters>("resonanceParameters")
@@ -53,6 +59,9 @@ public:
    static inline const struct Defaults {
       static inline const Integer32 parity = 1;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -68,6 +77,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->spin, \
       this->parity, \
@@ -81,8 +91,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit SpinGroup(
       const wrapper<XMLName> &label,
       const wrapper<Fraction32> &spin = {},
@@ -110,6 +120,7 @@ public:
    // copy
    SpinGroup(const SpinGroup &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       spin(this,other.spin),
       parity(this,other.parity),
@@ -122,6 +133,7 @@ public:
    // move
    SpinGroup(SpinGroup &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       spin(this,std::move(other.spin)),
       parity(this,std::move(other.parity)),

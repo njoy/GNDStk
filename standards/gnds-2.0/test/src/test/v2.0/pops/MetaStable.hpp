@@ -16,22 +16,27 @@ namespace pops {
 // class MetaStable
 // -----------------------------------------------------------------------------
 
-class MetaStable : public Component<pops::MetaStable> {
+class MetaStable :
+   public Component<pops::MetaStable>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "MetaStable"; }
    static auto FIELD() { return "metaStable"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("id") |
@@ -45,6 +50,9 @@ class MetaStable : public Component<pops::MetaStable> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<XMLName> id{this};
    Field<Integer32> metaStableIndex{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->id, \
       this->metaStableIndex, \
       this->pid)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit MetaStable(
       const wrapper<XMLName> &id,
       const wrapper<Integer32> &metaStableIndex = {},
@@ -90,6 +99,7 @@ public:
    // copy
    MetaStable(const MetaStable &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       id(this,other.id),
       metaStableIndex(this,other.metaStableIndex),
       pid(this,other.pid)
@@ -100,6 +110,7 @@ public:
    // move
    MetaStable(MetaStable &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       metaStableIndex(this,std::move(other.metaStableIndex)),
       pid(this,std::move(other.pid))

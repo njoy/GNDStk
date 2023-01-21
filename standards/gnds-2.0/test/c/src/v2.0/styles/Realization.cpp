@@ -277,3 +277,10 @@ RealizationDocumentationSet(ConstHandle2Realization This, ConstHandle2ConstDocum
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Realization/src/custom.cpp"

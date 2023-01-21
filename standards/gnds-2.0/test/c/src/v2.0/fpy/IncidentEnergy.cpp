@@ -250,3 +250,10 @@ IncidentEnergyYieldsSet(ConstHandle2IncidentEnergy This, ConstHandle2ConstYields
    detail::setField<CPP,CPPYields>
       (CLASSNAME, CLASSNAME+"YieldsSet", This, extract::yields, yields);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/IncidentEnergy/src/custom.cpp"

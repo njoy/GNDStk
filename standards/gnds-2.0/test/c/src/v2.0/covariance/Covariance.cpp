@@ -172,3 +172,10 @@ CovarianceArraySet(ConstHandle2Covariance This, ConstHandle2ConstArray array)
    detail::setField<CPP,CPPArray>
       (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Covariance/src/custom.cpp"

@@ -242,3 +242,10 @@ IsotopeNuclidesSet(ConstHandle2Isotope This, ConstHandle2ConstNuclides nuclides)
    detail::setField<CPP,CPPNuclides>
       (CLASSNAME, CLASSNAME+"NuclidesSet", This, extract::nuclides, nuclides);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Isotope/src/custom.cpp"

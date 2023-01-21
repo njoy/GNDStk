@@ -255,8 +255,10 @@ ComputerCodesComputerCodeSetByVersion(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/ComputerCodes/src/custom.h"
 
 #undef extern_c
 #endif

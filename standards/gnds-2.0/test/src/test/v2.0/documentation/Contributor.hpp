@@ -17,22 +17,27 @@ namespace documentation {
 // class Contributor
 // -----------------------------------------------------------------------------
 
-class Contributor : public Component<documentation::Contributor> {
+class Contributor :
+   public Component<documentation::Contributor>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Contributor"; }
    static auto FIELD() { return "contributor"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          UTF8Text{}
             / Meta<>("name") |
@@ -42,6 +47,7 @@ class Contributor : public Component<documentation::Contributor> {
             / Meta<>("orcid") |
          std::optional<UTF8Text>{}
             / Meta<>("email") |
+
          // children
          --Child<std::optional<documentation::Affiliations>>("affiliations") |
          --Child<std::optional<documentation::Note>>("note")
@@ -50,6 +56,9 @@ class Contributor : public Component<documentation::Contributor> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<UTF8Text> name{this};
@@ -66,6 +75,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->name, \
       this->contributorType, \
       this->orcid, \
@@ -80,7 +90,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Contributor(
       const wrapper<UTF8Text> &name,
       const wrapper<enums::ContributorType> &contributorType = {},
@@ -110,6 +120,7 @@ public:
    // copy
    Contributor(const Contributor &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       name(this,other.name),
       contributorType(this,other.contributorType),
       orcid(this,other.orcid),
@@ -123,6 +134,7 @@ public:
    // move
    Contributor(Contributor &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       contributorType(this,std::move(other.contributorType)),
       orcid(this,std::move(other.orcid)),

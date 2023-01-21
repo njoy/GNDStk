@@ -16,22 +16,27 @@ namespace tsl {
 // class BraggEdges
 // -----------------------------------------------------------------------------
 
-class BraggEdges : public Component<tsl::BraggEdges> {
+class BraggEdges :
+   public Component<tsl::BraggEdges>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "BraggEdges"; }
    static auto FIELD() { return "BraggEdges"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<tsl::BraggEdge>("BraggEdge")
       ;
@@ -39,6 +44,9 @@ class BraggEdges : public Component<tsl::BraggEdges> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<tsl::BraggEdge>> BraggEdge{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->BraggEdge)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit BraggEdges(
       const wrapper<std::vector<tsl::BraggEdge>> &BraggEdge
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    BraggEdges(const BraggEdges &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       BraggEdge(this,other.BraggEdge)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    BraggEdges(BraggEdges &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       BraggEdge(this,std::move(other.BraggEdge))
    {
       Component::finish(other);

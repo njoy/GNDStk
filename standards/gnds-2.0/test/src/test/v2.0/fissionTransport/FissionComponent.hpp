@@ -17,22 +17,27 @@ namespace fissionTransport {
 // class FissionComponent
 // -----------------------------------------------------------------------------
 
-class FissionComponent : public Component<fissionTransport::FissionComponent> {
+class FissionComponent :
+   public Component<fissionTransport::FissionComponent>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "FissionComponent"; }
    static auto FIELD() { return "fissionComponent"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Integer32>{}
             / Meta<>("ENDF_MT") |
@@ -40,6 +45,7 @@ class FissionComponent : public Component<fissionTransport::FissionComponent> {
             / Meta<>("fissionGenre") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<transport::CrossSection>>("crossSection") |
          --Child<std::optional<transport::OutputChannel>>("outputChannel")
@@ -48,6 +54,9 @@ class FissionComponent : public Component<fissionTransport::FissionComponent> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<Integer32>> ENDF_MT{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->ENDF_MT, \
       this->fissionGenre, \
       this->label, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit FissionComponent(
       const wrapper<std::optional<Integer32>> &ENDF_MT,
       const wrapper<XMLName> &fissionGenre = {},
@@ -104,6 +114,7 @@ public:
    // copy
    FissionComponent(const FissionComponent &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       ENDF_MT(this,other.ENDF_MT),
       fissionGenre(this,other.fissionGenre),
       label(this,other.label),
@@ -116,6 +127,7 @@ public:
    // move
    FissionComponent(FissionComponent &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
       fissionGenre(this,std::move(other.fissionGenre)),
       label(this,std::move(other.label)),

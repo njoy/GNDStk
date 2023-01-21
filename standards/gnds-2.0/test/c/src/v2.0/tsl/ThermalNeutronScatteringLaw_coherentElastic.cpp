@@ -236,3 +236,10 @@ ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNe
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/ThermalNeutronScatteringLaw_coherentElastic/src/custom.cpp"

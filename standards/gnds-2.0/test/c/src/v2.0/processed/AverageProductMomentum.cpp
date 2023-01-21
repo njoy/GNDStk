@@ -258,3 +258,10 @@ AverageProductMomentumRegions1dSet(ConstHandle2AverageProductMomentum This, Cons
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AverageProductMomentum/src/custom.cpp"

@@ -338,3 +338,10 @@ DecayPathDecaySetByComplete(
       (CLASSNAME, CLASSNAME+"DecaySetByComplete",
        This, extract::decay, meta::complete, complete, decay);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayPath/src/custom.cpp"

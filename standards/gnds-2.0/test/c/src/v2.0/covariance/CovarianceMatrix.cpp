@@ -236,3 +236,10 @@ CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix This, const XMLName type)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceMatrix/src/custom.cpp"

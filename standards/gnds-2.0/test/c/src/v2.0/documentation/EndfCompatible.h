@@ -329,8 +329,10 @@ EndfCompatibleLabelSet(ConstHandle2EndfCompatible This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/EndfCompatible/src/custom.h"
 
 #undef extern_c
 #endif

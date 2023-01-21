@@ -268,3 +268,10 @@ CodeRepoRevisionIDSet(ConstHandle2CodeRepo This, const XMLName revisionID)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"RevisionIDSet", This, extract::revisionID, revisionID);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/CodeRepo/src/custom.cpp"

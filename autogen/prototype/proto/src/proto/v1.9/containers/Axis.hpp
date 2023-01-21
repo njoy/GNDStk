@@ -16,22 +16,27 @@ namespace containers {
 // class Axis
 // -----------------------------------------------------------------------------
 
-class Axis : public Component<containers::Axis> {
+class Axis :
+   public Component<containers::Axis>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axis"; }
    static auto FIELD() { return "axis"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<int>{}
             / Meta<>("index") |
@@ -45,6 +50,9 @@ class Axis : public Component<containers::Axis> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<int>> index{this};
    Field<std::optional<std::string>> label{this};
@@ -55,6 +63,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->index, \
       this->label, \
       this->unit)
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Axis(
       const wrapper<std::optional<int>> &index,
       const wrapper<std::optional<std::string>> &label = {},
@@ -90,6 +99,7 @@ public:
    // copy
    Axis(const Axis &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       index(this,other.index),
       label(this,other.label),
       unit(this,other.unit)
@@ -100,6 +110,7 @@ public:
    // move
    Axis(Axis &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       label(this,std::move(other.label)),
       unit(this,std::move(other.unit))

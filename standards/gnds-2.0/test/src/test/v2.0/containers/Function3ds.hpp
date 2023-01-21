@@ -17,7 +17,9 @@ namespace containers {
 // class Function3ds
 // -----------------------------------------------------------------------------
 
-class Function3ds : public Component<containers::Function3ds> {
+class Function3ds :
+   public Component<containers::Function3ds>
+{
    friend class Component;
 
    using _t = std::variant<
@@ -29,15 +31,18 @@ class Function3ds : public Component<containers::Function3ds> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Function3ds"; }
    static auto FIELD() { return "function3ds"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          _t{}
             / ++(Child<>("XYs3d") || Child<>("gridded3d"))
@@ -46,6 +51,9 @@ class Function3ds : public Component<containers::Function3ds> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<std::vector<_t>> _XYs3dgridded3d{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->_XYs3dgridded3d)
 
    // default
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Function3ds(
       const wrapper<std::vector<_t>> &_XYs3dgridded3d
    ) :
@@ -86,6 +95,7 @@ public:
    // copy
    Function3ds(const Function3ds &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       _XYs3dgridded3d(this,other._XYs3dgridded3d)
    {
       Component::finish(other);
@@ -94,6 +104,7 @@ public:
    // move
    Function3ds(Function3ds &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       _XYs3dgridded3d(this,std::move(other._XYs3dgridded3d))
    {
       Component::finish(other);

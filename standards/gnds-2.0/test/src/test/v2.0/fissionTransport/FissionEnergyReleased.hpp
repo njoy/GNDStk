@@ -24,25 +24,31 @@ namespace fissionTransport {
 // class FissionEnergyReleased
 // -----------------------------------------------------------------------------
 
-class FissionEnergyReleased : public Component<fissionTransport::FissionEnergyReleased> {
+class FissionEnergyReleased :
+   public Component<fissionTransport::FissionEnergyReleased>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "FissionEnergyReleased"; }
    static auto FIELD() { return "fissionEnergyReleased"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<fissionTransport::DelayedBetaEnergy>>("delayedBetaEnergy") |
          --Child<std::optional<fissionTransport::DelayedGammaEnergy>>("delayedGammaEnergy") |
@@ -58,6 +64,9 @@ class FissionEnergyReleased : public Component<fissionTransport::FissionEnergyRe
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -78,6 +87,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->delayedBetaEnergy, \
       this->delayedGammaEnergy, \
@@ -96,7 +106,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit FissionEnergyReleased(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<fissionTransport::DelayedBetaEnergy>> &delayedBetaEnergy = {},
@@ -134,6 +144,7 @@ public:
    // copy
    FissionEnergyReleased(const FissionEnergyReleased &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       delayedBetaEnergy(this,other.delayedBetaEnergy),
       delayedGammaEnergy(this,other.delayedGammaEnergy),
@@ -151,6 +162,7 @@ public:
    // move
    FissionEnergyReleased(FissionEnergyReleased &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       delayedBetaEnergy(this,std::move(other.delayedBetaEnergy)),
       delayedGammaEnergy(this,std::move(other.delayedGammaEnergy)),

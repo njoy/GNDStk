@@ -16,27 +16,33 @@ namespace styles {
 // class Transportable
 // -----------------------------------------------------------------------------
 
-class Transportable : public Component<styles::Transportable> {
+class Transportable :
+   public Component<styles::Transportable>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Transportable"; }
    static auto FIELD() { return "transportable"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<XMLName>{"number"}
             / Meta<>("conserve") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<styles::MultiGroup>("multiGroup")
       ;
@@ -50,6 +56,9 @@ public:
       static inline const XMLName conserve = "number";
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<Defaulted<XMLName>> conserve{this,defaults.conserve};
    Field<XMLName> label{this};
@@ -62,6 +71,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->conserve, \
       this->label, \
       this->multiGroup)
@@ -73,8 +83,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Transportable(
       const wrapper<std::optional<XMLName>> &conserve,
       const wrapper<XMLName> &label = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Transportable(const Transportable &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       conserve(this,other.conserve),
       label(this,other.label),
       multiGroup(this,other.multiGroup)
@@ -108,6 +119,7 @@ public:
    // move
    Transportable(Transportable &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       conserve(this,std::move(other.conserve)),
       label(this,std::move(other.label)),
       multiGroup(this,std::move(other.multiGroup))

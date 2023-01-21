@@ -338,3 +338,10 @@ ConfidenceIntervalsIntervalSetByUpper(
       (CLASSNAME, CLASSNAME+"IntervalSetByUpper",
        This, extract::interval, meta::upper, upper, interval);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/ConfidenceIntervals/src/custom.cpp"

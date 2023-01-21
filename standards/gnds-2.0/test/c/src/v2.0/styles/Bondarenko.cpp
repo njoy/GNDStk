@@ -320,3 +320,10 @@ BondarenkoDocumentationSet(ConstHandle2Bondarenko This, ConstHandle2ConstDocumen
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Bondarenko/src/custom.cpp"

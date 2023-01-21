@@ -176,8 +176,10 @@ SumsMultiplicitySumsSet(ConstHandle2Sums This, ConstHandle2ConstMultiplicitySums
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Sums/src/custom.h"
 
 #undef extern_c
 #endif

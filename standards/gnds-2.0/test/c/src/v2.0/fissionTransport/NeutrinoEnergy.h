@@ -152,8 +152,10 @@ NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy This, ConstHandle2Const
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/NeutrinoEnergy/src/custom.h"
 
 #undef extern_c
 #endif

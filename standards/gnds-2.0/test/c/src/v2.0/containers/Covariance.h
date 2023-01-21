@@ -168,8 +168,10 @@ CovarianceHrefSet(ConstHandle2Covariance This, const char *const href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Covariance/src/custom.h"
 
 #undef extern_c
 #endif

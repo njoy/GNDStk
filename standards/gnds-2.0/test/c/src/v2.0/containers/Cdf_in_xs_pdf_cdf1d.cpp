@@ -172,3 +172,10 @@ Cdf_in_xs_pdf_cdf1dValuesSet(ConstHandle2Cdf_in_xs_pdf_cdf1d This, ConstHandle2C
    detail::setField<CPP,CPPValues>
       (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Cdf_in_xs_pdf_cdf1d/src/custom.cpp"

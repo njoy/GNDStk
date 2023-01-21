@@ -215,3 +215,10 @@ FormFactorRegions1dSet(ConstHandle2FormFactor This, ConstHandle2ConstRegions1d r
    detail::setField<CPP,CPPRegions1d>
       (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/FormFactor/src/custom.cpp"

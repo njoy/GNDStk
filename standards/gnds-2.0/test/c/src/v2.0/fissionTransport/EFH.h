@@ -168,8 +168,10 @@ EFHValueSet(ConstHandle2EFH This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/EFH/src/custom.h"
 
 #undef extern_c
 #endif

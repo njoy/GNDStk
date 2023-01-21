@@ -371,3 +371,10 @@ ParameterCovarianceParameterCovarianceMatrixSetByType(
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSetByType",
        This, extract::parameterCovarianceMatrix, meta::type, type, parameterCovarianceMatrix);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ParameterCovariance/src/custom.cpp"

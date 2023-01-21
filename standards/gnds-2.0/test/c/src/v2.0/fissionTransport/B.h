@@ -126,8 +126,10 @@ BPrintJSON(ConstHandle2ConstB This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/B/src/custom.h"
 
 #undef extern_c
 #endif

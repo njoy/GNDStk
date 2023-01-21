@@ -17,7 +17,7 @@ namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
    static auto approximation = [](auto &obj) { return &obj.approximation; };
    static auto useForSelfShieldingOnly = [](auto &obj) { return &obj.useForSelfShieldingOnly; };
-   static auto PoPs = [](auto &obj) { return &obj.PoPs; };
+   static auto PoPs_database = [](auto &obj) { return &obj.PoPs_database; };
    static auto scatteringRadius = [](auto &obj) { return &obj.scatteringRadius; };
    static auto hardSphereRadius = [](auto &obj) { return &obj.hardSphereRadius; };
    static auto resonanceReactions = [](auto &obj) { return &obj.resonanceReactions; };
@@ -58,7 +58,7 @@ TabulatedWidthsCreateConst(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -69,7 +69,7 @@ TabulatedWidthsCreateConst(
       label,
       approximation,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
@@ -84,7 +84,7 @@ TabulatedWidthsCreate(
    const XMLName label,
    const XMLName approximation,
    const bool useForSelfShieldingOnly,
-   ConstHandle2ConstPoPs_database PoPs,
+   ConstHandle2ConstPoPs_database PoPs_database,
    ConstHandle2ConstScatteringRadius scatteringRadius,
    ConstHandle2ConstHardSphereRadius hardSphereRadius,
    ConstHandle2ConstResonanceReactions resonanceReactions,
@@ -95,7 +95,7 @@ TabulatedWidthsCreate(
       label,
       approximation,
       useForSelfShieldingOnly,
-      detail::tocpp<CPPPoPs_database>(PoPs),
+      detail::tocpp<CPPPoPs_database>(PoPs_database),
       detail::tocpp<CPPScatteringRadius>(scatteringRadius),
       detail::tocpp<CPPHardSphereRadius>(hardSphereRadius),
       detail::tocpp<CPPResonanceReactions>(resonanceReactions),
@@ -267,7 +267,7 @@ TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, cons
 
 
 // -----------------------------------------------------------------------------
-// Child: PoPs
+// Child: PoPs_database
 // -----------------------------------------------------------------------------
 
 // Has
@@ -275,7 +275,7 @@ int
 TabulatedWidthsPoPs_databaseHas(ConstHandle2ConstTabulatedWidths This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
 }
 
 // Get, const
@@ -283,7 +283,7 @@ Handle2ConstPoPs_database
 TabulatedWidthsPoPs_databaseGetConst(ConstHandle2ConstTabulatedWidths This)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
 }
 
 // Get, non-const
@@ -291,15 +291,15 @@ Handle2PoPs_database
 TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths This)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
 }
 
 // Set
 void
-TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs)
+TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs, PoPs);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -449,3 +449,10 @@ TabulatedWidthsLsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstLs Ls)
    detail::setField<CPP,CPPLs>
       (CLASSNAME, CLASSNAME+"LsSet", This, extract::Ls, Ls);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/TabulatedWidths/src/custom.cpp"

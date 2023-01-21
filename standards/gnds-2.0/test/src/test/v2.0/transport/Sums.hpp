@@ -17,22 +17,27 @@ namespace transport {
 // class Sums
 // -----------------------------------------------------------------------------
 
-class Sums : public Component<transport::Sums> {
+class Sums :
+   public Component<transport::Sums>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Sums"; }
    static auto FIELD() { return "sums"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<transport::CrossSectionSums>("crossSectionSums") |
          --Child<std::optional<transport::MultiplicitySums>>("multiplicitySums")
@@ -41,6 +46,9 @@ class Sums : public Component<transport::Sums> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<transport::CrossSectionSums> crossSectionSums{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->crossSectionSums, \
       this->multiplicitySums)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Sums(
       const wrapper<transport::CrossSectionSums> &crossSectionSums,
       const wrapper<std::optional<transport::MultiplicitySums>> &multiplicitySums = {}
@@ -83,6 +92,7 @@ public:
    // copy
    Sums(const Sums &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       crossSectionSums(this,other.crossSectionSums),
       multiplicitySums(this,other.multiplicitySums)
    {
@@ -92,6 +102,7 @@ public:
    // move
    Sums(Sums &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       crossSectionSums(this,std::move(other.crossSectionSums)),
       multiplicitySums(this,std::move(other.multiplicitySums))
    {

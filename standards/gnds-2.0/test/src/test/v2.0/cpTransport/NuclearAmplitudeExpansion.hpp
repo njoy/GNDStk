@@ -18,22 +18,27 @@ namespace cpTransport {
 // class NuclearAmplitudeExpansion
 // -----------------------------------------------------------------------------
 
-class NuclearAmplitudeExpansion : public Component<cpTransport::NuclearAmplitudeExpansion> {
+class NuclearAmplitudeExpansion :
+   public Component<cpTransport::NuclearAmplitudeExpansion>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearAmplitudeExpansion"; }
    static auto FIELD() { return "nuclearAmplitudeExpansion"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<cpTransport::NuclearTerm>("nuclearTerm") |
          --Child<cpTransport::RealInterferenceTerm>("realInterferenceTerm") |
@@ -43,6 +48,9 @@ class NuclearAmplitudeExpansion : public Component<cpTransport::NuclearAmplitude
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<cpTransport::NuclearTerm> nuclearTerm{this};
@@ -54,6 +62,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->nuclearTerm, \
       this->realInterferenceTerm, \
       this->imaginaryInterferenceTerm)
@@ -65,7 +74,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit NuclearAmplitudeExpansion(
       const wrapper<cpTransport::NuclearTerm> &nuclearTerm,
       const wrapper<cpTransport::RealInterferenceTerm> &realInterferenceTerm = {},
@@ -89,6 +98,7 @@ public:
    // copy
    NuclearAmplitudeExpansion(const NuclearAmplitudeExpansion &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       nuclearTerm(this,other.nuclearTerm),
       realInterferenceTerm(this,other.realInterferenceTerm),
       imaginaryInterferenceTerm(this,other.imaginaryInterferenceTerm)
@@ -99,6 +109,7 @@ public:
    // move
    NuclearAmplitudeExpansion(NuclearAmplitudeExpansion &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       nuclearTerm(this,std::move(other.nuclearTerm)),
       realInterferenceTerm(this,std::move(other.realInterferenceTerm)),
       imaginaryInterferenceTerm(this,std::move(other.imaginaryInterferenceTerm))

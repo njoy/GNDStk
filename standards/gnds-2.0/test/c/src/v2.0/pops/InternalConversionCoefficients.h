@@ -255,8 +255,10 @@ InternalConversionCoefficientsShellSetByUnit(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/InternalConversionCoefficients/src/custom.h"
 
 #undef extern_c
 #endif

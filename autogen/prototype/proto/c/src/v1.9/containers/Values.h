@@ -329,8 +329,10 @@ ValuesLengthSet(ConstHandle2Values This, const int length);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/containers/Values/src/custom.h"
 
 #undef extern_c
 #endif

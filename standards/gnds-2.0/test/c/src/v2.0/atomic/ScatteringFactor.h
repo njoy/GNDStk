@@ -176,8 +176,10 @@ ScatteringFactorRegions1dSet(ConstHandle2ScatteringFactor This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/ScatteringFactor/src/custom.h"
 
 #undef extern_c
 #endif

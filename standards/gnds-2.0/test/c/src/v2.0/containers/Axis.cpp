@@ -233,3 +233,10 @@ AxisUnitSet(ConstHandle2Axis This, const XMLName unit)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Axis/src/custom.cpp"

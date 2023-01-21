@@ -188,8 +188,10 @@ IntervalUpperSet(ConstHandle2Interval This, const Float64 upper);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Interval/src/custom.h"
 
 #undef extern_c
 #endif

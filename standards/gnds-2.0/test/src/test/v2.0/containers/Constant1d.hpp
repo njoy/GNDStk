@@ -16,22 +16,27 @@ namespace containers {
 // class Constant1d
 // -----------------------------------------------------------------------------
 
-class Constant1d : public Component<containers::Constant1d> {
+class Constant1d :
+   public Component<containers::Constant1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Constant1d"; }
    static auto FIELD() { return "constant1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Float64>{}
             / Meta<>("value") |
@@ -43,6 +48,7 @@ class Constant1d : public Component<containers::Constant1d> {
             / Meta<>("domainMin") |
          Float64{}
             / Meta<>("domainMax") |
+
          // children
          --Child<containers::Axes>("axes")
       ;
@@ -50,6 +56,9 @@ class Constant1d : public Component<containers::Constant1d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<Float64>> value{this};
@@ -66,6 +75,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->value, \
       this->label, \
       this->outerDomainValue, \
@@ -80,7 +90,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Constant1d(
       const wrapper<std::optional<Float64>> &value,
       const wrapper<std::optional<XMLName>> &label = {},
@@ -110,6 +120,7 @@ public:
    // copy
    Constant1d(const Constant1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       value(this,other.value),
       label(this,other.label),
       outerDomainValue(this,other.outerDomainValue),
@@ -123,6 +134,7 @@ public:
    // move
    Constant1d(Constant1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       label(this,std::move(other.label)),
       outerDomainValue(this,std::move(other.outerDomainValue)),

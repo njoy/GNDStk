@@ -17,25 +17,31 @@ namespace tsl {
 // class BraggEdge
 // -----------------------------------------------------------------------------
 
-class BraggEdge : public Component<tsl::BraggEdge> {
+class BraggEdge :
+   public Component<tsl::BraggEdge>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "BraggEdge"; }
    static auto FIELD() { return "BraggEdge"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<tsl::BraggEnergy>("BraggEnergy") |
          --Child<tsl::StructureFactor>("structureFactor")
@@ -44,6 +50,9 @@ class BraggEdge : public Component<tsl::BraggEdge> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -57,6 +66,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->BraggEnergy, \
       this->structureFactor)
@@ -68,7 +78,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit BraggEdge(
       const wrapper<XMLName> &label,
       const wrapper<tsl::BraggEnergy> &BraggEnergy = {},
@@ -92,6 +102,7 @@ public:
    // copy
    BraggEdge(const BraggEdge &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       BraggEnergy(this,other.BraggEnergy),
       structureFactor(this,other.structureFactor)
@@ -102,6 +113,7 @@ public:
    // move
    BraggEdge(BraggEdge &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       BraggEnergy(this,std::move(other.BraggEnergy)),
       structureFactor(this,std::move(other.structureFactor))

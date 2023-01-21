@@ -176,8 +176,10 @@ PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2Con
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/PromptNeutronKE/src/custom.h"
 
 #undef extern_c
 #endif

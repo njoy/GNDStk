@@ -313,8 +313,10 @@ SlicesSliceSetByDimension(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Slices/src/custom.h"
 
 #undef extern_c
 #endif

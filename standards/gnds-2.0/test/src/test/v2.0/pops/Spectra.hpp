@@ -16,22 +16,27 @@ namespace pops {
 // class Spectra
 // -----------------------------------------------------------------------------
 
-class Spectra : public Component<pops::Spectra> {
+class Spectra :
+   public Component<pops::Spectra>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Spectra"; }
    static auto FIELD() { return "spectra"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<pops::Spectrum>("spectrum")
       ;
@@ -39,6 +44,9 @@ class Spectra : public Component<pops::Spectra> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<pops::Spectrum>> spectrum{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->spectrum)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Spectra(
       const wrapper<std::vector<pops::Spectrum>> &spectrum
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Spectra(const Spectra &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       spectrum(this,other.spectrum)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Spectra(Spectra &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       spectrum(this,std::move(other.spectrum))
    {
       Component::finish(other);

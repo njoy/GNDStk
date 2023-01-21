@@ -215,3 +215,10 @@ AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum This, ConstHandle2Co
    detail::setField<CPP,CPPGridded1d>
       (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AvailableMomentum/src/custom.cpp"

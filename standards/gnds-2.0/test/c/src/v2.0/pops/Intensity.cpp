@@ -320,3 +320,10 @@ IntensityUncertaintySet(ConstHandle2Intensity This, ConstHandle2ConstUncertainty
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Intensity/src/custom.cpp"

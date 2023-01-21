@@ -277,3 +277,10 @@ ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVaria
    detail::setField<CPP,CPPGridded2d>
       (CLASSNAME, CLASSNAME+"Gridded2dSet", This, extract::gridded2d, gridded2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ShortRangeSelfScalingVariance/src/custom.cpp"

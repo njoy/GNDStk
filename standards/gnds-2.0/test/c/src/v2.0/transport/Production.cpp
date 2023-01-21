@@ -285,3 +285,10 @@ ProductionOutputChannelSet(ConstHandle2Production This, ConstHandle2ConstOutputC
    detail::setField<CPP,CPPOutputChannel>
       (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Production/src/custom.cpp"

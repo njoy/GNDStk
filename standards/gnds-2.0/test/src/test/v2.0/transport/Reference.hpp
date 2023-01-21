@@ -16,22 +16,27 @@ namespace transport {
 // class Reference
 // -----------------------------------------------------------------------------
 
-class Reference : public Component<transport::Reference> {
+class Reference :
+   public Component<transport::Reference>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reference"; }
    static auto FIELD() { return "reference"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("href") |
@@ -43,6 +48,9 @@ class Reference : public Component<transport::Reference> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<std::string>> href{this};
    Field<std::optional<XMLName>> label{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href, \
       this->label)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Reference(
       const wrapper<std::optional<std::string>> &href,
       const wrapper<std::optional<XMLName>> &label = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Reference(const Reference &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href),
       label(this,other.label)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Reference(Reference &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       label(this,std::move(other.label))
    {

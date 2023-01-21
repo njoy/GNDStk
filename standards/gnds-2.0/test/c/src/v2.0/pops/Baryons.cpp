@@ -248,3 +248,10 @@ BaryonsBaryonSetById(
       (CLASSNAME, CLASSNAME+"BaryonSetById",
        This, extract::baryon, meta::id, id, baryon);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Baryons/src/custom.cpp"

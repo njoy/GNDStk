@@ -198,3 +198,10 @@ UnspecifiedProductFrameSet(ConstHandle2Unspecified This, const XMLName productFr
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Unspecified/src/custom.cpp"

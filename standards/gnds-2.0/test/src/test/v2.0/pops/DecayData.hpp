@@ -17,22 +17,27 @@ namespace pops {
 // class DecayData
 // -----------------------------------------------------------------------------
 
-class DecayData : public Component<pops::DecayData> {
+class DecayData :
+   public Component<pops::DecayData>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "DecayData"; }
    static auto FIELD() { return "decayData"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<pops::DecayModes>>("decayModes") |
          --Child<std::optional<pops::AverageEnergies>>("averageEnergies")
@@ -41,6 +46,9 @@ class DecayData : public Component<pops::DecayData> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<pops::DecayModes>> decayModes{this};
@@ -51,6 +59,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->decayModes, \
       this->averageEnergies)
 
@@ -61,7 +70,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DecayData(
       const wrapper<std::optional<pops::DecayModes>> &decayModes,
       const wrapper<std::optional<pops::AverageEnergies>> &averageEnergies = {}
@@ -83,6 +92,7 @@ public:
    // copy
    DecayData(const DecayData &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       decayModes(this,other.decayModes),
       averageEnergies(this,other.averageEnergies)
    {
@@ -92,6 +102,7 @@ public:
    // move
    DecayData(DecayData &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       decayModes(this,std::move(other.decayModes)),
       averageEnergies(this,std::move(other.averageEnergies))
    {

@@ -212,8 +212,10 @@ ColumnDataSlicesSet(ConstHandle2ColumnData This, ConstHandle2ConstSlices slices)
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ColumnData/src/custom.h"
 
 #undef extern_c
 #endif

@@ -240,8 +240,10 @@ OutputChannelFissionFragmentDataSet(ConstHandle2OutputChannel This, ConstHandle2
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OutputChannel/src/custom.h"
 
 #undef extern_c
 #endif

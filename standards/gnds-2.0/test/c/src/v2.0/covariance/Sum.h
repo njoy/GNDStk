@@ -335,8 +335,10 @@ SumSummandSetByHref(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/Sum/src/custom.h"
 
 #undef extern_c
 #endif

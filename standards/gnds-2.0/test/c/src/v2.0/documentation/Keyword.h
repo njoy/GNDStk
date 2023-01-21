@@ -349,8 +349,10 @@ KeywordTypeSet(ConstHandle2Keyword This, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Keyword/src/custom.h"
 
 #undef extern_c
 #endif

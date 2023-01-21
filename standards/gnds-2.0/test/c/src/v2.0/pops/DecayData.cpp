@@ -215,3 +215,10 @@ DecayDataAverageEnergiesSet(ConstHandle2DecayData This, ConstHandle2ConstAverage
    detail::setField<CPP,CPPAverageEnergies>
       (CLASSNAME, CLASSNAME+"AverageEnergiesSet", This, extract::averageEnergies, averageEnergies);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DecayData/src/custom.cpp"

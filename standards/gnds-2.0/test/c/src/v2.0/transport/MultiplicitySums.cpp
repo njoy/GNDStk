@@ -293,3 +293,10 @@ MultiplicitySumsMultiplicitySumSetByLabel(
       (CLASSNAME, CLASSNAME+"MultiplicitySumSetByLabel",
        This, extract::multiplicitySum, meta::label, label, multiplicitySum);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/MultiplicitySums/src/custom.cpp"

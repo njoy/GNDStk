@@ -22,22 +22,27 @@ namespace transport {
 // class Weighted
 // -----------------------------------------------------------------------------
 
-class Weighted : public Component<transport::Weighted> {
+class Weighted :
+   public Component<transport::Weighted>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Weighted"; }
    static auto FIELD() { return "weighted"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<containers::XYs1d>("XYs1d") |
          --Child<std::optional<containers::XYs2d>>("XYs2d") |
@@ -51,6 +56,9 @@ class Weighted : public Component<transport::Weighted> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<containers::XYs1d> XYs1d{this};
@@ -66,6 +74,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs1d, \
       this->XYs2d, \
       this->evaporation, \
@@ -81,7 +90,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Weighted(
       const wrapper<containers::XYs1d> &XYs1d,
       const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
@@ -113,6 +122,7 @@ public:
    // copy
    Weighted(const Weighted &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs1d(this,other.XYs1d),
       XYs2d(this,other.XYs2d),
       evaporation(this,other.evaporation),
@@ -127,6 +137,7 @@ public:
    // move
    Weighted(Weighted &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d)),
       XYs2d(this,std::move(other.XYs2d)),
       evaporation(this,std::move(other.evaporation)),

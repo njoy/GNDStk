@@ -172,8 +172,10 @@ MultiGroupGridSet(ConstHandle2MultiGroup This, ConstHandle2ConstGrid grid);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MultiGroup/src/custom.h"
 
 #undef extern_c
 #endif

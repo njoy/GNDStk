@@ -215,3 +215,10 @@ DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2C
    detail::setField<CPP,CPPPolynomial1d>
       (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedNeutronKE/src/custom.cpp"

@@ -200,8 +200,10 @@ BackgroundFastRegionSet(ConstHandle2Background This, ConstHandle2ConstFastRegion
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Background/src/custom.h"
 
 #undef extern_c
 #endif

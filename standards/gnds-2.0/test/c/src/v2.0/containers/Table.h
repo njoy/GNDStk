@@ -236,8 +236,10 @@ TableDataSet(ConstHandle2Table This, ConstHandle2ConstData data);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Table/src/custom.h"
 
 #undef extern_c
 #endif

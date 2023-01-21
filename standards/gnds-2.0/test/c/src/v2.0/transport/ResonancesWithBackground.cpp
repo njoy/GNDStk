@@ -15,7 +15,7 @@ static const std::string CLASSNAME = "ResonancesWithBackground";
 
 namespace extract {
    static auto label = [](auto &obj) { return &obj.label; };
-   static auto resonances = [](auto &obj) { return &obj.resonances; };
+   static auto resonancesLink = [](auto &obj) { return &obj.resonancesLink; };
    static auto background = [](auto &obj) { return &obj.background; };
    static auto uncertainty = [](auto &obj) { return &obj.uncertainty; };
 }
@@ -50,14 +50,14 @@ ResonancesWithBackgroundDefault()
 Handle2ConstResonancesWithBackground
 ResonancesWithBackgroundCreateConst(
    const XMLName label,
-   ConstHandle2ConstResonancesLink resonances,
+   ConstHandle2ConstResonancesLink resonancesLink,
    ConstHandle2ConstBackground background,
    ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2ResonancesWithBackground handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       label,
-      detail::tocpp<CPPResonancesLink>(resonances),
+      detail::tocpp<CPPResonancesLink>(resonancesLink),
       detail::tocpp<CPPBackground>(background),
       detail::tocpp<CPPUncertainty>(uncertainty)
    );
@@ -68,14 +68,14 @@ ResonancesWithBackgroundCreateConst(
 Handle2ResonancesWithBackground
 ResonancesWithBackgroundCreate(
    const XMLName label,
-   ConstHandle2ConstResonancesLink resonances,
+   ConstHandle2ConstResonancesLink resonancesLink,
    ConstHandle2ConstBackground background,
    ConstHandle2ConstUncertainty uncertainty
 ) {
    ConstHandle2ResonancesWithBackground handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       label,
-      detail::tocpp<CPPResonancesLink>(resonances),
+      detail::tocpp<CPPResonancesLink>(resonancesLink),
       detail::tocpp<CPPBackground>(background),
       detail::tocpp<CPPUncertainty>(uncertainty)
    );
@@ -185,7 +185,7 @@ ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, cons
 
 
 // -----------------------------------------------------------------------------
-// Child: resonances
+// Child: resonancesLink
 // -----------------------------------------------------------------------------
 
 // Has
@@ -193,7 +193,7 @@ int
 ResonancesWithBackgroundResonancesLinkHas(ConstHandle2ConstResonancesWithBackground This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonancesLinkHas", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesLinkHas", This, extract::resonancesLink);
 }
 
 // Get, const
@@ -201,7 +201,7 @@ Handle2ConstResonancesLink
 ResonancesWithBackgroundResonancesLinkGetConst(ConstHandle2ConstResonancesWithBackground This)
 {
    return detail::getField<CPP,Handle2ConstResonancesLink>
-      (CLASSNAME, CLASSNAME+"ResonancesLinkGetConst", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesLinkGetConst", This, extract::resonancesLink);
 }
 
 // Get, non-const
@@ -209,15 +209,15 @@ Handle2ResonancesLink
 ResonancesWithBackgroundResonancesLinkGet(ConstHandle2ResonancesWithBackground This)
 {
    return detail::getField<CPP,Handle2ResonancesLink>
-      (CLASSNAME, CLASSNAME+"ResonancesLinkGet", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesLinkGet", This, extract::resonancesLink);
 }
 
 // Set
 void
-ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesLink resonances)
+ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesLink resonancesLink)
 {
    detail::setField<CPP,CPPResonancesLink>
-      (CLASSNAME, CLASSNAME+"ResonancesLinkSet", This, extract::resonances, resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesLinkSet", This, extract::resonancesLink, resonancesLink);
 }
 
 
@@ -293,3 +293,10 @@ ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground This
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/ResonancesWithBackground/src/custom.cpp"

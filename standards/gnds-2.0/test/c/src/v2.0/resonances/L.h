@@ -192,8 +192,10 @@ LJsSet(ConstHandle2L This, ConstHandle2ConstJs Js);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/L/src/custom.h"
 
 #undef extern_c
 #endif

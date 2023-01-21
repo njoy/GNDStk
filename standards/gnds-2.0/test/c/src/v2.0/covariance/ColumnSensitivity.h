@@ -152,8 +152,10 @@ ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity This, ConstHandle2ConstA
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/ColumnSensitivity/src/custom.h"
 
 #undef extern_c
 #endif

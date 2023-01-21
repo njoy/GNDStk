@@ -18,27 +18,33 @@ namespace containers {
 // class Regions2d
 // -----------------------------------------------------------------------------
 
-class Regions2d : public Component<containers::Regions2d> {
+class Regions2d :
+   public Component<containers::Regions2d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Regions2d"; }
    static auto FIELD() { return "regions2d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
+
          // children
          --Child<std::optional<containers::Axes>>("axes") |
          --Child<containers::Function2ds>("function2ds") |
@@ -48,6 +54,9 @@ class Regions2d : public Component<containers::Regions2d> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> label{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Regions2d(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<std::optional<Float64>> &outerDomainValue = {},
@@ -104,6 +114,7 @@ public:
    // copy
    Regions2d(const Regions2d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       outerDomainValue(this,other.outerDomainValue),
       axes(this,other.axes),
@@ -116,6 +127,7 @@ public:
    // move
    Regions2d(Regions2d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
       axes(this,std::move(other.axes)),

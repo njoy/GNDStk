@@ -285,3 +285,10 @@ Ys1dValuesSet(ConstHandle2Ys1d This, ConstHandle2ConstValues values)
    detail::setField<CPP,CPPValues>
       (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Ys1d/src/custom.cpp"

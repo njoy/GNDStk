@@ -24,22 +24,27 @@ namespace transport {
 // class DoubleDifferentialCrossSection
 // -----------------------------------------------------------------------------
 
-class DoubleDifferentialCrossSection : public Component<transport::DoubleDifferentialCrossSection> {
+class DoubleDifferentialCrossSection :
+   public Component<transport::DoubleDifferentialCrossSection>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "DoubleDifferentialCrossSection"; }
    static auto FIELD() { return "doubleDifferentialCrossSection"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<containers::Regions3d>>("regions3d") |
          --Child<std::optional<containers::XYs3d>>("XYs3d") |
@@ -55,6 +60,9 @@ class DoubleDifferentialCrossSection : public Component<transport::DoubleDiffere
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<containers::Regions3d>> regions3d{this};
@@ -72,6 +80,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->regions3d, \
       this->XYs3d, \
       this->CoulombPlusNuclearElastic, \
@@ -89,7 +98,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit DoubleDifferentialCrossSection(
       const wrapper<std::optional<containers::Regions3d>> &regions3d,
       const wrapper<std::optional<containers::XYs3d>> &XYs3d = {},
@@ -125,6 +134,7 @@ public:
    // copy
    DoubleDifferentialCrossSection(const DoubleDifferentialCrossSection &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       regions3d(this,other.regions3d),
       XYs3d(this,other.XYs3d),
       CoulombPlusNuclearElastic(this,other.CoulombPlusNuclearElastic),
@@ -141,6 +151,7 @@ public:
    // move
    DoubleDifferentialCrossSection(DoubleDifferentialCrossSection &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       regions3d(this,std::move(other.regions3d)),
       XYs3d(this,std::move(other.XYs3d)),
       CoulombPlusNuclearElastic(this,std::move(other.CoulombPlusNuclearElastic)),

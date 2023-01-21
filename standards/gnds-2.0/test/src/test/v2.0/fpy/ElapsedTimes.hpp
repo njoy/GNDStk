@@ -16,22 +16,27 @@ namespace fpy {
 // class ElapsedTimes
 // -----------------------------------------------------------------------------
 
-class ElapsedTimes : public Component<fpy::ElapsedTimes> {
+class ElapsedTimes :
+   public Component<fpy::ElapsedTimes>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ElapsedTimes"; }
    static auto FIELD() { return "elapsedTimes"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<fpy::ElapsedTime>("elapsedTime")
       ;
@@ -39,6 +44,9 @@ class ElapsedTimes : public Component<fpy::ElapsedTimes> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<fpy::ElapsedTime>> elapsedTime{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->elapsedTime)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ElapsedTimes(
       const wrapper<std::vector<fpy::ElapsedTime>> &elapsedTime
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ElapsedTimes(const ElapsedTimes &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       elapsedTime(this,other.elapsedTime)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ElapsedTimes(ElapsedTimes &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       elapsedTime(this,std::move(other.elapsedTime))
    {
       Component::finish(other);

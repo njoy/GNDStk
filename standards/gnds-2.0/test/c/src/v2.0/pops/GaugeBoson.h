@@ -292,8 +292,10 @@ GaugeBosonDecayDataSet(ConstHandle2GaugeBoson This, ConstHandle2ConstDecayData d
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/GaugeBoson/src/custom.h"
 
 #undef extern_c
 #endif

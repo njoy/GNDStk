@@ -293,3 +293,10 @@ DatesDateSetByValue(
       (CLASSNAME, CLASSNAME+"DateSetByValue",
        This, extract::date, meta::value, value, date);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Dates/src/custom.cpp"

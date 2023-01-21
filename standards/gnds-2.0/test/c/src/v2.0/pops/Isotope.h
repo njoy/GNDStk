@@ -192,8 +192,10 @@ IsotopeNuclidesSet(ConstHandle2Isotope This, ConstHandle2ConstNuclides nuclides)
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Isotope/src/custom.h"
 
 #undef extern_c
 #endif

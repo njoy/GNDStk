@@ -383,3 +383,10 @@ ExternalFilesExternalFileSetByAlgorithm(
       (CLASSNAME, CLASSNAME+"ExternalFileSetByAlgorithm",
        This, extract::externalFile, meta::algorithm, algorithm, externalFile);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/common/ExternalFiles/src/custom.cpp"

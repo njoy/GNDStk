@@ -16,22 +16,27 @@ namespace resonances {
 // class Widths
 // -----------------------------------------------------------------------------
 
-class Widths : public Component<resonances::Widths> {
+class Widths :
+   public Component<resonances::Widths>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Widths"; }
    static auto FIELD() { return "widths"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<resonances::Width>("width")
       ;
@@ -39,6 +44,9 @@ class Widths : public Component<resonances::Widths> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<resonances::Width>> width{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->width)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Widths(
       const wrapper<std::vector<resonances::Width>> &width
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Widths(const Widths &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       width(this,other.width)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Widths(Widths &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       width(this,std::move(other.width))
    {
       Component::finish(other);

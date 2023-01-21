@@ -215,3 +215,10 @@ NuclearTermRegions2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstRegions2d
    detail::setField<CPP,CPPRegions2d>
       (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/cpTransport/NuclearTerm/src/custom.cpp"

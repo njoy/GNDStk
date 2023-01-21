@@ -16,22 +16,27 @@ namespace tsl {
 // class ThermalNeutronScatteringLaw_incoherentInelastic
 // -----------------------------------------------------------------------------
 
-class ThermalNeutronScatteringLaw_incoherentInelastic : public Component<tsl::ThermalNeutronScatteringLaw_incoherentInelastic> {
+class ThermalNeutronScatteringLaw_incoherentInelastic :
+   public Component<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ThermalNeutronScatteringLaw_incoherentInelastic"; }
    static auto FIELD() { return "thermalNeutronScatteringLaw_incoherentInelastic"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
@@ -45,6 +50,7 @@ class ThermalNeutronScatteringLaw_incoherentInelastic : public Component<tsl::Th
             / Meta<>("incoherentApproximation") |
          XMLName{}
             / Meta<>("primaryScatterer") |
+
          // children
          --Child<tsl::ScatteringAtoms>("scatteringAtoms")
       ;
@@ -60,6 +66,9 @@ public:
       static inline const bool calculatedAtThermal = false;
       static inline const bool incoherentApproximation = true;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -77,6 +86,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
@@ -92,8 +102,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit ThermalNeutronScatteringLaw_incoherentInelastic(
       const wrapper<XMLName> &label,
       const wrapper<std::optional<XMLName>> &pid = {},
@@ -125,6 +135,7 @@ public:
    // copy
    ThermalNeutronScatteringLaw_incoherentInelastic(const ThermalNeutronScatteringLaw_incoherentInelastic &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
       productFrame(this,other.productFrame),
@@ -139,6 +150,7 @@ public:
    // move
    ThermalNeutronScatteringLaw_incoherentInelastic(ThermalNeutronScatteringLaw_incoherentInelastic &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
       productFrame(this,std::move(other.productFrame)),

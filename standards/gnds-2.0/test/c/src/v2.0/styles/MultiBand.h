@@ -232,8 +232,10 @@ MultiBandDocumentationSet(ConstHandle2MultiBand This, ConstHandle2ConstDocumenta
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MultiBand/src/custom.h"
 
 #undef extern_c
 #endif

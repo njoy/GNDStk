@@ -285,3 +285,10 @@ ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution d
    detail::setField<CPP,CPPDistribution>
       (CLASSNAME, CLASSNAME+"DistributionSet", This, extract::distribution, distribution);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/common/Product/src/custom.cpp"

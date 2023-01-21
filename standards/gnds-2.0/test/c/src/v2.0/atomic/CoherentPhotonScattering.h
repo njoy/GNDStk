@@ -280,8 +280,10 @@ CoherentPhotonScatteringImaginaryAnomalousFactorSet(ConstHandle2CoherentPhotonSc
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/CoherentPhotonScattering/src/custom.h"
 
 #undef extern_c
 #endif

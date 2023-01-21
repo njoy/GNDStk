@@ -320,3 +320,10 @@ DiscreteEnergyUncertaintySet(ConstHandle2DiscreteEnergy This, ConstHandle2ConstU
    detail::setField<CPP,CPPUncertainty>
       (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/DiscreteEnergy/src/custom.cpp"

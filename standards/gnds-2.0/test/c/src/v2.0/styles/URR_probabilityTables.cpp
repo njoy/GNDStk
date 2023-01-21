@@ -277,3 +277,10 @@ URR_probabilityTablesDocumentationSet(ConstHandle2URR_probabilityTables This, Co
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/URR_probabilityTables/src/custom.cpp"

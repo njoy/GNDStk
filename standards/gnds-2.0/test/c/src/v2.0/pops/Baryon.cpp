@@ -422,3 +422,10 @@ BaryonDecayDataSet(ConstHandle2Baryon This, ConstHandle2ConstDecayData decayData
    detail::setField<CPP,CPPDecayData>
       (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Baryon/src/custom.cpp"

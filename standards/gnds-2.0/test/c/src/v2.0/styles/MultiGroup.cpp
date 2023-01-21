@@ -207,3 +207,10 @@ MultiGroupGridSet(ConstHandle2MultiGroup This, ConstHandle2ConstGrid grid)
    detail::setField<CPP,CPPGrid>
       (CLASSNAME, CLASSNAME+"GridSet", This, extract::grid, grid);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MultiGroup/src/custom.cpp"

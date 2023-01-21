@@ -125,3 +125,10 @@ Isotropic2dPrintJSON(ConstHandle2ConstIsotropic2d This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Isotropic2d/src/custom.cpp"

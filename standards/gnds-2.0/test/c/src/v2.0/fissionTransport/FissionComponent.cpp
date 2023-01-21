@@ -320,3 +320,10 @@ FissionComponentOutputChannelSet(ConstHandle2FissionComponent This, ConstHandle2
    detail::setField<CPP,CPPOutputChannel>
       (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/FissionComponent/src/custom.cpp"

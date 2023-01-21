@@ -16,22 +16,27 @@ namespace appData {
 // class Conversion
 // -----------------------------------------------------------------------------
 
-class Conversion : public Component<appData::Conversion> {
+class Conversion :
+   public Component<appData::Conversion>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "Conversion"; }
    static auto FIELD() { return "conversion"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("flags") |
@@ -43,6 +48,9 @@ class Conversion : public Component<appData::Conversion> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> flags{this};
    Field<std::optional<std::string>> href{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->flags, \
       this->href)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Conversion(
       const wrapper<std::optional<XMLName>> &flags,
       const wrapper<std::optional<std::string>> &href = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Conversion(const Conversion &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       flags(this,other.flags),
       href(this,other.href)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Conversion(Conversion &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       flags(this,std::move(other.flags)),
       href(this,std::move(other.href))
    {

@@ -166,3 +166,10 @@ URR_probabilityTables1dLabelSet(ConstHandle2URR_probabilityTables1d This, const 
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/URR_probabilityTables1d/src/custom.cpp"

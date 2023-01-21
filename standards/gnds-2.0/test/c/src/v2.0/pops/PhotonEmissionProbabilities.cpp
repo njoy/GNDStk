@@ -338,3 +338,10 @@ PhotonEmissionProbabilitiesShellSetByUnit(
       (CLASSNAME, CLASSNAME+"ShellSetByUnit",
        This, extract::shell, meta::unit, unit, shell);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/PhotonEmissionProbabilities/src/custom.cpp"

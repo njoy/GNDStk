@@ -130,8 +130,10 @@ CrossSectionPrintJSON(ConstHandle2ConstCrossSection This);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/transport/CrossSection/src/custom.h"
 
 #undef extern_c
 #endif

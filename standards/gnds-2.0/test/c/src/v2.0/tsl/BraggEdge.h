@@ -196,8 +196,10 @@ BraggEdgeStructureFactorSet(ConstHandle2BraggEdge This, ConstHandle2ConstStructu
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEdge/src/custom.h"
 
 #undef extern_c
 #endif

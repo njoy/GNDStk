@@ -398,3 +398,10 @@ CoherentPhotonScatteringImaginaryAnomalousFactorSet(ConstHandle2CoherentPhotonSc
    detail::setField<CPP,CPPImaginaryAnomalousFactor>
       (CLASSNAME, CLASSNAME+"ImaginaryAnomalousFactorSet", This, extract::imaginaryAnomalousFactor, imaginaryAnomalousFactor);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/atomic/CoherentPhotonScattering/src/custom.cpp"

@@ -16,22 +16,27 @@ namespace appData {
 // class ApplicationData
 // -----------------------------------------------------------------------------
 
-class ApplicationData : public Component<appData::ApplicationData> {
+class ApplicationData :
+   public Component<appData::ApplicationData>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "ApplicationData"; }
    static auto FIELD() { return "applicationData"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          --Child<std::optional<appData::Institution>>("institution")
       ;
@@ -39,6 +44,9 @@ class ApplicationData : public Component<appData::ApplicationData> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<appData::Institution>> institution{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->institution)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ApplicationData(
       const wrapper<std::optional<appData::Institution>> &institution
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    ApplicationData(const ApplicationData &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       institution(this,other.institution)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    ApplicationData(ApplicationData &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       institution(this,std::move(other.institution))
    {
       Component::finish(other);

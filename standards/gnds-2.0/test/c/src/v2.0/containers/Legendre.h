@@ -252,8 +252,10 @@ LegendreValuesSet(ConstHandle2Legendre This, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Legendre/src/custom.h"
 
 #undef extern_c
 #endif

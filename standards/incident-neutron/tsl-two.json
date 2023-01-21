@@ -15,7 +15,6 @@
         "children": {
             "values": {
                 "times": "1",
-                "namespace": "doubles",
                 "required": true
             }
         }

@@ -238,8 +238,10 @@ HalflifeUncertaintySet(ConstHandle2Halflife This, ConstHandle2ConstUncertainty u
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/pops/Halflife/src/custom.h"
 
 #undef extern_c
 #endif

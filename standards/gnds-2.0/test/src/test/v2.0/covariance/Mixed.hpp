@@ -18,25 +18,31 @@ namespace covariance {
 // class Mixed
 // -----------------------------------------------------------------------------
 
-class Mixed : public Component<covariance::Mixed> {
+class Mixed :
+   public Component<covariance::Mixed>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Mixed"; }
    static auto FIELD() { return "mixed"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
+
          // children
          ++Child<std::optional<covariance::CovarianceMatrix>>("covarianceMatrix") |
          ++Child<std::optional<covariance::ShortRangeSelfScalingVariance>>("shortRangeSelfScalingVariance") |
@@ -46,6 +52,9 @@ class Mixed : public Component<covariance::Mixed> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->covarianceMatrix, \
       this->shortRangeSelfScalingVariance, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Mixed(
       const wrapper<XMLName> &label,
       const wrapper<std::optional<std::vector<covariance::CovarianceMatrix>>> &covarianceMatrix = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Mixed(const Mixed &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       covarianceMatrix(this,other.covarianceMatrix),
       shortRangeSelfScalingVariance(this,other.shortRangeSelfScalingVariance),
@@ -109,6 +120,7 @@ public:
    // move
    Mixed(Mixed &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       covarianceMatrix(this,std::move(other.covarianceMatrix)),
       shortRangeSelfScalingVariance(this,std::move(other.shortRangeSelfScalingVariance)),

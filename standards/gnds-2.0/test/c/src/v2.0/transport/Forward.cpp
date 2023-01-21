@@ -125,3 +125,10 @@ ForwardPrintJSON(ConstHandle2ConstForward This)
    return detail::printHandle<CPP,C>
       (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Forward/src/custom.cpp"

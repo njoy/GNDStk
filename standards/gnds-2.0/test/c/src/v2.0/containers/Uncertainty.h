@@ -320,8 +320,10 @@ UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstL
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Uncertainty/src/custom.h"
 
 #undef extern_c
 #endif

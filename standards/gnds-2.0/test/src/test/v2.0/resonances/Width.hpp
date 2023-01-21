@@ -18,27 +18,33 @@ namespace resonances {
 // class Width
 // -----------------------------------------------------------------------------
 
-class Width : public Component<resonances::Width> {
+class Width :
+   public Component<resonances::Width>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Width"; }
    static auto FIELD() { return "width"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("resonanceReaction") |
          Float64{}
             / Meta<>("degreesOfFreedom") |
+
          // children
          --Child<std::optional<containers::Constant1d>>("constant1d") |
          --Child<std::optional<containers::XYs1d>>("XYs1d") |
@@ -48,6 +54,9 @@ class Width : public Component<resonances::Width> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> resonanceReaction{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->resonanceReaction, \
       this->degreesOfFreedom, \
       this->constant1d, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Width(
       const wrapper<std::string> &resonanceReaction,
       const wrapper<Float64> &degreesOfFreedom = {},
@@ -104,6 +114,7 @@ public:
    // copy
    Width(const Width &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       resonanceReaction(this,other.resonanceReaction),
       degreesOfFreedom(this,other.degreesOfFreedom),
       constant1d(this,other.constant1d),
@@ -116,6 +127,7 @@ public:
    // move
    Width(Width &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       resonanceReaction(this,std::move(other.resonanceReaction)),
       degreesOfFreedom(this,std::move(other.degreesOfFreedom)),
       constant1d(this,std::move(other.constant1d)),

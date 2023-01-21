@@ -172,3 +172,10 @@ PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum This, ConstHandle2ConstXYs1d X
    detail::setField<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/PhononSpectrum/src/custom.cpp"

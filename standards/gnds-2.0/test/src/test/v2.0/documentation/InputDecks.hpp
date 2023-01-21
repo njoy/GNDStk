@@ -16,22 +16,27 @@ namespace documentation {
 // class InputDecks
 // -----------------------------------------------------------------------------
 
-class InputDecks : public Component<documentation::InputDecks> {
+class InputDecks :
+   public Component<documentation::InputDecks>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "InputDecks"; }
    static auto FIELD() { return "inputDecks"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<documentation::InputDeck>("inputDeck")
       ;
@@ -39,6 +44,9 @@ class InputDecks : public Component<documentation::InputDecks> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::vector<documentation::InputDeck>> inputDeck{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->inputDeck)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit InputDecks(
       const wrapper<std::vector<documentation::InputDeck>> &inputDeck
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    InputDecks(const InputDecks &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       inputDeck(this,other.inputDeck)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    InputDecks(InputDecks &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       inputDeck(this,std::move(other.inputDeck))
    {
       Component::finish(other);

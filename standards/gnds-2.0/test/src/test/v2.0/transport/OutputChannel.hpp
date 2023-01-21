@@ -18,27 +18,33 @@ namespace transport {
 // class OutputChannel
 // -----------------------------------------------------------------------------
 
-class OutputChannel : public Component<transport::OutputChannel> {
+class OutputChannel :
+   public Component<transport::OutputChannel>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "OutputChannel"; }
    static auto FIELD() { return "outputChannel"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("genre") |
          std::optional<XMLName>{}
             / Meta<>("process") |
+
          // children
          --Child<std::optional<common::Q>>("Q") |
          --Child<std::optional<common::Products>>("products") |
@@ -48,6 +54,9 @@ class OutputChannel : public Component<transport::OutputChannel> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<XMLName>> genre{this};
@@ -63,6 +72,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->genre, \
       this->process, \
       this->Q, \
@@ -76,7 +86,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit OutputChannel(
       const wrapper<std::optional<XMLName>> &genre,
       const wrapper<std::optional<XMLName>> &process = {},
@@ -104,6 +114,7 @@ public:
    // copy
    OutputChannel(const OutputChannel &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       genre(this,other.genre),
       process(this,other.process),
       Q(this,other.Q),
@@ -116,6 +127,7 @@ public:
    // move
    OutputChannel(OutputChannel &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       genre(this,std::move(other.genre)),
       process(this,std::move(other.process)),
       Q(this,std::move(other.Q)),

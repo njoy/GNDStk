@@ -174,8 +174,10 @@ ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/ElapsedTime/src/custom.h"
 
 #undef extern_c
 #endif

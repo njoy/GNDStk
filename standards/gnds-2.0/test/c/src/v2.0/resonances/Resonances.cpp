@@ -668,3 +668,10 @@ ResonancesUnresolvedSetByDomainUnit(
       (CLASSNAME, CLASSNAME+"UnresolvedSetByDomainUnit",
        This, extract::unresolved, meta::domainUnit, domainUnit, unresolved);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/resonances/Resonances/src/custom.cpp"

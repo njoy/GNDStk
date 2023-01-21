@@ -406,3 +406,10 @@ HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup This, ConstHandle2
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/HeatedMultiGroup/src/custom.cpp"

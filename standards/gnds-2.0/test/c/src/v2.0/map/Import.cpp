@@ -233,3 +233,10 @@ ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/map/Import/src/custom.cpp"

@@ -486,3 +486,10 @@ EndfCompatibleLabelSet(ConstHandle2EndfCompatible This, const XMLName label)
    detail::setField<CPP>
       (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/EndfCompatible/src/custom.cpp"

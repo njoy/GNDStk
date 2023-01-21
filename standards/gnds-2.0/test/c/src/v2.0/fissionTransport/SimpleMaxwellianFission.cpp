@@ -215,3 +215,10 @@ SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission This, ConstH
    detail::setField<CPP,CPPTheta>
       (CLASSNAME, CLASSNAME+"ThetaSet", This, extract::theta, theta);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/SimpleMaxwellianFission/src/custom.cpp"

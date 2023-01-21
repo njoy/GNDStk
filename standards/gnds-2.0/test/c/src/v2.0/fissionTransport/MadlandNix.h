@@ -200,8 +200,10 @@ MadlandNixT_MSet(ConstHandle2MadlandNix This, ConstHandle2ConstT_M T_M);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/MadlandNix/src/custom.h"
 
 #undef extern_c
 #endif

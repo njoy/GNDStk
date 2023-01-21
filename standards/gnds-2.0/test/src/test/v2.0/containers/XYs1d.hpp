@@ -18,22 +18,27 @@ namespace containers {
 // class XYs1d
 // -----------------------------------------------------------------------------
 
-class XYs1d : public Component<containers::XYs1d> {
+class XYs1d :
+   public Component<containers::XYs1d>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs1d"; }
    static auto FIELD() { return "XYs1d"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<Integer32>{}
             / Meta<>("index") |
@@ -43,6 +48,7 @@ class XYs1d : public Component<containers::XYs1d> {
             / Meta<>("label") |
          std::optional<Float64>{}
             / Meta<>("outerDomainValue") |
+
          // children
          --Child<std::optional<containers::Axes>>("axes") |
          --Child<std::optional<extra::Uncertainty>>("uncertainty") |
@@ -57,6 +63,9 @@ public:
    static inline const struct Defaults {
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::optional<Integer32>> index{this};
@@ -74,6 +83,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->index, \
       this->interpolation, \
       this->label, \
@@ -89,8 +99,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
       const wrapper<std::optional<Integer32>> &index,
       const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
@@ -122,6 +132,7 @@ public:
    // copy
    XYs1d(const XYs1d &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       index(this,other.index),
       interpolation(this,other.interpolation),
       label(this,other.label),
@@ -136,6 +147,7 @@ public:
    // move
    XYs1d(XYs1d &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       interpolation(this,std::move(other.interpolation)),
       label(this,std::move(other.label)),

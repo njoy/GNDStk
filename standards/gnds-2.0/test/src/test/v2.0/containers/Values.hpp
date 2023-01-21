@@ -16,22 +16,27 @@ namespace containers {
 // class Values
 // -----------------------------------------------------------------------------
 
-class Values : public Component<containers::Values,true> {
+class Values :
+   public Component<containers::Values,true>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Values"; }
    static auto FIELD() { return "values"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Defaulted<UTF8Text>{"Float64"}
             / Meta<>("valueType") |
@@ -58,6 +63,9 @@ public:
       static inline const Integer32 start = 0;
    } defaults;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    mutable Field<Defaulted<UTF8Text>> valueType{this,defaults.valueType};
    mutable Field<Defaulted<Integer32>> start{this,defaults.start};
@@ -71,6 +79,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->valueType, \
       this->start, \
       this->length, \
@@ -85,8 +94,8 @@ public:
       Component::finish();
    }
 
-   // from fields
-   // std::optional replaces Defaulted; this class knows the default(s)
+   // from fields, comment excluded
+   // optional replaces Defaulted; this class knows the default(s)
    explicit Values(
       const wrapper<std::optional<UTF8Text>> &valueType,
       const wrapper<std::optional<Integer32>> &start = {},
@@ -124,6 +133,7 @@ public:
    // copy
    Values(const Values &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       valueType(this,other.valueType),
       start(this,other.start),
       length(this,other.length),
@@ -137,6 +147,7 @@ public:
    // move
    Values(Values &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       valueType(this,std::move(other.valueType)),
       start(this,std::move(other.start)),
       length(this,std::move(other.length)),

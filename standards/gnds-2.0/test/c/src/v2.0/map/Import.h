@@ -188,8 +188,10 @@ ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/map/Import/src/custom.h"
 
 #undef extern_c
 #endif

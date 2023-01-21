@@ -312,3 +312,10 @@ MultiBandDocumentationSet(ConstHandle2MultiBand This, ConstHandle2ConstDocumenta
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/MultiBand/src/custom.cpp"

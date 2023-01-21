@@ -16,22 +16,27 @@ namespace transport {
 // class ReactionSuite
 // -----------------------------------------------------------------------------
 
-class ReactionSuite : public Component<transport::ReactionSuite> {
+class ReactionSuite :
+   public Component<transport::ReactionSuite>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
    static auto FIELD() { return "reactionSuite"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::string{}
             / Meta<>("evaluation") |
@@ -45,6 +50,7 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
             / Meta<>("target") |
          std::optional<enums::Interaction>{}
             / Meta<>("interaction") |
+
          // children
          --Child<std::optional<transport::Reactions>>("reactions")
       ;
@@ -52,6 +58,9 @@ class ReactionSuite : public Component<transport::ReactionSuite> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<std::string> evaluation{this};
@@ -69,6 +78,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->evaluation, \
       this->format, \
       this->projectile, \
@@ -84,7 +94,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit ReactionSuite(
       const wrapper<std::string> &evaluation,
       const wrapper<std::string> &format = {},
@@ -116,6 +126,7 @@ public:
    // copy
    ReactionSuite(const ReactionSuite &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       evaluation(this,other.evaluation),
       format(this,other.format),
       projectile(this,other.projectile),
@@ -130,6 +141,7 @@ public:
    // move
    ReactionSuite(ReactionSuite &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       evaluation(this,std::move(other.evaluation)),
       format(this,std::move(other.format)),
       projectile(this,std::move(other.projectile)),

@@ -168,8 +168,10 @@ E_criticalValueSet(ConstHandle2E_critical This, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/E_critical/src/custom.h"
 
 #undef extern_c
 #endif

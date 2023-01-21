@@ -288,3 +288,10 @@ CovarianceSectionColumnDataSet(ConstHandle2CovarianceSection This, ConstHandle2C
    detail::setField<CPP,CPPColumnData>
       (CLASSNAME, CLASSNAME+"ColumnDataSet", This, extract::columnData, columnData);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/covariance/CovarianceSection/src/custom.cpp"

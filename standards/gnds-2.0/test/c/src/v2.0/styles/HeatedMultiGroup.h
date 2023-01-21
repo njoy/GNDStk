@@ -284,8 +284,10 @@ HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup This, ConstHandle2
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/styles/HeatedMultiGroup/src/custom.h"
 
 #undef extern_c
 #endif

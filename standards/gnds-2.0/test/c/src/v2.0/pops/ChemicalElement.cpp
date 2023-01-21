@@ -320,3 +320,10 @@ ChemicalElementIsotopesSet(ConstHandle2ChemicalElement This, ConstHandle2ConstIs
    detail::setField<CPP,CPPIsotopes>
       (CLASSNAME, CLASSNAME+"IsotopesSet", This, extract::isotopes, isotopes);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/pops/ChemicalElement/src/custom.cpp"

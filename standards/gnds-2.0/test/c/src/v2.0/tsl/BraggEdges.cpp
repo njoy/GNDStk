@@ -248,3 +248,10 @@ BraggEdgesBraggEdgeSetByLabel(
       (CLASSNAME, CLASSNAME+"BraggEdgeSetByLabel",
        This, extract::BraggEdge, meta::label, label, BraggEdge);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/tsl/BraggEdges/src/custom.cpp"

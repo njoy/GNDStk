@@ -258,3 +258,10 @@ FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData This, ConstH
    detail::setField<CPP,CPPProductYields>
       (CLASSNAME, CLASSNAME+"ProductYieldsSet", This, extract::productYields, productYields);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/FissionFragmentData/src/custom.cpp"

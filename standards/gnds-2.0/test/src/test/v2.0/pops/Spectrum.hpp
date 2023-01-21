@@ -17,27 +17,33 @@ namespace pops {
 // class Spectrum
 // -----------------------------------------------------------------------------
 
-class Spectrum : public Component<pops::Spectrum> {
+class Spectrum :
+   public Component<pops::Spectrum>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Spectrum"; }
    static auto FIELD() { return "spectrum"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          XMLName{}
             / Meta<>("label") |
          XMLName{}
             / Meta<>("pid") |
+
          // children
          --Child<std::optional<pops::Continuum>>("continuum") |
          ++Child<std::optional<pops::Discrete>>("discrete")
@@ -46,6 +52,9 @@ class Spectrum : public Component<pops::Spectrum> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<XMLName> label{this};
@@ -60,6 +69,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->pid, \
       this->continuum, \
@@ -72,7 +82,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Spectrum(
       const wrapper<XMLName> &label,
       const wrapper<XMLName> &pid = {},
@@ -98,6 +108,7 @@ public:
    // copy
    Spectrum(const Spectrum &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
       continuum(this,other.continuum),
@@ -109,6 +120,7 @@ public:
    // move
    Spectrum(Spectrum &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
       continuum(this,std::move(other.continuum)),

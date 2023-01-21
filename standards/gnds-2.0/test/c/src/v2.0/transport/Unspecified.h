@@ -168,8 +168,10 @@ UnspecifiedProductFrameSet(ConstHandle2Unspecified This, const XMLName productFr
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Unspecified/src/custom.h"
 
 #undef extern_c
 #endif

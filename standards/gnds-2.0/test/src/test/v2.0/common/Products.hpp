@@ -16,22 +16,27 @@ namespace common {
 // class Products
 // -----------------------------------------------------------------------------
 
-class Products : public Component<common::Products> {
+class Products :
+   public Component<common::Products>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "Products"; }
    static auto FIELD() { return "products"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          ++Child<std::optional<common::Product>>("product")
       ;
@@ -39,6 +44,9 @@ class Products : public Component<common::Products> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children
    Field<std::optional<std::vector<common::Product>>> product{this};
@@ -48,6 +56,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->product)
 
    // default
@@ -57,7 +66,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Products(
       const wrapper<std::optional<std::vector<common::Product>>> &product
    ) :
@@ -77,6 +86,7 @@ public:
    // copy
    Products(const Products &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       product(this,other.product)
    {
       Component::finish(other);
@@ -85,6 +95,7 @@ public:
    // move
    Products(Products &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       product(this,std::move(other.product))
    {
       Component::finish(other);

@@ -168,8 +168,10 @@ CollaborationHrefSet(ConstHandle2Collaboration This, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Collaboration/src/custom.h"
 
 #undef extern_c
 #endif

@@ -433,3 +433,10 @@ EvaluatedDocumentationSet(ConstHandle2Evaluated This, ConstHandle2ConstDocumenta
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/Evaluated/src/custom.cpp"

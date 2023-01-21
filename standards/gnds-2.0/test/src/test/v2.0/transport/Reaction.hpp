@@ -18,22 +18,27 @@ namespace transport {
 // class Reaction
 // -----------------------------------------------------------------------------
 
-class Reaction : public Component<transport::Reaction> {
+class Reaction :
+   public Component<transport::Reaction>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reaction"; }
    static auto FIELD() { return "reaction"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          Integer32{}
             / Meta<>("ENDF_MT") |
@@ -41,6 +46,7 @@ class Reaction : public Component<transport::Reaction> {
             / Meta<>("fissionGenre") |
          XMLName{}
             / Meta<>("label") |
+
          // children
          --Child<std::optional<transport::DoubleDifferentialCrossSection>>("doubleDifferentialCrossSection") |
          --Child<transport::CrossSection>("crossSection") |
@@ -50,6 +56,9 @@ class Reaction : public Component<transport::Reaction> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // metadata
    Field<Integer32> ENDF_MT{this};
@@ -66,6 +75,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->ENDF_MT, \
       this->fissionGenre, \
       this->label, \
@@ -80,7 +90,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Reaction(
       const wrapper<Integer32> &ENDF_MT,
       const wrapper<std::optional<XMLName>> &fissionGenre = {},
@@ -110,6 +120,7 @@ public:
    // copy
    Reaction(const Reaction &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       ENDF_MT(this,other.ENDF_MT),
       fissionGenre(this,other.fissionGenre),
       label(this,other.label),
@@ -123,6 +134,7 @@ public:
    // move
    Reaction(Reaction &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
       fissionGenre(this,std::move(other.fissionGenre)),
       label(this,std::move(other.label)),

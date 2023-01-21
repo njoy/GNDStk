@@ -188,8 +188,10 @@ FractionValueSet(ConstHandle2Fraction This, const Fraction32 value);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/containers/Fraction/src/custom.h"
 
 #undef extern_c
 #endif

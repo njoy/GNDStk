@@ -349,8 +349,10 @@ BibitemXrefSet(ConstHandle2Bibitem This, const XMLName xref);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/documentation/Bibitem/src/custom.h"
 
 #undef extern_c
 #endif

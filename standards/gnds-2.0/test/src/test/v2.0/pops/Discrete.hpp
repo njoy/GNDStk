@@ -21,25 +21,31 @@ namespace pops {
 // class Discrete
 // -----------------------------------------------------------------------------
 
-class Discrete : public Component<pops::Discrete> {
+class Discrete :
+   public Component<pops::Discrete>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Discrete"; }
    static auto FIELD() { return "discrete"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("type") |
+
          // children
          --Child<pops::DiscreteEnergy>("energy") |
          --Child<pops::Intensity>("intensity") |
@@ -53,11 +59,14 @@ class Discrete : public Component<pops::Discrete> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> type{this};
 
    // children
-   Field<pops::DiscreteEnergy> energy{this};
+   Field<pops::DiscreteEnergy> discreteEnergy{this};
    Field<pops::Intensity> intensity{this};
    Field<std::optional<pops::InternalConversionCoefficients>> internalConversionCoefficients{this};
    Field<std::optional<pops::InternalPairFormationCoefficient>> internalPairFormationCoefficient{this};
@@ -69,8 +78,9 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->type, \
-      this->energy, \
+      this->discreteEnergy, \
       this->intensity, \
       this->internalConversionCoefficients, \
       this->internalPairFormationCoefficient, \
@@ -84,10 +94,10 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Discrete(
       const wrapper<std::optional<XMLName>> &type,
-      const wrapper<pops::DiscreteEnergy> &energy = {},
+      const wrapper<pops::DiscreteEnergy> &discreteEnergy = {},
       const wrapper<pops::Intensity> &intensity = {},
       const wrapper<std::optional<pops::InternalConversionCoefficients>> &internalConversionCoefficients = {},
       const wrapper<std::optional<pops::InternalPairFormationCoefficient>> &internalPairFormationCoefficient = {},
@@ -96,7 +106,7 @@ public:
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       type(this,type),
-      energy(this,energy),
+      discreteEnergy(this,discreteEnergy),
       intensity(this,intensity),
       internalConversionCoefficients(this,internalConversionCoefficients),
       internalPairFormationCoefficient(this,internalPairFormationCoefficient),
@@ -116,8 +126,9 @@ public:
    // copy
    Discrete(const Discrete &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       type(this,other.type),
-      energy(this,other.energy),
+      discreteEnergy(this,other.discreteEnergy),
       intensity(this,other.intensity),
       internalConversionCoefficients(this,other.internalConversionCoefficients),
       internalPairFormationCoefficient(this,other.internalPairFormationCoefficient),
@@ -130,8 +141,9 @@ public:
    // move
    Discrete(Discrete &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       type(this,std::move(other.type)),
-      energy(this,std::move(other.energy)),
+      discreteEnergy(this,std::move(other.discreteEnergy)),
       intensity(this,std::move(other.intensity)),
       internalConversionCoefficients(this,std::move(other.internalConversionCoefficients)),
       internalPairFormationCoefficient(this,std::move(other.internalPairFormationCoefficient)),

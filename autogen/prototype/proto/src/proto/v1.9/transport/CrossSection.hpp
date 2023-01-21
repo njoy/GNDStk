@@ -17,7 +17,9 @@ namespace transport {
 // class CrossSection
 // -----------------------------------------------------------------------------
 
-class CrossSection : public Component<transport::CrossSection> {
+class CrossSection :
+   public Component<transport::CrossSection>
+{
    friend class Component;
 
    using XYs1d_regions1d_t = std::variant<
@@ -29,15 +31,18 @@ class CrossSection : public Component<transport::CrossSection> {
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "CrossSection"; }
    static auto FIELD() { return "crossSection"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // children
          XYs1d_regions1d_t{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
@@ -46,6 +51,9 @@ class CrossSection : public Component<transport::CrossSection> {
 
 public:
    using Component::construct;
+
+   // comment
+   Field<std::vector<std::string>> comment{this};
 
    // children - variant
    Field<std::vector<XYs1d_regions1d_t>> XYs1d_regions1d{this};
@@ -57,6 +65,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->XYs1d_regions1d)
 
    // default
@@ -66,7 +75,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit CrossSection(
       const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d
    ) :
@@ -86,6 +95,7 @@ public:
    // copy
    CrossSection(const CrossSection &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       XYs1d_regions1d(this,other.XYs1d_regions1d)
    {
       Component::finish(other);
@@ -94,6 +104,7 @@ public:
    // move
    CrossSection(CrossSection &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       XYs1d_regions1d(this,std::move(other.XYs1d_regions1d))
    {
       Component::finish(other);

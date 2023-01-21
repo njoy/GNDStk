@@ -176,8 +176,10 @@ AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum This, ConstHandle2Co
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/processed/AvailableMomentum/src/custom.h"
 
 #undef extern_c
 #endif

@@ -157,8 +157,10 @@ CrossSectionLabelSet(ConstHandle2CrossSection This, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/CrossSection/src/custom.h"
 
 #undef extern_c
 #endif

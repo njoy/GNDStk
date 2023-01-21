@@ -16,22 +16,27 @@ namespace fpy {
 // class Nuclides
 // -----------------------------------------------------------------------------
 
-class Nuclides : public Component<fpy::Nuclides,true> {
+class Nuclides :
+   public Component<fpy::Nuclides,true>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Nuclides"; }
    static auto FIELD() { return "nuclides"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<std::string>{}
             / Meta<>("href")
@@ -42,6 +47,9 @@ public:
    using Component::construct;
    using BlockData::operator=;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<std::string>> href{this};
 
@@ -50,6 +58,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->href)
 
    // default
@@ -59,7 +68,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Nuclides(
       const wrapper<std::optional<std::string>> &href
    ) :
@@ -87,6 +96,7 @@ public:
    // copy
    Nuclides(const Nuclides &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       href(this,other.href)
    {
       Component::finish(other);
@@ -95,6 +105,7 @@ public:
    // move
    Nuclides(Nuclides &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       href(this,std::move(other.href))
    {
       Component::finish(other);

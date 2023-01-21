@@ -176,8 +176,10 @@ GRegions1dSet(ConstHandle2G This, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/G/src/custom.h"
 
 #undef extern_c
 #endif

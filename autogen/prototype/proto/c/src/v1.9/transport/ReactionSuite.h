@@ -272,8 +272,10 @@ ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReact
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v1.9/transport/ReactionSuite/src/custom.h"
 
 #undef extern_c
 #endif

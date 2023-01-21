@@ -320,3 +320,10 @@ AverageProductDataDocumentationSet(ConstHandle2AverageProductData This, ConstHan
    detail::setField<CPP,CPPDocumentation>
       (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/AverageProductData/src/custom.cpp"

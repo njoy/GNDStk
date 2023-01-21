@@ -216,8 +216,10 @@ OrphanProductOutputChannelSet(ConstHandle2OrphanProduct This, ConstHandle2ConstO
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/OrphanProduct/src/custom.h"
 
 #undef extern_c
 #endif

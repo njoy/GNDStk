@@ -344,8 +344,10 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/transport/DoubleDifferentialCrossSection/src/custom.h"
 
 #undef extern_c
 #endif

@@ -172,3 +172,10 @@ DelayedBetaEnergyPolynomial1dSet(ConstHandle2DelayedBetaEnergy This, ConstHandle
    detail::setField<CPP,CPPPolynomial1d>
       (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/fissionTransport/DelayedBetaEnergy/src/custom.cpp"

@@ -200,8 +200,10 @@ YieldsUncertaintySet(ConstHandle2Yields This, ConstHandle2ConstUncertainty uncer
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fpy/Yields/src/custom.h"
 
 #undef extern_c
 #endif

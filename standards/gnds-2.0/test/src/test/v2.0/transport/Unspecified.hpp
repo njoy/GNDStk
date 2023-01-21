@@ -16,22 +16,27 @@ namespace transport {
 // class Unspecified
 // -----------------------------------------------------------------------------
 
-class Unspecified : public Component<transport::Unspecified> {
+class Unspecified :
+   public Component<transport::Unspecified>
+{
    friend class Component;
 
    // ------------------------
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, a field/node of this type
+   // Names: this namespace, this class, and a field/node of this type
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Unspecified"; }
    static auto FIELD() { return "unspecified"; }
 
-   // Core Interface multi-query to extract metadata and child nodes
+   // Core Interface multi-query to transfer information to/from Nodes
    static auto KEYS()
    {
       return
+         // comment
+         ++Child<std::string>(special::comment) / CommentConverter{} |
+
          // metadata
          std::optional<XMLName>{}
             / Meta<>("label") |
@@ -43,6 +48,9 @@ class Unspecified : public Component<transport::Unspecified> {
 public:
    using Component::construct;
 
+   // comment
+   Field<std::vector<std::string>> comment{this};
+
    // metadata
    Field<std::optional<XMLName>> label{this};
    Field<XMLName> productFrame{this};
@@ -52,6 +60,7 @@ public:
    // ------------------------
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+      this->comment, \
       this->label, \
       this->productFrame)
 
@@ -62,7 +71,7 @@ public:
       Component::finish();
    }
 
-   // from fields
+   // from fields, comment excluded
    explicit Unspecified(
       const wrapper<std::optional<XMLName>> &label,
       const wrapper<XMLName> &productFrame = {}
@@ -84,6 +93,7 @@ public:
    // copy
    Unspecified(const Unspecified &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame)
    {
@@ -93,6 +103,7 @@ public:
    // move
    Unspecified(Unspecified &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
+      comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame))
    {

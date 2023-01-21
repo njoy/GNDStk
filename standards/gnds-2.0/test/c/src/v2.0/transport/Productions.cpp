@@ -172,3 +172,10 @@ ProductionsProductionSet(ConstHandle2Productions This, ConstHandle2ConstProducti
    detail::setField<CPP,CPPProduction>
       (CLASSNAME, CLASSNAME+"ProductionSet", This, extract::production, production);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/transport/Productions/src/custom.cpp"

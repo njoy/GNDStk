@@ -197,8 +197,10 @@ DelayedNeutronsDelayedNeutronSetByLabel(
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/fissionFragmentData/DelayedNeutrons/src/custom.h"
 
 #undef extern_c
 #endif

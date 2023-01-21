@@ -36,9 +36,6 @@ class Title :
       return
          // comment
          ++Child<std::string>(special::comment) / CommentConverter{}
-
-         // data
-         --Child<DataNode>(special::anydata) / DataConverter{}
       ;
    }
 
@@ -55,7 +52,6 @@ public:
 
    #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
       this->comment)
-      static_cast<DataNode &>(*this))
 
    // default
    Title() :
@@ -82,7 +78,6 @@ public:
    // copy
    Title(const Title &other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      DataNode(other),
       comment(this,other.comment)
    {
       Component::finish(other);
@@ -91,7 +86,6 @@ public:
    // move
    Title(Title &&other) :
       GNDSTK_COMPONENT(other.baseBlockData()),
-      DataNode(std::move(other)),
       comment(this,std::move(other.comment))
    {
       Component::finish(other);

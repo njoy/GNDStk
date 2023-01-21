@@ -207,3 +207,10 @@ InverseSpeedGridded1dSet(ConstHandle2InverseSpeed This, ConstHandle2ConstGridded
    detail::setField<CPP,CPPGridded1d>
       (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
 }
+
+
+// -----------------------------------------------------------------------------
+// Custom functionality
+// -----------------------------------------------------------------------------
+
+#include "v2.0/styles/InverseSpeed/src/custom.cpp"

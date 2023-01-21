@@ -172,8 +172,10 @@ InstitutionENDFconversionFlagsSet(ConstHandle2Institution This, ConstHandle2Cons
 
 
 // -----------------------------------------------------------------------------
-// Done
+// Custom functionality
 // -----------------------------------------------------------------------------
+
+#include "v2.0/appData/Institution/src/custom.h"
 
 #undef extern_c
 #endif
