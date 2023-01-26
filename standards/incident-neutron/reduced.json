@@ -1,5 +1,5 @@
 {
-    "namespace": "Reduced",
+    "namespace": "reduced",
 
     "function1ds": {
         "metadata": {
@@ -34,7 +34,7 @@
             },
             "products": {
                 "times": "1",
-                "namespace": "Reduced",
+                "namespace": "reduced",
                 "required": false
             }
         }
@@ -46,7 +46,7 @@
         "children": {
             "product": {
                 "times": "1+",
-                "namespace": "Reduced",
+                "namespace": "reduced",
                 "required": true
             }
         }
@@ -54,11 +54,11 @@
 
     "product": {
         "metadata": {
-            "pid": {
+            "label": {
                 "type": "string",
                 "required": true
             },
-            "label": {
+            "pid": {
                 "type": "string",
                 "required": true
             }
@@ -70,7 +70,7 @@
             },
             "distribution": {
                 "times": "1",
-                "namespace": "IncidentNeutronMeanValues",
+                "namespace": "mean",
                 "required": true
             }
         }
@@ -90,14 +90,35 @@
         "children": {
             "axes": {
                 "times": "1",
-                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             },
             "values": {
                 "times": "1",
-                "namespace": "IncidentNeutronMeanValues",
                 "required": true
             }
         }
+    },
+
+    "double": {
+        "metadata": {
+            "value": {
+                "type": "double",
+                "required": true
+            }
+        },
+        "children": {
+        }
+    },
+
+    "nuclides": {
+        "metadata": {
+            "href": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+        },
+        "vector": "string"
     }
 }

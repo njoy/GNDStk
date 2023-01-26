@@ -1,5 +1,5 @@
 {
-    "namespace": "covar",
+    "namespace": "covariance",
 
     "covarianceSuite": {
         "metadata": {
@@ -26,12 +26,12 @@
         },
         "children": {
             "externalFiles": {
-                "namespace": "covar",
+                "namespace": "covariance",
                 "times": "1",
                 "required": false
             },
             "styles": {
-                "namespace": "covar",
+                "namespace": "covariance",
                 "times": "1",
                 "required": true
             },
@@ -289,93 +289,32 @@
         }
     },
 
-    "gridded2d": {
+    "// zzz array": {
         "metadata": {
-        },
-        "children": {
-            "axes": {
-                "namespace": "covar",
-                "times": "1",
+            "shape": {
+                "type": "string",
                 "required": true
             },
-            "array": {
-                "times": "1",
-                "required": true
+            "compression": {
+                "type": "string",
+                "required": false
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
             }
-        }
-    },
-
-    "axes": {
-        "metadata": {
         },
         "children": {
-            "axis": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "grid": {
+            "values": {
                 "times": "1+",
                 "required": true
             }
         }
     },
 
-    "axis": {
-        "metadata": {
-            "index": {
-                "type": "int",
-                "required": true
-            },
-            "label": {
-                "type": "string",
-                "required": true
-            },
-            "unit": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "grid": {
-        "metadata": {
-            "index": {
-                "type": "int",
-                "required": true
-            },
-            "label": {
-                "type": "string",
-                "required": true
-            },
-            "unit": {
-                "type": "string",
-                "required": true
-            },
-            "style": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "link": {
-                "namespace": "covar",
-                "times": "1",
-                "required": false
-            },
-            "values": {
-                "namespace": "covar",
-                "times": "1",
-                "required": false
-            }
-        }
-    },
-
-    "// in the covar files all values nodes seem to have a valueType": "",
-    "// of Integer32, and, as therefore expected, int values. So...": "",
-    "values": {
+    "// ** In the covar files all values nodes seem to have a valueType **": "",
+    "// ** of Integer32, and, as therefore expected, int values. So... **": "",
+    "// zzz values": {
         "metadata": {
             "label": {
                 "type": "string",
@@ -389,41 +328,6 @@
         "children": {
         },
         "vector": "int"
-    },
-
-    "link": {
-        "metadata": {
-            "href": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "array": {
-        "metadata": {
-            "shape": {
-                "type": "string",
-                "required": true
-            },
-            "symmetry": {
-                "type": "string",
-                "required": false
-            },
-            "compression": {
-                "type": "string",
-                "required": false
-            }
-        },
-        "children": {
-            "values": {
-                "namespace": "covar",
-                "times": "1+",
-                "required": true
-            }
-        }
     },
 
     "parameterCovariances": {
@@ -500,6 +404,7 @@
         },
         "children": {
             "array": {
+                "namespace": "g3d",
                 "times": "1",
                 "required": true
             },
@@ -542,211 +447,5 @@
         },
         "children": {
         }
-    },
-
-    "externalFiles": {
-        "metadata": {
-        },
-        "children": {
-            "externalFile": {
-                "namespace": "covar",
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "externalFile": {
-        "metadata": {
-            "label": {
-                "type": "string",
-                "required": true
-            },
-            "path": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "styles": {
-        "metadata": {
-        },
-        "children": {
-            "evaluated": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
-    "evaluated": {
-        "metadata": {
-            "label": {
-                "type": "string",
-                "required": true
-            },
-            "date": {
-                "type": "string",
-                "required": true
-            },
-            "library": {
-                "type": "string",
-                "required": true
-            },
-            "version": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "documentation": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "temperature": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "projectileEnergyDomain": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
-    "documentation": {
-        "metadata": {
-        },
-        "children": {
-            "authors": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "dates": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "title": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            },
-            "body": {
-                "namespace": "covar",
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
-    "temperature": {
-        "metadata": {
-            "value": {
-                "type": "double",
-                "required": true
-            },
-            "unit": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "projectileEnergyDomain": {
-        "metadata": {
-            "min": {
-                "type": "double",
-                "required": true
-            },
-            "max": {
-                "type": "double",
-                "required": true
-            },
-            "unit": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "authors": {
-        "metadata": {
-        },
-        "children": {
-            "author": {
-                "namespace": "covar",
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "author": {
-        "metadata": {
-            "name": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "dates": {
-        "metadata": {
-        },
-        "children": {
-            "date": {
-                "namespace": "covar",
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "date": {
-        "metadata": {
-            "value": {
-                "type": "string",
-                "required": true
-            },
-            "dateType": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-        }
-    },
-
-    "title": {
-        "metadata": {
-        },
-        "children": {
-        },
-        "string": true,
-        "cdata": true
-    },
-
-    "body": {
-        "metadata": {
-        },
-        "children": {
-        },
-        "string": true,
-        "cdata": true
     }
 }

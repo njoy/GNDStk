@@ -1,0 +1,35 @@
+{
+    "Project": "IncidentNeutron",
+    "Version": "v2.0",
+    "JSONFiles": [
+        "common.json",
+        "reduced.json",
+        "g2d.json",
+        "g3d.json",
+        "atom.json",
+        "covariance.json",
+        "d.json",
+        "g.json",
+        "mean.json",
+        "nfy.json",
+        "sfy.json",
+        "tsl.json"
+    ],
+    "Changes": "changes.json",
+
+    "zzz": [
+        "tsl-two.json",
+        "tsl-three.json",
+        "tsl.json",
+        "incident-neutron-reduced.json",
+        "incident-neutron-mean-values.json",
+        "incident-neutron-d-files.json",
+        "incident-neutron-g-files.json",
+        "incident-neutron-covariance.json",
+        "nfy.json",
+        "sfy-reduced.json",
+        "sfy-productyield.json",
+        "sfy.json",
+        "atom.json"
+    ]
+}

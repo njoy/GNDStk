@@ -1,9 +1,17 @@
 {
-    "namespace": "three",
+    "namespace": "g3d",
 
     "starts": {
         "name": "values",
         "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
         },
         "children": {
         },
@@ -13,6 +21,14 @@
     "lengths": {
         "name": "values",
         "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
         },
         "children": {
         },
@@ -28,18 +44,24 @@
             "compression": {
                 "type": "string",
                 "required": false
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
             }
         },
         "children": {
             "starts": {
                 "name": "values",
+                "label": "starts",
                 "times": "1",
-                "required": true
+                "required": false
             },
             "lengths": {
                 "name": "values",
+                "label": "lengths",
                 "times": "1",
-                "required": true
+                "required": false
             },
             "values": {
                 "times": "1",

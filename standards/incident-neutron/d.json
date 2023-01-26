@@ -1,24 +1,5 @@
 {
-    "namespace": "dd",
-
-    "doubleDifferentialCrossSection": {
-        "metadata": {
-        },
-        "children": {
-            "CoulombPlusNuclearElastic": {
-                "times": "1",
-                "required": false
-            },
-            "coherentPhotonScattering": {
-                "times": "1",
-                "required": false
-            },
-            "incoherentPhotonScattering": {
-                "times": "1",
-                "required": false
-            }
-        }
-    },
+    "namespace": "dfiles",
 
     "CoulombPlusNuclearElastic": {
         "metadata": {
@@ -140,23 +121,11 @@
         "children": {
             "crossSection": {
                 "times": "1",
-                "namespace": "dd",
                 "required": true
             },
             "distribution": {
                 "times": "1",
-                "namespace": "dd",
-                "required": true
-            }
-        }
-    },
-
-    "crossSection": {
-        "metadata": {
-        },
-        "children": {
-            "XYs1d": {
-                "times": "1",
+                "namespace": "dfiles",
                 "required": true
             }
         }
