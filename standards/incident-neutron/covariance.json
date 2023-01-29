@@ -26,12 +26,12 @@
         },
         "children": {
             "externalFiles": {
-                "namespace": "covariance",
+                "namespace": "common",
                 "times": "1",
                 "required": false
             },
             "styles": {
-                "namespace": "covariance",
+                "namespace": "common",
                 "times": "1",
                 "required": true
             },

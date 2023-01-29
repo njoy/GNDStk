@@ -120,6 +120,7 @@
         },
         "children": {
             "crossSection": {
+                "namespace": "reduced",
                 "times": "1",
                 "required": true
             },

@@ -10,6 +10,10 @@
             "compression": {
                 "type": "string",
                 "required": false
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
             }
         },
         "children": {

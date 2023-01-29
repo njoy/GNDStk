@@ -37,7 +37,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             },
             "outputChannel": {
@@ -77,7 +77,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             },
             "outputChannel": {
@@ -482,7 +482,7 @@
         },
         "children": {
             "link": {
-                "namespace": "mean",
+                "namespace": "common",
                 "times": "1",
                 "required": true
             },
@@ -928,7 +928,6 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": true
             }
@@ -952,7 +951,6 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": true
             }
@@ -984,7 +982,7 @@
         "children": {
             "crossSection": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             },
             "outputChannel": {
@@ -1097,7 +1095,6 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": false
             },
@@ -1118,7 +1115,6 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": true
             },
@@ -1218,13 +1214,12 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": false
             },
             "function1ds": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             },
             "uncertainty": {
@@ -1243,7 +1238,6 @@
         },
         "children": {
             "axes": {
-                "namespace": "mean",
                 "times": "1",
                 "required": false
             },
@@ -1376,7 +1370,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1392,7 +1386,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1408,7 +1402,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1424,7 +1418,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1440,7 +1434,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             }
         }
@@ -1452,7 +1446,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             }
         }
@@ -1464,7 +1458,7 @@
         "children": {
             "polynomial1d": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": true
             }
         }
@@ -1475,8 +1469,8 @@
         },
         "children": {
             "polynomial1d": {
+                "namespace": "common",
                 "times": "1",
-                "namespace": "mean",
                 "required": true
             }
         }
@@ -1487,8 +1481,8 @@
         },
         "children": {
             "polynomial1d": {
+                "namespace": "common",
                 "times": "1",
-                "namespace": "mean",
                 "required": true
             }
         }
@@ -1580,6 +1574,10 @@
                 "required": false
             },
             "incoherentPhotonScattering": {
+                "times": "1",
+                "required": false
+            },
+            "thermalNeutronScatteringLaw": {
                 "times": "1",
                 "required": false
             }
@@ -1860,8 +1858,8 @@
                 "required": true
             },
             "crossSection": {
+                "namespace": "common",
                 "times": "1",
-                "namespace": "mean",
                 "required": true
             }
         }

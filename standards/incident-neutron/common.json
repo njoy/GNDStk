@@ -385,7 +385,7 @@
             },
             "yields": {
                 "times": "1",
-                "required": true
+                "required": false
             },
             "incidentEnergies": {
                 "times": "1",
@@ -741,6 +741,7 @@
                 "required": true
             },
             "decayData": {
+                "namespace": "common",
                 "times": "1",
                 "required": false
             }
@@ -784,6 +785,7 @@
                 "required": true
             },
             "decayData": {
+                "namespace": "common",
                 "times": "1",
                 "required": false
             }
@@ -907,6 +909,7 @@
                 "required": true
             },
             "decayData": {
+                "namespace": "common",
                 "times": "1",
                 "required": false
             },
@@ -1004,6 +1007,7 @@
         },
         "children": {
             "crossSection": {
+                "namespace": "common",
                 "times": "1",
                 "required": true
             },

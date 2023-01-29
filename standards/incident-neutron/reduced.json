@@ -70,7 +70,7 @@
             },
             "distribution": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "tsl",
                 "required": true
             }
         }
@@ -120,5 +120,51 @@
         "children": {
         },
         "vector": "string"
+    },
+
+    "// zzzdecayData": {
+        "metadata": {
+        },
+        "children": {
+            "decayModes": {
+                "times": "1",
+                "required": true
+            },
+            "averageEnergies": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "crossSection": {
+        "metadata": {
+        },
+        "children": {
+            "XYs1d": {
+                "times": "1",
+                "required": false
+            },
+            "regions1d": {
+                "times": "1",
+                "required": false
+            },
+            "reference": {
+                "times": "1",
+                "required": false
+            },
+            "//resonancesWithBackground": {
+                "times": "1",
+                "required": false
+            },
+            "//CoulombPlusNuclearElastic": {
+                "times": "1",
+                "required": false
+            },
+            "//thermalNeutronScatteringLaw1d": {
+                "times": "1",
+                "required": false
+            }
+        }
     }
 }
