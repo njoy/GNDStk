@@ -91,6 +91,9 @@ struct InfoChildren {
    // concept would seem to make sense.)
    std::string original; // without e.g. the "double" to "Double" change
    std::string name;
+   std::string converter;// converter: callable w/operator() Node to/from type
+   std::string filter;   // filter: bool callable(const Node &)
+   std::string label;    // filter: allow for node lookup by "label" metadatum
    std::string ns;       // enclosing namespace
    std::string plain;    // underlying type, excluding namespace
    std::string type;     // underlying type
@@ -367,6 +370,7 @@ bool isClass(const KeyValue &keyval)
    return true;
 }
 
+// getTimes
 std::string getTimes(
    const PerClass &per, const std::string &key, const orderedJSON &value
 ) {
@@ -388,6 +392,7 @@ std::string getTimes(
       : value[occurrence];
 }
 
+// sep
 std::string sep(int &count, const int total)
 {
    return ++count < total ? "," : "";
@@ -629,6 +634,11 @@ void getClassChildren(
       InfoChildren c;
       c.original = nameGNDS(field);
       c.name = nameField(field,specs);
+
+      // Converter, Filter, and Label, if given
+      c.converter = elemRHS.contains("converter") ? elemRHS["converter"] : "";
+      c.filter = elemRHS.contains("filter") ? elemRHS["filter"] : "";
+      c.label = elemRHS.contains("label") ? elemRHS["label"] : "";
 
       // Type, excluding namespace
       c.plain = nameClass(field,specs);
@@ -1052,10 +1062,18 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out(3,"// children");
    }
    for (const auto &c : per.children) {
-      out(3,"@Child<@>(\"@\")@",
+      out(3,"@Child<@>(\"@\")@@@@",
           c.isVector ? "++" : "--",
           c.typeHalf, // without any std::vector
           c.original,
+          // direct-specified converter, if any
+          c.converter == "" ? "" : (" / " + c.converter),
+          // direct-specified filter, if any
+          c.filter == "" ? "" : (" + " + c.filter),
+          // simple filter: value required for metadatum label, if any;
+          // this augments (it doesn't replace) any direct-given filter
+          c.label == "" ? "" : (" | \"" + c.label + '"'),
+          // separator between next entry
           ++count < total ? " |" : ""
       );
    }
