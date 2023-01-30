@@ -26,17 +26,17 @@ public:
    //    metadata   (container of string pairs)
    //    children   (container of pointers to other Nodes)
    //    parentNode (pointer to parent node)
-   #ifdef GNDSTK_HACK
-   mutable std::string name;
-   mutable std::vector<metaPair> metadata;
-   #else
    std::string name;
    std::vector<metaPair> metadata;
-   #endif
    std::vector<childPtr> children;
+   #ifdef GNDSTK_INSTRUMENT
+   mutable bool marked = false;
+   #endif
+
 private:
    // Private, because users really shouldn't deal with it; use parent()
    Node *parentNode = nullptr;
+
 public:
 
    // ------------------------

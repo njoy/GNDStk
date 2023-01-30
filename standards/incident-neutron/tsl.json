@@ -16,29 +16,6 @@
         }
     },
 
-    "distribution": {
-        "metadata": {
-        },
-        "children": {
-            "thermalNeutronScatteringLaw": {
-                "times": "1",
-                "required": false
-            },
-            "uncorrelated": {
-                "times": "1",
-                "required": false
-            },
-            "unspecified": {
-                "times": "1",
-                "required": false
-            },
-            "branching3d": {
-                "times": "1",
-                "required": false
-            }
-        }
-    },
-
     "e_critical": {
         "metadata": {
             "value": {

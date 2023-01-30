@@ -81,7 +81,7 @@ std::size_t count(
    // matching the node's name. Don't confuse this behavior with the explicit
    // regex that's required, in another count() function, in order to get a
    // regex label match. GNDS labels tend to contain special regex characters,
-   // so we don't want to a regex match to be the default with label.
+   // so we don't want a regex match to be the default with label.
    std::size_t size = 0;
    for (auto &c : children)
       if (std::regex_match(c->name, std::regex(key)) && filter(*c))

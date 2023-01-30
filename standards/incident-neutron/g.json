@@ -2,7 +2,7 @@
     "namespace": "gfiles",
 
     "// remark": [
-        "At the time of this writing, the classes defined below appear",
+        "At the time of this writing, the classes below appear",
         "in only one GNDS 2.0 file:",
         "   g-095_Am_241.endf.gnds.xml",
         "That seems surprising, but it is what it is."

@@ -211,7 +211,7 @@ public:
       try {
          // Context:
          // We're inside of a data node that's inside of a <values> node that
-         // that looked something like this (in XML):
+         // looked something like this (in XML):
          //    <values>0.0 1.0 2.0 3.0 4.0</values>
          // In GNDStk, the data node has a metadatum with the key special::text.
          // The metadatum's string value is the content: "0.0 1.0 ..." in our

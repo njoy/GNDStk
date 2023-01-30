@@ -1,59 +1,5 @@
 
 // -----------------------------------------------------------------------------
-// Hack
-// todo Temporary (maybe). And describe the purpose of this.
-// -----------------------------------------------------------------------------
-
-#ifdef GNDSTK_HACK
-
-// T
-template<class KEY>
-void hack(const Node &node, const KEY &)
-{
-   // The hack doesn't work in this case
-   std::cout << color::custom::green
-             << "not marking child node " << node.name
-             << color::reset << std::endl;
-}
-
-// Meta
-template<class TYPE, class CONVERTER>
-void hack(const Node &node, const Meta<TYPE,CONVERTER> &key)
-{
-   for (auto &m : node.metadata) {
-      if (std::regex_match(m.first, std::regex(key.name))) {
-         m.first = "marked-" + m.first;
-         break;
-      }
-   }
-}
-
-// Child<Allow::one>
-template<class TYPE, class CONVERTER, class FILTER>
-void hack(const Node &node, const Child<TYPE,Allow::one,CONVERTER,FILTER> &key)
-{
-   for (const auto &c : node.children) {
-      if (std::regex_match(c->name, std::regex(key.name))) {
-         c->name = "marked-" + c->name;
-         break; // supposedly only Allow::one (i.e. ONE) match
-      }
-   }
-}
-
-// Child<Allow::many>
-template<class TYPE, class CONVERTER, class FILTER>
-void hack(const Node &node, const Child<TYPE,Allow::many,CONVERTER,FILTER> &key)
-{
-   for (const auto &c : node.children) {
-      if (std::regex_match(c->name, std::regex(key.name)))
-         c->name = "marked-" + c->name;
-   }
-}
-
-#endif
-
-
-// -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
 
@@ -157,12 +103,13 @@ void transfer(const std::size_t n, const Node &node, const KEY &key)
       transferMeta(node, to, key);
    else if constexpr (detail::IsChild<KEY>::value)
       transferChild(node, to, key);
-   else
+   else {
+      // todo Does this situation involve only the pair<Child,something> case?
+      // I think that may be true, given the way keys are placed into keytuples;
+      // see or.hh. In this case, are there some optimizations we can do here,
+      // as we do in transferChild above?
       to = node(key);
-
-   #ifdef GNDSTK_HACK
-   hack(node,key);
-   #endif
+   }
 }
 
 
@@ -215,30 +162,35 @@ void fromNode(const Node &node)
          BLOCKDATA::fromNode(node);
 
       // ------------------------
-      // hack
+      // If we're putting certain
+      // instrumentation into the
+      // Component interface...
       // ------------------------
 
-      #ifdef GNDSTK_HACK
-      std::vector<std::string> ancestors;
-      for (const Node *n = &node; n; n = &n->parent())
-         ancestors.push_back(n->name);
+      #ifdef GNDSTK_INSTRUMENT
+      {
+         // context
+         std::vector<std::string> ancestors;
+         for (const Node *n = &node; n; n = &n->parent())
+            ancestors.push_back(n->name);
 
-      for (const auto &m : node.metadata) {
-         if (!beginsin(m.first, "marked-")) {
-            std::cout << color::custom::green << "missed: metadatum ";
-            for (size_t i = ancestors.size(); i--; )
-               std::cout << ancestors[i] << ".";
-            std::cout << m.first << color::reset << std::endl;
-         }
-      }
+         // metadata
+         for (const auto &m : node.metadata)
+            if (!beginsin(m.first, "marked-")) {
+               std::cout << color::custom::green << "missed: metadatum ";
+               for (size_t i = ancestors.size(); i--; )
+                  std::cout << ancestors[i] << ".";
+               std::cout << m.first << color::reset << std::endl;
+            }
 
-      for (const auto &c : node.children) {
-         if (!beginsin(c->name, "marked-")) {
-            std::cout << color::custom::blue << "missed: child node ";
-            for (size_t i = ancestors.size(); i--; )
-               std::cout << ancestors[i] << ".";
-            std::cout << c->name << color::reset << std::endl;
-         }
+         // children
+         for (const auto &c : node.children)
+            if (!c->marked) {
+               std::cout << color::custom::blue << "missed: child node ";
+               for (size_t i = ancestors.size(); i--; )
+                  std::cout << ancestors[i] << ".";
+               std::cout << c->name << color::reset << std::endl;
+            }
       }
       #endif
 

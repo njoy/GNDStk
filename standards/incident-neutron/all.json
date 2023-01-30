@@ -15,21 +15,5 @@
         "sfy.json",
         "tsl.json"
     ],
-    "Changes": "changes.json",
-
-    "zzz": [
-        "tsl-two.json",
-        "tsl-three.json",
-        "tsl.json",
-        "incident-neutron-reduced.json",
-        "incident-neutron-mean-values.json",
-        "incident-neutron-d-files.json",
-        "incident-neutron-g-files.json",
-        "incident-neutron-covariance.json",
-        "nfy.json",
-        "sfy-reduced.json",
-        "sfy-productyield.json",
-        "sfy.json",
-        "atom.json"
-    ]
+    "Changes": "changes.json"
 }

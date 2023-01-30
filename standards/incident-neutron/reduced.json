@@ -70,8 +70,31 @@
             },
             "distribution": {
                 "times": "1",
-                "namespace": "tsl",
+                "namespace": "reduced",
                 "required": true
+            }
+        }
+    },
+
+    "distribution": {
+        "metadata": {
+        },
+        "children": {
+            "thermalNeutronScatteringLaw": {
+                "times": "1",
+                "required": false
+            },
+            "uncorrelated": {
+                "times": "1",
+                "required": false
+            },
+            "unspecified": {
+                "times": "1",
+                "required": false
+            },
+            "branching3d": {
+                "times": "1",
+                "required": false
             }
         }
     },
@@ -122,21 +145,6 @@
         "vector": "string"
     },
 
-    "// zzzdecayData": {
-        "metadata": {
-        },
-        "children": {
-            "decayModes": {
-                "times": "1",
-                "required": true
-            },
-            "averageEnergies": {
-                "times": "1",
-                "required": false
-            }
-        }
-    },
-
     "crossSection": {
         "metadata": {
         },
@@ -150,18 +158,6 @@
                 "required": false
             },
             "reference": {
-                "times": "1",
-                "required": false
-            },
-            "//resonancesWithBackground": {
-                "times": "1",
-                "required": false
-            },
-            "//CoulombPlusNuclearElastic": {
-                "times": "1",
-                "required": false
-            },
-            "//thermalNeutronScatteringLaw1d": {
                 "times": "1",
                 "required": false
             }

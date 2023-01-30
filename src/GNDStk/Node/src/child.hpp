@@ -126,6 +126,7 @@ void variant_find_one(
          } else { // not already global "found"...
             // convert the Node to an object of the n-th variant alternative
             static std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            detail::instrument::mark(node);
             kwd.converter(node,alt);
             var = alt;
             selectedAlternative = n;
@@ -173,8 +174,10 @@ void child(
          } else {
             // T: not variant
             const Node &node = one(kwd.name, kwd.filter, found);
-            if (found)
+            if (found) {
+               detail::instrument::mark(node);
                kwd.converter(node,existing);
+            }
          }
       } else {
          using TYPE = typename T::value_type;
@@ -312,6 +315,7 @@ bool variant_find_many(
             // not (found)
             // convert the Node to an object of the n-th variant alternative
             static std::variant_alternative_t<n,std::variant<Ts...>> alt;
+            detail::instrument::mark(c);
             kwd.converter(c,alt);
             containervar.push_back(alt);
             selectedAlternative = n;
@@ -357,7 +361,8 @@ void child(
          for (auto &c : children) {
             bool f = false; // per-child "found", over variant alternatives
             if (variant_find_many<0,std::variant_size_v<TYPE>>
-                (*c, kwd, names, f, existing, 0))
+                  (*c, kwd, names, f, existing, 0)
+               )
                found = true;
          }
 
@@ -370,6 +375,7 @@ void child(
          // meaning: get the converted-to-TYPE current Node
          if (kwd.name == "") {
             existing.push_back(detail::make_once<TYPE>());
+            detail::instrument::mark(*this);
             kwd.converter(*this,existing.back());
             found = true;
          } else {
@@ -384,6 +390,7 @@ void child(
                ) {
                   // convert Node *c to an object of the appropriate type
                   existing.push_back(detail::make_once<TYPE>());
+                  detail::instrument::mark(*c);
                   kwd.converter(*c,existing.back());
                   found = true;
                }

@@ -204,6 +204,38 @@ class CallOpChildAssertion {
 
 
 // -----------------------------------------------------------------------------
+// instrument
+// Sort of a hack, for some code instrumentation that can help someone with
+// evaluating specs that they might write for the GNDStk Code Generator.
+// -----------------------------------------------------------------------------
+
+struct instrument {
+#ifdef GNDSTK_INSTRUMENT
+   static inline bool on = false;
+
+   // for children
+   template<class NODE>
+   static void mark(const NODE &node)
+   {
+      if (on)
+         node.marked = true;
+   }
+
+   // for metadata
+   static void mark(const std::string &str)
+   {
+      if (on)
+         const_cast<std::string &>(str) = "marked-" + str;
+   }
+#else
+   static void mark(const Node &) { /* nothing */ }
+   static void mark(const std::string &) { /* nothing */ }
+#endif
+};
+
+
+
+// -----------------------------------------------------------------------------
 // apply_converter
 // -----------------------------------------------------------------------------
 
@@ -219,7 +251,21 @@ public:
       // to be? We create obj, then convert node ==> obj, then do nothing
       // with obj. Am I missing something, and/or not testing something that
       // should be tested? -MFS
+      // Update, 2023-01-23. I again ran across this function, and the above
+      // note, while working on something else. I think that the action here
+      // is legit. We call here after tests like [if (kwd.name == "")]. That
+      // empty string (I should probably include "#self" too, right?) is the
+      // indicator that means, "stay at the current node." Where this is
+      // called, we have [KEYWORDS &&...keywords] after the current thing
+      // we're processing - the thing that had "" and sent us here. I think
+      // the idea was to allow someone to create a side effect (e.g., printing
+      // information like a "dictionary of the present node") by triggering
+      // a call to some custom converter here. The custom converter would
+      // be the function performing the side effect. So, this is all legit.
+      // But I really should document it carefully and understandably here.
+      // For #self, search for [kwd.name == ""] in general. Also // ""
       static TYPE obj;
+      detail::instrument::mark(node);
       kwd.converter(node,obj);
    }
 };
@@ -439,7 +485,7 @@ public:
    {
       return metaValueRef;
    }
-};
+}; // class MetaRef
 
 
 
@@ -543,7 +589,7 @@ public:
    {
       return childNodeRef;
    }
-};
+}; // class ChildRef
 
 
 
@@ -702,7 +748,7 @@ public:
          vec.push_back(*elem);
       return vec;
    }
-};
+}; // class ChildRef
 
 
 

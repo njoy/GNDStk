@@ -11,6 +11,13 @@ struct CommentConverter {
       bool found = false;
       str = node.meta(special::text,found);
 
+      #ifdef GNDSTK_INSTRUMENT
+      // Must do directly here, because we're handling #text directly
+      for (auto &m : node.metadata)
+         if (m.first == special::text)
+            detail::instrument::mark(m.first);
+      #endif
+
       if (!found) {
          log::warning(
            "Cannot find a \"{}\" metadatum in Node \"{}\".\n"
@@ -75,6 +82,13 @@ struct DataConverter {
       found = false;
       const std::string &str = data.meta(special::text,found);
 
+      #ifdef GNDSTK_INSTRUMENT
+      // Must do directly here, because we're handling #text directly
+      for (auto &m : data.metadata)
+         if (m.first == special::text)
+            detail::instrument::mark(m.first);
+      #endif
+
       if (found) {
          if constexpr (std::is_floating_point_v<T>)
             detail::Precision<detail::PrecisionContext::data,T>{}.read(str,vec);
@@ -93,13 +107,12 @@ struct DataConverter {
            "Returning an empty vector.",
             special::text, data.name);
          log::context(
-           "Node-to-vector conversion for data in class {}." +
+           "Node-to-vector conversion for data in class {}.",
             detail::fullName(Namespace(), Class()));
       }
 
-      #ifdef GNDSTK_HACK
-      data.name = "marked-" + data.name;
-      #endif
+      // Must do directly here, because we're handling the data child directly
+      detail::instrument::mark(data);
    }
 
    // ------------------------
@@ -161,6 +174,13 @@ struct DataConverter {
       found = false;
       str = data.meta(special::text,found);
 
+      #ifdef GNDSTK_INSTRUMENT
+      // Must do directly here, because we're handling #text directly
+      for (auto &m : data.metadata)
+         if (m.first == special::text)
+            detail::instrument::mark(m.first);
+      #endif
+
       if (!found) {
          log::warning(
            "Cannot find a \"{}\" metadatum in Node \"{}\".\n"
@@ -173,9 +193,8 @@ struct DataConverter {
          str = ""; // ensure "" after node.meta() call above
       }
 
-      #ifdef GNDSTK_HACK
-      data.name = "marked-" + data.name;
-      #endif
+      // Must do directly here, because we're handling the data child directly
+      detail::instrument::mark(data);
    }
 
    // ------------------------

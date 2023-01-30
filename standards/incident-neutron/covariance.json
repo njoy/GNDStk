@@ -116,7 +116,7 @@
     },
 
     "// I noticed that 'label' always looked like an int, in particular" : "",
-    "// the int 1, in the following. That seems goofy." : "",
+    "// 1, in the following. As elsewhere, we'll make it a string." : "",
     "shortRangeSelfScalingVariance": {
         "metadata": {
             "label": {
@@ -287,47 +287,6 @@
                 "required": true
             }
         }
-    },
-
-    "// zzz array": {
-        "metadata": {
-            "shape": {
-                "type": "string",
-                "required": true
-            },
-            "compression": {
-                "type": "string",
-                "required": false
-            },
-            "symmetry": {
-                "type": "string",
-                "required": false
-            }
-        },
-        "children": {
-            "values": {
-                "times": "1+",
-                "required": true
-            }
-        }
-    },
-
-    "// ** In the covar files all values nodes seem to have a valueType **": "",
-    "// ** of Integer32, and, as therefore expected, int values. So... **": "",
-    "// zzz values": {
-        "metadata": {
-            "label": {
-                "type": "string",
-                "required": false
-            },
-            "valueType": {
-                "type": "string",
-                "required": false
-            }
-        },
-        "children": {
-        },
-        "vector": "int"
     },
 
     "parameterCovariances": {

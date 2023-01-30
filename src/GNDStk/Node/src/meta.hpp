@@ -90,8 +90,14 @@ void meta(
          // call meta(string), with the Meta's key
          const std::string &str = meta(kwd.name,found);
          // convert str, if any, to an object of the appropriate type
-         if (found)
+         if (found) {
+            #ifdef GNDSTK_INSTRUMENT
+            for (auto &m : metadata)
+               if (std::regex_match(m.first, std::regex(kwd.name)))
+                  detail::instrument::mark(m.first);
+            #endif
             kwd.converter(str,existing);
+         }
       } else {
          using TYPE = typename T::value_type;
          bool f; // local "found" for TYPE (not optional<TYPE>)

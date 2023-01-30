@@ -47,8 +47,8 @@ const Node &one(
    if (nboth) {
       if (nboth > 1)
          log::warning(
-            "Node.one(\"{}\") called, but {} matching nodes were found.\n"
-            "Returning the first one that was found. Context: Node {}.",
+            "Node.one(\"{}\") was called, but {} matching nodes were found.\n"
+            "Returning the first one that was found. Context: Node \"{}\".",
             key, nboth, name // name == current ("parent") node's name
          );
       return found = true, *theone;

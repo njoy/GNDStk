@@ -617,7 +617,7 @@
             },
             "distribution": {
                 "times": "1",
-                "namespace": "mean",
+                "namespace": "common",
                 "required": false
             },
             "outputChannel": {
@@ -626,6 +626,57 @@
                 "required": false
             },
             "averageProductEnergy": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "distribution": {
+        "metadata": {
+        },
+        "children": {
+            "angularTwoBody": {
+                "times": "1",
+                "required": false
+            },
+            "uncorrelated": {
+                "times": "1",
+                "required": false
+            },
+            "unspecified": {
+                "times": "1",
+                "required": false
+            },
+            "energyAngular": {
+                "times": "1",
+                "required": false
+            },
+            "KalbachMann": {
+                "times": "1",
+                "required": false
+            },
+            "angularEnergy": {
+                "times": "1",
+                "required": false
+            },
+            "branching3d": {
+                "times": "1",
+                "required": false
+            },
+            "CoulombPlusNuclearElastic": {
+                "times": "1",
+                "required": false
+            },
+            "coherentPhotonScattering": {
+                "times": "1",
+                "required": false
+            },
+            "incoherentPhotonScattering": {
+                "times": "1",
+                "required": false
+            },
+            "thermalNeutronScatteringLaw": {
                 "times": "1",
                 "required": false
             }
@@ -866,10 +917,10 @@
         "Notably, the existing sfy-*.xml files seem to have three completely",
         "different <nuclides> nodes. One contains some number of <nuclide>",
         "child nodes. Another, always located inside <productYield> nodes,",
-        "contains a string array, for example:",
+        "contains an array of strings, for example:",
         "   <nuclides> Cr66 Cr67 Cr68 Cr70 ... </nuclides>",
         "Finally, another, always located in <yields> nodes, always (in the",
-        "present collection of sfy-*.xml files at least) has only an 'href'",
+        "present collection of sfy-*.xml files, at least) has only an 'href'",
         "string metadatum. The last two appear to be intended to represent",
         "the same thing, with one possibly just referring to the other instead",
         "of providing the vector of strings directly. With this in mind, I've",
