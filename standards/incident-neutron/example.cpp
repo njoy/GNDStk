@@ -1,7 +1,7 @@
 
-#include "IncidentNeutron/v2.0.hpp"
+#include "alpha/v2.0.hpp"
 
-using namespace IncidentNeutron;
+using namespace alpha;
 using namespace v2_0;
 
 // process

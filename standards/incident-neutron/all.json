@@ -1,5 +1,5 @@
 {
-    "Project": "IncidentNeutron",
+    "Project": "alpha", "//":"Meaning, our alpha version of GNDS v2.0 :-)",
     "Version": "v2.0",
     "JSONFiles": [
         "common.json",

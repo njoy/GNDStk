@@ -599,17 +599,16 @@ std::string blue2red(T min, T value, T max)
 // color::custom::
 namespace custom {
    inline const std::string
-/////   purple = makeColor( 152, 120, 222 ),
-   purple = makeColor( 132, 100, 192 ),
+   purple = makeColor( 142, 110, 202 ),
    blue   = makeColor(  40, 160, 240 ),
    green  = makeColor(  20, 200, 120 ),
    red    = makeColor( 240,  40,  80 ),
-   yellow = makeColor( 200, 200,  80 );
+   yellow = makeColor( 220, 220,  40 );
 
    // color::custom::faded::
    namespace faded {
       inline const std::string
-      purple = makeColor( (132+128)/2, (100+128)/2, (192+128)/2 ),
+      purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
       blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
       green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
       red    = makeColor( (240+128)/2, ( 40+128)/2, ( 80+128)/2 );

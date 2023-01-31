@@ -232,7 +232,6 @@ struct InfoSpecs {
 
 void action_helper(const std::string &str)
 {
-   // zzz
    static const int ncol = 80;
    static const int last = ncol-1;
 
@@ -240,9 +239,6 @@ void action_helper(const std::string &str)
       int r = 255*(last-col)/last;
       int g = 255 - std::abs(255*(last-col-col)/last);
       int b = 255*col/last;
-      //r = (r+128)/2;
-      //g = (g+128)/2;
-      //b = (b+128)/2;
       std::cout << "\033[48;2;" << r << ";" << g << ";" << b << "m"
                 << "\033[38;2;255;255;255m"
                 << (col < str.size() ? str[col] : ' ');
@@ -257,58 +253,21 @@ void action(const ARGS &...args)
    /*
    static const std::string inverse = "\033[7m";
    static const std::string background(80,' ');
-   std::cout
-      << inverse << color::plain::blue << '\n'
-      << background << '\n';
-   ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
-   std::cout
-      << background << '\n'
-      << color::reset
-      << std::endl;
-   */
-
-   /*
-   static const std::string inverse = "\033[7m";
-   static const std::string background(80,' ');
-   std::cout
-      << '\n' << inverse << color::plain::blue
-      << background << '\n';
-   ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
-   std::cout
-      << background << '\n'
-      << color::reset
-      << std::endl;
-   */
-
-   /*
-   static const std::string inverse = "\033[7m";
-   static const std::string background(80,' ');
-   std::cout
-      << '\n' << inverse << color::plain::blue << background;
-   ((std::cout << '\n' << std::setw(80) << std::left << args), ...);
-   std::cout
-      << '\n' << background << color::reset << '\n' << std::endl;
-   */
-
-   static const std::string inverse = "\033[7m";
-   static const std::string background(80,' ');
    std::cout << '\n';
    std::cout << inverse << color::custom::purple;
-   ///   std::cout << background << '\n';
+   std::cout << background << '\n';
    ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
-   ///   std::cout << background << '\n';
+   std::cout << background << '\n';
    std::cout << color::reset << std::endl;
+   */
 
-   /*
    static const std::string inverse = "\033[7m";
    static const std::string background(80,' ');
    std::cout << '\n';
-   ///std::cout << inverse << color::custom::purple;
-   ///action_helper("");
+   action_helper("");
    (action_helper(args), ...);
-   ///action_helper("");
+   action_helper("");
    std::cout << color::reset << std::endl;
-   */
 }
 
 // Is the string all whitespace?
@@ -1276,6 +1235,14 @@ void writeClassContentMetadata(writer &out, const PerClass &per)
    }
 
    for (const auto &m : per.metadata) {
+      if (m.type == "bool" && m.isOptional) {
+         std::cout
+            << color::custom::red
+            << "   Metadatum will be optional bool (not suggested): "
+            << color::custom::blue << per.clname + "." + m.name
+            << color::reset << std::endl;
+      }
+
       per.isDataVector && per.elementType == "" && (
       m.name == "length" || m.name == "start" || m.name == "valueType")
          ? out(1,"mutable Field<@> @{this", m.typeFull, m.name, false)
@@ -1633,19 +1600,10 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
 // readJSONFile
 orderedJSON readJSONFile(const std::string &file, const bool print = false)
 {
-   /*
-   static const std::string underlineON  = "\033[4m";
-   static const std::string underlineOFF = "\033[24m";
-   */
-
    // Depending on the call context, we might or might not print the file name
    if (print) {
       const std::string f = beginsin(file,"./") ? std::string(&file[2]) : file;
-      /*
-      std::cout << "File: ";
-      std::cout << '"' << color::custom::blue << f << color::reset << '"';
-      */
-      std::cout << color::custom::blue << f << color::reset << std::endl;
+      std::cout << color::custom::purple << f << color::reset << std::endl;
    }
 
    std::ifstream ifs(file);
@@ -1727,7 +1685,6 @@ void printSingletons(const std::string &file)
       if (beginsin(item.key(), "//"))
          continue;
 
-      const std::string parent = item.key();
       const orderedJSON rhs = item.value();
       if (!isClass(item))
          continue;
@@ -1739,31 +1696,18 @@ void printSingletons(const std::string &file)
 
       const orderedJSON metadata = getMetadataJSON(rhs);
       const orderedJSON children = getChildrenJSON(rhs);
-      // todo Should arrange to ignore "//..." style entries within "metadata"
-      // and "children". I ignore those in (at least *some*) other places,
-      // like at the same level as "metadata" and "children". At some point,
-      // when priorities allow, I should determine precisely where "comments"
-      // are currently ignored, and where they aren't. We probably want to
-      // arrange to ignore them everywhere in all of the input .json files.
 
-      // zzz
-      if (metadata.size() == 0 && children.size() == 0 && !hasdata)
-         std::cout << color::custom::green
-                   << "   Class has no metadata, data, or children: "
-                   << color::custom::red << parent << color::reset << std::endl;
+      const std::string parent = item.key();
       if (metadata.size() == 0 && children.size() == 1 && !hasdata)
-         std::cout << color::custom::green
-                   << "   Class has no metadata or data, and just one child: "
-                   << color::custom::red << parent << color::reset << std::endl;
-
-      /*
+         std::cout
+            << color::custom::green
+            << "   Entry has no metadata or data, and just one child: "
+            << color::custom::blue << parent << color::reset << std::endl;
       if (metadata.size() == 0 && children.size() == 0 && !hasdata)
-         log::info("This class has no metadata, data, or children: "
-                   "\"{}\"", parent);
-      if (metadata.size() == 0 && children.size() == 1 && !hasdata)
-         log::info("This class has no metadata or data, and just one child: "
-                   "\"{}\"", parent);
-      */
+         std::cout
+            << color::custom::yellow
+            << "   Entry has no metadata, data, or children: "
+            << color::custom::blue << parent << color::reset << std::endl;
    }
 } // printSingletons
 
@@ -1836,8 +1780,7 @@ void commandLine(
    }
    {
       // For the C interface
-      const std::string base =
-         specs.Path + "/" + specs.Project + "/c/src/";
+      const std::string base = specs.Path + "/" + specs.Project + "/c/src/";
       specs.hVersion = base + specs.Version + ".h";
       // We don't currently know of anything that we'd have in the following
       // file, so we won't create it. But I'll leave this in as a placeholder.
@@ -1909,14 +1852,20 @@ void preprocessClass(
    // ------------------------
 
    // To allow for customization of the present class in the present namespace,
-   // create a custom.hpp file in the C++ source directory for the class. But
-   // do so only if the customization file isn't already there, or else we might
-   // be trashing someone's customization!
+   // create certain custom.* files. Do so, however, only where any such file
+   // isn't already there, or else we might be trashing someone's customization!
+
+   // Below, the "false" parameters in the writer constructions prevent the
+   // file from getting our "autogenerated, do not modify" admonishion at the
+   // top. This makes sense, as the customization file are there precisely for
+   // users to, well, customize.
 
    // C++ custom.hpp
    const std::string customhpp = clsrccpp + "/custom.hpp";
    if (!std::ifstream(customhpp)) {
-      std::cout << "Creating " << customhpp << std::endl;
+      std::cout
+         << color::custom::green << "   Creating " << clsrccpp + "/"
+         << color::custom::blue << "custom.hpp" << color::reset << std::endl;
       writer out(customhpp,false); // false: no "file was autogenerated" message
       out();
       out(0,"private:");
@@ -1930,7 +1879,9 @@ void preprocessClass(
    // C custom.h
    const std::string customh = clsrcc + "/custom.h";
    if (!std::ifstream(customh)) {
-      std::cout << "Creating " << customh << std::endl;
+      std::cout
+         << color::custom::green << "   Creating " << clsrcc + "/"
+         << color::custom::blue << "custom.h" << color::reset << std::endl;
       writer out(customh,false);
    }
 
@@ -1939,7 +1890,9 @@ void preprocessClass(
    // C++ itself; remember that our C++ library is header-only.)
    const std::string customcpp = clsrcc + "/custom.cpp";
    if (!std::ifstream(customcpp)) {
-      std::cout << "Creating " << customcpp << std::endl;
+      std::cout
+         << color::custom::green << "   Creating " << clsrcc + "/"
+         << color::custom::blue << "custom.cpp" << color::reset << std::endl;
       writer out(customcpp,false);
    }
 
