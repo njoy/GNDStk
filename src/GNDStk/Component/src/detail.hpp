@@ -690,9 +690,7 @@ void sort(GNDStk::Optional<std::vector<T>> &opt)
 
 
 // -----------------------------------------------------------------------------
-// queryResult
-// isDataNode
-// doNotAlign
+// Miscellaneous helper constructs
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -734,20 +732,38 @@ struct isDataNode<DataNode<T,preferCDATA>> {
 };
 
 // ------------------------
-// doNotAlign
+// pprintAlign
 // ------------------------
 
-// Component::print() uses the following to exclude [optional] vectors and
-// Component-derived classes from its alignment computation. Those are printed
-// in their own specific manner, and we think the alignment just looks better,
-// and has fewer spurious-looking spaces, when those constructs are excluded.
-template<class KEY>
-struct doNotAlign {
-   static constexpr bool value =
-      isVector              <typename queryResult<KEY>::type>::value ||
-      isOptionalVector      <typename queryResult<KEY>::type>::value ||
-      isDerivedFromComponent<typename queryResult<KEY>::type>::value ||
-      isDataNode            <typename queryResult<KEY>::type>::value;
+// Component::print() - the prettyprinter - uses the following in order to
+// include certain constructs in Component-derived classes from its alignment
+// computation, and exclude other constructs. We believe that the alignment
+// just looks better, and has fewer spurious-looking spaces, when some types
+// of constructs are excluded.
+
+struct pprintAlign {
+   template<class KEY>
+   bool operator()(const KEY &, const void *const link) const
+   {
+      using RESULT = typename queryResult<KEY>::type;
+
+      // [optional] vectors, component-derived classes, and data nodes
+      // print in their own special manner; so, no key:value alignment.
+      if constexpr (
+         isVector              <RESULT>::value ||
+         isOptionalVector      <RESULT>::value ||
+         isDerivedFromComponent<RESULT>::value ||
+         isDataNode            <RESULT>::value)
+         return false;
+
+      // if optional (with a non-vector value, or already handled above),
+      // align iff optional has value, and value isn't component-derived
+      if constexpr (isOptional<RESULT>)
+         return ((const RESULT *)link)->has_value() &&
+            !isDerivedFromComponent<typename RESULT::value_type>::value;
+
+      return true;
+   }
 };
 
 } // namespace detail

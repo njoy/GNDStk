@@ -211,7 +211,7 @@ class CallOpChildAssertion {
 
 struct instrument {
 #ifdef GNDSTK_INSTRUMENT
-   static inline bool on = false;
+   static inline bool on = true;
 
    // for children
    template<class NODE>

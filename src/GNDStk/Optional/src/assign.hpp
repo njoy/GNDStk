@@ -38,6 +38,7 @@ Optional &operator=(Optional &&other)
    if (this != &other) {
       delete ptr;
       ptr = other.ptr;
+      other.ptr = nullptr;
    }
    return *this;
 }

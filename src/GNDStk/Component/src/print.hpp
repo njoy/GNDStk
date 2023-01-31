@@ -95,14 +95,14 @@ std::ostream &print(
 
       if (GNDStk::align) {
          std::apply(
-            [&maxlen](const auto &... key)
+            [this,&maxlen](const auto &... key)
             {
+               using namespace detail;
+               std::size_t n = 0;
                ((
                   maxlen = std::max(
                      maxlen,
-                     detail::doNotAlign<std::decay_t<decltype(key)>>::value
-                        ? 0 // non-aligned cases
-                        : detail::getName(key).size() // normal cases
+                     pprintAlign{}(key,links[n++]) ? getName(key).size() : 0
                   )
                ), ... );
             },
@@ -118,26 +118,25 @@ std::ostream &print(
       std::apply(
          [this,&os,&level,maxlen](const auto &... key)
          {
+            using namespace detail;
             std::size_t n = 0;
-            ((
+            (((
+               n++, // in neither [n-1] below, lest undefined evaluation order
                // indent, value, newline
-               detail::printComponentPart(
+               printComponentPart(
                   // os
                   os,
                   // level
                   level+1,
                   // maxlen
-                  detail::doNotAlign<std::decay_t<decltype(key)>>::value
-                     ? 0
-                     : maxlen,
+                  pprintAlign{}(key,links[n-1]) ? maxlen : 0,
                   // field label
-                  detail::getName(key),
+                  getName(key),
                   // field value
                   *(
-                     typename detail::queryResult<
-                        std::decay_t<decltype(key)>
-                     >::type
-                  *)links[n++]
+                     typename queryResult<std::decay_t<decltype(key)>>::type
+                  *)links[n-1]
+               )
                ) && (os << std::endl) // no if()s in fold expressions :-/
             ), ... );
          },
