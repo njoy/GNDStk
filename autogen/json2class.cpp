@@ -227,10 +227,31 @@ struct InfoSpecs {
 // Miscellaneous short functions
 // -----------------------------------------------------------------------------
 
+void action_helper(const std::string &str)
+{
+   // zzz
+   static const int ncol = 80;
+   static const int last = ncol-1;
+
+   for (int col = 0; col < ncol; ++col) {
+      int r = 255*(last-col)/last;
+      int g = 255 - std::abs(255*(last-col-col)/last);
+      int b = 255*col/last;
+      //r = (r+128)/2;
+      //g = (g+128)/2;
+      //b = (b+128)/2;
+      std::cout << "\033[48;2;" << r << ";" << g << ";" << b << "m"
+                << "\033[38;2;255;255;255m"
+                << (col < str.size() ? str[col] : ' ');
+   }
+   std::cout << color::reset << std::endl;
+}
+
 // Print text describing an action the code is about to take
 template<class... ARGS>
 void action(const ARGS &...args)
 {
+   /*
    static const std::string inverse = "\033[7m";
    static const std::string background(80,' ');
    std::cout
@@ -241,6 +262,50 @@ void action(const ARGS &...args)
       << background << '\n'
       << color::reset
       << std::endl;
+   */
+
+   /*
+   static const std::string inverse = "\033[7m";
+   static const std::string background(80,' ');
+   std::cout
+      << '\n' << inverse << color::plain::blue
+      << background << '\n';
+   ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
+   std::cout
+      << background << '\n'
+      << color::reset
+      << std::endl;
+   */
+
+   /*
+   static const std::string inverse = "\033[7m";
+   static const std::string background(80,' ');
+   std::cout
+      << '\n' << inverse << color::plain::blue << background;
+   ((std::cout << '\n' << std::setw(80) << std::left << args), ...);
+   std::cout
+      << '\n' << background << color::reset << '\n' << std::endl;
+   */
+
+   static const std::string inverse = "\033[7m";
+   static const std::string background(80,' ');
+   std::cout << '\n';
+   std::cout << inverse << color::custom::purple;
+   ///   std::cout << background << '\n';
+   ((std::cout << std::setw(80) << std::left << args << '\n'), ...);
+   ///   std::cout << background << '\n';
+   std::cout << color::reset << std::endl;
+
+   /*
+   static const std::string inverse = "\033[7m";
+   static const std::string background(80,' ');
+   std::cout << '\n';
+   ///std::cout << inverse << color::custom::purple;
+   ///action_helper("");
+   (action_helper(args), ...);
+   ///action_helper("");
+   std::cout << color::reset << std::endl;
+   */
 }
 
 // Is the string all whitespace?
@@ -1550,15 +1615,19 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
 // readJSONFile
 orderedJSON readJSONFile(const std::string &file, const bool print = false)
 {
+   /*
    static const std::string underlineON  = "\033[4m";
    static const std::string underlineOFF = "\033[24m";
+   */
 
    // Depending on the call context, we might or might not print the file name
    if (print) {
       const std::string f = beginsin(file,"./") ? std::string(&file[2]) : file;
+      /*
       std::cout << "File: ";
-      std::cout << '"' << color::plain::magenta << f << color::reset << '"';
-      std::cout << std::endl;
+      std::cout << '"' << color::custom::blue << f << color::reset << '"';
+      */
+      std::cout << color::custom::blue << f << color::reset << std::endl;
    }
 
    std::ifstream ifs(file);
@@ -1659,12 +1728,24 @@ void printSingletons(const std::string &file)
       // are currently ignored, and where they aren't. We probably want to
       // arrange to ignore them everywhere in all of the input .json files.
 
+      // zzz
+      if (metadata.size() == 0 && children.size() == 0 && !hasdata)
+         std::cout << color::custom::green
+                   << "   Class has no metadata, data, or children: "
+                   << color::custom::red << parent << color::reset << std::endl;
+      if (metadata.size() == 0 && children.size() == 1 && !hasdata)
+         std::cout << color::custom::green
+                   << "   Class has no metadata or data, and just one child: "
+                   << color::custom::red << parent << color::reset << std::endl;
+
+      /*
       if (metadata.size() == 0 && children.size() == 0 && !hasdata)
          log::info("This class has no metadata, data, or children: "
                    "\"{}\"", parent);
       if (metadata.size() == 0 && children.size() == 1 && !hasdata)
          log::info("This class has no metadata or data, and just one child: "
                    "\"{}\"", parent);
+      */
    }
 } // printSingletons
 
