@@ -3,24 +3,87 @@
 
 using namespace IncidentNeutron;
 using namespace v2_0;
-using namespace IncidentNeutronMeanValues;
 
+// process
+template<class T>
+void read(const Node &node)
+{
+   T obj;
+   obj.read(node);
+   //obj.print();
+}
+
+// main
 int main(const int argc, const char *const *const argv)
 {
-   // In case we do an r.print() below
+   /*
    colors = true;
    shades = true;
+   indent = 3;
+   */
+   colors = false;
+   shades = false;
+   indent = 1;
 
-   // Read from files specified on the command line
-   IncidentNeutronMeanValues::ReactionSuite r;
    for (int i = 1; i < argc; ++i) {
-      std::cout << "File: " << argv[i] << std::endl;
+      const std::string file = argv[i];
+      std::cout << "File: " << file << std::endl;
+
       try {
-         r.read(argv[i]);
-         r.print();
+         // Read node from file.
+         Node node;
+         node.read(file);
+         std::cout << "   " << node.name << std::endl;
+
+         // Read object from node.
+         if (beginsin(file,"files/a-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/atom-"))
+            read<atom::PoPs>(node);
+         else if (beginsin(file,"files/d-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/dec-"))
+            read<sfy::PoPs>(node);
+         else if (beginsin(file,"files/e-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/g-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/h-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/n-")) {
+            if (node.name == "reactionSuite")
+               read<common::ReactionSuite>(node);
+            else
+               read<covariance::CovarianceSuite>(node);
+         }
+         else if (beginsin(file,"files/nfy-"))
+            read<common::FissionFragmentData>(node);
+         else if (beginsin(file,"files/p-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/photoat-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/sfy-"))
+            read<sfy::PoPs>(node);
+         else if (beginsin(file,"files/std-")) {
+            if (node.name == "reactionSuite")
+               read<common::ReactionSuite>(node);
+            else if (node.name == "covarianceSuite")
+               read<covariance::CovarianceSuite>(node);
+            else if (node.name == "PoPs")
+               read<sfy::PoPs>(node);
+            else
+               assert(false);
+         }
+         else if (beginsin(file,"files/t-"))
+            read<common::ReactionSuite>(node);
+         else if (beginsin(file,"files/tsl-"))
+            read<common::ReactionSuite>(node);
+         else
+            assert(false);
+
       } catch (...) {
          if (i < argc-1)
-            std::cout << "Continuing to the next file...\n" << std::endl;
+            std::cout << "\nContinuing to the next file...\n" << std::endl;
       }
    }
 }
