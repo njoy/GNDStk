@@ -713,17 +713,17 @@ R"***(precision::Numbers {
    bfloat  : 2.646 // its default
    bquad   : 2.828 // its default
    precision::Doubles {
-      start     : 0 // its default
+      start : 0 // its default
       3.352228 7.682296 2.777747 5.5397
       4.773971 6.288709
    } // precision::Doubles
    precision::Floats {
-      start     : 0 // its default
+      start : 0 // its default
       8.4019 3.9438 7.831 7.9844
       9.1165 1.9755
    } // precision::Floats
    precision::Quads {
-      start     : 0 // its default
+      start : 0 // its default
       3.64784473 5.1340091 9.52229725 9.16195068
       6.35711728 7.17296929
    } // precision::Quads
@@ -739,17 +739,17 @@ R"***(precision::Numbers {
    bfloat  : 2.646 // its default
    bquad   : 2.828 // its default
    precision::Doubles {
-      start     : 0 // its default
+      start : 0 // its default
       3.35 7.68 2.78 5.54
       4.77 6.29
    } // precision::Doubles
    precision::Floats {
-      start     : 0 // its default
+      start : 0 // its default
       8.4 3.94 7.83 7.98
       9.12 1.98
    } // precision::Floats
    precision::Quads {
-      start     : 0 // its default
+      start : 0 // its default
       3.65 5.13 9.52 9.16
       6.36 7.17
    } // precision::Quads
@@ -765,17 +765,17 @@ R"***(precision::Numbers {
    bfloat  : 2.64575 // its default
    bquad   : 2.828427125 // its default
    precision::Doubles {
-      start     : 0 // its default
+      start : 0 // its default
       3.3522276 7.6822959 2.7777471 5.5396996
       4.7739705 6.2887092
    } // precision::Doubles
    precision::Floats {
-      start     : 0 // its default
+      start : 0 // its default
       8.40188 3.94383 7.83099 7.9844
       9.11647 1.97551
    } // precision::Floats
    precision::Quads {
-      start     : 0 // its default
+      start : 0 // its default
       3.647844728 5.134009102 9.522297252 9.16195068
       6.35711728 7.172969294
    } // precision::Quads
@@ -791,17 +791,17 @@ R"***(precision::Numbers {
    bfloat  : 2.646 // its default
    bquad   : 2.828 // its default
    precision::Doubles {
-      start     : 0 // its default
+      start : 0 // its default
       3.352 7.682 2.778 5.54
       4.774 6.289
    } // precision::Doubles
    precision::Floats {
-      start     : 0 // its default
+      start : 0 // its default
       8.402 3.944 7.831 7.984
       9.116 1.976
    } // precision::Floats
    precision::Quads {
-      start     : 0 // its default
+      start : 0 // its default
       3.648 5.134 9.522 9.162
       6.357 7.173
    } // precision::Quads

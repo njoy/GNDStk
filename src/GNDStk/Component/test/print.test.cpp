@@ -57,13 +57,13 @@ R"***(proto::ReactionSuite {
   proto::Reactions {
     reaction [
       proto::Reaction {
-        ENDF_MT      : 16
-        label        : 2n + H1
+        ENDF_MT : 16
+        label   : 2n + H1
         proto::CrossSection {
           XYs1d regions1d [
             proto::XYs1d {
-              interpolation    : lin-lin // its default
-              label            : eval
+              interpolation : lin-lin // its default
+              label         : eval
               proto::Axes {
                 axis grid [
                   proto::Axis {
@@ -149,16 +149,16 @@ R"***(proto::ReactionSuite {
         } // proto::CrossSection
       } // proto::Reaction
       proto::Reaction {
-        ENDF_MT      : 102
-        label        : H3 + photon
+        ENDF_MT : 102
+        label   : H3 + photon
         proto::CrossSection {
           XYs1d regions1d [
             proto::Regions1d {
-              label            : eval
+              label : eval
               XYs1d [
                 proto::XYs1d {
-                  index            : 0
-                  interpolation    : log-log // its default
+                  index         : 0
+                  interpolation : log-log // its default
                   proto::Values {
                     start     : 0 // its default
                     valueType : double // its default
@@ -170,8 +170,8 @@ R"***(proto::ReactionSuite {
                   } // proto::Values
                 } // proto::XYs1d
                 proto::XYs1d {
-                  index            : 1
-                  interpolation    : lin-lin // its default
+                  index         : 1
+                  interpolation : lin-lin // its default
                   proto::Values {
                     start     : 0 // its default
                     valueType : double // its default
@@ -268,13 +268,13 @@ R"***(proto::ReactionSuite {
         } // proto::CrossSection
       } // proto::Reaction
       proto::Reaction {
-        ENDF_MT      : 2
-        label        : n + H2
+        ENDF_MT : 2
+        label   : n + H2
         proto::CrossSection {
           XYs1d regions1d [
             proto::XYs1d {
-              interpolation    : lin-lin // its default
-              label            : eval
+              interpolation : lin-lin // its default
+              label         : eval
               proto::Axes {
                 axis grid [
                   proto::Axis {
