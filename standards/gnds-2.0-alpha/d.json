@@ -41,15 +41,9 @@
     },
 
     "RutherfordScattering": {
-        "metadata": {
-        },
-        "children": {
-        }
     },
 
     "nuclearAmplitudeExpansion": {
-        "metadata": {
-        },
         "children": {
             "nuclearTerm": {
                 "times": "1",
@@ -67,8 +61,6 @@
     },
 
     "nuclearTerm": {
-        "metadata": {
-        },
         "children": {
             "regions2d": {
                 "times": "1",
@@ -82,8 +74,6 @@
     },
 
     "realInterferenceTerm": {
-        "metadata": {
-        },
         "children": {
             "regions2d": {
                 "times": "1",
@@ -97,8 +87,6 @@
     },
 
     "imaginaryInterferenceTerm": {
-        "metadata": {
-        },
         "children": {
             "regions2d": {
                 "times": "1",
@@ -133,8 +121,6 @@
     },
 
     "distribution": {
-        "metadata": {
-        },
         "children": {
             "XYs2d": {
                 "times": "1",

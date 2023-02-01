@@ -2,8 +2,6 @@
     "namespace": "common",
 
     "documentation": {
-        "metadata": {
-        },
         "children": {
             "authors": {
                 "times": "1",
@@ -29,8 +27,6 @@
     },
 
     "authors": {
-        "metadata": {
-        },
         "children": {
             "author": {
                 "times": "1+",
@@ -45,14 +41,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "dates": {
-        "metadata": {
-        },
         "children": {
             "date": {
                 "times": "1+",
@@ -71,41 +63,25 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "title": {
-        "metadata": {
-        },
-        "children": {
-        },
         "string": true,
         "cdata": true
     },
 
     "body": {
-        "metadata": {
-        },
-        "children": {
-        },
         "string": true,
         "cdata": true
     },
 
     "endfCompatible": {
-        "metadata": {
-        },
-        "children": {
-        },
         "string": true,
         "cdata": true
     },
 
     "applicationData": {
-        "metadata": {
-        },
         "children": {
             "institution": {
                 "times": "1",
@@ -166,8 +142,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -185,14 +159,10 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
     "aliases": {
-        "metadata": {
-        },
         "children": {
             "alias": {
                 "times": "1+",
@@ -215,8 +185,6 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
@@ -249,8 +217,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -260,14 +226,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "externalFiles": {
-        "metadata": {
-        },
         "children": {
             "externalFile": {
                 "times": "1+",
@@ -294,14 +256,10 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
     "decayData": {
-        "metadata": {
-        },
         "children": {
             "decayModes": {
                 "times": "1",
@@ -315,8 +273,6 @@
     },
 
     "decayModes": {
-        "metadata": {
-        },
         "children": {
             "decayMode": {
                 "times": "1+",
@@ -361,8 +317,6 @@
     },
 
     "elapsedTimes": {
-        "metadata": {
-        },
         "children": {
             "elapsedTime": {
                 "times": "1+",
@@ -395,8 +349,6 @@
     },
 
     "time": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",
@@ -411,8 +363,6 @@
     },
 
     "axes": {
-        "metadata": {
-        },
         "children": {
             "axis": {
                 "times": "1+",
@@ -439,8 +389,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -493,8 +441,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -527,14 +473,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "yields": {
-        "metadata": {
-        },
         "children": {
             "nuclides": {
                 "namespace": "reduced",
@@ -553,8 +495,6 @@
     },
 
     "decayPath": {
-        "metadata": {
-        },
         "children": {
             "decay": {
                 "times": "1+",
@@ -588,8 +528,6 @@
     },
 
     "products": {
-        "metadata": {
-        },
         "children": {
             "product": {
                 "times": "1+",
@@ -633,8 +571,6 @@
     },
 
     "distribution": {
-        "metadata": {
-        },
         "children": {
             "angularTwoBody": {
                 "times": "1",
@@ -704,8 +640,6 @@
     },
 
     "spin": {
-        "metadata": {
-        },
         "children": {
             "fraction": {
                 "times": "1",
@@ -715,8 +649,6 @@
     },
 
     "parity": {
-        "metadata": {
-        },
         "children": {
             "integer": {
                 "times": "1",
@@ -726,8 +658,6 @@
     },
 
     "charge": {
-        "metadata": {
-        },
         "children": {
             "integer": {
                 "times": "1",
@@ -737,8 +667,6 @@
     },
 
     "halflife": {
-        "metadata": {
-        },
         "children": {
             "string": {
                 "times": "1",
@@ -753,8 +681,6 @@
     },
 
     "baryons": {
-        "metadata": {
-        },
         "children": {
             "baryon": {
                 "times": "1+",
@@ -857,8 +783,6 @@
                 "type": "int",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -883,8 +807,6 @@
     },
 
     "productYields": {
-        "metadata": {
-        },
         "children": {
             "productYield": {
                 "times": "1+",
@@ -929,8 +851,6 @@
     ],
 
     "nuclides": {
-        "metadata": {
-        },
         "children": {
             "nuclide": {
                 "times": "1+",
@@ -972,8 +892,6 @@
     },
 
     "isotopes": {
-        "metadata": {
-        },
         "children": {
             "isotope": {
                 "times": "1+",
@@ -1023,16 +941,10 @@
     },
 
     "values": {
-        "metadata": {
-        },
-        "children": {
-        },
         "vector": "double"
     },
 
     "reactions": {
-        "metadata": {
-        },
         "children": {
             "reaction": {
                 "times": "1+",
@@ -1075,8 +987,6 @@
     },
 
     "crossSection": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1134,8 +1044,6 @@
     },
 
     "doubleDifferentialCrossSection": {
-        "metadata": {
-        },
         "children": {
             "CoulombPlusNuclearElastic": {
                 "times": "1",
@@ -1165,8 +1073,6 @@
     },
 
     "fissionFragmentData": {
-        "metadata": {
-        },
         "children": {
             "productYields": {
                 "times": "1",
@@ -1197,14 +1103,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "Q": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",
@@ -1219,8 +1121,6 @@
     },
 
     "multiplicity": {
-        "metadata": {
-        },
         "children": {
             "constant1d": {
                 "times": "1",
@@ -1259,8 +1159,6 @@
     },
 
     "gridded2d": {
-        "metadata": {
-        },
         "children": {
             "axes": {
                 "times": "1",
@@ -1275,8 +1173,6 @@
     },
 
     "gridded3d": {
-        "metadata": {
-        },
         "children": {
             "axes": {
                 "times": "1",
@@ -1291,8 +1187,6 @@
     },
 
     "probability": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",
@@ -1303,8 +1197,6 @@
     },
 
     "styles": {
-        "metadata": {
-        },
         "children": {
             "evaluated": {
                 "times": "1",
@@ -1376,8 +1268,6 @@
     },
 
     "function1ds": {
-        "metadata": {
-        },
         "children": {
             "Legendre": {
                 "times": "1+",
@@ -1395,8 +1285,6 @@
     },
 
     "uncertainty": {
-        "metadata": {
-        },
         "children": {
             "covariance": {
                 "times": "1",
@@ -1625,8 +1513,6 @@
     },
 
     "chemicalElements": {
-        "metadata": {
-        },
         "children": {
             "chemicalElement": {
                 "times": "1+",

@@ -1,6 +1,9 @@
 {
-    "Project": "alpha", "//":"Meaning, our alpha version of GNDS v2.0 :-)",
+    "//": "For now, our alpha version of GNDS v2.0",
+
+    "Project": "alpha",
     "Version": "v2.0",
+
     "JSONFiles": [
         "common.json",
         "reduced.json",
@@ -15,5 +18,6 @@
         "sfy.json",
         "tsl.json"
     ],
+
     "Changes": "changes.json"
 }

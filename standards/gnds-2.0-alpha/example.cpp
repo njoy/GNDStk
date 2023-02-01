@@ -35,7 +35,12 @@ int main(const int argc, const char *const *const argv)
          node.read(file);
          std::cout << "   " << node.name << std::endl;
 
-         // Read object from node.
+         // Read object from node. We *can* read an object directly from a file,
+         // not merely from a node, if we already know what kind of node is in
+         // the file. Here, in the context of reading any GNDS 2.0 file, we must
+         // examine the top-level node in order to determine what kind of object
+         // we're dealing with.
+
          if (beginsin(file,"files/a-"))
             read<common::ReactionSuite>(node);
          else if (beginsin(file,"files/atom-"))

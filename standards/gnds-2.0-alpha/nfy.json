@@ -2,8 +2,6 @@
     "namespace": "nfy",
 
     "incidentEnergies": {
-        "metadata": {
-        },
         "children": {
             "incidentEnergy": {
                 "times": "1+",

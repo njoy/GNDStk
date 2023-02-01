@@ -13,8 +13,6 @@
                 "required": true
             }
         },
-        "children": {
-        },
         "vector": "int"
     },
 
@@ -29,8 +27,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         },
         "vector": "int"
     },

@@ -11,8 +11,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -26,8 +24,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -41,8 +37,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -90,8 +84,6 @@
     },
 
     "scatteringAtoms": {
-        "metadata": {
-        },
         "children": {
             "scatteringAtom": {
                 "times": "1+",
@@ -124,15 +116,9 @@
     },
 
     "freeGasApproximation": {
-        "metadata": {
-        },
-        "children": {
-        }
     },
 
     "S_table": {
-        "metadata": {
-        },
         "children": {
             "gridded2d": {
                 "times": "1",
@@ -142,8 +128,6 @@
     },
 
     "T_effective": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -162,8 +146,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -177,8 +159,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -279,8 +259,6 @@
     },
 
     "unorthodoxes": {
-        "metadata": {
-        },
         "children": {
             "unorthodox": {
                 "times": "1+",
@@ -290,15 +268,9 @@
     },
 
     "SCTApproximation": {
-        "metadata": {
-        },
-        "children": {
-        }
     },
 
     "DebyeWallerIntegral": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",

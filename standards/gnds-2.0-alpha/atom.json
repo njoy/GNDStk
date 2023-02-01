@@ -29,8 +29,6 @@
     },
 
     "atomic": {
-        "metadata": {
-        },
         "children": {
             "configurations": {
                 "times": "1",
@@ -40,8 +38,6 @@
     },
 
     "configurations": {
-        "metadata": {
-        },
         "children": {
             "configuration": {
                 "times": "1+",
@@ -75,8 +71,6 @@
     },
 
     "bindingEnergy": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",

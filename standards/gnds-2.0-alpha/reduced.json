@@ -2,8 +2,6 @@
     "namespace": "reduced",
 
     "function1ds": {
-        "metadata": {
-        },
         "children": {
             "Legendre": {
                 "times": "1+",
@@ -41,8 +39,6 @@
     },
 
     "products": {
-        "metadata": {
-        },
         "children": {
             "product": {
                 "times": "1+",
@@ -77,8 +73,6 @@
     },
 
     "distribution": {
-        "metadata": {
-        },
         "children": {
             "thermalNeutronScatteringLaw": {
                 "times": "1",
@@ -128,8 +122,6 @@
                 "type": "double",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -140,14 +132,10 @@
                 "required": false
             }
         },
-        "children": {
-        },
         "vector": "string"
     },
 
     "crossSection": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",

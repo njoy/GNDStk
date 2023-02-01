@@ -47,8 +47,6 @@
     },
 
     "covarianceSections": {
-        "metadata": {
-        },
         "children": {
             "covarianceSection": {
                 "times": "1+",
@@ -115,8 +113,8 @@
         }
     },
 
-    "// I noticed that 'label' always looked like an int, in particular" : "",
-    "// 1, in the following. As elsewhere, we'll make it a string." : "",
+    "// I noticed that 'label' always looked like an int, in particular": "",
+    "// 1, in the following. As elsewhere, we'll make it a string.": "",
     "shortRangeSelfScalingVariance": {
         "metadata": {
             "label": {
@@ -181,8 +179,6 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
@@ -229,8 +225,6 @@
     },
 
     "slices": {
-        "metadata": {
-        },
         "children": {
             "slice": {
                 "times": "1+",
@@ -261,8 +255,6 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
@@ -290,8 +282,6 @@
     },
 
     "parameterCovariances": {
-        "metadata": {
-        },
         "children": {
             "parameterCovariance": {
                 "times": "1+",
@@ -375,8 +365,6 @@
     },
 
     "parameters": {
-        "metadata": {
-        },
         "children": {
             "parameterLink": {
                 "times": "1+",
@@ -403,8 +391,6 @@
                 "type": "int",
                 "required": false
             }
-        },
-        "children": {
         }
     }
 }

@@ -9,8 +9,6 @@
     ],
 
     "MadlandNix": {
-        "metadata": {
-        },
         "children": {
             "EFL": {
                 "times": "1",
@@ -37,8 +35,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -52,14 +48,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "T_M": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",

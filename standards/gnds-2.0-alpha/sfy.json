@@ -37,8 +37,6 @@
     },
 
     "averageEnergies": {
-        "metadata": {
-        },
         "children": {
             "averageEnergy": {
                 "times": "1+",
@@ -71,8 +69,6 @@
     },
 
     "standard": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",
@@ -83,8 +79,6 @@
     },
 
     "spectra": {
-        "metadata": {
-        },
         "children": {
             "spectrum": {
                 "times": "1+",
@@ -144,8 +138,6 @@
     },
 
     "continuum": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -185,8 +177,6 @@
     },
 
     "internalConversionCoefficients": {
-        "metadata": {
-        },
         "children": {
             "shell": {
                 "times": "1+",

@@ -2,8 +2,6 @@
     "namespace": "mean",
 
     "incompleteReactions": {
-        "metadata": {
-        },
         "children": {
             "reaction": {
                 "times": "1+",
@@ -13,8 +11,6 @@
     },
 
     "orphanProducts": {
-        "metadata": {
-        },
         "children": {
             "orphanProduct": {
                 "times": "1+",
@@ -49,8 +45,6 @@
     },
 
     "fissionComponents": {
-        "metadata": {
-        },
         "children": {
             "fissionComponent": {
                 "times": "1+",
@@ -102,14 +96,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "gaugeBosons": {
-        "metadata": {
-        },
         "children": {
             "gaugeBoson": {
                 "times": "1+",
@@ -150,8 +140,6 @@
     },
 
     "leptons": {
-        "metadata": {
-        },
         "children": {
             "lepton": {
                 "times": "1+",
@@ -224,8 +212,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -239,8 +225,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -312,8 +296,6 @@
     },
 
     "spinGroups": {
-        "metadata": {
-        },
         "children": {
             "spinGroup": {
                 "times": "1+",
@@ -350,8 +332,6 @@
     },
 
     "channels": {
-        "metadata": {
-        },
         "children": {
             "channel": {
                 "times": "1+",
@@ -455,8 +435,6 @@
     },
 
     "resonanceReactions": {
-        "metadata": {
-        },
         "children": {
             "resonanceReaction": {
                 "times": "1+",
@@ -502,8 +480,6 @@
     },
 
     "hardSphereRadius": {
-        "metadata": {
-        },
         "children": {
             "constant1d": {
                 "times": "1",
@@ -513,8 +489,6 @@
     },
 
     "Ls": {
-        "metadata": {
-        },
         "children": {
             "L": {
                 "times": "1+",
@@ -543,8 +517,6 @@
     },
 
     "Js": {
-        "metadata": {
-        },
         "children": {
             "J": {
                 "times": "1+",
@@ -577,8 +549,6 @@
     },
 
     "levelSpacing": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -592,8 +562,6 @@
     },
 
     "widths": {
-        "metadata": {
-        },
         "children": {
             "width": {
                 "times": "1+",
@@ -635,8 +603,6 @@
     },
 
     "unresolvedRegion": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -683,8 +649,6 @@
     },
 
     "resonanceParameters": {
-        "metadata": {
-        },
         "children": {
             "table": {
                 "times": "1",
@@ -694,8 +658,6 @@
     },
 
     "scatteringRadius": {
-        "metadata": {
-        },
         "children": {
             "constant1d": {
                 "times": "1",
@@ -709,8 +671,6 @@
     },
 
     "photonEmissionProbabilities": {
-        "metadata": {
-        },
         "children": {
             "shell": {
                 "times": "1",
@@ -742,16 +702,10 @@
         }
     },
     "data": {
-        "metadata": {
-        },
-        "children": {
-        },
         "vector": "double"
     },
 
     "columnHeaders": {
-        "metadata": {
-        },
         "children": {
             "column": {
                 "times": "1+",
@@ -774,14 +728,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "simpleMaxwellianFission": {
-        "metadata": {
-        },
         "children": {
             "U": {
                 "times": "1",
@@ -795,8 +745,6 @@
     },
 
     "weightedFunctionals": {
-        "metadata": {
-        },
         "children": {
             "weighted": {
                 "times": "1+",
@@ -806,8 +754,6 @@
     },
 
     "weighted": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -821,8 +767,6 @@
     },
 
     "evaporation": {
-        "metadata": {
-        },
         "children": {
             "U": {
                 "times": "1",
@@ -836,8 +780,6 @@
     },
 
     "generalEvaporation": {
-        "metadata": {
-        },
         "children": {
             "U": {
                 "times": "1",
@@ -864,14 +806,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "theta": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -886,8 +824,6 @@
     },
 
     "g": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -958,8 +894,6 @@
     },
 
     "productions": {
-        "metadata": {
-        },
         "children": {
             "production": {
                 "times": "1+",
@@ -1017,8 +951,6 @@
     },
 
     "background": {
-        "metadata": {
-        },
         "children": {
             "resolvedRegion": {
                 "times": "1",
@@ -1036,8 +968,6 @@
     },
 
     "resolvedRegion": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1052,8 +982,6 @@
     },
 
     "fastRegion": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1077,8 +1005,6 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
@@ -1111,8 +1037,6 @@
     },
 
     "regions2d": {
-        "metadata": {
-        },
         "children": {
             "axes": {
                 "times": "1",
@@ -1130,8 +1054,6 @@
     },
 
     "function2ds": {
-        "metadata": {
-        },
         "children": {
             "XYs2d": {
                 "times": "1+",
@@ -1177,14 +1099,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "listOfCovariances": {
-        "metadata": {
-        },
         "children": {
             "covariance": {
                 "times": "1+",
@@ -1264,8 +1182,6 @@
     },
 
     "delayedNeutrons": {
-        "metadata": {
-        },
         "children": {
             "delayedNeutron": {
                 "times": "1+",
@@ -1295,8 +1211,6 @@
     },
 
     "rate": {
-        "metadata": {
-        },
         "children": {
             "double": {
                 "times": "1",
@@ -1307,8 +1221,6 @@
     },
 
     "fissionEnergyReleases": {
-        "metadata": {
-        },
         "children": {
             "fissionEnergyRelease": {
                 "times": "1+",
@@ -1365,8 +1277,6 @@
     },
 
     "promptProductKE": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1381,8 +1291,6 @@
     },
 
     "promptNeutronKE": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1397,8 +1305,6 @@
     },
 
     "delayedNeutronKE": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1413,8 +1319,6 @@
     },
 
     "promptGammaEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1429,8 +1333,6 @@
     },
 
     "delayedGammaEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1441,8 +1343,6 @@
     },
 
     "delayedBetaEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1453,8 +1353,6 @@
     },
 
     "neutrinoEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "times": "1",
@@ -1465,8 +1363,6 @@
     },
 
     "nonNeutrinoEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "namespace": "common",
@@ -1477,8 +1373,6 @@
     },
 
     "totalEnergy": {
-        "metadata": {
-        },
         "children": {
             "polynomial1d": {
                 "namespace": "common",
@@ -1489,8 +1383,6 @@
     },
 
     "averageProductEnergy": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1500,8 +1392,6 @@
     },
 
     "multiplicitySums": {
-        "metadata": {
-        },
         "children": {
             "multiplicitySum": {
                 "times": "1+",
@@ -1596,8 +1486,6 @@
     },
 
     "scatteringFactor": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1607,8 +1495,6 @@
     },
 
     "formFactor": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1618,8 +1504,6 @@
     },
 
     "realAnomalousFactor": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1629,8 +1513,6 @@
     },
 
     "imaginaryAnomalousFactor": {
-        "metadata": {
-        },
         "children": {
             "XYs1d": {
                 "times": "1",
@@ -1682,8 +1564,6 @@
     },
 
     "f": {
-        "metadata": {
-        },
         "children": {
             "XYs2d": {
                 "times": "1",
@@ -1693,8 +1573,6 @@
     },
 
     "r": {
-        "metadata": {
-        },
         "children": {
             "XYs2d": {
                 "times": "1",
@@ -1755,14 +1633,10 @@
                 "type": "string",
                 "required": false
             }
-        },
-        "children": {
         }
     },
 
     "sums": {
-        "metadata": {
-        },
         "children": {
             "crossSectionSums": {
                 "times": "1",
@@ -1776,8 +1650,6 @@
     },
 
     "crossSectionSums": {
-        "metadata": {
-        },
         "children": {
             "crossSectionSum": {
                 "times": "1+",
@@ -1815,8 +1687,6 @@
     },
 
     "summands": {
-        "metadata": {
-        },
         "children": {
             "add": {
                 "times": "1+",
@@ -1831,14 +1701,10 @@
                 "type": "string",
                 "required": true
             }
-        },
-        "children": {
         }
     },
 
     "angular": {
-        "metadata": {
-        },
         "children": {
             "isotropic2d": {
                 "times": "1",
@@ -1852,9 +1718,5 @@
     },
 
     "isotropic2d": {
-        "metadata": {
-        },
-        "children": {
-        }
     }
 }
