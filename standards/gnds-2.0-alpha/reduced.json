@@ -30,9 +30,8 @@
                 "times": "1",
                 "required": true
             },
-            "products": {
+            "products": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": false
             }
         }
@@ -40,9 +39,8 @@
 
     "products": {
         "children": {
-            "product": {
+            "product": { "namespace": "reduced",
                 "times": "1+",
-                "namespace": "reduced",
                 "required": true
             }
         }
@@ -64,9 +62,8 @@
                 "times": "1",
                 "required": true
             },
-            "distribution": {
+            "distribution": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": true
             }
         }

@@ -350,9 +350,8 @@
 
     "time": {
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "string": {
@@ -478,8 +477,7 @@
 
     "yields": {
         "children": {
-            "nuclides": {
-                "namespace": "reduced",
+            "nuclides": { "namespace": "reduced",
                 "times": "1",
                 "required": true
             },
@@ -519,9 +517,8 @@
             }
         },
         "children": {
-            "products": {
+            "products": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             }
         }
@@ -529,9 +526,8 @@
 
     "products": {
         "children": {
-            "product": {
+            "product": { "namespace": "common",
                 "times": "1+",
-                "namespace": "common",
                 "required": false
             }
         }
@@ -553,14 +549,12 @@
                 "times": "1",
                 "required": false
             },
-            "distribution": {
+            "distribution": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
-            "outputChannel": {
+            "outputChannel": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": false
             },
             "averageProductEnergy": {
@@ -631,9 +625,8 @@
             }
         },
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             }
         }
@@ -672,9 +665,8 @@
                 "times": "1",
                 "required": false
             },
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             }
         }
@@ -718,7 +710,6 @@
                 "required": true
             },
             "decayData": {
-                "namespace": "common",
                 "times": "1",
                 "required": false
             }
@@ -762,7 +753,6 @@
                 "required": true
             },
             "decayData": {
-                "namespace": "common",
                 "times": "1",
                 "required": false
             }
@@ -798,8 +788,7 @@
             }
         },
         "children": {
-            "array": {
-                "namespace": "common",
+            "array": { "namespace": "common",
                 "times": "1",
                 "required": false
             }
@@ -823,8 +812,7 @@
             }
         },
         "children": {
-            "nuclides": {
-                "namespace": "reduced",
+            "nuclides": { "namespace": "reduced",
                 "times": "1",
                 "required": false
             },
@@ -880,7 +868,6 @@
                 "required": true
             },
             "decayData": {
-                "namespace": "common",
                 "times": "1",
                 "required": false
             },
@@ -912,8 +899,7 @@
             }
         },
         "children": {
-            "nuclides": {
-                "namespace": "common",
+            "nuclides": { "namespace": "common",
                 "times": "1",
                 "required": true
             }
@@ -969,14 +955,12 @@
             }
         },
         "children": {
-            "crossSection": {
-                "namespace": "common",
+            "crossSection": { "namespace": "common",
                 "times": "1",
                 "required": true
             },
-            "outputChannel": {
+            "outputChannel": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             },
             "doubleDifferentialCrossSection": {
@@ -1031,9 +1015,8 @@
                 "times": "1",
                 "required": true
             },
-            "products": {
+            "products": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "fissionFragmentData": {
@@ -1108,9 +1091,8 @@
 
     "Q": {
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "constant1d": {
@@ -1134,9 +1116,8 @@
                 "times": "1",
                 "required": false
             },
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "reference": {
@@ -1164,8 +1145,7 @@
                 "times": "1",
                 "required": true
             },
-            "array": {
-                "namespace": "g2d",
+            "array": { "namespace": "g2d",
                 "times": "1",
                 "required": true
             }
@@ -1178,9 +1158,8 @@
                 "times": "1",
                 "required": true
             },
-            "array": {
+            "array": { "namespace": "g3d",
                 "times": "1",
-                "namespace": "g3d",
                 "required": true
             }
         }
@@ -1188,9 +1167,8 @@
 
     "probability": {
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -1298,9 +1276,8 @@
                 "times": "1",
                 "required": false
             },
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": false
             }
         }
@@ -1353,9 +1330,8 @@
             }
         },
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "uncertainty": {
@@ -1433,8 +1409,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": {
-                "namespace": "common",
+            "PoPs": { "namespace": "common",
                 "times": "1",
                 "required": true
             },

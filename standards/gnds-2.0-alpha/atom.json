@@ -1,33 +1,6 @@
 {
     "namespace": "atom",
 
-    "PoPs": {
-        "metadata": {
-            "name": {
-                "type": "string",
-                "required": true
-            },
-            "version": {
-                "type": "string",
-                "required": true
-            },
-            "format": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "styles": {
-                "times": "1",
-                "required": true
-            },
-            "chemicalElements": {
-                "times": "1",
-                "required": true
-            }
-        }
-    },
-
     "atomic": {
         "children": {
             "configurations": {
@@ -63,7 +36,6 @@
                 "required": true
             },
             "decayData": {
-                "namespace": "common",
                 "times": "1+",
                 "required": true
             }
@@ -72,9 +44,8 @@
 
     "bindingEnergy": {
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }

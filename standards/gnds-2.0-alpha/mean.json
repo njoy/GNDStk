@@ -31,14 +31,12 @@
             }
         },
         "children": {
-            "crossSection": {
+            "crossSection": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             },
-            "outputChannel": {
+            "outputChannel": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -69,14 +67,12 @@
             }
         },
         "children": {
-            "crossSection": {
+            "crossSection": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             },
-            "outputChannel": {
+            "outputChannel": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -279,8 +275,7 @@
             }
         },
         "children": {
-            "PoPs": {
-                "namespace": "common",
+            "PoPs": { "namespace": "common",
                 "times": "1",
                 "required": false
             },
@@ -422,8 +417,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": {
-                "namespace": "common",
+            "PoPs": { "namespace": "common",
                 "times": "1",
                 "required": false
             },
@@ -460,7 +454,6 @@
         },
         "children": {
             "link": {
-                "namespace": "common",
                 "times": "1",
                 "required": true
             },
@@ -596,7 +589,6 @@
             },
             "regions1d": {
                 "times": "1",
-                "namespace": "mean",
                 "required": false
             }
         }
@@ -610,7 +602,6 @@
             },
             "regions1d": {
                 "times": "1",
-                "namespace": "mean",
                 "required": false
             }
         }
@@ -636,8 +627,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": {
-                "namespace": "common",
+            "PoPs": { "namespace": "common",
                 "times": "1",
                 "required": false
             },
@@ -817,7 +807,6 @@
             },
             "regions1d": {
                 "times": "1",
-                "namespace": "mean",
                 "required": false
             }
         }
@@ -914,14 +903,12 @@
             }
         },
         "children": {
-            "crossSection": {
+            "crossSection": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             },
-            "outputChannel": {
+            "outputChannel": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -975,7 +962,6 @@
             },
             "regions1d": {
                 "times": "1",
-                "namespace": "mean",
                 "required": false
             }
         }
@@ -989,7 +975,6 @@
             },
             "regions1d": {
                 "times": "1",
-                "namespace": "mean",
                 "required": false
             }
         }
@@ -1028,9 +1013,8 @@
                 "times": "1",
                 "required": false
             },
-            "function1ds": {
+            "function1ds": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": true
             }
         }
@@ -1135,9 +1119,8 @@
                 "times": "1",
                 "required": false
             },
-            "function1ds": {
+            "function1ds": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             },
             "uncertainty": {
@@ -1202,9 +1185,8 @@
                 "times": "1",
                 "required": true
             },
-            "product": {
+            "product": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": true
             }
         }
@@ -1212,9 +1194,8 @@
 
     "rate": {
         "children": {
-            "double": {
+            "double": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -1278,9 +1259,8 @@
 
     "promptProductKE": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1292,9 +1272,8 @@
 
     "promptNeutronKE": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1306,9 +1285,8 @@
 
     "delayedNeutronKE": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1320,9 +1298,8 @@
 
     "promptGammaEnergy": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": false
             },
             "XYs1d": {
@@ -1334,9 +1311,8 @@
 
     "delayedGammaEnergy": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -1344,9 +1320,8 @@
 
     "delayedBetaEnergy": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -1354,9 +1329,8 @@
 
     "neutrinoEnergy": {
         "children": {
-            "polynomial1d": {
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
-                "namespace": "common",
                 "required": true
             }
         }
@@ -1364,8 +1338,7 @@
 
     "nonNeutrinoEnergy": {
         "children": {
-            "polynomial1d": {
-                "namespace": "common",
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
                 "required": true
             }
@@ -1374,8 +1347,7 @@
 
     "totalEnergy": {
         "children": {
-            "polynomial1d": {
-                "namespace": "common",
+            "polynomial1d": { "namespace": "common",
                 "times": "1",
                 "required": true
             }
@@ -1678,8 +1650,7 @@
                 "times": "1",
                 "required": true
             },
-            "crossSection": {
-                "namespace": "common",
+            "crossSection": { "namespace": "common",
                 "times": "1",
                 "required": true
             }

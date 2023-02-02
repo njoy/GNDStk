@@ -107,14 +107,12 @@
             }
         },
         "children": {
-            "crossSection": {
-                "namespace": "reduced",
+            "crossSection": { "namespace": "reduced",
                 "times": "1",
                 "required": true
             },
-            "distribution": {
+            "distribution": { "namespace": "dfiles",
                 "times": "1",
-                "namespace": "dfiles",
                 "required": true
             }
         }

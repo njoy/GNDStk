@@ -124,7 +124,6 @@ GNDSTK_MAKE_LOOKUP(version,version);
 namespace atom {
 namespace child {
 
-inline const Child<> PoPs("PoPs");
 inline const Child<> atomic("atomic");
 inline const Child<> bindingEnergy("bindingEnergy");
 inline const Child<> configuration("configuration");

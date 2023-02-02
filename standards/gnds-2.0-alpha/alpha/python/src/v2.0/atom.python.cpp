@@ -16,7 +16,6 @@ namespace python_atom {
    void wrapConfiguration(python::module &);
    void wrapConfigurations(python::module &);
    void wrapAtomic(python::module &);
-   void wrapPoPs(python::module &);
 } // namespace python_atom
 
 // atom wrapper
@@ -33,7 +32,6 @@ void wrapAtom(python::module &module)
    python_atom::wrapConfiguration(submodule);
    python_atom::wrapConfigurations(submodule);
    python_atom::wrapAtomic(submodule);
-   python_atom::wrapPoPs(submodule);
 };
 
 } // namespace python_v2_0

@@ -44,7 +44,7 @@ int main(const int argc, const char *const *const argv)
          if (beginsin(file,"files/a-"))
             read<common::ReactionSuite>(node);
          else if (beginsin(file,"files/atom-"))
-            read<atom::PoPs>(node);
+            read<sfy::PoPs>(node);
          else if (beginsin(file,"files/d-"))
             read<common::ReactionSuite>(node);
          else if (beginsin(file,"files/dec-"))

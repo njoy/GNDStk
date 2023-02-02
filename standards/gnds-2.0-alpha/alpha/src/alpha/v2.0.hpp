@@ -102,7 +102,6 @@
 #include "alpha/v2.0/g3d/Lengths.hpp"
 #include "alpha/v2.0/g3d/Array.hpp"
 
-#include "alpha/v2.0/atom/PoPs.hpp"
 #include "alpha/v2.0/atom/Atomic.hpp"
 #include "alpha/v2.0/atom/Configurations.hpp"
 #include "alpha/v2.0/atom/Configuration.hpp"

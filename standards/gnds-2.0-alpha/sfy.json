@@ -70,9 +70,8 @@
 
     "standard": {
         "children": {
-            "double": {
+            "double": { "namespace": "reduced",
                 "times": "1",
-                "namespace": "reduced",
                 "required": true
             }
         }

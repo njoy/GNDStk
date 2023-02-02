@@ -113,7 +113,6 @@
 #include "v2.0/g3d/Lengths.h"
 #include "v2.0/g3d/Array.h"
 
-#include "v2.0/atom/PoPs.h"
 #include "v2.0/atom/Atomic.h"
 #include "v2.0/atom/Configurations.h"
 #include "v2.0/atom/Configuration.h"

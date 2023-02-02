@@ -1,5 +1,6 @@
 
-#pragma once
+#ifndef NJOY_GNDSTK
+#define NJOY_GNDSTK
 
 
 // ------------------------
@@ -117,3 +118,5 @@ namespace GNDStk {
 
 } // namespace GNDStk
 } // namespace njoy
+
+#endif

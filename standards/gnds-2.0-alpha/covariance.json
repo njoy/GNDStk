@@ -26,12 +26,10 @@
         },
         "children": {
             "externalFiles": {
-                "namespace": "common",
                 "times": "1",
                 "required": false
             },
             "styles": {
-                "namespace": "common",
                 "times": "1",
                 "required": true
             },
@@ -352,8 +350,7 @@
             }
         },
         "children": {
-            "array": {
-                "namespace": "g3d",
+            "array": { "namespace": "g3d",
                 "times": "1",
                 "required": true
             },
