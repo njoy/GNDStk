@@ -51,12 +51,18 @@ class ScatteringAtom :
             / Meta<>("primaryScatterer") |
 
          // children
-         --Child<common::Mass>("mass") |
-         --Child<std::optional<tsl::E_critical>>("e_critical") |
-         --Child<tsl::E_max>("e_max") |
-         --Child<tsl::BoundAtomCrossSection>("boundAtomCrossSection") |
-         --Child<tsl::SelfScatteringKernel>("selfScatteringKernel") |
-         --Child<std::optional<tsl::T_effective>>("T_effective")
+         --Child<common::Mass>
+            ("mass") |
+         --Child<std::optional<tsl::E_critical>>
+            ("e_critical") |
+         --Child<tsl::E_max>
+            ("e_max") |
+         --Child<tsl::BoundAtomCrossSection>
+            ("boundAtomCrossSection") |
+         --Child<tsl::SelfScatteringKernel>
+            ("selfScatteringKernel") |
+         --Child<std::optional<tsl::T_effective>>
+            ("T_effective")
       ;
    }
 
@@ -72,12 +78,18 @@ public:
    Field<std::optional<bool>> primaryScatterer{this};
 
    // children
-   Field<common::Mass> mass{this};
-   Field<std::optional<tsl::E_critical>> e_critical{this};
-   Field<tsl::E_max> e_max{this};
-   Field<tsl::BoundAtomCrossSection> boundAtomCrossSection{this};
-   Field<tsl::SelfScatteringKernel> selfScatteringKernel{this};
-   Field<std::optional<tsl::T_effective>> T_effective{this};
+   Field<common::Mass>
+      mass{this};
+   Field<std::optional<tsl::E_critical>>
+      e_critical{this};
+   Field<tsl::E_max>
+      e_max{this};
+   Field<tsl::BoundAtomCrossSection>
+      boundAtomCrossSection{this};
+   Field<tsl::SelfScatteringKernel>
+      selfScatteringKernel{this};
+   Field<std::optional<tsl::T_effective>>
+      T_effective{this};
 
    // ------------------------
    // Constructors
@@ -104,15 +116,24 @@ public:
 
    // from fields, comment excluded
    explicit ScatteringAtom(
-      const wrapper<std::string> &pid,
-      const wrapper<int> &numberPerMolecule = {},
-      const wrapper<std::optional<bool>> &primaryScatterer = {},
-      const wrapper<common::Mass> &mass = {},
-      const wrapper<std::optional<tsl::E_critical>> &e_critical = {},
-      const wrapper<tsl::E_max> &e_max = {},
-      const wrapper<tsl::BoundAtomCrossSection> &boundAtomCrossSection = {},
-      const wrapper<tsl::SelfScatteringKernel> &selfScatteringKernel = {},
-      const wrapper<std::optional<tsl::T_effective>> &T_effective = {}
+      const wrapper<std::string>
+         &pid,
+      const wrapper<int>
+         &numberPerMolecule = {},
+      const wrapper<std::optional<bool>>
+         &primaryScatterer = {},
+      const wrapper<common::Mass>
+         &mass = {},
+      const wrapper<std::optional<tsl::E_critical>>
+         &e_critical = {},
+      const wrapper<tsl::E_max>
+         &e_max = {},
+      const wrapper<tsl::BoundAtomCrossSection>
+         &boundAtomCrossSection = {},
+      const wrapper<tsl::SelfScatteringKernel>
+         &selfScatteringKernel = {},
+      const wrapper<std::optional<tsl::T_effective>>
+         &T_effective = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       pid(this,pid),
@@ -173,8 +194,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   ScatteringAtom &operator=(const ScatteringAtom &) = default;
-   ScatteringAtom &operator=(ScatteringAtom &&) = default;
+   // copy
+   ScatteringAtom &operator=(const ScatteringAtom &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         pid = other.pid;
+         numberPerMolecule = other.numberPerMolecule;
+         primaryScatterer = other.primaryScatterer;
+         mass = other.mass;
+         e_critical = other.e_critical;
+         e_max = other.e_max;
+         boundAtomCrossSection = other.boundAtomCrossSection;
+         selfScatteringKernel = other.selfScatteringKernel;
+         T_effective = other.T_effective;
+      }
+      return *this;
+   }
+
+   // move
+   ScatteringAtom &operator=(ScatteringAtom &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         pid = std::move(other.pid);
+         numberPerMolecule = std::move(other.numberPerMolecule);
+         primaryScatterer = std::move(other.primaryScatterer);
+         mass = std::move(other.mass);
+         e_critical = std::move(other.e_critical);
+         e_max = std::move(other.e_max);
+         boundAtomCrossSection = std::move(other.boundAtomCrossSection);
+         selfScatteringKernel = std::move(other.selfScatteringKernel);
+         T_effective = std::move(other.T_effective);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

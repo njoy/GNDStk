@@ -39,8 +39,10 @@ class LevelSpacing :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::XYs1d>>("XYs1d") |
-         --Child<std::optional<common::Constant1d>>("constant1d")
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<common::Constant1d>>
+            ("constant1d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::XYs1d>> XYs1d{this};
-   Field<std::optional<common::Constant1d>> constant1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<common::Constant1d>>
+      constant1d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit LevelSpacing(
-      const wrapper<std::optional<common::XYs1d>> &XYs1d,
-      const wrapper<std::optional<common::Constant1d>> &constant1d = {}
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d,
+      const wrapper<std::optional<common::Constant1d>>
+         &constant1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   LevelSpacing &operator=(const LevelSpacing &) = default;
-   LevelSpacing &operator=(LevelSpacing &&) = default;
+   // copy
+   LevelSpacing &operator=(const LevelSpacing &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+         constant1d = other.constant1d;
+      }
+      return *this;
+   }
+
+   // move
+   LevelSpacing &operator=(LevelSpacing &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+         constant1d = std::move(other.constant1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

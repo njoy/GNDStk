@@ -86,8 +86,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotropic2d &operator=(const Isotropic2d &) = default;
-   Isotropic2d &operator=(Isotropic2d &&) = default;
+   // copy
+   Isotropic2d &operator=(const Isotropic2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   Isotropic2d &operator=(Isotropic2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

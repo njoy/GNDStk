@@ -38,7 +38,8 @@ class DelayedNeutrons :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::DelayedNeutron>("delayedNeutron")
+         ++Child<mean::DelayedNeutron>
+            ("delayedNeutron")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::DelayedNeutron>> delayedNeutron{this};
+   Field<std::vector<mean::DelayedNeutron>>
+      delayedNeutron{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit DelayedNeutrons(
-      const wrapper<std::vector<mean::DelayedNeutron>> &delayedNeutron
+      const wrapper<std::vector<mean::DelayedNeutron>>
+         &delayedNeutron
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       delayedNeutron(this,delayedNeutron)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   DelayedNeutrons &operator=(const DelayedNeutrons &) = default;
-   DelayedNeutrons &operator=(DelayedNeutrons &&) = default;
+   // copy
+   DelayedNeutrons &operator=(const DelayedNeutrons &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         delayedNeutron = other.delayedNeutron;
+      }
+      return *this;
+   }
+
+   // move
+   DelayedNeutrons &operator=(DelayedNeutrons &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         delayedNeutron = std::move(other.delayedNeutron);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

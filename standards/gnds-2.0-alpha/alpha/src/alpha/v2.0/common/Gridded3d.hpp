@@ -39,8 +39,10 @@ class Gridded3d :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Axes>("axes") |
-         --Child<g3d::Array>("array")
+         --Child<common::Axes>
+            ("axes") |
+         --Child<g3d::Array>
+            ("array")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Axes> axes{this};
-   Field<g3d::Array> array{this};
+   Field<common::Axes>
+      axes{this};
+   Field<g3d::Array>
+      array{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Gridded3d(
-      const wrapper<common::Axes> &axes,
-      const wrapper<g3d::Array> &array = {}
+      const wrapper<common::Axes>
+         &axes,
+      const wrapper<g3d::Array>
+         &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Gridded3d &operator=(const Gridded3d &) = default;
-   Gridded3d &operator=(Gridded3d &&) = default;
+   // copy
+   Gridded3d &operator=(const Gridded3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         axes = other.axes;
+         array = other.array;
+      }
+      return *this;
+   }
+
+   // move
+   Gridded3d &operator=(Gridded3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         axes = std::move(other.axes);
+         array = std::move(other.array);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

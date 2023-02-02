@@ -94,8 +94,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Title &operator=(const Title &) = default;
-   Title &operator=(Title &&) = default;
+   // copy
+   Title &operator=(const Title &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   Title &operator=(Title &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

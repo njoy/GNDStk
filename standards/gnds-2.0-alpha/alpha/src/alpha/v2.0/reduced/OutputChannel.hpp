@@ -45,8 +45,10 @@ class OutputChannel :
             / Meta<>("process") |
 
          // children
-         --Child<common::Q>("Q") |
-         --Child<std::optional<reduced::Products>>("products")
+         --Child<common::Q>
+            ("Q") |
+         --Child<std::optional<reduced::Products>>
+            ("products")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::optional<std::string>> process{this};
 
    // children
-   Field<common::Q> Q{this};
-   Field<std::optional<reduced::Products>> products{this};
+   Field<common::Q>
+      Q{this};
+   Field<std::optional<reduced::Products>>
+      products{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit OutputChannel(
-      const wrapper<std::string> &genre,
-      const wrapper<std::optional<std::string>> &process = {},
-      const wrapper<common::Q> &Q = {},
-      const wrapper<std::optional<reduced::Products>> &products = {}
+      const wrapper<std::string>
+         &genre,
+      const wrapper<std::optional<std::string>>
+         &process = {},
+      const wrapper<common::Q>
+         &Q = {},
+      const wrapper<std::optional<reduced::Products>>
+         &products = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       genre(this,genre),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   OutputChannel &operator=(const OutputChannel &) = default;
-   OutputChannel &operator=(OutputChannel &&) = default;
+   // copy
+   OutputChannel &operator=(const OutputChannel &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         genre = other.genre;
+         process = other.process;
+         Q = other.Q;
+         products = other.products;
+      }
+      return *this;
+   }
+
+   // move
+   OutputChannel &operator=(OutputChannel &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         genre = std::move(other.genre);
+         process = std::move(other.process);
+         Q = std::move(other.Q);
+         products = std::move(other.products);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

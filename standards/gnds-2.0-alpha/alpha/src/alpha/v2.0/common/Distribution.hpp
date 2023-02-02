@@ -48,17 +48,28 @@ class Distribution :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<mean::AngularTwoBody>>("angularTwoBody") |
-         --Child<std::optional<mean::Uncorrelated>>("uncorrelated") |
-         --Child<std::optional<mean::Unspecified>>("unspecified") |
-         --Child<std::optional<mean::EnergyAngular>>("energyAngular") |
-         --Child<std::optional<mean::KalbachMann>>("KalbachMann") |
-         --Child<std::optional<mean::AngularEnergy>>("angularEnergy") |
-         --Child<std::optional<mean::Branching3d>>("branching3d") |
-         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>("CoulombPlusNuclearElastic") |
-         --Child<std::optional<mean::CoherentPhotonScattering>>("coherentPhotonScattering") |
-         --Child<std::optional<mean::IncoherentPhotonScattering>>("incoherentPhotonScattering") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw>>("thermalNeutronScatteringLaw")
+         --Child<std::optional<mean::AngularTwoBody>>
+            ("angularTwoBody") |
+         --Child<std::optional<mean::Uncorrelated>>
+            ("uncorrelated") |
+         --Child<std::optional<mean::Unspecified>>
+            ("unspecified") |
+         --Child<std::optional<mean::EnergyAngular>>
+            ("energyAngular") |
+         --Child<std::optional<mean::KalbachMann>>
+            ("KalbachMann") |
+         --Child<std::optional<mean::AngularEnergy>>
+            ("angularEnergy") |
+         --Child<std::optional<mean::Branching3d>>
+            ("branching3d") |
+         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>
+            ("CoulombPlusNuclearElastic") |
+         --Child<std::optional<mean::CoherentPhotonScattering>>
+            ("coherentPhotonScattering") |
+         --Child<std::optional<mean::IncoherentPhotonScattering>>
+            ("incoherentPhotonScattering") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw>>
+            ("thermalNeutronScatteringLaw")
       ;
    }
 
@@ -69,17 +80,28 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<mean::AngularTwoBody>> angularTwoBody{this};
-   Field<std::optional<mean::Uncorrelated>> uncorrelated{this};
-   Field<std::optional<mean::Unspecified>> unspecified{this};
-   Field<std::optional<mean::EnergyAngular>> energyAngular{this};
-   Field<std::optional<mean::KalbachMann>> KalbachMann{this};
-   Field<std::optional<mean::AngularEnergy>> angularEnergy{this};
-   Field<std::optional<mean::Branching3d>> branching3d{this};
-   Field<std::optional<dfiles::CoulombPlusNuclearElastic>> CoulombPlusNuclearElastic{this};
-   Field<std::optional<mean::CoherentPhotonScattering>> coherentPhotonScattering{this};
-   Field<std::optional<mean::IncoherentPhotonScattering>> incoherentPhotonScattering{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw>> thermalNeutronScatteringLaw{this};
+   Field<std::optional<mean::AngularTwoBody>>
+      angularTwoBody{this};
+   Field<std::optional<mean::Uncorrelated>>
+      uncorrelated{this};
+   Field<std::optional<mean::Unspecified>>
+      unspecified{this};
+   Field<std::optional<mean::EnergyAngular>>
+      energyAngular{this};
+   Field<std::optional<mean::KalbachMann>>
+      KalbachMann{this};
+   Field<std::optional<mean::AngularEnergy>>
+      angularEnergy{this};
+   Field<std::optional<mean::Branching3d>>
+      branching3d{this};
+   Field<std::optional<dfiles::CoulombPlusNuclearElastic>>
+      CoulombPlusNuclearElastic{this};
+   Field<std::optional<mean::CoherentPhotonScattering>>
+      coherentPhotonScattering{this};
+   Field<std::optional<mean::IncoherentPhotonScattering>>
+      incoherentPhotonScattering{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw>>
+      thermalNeutronScatteringLaw{this};
 
    // ------------------------
    // Constructors
@@ -108,17 +130,28 @@ public:
 
    // from fields, comment excluded
    explicit Distribution(
-      const wrapper<std::optional<mean::AngularTwoBody>> &angularTwoBody,
-      const wrapper<std::optional<mean::Uncorrelated>> &uncorrelated = {},
-      const wrapper<std::optional<mean::Unspecified>> &unspecified = {},
-      const wrapper<std::optional<mean::EnergyAngular>> &energyAngular = {},
-      const wrapper<std::optional<mean::KalbachMann>> &KalbachMann = {},
-      const wrapper<std::optional<mean::AngularEnergy>> &angularEnergy = {},
-      const wrapper<std::optional<mean::Branching3d>> &branching3d = {},
-      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>> &CoulombPlusNuclearElastic = {},
-      const wrapper<std::optional<mean::CoherentPhotonScattering>> &coherentPhotonScattering = {},
-      const wrapper<std::optional<mean::IncoherentPhotonScattering>> &incoherentPhotonScattering = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw>> &thermalNeutronScatteringLaw = {}
+      const wrapper<std::optional<mean::AngularTwoBody>>
+         &angularTwoBody,
+      const wrapper<std::optional<mean::Uncorrelated>>
+         &uncorrelated = {},
+      const wrapper<std::optional<mean::Unspecified>>
+         &unspecified = {},
+      const wrapper<std::optional<mean::EnergyAngular>>
+         &energyAngular = {},
+      const wrapper<std::optional<mean::KalbachMann>>
+         &KalbachMann = {},
+      const wrapper<std::optional<mean::AngularEnergy>>
+         &angularEnergy = {},
+      const wrapper<std::optional<mean::Branching3d>>
+         &branching3d = {},
+      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>>
+         &CoulombPlusNuclearElastic = {},
+      const wrapper<std::optional<mean::CoherentPhotonScattering>>
+         &coherentPhotonScattering = {},
+      const wrapper<std::optional<mean::IncoherentPhotonScattering>>
+         &incoherentPhotonScattering = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw>>
+         &thermalNeutronScatteringLaw = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       angularTwoBody(this,angularTwoBody),
@@ -185,8 +218,47 @@ public:
    // Assignment operators
    // ------------------------
 
-   Distribution &operator=(const Distribution &) = default;
-   Distribution &operator=(Distribution &&) = default;
+   // copy
+   Distribution &operator=(const Distribution &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         angularTwoBody = other.angularTwoBody;
+         uncorrelated = other.uncorrelated;
+         unspecified = other.unspecified;
+         energyAngular = other.energyAngular;
+         KalbachMann = other.KalbachMann;
+         angularEnergy = other.angularEnergy;
+         branching3d = other.branching3d;
+         CoulombPlusNuclearElastic = other.CoulombPlusNuclearElastic;
+         coherentPhotonScattering = other.coherentPhotonScattering;
+         incoherentPhotonScattering = other.incoherentPhotonScattering;
+         thermalNeutronScatteringLaw = other.thermalNeutronScatteringLaw;
+      }
+      return *this;
+   }
+
+   // move
+   Distribution &operator=(Distribution &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         angularTwoBody = std::move(other.angularTwoBody);
+         uncorrelated = std::move(other.uncorrelated);
+         unspecified = std::move(other.unspecified);
+         energyAngular = std::move(other.energyAngular);
+         KalbachMann = std::move(other.KalbachMann);
+         angularEnergy = std::move(other.angularEnergy);
+         branching3d = std::move(other.branching3d);
+         CoulombPlusNuclearElastic = std::move(other.CoulombPlusNuclearElastic);
+         coherentPhotonScattering = std::move(other.coherentPhotonScattering);
+         incoherentPhotonScattering = std::move(other.incoherentPhotonScattering);
+         thermalNeutronScatteringLaw = std::move(other.thermalNeutronScatteringLaw);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

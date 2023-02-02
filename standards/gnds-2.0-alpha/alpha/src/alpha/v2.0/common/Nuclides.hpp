@@ -38,7 +38,8 @@ class Nuclides :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Nuclide>("nuclide")
+         ++Child<common::Nuclide>
+            ("nuclide")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Nuclide>> nuclide{this};
+   Field<std::vector<common::Nuclide>>
+      nuclide{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Nuclides(
-      const wrapper<std::vector<common::Nuclide>> &nuclide
+      const wrapper<std::vector<common::Nuclide>>
+         &nuclide
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclide(this,nuclide)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nuclides &operator=(const Nuclides &) = default;
-   Nuclides &operator=(Nuclides &&) = default;
+   // copy
+   Nuclides &operator=(const Nuclides &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclide = other.nuclide;
+      }
+      return *this;
+   }
+
+   // move
+   Nuclides &operator=(Nuclides &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclide = std::move(other.nuclide);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit String(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &value = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &value = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   String &operator=(const String &) = default;
-   String &operator=(String &&) = default;
+   // copy
+   String &operator=(const String &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   String &operator=(String &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

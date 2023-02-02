@@ -39,8 +39,10 @@ class Styles :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Evaluated>("evaluated") |
-         --Child<std::optional<mean::CrossSectionReconstructed>>("crossSectionReconstructed")
+         --Child<common::Evaluated>
+            ("evaluated") |
+         --Child<std::optional<mean::CrossSectionReconstructed>>
+            ("crossSectionReconstructed")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Evaluated> evaluated{this};
-   Field<std::optional<mean::CrossSectionReconstructed>> crossSectionReconstructed{this};
+   Field<common::Evaluated>
+      evaluated{this};
+   Field<std::optional<mean::CrossSectionReconstructed>>
+      crossSectionReconstructed{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Styles(
-      const wrapper<common::Evaluated> &evaluated,
-      const wrapper<std::optional<mean::CrossSectionReconstructed>> &crossSectionReconstructed = {}
+      const wrapper<common::Evaluated>
+         &evaluated,
+      const wrapper<std::optional<mean::CrossSectionReconstructed>>
+         &crossSectionReconstructed = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Styles &operator=(const Styles &) = default;
-   Styles &operator=(Styles &&) = default;
+   // copy
+   Styles &operator=(const Styles &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluated = other.evaluated;
+         crossSectionReconstructed = other.crossSectionReconstructed;
+      }
+      return *this;
+   }
+
+   // move
+   Styles &operator=(Styles &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluated = std::move(other.evaluated);
+         crossSectionReconstructed = std::move(other.crossSectionReconstructed);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

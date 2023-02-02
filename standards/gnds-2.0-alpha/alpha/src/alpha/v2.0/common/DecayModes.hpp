@@ -38,7 +38,8 @@ class DecayModes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::DecayMode>("decayMode")
+         ++Child<common::DecayMode>
+            ("decayMode")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::DecayMode>> decayMode{this};
+   Field<std::vector<common::DecayMode>>
+      decayMode{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit DecayModes(
-      const wrapper<std::vector<common::DecayMode>> &decayMode
+      const wrapper<std::vector<common::DecayMode>>
+         &decayMode
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decayMode(this,decayMode)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayModes &operator=(const DecayModes &) = default;
-   DecayModes &operator=(DecayModes &&) = default;
+   // copy
+   DecayModes &operator=(const DecayModes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         decayMode = other.decayMode;
+      }
+      return *this;
+   }
+
+   // move
+   DecayModes &operator=(DecayModes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         decayMode = std::move(other.decayMode);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

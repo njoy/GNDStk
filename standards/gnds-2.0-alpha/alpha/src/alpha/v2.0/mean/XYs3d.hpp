@@ -43,8 +43,10 @@ class XYs3d :
             / Meta<>("interpolationQualifier") |
 
          // children
-         --Child<std::optional<common::Axes>>("axes") |
-         ++Child<mean::Function2ds>("function2ds")
+         --Child<std::optional<common::Axes>>
+            ("axes") |
+         ++Child<mean::Function2ds>
+            ("function2ds")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<std::optional<std::string>> interpolationQualifier{this};
 
    // children
-   Field<std::optional<common::Axes>> axes{this};
-   Field<std::vector<mean::Function2ds>> function2ds{this};
+   Field<std::optional<common::Axes>>
+      axes{this};
+   Field<std::vector<mean::Function2ds>>
+      function2ds{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit XYs3d(
-      const wrapper<std::optional<std::string>> &interpolationQualifier,
-      const wrapper<std::optional<common::Axes>> &axes = {},
-      const wrapper<std::vector<mean::Function2ds>> &function2ds = {}
+      const wrapper<std::optional<std::string>>
+         &interpolationQualifier,
+      const wrapper<std::optional<common::Axes>>
+         &axes = {},
+      const wrapper<std::vector<mean::Function2ds>>
+         &function2ds = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interpolationQualifier(this,interpolationQualifier),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs3d &operator=(const XYs3d &) = default;
-   XYs3d &operator=(XYs3d &&) = default;
+   // copy
+   XYs3d &operator=(const XYs3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         interpolationQualifier = other.interpolationQualifier;
+         axes = other.axes;
+         function2ds = other.function2ds;
+      }
+      return *this;
+   }
+
+   // move
+   XYs3d &operator=(XYs3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         interpolationQualifier = std::move(other.interpolationQualifier);
+         axes = std::move(other.axes);
+         function2ds = std::move(other.function2ds);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

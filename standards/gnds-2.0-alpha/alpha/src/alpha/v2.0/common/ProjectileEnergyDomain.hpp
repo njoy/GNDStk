@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit ProjectileEnergyDomain(
-      const wrapper<double> &min,
-      const wrapper<double> &max = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<double>
+         &min,
+      const wrapper<double>
+         &max = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       min(this,min),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProjectileEnergyDomain &operator=(const ProjectileEnergyDomain &) = default;
-   ProjectileEnergyDomain &operator=(ProjectileEnergyDomain &&) = default;
+   // copy
+   ProjectileEnergyDomain &operator=(const ProjectileEnergyDomain &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         min = other.min;
+         max = other.max;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   ProjectileEnergyDomain &operator=(ProjectileEnergyDomain &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         min = std::move(other.min);
+         max = std::move(other.max);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

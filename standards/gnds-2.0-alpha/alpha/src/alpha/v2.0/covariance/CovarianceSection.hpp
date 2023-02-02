@@ -48,11 +48,16 @@ class CovarianceSection :
             / Meta<>("crossTerm") |
 
          // children
-         --Child<covariance::RowData>("rowData") |
-         --Child<std::optional<covariance::ColumnData>>("columnData") |
-         --Child<std::optional<covariance::CovarianceMatrix>>("covarianceMatrix") |
-         --Child<std::optional<covariance::Mixed>>("mixed") |
-         --Child<std::optional<covariance::Sum>>("sum")
+         --Child<covariance::RowData>
+            ("rowData") |
+         --Child<std::optional<covariance::ColumnData>>
+            ("columnData") |
+         --Child<std::optional<covariance::CovarianceMatrix>>
+            ("covarianceMatrix") |
+         --Child<std::optional<covariance::Mixed>>
+            ("mixed") |
+         --Child<std::optional<covariance::Sum>>
+            ("sum")
       ;
    }
 
@@ -67,11 +72,16 @@ public:
    Field<std::optional<bool>> crossTerm{this};
 
    // children
-   Field<covariance::RowData> rowData{this};
-   Field<std::optional<covariance::ColumnData>> columnData{this};
-   Field<std::optional<covariance::CovarianceMatrix>> covarianceMatrix{this};
-   Field<std::optional<covariance::Mixed>> mixed{this};
-   Field<std::optional<covariance::Sum>> sum{this};
+   Field<covariance::RowData>
+      rowData{this};
+   Field<std::optional<covariance::ColumnData>>
+      columnData{this};
+   Field<std::optional<covariance::CovarianceMatrix>>
+      covarianceMatrix{this};
+   Field<std::optional<covariance::Mixed>>
+      mixed{this};
+   Field<std::optional<covariance::Sum>>
+      sum{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +106,20 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceSection(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<bool>> &crossTerm = {},
-      const wrapper<covariance::RowData> &rowData = {},
-      const wrapper<std::optional<covariance::ColumnData>> &columnData = {},
-      const wrapper<std::optional<covariance::CovarianceMatrix>> &covarianceMatrix = {},
-      const wrapper<std::optional<covariance::Mixed>> &mixed = {},
-      const wrapper<std::optional<covariance::Sum>> &sum = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<bool>>
+         &crossTerm = {},
+      const wrapper<covariance::RowData>
+         &rowData = {},
+      const wrapper<std::optional<covariance::ColumnData>>
+         &columnData = {},
+      const wrapper<std::optional<covariance::CovarianceMatrix>>
+         &covarianceMatrix = {},
+      const wrapper<std::optional<covariance::Mixed>>
+         &mixed = {},
+      const wrapper<std::optional<covariance::Sum>>
+         &sum = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +174,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceSection &operator=(const CovarianceSection &) = default;
-   CovarianceSection &operator=(CovarianceSection &&) = default;
+   // copy
+   CovarianceSection &operator=(const CovarianceSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         crossTerm = other.crossTerm;
+         rowData = other.rowData;
+         columnData = other.columnData;
+         covarianceMatrix = other.covarianceMatrix;
+         mixed = other.mixed;
+         sum = other.sum;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceSection &operator=(CovarianceSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         crossTerm = std::move(other.crossTerm);
+         rowData = std::move(other.rowData);
+         columnData = std::move(other.columnData);
+         covarianceMatrix = std::move(other.covarianceMatrix);
+         mixed = std::move(other.mixed);
+         sum = std::move(other.sum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

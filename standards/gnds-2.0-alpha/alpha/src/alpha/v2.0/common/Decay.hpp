@@ -46,7 +46,8 @@ class Decay :
             / Meta<>("complete") |
 
          // children
-         --Child<std::optional<common::Products>>("products")
+         --Child<std::optional<common::Products>>
+            ("products")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::optional<bool>> complete{this};
 
    // children
-   Field<std::optional<common::Products>> products{this};
+   Field<std::optional<common::Products>>
+      products{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit Decay(
-      const wrapper<int> &index,
-      const wrapper<std::optional<std::string>> &mode = {},
-      const wrapper<std::optional<bool>> &complete = {},
-      const wrapper<std::optional<common::Products>> &products = {}
+      const wrapper<int>
+         &index,
+      const wrapper<std::optional<std::string>>
+         &mode = {},
+      const wrapper<std::optional<bool>>
+         &complete = {},
+      const wrapper<std::optional<common::Products>>
+         &products = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Decay &operator=(const Decay &) = default;
-   Decay &operator=(Decay &&) = default;
+   // copy
+   Decay &operator=(const Decay &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         mode = other.mode;
+         complete = other.complete;
+         products = other.products;
+      }
+      return *this;
+   }
+
+   // move
+   Decay &operator=(Decay &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         mode = std::move(other.mode);
+         complete = std::move(other.complete);
+         products = std::move(other.products);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -69,7 +69,8 @@ public:
 
    // from fields, comment excluded
    explicit Branching1d(
-      const wrapper<std::string> &label
+      const wrapper<std::string>
+         &label
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label)
@@ -106,8 +107,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Branching1d &operator=(const Branching1d &) = default;
-   Branching1d &operator=(Branching1d &&) = default;
+   // copy
+   Branching1d &operator=(const Branching1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+      }
+      return *this;
+   }
+
+   // move
+   Branching1d &operator=(Branching1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

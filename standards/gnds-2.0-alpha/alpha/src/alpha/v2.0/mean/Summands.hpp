@@ -38,7 +38,8 @@ class Summands :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Add>("add")
+         ++Child<mean::Add>
+            ("add")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Add>> add{this};
+   Field<std::vector<mean::Add>>
+      add{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Summands(
-      const wrapper<std::vector<mean::Add>> &add
+      const wrapper<std::vector<mean::Add>>
+         &add
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       add(this,add)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Summands &operator=(const Summands &) = default;
-   Summands &operator=(Summands &&) = default;
+   // copy
+   Summands &operator=(const Summands &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         add = other.add;
+      }
+      return *this;
+   }
+
+   // move
+   Summands &operator=(Summands &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         add = std::move(other.add);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

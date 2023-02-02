@@ -44,9 +44,12 @@ class SelfScatteringKernel :
             / Meta<>("symmetric") |
 
          // children
-         --Child<std::optional<common::Gridded3d>>("gridded3d") |
-         --Child<std::optional<tsl::SCTApproximation>>("SCTApproximation") |
-         --Child<std::optional<tsl::FreeGasApproximation>>("freeGasApproximation")
+         --Child<std::optional<common::Gridded3d>>
+            ("gridded3d") |
+         --Child<std::optional<tsl::SCTApproximation>>
+            ("SCTApproximation") |
+         --Child<std::optional<tsl::FreeGasApproximation>>
+            ("freeGasApproximation")
       ;
    }
 
@@ -60,9 +63,12 @@ public:
    Field<std::optional<bool>> symmetric{this};
 
    // children
-   Field<std::optional<common::Gridded3d>> gridded3d{this};
-   Field<std::optional<tsl::SCTApproximation>> SCTApproximation{this};
-   Field<std::optional<tsl::FreeGasApproximation>> freeGasApproximation{this};
+   Field<std::optional<common::Gridded3d>>
+      gridded3d{this};
+   Field<std::optional<tsl::SCTApproximation>>
+      SCTApproximation{this};
+   Field<std::optional<tsl::FreeGasApproximation>>
+      freeGasApproximation{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +90,14 @@ public:
 
    // from fields, comment excluded
    explicit SelfScatteringKernel(
-      const wrapper<std::optional<bool>> &symmetric,
-      const wrapper<std::optional<common::Gridded3d>> &gridded3d = {},
-      const wrapper<std::optional<tsl::SCTApproximation>> &SCTApproximation = {},
-      const wrapper<std::optional<tsl::FreeGasApproximation>> &freeGasApproximation = {}
+      const wrapper<std::optional<bool>>
+         &symmetric,
+      const wrapper<std::optional<common::Gridded3d>>
+         &gridded3d = {},
+      const wrapper<std::optional<tsl::SCTApproximation>>
+         &SCTApproximation = {},
+      const wrapper<std::optional<tsl::FreeGasApproximation>>
+         &freeGasApproximation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       symmetric(this,symmetric),
@@ -133,8 +143,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   SelfScatteringKernel &operator=(const SelfScatteringKernel &) = default;
-   SelfScatteringKernel &operator=(SelfScatteringKernel &&) = default;
+   // copy
+   SelfScatteringKernel &operator=(const SelfScatteringKernel &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         symmetric = other.symmetric;
+         gridded3d = other.gridded3d;
+         SCTApproximation = other.SCTApproximation;
+         freeGasApproximation = other.freeGasApproximation;
+      }
+      return *this;
+   }
+
+   // move
+   SelfScatteringKernel &operator=(SelfScatteringKernel &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         symmetric = std::move(other.symmetric);
+         gridded3d = std::move(other.gridded3d);
+         SCTApproximation = std::move(other.SCTApproximation);
+         freeGasApproximation = std::move(other.freeGasApproximation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

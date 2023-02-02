@@ -38,7 +38,8 @@ class GaugeBosons :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::GaugeBoson>("gaugeBoson")
+         ++Child<mean::GaugeBoson>
+            ("gaugeBoson")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::GaugeBoson>> gaugeBoson{this};
+   Field<std::vector<mean::GaugeBoson>>
+      gaugeBoson{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit GaugeBosons(
-      const wrapper<std::vector<mean::GaugeBoson>> &gaugeBoson
+      const wrapper<std::vector<mean::GaugeBoson>>
+         &gaugeBoson
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gaugeBoson(this,gaugeBoson)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   GaugeBosons &operator=(const GaugeBosons &) = default;
-   GaugeBosons &operator=(GaugeBosons &&) = default;
+   // copy
+   GaugeBosons &operator=(const GaugeBosons &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         gaugeBoson = other.gaugeBoson;
+      }
+      return *this;
+   }
+
+   // move
+   GaugeBosons &operator=(GaugeBosons &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         gaugeBoson = std::move(other.gaugeBoson);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

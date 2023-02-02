@@ -46,7 +46,8 @@ class ThermalNeutronScatteringLaw_coherentElastic :
             / Meta<>("productFrame") |
 
          // children
-         --Child<tsl::S_table>("S_table")
+         --Child<tsl::S_table>
+            ("S_table")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<tsl::S_table> S_table{this};
+   Field<tsl::S_table>
+      S_table{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw_coherentElastic(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<tsl::S_table> &S_table = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<tsl::S_table>
+         &S_table = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw_coherentElastic &operator=(const ThermalNeutronScatteringLaw_coherentElastic &) = default;
-   ThermalNeutronScatteringLaw_coherentElastic &operator=(ThermalNeutronScatteringLaw_coherentElastic &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw_coherentElastic &operator=(const ThermalNeutronScatteringLaw_coherentElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         S_table = other.S_table;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw_coherentElastic &operator=(ThermalNeutronScatteringLaw_coherentElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         S_table = std::move(other.S_table);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

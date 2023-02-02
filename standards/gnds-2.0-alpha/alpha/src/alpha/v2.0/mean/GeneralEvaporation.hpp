@@ -40,9 +40,12 @@ class GeneralEvaporation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<mean::U>("U") |
-         --Child<mean::Theta>("theta") |
-         --Child<mean::G>("g")
+         --Child<mean::U>
+            ("U") |
+         --Child<mean::Theta>
+            ("theta") |
+         --Child<mean::G>
+            ("g")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<mean::U> U{this};
-   Field<mean::Theta> theta{this};
-   Field<mean::G> g{this};
+   Field<mean::U>
+      U{this};
+   Field<mean::Theta>
+      theta{this};
+   Field<mean::G>
+      g{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit GeneralEvaporation(
-      const wrapper<mean::U> &U,
-      const wrapper<mean::Theta> &theta = {},
-      const wrapper<mean::G> &g = {}
+      const wrapper<mean::U>
+         &U,
+      const wrapper<mean::Theta>
+         &theta = {},
+      const wrapper<mean::G>
+         &g = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       U(this,U),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   GeneralEvaporation &operator=(const GeneralEvaporation &) = default;
-   GeneralEvaporation &operator=(GeneralEvaporation &&) = default;
+   // copy
+   GeneralEvaporation &operator=(const GeneralEvaporation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         U = other.U;
+         theta = other.theta;
+         g = other.g;
+      }
+      return *this;
+   }
+
+   // move
+   GeneralEvaporation &operator=(GeneralEvaporation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         U = std::move(other.U);
+         theta = std::move(other.theta);
+         g = std::move(other.g);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

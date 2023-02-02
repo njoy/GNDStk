@@ -38,7 +38,8 @@ class OrphanProducts :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::OrphanProduct>("orphanProduct")
+         ++Child<mean::OrphanProduct>
+            ("orphanProduct")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::OrphanProduct>> orphanProduct{this};
+   Field<std::vector<mean::OrphanProduct>>
+      orphanProduct{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit OrphanProducts(
-      const wrapper<std::vector<mean::OrphanProduct>> &orphanProduct
+      const wrapper<std::vector<mean::OrphanProduct>>
+         &orphanProduct
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       orphanProduct(this,orphanProduct)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   OrphanProducts &operator=(const OrphanProducts &) = default;
-   OrphanProducts &operator=(OrphanProducts &&) = default;
+   // copy
+   OrphanProducts &operator=(const OrphanProducts &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         orphanProduct = other.orphanProduct;
+      }
+      return *this;
+   }
+
+   // move
+   OrphanProducts &operator=(OrphanProducts &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         orphanProduct = std::move(other.orphanProduct);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

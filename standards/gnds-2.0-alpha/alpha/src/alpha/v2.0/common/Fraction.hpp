@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit Fraction(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &value = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &value = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Fraction &operator=(const Fraction &) = default;
-   Fraction &operator=(Fraction &&) = default;
+   // copy
+   Fraction &operator=(const Fraction &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Fraction &operator=(Fraction &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -46,11 +46,16 @@ class Nuclide :
             / Meta<>("id") |
 
          // children
-         --Child<std::optional<common::Mass>>("mass") |
-         --Child<common::Charge>("charge") |
-         --Child<common::Nucleus>("nucleus") |
-         --Child<std::optional<common::DecayData>>("decayData") |
-         --Child<std::optional<common::FissionFragmentData>>("fissionFragmentData")
+         --Child<std::optional<common::Mass>>
+            ("mass") |
+         --Child<common::Charge>
+            ("charge") |
+         --Child<common::Nucleus>
+            ("nucleus") |
+         --Child<std::optional<common::DecayData>>
+            ("decayData") |
+         --Child<std::optional<common::FissionFragmentData>>
+            ("fissionFragmentData")
       ;
    }
 
@@ -64,11 +69,16 @@ public:
    Field<std::string> id{this};
 
    // children
-   Field<std::optional<common::Mass>> mass{this};
-   Field<common::Charge> charge{this};
-   Field<common::Nucleus> nucleus{this};
-   Field<std::optional<common::DecayData>> decayData{this};
-   Field<std::optional<common::FissionFragmentData>> fissionFragmentData{this};
+   Field<std::optional<common::Mass>>
+      mass{this};
+   Field<common::Charge>
+      charge{this};
+   Field<common::Nucleus>
+      nucleus{this};
+   Field<std::optional<common::DecayData>>
+      decayData{this};
+   Field<std::optional<common::FissionFragmentData>>
+      fissionFragmentData{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +102,18 @@ public:
 
    // from fields, comment excluded
    explicit Nuclide(
-      const wrapper<std::string> &id,
-      const wrapper<std::optional<common::Mass>> &mass = {},
-      const wrapper<common::Charge> &charge = {},
-      const wrapper<common::Nucleus> &nucleus = {},
-      const wrapper<std::optional<common::DecayData>> &decayData = {},
-      const wrapper<std::optional<common::FissionFragmentData>> &fissionFragmentData = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<std::optional<common::Mass>>
+         &mass = {},
+      const wrapper<common::Charge>
+         &charge = {},
+      const wrapper<common::Nucleus>
+         &nucleus = {},
+      const wrapper<std::optional<common::DecayData>>
+         &decayData = {},
+      const wrapper<std::optional<common::FissionFragmentData>>
+         &fissionFragmentData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -149,8 +165,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nuclide &operator=(const Nuclide &) = default;
-   Nuclide &operator=(Nuclide &&) = default;
+   // copy
+   Nuclide &operator=(const Nuclide &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         mass = other.mass;
+         charge = other.charge;
+         nucleus = other.nucleus;
+         decayData = other.decayData;
+         fissionFragmentData = other.fissionFragmentData;
+      }
+      return *this;
+   }
+
+   // move
+   Nuclide &operator=(Nuclide &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         mass = std::move(other.mass);
+         charge = std::move(other.charge);
+         nucleus = std::move(other.nucleus);
+         decayData = std::move(other.decayData);
+         fissionFragmentData = std::move(other.fissionFragmentData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

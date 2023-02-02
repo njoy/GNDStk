@@ -47,10 +47,14 @@ class Product :
             / Meta<>("pid") |
 
          // children
-         --Child<std::optional<common::Multiplicity>>("multiplicity") |
-         --Child<std::optional<common::Distribution>>("distribution") |
-         --Child<std::optional<reduced::OutputChannel>>("outputChannel") |
-         --Child<std::optional<mean::AverageProductEnergy>>("averageProductEnergy")
+         --Child<std::optional<common::Multiplicity>>
+            ("multiplicity") |
+         --Child<std::optional<common::Distribution>>
+            ("distribution") |
+         --Child<std::optional<reduced::OutputChannel>>
+            ("outputChannel") |
+         --Child<std::optional<mean::AverageProductEnergy>>
+            ("averageProductEnergy")
       ;
    }
 
@@ -65,10 +69,14 @@ public:
    Field<std::string> pid{this};
 
    // children
-   Field<std::optional<common::Multiplicity>> multiplicity{this};
-   Field<std::optional<common::Distribution>> distribution{this};
-   Field<std::optional<reduced::OutputChannel>> outputChannel{this};
-   Field<std::optional<mean::AverageProductEnergy>> averageProductEnergy{this};
+   Field<std::optional<common::Multiplicity>>
+      multiplicity{this};
+   Field<std::optional<common::Distribution>>
+      distribution{this};
+   Field<std::optional<reduced::OutputChannel>>
+      outputChannel{this};
+   Field<std::optional<mean::AverageProductEnergy>>
+      averageProductEnergy{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +100,18 @@ public:
 
    // from fields, comment excluded
    explicit Product(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<std::optional<common::Multiplicity>> &multiplicity = {},
-      const wrapper<std::optional<common::Distribution>> &distribution = {},
-      const wrapper<std::optional<reduced::OutputChannel>> &outputChannel = {},
-      const wrapper<std::optional<mean::AverageProductEnergy>> &averageProductEnergy = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<std::optional<common::Multiplicity>>
+         &multiplicity = {},
+      const wrapper<std::optional<common::Distribution>>
+         &distribution = {},
+      const wrapper<std::optional<reduced::OutputChannel>>
+         &outputChannel = {},
+      const wrapper<std::optional<mean::AverageProductEnergy>>
+         &averageProductEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +163,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Product &operator=(const Product &) = default;
-   Product &operator=(Product &&) = default;
+   // copy
+   Product &operator=(const Product &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         multiplicity = other.multiplicity;
+         distribution = other.distribution;
+         outputChannel = other.outputChannel;
+         averageProductEnergy = other.averageProductEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   Product &operator=(Product &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         multiplicity = std::move(other.multiplicity);
+         distribution = std::move(other.distribution);
+         outputChannel = std::move(other.outputChannel);
+         averageProductEnergy = std::move(other.averageProductEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

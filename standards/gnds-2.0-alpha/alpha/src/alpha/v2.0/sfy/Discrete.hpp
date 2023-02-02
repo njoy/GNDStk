@@ -45,10 +45,14 @@ class Discrete :
             / Meta<>("type") |
 
          // children
-         --Child<sfy::Intensity>("intensity") |
-         --Child<common::Energy>("energy") |
-         --Child<std::optional<sfy::InternalConversionCoefficients>>("internalConversionCoefficients") |
-         --Child<std::optional<sfy::PositronEmissionIntensity>>("positronEmissionIntensity")
+         --Child<sfy::Intensity>
+            ("intensity") |
+         --Child<common::Energy>
+            ("energy") |
+         --Child<std::optional<sfy::InternalConversionCoefficients>>
+            ("internalConversionCoefficients") |
+         --Child<std::optional<sfy::PositronEmissionIntensity>>
+            ("positronEmissionIntensity")
       ;
    }
 
@@ -62,10 +66,14 @@ public:
    Field<std::optional<std::string>> type{this};
 
    // children
-   Field<sfy::Intensity> intensity{this};
-   Field<common::Energy> energy{this};
-   Field<std::optional<sfy::InternalConversionCoefficients>> internalConversionCoefficients{this};
-   Field<std::optional<sfy::PositronEmissionIntensity>> positronEmissionIntensity{this};
+   Field<sfy::Intensity>
+      intensity{this};
+   Field<common::Energy>
+      energy{this};
+   Field<std::optional<sfy::InternalConversionCoefficients>>
+      internalConversionCoefficients{this};
+   Field<std::optional<sfy::PositronEmissionIntensity>>
+      positronEmissionIntensity{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +96,16 @@ public:
 
    // from fields, comment excluded
    explicit Discrete(
-      const wrapper<std::optional<std::string>> &type,
-      const wrapper<sfy::Intensity> &intensity = {},
-      const wrapper<common::Energy> &energy = {},
-      const wrapper<std::optional<sfy::InternalConversionCoefficients>> &internalConversionCoefficients = {},
-      const wrapper<std::optional<sfy::PositronEmissionIntensity>> &positronEmissionIntensity = {}
+      const wrapper<std::optional<std::string>>
+         &type,
+      const wrapper<sfy::Intensity>
+         &intensity = {},
+      const wrapper<common::Energy>
+         &energy = {},
+      const wrapper<std::optional<sfy::InternalConversionCoefficients>>
+         &internalConversionCoefficients = {},
+      const wrapper<std::optional<sfy::PositronEmissionIntensity>>
+         &positronEmissionIntensity = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       type(this,type),
@@ -141,8 +154,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Discrete &operator=(const Discrete &) = default;
-   Discrete &operator=(Discrete &&) = default;
+   // copy
+   Discrete &operator=(const Discrete &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         type = other.type;
+         intensity = other.intensity;
+         energy = other.energy;
+         internalConversionCoefficients = other.internalConversionCoefficients;
+         positronEmissionIntensity = other.positronEmissionIntensity;
+      }
+      return *this;
+   }
+
+   // move
+   Discrete &operator=(Discrete &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         type = std::move(other.type);
+         intensity = std::move(other.intensity);
+         energy = std::move(other.energy);
+         internalConversionCoefficients = std::move(other.internalConversionCoefficients);
+         positronEmissionIntensity = std::move(other.positronEmissionIntensity);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -44,9 +44,12 @@ class Mixed :
             / Meta<>("label") |
 
          // children
-         ++Child<covariance::CovarianceMatrix>("covarianceMatrix") |
-         ++Child<std::optional<covariance::Sum>>("sum") |
-         --Child<std::optional<covariance::ShortRangeSelfScalingVariance>>("shortRangeSelfScalingVariance")
+         ++Child<covariance::CovarianceMatrix>
+            ("covarianceMatrix") |
+         ++Child<std::optional<covariance::Sum>>
+            ("sum") |
+         --Child<std::optional<covariance::ShortRangeSelfScalingVariance>>
+            ("shortRangeSelfScalingVariance")
       ;
    }
 
@@ -60,9 +63,12 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<std::vector<covariance::CovarianceMatrix>> covarianceMatrix{this};
-   Field<std::optional<std::vector<covariance::Sum>>> sum{this};
-   Field<std::optional<covariance::ShortRangeSelfScalingVariance>> shortRangeSelfScalingVariance{this};
+   Field<std::vector<covariance::CovarianceMatrix>>
+      covarianceMatrix{this};
+   Field<std::optional<std::vector<covariance::Sum>>>
+      sum{this};
+   Field<std::optional<covariance::ShortRangeSelfScalingVariance>>
+      shortRangeSelfScalingVariance{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +90,14 @@ public:
 
    // from fields, comment excluded
    explicit Mixed(
-      const wrapper<std::string> &label,
-      const wrapper<std::vector<covariance::CovarianceMatrix>> &covarianceMatrix = {},
-      const wrapper<std::optional<std::vector<covariance::Sum>>> &sum = {},
-      const wrapper<std::optional<covariance::ShortRangeSelfScalingVariance>> &shortRangeSelfScalingVariance = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::vector<covariance::CovarianceMatrix>>
+         &covarianceMatrix = {},
+      const wrapper<std::optional<std::vector<covariance::Sum>>>
+         &sum = {},
+      const wrapper<std::optional<covariance::ShortRangeSelfScalingVariance>>
+         &shortRangeSelfScalingVariance = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +143,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Mixed &operator=(const Mixed &) = default;
-   Mixed &operator=(Mixed &&) = default;
+   // copy
+   Mixed &operator=(const Mixed &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         covarianceMatrix = other.covarianceMatrix;
+         sum = other.sum;
+         shortRangeSelfScalingVariance = other.shortRangeSelfScalingVariance;
+      }
+      return *this;
+   }
+
+   // move
+   Mixed &operator=(Mixed &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         covarianceMatrix = std::move(other.covarianceMatrix);
+         sum = std::move(other.sum);
+         shortRangeSelfScalingVariance = std::move(other.shortRangeSelfScalingVariance);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

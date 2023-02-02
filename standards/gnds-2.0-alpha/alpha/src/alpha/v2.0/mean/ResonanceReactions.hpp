@@ -38,7 +38,8 @@ class ResonanceReactions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::ResonanceReaction>("resonanceReaction")
+         ++Child<mean::ResonanceReaction>
+            ("resonanceReaction")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::ResonanceReaction>> resonanceReaction{this};
+   Field<std::vector<mean::ResonanceReaction>>
+      resonanceReaction{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ResonanceReactions(
-      const wrapper<std::vector<mean::ResonanceReaction>> &resonanceReaction
+      const wrapper<std::vector<mean::ResonanceReaction>>
+         &resonanceReaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resonanceReaction(this,resonanceReaction)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonanceReactions &operator=(const ResonanceReactions &) = default;
-   ResonanceReactions &operator=(ResonanceReactions &&) = default;
+   // copy
+   ResonanceReactions &operator=(const ResonanceReactions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         resonanceReaction = other.resonanceReaction;
+      }
+      return *this;
+   }
+
+   // move
+   ResonanceReactions &operator=(ResonanceReactions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         resonanceReaction = std::move(other.resonanceReaction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

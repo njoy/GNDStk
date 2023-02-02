@@ -38,7 +38,8 @@ class CrossSectionSums :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::CrossSectionSum>("crossSectionSum")
+         ++Child<mean::CrossSectionSum>
+            ("crossSectionSum")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::CrossSectionSum>> crossSectionSum{this};
+   Field<std::vector<mean::CrossSectionSum>>
+      crossSectionSum{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit CrossSectionSums(
-      const wrapper<std::vector<mean::CrossSectionSum>> &crossSectionSum
+      const wrapper<std::vector<mean::CrossSectionSum>>
+         &crossSectionSum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       crossSectionSum(this,crossSectionSum)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSectionSums &operator=(const CrossSectionSums &) = default;
-   CrossSectionSums &operator=(CrossSectionSums &&) = default;
+   // copy
+   CrossSectionSums &operator=(const CrossSectionSums &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         crossSectionSum = other.crossSectionSum;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSectionSums &operator=(CrossSectionSums &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         crossSectionSum = std::move(other.crossSectionSum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

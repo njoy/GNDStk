@@ -46,9 +46,12 @@ class CrossSectionSum :
             / Meta<>("ENDF_MT") |
 
          // children
-         --Child<mean::Summands>("summands") |
-         --Child<common::Q>("Q") |
-         --Child<common::CrossSection>("crossSection")
+         --Child<mean::Summands>
+            ("summands") |
+         --Child<common::Q>
+            ("Q") |
+         --Child<common::CrossSection>
+            ("crossSection")
       ;
    }
 
@@ -63,9 +66,12 @@ public:
    Field<int> ENDF_MT{this};
 
    // children
-   Field<mean::Summands> summands{this};
-   Field<common::Q> Q{this};
-   Field<common::CrossSection> crossSection{this};
+   Field<mean::Summands>
+      summands{this};
+   Field<common::Q>
+      Q{this};
+   Field<common::CrossSection>
+      crossSection{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +94,16 @@ public:
 
    // from fields, comment excluded
    explicit CrossSectionSum(
-      const wrapper<std::string> &label,
-      const wrapper<int> &ENDF_MT = {},
-      const wrapper<mean::Summands> &summands = {},
-      const wrapper<common::Q> &Q = {},
-      const wrapper<common::CrossSection> &crossSection = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &ENDF_MT = {},
+      const wrapper<mean::Summands>
+         &summands = {},
+      const wrapper<common::Q>
+         &Q = {},
+      const wrapper<common::CrossSection>
+         &crossSection = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +152,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSectionSum &operator=(const CrossSectionSum &) = default;
-   CrossSectionSum &operator=(CrossSectionSum &&) = default;
+   // copy
+   CrossSectionSum &operator=(const CrossSectionSum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ENDF_MT = other.ENDF_MT;
+         summands = other.summands;
+         Q = other.Q;
+         crossSection = other.crossSection;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSectionSum &operator=(CrossSectionSum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ENDF_MT = std::move(other.ENDF_MT);
+         summands = std::move(other.summands);
+         Q = std::move(other.Q);
+         crossSection = std::move(other.crossSection);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

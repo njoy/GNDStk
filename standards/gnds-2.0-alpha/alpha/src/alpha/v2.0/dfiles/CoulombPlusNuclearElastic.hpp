@@ -52,9 +52,12 @@ class CoulombPlusNuclearElastic :
             / Meta<>("identicalParticles") |
 
          // children
-         --Child<std::optional<dfiles::RutherfordScattering>>("RutherfordScattering") |
-         --Child<std::optional<dfiles::NuclearAmplitudeExpansion>>("nuclearAmplitudeExpansion") |
-         --Child<std::optional<dfiles::NuclearPlusInterference>>("nuclearPlusInterference")
+         --Child<std::optional<dfiles::RutherfordScattering>>
+            ("RutherfordScattering") |
+         --Child<std::optional<dfiles::NuclearAmplitudeExpansion>>
+            ("nuclearAmplitudeExpansion") |
+         --Child<std::optional<dfiles::NuclearPlusInterference>>
+            ("nuclearPlusInterference")
       ;
    }
 
@@ -72,9 +75,12 @@ public:
    Field<std::optional<bool>> identicalParticles{this};
 
    // children
-   Field<std::optional<dfiles::RutherfordScattering>> RutherfordScattering{this};
-   Field<std::optional<dfiles::NuclearAmplitudeExpansion>> nuclearAmplitudeExpansion{this};
-   Field<std::optional<dfiles::NuclearPlusInterference>> nuclearPlusInterference{this};
+   Field<std::optional<dfiles::RutherfordScattering>>
+      RutherfordScattering{this};
+   Field<std::optional<dfiles::NuclearAmplitudeExpansion>>
+      nuclearAmplitudeExpansion{this};
+   Field<std::optional<dfiles::NuclearPlusInterference>>
+      nuclearPlusInterference{this};
 
    // ------------------------
    // Constructors
@@ -100,14 +106,22 @@ public:
 
    // from fields, comment excluded
    explicit CoulombPlusNuclearElastic(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<std::string>> &href = {},
-      const wrapper<std::optional<std::string>> &pid = {},
-      const wrapper<std::optional<std::string>> &productFrame = {},
-      const wrapper<std::optional<bool>> &identicalParticles = {},
-      const wrapper<std::optional<dfiles::RutherfordScattering>> &RutherfordScattering = {},
-      const wrapper<std::optional<dfiles::NuclearAmplitudeExpansion>> &nuclearAmplitudeExpansion = {},
-      const wrapper<std::optional<dfiles::NuclearPlusInterference>> &nuclearPlusInterference = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &href = {},
+      const wrapper<std::optional<std::string>>
+         &pid = {},
+      const wrapper<std::optional<std::string>>
+         &productFrame = {},
+      const wrapper<std::optional<bool>>
+         &identicalParticles = {},
+      const wrapper<std::optional<dfiles::RutherfordScattering>>
+         &RutherfordScattering = {},
+      const wrapper<std::optional<dfiles::NuclearAmplitudeExpansion>>
+         &nuclearAmplitudeExpansion = {},
+      const wrapper<std::optional<dfiles::NuclearPlusInterference>>
+         &nuclearPlusInterference = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -165,8 +179,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   CoulombPlusNuclearElastic &operator=(const CoulombPlusNuclearElastic &) = default;
-   CoulombPlusNuclearElastic &operator=(CoulombPlusNuclearElastic &&) = default;
+   // copy
+   CoulombPlusNuclearElastic &operator=(const CoulombPlusNuclearElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         identicalParticles = other.identicalParticles;
+         RutherfordScattering = other.RutherfordScattering;
+         nuclearAmplitudeExpansion = other.nuclearAmplitudeExpansion;
+         nuclearPlusInterference = other.nuclearPlusInterference;
+      }
+      return *this;
+   }
+
+   // move
+   CoulombPlusNuclearElastic &operator=(CoulombPlusNuclearElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         identicalParticles = std::move(other.identicalParticles);
+         RutherfordScattering = std::move(other.RutherfordScattering);
+         nuclearAmplitudeExpansion = std::move(other.nuclearAmplitudeExpansion);
+         nuclearPlusInterference = std::move(other.nuclearPlusInterference);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -44,7 +44,8 @@ class ENDFconversionFlags :
             / Meta<>("href") |
 
          // children
-         ++Child<common::Conversion>("conversion")
+         ++Child<common::Conversion>
+            ("conversion")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<std::optional<std::string>> href{this};
 
    // children
-   Field<std::vector<common::Conversion>> conversion{this};
+   Field<std::vector<common::Conversion>>
+      conversion{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit ENDFconversionFlags(
-      const wrapper<std::optional<std::string>> &flags,
-      const wrapper<std::optional<std::string>> &href = {},
-      const wrapper<std::vector<common::Conversion>> &conversion = {}
+      const wrapper<std::optional<std::string>>
+         &flags,
+      const wrapper<std::optional<std::string>>
+         &href = {},
+      const wrapper<std::vector<common::Conversion>>
+         &conversion = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       flags(this,flags),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ENDFconversionFlags &operator=(const ENDFconversionFlags &) = default;
-   ENDFconversionFlags &operator=(ENDFconversionFlags &&) = default;
+   // copy
+   ENDFconversionFlags &operator=(const ENDFconversionFlags &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         flags = other.flags;
+         href = other.href;
+         conversion = other.conversion;
+      }
+      return *this;
+   }
+
+   // move
+   ENDFconversionFlags &operator=(ENDFconversionFlags &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         flags = std::move(other.flags);
+         href = std::move(other.href);
+         conversion = std::move(other.conversion);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

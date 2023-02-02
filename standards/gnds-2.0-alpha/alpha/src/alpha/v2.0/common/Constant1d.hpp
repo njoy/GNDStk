@@ -48,7 +48,8 @@ class Constant1d :
             / Meta<>("domainMax") |
 
          // children
-         --Child<common::Axes>("axes")
+         --Child<common::Axes>
+            ("axes")
       ;
    }
 
@@ -65,7 +66,8 @@ public:
    Field<double> domainMax{this};
 
    // children
-   Field<common::Axes> axes{this};
+   Field<common::Axes>
+      axes{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +90,16 @@ public:
 
    // from fields, comment excluded
    explicit Constant1d(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<double> &value = {},
-      const wrapper<double> &domainMin = {},
-      const wrapper<double> &domainMax = {},
-      const wrapper<common::Axes> &axes = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<double>
+         &value = {},
+      const wrapper<double>
+         &domainMin = {},
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<common::Axes>
+         &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +148,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Constant1d &operator=(const Constant1d &) = default;
-   Constant1d &operator=(Constant1d &&) = default;
+   // copy
+   Constant1d &operator=(const Constant1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+      }
+      return *this;
+   }
+
+   // move
+   Constant1d &operator=(Constant1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

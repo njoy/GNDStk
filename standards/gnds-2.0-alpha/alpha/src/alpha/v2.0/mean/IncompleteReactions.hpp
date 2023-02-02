@@ -38,7 +38,8 @@ class IncompleteReactions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Reaction>("reaction")
+         ++Child<common::Reaction>
+            ("reaction")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Reaction>> reaction{this};
+   Field<std::vector<common::Reaction>>
+      reaction{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit IncompleteReactions(
-      const wrapper<std::vector<common::Reaction>> &reaction
+      const wrapper<std::vector<common::Reaction>>
+         &reaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       reaction(this,reaction)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncompleteReactions &operator=(const IncompleteReactions &) = default;
-   IncompleteReactions &operator=(IncompleteReactions &&) = default;
+   // copy
+   IncompleteReactions &operator=(const IncompleteReactions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         reaction = other.reaction;
+      }
+      return *this;
+   }
+
+   // move
+   IncompleteReactions &operator=(IncompleteReactions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         reaction = std::move(other.reaction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

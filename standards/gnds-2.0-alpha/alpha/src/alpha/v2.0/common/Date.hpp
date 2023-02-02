@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit Date(
-      const wrapper<std::string> &value,
-      const wrapper<std::string> &dateType = {}
+      const wrapper<std::string>
+         &value,
+      const wrapper<std::string>
+         &dateType = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Date &operator=(const Date &) = default;
-   Date &operator=(Date &&) = default;
+   // copy
+   Date &operator=(const Date &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         dateType = other.dateType;
+      }
+      return *this;
+   }
+
+   // move
+   Date &operator=(Date &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         dateType = std::move(other.dateType);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

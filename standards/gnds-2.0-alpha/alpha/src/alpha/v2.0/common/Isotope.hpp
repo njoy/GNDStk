@@ -44,7 +44,8 @@ class Isotope :
             / Meta<>("A") |
 
          // children
-         --Child<common::Nuclides>("nuclides")
+         --Child<common::Nuclides>
+            ("nuclides")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<int> A{this};
 
    // children
-   Field<common::Nuclides> nuclides{this};
+   Field<common::Nuclides>
+      nuclides{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Isotope(
-      const wrapper<std::string> &symbol,
-      const wrapper<int> &A = {},
-      const wrapper<common::Nuclides> &nuclides = {}
+      const wrapper<std::string>
+         &symbol,
+      const wrapper<int>
+         &A = {},
+      const wrapper<common::Nuclides>
+         &nuclides = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotope &operator=(const Isotope &) = default;
-   Isotope &operator=(Isotope &&) = default;
+   // copy
+   Isotope &operator=(const Isotope &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         symbol = other.symbol;
+         A = other.A;
+         nuclides = other.nuclides;
+      }
+      return *this;
+   }
+
+   // move
+   Isotope &operator=(Isotope &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         symbol = std::move(other.symbol);
+         A = std::move(other.A);
+         nuclides = std::move(other.nuclides);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

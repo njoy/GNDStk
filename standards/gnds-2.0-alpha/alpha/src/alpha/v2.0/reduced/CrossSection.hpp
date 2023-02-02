@@ -40,9 +40,12 @@ class CrossSection :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::XYs1d>>("XYs1d") |
-         --Child<std::optional<mean::Regions1d>>("regions1d") |
-         --Child<std::optional<mean::Reference>>("reference")
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<mean::Regions1d>>
+            ("regions1d") |
+         --Child<std::optional<mean::Reference>>
+            ("reference")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::XYs1d>> XYs1d{this};
-   Field<std::optional<mean::Regions1d>> regions1d{this};
-   Field<std::optional<mean::Reference>> reference{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<mean::Regions1d>>
+      regions1d{this};
+   Field<std::optional<mean::Reference>>
+      reference{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit CrossSection(
-      const wrapper<std::optional<common::XYs1d>> &XYs1d,
-      const wrapper<std::optional<mean::Regions1d>> &regions1d = {},
-      const wrapper<std::optional<mean::Reference>> &reference = {}
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d,
+      const wrapper<std::optional<mean::Regions1d>>
+         &regions1d = {},
+      const wrapper<std::optional<mean::Reference>>
+         &reference = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSection &operator=(const CrossSection &) = default;
-   CrossSection &operator=(CrossSection &&) = default;
+   // copy
+   CrossSection &operator=(const CrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+         regions1d = other.regions1d;
+         reference = other.reference;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSection &operator=(CrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+         regions1d = std::move(other.regions1d);
+         reference = std::move(other.reference);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

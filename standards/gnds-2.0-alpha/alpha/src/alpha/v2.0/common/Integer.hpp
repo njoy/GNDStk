@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit Integer(
-      const wrapper<std::string> &label,
-      const wrapper<int> &value = {},
-      const wrapper<std::optional<std::string>> &unit = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &value = {},
+      const wrapper<std::optional<std::string>>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Integer &operator=(const Integer &) = default;
-   Integer &operator=(Integer &&) = default;
+   // copy
+   Integer &operator=(const Integer &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Integer &operator=(Integer &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

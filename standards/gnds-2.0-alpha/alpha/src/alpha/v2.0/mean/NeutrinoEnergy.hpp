@@ -38,7 +38,8 @@ class NeutrinoEnergy :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Polynomial1d>("polynomial1d")
+         --Child<common::Polynomial1d>
+            ("polynomial1d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Polynomial1d> polynomial1d{this};
+   Field<common::Polynomial1d>
+      polynomial1d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit NeutrinoEnergy(
-      const wrapper<common::Polynomial1d> &polynomial1d
+      const wrapper<common::Polynomial1d>
+         &polynomial1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       polynomial1d(this,polynomial1d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   NeutrinoEnergy &operator=(const NeutrinoEnergy &) = default;
-   NeutrinoEnergy &operator=(NeutrinoEnergy &&) = default;
+   // copy
+   NeutrinoEnergy &operator=(const NeutrinoEnergy &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         polynomial1d = other.polynomial1d;
+      }
+      return *this;
+   }
+
+   // move
+   NeutrinoEnergy &operator=(NeutrinoEnergy &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         polynomial1d = std::move(other.polynomial1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -38,7 +38,8 @@ class AverageEnergies :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<sfy::AverageEnergy>("averageEnergy")
+         ++Child<sfy::AverageEnergy>
+            ("averageEnergy")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<sfy::AverageEnergy>> averageEnergy{this};
+   Field<std::vector<sfy::AverageEnergy>>
+      averageEnergy{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit AverageEnergies(
-      const wrapper<std::vector<sfy::AverageEnergy>> &averageEnergy
+      const wrapper<std::vector<sfy::AverageEnergy>>
+         &averageEnergy
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       averageEnergy(this,averageEnergy)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   AverageEnergies &operator=(const AverageEnergies &) = default;
-   AverageEnergies &operator=(AverageEnergies &&) = default;
+   // copy
+   AverageEnergies &operator=(const AverageEnergies &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         averageEnergy = other.averageEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   AverageEnergies &operator=(AverageEnergies &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         averageEnergy = std::move(other.averageEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

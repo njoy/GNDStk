@@ -38,7 +38,8 @@ class FissionEnergyReleases :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::FissionEnergyRelease>("fissionEnergyRelease")
+         ++Child<mean::FissionEnergyRelease>
+            ("fissionEnergyRelease")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::FissionEnergyRelease>> fissionEnergyRelease{this};
+   Field<std::vector<mean::FissionEnergyRelease>>
+      fissionEnergyRelease{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit FissionEnergyReleases(
-      const wrapper<std::vector<mean::FissionEnergyRelease>> &fissionEnergyRelease
+      const wrapper<std::vector<mean::FissionEnergyRelease>>
+         &fissionEnergyRelease
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       fissionEnergyRelease(this,fissionEnergyRelease)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionEnergyReleases &operator=(const FissionEnergyReleases &) = default;
-   FissionEnergyReleases &operator=(FissionEnergyReleases &&) = default;
+   // copy
+   FissionEnergyReleases &operator=(const FissionEnergyReleases &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         fissionEnergyRelease = other.fissionEnergyRelease;
+      }
+      return *this;
+   }
+
+   // move
+   FissionEnergyReleases &operator=(FissionEnergyReleases &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         fissionEnergyRelease = std::move(other.fissionEnergyRelease);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

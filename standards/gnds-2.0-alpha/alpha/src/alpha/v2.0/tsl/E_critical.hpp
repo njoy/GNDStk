@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit E_critical(
-      const wrapper<double> &value,
-      const wrapper<std::string> &unit = {}
+      const wrapper<double>
+         &value,
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   E_critical &operator=(const E_critical &) = default;
-   E_critical &operator=(E_critical &&) = default;
+   // copy
+   E_critical &operator=(const E_critical &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   E_critical &operator=(E_critical &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

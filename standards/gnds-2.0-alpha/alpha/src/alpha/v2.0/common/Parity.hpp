@@ -38,7 +38,8 @@ class Parity :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Integer>("integer")
+         --Child<common::Integer>
+            ("integer")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Integer> integer{this};
+   Field<common::Integer>
+      integer{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Parity(
-      const wrapper<common::Integer> &integer
+      const wrapper<common::Integer>
+         &integer
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       integer(this,integer)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Parity &operator=(const Parity &) = default;
-   Parity &operator=(Parity &&) = default;
+   // copy
+   Parity &operator=(const Parity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         integer = other.integer;
+      }
+      return *this;
+   }
+
+   // move
+   Parity &operator=(Parity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         integer = std::move(other.integer);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

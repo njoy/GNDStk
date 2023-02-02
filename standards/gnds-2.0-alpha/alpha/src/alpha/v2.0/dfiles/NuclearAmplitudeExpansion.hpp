@@ -40,9 +40,12 @@ class NuclearAmplitudeExpansion :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<dfiles::NuclearTerm>("nuclearTerm") |
-         --Child<dfiles::RealInterferenceTerm>("realInterferenceTerm") |
-         --Child<dfiles::ImaginaryInterferenceTerm>("imaginaryInterferenceTerm")
+         --Child<dfiles::NuclearTerm>
+            ("nuclearTerm") |
+         --Child<dfiles::RealInterferenceTerm>
+            ("realInterferenceTerm") |
+         --Child<dfiles::ImaginaryInterferenceTerm>
+            ("imaginaryInterferenceTerm")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<dfiles::NuclearTerm> nuclearTerm{this};
-   Field<dfiles::RealInterferenceTerm> realInterferenceTerm{this};
-   Field<dfiles::ImaginaryInterferenceTerm> imaginaryInterferenceTerm{this};
+   Field<dfiles::NuclearTerm>
+      nuclearTerm{this};
+   Field<dfiles::RealInterferenceTerm>
+      realInterferenceTerm{this};
+   Field<dfiles::ImaginaryInterferenceTerm>
+      imaginaryInterferenceTerm{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit NuclearAmplitudeExpansion(
-      const wrapper<dfiles::NuclearTerm> &nuclearTerm,
-      const wrapper<dfiles::RealInterferenceTerm> &realInterferenceTerm = {},
-      const wrapper<dfiles::ImaginaryInterferenceTerm> &imaginaryInterferenceTerm = {}
+      const wrapper<dfiles::NuclearTerm>
+         &nuclearTerm,
+      const wrapper<dfiles::RealInterferenceTerm>
+         &realInterferenceTerm = {},
+      const wrapper<dfiles::ImaginaryInterferenceTerm>
+         &imaginaryInterferenceTerm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclearTerm(this,nuclearTerm),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   NuclearAmplitudeExpansion &operator=(const NuclearAmplitudeExpansion &) = default;
-   NuclearAmplitudeExpansion &operator=(NuclearAmplitudeExpansion &&) = default;
+   // copy
+   NuclearAmplitudeExpansion &operator=(const NuclearAmplitudeExpansion &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclearTerm = other.nuclearTerm;
+         realInterferenceTerm = other.realInterferenceTerm;
+         imaginaryInterferenceTerm = other.imaginaryInterferenceTerm;
+      }
+      return *this;
+   }
+
+   // move
+   NuclearAmplitudeExpansion &operator=(NuclearAmplitudeExpansion &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclearTerm = std::move(other.nuclearTerm);
+         realInterferenceTerm = std::move(other.realInterferenceTerm);
+         imaginaryInterferenceTerm = std::move(other.imaginaryInterferenceTerm);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

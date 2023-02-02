@@ -38,7 +38,8 @@ class Spectra :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<sfy::Spectrum>("spectrum")
+         ++Child<sfy::Spectrum>
+            ("spectrum")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<sfy::Spectrum>> spectrum{this};
+   Field<std::vector<sfy::Spectrum>>
+      spectrum{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Spectra(
-      const wrapper<std::vector<sfy::Spectrum>> &spectrum
+      const wrapper<std::vector<sfy::Spectrum>>
+         &spectrum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       spectrum(this,spectrum)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Spectra &operator=(const Spectra &) = default;
-   Spectra &operator=(Spectra &&) = default;
+   // copy
+   Spectra &operator=(const Spectra &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         spectrum = other.spectrum;
+      }
+      return *this;
+   }
+
+   // move
+   Spectra &operator=(Spectra &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         spectrum = std::move(other.spectrum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

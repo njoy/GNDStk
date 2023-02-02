@@ -45,8 +45,10 @@ class Product :
             / Meta<>("pid") |
 
          // children
-         --Child<common::Multiplicity>("multiplicity") |
-         --Child<reduced::Distribution>("distribution")
+         --Child<common::Multiplicity>
+            ("multiplicity") |
+         --Child<reduced::Distribution>
+            ("distribution")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::string> pid{this};
 
    // children
-   Field<common::Multiplicity> multiplicity{this};
-   Field<reduced::Distribution> distribution{this};
+   Field<common::Multiplicity>
+      multiplicity{this};
+   Field<reduced::Distribution>
+      distribution{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Product(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<common::Multiplicity> &multiplicity = {},
-      const wrapper<reduced::Distribution> &distribution = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<common::Multiplicity>
+         &multiplicity = {},
+      const wrapper<reduced::Distribution>
+         &distribution = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Product &operator=(const Product &) = default;
-   Product &operator=(Product &&) = default;
+   // copy
+   Product &operator=(const Product &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         multiplicity = other.multiplicity;
+         distribution = other.distribution;
+      }
+      return *this;
+   }
+
+   // move
+   Product &operator=(Product &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         multiplicity = std::move(other.multiplicity);
+         distribution = std::move(other.distribution);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -86,8 +86,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   SCTApproximation &operator=(const SCTApproximation &) = default;
-   SCTApproximation &operator=(SCTApproximation &&) = default;
+   // copy
+   SCTApproximation &operator=(const SCTApproximation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   SCTApproximation &operator=(SCTApproximation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

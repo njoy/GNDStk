@@ -48,11 +48,16 @@ class Lepton :
             / Meta<>("generation") |
 
          // children
-         --Child<common::Mass>("mass") |
-         --Child<common::Spin>("spin") |
-         --Child<common::Parity>("parity") |
-         --Child<common::Charge>("charge") |
-         --Child<common::Halflife>("halflife")
+         --Child<common::Mass>
+            ("mass") |
+         --Child<common::Spin>
+            ("spin") |
+         --Child<common::Parity>
+            ("parity") |
+         --Child<common::Charge>
+            ("charge") |
+         --Child<common::Halflife>
+            ("halflife")
       ;
    }
 
@@ -67,11 +72,16 @@ public:
    Field<std::string> generation{this};
 
    // children
-   Field<common::Mass> mass{this};
-   Field<common::Spin> spin{this};
-   Field<common::Parity> parity{this};
-   Field<common::Charge> charge{this};
-   Field<common::Halflife> halflife{this};
+   Field<common::Mass>
+      mass{this};
+   Field<common::Spin>
+      spin{this};
+   Field<common::Parity>
+      parity{this};
+   Field<common::Charge>
+      charge{this};
+   Field<common::Halflife>
+      halflife{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +106,20 @@ public:
 
    // from fields, comment excluded
    explicit Lepton(
-      const wrapper<std::string> &id,
-      const wrapper<std::string> &generation = {},
-      const wrapper<common::Mass> &mass = {},
-      const wrapper<common::Spin> &spin = {},
-      const wrapper<common::Parity> &parity = {},
-      const wrapper<common::Charge> &charge = {},
-      const wrapper<common::Halflife> &halflife = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<std::string>
+         &generation = {},
+      const wrapper<common::Mass>
+         &mass = {},
+      const wrapper<common::Spin>
+         &spin = {},
+      const wrapper<common::Parity>
+         &parity = {},
+      const wrapper<common::Charge>
+         &charge = {},
+      const wrapper<common::Halflife>
+         &halflife = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -157,8 +174,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Lepton &operator=(const Lepton &) = default;
-   Lepton &operator=(Lepton &&) = default;
+   // copy
+   Lepton &operator=(const Lepton &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         generation = other.generation;
+         mass = other.mass;
+         spin = other.spin;
+         parity = other.parity;
+         charge = other.charge;
+         halflife = other.halflife;
+      }
+      return *this;
+   }
+
+   // move
+   Lepton &operator=(Lepton &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         generation = std::move(other.generation);
+         mass = std::move(other.mass);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         charge = std::move(other.charge);
+         halflife = std::move(other.halflife);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

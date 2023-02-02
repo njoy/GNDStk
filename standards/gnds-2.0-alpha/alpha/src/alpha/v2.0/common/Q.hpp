@@ -39,8 +39,10 @@ class Q :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Double>>("double") |
-         --Child<std::optional<common::Constant1d>>("constant1d")
+         --Child<std::optional<common::Double>>
+            ("double") |
+         --Child<std::optional<common::Constant1d>>
+            ("constant1d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Double>> Double{this};
-   Field<std::optional<common::Constant1d>> constant1d{this};
+   Field<std::optional<common::Double>>
+      Double{this};
+   Field<std::optional<common::Constant1d>>
+      constant1d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Q(
-      const wrapper<std::optional<common::Double>> &Double,
-      const wrapper<std::optional<common::Constant1d>> &constant1d = {}
+      const wrapper<std::optional<common::Double>>
+         &Double,
+      const wrapper<std::optional<common::Constant1d>>
+         &constant1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Q &operator=(const Q &) = default;
-   Q &operator=(Q &&) = default;
+   // copy
+   Q &operator=(const Q &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+         constant1d = other.constant1d;
+      }
+      return *this;
+   }
+
+   // move
+   Q &operator=(Q &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+         constant1d = std::move(other.constant1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

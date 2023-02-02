@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &href = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw &operator=(const ThermalNeutronScatteringLaw &) = default;
-   ThermalNeutronScatteringLaw &operator=(ThermalNeutronScatteringLaw &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw &operator=(const ThermalNeutronScatteringLaw &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw &operator=(ThermalNeutronScatteringLaw &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

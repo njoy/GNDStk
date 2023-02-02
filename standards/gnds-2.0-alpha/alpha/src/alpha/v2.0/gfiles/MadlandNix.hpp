@@ -40,9 +40,12 @@ class MadlandNix :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<gfiles::EFL>("EFL") |
-         --Child<gfiles::EFH>("EFH") |
-         --Child<gfiles::T_M>("T_M")
+         --Child<gfiles::EFL>
+            ("EFL") |
+         --Child<gfiles::EFH>
+            ("EFH") |
+         --Child<gfiles::T_M>
+            ("T_M")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<gfiles::EFL> EFL{this};
-   Field<gfiles::EFH> EFH{this};
-   Field<gfiles::T_M> T_M{this};
+   Field<gfiles::EFL>
+      EFL{this};
+   Field<gfiles::EFH>
+      EFH{this};
+   Field<gfiles::T_M>
+      T_M{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit MadlandNix(
-      const wrapper<gfiles::EFL> &EFL,
-      const wrapper<gfiles::EFH> &EFH = {},
-      const wrapper<gfiles::T_M> &T_M = {}
+      const wrapper<gfiles::EFL>
+         &EFL,
+      const wrapper<gfiles::EFH>
+         &EFH = {},
+      const wrapper<gfiles::T_M>
+         &T_M = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       EFL(this,EFL),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   MadlandNix &operator=(const MadlandNix &) = default;
-   MadlandNix &operator=(MadlandNix &&) = default;
+   // copy
+   MadlandNix &operator=(const MadlandNix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         EFL = other.EFL;
+         EFH = other.EFH;
+         T_M = other.T_M;
+      }
+      return *this;
+   }
+
+   // move
+   MadlandNix &operator=(MadlandNix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         EFL = std::move(other.EFL);
+         EFH = std::move(other.EFH);
+         T_M = std::move(other.T_M);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

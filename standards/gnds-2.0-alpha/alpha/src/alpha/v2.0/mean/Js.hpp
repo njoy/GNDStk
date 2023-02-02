@@ -38,7 +38,8 @@ class Js :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::J>("J")
+         ++Child<mean::J>
+            ("J")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::J>> J{this};
+   Field<std::vector<mean::J>>
+      J{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Js(
-      const wrapper<std::vector<mean::J>> &J
+      const wrapper<std::vector<mean::J>>
+         &J
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       J(this,J)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Js &operator=(const Js &) = default;
-   Js &operator=(Js &&) = default;
+   // copy
+   Js &operator=(const Js &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         J = other.J;
+      }
+      return *this;
+   }
+
+   // move
+   Js &operator=(Js &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         J = std::move(other.J);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

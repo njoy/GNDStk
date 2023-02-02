@@ -38,7 +38,8 @@ class Standard :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<reduced::Double>("double")
+         --Child<reduced::Double>
+            ("double")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<reduced::Double> Double{this};
+   Field<reduced::Double>
+      Double{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Standard(
-      const wrapper<reduced::Double> &Double
+      const wrapper<reduced::Double>
+         &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Standard &operator=(const Standard &) = default;
-   Standard &operator=(Standard &&) = default;
+   // copy
+   Standard &operator=(const Standard &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Standard &operator=(Standard &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

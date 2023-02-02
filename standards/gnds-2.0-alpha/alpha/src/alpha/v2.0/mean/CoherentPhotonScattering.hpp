@@ -50,9 +50,12 @@ class CoherentPhotonScattering :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<mean::FormFactor>>("formFactor") |
-         --Child<std::optional<mean::RealAnomalousFactor>>("realAnomalousFactor") |
-         --Child<std::optional<mean::ImaginaryAnomalousFactor>>("imaginaryAnomalousFactor")
+         --Child<std::optional<mean::FormFactor>>
+            ("formFactor") |
+         --Child<std::optional<mean::RealAnomalousFactor>>
+            ("realAnomalousFactor") |
+         --Child<std::optional<mean::ImaginaryAnomalousFactor>>
+            ("imaginaryAnomalousFactor")
       ;
    }
 
@@ -69,9 +72,12 @@ public:
    Field<std::optional<std::string>> productFrame{this};
 
    // children
-   Field<std::optional<mean::FormFactor>> formFactor{this};
-   Field<std::optional<mean::RealAnomalousFactor>> realAnomalousFactor{this};
-   Field<std::optional<mean::ImaginaryAnomalousFactor>> imaginaryAnomalousFactor{this};
+   Field<std::optional<mean::FormFactor>>
+      formFactor{this};
+   Field<std::optional<mean::RealAnomalousFactor>>
+      realAnomalousFactor{this};
+   Field<std::optional<mean::ImaginaryAnomalousFactor>>
+      imaginaryAnomalousFactor{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +102,20 @@ public:
 
    // from fields, comment excluded
    explicit CoherentPhotonScattering(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<std::string>> &href = {},
-      const wrapper<std::optional<std::string>> &pid = {},
-      const wrapper<std::optional<std::string>> &productFrame = {},
-      const wrapper<std::optional<mean::FormFactor>> &formFactor = {},
-      const wrapper<std::optional<mean::RealAnomalousFactor>> &realAnomalousFactor = {},
-      const wrapper<std::optional<mean::ImaginaryAnomalousFactor>> &imaginaryAnomalousFactor = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &href = {},
+      const wrapper<std::optional<std::string>>
+         &pid = {},
+      const wrapper<std::optional<std::string>>
+         &productFrame = {},
+      const wrapper<std::optional<mean::FormFactor>>
+         &formFactor = {},
+      const wrapper<std::optional<mean::RealAnomalousFactor>>
+         &realAnomalousFactor = {},
+      const wrapper<std::optional<mean::ImaginaryAnomalousFactor>>
+         &imaginaryAnomalousFactor = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +170,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   CoherentPhotonScattering &operator=(const CoherentPhotonScattering &) = default;
-   CoherentPhotonScattering &operator=(CoherentPhotonScattering &&) = default;
+   // copy
+   CoherentPhotonScattering &operator=(const CoherentPhotonScattering &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         formFactor = other.formFactor;
+         realAnomalousFactor = other.realAnomalousFactor;
+         imaginaryAnomalousFactor = other.imaginaryAnomalousFactor;
+      }
+      return *this;
+   }
+
+   // move
+   CoherentPhotonScattering &operator=(CoherentPhotonScattering &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         formFactor = std::move(other.formFactor);
+         realAnomalousFactor = std::move(other.realAnomalousFactor);
+         imaginaryAnomalousFactor = std::move(other.imaginaryAnomalousFactor);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

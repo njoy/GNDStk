@@ -46,7 +46,8 @@ class AverageEnergy :
             / Meta<>("unit") |
 
          // children
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::string> unit{this};
 
    // children
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit AverageEnergy(
-      const wrapper<std::string> &label,
-      const wrapper<double> &value = {},
-      const wrapper<std::string> &unit = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<double>
+         &value = {},
+      const wrapper<std::string>
+         &unit = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   AverageEnergy &operator=(const AverageEnergy &) = default;
-   AverageEnergy &operator=(AverageEnergy &&) = default;
+   // copy
+   AverageEnergy &operator=(const AverageEnergy &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   AverageEnergy &operator=(AverageEnergy &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

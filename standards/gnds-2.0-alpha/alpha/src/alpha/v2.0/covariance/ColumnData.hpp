@@ -44,7 +44,8 @@ class ColumnData :
             / Meta<>("href") |
 
          // children
-         --Child<std::optional<covariance::Slices>>("slices")
+         --Child<std::optional<covariance::Slices>>
+            ("slices")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<std::string> href{this};
 
    // children
-   Field<std::optional<covariance::Slices>> slices{this};
+   Field<std::optional<covariance::Slices>>
+      slices{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit ColumnData(
-      const wrapper<std::optional<std::string>> &ENDF_MFMT,
-      const wrapper<std::string> &href = {},
-      const wrapper<std::optional<covariance::Slices>> &slices = {}
+      const wrapper<std::optional<std::string>>
+         &ENDF_MFMT,
+      const wrapper<std::string>
+         &href = {},
+      const wrapper<std::optional<covariance::Slices>>
+         &slices = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ColumnData &operator=(const ColumnData &) = default;
-   ColumnData &operator=(ColumnData &&) = default;
+   // copy
+   ColumnData &operator=(const ColumnData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MFMT = other.ENDF_MFMT;
+         href = other.href;
+         slices = other.slices;
+      }
+      return *this;
+   }
+
+   // move
+   ColumnData &operator=(ColumnData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MFMT = std::move(other.ENDF_MFMT);
+         href = std::move(other.href);
+         slices = std::move(other.slices);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

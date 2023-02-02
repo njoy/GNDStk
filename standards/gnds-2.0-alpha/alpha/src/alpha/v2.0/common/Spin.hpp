@@ -38,7 +38,8 @@ class Spin :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Fraction>("fraction")
+         --Child<common::Fraction>
+            ("fraction")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Fraction> fraction{this};
+   Field<common::Fraction>
+      fraction{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Spin(
-      const wrapper<common::Fraction> &fraction
+      const wrapper<common::Fraction>
+         &fraction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       fraction(this,fraction)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Spin &operator=(const Spin &) = default;
-   Spin &operator=(Spin &&) = default;
+   // copy
+   Spin &operator=(const Spin &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         fraction = other.fraction;
+      }
+      return *this;
+   }
+
+   // move
+   Spin &operator=(Spin &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         fraction = std::move(other.fraction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

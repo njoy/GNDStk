@@ -45,8 +45,10 @@ class Polynomial1d :
             / Meta<>("domainMax") |
 
          // children
-         --Child<common::Axes>("axes") |
-         --Child<common::Values>("values")
+         --Child<common::Axes>
+            ("axes") |
+         --Child<common::Values>
+            ("values")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<double> domainMax{this};
 
    // children
-   Field<common::Axes> axes{this};
-   Field<common::Values> values{this};
+   Field<common::Axes>
+      axes{this};
+   Field<common::Values>
+      values{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Polynomial1d(
-      const wrapper<double> &domainMin,
-      const wrapper<double> &domainMax = {},
-      const wrapper<common::Axes> &axes = {},
-      const wrapper<common::Values> &values = {}
+      const wrapper<double>
+         &domainMin,
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<common::Axes>
+         &axes = {},
+      const wrapper<common::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Polynomial1d &operator=(const Polynomial1d &) = default;
-   Polynomial1d &operator=(Polynomial1d &&) = default;
+   // copy
+   Polynomial1d &operator=(const Polynomial1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Polynomial1d &operator=(Polynomial1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -49,10 +49,14 @@ class TabulatedWidths :
             / Meta<>("useForSelfShieldingOnly") |
 
          // children
-         --Child<mean::ResonanceReactions>("resonanceReactions") |
-         --Child<mean::Ls>("Ls") |
-         --Child<std::optional<common::PoPs>>("PoPs") |
-         --Child<std::optional<mean::ScatteringRadius>>("scatteringRadius")
+         --Child<mean::ResonanceReactions>
+            ("resonanceReactions") |
+         --Child<mean::Ls>
+            ("Ls") |
+         --Child<std::optional<common::PoPs>>
+            ("PoPs") |
+         --Child<std::optional<mean::ScatteringRadius>>
+            ("scatteringRadius")
       ;
    }
 
@@ -68,10 +72,14 @@ public:
    Field<std::optional<bool>> useForSelfShieldingOnly{this};
 
    // children
-   Field<mean::ResonanceReactions> resonanceReactions{this};
-   Field<mean::Ls> Ls{this};
-   Field<std::optional<common::PoPs>> PoPs{this};
-   Field<std::optional<mean::ScatteringRadius>> scatteringRadius{this};
+   Field<mean::ResonanceReactions>
+      resonanceReactions{this};
+   Field<mean::Ls>
+      Ls{this};
+   Field<std::optional<common::PoPs>>
+      PoPs{this};
+   Field<std::optional<mean::ScatteringRadius>>
+      scatteringRadius{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +104,20 @@ public:
 
    // from fields, comment excluded
    explicit TabulatedWidths(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &approximation = {},
-      const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
-      const wrapper<mean::ResonanceReactions> &resonanceReactions = {},
-      const wrapper<mean::Ls> &Ls = {},
-      const wrapper<std::optional<common::PoPs>> &PoPs = {},
-      const wrapper<std::optional<mean::ScatteringRadius>> &scatteringRadius = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &approximation = {},
+      const wrapper<std::optional<bool>>
+         &useForSelfShieldingOnly = {},
+      const wrapper<mean::ResonanceReactions>
+         &resonanceReactions = {},
+      const wrapper<mean::Ls>
+         &Ls = {},
+      const wrapper<std::optional<common::PoPs>>
+         &PoPs = {},
+      const wrapper<std::optional<mean::ScatteringRadius>>
+         &scatteringRadius = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +172,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   TabulatedWidths &operator=(const TabulatedWidths &) = default;
-   TabulatedWidths &operator=(TabulatedWidths &&) = default;
+   // copy
+   TabulatedWidths &operator=(const TabulatedWidths &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         approximation = other.approximation;
+         useForSelfShieldingOnly = other.useForSelfShieldingOnly;
+         resonanceReactions = other.resonanceReactions;
+         Ls = other.Ls;
+         PoPs = other.PoPs;
+         scatteringRadius = other.scatteringRadius;
+      }
+      return *this;
+   }
+
+   // move
+   TabulatedWidths &operator=(TabulatedWidths &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         approximation = std::move(other.approximation);
+         useForSelfShieldingOnly = std::move(other.useForSelfShieldingOnly);
+         resonanceReactions = std::move(other.resonanceReactions);
+         Ls = std::move(other.Ls);
+         PoPs = std::move(other.PoPs);
+         scatteringRadius = std::move(other.scatteringRadius);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

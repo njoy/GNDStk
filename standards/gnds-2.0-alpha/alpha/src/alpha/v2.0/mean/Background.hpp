@@ -40,9 +40,12 @@ class Background :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<mean::ResolvedRegion>>("resolvedRegion") |
-         --Child<mean::FastRegion>("fastRegion") |
-         --Child<std::optional<mean::UnresolvedRegion>>("unresolvedRegion")
+         --Child<std::optional<mean::ResolvedRegion>>
+            ("resolvedRegion") |
+         --Child<mean::FastRegion>
+            ("fastRegion") |
+         --Child<std::optional<mean::UnresolvedRegion>>
+            ("unresolvedRegion")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<mean::ResolvedRegion>> resolvedRegion{this};
-   Field<mean::FastRegion> fastRegion{this};
-   Field<std::optional<mean::UnresolvedRegion>> unresolvedRegion{this};
+   Field<std::optional<mean::ResolvedRegion>>
+      resolvedRegion{this};
+   Field<mean::FastRegion>
+      fastRegion{this};
+   Field<std::optional<mean::UnresolvedRegion>>
+      unresolvedRegion{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Background(
-      const wrapper<std::optional<mean::ResolvedRegion>> &resolvedRegion,
-      const wrapper<mean::FastRegion> &fastRegion = {},
-      const wrapper<std::optional<mean::UnresolvedRegion>> &unresolvedRegion = {}
+      const wrapper<std::optional<mean::ResolvedRegion>>
+         &resolvedRegion,
+      const wrapper<mean::FastRegion>
+         &fastRegion = {},
+      const wrapper<std::optional<mean::UnresolvedRegion>>
+         &unresolvedRegion = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resolvedRegion(this,resolvedRegion),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Background &operator=(const Background &) = default;
-   Background &operator=(Background &&) = default;
+   // copy
+   Background &operator=(const Background &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         resolvedRegion = other.resolvedRegion;
+         fastRegion = other.fastRegion;
+         unresolvedRegion = other.unresolvedRegion;
+      }
+      return *this;
+   }
+
+   // move
+   Background &operator=(Background &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         resolvedRegion = std::move(other.resolvedRegion);
+         fastRegion = std::move(other.fastRegion);
+         unresolvedRegion = std::move(other.unresolvedRegion);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

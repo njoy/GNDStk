@@ -45,8 +45,10 @@ class Spectrum :
             / Meta<>("pid") |
 
          // children
-         ++Child<sfy::Discrete>("discrete") |
-         --Child<std::optional<sfy::Continuum>>("continuum")
+         ++Child<sfy::Discrete>
+            ("discrete") |
+         --Child<std::optional<sfy::Continuum>>
+            ("continuum")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::string> pid{this};
 
    // children
-   Field<std::vector<sfy::Discrete>> discrete{this};
-   Field<std::optional<sfy::Continuum>> continuum{this};
+   Field<std::vector<sfy::Discrete>>
+      discrete{this};
+   Field<std::optional<sfy::Continuum>>
+      continuum{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Spectrum(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<std::vector<sfy::Discrete>> &discrete = {},
-      const wrapper<std::optional<sfy::Continuum>> &continuum = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<std::vector<sfy::Discrete>>
+         &discrete = {},
+      const wrapper<std::optional<sfy::Continuum>>
+         &continuum = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Spectrum &operator=(const Spectrum &) = default;
-   Spectrum &operator=(Spectrum &&) = default;
+   // copy
+   Spectrum &operator=(const Spectrum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         discrete = other.discrete;
+         continuum = other.continuum;
+      }
+      return *this;
+   }
+
+   // move
+   Spectrum &operator=(Spectrum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         discrete = std::move(other.discrete);
+         continuum = std::move(other.continuum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

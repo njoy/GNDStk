@@ -53,10 +53,14 @@ class CovarianceSuite :
             / Meta<>("format") |
 
          // children
-         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
-         --Child<common::Styles>("styles") |
-         --Child<std::optional<covariance::CovarianceSections>>("covarianceSections") |
-         --Child<std::optional<covariance::ParameterCovariances>>("parameterCovariances")
+         --Child<std::optional<common::ExternalFiles>>
+            ("externalFiles") |
+         --Child<common::Styles>
+            ("styles") |
+         --Child<std::optional<covariance::CovarianceSections>>
+            ("covarianceSections") |
+         --Child<std::optional<covariance::ParameterCovariances>>
+            ("parameterCovariances")
       ;
    }
 
@@ -74,10 +78,14 @@ public:
    Field<std::string> format{this};
 
    // children
-   Field<std::optional<common::ExternalFiles>> externalFiles{this};
-   Field<common::Styles> styles{this};
-   Field<std::optional<covariance::CovarianceSections>> covarianceSections{this};
-   Field<std::optional<covariance::ParameterCovariances>> parameterCovariances{this};
+   Field<std::optional<common::ExternalFiles>>
+      externalFiles{this};
+   Field<common::Styles>
+      styles{this};
+   Field<std::optional<covariance::CovarianceSections>>
+      covarianceSections{this};
+   Field<std::optional<covariance::ParameterCovariances>>
+      parameterCovariances{this};
 
    // ------------------------
    // Constructors
@@ -104,15 +112,24 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceSuite(
-      const wrapper<std::string> &projectile,
-      const wrapper<std::string> &target = {},
-      const wrapper<std::string> &evaluation = {},
-      const wrapper<std::string> &interaction = {},
-      const wrapper<std::string> &format = {},
-      const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
-      const wrapper<common::Styles> &styles = {},
-      const wrapper<std::optional<covariance::CovarianceSections>> &covarianceSections = {},
-      const wrapper<std::optional<covariance::ParameterCovariances>> &parameterCovariances = {}
+      const wrapper<std::string>
+         &projectile,
+      const wrapper<std::string>
+         &target = {},
+      const wrapper<std::string>
+         &evaluation = {},
+      const wrapper<std::string>
+         &interaction = {},
+      const wrapper<std::string>
+         &format = {},
+      const wrapper<std::optional<common::ExternalFiles>>
+         &externalFiles = {},
+      const wrapper<common::Styles>
+         &styles = {},
+      const wrapper<std::optional<covariance::CovarianceSections>>
+         &covarianceSections = {},
+      const wrapper<std::optional<covariance::ParameterCovariances>>
+         &parameterCovariances = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
@@ -173,8 +190,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceSuite &operator=(const CovarianceSuite &) = default;
-   CovarianceSuite &operator=(CovarianceSuite &&) = default;
+   // copy
+   CovarianceSuite &operator=(const CovarianceSuite &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         projectile = other.projectile;
+         target = other.target;
+         evaluation = other.evaluation;
+         interaction = other.interaction;
+         format = other.format;
+         externalFiles = other.externalFiles;
+         styles = other.styles;
+         covarianceSections = other.covarianceSections;
+         parameterCovariances = other.parameterCovariances;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceSuite &operator=(CovarianceSuite &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         projectile = std::move(other.projectile);
+         target = std::move(other.target);
+         evaluation = std::move(other.evaluation);
+         interaction = std::move(other.interaction);
+         format = std::move(other.format);
+         externalFiles = std::move(other.externalFiles);
+         styles = std::move(other.styles);
+         covarianceSections = std::move(other.covarianceSections);
+         parameterCovariances = std::move(other.parameterCovariances);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

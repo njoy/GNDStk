@@ -51,12 +51,18 @@ class PoPs :
             / Meta<>("format") |
 
          // children
-         --Child<std::optional<common::Aliases>>("aliases") |
-         --Child<std::optional<common::Baryons>>("baryons") |
-         --Child<std::optional<common::ChemicalElements>>("chemicalElements") |
-         --Child<std::optional<tsl::Unorthodoxes>>("unorthodoxes") |
-         --Child<std::optional<mean::GaugeBosons>>("gaugeBosons") |
-         --Child<std::optional<mean::Leptons>>("leptons")
+         --Child<std::optional<common::Aliases>>
+            ("aliases") |
+         --Child<std::optional<common::Baryons>>
+            ("baryons") |
+         --Child<std::optional<common::ChemicalElements>>
+            ("chemicalElements") |
+         --Child<std::optional<tsl::Unorthodoxes>>
+            ("unorthodoxes") |
+         --Child<std::optional<mean::GaugeBosons>>
+            ("gaugeBosons") |
+         --Child<std::optional<mean::Leptons>>
+            ("leptons")
       ;
    }
 
@@ -72,12 +78,18 @@ public:
    Field<std::string> format{this};
 
    // children
-   Field<std::optional<common::Aliases>> aliases{this};
-   Field<std::optional<common::Baryons>> baryons{this};
-   Field<std::optional<common::ChemicalElements>> chemicalElements{this};
-   Field<std::optional<tsl::Unorthodoxes>> unorthodoxes{this};
-   Field<std::optional<mean::GaugeBosons>> gaugeBosons{this};
-   Field<std::optional<mean::Leptons>> leptons{this};
+   Field<std::optional<common::Aliases>>
+      aliases{this};
+   Field<std::optional<common::Baryons>>
+      baryons{this};
+   Field<std::optional<common::ChemicalElements>>
+      chemicalElements{this};
+   Field<std::optional<tsl::Unorthodoxes>>
+      unorthodoxes{this};
+   Field<std::optional<mean::GaugeBosons>>
+      gaugeBosons{this};
+   Field<std::optional<mean::Leptons>>
+      leptons{this};
 
    // ------------------------
    // Constructors
@@ -104,15 +116,24 @@ public:
 
    // from fields, comment excluded
    explicit PoPs(
-      const wrapper<std::string> &name,
-      const wrapper<std::string> &version = {},
-      const wrapper<std::string> &format = {},
-      const wrapper<std::optional<common::Aliases>> &aliases = {},
-      const wrapper<std::optional<common::Baryons>> &baryons = {},
-      const wrapper<std::optional<common::ChemicalElements>> &chemicalElements = {},
-      const wrapper<std::optional<tsl::Unorthodoxes>> &unorthodoxes = {},
-      const wrapper<std::optional<mean::GaugeBosons>> &gaugeBosons = {},
-      const wrapper<std::optional<mean::Leptons>> &leptons = {}
+      const wrapper<std::string>
+         &name,
+      const wrapper<std::string>
+         &version = {},
+      const wrapper<std::string>
+         &format = {},
+      const wrapper<std::optional<common::Aliases>>
+         &aliases = {},
+      const wrapper<std::optional<common::Baryons>>
+         &baryons = {},
+      const wrapper<std::optional<common::ChemicalElements>>
+         &chemicalElements = {},
+      const wrapper<std::optional<tsl::Unorthodoxes>>
+         &unorthodoxes = {},
+      const wrapper<std::optional<mean::GaugeBosons>>
+         &gaugeBosons = {},
+      const wrapper<std::optional<mean::Leptons>>
+         &leptons = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
@@ -173,8 +194,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   PoPs &operator=(const PoPs &) = default;
-   PoPs &operator=(PoPs &&) = default;
+   // copy
+   PoPs &operator=(const PoPs &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+         version = other.version;
+         format = other.format;
+         aliases = other.aliases;
+         baryons = other.baryons;
+         chemicalElements = other.chemicalElements;
+         unorthodoxes = other.unorthodoxes;
+         gaugeBosons = other.gaugeBosons;
+         leptons = other.leptons;
+      }
+      return *this;
+   }
+
+   // move
+   PoPs &operator=(PoPs &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+         version = std::move(other.version);
+         format = std::move(other.format);
+         aliases = std::move(other.aliases);
+         baryons = std::move(other.baryons);
+         chemicalElements = std::move(other.chemicalElements);
+         unorthodoxes = std::move(other.unorthodoxes);
+         gaugeBosons = std::move(other.gaugeBosons);
+         leptons = std::move(other.leptons);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -43,8 +43,10 @@ class DelayedNeutron :
             / Meta<>("label") |
 
          // children
-         --Child<mean::Rate>("rate") |
-         --Child<reduced::Product>("product")
+         --Child<mean::Rate>
+            ("rate") |
+         --Child<reduced::Product>
+            ("product")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<mean::Rate> rate{this};
-   Field<reduced::Product> product{this};
+   Field<mean::Rate>
+      rate{this};
+   Field<reduced::Product>
+      product{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit DelayedNeutron(
-      const wrapper<std::string> &label,
-      const wrapper<mean::Rate> &rate = {},
-      const wrapper<reduced::Product> &product = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<mean::Rate>
+         &rate = {},
+      const wrapper<reduced::Product>
+         &product = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   DelayedNeutron &operator=(const DelayedNeutron &) = default;
-   DelayedNeutron &operator=(DelayedNeutron &&) = default;
+   // copy
+   DelayedNeutron &operator=(const DelayedNeutron &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         rate = other.rate;
+         product = other.product;
+      }
+      return *this;
+   }
+
+   // move
+   DelayedNeutron &operator=(DelayedNeutron &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         rate = std::move(other.rate);
+         product = std::move(other.product);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

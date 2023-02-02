@@ -46,7 +46,8 @@ class Double :
             / Meta<>("unit") |
 
          // children
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::optional<std::string>> unit{this};
 
    // children
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit Double(
-      const wrapper<std::string> &label,
-      const wrapper<double> &value = {},
-      const wrapper<std::optional<std::string>> &unit = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<double>
+         &value = {},
+      const wrapper<std::optional<std::string>>
+         &unit = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Double &operator=(const Double &) = default;
-   Double &operator=(Double &&) = default;
+   // copy
+   Double &operator=(const Double &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Double &operator=(Double &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

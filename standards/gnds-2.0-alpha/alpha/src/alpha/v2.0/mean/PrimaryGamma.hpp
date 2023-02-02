@@ -46,7 +46,8 @@ class PrimaryGamma :
             / Meta<>("domainMax") |
 
          // children
-         --Child<common::Axes>("axes")
+         --Child<common::Axes>
+            ("axes")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<double> domainMax{this};
 
    // children
-   Field<common::Axes> axes{this};
+   Field<common::Axes>
+      axes{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit PrimaryGamma(
-      const wrapper<double> &value,
-      const wrapper<double> &domainMin = {},
-      const wrapper<double> &domainMax = {},
-      const wrapper<common::Axes> &axes = {}
+      const wrapper<double>
+         &value,
+      const wrapper<double>
+         &domainMin = {},
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<common::Axes>
+         &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   PrimaryGamma &operator=(const PrimaryGamma &) = default;
-   PrimaryGamma &operator=(PrimaryGamma &&) = default;
+   // copy
+   PrimaryGamma &operator=(const PrimaryGamma &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+      }
+      return *this;
+   }
+
+   // move
+   PrimaryGamma &operator=(PrimaryGamma &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

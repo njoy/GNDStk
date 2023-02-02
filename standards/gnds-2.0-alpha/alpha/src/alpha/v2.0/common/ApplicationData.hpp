@@ -38,7 +38,8 @@ class ApplicationData :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Institution>("institution")
+         --Child<common::Institution>
+            ("institution")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Institution> institution{this};
+   Field<common::Institution>
+      institution{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ApplicationData(
-      const wrapper<common::Institution> &institution
+      const wrapper<common::Institution>
+         &institution
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       institution(this,institution)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ApplicationData &operator=(const ApplicationData &) = default;
-   ApplicationData &operator=(ApplicationData &&) = default;
+   // copy
+   ApplicationData &operator=(const ApplicationData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         institution = other.institution;
+      }
+      return *this;
+   }
+
+   // move
+   ApplicationData &operator=(ApplicationData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         institution = std::move(other.institution);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -43,8 +43,10 @@ class NuclearPlusInterference :
             / Meta<>("muCutoff") |
 
          // children
-         --Child<reduced::CrossSection>("crossSection") |
-         --Child<dfiles::Distribution>("distribution")
+         --Child<reduced::CrossSection>
+            ("crossSection") |
+         --Child<dfiles::Distribution>
+            ("distribution")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<double> muCutoff{this};
 
    // children
-   Field<reduced::CrossSection> crossSection{this};
-   Field<dfiles::Distribution> distribution{this};
+   Field<reduced::CrossSection>
+      crossSection{this};
+   Field<dfiles::Distribution>
+      distribution{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit NuclearPlusInterference(
-      const wrapper<double> &muCutoff,
-      const wrapper<reduced::CrossSection> &crossSection = {},
-      const wrapper<dfiles::Distribution> &distribution = {}
+      const wrapper<double>
+         &muCutoff,
+      const wrapper<reduced::CrossSection>
+         &crossSection = {},
+      const wrapper<dfiles::Distribution>
+         &distribution = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       muCutoff(this,muCutoff),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   NuclearPlusInterference &operator=(const NuclearPlusInterference &) = default;
-   NuclearPlusInterference &operator=(NuclearPlusInterference &&) = default;
+   // copy
+   NuclearPlusInterference &operator=(const NuclearPlusInterference &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         muCutoff = other.muCutoff;
+         crossSection = other.crossSection;
+         distribution = other.distribution;
+      }
+      return *this;
+   }
+
+   // move
+   NuclearPlusInterference &operator=(NuclearPlusInterference &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         muCutoff = std::move(other.muCutoff);
+         crossSection = std::move(other.crossSection);
+         distribution = std::move(other.distribution);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

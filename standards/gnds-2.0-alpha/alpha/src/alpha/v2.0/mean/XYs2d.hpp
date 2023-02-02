@@ -50,9 +50,12 @@ class XYs2d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<common::Axes>>("axes") |
-         --Child<common::Function1ds>("function1ds") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Axes>>
+            ("axes") |
+         --Child<common::Function1ds>
+            ("function1ds") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -69,9 +72,12 @@ public:
    Field<std::optional<double>> outerDomainValue{this};
 
    // children
-   Field<std::optional<common::Axes>> axes{this};
-   Field<common::Function1ds> function1ds{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Axes>>
+      axes{this};
+   Field<common::Function1ds>
+      function1ds{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +102,20 @@ public:
 
    // from fields, comment excluded
    explicit XYs2d(
-      const wrapper<std::optional<int>> &index,
-      const wrapper<std::optional<std::string>> &interpolation = {},
-      const wrapper<std::optional<std::string>> &interpolationQualifier = {},
-      const wrapper<std::optional<double>> &outerDomainValue = {},
-      const wrapper<std::optional<common::Axes>> &axes = {},
-      const wrapper<common::Function1ds> &function1ds = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<int>>
+         &index,
+      const wrapper<std::optional<std::string>>
+         &interpolation = {},
+      const wrapper<std::optional<std::string>>
+         &interpolationQualifier = {},
+      const wrapper<std::optional<double>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<common::Axes>>
+         &axes = {},
+      const wrapper<common::Function1ds>
+         &function1ds = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -157,8 +170,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs2d &operator=(const XYs2d &) = default;
-   XYs2d &operator=(XYs2d &&) = default;
+   // copy
+   XYs2d &operator=(const XYs2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         interpolation = other.interpolation;
+         interpolationQualifier = other.interpolationQualifier;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         function1ds = other.function1ds;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   XYs2d &operator=(XYs2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         interpolation = std::move(other.interpolation);
+         interpolationQualifier = std::move(other.interpolationQualifier);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         function1ds = std::move(other.function1ds);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

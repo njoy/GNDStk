@@ -48,9 +48,12 @@ class Array :
             / Meta<>("symmetry") |
 
          // children
-         --Child<std::optional<g3d::Starts>>("values") | "starts" |
-         --Child<std::optional<g3d::Lengths>>("values") | "lengths" |
-         --Child<common::Values>("values") + [](auto &node) { return node.metadata.size() == 0; }
+         --Child<std::optional<g3d::Starts>>
+            ("values") | "starts" |
+         --Child<std::optional<g3d::Lengths>>
+            ("values") | "lengths" |
+         --Child<common::Values>
+            ("values") + [](auto &node) { return node.metadata.size() == 0; }
       ;
    }
 
@@ -66,9 +69,12 @@ public:
    Field<std::optional<std::string>> symmetry{this};
 
    // children
-   Field<std::optional<g3d::Starts>> starts{this};
-   Field<std::optional<g3d::Lengths>> lengths{this};
-   Field<common::Values> values{this};
+   Field<std::optional<g3d::Starts>>
+      starts{this};
+   Field<std::optional<g3d::Lengths>>
+      lengths{this};
+   Field<common::Values>
+      values{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +98,18 @@ public:
 
    // from fields, comment excluded
    explicit Array(
-      const wrapper<std::string> &shape,
-      const wrapper<std::optional<std::string>> &compression = {},
-      const wrapper<std::optional<std::string>> &symmetry = {},
-      const wrapper<std::optional<g3d::Starts>> &starts = {},
-      const wrapper<std::optional<g3d::Lengths>> &lengths = {},
-      const wrapper<common::Values> &values = {}
+      const wrapper<std::string>
+         &shape,
+      const wrapper<std::optional<std::string>>
+         &compression = {},
+      const wrapper<std::optional<std::string>>
+         &symmetry = {},
+      const wrapper<std::optional<g3d::Starts>>
+         &starts = {},
+      const wrapper<std::optional<g3d::Lengths>>
+         &lengths = {},
+      const wrapper<common::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shape(this,shape),
@@ -149,8 +161,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Array &operator=(const Array &) = default;
-   Array &operator=(Array &&) = default;
+   // copy
+   Array &operator=(const Array &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         shape = other.shape;
+         compression = other.compression;
+         symmetry = other.symmetry;
+         starts = other.starts;
+         lengths = other.lengths;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Array &operator=(Array &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         shape = std::move(other.shape);
+         compression = std::move(other.compression);
+         symmetry = std::move(other.symmetry);
+         starts = std::move(other.starts);
+         lengths = std::move(other.lengths);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

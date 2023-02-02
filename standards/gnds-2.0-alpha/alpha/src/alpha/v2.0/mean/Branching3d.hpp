@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit Branching3d(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &productFrame = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &productFrame = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Branching3d &operator=(const Branching3d &) = default;
-   Branching3d &operator=(Branching3d &&) = default;
+   // copy
+   Branching3d &operator=(const Branching3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+      }
+      return *this;
+   }
+
+   // move
+   Branching3d &operator=(Branching3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

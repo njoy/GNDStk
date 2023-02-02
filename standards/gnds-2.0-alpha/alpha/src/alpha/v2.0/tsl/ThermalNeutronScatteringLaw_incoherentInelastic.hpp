@@ -50,7 +50,8 @@ class ThermalNeutronScatteringLaw_incoherentInelastic :
             / Meta<>("calculatedAtThermal") |
 
          // children
-         --Child<tsl::ScatteringAtoms>("scatteringAtoms")
+         --Child<tsl::ScatteringAtoms>
+            ("scatteringAtoms")
       ;
    }
 
@@ -68,7 +69,8 @@ public:
    Field<std::optional<bool>> calculatedAtThermal{this};
 
    // children
-   Field<tsl::ScatteringAtoms> scatteringAtoms{this};
+   Field<tsl::ScatteringAtoms>
+      scatteringAtoms{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +94,18 @@ public:
 
    // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw_incoherentInelastic(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<std::string> &primaryScatterer = {},
-      const wrapper<std::optional<bool>> &calculatedAtThermal = {},
-      const wrapper<tsl::ScatteringAtoms> &scatteringAtoms = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<std::string>
+         &primaryScatterer = {},
+      const wrapper<std::optional<bool>>
+         &calculatedAtThermal = {},
+      const wrapper<tsl::ScatteringAtoms>
+         &scatteringAtoms = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +157,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw_incoherentInelastic &operator=(const ThermalNeutronScatteringLaw_incoherentInelastic &) = default;
-   ThermalNeutronScatteringLaw_incoherentInelastic &operator=(ThermalNeutronScatteringLaw_incoherentInelastic &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw_incoherentInelastic &operator=(const ThermalNeutronScatteringLaw_incoherentInelastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         primaryScatterer = other.primaryScatterer;
+         calculatedAtThermal = other.calculatedAtThermal;
+         scatteringAtoms = other.scatteringAtoms;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw_incoherentInelastic &operator=(ThermalNeutronScatteringLaw_incoherentInelastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         primaryScatterer = std::move(other.primaryScatterer);
+         calculatedAtThermal = std::move(other.calculatedAtThermal);
+         scatteringAtoms = std::move(other.scatteringAtoms);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

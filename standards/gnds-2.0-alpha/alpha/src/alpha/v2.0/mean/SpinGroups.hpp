@@ -38,7 +38,8 @@ class SpinGroups :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::SpinGroup>("spinGroup")
+         ++Child<mean::SpinGroup>
+            ("spinGroup")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::SpinGroup>> spinGroup{this};
+   Field<std::vector<mean::SpinGroup>>
+      spinGroup{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit SpinGroups(
-      const wrapper<std::vector<mean::SpinGroup>> &spinGroup
+      const wrapper<std::vector<mean::SpinGroup>>
+         &spinGroup
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       spinGroup(this,spinGroup)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   SpinGroups &operator=(const SpinGroups &) = default;
-   SpinGroups &operator=(SpinGroups &&) = default;
+   // copy
+   SpinGroups &operator=(const SpinGroups &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         spinGroup = other.spinGroup;
+      }
+      return *this;
+   }
+
+   // move
+   SpinGroups &operator=(SpinGroups &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         spinGroup = std::move(other.spinGroup);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

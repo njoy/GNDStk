@@ -50,15 +50,24 @@ class FissionEnergyRelease :
             / Meta<>("label") |
 
          // children
-         --Child<mean::PromptProductKE>("promptProductKE") |
-         --Child<mean::PromptNeutronKE>("promptNeutronKE") |
-         --Child<mean::DelayedNeutronKE>("delayedNeutronKE") |
-         --Child<mean::PromptGammaEnergy>("promptGammaEnergy") |
-         --Child<mean::DelayedGammaEnergy>("delayedGammaEnergy") |
-         --Child<mean::DelayedBetaEnergy>("delayedBetaEnergy") |
-         --Child<mean::NeutrinoEnergy>("neutrinoEnergy") |
-         --Child<mean::NonNeutrinoEnergy>("nonNeutrinoEnergy") |
-         --Child<mean::TotalEnergy>("totalEnergy")
+         --Child<mean::PromptProductKE>
+            ("promptProductKE") |
+         --Child<mean::PromptNeutronKE>
+            ("promptNeutronKE") |
+         --Child<mean::DelayedNeutronKE>
+            ("delayedNeutronKE") |
+         --Child<mean::PromptGammaEnergy>
+            ("promptGammaEnergy") |
+         --Child<mean::DelayedGammaEnergy>
+            ("delayedGammaEnergy") |
+         --Child<mean::DelayedBetaEnergy>
+            ("delayedBetaEnergy") |
+         --Child<mean::NeutrinoEnergy>
+            ("neutrinoEnergy") |
+         --Child<mean::NonNeutrinoEnergy>
+            ("nonNeutrinoEnergy") |
+         --Child<mean::TotalEnergy>
+            ("totalEnergy")
       ;
    }
 
@@ -72,15 +81,24 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<mean::PromptProductKE> promptProductKE{this};
-   Field<mean::PromptNeutronKE> promptNeutronKE{this};
-   Field<mean::DelayedNeutronKE> delayedNeutronKE{this};
-   Field<mean::PromptGammaEnergy> promptGammaEnergy{this};
-   Field<mean::DelayedGammaEnergy> delayedGammaEnergy{this};
-   Field<mean::DelayedBetaEnergy> delayedBetaEnergy{this};
-   Field<mean::NeutrinoEnergy> neutrinoEnergy{this};
-   Field<mean::NonNeutrinoEnergy> nonNeutrinoEnergy{this};
-   Field<mean::TotalEnergy> totalEnergy{this};
+   Field<mean::PromptProductKE>
+      promptProductKE{this};
+   Field<mean::PromptNeutronKE>
+      promptNeutronKE{this};
+   Field<mean::DelayedNeutronKE>
+      delayedNeutronKE{this};
+   Field<mean::PromptGammaEnergy>
+      promptGammaEnergy{this};
+   Field<mean::DelayedGammaEnergy>
+      delayedGammaEnergy{this};
+   Field<mean::DelayedBetaEnergy>
+      delayedBetaEnergy{this};
+   Field<mean::NeutrinoEnergy>
+      neutrinoEnergy{this};
+   Field<mean::NonNeutrinoEnergy>
+      nonNeutrinoEnergy{this};
+   Field<mean::TotalEnergy>
+      totalEnergy{this};
 
    // ------------------------
    // Constructors
@@ -108,16 +126,26 @@ public:
 
    // from fields, comment excluded
    explicit FissionEnergyRelease(
-      const wrapper<std::string> &label,
-      const wrapper<mean::PromptProductKE> &promptProductKE = {},
-      const wrapper<mean::PromptNeutronKE> &promptNeutronKE = {},
-      const wrapper<mean::DelayedNeutronKE> &delayedNeutronKE = {},
-      const wrapper<mean::PromptGammaEnergy> &promptGammaEnergy = {},
-      const wrapper<mean::DelayedGammaEnergy> &delayedGammaEnergy = {},
-      const wrapper<mean::DelayedBetaEnergy> &delayedBetaEnergy = {},
-      const wrapper<mean::NeutrinoEnergy> &neutrinoEnergy = {},
-      const wrapper<mean::NonNeutrinoEnergy> &nonNeutrinoEnergy = {},
-      const wrapper<mean::TotalEnergy> &totalEnergy = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<mean::PromptProductKE>
+         &promptProductKE = {},
+      const wrapper<mean::PromptNeutronKE>
+         &promptNeutronKE = {},
+      const wrapper<mean::DelayedNeutronKE>
+         &delayedNeutronKE = {},
+      const wrapper<mean::PromptGammaEnergy>
+         &promptGammaEnergy = {},
+      const wrapper<mean::DelayedGammaEnergy>
+         &delayedGammaEnergy = {},
+      const wrapper<mean::DelayedBetaEnergy>
+         &delayedBetaEnergy = {},
+      const wrapper<mean::NeutrinoEnergy>
+         &neutrinoEnergy = {},
+      const wrapper<mean::NonNeutrinoEnergy>
+         &nonNeutrinoEnergy = {},
+      const wrapper<mean::TotalEnergy>
+         &totalEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -181,8 +209,45 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionEnergyRelease &operator=(const FissionEnergyRelease &) = default;
-   FissionEnergyRelease &operator=(FissionEnergyRelease &&) = default;
+   // copy
+   FissionEnergyRelease &operator=(const FissionEnergyRelease &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         promptProductKE = other.promptProductKE;
+         promptNeutronKE = other.promptNeutronKE;
+         delayedNeutronKE = other.delayedNeutronKE;
+         promptGammaEnergy = other.promptGammaEnergy;
+         delayedGammaEnergy = other.delayedGammaEnergy;
+         delayedBetaEnergy = other.delayedBetaEnergy;
+         neutrinoEnergy = other.neutrinoEnergy;
+         nonNeutrinoEnergy = other.nonNeutrinoEnergy;
+         totalEnergy = other.totalEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   FissionEnergyRelease &operator=(FissionEnergyRelease &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         promptProductKE = std::move(other.promptProductKE);
+         promptNeutronKE = std::move(other.promptNeutronKE);
+         delayedNeutronKE = std::move(other.delayedNeutronKE);
+         promptGammaEnergy = std::move(other.promptGammaEnergy);
+         delayedGammaEnergy = std::move(other.delayedGammaEnergy);
+         delayedBetaEnergy = std::move(other.delayedBetaEnergy);
+         neutrinoEnergy = std::move(other.neutrinoEnergy);
+         nonNeutrinoEnergy = std::move(other.nonNeutrinoEnergy);
+         totalEnergy = std::move(other.totalEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

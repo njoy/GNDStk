@@ -38,7 +38,8 @@ class InternalConversionCoefficients :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Shell>("shell")
+         ++Child<common::Shell>
+            ("shell")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Shell>> shell{this};
+   Field<std::vector<common::Shell>>
+      shell{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit InternalConversionCoefficients(
-      const wrapper<std::vector<common::Shell>> &shell
+      const wrapper<std::vector<common::Shell>>
+         &shell
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shell(this,shell)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   InternalConversionCoefficients &operator=(const InternalConversionCoefficients &) = default;
-   InternalConversionCoefficients &operator=(InternalConversionCoefficients &&) = default;
+   // copy
+   InternalConversionCoefficients &operator=(const InternalConversionCoefficients &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         shell = other.shell;
+      }
+      return *this;
+   }
+
+   // move
+   InternalConversionCoefficients &operator=(InternalConversionCoefficients &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         shell = std::move(other.shell);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

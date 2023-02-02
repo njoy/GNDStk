@@ -1086,9 +1086,11 @@ void writeClassForComponent(writer &out, const PerClass &per)
       out(3,"// children");
    }
    for (const auto &c : per.children) {
-      out(3,"@Child<@>(\"@\")@@@@",
+      out(3,"@Child<@>",
           c.isVector ? "++" : "--",
-          c.typeHalf, // without any std::vector
+          c.typeHalf // without any std::vector
+      );
+      out(4,"(\"@\")@@@@",
           c.original,
           // direct-specified converter, if any
           c.converter == "" ? "" : (" / " + c.converter),
@@ -1254,8 +1256,10 @@ void writeClassContentChildren(writer &out, const PerClass &per)
       out();
       out(1,"// children");
    }
+
    for (const auto &c : per.children) {
-      out(1,"Field<@> @{this};", c.typeFull, c.name);
+      out(1,"Field<@>", c.typeFull);
+      out(2,"@{this};", c.name);
 
       if (debugging && c.name == "xs") {
          // todo
@@ -1288,8 +1292,11 @@ void writeClassContentVariants(writer &out, const PerClass &per)
       out();
       out(1,"// children - variant");
    }
+
    for (const auto &v : per.variants) {
-      out(1,"Field<@> @{this};", v.typeFull, v.name);
+      out(1,"Field<@>", v.typeFull);
+      out(2,"@{this};", v.name);
+
       for (const auto &c : v.children) {
          out(1,"FieldPart<decltype(@),@> @{@};",
              v.name, c.type, c.name, v.name);

@@ -44,7 +44,8 @@ class Covariance :
             / Meta<>("href") |
 
          // children
-         --Child<std::optional<common::Array>>("array")
+         --Child<std::optional<common::Array>>
+            ("array")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<std::optional<std::string>> href{this};
 
    // children
-   Field<std::optional<common::Array>> array{this};
+   Field<std::optional<common::Array>>
+      array{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Covariance(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<std::string>> &href = {},
-      const wrapper<std::optional<common::Array>> &array = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &href = {},
+      const wrapper<std::optional<common::Array>>
+         &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Covariance &operator=(const Covariance &) = default;
-   Covariance &operator=(Covariance &&) = default;
+   // copy
+   Covariance &operator=(const Covariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+         array = other.array;
+      }
+      return *this;
+   }
+
+   // move
+   Covariance &operator=(Covariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+         array = std::move(other.array);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

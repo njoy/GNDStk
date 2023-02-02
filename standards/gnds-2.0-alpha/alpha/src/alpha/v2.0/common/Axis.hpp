@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit Axis(
-      const wrapper<int> &index,
-      const wrapper<std::string> &label = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<int>
+         &index,
+      const wrapper<std::string>
+         &label = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Axis &operator=(const Axis &) = default;
-   Axis &operator=(Axis &&) = default;
+   // copy
+   Axis &operator=(const Axis &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         label = other.label;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Axis &operator=(Axis &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

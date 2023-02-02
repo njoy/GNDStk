@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit MetaStable(
-      const wrapper<std::string> &id,
-      const wrapper<std::string> &pid = {},
-      const wrapper<int> &metaStableIndex = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<int>
+         &metaStableIndex = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   MetaStable &operator=(const MetaStable &) = default;
-   MetaStable &operator=(MetaStable &&) = default;
+   // copy
+   MetaStable &operator=(const MetaStable &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         pid = other.pid;
+         metaStableIndex = other.metaStableIndex;
+      }
+      return *this;
+   }
+
+   // move
+   MetaStable &operator=(MetaStable &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         pid = std::move(other.pid);
+         metaStableIndex = std::move(other.metaStableIndex);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

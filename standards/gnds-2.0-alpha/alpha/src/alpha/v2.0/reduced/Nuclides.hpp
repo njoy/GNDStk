@@ -75,7 +75,8 @@ public:
 
    // from fields, comment excluded
    explicit Nuclides(
-      const wrapper<std::optional<std::string>> &href
+      const wrapper<std::optional<std::string>>
+         &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -122,8 +123,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nuclides &operator=(const Nuclides &) = default;
-   Nuclides &operator=(Nuclides &&) = default;
+   // copy
+   Nuclides &operator=(const Nuclides &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Nuclides &operator=(Nuclides &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -39,8 +39,10 @@ class Weighted :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::XYs1d>("XYs1d") |
-         --Child<mean::Evaporation>("evaporation")
+         --Child<common::XYs1d>
+            ("XYs1d") |
+         --Child<mean::Evaporation>
+            ("evaporation")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::XYs1d> XYs1d{this};
-   Field<mean::Evaporation> evaporation{this};
+   Field<common::XYs1d>
+      XYs1d{this};
+   Field<mean::Evaporation>
+      evaporation{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Weighted(
-      const wrapper<common::XYs1d> &XYs1d,
-      const wrapper<mean::Evaporation> &evaporation = {}
+      const wrapper<common::XYs1d>
+         &XYs1d,
+      const wrapper<mean::Evaporation>
+         &evaporation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Weighted &operator=(const Weighted &) = default;
-   Weighted &operator=(Weighted &&) = default;
+   // copy
+   Weighted &operator=(const Weighted &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+         evaporation = other.evaporation;
+      }
+      return *this;
+   }
+
+   // move
+   Weighted &operator=(Weighted &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+         evaporation = std::move(other.evaporation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -41,10 +41,14 @@ class Uncertainty :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Covariance>>("covariance") |
-         --Child<std::optional<sfy::Standard>>("standard") |
-         --Child<std::optional<mean::ListOfCovariances>>("listOfCovariances") |
-         --Child<std::optional<reduced::Polynomial1d>>("polynomial1d")
+         --Child<std::optional<common::Covariance>>
+            ("covariance") |
+         --Child<std::optional<sfy::Standard>>
+            ("standard") |
+         --Child<std::optional<mean::ListOfCovariances>>
+            ("listOfCovariances") |
+         --Child<std::optional<reduced::Polynomial1d>>
+            ("polynomial1d")
       ;
    }
 
@@ -55,10 +59,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Covariance>> covariance{this};
-   Field<std::optional<sfy::Standard>> standard{this};
-   Field<std::optional<mean::ListOfCovariances>> listOfCovariances{this};
-   Field<std::optional<reduced::Polynomial1d>> polynomial1d{this};
+   Field<std::optional<common::Covariance>>
+      covariance{this};
+   Field<std::optional<sfy::Standard>>
+      standard{this};
+   Field<std::optional<mean::ListOfCovariances>>
+      listOfCovariances{this};
+   Field<std::optional<reduced::Polynomial1d>>
+      polynomial1d{this};
 
    // ------------------------
    // Constructors
@@ -80,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Uncertainty(
-      const wrapper<std::optional<common::Covariance>> &covariance,
-      const wrapper<std::optional<sfy::Standard>> &standard = {},
-      const wrapper<std::optional<mean::ListOfCovariances>> &listOfCovariances = {},
-      const wrapper<std::optional<reduced::Polynomial1d>> &polynomial1d = {}
+      const wrapper<std::optional<common::Covariance>>
+         &covariance,
+      const wrapper<std::optional<sfy::Standard>>
+         &standard = {},
+      const wrapper<std::optional<mean::ListOfCovariances>>
+         &listOfCovariances = {},
+      const wrapper<std::optional<reduced::Polynomial1d>>
+         &polynomial1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       covariance(this,covariance),
@@ -129,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Uncertainty &operator=(const Uncertainty &) = default;
-   Uncertainty &operator=(Uncertainty &&) = default;
+   // copy
+   Uncertainty &operator=(const Uncertainty &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         covariance = other.covariance;
+         standard = other.standard;
+         listOfCovariances = other.listOfCovariances;
+         polynomial1d = other.polynomial1d;
+      }
+      return *this;
+   }
+
+   // move
+   Uncertainty &operator=(Uncertainty &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         covariance = std::move(other.covariance);
+         standard = std::move(other.standard);
+         listOfCovariances = std::move(other.listOfCovariances);
+         polynomial1d = std::move(other.polynomial1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

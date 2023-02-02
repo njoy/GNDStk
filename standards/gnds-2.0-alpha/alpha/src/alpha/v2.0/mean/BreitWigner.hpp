@@ -48,9 +48,12 @@ class BreitWigner :
             / Meta<>("calculateChannelRadius") |
 
          // children
-         --Child<mean::ResonanceParameters>("resonanceParameters") |
-         --Child<std::optional<common::PoPs>>("PoPs") |
-         --Child<std::optional<mean::ScatteringRadius>>("scatteringRadius")
+         --Child<mean::ResonanceParameters>
+            ("resonanceParameters") |
+         --Child<std::optional<common::PoPs>>
+            ("PoPs") |
+         --Child<std::optional<mean::ScatteringRadius>>
+            ("scatteringRadius")
       ;
    }
 
@@ -66,9 +69,12 @@ public:
    Field<std::optional<bool>> calculateChannelRadius{this};
 
    // children
-   Field<mean::ResonanceParameters> resonanceParameters{this};
-   Field<std::optional<common::PoPs>> PoPs{this};
-   Field<std::optional<mean::ScatteringRadius>> scatteringRadius{this};
+   Field<mean::ResonanceParameters>
+      resonanceParameters{this};
+   Field<std::optional<common::PoPs>>
+      PoPs{this};
+   Field<std::optional<mean::ScatteringRadius>>
+      scatteringRadius{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +98,18 @@ public:
 
    // from fields, comment excluded
    explicit BreitWigner(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &approximation = {},
-      const wrapper<std::optional<bool>> &calculateChannelRadius = {},
-      const wrapper<mean::ResonanceParameters> &resonanceParameters = {},
-      const wrapper<std::optional<common::PoPs>> &PoPs = {},
-      const wrapper<std::optional<mean::ScatteringRadius>> &scatteringRadius = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &approximation = {},
+      const wrapper<std::optional<bool>>
+         &calculateChannelRadius = {},
+      const wrapper<mean::ResonanceParameters>
+         &resonanceParameters = {},
+      const wrapper<std::optional<common::PoPs>>
+         &PoPs = {},
+      const wrapper<std::optional<mean::ScatteringRadius>>
+         &scatteringRadius = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +161,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   BreitWigner &operator=(const BreitWigner &) = default;
-   BreitWigner &operator=(BreitWigner &&) = default;
+   // copy
+   BreitWigner &operator=(const BreitWigner &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         approximation = other.approximation;
+         calculateChannelRadius = other.calculateChannelRadius;
+         resonanceParameters = other.resonanceParameters;
+         PoPs = other.PoPs;
+         scatteringRadius = other.scatteringRadius;
+      }
+      return *this;
+   }
+
+   // move
+   BreitWigner &operator=(BreitWigner &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         approximation = std::move(other.approximation);
+         calculateChannelRadius = std::move(other.calculateChannelRadius);
+         resonanceParameters = std::move(other.resonanceParameters);
+         PoPs = std::move(other.PoPs);
+         scatteringRadius = std::move(other.scatteringRadius);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

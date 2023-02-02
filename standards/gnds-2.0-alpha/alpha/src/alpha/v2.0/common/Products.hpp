@@ -38,7 +38,8 @@ class Products :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<common::Product>>("product")
+         ++Child<std::optional<common::Product>>
+            ("product")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<common::Product>>> product{this};
+   Field<std::optional<std::vector<common::Product>>>
+      product{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Products(
-      const wrapper<std::optional<std::vector<common::Product>>> &product
+      const wrapper<std::optional<std::vector<common::Product>>>
+         &product
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       product(this,product)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Products &operator=(const Products &) = default;
-   Products &operator=(Products &&) = default;
+   // copy
+   Products &operator=(const Products &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         product = other.product;
+      }
+      return *this;
+   }
+
+   // move
+   Products &operator=(Products &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         product = std::move(other.product);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

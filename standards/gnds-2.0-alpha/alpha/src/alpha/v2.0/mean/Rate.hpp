@@ -38,7 +38,8 @@ class Rate :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Double>("double")
+         --Child<common::Double>
+            ("double")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Double> Double{this};
+   Field<common::Double>
+      Double{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Rate(
-      const wrapper<common::Double> &Double
+      const wrapper<common::Double>
+         &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Rate &operator=(const Rate &) = default;
-   Rate &operator=(Rate &&) = default;
+   // copy
+   Rate &operator=(const Rate &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Rate &operator=(Rate &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

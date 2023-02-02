@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit Conversion(
-      const wrapper<std::string> &flags,
-      const wrapper<std::string> &href = {}
+      const wrapper<std::string>
+         &flags,
+      const wrapper<std::string>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       flags(this,flags),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Conversion &operator=(const Conversion &) = default;
-   Conversion &operator=(Conversion &&) = default;
+   // copy
+   Conversion &operator=(const Conversion &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         flags = other.flags;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Conversion &operator=(Conversion &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         flags = std::move(other.flags);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

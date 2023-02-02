@@ -48,7 +48,8 @@ class Sum :
             / Meta<>("domainUnit") |
 
          // children
-         ++Child<covariance::Summand>("summand")
+         ++Child<covariance::Summand>
+            ("summand")
       ;
    }
 
@@ -65,7 +66,8 @@ public:
    Field<std::optional<std::string>> domainUnit{this};
 
    // children
-   Field<std::vector<covariance::Summand>> summand{this};
+   Field<std::vector<covariance::Summand>>
+      summand{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +90,16 @@ public:
 
    // from fields, comment excluded
    explicit Sum(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<double>> &domainMin = {},
-      const wrapper<std::optional<double>> &domainMax = {},
-      const wrapper<std::optional<std::string>> &domainUnit = {},
-      const wrapper<std::vector<covariance::Summand>> &summand = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<double>>
+         &domainMin = {},
+      const wrapper<std::optional<double>>
+         &domainMax = {},
+      const wrapper<std::optional<std::string>>
+         &domainUnit = {},
+      const wrapper<std::vector<covariance::Summand>>
+         &summand = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +148,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Sum &operator=(const Sum &) = default;
-   Sum &operator=(Sum &&) = default;
+   // copy
+   Sum &operator=(const Sum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         summand = other.summand;
+      }
+      return *this;
+   }
+
+   // move
+   Sum &operator=(Sum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         summand = std::move(other.summand);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -51,8 +51,10 @@ class Channel :
             / Meta<>("columnIndex") |
 
          // children
-         --Child<std::optional<mean::ScatteringRadius>>("scatteringRadius") |
-         --Child<std::optional<mean::HardSphereRadius>>("hardSphereRadius")
+         --Child<std::optional<mean::ScatteringRadius>>
+            ("scatteringRadius") |
+         --Child<std::optional<mean::HardSphereRadius>>
+            ("hardSphereRadius")
       ;
    }
 
@@ -70,8 +72,10 @@ public:
    Field<int> columnIndex{this};
 
    // children
-   Field<std::optional<mean::ScatteringRadius>> scatteringRadius{this};
-   Field<std::optional<mean::HardSphereRadius>> hardSphereRadius{this};
+   Field<std::optional<mean::ScatteringRadius>>
+      scatteringRadius{this};
+   Field<std::optional<mean::HardSphereRadius>>
+      hardSphereRadius{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +100,20 @@ public:
 
    // from fields, comment excluded
    explicit Channel(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &resonanceReaction = {},
-      const wrapper<int> &L = {},
-      const wrapper<int> &channelSpin = {},
-      const wrapper<int> &columnIndex = {},
-      const wrapper<std::optional<mean::ScatteringRadius>> &scatteringRadius = {},
-      const wrapper<std::optional<mean::HardSphereRadius>> &hardSphereRadius = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &resonanceReaction = {},
+      const wrapper<int>
+         &L = {},
+      const wrapper<int>
+         &channelSpin = {},
+      const wrapper<int>
+         &columnIndex = {},
+      const wrapper<std::optional<mean::ScatteringRadius>>
+         &scatteringRadius = {},
+      const wrapper<std::optional<mean::HardSphereRadius>>
+         &hardSphereRadius = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +168,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Channel &operator=(const Channel &) = default;
-   Channel &operator=(Channel &&) = default;
+   // copy
+   Channel &operator=(const Channel &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         resonanceReaction = other.resonanceReaction;
+         L = other.L;
+         channelSpin = other.channelSpin;
+         columnIndex = other.columnIndex;
+         scatteringRadius = other.scatteringRadius;
+         hardSphereRadius = other.hardSphereRadius;
+      }
+      return *this;
+   }
+
+   // move
+   Channel &operator=(Channel &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         resonanceReaction = std::move(other.resonanceReaction);
+         L = std::move(other.L);
+         channelSpin = std::move(other.channelSpin);
+         columnIndex = std::move(other.columnIndex);
+         scatteringRadius = std::move(other.scatteringRadius);
+         hardSphereRadius = std::move(other.hardSphereRadius);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

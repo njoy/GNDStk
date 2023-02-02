@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit CrossSectionReconstructed(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &derivedFrom = {},
-      const wrapper<std::string> &date = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &derivedFrom = {},
+      const wrapper<std::string>
+         &date = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSectionReconstructed &operator=(const CrossSectionReconstructed &) = default;
-   CrossSectionReconstructed &operator=(CrossSectionReconstructed &&) = default;
+   // copy
+   CrossSectionReconstructed &operator=(const CrossSectionReconstructed &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         derivedFrom = other.derivedFrom;
+         date = other.date;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSectionReconstructed &operator=(CrossSectionReconstructed &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         derivedFrom = std::move(other.derivedFrom);
+         date = std::move(other.date);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

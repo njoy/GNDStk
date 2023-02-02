@@ -39,8 +39,10 @@ class Axes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Axis>("axis") |
-         ++Child<std::optional<common::Grid>>("grid")
+         ++Child<common::Axis>
+            ("axis") |
+         ++Child<std::optional<common::Grid>>
+            ("grid")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Axis>> axis{this};
-   Field<std::optional<std::vector<common::Grid>>> grid{this};
+   Field<std::vector<common::Axis>>
+      axis{this};
+   Field<std::optional<std::vector<common::Grid>>>
+      grid{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Axes(
-      const wrapper<std::vector<common::Axis>> &axis,
-      const wrapper<std::optional<std::vector<common::Grid>>> &grid = {}
+      const wrapper<std::vector<common::Axis>>
+         &axis,
+      const wrapper<std::optional<std::vector<common::Grid>>>
+         &grid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       axis(this,axis),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Axes &operator=(const Axes &) = default;
-   Axes &operator=(Axes &&) = default;
+   // copy
+   Axes &operator=(const Axes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         axis = other.axis;
+         grid = other.grid;
+      }
+      return *this;
+   }
+
+   // move
+   Axes &operator=(Axes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         axis = std::move(other.axis);
+         grid = std::move(other.grid);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

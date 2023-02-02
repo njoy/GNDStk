@@ -38,7 +38,8 @@ class ChemicalElements :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::ChemicalElement>("chemicalElement")
+         ++Child<common::ChemicalElement>
+            ("chemicalElement")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::ChemicalElement>> chemicalElement{this};
+   Field<std::vector<common::ChemicalElement>>
+      chemicalElement{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ChemicalElements(
-      const wrapper<std::vector<common::ChemicalElement>> &chemicalElement
+      const wrapper<std::vector<common::ChemicalElement>>
+         &chemicalElement
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       chemicalElement(this,chemicalElement)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ChemicalElements &operator=(const ChemicalElements &) = default;
-   ChemicalElements &operator=(ChemicalElements &&) = default;
+   // copy
+   ChemicalElements &operator=(const ChemicalElements &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         chemicalElement = other.chemicalElement;
+      }
+      return *this;
+   }
+
+   // move
+   ChemicalElements &operator=(ChemicalElements &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         chemicalElement = std::move(other.chemicalElement);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

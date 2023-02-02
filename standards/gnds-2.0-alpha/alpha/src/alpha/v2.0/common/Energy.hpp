@@ -54,17 +54,28 @@ class Energy :
             / Meta<>("unit") |
 
          // children
-         --Child<std::optional<common::Double>>("double") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty") |
-         --Child<std::optional<mean::NBodyPhaseSpace>>("NBodyPhaseSpace") |
-         --Child<std::optional<mean::PrimaryGamma>>("primaryGamma") |
-         --Child<std::optional<mean::DiscreteGamma>>("discreteGamma") |
-         --Child<std::optional<mean::XYs2d>>("XYs2d") |
-         --Child<std::optional<mean::GeneralEvaporation>>("generalEvaporation") |
-         --Child<std::optional<mean::Evaporation>>("evaporation") |
-         --Child<std::optional<mean::WeightedFunctionals>>("weightedFunctionals") |
-         --Child<std::optional<mean::SimpleMaxwellianFission>>("simpleMaxwellianFission") |
-         --Child<std::optional<gfiles::MadlandNix>>("MadlandNix")
+         --Child<std::optional<common::Double>>
+            ("double") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty") |
+         --Child<std::optional<mean::NBodyPhaseSpace>>
+            ("NBodyPhaseSpace") |
+         --Child<std::optional<mean::PrimaryGamma>>
+            ("primaryGamma") |
+         --Child<std::optional<mean::DiscreteGamma>>
+            ("discreteGamma") |
+         --Child<std::optional<mean::XYs2d>>
+            ("XYs2d") |
+         --Child<std::optional<mean::GeneralEvaporation>>
+            ("generalEvaporation") |
+         --Child<std::optional<mean::Evaporation>>
+            ("evaporation") |
+         --Child<std::optional<mean::WeightedFunctionals>>
+            ("weightedFunctionals") |
+         --Child<std::optional<mean::SimpleMaxwellianFission>>
+            ("simpleMaxwellianFission") |
+         --Child<std::optional<gfiles::MadlandNix>>
+            ("MadlandNix")
       ;
    }
 
@@ -79,17 +90,28 @@ public:
    Field<std::optional<std::string>> unit{this};
 
    // children
-   Field<std::optional<common::Double>> Double{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
-   Field<std::optional<mean::NBodyPhaseSpace>> NBodyPhaseSpace{this};
-   Field<std::optional<mean::PrimaryGamma>> primaryGamma{this};
-   Field<std::optional<mean::DiscreteGamma>> discreteGamma{this};
-   Field<std::optional<mean::XYs2d>> XYs2d{this};
-   Field<std::optional<mean::GeneralEvaporation>> generalEvaporation{this};
-   Field<std::optional<mean::Evaporation>> evaporation{this};
-   Field<std::optional<mean::WeightedFunctionals>> weightedFunctionals{this};
-   Field<std::optional<mean::SimpleMaxwellianFission>> simpleMaxwellianFission{this};
-   Field<std::optional<gfiles::MadlandNix>> MadlandNix{this};
+   Field<std::optional<common::Double>>
+      Double{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
+   Field<std::optional<mean::NBodyPhaseSpace>>
+      NBodyPhaseSpace{this};
+   Field<std::optional<mean::PrimaryGamma>>
+      primaryGamma{this};
+   Field<std::optional<mean::DiscreteGamma>>
+      discreteGamma{this};
+   Field<std::optional<mean::XYs2d>>
+      XYs2d{this};
+   Field<std::optional<mean::GeneralEvaporation>>
+      generalEvaporation{this};
+   Field<std::optional<mean::Evaporation>>
+      evaporation{this};
+   Field<std::optional<mean::WeightedFunctionals>>
+      weightedFunctionals{this};
+   Field<std::optional<mean::SimpleMaxwellianFission>>
+      simpleMaxwellianFission{this};
+   Field<std::optional<gfiles::MadlandNix>>
+      MadlandNix{this};
 
    // ------------------------
    // Constructors
@@ -120,19 +142,32 @@ public:
 
    // from fields, comment excluded
    explicit Energy(
-      const wrapper<std::optional<double>> &value,
-      const wrapper<std::optional<std::string>> &unit = {},
-      const wrapper<std::optional<common::Double>> &Double = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {},
-      const wrapper<std::optional<mean::NBodyPhaseSpace>> &NBodyPhaseSpace = {},
-      const wrapper<std::optional<mean::PrimaryGamma>> &primaryGamma = {},
-      const wrapper<std::optional<mean::DiscreteGamma>> &discreteGamma = {},
-      const wrapper<std::optional<mean::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<mean::GeneralEvaporation>> &generalEvaporation = {},
-      const wrapper<std::optional<mean::Evaporation>> &evaporation = {},
-      const wrapper<std::optional<mean::WeightedFunctionals>> &weightedFunctionals = {},
-      const wrapper<std::optional<mean::SimpleMaxwellianFission>> &simpleMaxwellianFission = {},
-      const wrapper<std::optional<gfiles::MadlandNix>> &MadlandNix = {}
+      const wrapper<std::optional<double>>
+         &value,
+      const wrapper<std::optional<std::string>>
+         &unit = {},
+      const wrapper<std::optional<common::Double>>
+         &Double = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {},
+      const wrapper<std::optional<mean::NBodyPhaseSpace>>
+         &NBodyPhaseSpace = {},
+      const wrapper<std::optional<mean::PrimaryGamma>>
+         &primaryGamma = {},
+      const wrapper<std::optional<mean::DiscreteGamma>>
+         &discreteGamma = {},
+      const wrapper<std::optional<mean::XYs2d>>
+         &XYs2d = {},
+      const wrapper<std::optional<mean::GeneralEvaporation>>
+         &generalEvaporation = {},
+      const wrapper<std::optional<mean::Evaporation>>
+         &evaporation = {},
+      const wrapper<std::optional<mean::WeightedFunctionals>>
+         &weightedFunctionals = {},
+      const wrapper<std::optional<mean::SimpleMaxwellianFission>>
+         &simpleMaxwellianFission = {},
+      const wrapper<std::optional<gfiles::MadlandNix>>
+         &MadlandNix = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -205,8 +240,51 @@ public:
    // Assignment operators
    // ------------------------
 
-   Energy &operator=(const Energy &) = default;
-   Energy &operator=(Energy &&) = default;
+   // copy
+   Energy &operator=(const Energy &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         unit = other.unit;
+         Double = other.Double;
+         uncertainty = other.uncertainty;
+         NBodyPhaseSpace = other.NBodyPhaseSpace;
+         primaryGamma = other.primaryGamma;
+         discreteGamma = other.discreteGamma;
+         XYs2d = other.XYs2d;
+         generalEvaporation = other.generalEvaporation;
+         evaporation = other.evaporation;
+         weightedFunctionals = other.weightedFunctionals;
+         simpleMaxwellianFission = other.simpleMaxwellianFission;
+         MadlandNix = other.MadlandNix;
+      }
+      return *this;
+   }
+
+   // move
+   Energy &operator=(Energy &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+         Double = std::move(other.Double);
+         uncertainty = std::move(other.uncertainty);
+         NBodyPhaseSpace = std::move(other.NBodyPhaseSpace);
+         primaryGamma = std::move(other.primaryGamma);
+         discreteGamma = std::move(other.discreteGamma);
+         XYs2d = std::move(other.XYs2d);
+         generalEvaporation = std::move(other.generalEvaporation);
+         evaporation = std::move(other.evaporation);
+         weightedFunctionals = std::move(other.weightedFunctionals);
+         simpleMaxwellianFission = std::move(other.simpleMaxwellianFission);
+         MadlandNix = std::move(other.MadlandNix);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

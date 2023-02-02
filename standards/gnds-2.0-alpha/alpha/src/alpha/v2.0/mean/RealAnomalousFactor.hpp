@@ -38,7 +38,8 @@ class RealAnomalousFactor :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::XYs1d>("XYs1d")
+         --Child<common::XYs1d>
+            ("XYs1d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::XYs1d> XYs1d{this};
+   Field<common::XYs1d>
+      XYs1d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit RealAnomalousFactor(
-      const wrapper<common::XYs1d> &XYs1d
+      const wrapper<common::XYs1d>
+         &XYs1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   RealAnomalousFactor &operator=(const RealAnomalousFactor &) = default;
-   RealAnomalousFactor &operator=(RealAnomalousFactor &&) = default;
+   // copy
+   RealAnomalousFactor &operator=(const RealAnomalousFactor &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+      }
+      return *this;
+   }
+
+   // move
+   RealAnomalousFactor &operator=(RealAnomalousFactor &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

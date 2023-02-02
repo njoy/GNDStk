@@ -46,7 +46,8 @@ class ShortRangeSelfScalingVariance :
             / Meta<>("dependenceOnProcessedGroupWidth") |
 
          // children
-         --Child<common::Gridded2d>("gridded2d")
+         --Child<common::Gridded2d>
+            ("gridded2d")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::string> dependenceOnProcessedGroupWidth{this};
 
    // children
-   Field<common::Gridded2d> gridded2d{this};
+   Field<common::Gridded2d>
+      gridded2d{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit ShortRangeSelfScalingVariance(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &type = {},
-      const wrapper<std::string> &dependenceOnProcessedGroupWidth = {},
-      const wrapper<common::Gridded2d> &gridded2d = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &type = {},
+      const wrapper<std::string>
+         &dependenceOnProcessedGroupWidth = {},
+      const wrapper<common::Gridded2d>
+         &gridded2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ShortRangeSelfScalingVariance &operator=(const ShortRangeSelfScalingVariance &) = default;
-   ShortRangeSelfScalingVariance &operator=(ShortRangeSelfScalingVariance &&) = default;
+   // copy
+   ShortRangeSelfScalingVariance &operator=(const ShortRangeSelfScalingVariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         type = other.type;
+         dependenceOnProcessedGroupWidth = other.dependenceOnProcessedGroupWidth;
+         gridded2d = other.gridded2d;
+      }
+      return *this;
+   }
+
+   // move
+   ShortRangeSelfScalingVariance &operator=(ShortRangeSelfScalingVariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         type = std::move(other.type);
+         dependenceOnProcessedGroupWidth = std::move(other.dependenceOnProcessedGroupWidth);
+         gridded2d = std::move(other.gridded2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

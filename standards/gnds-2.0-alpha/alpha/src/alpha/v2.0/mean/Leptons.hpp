@@ -38,7 +38,8 @@ class Leptons :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Lepton>("lepton")
+         ++Child<mean::Lepton>
+            ("lepton")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Lepton>> lepton{this};
+   Field<std::vector<mean::Lepton>>
+      lepton{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Leptons(
-      const wrapper<std::vector<mean::Lepton>> &lepton
+      const wrapper<std::vector<mean::Lepton>>
+         &lepton
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       lepton(this,lepton)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Leptons &operator=(const Leptons &) = default;
-   Leptons &operator=(Leptons &&) = default;
+   // copy
+   Leptons &operator=(const Leptons &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         lepton = other.lepton;
+      }
+      return *this;
+   }
+
+   // move
+   Leptons &operator=(Leptons &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         lepton = std::move(other.lepton);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

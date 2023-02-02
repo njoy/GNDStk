@@ -49,10 +49,14 @@ class PoPs :
             / Meta<>("format") |
 
          // children
-         --Child<common::Styles>("styles") |
-         --Child<std::optional<common::ChemicalElements>>("chemicalElements") |
-         --Child<std::optional<common::Aliases>>("aliases") |
-         --Child<std::optional<common::Baryons>>("baryons")
+         --Child<common::Styles>
+            ("styles") |
+         --Child<std::optional<common::ChemicalElements>>
+            ("chemicalElements") |
+         --Child<std::optional<common::Aliases>>
+            ("aliases") |
+         --Child<std::optional<common::Baryons>>
+            ("baryons")
       ;
    }
 
@@ -68,10 +72,14 @@ public:
    Field<std::string> format{this};
 
    // children
-   Field<common::Styles> styles{this};
-   Field<std::optional<common::ChemicalElements>> chemicalElements{this};
-   Field<std::optional<common::Aliases>> aliases{this};
-   Field<std::optional<common::Baryons>> baryons{this};
+   Field<common::Styles>
+      styles{this};
+   Field<std::optional<common::ChemicalElements>>
+      chemicalElements{this};
+   Field<std::optional<common::Aliases>>
+      aliases{this};
+   Field<std::optional<common::Baryons>>
+      baryons{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +104,20 @@ public:
 
    // from fields, comment excluded
    explicit PoPs(
-      const wrapper<std::string> &name,
-      const wrapper<std::string> &version = {},
-      const wrapper<std::string> &format = {},
-      const wrapper<common::Styles> &styles = {},
-      const wrapper<std::optional<common::ChemicalElements>> &chemicalElements = {},
-      const wrapper<std::optional<common::Aliases>> &aliases = {},
-      const wrapper<std::optional<common::Baryons>> &baryons = {}
+      const wrapper<std::string>
+         &name,
+      const wrapper<std::string>
+         &version = {},
+      const wrapper<std::string>
+         &format = {},
+      const wrapper<common::Styles>
+         &styles = {},
+      const wrapper<std::optional<common::ChemicalElements>>
+         &chemicalElements = {},
+      const wrapper<std::optional<common::Aliases>>
+         &aliases = {},
+      const wrapper<std::optional<common::Baryons>>
+         &baryons = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
@@ -157,8 +172,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   PoPs &operator=(const PoPs &) = default;
-   PoPs &operator=(PoPs &&) = default;
+   // copy
+   PoPs &operator=(const PoPs &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+         version = other.version;
+         format = other.format;
+         styles = other.styles;
+         chemicalElements = other.chemicalElements;
+         aliases = other.aliases;
+         baryons = other.baryons;
+      }
+      return *this;
+   }
+
+   // move
+   PoPs &operator=(PoPs &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+         version = std::move(other.version);
+         format = std::move(other.format);
+         styles = std::move(other.styles);
+         chemicalElements = std::move(other.chemicalElements);
+         aliases = std::move(other.aliases);
+         baryons = std::move(other.baryons);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

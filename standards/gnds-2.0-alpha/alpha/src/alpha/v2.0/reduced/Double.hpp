@@ -69,7 +69,8 @@ public:
 
    // from fields, comment excluded
    explicit Double(
-      const wrapper<double> &value
+      const wrapper<double>
+         &value
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value)
@@ -106,8 +107,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Double &operator=(const Double &) = default;
-   Double &operator=(Double &&) = default;
+   // copy
+   Double &operator=(const Double &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+      }
+      return *this;
+   }
+
+   // move
+   Double &operator=(Double &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

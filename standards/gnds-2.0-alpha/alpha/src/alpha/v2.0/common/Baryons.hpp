@@ -38,7 +38,8 @@ class Baryons :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Baryon>("baryon")
+         ++Child<common::Baryon>
+            ("baryon")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Baryon>> baryon{this};
+   Field<std::vector<common::Baryon>>
+      baryon{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Baryons(
-      const wrapper<std::vector<common::Baryon>> &baryon
+      const wrapper<std::vector<common::Baryon>>
+         &baryon
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       baryon(this,baryon)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Baryons &operator=(const Baryons &) = default;
-   Baryons &operator=(Baryons &&) = default;
+   // copy
+   Baryons &operator=(const Baryons &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         baryon = other.baryon;
+      }
+      return *this;
+   }
+
+   // move
+   Baryons &operator=(Baryons &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         baryon = std::move(other.baryon);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

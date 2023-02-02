@@ -48,9 +48,12 @@ class Polynomial1d :
             / Meta<>("domainMax") |
 
          // children
-         --Child<common::Axes>("axes") |
-         --Child<common::Values>("values") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<common::Axes>
+            ("axes") |
+         --Child<common::Values>
+            ("values") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -66,9 +69,12 @@ public:
    Field<double> domainMax{this};
 
    // children
-   Field<common::Axes> axes{this};
-   Field<common::Values> values{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<common::Axes>
+      axes{this};
+   Field<common::Values>
+      values{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +98,18 @@ public:
 
    // from fields, comment excluded
    explicit Polynomial1d(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<double> &domainMin = {},
-      const wrapper<double> &domainMax = {},
-      const wrapper<common::Axes> &axes = {},
-      const wrapper<common::Values> &values = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<double>
+         &domainMin = {},
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<common::Axes>
+         &axes = {},
+      const wrapper<common::Values>
+         &values = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +161,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Polynomial1d &operator=(const Polynomial1d &) = default;
-   Polynomial1d &operator=(Polynomial1d &&) = default;
+   // copy
+   Polynomial1d &operator=(const Polynomial1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+         values = other.values;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Polynomial1d &operator=(Polynomial1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+         values = std::move(other.values);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

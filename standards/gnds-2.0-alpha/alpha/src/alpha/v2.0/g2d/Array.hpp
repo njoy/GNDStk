@@ -46,7 +46,8 @@ class Array :
             / Meta<>("symmetry") |
 
          // children
-         --Child<common::Values>("values")
+         --Child<common::Values>
+            ("values")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::optional<std::string>> symmetry{this};
 
    // children
-   Field<common::Values> values{this};
+   Field<common::Values>
+      values{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit Array(
-      const wrapper<std::string> &shape,
-      const wrapper<std::optional<std::string>> &compression = {},
-      const wrapper<std::optional<std::string>> &symmetry = {},
-      const wrapper<common::Values> &values = {}
+      const wrapper<std::string>
+         &shape,
+      const wrapper<std::optional<std::string>>
+         &compression = {},
+      const wrapper<std::optional<std::string>>
+         &symmetry = {},
+      const wrapper<common::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shape(this,shape),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Array &operator=(const Array &) = default;
-   Array &operator=(Array &&) = default;
+   // copy
+   Array &operator=(const Array &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         shape = other.shape;
+         compression = other.compression;
+         symmetry = other.symmetry;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Array &operator=(Array &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         shape = std::move(other.shape);
+         compression = std::move(other.compression);
+         symmetry = std::move(other.symmetry);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

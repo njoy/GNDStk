@@ -47,8 +47,10 @@ class ChemicalElement :
             / Meta<>("name") |
 
          // children
-         --Child<std::optional<atom::Atomic>>("atomic") |
-         --Child<std::optional<common::Isotopes>>("isotopes")
+         --Child<std::optional<atom::Atomic>>
+            ("atomic") |
+         --Child<std::optional<common::Isotopes>>
+            ("isotopes")
       ;
    }
 
@@ -64,8 +66,10 @@ public:
    Field<std::string> name{this};
 
    // children
-   Field<std::optional<atom::Atomic>> atomic{this};
-   Field<std::optional<common::Isotopes>> isotopes{this};
+   Field<std::optional<atom::Atomic>>
+      atomic{this};
+   Field<std::optional<common::Isotopes>>
+      isotopes{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +92,16 @@ public:
 
    // from fields, comment excluded
    explicit ChemicalElement(
-      const wrapper<std::string> &symbol,
-      const wrapper<int> &Z = {},
-      const wrapper<std::string> &name = {},
-      const wrapper<std::optional<atom::Atomic>> &atomic = {},
-      const wrapper<std::optional<common::Isotopes>> &isotopes = {}
+      const wrapper<std::string>
+         &symbol,
+      const wrapper<int>
+         &Z = {},
+      const wrapper<std::string>
+         &name = {},
+      const wrapper<std::optional<atom::Atomic>>
+         &atomic = {},
+      const wrapper<std::optional<common::Isotopes>>
+         &isotopes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
@@ -141,8 +150,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   ChemicalElement &operator=(const ChemicalElement &) = default;
-   ChemicalElement &operator=(ChemicalElement &&) = default;
+   // copy
+   ChemicalElement &operator=(const ChemicalElement &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         symbol = other.symbol;
+         Z = other.Z;
+         name = other.name;
+         atomic = other.atomic;
+         isotopes = other.isotopes;
+      }
+      return *this;
+   }
+
+   // move
+   ChemicalElement &operator=(ChemicalElement &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         symbol = std::move(other.symbol);
+         Z = std::move(other.Z);
+         name = std::move(other.name);
+         atomic = std::move(other.atomic);
+         isotopes = std::move(other.isotopes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

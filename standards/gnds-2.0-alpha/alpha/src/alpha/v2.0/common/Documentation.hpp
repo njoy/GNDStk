@@ -42,11 +42,16 @@ class Documentation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Authors>("authors") |
-         --Child<common::Dates>("dates") |
-         --Child<common::Title>("title") |
-         --Child<common::Body>("body") |
-         --Child<std::optional<common::EndfCompatible>>("endfCompatible")
+         --Child<common::Authors>
+            ("authors") |
+         --Child<common::Dates>
+            ("dates") |
+         --Child<common::Title>
+            ("title") |
+         --Child<common::Body>
+            ("body") |
+         --Child<std::optional<common::EndfCompatible>>
+            ("endfCompatible")
       ;
    }
 
@@ -57,11 +62,16 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Authors> authors{this};
-   Field<common::Dates> dates{this};
-   Field<common::Title> title{this};
-   Field<common::Body> body{this};
-   Field<std::optional<common::EndfCompatible>> endfCompatible{this};
+   Field<common::Authors>
+      authors{this};
+   Field<common::Dates>
+      dates{this};
+   Field<common::Title>
+      title{this};
+   Field<common::Body>
+      body{this};
+   Field<std::optional<common::EndfCompatible>>
+      endfCompatible{this};
 
    // ------------------------
    // Constructors
@@ -84,11 +94,16 @@ public:
 
    // from fields, comment excluded
    explicit Documentation(
-      const wrapper<common::Authors> &authors,
-      const wrapper<common::Dates> &dates = {},
-      const wrapper<common::Title> &title = {},
-      const wrapper<common::Body> &body = {},
-      const wrapper<std::optional<common::EndfCompatible>> &endfCompatible = {}
+      const wrapper<common::Authors>
+         &authors,
+      const wrapper<common::Dates>
+         &dates = {},
+      const wrapper<common::Title>
+         &title = {},
+      const wrapper<common::Body>
+         &body = {},
+      const wrapper<std::optional<common::EndfCompatible>>
+         &endfCompatible = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       authors(this,authors),
@@ -137,8 +152,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Documentation &operator=(const Documentation &) = default;
-   Documentation &operator=(Documentation &&) = default;
+   // copy
+   Documentation &operator=(const Documentation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         authors = other.authors;
+         dates = other.dates;
+         title = other.title;
+         body = other.body;
+         endfCompatible = other.endfCompatible;
+      }
+      return *this;
+   }
+
+   // move
+   Documentation &operator=(Documentation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         authors = std::move(other.authors);
+         dates = std::move(other.dates);
+         title = std::move(other.title);
+         body = std::move(other.body);
+         endfCompatible = std::move(other.endfCompatible);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -43,8 +43,10 @@ class ProductYield :
             / Meta<>("label") |
 
          // children
-         --Child<std::optional<reduced::Nuclides>>("nuclides") |
-         --Child<common::ElapsedTimes>("elapsedTimes")
+         --Child<std::optional<reduced::Nuclides>>
+            ("nuclides") |
+         --Child<common::ElapsedTimes>
+            ("elapsedTimes")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<std::optional<std::string>> label{this};
 
    // children
-   Field<std::optional<reduced::Nuclides>> nuclides{this};
-   Field<common::ElapsedTimes> elapsedTimes{this};
+   Field<std::optional<reduced::Nuclides>>
+      nuclides{this};
+   Field<common::ElapsedTimes>
+      elapsedTimes{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit ProductYield(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<reduced::Nuclides>> &nuclides = {},
-      const wrapper<common::ElapsedTimes> &elapsedTimes = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<reduced::Nuclides>>
+         &nuclides = {},
+      const wrapper<common::ElapsedTimes>
+         &elapsedTimes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProductYield &operator=(const ProductYield &) = default;
-   ProductYield &operator=(ProductYield &&) = default;
+   // copy
+   ProductYield &operator=(const ProductYield &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         nuclides = other.nuclides;
+         elapsedTimes = other.elapsedTimes;
+      }
+      return *this;
+   }
+
+   // move
+   ProductYield &operator=(ProductYield &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         nuclides = std::move(other.nuclides);
+         elapsedTimes = std::move(other.elapsedTimes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

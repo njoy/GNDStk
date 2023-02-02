@@ -46,7 +46,8 @@ class CovarianceMatrix :
             / Meta<>("productFrame") |
 
          // children
-         --Child<common::Gridded2d>("gridded2d")
+         --Child<common::Gridded2d>
+            ("gridded2d")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::optional<std::string>> productFrame{this};
 
    // children
-   Field<common::Gridded2d> gridded2d{this};
+   Field<common::Gridded2d>
+      gridded2d{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceMatrix(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &type = {},
-      const wrapper<std::optional<std::string>> &productFrame = {},
-      const wrapper<common::Gridded2d> &gridded2d = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &type = {},
+      const wrapper<std::optional<std::string>>
+         &productFrame = {},
+      const wrapper<common::Gridded2d>
+         &gridded2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceMatrix &operator=(const CovarianceMatrix &) = default;
-   CovarianceMatrix &operator=(CovarianceMatrix &&) = default;
+   // copy
+   CovarianceMatrix &operator=(const CovarianceMatrix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         type = other.type;
+         productFrame = other.productFrame;
+         gridded2d = other.gridded2d;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceMatrix &operator=(CovarianceMatrix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         type = std::move(other.type);
+         productFrame = std::move(other.productFrame);
+         gridded2d = std::move(other.gridded2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

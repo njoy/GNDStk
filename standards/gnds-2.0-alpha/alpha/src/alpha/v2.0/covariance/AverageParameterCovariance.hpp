@@ -46,9 +46,12 @@ class AverageParameterCovariance :
             / Meta<>("crossTerm") |
 
          // children
-         --Child<covariance::CovarianceMatrix>("covarianceMatrix") |
-         --Child<covariance::RowData>("rowData") |
-         --Child<std::optional<covariance::ColumnData>>("columnData")
+         --Child<covariance::CovarianceMatrix>
+            ("covarianceMatrix") |
+         --Child<covariance::RowData>
+            ("rowData") |
+         --Child<std::optional<covariance::ColumnData>>
+            ("columnData")
       ;
    }
 
@@ -63,9 +66,12 @@ public:
    Field<std::optional<bool>> crossTerm{this};
 
    // children
-   Field<covariance::CovarianceMatrix> covarianceMatrix{this};
-   Field<covariance::RowData> rowData{this};
-   Field<std::optional<covariance::ColumnData>> columnData{this};
+   Field<covariance::CovarianceMatrix>
+      covarianceMatrix{this};
+   Field<covariance::RowData>
+      rowData{this};
+   Field<std::optional<covariance::ColumnData>>
+      columnData{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +94,16 @@ public:
 
    // from fields, comment excluded
    explicit AverageParameterCovariance(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<bool>> &crossTerm = {},
-      const wrapper<covariance::CovarianceMatrix> &covarianceMatrix = {},
-      const wrapper<covariance::RowData> &rowData = {},
-      const wrapper<std::optional<covariance::ColumnData>> &columnData = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<bool>>
+         &crossTerm = {},
+      const wrapper<covariance::CovarianceMatrix>
+         &covarianceMatrix = {},
+      const wrapper<covariance::RowData>
+         &rowData = {},
+      const wrapper<std::optional<covariance::ColumnData>>
+         &columnData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +152,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   AverageParameterCovariance &operator=(const AverageParameterCovariance &) = default;
-   AverageParameterCovariance &operator=(AverageParameterCovariance &&) = default;
+   // copy
+   AverageParameterCovariance &operator=(const AverageParameterCovariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         crossTerm = other.crossTerm;
+         covarianceMatrix = other.covarianceMatrix;
+         rowData = other.rowData;
+         columnData = other.columnData;
+      }
+      return *this;
+   }
+
+   // move
+   AverageParameterCovariance &operator=(AverageParameterCovariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         crossTerm = std::move(other.crossTerm);
+         covarianceMatrix = std::move(other.covarianceMatrix);
+         rowData = std::move(other.rowData);
+         columnData = std::move(other.columnData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

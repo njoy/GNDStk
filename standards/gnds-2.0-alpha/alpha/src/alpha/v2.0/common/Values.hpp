@@ -102,8 +102,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Values &operator=(const Values &) = default;
-   Values &operator=(Values &&) = default;
+   // copy
+   Values &operator=(const Values &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   Values &operator=(Values &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

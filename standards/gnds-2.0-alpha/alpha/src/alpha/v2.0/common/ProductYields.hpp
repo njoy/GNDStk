@@ -38,7 +38,8 @@ class ProductYields :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::ProductYield>("productYield")
+         ++Child<common::ProductYield>
+            ("productYield")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::ProductYield>> productYield{this};
+   Field<std::vector<common::ProductYield>>
+      productYield{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ProductYields(
-      const wrapper<std::vector<common::ProductYield>> &productYield
+      const wrapper<std::vector<common::ProductYield>>
+         &productYield
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       productYield(this,productYield)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProductYields &operator=(const ProductYields &) = default;
-   ProductYields &operator=(ProductYields &&) = default;
+   // copy
+   ProductYields &operator=(const ProductYields &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         productYield = other.productYield;
+      }
+      return *this;
+   }
+
+   // move
+   ProductYields &operator=(ProductYields &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         productYield = std::move(other.productYield);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -39,8 +39,10 @@ class Sums :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<mean::CrossSectionSums>>("crossSectionSums") |
-         --Child<std::optional<mean::MultiplicitySums>>("multiplicitySums")
+         --Child<std::optional<mean::CrossSectionSums>>
+            ("crossSectionSums") |
+         --Child<std::optional<mean::MultiplicitySums>>
+            ("multiplicitySums")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<mean::CrossSectionSums>> crossSectionSums{this};
-   Field<std::optional<mean::MultiplicitySums>> multiplicitySums{this};
+   Field<std::optional<mean::CrossSectionSums>>
+      crossSectionSums{this};
+   Field<std::optional<mean::MultiplicitySums>>
+      multiplicitySums{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Sums(
-      const wrapper<std::optional<mean::CrossSectionSums>> &crossSectionSums,
-      const wrapper<std::optional<mean::MultiplicitySums>> &multiplicitySums = {}
+      const wrapper<std::optional<mean::CrossSectionSums>>
+         &crossSectionSums,
+      const wrapper<std::optional<mean::MultiplicitySums>>
+         &multiplicitySums = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       crossSectionSums(this,crossSectionSums),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Sums &operator=(const Sums &) = default;
-   Sums &operator=(Sums &&) = default;
+   // copy
+   Sums &operator=(const Sums &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         crossSectionSums = other.crossSectionSums;
+         multiplicitySums = other.multiplicitySums;
+      }
+      return *this;
+   }
+
+   // move
+   Sums &operator=(Sums &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         crossSectionSums = std::move(other.crossSectionSums);
+         multiplicitySums = std::move(other.multiplicitySums);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

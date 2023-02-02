@@ -47,10 +47,14 @@ class AngularTwoBody :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<mean::XYs2d>>("XYs2d") |
-         --Child<std::optional<mean::Regions2d>>("regions2d") |
-         --Child<std::optional<mean::Recoil>>("recoil") |
-         --Child<std::optional<mean::Isotropic2d>>("isotropic2d")
+         --Child<std::optional<mean::XYs2d>>
+            ("XYs2d") |
+         --Child<std::optional<mean::Regions2d>>
+            ("regions2d") |
+         --Child<std::optional<mean::Recoil>>
+            ("recoil") |
+         --Child<std::optional<mean::Isotropic2d>>
+            ("isotropic2d")
       ;
    }
 
@@ -65,10 +69,14 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<std::optional<mean::XYs2d>> XYs2d{this};
-   Field<std::optional<mean::Regions2d>> regions2d{this};
-   Field<std::optional<mean::Recoil>> recoil{this};
-   Field<std::optional<mean::Isotropic2d>> isotropic2d{this};
+   Field<std::optional<mean::XYs2d>>
+      XYs2d{this};
+   Field<std::optional<mean::Regions2d>>
+      regions2d{this};
+   Field<std::optional<mean::Recoil>>
+      recoil{this};
+   Field<std::optional<mean::Isotropic2d>>
+      isotropic2d{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +100,18 @@ public:
 
    // from fields, comment excluded
    explicit AngularTwoBody(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<std::optional<mean::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<mean::Regions2d>> &regions2d = {},
-      const wrapper<std::optional<mean::Recoil>> &recoil = {},
-      const wrapper<std::optional<mean::Isotropic2d>> &isotropic2d = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<std::optional<mean::XYs2d>>
+         &XYs2d = {},
+      const wrapper<std::optional<mean::Regions2d>>
+         &regions2d = {},
+      const wrapper<std::optional<mean::Recoil>>
+         &recoil = {},
+      const wrapper<std::optional<mean::Isotropic2d>>
+         &isotropic2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +163,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   AngularTwoBody &operator=(const AngularTwoBody &) = default;
-   AngularTwoBody &operator=(AngularTwoBody &&) = default;
+   // copy
+   AngularTwoBody &operator=(const AngularTwoBody &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         XYs2d = other.XYs2d;
+         regions2d = other.regions2d;
+         recoil = other.recoil;
+         isotropic2d = other.isotropic2d;
+      }
+      return *this;
+   }
+
+   // move
+   AngularTwoBody &operator=(AngularTwoBody &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         XYs2d = std::move(other.XYs2d);
+         regions2d = std::move(other.regions2d);
+         recoil = std::move(other.recoil);
+         isotropic2d = std::move(other.isotropic2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

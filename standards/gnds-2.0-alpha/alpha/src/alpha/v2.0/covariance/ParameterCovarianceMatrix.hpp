@@ -45,8 +45,10 @@ class ParameterCovarianceMatrix :
             / Meta<>("type") |
 
          // children
-         --Child<g3d::Array>("array") |
-         --Child<covariance::Parameters>("parameters")
+         --Child<g3d::Array>
+            ("array") |
+         --Child<covariance::Parameters>
+            ("parameters")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::string> type{this};
 
    // children
-   Field<g3d::Array> array{this};
-   Field<covariance::Parameters> parameters{this};
+   Field<g3d::Array>
+      array{this};
+   Field<covariance::Parameters>
+      parameters{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit ParameterCovarianceMatrix(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &type = {},
-      const wrapper<g3d::Array> &array = {},
-      const wrapper<covariance::Parameters> &parameters = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &type = {},
+      const wrapper<g3d::Array>
+         &array = {},
+      const wrapper<covariance::Parameters>
+         &parameters = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterCovarianceMatrix &operator=(const ParameterCovarianceMatrix &) = default;
-   ParameterCovarianceMatrix &operator=(ParameterCovarianceMatrix &&) = default;
+   // copy
+   ParameterCovarianceMatrix &operator=(const ParameterCovarianceMatrix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         type = other.type;
+         array = other.array;
+         parameters = other.parameters;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterCovarianceMatrix &operator=(ParameterCovarianceMatrix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         type = std::move(other.type);
+         array = std::move(other.array);
+         parameters = std::move(other.parameters);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

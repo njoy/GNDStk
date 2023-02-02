@@ -38,7 +38,8 @@ class ResonanceParameters :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<mean::Table>("table")
+         --Child<mean::Table>
+            ("table")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<mean::Table> table{this};
+   Field<mean::Table>
+      table{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ResonanceParameters(
-      const wrapper<mean::Table> &table
+      const wrapper<mean::Table>
+         &table
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       table(this,table)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonanceParameters &operator=(const ResonanceParameters &) = default;
-   ResonanceParameters &operator=(ResonanceParameters &&) = default;
+   // copy
+   ResonanceParameters &operator=(const ResonanceParameters &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         table = other.table;
+      }
+      return *this;
+   }
+
+   // move
+   ResonanceParameters &operator=(ResonanceParameters &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         table = std::move(other.table);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

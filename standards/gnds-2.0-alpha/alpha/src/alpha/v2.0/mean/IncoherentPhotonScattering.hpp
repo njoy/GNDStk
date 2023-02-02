@@ -48,7 +48,8 @@ class IncoherentPhotonScattering :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<mean::ScatteringFactor>>("scatteringFactor")
+         --Child<std::optional<mean::ScatteringFactor>>
+            ("scatteringFactor")
       ;
    }
 
@@ -65,7 +66,8 @@ public:
    Field<std::optional<std::string>> productFrame{this};
 
    // children
-   Field<std::optional<mean::ScatteringFactor>> scatteringFactor{this};
+   Field<std::optional<mean::ScatteringFactor>>
+      scatteringFactor{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +90,16 @@ public:
 
    // from fields, comment excluded
    explicit IncoherentPhotonScattering(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<std::string>> &href = {},
-      const wrapper<std::optional<std::string>> &pid = {},
-      const wrapper<std::optional<std::string>> &productFrame = {},
-      const wrapper<std::optional<mean::ScatteringFactor>> &scatteringFactor = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &href = {},
+      const wrapper<std::optional<std::string>>
+         &pid = {},
+      const wrapper<std::optional<std::string>>
+         &productFrame = {},
+      const wrapper<std::optional<mean::ScatteringFactor>>
+         &scatteringFactor = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +148,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncoherentPhotonScattering &operator=(const IncoherentPhotonScattering &) = default;
-   IncoherentPhotonScattering &operator=(IncoherentPhotonScattering &&) = default;
+   // copy
+   IncoherentPhotonScattering &operator=(const IncoherentPhotonScattering &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         scatteringFactor = other.scatteringFactor;
+      }
+      return *this;
+   }
+
+   // move
+   IncoherentPhotonScattering &operator=(IncoherentPhotonScattering &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         scatteringFactor = std::move(other.scatteringFactor);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

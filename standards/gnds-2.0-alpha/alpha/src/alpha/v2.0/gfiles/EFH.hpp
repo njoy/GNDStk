@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit EFH(
-      const wrapper<double> &value,
-      const wrapper<std::string> &unit = {}
+      const wrapper<double>
+         &value,
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   EFH &operator=(const EFH &) = default;
-   EFH &operator=(EFH &&) = default;
+   // copy
+   EFH &operator=(const EFH &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   EFH &operator=(EFH &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

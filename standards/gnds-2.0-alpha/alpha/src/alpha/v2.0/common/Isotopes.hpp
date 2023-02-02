@@ -38,7 +38,8 @@ class Isotopes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Isotope>("isotope")
+         ++Child<common::Isotope>
+            ("isotope")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Isotope>> isotope{this};
+   Field<std::vector<common::Isotope>>
+      isotope{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Isotopes(
-      const wrapper<std::vector<common::Isotope>> &isotope
+      const wrapper<std::vector<common::Isotope>>
+         &isotope
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       isotope(this,isotope)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotopes &operator=(const Isotopes &) = default;
-   Isotopes &operator=(Isotopes &&) = default;
+   // copy
+   Isotopes &operator=(const Isotopes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         isotope = other.isotope;
+      }
+      return *this;
+   }
+
+   // move
+   Isotopes &operator=(Isotopes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         isotope = std::move(other.isotope);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

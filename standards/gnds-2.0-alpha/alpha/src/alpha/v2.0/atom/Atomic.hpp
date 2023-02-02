@@ -38,7 +38,8 @@ class Atomic :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<atom::Configurations>("configurations")
+         --Child<atom::Configurations>
+            ("configurations")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<atom::Configurations> configurations{this};
+   Field<atom::Configurations>
+      configurations{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Atomic(
-      const wrapper<atom::Configurations> &configurations
+      const wrapper<atom::Configurations>
+         &configurations
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configurations(this,configurations)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Atomic &operator=(const Atomic &) = default;
-   Atomic &operator=(Atomic &&) = default;
+   // copy
+   Atomic &operator=(const Atomic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         configurations = other.configurations;
+      }
+      return *this;
+   }
+
+   // move
+   Atomic &operator=(Atomic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         configurations = std::move(other.configurations);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

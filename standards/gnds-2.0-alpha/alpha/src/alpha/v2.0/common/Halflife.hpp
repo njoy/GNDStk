@@ -39,8 +39,10 @@ class Halflife :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::String>>("string") |
-         --Child<std::optional<common::Double>>("double")
+         --Child<std::optional<common::String>>
+            ("string") |
+         --Child<std::optional<common::Double>>
+            ("double")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::String>> string{this};
-   Field<std::optional<common::Double>> Double{this};
+   Field<std::optional<common::String>>
+      string{this};
+   Field<std::optional<common::Double>>
+      Double{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Halflife(
-      const wrapper<std::optional<common::String>> &string,
-      const wrapper<std::optional<common::Double>> &Double = {}
+      const wrapper<std::optional<common::String>>
+         &string,
+      const wrapper<std::optional<common::Double>>
+         &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       string(this,string),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Halflife &operator=(const Halflife &) = default;
-   Halflife &operator=(Halflife &&) = default;
+   // copy
+   Halflife &operator=(const Halflife &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         string = other.string;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Halflife &operator=(Halflife &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         string = std::move(other.string);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

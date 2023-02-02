@@ -94,8 +94,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Body &operator=(const Body &) = default;
-   Body &operator=(Body &&) = default;
+   // copy
+   Body &operator=(const Body &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   Body &operator=(Body &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -38,7 +38,8 @@ class FissionComponents :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<mean::FissionComponent>>("fissionComponent")
+         ++Child<std::optional<mean::FissionComponent>>
+            ("fissionComponent")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<mean::FissionComponent>>> fissionComponent{this};
+   Field<std::optional<std::vector<mean::FissionComponent>>>
+      fissionComponent{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit FissionComponents(
-      const wrapper<std::optional<std::vector<mean::FissionComponent>>> &fissionComponent
+      const wrapper<std::optional<std::vector<mean::FissionComponent>>>
+         &fissionComponent
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       fissionComponent(this,fissionComponent)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionComponents &operator=(const FissionComponents &) = default;
-   FissionComponents &operator=(FissionComponents &&) = default;
+   // copy
+   FissionComponents &operator=(const FissionComponents &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         fissionComponent = other.fissionComponent;
+      }
+      return *this;
+   }
+
+   // move
+   FissionComponents &operator=(FissionComponents &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         fissionComponent = std::move(other.fissionComponent);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

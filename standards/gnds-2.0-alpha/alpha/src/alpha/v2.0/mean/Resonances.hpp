@@ -44,9 +44,12 @@ class Resonances :
             / Meta<>("href") |
 
          // children
-         --Child<std::optional<mean::ScatteringRadius>>("scatteringRadius") |
-         --Child<std::optional<mean::Resolved>>("resolved") |
-         --Child<std::optional<mean::Unresolved>>("unresolved")
+         --Child<std::optional<mean::ScatteringRadius>>
+            ("scatteringRadius") |
+         --Child<std::optional<mean::Resolved>>
+            ("resolved") |
+         --Child<std::optional<mean::Unresolved>>
+            ("unresolved")
       ;
    }
 
@@ -60,9 +63,12 @@ public:
    Field<std::optional<std::string>> href{this};
 
    // children
-   Field<std::optional<mean::ScatteringRadius>> scatteringRadius{this};
-   Field<std::optional<mean::Resolved>> resolved{this};
-   Field<std::optional<mean::Unresolved>> unresolved{this};
+   Field<std::optional<mean::ScatteringRadius>>
+      scatteringRadius{this};
+   Field<std::optional<mean::Resolved>>
+      resolved{this};
+   Field<std::optional<mean::Unresolved>>
+      unresolved{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +90,14 @@ public:
 
    // from fields, comment excluded
    explicit Resonances(
-      const wrapper<std::optional<std::string>> &href,
-      const wrapper<std::optional<mean::ScatteringRadius>> &scatteringRadius = {},
-      const wrapper<std::optional<mean::Resolved>> &resolved = {},
-      const wrapper<std::optional<mean::Unresolved>> &unresolved = {}
+      const wrapper<std::optional<std::string>>
+         &href,
+      const wrapper<std::optional<mean::ScatteringRadius>>
+         &scatteringRadius = {},
+      const wrapper<std::optional<mean::Resolved>>
+         &resolved = {},
+      const wrapper<std::optional<mean::Unresolved>>
+         &unresolved = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -133,8 +143,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Resonances &operator=(const Resonances &) = default;
-   Resonances &operator=(Resonances &&) = default;
+   // copy
+   Resonances &operator=(const Resonances &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         scatteringRadius = other.scatteringRadius;
+         resolved = other.resolved;
+         unresolved = other.unresolved;
+      }
+      return *this;
+   }
+
+   // move
+   Resonances &operator=(Resonances &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         scatteringRadius = std::move(other.scatteringRadius);
+         resolved = std::move(other.resolved);
+         unresolved = std::move(other.unresolved);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

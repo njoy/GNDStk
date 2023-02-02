@@ -45,8 +45,10 @@ class Table :
             / Meta<>("columns") |
 
          // children
-         --Child<mean::ColumnHeaders>("columnHeaders") |
-         --Child<mean::Data>("data")
+         --Child<mean::ColumnHeaders>
+            ("columnHeaders") |
+         --Child<mean::Data>
+            ("data")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<int> columns{this};
 
    // children
-   Field<mean::ColumnHeaders> columnHeaders{this};
-   Field<mean::Data> data{this};
+   Field<mean::ColumnHeaders>
+      columnHeaders{this};
+   Field<mean::Data>
+      data{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Table(
-      const wrapper<int> &rows,
-      const wrapper<int> &columns = {},
-      const wrapper<mean::ColumnHeaders> &columnHeaders = {},
-      const wrapper<mean::Data> &data = {}
+      const wrapper<int>
+         &rows,
+      const wrapper<int>
+         &columns = {},
+      const wrapper<mean::ColumnHeaders>
+         &columnHeaders = {},
+      const wrapper<mean::Data>
+         &data = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       rows(this,rows),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Table &operator=(const Table &) = default;
-   Table &operator=(Table &&) = default;
+   // copy
+   Table &operator=(const Table &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         rows = other.rows;
+         columns = other.columns;
+         columnHeaders = other.columnHeaders;
+         data = other.data;
+      }
+      return *this;
+   }
+
+   // move
+   Table &operator=(Table &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         rows = std::move(other.rows);
+         columns = std::move(other.columns);
+         columnHeaders = std::move(other.columnHeaders);
+         data = std::move(other.data);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

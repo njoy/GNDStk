@@ -62,17 +62,28 @@ class ReactionSuite :
             / Meta<>("interaction") |
 
          // children
-         --Child<common::Styles>("styles") |
-         --Child<common::PoPs>("PoPs") |
-         --Child<common::Reactions>("reactions") |
-         --Child<std::optional<common::ApplicationData>>("applicationData") |
-         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
-         --Child<std::optional<mean::Resonances>>("resonances") |
-         --Child<std::optional<mean::Sums>>("sums") |
-         --Child<std::optional<mean::Productions>>("productions") |
-         --Child<std::optional<mean::FissionComponents>>("fissionComponents") |
-         --Child<std::optional<mean::OrphanProducts>>("orphanProducts") |
-         --Child<std::optional<mean::IncompleteReactions>>("incompleteReactions")
+         --Child<common::Styles>
+            ("styles") |
+         --Child<common::PoPs>
+            ("PoPs") |
+         --Child<common::Reactions>
+            ("reactions") |
+         --Child<std::optional<common::ApplicationData>>
+            ("applicationData") |
+         --Child<std::optional<common::ExternalFiles>>
+            ("externalFiles") |
+         --Child<std::optional<mean::Resonances>>
+            ("resonances") |
+         --Child<std::optional<mean::Sums>>
+            ("sums") |
+         --Child<std::optional<mean::Productions>>
+            ("productions") |
+         --Child<std::optional<mean::FissionComponents>>
+            ("fissionComponents") |
+         --Child<std::optional<mean::OrphanProducts>>
+            ("orphanProducts") |
+         --Child<std::optional<mean::IncompleteReactions>>
+            ("incompleteReactions")
       ;
    }
 
@@ -91,17 +102,31 @@ public:
    Field<std::string> interaction{this};
 
    // children
-   Field<common::Styles> styles{this};
-   Field<common::PoPs> PoPs{this};
-   Field<common::Reactions> reactions{this};
-   Field<std::optional<common::ApplicationData>> applicationData{this};
-   Field<std::optional<common::ExternalFiles>> externalFiles{this};
-   Field<std::optional<mean::Resonances>> resonances{this};
-   Field<std::optional<mean::Sums>> sums{this};
-   Field<std::optional<mean::Productions>> productions{this};
-   Field<std::optional<mean::FissionComponents>> fissionComponents{this};
-   Field<std::optional<mean::OrphanProducts>> orphanProducts{this};
-   Field<std::optional<mean::IncompleteReactions>> incompleteReactions{this};
+   Field<common::Styles>
+      styles{this};
+   Field<common::PoPs>
+      PoPs{this};
+   Field<common::Reactions>
+      reactions{this};
+   Field<std::optional<common::ApplicationData>>
+      applicationData{this};
+   Field<std::optional<common::ExternalFiles>>
+      externalFiles{this};
+   Field<std::optional<mean::Resonances>>
+      resonances{this};
+   Field<std::optional<mean::Sums>>
+      sums{this};
+   Field<std::optional<mean::Productions>>
+      productions{this};
+   Field<std::optional<mean::FissionComponents>>
+      fissionComponents{this};
+   Field<std::optional<mean::OrphanProducts>>
+      orphanProducts{this};
+   Field<std::optional<mean::IncompleteReactions>>
+      incompleteReactions{this};
+
+   // shortcuts
+   decltype(reactions().reaction) &reaction = reactions().reaction;
 
    // ------------------------
    // Constructors
@@ -136,23 +161,40 @@ public:
 
    // from fields, comment excluded
    explicit ReactionSuite(
-      const wrapper<std::string> &projectile,
-      const wrapper<std::string> &target = {},
-      const wrapper<std::string> &evaluation = {},
-      const wrapper<std::string> &format = {},
-      const wrapper<std::string> &projectileFrame = {},
-      const wrapper<std::string> &interaction = {},
-      const wrapper<common::Styles> &styles = {},
-      const wrapper<common::PoPs> &PoPs = {},
-      const wrapper<common::Reactions> &reactions = {},
-      const wrapper<std::optional<common::ApplicationData>> &applicationData = {},
-      const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
-      const wrapper<std::optional<mean::Resonances>> &resonances = {},
-      const wrapper<std::optional<mean::Sums>> &sums = {},
-      const wrapper<std::optional<mean::Productions>> &productions = {},
-      const wrapper<std::optional<mean::FissionComponents>> &fissionComponents = {},
-      const wrapper<std::optional<mean::OrphanProducts>> &orphanProducts = {},
-      const wrapper<std::optional<mean::IncompleteReactions>> &incompleteReactions = {}
+      const wrapper<std::string>
+         &projectile,
+      const wrapper<std::string>
+         &target = {},
+      const wrapper<std::string>
+         &evaluation = {},
+      const wrapper<std::string>
+         &format = {},
+      const wrapper<std::string>
+         &projectileFrame = {},
+      const wrapper<std::string>
+         &interaction = {},
+      const wrapper<common::Styles>
+         &styles = {},
+      const wrapper<common::PoPs>
+         &PoPs = {},
+      const wrapper<common::Reactions>
+         &reactions = {},
+      const wrapper<std::optional<common::ApplicationData>>
+         &applicationData = {},
+      const wrapper<std::optional<common::ExternalFiles>>
+         &externalFiles = {},
+      const wrapper<std::optional<mean::Resonances>>
+         &resonances = {},
+      const wrapper<std::optional<mean::Sums>>
+         &sums = {},
+      const wrapper<std::optional<mean::Productions>>
+         &productions = {},
+      const wrapper<std::optional<mean::FissionComponents>>
+         &fissionComponents = {},
+      const wrapper<std::optional<mean::OrphanProducts>>
+         &orphanProducts = {},
+      const wrapper<std::optional<mean::IncompleteReactions>>
+         &incompleteReactions = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
@@ -237,8 +279,59 @@ public:
    // Assignment operators
    // ------------------------
 
-   ReactionSuite &operator=(const ReactionSuite &) = default;
-   ReactionSuite &operator=(ReactionSuite &&) = default;
+   // copy
+   ReactionSuite &operator=(const ReactionSuite &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         projectile = other.projectile;
+         target = other.target;
+         evaluation = other.evaluation;
+         format = other.format;
+         projectileFrame = other.projectileFrame;
+         interaction = other.interaction;
+         styles = other.styles;
+         PoPs = other.PoPs;
+         reactions = other.reactions;
+         applicationData = other.applicationData;
+         externalFiles = other.externalFiles;
+         resonances = other.resonances;
+         sums = other.sums;
+         productions = other.productions;
+         fissionComponents = other.fissionComponents;
+         orphanProducts = other.orphanProducts;
+         incompleteReactions = other.incompleteReactions;
+      }
+      return *this;
+   }
+
+   // move
+   ReactionSuite &operator=(ReactionSuite &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         projectile = std::move(other.projectile);
+         target = std::move(other.target);
+         evaluation = std::move(other.evaluation);
+         format = std::move(other.format);
+         projectileFrame = std::move(other.projectileFrame);
+         interaction = std::move(other.interaction);
+         styles = std::move(other.styles);
+         PoPs = std::move(other.PoPs);
+         reactions = std::move(other.reactions);
+         applicationData = std::move(other.applicationData);
+         externalFiles = std::move(other.externalFiles);
+         resonances = std::move(other.resonances);
+         sums = std::move(other.sums);
+         productions = std::move(other.productions);
+         fissionComponents = std::move(other.fissionComponents);
+         orphanProducts = std::move(other.orphanProducts);
+         incompleteReactions = std::move(other.incompleteReactions);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

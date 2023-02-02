@@ -38,7 +38,8 @@ class Configurations :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<atom::Configuration>("configuration")
+         ++Child<atom::Configuration>
+            ("configuration")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<atom::Configuration>> configuration{this};
+   Field<std::vector<atom::Configuration>>
+      configuration{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Configurations(
-      const wrapper<std::vector<atom::Configuration>> &configuration
+      const wrapper<std::vector<atom::Configuration>>
+         &configuration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configuration(this,configuration)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configurations &operator=(const Configurations &) = default;
-   Configurations &operator=(Configurations &&) = default;
+   // copy
+   Configurations &operator=(const Configurations &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         configuration = other.configuration;
+      }
+      return *this;
+   }
+
+   // move
+   Configurations &operator=(Configurations &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         configuration = std::move(other.configuration);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

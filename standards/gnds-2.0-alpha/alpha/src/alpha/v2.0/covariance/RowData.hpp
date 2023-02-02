@@ -46,7 +46,8 @@ class RowData :
             / Meta<>("href") |
 
          // children
-         --Child<std::optional<covariance::Slices>>("slices")
+         --Child<std::optional<covariance::Slices>>
+            ("slices")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::string> href{this};
 
    // children
-   Field<std::optional<covariance::Slices>> slices{this};
+   Field<std::optional<covariance::Slices>>
+      slices{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit RowData(
-      const wrapper<std::optional<std::string>> &ENDF_MFMT,
-      const wrapper<std::optional<int>> &dimension = {},
-      const wrapper<std::string> &href = {},
-      const wrapper<std::optional<covariance::Slices>> &slices = {}
+      const wrapper<std::optional<std::string>>
+         &ENDF_MFMT,
+      const wrapper<std::optional<int>>
+         &dimension = {},
+      const wrapper<std::string>
+         &href = {},
+      const wrapper<std::optional<covariance::Slices>>
+         &slices = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   RowData &operator=(const RowData &) = default;
-   RowData &operator=(RowData &&) = default;
+   // copy
+   RowData &operator=(const RowData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MFMT = other.ENDF_MFMT;
+         dimension = other.dimension;
+         href = other.href;
+         slices = other.slices;
+      }
+      return *this;
+   }
+
+   // move
+   RowData &operator=(RowData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MFMT = std::move(other.ENDF_MFMT);
+         dimension = std::move(other.dimension);
+         href = std::move(other.href);
+         slices = std::move(other.slices);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

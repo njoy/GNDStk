@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit Alias(
-      const wrapper<std::optional<std::string>> &id,
-      const wrapper<std::optional<std::string>> &pid = {}
+      const wrapper<std::optional<std::string>>
+         &id,
+      const wrapper<std::optional<std::string>>
+         &pid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Alias &operator=(const Alias &) = default;
-   Alias &operator=(Alias &&) = default;
+   // copy
+   Alias &operator=(const Alias &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         pid = other.pid;
+      }
+      return *this;
+   }
+
+   // move
+   Alias &operator=(Alias &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         pid = std::move(other.pid);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

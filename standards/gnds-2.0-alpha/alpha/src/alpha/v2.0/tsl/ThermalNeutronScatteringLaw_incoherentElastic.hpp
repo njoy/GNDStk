@@ -47,8 +47,10 @@ class ThermalNeutronScatteringLaw_incoherentElastic :
             / Meta<>("productFrame") |
 
          // children
-         --Child<tsl::BoundAtomCrossSection>("boundAtomCrossSection") |
-         --Child<tsl::DebyeWallerIntegral>("DebyeWallerIntegral")
+         --Child<tsl::BoundAtomCrossSection>
+            ("boundAtomCrossSection") |
+         --Child<tsl::DebyeWallerIntegral>
+            ("DebyeWallerIntegral")
       ;
    }
 
@@ -64,8 +66,10 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<tsl::BoundAtomCrossSection> boundAtomCrossSection{this};
-   Field<tsl::DebyeWallerIntegral> DebyeWallerIntegral{this};
+   Field<tsl::BoundAtomCrossSection>
+      boundAtomCrossSection{this};
+   Field<tsl::DebyeWallerIntegral>
+      DebyeWallerIntegral{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +92,16 @@ public:
 
    // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw_incoherentElastic(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &pid = {},
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<tsl::BoundAtomCrossSection> &boundAtomCrossSection = {},
-      const wrapper<tsl::DebyeWallerIntegral> &DebyeWallerIntegral = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &pid = {},
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<tsl::BoundAtomCrossSection>
+         &boundAtomCrossSection = {},
+      const wrapper<tsl::DebyeWallerIntegral>
+         &DebyeWallerIntegral = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +150,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw_incoherentElastic &operator=(const ThermalNeutronScatteringLaw_incoherentElastic &) = default;
-   ThermalNeutronScatteringLaw_incoherentElastic &operator=(ThermalNeutronScatteringLaw_incoherentElastic &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw_incoherentElastic &operator=(const ThermalNeutronScatteringLaw_incoherentElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         boundAtomCrossSection = other.boundAtomCrossSection;
+         DebyeWallerIntegral = other.DebyeWallerIntegral;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw_incoherentElastic &operator=(ThermalNeutronScatteringLaw_incoherentElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         boundAtomCrossSection = std::move(other.boundAtomCrossSection);
+         DebyeWallerIntegral = std::move(other.DebyeWallerIntegral);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

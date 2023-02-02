@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit Summand(
-      const wrapper<std::optional<std::string>> &ENDF_MFMT,
-      const wrapper<std::optional<std::string>> &coefficient = {},
-      const wrapper<std::optional<std::string>> &href = {}
+      const wrapper<std::optional<std::string>>
+         &ENDF_MFMT,
+      const wrapper<std::optional<std::string>>
+         &coefficient = {},
+      const wrapper<std::optional<std::string>>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Summand &operator=(const Summand &) = default;
-   Summand &operator=(Summand &&) = default;
+   // copy
+   Summand &operator=(const Summand &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MFMT = other.ENDF_MFMT;
+         coefficient = other.coefficient;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Summand &operator=(Summand &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MFMT = std::move(other.ENDF_MFMT);
+         coefficient = std::move(other.coefficient);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

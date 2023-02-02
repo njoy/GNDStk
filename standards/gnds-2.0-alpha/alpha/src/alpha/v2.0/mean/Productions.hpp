@@ -38,7 +38,8 @@ class Productions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Production>("production")
+         ++Child<mean::Production>
+            ("production")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Production>> production{this};
+   Field<std::vector<mean::Production>>
+      production{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Productions(
-      const wrapper<std::vector<mean::Production>> &production
+      const wrapper<std::vector<mean::Production>>
+         &production
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       production(this,production)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Productions &operator=(const Productions &) = default;
-   Productions &operator=(Productions &&) = default;
+   // copy
+   Productions &operator=(const Productions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         production = other.production;
+      }
+      return *this;
+   }
+
+   // move
+   Productions &operator=(Productions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         production = std::move(other.production);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

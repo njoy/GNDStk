@@ -39,8 +39,10 @@ class Gridded2d :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Axes>("axes") |
-         --Child<g2d::Array>("array")
+         --Child<common::Axes>
+            ("axes") |
+         --Child<g2d::Array>
+            ("array")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Axes> axes{this};
-   Field<g2d::Array> array{this};
+   Field<common::Axes>
+      axes{this};
+   Field<g2d::Array>
+      array{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Gridded2d(
-      const wrapper<common::Axes> &axes,
-      const wrapper<g2d::Array> &array = {}
+      const wrapper<common::Axes>
+         &axes,
+      const wrapper<g2d::Array>
+         &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Gridded2d &operator=(const Gridded2d &) = default;
-   Gridded2d &operator=(Gridded2d &&) = default;
+   // copy
+   Gridded2d &operator=(const Gridded2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         axes = other.axes;
+         array = other.array;
+      }
+      return *this;
+   }
+
+   // move
+   Gridded2d &operator=(Gridded2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         axes = std::move(other.axes);
+         array = std::move(other.array);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

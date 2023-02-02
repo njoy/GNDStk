@@ -38,7 +38,8 @@ class Dates :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Date>("date")
+         ++Child<common::Date>
+            ("date")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Date>> date{this};
+   Field<std::vector<common::Date>>
+      date{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Dates(
-      const wrapper<std::vector<common::Date>> &date
+      const wrapper<std::vector<common::Date>>
+         &date
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Dates &operator=(const Dates &) = default;
-   Dates &operator=(Dates &&) = default;
+   // copy
+   Dates &operator=(const Dates &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         date = other.date;
+      }
+      return *this;
+   }
+
+   // move
+   Dates &operator=(Dates &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         date = std::move(other.date);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

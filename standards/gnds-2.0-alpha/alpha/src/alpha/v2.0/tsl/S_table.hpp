@@ -38,7 +38,8 @@ class S_table :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Gridded2d>("gridded2d")
+         --Child<common::Gridded2d>
+            ("gridded2d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Gridded2d> gridded2d{this};
+   Field<common::Gridded2d>
+      gridded2d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit S_table(
-      const wrapper<common::Gridded2d> &gridded2d
+      const wrapper<common::Gridded2d>
+         &gridded2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded2d(this,gridded2d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   S_table &operator=(const S_table &) = default;
-   S_table &operator=(S_table &&) = default;
+   // copy
+   S_table &operator=(const S_table &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         gridded2d = other.gridded2d;
+      }
+      return *this;
+   }
+
+   // move
+   S_table &operator=(S_table &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         gridded2d = std::move(other.gridded2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

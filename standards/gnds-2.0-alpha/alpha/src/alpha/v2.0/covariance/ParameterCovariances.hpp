@@ -39,8 +39,10 @@ class ParameterCovariances :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<covariance::ParameterCovariance>("parameterCovariance") |
-         ++Child<std::optional<covariance::AverageParameterCovariance>>("averageParameterCovariance")
+         ++Child<covariance::ParameterCovariance>
+            ("parameterCovariance") |
+         ++Child<std::optional<covariance::AverageParameterCovariance>>
+            ("averageParameterCovariance")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<covariance::ParameterCovariance>> parameterCovariance{this};
-   Field<std::optional<std::vector<covariance::AverageParameterCovariance>>> averageParameterCovariance{this};
+   Field<std::vector<covariance::ParameterCovariance>>
+      parameterCovariance{this};
+   Field<std::optional<std::vector<covariance::AverageParameterCovariance>>>
+      averageParameterCovariance{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit ParameterCovariances(
-      const wrapper<std::vector<covariance::ParameterCovariance>> &parameterCovariance,
-      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>> &averageParameterCovariance = {}
+      const wrapper<std::vector<covariance::ParameterCovariance>>
+         &parameterCovariance,
+      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>>
+         &averageParameterCovariance = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       parameterCovariance(this,parameterCovariance),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterCovariances &operator=(const ParameterCovariances &) = default;
-   ParameterCovariances &operator=(ParameterCovariances &&) = default;
+   // copy
+   ParameterCovariances &operator=(const ParameterCovariances &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         parameterCovariance = other.parameterCovariance;
+         averageParameterCovariance = other.averageParameterCovariance;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterCovariances &operator=(ParameterCovariances &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         parameterCovariance = std::move(other.parameterCovariance);
+         averageParameterCovariance = std::move(other.averageParameterCovariance);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

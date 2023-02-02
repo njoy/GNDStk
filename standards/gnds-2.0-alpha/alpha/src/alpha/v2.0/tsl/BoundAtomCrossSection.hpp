@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit BoundAtomCrossSection(
-      const wrapper<double> &value,
-      const wrapper<std::string> &unit = {}
+      const wrapper<double>
+         &value,
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   BoundAtomCrossSection &operator=(const BoundAtomCrossSection &) = default;
-   BoundAtomCrossSection &operator=(BoundAtomCrossSection &&) = default;
+   // copy
+   BoundAtomCrossSection &operator=(const BoundAtomCrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   BoundAtomCrossSection &operator=(BoundAtomCrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

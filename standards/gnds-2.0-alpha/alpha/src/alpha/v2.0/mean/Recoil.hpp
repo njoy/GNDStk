@@ -69,7 +69,8 @@ public:
 
    // from fields, comment excluded
    explicit Recoil(
-      const wrapper<std::string> &href
+      const wrapper<std::string>
+         &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -106,8 +107,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Recoil &operator=(const Recoil &) = default;
-   Recoil &operator=(Recoil &&) = default;
+   // copy
+   Recoil &operator=(const Recoil &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Recoil &operator=(Recoil &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

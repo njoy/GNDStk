@@ -38,7 +38,8 @@ class Channels :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Channel>("channel")
+         ++Child<mean::Channel>
+            ("channel")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Channel>> channel{this};
+   Field<std::vector<mean::Channel>>
+      channel{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Channels(
-      const wrapper<std::vector<mean::Channel>> &channel
+      const wrapper<std::vector<mean::Channel>>
+         &channel
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       channel(this,channel)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Channels &operator=(const Channels &) = default;
-   Channels &operator=(Channels &&) = default;
+   // copy
+   Channels &operator=(const Channels &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         channel = other.channel;
+      }
+      return *this;
+   }
+
+   // move
+   Channels &operator=(Channels &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         channel = std::move(other.channel);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

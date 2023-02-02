@@ -77,9 +77,12 @@ public:
 
    // from fields, comment excluded
    explicit Column(
-      const wrapper<int> &index,
-      const wrapper<std::string> &name = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<int>
+         &index,
+      const wrapper<std::string>
+         &name = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -122,8 +125,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Column &operator=(const Column &) = default;
-   Column &operator=(Column &&) = default;
+   // copy
+   Column &operator=(const Column &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         name = other.name;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Column &operator=(Column &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         name = std::move(other.name);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -50,9 +50,12 @@ class XYs1d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<common::Axes>>("axes") |
-         --Child<common::Values>("values") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Axes>>
+            ("axes") |
+         --Child<common::Values>
+            ("values") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -69,9 +72,12 @@ public:
    Field<std::optional<double>> outerDomainValue{this};
 
    // children
-   Field<std::optional<common::Axes>> axes{this};
-   Field<common::Values> values{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Axes>>
+      axes{this};
+   Field<common::Values>
+      values{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +102,20 @@ public:
 
    // from fields, comment excluded
    explicit XYs1d(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<int>> &index = {},
-      const wrapper<std::optional<std::string>> &interpolation = {},
-      const wrapper<std::optional<double>> &outerDomainValue = {},
-      const wrapper<std::optional<common::Axes>> &axes = {},
-      const wrapper<common::Values> &values = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<int>>
+         &index = {},
+      const wrapper<std::optional<std::string>>
+         &interpolation = {},
+      const wrapper<std::optional<double>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<common::Axes>>
+         &axes = {},
+      const wrapper<common::Values>
+         &values = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +170,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs1d &operator=(const XYs1d &) = default;
-   XYs1d &operator=(XYs1d &&) = default;
+   // copy
+   XYs1d &operator=(const XYs1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         index = other.index;
+         interpolation = other.interpolation;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         values = other.values;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   XYs1d &operator=(XYs1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         index = std::move(other.index);
+         interpolation = std::move(other.interpolation);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         values = std::move(other.values);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

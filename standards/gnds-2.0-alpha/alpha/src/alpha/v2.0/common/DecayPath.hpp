@@ -38,7 +38,8 @@ class DecayPath :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Decay>("decay")
+         ++Child<common::Decay>
+            ("decay")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Decay>> decay{this};
+   Field<std::vector<common::Decay>>
+      decay{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit DecayPath(
-      const wrapper<std::vector<common::Decay>> &decay
+      const wrapper<std::vector<common::Decay>>
+         &decay
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decay(this,decay)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayPath &operator=(const DecayPath &) = default;
-   DecayPath &operator=(DecayPath &&) = default;
+   // copy
+   DecayPath &operator=(const DecayPath &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         decay = other.decay;
+      }
+      return *this;
+   }
+
+   // move
+   DecayPath &operator=(DecayPath &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         decay = std::move(other.decay);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

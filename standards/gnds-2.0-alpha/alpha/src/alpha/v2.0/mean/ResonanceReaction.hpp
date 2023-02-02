@@ -49,10 +49,14 @@ class ResonanceReaction :
             / Meta<>("eliminated") |
 
          // children
-         --Child<common::Link>("link") |
-         --Child<std::optional<mean::HardSphereRadius>>("hardSphereRadius") |
-         --Child<std::optional<common::Q>>("Q") |
-         --Child<std::optional<mean::ScatteringRadius>>("scatteringRadius")
+         --Child<common::Link>
+            ("link") |
+         --Child<std::optional<mean::HardSphereRadius>>
+            ("hardSphereRadius") |
+         --Child<std::optional<common::Q>>
+            ("Q") |
+         --Child<std::optional<mean::ScatteringRadius>>
+            ("scatteringRadius")
       ;
    }
 
@@ -68,10 +72,14 @@ public:
    Field<std::optional<bool>> eliminated{this};
 
    // children
-   Field<common::Link> link{this};
-   Field<std::optional<mean::HardSphereRadius>> hardSphereRadius{this};
-   Field<std::optional<common::Q>> Q{this};
-   Field<std::optional<mean::ScatteringRadius>> scatteringRadius{this};
+   Field<common::Link>
+      link{this};
+   Field<std::optional<mean::HardSphereRadius>>
+      hardSphereRadius{this};
+   Field<std::optional<common::Q>>
+      Q{this};
+   Field<std::optional<mean::ScatteringRadius>>
+      scatteringRadius{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +104,20 @@ public:
 
    // from fields, comment excluded
    explicit ResonanceReaction(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<std::string>> &ejectile = {},
-      const wrapper<std::optional<bool>> &eliminated = {},
-      const wrapper<common::Link> &link = {},
-      const wrapper<std::optional<mean::HardSphereRadius>> &hardSphereRadius = {},
-      const wrapper<std::optional<common::Q>> &Q = {},
-      const wrapper<std::optional<mean::ScatteringRadius>> &scatteringRadius = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &ejectile = {},
+      const wrapper<std::optional<bool>>
+         &eliminated = {},
+      const wrapper<common::Link>
+         &link = {},
+      const wrapper<std::optional<mean::HardSphereRadius>>
+         &hardSphereRadius = {},
+      const wrapper<std::optional<common::Q>>
+         &Q = {},
+      const wrapper<std::optional<mean::ScatteringRadius>>
+         &scatteringRadius = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +172,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonanceReaction &operator=(const ResonanceReaction &) = default;
-   ResonanceReaction &operator=(ResonanceReaction &&) = default;
+   // copy
+   ResonanceReaction &operator=(const ResonanceReaction &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ejectile = other.ejectile;
+         eliminated = other.eliminated;
+         link = other.link;
+         hardSphereRadius = other.hardSphereRadius;
+         Q = other.Q;
+         scatteringRadius = other.scatteringRadius;
+      }
+      return *this;
+   }
+
+   // move
+   ResonanceReaction &operator=(ResonanceReaction &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ejectile = std::move(other.ejectile);
+         eliminated = std::move(other.eliminated);
+         link = std::move(other.link);
+         hardSphereRadius = std::move(other.hardSphereRadius);
+         Q = std::move(other.Q);
+         scatteringRadius = std::move(other.scatteringRadius);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

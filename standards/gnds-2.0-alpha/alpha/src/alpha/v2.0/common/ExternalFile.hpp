@@ -81,10 +81,14 @@ public:
 
    // from fields, comment excluded
    explicit ExternalFile(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &path = {},
-      const wrapper<std::optional<std::string>> &checksum = {},
-      const wrapper<std::optional<std::string>> &algorithm = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &path = {},
+      const wrapper<std::optional<std::string>>
+         &checksum = {},
+      const wrapper<std::optional<std::string>>
+         &algorithm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -130,8 +134,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ExternalFile &operator=(const ExternalFile &) = default;
-   ExternalFile &operator=(ExternalFile &&) = default;
+   // copy
+   ExternalFile &operator=(const ExternalFile &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         path = other.path;
+         checksum = other.checksum;
+         algorithm = other.algorithm;
+      }
+      return *this;
+   }
+
+   // move
+   ExternalFile &operator=(ExternalFile &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         path = std::move(other.path);
+         checksum = std::move(other.checksum);
+         algorithm = std::move(other.algorithm);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

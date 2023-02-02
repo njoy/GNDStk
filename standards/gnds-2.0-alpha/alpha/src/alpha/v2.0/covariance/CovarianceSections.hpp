@@ -38,7 +38,8 @@ class CovarianceSections :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<covariance::CovarianceSection>("covarianceSection")
+         ++Child<covariance::CovarianceSection>
+            ("covarianceSection")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<covariance::CovarianceSection>> covarianceSection{this};
+   Field<std::vector<covariance::CovarianceSection>>
+      covarianceSection{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceSections(
-      const wrapper<std::vector<covariance::CovarianceSection>> &covarianceSection
+      const wrapper<std::vector<covariance::CovarianceSection>>
+         &covarianceSection
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       covarianceSection(this,covarianceSection)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceSections &operator=(const CovarianceSections &) = default;
-   CovarianceSections &operator=(CovarianceSections &&) = default;
+   // copy
+   CovarianceSections &operator=(const CovarianceSections &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         covarianceSection = other.covarianceSection;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceSections &operator=(CovarianceSections &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         covarianceSection = std::move(other.covarianceSection);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

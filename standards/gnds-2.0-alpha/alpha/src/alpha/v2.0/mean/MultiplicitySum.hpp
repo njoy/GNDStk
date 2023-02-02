@@ -45,8 +45,10 @@ class MultiplicitySum :
             / Meta<>("ENDF_MT") |
 
          // children
-         --Child<common::Multiplicity>("multiplicity") |
-         --Child<mean::Summands>("summands")
+         --Child<common::Multiplicity>
+            ("multiplicity") |
+         --Child<mean::Summands>
+            ("summands")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<int> ENDF_MT{this};
 
    // children
-   Field<common::Multiplicity> multiplicity{this};
-   Field<mean::Summands> summands{this};
+   Field<common::Multiplicity>
+      multiplicity{this};
+   Field<mean::Summands>
+      summands{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit MultiplicitySum(
-      const wrapper<std::string> &label,
-      const wrapper<int> &ENDF_MT = {},
-      const wrapper<common::Multiplicity> &multiplicity = {},
-      const wrapper<mean::Summands> &summands = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &ENDF_MT = {},
+      const wrapper<common::Multiplicity>
+         &multiplicity = {},
+      const wrapper<mean::Summands>
+         &summands = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   MultiplicitySum &operator=(const MultiplicitySum &) = default;
-   MultiplicitySum &operator=(MultiplicitySum &&) = default;
+   // copy
+   MultiplicitySum &operator=(const MultiplicitySum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ENDF_MT = other.ENDF_MT;
+         multiplicity = other.multiplicity;
+         summands = other.summands;
+      }
+      return *this;
+   }
+
+   // move
+   MultiplicitySum &operator=(MultiplicitySum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ENDF_MT = std::move(other.ENDF_MT);
+         multiplicity = std::move(other.multiplicity);
+         summands = std::move(other.summands);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

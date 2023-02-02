@@ -45,14 +45,22 @@ class Multiplicity :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Constant1d>>("constant1d") |
-         --Child<std::optional<common::XYs1d>>("XYs1d") |
-         --Child<std::optional<mean::Regions1d>>("regions1d") |
-         --Child<std::optional<common::Polynomial1d>>("polynomial1d") |
-         --Child<std::optional<mean::Reference>>("reference") |
-         --Child<std::optional<mean::Branching1d>>("branching1d") |
-         --Child<std::optional<mean::Branching3d>>("branching3d") |
-         --Child<std::optional<mean::Unspecified>>("unspecified")
+         --Child<std::optional<common::Constant1d>>
+            ("constant1d") |
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<mean::Regions1d>>
+            ("regions1d") |
+         --Child<std::optional<common::Polynomial1d>>
+            ("polynomial1d") |
+         --Child<std::optional<mean::Reference>>
+            ("reference") |
+         --Child<std::optional<mean::Branching1d>>
+            ("branching1d") |
+         --Child<std::optional<mean::Branching3d>>
+            ("branching3d") |
+         --Child<std::optional<mean::Unspecified>>
+            ("unspecified")
       ;
    }
 
@@ -63,14 +71,22 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Constant1d>> constant1d{this};
-   Field<std::optional<common::XYs1d>> XYs1d{this};
-   Field<std::optional<mean::Regions1d>> regions1d{this};
-   Field<std::optional<common::Polynomial1d>> polynomial1d{this};
-   Field<std::optional<mean::Reference>> reference{this};
-   Field<std::optional<mean::Branching1d>> branching1d{this};
-   Field<std::optional<mean::Branching3d>> branching3d{this};
-   Field<std::optional<mean::Unspecified>> unspecified{this};
+   Field<std::optional<common::Constant1d>>
+      constant1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<mean::Regions1d>>
+      regions1d{this};
+   Field<std::optional<common::Polynomial1d>>
+      polynomial1d{this};
+   Field<std::optional<mean::Reference>>
+      reference{this};
+   Field<std::optional<mean::Branching1d>>
+      branching1d{this};
+   Field<std::optional<mean::Branching3d>>
+      branching3d{this};
+   Field<std::optional<mean::Unspecified>>
+      unspecified{this};
 
    // ------------------------
    // Constructors
@@ -96,14 +112,22 @@ public:
 
    // from fields, comment excluded
    explicit Multiplicity(
-      const wrapper<std::optional<common::Constant1d>> &constant1d,
-      const wrapper<std::optional<common::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<mean::Regions1d>> &regions1d = {},
-      const wrapper<std::optional<common::Polynomial1d>> &polynomial1d = {},
-      const wrapper<std::optional<mean::Reference>> &reference = {},
-      const wrapper<std::optional<mean::Branching1d>> &branching1d = {},
-      const wrapper<std::optional<mean::Branching3d>> &branching3d = {},
-      const wrapper<std::optional<mean::Unspecified>> &unspecified = {}
+      const wrapper<std::optional<common::Constant1d>>
+         &constant1d,
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d = {},
+      const wrapper<std::optional<mean::Regions1d>>
+         &regions1d = {},
+      const wrapper<std::optional<common::Polynomial1d>>
+         &polynomial1d = {},
+      const wrapper<std::optional<mean::Reference>>
+         &reference = {},
+      const wrapper<std::optional<mean::Branching1d>>
+         &branching1d = {},
+      const wrapper<std::optional<mean::Branching3d>>
+         &branching3d = {},
+      const wrapper<std::optional<mean::Unspecified>>
+         &unspecified = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d),
@@ -161,8 +185,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Multiplicity &operator=(const Multiplicity &) = default;
-   Multiplicity &operator=(Multiplicity &&) = default;
+   // copy
+   Multiplicity &operator=(const Multiplicity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         constant1d = other.constant1d;
+         XYs1d = other.XYs1d;
+         regions1d = other.regions1d;
+         polynomial1d = other.polynomial1d;
+         reference = other.reference;
+         branching1d = other.branching1d;
+         branching3d = other.branching3d;
+         unspecified = other.unspecified;
+      }
+      return *this;
+   }
+
+   // move
+   Multiplicity &operator=(Multiplicity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         constant1d = std::move(other.constant1d);
+         XYs1d = std::move(other.XYs1d);
+         regions1d = std::move(other.regions1d);
+         polynomial1d = std::move(other.polynomial1d);
+         reference = std::move(other.reference);
+         branching1d = std::move(other.branching1d);
+         branching3d = std::move(other.branching3d);
+         unspecified = std::move(other.unspecified);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -38,7 +38,8 @@ class ElapsedTimes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::ElapsedTime>("elapsedTime")
+         ++Child<common::ElapsedTime>
+            ("elapsedTime")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::ElapsedTime>> elapsedTime{this};
+   Field<std::vector<common::ElapsedTime>>
+      elapsedTime{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ElapsedTimes(
-      const wrapper<std::vector<common::ElapsedTime>> &elapsedTime
+      const wrapper<std::vector<common::ElapsedTime>>
+         &elapsedTime
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       elapsedTime(this,elapsedTime)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ElapsedTimes &operator=(const ElapsedTimes &) = default;
-   ElapsedTimes &operator=(ElapsedTimes &&) = default;
+   // copy
+   ElapsedTimes &operator=(const ElapsedTimes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         elapsedTime = other.elapsedTime;
+      }
+      return *this;
+   }
+
+   // move
+   ElapsedTimes &operator=(ElapsedTimes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         elapsedTime = std::move(other.elapsedTime);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

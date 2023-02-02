@@ -44,7 +44,8 @@ class EnergyAngular :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<mean::XYs3d>>("XYs3d")
+         --Child<std::optional<mean::XYs3d>>
+            ("XYs3d")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<std::optional<mean::XYs3d>> XYs3d{this};
+   Field<std::optional<mean::XYs3d>>
+      XYs3d{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit EnergyAngular(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<std::optional<mean::XYs3d>> &XYs3d = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<std::optional<mean::XYs3d>>
+         &XYs3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   EnergyAngular &operator=(const EnergyAngular &) = default;
-   EnergyAngular &operator=(EnergyAngular &&) = default;
+   // copy
+   EnergyAngular &operator=(const EnergyAngular &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         XYs3d = other.XYs3d;
+      }
+      return *this;
+   }
+
+   // move
+   EnergyAngular &operator=(EnergyAngular &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         XYs3d = std::move(other.XYs3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -69,7 +69,8 @@ public:
 
    // from fields, comment excluded
    explicit Author(
-      const wrapper<std::string> &name
+      const wrapper<std::string>
+         &name
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name)
@@ -106,8 +107,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Author &operator=(const Author &) = default;
-   Author &operator=(Author &&) = default;
+   // copy
+   Author &operator=(const Author &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+      }
+      return *this;
+   }
+
+   // move
+   Author &operator=(Author &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

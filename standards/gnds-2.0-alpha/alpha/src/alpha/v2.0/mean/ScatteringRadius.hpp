@@ -39,8 +39,10 @@ class ScatteringRadius :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Constant1d>>("constant1d") |
-         --Child<std::optional<common::XYs1d>>("XYs1d")
+         --Child<std::optional<common::Constant1d>>
+            ("constant1d") |
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Constant1d>> constant1d{this};
-   Field<std::optional<common::XYs1d>> XYs1d{this};
+   Field<std::optional<common::Constant1d>>
+      constant1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit ScatteringRadius(
-      const wrapper<std::optional<common::Constant1d>> &constant1d,
-      const wrapper<std::optional<common::XYs1d>> &XYs1d = {}
+      const wrapper<std::optional<common::Constant1d>>
+         &constant1d,
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ScatteringRadius &operator=(const ScatteringRadius &) = default;
-   ScatteringRadius &operator=(ScatteringRadius &&) = default;
+   // copy
+   ScatteringRadius &operator=(const ScatteringRadius &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         constant1d = other.constant1d;
+         XYs1d = other.XYs1d;
+      }
+      return *this;
+   }
+
+   // move
+   ScatteringRadius &operator=(ScatteringRadius &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         constant1d = std::move(other.constant1d);
+         XYs1d = std::move(other.XYs1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

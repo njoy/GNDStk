@@ -40,9 +40,12 @@ class FissionFragmentData :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::ProductYields>>("productYields") |
-         --Child<std::optional<mean::DelayedNeutrons>>("delayedNeutrons") |
-         --Child<std::optional<mean::FissionEnergyReleases>>("fissionEnergyReleases")
+         --Child<std::optional<common::ProductYields>>
+            ("productYields") |
+         --Child<std::optional<mean::DelayedNeutrons>>
+            ("delayedNeutrons") |
+         --Child<std::optional<mean::FissionEnergyReleases>>
+            ("fissionEnergyReleases")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::ProductYields>> productYields{this};
-   Field<std::optional<mean::DelayedNeutrons>> delayedNeutrons{this};
-   Field<std::optional<mean::FissionEnergyReleases>> fissionEnergyReleases{this};
+   Field<std::optional<common::ProductYields>>
+      productYields{this};
+   Field<std::optional<mean::DelayedNeutrons>>
+      delayedNeutrons{this};
+   Field<std::optional<mean::FissionEnergyReleases>>
+      fissionEnergyReleases{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit FissionFragmentData(
-      const wrapper<std::optional<common::ProductYields>> &productYields,
-      const wrapper<std::optional<mean::DelayedNeutrons>> &delayedNeutrons = {},
-      const wrapper<std::optional<mean::FissionEnergyReleases>> &fissionEnergyReleases = {}
+      const wrapper<std::optional<common::ProductYields>>
+         &productYields,
+      const wrapper<std::optional<mean::DelayedNeutrons>>
+         &delayedNeutrons = {},
+      const wrapper<std::optional<mean::FissionEnergyReleases>>
+         &fissionEnergyReleases = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       productYields(this,productYields),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionFragmentData &operator=(const FissionFragmentData &) = default;
-   FissionFragmentData &operator=(FissionFragmentData &&) = default;
+   // copy
+   FissionFragmentData &operator=(const FissionFragmentData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         productYields = other.productYields;
+         delayedNeutrons = other.delayedNeutrons;
+         fissionEnergyReleases = other.fissionEnergyReleases;
+      }
+      return *this;
+   }
+
+   // move
+   FissionFragmentData &operator=(FissionFragmentData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         productYields = std::move(other.productYields);
+         delayedNeutrons = std::move(other.delayedNeutrons);
+         fissionEnergyReleases = std::move(other.fissionEnergyReleases);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

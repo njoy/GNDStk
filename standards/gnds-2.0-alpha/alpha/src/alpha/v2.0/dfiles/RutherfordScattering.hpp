@@ -86,8 +86,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   RutherfordScattering &operator=(const RutherfordScattering &) = default;
-   RutherfordScattering &operator=(RutherfordScattering &&) = default;
+   // copy
+   RutherfordScattering &operator=(const RutherfordScattering &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   RutherfordScattering &operator=(RutherfordScattering &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

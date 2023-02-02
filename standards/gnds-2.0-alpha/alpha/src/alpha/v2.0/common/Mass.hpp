@@ -44,7 +44,8 @@ class Mass :
             / Meta<>("unit") |
 
          // children
-         --Child<std::optional<common::Double>>("double")
+         --Child<std::optional<common::Double>>
+            ("double")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<std::optional<std::string>> unit{this};
 
    // children
-   Field<std::optional<common::Double>> Double{this};
+   Field<std::optional<common::Double>>
+      Double{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Mass(
-      const wrapper<std::optional<double>> &value,
-      const wrapper<std::optional<std::string>> &unit = {},
-      const wrapper<std::optional<common::Double>> &Double = {}
+      const wrapper<std::optional<double>>
+         &value,
+      const wrapper<std::optional<std::string>>
+         &unit = {},
+      const wrapper<std::optional<common::Double>>
+         &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Mass &operator=(const Mass &) = default;
-   Mass &operator=(Mass &&) = default;
+   // copy
+   Mass &operator=(const Mass &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         unit = other.unit;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Mass &operator=(Mass &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

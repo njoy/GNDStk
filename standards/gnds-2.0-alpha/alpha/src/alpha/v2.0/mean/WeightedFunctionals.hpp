@@ -38,7 +38,8 @@ class WeightedFunctionals :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Weighted>("weighted")
+         ++Child<mean::Weighted>
+            ("weighted")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Weighted>> weighted{this};
+   Field<std::vector<mean::Weighted>>
+      weighted{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit WeightedFunctionals(
-      const wrapper<std::vector<mean::Weighted>> &weighted
+      const wrapper<std::vector<mean::Weighted>>
+         &weighted
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       weighted(this,weighted)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   WeightedFunctionals &operator=(const WeightedFunctionals &) = default;
-   WeightedFunctionals &operator=(WeightedFunctionals &&) = default;
+   // copy
+   WeightedFunctionals &operator=(const WeightedFunctionals &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         weighted = other.weighted;
+      }
+      return *this;
+   }
+
+   // move
+   WeightedFunctionals &operator=(WeightedFunctionals &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         weighted = std::move(other.weighted);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -47,8 +47,10 @@ class Resolved :
             / Meta<>("domainUnit") |
 
          // children
-         --Child<std::optional<mean::BreitWigner>>("BreitWigner") |
-         --Child<std::optional<mean::RMatrix>>("RMatrix")
+         --Child<std::optional<mean::BreitWigner>>
+            ("BreitWigner") |
+         --Child<std::optional<mean::RMatrix>>
+            ("RMatrix")
       ;
    }
 
@@ -64,8 +66,10 @@ public:
    Field<std::string> domainUnit{this};
 
    // children
-   Field<std::optional<mean::BreitWigner>> BreitWigner{this};
-   Field<std::optional<mean::RMatrix>> RMatrix{this};
+   Field<std::optional<mean::BreitWigner>>
+      BreitWigner{this};
+   Field<std::optional<mean::RMatrix>>
+      RMatrix{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +92,16 @@ public:
 
    // from fields, comment excluded
    explicit Resolved(
-      const wrapper<double> &domainMin,
-      const wrapper<double> &domainMax = {},
-      const wrapper<std::string> &domainUnit = {},
-      const wrapper<std::optional<mean::BreitWigner>> &BreitWigner = {},
-      const wrapper<std::optional<mean::RMatrix>> &RMatrix = {}
+      const wrapper<double>
+         &domainMin,
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<std::string>
+         &domainUnit = {},
+      const wrapper<std::optional<mean::BreitWigner>>
+         &BreitWigner = {},
+      const wrapper<std::optional<mean::RMatrix>>
+         &RMatrix = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -141,8 +150,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Resolved &operator=(const Resolved &) = default;
-   Resolved &operator=(Resolved &&) = default;
+   // copy
+   Resolved &operator=(const Resolved &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         BreitWigner = other.BreitWigner;
+         RMatrix = other.RMatrix;
+      }
+      return *this;
+   }
+
+   // move
+   Resolved &operator=(Resolved &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         BreitWigner = std::move(other.BreitWigner);
+         RMatrix = std::move(other.RMatrix);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

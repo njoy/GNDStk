@@ -44,7 +44,8 @@ class L :
             / Meta<>("value") |
 
          // children
-         --Child<mean::Js>("Js")
+         --Child<mean::Js>
+            ("Js")
       ;
    }
 
@@ -59,7 +60,8 @@ public:
    Field<int> value{this};
 
    // children
-   Field<mean::Js> Js{this};
+   Field<mean::Js>
+      Js{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit L(
-      const wrapper<std::string> &label,
-      const wrapper<int> &value = {},
-      const wrapper<mean::Js> &Js = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &value = {},
+      const wrapper<mean::Js>
+         &Js = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   L &operator=(const L &) = default;
-   L &operator=(L &&) = default;
+   // copy
+   L &operator=(const L &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         Js = other.Js;
+      }
+      return *this;
+   }
+
+   // move
+   L &operator=(L &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         Js = std::move(other.Js);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

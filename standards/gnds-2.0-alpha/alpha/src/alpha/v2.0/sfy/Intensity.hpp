@@ -42,7 +42,8 @@ class Intensity :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<double> value{this};
 
    // children
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit Intensity(
-      const wrapper<double> &value,
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<double>
+         &value,
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Intensity &operator=(const Intensity &) = default;
-   Intensity &operator=(Intensity &&) = default;
+   // copy
+   Intensity &operator=(const Intensity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Intensity &operator=(Intensity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

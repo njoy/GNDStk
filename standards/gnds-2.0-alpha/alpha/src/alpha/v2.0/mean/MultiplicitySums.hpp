@@ -38,7 +38,8 @@ class MultiplicitySums :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::MultiplicitySum>("multiplicitySum")
+         ++Child<mean::MultiplicitySum>
+            ("multiplicitySum")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::MultiplicitySum>> multiplicitySum{this};
+   Field<std::vector<mean::MultiplicitySum>>
+      multiplicitySum{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit MultiplicitySums(
-      const wrapper<std::vector<mean::MultiplicitySum>> &multiplicitySum
+      const wrapper<std::vector<mean::MultiplicitySum>>
+         &multiplicitySum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       multiplicitySum(this,multiplicitySum)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   MultiplicitySums &operator=(const MultiplicitySums &) = default;
-   MultiplicitySums &operator=(MultiplicitySums &&) = default;
+   // copy
+   MultiplicitySums &operator=(const MultiplicitySums &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         multiplicitySum = other.multiplicitySum;
+      }
+      return *this;
+   }
+
+   // move
+   MultiplicitySums &operator=(MultiplicitySums &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         multiplicitySum = std::move(other.multiplicitySum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

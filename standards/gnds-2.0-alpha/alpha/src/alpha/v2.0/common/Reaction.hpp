@@ -48,9 +48,12 @@ class Reaction :
             / Meta<>("fissionGenre") |
 
          // children
-         --Child<common::CrossSection>("crossSection") |
-         --Child<common::OutputChannel>("outputChannel") |
-         --Child<std::optional<common::DoubleDifferentialCrossSection>>("doubleDifferentialCrossSection")
+         --Child<common::CrossSection>
+            ("crossSection") |
+         --Child<common::OutputChannel>
+            ("outputChannel") |
+         --Child<std::optional<common::DoubleDifferentialCrossSection>>
+            ("doubleDifferentialCrossSection")
       ;
    }
 
@@ -66,9 +69,12 @@ public:
    Field<std::optional<std::string>> fissionGenre{this};
 
    // children
-   Field<common::CrossSection> crossSection{this};
-   Field<common::OutputChannel> outputChannel{this};
-   Field<std::optional<common::DoubleDifferentialCrossSection>> doubleDifferentialCrossSection{this};
+   Field<common::CrossSection>
+      crossSection{this};
+   Field<common::OutputChannel>
+      outputChannel{this};
+   Field<std::optional<common::DoubleDifferentialCrossSection>>
+      doubleDifferentialCrossSection{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +98,18 @@ public:
 
    // from fields, comment excluded
    explicit Reaction(
-      const wrapper<std::string> &label,
-      const wrapper<int> &ENDF_MT = {},
-      const wrapper<std::optional<std::string>> &fissionGenre = {},
-      const wrapper<common::CrossSection> &crossSection = {},
-      const wrapper<common::OutputChannel> &outputChannel = {},
-      const wrapper<std::optional<common::DoubleDifferentialCrossSection>> &doubleDifferentialCrossSection = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &ENDF_MT = {},
+      const wrapper<std::optional<std::string>>
+         &fissionGenre = {},
+      const wrapper<common::CrossSection>
+         &crossSection = {},
+      const wrapper<common::OutputChannel>
+         &outputChannel = {},
+      const wrapper<std::optional<common::DoubleDifferentialCrossSection>>
+         &doubleDifferentialCrossSection = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +161,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Reaction &operator=(const Reaction &) = default;
-   Reaction &operator=(Reaction &&) = default;
+   // copy
+   Reaction &operator=(const Reaction &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ENDF_MT = other.ENDF_MT;
+         fissionGenre = other.fissionGenre;
+         crossSection = other.crossSection;
+         outputChannel = other.outputChannel;
+         doubleDifferentialCrossSection = other.doubleDifferentialCrossSection;
+      }
+      return *this;
+   }
+
+   // move
+   Reaction &operator=(Reaction &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ENDF_MT = std::move(other.ENDF_MT);
+         fissionGenre = std::move(other.fissionGenre);
+         crossSection = std::move(other.crossSection);
+         outputChannel = std::move(other.outputChannel);
+         doubleDifferentialCrossSection = std::move(other.doubleDifferentialCrossSection);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

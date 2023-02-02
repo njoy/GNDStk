@@ -38,7 +38,8 @@ class Authors :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Author>("author")
+         ++Child<common::Author>
+            ("author")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Author>> author{this};
+   Field<std::vector<common::Author>>
+      author{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Authors(
-      const wrapper<std::vector<common::Author>> &author
+      const wrapper<std::vector<common::Author>>
+         &author
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       author(this,author)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Authors &operator=(const Authors &) = default;
-   Authors &operator=(Authors &&) = default;
+   // copy
+   Authors &operator=(const Authors &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         author = other.author;
+      }
+      return *this;
+   }
+
+   // move
+   Authors &operator=(Authors &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         author = std::move(other.author);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

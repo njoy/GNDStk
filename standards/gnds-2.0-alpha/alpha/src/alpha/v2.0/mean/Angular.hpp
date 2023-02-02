@@ -39,8 +39,10 @@ class Angular :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<mean::Isotropic2d>>("isotropic2d") |
-         --Child<std::optional<mean::XYs2d>>("XYs2d")
+         --Child<std::optional<mean::Isotropic2d>>
+            ("isotropic2d") |
+         --Child<std::optional<mean::XYs2d>>
+            ("XYs2d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<mean::Isotropic2d>> isotropic2d{this};
-   Field<std::optional<mean::XYs2d>> XYs2d{this};
+   Field<std::optional<mean::Isotropic2d>>
+      isotropic2d{this};
+   Field<std::optional<mean::XYs2d>>
+      XYs2d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Angular(
-      const wrapper<std::optional<mean::Isotropic2d>> &isotropic2d,
-      const wrapper<std::optional<mean::XYs2d>> &XYs2d = {}
+      const wrapper<std::optional<mean::Isotropic2d>>
+         &isotropic2d,
+      const wrapper<std::optional<mean::XYs2d>>
+         &XYs2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       isotropic2d(this,isotropic2d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Angular &operator=(const Angular &) = default;
-   Angular &operator=(Angular &&) = default;
+   // copy
+   Angular &operator=(const Angular &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         isotropic2d = other.isotropic2d;
+         XYs2d = other.XYs2d;
+      }
+      return *this;
+   }
+
+   // move
+   Angular &operator=(Angular &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         isotropic2d = std::move(other.isotropic2d);
+         XYs2d = std::move(other.XYs2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

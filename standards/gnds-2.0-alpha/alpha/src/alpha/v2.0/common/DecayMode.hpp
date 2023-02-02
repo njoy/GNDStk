@@ -48,11 +48,16 @@ class DecayMode :
             / Meta<>("mode") |
 
          // children
-         --Child<common::Probability>("probability") |
-         --Child<common::DecayPath>("decayPath") |
-         --Child<std::optional<mean::PhotonEmissionProbabilities>>("photonEmissionProbabilities") |
-         --Child<std::optional<common::Q>>("Q") |
-         --Child<std::optional<sfy::Spectra>>("spectra")
+         --Child<common::Probability>
+            ("probability") |
+         --Child<common::DecayPath>
+            ("decayPath") |
+         --Child<std::optional<mean::PhotonEmissionProbabilities>>
+            ("photonEmissionProbabilities") |
+         --Child<std::optional<common::Q>>
+            ("Q") |
+         --Child<std::optional<sfy::Spectra>>
+            ("spectra")
       ;
    }
 
@@ -67,11 +72,16 @@ public:
    Field<std::optional<std::string>> mode{this};
 
    // children
-   Field<common::Probability> probability{this};
-   Field<common::DecayPath> decayPath{this};
-   Field<std::optional<mean::PhotonEmissionProbabilities>> photonEmissionProbabilities{this};
-   Field<std::optional<common::Q>> Q{this};
-   Field<std::optional<sfy::Spectra>> spectra{this};
+   Field<common::Probability>
+      probability{this};
+   Field<common::DecayPath>
+      decayPath{this};
+   Field<std::optional<mean::PhotonEmissionProbabilities>>
+      photonEmissionProbabilities{this};
+   Field<std::optional<common::Q>>
+      Q{this};
+   Field<std::optional<sfy::Spectra>>
+      spectra{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +106,20 @@ public:
 
    // from fields, comment excluded
    explicit DecayMode(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<std::string>> &mode = {},
-      const wrapper<common::Probability> &probability = {},
-      const wrapper<common::DecayPath> &decayPath = {},
-      const wrapper<std::optional<mean::PhotonEmissionProbabilities>> &photonEmissionProbabilities = {},
-      const wrapper<std::optional<common::Q>> &Q = {},
-      const wrapper<std::optional<sfy::Spectra>> &spectra = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &mode = {},
+      const wrapper<common::Probability>
+         &probability = {},
+      const wrapper<common::DecayPath>
+         &decayPath = {},
+      const wrapper<std::optional<mean::PhotonEmissionProbabilities>>
+         &photonEmissionProbabilities = {},
+      const wrapper<std::optional<common::Q>>
+         &Q = {},
+      const wrapper<std::optional<sfy::Spectra>>
+         &spectra = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +174,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayMode &operator=(const DecayMode &) = default;
-   DecayMode &operator=(DecayMode &&) = default;
+   // copy
+   DecayMode &operator=(const DecayMode &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         mode = other.mode;
+         probability = other.probability;
+         decayPath = other.decayPath;
+         photonEmissionProbabilities = other.photonEmissionProbabilities;
+         Q = other.Q;
+         spectra = other.spectra;
+      }
+      return *this;
+   }
+
+   // move
+   DecayMode &operator=(DecayMode &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         mode = std::move(other.mode);
+         probability = std::move(other.probability);
+         decayPath = std::move(other.decayPath);
+         photonEmissionProbabilities = std::move(other.photonEmissionProbabilities);
+         Q = std::move(other.Q);
+         spectra = std::move(other.spectra);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

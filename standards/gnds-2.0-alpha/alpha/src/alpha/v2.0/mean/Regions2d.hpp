@@ -40,9 +40,12 @@ class Regions2d :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Axes>("axes") |
-         --Child<mean::Function2ds>("function2ds") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<common::Axes>
+            ("axes") |
+         --Child<mean::Function2ds>
+            ("function2ds") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Axes> axes{this};
-   Field<mean::Function2ds> function2ds{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<common::Axes>
+      axes{this};
+   Field<mean::Function2ds>
+      function2ds{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Regions2d(
-      const wrapper<common::Axes> &axes,
-      const wrapper<mean::Function2ds> &function2ds = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<common::Axes>
+         &axes,
+      const wrapper<mean::Function2ds>
+         &function2ds = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Regions2d &operator=(const Regions2d &) = default;
-   Regions2d &operator=(Regions2d &&) = default;
+   // copy
+   Regions2d &operator=(const Regions2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         axes = other.axes;
+         function2ds = other.function2ds;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Regions2d &operator=(Regions2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         axes = std::move(other.axes);
+         function2ds = std::move(other.function2ds);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -39,8 +39,10 @@ class DecayData :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::DecayModes>("decayModes") |
-         --Child<std::optional<sfy::AverageEnergies>>("averageEnergies")
+         --Child<common::DecayModes>
+            ("decayModes") |
+         --Child<std::optional<sfy::AverageEnergies>>
+            ("averageEnergies")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::DecayModes> decayModes{this};
-   Field<std::optional<sfy::AverageEnergies>> averageEnergies{this};
+   Field<common::DecayModes>
+      decayModes{this};
+   Field<std::optional<sfy::AverageEnergies>>
+      averageEnergies{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit DecayData(
-      const wrapper<common::DecayModes> &decayModes,
-      const wrapper<std::optional<sfy::AverageEnergies>> &averageEnergies = {}
+      const wrapper<common::DecayModes>
+         &decayModes,
+      const wrapper<std::optional<sfy::AverageEnergies>>
+         &averageEnergies = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decayModes(this,decayModes),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayData &operator=(const DecayData &) = default;
-   DecayData &operator=(DecayData &&) = default;
+   // copy
+   DecayData &operator=(const DecayData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         decayModes = other.decayModes;
+         averageEnergies = other.averageEnergies;
+      }
+      return *this;
+   }
+
+   // move
+   DecayData &operator=(DecayData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         decayModes = std::move(other.decayModes);
+         averageEnergies = std::move(other.averageEnergies);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

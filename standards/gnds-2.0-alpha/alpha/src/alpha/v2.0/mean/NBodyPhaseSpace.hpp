@@ -42,7 +42,8 @@ class NBodyPhaseSpace :
             / Meta<>("numberOfProducts") |
 
          // children
-         --Child<common::Mass>("mass")
+         --Child<common::Mass>
+            ("mass")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<int> numberOfProducts{this};
 
    // children
-   Field<common::Mass> mass{this};
+   Field<common::Mass>
+      mass{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit NBodyPhaseSpace(
-      const wrapper<int> &numberOfProducts,
-      const wrapper<common::Mass> &mass = {}
+      const wrapper<int>
+         &numberOfProducts,
+      const wrapper<common::Mass>
+         &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       numberOfProducts(this,numberOfProducts),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   NBodyPhaseSpace &operator=(const NBodyPhaseSpace &) = default;
-   NBodyPhaseSpace &operator=(NBodyPhaseSpace &&) = default;
+   // copy
+   NBodyPhaseSpace &operator=(const NBodyPhaseSpace &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         numberOfProducts = other.numberOfProducts;
+         mass = other.mass;
+      }
+      return *this;
+   }
+
+   // move
+   NBodyPhaseSpace &operator=(NBodyPhaseSpace &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         numberOfProducts = std::move(other.numberOfProducts);
+         mass = std::move(other.mass);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

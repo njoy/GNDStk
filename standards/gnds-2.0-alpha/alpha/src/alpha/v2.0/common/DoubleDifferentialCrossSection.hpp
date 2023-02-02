@@ -43,12 +43,18 @@ class DoubleDifferentialCrossSection :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>("CoulombPlusNuclearElastic") |
-         --Child<std::optional<mean::CoherentPhotonScattering>>("coherentPhotonScattering") |
-         --Child<std::optional<mean::IncoherentPhotonScattering>>("incoherentPhotonScattering") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>("thermalNeutronScatteringLaw_coherentElastic") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>("thermalNeutronScatteringLaw_incoherentElastic") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>("thermalNeutronScatteringLaw_incoherentInelastic")
+         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>
+            ("CoulombPlusNuclearElastic") |
+         --Child<std::optional<mean::CoherentPhotonScattering>>
+            ("coherentPhotonScattering") |
+         --Child<std::optional<mean::IncoherentPhotonScattering>>
+            ("incoherentPhotonScattering") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+            ("thermalNeutronScatteringLaw_coherentElastic") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+            ("thermalNeutronScatteringLaw_incoherentElastic") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+            ("thermalNeutronScatteringLaw_incoherentInelastic")
       ;
    }
 
@@ -59,12 +65,18 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<dfiles::CoulombPlusNuclearElastic>> CoulombPlusNuclearElastic{this};
-   Field<std::optional<mean::CoherentPhotonScattering>> coherentPhotonScattering{this};
-   Field<std::optional<mean::IncoherentPhotonScattering>> incoherentPhotonScattering{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>> thermalNeutronScatteringLaw_coherentElastic{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>> thermalNeutronScatteringLaw_incoherentElastic{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>> thermalNeutronScatteringLaw_incoherentInelastic{this};
+   Field<std::optional<dfiles::CoulombPlusNuclearElastic>>
+      CoulombPlusNuclearElastic{this};
+   Field<std::optional<mean::CoherentPhotonScattering>>
+      coherentPhotonScattering{this};
+   Field<std::optional<mean::IncoherentPhotonScattering>>
+      incoherentPhotonScattering{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+      thermalNeutronScatteringLaw_coherentElastic{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+      thermalNeutronScatteringLaw_incoherentElastic{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+      thermalNeutronScatteringLaw_incoherentInelastic{this};
 
    // ------------------------
    // Constructors
@@ -88,12 +100,18 @@ public:
 
    // from fields, comment excluded
    explicit DoubleDifferentialCrossSection(
-      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>> &CoulombPlusNuclearElastic,
-      const wrapper<std::optional<mean::CoherentPhotonScattering>> &coherentPhotonScattering = {},
-      const wrapper<std::optional<mean::IncoherentPhotonScattering>> &incoherentPhotonScattering = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>> &thermalNeutronScatteringLaw_coherentElastic = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>> &thermalNeutronScatteringLaw_incoherentElastic = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>> &thermalNeutronScatteringLaw_incoherentInelastic = {}
+      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>>
+         &CoulombPlusNuclearElastic,
+      const wrapper<std::optional<mean::CoherentPhotonScattering>>
+         &coherentPhotonScattering = {},
+      const wrapper<std::optional<mean::IncoherentPhotonScattering>>
+         &incoherentPhotonScattering = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+         &thermalNeutronScatteringLaw_coherentElastic = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+         &thermalNeutronScatteringLaw_incoherentElastic = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+         &thermalNeutronScatteringLaw_incoherentInelastic = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       CoulombPlusNuclearElastic(this,CoulombPlusNuclearElastic),
@@ -145,8 +163,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   DoubleDifferentialCrossSection &operator=(const DoubleDifferentialCrossSection &) = default;
-   DoubleDifferentialCrossSection &operator=(DoubleDifferentialCrossSection &&) = default;
+   // copy
+   DoubleDifferentialCrossSection &operator=(const DoubleDifferentialCrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         CoulombPlusNuclearElastic = other.CoulombPlusNuclearElastic;
+         coherentPhotonScattering = other.coherentPhotonScattering;
+         incoherentPhotonScattering = other.incoherentPhotonScattering;
+         thermalNeutronScatteringLaw_coherentElastic = other.thermalNeutronScatteringLaw_coherentElastic;
+         thermalNeutronScatteringLaw_incoherentElastic = other.thermalNeutronScatteringLaw_incoherentElastic;
+         thermalNeutronScatteringLaw_incoherentInelastic = other.thermalNeutronScatteringLaw_incoherentInelastic;
+      }
+      return *this;
+   }
+
+   // move
+   DoubleDifferentialCrossSection &operator=(DoubleDifferentialCrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         CoulombPlusNuclearElastic = std::move(other.CoulombPlusNuclearElastic);
+         coherentPhotonScattering = std::move(other.coherentPhotonScattering);
+         incoherentPhotonScattering = std::move(other.incoherentPhotonScattering);
+         thermalNeutronScatteringLaw_coherentElastic = std::move(other.thermalNeutronScatteringLaw_coherentElastic);
+         thermalNeutronScatteringLaw_incoherentElastic = std::move(other.thermalNeutronScatteringLaw_incoherentElastic);
+         thermalNeutronScatteringLaw_incoherentInelastic = std::move(other.thermalNeutronScatteringLaw_incoherentInelastic);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

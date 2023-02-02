@@ -45,8 +45,10 @@ class J :
             / Meta<>("value") |
 
          // children
-         --Child<mean::LevelSpacing>("levelSpacing") |
-         --Child<mean::Widths>("widths")
+         --Child<mean::LevelSpacing>
+            ("levelSpacing") |
+         --Child<mean::Widths>
+            ("widths")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<int> value{this};
 
    // children
-   Field<mean::LevelSpacing> levelSpacing{this};
-   Field<mean::Widths> widths{this};
+   Field<mean::LevelSpacing>
+      levelSpacing{this};
+   Field<mean::Widths>
+      widths{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit J(
-      const wrapper<std::string> &label,
-      const wrapper<int> &value = {},
-      const wrapper<mean::LevelSpacing> &levelSpacing = {},
-      const wrapper<mean::Widths> &widths = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &value = {},
+      const wrapper<mean::LevelSpacing>
+         &levelSpacing = {},
+      const wrapper<mean::Widths>
+         &widths = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   J &operator=(const J &) = default;
-   J &operator=(J &&) = default;
+   // copy
+   J &operator=(const J &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         levelSpacing = other.levelSpacing;
+         widths = other.widths;
+      }
+      return *this;
+   }
+
+   // move
+   J &operator=(J &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         levelSpacing = std::move(other.levelSpacing);
+         widths = std::move(other.widths);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

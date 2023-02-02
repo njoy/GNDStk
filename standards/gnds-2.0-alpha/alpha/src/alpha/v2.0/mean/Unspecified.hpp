@@ -73,8 +73,10 @@ public:
 
    // from fields, comment excluded
    explicit Unspecified(
-      const wrapper<std::string> &label,
-      const wrapper<std::optional<std::string>> &productFrame = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::optional<std::string>>
+         &productFrame = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -114,8 +116,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unspecified &operator=(const Unspecified &) = default;
-   Unspecified &operator=(Unspecified &&) = default;
+   // copy
+   Unspecified &operator=(const Unspecified &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+      }
+      return *this;
+   }
+
+   // move
+   Unspecified &operator=(Unspecified &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

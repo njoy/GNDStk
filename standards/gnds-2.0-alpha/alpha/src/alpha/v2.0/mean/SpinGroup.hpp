@@ -47,8 +47,10 @@ class SpinGroup :
             / Meta<>("parity") |
 
          // children
-         --Child<mean::Channels>("channels") |
-         --Child<mean::ResonanceParameters>("resonanceParameters")
+         --Child<mean::Channels>
+            ("channels") |
+         --Child<mean::ResonanceParameters>
+            ("resonanceParameters")
       ;
    }
 
@@ -64,8 +66,10 @@ public:
    Field<int> parity{this};
 
    // children
-   Field<mean::Channels> channels{this};
-   Field<mean::ResonanceParameters> resonanceParameters{this};
+   Field<mean::Channels>
+      channels{this};
+   Field<mean::ResonanceParameters>
+      resonanceParameters{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +92,16 @@ public:
 
    // from fields, comment excluded
    explicit SpinGroup(
-      const wrapper<std::string> &label,
-      const wrapper<int> &spin = {},
-      const wrapper<int> &parity = {},
-      const wrapper<mean::Channels> &channels = {},
-      const wrapper<mean::ResonanceParameters> &resonanceParameters = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &spin = {},
+      const wrapper<int>
+         &parity = {},
+      const wrapper<mean::Channels>
+         &channels = {},
+      const wrapper<mean::ResonanceParameters>
+         &resonanceParameters = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +150,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   SpinGroup &operator=(const SpinGroup &) = default;
-   SpinGroup &operator=(SpinGroup &&) = default;
+   // copy
+   SpinGroup &operator=(const SpinGroup &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         spin = other.spin;
+         parity = other.parity;
+         channels = other.channels;
+         resonanceParameters = other.resonanceParameters;
+      }
+      return *this;
+   }
+
+   // move
+   SpinGroup &operator=(SpinGroup &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         channels = std::move(other.channels);
+         resonanceParameters = std::move(other.resonanceParameters);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

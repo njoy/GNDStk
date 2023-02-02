@@ -39,8 +39,10 @@ class Time :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Double>>("double") |
-         --Child<std::optional<common::String>>("string")
+         --Child<std::optional<common::Double>>
+            ("double") |
+         --Child<std::optional<common::String>>
+            ("string")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Double>> Double{this};
-   Field<std::optional<common::String>> string{this};
+   Field<std::optional<common::Double>>
+      Double{this};
+   Field<std::optional<common::String>>
+      string{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Time(
-      const wrapper<std::optional<common::Double>> &Double,
-      const wrapper<std::optional<common::String>> &string = {}
+      const wrapper<std::optional<common::Double>>
+         &Double,
+      const wrapper<std::optional<common::String>>
+         &string = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Time &operator=(const Time &) = default;
-   Time &operator=(Time &&) = default;
+   // copy
+   Time &operator=(const Time &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+         string = other.string;
+      }
+      return *this;
+   }
+
+   // move
+   Time &operator=(Time &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+         string = std::move(other.string);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

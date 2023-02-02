@@ -45,8 +45,10 @@ class Production :
             / Meta<>("ENDF_MT") |
 
          // children
-         --Child<common::CrossSection>("crossSection") |
-         --Child<common::OutputChannel>("outputChannel")
+         --Child<common::CrossSection>
+            ("crossSection") |
+         --Child<common::OutputChannel>
+            ("outputChannel")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<int> ENDF_MT{this};
 
    // children
-   Field<common::CrossSection> crossSection{this};
-   Field<common::OutputChannel> outputChannel{this};
+   Field<common::CrossSection>
+      crossSection{this};
+   Field<common::OutputChannel>
+      outputChannel{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Production(
-      const wrapper<std::string> &label,
-      const wrapper<int> &ENDF_MT = {},
-      const wrapper<common::CrossSection> &crossSection = {},
-      const wrapper<common::OutputChannel> &outputChannel = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<int>
+         &ENDF_MT = {},
+      const wrapper<common::CrossSection>
+         &crossSection = {},
+      const wrapper<common::OutputChannel>
+         &outputChannel = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Production &operator=(const Production &) = default;
-   Production &operator=(Production &&) = default;
+   // copy
+   Production &operator=(const Production &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ENDF_MT = other.ENDF_MT;
+         crossSection = other.crossSection;
+         outputChannel = other.outputChannel;
+      }
+      return *this;
+   }
+
+   // move
+   Production &operator=(Production &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ENDF_MT = std::move(other.ENDF_MT);
+         crossSection = std::move(other.crossSection);
+         outputChannel = std::move(other.outputChannel);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -44,9 +44,12 @@ class ElapsedTime :
             / Meta<>("label") |
 
          // children
-         --Child<common::Time>("time") |
-         --Child<std::optional<common::Yields>>("yields") |
-         --Child<std::optional<nfy::IncidentEnergies>>("incidentEnergies")
+         --Child<common::Time>
+            ("time") |
+         --Child<std::optional<common::Yields>>
+            ("yields") |
+         --Child<std::optional<nfy::IncidentEnergies>>
+            ("incidentEnergies")
       ;
    }
 
@@ -60,9 +63,12 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<common::Time> time{this};
-   Field<std::optional<common::Yields>> yields{this};
-   Field<std::optional<nfy::IncidentEnergies>> incidentEnergies{this};
+   Field<common::Time>
+      time{this};
+   Field<std::optional<common::Yields>>
+      yields{this};
+   Field<std::optional<nfy::IncidentEnergies>>
+      incidentEnergies{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +90,14 @@ public:
 
    // from fields, comment excluded
    explicit ElapsedTime(
-      const wrapper<std::string> &label,
-      const wrapper<common::Time> &time = {},
-      const wrapper<std::optional<common::Yields>> &yields = {},
-      const wrapper<std::optional<nfy::IncidentEnergies>> &incidentEnergies = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<common::Time>
+         &time = {},
+      const wrapper<std::optional<common::Yields>>
+         &yields = {},
+      const wrapper<std::optional<nfy::IncidentEnergies>>
+         &incidentEnergies = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +143,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ElapsedTime &operator=(const ElapsedTime &) = default;
-   ElapsedTime &operator=(ElapsedTime &&) = default;
+   // copy
+   ElapsedTime &operator=(const ElapsedTime &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         time = other.time;
+         yields = other.yields;
+         incidentEnergies = other.incidentEnergies;
+      }
+      return *this;
+   }
+
+   // move
+   ElapsedTime &operator=(ElapsedTime &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         time = std::move(other.time);
+         yields = std::move(other.yields);
+         incidentEnergies = std::move(other.incidentEnergies);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

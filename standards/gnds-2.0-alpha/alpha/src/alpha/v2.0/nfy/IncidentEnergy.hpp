@@ -43,8 +43,10 @@ class IncidentEnergy :
             / Meta<>("label") |
 
          // children
-         --Child<common::Energy>("energy") |
-         --Child<common::Yields>("yields")
+         --Child<common::Energy>
+            ("energy") |
+         --Child<common::Yields>
+            ("yields")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<common::Energy> energy{this};
-   Field<common::Yields> yields{this};
+   Field<common::Energy>
+      energy{this};
+   Field<common::Yields>
+      yields{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit IncidentEnergy(
-      const wrapper<std::string> &label,
-      const wrapper<common::Energy> &energy = {},
-      const wrapper<common::Yields> &yields = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<common::Energy>
+         &energy = {},
+      const wrapper<common::Yields>
+         &yields = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncidentEnergy &operator=(const IncidentEnergy &) = default;
-   IncidentEnergy &operator=(IncidentEnergy &&) = default;
+   // copy
+   IncidentEnergy &operator=(const IncidentEnergy &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         energy = other.energy;
+         yields = other.yields;
+      }
+      return *this;
+   }
+
+   // move
+   IncidentEnergy &operator=(IncidentEnergy &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         energy = std::move(other.energy);
+         yields = std::move(other.yields);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

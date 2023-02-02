@@ -50,9 +50,12 @@ class Evaluated :
             / Meta<>("version") |
 
          // children
-         --Child<common::Documentation>("documentation") |
-         --Child<std::optional<common::Temperature>>("temperature") |
-         --Child<std::optional<common::ProjectileEnergyDomain>>("projectileEnergyDomain")
+         --Child<common::Documentation>
+            ("documentation") |
+         --Child<std::optional<common::Temperature>>
+            ("temperature") |
+         --Child<std::optional<common::ProjectileEnergyDomain>>
+            ("projectileEnergyDomain")
       ;
    }
 
@@ -69,9 +72,12 @@ public:
    Field<std::string> version{this};
 
    // children
-   Field<common::Documentation> documentation{this};
-   Field<std::optional<common::Temperature>> temperature{this};
-   Field<std::optional<common::ProjectileEnergyDomain>> projectileEnergyDomain{this};
+   Field<common::Documentation>
+      documentation{this};
+   Field<std::optional<common::Temperature>>
+      temperature{this};
+   Field<std::optional<common::ProjectileEnergyDomain>>
+      projectileEnergyDomain{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +102,20 @@ public:
 
    // from fields, comment excluded
    explicit Evaluated(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &date = {},
-      const wrapper<std::string> &library = {},
-      const wrapper<std::string> &version = {},
-      const wrapper<common::Documentation> &documentation = {},
-      const wrapper<std::optional<common::Temperature>> &temperature = {},
-      const wrapper<std::optional<common::ProjectileEnergyDomain>> &projectileEnergyDomain = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &date = {},
+      const wrapper<std::string>
+         &library = {},
+      const wrapper<std::string>
+         &version = {},
+      const wrapper<common::Documentation>
+         &documentation = {},
+      const wrapper<std::optional<common::Temperature>>
+         &temperature = {},
+      const wrapper<std::optional<common::ProjectileEnergyDomain>>
+         &projectileEnergyDomain = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +170,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Evaluated &operator=(const Evaluated &) = default;
-   Evaluated &operator=(Evaluated &&) = default;
+   // copy
+   Evaluated &operator=(const Evaluated &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         date = other.date;
+         library = other.library;
+         version = other.version;
+         documentation = other.documentation;
+         temperature = other.temperature;
+         projectileEnergyDomain = other.projectileEnergyDomain;
+      }
+      return *this;
+   }
+
+   // move
+   Evaluated &operator=(Evaluated &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         date = std::move(other.date);
+         library = std::move(other.library);
+         version = std::move(other.version);
+         documentation = std::move(other.documentation);
+         temperature = std::move(other.temperature);
+         projectileEnergyDomain = std::move(other.projectileEnergyDomain);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

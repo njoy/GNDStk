@@ -94,8 +94,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   EndfCompatible &operator=(const EndfCompatible &) = default;
-   EndfCompatible &operator=(EndfCompatible &&) = default;
+   // copy
+   EndfCompatible &operator=(const EndfCompatible &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   EndfCompatible &operator=(EndfCompatible &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

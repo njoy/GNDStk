@@ -43,8 +43,10 @@ class ParameterCovariance :
             / Meta<>("label") |
 
          // children
-         --Child<covariance::RowData>("rowData") |
-         --Child<covariance::ParameterCovarianceMatrix>("parameterCovarianceMatrix")
+         --Child<covariance::RowData>
+            ("rowData") |
+         --Child<covariance::ParameterCovarianceMatrix>
+            ("parameterCovarianceMatrix")
       ;
    }
 
@@ -58,8 +60,10 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<covariance::RowData> rowData{this};
-   Field<covariance::ParameterCovarianceMatrix> parameterCovarianceMatrix{this};
+   Field<covariance::RowData>
+      rowData{this};
+   Field<covariance::ParameterCovarianceMatrix>
+      parameterCovarianceMatrix{this};
 
    // ------------------------
    // Constructors
@@ -80,9 +84,12 @@ public:
 
    // from fields, comment excluded
    explicit ParameterCovariance(
-      const wrapper<std::string> &label,
-      const wrapper<covariance::RowData> &rowData = {},
-      const wrapper<covariance::ParameterCovarianceMatrix> &parameterCovarianceMatrix = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<covariance::RowData>
+         &rowData = {},
+      const wrapper<covariance::ParameterCovarianceMatrix>
+         &parameterCovarianceMatrix = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterCovariance &operator=(const ParameterCovariance &) = default;
-   ParameterCovariance &operator=(ParameterCovariance &&) = default;
+   // copy
+   ParameterCovariance &operator=(const ParameterCovariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         rowData = other.rowData;
+         parameterCovarianceMatrix = other.parameterCovarianceMatrix;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterCovariance &operator=(ParameterCovariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         rowData = std::move(other.rowData);
+         parameterCovarianceMatrix = std::move(other.parameterCovarianceMatrix);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

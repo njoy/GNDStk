@@ -42,7 +42,8 @@ class PositronEmissionIntensity :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<double> value{this};
 
    // children
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit PositronEmissionIntensity(
-      const wrapper<double> &value,
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<double>
+         &value,
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   PositronEmissionIntensity &operator=(const PositronEmissionIntensity &) = default;
-   PositronEmissionIntensity &operator=(PositronEmissionIntensity &&) = default;
+   // copy
+   PositronEmissionIntensity &operator=(const PositronEmissionIntensity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   PositronEmissionIntensity &operator=(PositronEmissionIntensity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

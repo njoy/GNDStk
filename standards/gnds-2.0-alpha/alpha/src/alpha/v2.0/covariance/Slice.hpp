@@ -85,11 +85,16 @@ public:
 
    // from fields, comment excluded
    explicit Slice(
-      const wrapper<int> &dimension,
-      const wrapper<std::optional<int>> &domainValue = {},
-      const wrapper<std::optional<double>> &domainMin = {},
-      const wrapper<std::optional<double>> &domainMax = {},
-      const wrapper<std::optional<std::string>> &domainUnit = {}
+      const wrapper<int>
+         &dimension,
+      const wrapper<std::optional<int>>
+         &domainValue = {},
+      const wrapper<std::optional<double>>
+         &domainMin = {},
+      const wrapper<std::optional<double>>
+         &domainMax = {},
+      const wrapper<std::optional<std::string>>
+         &domainUnit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       dimension(this,dimension),
@@ -138,8 +143,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Slice &operator=(const Slice &) = default;
-   Slice &operator=(Slice &&) = default;
+   // copy
+   Slice &operator=(const Slice &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         dimension = other.dimension;
+         domainValue = other.domainValue;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+      }
+      return *this;
+   }
+
+   // move
+   Slice &operator=(Slice &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         dimension = std::move(other.dimension);
+         domainValue = std::move(other.domainValue);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

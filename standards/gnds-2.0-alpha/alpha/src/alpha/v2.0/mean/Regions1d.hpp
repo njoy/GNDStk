@@ -46,9 +46,12 @@ class Regions1d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<common::Axes>>("axes") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty") |
-         --Child<reduced::Function1ds>("function1ds")
+         --Child<std::optional<common::Axes>>
+            ("axes") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty") |
+         --Child<reduced::Function1ds>
+            ("function1ds")
       ;
    }
 
@@ -63,9 +66,12 @@ public:
    Field<std::optional<double>> outerDomainValue{this};
 
    // children
-   Field<std::optional<common::Axes>> axes{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
-   Field<reduced::Function1ds> function1ds{this};
+   Field<std::optional<common::Axes>>
+      axes{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
+   Field<reduced::Function1ds>
+      function1ds{this};
 
    // ------------------------
    // Constructors
@@ -88,11 +94,16 @@ public:
 
    // from fields, comment excluded
    explicit Regions1d(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<double>> &outerDomainValue = {},
-      const wrapper<std::optional<common::Axes>> &axes = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {},
-      const wrapper<reduced::Function1ds> &function1ds = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<double>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<common::Axes>>
+         &axes = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {},
+      const wrapper<reduced::Function1ds>
+         &function1ds = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +152,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Regions1d &operator=(const Regions1d &) = default;
-   Regions1d &operator=(Regions1d &&) = default;
+   // copy
+   Regions1d &operator=(const Regions1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         uncertainty = other.uncertainty;
+         function1ds = other.function1ds;
+      }
+      return *this;
+   }
+
+   // move
+   Regions1d &operator=(Regions1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         uncertainty = std::move(other.uncertainty);
+         function1ds = std::move(other.function1ds);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

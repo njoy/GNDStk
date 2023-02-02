@@ -79,8 +79,10 @@ public:
 
    // from fields, comment excluded
    explicit Starts(
-      const wrapper<std::string> &valueType,
-      const wrapper<std::string> &label = {}
+      const wrapper<std::string>
+         &valueType,
+      const wrapper<std::string>
+         &label = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       valueType(this,valueType),
@@ -130,8 +132,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Starts &operator=(const Starts &) = default;
-   Starts &operator=(Starts &&) = default;
+   // copy
+   Starts &operator=(const Starts &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+         valueType = other.valueType;
+         label = other.label;
+      }
+      return *this;
+   }
+
+   // move
+   Starts &operator=(Starts &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+         valueType = std::move(other.valueType);
+         label = std::move(other.label);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

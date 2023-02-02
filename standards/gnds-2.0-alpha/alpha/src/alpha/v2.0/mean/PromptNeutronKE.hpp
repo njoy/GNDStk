@@ -39,8 +39,10 @@ class PromptNeutronKE :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::Polynomial1d>>("polynomial1d") |
-         --Child<std::optional<common::XYs1d>>("XYs1d")
+         --Child<std::optional<common::Polynomial1d>>
+            ("polynomial1d") |
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::Polynomial1d>> polynomial1d{this};
-   Field<std::optional<common::XYs1d>> XYs1d{this};
+   Field<std::optional<common::Polynomial1d>>
+      polynomial1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit PromptNeutronKE(
-      const wrapper<std::optional<common::Polynomial1d>> &polynomial1d,
-      const wrapper<std::optional<common::XYs1d>> &XYs1d = {}
+      const wrapper<std::optional<common::Polynomial1d>>
+         &polynomial1d,
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       polynomial1d(this,polynomial1d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   PromptNeutronKE &operator=(const PromptNeutronKE &) = default;
-   PromptNeutronKE &operator=(PromptNeutronKE &&) = default;
+   // copy
+   PromptNeutronKE &operator=(const PromptNeutronKE &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         polynomial1d = other.polynomial1d;
+         XYs1d = other.XYs1d;
+      }
+      return *this;
+   }
+
+   // move
+   PromptNeutronKE &operator=(PromptNeutronKE &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         polynomial1d = std::move(other.polynomial1d);
+         XYs1d = std::move(other.XYs1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

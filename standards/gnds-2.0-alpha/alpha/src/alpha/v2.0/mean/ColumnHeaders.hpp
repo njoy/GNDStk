@@ -38,7 +38,8 @@ class ColumnHeaders :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Column>("column")
+         ++Child<mean::Column>
+            ("column")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Column>> column{this};
+   Field<std::vector<mean::Column>>
+      column{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ColumnHeaders(
-      const wrapper<std::vector<mean::Column>> &column
+      const wrapper<std::vector<mean::Column>>
+         &column
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       column(this,column)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ColumnHeaders &operator=(const ColumnHeaders &) = default;
-   ColumnHeaders &operator=(ColumnHeaders &&) = default;
+   // copy
+   ColumnHeaders &operator=(const ColumnHeaders &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         column = other.column;
+      }
+      return *this;
+   }
+
+   // move
+   ColumnHeaders &operator=(ColumnHeaders &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         column = std::move(other.column);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

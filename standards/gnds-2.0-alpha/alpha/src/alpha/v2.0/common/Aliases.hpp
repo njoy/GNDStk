@@ -39,8 +39,10 @@ class Aliases :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<common::Alias>>("alias") |
-         ++Child<std::optional<common::MetaStable>>("metaStable")
+         ++Child<std::optional<common::Alias>>
+            ("alias") |
+         ++Child<std::optional<common::MetaStable>>
+            ("metaStable")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<common::Alias>>> alias{this};
-   Field<std::optional<std::vector<common::MetaStable>>> metaStable{this};
+   Field<std::optional<std::vector<common::Alias>>>
+      alias{this};
+   Field<std::optional<std::vector<common::MetaStable>>>
+      metaStable{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Aliases(
-      const wrapper<std::optional<std::vector<common::Alias>>> &alias,
-      const wrapper<std::optional<std::vector<common::MetaStable>>> &metaStable = {}
+      const wrapper<std::optional<std::vector<common::Alias>>>
+         &alias,
+      const wrapper<std::optional<std::vector<common::MetaStable>>>
+         &metaStable = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       alias(this,alias),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Aliases &operator=(const Aliases &) = default;
-   Aliases &operator=(Aliases &&) = default;
+   // copy
+   Aliases &operator=(const Aliases &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         alias = other.alias;
+         metaStable = other.metaStable;
+      }
+      return *this;
+   }
+
+   // move
+   Aliases &operator=(Aliases &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         alias = std::move(other.alias);
+         metaStable = std::move(other.metaStable);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

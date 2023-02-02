@@ -40,9 +40,12 @@ class Yields :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<reduced::Nuclides>("nuclides") |
-         --Child<common::Values>("values") |
-         --Child<common::Uncertainty>("uncertainty")
+         --Child<reduced::Nuclides>
+            ("nuclides") |
+         --Child<common::Values>
+            ("values") |
+         --Child<common::Uncertainty>
+            ("uncertainty")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<reduced::Nuclides> nuclides{this};
-   Field<common::Values> values{this};
-   Field<common::Uncertainty> uncertainty{this};
+   Field<reduced::Nuclides>
+      nuclides{this};
+   Field<common::Values>
+      values{this};
+   Field<common::Uncertainty>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Yields(
-      const wrapper<reduced::Nuclides> &nuclides,
-      const wrapper<common::Values> &values = {},
-      const wrapper<common::Uncertainty> &uncertainty = {}
+      const wrapper<reduced::Nuclides>
+         &nuclides,
+      const wrapper<common::Values>
+         &values = {},
+      const wrapper<common::Uncertainty>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclides(this,nuclides),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Yields &operator=(const Yields &) = default;
-   Yields &operator=(Yields &&) = default;
+   // copy
+   Yields &operator=(const Yields &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclides = other.nuclides;
+         values = other.values;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Yields &operator=(Yields &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclides = std::move(other.nuclides);
+         values = std::move(other.values);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

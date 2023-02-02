@@ -38,7 +38,8 @@ class ExternalFiles :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::ExternalFile>("externalFile")
+         ++Child<common::ExternalFile>
+            ("externalFile")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::ExternalFile>> externalFile{this};
+   Field<std::vector<common::ExternalFile>>
+      externalFile{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ExternalFiles(
-      const wrapper<std::vector<common::ExternalFile>> &externalFile
+      const wrapper<std::vector<common::ExternalFile>>
+         &externalFile
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       externalFile(this,externalFile)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ExternalFiles &operator=(const ExternalFiles &) = default;
-   ExternalFiles &operator=(ExternalFiles &&) = default;
+   // copy
+   ExternalFiles &operator=(const ExternalFiles &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         externalFile = other.externalFile;
+      }
+      return *this;
+   }
+
+   // move
+   ExternalFiles &operator=(ExternalFiles &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         externalFile = std::move(other.externalFile);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -81,10 +81,14 @@ public:
 
    // from fields, comment excluded
    explicit ParameterLink(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &href = {},
-      const wrapper<std::optional<int>> &nParameters = {},
-      const wrapper<std::optional<int>> &matrixStartIndex = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &href = {},
+      const wrapper<std::optional<int>>
+         &nParameters = {},
+      const wrapper<std::optional<int>>
+         &matrixStartIndex = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -130,8 +134,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterLink &operator=(const ParameterLink &) = default;
-   ParameterLink &operator=(ParameterLink &&) = default;
+   // copy
+   ParameterLink &operator=(const ParameterLink &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         href = other.href;
+         nParameters = other.nParameters;
+         matrixStartIndex = other.matrixStartIndex;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterLink &operator=(ParameterLink &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         href = std::move(other.href);
+         nParameters = std::move(other.nParameters);
+         matrixStartIndex = std::move(other.matrixStartIndex);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -38,7 +38,8 @@ class HardSphereRadius :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<common::Constant1d>("constant1d")
+         --Child<common::Constant1d>
+            ("constant1d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<common::Constant1d> constant1d{this};
+   Field<common::Constant1d>
+      constant1d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit HardSphereRadius(
-      const wrapper<common::Constant1d> &constant1d
+      const wrapper<common::Constant1d>
+         &constant1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   HardSphereRadius &operator=(const HardSphereRadius &) = default;
-   HardSphereRadius &operator=(HardSphereRadius &&) = default;
+   // copy
+   HardSphereRadius &operator=(const HardSphereRadius &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         constant1d = other.constant1d;
+      }
+      return *this;
+   }
+
+   // move
+   HardSphereRadius &operator=(HardSphereRadius &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         constant1d = std::move(other.constant1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

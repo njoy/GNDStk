@@ -38,7 +38,8 @@ class ListOfCovariances :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::Covariance>("covariance")
+         ++Child<common::Covariance>
+            ("covariance")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::Covariance>> covariance{this};
+   Field<std::vector<common::Covariance>>
+      covariance{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ListOfCovariances(
-      const wrapper<std::vector<common::Covariance>> &covariance
+      const wrapper<std::vector<common::Covariance>>
+         &covariance
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       covariance(this,covariance)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ListOfCovariances &operator=(const ListOfCovariances &) = default;
-   ListOfCovariances &operator=(ListOfCovariances &&) = default;
+   // copy
+   ListOfCovariances &operator=(const ListOfCovariances &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         covariance = other.covariance;
+      }
+      return *this;
+   }
+
+   // move
+   ListOfCovariances &operator=(ListOfCovariances &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         covariance = std::move(other.covariance);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

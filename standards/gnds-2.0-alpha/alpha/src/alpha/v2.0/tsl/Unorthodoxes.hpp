@@ -38,7 +38,8 @@ class Unorthodoxes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<tsl::Unorthodox>("unorthodox")
+         ++Child<tsl::Unorthodox>
+            ("unorthodox")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<tsl::Unorthodox>> unorthodox{this};
+   Field<std::vector<tsl::Unorthodox>>
+      unorthodox{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Unorthodoxes(
-      const wrapper<std::vector<tsl::Unorthodox>> &unorthodox
+      const wrapper<std::vector<tsl::Unorthodox>>
+         &unorthodox
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       unorthodox(this,unorthodox)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unorthodoxes &operator=(const Unorthodoxes &) = default;
-   Unorthodoxes &operator=(Unorthodoxes &&) = default;
+   // copy
+   Unorthodoxes &operator=(const Unorthodoxes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         unorthodox = other.unorthodox;
+      }
+      return *this;
+   }
+
+   // move
+   Unorthodoxes &operator=(Unorthodoxes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         unorthodox = std::move(other.unorthodox);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

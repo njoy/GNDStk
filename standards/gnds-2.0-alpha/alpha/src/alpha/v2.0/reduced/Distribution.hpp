@@ -41,10 +41,14 @@ class Distribution :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw>>("thermalNeutronScatteringLaw") |
-         --Child<std::optional<mean::Uncorrelated>>("uncorrelated") |
-         --Child<std::optional<mean::Unspecified>>("unspecified") |
-         --Child<std::optional<mean::Branching3d>>("branching3d")
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw>>
+            ("thermalNeutronScatteringLaw") |
+         --Child<std::optional<mean::Uncorrelated>>
+            ("uncorrelated") |
+         --Child<std::optional<mean::Unspecified>>
+            ("unspecified") |
+         --Child<std::optional<mean::Branching3d>>
+            ("branching3d")
       ;
    }
 
@@ -55,10 +59,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw>> thermalNeutronScatteringLaw{this};
-   Field<std::optional<mean::Uncorrelated>> uncorrelated{this};
-   Field<std::optional<mean::Unspecified>> unspecified{this};
-   Field<std::optional<mean::Branching3d>> branching3d{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw>>
+      thermalNeutronScatteringLaw{this};
+   Field<std::optional<mean::Uncorrelated>>
+      uncorrelated{this};
+   Field<std::optional<mean::Unspecified>>
+      unspecified{this};
+   Field<std::optional<mean::Branching3d>>
+      branching3d{this};
 
    // ------------------------
    // Constructors
@@ -80,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Distribution(
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw>> &thermalNeutronScatteringLaw,
-      const wrapper<std::optional<mean::Uncorrelated>> &uncorrelated = {},
-      const wrapper<std::optional<mean::Unspecified>> &unspecified = {},
-      const wrapper<std::optional<mean::Branching3d>> &branching3d = {}
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw>>
+         &thermalNeutronScatteringLaw,
+      const wrapper<std::optional<mean::Uncorrelated>>
+         &uncorrelated = {},
+      const wrapper<std::optional<mean::Unspecified>>
+         &unspecified = {},
+      const wrapper<std::optional<mean::Branching3d>>
+         &branching3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       thermalNeutronScatteringLaw(this,thermalNeutronScatteringLaw),
@@ -129,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Distribution &operator=(const Distribution &) = default;
-   Distribution &operator=(Distribution &&) = default;
+   // copy
+   Distribution &operator=(const Distribution &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         thermalNeutronScatteringLaw = other.thermalNeutronScatteringLaw;
+         uncorrelated = other.uncorrelated;
+         unspecified = other.unspecified;
+         branching3d = other.branching3d;
+      }
+      return *this;
+   }
+
+   // move
+   Distribution &operator=(Distribution &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         thermalNeutronScatteringLaw = std::move(other.thermalNeutronScatteringLaw);
+         uncorrelated = std::move(other.uncorrelated);
+         unspecified = std::move(other.unspecified);
+         branching3d = std::move(other.branching3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

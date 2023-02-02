@@ -38,7 +38,8 @@ class ScatteringAtoms :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<tsl::ScatteringAtom>("scatteringAtom")
+         ++Child<tsl::ScatteringAtom>
+            ("scatteringAtom")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<tsl::ScatteringAtom>> scatteringAtom{this};
+   Field<std::vector<tsl::ScatteringAtom>>
+      scatteringAtom{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit ScatteringAtoms(
-      const wrapper<std::vector<tsl::ScatteringAtom>> &scatteringAtom
+      const wrapper<std::vector<tsl::ScatteringAtom>>
+         &scatteringAtom
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       scatteringAtom(this,scatteringAtom)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ScatteringAtoms &operator=(const ScatteringAtoms &) = default;
-   ScatteringAtoms &operator=(ScatteringAtoms &&) = default;
+   // copy
+   ScatteringAtoms &operator=(const ScatteringAtoms &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         scatteringAtom = other.scatteringAtom;
+      }
+      return *this;
+   }
+
+   // move
+   ScatteringAtoms &operator=(ScatteringAtoms &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         scatteringAtom = std::move(other.scatteringAtom);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -40,9 +40,12 @@ class Function1ds :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Legendre>("Legendre") |
-         ++Child<std::optional<common::XYs1d>>("XYs1d") |
-         ++Child<std::optional<mean::Regions1d>>("regions1d")
+         ++Child<mean::Legendre>
+            ("Legendre") |
+         ++Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         ++Child<std::optional<mean::Regions1d>>
+            ("regions1d")
       ;
    }
 
@@ -53,9 +56,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Legendre>> Legendre{this};
-   Field<std::optional<std::vector<common::XYs1d>>> XYs1d{this};
-   Field<std::optional<std::vector<mean::Regions1d>>> regions1d{this};
+   Field<std::vector<mean::Legendre>>
+      Legendre{this};
+   Field<std::optional<std::vector<common::XYs1d>>>
+      XYs1d{this};
+   Field<std::optional<std::vector<mean::Regions1d>>>
+      regions1d{this};
 
    // ------------------------
    // Constructors
@@ -76,9 +82,12 @@ public:
 
    // from fields, comment excluded
    explicit Function1ds(
-      const wrapper<std::vector<mean::Legendre>> &Legendre,
-      const wrapper<std::optional<std::vector<common::XYs1d>>> &XYs1d = {},
-      const wrapper<std::optional<std::vector<mean::Regions1d>>> &regions1d = {}
+      const wrapper<std::vector<mean::Legendre>>
+         &Legendre,
+      const wrapper<std::optional<std::vector<common::XYs1d>>>
+         &XYs1d = {},
+      const wrapper<std::optional<std::vector<mean::Regions1d>>>
+         &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Legendre(this,Legendre),
@@ -121,8 +130,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Function1ds &operator=(const Function1ds &) = default;
-   Function1ds &operator=(Function1ds &&) = default;
+   // copy
+   Function1ds &operator=(const Function1ds &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Legendre = other.Legendre;
+         XYs1d = other.XYs1d;
+         regions1d = other.regions1d;
+      }
+      return *this;
+   }
+
+   // move
+   Function1ds &operator=(Function1ds &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Legendre = std::move(other.Legendre);
+         XYs1d = std::move(other.XYs1d);
+         regions1d = std::move(other.regions1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

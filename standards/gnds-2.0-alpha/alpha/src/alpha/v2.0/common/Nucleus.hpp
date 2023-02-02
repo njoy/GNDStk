@@ -50,13 +50,20 @@ class Nucleus :
             / Meta<>("index") |
 
          // children
-         --Child<std::optional<common::Mass>>("mass") |
-         --Child<std::optional<common::Spin>>("spin") |
-         --Child<std::optional<common::Parity>>("parity") |
-         --Child<common::Charge>("charge") |
-         --Child<std::optional<common::Halflife>>("halflife") |
-         --Child<common::Energy>("energy") |
-         --Child<std::optional<common::DecayData>>("decayData")
+         --Child<std::optional<common::Mass>>
+            ("mass") |
+         --Child<std::optional<common::Spin>>
+            ("spin") |
+         --Child<std::optional<common::Parity>>
+            ("parity") |
+         --Child<common::Charge>
+            ("charge") |
+         --Child<std::optional<common::Halflife>>
+            ("halflife") |
+         --Child<common::Energy>
+            ("energy") |
+         --Child<std::optional<common::DecayData>>
+            ("decayData")
       ;
    }
 
@@ -71,13 +78,20 @@ public:
    Field<int> index{this};
 
    // children
-   Field<std::optional<common::Mass>> mass{this};
-   Field<std::optional<common::Spin>> spin{this};
-   Field<std::optional<common::Parity>> parity{this};
-   Field<common::Charge> charge{this};
-   Field<std::optional<common::Halflife>> halflife{this};
-   Field<common::Energy> energy{this};
-   Field<std::optional<common::DecayData>> decayData{this};
+   Field<std::optional<common::Mass>>
+      mass{this};
+   Field<std::optional<common::Spin>>
+      spin{this};
+   Field<std::optional<common::Parity>>
+      parity{this};
+   Field<common::Charge>
+      charge{this};
+   Field<std::optional<common::Halflife>>
+      halflife{this};
+   Field<common::Energy>
+      energy{this};
+   Field<std::optional<common::DecayData>>
+      decayData{this};
 
    // ------------------------
    // Constructors
@@ -104,15 +118,24 @@ public:
 
    // from fields, comment excluded
    explicit Nucleus(
-      const wrapper<std::string> &id,
-      const wrapper<int> &index = {},
-      const wrapper<std::optional<common::Mass>> &mass = {},
-      const wrapper<std::optional<common::Spin>> &spin = {},
-      const wrapper<std::optional<common::Parity>> &parity = {},
-      const wrapper<common::Charge> &charge = {},
-      const wrapper<std::optional<common::Halflife>> &halflife = {},
-      const wrapper<common::Energy> &energy = {},
-      const wrapper<std::optional<common::DecayData>> &decayData = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<int>
+         &index = {},
+      const wrapper<std::optional<common::Mass>>
+         &mass = {},
+      const wrapper<std::optional<common::Spin>>
+         &spin = {},
+      const wrapper<std::optional<common::Parity>>
+         &parity = {},
+      const wrapper<common::Charge>
+         &charge = {},
+      const wrapper<std::optional<common::Halflife>>
+         &halflife = {},
+      const wrapper<common::Energy>
+         &energy = {},
+      const wrapper<std::optional<common::DecayData>>
+         &decayData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -173,8 +196,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nucleus &operator=(const Nucleus &) = default;
-   Nucleus &operator=(Nucleus &&) = default;
+   // copy
+   Nucleus &operator=(const Nucleus &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         index = other.index;
+         mass = other.mass;
+         spin = other.spin;
+         parity = other.parity;
+         charge = other.charge;
+         halflife = other.halflife;
+         energy = other.energy;
+         decayData = other.decayData;
+      }
+      return *this;
+   }
+
+   // move
+   Nucleus &operator=(Nucleus &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         index = std::move(other.index);
+         mass = std::move(other.mass);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         charge = std::move(other.charge);
+         halflife = std::move(other.halflife);
+         energy = std::move(other.energy);
+         decayData = std::move(other.decayData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

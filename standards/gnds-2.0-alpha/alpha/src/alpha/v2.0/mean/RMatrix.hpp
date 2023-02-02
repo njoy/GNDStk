@@ -52,9 +52,12 @@ class RMatrix :
             / Meta<>("supportsAngularReconstruction") |
 
          // children
-         --Child<std::optional<common::PoPs>>("PoPs") |
-         --Child<mean::ResonanceReactions>("resonanceReactions") |
-         --Child<mean::SpinGroups>("spinGroups")
+         --Child<std::optional<common::PoPs>>
+            ("PoPs") |
+         --Child<mean::ResonanceReactions>
+            ("resonanceReactions") |
+         --Child<mean::SpinGroups>
+            ("spinGroups")
       ;
    }
 
@@ -72,9 +75,12 @@ public:
    Field<std::optional<bool>> supportsAngularReconstruction{this};
 
    // children
-   Field<std::optional<common::PoPs>> PoPs{this};
-   Field<mean::ResonanceReactions> resonanceReactions{this};
-   Field<mean::SpinGroups> spinGroups{this};
+   Field<std::optional<common::PoPs>>
+      PoPs{this};
+   Field<mean::ResonanceReactions>
+      resonanceReactions{this};
+   Field<mean::SpinGroups>
+      spinGroups{this};
 
    // ------------------------
    // Constructors
@@ -100,14 +106,22 @@ public:
 
    // from fields, comment excluded
    explicit RMatrix(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &approximation = {},
-      const wrapper<std::string> &boundaryCondition = {},
-      const wrapper<std::optional<bool>> &calculateChannelRadius = {},
-      const wrapper<std::optional<bool>> &supportsAngularReconstruction = {},
-      const wrapper<std::optional<common::PoPs>> &PoPs = {},
-      const wrapper<mean::ResonanceReactions> &resonanceReactions = {},
-      const wrapper<mean::SpinGroups> &spinGroups = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &approximation = {},
+      const wrapper<std::string>
+         &boundaryCondition = {},
+      const wrapper<std::optional<bool>>
+         &calculateChannelRadius = {},
+      const wrapper<std::optional<bool>>
+         &supportsAngularReconstruction = {},
+      const wrapper<std::optional<common::PoPs>>
+         &PoPs = {},
+      const wrapper<mean::ResonanceReactions>
+         &resonanceReactions = {},
+      const wrapper<mean::SpinGroups>
+         &spinGroups = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -165,8 +179,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   RMatrix &operator=(const RMatrix &) = default;
-   RMatrix &operator=(RMatrix &&) = default;
+   // copy
+   RMatrix &operator=(const RMatrix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         approximation = other.approximation;
+         boundaryCondition = other.boundaryCondition;
+         calculateChannelRadius = other.calculateChannelRadius;
+         supportsAngularReconstruction = other.supportsAngularReconstruction;
+         PoPs = other.PoPs;
+         resonanceReactions = other.resonanceReactions;
+         spinGroups = other.spinGroups;
+      }
+      return *this;
+   }
+
+   // move
+   RMatrix &operator=(RMatrix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         approximation = std::move(other.approximation);
+         boundaryCondition = std::move(other.boundaryCondition);
+         calculateChannelRadius = std::move(other.calculateChannelRadius);
+         supportsAngularReconstruction = std::move(other.supportsAngularReconstruction);
+         PoPs = std::move(other.PoPs);
+         resonanceReactions = std::move(other.resonanceReactions);
+         spinGroups = std::move(other.spinGroups);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

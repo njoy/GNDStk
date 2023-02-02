@@ -86,8 +86,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   FreeGasApproximation &operator=(const FreeGasApproximation &) = default;
-   FreeGasApproximation &operator=(FreeGasApproximation &&) = default;
+   // copy
+   FreeGasApproximation &operator=(const FreeGasApproximation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   FreeGasApproximation &operator=(FreeGasApproximation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

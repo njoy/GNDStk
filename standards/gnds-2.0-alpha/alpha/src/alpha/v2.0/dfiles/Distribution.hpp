@@ -38,7 +38,8 @@ class Distribution :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<mean::XYs2d>("XYs2d")
+         --Child<mean::XYs2d>
+            ("XYs2d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<mean::XYs2d> XYs2d{this};
+   Field<mean::XYs2d>
+      XYs2d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Distribution(
-      const wrapper<mean::XYs2d> &XYs2d
+      const wrapper<mean::XYs2d>
+         &XYs2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Distribution &operator=(const Distribution &) = default;
-   Distribution &operator=(Distribution &&) = default;
+   // copy
+   Distribution &operator=(const Distribution &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs2d = other.XYs2d;
+      }
+      return *this;
+   }
+
+   // move
+   Distribution &operator=(Distribution &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs2d = std::move(other.XYs2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

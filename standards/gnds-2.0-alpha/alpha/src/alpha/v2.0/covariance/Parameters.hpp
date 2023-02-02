@@ -38,7 +38,8 @@ class Parameters :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<covariance::ParameterLink>("parameterLink")
+         ++Child<covariance::ParameterLink>
+            ("parameterLink")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<covariance::ParameterLink>> parameterLink{this};
+   Field<std::vector<covariance::ParameterLink>>
+      parameterLink{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Parameters(
-      const wrapper<std::vector<covariance::ParameterLink>> &parameterLink
+      const wrapper<std::vector<covariance::ParameterLink>>
+         &parameterLink
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       parameterLink(this,parameterLink)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Parameters &operator=(const Parameters &) = default;
-   Parameters &operator=(Parameters &&) = default;
+   // copy
+   Parameters &operator=(const Parameters &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         parameterLink = other.parameterLink;
+      }
+      return *this;
+   }
+
+   // move
+   Parameters &operator=(Parameters &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         parameterLink = std::move(other.parameterLink);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -38,7 +38,8 @@ class Function2ds :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::XYs2d>("XYs2d")
+         ++Child<mean::XYs2d>
+            ("XYs2d")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::XYs2d>> XYs2d{this};
+   Field<std::vector<mean::XYs2d>>
+      XYs2d{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Function2ds(
-      const wrapper<std::vector<mean::XYs2d>> &XYs2d
+      const wrapper<std::vector<mean::XYs2d>>
+         &XYs2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Function2ds &operator=(const Function2ds &) = default;
-   Function2ds &operator=(Function2ds &&) = default;
+   // copy
+   Function2ds &operator=(const Function2ds &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs2d = other.XYs2d;
+      }
+      return *this;
+   }
+
+   // move
+   Function2ds &operator=(Function2ds &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs2d = std::move(other.XYs2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -42,7 +42,8 @@ class Legendre :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<common::Values>("values")
+         --Child<common::Values>
+            ("values")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<double> outerDomainValue{this};
 
    // children
-   Field<common::Values> values{this};
+   Field<common::Values>
+      values{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit Legendre(
-      const wrapper<double> &outerDomainValue,
-      const wrapper<common::Values> &values = {}
+      const wrapper<double>
+         &outerDomainValue,
+      const wrapper<common::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       outerDomainValue(this,outerDomainValue),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Legendre &operator=(const Legendre &) = default;
-   Legendre &operator=(Legendre &&) = default;
+   // copy
+   Legendre &operator=(const Legendre &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         outerDomainValue = other.outerDomainValue;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Legendre &operator=(Legendre &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         outerDomainValue = std::move(other.outerDomainValue);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

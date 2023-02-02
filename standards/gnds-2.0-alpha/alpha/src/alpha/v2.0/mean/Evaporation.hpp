@@ -39,8 +39,10 @@ class Evaporation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<mean::U>("U") |
-         --Child<mean::Theta>("theta")
+         --Child<mean::U>
+            ("U") |
+         --Child<mean::Theta>
+            ("theta")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<mean::U> U{this};
-   Field<mean::Theta> theta{this};
+   Field<mean::U>
+      U{this};
+   Field<mean::Theta>
+      theta{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit Evaporation(
-      const wrapper<mean::U> &U,
-      const wrapper<mean::Theta> &theta = {}
+      const wrapper<mean::U>
+         &U,
+      const wrapper<mean::Theta>
+         &theta = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       U(this,U),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Evaporation &operator=(const Evaporation &) = default;
-   Evaporation &operator=(Evaporation &&) = default;
+   // copy
+   Evaporation &operator=(const Evaporation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         U = other.U;
+         theta = other.theta;
+      }
+      return *this;
+   }
+
+   // move
+   Evaporation &operator=(Evaporation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         U = std::move(other.U);
+         theta = std::move(other.theta);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

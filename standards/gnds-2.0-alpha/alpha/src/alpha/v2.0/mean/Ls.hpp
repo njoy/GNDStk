@@ -38,7 +38,8 @@ class Ls :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::L>("L")
+         ++Child<mean::L>
+            ("L")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::L>> L{this};
+   Field<std::vector<mean::L>>
+      L{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Ls(
-      const wrapper<std::vector<mean::L>> &L
+      const wrapper<std::vector<mean::L>>
+         &L
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       L(this,L)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Ls &operator=(const Ls &) = default;
-   Ls &operator=(Ls &&) = default;
+   // copy
+   Ls &operator=(const Ls &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         L = other.L;
+      }
+      return *this;
+   }
+
+   // move
+   Ls &operator=(Ls &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         L = std::move(other.L);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

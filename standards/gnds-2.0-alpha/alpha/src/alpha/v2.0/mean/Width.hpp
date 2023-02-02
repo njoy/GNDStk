@@ -48,9 +48,12 @@ class Width :
             / Meta<>("degreesOfFreedom") |
 
          // children
-         --Child<std::optional<common::XYs1d>>("XYs1d") |
-         --Child<std::optional<common::Constant1d>>("constant1d") |
-         --Child<std::optional<mean::Regions1d>>("regions1d")
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<common::Constant1d>>
+            ("constant1d") |
+         --Child<std::optional<mean::Regions1d>>
+            ("regions1d")
       ;
    }
 
@@ -66,9 +69,12 @@ public:
    Field<int> degreesOfFreedom{this};
 
    // children
-   Field<std::optional<common::XYs1d>> XYs1d{this};
-   Field<std::optional<common::Constant1d>> constant1d{this};
-   Field<std::optional<mean::Regions1d>> regions1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<common::Constant1d>>
+      constant1d{this};
+   Field<std::optional<mean::Regions1d>>
+      regions1d{this};
 
    // ------------------------
    // Constructors
@@ -92,12 +98,18 @@ public:
 
    // from fields, comment excluded
    explicit Width(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &resonanceReaction = {},
-      const wrapper<int> &degreesOfFreedom = {},
-      const wrapper<std::optional<common::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<common::Constant1d>> &constant1d = {},
-      const wrapper<std::optional<mean::Regions1d>> &regions1d = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &resonanceReaction = {},
+      const wrapper<int>
+         &degreesOfFreedom = {},
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d = {},
+      const wrapper<std::optional<common::Constant1d>>
+         &constant1d = {},
+      const wrapper<std::optional<mean::Regions1d>>
+         &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +161,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Width &operator=(const Width &) = default;
-   Width &operator=(Width &&) = default;
+   // copy
+   Width &operator=(const Width &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         resonanceReaction = other.resonanceReaction;
+         degreesOfFreedom = other.degreesOfFreedom;
+         XYs1d = other.XYs1d;
+         constant1d = other.constant1d;
+         regions1d = other.regions1d;
+      }
+      return *this;
+   }
+
+   // move
+   Width &operator=(Width &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         resonanceReaction = std::move(other.resonanceReaction);
+         degreesOfFreedom = std::move(other.degreesOfFreedom);
+         XYs1d = std::move(other.XYs1d);
+         constant1d = std::move(other.constant1d);
+         regions1d = std::move(other.regions1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

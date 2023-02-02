@@ -42,7 +42,8 @@ class Unorthodox :
             / Meta<>("id") |
 
          // children
-         --Child<common::Mass>("mass")
+         --Child<common::Mass>
+            ("mass")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<std::string> id{this};
 
    // children
-   Field<common::Mass> mass{this};
+   Field<common::Mass>
+      mass{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit Unorthodox(
-      const wrapper<std::string> &id,
-      const wrapper<common::Mass> &mass = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<common::Mass>
+         &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unorthodox &operator=(const Unorthodox &) = default;
-   Unorthodox &operator=(Unorthodox &&) = default;
+   // copy
+   Unorthodox &operator=(const Unorthodox &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         mass = other.mass;
+      }
+      return *this;
+   }
+
+   // move
+   Unorthodox &operator=(Unorthodox &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         mass = std::move(other.mass);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

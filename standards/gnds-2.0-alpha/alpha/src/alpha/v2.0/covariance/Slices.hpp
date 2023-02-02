@@ -38,7 +38,8 @@ class Slices :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<covariance::Slice>("slice")
+         ++Child<covariance::Slice>
+            ("slice")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<covariance::Slice>> slice{this};
+   Field<std::vector<covariance::Slice>>
+      slice{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Slices(
-      const wrapper<std::vector<covariance::Slice>> &slice
+      const wrapper<std::vector<covariance::Slice>>
+         &slice
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       slice(this,slice)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Slices &operator=(const Slices &) = default;
-   Slices &operator=(Slices &&) = default;
+   // copy
+   Slices &operator=(const Slices &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         slice = other.slice;
+      }
+      return *this;
+   }
+
+   // move
+   Slices &operator=(Slices &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         slice = std::move(other.slice);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

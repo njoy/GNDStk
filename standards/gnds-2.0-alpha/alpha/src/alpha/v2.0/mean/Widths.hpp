@@ -38,7 +38,8 @@ class Widths :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<mean::Width>("width")
+         ++Child<mean::Width>
+            ("width")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<mean::Width>> width{this};
+   Field<std::vector<mean::Width>>
+      width{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit Widths(
-      const wrapper<std::vector<mean::Width>> &width
+      const wrapper<std::vector<mean::Width>>
+         &width
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       width(this,width)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Widths &operator=(const Widths &) = default;
-   Widths &operator=(Widths &&) = default;
+   // copy
+   Widths &operator=(const Widths &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         width = other.width;
+      }
+      return *this;
+   }
+
+   // move
+   Widths &operator=(Widths &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         width = std::move(other.width);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

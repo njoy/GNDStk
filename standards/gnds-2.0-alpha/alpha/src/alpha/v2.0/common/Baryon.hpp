@@ -47,12 +47,18 @@ class Baryon :
             / Meta<>("id") |
 
          // children
-         --Child<common::Mass>("mass") |
-         --Child<common::Spin>("spin") |
-         --Child<common::Parity>("parity") |
-         --Child<common::Charge>("charge") |
-         --Child<common::Halflife>("halflife") |
-         --Child<std::optional<common::DecayData>>("decayData")
+         --Child<common::Mass>
+            ("mass") |
+         --Child<common::Spin>
+            ("spin") |
+         --Child<common::Parity>
+            ("parity") |
+         --Child<common::Charge>
+            ("charge") |
+         --Child<common::Halflife>
+            ("halflife") |
+         --Child<std::optional<common::DecayData>>
+            ("decayData")
       ;
    }
 
@@ -66,12 +72,18 @@ public:
    Field<std::string> id{this};
 
    // children
-   Field<common::Mass> mass{this};
-   Field<common::Spin> spin{this};
-   Field<common::Parity> parity{this};
-   Field<common::Charge> charge{this};
-   Field<common::Halflife> halflife{this};
-   Field<std::optional<common::DecayData>> decayData{this};
+   Field<common::Mass>
+      mass{this};
+   Field<common::Spin>
+      spin{this};
+   Field<common::Parity>
+      parity{this};
+   Field<common::Charge>
+      charge{this};
+   Field<common::Halflife>
+      halflife{this};
+   Field<std::optional<common::DecayData>>
+      decayData{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +108,20 @@ public:
 
    // from fields, comment excluded
    explicit Baryon(
-      const wrapper<std::string> &id,
-      const wrapper<common::Mass> &mass = {},
-      const wrapper<common::Spin> &spin = {},
-      const wrapper<common::Parity> &parity = {},
-      const wrapper<common::Charge> &charge = {},
-      const wrapper<common::Halflife> &halflife = {},
-      const wrapper<std::optional<common::DecayData>> &decayData = {}
+      const wrapper<std::string>
+         &id,
+      const wrapper<common::Mass>
+         &mass = {},
+      const wrapper<common::Spin>
+         &spin = {},
+      const wrapper<common::Parity>
+         &parity = {},
+      const wrapper<common::Charge>
+         &charge = {},
+      const wrapper<common::Halflife>
+         &halflife = {},
+      const wrapper<std::optional<common::DecayData>>
+         &decayData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -157,8 +176,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Baryon &operator=(const Baryon &) = default;
-   Baryon &operator=(Baryon &&) = default;
+   // copy
+   Baryon &operator=(const Baryon &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         mass = other.mass;
+         spin = other.spin;
+         parity = other.parity;
+         charge = other.charge;
+         halflife = other.halflife;
+         decayData = other.decayData;
+      }
+      return *this;
+   }
+
+   // move
+   Baryon &operator=(Baryon &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         mass = std::move(other.mass);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         charge = std::move(other.charge);
+         halflife = std::move(other.halflife);
+         decayData = std::move(other.decayData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

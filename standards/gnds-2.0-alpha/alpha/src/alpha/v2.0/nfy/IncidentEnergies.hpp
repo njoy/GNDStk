@@ -38,7 +38,8 @@ class IncidentEnergies :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<nfy::IncidentEnergy>("incidentEnergy")
+         ++Child<nfy::IncidentEnergy>
+            ("incidentEnergy")
       ;
    }
 
@@ -49,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<nfy::IncidentEnergy>> incidentEnergy{this};
+   Field<std::vector<nfy::IncidentEnergy>>
+      incidentEnergy{this};
 
    // ------------------------
    // Constructors
@@ -68,7 +70,8 @@ public:
 
    // from fields, comment excluded
    explicit IncidentEnergies(
-      const wrapper<std::vector<nfy::IncidentEnergy>> &incidentEnergy
+      const wrapper<std::vector<nfy::IncidentEnergy>>
+         &incidentEnergy
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       incidentEnergy(this,incidentEnergy)
@@ -105,8 +108,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncidentEnergies &operator=(const IncidentEnergies &) = default;
-   IncidentEnergies &operator=(IncidentEnergies &&) = default;
+   // copy
+   IncidentEnergies &operator=(const IncidentEnergies &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         incidentEnergy = other.incidentEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   IncidentEnergies &operator=(IncidentEnergies &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         incidentEnergy = std::move(other.incidentEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -51,8 +51,10 @@ class Grid :
             / Meta<>("interpolation") |
 
          // children
-         --Child<std::optional<common::Link>>("link") |
-         --Child<std::optional<common::Values>>("values")
+         --Child<std::optional<common::Link>>
+            ("link") |
+         --Child<std::optional<common::Values>>
+            ("values")
       ;
    }
 
@@ -70,8 +72,10 @@ public:
    Field<std::optional<std::string>> interpolation{this};
 
    // children
-   Field<std::optional<common::Link>> link{this};
-   Field<std::optional<common::Values>> values{this};
+   Field<std::optional<common::Link>>
+      link{this};
+   Field<std::optional<common::Values>>
+      values{this};
 
    // ------------------------
    // Constructors
@@ -96,13 +100,20 @@ public:
 
    // from fields, comment excluded
    explicit Grid(
-      const wrapper<int> &index,
-      const wrapper<std::string> &label = {},
-      const wrapper<std::string> &unit = {},
-      const wrapper<std::string> &style = {},
-      const wrapper<std::optional<std::string>> &interpolation = {},
-      const wrapper<std::optional<common::Link>> &link = {},
-      const wrapper<std::optional<common::Values>> &values = {}
+      const wrapper<int>
+         &index,
+      const wrapper<std::string>
+         &label = {},
+      const wrapper<std::string>
+         &unit = {},
+      const wrapper<std::string>
+         &style = {},
+      const wrapper<std::optional<std::string>>
+         &interpolation = {},
+      const wrapper<std::optional<common::Link>>
+         &link = {},
+      const wrapper<std::optional<common::Values>>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -157,8 +168,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Grid &operator=(const Grid &) = default;
-   Grid &operator=(Grid &&) = default;
+   // copy
+   Grid &operator=(const Grid &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         label = other.label;
+         unit = other.unit;
+         style = other.style;
+         interpolation = other.interpolation;
+         link = other.link;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Grid &operator=(Grid &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+         style = std::move(other.style);
+         interpolation = std::move(other.interpolation);
+         link = std::move(other.link);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

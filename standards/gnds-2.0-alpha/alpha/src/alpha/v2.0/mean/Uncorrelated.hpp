@@ -45,8 +45,10 @@ class Uncorrelated :
             / Meta<>("productFrame") |
 
          // children
-         --Child<mean::Angular>("angular") |
-         --Child<common::Energy>("energy")
+         --Child<mean::Angular>
+            ("angular") |
+         --Child<common::Energy>
+            ("energy")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<mean::Angular> angular{this};
-   Field<common::Energy> energy{this};
+   Field<mean::Angular>
+      angular{this};
+   Field<common::Energy>
+      energy{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Uncorrelated(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<mean::Angular> &angular = {},
-      const wrapper<common::Energy> &energy = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<mean::Angular>
+         &angular = {},
+      const wrapper<common::Energy>
+         &energy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Uncorrelated &operator=(const Uncorrelated &) = default;
-   Uncorrelated &operator=(Uncorrelated &&) = default;
+   // copy
+   Uncorrelated &operator=(const Uncorrelated &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         angular = other.angular;
+         energy = other.energy;
+      }
+      return *this;
+   }
+
+   // move
+   Uncorrelated &operator=(Uncorrelated &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         angular = std::move(other.angular);
+         energy = std::move(other.energy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

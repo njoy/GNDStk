@@ -45,8 +45,10 @@ class Configuration :
             / Meta<>("electronNumber") |
 
          // children
-         --Child<atom::BindingEnergy>("bindingEnergy") |
-         ++Child<common::DecayData>("decayData")
+         --Child<atom::BindingEnergy>
+            ("bindingEnergy") |
+         ++Child<common::DecayData>
+            ("decayData")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<double> electronNumber{this};
 
    // children
-   Field<atom::BindingEnergy> bindingEnergy{this};
-   Field<std::vector<common::DecayData>> decayData{this};
+   Field<atom::BindingEnergy>
+      bindingEnergy{this};
+   Field<std::vector<common::DecayData>>
+      decayData{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit Configuration(
-      const wrapper<std::string> &subshell,
-      const wrapper<double> &electronNumber = {},
-      const wrapper<atom::BindingEnergy> &bindingEnergy = {},
-      const wrapper<std::vector<common::DecayData>> &decayData = {}
+      const wrapper<std::string>
+         &subshell,
+      const wrapper<double>
+         &electronNumber = {},
+      const wrapper<atom::BindingEnergy>
+         &bindingEnergy = {},
+      const wrapper<std::vector<common::DecayData>>
+         &decayData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       subshell(this,subshell),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configuration &operator=(const Configuration &) = default;
-   Configuration &operator=(Configuration &&) = default;
+   // copy
+   Configuration &operator=(const Configuration &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         subshell = other.subshell;
+         electronNumber = other.electronNumber;
+         bindingEnergy = other.bindingEnergy;
+         decayData = other.decayData;
+      }
+      return *this;
+   }
+
+   // move
+   Configuration &operator=(Configuration &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         subshell = std::move(other.subshell);
+         electronNumber = std::move(other.electronNumber);
+         bindingEnergy = std::move(other.bindingEnergy);
+         decayData = std::move(other.decayData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

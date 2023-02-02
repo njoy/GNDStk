@@ -44,9 +44,12 @@ class ResonancesWithBackground :
             / Meta<>("label") |
 
          // children
-         --Child<mean::Resonances>("resonances") |
-         --Child<mean::Background>("background") |
-         --Child<std::optional<common::Uncertainty>>("uncertainty")
+         --Child<mean::Resonances>
+            ("resonances") |
+         --Child<mean::Background>
+            ("background") |
+         --Child<std::optional<common::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
@@ -60,9 +63,12 @@ public:
    Field<std::string> label{this};
 
    // children
-   Field<mean::Resonances> resonances{this};
-   Field<mean::Background> background{this};
-   Field<std::optional<common::Uncertainty>> uncertainty{this};
+   Field<mean::Resonances>
+      resonances{this};
+   Field<mean::Background>
+      background{this};
+   Field<std::optional<common::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +90,14 @@ public:
 
    // from fields, comment excluded
    explicit ResonancesWithBackground(
-      const wrapper<std::string> &label,
-      const wrapper<mean::Resonances> &resonances = {},
-      const wrapper<mean::Background> &background = {},
-      const wrapper<std::optional<common::Uncertainty>> &uncertainty = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<mean::Resonances>
+         &resonances = {},
+      const wrapper<mean::Background>
+         &background = {},
+      const wrapper<std::optional<common::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +143,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonancesWithBackground &operator=(const ResonancesWithBackground &) = default;
-   ResonancesWithBackground &operator=(ResonancesWithBackground &&) = default;
+   // copy
+   ResonancesWithBackground &operator=(const ResonancesWithBackground &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         resonances = other.resonances;
+         background = other.background;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   ResonancesWithBackground &operator=(ResonancesWithBackground &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         resonances = std::move(other.resonances);
+         background = std::move(other.background);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

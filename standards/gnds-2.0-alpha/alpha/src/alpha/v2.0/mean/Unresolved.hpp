@@ -46,7 +46,8 @@ class Unresolved :
             / Meta<>("domainUnit") |
 
          // children
-         --Child<mean::TabulatedWidths>("tabulatedWidths")
+         --Child<mean::TabulatedWidths>
+            ("tabulatedWidths")
       ;
    }
 
@@ -62,7 +63,8 @@ public:
    Field<std::string> domainUnit{this};
 
    // children
-   Field<mean::TabulatedWidths> tabulatedWidths{this};
+   Field<mean::TabulatedWidths>
+      tabulatedWidths{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +86,14 @@ public:
 
    // from fields, comment excluded
    explicit Unresolved(
-      const wrapper<double> &domainMin,
-      const wrapper<double> &domainMax = {},
-      const wrapper<std::string> &domainUnit = {},
-      const wrapper<mean::TabulatedWidths> &tabulatedWidths = {}
+      const wrapper<double>
+         &domainMin,
+      const wrapper<double>
+         &domainMax = {},
+      const wrapper<std::string>
+         &domainUnit = {},
+      const wrapper<mean::TabulatedWidths>
+         &tabulatedWidths = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -133,8 +139,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unresolved &operator=(const Unresolved &) = default;
-   Unresolved &operator=(Unresolved &&) = default;
+   // copy
+   Unresolved &operator=(const Unresolved &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         tabulatedWidths = other.tabulatedWidths;
+      }
+      return *this;
+   }
+
+   // move
+   Unresolved &operator=(Unresolved &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         tabulatedWidths = std::move(other.tabulatedWidths);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

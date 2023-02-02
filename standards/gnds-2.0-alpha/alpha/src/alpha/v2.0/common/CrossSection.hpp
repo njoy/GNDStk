@@ -43,12 +43,18 @@ class CrossSection :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<common::XYs1d>>("XYs1d") |
-         --Child<std::optional<mean::Regions1d>>("regions1d") |
-         --Child<std::optional<mean::Reference>>("reference") |
-         --Child<std::optional<mean::ResonancesWithBackground>>("resonancesWithBackground") |
-         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>("CoulombPlusNuclearElastic") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw1d>>("thermalNeutronScatteringLaw1d")
+         --Child<std::optional<common::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<mean::Regions1d>>
+            ("regions1d") |
+         --Child<std::optional<mean::Reference>>
+            ("reference") |
+         --Child<std::optional<mean::ResonancesWithBackground>>
+            ("resonancesWithBackground") |
+         --Child<std::optional<dfiles::CoulombPlusNuclearElastic>>
+            ("CoulombPlusNuclearElastic") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw1d>>
+            ("thermalNeutronScatteringLaw1d")
       ;
    }
 
@@ -59,12 +65,18 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<common::XYs1d>> XYs1d{this};
-   Field<std::optional<mean::Regions1d>> regions1d{this};
-   Field<std::optional<mean::Reference>> reference{this};
-   Field<std::optional<mean::ResonancesWithBackground>> resonancesWithBackground{this};
-   Field<std::optional<dfiles::CoulombPlusNuclearElastic>> CoulombPlusNuclearElastic{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw1d>> thermalNeutronScatteringLaw1d{this};
+   Field<std::optional<common::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<mean::Regions1d>>
+      regions1d{this};
+   Field<std::optional<mean::Reference>>
+      reference{this};
+   Field<std::optional<mean::ResonancesWithBackground>>
+      resonancesWithBackground{this};
+   Field<std::optional<dfiles::CoulombPlusNuclearElastic>>
+      CoulombPlusNuclearElastic{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw1d>>
+      thermalNeutronScatteringLaw1d{this};
 
    // ------------------------
    // Constructors
@@ -88,12 +100,18 @@ public:
 
    // from fields, comment excluded
    explicit CrossSection(
-      const wrapper<std::optional<common::XYs1d>> &XYs1d,
-      const wrapper<std::optional<mean::Regions1d>> &regions1d = {},
-      const wrapper<std::optional<mean::Reference>> &reference = {},
-      const wrapper<std::optional<mean::ResonancesWithBackground>> &resonancesWithBackground = {},
-      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>> &CoulombPlusNuclearElastic = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw1d>> &thermalNeutronScatteringLaw1d = {}
+      const wrapper<std::optional<common::XYs1d>>
+         &XYs1d,
+      const wrapper<std::optional<mean::Regions1d>>
+         &regions1d = {},
+      const wrapper<std::optional<mean::Reference>>
+         &reference = {},
+      const wrapper<std::optional<mean::ResonancesWithBackground>>
+         &resonancesWithBackground = {},
+      const wrapper<std::optional<dfiles::CoulombPlusNuclearElastic>>
+         &CoulombPlusNuclearElastic = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw1d>>
+         &thermalNeutronScatteringLaw1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
@@ -145,8 +163,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSection &operator=(const CrossSection &) = default;
-   CrossSection &operator=(CrossSection &&) = default;
+   // copy
+   CrossSection &operator=(const CrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+         regions1d = other.regions1d;
+         reference = other.reference;
+         resonancesWithBackground = other.resonancesWithBackground;
+         CoulombPlusNuclearElastic = other.CoulombPlusNuclearElastic;
+         thermalNeutronScatteringLaw1d = other.thermalNeutronScatteringLaw1d;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSection &operator=(CrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+         regions1d = std::move(other.regions1d);
+         reference = std::move(other.reference);
+         resonancesWithBackground = std::move(other.resonancesWithBackground);
+         CoulombPlusNuclearElastic = std::move(other.CoulombPlusNuclearElastic);
+         thermalNeutronScatteringLaw1d = std::move(other.thermalNeutronScatteringLaw1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

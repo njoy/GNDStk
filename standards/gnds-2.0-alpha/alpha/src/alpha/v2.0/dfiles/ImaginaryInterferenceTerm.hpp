@@ -39,8 +39,10 @@ class ImaginaryInterferenceTerm :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<mean::Regions2d>>("regions2d") |
-         --Child<std::optional<mean::XYs2d>>("XYs2d")
+         --Child<std::optional<mean::Regions2d>>
+            ("regions2d") |
+         --Child<std::optional<mean::XYs2d>>
+            ("XYs2d")
       ;
    }
 
@@ -51,8 +53,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<mean::Regions2d>> regions2d{this};
-   Field<std::optional<mean::XYs2d>> XYs2d{this};
+   Field<std::optional<mean::Regions2d>>
+      regions2d{this};
+   Field<std::optional<mean::XYs2d>>
+      XYs2d{this};
 
    // ------------------------
    // Constructors
@@ -72,8 +76,10 @@ public:
 
    // from fields, comment excluded
    explicit ImaginaryInterferenceTerm(
-      const wrapper<std::optional<mean::Regions2d>> &regions2d,
-      const wrapper<std::optional<mean::XYs2d>> &XYs2d = {}
+      const wrapper<std::optional<mean::Regions2d>>
+         &regions2d,
+      const wrapper<std::optional<mean::XYs2d>>
+         &XYs2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       regions2d(this,regions2d),
@@ -113,8 +119,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ImaginaryInterferenceTerm &operator=(const ImaginaryInterferenceTerm &) = default;
-   ImaginaryInterferenceTerm &operator=(ImaginaryInterferenceTerm &&) = default;
+   // copy
+   ImaginaryInterferenceTerm &operator=(const ImaginaryInterferenceTerm &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         regions2d = other.regions2d;
+         XYs2d = other.XYs2d;
+      }
+      return *this;
+   }
+
+   // move
+   ImaginaryInterferenceTerm &operator=(ImaginaryInterferenceTerm &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         regions2d = std::move(other.regions2d);
+         XYs2d = std::move(other.XYs2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

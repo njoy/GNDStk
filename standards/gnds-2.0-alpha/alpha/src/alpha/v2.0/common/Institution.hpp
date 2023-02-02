@@ -42,7 +42,8 @@ class Institution :
             / Meta<>("label") |
 
          // children
-         --Child<common::ENDFconversionFlags>("ENDFconversionFlags")
+         --Child<common::ENDFconversionFlags>
+            ("ENDFconversionFlags")
       ;
    }
 
@@ -56,7 +57,8 @@ public:
    Field<std::optional<std::string>> label{this};
 
    // children
-   Field<common::ENDFconversionFlags> ENDFconversionFlags{this};
+   Field<common::ENDFconversionFlags>
+      ENDFconversionFlags{this};
 
    // ------------------------
    // Constructors
@@ -76,8 +78,10 @@ public:
 
    // from fields, comment excluded
    explicit Institution(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<common::ENDFconversionFlags> &ENDFconversionFlags = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<common::ENDFconversionFlags>
+         &ENDFconversionFlags = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -117,8 +121,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Institution &operator=(const Institution &) = default;
-   Institution &operator=(Institution &&) = default;
+   // copy
+   Institution &operator=(const Institution &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ENDFconversionFlags = other.ENDFconversionFlags;
+      }
+      return *this;
+   }
+
+   // move
+   Institution &operator=(Institution &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ENDFconversionFlags = std::move(other.ENDFconversionFlags);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

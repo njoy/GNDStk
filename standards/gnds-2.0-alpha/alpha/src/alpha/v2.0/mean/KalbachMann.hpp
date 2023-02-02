@@ -45,8 +45,10 @@ class KalbachMann :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<mean::F>>("f") |
-         --Child<std::optional<mean::R>>("r")
+         --Child<std::optional<mean::F>>
+            ("f") |
+         --Child<std::optional<mean::R>>
+            ("r")
       ;
    }
 
@@ -61,8 +63,10 @@ public:
    Field<std::string> productFrame{this};
 
    // children
-   Field<std::optional<mean::F>> f{this};
-   Field<std::optional<mean::R>> r{this};
+   Field<std::optional<mean::F>>
+      f{this};
+   Field<std::optional<mean::R>>
+      r{this};
 
    // ------------------------
    // Constructors
@@ -84,10 +88,14 @@ public:
 
    // from fields, comment excluded
    explicit KalbachMann(
-      const wrapper<std::string> &label,
-      const wrapper<std::string> &productFrame = {},
-      const wrapper<std::optional<mean::F>> &f = {},
-      const wrapper<std::optional<mean::R>> &r = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<std::string>
+         &productFrame = {},
+      const wrapper<std::optional<mean::F>>
+         &f = {},
+      const wrapper<std::optional<mean::R>>
+         &r = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +141,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   KalbachMann &operator=(const KalbachMann &) = default;
-   KalbachMann &operator=(KalbachMann &&) = default;
+   // copy
+   KalbachMann &operator=(const KalbachMann &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         f = other.f;
+         r = other.r;
+      }
+      return *this;
+   }
+
+   // move
+   KalbachMann &operator=(KalbachMann &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         f = std::move(other.f);
+         r = std::move(other.r);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality
