@@ -1143,58 +1143,52 @@ void writeClassSuffix(
    out(1,smallComment);
    out();
 
-   if (printCtorCalls) {
-      // copy
-      out(1,"// copy");
-      out(1,"@ &operator=(const @ &other)", per.clname, per.clname);
-      out(1,"{");
-      out(2,"if (this != &other) {");
+   // copy
+   out(1,"// copy");
+   out(1,"@ &operator=(const @ &other)", per.clname, per.clname);
+   out(1,"{");
+   out(2,"if (this != &other) {");
+   if (printCtorCalls)
       out(3,"std::cout << \"assign: @: copy\" << std::endl;", per.clname);
-      out(3,"Component::operator=(other);");
-      if (per.isDataNode)
-         out(3,"DataNode::operator=(other);");
-      out(3,"comment = other.comment;");
-      if (per.nfields() > 0) {
-         for (const auto &m : per.metadata)
-            out(3,"@ = other.@;", m.name, m.name);
-         for (const auto &c : per.children)
-            out(3,"@ = other.@;", c.name, c.name);
-         for (const auto &v : per.variants)
-            out(3,"@ = other.@;", v.name, v.name);
-      }
-      out(2,"}");
-      out(2,"return *this;");
-      out(1,"}");
-      out();
-
-      // move
-      out(1,"// move");
-      out(1,"@ &operator=(@ &&other)", per.clname, per.clname);
-      out(1,"{");
-      out(2,"if (this != &other) {");
-      out(3,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
-      out(3,"Component::operator=(std::move(other));");
-      if (per.isDataNode)
-         out(3,"DataNode::operator=(std::move(other));");
-      out(3,"comment = std::move(other.comment);");
-      if (per.nfields() > 0) {
-         for (const auto &m : per.metadata)
-            out(3,"@ = std::move(other.@);", m.name, m.name);
-         for (const auto &c : per.children)
-            out(3,"@ = std::move(other.@);", c.name, c.name);
-         for (const auto &v : per.variants)
-            out(3,"@ = std::move(other.@);", v.name, v.name);
-      }
-      out(2,"}");
-      out(2,"return *this;");
-      out(1,"}");
-
-   } else {
-      // copy
-      out(1,"@ &operator=(const @ &) = default;", per.clname, per.clname);
-      // move
-      out(1,"@ &operator=(@ &&) = default;", per.clname, per.clname);
+   out(3,"Component::operator=(other);");
+   if (per.isDataNode)
+      out(3,"DataNode::operator=(other);");
+   out(3,"comment = other.comment;");
+   if (per.nfields() > 0) {
+      for (const auto &m : per.metadata)
+         out(3,"@ = other.@;", m.name, m.name);
+      for (const auto &c : per.children)
+         out(3,"@ = other.@;", c.name, c.name);
+      for (const auto &v : per.variants)
+         out(3,"@ = other.@;", v.name, v.name);
    }
+   out(2,"}");
+   out(2,"return *this;");
+   out(1,"}");
+   out();
+
+   // move
+   out(1,"// move");
+   out(1,"@ &operator=(@ &&other)", per.clname, per.clname);
+   out(1,"{");
+   out(2,"if (this != &other) {");
+   if (printCtorCalls)
+      out(3,"std::cout << \"assign: @: move\" << std::endl;", per.clname);
+   out(3,"Component::operator=(std::move(other));");
+   if (per.isDataNode)
+      out(3,"DataNode::operator=(std::move(other));");
+   out(3,"comment = std::move(other.comment);");
+   if (per.nfields() > 0) {
+      for (const auto &m : per.metadata)
+         out(3,"@ = std::move(other.@);", m.name, m.name);
+      for (const auto &c : per.children)
+         out(3,"@ = std::move(other.@);", c.name, c.name);
+      for (const auto &v : per.variants)
+         out(3,"@ = std::move(other.@);", v.name, v.name);
+   }
+   out(2,"}");
+   out(2,"return *this;");
+   out(1,"}");
 
    // ------------------------
    // customization #include
@@ -1392,33 +1386,24 @@ void writeClassCtors(writer &out, const PerClass &per)
       out(1,"explicit @(", per.clname);
 
       for (const auto &m : per.metadata) {
-         out(
-            2,"const wrapper<@> &@@@",
-            m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull,
-            m.name,
-            count ? " = {}" : "",
-            count+1 < total ? "," : ""
-         );
+         out(2,"const wrapper<@>",
+             m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull);
+         out(3,"&@@@",
+             m.name, count ? " = {}" : "", count+1 < total ? "," : "");
          count++;
       }
       for (const auto &c : per.children) {
-         out(
-            2,"const wrapper<@> &@@@",
-            c.typeFull,
-            c.name,
-            count ? " = {}" : "",
-            count+1 < total ? "," : ""
-         );
+         out(2,"const wrapper<@>",
+             c.typeFull);
+         out(3,"&@@@",
+             c.name, count ? " = {}" : "", count+1 < total ? "," : "");
          count++;
       }
       for (const auto &v : per.variants) {
-         out(
-            2,"const wrapper<@> &@@@",
-            v.typeFull,
-            v.name,
-            count ? " = {}" : "",
-            count+1 < total ? "," : ""
-         );
+         out(2,"const wrapper<@>",
+             v.typeFull);
+         out(3,"&@@@",
+             v.name, count ? " = {}" : "", count+1 < total ? "," : "");
          count++;
       }
 
