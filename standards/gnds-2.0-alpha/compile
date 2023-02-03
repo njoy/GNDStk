@@ -21,7 +21,7 @@ COMPILE="
   -lhdf5
   -fno-show-column
   -Wno-unused-command-line-argument
-  -Wall -Wextra -Wpedantic "
+  -O3 -Wall -Wextra -Wpedantic "
 
 # If the compiler and/or flags are changed, consider deleting pugixml.o
 # so that it gets compiled again, given this conditional...

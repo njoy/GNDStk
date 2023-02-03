@@ -2,9 +2,8 @@
 // General helper constructs
 #include "GNDStk/Component/src/detail.hpp"
 
-// Map from some term/subject to its documentation,
-// for use by classes that derive from Component,
-// and in particular for use in the Python bindings.
+// Map from some term/subject to its documentation. For use by classes that
+// derive from Component, and in particular for use in Python bindings.
 using helpMap = std::map<std::string,std::string>;
 
 
