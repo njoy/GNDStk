@@ -39,18 +39,24 @@ void wrapPoPs(python::module &module)
             const std::string &,
             const std::string &,
             const std::string &,
-            const general::Styles &,
-            const std::optional<general::ChemicalElements> &,
             const std::optional<general::Aliases> &,
-            const std::optional<general::Baryons> &
+            const std::optional<general::Baryons> &,
+            const std::optional<general::ChemicalElements> &,
+            const std::optional<general::Styles> &,
+            const std::optional<general::Unorthodoxes> &,
+            const std::optional<general::GaugeBosons> &,
+            const std::optional<general::Leptons> &
          >(),
          python::arg("name"),
          python::arg("version"),
          python::arg("format"),
-         python::arg("styles"),
-         python::arg("chemical_elements") = std::nullopt,
          python::arg("aliases") = std::nullopt,
          python::arg("baryons") = std::nullopt,
+         python::arg("chemical_elements") = std::nullopt,
+         python::arg("styles") = std::nullopt,
+         python::arg("unorthodoxes") = std::nullopt,
+         python::arg("gauge_bosons") = std::nullopt,
+         python::arg("leptons") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
@@ -69,16 +75,6 @@ void wrapPoPs(python::module &module)
          Component::documentation("format").data()
       )
       .def_property_readonly(
-         "styles",
-         [](const Component &self) { return self.styles(); },
-         Component::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "chemical_elements",
-         [](const Component &self) { return self.chemicalElements(); },
-         Component::documentation("chemical_elements").data()
-      )
-      .def_property_readonly(
          "aliases",
          [](const Component &self) { return self.aliases(); },
          Component::documentation("aliases").data()
@@ -87,6 +83,31 @@ void wrapPoPs(python::module &module)
          "baryons",
          [](const Component &self) { return self.baryons(); },
          Component::documentation("baryons").data()
+      )
+      .def_property_readonly(
+         "chemical_elements",
+         [](const Component &self) { return self.chemicalElements(); },
+         Component::documentation("chemical_elements").data()
+      )
+      .def_property_readonly(
+         "styles",
+         [](const Component &self) { return self.styles(); },
+         Component::documentation("styles").data()
+      )
+      .def_property_readonly(
+         "unorthodoxes",
+         [](const Component &self) { return self.unorthodoxes(); },
+         Component::documentation("unorthodoxes").data()
+      )
+      .def_property_readonly(
+         "gauge_bosons",
+         [](const Component &self) { return self.gaugeBosons(); },
+         Component::documentation("gauge_bosons").data()
+      )
+      .def_property_readonly(
+         "leptons",
+         [](const Component &self) { return self.leptons(); },
+         Component::documentation("leptons").data()
       )
    ;
 

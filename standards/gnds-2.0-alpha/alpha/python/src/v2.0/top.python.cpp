@@ -13,8 +13,8 @@ namespace python_v2_0 {
 // top declarations
 namespace python_top {
    void wrapFissionFragmentData(python::module &);
-   void wrapReactionSuite(python::module &);
    void wrapPoPs(python::module &);
+   void wrapReactionSuite(python::module &);
    void wrapCovarianceSuite(python::module &);
 } // namespace python_top
 
@@ -29,8 +29,8 @@ void wrapTop(python::module &module)
 
    // wrap top components
    python_top::wrapFissionFragmentData(submodule);
-   python_top::wrapReactionSuite(submodule);
    python_top::wrapPoPs(submodule);
+   python_top::wrapReactionSuite(submodule);
    python_top::wrapCovarianceSuite(submodule);
 };
 

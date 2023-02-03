@@ -1586,15 +1586,23 @@
 
     "distribution": {
         "children": {
-            "angularTwoBody": {
+            "thermalNeutronScatteringLaw": {
                 "times": "1",
                 "required": false
-            },
+            }
             "uncorrelated": {
                 "times": "1",
                 "required": false
             },
             "unspecified": {
+                "times": "1",
+                "required": false
+            },
+            "branching3d": {
+                "times": "1",
+                "required": false
+            },
+            "angularTwoBody": {
                 "times": "1",
                 "required": false
             },
@@ -1610,10 +1618,6 @@
                 "times": "1",
                 "required": false
             },
-            "branching3d": {
-                "times": "1",
-                "required": false
-            },
             "CoulombPlusNuclearElastic": {
                 "times": "1",
                 "required": false
@@ -1623,10 +1627,6 @@
                 "required": false
             },
             "incoherentPhotonScattering": {
-                "times": "1",
-                "required": false
-            },
-            "thermalNeutronScatteringLaw": {
                 "times": "1",
                 "required": false
             }
@@ -2451,49 +2451,6 @@
         }
     },
 
-    "PoPs": {
-        "metadata": {
-            "name": {
-                "type": "string",
-                "required": true
-            },
-            "version": {
-                "type": "string",
-                "required": true
-            },
-            "format": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "children": {
-            "aliases": {
-                "times": "1",
-                "required": false
-            },
-            "baryons": {
-                "times": "1",
-                "required": false
-            },
-            "chemicalElements": {
-                "times": "1",
-                "required": false
-            },
-            "unorthodoxes": {
-                "times": "1",
-                "required": false
-            },
-            "gaugeBosons": {
-                "times": "1",
-                "required": false
-            },
-            "leptons": {
-                "times": "1",
-                "required": false
-            }
-        }
-    },
-
     "incompleteReactions": {
         "children": {
             "reaction": {
@@ -2768,7 +2725,7 @@
             }
         },
         "children": {
-            "PoPs": { "namespace": "general",
+            "PoPs": { "namespace": "top",
                 "times": "1",
                 "required": false
             },
@@ -2910,7 +2867,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": { "namespace": "general",
+            "PoPs": { "namespace": "top",
                 "times": "1",
                 "required": false
             },
@@ -3120,7 +3077,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": { "namespace": "general",
+            "PoPs": { "namespace": "top",
                 "times": "1",
                 "required": false
             },

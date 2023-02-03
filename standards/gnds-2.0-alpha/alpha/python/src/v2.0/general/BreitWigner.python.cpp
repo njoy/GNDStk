@@ -40,7 +40,7 @@ void wrapBreitWigner(python::module &module)
             const std::string &,
             const std::optional<bool> &,
             const general::ResonanceParameters &,
-            const std::optional<general::PoPs> &,
+            const std::optional<top::PoPs> &,
             const std::optional<general::ScatteringRadius> &
          >(),
          python::arg("label"),

@@ -17,16 +17,22 @@ namespace extract {
    static auto name = [](auto &obj) { return &obj.name; };
    static auto version = [](auto &obj) { return &obj.version; };
    static auto format = [](auto &obj) { return &obj.format; };
-   static auto styles = [](auto &obj) { return &obj.styles; };
-   static auto chemicalElements = [](auto &obj) { return &obj.chemicalElements; };
    static auto aliases = [](auto &obj) { return &obj.aliases; };
    static auto baryons = [](auto &obj) { return &obj.baryons; };
+   static auto chemicalElements = [](auto &obj) { return &obj.chemicalElements; };
+   static auto styles = [](auto &obj) { return &obj.styles; };
+   static auto unorthodoxes = [](auto &obj) { return &obj.unorthodoxes; };
+   static auto gaugeBosons = [](auto &obj) { return &obj.gaugeBosons; };
+   static auto leptons = [](auto &obj) { return &obj.leptons; };
 }
 
-using CPPStyles = general::Styles;
-using CPPChemicalElements = general::ChemicalElements;
 using CPPAliases = general::Aliases;
 using CPPBaryons = general::Baryons;
+using CPPChemicalElements = general::ChemicalElements;
+using CPPStyles = general::Styles;
+using CPPUnorthodoxes = general::Unorthodoxes;
+using CPPGaugeBosons = general::GaugeBosons;
+using CPPLeptons = general::Leptons;
 
 
 // -----------------------------------------------------------------------------
@@ -56,20 +62,26 @@ PoPsCreateConst(
    const char *const name,
    const char *const version,
    const char *const format,
-   ConstHandle2ConstStyles styles,
-   ConstHandle2ConstChemicalElements chemicalElements,
    ConstHandle2ConstAliases aliases,
-   ConstHandle2ConstBaryons baryons
+   ConstHandle2ConstBaryons baryons,
+   ConstHandle2ConstChemicalElements chemicalElements,
+   ConstHandle2ConstStyles styles,
+   ConstHandle2ConstUnorthodoxes unorthodoxes,
+   ConstHandle2ConstGaugeBosons gaugeBosons,
+   ConstHandle2ConstLeptons leptons
 ) {
    ConstHandle2PoPs handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
       name,
       version,
       format,
-      detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPChemicalElements>(chemicalElements),
       detail::tocpp<CPPAliases>(aliases),
-      detail::tocpp<CPPBaryons>(baryons)
+      detail::tocpp<CPPBaryons>(baryons),
+      detail::tocpp<CPPChemicalElements>(chemicalElements),
+      detail::tocpp<CPPStyles>(styles),
+      detail::tocpp<CPPUnorthodoxes>(unorthodoxes),
+      detail::tocpp<CPPGaugeBosons>(gaugeBosons),
+      detail::tocpp<CPPLeptons>(leptons)
    );
    return handle;
 }
@@ -80,20 +92,26 @@ PoPsCreate(
    const char *const name,
    const char *const version,
    const char *const format,
-   ConstHandle2ConstStyles styles,
-   ConstHandle2ConstChemicalElements chemicalElements,
    ConstHandle2ConstAliases aliases,
-   ConstHandle2ConstBaryons baryons
+   ConstHandle2ConstBaryons baryons,
+   ConstHandle2ConstChemicalElements chemicalElements,
+   ConstHandle2ConstStyles styles,
+   ConstHandle2ConstUnorthodoxes unorthodoxes,
+   ConstHandle2ConstGaugeBosons gaugeBosons,
+   ConstHandle2ConstLeptons leptons
 ) {
    ConstHandle2PoPs handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
       name,
       version,
       format,
-      detail::tocpp<CPPStyles>(styles),
-      detail::tocpp<CPPChemicalElements>(chemicalElements),
       detail::tocpp<CPPAliases>(aliases),
-      detail::tocpp<CPPBaryons>(baryons)
+      detail::tocpp<CPPBaryons>(baryons),
+      detail::tocpp<CPPChemicalElements>(chemicalElements),
+      detail::tocpp<CPPStyles>(styles),
+      detail::tocpp<CPPUnorthodoxes>(unorthodoxes),
+      detail::tocpp<CPPGaugeBosons>(gaugeBosons),
+      detail::tocpp<CPPLeptons>(leptons)
    );
    return handle;
 }
@@ -261,80 +279,6 @@ PoPsFormatSet(ConstHandle2PoPs This, const char *const format)
 
 
 // -----------------------------------------------------------------------------
-// Child: styles
-// -----------------------------------------------------------------------------
-
-// Has
-int
-PoPsStylesHas(ConstHandle2ConstPoPs This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
-}
-
-// Get, const
-Handle2ConstStyles
-PoPsStylesGetConst(ConstHandle2ConstPoPs This)
-{
-   return detail::getField<CPP,Handle2ConstStyles>
-      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
-}
-
-// Get, non-const
-Handle2Styles
-PoPsStylesGet(ConstHandle2PoPs This)
-{
-   return detail::getField<CPP,Handle2Styles>
-      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
-}
-
-// Set
-void
-PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
-{
-   detail::setField<CPP,CPPStyles>
-      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
-}
-
-
-// -----------------------------------------------------------------------------
-// Child: chemicalElements
-// -----------------------------------------------------------------------------
-
-// Has
-int
-PoPsChemicalElementsHas(ConstHandle2ConstPoPs This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", This, extract::chemicalElements);
-}
-
-// Get, const
-Handle2ConstChemicalElements
-PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This)
-{
-   return detail::getField<CPP,Handle2ConstChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", This, extract::chemicalElements);
-}
-
-// Get, non-const
-Handle2ChemicalElements
-PoPsChemicalElementsGet(ConstHandle2PoPs This)
-{
-   return detail::getField<CPP,Handle2ChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", This, extract::chemicalElements);
-}
-
-// Set
-void
-PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements)
-{
-   detail::setField<CPP,CPPChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", This, extract::chemicalElements, chemicalElements);
-}
-
-
-// -----------------------------------------------------------------------------
 // Child: aliases
 // -----------------------------------------------------------------------------
 
@@ -405,6 +349,191 @@ PoPsBaryonsSet(ConstHandle2PoPs This, ConstHandle2ConstBaryons baryons)
 {
    detail::setField<CPP,CPPBaryons>
       (CLASSNAME, CLASSNAME+"BaryonsSet", This, extract::baryons, baryons);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: chemicalElements
+// -----------------------------------------------------------------------------
+
+// Has
+int
+PoPsChemicalElementsHas(ConstHandle2ConstPoPs This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", This, extract::chemicalElements);
+}
+
+// Get, const
+Handle2ConstChemicalElements
+PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This)
+{
+   return detail::getField<CPP,Handle2ConstChemicalElements>
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", This, extract::chemicalElements);
+}
+
+// Get, non-const
+Handle2ChemicalElements
+PoPsChemicalElementsGet(ConstHandle2PoPs This)
+{
+   return detail::getField<CPP,Handle2ChemicalElements>
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", This, extract::chemicalElements);
+}
+
+// Set
+void
+PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements)
+{
+   detail::setField<CPP,CPPChemicalElements>
+      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", This, extract::chemicalElements, chemicalElements);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: styles
+// -----------------------------------------------------------------------------
+
+// Has
+int
+PoPsStylesHas(ConstHandle2ConstPoPs This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
+}
+
+// Get, const
+Handle2ConstStyles
+PoPsStylesGetConst(ConstHandle2ConstPoPs This)
+{
+   return detail::getField<CPP,Handle2ConstStyles>
+      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
+}
+
+// Get, non-const
+Handle2Styles
+PoPsStylesGet(ConstHandle2PoPs This)
+{
+   return detail::getField<CPP,Handle2Styles>
+      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
+}
+
+// Set
+void
+PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
+{
+   detail::setField<CPP,CPPStyles>
+      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: unorthodoxes
+// -----------------------------------------------------------------------------
+
+// Has
+int
+PoPsUnorthodoxesHas(ConstHandle2ConstPoPs This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"UnorthodoxesHas", This, extract::unorthodoxes);
+}
+
+// Get, const
+Handle2ConstUnorthodoxes
+PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs This)
+{
+   return detail::getField<CPP,Handle2ConstUnorthodoxes>
+      (CLASSNAME, CLASSNAME+"UnorthodoxesGetConst", This, extract::unorthodoxes);
+}
+
+// Get, non-const
+Handle2Unorthodoxes
+PoPsUnorthodoxesGet(ConstHandle2PoPs This)
+{
+   return detail::getField<CPP,Handle2Unorthodoxes>
+      (CLASSNAME, CLASSNAME+"UnorthodoxesGet", This, extract::unorthodoxes);
+}
+
+// Set
+void
+PoPsUnorthodoxesSet(ConstHandle2PoPs This, ConstHandle2ConstUnorthodoxes unorthodoxes)
+{
+   detail::setField<CPP,CPPUnorthodoxes>
+      (CLASSNAME, CLASSNAME+"UnorthodoxesSet", This, extract::unorthodoxes, unorthodoxes);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: gaugeBosons
+// -----------------------------------------------------------------------------
+
+// Has
+int
+PoPsGaugeBosonsHas(ConstHandle2ConstPoPs This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"GaugeBosonsHas", This, extract::gaugeBosons);
+}
+
+// Get, const
+Handle2ConstGaugeBosons
+PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs This)
+{
+   return detail::getField<CPP,Handle2ConstGaugeBosons>
+      (CLASSNAME, CLASSNAME+"GaugeBosonsGetConst", This, extract::gaugeBosons);
+}
+
+// Get, non-const
+Handle2GaugeBosons
+PoPsGaugeBosonsGet(ConstHandle2PoPs This)
+{
+   return detail::getField<CPP,Handle2GaugeBosons>
+      (CLASSNAME, CLASSNAME+"GaugeBosonsGet", This, extract::gaugeBosons);
+}
+
+// Set
+void
+PoPsGaugeBosonsSet(ConstHandle2PoPs This, ConstHandle2ConstGaugeBosons gaugeBosons)
+{
+   detail::setField<CPP,CPPGaugeBosons>
+      (CLASSNAME, CLASSNAME+"GaugeBosonsSet", This, extract::gaugeBosons, gaugeBosons);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: leptons
+// -----------------------------------------------------------------------------
+
+// Has
+int
+PoPsLeptonsHas(ConstHandle2ConstPoPs This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"LeptonsHas", This, extract::leptons);
+}
+
+// Get, const
+Handle2ConstLeptons
+PoPsLeptonsGetConst(ConstHandle2ConstPoPs This)
+{
+   return detail::getField<CPP,Handle2ConstLeptons>
+      (CLASSNAME, CLASSNAME+"LeptonsGetConst", This, extract::leptons);
+}
+
+// Get, non-const
+Handle2Leptons
+PoPsLeptonsGet(ConstHandle2PoPs This)
+{
+   return detail::getField<CPP,Handle2Leptons>
+      (CLASSNAME, CLASSNAME+"LeptonsGet", This, extract::leptons);
+}
+
+// Set
+void
+PoPsLeptonsSet(ConstHandle2PoPs This, ConstHandle2ConstLeptons leptons)
+{
+   detail::setField<CPP,CPPLeptons>
+      (CLASSNAME, CLASSNAME+"LeptonsSet", This, extract::leptons, leptons);
 }
 
 

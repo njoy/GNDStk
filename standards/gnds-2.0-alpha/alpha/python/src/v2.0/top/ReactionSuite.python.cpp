@@ -43,7 +43,7 @@ void wrapReactionSuite(python::module &module)
             const std::string &,
             const std::string &,
             const general::Styles &,
-            const general::PoPs &,
+            const top::PoPs &,
             const general::Reactions &,
             const std::optional<general::ApplicationData> &,
             const std::optional<general::ExternalFiles> &,

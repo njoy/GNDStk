@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/general/Styles.h"
-#include "v2.0/general/PoPs.h"
+#include "v2.0/top/PoPs.h"
 #include "v2.0/general/Reactions.h"
 #include "v2.0/general/ApplicationData.h"
 #include "v2.0/general/ExternalFiles.h"

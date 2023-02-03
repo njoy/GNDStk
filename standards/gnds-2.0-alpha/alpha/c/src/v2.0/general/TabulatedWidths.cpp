@@ -25,7 +25,7 @@ namespace extract {
 
 using CPPResonanceReactions = general::ResonanceReactions;
 using CPPLs = general::Ls;
-using CPPPoPs = general::PoPs;
+using CPPPoPs = top::PoPs;
 using CPPScatteringRadius = general::ScatteringRadius;
 
 

@@ -32,7 +32,7 @@
 #define C_INTERFACE_ALPHA_V2_0_GENERAL_RMATRIX
 
 #include "GNDStk.h"
-#include "v2.0/general/PoPs.h"
+#include "v2.0/top/PoPs.h"
 #include "v2.0/general/ResonanceReactions.h"
 #include "v2.0/general/SpinGroups.h"
 

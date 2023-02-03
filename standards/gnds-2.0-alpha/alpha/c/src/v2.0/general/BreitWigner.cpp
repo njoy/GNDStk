@@ -23,7 +23,7 @@ namespace extract {
 }
 
 using CPPResonanceParameters = general::ResonanceParameters;
-using CPPPoPs = general::PoPs;
+using CPPPoPs = top::PoPs;
 using CPPScatteringRadius = general::ScatteringRadius;
 
 

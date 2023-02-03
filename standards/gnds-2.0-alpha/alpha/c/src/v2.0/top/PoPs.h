@@ -32,10 +32,13 @@
 #define C_INTERFACE_ALPHA_V2_0_TOP_POPS
 
 #include "GNDStk.h"
-#include "v2.0/general/Styles.h"
-#include "v2.0/general/ChemicalElements.h"
 #include "v2.0/general/Aliases.h"
 #include "v2.0/general/Baryons.h"
+#include "v2.0/general/ChemicalElements.h"
+#include "v2.0/general/Styles.h"
+#include "v2.0/general/Unorthodoxes.h"
+#include "v2.0/general/GaugeBosons.h"
+#include "v2.0/general/Leptons.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -83,10 +86,13 @@ PoPsCreateConst(
    const char *const name,
    const char *const version,
    const char *const format,
-   ConstHandle2ConstStyles styles,
-   ConstHandle2ConstChemicalElements chemicalElements,
    ConstHandle2ConstAliases aliases,
-   ConstHandle2ConstBaryons baryons
+   ConstHandle2ConstBaryons baryons,
+   ConstHandle2ConstChemicalElements chemicalElements,
+   ConstHandle2ConstStyles styles,
+   ConstHandle2ConstUnorthodoxes unorthodoxes,
+   ConstHandle2ConstGaugeBosons gaugeBosons,
+   ConstHandle2ConstLeptons leptons
 );
 
 // +++ Create, general
@@ -95,10 +101,13 @@ PoPsCreate(
    const char *const name,
    const char *const version,
    const char *const format,
-   ConstHandle2ConstStyles styles,
-   ConstHandle2ConstChemicalElements chemicalElements,
    ConstHandle2ConstAliases aliases,
-   ConstHandle2ConstBaryons baryons
+   ConstHandle2ConstBaryons baryons,
+   ConstHandle2ConstChemicalElements chemicalElements,
+   ConstHandle2ConstStyles styles,
+   ConstHandle2ConstUnorthodoxes unorthodoxes,
+   ConstHandle2ConstGaugeBosons gaugeBosons,
+   ConstHandle2ConstLeptons leptons
 );
 
 // +++ Assign
@@ -200,48 +209,6 @@ PoPsFormatSet(ConstHandle2PoPs This, const char *const format);
 
 
 // -----------------------------------------------------------------------------
-// Child: styles
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-PoPsStylesHas(ConstHandle2ConstPoPs This);
-
-// --- Get, const
-extern_c Handle2ConstStyles
-PoPsStylesGetConst(ConstHandle2ConstPoPs This);
-
-// +++ Get, non-const
-extern_c Handle2Styles
-PoPsStylesGet(ConstHandle2PoPs This);
-
-// +++ Set
-extern_c void
-PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles);
-
-
-// -----------------------------------------------------------------------------
-// Child: chemicalElements
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-PoPsChemicalElementsHas(ConstHandle2ConstPoPs This);
-
-// --- Get, const
-extern_c Handle2ConstChemicalElements
-PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This);
-
-// +++ Get, non-const
-extern_c Handle2ChemicalElements
-PoPsChemicalElementsGet(ConstHandle2PoPs This);
-
-// +++ Set
-extern_c void
-PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements);
-
-
-// -----------------------------------------------------------------------------
 // Child: aliases
 // -----------------------------------------------------------------------------
 
@@ -281,6 +248,111 @@ PoPsBaryonsGet(ConstHandle2PoPs This);
 // +++ Set
 extern_c void
 PoPsBaryonsSet(ConstHandle2PoPs This, ConstHandle2ConstBaryons baryons);
+
+
+// -----------------------------------------------------------------------------
+// Child: chemicalElements
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+PoPsChemicalElementsHas(ConstHandle2ConstPoPs This);
+
+// --- Get, const
+extern_c Handle2ConstChemicalElements
+PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This);
+
+// +++ Get, non-const
+extern_c Handle2ChemicalElements
+PoPsChemicalElementsGet(ConstHandle2PoPs This);
+
+// +++ Set
+extern_c void
+PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements);
+
+
+// -----------------------------------------------------------------------------
+// Child: styles
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+PoPsStylesHas(ConstHandle2ConstPoPs This);
+
+// --- Get, const
+extern_c Handle2ConstStyles
+PoPsStylesGetConst(ConstHandle2ConstPoPs This);
+
+// +++ Get, non-const
+extern_c Handle2Styles
+PoPsStylesGet(ConstHandle2PoPs This);
+
+// +++ Set
+extern_c void
+PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles);
+
+
+// -----------------------------------------------------------------------------
+// Child: unorthodoxes
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+PoPsUnorthodoxesHas(ConstHandle2ConstPoPs This);
+
+// --- Get, const
+extern_c Handle2ConstUnorthodoxes
+PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs This);
+
+// +++ Get, non-const
+extern_c Handle2Unorthodoxes
+PoPsUnorthodoxesGet(ConstHandle2PoPs This);
+
+// +++ Set
+extern_c void
+PoPsUnorthodoxesSet(ConstHandle2PoPs This, ConstHandle2ConstUnorthodoxes unorthodoxes);
+
+
+// -----------------------------------------------------------------------------
+// Child: gaugeBosons
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+PoPsGaugeBosonsHas(ConstHandle2ConstPoPs This);
+
+// --- Get, const
+extern_c Handle2ConstGaugeBosons
+PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs This);
+
+// +++ Get, non-const
+extern_c Handle2GaugeBosons
+PoPsGaugeBosonsGet(ConstHandle2PoPs This);
+
+// +++ Set
+extern_c void
+PoPsGaugeBosonsSet(ConstHandle2PoPs This, ConstHandle2ConstGaugeBosons gaugeBosons);
+
+
+// -----------------------------------------------------------------------------
+// Child: leptons
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+PoPsLeptonsHas(ConstHandle2ConstPoPs This);
+
+// --- Get, const
+extern_c Handle2ConstLeptons
+PoPsLeptonsGetConst(ConstHandle2ConstPoPs This);
+
+// +++ Get, non-const
+extern_c Handle2Leptons
+PoPsLeptonsGet(ConstHandle2PoPs This);
+
+// +++ Set
+extern_c void
+PoPsLeptonsSet(ConstHandle2PoPs This, ConstHandle2ConstLeptons leptons);
 
 
 // -----------------------------------------------------------------------------

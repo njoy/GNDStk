@@ -5,7 +5,7 @@
 #ifndef ALPHA_V2_0_GENERAL_RMATRIX
 #define ALPHA_V2_0_GENERAL_RMATRIX
 
-#include "alpha/v2.0/general/PoPs.hpp"
+#include "alpha/v2.0/top/PoPs.hpp"
 #include "alpha/v2.0/general/ResonanceReactions.hpp"
 #include "alpha/v2.0/general/SpinGroups.hpp"
 
@@ -52,7 +52,7 @@ class RMatrix :
             / Meta<>("supportsAngularReconstruction") |
 
          // children
-         --Child<std::optional<general::PoPs>>
+         --Child<std::optional<top::PoPs>>
             ("PoPs") |
          --Child<general::ResonanceReactions>
             ("resonanceReactions") |
@@ -75,7 +75,7 @@ public:
    Field<std::optional<bool>> supportsAngularReconstruction{this};
 
    // children
-   Field<std::optional<general::PoPs>>
+   Field<std::optional<top::PoPs>>
       PoPs{this};
    Field<general::ResonanceReactions>
       resonanceReactions{this};
@@ -116,7 +116,7 @@ public:
          &calculateChannelRadius = {},
       const wrapper<std::optional<bool>>
          &supportsAngularReconstruction = {},
-      const wrapper<std::optional<general::PoPs>>
+      const wrapper<std::optional<top::PoPs>>
          &PoPs = {},
       const wrapper<general::ResonanceReactions>
          &resonanceReactions = {},

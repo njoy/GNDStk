@@ -165,7 +165,6 @@ namespace python_general {
    void wrapGaugeBosons(python::module &);
    void wrapLepton(python::module &);
    void wrapLeptons(python::module &);
-   void wrapPoPs(python::module &);
    void wrapScatteringRadius(python::module &);
    void wrapColumn(python::module &);
    void wrapColumnHeaders(python::module &);
@@ -421,7 +420,6 @@ void wrapGeneral(python::module &module)
    python_general::wrapGaugeBosons(submodule);
    python_general::wrapLepton(submodule);
    python_general::wrapLeptons(submodule);
-   python_general::wrapPoPs(submodule);
    python_general::wrapScatteringRadius(submodule);
    python_general::wrapColumn(submodule);
    python_general::wrapColumnHeaders(submodule);

@@ -5,10 +5,13 @@
 #ifndef ALPHA_V2_0_TOP_POPS
 #define ALPHA_V2_0_TOP_POPS
 
-#include "alpha/v2.0/general/Styles.hpp"
-#include "alpha/v2.0/general/ChemicalElements.hpp"
 #include "alpha/v2.0/general/Aliases.hpp"
 #include "alpha/v2.0/general/Baryons.hpp"
+#include "alpha/v2.0/general/ChemicalElements.hpp"
+#include "alpha/v2.0/general/Styles.hpp"
+#include "alpha/v2.0/general/Unorthodoxes.hpp"
+#include "alpha/v2.0/general/GaugeBosons.hpp"
+#include "alpha/v2.0/general/Leptons.hpp"
 
 namespace alpha {
 namespace v2_0 {
@@ -49,14 +52,20 @@ class PoPs :
             / Meta<>("format") |
 
          // children
-         --Child<general::Styles>
-            ("styles") |
-         --Child<std::optional<general::ChemicalElements>>
-            ("chemicalElements") |
          --Child<std::optional<general::Aliases>>
             ("aliases") |
          --Child<std::optional<general::Baryons>>
-            ("baryons")
+            ("baryons") |
+         --Child<std::optional<general::ChemicalElements>>
+            ("chemicalElements") |
+         --Child<std::optional<general::Styles>>
+            ("styles") |
+         --Child<std::optional<general::Unorthodoxes>>
+            ("unorthodoxes") |
+         --Child<std::optional<general::GaugeBosons>>
+            ("gaugeBosons") |
+         --Child<std::optional<general::Leptons>>
+            ("leptons")
       ;
    }
 
@@ -72,14 +81,20 @@ public:
    Field<std::string> format{this};
 
    // children
-   Field<general::Styles>
-      styles{this};
-   Field<std::optional<general::ChemicalElements>>
-      chemicalElements{this};
    Field<std::optional<general::Aliases>>
       aliases{this};
    Field<std::optional<general::Baryons>>
       baryons{this};
+   Field<std::optional<general::ChemicalElements>>
+      chemicalElements{this};
+   Field<std::optional<general::Styles>>
+      styles{this};
+   Field<std::optional<general::Unorthodoxes>>
+      unorthodoxes{this};
+   Field<std::optional<general::GaugeBosons>>
+      gaugeBosons{this};
+   Field<std::optional<general::Leptons>>
+      leptons{this};
 
    // ------------------------
    // Constructors
@@ -90,10 +105,13 @@ public:
       this->name, \
       this->version, \
       this->format, \
-      this->styles, \
-      this->chemicalElements, \
       this->aliases, \
-      this->baryons)
+      this->baryons, \
+      this->chemicalElements, \
+      this->styles, \
+      this->unorthodoxes, \
+      this->gaugeBosons, \
+      this->leptons)
 
    // default
    PoPs() :
@@ -110,23 +128,32 @@ public:
          &version = {},
       const wrapper<std::string>
          &format = {},
-      const wrapper<general::Styles>
-         &styles = {},
-      const wrapper<std::optional<general::ChemicalElements>>
-         &chemicalElements = {},
       const wrapper<std::optional<general::Aliases>>
          &aliases = {},
       const wrapper<std::optional<general::Baryons>>
-         &baryons = {}
+         &baryons = {},
+      const wrapper<std::optional<general::ChemicalElements>>
+         &chemicalElements = {},
+      const wrapper<std::optional<general::Styles>>
+         &styles = {},
+      const wrapper<std::optional<general::Unorthodoxes>>
+         &unorthodoxes = {},
+      const wrapper<std::optional<general::GaugeBosons>>
+         &gaugeBosons = {},
+      const wrapper<std::optional<general::Leptons>>
+         &leptons = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
       version(this,version),
       format(this,format),
-      styles(this,styles),
-      chemicalElements(this,chemicalElements),
       aliases(this,aliases),
-      baryons(this,baryons)
+      baryons(this,baryons),
+      chemicalElements(this,chemicalElements),
+      styles(this,styles),
+      unorthodoxes(this,unorthodoxes),
+      gaugeBosons(this,gaugeBosons),
+      leptons(this,leptons)
    {
       Component::finish();
    }
@@ -145,10 +172,13 @@ public:
       name(this,other.name),
       version(this,other.version),
       format(this,other.format),
-      styles(this,other.styles),
-      chemicalElements(this,other.chemicalElements),
       aliases(this,other.aliases),
-      baryons(this,other.baryons)
+      baryons(this,other.baryons),
+      chemicalElements(this,other.chemicalElements),
+      styles(this,other.styles),
+      unorthodoxes(this,other.unorthodoxes),
+      gaugeBosons(this,other.gaugeBosons),
+      leptons(this,other.leptons)
    {
       Component::finish(other);
    }
@@ -160,10 +190,13 @@ public:
       name(this,std::move(other.name)),
       version(this,std::move(other.version)),
       format(this,std::move(other.format)),
-      styles(this,std::move(other.styles)),
-      chemicalElements(this,std::move(other.chemicalElements)),
       aliases(this,std::move(other.aliases)),
-      baryons(this,std::move(other.baryons))
+      baryons(this,std::move(other.baryons)),
+      chemicalElements(this,std::move(other.chemicalElements)),
+      styles(this,std::move(other.styles)),
+      unorthodoxes(this,std::move(other.unorthodoxes)),
+      gaugeBosons(this,std::move(other.gaugeBosons)),
+      leptons(this,std::move(other.leptons))
    {
       Component::finish(other);
    }
@@ -181,10 +214,13 @@ public:
          name = other.name;
          version = other.version;
          format = other.format;
-         styles = other.styles;
-         chemicalElements = other.chemicalElements;
          aliases = other.aliases;
          baryons = other.baryons;
+         chemicalElements = other.chemicalElements;
+         styles = other.styles;
+         unorthodoxes = other.unorthodoxes;
+         gaugeBosons = other.gaugeBosons;
+         leptons = other.leptons;
       }
       return *this;
    }
@@ -198,10 +234,13 @@ public:
          name = std::move(other.name);
          version = std::move(other.version);
          format = std::move(other.format);
-         styles = std::move(other.styles);
-         chemicalElements = std::move(other.chemicalElements);
          aliases = std::move(other.aliases);
          baryons = std::move(other.baryons);
+         chemicalElements = std::move(other.chemicalElements);
+         styles = std::move(other.styles);
+         unorthodoxes = std::move(other.unorthodoxes);
+         gaugeBosons = std::move(other.gaugeBosons);
+         leptons = std::move(other.leptons);
       }
       return *this;
    }

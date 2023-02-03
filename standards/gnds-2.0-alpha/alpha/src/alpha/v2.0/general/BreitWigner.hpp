@@ -6,7 +6,7 @@
 #define ALPHA_V2_0_GENERAL_BREITWIGNER
 
 #include "alpha/v2.0/general/ResonanceParameters.hpp"
-#include "alpha/v2.0/general/PoPs.hpp"
+#include "alpha/v2.0/top/PoPs.hpp"
 #include "alpha/v2.0/general/ScatteringRadius.hpp"
 
 namespace alpha {
@@ -50,7 +50,7 @@ class BreitWigner :
          // children
          --Child<general::ResonanceParameters>
             ("resonanceParameters") |
-         --Child<std::optional<general::PoPs>>
+         --Child<std::optional<top::PoPs>>
             ("PoPs") |
          --Child<std::optional<general::ScatteringRadius>>
             ("scatteringRadius")
@@ -71,7 +71,7 @@ public:
    // children
    Field<general::ResonanceParameters>
       resonanceParameters{this};
-   Field<std::optional<general::PoPs>>
+   Field<std::optional<top::PoPs>>
       PoPs{this};
    Field<std::optional<general::ScatteringRadius>>
       scatteringRadius{this};
@@ -106,7 +106,7 @@ public:
          &calculateChannelRadius = {},
       const wrapper<general::ResonanceParameters>
          &resonanceParameters = {},
-      const wrapper<std::optional<general::PoPs>>
+      const wrapper<std::optional<top::PoPs>>
          &PoPs = {},
       const wrapper<std::optional<general::ScatteringRadius>>
          &scatteringRadius = {}

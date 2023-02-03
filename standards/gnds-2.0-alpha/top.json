@@ -33,7 +33,7 @@
                 "times": "1",
                 "required": true
             },
-            "PoPs": { "namespace": "general",
+            "PoPs": { "namespace": "top",
                 "times": "1",
                 "required": true
             },
@@ -92,19 +92,31 @@
             }
         },
         "children": {
-            "styles": {
-                "times": "1",
-                "required": true
-            },
-            "chemicalElements": {
-                "times": "1",
-                "required": false
-            },
             "aliases": {
                 "times": "1",
                 "required": false
             },
             "baryons": {
+                "times": "1",
+                "required": false
+            },
+            "chemicalElements": {
+                "times": "1",
+                "required": false
+            },
+            "styles": {
+                "times": "1",
+                "required": false
+            },
+            "unorthodoxes": {
+                "times": "1",
+                "required": false
+            },
+            "gaugeBosons": {
+                "times": "1",
+                "required": false
+            },
+            "leptons": {
                 "times": "1",
                 "required": false
             }

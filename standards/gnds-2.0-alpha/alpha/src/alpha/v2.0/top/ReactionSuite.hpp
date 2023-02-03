@@ -6,7 +6,7 @@
 #define ALPHA_V2_0_TOP_REACTIONSUITE
 
 #include "alpha/v2.0/general/Styles.hpp"
-#include "alpha/v2.0/general/PoPs.hpp"
+#include "alpha/v2.0/top/PoPs.hpp"
 #include "alpha/v2.0/general/Reactions.hpp"
 #include "alpha/v2.0/general/ApplicationData.hpp"
 #include "alpha/v2.0/general/ExternalFiles.hpp"
@@ -64,7 +64,7 @@ class ReactionSuite :
          // children
          --Child<general::Styles>
             ("styles") |
-         --Child<general::PoPs>
+         --Child<top::PoPs>
             ("PoPs") |
          --Child<general::Reactions>
             ("reactions") |
@@ -104,7 +104,7 @@ public:
    // children
    Field<general::Styles>
       styles{this};
-   Field<general::PoPs>
+   Field<top::PoPs>
       PoPs{this};
    Field<general::Reactions>
       reactions{this};
@@ -172,7 +172,7 @@ public:
          &interaction = {},
       const wrapper<general::Styles>
          &styles = {},
-      const wrapper<general::PoPs>
+      const wrapper<top::PoPs>
          &PoPs = {},
       const wrapper<general::Reactions>
          &reactions = {},

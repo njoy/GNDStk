@@ -34,7 +34,7 @@
 #include "GNDStk.h"
 #include "v2.0/general/ResonanceReactions.h"
 #include "v2.0/general/Ls.h"
-#include "v2.0/general/PoPs.h"
+#include "v2.0/top/PoPs.h"
 #include "v2.0/general/ScatteringRadius.h"
 
 #ifdef __cplusplus

@@ -24,7 +24,7 @@ namespace extract {
    static auto spinGroups = [](auto &obj) { return &obj.spinGroups; };
 }
 
-using CPPPoPs = general::PoPs;
+using CPPPoPs = top::PoPs;
 using CPPResonanceReactions = general::ResonanceReactions;
 using CPPSpinGroups = general::SpinGroups;
 

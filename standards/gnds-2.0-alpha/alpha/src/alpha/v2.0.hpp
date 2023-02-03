@@ -149,7 +149,6 @@
 #include "alpha/v2.0/general/Evaluated.hpp"
 #include "alpha/v2.0/general/ChemicalElements.hpp"
 #include "alpha/v2.0/general/ChemicalElement.hpp"
-#include "alpha/v2.0/general/PoPs.hpp"
 #include "alpha/v2.0/general/IncompleteReactions.hpp"
 #include "alpha/v2.0/general/OrphanProducts.hpp"
 #include "alpha/v2.0/general/OrphanProduct.hpp"

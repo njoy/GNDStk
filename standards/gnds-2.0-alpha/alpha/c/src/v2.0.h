@@ -160,7 +160,6 @@
 #include "v2.0/general/Evaluated.h"
 #include "v2.0/general/ChemicalElements.h"
 #include "v2.0/general/ChemicalElement.h"
-#include "v2.0/general/PoPs.h"
 #include "v2.0/general/IncompleteReactions.h"
 #include "v2.0/general/OrphanProducts.h"
 #include "v2.0/general/OrphanProduct.h"

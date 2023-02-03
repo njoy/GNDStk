@@ -7,7 +7,7 @@
 
 #include "alpha/v2.0/general/ResonanceReactions.hpp"
 #include "alpha/v2.0/general/Ls.hpp"
-#include "alpha/v2.0/general/PoPs.hpp"
+#include "alpha/v2.0/top/PoPs.hpp"
 #include "alpha/v2.0/general/ScatteringRadius.hpp"
 
 namespace alpha {
@@ -53,7 +53,7 @@ class TabulatedWidths :
             ("resonanceReactions") |
          --Child<general::Ls>
             ("Ls") |
-         --Child<std::optional<general::PoPs>>
+         --Child<std::optional<top::PoPs>>
             ("PoPs") |
          --Child<std::optional<general::ScatteringRadius>>
             ("scatteringRadius")
@@ -76,7 +76,7 @@ public:
       resonanceReactions{this};
    Field<general::Ls>
       Ls{this};
-   Field<std::optional<general::PoPs>>
+   Field<std::optional<top::PoPs>>
       PoPs{this};
    Field<std::optional<general::ScatteringRadius>>
       scatteringRadius{this};
@@ -114,7 +114,7 @@ public:
          &resonanceReactions = {},
       const wrapper<general::Ls>
          &Ls = {},
-      const wrapper<std::optional<general::PoPs>>
+      const wrapper<std::optional<top::PoPs>>
          &PoPs = {},
       const wrapper<std::optional<general::ScatteringRadius>>
          &scatteringRadius = {}

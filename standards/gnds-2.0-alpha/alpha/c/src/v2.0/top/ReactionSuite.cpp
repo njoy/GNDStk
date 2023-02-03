@@ -34,7 +34,7 @@ namespace extract {
 }
 
 using CPPStyles = general::Styles;
-using CPPPoPs = general::PoPs;
+using CPPPoPs = top::PoPs;
 using CPPReactions = general::Reactions;
 using CPPApplicationData = general::ApplicationData;
 using CPPExternalFiles = general::ExternalFiles;

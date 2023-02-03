@@ -183,7 +183,6 @@ inline const Child<> Legendre("Legendre");
 inline const Child<> Ls("Ls");
 inline const Child<> MadlandNix("MadlandNix");
 inline const Child<> NBodyPhaseSpace("NBodyPhaseSpace");
-inline const Child<> PoPs("PoPs");
 inline const Child<> Q("Q");
 inline const Child<> RMatrix("RMatrix");
 inline const Child<> RutherfordScattering("RutherfordScattering");
