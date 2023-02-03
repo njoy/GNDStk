@@ -50,7 +50,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> value{this};
+   Field<double>
+      value{this};
 
    // ------------------------
    // Constructors

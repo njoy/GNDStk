@@ -52,8 +52,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> flags{this};
-   Field<std::string> href{this};
+   Field<std::string>
+      flags{this};
+   Field<std::string>
+      href{this};
 
    // ------------------------
    // Constructors

@@ -54,7 +54,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> outerDomainValue{this};
+   Field<double>
+      outerDomainValue{this};
 
    // children
    Field<general::Values>

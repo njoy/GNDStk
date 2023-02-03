@@ -68,8 +68,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<std::string>> mode{this};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<std::string>>
+      mode{this};
 
    // children
    Field<general::Probability>

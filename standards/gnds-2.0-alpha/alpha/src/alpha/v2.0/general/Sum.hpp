@@ -60,10 +60,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<double>> domainMin{this};
-   Field<std::optional<double>> domainMax{this};
-   Field<std::optional<std::string>> domainUnit{this};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<double>>
+      domainMin{this};
+   Field<std::optional<double>>
+      domainMax{this};
+   Field<std::optional<std::string>>
+      domainUnit{this};
 
    // children
    Field<std::vector<general::Summand>>

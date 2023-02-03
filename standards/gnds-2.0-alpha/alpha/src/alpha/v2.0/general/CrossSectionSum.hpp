@@ -62,8 +62,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<int> ENDF_MT{this};
+   Field<std::string>
+      label{this};
+   Field<int>
+      ENDF_MT{this};
 
    // children
    Field<general::Summands>

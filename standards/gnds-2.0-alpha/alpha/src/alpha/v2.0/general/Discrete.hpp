@@ -63,7 +63,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> type{this};
+   Field<std::optional<std::string>>
+      type{this};
 
    // children
    Field<general::Intensity>

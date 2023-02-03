@@ -56,8 +56,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> shape{this};
-   Field<std::optional<std::string>> compression{this};
+   Field<std::string>
+      shape{this};
+   Field<std::optional<std::string>>
+      compression{this};
 
    // children
    Field<general::Values>

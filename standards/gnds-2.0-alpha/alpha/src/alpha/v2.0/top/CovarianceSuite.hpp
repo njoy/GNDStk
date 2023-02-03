@@ -71,11 +71,16 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> projectile{this};
-   Field<std::string> target{this};
-   Field<std::string> evaluation{this};
-   Field<std::string> interaction{this};
-   Field<std::string> format{this};
+   Field<std::string>
+      projectile{this};
+   Field<std::string>
+      target{this};
+   Field<std::string>
+      evaluation{this};
+   Field<std::string>
+      interaction{this};
+   Field<std::string>
+      format{this};
 
    // children
    Field<std::optional<general::ExternalFiles>>

@@ -58,9 +58,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> pid{this};
-   Field<std::string> productFrame{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      pid{this};
+   Field<std::string>
+      productFrame{this};
 
    // children
    Field<general::S_table>

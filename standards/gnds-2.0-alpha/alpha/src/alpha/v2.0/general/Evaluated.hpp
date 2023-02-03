@@ -66,10 +66,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> date{this};
-   Field<std::string> library{this};
-   Field<std::string> version{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      date{this};
+   Field<std::string>
+      library{this};
+   Field<std::string>
+      version{this};
 
    // children
    Field<general::Documentation>

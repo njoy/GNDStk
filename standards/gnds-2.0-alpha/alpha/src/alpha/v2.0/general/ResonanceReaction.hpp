@@ -67,9 +67,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::optional<std::string>> ejectile{this};
-   Field<std::optional<bool>> eliminated{this};
+   Field<std::string>
+      label{this};
+   Field<std::optional<std::string>>
+      ejectile{this};
+   Field<std::optional<bool>>
+      eliminated{this};
 
    // children
    Field<general::Link>

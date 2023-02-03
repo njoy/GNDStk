@@ -68,8 +68,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> id{this};
-   Field<std::string> generation{this};
+   Field<std::string>
+      id{this};
+   Field<std::string>
+      generation{this};
 
    // children
    Field<general::Mass>

@@ -64,9 +64,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> resonanceReaction{this};
-   Field<int> degreesOfFreedom{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      resonanceReaction{this};
+   Field<int>
+      degreesOfFreedom{this};
 
    // children
    Field<std::optional<general::XYs1d>>

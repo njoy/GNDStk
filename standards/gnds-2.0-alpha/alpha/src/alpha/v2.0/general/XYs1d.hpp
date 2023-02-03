@@ -66,10 +66,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<int>> index{this};
-   Field<std::optional<std::string>> interpolation{this};
-   Field<std::optional<double>> outerDomainValue{this};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<int>>
+      index{this};
+   Field<std::optional<std::string>>
+      interpolation{this};
+   Field<std::optional<double>>
+      outerDomainValue{this};
 
    // children
    Field<std::optional<general::Axes>>

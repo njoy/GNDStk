@@ -56,10 +56,14 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> path{this};
-   Field<std::optional<std::string>> checksum{this};
-   Field<std::optional<std::string>> algorithm{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      path{this};
+   Field<std::optional<std::string>>
+      checksum{this};
+   Field<std::optional<std::string>>
+      algorithm{this};
 
    // ------------------------
    // Constructors

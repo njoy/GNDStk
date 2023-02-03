@@ -59,8 +59,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> subshell{this};
-   Field<double> electronNumber{this};
+   Field<std::string>
+      subshell{this};
+   Field<double>
+      electronNumber{this};
 
    // children
    Field<general::BindingEnergy>

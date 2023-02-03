@@ -54,7 +54,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> numberOfProducts{this};
+   Field<int>
+      numberOfProducts{this};
 
    // children
    Field<general::Mass>

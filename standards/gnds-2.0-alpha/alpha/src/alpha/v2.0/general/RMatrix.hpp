@@ -68,11 +68,16 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> approximation{this};
-   Field<std::string> boundaryCondition{this};
-   Field<std::optional<bool>> calculateChannelRadius{this};
-   Field<std::optional<bool>> supportsAngularReconstruction{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      approximation{this};
+   Field<std::string>
+      boundaryCondition{this};
+   Field<std::optional<bool>>
+      calculateChannelRadius{this};
+   Field<std::optional<bool>>
+      supportsAngularReconstruction{this};
 
    // children
    Field<std::optional<top::PoPs>>

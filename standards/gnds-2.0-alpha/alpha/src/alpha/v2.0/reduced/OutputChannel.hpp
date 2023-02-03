@@ -59,8 +59,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> genre{this};
-   Field<std::optional<std::string>> process{this};
+   Field<std::string>
+      genre{this};
+   Field<std::optional<std::string>>
+      process{this};
 
    // children
    Field<general::Q>

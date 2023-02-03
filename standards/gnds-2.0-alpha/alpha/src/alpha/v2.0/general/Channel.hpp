@@ -65,11 +65,16 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> resonanceReaction{this};
-   Field<int> L{this};
-   Field<int> channelSpin{this};
-   Field<int> columnIndex{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      resonanceReaction{this};
+   Field<int>
+      L{this};
+   Field<int>
+      channelSpin{this};
+   Field<int>
+      columnIndex{this};
 
    // children
    Field<std::optional<general::ScatteringRadius>>

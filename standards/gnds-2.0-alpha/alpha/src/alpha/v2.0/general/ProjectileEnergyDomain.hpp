@@ -54,9 +54,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> min{this};
-   Field<double> max{this};
-   Field<std::string> unit{this};
+   Field<double>
+      min{this};
+   Field<double>
+      max{this};
+   Field<std::string>
+      unit{this};
 
    // ------------------------
    // Constructors

@@ -60,7 +60,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<bool>> symmetric{this};
+   Field<std::optional<bool>>
+      symmetric{this};
 
    // children
    Field<std::optional<general::Gridded3d>>

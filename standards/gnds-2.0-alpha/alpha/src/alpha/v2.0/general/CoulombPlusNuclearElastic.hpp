@@ -68,11 +68,16 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::optional<std::string>> href{this};
-   Field<std::optional<std::string>> pid{this};
-   Field<std::optional<std::string>> productFrame{this};
-   Field<std::optional<bool>> identicalParticles{this};
+   Field<std::string>
+      label{this};
+   Field<std::optional<std::string>>
+      href{this};
+   Field<std::optional<std::string>>
+      pid{this};
+   Field<std::optional<std::string>>
+      productFrame{this};
+   Field<std::optional<bool>>
+      identicalParticles{this};
 
    // children
    Field<std::optional<general::RutherfordScattering>>

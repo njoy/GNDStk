@@ -59,8 +59,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> domainMin{this};
-   Field<double> domainMax{this};
+   Field<double>
+      domainMin{this};
+   Field<double>
+      domainMax{this};
 
    // children
    Field<general::Axes>

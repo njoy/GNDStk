@@ -56,8 +56,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> symbol{this};
-   Field<int> A{this};
+   Field<std::string>
+      symbol{this};
+   Field<int>
+      A{this};
 
    // children
    Field<general::Nuclides>

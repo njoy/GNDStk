@@ -52,8 +52,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> value{this};
-   Field<std::string> dateType{this};
+   Field<std::string>
+      value{this};
+   Field<std::string>
+      dateType{this};
 
    // ------------------------
    // Constructors

@@ -64,9 +64,12 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> approximation{this};
-   Field<std::optional<bool>> calculateChannelRadius{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      approximation{this};
+   Field<std::optional<bool>>
+      calculateChannelRadius{this};
 
    // children
    Field<general::ResonanceParameters>

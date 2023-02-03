@@ -60,7 +60,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // children
    Field<std::optional<general::ScatteringRadius>>
