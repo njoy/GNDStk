@@ -1,6 +1,5 @@
 
 #include "alpha/v2.0.hpp"
-
 using namespace alpha;
 using namespace v2_0;
 
@@ -27,9 +26,9 @@ int main(const int argc, const char *const *const argv)
       // Read from the given file. Note that we SHOULD NOT try to *construct*
       // like this above:
       //    top::ReactionSuite r(argv[i]);
-      // because that doesn't actually mean, "read from that file," but means
-      // something else, both for ReactionSuite, and in general for generated
-      // classes. In particular, it tries to initialize the class fields by
+      // because this doesn't actually mean, "read from that file," but means
+      // something else (both for ReactionSuite, and in general for generated
+      // classes). In particular, it tries to initialize the class fields by
       // using the parameters. ReactionSuite's first field (aside from the
       // boilerplate "comment" field we always add, and which doesn't play
       // a role in the constructors) happens to be the metadatum "projectile".

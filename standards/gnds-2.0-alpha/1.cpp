@@ -1,29 +1,11 @@
 
 #include "alpha/v2.0.hpp"
-
 using namespace alpha;
 using namespace v2_0;
 
-// process
-template<class T>
-void read(const Node &node)
-{
-   T obj;
-   obj.read(node);
-   // obj.print();
-}
-
-// main
+// Run this code with any or all GNDS 2.0 files as command-line arguments
 int main(const int argc, const char *const *const argv)
 {
-   colors = false;
-   shades = false;
-   indent = 1;
-   // Consider these instead if you use print() above:
-   // colors = true;
-   // shades = true;
-   // indent = 3;
-
    for (int i = 1; i < argc; ++i) {
       const std::string file = argv[i];
       std::cout << "File: " << file << std::endl;
@@ -39,45 +21,21 @@ int main(const int argc, const char *const *const argv)
          // the file. Here, in the context of reading any GNDS 2.0 file, we must
          // examine the top-level node in order to determine what kind of object
          // we're dealing with.
-
-         if (beginsin(file,"files/a-") ||
-             beginsin(file,"files/d-") ||
-             beginsin(file,"files/e-") ||
-             beginsin(file,"files/g-") ||
-             beginsin(file,"files/h-") ||
-             beginsin(file,"files/p-") ||
-             beginsin(file,"files/photoat-") ||
-             beginsin(file,"files/t-") ||
-             beginsin(file,"files/tsl-")) {
-            // is ReactionSuite
-            read<top::ReactionSuite>(node);
-         } else if (beginsin(file,"files/atom-") ||
-                    beginsin(file,"files/dec-") ||
-                    beginsin(file,"files/sfy-")) {
-            // is PoPs
-            read<top::PoPs>(node);
-         } else if (beginsin(file,"files/nfy-")) {
-            // is FissionFragmentData
-            read<top::FissionFragmentData>(node);
-         } else if (beginsin(file,"files/n-")) {
-            // can be either of two things...
-            node.name == "reactionSuite"
-          ? read<top::ReactionSuite>(node)
-          : read<top::CovarianceSuite>(node);
+         if (node.name == "reactionSuite") {
+            top::ReactionSuite obj;
+            obj.read(node);
+         } else if (node.name == "covarianceSuite") {
+            top::CovarianceSuite obj;
+            obj.read(node);
+         } else if (node.name == "PoPs") {
+            top::PoPs obj;
+            obj.read(node);
+         } else if (node.name == "fissionFragmentData") {
+            top::FissionFragmentData obj;
+            obj.read(node);
+         } else {
+            std::cout << "This shouldn't happen" << std::endl;
          }
-         else if (beginsin(file,"files/std-")) {
-            // can be any of three things...
-            node.name == "reactionSuite"
-          ? read<top::ReactionSuite>(node)
-          : node.name == "covarianceSuite"
-          ? read<top::CovarianceSuite>(node)
-          : read<top::PoPs>(node);
-         }
-         else {
-            // oops, should have done *something* above
-            assert(false);
-         }
-
       } catch (...) {
          if (i < argc-1)
             std::cout << "\nContinuing to the next file...\n" << std::endl;
