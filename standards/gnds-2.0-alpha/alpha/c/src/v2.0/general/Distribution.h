@@ -32,17 +32,17 @@
 #define C_INTERFACE_ALPHA_V2_0_GENERAL_DISTRIBUTION
 
 #include "GNDStk.h"
-#include "v2.0/general/AngularTwoBody.h"
+#include "v2.0/general/ThermalNeutronScatteringLaw.h"
 #include "v2.0/general/Uncorrelated.h"
 #include "v2.0/general/Unspecified.h"
+#include "v2.0/general/Branching3d.h"
+#include "v2.0/general/AngularTwoBody.h"
 #include "v2.0/general/EnergyAngular.h"
 #include "v2.0/general/KalbachMann.h"
 #include "v2.0/general/AngularEnergy.h"
-#include "v2.0/general/Branching3d.h"
 #include "v2.0/general/CoulombPlusNuclearElastic.h"
 #include "v2.0/general/CoherentPhotonScattering.h"
 #include "v2.0/general/IncoherentPhotonScattering.h"
-#include "v2.0/general/ThermalNeutronScatteringLaw.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"
@@ -87,33 +87,33 @@ DistributionDefault();
 // --- Create, general, const
 extern_c Handle2ConstDistribution
 DistributionCreateConst(
-   ConstHandle2ConstAngularTwoBody angularTwoBody,
+   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstBranching3d branching3d,
+   ConstHandle2ConstAngularTwoBody angularTwoBody,
    ConstHandle2ConstEnergyAngular energyAngular,
    ConstHandle2ConstKalbachMann KalbachMann,
    ConstHandle2ConstAngularEnergy angularEnergy,
-   ConstHandle2ConstBranching3d branching3d,
    ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic,
    ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering,
-   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering,
-   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw
+   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering
 );
 
 // +++ Create, general
 extern_c Handle2Distribution
 DistributionCreate(
-   ConstHandle2ConstAngularTwoBody angularTwoBody,
+   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstBranching3d branching3d,
+   ConstHandle2ConstAngularTwoBody angularTwoBody,
    ConstHandle2ConstEnergyAngular energyAngular,
    ConstHandle2ConstKalbachMann KalbachMann,
    ConstHandle2ConstAngularEnergy angularEnergy,
-   ConstHandle2ConstBranching3d branching3d,
    ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic,
    ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering,
-   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering,
-   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw
+   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering
 );
 
 // +++ Assign
@@ -161,24 +161,24 @@ DistributionPrintJSON(ConstHandle2ConstDistribution This);
 
 
 // -----------------------------------------------------------------------------
-// Child: angularTwoBody
+// Child: thermalNeutronScatteringLaw
 // -----------------------------------------------------------------------------
 
 // +++ Has
 extern_c int
-DistributionAngularTwoBodyHas(ConstHandle2ConstDistribution This);
+DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This);
 
 // --- Get, const
-extern_c Handle2ConstAngularTwoBody
-DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution This);
+extern_c Handle2ConstThermalNeutronScatteringLaw
+DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This);
 
 // +++ Get, non-const
-extern_c Handle2AngularTwoBody
-DistributionAngularTwoBodyGet(ConstHandle2Distribution This);
+extern_c Handle2ThermalNeutronScatteringLaw
+DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This);
 
 // +++ Set
 extern_c void
-DistributionAngularTwoBodySet(ConstHandle2Distribution This, ConstHandle2ConstAngularTwoBody angularTwoBody);
+DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw);
 
 
 // -----------------------------------------------------------------------------
@@ -221,6 +221,48 @@ DistributionUnspecifiedGet(ConstHandle2Distribution This);
 // +++ Set
 extern_c void
 DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspecified unspecified);
+
+
+// -----------------------------------------------------------------------------
+// Child: branching3d
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DistributionBranching3dHas(ConstHandle2ConstDistribution This);
+
+// --- Get, const
+extern_c Handle2ConstBranching3d
+DistributionBranching3dGetConst(ConstHandle2ConstDistribution This);
+
+// +++ Get, non-const
+extern_c Handle2Branching3d
+DistributionBranching3dGet(ConstHandle2Distribution This);
+
+// +++ Set
+extern_c void
+DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d);
+
+
+// -----------------------------------------------------------------------------
+// Child: angularTwoBody
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DistributionAngularTwoBodyHas(ConstHandle2ConstDistribution This);
+
+// --- Get, const
+extern_c Handle2ConstAngularTwoBody
+DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution This);
+
+// +++ Get, non-const
+extern_c Handle2AngularTwoBody
+DistributionAngularTwoBodyGet(ConstHandle2Distribution This);
+
+// +++ Set
+extern_c void
+DistributionAngularTwoBodySet(ConstHandle2Distribution This, ConstHandle2ConstAngularTwoBody angularTwoBody);
 
 
 // -----------------------------------------------------------------------------
@@ -287,27 +329,6 @@ DistributionAngularEnergySet(ConstHandle2Distribution This, ConstHandle2ConstAng
 
 
 // -----------------------------------------------------------------------------
-// Child: branching3d
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-DistributionBranching3dHas(ConstHandle2ConstDistribution This);
-
-// --- Get, const
-extern_c Handle2ConstBranching3d
-DistributionBranching3dGetConst(ConstHandle2ConstDistribution This);
-
-// +++ Get, non-const
-extern_c Handle2Branching3d
-DistributionBranching3dGet(ConstHandle2Distribution This);
-
-// +++ Set
-extern_c void
-DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d);
-
-
-// -----------------------------------------------------------------------------
 // Child: CoulombPlusNuclearElastic
 // -----------------------------------------------------------------------------
 
@@ -368,27 +389,6 @@ DistributionIncoherentPhotonScatteringGet(ConstHandle2Distribution This);
 // +++ Set
 extern_c void
 DistributionIncoherentPhotonScatteringSet(ConstHandle2Distribution This, ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering);
-
-
-// -----------------------------------------------------------------------------
-// Child: thermalNeutronScatteringLaw
-// -----------------------------------------------------------------------------
-
-// +++ Has
-extern_c int
-DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This);
-
-// --- Get, const
-extern_c Handle2ConstThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This);
-
-// +++ Get, non-const
-extern_c Handle2ThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This);
-
-// +++ Set
-extern_c void
-DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw);
 
 
 // -----------------------------------------------------------------------------

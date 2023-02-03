@@ -7,7 +7,6 @@
     "JSONFiles": [
         "top.json",
         "general.json",
-        "alt.json",
         "reduced.json",
         "g2d.json",
         "g3d.json"

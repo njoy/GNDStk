@@ -111,7 +111,7 @@
                 "times": "1",
                 "required": true
             },
-            "distribution": { "namespace": "alt",
+            "distribution": { "namespace": "reduced",
                 "times": "1",
                 "required": true
             }
@@ -1589,7 +1589,7 @@
             "thermalNeutronScatteringLaw": {
                 "times": "1",
                 "required": false
-            }
+            },
             "uncorrelated": {
                 "times": "1",
                 "required": false

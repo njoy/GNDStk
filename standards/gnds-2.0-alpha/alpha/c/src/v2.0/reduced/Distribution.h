@@ -35,6 +35,7 @@
 #include "v2.0/general/ThermalNeutronScatteringLaw.h"
 #include "v2.0/general/Uncorrelated.h"
 #include "v2.0/general/Unspecified.h"
+#include "v2.0/general/XYs2d.h"
 #include "v2.0/general/Branching3d.h"
 
 #ifdef __cplusplus
@@ -83,6 +84,7 @@ DistributionCreateConst(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstXYs2d XYs2d,
    ConstHandle2ConstBranching3d branching3d
 );
 
@@ -92,6 +94,7 @@ DistributionCreate(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstXYs2d XYs2d,
    ConstHandle2ConstBranching3d branching3d
 );
 
@@ -200,6 +203,27 @@ DistributionUnspecifiedGet(ConstHandle2Distribution This);
 // +++ Set
 extern_c void
 DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspecified unspecified);
+
+
+// -----------------------------------------------------------------------------
+// Child: XYs2d
+// -----------------------------------------------------------------------------
+
+// +++ Has
+extern_c int
+DistributionXYs2dHas(ConstHandle2ConstDistribution This);
+
+// --- Get, const
+extern_c Handle2ConstXYs2d
+DistributionXYs2dGetConst(ConstHandle2ConstDistribution This);
+
+// +++ Get, non-const
+extern_c Handle2XYs2d
+DistributionXYs2dGet(ConstHandle2Distribution This);
+
+// +++ Set
+extern_c void
+DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------

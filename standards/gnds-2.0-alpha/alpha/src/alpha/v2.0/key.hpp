@@ -118,20 +118,6 @@ GNDSTK_MAKE_LOOKUP(version,version);
 
 
 // -----------------------------------------------------------------------------
-// alt::child::
-// -----------------------------------------------------------------------------
-
-namespace alt {
-namespace child {
-
-inline const Child<> distribution("distribution");
-
-} // namespace child
-using namespace child;
-} // namespace alt
-
-
-// -----------------------------------------------------------------------------
 // g2d::child::
 // -----------------------------------------------------------------------------
 
@@ -462,7 +448,6 @@ using namespace child;
 
 namespace key {
    using namespace meta;
-   using namespace alt::child;
    using namespace g2d::child;
    using namespace g3d::child;
    using namespace general::child;
@@ -471,7 +456,6 @@ namespace key {
 } // namespace key
 
 using namespace key;
-using namespace alt;
 using namespace g2d;
 using namespace g3d;
 using namespace general;

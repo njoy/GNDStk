@@ -6,7 +6,7 @@
 #define ALPHA_V2_0_GENERAL_NUCLEARPLUSINTERFERENCE
 
 #include "alpha/v2.0/reduced/CrossSection.hpp"
-#include "alpha/v2.0/alt/Distribution.hpp"
+#include "alpha/v2.0/reduced/Distribution.hpp"
 
 namespace alpha {
 namespace v2_0 {
@@ -45,7 +45,7 @@ class NuclearPlusInterference :
          // children
          --Child<reduced::CrossSection>
             ("crossSection") |
-         --Child<alt::Distribution>
+         --Child<reduced::Distribution>
             ("distribution")
       ;
    }
@@ -62,7 +62,7 @@ public:
    // children
    Field<reduced::CrossSection>
       crossSection{this};
-   Field<alt::Distribution>
+   Field<reduced::Distribution>
       distribution{this};
 
    // ------------------------
@@ -88,7 +88,7 @@ public:
          &muCutoff,
       const wrapper<reduced::CrossSection>
          &crossSection = {},
-      const wrapper<alt::Distribution>
+      const wrapper<reduced::Distribution>
          &distribution = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),

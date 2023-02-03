@@ -265,8 +265,6 @@
 #include "v2.0/general/Angular.h"
 #include "v2.0/general/Isotropic2d.h"
 
-#include "v2.0/alt/Distribution.h"
-
 #include "v2.0/reduced/Function1ds.h"
 #include "v2.0/reduced/OutputChannel.h"
 #include "v2.0/reduced/Products.h"

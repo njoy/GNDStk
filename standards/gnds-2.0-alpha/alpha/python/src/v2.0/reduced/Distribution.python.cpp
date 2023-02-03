@@ -39,11 +39,13 @@ void wrapDistribution(python::module &module)
             const std::optional<general::ThermalNeutronScatteringLaw> &,
             const std::optional<general::Uncorrelated> &,
             const std::optional<general::Unspecified> &,
+            const std::optional<general::XYs2d> &,
             const std::optional<general::Branching3d> &
          >(),
          python::arg("thermal_neutron_scattering_law") = std::nullopt,
          python::arg("uncorrelated") = std::nullopt,
          python::arg("unspecified") = std::nullopt,
+         python::arg("xys2d") = std::nullopt,
          python::arg("branching3d") = std::nullopt,
          Component::documentation("constructor").data()
       )
@@ -61,6 +63,11 @@ void wrapDistribution(python::module &module)
          "unspecified",
          [](const Component &self) { return self.unspecified(); },
          Component::documentation("unspecified").data()
+      )
+      .def_property_readonly(
+         "xys2d",
+         [](const Component &self) { return self.XYs2d(); },
+         Component::documentation("xys2d").data()
       )
       .def_property_readonly(
          "branching3d",

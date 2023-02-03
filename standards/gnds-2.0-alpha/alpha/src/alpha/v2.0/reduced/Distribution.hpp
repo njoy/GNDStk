@@ -8,6 +8,7 @@
 #include "alpha/v2.0/general/ThermalNeutronScatteringLaw.hpp"
 #include "alpha/v2.0/general/Uncorrelated.hpp"
 #include "alpha/v2.0/general/Unspecified.hpp"
+#include "alpha/v2.0/general/XYs2d.hpp"
 #include "alpha/v2.0/general/Branching3d.hpp"
 
 namespace alpha {
@@ -47,6 +48,8 @@ class Distribution :
             ("uncorrelated") |
          --Child<std::optional<general::Unspecified>>
             ("unspecified") |
+         --Child<std::optional<general::XYs2d>>
+            ("XYs2d") |
          --Child<std::optional<general::Branching3d>>
             ("branching3d")
       ;
@@ -65,6 +68,8 @@ public:
       uncorrelated{this};
    Field<std::optional<general::Unspecified>>
       unspecified{this};
+   Field<std::optional<general::XYs2d>>
+      XYs2d{this};
    Field<std::optional<general::Branching3d>>
       branching3d{this};
 
@@ -77,6 +82,7 @@ public:
       this->thermalNeutronScatteringLaw, \
       this->uncorrelated, \
       this->unspecified, \
+      this->XYs2d, \
       this->branching3d)
 
    // default
@@ -94,6 +100,8 @@ public:
          &uncorrelated = {},
       const wrapper<std::optional<general::Unspecified>>
          &unspecified = {},
+      const wrapper<std::optional<general::XYs2d>>
+         &XYs2d = {},
       const wrapper<std::optional<general::Branching3d>>
          &branching3d = {}
    ) :
@@ -101,6 +109,7 @@ public:
       thermalNeutronScatteringLaw(this,thermalNeutronScatteringLaw),
       uncorrelated(this,uncorrelated),
       unspecified(this,unspecified),
+      XYs2d(this,XYs2d),
       branching3d(this,branching3d)
    {
       Component::finish();
@@ -120,6 +129,7 @@ public:
       thermalNeutronScatteringLaw(this,other.thermalNeutronScatteringLaw),
       uncorrelated(this,other.uncorrelated),
       unspecified(this,other.unspecified),
+      XYs2d(this,other.XYs2d),
       branching3d(this,other.branching3d)
    {
       Component::finish(other);
@@ -132,6 +142,7 @@ public:
       thermalNeutronScatteringLaw(this,std::move(other.thermalNeutronScatteringLaw)),
       uncorrelated(this,std::move(other.uncorrelated)),
       unspecified(this,std::move(other.unspecified)),
+      XYs2d(this,std::move(other.XYs2d)),
       branching3d(this,std::move(other.branching3d))
    {
       Component::finish(other);
@@ -150,6 +161,7 @@ public:
          thermalNeutronScatteringLaw = other.thermalNeutronScatteringLaw;
          uncorrelated = other.uncorrelated;
          unspecified = other.unspecified;
+         XYs2d = other.XYs2d;
          branching3d = other.branching3d;
       }
       return *this;
@@ -164,6 +176,7 @@ public:
          thermalNeutronScatteringLaw = std::move(other.thermalNeutronScatteringLaw);
          uncorrelated = std::move(other.uncorrelated);
          unspecified = std::move(other.unspecified);
+         XYs2d = std::move(other.XYs2d);
          branching3d = std::move(other.branching3d);
       }
       return *this;

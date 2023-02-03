@@ -17,12 +17,14 @@ namespace extract {
    static auto thermalNeutronScatteringLaw = [](auto &obj) { return &obj.thermalNeutronScatteringLaw; };
    static auto uncorrelated = [](auto &obj) { return &obj.uncorrelated; };
    static auto unspecified = [](auto &obj) { return &obj.unspecified; };
+   static auto XYs2d = [](auto &obj) { return &obj.XYs2d; };
    static auto branching3d = [](auto &obj) { return &obj.branching3d; };
 }
 
 using CPPThermalNeutronScatteringLaw = general::ThermalNeutronScatteringLaw;
 using CPPUncorrelated = general::Uncorrelated;
 using CPPUnspecified = general::Unspecified;
+using CPPXYs2d = general::XYs2d;
 using CPPBranching3d = general::Branching3d;
 
 
@@ -53,6 +55,7 @@ DistributionCreateConst(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstXYs2d XYs2d,
    ConstHandle2ConstBranching3d branching3d
 ) {
    ConstHandle2Distribution handle = detail::createHandle<CPP,C>(
@@ -60,6 +63,7 @@ DistributionCreateConst(
       detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw),
       detail::tocpp<CPPUncorrelated>(uncorrelated),
       detail::tocpp<CPPUnspecified>(unspecified),
+      detail::tocpp<CPPXYs2d>(XYs2d),
       detail::tocpp<CPPBranching3d>(branching3d)
    );
    return handle;
@@ -71,6 +75,7 @@ DistributionCreate(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstXYs2d XYs2d,
    ConstHandle2ConstBranching3d branching3d
 ) {
    ConstHandle2Distribution handle = detail::createHandle<CPP,C>(
@@ -78,6 +83,7 @@ DistributionCreate(
       detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw),
       detail::tocpp<CPPUncorrelated>(uncorrelated),
       detail::tocpp<CPPUnspecified>(unspecified),
+      detail::tocpp<CPPXYs2d>(XYs2d),
       detail::tocpp<CPPBranching3d>(branching3d)
    );
    return handle;
@@ -263,6 +269,43 @@ DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspe
 {
    detail::setField<CPP,CPPUnspecified>
       (CLASSNAME, CLASSNAME+"UnspecifiedSet", This, extract::unspecified, unspecified);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: XYs2d
+// -----------------------------------------------------------------------------
+
+// Has
+int
+DistributionXYs2dHas(ConstHandle2ConstDistribution This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+}
+
+// Get, const
+Handle2ConstXYs2d
+DistributionXYs2dGetConst(ConstHandle2ConstDistribution This)
+{
+   return detail::getField<CPP,Handle2ConstXYs2d>
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+}
+
+// Get, non-const
+Handle2XYs2d
+DistributionXYs2dGet(ConstHandle2Distribution This)
+{
+   return detail::getField<CPP,Handle2XYs2d>
+      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+}
+
+// Set
+void
+DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d)
+{
+   detail::setField<CPP,CPPXYs2d>
+      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
 }
 
 

@@ -33,7 +33,7 @@
 
 #include "GNDStk.h"
 #include "v2.0/reduced/CrossSection.h"
-#include "v2.0/alt/Distribution.h"
+#include "v2.0/reduced/Distribution.h"
 
 #ifdef __cplusplus
    #define extern_c extern "C"

@@ -36,35 +36,35 @@ void wrapDistribution(python::module &module)
    component
       .def(
          python::init<
-            const std::optional<general::AngularTwoBody> &,
+            const std::optional<general::ThermalNeutronScatteringLaw> &,
             const std::optional<general::Uncorrelated> &,
             const std::optional<general::Unspecified> &,
+            const std::optional<general::Branching3d> &,
+            const std::optional<general::AngularTwoBody> &,
             const std::optional<general::EnergyAngular> &,
             const std::optional<general::KalbachMann> &,
             const std::optional<general::AngularEnergy> &,
-            const std::optional<general::Branching3d> &,
             const std::optional<general::CoulombPlusNuclearElastic> &,
             const std::optional<general::CoherentPhotonScattering> &,
-            const std::optional<general::IncoherentPhotonScattering> &,
-            const std::optional<general::ThermalNeutronScatteringLaw> &
+            const std::optional<general::IncoherentPhotonScattering> &
          >(),
-         python::arg("angular_two_body") = std::nullopt,
+         python::arg("thermal_neutron_scattering_law") = std::nullopt,
          python::arg("uncorrelated") = std::nullopt,
          python::arg("unspecified") = std::nullopt,
+         python::arg("branching3d") = std::nullopt,
+         python::arg("angular_two_body") = std::nullopt,
          python::arg("energy_angular") = std::nullopt,
          python::arg("kalbach_mann") = std::nullopt,
          python::arg("angular_energy") = std::nullopt,
-         python::arg("branching3d") = std::nullopt,
          python::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
          python::arg("coherent_photon_scattering") = std::nullopt,
          python::arg("incoherent_photon_scattering") = std::nullopt,
-         python::arg("thermal_neutron_scattering_law") = std::nullopt,
          Component::documentation("constructor").data()
       )
       .def_property_readonly(
-         "angular_two_body",
-         [](const Component &self) { return self.angularTwoBody(); },
-         Component::documentation("angular_two_body").data()
+         "thermal_neutron_scattering_law",
+         [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
+         Component::documentation("thermal_neutron_scattering_law").data()
       )
       .def_property_readonly(
          "uncorrelated",
@@ -75,6 +75,16 @@ void wrapDistribution(python::module &module)
          "unspecified",
          [](const Component &self) { return self.unspecified(); },
          Component::documentation("unspecified").data()
+      )
+      .def_property_readonly(
+         "branching3d",
+         [](const Component &self) { return self.branching3d(); },
+         Component::documentation("branching3d").data()
+      )
+      .def_property_readonly(
+         "angular_two_body",
+         [](const Component &self) { return self.angularTwoBody(); },
+         Component::documentation("angular_two_body").data()
       )
       .def_property_readonly(
          "energy_angular",
@@ -92,11 +102,6 @@ void wrapDistribution(python::module &module)
          Component::documentation("angular_energy").data()
       )
       .def_property_readonly(
-         "branching3d",
-         [](const Component &self) { return self.branching3d(); },
-         Component::documentation("branching3d").data()
-      )
-      .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
          [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
          Component::documentation("coulomb_plus_nuclear_elastic").data()
@@ -110,11 +115,6 @@ void wrapDistribution(python::module &module)
          "incoherent_photon_scattering",
          [](const Component &self) { return self.incoherentPhotonScattering(); },
          Component::documentation("incoherent_photon_scattering").data()
-      )
-      .def_property_readonly(
-         "thermal_neutron_scattering_law",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
-         Component::documentation("thermal_neutron_scattering_law").data()
       )
    ;
 

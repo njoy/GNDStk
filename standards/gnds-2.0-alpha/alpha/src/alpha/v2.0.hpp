@@ -254,8 +254,6 @@
 #include "alpha/v2.0/general/Angular.hpp"
 #include "alpha/v2.0/general/Isotropic2d.hpp"
 
-#include "alpha/v2.0/alt/Distribution.hpp"
-
 #include "alpha/v2.0/reduced/Function1ds.hpp"
 #include "alpha/v2.0/reduced/OutputChannel.hpp"
 #include "alpha/v2.0/reduced/Products.hpp"

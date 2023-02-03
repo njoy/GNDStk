@@ -83,6 +83,10 @@
                 "times": "1",
                 "required": false
             },
+            "XYs2d": {
+                "times": "1",
+                "required": false
+            },
             "branching3d": {
                 "times": "1",
                 "required": false

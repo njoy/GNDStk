@@ -20,7 +20,7 @@ namespace extract {
 }
 
 using CPPCrossSection = reduced::CrossSection;
-using CPPDistribution = alt::Distribution;
+using CPPDistribution = reduced::Distribution;
 
 
 // -----------------------------------------------------------------------------

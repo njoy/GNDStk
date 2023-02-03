@@ -38,7 +38,7 @@ void wrapNuclearPlusInterference(python::module &module)
          python::init<
             const double &,
             const reduced::CrossSection &,
-            const alt::Distribution &
+            const reduced::Distribution &
          >(),
          python::arg("mu_cutoff"),
          python::arg("cross_section"),

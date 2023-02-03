@@ -14,30 +14,30 @@ using CPP = multigroup::Distribution;
 static const std::string CLASSNAME = "Distribution";
 
 namespace extract {
-   static auto angularTwoBody = [](auto &obj) { return &obj.angularTwoBody; };
+   static auto thermalNeutronScatteringLaw = [](auto &obj) { return &obj.thermalNeutronScatteringLaw; };
    static auto uncorrelated = [](auto &obj) { return &obj.uncorrelated; };
    static auto unspecified = [](auto &obj) { return &obj.unspecified; };
+   static auto branching3d = [](auto &obj) { return &obj.branching3d; };
+   static auto angularTwoBody = [](auto &obj) { return &obj.angularTwoBody; };
    static auto energyAngular = [](auto &obj) { return &obj.energyAngular; };
    static auto KalbachMann = [](auto &obj) { return &obj.KalbachMann; };
    static auto angularEnergy = [](auto &obj) { return &obj.angularEnergy; };
-   static auto branching3d = [](auto &obj) { return &obj.branching3d; };
    static auto CoulombPlusNuclearElastic = [](auto &obj) { return &obj.CoulombPlusNuclearElastic; };
    static auto coherentPhotonScattering = [](auto &obj) { return &obj.coherentPhotonScattering; };
    static auto incoherentPhotonScattering = [](auto &obj) { return &obj.incoherentPhotonScattering; };
-   static auto thermalNeutronScatteringLaw = [](auto &obj) { return &obj.thermalNeutronScatteringLaw; };
 }
 
-using CPPAngularTwoBody = general::AngularTwoBody;
+using CPPThermalNeutronScatteringLaw = general::ThermalNeutronScatteringLaw;
 using CPPUncorrelated = general::Uncorrelated;
 using CPPUnspecified = general::Unspecified;
+using CPPBranching3d = general::Branching3d;
+using CPPAngularTwoBody = general::AngularTwoBody;
 using CPPEnergyAngular = general::EnergyAngular;
 using CPPKalbachMann = general::KalbachMann;
 using CPPAngularEnergy = general::AngularEnergy;
-using CPPBranching3d = general::Branching3d;
 using CPPCoulombPlusNuclearElastic = general::CoulombPlusNuclearElastic;
 using CPPCoherentPhotonScattering = general::CoherentPhotonScattering;
 using CPPIncoherentPhotonScattering = general::IncoherentPhotonScattering;
-using CPPThermalNeutronScatteringLaw = general::ThermalNeutronScatteringLaw;
 
 
 // -----------------------------------------------------------------------------
@@ -64,31 +64,31 @@ DistributionDefault()
 // Create, general, const
 Handle2ConstDistribution
 DistributionCreateConst(
-   ConstHandle2ConstAngularTwoBody angularTwoBody,
+   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstBranching3d branching3d,
+   ConstHandle2ConstAngularTwoBody angularTwoBody,
    ConstHandle2ConstEnergyAngular energyAngular,
    ConstHandle2ConstKalbachMann KalbachMann,
    ConstHandle2ConstAngularEnergy angularEnergy,
-   ConstHandle2ConstBranching3d branching3d,
    ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic,
    ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering,
-   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering,
-   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw
+   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering
 ) {
    ConstHandle2Distribution handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"CreateConst",
-      detail::tocpp<CPPAngularTwoBody>(angularTwoBody),
+      detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw),
       detail::tocpp<CPPUncorrelated>(uncorrelated),
       detail::tocpp<CPPUnspecified>(unspecified),
+      detail::tocpp<CPPBranching3d>(branching3d),
+      detail::tocpp<CPPAngularTwoBody>(angularTwoBody),
       detail::tocpp<CPPEnergyAngular>(energyAngular),
       detail::tocpp<CPPKalbachMann>(KalbachMann),
       detail::tocpp<CPPAngularEnergy>(angularEnergy),
-      detail::tocpp<CPPBranching3d>(branching3d),
       detail::tocpp<CPPCoulombPlusNuclearElastic>(CoulombPlusNuclearElastic),
       detail::tocpp<CPPCoherentPhotonScattering>(coherentPhotonScattering),
-      detail::tocpp<CPPIncoherentPhotonScattering>(incoherentPhotonScattering),
-      detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw)
+      detail::tocpp<CPPIncoherentPhotonScattering>(incoherentPhotonScattering)
    );
    return handle;
 }
@@ -96,31 +96,31 @@ DistributionCreateConst(
 // Create, general
 Handle2Distribution
 DistributionCreate(
-   ConstHandle2ConstAngularTwoBody angularTwoBody,
+   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
    ConstHandle2ConstUncorrelated uncorrelated,
    ConstHandle2ConstUnspecified unspecified,
+   ConstHandle2ConstBranching3d branching3d,
+   ConstHandle2ConstAngularTwoBody angularTwoBody,
    ConstHandle2ConstEnergyAngular energyAngular,
    ConstHandle2ConstKalbachMann KalbachMann,
    ConstHandle2ConstAngularEnergy angularEnergy,
-   ConstHandle2ConstBranching3d branching3d,
    ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic,
    ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering,
-   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering,
-   ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw
+   ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering
 ) {
    ConstHandle2Distribution handle = detail::createHandle<CPP,C>(
       CLASSNAME, CLASSNAME+"Create",
-      detail::tocpp<CPPAngularTwoBody>(angularTwoBody),
+      detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw),
       detail::tocpp<CPPUncorrelated>(uncorrelated),
       detail::tocpp<CPPUnspecified>(unspecified),
+      detail::tocpp<CPPBranching3d>(branching3d),
+      detail::tocpp<CPPAngularTwoBody>(angularTwoBody),
       detail::tocpp<CPPEnergyAngular>(energyAngular),
       detail::tocpp<CPPKalbachMann>(KalbachMann),
       detail::tocpp<CPPAngularEnergy>(angularEnergy),
-      detail::tocpp<CPPBranching3d>(branching3d),
       detail::tocpp<CPPCoulombPlusNuclearElastic>(CoulombPlusNuclearElastic),
       detail::tocpp<CPPCoherentPhotonScattering>(coherentPhotonScattering),
-      detail::tocpp<CPPIncoherentPhotonScattering>(incoherentPhotonScattering),
-      detail::tocpp<CPPThermalNeutronScatteringLaw>(thermalNeutronScatteringLaw)
+      detail::tocpp<CPPIncoherentPhotonScattering>(incoherentPhotonScattering)
    );
    return handle;
 }
@@ -198,39 +198,39 @@ DistributionPrintJSON(ConstHandle2ConstDistribution This)
 
 
 // -----------------------------------------------------------------------------
-// Child: angularTwoBody
+// Child: thermalNeutronScatteringLaw
 // -----------------------------------------------------------------------------
 
 // Has
 int
-DistributionAngularTwoBodyHas(ConstHandle2ConstDistribution This)
+DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AngularTwoBodyHas", This, extract::angularTwoBody);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawHas", This, extract::thermalNeutronScatteringLaw);
 }
 
 // Get, const
-Handle2ConstAngularTwoBody
-DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution This)
+Handle2ConstThermalNeutronScatteringLaw
+DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This)
 {
-   return detail::getField<CPP,Handle2ConstAngularTwoBody>
-      (CLASSNAME, CLASSNAME+"AngularTwoBodyGetConst", This, extract::angularTwoBody);
+   return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw>
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", This, extract::thermalNeutronScatteringLaw);
 }
 
 // Get, non-const
-Handle2AngularTwoBody
-DistributionAngularTwoBodyGet(ConstHandle2Distribution This)
+Handle2ThermalNeutronScatteringLaw
+DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This)
 {
-   return detail::getField<CPP,Handle2AngularTwoBody>
-      (CLASSNAME, CLASSNAME+"AngularTwoBodyGet", This, extract::angularTwoBody);
+   return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw>
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGet", This, extract::thermalNeutronScatteringLaw);
 }
 
 // Set
 void
-DistributionAngularTwoBodySet(ConstHandle2Distribution This, ConstHandle2ConstAngularTwoBody angularTwoBody)
+DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw)
 {
-   detail::setField<CPP,CPPAngularTwoBody>
-      (CLASSNAME, CLASSNAME+"AngularTwoBodySet", This, extract::angularTwoBody, angularTwoBody);
+   detail::setField<CPP,CPPThermalNeutronScatteringLaw>
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawSet", This, extract::thermalNeutronScatteringLaw, thermalNeutronScatteringLaw);
 }
 
 
@@ -305,6 +305,80 @@ DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspe
 {
    detail::setField<CPP,CPPUnspecified>
       (CLASSNAME, CLASSNAME+"UnspecifiedSet", This, extract::unspecified, unspecified);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: branching3d
+// -----------------------------------------------------------------------------
+
+// Has
+int
+DistributionBranching3dHas(ConstHandle2ConstDistribution This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"Branching3dHas", This, extract::branching3d);
+}
+
+// Get, const
+Handle2ConstBranching3d
+DistributionBranching3dGetConst(ConstHandle2ConstDistribution This)
+{
+   return detail::getField<CPP,Handle2ConstBranching3d>
+      (CLASSNAME, CLASSNAME+"Branching3dGetConst", This, extract::branching3d);
+}
+
+// Get, non-const
+Handle2Branching3d
+DistributionBranching3dGet(ConstHandle2Distribution This)
+{
+   return detail::getField<CPP,Handle2Branching3d>
+      (CLASSNAME, CLASSNAME+"Branching3dGet", This, extract::branching3d);
+}
+
+// Set
+void
+DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d)
+{
+   detail::setField<CPP,CPPBranching3d>
+      (CLASSNAME, CLASSNAME+"Branching3dSet", This, extract::branching3d, branching3d);
+}
+
+
+// -----------------------------------------------------------------------------
+// Child: angularTwoBody
+// -----------------------------------------------------------------------------
+
+// Has
+int
+DistributionAngularTwoBodyHas(ConstHandle2ConstDistribution This)
+{
+   return detail::hasField<CPP>
+      (CLASSNAME, CLASSNAME+"AngularTwoBodyHas", This, extract::angularTwoBody);
+}
+
+// Get, const
+Handle2ConstAngularTwoBody
+DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution This)
+{
+   return detail::getField<CPP,Handle2ConstAngularTwoBody>
+      (CLASSNAME, CLASSNAME+"AngularTwoBodyGetConst", This, extract::angularTwoBody);
+}
+
+// Get, non-const
+Handle2AngularTwoBody
+DistributionAngularTwoBodyGet(ConstHandle2Distribution This)
+{
+   return detail::getField<CPP,Handle2AngularTwoBody>
+      (CLASSNAME, CLASSNAME+"AngularTwoBodyGet", This, extract::angularTwoBody);
+}
+
+// Set
+void
+DistributionAngularTwoBodySet(ConstHandle2Distribution This, ConstHandle2ConstAngularTwoBody angularTwoBody)
+{
+   detail::setField<CPP,CPPAngularTwoBody>
+      (CLASSNAME, CLASSNAME+"AngularTwoBodySet", This, extract::angularTwoBody, angularTwoBody);
 }
 
 
@@ -420,43 +494,6 @@ DistributionAngularEnergySet(ConstHandle2Distribution This, ConstHandle2ConstAng
 
 
 // -----------------------------------------------------------------------------
-// Child: branching3d
-// -----------------------------------------------------------------------------
-
-// Has
-int
-DistributionBranching3dHas(ConstHandle2ConstDistribution This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Branching3dHas", This, extract::branching3d);
-}
-
-// Get, const
-Handle2ConstBranching3d
-DistributionBranching3dGetConst(ConstHandle2ConstDistribution This)
-{
-   return detail::getField<CPP,Handle2ConstBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGetConst", This, extract::branching3d);
-}
-
-// Get, non-const
-Handle2Branching3d
-DistributionBranching3dGet(ConstHandle2Distribution This)
-{
-   return detail::getField<CPP,Handle2Branching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGet", This, extract::branching3d);
-}
-
-// Set
-void
-DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d)
-{
-   detail::setField<CPP,CPPBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dSet", This, extract::branching3d, branching3d);
-}
-
-
-// -----------------------------------------------------------------------------
 // Child: CoulombPlusNuclearElastic
 // -----------------------------------------------------------------------------
 
@@ -564,43 +601,6 @@ DistributionIncoherentPhotonScatteringSet(ConstHandle2Distribution This, ConstHa
 {
    detail::setField<CPP,CPPIncoherentPhotonScattering>
       (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringSet", This, extract::incoherentPhotonScattering, incoherentPhotonScattering);
-}
-
-
-// -----------------------------------------------------------------------------
-// Child: thermalNeutronScatteringLaw
-// -----------------------------------------------------------------------------
-
-// Has
-int
-DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This)
-{
-   return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawHas", This, extract::thermalNeutronScatteringLaw);
-}
-
-// Get, const
-Handle2ConstThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This)
-{
-   return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", This, extract::thermalNeutronScatteringLaw);
-}
-
-// Get, non-const
-Handle2ThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This)
-{
-   return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGet", This, extract::thermalNeutronScatteringLaw);
-}
-
-// Set
-void
-DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw)
-{
-   detail::setField<CPP,CPPThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawSet", This, extract::thermalNeutronScatteringLaw, thermalNeutronScatteringLaw);
 }
 
 
