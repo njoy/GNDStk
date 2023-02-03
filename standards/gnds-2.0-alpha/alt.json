@@ -1,0 +1,12 @@
+{
+    "namespace": "alt",
+
+    "distribution": {
+        "children": {
+            "XYs2d": {
+                "times": "1",
+                "required": true
+            }
+        }
+    }
+}

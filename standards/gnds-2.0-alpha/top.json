@@ -1,0 +1,173 @@
+{
+    "namespace": "top",
+
+    "reactionSuite": {
+        "metadata": {
+            "projectile": {
+                "type": "string",
+                "required": true
+            },
+            "target": {
+                "type": "string",
+                "required": true
+            },
+            "evaluation": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            },
+            "projectileFrame": {
+                "type": "string",
+                "required": true
+            },
+            "interaction": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "PoPs": { "namespace": "general",
+                "times": "1",
+                "required": true
+            },
+            "reactions": {
+                "times": "1",
+                "required": true
+            },
+            "applicationData": {
+                "times": "1",
+                "required": false
+            },
+            "externalFiles": {
+                "times": "1",
+                "required": false
+            },
+            "resonances": {
+                "times": "1",
+                "required": false
+            },
+            "sums": {
+                "times": "1",
+                "required": false
+            },
+            "productions": {
+                "times": "1",
+                "required": false
+            },
+            "fissionComponents": {
+                "times": "1",
+                "required": false
+            },
+            "orphanProducts": {
+                "times": "1",
+                "required": false
+            },
+            "incompleteReactions": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "PoPs": {
+        "metadata": {
+            "name": {
+                "type": "string",
+                "required": true
+            },
+            "version": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "chemicalElements": {
+                "times": "1",
+                "required": false
+            },
+            "aliases": {
+                "times": "1",
+                "required": false
+            },
+            "baryons": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "covarianceSuite": {
+        "metadata": {
+            "projectile": {
+                "type": "string",
+                "required": true
+            },
+            "target": {
+                "type": "string",
+                "required": true
+            },
+            "evaluation": {
+                "type": "string",
+                "required": true
+            },
+            "interaction": {
+                "type": "string",
+                "required": true
+            },
+            "format": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "children": {
+            "externalFiles": {
+                "times": "1",
+                "required": false
+            },
+            "styles": {
+                "times": "1",
+                "required": true
+            },
+            "covarianceSections": {
+                "times": "1",
+                "required": false
+            },
+            "parameterCovariances": {
+                "times": "1",
+                "required": false
+            }
+        }
+    },
+
+    "fissionFragmentData": {
+        "children": {
+            "productYields": {
+                "times": "1",
+                "required": false
+            },
+            "delayedNeutrons": {
+                "times": "1",
+                "required": false
+            },
+            "fissionEnergyReleases": {
+                "times": "1",
+                "required": false
+            }
+        }
+    }
+}

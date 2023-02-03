@@ -1,36 +1,6 @@
 {
     "namespace": "g3d",
 
-    "starts": {
-        "name": "values",
-        "metadata": {
-            "valueType": {
-                "type": "string",
-                "required": true
-            },
-            "label": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "vector": "int"
-    },
-
-    "lengths": {
-        "name": "values",
-        "metadata": {
-            "valueType": {
-                "type": "string",
-                "required": true
-            },
-            "label": {
-                "type": "string",
-                "required": true
-            }
-        },
-        "vector": "int"
-    },
-
     "array": {
         "metadata": {
             "shape": {
@@ -68,5 +38,35 @@
                 "filter": "[](auto &node) { return node.metadata.size() == 0; }"
             }
         }
+    },
+
+    "starts": {
+        "name": "values",
+        "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "vector": "int"
+    },
+
+    "lengths": {
+        "name": "values",
+        "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "vector": "int"
     }
 }

@@ -1,0 +1,17 @@
+{
+    "//": "For now, our alpha version of GNDS v2.0",
+
+    "Project": "beta",
+    "Version": "v2.0",
+
+    "JSONFiles": [
+        "top.json",
+        "general.json",
+        "alt.json",
+        "reduced.json",
+        "g2d.json",
+        "g3d.json"
+    ],
+
+    "Changes": "changes.json"
+}
