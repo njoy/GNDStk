@@ -27,8 +27,7 @@ void wrapScatteringAtoms(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ScatteringAtoms",
+      module, "ScatteringAtoms",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapScatteringAtoms(python::module &module)
       )
       .def_property_readonly(
          "scattering_atom",
-         [](const Component &self) { return self.scatteringAtom(); },
+         [](const Component &self)
+         {
+            return self.scatteringAtom();
+         },
          Component::documentation("scattering_atom").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

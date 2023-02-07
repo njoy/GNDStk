@@ -100,7 +100,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->name, \
       this->version, \
@@ -111,7 +113,8 @@ public:
       this->styles, \
       this->unorthodoxes, \
       this->gaugeBosons, \
-      this->leptons)
+      this->leptons \
+   )
 
    // default
    PoPs() :

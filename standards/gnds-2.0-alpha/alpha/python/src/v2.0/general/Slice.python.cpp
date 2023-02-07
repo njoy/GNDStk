@@ -27,8 +27,7 @@ void wrapSlice(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Slice",
+      module, "Slice",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapSlice(python::module &module)
       )
       .def_property_readonly(
          "dimension",
-         [](const Component &self) { return self.dimension(); },
+         [](const Component &self)
+         {
+            return self.dimension();
+         },
          Component::documentation("dimension").data()
       )
       .def_property_readonly(
          "domain_value",
-         [](const Component &self) { return self.domainValue(); },
+         [](const Component &self)
+         {
+            return self.domainValue();
+         },
          Component::documentation("domain_value").data()
       )
       .def_property_readonly(
          "domain_min",
-         [](const Component &self) { return self.domainMin(); },
+         [](const Component &self)
+         {
+            return self.domainMin();
+         },
          Component::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
-         [](const Component &self) { return self.domainMax(); },
+         [](const Component &self)
+         {
+            return self.domainMax();
+         },
          Component::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
+         [](const Component &self)
+         {
+            return self.domainUnit();
+         },
          Component::documentation("domain_unit").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

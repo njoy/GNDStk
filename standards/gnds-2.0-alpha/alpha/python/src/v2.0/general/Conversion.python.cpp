@@ -27,8 +27,7 @@ void wrapConversion(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Conversion",
+      module, "Conversion",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapConversion(python::module &module)
       )
       .def_property_readonly(
          "flags",
-         [](const Component &self) { return self.flags(); },
+         [](const Component &self)
+         {
+            return self.flags();
+         },
          Component::documentation("flags").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

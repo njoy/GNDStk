@@ -27,8 +27,7 @@ void wrapWeightedFunctionals(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "WeightedFunctionals",
+      module, "WeightedFunctionals",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapWeightedFunctionals(python::module &module)
       )
       .def_property_readonly(
          "weighted",
-         [](const Component &self) { return self.weighted(); },
+         [](const Component &self)
+         {
+            return self.weighted();
+         },
          Component::documentation("weighted").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

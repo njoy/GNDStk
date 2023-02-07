@@ -27,8 +27,7 @@ void wrapChannels(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Channels",
+      module, "Channels",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapChannels(python::module &module)
       )
       .def_property_readonly(
          "channel",
-         [](const Component &self) { return self.channel(); },
+         [](const Component &self)
+         {
+            return self.channel();
+         },
          Component::documentation("channel").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

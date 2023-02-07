@@ -27,8 +27,7 @@ void wrapDistribution(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Distribution",
+      module, "Distribution",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapDistribution(python::module &module)
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw();
+         },
          Component::documentation("thermal_neutron_scattering_law").data()
       )
       .def_property_readonly(
          "uncorrelated",
-         [](const Component &self) { return self.uncorrelated(); },
+         [](const Component &self)
+         {
+            return self.uncorrelated();
+         },
          Component::documentation("uncorrelated").data()
       )
       .def_property_readonly(
          "unspecified",
-         [](const Component &self) { return self.unspecified(); },
+         [](const Component &self)
+         {
+            return self.unspecified();
+         },
          Component::documentation("unspecified").data()
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
       .def_property_readonly(
          "branching3d",
-         [](const Component &self) { return self.branching3d(); },
+         [](const Component &self)
+         {
+            return self.branching3d();
+         },
          Component::documentation("branching3d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_reduced

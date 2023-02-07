@@ -27,8 +27,7 @@ void wrapYields(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Yields",
+      module, "Yields",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapYields(python::module &module)
       )
       .def_property_readonly(
          "nuclides",
-         [](const Component &self) { return self.nuclides(); },
+         [](const Component &self)
+         {
+            return self.nuclides();
+         },
          Component::documentation("nuclides").data()
       )
       .def_property_readonly(
          "values",
-         [](const Component &self) { return self.values(); },
+         [](const Component &self)
+         {
+            return self.values();
+         },
          Component::documentation("values").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "NuclearAmplitudeExpansion",
+      module, "NuclearAmplitudeExpansion",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
       )
       .def_property_readonly(
          "nuclear_term",
-         [](const Component &self) { return self.nuclearTerm(); },
+         [](const Component &self)
+         {
+            return self.nuclearTerm();
+         },
          Component::documentation("nuclear_term").data()
       )
       .def_property_readonly(
          "real_interference_term",
-         [](const Component &self) { return self.realInterferenceTerm(); },
+         [](const Component &self)
+         {
+            return self.realInterferenceTerm();
+         },
          Component::documentation("real_interference_term").data()
       )
       .def_property_readonly(
          "imaginary_interference_term",
-         [](const Component &self) { return self.imaginaryInterferenceTerm(); },
+         [](const Component &self)
+         {
+            return self.imaginaryInterferenceTerm();
+         },
          Component::documentation("imaginary_interference_term").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

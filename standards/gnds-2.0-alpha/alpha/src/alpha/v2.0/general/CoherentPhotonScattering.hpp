@@ -83,7 +83,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->href, \
@@ -91,7 +93,8 @@ public:
       this->productFrame, \
       this->formFactor, \
       this->realAnomalousFactor, \
-      this->imaginaryAnomalousFactor)
+      this->imaginaryAnomalousFactor \
+   )
 
    // default
    CoherentPhotonScattering() :

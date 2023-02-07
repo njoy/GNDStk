@@ -27,8 +27,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ParameterCovarianceMatrix",
+      module, "ParameterCovarianceMatrix",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapParameterCovarianceMatrix(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "type",
-         [](const Component &self) { return self.type(); },
+         [](const Component &self)
+         {
+            return self.type();
+         },
          Component::documentation("type").data()
       )
       .def_property_readonly(
          "array",
-         [](const Component &self) { return self.array(); },
+         [](const Component &self)
+         {
+            return self.array();
+         },
          Component::documentation("array").data()
       )
       .def_property_readonly(
          "parameters",
-         [](const Component &self) { return self.parameters(); },
+         [](const Component &self)
+         {
+            return self.parameters();
+         },
          Component::documentation("parameters").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

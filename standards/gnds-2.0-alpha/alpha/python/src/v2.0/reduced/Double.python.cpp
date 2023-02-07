@@ -27,8 +27,7 @@ void wrapDouble(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Double",
+      module, "Double",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapDouble(python::module &module)
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_reduced

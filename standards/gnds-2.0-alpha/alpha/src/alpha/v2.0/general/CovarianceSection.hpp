@@ -87,7 +87,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->crossTerm, \
@@ -95,7 +97,8 @@ public:
       this->columnData, \
       this->covarianceMatrix, \
       this->mixed, \
-      this->sum)
+      this->sum \
+   )
 
    // default
    CovarianceSection() :

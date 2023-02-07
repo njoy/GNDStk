@@ -27,8 +27,7 @@ void wrapColumnHeaders(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ColumnHeaders",
+      module, "ColumnHeaders",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapColumnHeaders(python::module &module)
       )
       .def_property_readonly(
          "column",
-         [](const Component &self) { return self.column(); },
+         [](const Component &self)
+         {
+            return self.column();
+         },
          Component::documentation("column").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

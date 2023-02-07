@@ -27,8 +27,7 @@ void wrapCovarianceSections(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "CovarianceSections",
+      module, "CovarianceSections",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapCovarianceSections(python::module &module)
       )
       .def_property_readonly(
          "covariance_section",
-         [](const Component &self) { return self.covarianceSection(); },
+         [](const Component &self)
+         {
+            return self.covarianceSection();
+         },
          Component::documentation("covariance_section").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

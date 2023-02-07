@@ -27,8 +27,7 @@ void wrapMultiplicitySum(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "MultiplicitySum",
+      module, "MultiplicitySum",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapMultiplicitySum(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
+         [](const Component &self)
+         {
+            return self.ENDF_MT();
+         },
          Component::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "multiplicity",
-         [](const Component &self) { return self.multiplicity(); },
+         [](const Component &self)
+         {
+            return self.multiplicity();
+         },
          Component::documentation("multiplicity").data()
       )
       .def_property_readonly(
          "summands",
-         [](const Component &self) { return self.summands(); },
+         [](const Component &self)
+         {
+            return self.summands();
+         },
          Component::documentation("summands").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

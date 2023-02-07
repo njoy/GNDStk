@@ -27,8 +27,7 @@ void wrapCharge(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Charge",
+      module, "Charge",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapCharge(python::module &module)
       )
       .def_property_readonly(
          "integer",
-         [](const Component &self) { return self.integer(); },
+         [](const Component &self)
+         {
+            return self.integer();
+         },
          Component::documentation("integer").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

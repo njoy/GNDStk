@@ -27,8 +27,7 @@ void wrapJs(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Js",
+      module, "Js",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapJs(python::module &module)
       )
       .def_property_readonly(
          "j",
-         [](const Component &self) { return self.J(); },
+         [](const Component &self)
+         {
+            return self.J();
+         },
          Component::documentation("j").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -77,13 +77,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->authors, \
       this->dates, \
       this->title, \
       this->body, \
-      this->endfCompatible)
+      this->endfCompatible \
+   )
 
    // default
    Documentation() :

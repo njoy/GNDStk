@@ -92,7 +92,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->constant1d, \
       this->XYs1d, \
@@ -101,7 +103,8 @@ public:
       this->reference, \
       this->branching1d, \
       this->branching3d, \
-      this->unspecified)
+      this->unspecified \
+   )
 
    // default
    Multiplicity() :

@@ -27,8 +27,7 @@ void wrapAverageEnergies(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "AverageEnergies",
+      module, "AverageEnergies",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapAverageEnergies(python::module &module)
       )
       .def_property_readonly(
          "average_energy",
-         [](const Component &self) { return self.averageEnergy(); },
+         [](const Component &self)
+         {
+            return self.averageEnergy();
+         },
          Component::documentation("average_energy").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

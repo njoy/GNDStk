@@ -74,12 +74,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->symmetric, \
       this->gridded3d, \
       this->SCTApproximation, \
-      this->freeGasApproximation)
+      this->freeGasApproximation \
+   )
 
    // default
    SelfScatteringKernel() :

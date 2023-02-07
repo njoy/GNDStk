@@ -27,8 +27,7 @@ void wrapGrid(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Grid",
+      module, "Grid",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapGrid(python::module &module)
       )
       .def_property_readonly(
          "index",
-         [](const Component &self) { return self.index(); },
+         [](const Component &self)
+         {
+            return self.index();
+         },
          Component::documentation("index").data()
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit(); },
+         [](const Component &self)
+         {
+            return self.unit();
+         },
          Component::documentation("unit").data()
       )
       .def_property_readonly(
          "style",
-         [](const Component &self) { return self.style(); },
+         [](const Component &self)
+         {
+            return self.style();
+         },
          Component::documentation("style").data()
       )
       .def_property_readonly(
          "interpolation",
-         [](const Component &self) { return self.interpolation(); },
+         [](const Component &self)
+         {
+            return self.interpolation();
+         },
          Component::documentation("interpolation").data()
       )
       .def_property_readonly(
          "link",
-         [](const Component &self) { return self.link(); },
+         [](const Component &self)
+         {
+            return self.link();
+         },
          Component::documentation("link").data()
       )
       .def_property_readonly(
          "values",
-         [](const Component &self) { return self.values(); },
+         [](const Component &self)
+         {
+            return self.values();
+         },
          Component::documentation("values").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

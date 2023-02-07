@@ -72,12 +72,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->subshell, \
       this->electronNumber, \
       this->bindingEnergy, \
-      this->decayData)
+      this->decayData \
+   )
 
    // default
    Configuration() :

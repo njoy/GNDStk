@@ -27,8 +27,7 @@ void wrapDecayMode(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DecayMode",
+      module, "DecayMode",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapDecayMode(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "mode",
-         [](const Component &self) { return self.mode(); },
+         [](const Component &self)
+         {
+            return self.mode();
+         },
          Component::documentation("mode").data()
       )
       .def_property_readonly(
          "probability",
-         [](const Component &self) { return self.probability(); },
+         [](const Component &self)
+         {
+            return self.probability();
+         },
          Component::documentation("probability").data()
       )
       .def_property_readonly(
          "decay_path",
-         [](const Component &self) { return self.decayPath(); },
+         [](const Component &self)
+         {
+            return self.decayPath();
+         },
          Component::documentation("decay_path").data()
       )
       .def_property_readonly(
          "photon_emission_probabilities",
-         [](const Component &self) { return self.photonEmissionProbabilities(); },
+         [](const Component &self)
+         {
+            return self.photonEmissionProbabilities();
+         },
          Component::documentation("photon_emission_probabilities").data()
       )
       .def_property_readonly(
          "q",
-         [](const Component &self) { return self.Q(); },
+         [](const Component &self)
+         {
+            return self.Q();
+         },
          Component::documentation("q").data()
       )
       .def_property_readonly(
          "spectra",
-         [](const Component &self) { return self.spectra(); },
+         [](const Component &self)
+         {
+            return self.spectra();
+         },
          Component::documentation("spectra").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

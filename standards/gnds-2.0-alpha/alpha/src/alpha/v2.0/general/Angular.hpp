@@ -62,10 +62,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->isotropic2d, \
-      this->XYs2d)
+      this->XYs2d \
+   )
 
    // default
    Angular() :

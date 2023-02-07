@@ -27,8 +27,7 @@ void wrapExternalFiles(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ExternalFiles",
+      module, "ExternalFiles",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapExternalFiles(python::module &module)
       )
       .def_property_readonly(
          "external_file",
-         [](const Component &self) { return self.externalFile(); },
+         [](const Component &self)
+         {
+            return self.externalFile();
+         },
          Component::documentation("external_file").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

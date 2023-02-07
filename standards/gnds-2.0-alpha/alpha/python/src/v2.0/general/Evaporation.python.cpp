@@ -27,8 +27,7 @@ void wrapEvaporation(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Evaporation",
+      module, "Evaporation",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapEvaporation(python::module &module)
       )
       .def_property_readonly(
          "u",
-         [](const Component &self) { return self.U(); },
+         [](const Component &self)
+         {
+            return self.U();
+         },
          Component::documentation("u").data()
       )
       .def_property_readonly(
          "theta",
-         [](const Component &self) { return self.theta(); },
+         [](const Component &self)
+         {
+            return self.theta();
+         },
          Component::documentation("theta").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

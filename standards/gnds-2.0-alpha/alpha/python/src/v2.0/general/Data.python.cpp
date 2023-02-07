@@ -27,8 +27,7 @@ void wrapData(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Data",
+      module, "Data",
       Component::documentation().data()
    );
 
@@ -48,13 +47,16 @@ void wrapData(python::module &module)
       )
       .def_property_readonly(
          "doubles",
-         [] (const Component &self) { return self.doubles(); },
+         [](const Component &self) -> const std::vector<double> &
+         {
+            return self;
+         },
          Component::documentation("doubles").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

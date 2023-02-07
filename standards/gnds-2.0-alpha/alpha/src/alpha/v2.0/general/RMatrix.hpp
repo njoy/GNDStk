@@ -86,7 +86,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->approximation, \
@@ -95,7 +97,8 @@ public:
       this->supportsAngularReconstruction, \
       this->PoPs, \
       this->resonanceReactions, \
-      this->spinGroups)
+      this->spinGroups \
+   )
 
    // default
    RMatrix() :

@@ -27,8 +27,7 @@ void wrapSpectra(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Spectra",
+      module, "Spectra",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapSpectra(python::module &module)
       )
       .def_property_readonly(
          "spectrum",
-         [](const Component &self) { return self.spectrum(); },
+         [](const Component &self)
+         {
+            return self.spectrum();
+         },
          Component::documentation("spectrum").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

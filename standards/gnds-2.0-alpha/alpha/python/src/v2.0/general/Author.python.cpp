@@ -27,8 +27,7 @@ void wrapAuthor(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Author",
+      module, "Author",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapAuthor(python::module &module)
       )
       .def_property_readonly(
          "name",
-         [](const Component &self) { return self.name(); },
+         [](const Component &self)
+         {
+            return self.name();
+         },
          Component::documentation("name").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

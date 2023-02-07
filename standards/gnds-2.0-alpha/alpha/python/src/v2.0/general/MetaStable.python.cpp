@@ -27,8 +27,7 @@ void wrapMetaStable(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "MetaStable",
+      module, "MetaStable",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapMetaStable(python::module &module)
       )
       .def_property_readonly(
          "id",
-         [](const Component &self) { return self.id(); },
+         [](const Component &self)
+         {
+            return self.id();
+         },
          Component::documentation("id").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "meta_stable_index",
-         [](const Component &self) { return self.metaStableIndex(); },
+         [](const Component &self)
+         {
+            return self.metaStableIndex();
+         },
          Component::documentation("meta_stable_index").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

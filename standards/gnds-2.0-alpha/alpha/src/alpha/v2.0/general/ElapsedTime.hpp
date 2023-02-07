@@ -74,12 +74,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->time, \
       this->yields, \
-      this->incidentEnergies)
+      this->incidentEnergies \
+   )
 
    // default
    ElapsedTime() :

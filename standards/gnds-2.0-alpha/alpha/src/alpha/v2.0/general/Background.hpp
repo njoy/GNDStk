@@ -67,11 +67,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->resolvedRegion, \
       this->fastRegion, \
-      this->unresolvedRegion)
+      this->unresolvedRegion \
+   )
 
    // default
    Background() :

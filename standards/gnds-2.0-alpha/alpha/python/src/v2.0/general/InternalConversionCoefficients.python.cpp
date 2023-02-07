@@ -27,8 +27,7 @@ void wrapInternalConversionCoefficients(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "InternalConversionCoefficients",
+      module, "InternalConversionCoefficients",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapInternalConversionCoefficients(python::module &module)
       )
       .def_property_readonly(
          "shell",
-         [](const Component &self) { return self.shell(); },
+         [](const Component &self)
+         {
+            return self.shell();
+         },
          Component::documentation("shell").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

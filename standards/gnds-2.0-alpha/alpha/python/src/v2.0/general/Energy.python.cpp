@@ -27,8 +27,7 @@ void wrapEnergy(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Energy",
+      module, "Energy",
       Component::documentation().data()
    );
 
@@ -67,73 +66,112 @@ void wrapEnergy(python::module &module)
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit(); },
+         [](const Component &self)
+         {
+            return self.unit();
+         },
          Component::documentation("unit").data()
       )
       .def_property_readonly(
          "double",
-         [](const Component &self) { return self.Double(); },
+         [](const Component &self)
+         {
+            return self.Double();
+         },
          Component::documentation("double").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
       .def_property_readonly(
          "nbody_phase_space",
-         [](const Component &self) { return self.NBodyPhaseSpace(); },
+         [](const Component &self)
+         {
+            return self.NBodyPhaseSpace();
+         },
          Component::documentation("nbody_phase_space").data()
       )
       .def_property_readonly(
          "primary_gamma",
-         [](const Component &self) { return self.primaryGamma(); },
+         [](const Component &self)
+         {
+            return self.primaryGamma();
+         },
          Component::documentation("primary_gamma").data()
       )
       .def_property_readonly(
          "discrete_gamma",
-         [](const Component &self) { return self.discreteGamma(); },
+         [](const Component &self)
+         {
+            return self.discreteGamma();
+         },
          Component::documentation("discrete_gamma").data()
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
       .def_property_readonly(
          "general_evaporation",
-         [](const Component &self) { return self.generalEvaporation(); },
+         [](const Component &self)
+         {
+            return self.generalEvaporation();
+         },
          Component::documentation("general_evaporation").data()
       )
       .def_property_readonly(
          "evaporation",
-         [](const Component &self) { return self.evaporation(); },
+         [](const Component &self)
+         {
+            return self.evaporation();
+         },
          Component::documentation("evaporation").data()
       )
       .def_property_readonly(
          "weighted_functionals",
-         [](const Component &self) { return self.weightedFunctionals(); },
+         [](const Component &self)
+         {
+            return self.weightedFunctionals();
+         },
          Component::documentation("weighted_functionals").data()
       )
       .def_property_readonly(
          "simple_maxwellian_fission",
-         [](const Component &self) { return self.simpleMaxwellianFission(); },
+         [](const Component &self)
+         {
+            return self.simpleMaxwellianFission();
+         },
          Component::documentation("simple_maxwellian_fission").data()
       )
       .def_property_readonly(
          "madland_nix",
-         [](const Component &self) { return self.MadlandNix(); },
+         [](const Component &self)
+         {
+            return self.MadlandNix();
+         },
          Component::documentation("madland_nix").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

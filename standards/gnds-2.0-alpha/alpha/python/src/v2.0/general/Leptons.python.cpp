@@ -27,8 +27,7 @@ void wrapLeptons(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Leptons",
+      module, "Leptons",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapLeptons(python::module &module)
       )
       .def_property_readonly(
          "lepton",
-         [](const Component &self) { return self.lepton(); },
+         [](const Component &self)
+         {
+            return self.lepton();
+         },
          Component::documentation("lepton").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

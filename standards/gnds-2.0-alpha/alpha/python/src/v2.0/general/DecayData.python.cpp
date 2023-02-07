@@ -27,8 +27,7 @@ void wrapDecayData(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DecayData",
+      module, "DecayData",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapDecayData(python::module &module)
       )
       .def_property_readonly(
          "decay_modes",
-         [](const Component &self) { return self.decayModes(); },
+         [](const Component &self)
+         {
+            return self.decayModes();
+         },
          Component::documentation("decay_modes").data()
       )
       .def_property_readonly(
          "average_energies",
-         [](const Component &self) { return self.averageEnergies(); },
+         [](const Component &self)
+         {
+            return self.averageEnergies();
+         },
          Component::documentation("average_energies").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

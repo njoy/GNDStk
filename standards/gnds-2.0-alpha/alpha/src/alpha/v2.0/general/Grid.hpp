@@ -81,7 +81,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->label, \
@@ -89,7 +91,8 @@ public:
       this->style, \
       this->interpolation, \
       this->link, \
-      this->values)
+      this->values \
+   )
 
    // default
    Grid() :

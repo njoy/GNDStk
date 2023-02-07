@@ -1,6 +1,8 @@
 
 m
 j
+p
+v
 stub.cpp
 deps
 files
@@ -11,3 +13,4 @@ notes
 print.*
 out.*
 dup
+add.hh

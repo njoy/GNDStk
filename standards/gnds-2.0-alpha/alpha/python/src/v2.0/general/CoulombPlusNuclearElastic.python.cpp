@@ -27,8 +27,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "CoulombPlusNuclearElastic",
+      module, "CoulombPlusNuclearElastic",
       Component::documentation().data()
    );
 
@@ -57,48 +56,72 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "identical_particles",
-         [](const Component &self) { return self.identicalParticles(); },
+         [](const Component &self)
+         {
+            return self.identicalParticles();
+         },
          Component::documentation("identical_particles").data()
       )
       .def_property_readonly(
          "rutherford_scattering",
-         [](const Component &self) { return self.RutherfordScattering(); },
+         [](const Component &self)
+         {
+            return self.RutherfordScattering();
+         },
          Component::documentation("rutherford_scattering").data()
       )
       .def_property_readonly(
          "nuclear_amplitude_expansion",
-         [](const Component &self) { return self.nuclearAmplitudeExpansion(); },
+         [](const Component &self)
+         {
+            return self.nuclearAmplitudeExpansion();
+         },
          Component::documentation("nuclear_amplitude_expansion").data()
       )
       .def_property_readonly(
          "nuclear_plus_interference",
-         [](const Component &self) { return self.nuclearPlusInterference(); },
+         [](const Component &self)
+         {
+            return self.nuclearPlusInterference();
+         },
          Component::documentation("nuclear_plus_interference").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

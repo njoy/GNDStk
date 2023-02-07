@@ -1,8 +1,37 @@
 
 // -----------------------------------------------------------------------------
+// Helpers
+// -----------------------------------------------------------------------------
+
+private:
+
+template<class KEY>
+void node_add(
+   Node &node, const KEY &key,
+   const std::size_t n
+) const {
+   using TYPE = typename detail::queryResult<KEY>::type;
+   node.add(key, *(TYPE *)links[n]);
+}
+
+// todo See if Child|"string" can be formulated without this std::pair
+// business; doing so may simplify some things here and there, and we'll
+// no longer need this...
+template<class KEY>
+void node_add(
+   Node &node, const std::pair<KEY,std::string> &pair,
+   const std::size_t n
+) const {
+   node_add(node,pair.first,n);
+}
+
+
+// -----------------------------------------------------------------------------
 // Component
 // Conversion to Node.
 // -----------------------------------------------------------------------------
+
+public:
 
 operator Node() const
 {
@@ -33,6 +62,7 @@ operator Node() const
          [this,&node](const auto &... key) {
             std::size_t n = 0;
             (
+               /*
                node.add(
                   key,
                   *(
@@ -41,7 +71,8 @@ operator Node() const
                      >::type
                   *)links[n++]
                ),
-               ...
+               */
+               this->node_add(node,key,n++), ...
             );
          },
          Keys().tup

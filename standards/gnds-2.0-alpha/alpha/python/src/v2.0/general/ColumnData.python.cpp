@@ -27,8 +27,7 @@ void wrapColumnData(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ColumnData",
+      module, "ColumnData",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapColumnData(python::module &module)
       )
       .def_property_readonly(
          "endf_mfmt",
-         [](const Component &self) { return self.ENDF_MFMT(); },
+         [](const Component &self)
+         {
+            return self.ENDF_MFMT();
+         },
          Component::documentation("endf_mfmt").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "slices",
-         [](const Component &self) { return self.slices(); },
+         [](const Component &self)
+         {
+            return self.slices();
+         },
          Component::documentation("slices").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

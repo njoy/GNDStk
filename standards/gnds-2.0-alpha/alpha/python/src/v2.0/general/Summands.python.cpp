@@ -27,8 +27,7 @@ void wrapSummands(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Summands",
+      module, "Summands",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapSummands(python::module &module)
       )
       .def_property_readonly(
          "add",
-         [](const Component &self) { return self.add(); },
+         [](const Component &self)
+         {
+            return self.add();
+         },
          Component::documentation("add").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

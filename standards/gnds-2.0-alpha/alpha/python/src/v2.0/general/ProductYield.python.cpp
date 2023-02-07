@@ -27,8 +27,7 @@ void wrapProductYield(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ProductYield",
+      module, "ProductYield",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapProductYield(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "nuclides",
-         [](const Component &self) { return self.nuclides(); },
+         [](const Component &self)
+         {
+            return self.nuclides();
+         },
          Component::documentation("nuclides").data()
       )
       .def_property_readonly(
          "elapsed_times",
-         [](const Component &self) { return self.elapsedTimes(); },
+         [](const Component &self)
+         {
+            return self.elapsedTimes();
+         },
          Component::documentation("elapsed_times").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

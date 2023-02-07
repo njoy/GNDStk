@@ -75,13 +75,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->symbol, \
       this->Z, \
       this->name, \
       this->atomic, \
-      this->isotopes)
+      this->isotopes \
+   )
 
    // default
    ChemicalElement() :

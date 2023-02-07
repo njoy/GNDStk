@@ -27,8 +27,7 @@ void wrapDelayedNeutronKE(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DelayedNeutronKE",
+      module, "DelayedNeutronKE",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapDelayedNeutronKE(python::module &module)
       )
       .def_property_readonly(
          "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
+         [](const Component &self)
+         {
+            return self.polynomial1d();
+         },
          Component::documentation("polynomial1d").data()
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

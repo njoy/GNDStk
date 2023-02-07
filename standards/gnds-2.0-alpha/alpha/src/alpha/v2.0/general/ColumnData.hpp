@@ -67,11 +67,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MFMT, \
       this->href, \
-      this->slices)
+      this->slices \
+   )
 
    // default
    ColumnData() :

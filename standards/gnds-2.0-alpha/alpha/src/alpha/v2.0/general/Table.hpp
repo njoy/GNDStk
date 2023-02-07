@@ -72,12 +72,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->rows, \
       this->columns, \
       this->columnHeaders, \
-      this->data)
+      this->data \
+   )
 
    // default
    Table() :

@@ -27,8 +27,7 @@ void wrapMixed(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Mixed",
+      module, "Mixed",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapMixed(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "covariance_matrix",
-         [](const Component &self) { return self.covarianceMatrix(); },
+         [](const Component &self)
+         {
+            return self.covarianceMatrix();
+         },
          Component::documentation("covariance_matrix").data()
       )
       .def_property_readonly(
          "sum",
-         [](const Component &self) { return self.sum(); },
+         [](const Component &self)
+         {
+            return self.sum();
+         },
          Component::documentation("sum").data()
       )
       .def_property_readonly(
          "short_range_self_scaling_variance",
-         [](const Component &self) { return self.shortRangeSelfScalingVariance(); },
+         [](const Component &self)
+         {
+            return self.shortRangeSelfScalingVariance();
+         },
          Component::documentation("short_range_self_scaling_variance").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapReference(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Reference",
+      module, "Reference",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapReference(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

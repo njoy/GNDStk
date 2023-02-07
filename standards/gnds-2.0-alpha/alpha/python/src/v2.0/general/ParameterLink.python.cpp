@@ -27,8 +27,7 @@ void wrapParameterLink(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ParameterLink",
+      module, "ParameterLink",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapParameterLink(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "n_parameters",
-         [](const Component &self) { return self.nParameters(); },
+         [](const Component &self)
+         {
+            return self.nParameters();
+         },
          Component::documentation("n_parameters").data()
       )
       .def_property_readonly(
          "matrix_start_index",
-         [](const Component &self) { return self.matrixStartIndex(); },
+         [](const Component &self)
+         {
+            return self.matrixStartIndex();
+         },
          Component::documentation("matrix_start_index").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

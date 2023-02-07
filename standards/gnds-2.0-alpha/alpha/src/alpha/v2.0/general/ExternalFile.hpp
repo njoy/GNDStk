@@ -65,12 +65,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->path, \
       this->checksum, \
-      this->algorithm)
+      this->algorithm \
+   )
 
    // default
    ExternalFile() :

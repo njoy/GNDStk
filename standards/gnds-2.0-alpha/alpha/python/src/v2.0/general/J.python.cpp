@@ -27,8 +27,7 @@ void wrapJ(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "J",
+      module, "J",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapJ(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "level_spacing",
-         [](const Component &self) { return self.levelSpacing(); },
+         [](const Component &self)
+         {
+            return self.levelSpacing();
+         },
          Component::documentation("level_spacing").data()
       )
       .def_property_readonly(
          "widths",
-         [](const Component &self) { return self.widths(); },
+         [](const Component &self)
+         {
+            return self.widths();
+         },
          Component::documentation("widths").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

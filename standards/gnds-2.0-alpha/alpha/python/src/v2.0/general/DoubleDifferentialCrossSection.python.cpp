@@ -27,8 +27,7 @@ void wrapDoubleDifferentialCrossSection(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DoubleDifferentialCrossSection",
+      module, "DoubleDifferentialCrossSection",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapDoubleDifferentialCrossSection(python::module &module)
       )
       .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
+         [](const Component &self)
+         {
+            return self.CoulombPlusNuclearElastic();
+         },
          Component::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "coherent_photon_scattering",
-         [](const Component &self) { return self.coherentPhotonScattering(); },
+         [](const Component &self)
+         {
+            return self.coherentPhotonScattering();
+         },
          Component::documentation("coherent_photon_scattering").data()
       )
       .def_property_readonly(
          "incoherent_photon_scattering",
-         [](const Component &self) { return self.incoherentPhotonScattering(); },
+         [](const Component &self)
+         {
+            return self.incoherentPhotonScattering();
+         },
          Component::documentation("incoherent_photon_scattering").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law_coherent_elastic",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw_coherentElastic(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw_coherentElastic();
+         },
          Component::documentation("thermal_neutron_scattering_law_coherent_elastic").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law_incoherent_elastic",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw_incoherentElastic(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw_incoherentElastic();
+         },
          Component::documentation("thermal_neutron_scattering_law_incoherent_elastic").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law_incoherent_inelastic",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw_incoherentInelastic(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw_incoherentInelastic();
+         },
          Component::documentation("thermal_neutron_scattering_law_incoherent_inelastic").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ThermalNeutronScatteringLaw_incoherentElastic",
+      module, "ThermalNeutronScatteringLaw_incoherentElastic",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "bound_atom_cross_section",
-         [](const Component &self) { return self.boundAtomCrossSection(); },
+         [](const Component &self)
+         {
+            return self.boundAtomCrossSection();
+         },
          Component::documentation("bound_atom_cross_section").data()
       )
       .def_property_readonly(
          "debye_waller_integral",
-         [](const Component &self) { return self.DebyeWallerIntegral(); },
+         [](const Component &self)
+         {
+            return self.DebyeWallerIntegral();
+         },
          Component::documentation("debye_waller_integral").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

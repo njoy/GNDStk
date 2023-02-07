@@ -27,8 +27,7 @@ void wrapResonancesWithBackground(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ResonancesWithBackground",
+      module, "ResonancesWithBackground",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapResonancesWithBackground(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "resonances",
-         [](const Component &self) { return self.resonances(); },
+         [](const Component &self)
+         {
+            return self.resonances();
+         },
          Component::documentation("resonances").data()
       )
       .def_property_readonly(
          "background",
-         [](const Component &self) { return self.background(); },
+         [](const Component &self)
+         {
+            return self.background();
+         },
          Component::documentation("background").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

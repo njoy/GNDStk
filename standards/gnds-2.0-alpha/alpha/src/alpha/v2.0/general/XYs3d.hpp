@@ -69,11 +69,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->interpolationQualifier, \
       this->axes, \
-      this->function2ds)
+      this->function2ds \
+   )
 
    // default
    XYs3d() :

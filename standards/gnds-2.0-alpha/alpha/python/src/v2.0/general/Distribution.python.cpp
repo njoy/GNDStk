@@ -27,8 +27,7 @@ void wrapDistribution(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Distribution",
+      module, "Distribution",
       Component::documentation().data()
    );
 
@@ -63,63 +62,96 @@ void wrapDistribution(python::module &module)
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw();
+         },
          Component::documentation("thermal_neutron_scattering_law").data()
       )
       .def_property_readonly(
          "uncorrelated",
-         [](const Component &self) { return self.uncorrelated(); },
+         [](const Component &self)
+         {
+            return self.uncorrelated();
+         },
          Component::documentation("uncorrelated").data()
       )
       .def_property_readonly(
          "unspecified",
-         [](const Component &self) { return self.unspecified(); },
+         [](const Component &self)
+         {
+            return self.unspecified();
+         },
          Component::documentation("unspecified").data()
       )
       .def_property_readonly(
          "branching3d",
-         [](const Component &self) { return self.branching3d(); },
+         [](const Component &self)
+         {
+            return self.branching3d();
+         },
          Component::documentation("branching3d").data()
       )
       .def_property_readonly(
          "angular_two_body",
-         [](const Component &self) { return self.angularTwoBody(); },
+         [](const Component &self)
+         {
+            return self.angularTwoBody();
+         },
          Component::documentation("angular_two_body").data()
       )
       .def_property_readonly(
          "energy_angular",
-         [](const Component &self) { return self.energyAngular(); },
+         [](const Component &self)
+         {
+            return self.energyAngular();
+         },
          Component::documentation("energy_angular").data()
       )
       .def_property_readonly(
          "kalbach_mann",
-         [](const Component &self) { return self.KalbachMann(); },
+         [](const Component &self)
+         {
+            return self.KalbachMann();
+         },
          Component::documentation("kalbach_mann").data()
       )
       .def_property_readonly(
          "angular_energy",
-         [](const Component &self) { return self.angularEnergy(); },
+         [](const Component &self)
+         {
+            return self.angularEnergy();
+         },
          Component::documentation("angular_energy").data()
       )
       .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
+         [](const Component &self)
+         {
+            return self.CoulombPlusNuclearElastic();
+         },
          Component::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "coherent_photon_scattering",
-         [](const Component &self) { return self.coherentPhotonScattering(); },
+         [](const Component &self)
+         {
+            return self.coherentPhotonScattering();
+         },
          Component::documentation("coherent_photon_scattering").data()
       )
       .def_property_readonly(
          "incoherent_photon_scattering",
-         [](const Component &self) { return self.incoherentPhotonScattering(); },
+         [](const Component &self)
+         {
+            return self.incoherentPhotonScattering();
+         },
          Component::documentation("incoherent_photon_scattering").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapExternalFile(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ExternalFile",
+      module, "ExternalFile",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapExternalFile(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "path",
-         [](const Component &self) { return self.path(); },
+         [](const Component &self)
+         {
+            return self.path();
+         },
          Component::documentation("path").data()
       )
       .def_property_readonly(
          "checksum",
-         [](const Component &self) { return self.checksum(); },
+         [](const Component &self)
+         {
+            return self.checksum();
+         },
          Component::documentation("checksum").data()
       )
       .def_property_readonly(
          "algorithm",
-         [](const Component &self) { return self.algorithm(); },
+         [](const Component &self)
+         {
+            return self.algorithm();
+         },
          Component::documentation("algorithm").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

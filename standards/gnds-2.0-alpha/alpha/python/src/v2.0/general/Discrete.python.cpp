@@ -27,8 +27,7 @@ void wrapDiscrete(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Discrete",
+      module, "Discrete",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapDiscrete(python::module &module)
       )
       .def_property_readonly(
          "type",
-         [](const Component &self) { return self.type(); },
+         [](const Component &self)
+         {
+            return self.type();
+         },
          Component::documentation("type").data()
       )
       .def_property_readonly(
          "intensity",
-         [](const Component &self) { return self.intensity(); },
+         [](const Component &self)
+         {
+            return self.intensity();
+         },
          Component::documentation("intensity").data()
       )
       .def_property_readonly(
          "energy",
-         [](const Component &self) { return self.energy(); },
+         [](const Component &self)
+         {
+            return self.energy();
+         },
          Component::documentation("energy").data()
       )
       .def_property_readonly(
          "internal_conversion_coefficients",
-         [](const Component &self) { return self.internalConversionCoefficients(); },
+         [](const Component &self)
+         {
+            return self.internalConversionCoefficients();
+         },
          Component::documentation("internal_conversion_coefficients").data()
       )
       .def_property_readonly(
          "positron_emission_intensity",
-         [](const Component &self) { return self.positronEmissionIntensity(); },
+         [](const Component &self)
+         {
+            return self.positronEmissionIntensity();
+         },
          Component::documentation("positron_emission_intensity").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

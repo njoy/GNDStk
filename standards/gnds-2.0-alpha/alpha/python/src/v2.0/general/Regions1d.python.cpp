@@ -27,8 +27,7 @@ void wrapRegions1d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Regions1d",
+      module, "Regions1d",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapRegions1d(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
+         [](const Component &self)
+         {
+            return self.outerDomainValue();
+         },
          Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "axes",
-         [](const Component &self) { return self.axes(); },
+         [](const Component &self)
+         {
+            return self.axes();
+         },
          Component::documentation("axes").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
       .def_property_readonly(
          "function1ds",
-         [](const Component &self) { return self.function1ds(); },
+         [](const Component &self)
+         {
+            return self.function1ds();
+         },
          Component::documentation("function1ds").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

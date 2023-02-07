@@ -69,11 +69,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->nuclides, \
-      this->elapsedTimes)
+      this->elapsedTimes \
+   )
 
    // default
    ProductYield() :

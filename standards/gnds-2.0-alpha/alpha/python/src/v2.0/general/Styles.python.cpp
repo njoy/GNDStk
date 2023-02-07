@@ -27,8 +27,7 @@ void wrapStyles(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Styles",
+      module, "Styles",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapStyles(python::module &module)
       )
       .def_property_readonly(
          "evaluated",
-         [](const Component &self) { return self.evaluated(); },
+         [](const Component &self)
+         {
+            return self.evaluated();
+         },
          Component::documentation("evaluated").data()
       )
       .def_property_readonly(
          "cross_section_reconstructed",
-         [](const Component &self) { return self.crossSectionReconstructed(); },
+         [](const Component &self)
+         {
+            return self.crossSectionReconstructed();
+         },
          Component::documentation("cross_section_reconstructed").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

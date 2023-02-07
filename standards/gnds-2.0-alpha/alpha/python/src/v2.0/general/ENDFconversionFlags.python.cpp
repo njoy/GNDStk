@@ -27,8 +27,7 @@ void wrapENDFconversionFlags(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ENDFconversionFlags",
+      module, "ENDFconversionFlags",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapENDFconversionFlags(python::module &module)
       )
       .def_property_readonly(
          "flags",
-         [](const Component &self) { return self.flags(); },
+         [](const Component &self)
+         {
+            return self.flags();
+         },
          Component::documentation("flags").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "conversion",
-         [](const Component &self) { return self.conversion(); },
+         [](const Component &self)
+         {
+            return self.conversion();
+         },
          Component::documentation("conversion").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

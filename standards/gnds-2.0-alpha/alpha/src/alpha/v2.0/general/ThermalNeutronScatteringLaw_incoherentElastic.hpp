@@ -75,13 +75,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
       this->boundAtomCrossSection, \
-      this->DebyeWallerIntegral)
+      this->DebyeWallerIntegral \
+   )
 
    // default
    ThermalNeutronScatteringLaw_incoherentElastic() :

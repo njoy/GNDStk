@@ -27,8 +27,7 @@ void wrapChannel(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Channel",
+      module, "Channel",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapChannel(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "resonance_reaction",
-         [](const Component &self) { return self.resonanceReaction(); },
+         [](const Component &self)
+         {
+            return self.resonanceReaction();
+         },
          Component::documentation("resonance_reaction").data()
       )
       .def_property_readonly(
          "l",
-         [](const Component &self) { return self.L(); },
+         [](const Component &self)
+         {
+            return self.L();
+         },
          Component::documentation("l").data()
       )
       .def_property_readonly(
          "channel_spin",
-         [](const Component &self) { return self.channelSpin(); },
+         [](const Component &self)
+         {
+            return self.channelSpin();
+         },
          Component::documentation("channel_spin").data()
       )
       .def_property_readonly(
          "column_index",
-         [](const Component &self) { return self.columnIndex(); },
+         [](const Component &self)
+         {
+            return self.columnIndex();
+         },
          Component::documentation("column_index").data()
       )
       .def_property_readonly(
          "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
+         [](const Component &self)
+         {
+            return self.scatteringRadius();
+         },
          Component::documentation("scattering_radius").data()
       )
       .def_property_readonly(
          "hard_sphere_radius",
-         [](const Component &self) { return self.hardSphereRadius(); },
+         [](const Component &self)
+         {
+            return self.hardSphereRadius();
+         },
          Component::documentation("hard_sphere_radius").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

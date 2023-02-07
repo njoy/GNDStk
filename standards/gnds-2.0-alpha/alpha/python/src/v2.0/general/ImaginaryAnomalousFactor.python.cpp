@@ -27,8 +27,7 @@ void wrapImaginaryAnomalousFactor(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ImaginaryAnomalousFactor",
+      module, "ImaginaryAnomalousFactor",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapImaginaryAnomalousFactor(python::module &module)
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

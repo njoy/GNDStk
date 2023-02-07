@@ -27,8 +27,7 @@ void wrapCovarianceMatrix(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "CovarianceMatrix",
+      module, "CovarianceMatrix",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapCovarianceMatrix(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "type",
-         [](const Component &self) { return self.type(); },
+         [](const Component &self)
+         {
+            return self.type();
+         },
          Component::documentation("type").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "gridded2d",
-         [](const Component &self) { return self.gridded2d(); },
+         [](const Component &self)
+         {
+            return self.gridded2d();
+         },
          Component::documentation("gridded2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

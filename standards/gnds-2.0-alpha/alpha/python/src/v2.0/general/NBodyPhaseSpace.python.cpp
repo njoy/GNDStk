@@ -27,8 +27,7 @@ void wrapNBodyPhaseSpace(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "NBodyPhaseSpace",
+      module, "NBodyPhaseSpace",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapNBodyPhaseSpace(python::module &module)
       )
       .def_property_readonly(
          "number_of_products",
-         [](const Component &self) { return self.numberOfProducts(); },
+         [](const Component &self)
+         {
+            return self.numberOfProducts();
+         },
          Component::documentation("number_of_products").data()
       )
       .def_property_readonly(
          "mass",
-         [](const Component &self) { return self.mass(); },
+         [](const Component &self)
+         {
+            return self.mass();
+         },
          Component::documentation("mass").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

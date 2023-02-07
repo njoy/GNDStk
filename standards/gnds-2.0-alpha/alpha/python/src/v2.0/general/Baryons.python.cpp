@@ -27,8 +27,7 @@ void wrapBaryons(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Baryons",
+      module, "Baryons",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapBaryons(python::module &module)
       )
       .def_property_readonly(
          "baryon",
-         [](const Component &self) { return self.baryon(); },
+         [](const Component &self)
+         {
+            return self.baryon();
+         },
          Component::documentation("baryon").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "IncoherentPhotonScattering",
+      module, "IncoherentPhotonScattering",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapIncoherentPhotonScattering(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "scattering_factor",
-         [](const Component &self) { return self.scatteringFactor(); },
+         [](const Component &self)
+         {
+            return self.scatteringFactor();
+         },
          Component::documentation("scattering_factor").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

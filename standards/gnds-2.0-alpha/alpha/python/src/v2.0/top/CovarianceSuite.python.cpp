@@ -27,8 +27,7 @@ void wrapCovarianceSuite(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "CovarianceSuite",
+      module, "CovarianceSuite",
       Component::documentation().data()
    );
 
@@ -59,53 +58,80 @@ void wrapCovarianceSuite(python::module &module)
       )
       .def_property_readonly(
          "projectile",
-         [](const Component &self) { return self.projectile(); },
+         [](const Component &self)
+         {
+            return self.projectile();
+         },
          Component::documentation("projectile").data()
       )
       .def_property_readonly(
          "target",
-         [](const Component &self) { return self.target(); },
+         [](const Component &self)
+         {
+            return self.target();
+         },
          Component::documentation("target").data()
       )
       .def_property_readonly(
          "evaluation",
-         [](const Component &self) { return self.evaluation(); },
+         [](const Component &self)
+         {
+            return self.evaluation();
+         },
          Component::documentation("evaluation").data()
       )
       .def_property_readonly(
          "interaction",
-         [](const Component &self) { return self.interaction(); },
+         [](const Component &self)
+         {
+            return self.interaction();
+         },
          Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "format",
-         [](const Component &self) { return self.format(); },
+         [](const Component &self)
+         {
+            return self.format();
+         },
          Component::documentation("format").data()
       )
       .def_property_readonly(
          "external_files",
-         [](const Component &self) { return self.externalFiles(); },
+         [](const Component &self)
+         {
+            return self.externalFiles();
+         },
          Component::documentation("external_files").data()
       )
       .def_property_readonly(
          "styles",
-         [](const Component &self) { return self.styles(); },
+         [](const Component &self)
+         {
+            return self.styles();
+         },
          Component::documentation("styles").data()
       )
       .def_property_readonly(
          "covariance_sections",
-         [](const Component &self) { return self.covarianceSections(); },
+         [](const Component &self)
+         {
+            return self.covarianceSections();
+         },
          Component::documentation("covariance_sections").data()
       )
       .def_property_readonly(
          "parameter_covariances",
-         [](const Component &self) { return self.parameterCovariances(); },
+         [](const Component &self)
+         {
+            return self.parameterCovariances();
+         },
          Component::documentation("parameter_covariances").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_top

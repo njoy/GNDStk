@@ -27,8 +27,7 @@ void wrapChemicalElement(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ChemicalElement",
+      module, "ChemicalElement",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapChemicalElement(python::module &module)
       )
       .def_property_readonly(
          "symbol",
-         [](const Component &self) { return self.symbol(); },
+         [](const Component &self)
+         {
+            return self.symbol();
+         },
          Component::documentation("symbol").data()
       )
       .def_property_readonly(
          "z",
-         [](const Component &self) { return self.Z(); },
+         [](const Component &self)
+         {
+            return self.Z();
+         },
          Component::documentation("z").data()
       )
       .def_property_readonly(
          "name",
-         [](const Component &self) { return self.name(); },
+         [](const Component &self)
+         {
+            return self.name();
+         },
          Component::documentation("name").data()
       )
       .def_property_readonly(
          "atomic",
-         [](const Component &self) { return self.atomic(); },
+         [](const Component &self)
+         {
+            return self.atomic();
+         },
          Component::documentation("atomic").data()
       )
       .def_property_readonly(
          "isotopes",
-         [](const Component &self) { return self.isotopes(); },
+         [](const Component &self)
+         {
+            return self.isotopes();
+         },
          Component::documentation("isotopes").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

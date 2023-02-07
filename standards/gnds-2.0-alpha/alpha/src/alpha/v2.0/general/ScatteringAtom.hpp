@@ -95,7 +95,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->pid, \
       this->numberPerMolecule, \
@@ -105,7 +107,8 @@ public:
       this->e_max, \
       this->boundAtomCrossSection, \
       this->selfScatteringKernel, \
-      this->T_effective)
+      this->T_effective \
+   )
 
    // default
    ScatteringAtom() :

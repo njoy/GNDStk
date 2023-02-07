@@ -27,8 +27,7 @@ void wrapOutputChannel(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "OutputChannel",
+      module, "OutputChannel",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapOutputChannel(python::module &module)
       )
       .def_property_readonly(
          "genre",
-         [](const Component &self) { return self.genre(); },
+         [](const Component &self)
+         {
+            return self.genre();
+         },
          Component::documentation("genre").data()
       )
       .def_property_readonly(
          "process",
-         [](const Component &self) { return self.process(); },
+         [](const Component &self)
+         {
+            return self.process();
+         },
          Component::documentation("process").data()
       )
       .def_property_readonly(
          "q",
-         [](const Component &self) { return self.Q(); },
+         [](const Component &self)
+         {
+            return self.Q();
+         },
          Component::documentation("q").data()
       )
       .def_property_readonly(
          "products",
-         [](const Component &self) { return self.products(); },
+         [](const Component &self)
+         {
+            return self.products();
+         },
          Component::documentation("products").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_reduced

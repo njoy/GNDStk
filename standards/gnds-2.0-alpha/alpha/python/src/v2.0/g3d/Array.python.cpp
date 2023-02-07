@@ -27,8 +27,7 @@ void wrapArray(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Array",
+      module, "Array",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapArray(python::module &module)
       )
       .def_property_readonly(
          "shape",
-         [](const Component &self) { return self.shape(); },
+         [](const Component &self)
+         {
+            return self.shape();
+         },
          Component::documentation("shape").data()
       )
       .def_property_readonly(
          "compression",
-         [](const Component &self) { return self.compression(); },
+         [](const Component &self)
+         {
+            return self.compression();
+         },
          Component::documentation("compression").data()
       )
       .def_property_readonly(
          "symmetry",
-         [](const Component &self) { return self.symmetry(); },
+         [](const Component &self)
+         {
+            return self.symmetry();
+         },
          Component::documentation("symmetry").data()
       )
       .def_property_readonly(
          "starts",
-         [](const Component &self) { return self.starts(); },
+         [](const Component &self)
+         {
+            return self.starts();
+         },
          Component::documentation("starts").data()
       )
       .def_property_readonly(
          "lengths",
-         [](const Component &self) { return self.lengths(); },
+         [](const Component &self)
+         {
+            return self.lengths();
+         },
          Component::documentation("lengths").data()
       )
       .def_property_readonly(
          "values",
-         [](const Component &self) { return self.values(); },
+         [](const Component &self)
+         {
+            return self.values();
+         },
          Component::documentation("values").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_g3d

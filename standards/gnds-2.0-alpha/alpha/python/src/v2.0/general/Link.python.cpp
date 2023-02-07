@@ -27,8 +27,7 @@ void wrapLink(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Link",
+      module, "Link",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapLink(python::module &module)
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

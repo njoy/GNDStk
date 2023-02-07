@@ -83,7 +83,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->index, \
@@ -91,7 +93,8 @@ public:
       this->outerDomainValue, \
       this->axes, \
       this->values, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    XYs1d() :

@@ -27,8 +27,7 @@ void wrapIsotope(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Isotope",
+      module, "Isotope",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapIsotope(python::module &module)
       )
       .def_property_readonly(
          "symbol",
-         [](const Component &self) { return self.symbol(); },
+         [](const Component &self)
+         {
+            return self.symbol();
+         },
          Component::documentation("symbol").data()
       )
       .def_property_readonly(
          "a",
-         [](const Component &self) { return self.A(); },
+         [](const Component &self)
+         {
+            return self.A();
+         },
          Component::documentation("a").data()
       )
       .def_property_readonly(
          "nuclides",
-         [](const Component &self) { return self.nuclides(); },
+         [](const Component &self)
+         {
+            return self.nuclides();
+         },
          Component::documentation("nuclides").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

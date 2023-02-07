@@ -27,8 +27,7 @@ void wrapReactions(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Reactions",
+      module, "Reactions",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapReactions(python::module &module)
       )
       .def_property_readonly(
          "reaction",
-         [](const Component &self) { return self.reaction(); },
+         [](const Component &self)
+         {
+            return self.reaction();
+         },
          Component::documentation("reaction").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapConfigurations(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Configurations",
+      module, "Configurations",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapConfigurations(python::module &module)
       )
       .def_property_readonly(
          "configuration",
-         [](const Component &self) { return self.configuration(); },
+         [](const Component &self)
+         {
+            return self.configuration();
+         },
          Component::documentation("configuration").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

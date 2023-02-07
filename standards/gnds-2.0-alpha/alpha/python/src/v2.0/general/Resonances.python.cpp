@@ -27,8 +27,7 @@ void wrapResonances(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Resonances",
+      module, "Resonances",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapResonances(python::module &module)
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
+         [](const Component &self)
+         {
+            return self.scatteringRadius();
+         },
          Component::documentation("scattering_radius").data()
       )
       .def_property_readonly(
          "resolved",
-         [](const Component &self) { return self.resolved(); },
+         [](const Component &self)
+         {
+            return self.resolved();
+         },
          Component::documentation("resolved").data()
       )
       .def_property_readonly(
          "unresolved",
-         [](const Component &self) { return self.unresolved(); },
+         [](const Component &self)
+         {
+            return self.unresolved();
+         },
          Component::documentation("unresolved").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapResonanceReaction(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ResonanceReaction",
+      module, "ResonanceReaction",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapResonanceReaction(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "ejectile",
-         [](const Component &self) { return self.ejectile(); },
+         [](const Component &self)
+         {
+            return self.ejectile();
+         },
          Component::documentation("ejectile").data()
       )
       .def_property_readonly(
          "eliminated",
-         [](const Component &self) { return self.eliminated(); },
+         [](const Component &self)
+         {
+            return self.eliminated();
+         },
          Component::documentation("eliminated").data()
       )
       .def_property_readonly(
          "link",
-         [](const Component &self) { return self.link(); },
+         [](const Component &self)
+         {
+            return self.link();
+         },
          Component::documentation("link").data()
       )
       .def_property_readonly(
          "hard_sphere_radius",
-         [](const Component &self) { return self.hardSphereRadius(); },
+         [](const Component &self)
+         {
+            return self.hardSphereRadius();
+         },
          Component::documentation("hard_sphere_radius").data()
       )
       .def_property_readonly(
          "q",
-         [](const Component &self) { return self.Q(); },
+         [](const Component &self)
+         {
+            return self.Q();
+         },
          Component::documentation("q").data()
       )
       .def_property_readonly(
          "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
+         [](const Component &self)
+         {
+            return self.scatteringRadius();
+         },
          Component::documentation("scattering_radius").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

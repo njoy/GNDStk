@@ -27,8 +27,7 @@ void wrapIncidentEnergy(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "IncidentEnergy",
+      module, "IncidentEnergy",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapIncidentEnergy(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "energy",
-         [](const Component &self) { return self.energy(); },
+         [](const Component &self)
+         {
+            return self.energy();
+         },
          Component::documentation("energy").data()
       )
       .def_property_readonly(
          "yields",
-         [](const Component &self) { return self.yields(); },
+         [](const Component &self)
+         {
+            return self.yields();
+         },
          Component::documentation("yields").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

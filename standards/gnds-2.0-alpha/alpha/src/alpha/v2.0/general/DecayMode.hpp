@@ -87,7 +87,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->mode, \
@@ -95,7 +97,8 @@ public:
       this->decayPath, \
       this->photonEmissionProbabilities, \
       this->Q, \
-      this->spectra)
+      this->spectra \
+   )
 
    // default
    DecayMode() :

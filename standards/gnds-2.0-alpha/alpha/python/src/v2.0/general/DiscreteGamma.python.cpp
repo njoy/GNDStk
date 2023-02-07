@@ -27,8 +27,7 @@ void wrapDiscreteGamma(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DiscreteGamma",
+      module, "DiscreteGamma",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapDiscreteGamma(python::module &module)
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "domain_min",
-         [](const Component &self) { return self.domainMin(); },
+         [](const Component &self)
+         {
+            return self.domainMin();
+         },
          Component::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
-         [](const Component &self) { return self.domainMax(); },
+         [](const Component &self)
+         {
+            return self.domainMax();
+         },
          Component::documentation("domain_max").data()
       )
       .def_property_readonly(
          "axes",
-         [](const Component &self) { return self.axes(); },
+         [](const Component &self)
+         {
+            return self.axes();
+         },
          Component::documentation("axes").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

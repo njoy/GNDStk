@@ -27,8 +27,7 @@ void wrapDecay(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Decay",
+      module, "Decay",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapDecay(python::module &module)
       )
       .def_property_readonly(
          "index",
-         [](const Component &self) { return self.index(); },
+         [](const Component &self)
+         {
+            return self.index();
+         },
          Component::documentation("index").data()
       )
       .def_property_readonly(
          "mode",
-         [](const Component &self) { return self.mode(); },
+         [](const Component &self)
+         {
+            return self.mode();
+         },
          Component::documentation("mode").data()
       )
       .def_property_readonly(
          "complete",
-         [](const Component &self) { return self.complete(); },
+         [](const Component &self)
+         {
+            return self.complete();
+         },
          Component::documentation("complete").data()
       )
       .def_property_readonly(
          "products",
-         [](const Component &self) { return self.products(); },
+         [](const Component &self)
+         {
+            return self.products();
+         },
          Component::documentation("products").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

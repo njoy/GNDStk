@@ -72,12 +72,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->genre, \
       this->process, \
       this->Q, \
-      this->products)
+      this->products \
+   )
 
    // default
    OutputChannel() :

@@ -64,10 +64,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->value, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    PositronEmissionIntensity() :

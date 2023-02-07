@@ -27,8 +27,7 @@ void wrapInstitution(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Institution",
+      module, "Institution",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapInstitution(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "endfconversion_flags",
-         [](const Component &self) { return self.ENDFconversionFlags(); },
+         [](const Component &self)
+         {
+            return self.ENDFconversionFlags();
+         },
          Component::documentation("endfconversion_flags").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

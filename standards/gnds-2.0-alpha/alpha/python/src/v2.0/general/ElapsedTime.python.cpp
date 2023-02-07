@@ -27,8 +27,7 @@ void wrapElapsedTime(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ElapsedTime",
+      module, "ElapsedTime",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapElapsedTime(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "time",
-         [](const Component &self) { return self.time(); },
+         [](const Component &self)
+         {
+            return self.time();
+         },
          Component::documentation("time").data()
       )
       .def_property_readonly(
          "yields",
-         [](const Component &self) { return self.yields(); },
+         [](const Component &self)
+         {
+            return self.yields();
+         },
          Component::documentation("yields").data()
       )
       .def_property_readonly(
          "incident_energies",
-         [](const Component &self) { return self.incidentEnergies(); },
+         [](const Component &self)
+         {
+            return self.incidentEnergies();
+         },
          Component::documentation("incident_energies").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

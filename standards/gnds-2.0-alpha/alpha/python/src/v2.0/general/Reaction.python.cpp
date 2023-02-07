@@ -27,8 +27,7 @@ void wrapReaction(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Reaction",
+      module, "Reaction",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapReaction(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
+         [](const Component &self)
+         {
+            return self.ENDF_MT();
+         },
          Component::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "fission_genre",
-         [](const Component &self) { return self.fissionGenre(); },
+         [](const Component &self)
+         {
+            return self.fissionGenre();
+         },
          Component::documentation("fission_genre").data()
       )
       .def_property_readonly(
          "cross_section",
-         [](const Component &self) { return self.crossSection(); },
+         [](const Component &self)
+         {
+            return self.crossSection();
+         },
          Component::documentation("cross_section").data()
       )
       .def_property_readonly(
          "output_channel",
-         [](const Component &self) { return self.outputChannel(); },
+         [](const Component &self)
+         {
+            return self.outputChannel();
+         },
          Component::documentation("output_channel").data()
       )
       .def_property_readonly(
          "double_differential_cross_section",
-         [](const Component &self) { return self.doubleDifferentialCrossSection(); },
+         [](const Component &self)
+         {
+            return self.doubleDifferentialCrossSection();
+         },
          Component::documentation("double_differential_cross_section").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

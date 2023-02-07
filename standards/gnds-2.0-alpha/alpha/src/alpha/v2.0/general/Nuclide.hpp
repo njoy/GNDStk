@@ -84,14 +84,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->mass, \
       this->charge, \
       this->nucleus, \
       this->decayData, \
-      this->fissionFragmentData)
+      this->fissionFragmentData \
+   )
 
    // default
    Nuclide() :

@@ -27,8 +27,7 @@ void wrapAngular(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Angular",
+      module, "Angular",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapAngular(python::module &module)
       )
       .def_property_readonly(
          "isotropic2d",
-         [](const Component &self) { return self.isotropic2d(); },
+         [](const Component &self)
+         {
+            return self.isotropic2d();
+         },
          Component::documentation("isotropic2d").data()
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapWidth(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Width",
+      module, "Width",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapWidth(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "resonance_reaction",
-         [](const Component &self) { return self.resonanceReaction(); },
+         [](const Component &self)
+         {
+            return self.resonanceReaction();
+         },
          Component::documentation("resonance_reaction").data()
       )
       .def_property_readonly(
          "degrees_of_freedom",
-         [](const Component &self) { return self.degreesOfFreedom(); },
+         [](const Component &self)
+         {
+            return self.degreesOfFreedom();
+         },
          Component::documentation("degrees_of_freedom").data()
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
       .def_property_readonly(
          "constant1d",
-         [](const Component &self) { return self.constant1d(); },
+         [](const Component &self)
+         {
+            return self.constant1d();
+         },
          Component::documentation("constant1d").data()
       )
       .def_property_readonly(
          "regions1d",
-         [](const Component &self) { return self.regions1d(); },
+         [](const Component &self)
+         {
+            return self.regions1d();
+         },
          Component::documentation("regions1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

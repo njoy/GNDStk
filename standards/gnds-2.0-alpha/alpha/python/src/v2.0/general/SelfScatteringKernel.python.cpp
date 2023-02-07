@@ -27,8 +27,7 @@ void wrapSelfScatteringKernel(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "SelfScatteringKernel",
+      module, "SelfScatteringKernel",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapSelfScatteringKernel(python::module &module)
       )
       .def_property_readonly(
          "symmetric",
-         [](const Component &self) { return self.symmetric(); },
+         [](const Component &self)
+         {
+            return self.symmetric();
+         },
          Component::documentation("symmetric").data()
       )
       .def_property_readonly(
          "gridded3d",
-         [](const Component &self) { return self.gridded3d(); },
+         [](const Component &self)
+         {
+            return self.gridded3d();
+         },
          Component::documentation("gridded3d").data()
       )
       .def_property_readonly(
          "sctapproximation",
-         [](const Component &self) { return self.SCTApproximation(); },
+         [](const Component &self)
+         {
+            return self.SCTApproximation();
+         },
          Component::documentation("sctapproximation").data()
       )
       .def_property_readonly(
          "free_gas_approximation",
-         [](const Component &self) { return self.freeGasApproximation(); },
+         [](const Component &self)
+         {
+            return self.freeGasApproximation();
+         },
          Component::documentation("free_gas_approximation").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

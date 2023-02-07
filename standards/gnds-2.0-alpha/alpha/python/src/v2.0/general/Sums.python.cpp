@@ -27,8 +27,7 @@ void wrapSums(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Sums",
+      module, "Sums",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapSums(python::module &module)
       )
       .def_property_readonly(
          "cross_section_sums",
-         [](const Component &self) { return self.crossSectionSums(); },
+         [](const Component &self)
+         {
+            return self.crossSectionSums();
+         },
          Component::documentation("cross_section_sums").data()
       )
       .def_property_readonly(
          "multiplicity_sums",
-         [](const Component &self) { return self.multiplicitySums(); },
+         [](const Component &self)
+         {
+            return self.multiplicitySums();
+         },
          Component::documentation("multiplicity_sums").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

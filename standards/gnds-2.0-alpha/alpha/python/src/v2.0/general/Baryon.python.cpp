@@ -27,8 +27,7 @@ void wrapBaryon(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Baryon",
+      module, "Baryon",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapBaryon(python::module &module)
       )
       .def_property_readonly(
          "id",
-         [](const Component &self) { return self.id(); },
+         [](const Component &self)
+         {
+            return self.id();
+         },
          Component::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
-         [](const Component &self) { return self.mass(); },
+         [](const Component &self)
+         {
+            return self.mass();
+         },
          Component::documentation("mass").data()
       )
       .def_property_readonly(
          "spin",
-         [](const Component &self) { return self.spin(); },
+         [](const Component &self)
+         {
+            return self.spin();
+         },
          Component::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
-         [](const Component &self) { return self.parity(); },
+         [](const Component &self)
+         {
+            return self.parity();
+         },
          Component::documentation("parity").data()
       )
       .def_property_readonly(
          "charge",
-         [](const Component &self) { return self.charge(); },
+         [](const Component &self)
+         {
+            return self.charge();
+         },
          Component::documentation("charge").data()
       )
       .def_property_readonly(
          "halflife",
-         [](const Component &self) { return self.halflife(); },
+         [](const Component &self)
+         {
+            return self.halflife();
+         },
          Component::documentation("halflife").data()
       )
       .def_property_readonly(
          "decay_data",
-         [](const Component &self) { return self.decayData(); },
+         [](const Component &self)
+         {
+            return self.decayData();
+         },
          Component::documentation("decay_data").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

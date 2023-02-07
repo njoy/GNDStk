@@ -77,13 +77,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->crossTerm, \
       this->covarianceMatrix, \
       this->rowData, \
-      this->columnData)
+      this->columnData \
+   )
 
    // default
    AverageParameterCovariance() :

@@ -86,7 +86,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->href, \
@@ -95,7 +97,8 @@ public:
       this->identicalParticles, \
       this->RutherfordScattering, \
       this->nuclearAmplitudeExpansion, \
-      this->nuclearPlusInterference)
+      this->nuclearPlusInterference \
+   )
 
    // default
    CoulombPlusNuclearElastic() :

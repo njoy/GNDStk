@@ -54,9 +54,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      static_cast<DataNode &>(*this))
+      static_cast<DataNode &>(*this) \
+   )
 
    // default
    Values() :

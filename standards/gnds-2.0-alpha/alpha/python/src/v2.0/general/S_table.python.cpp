@@ -27,8 +27,7 @@ void wrapS_table(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "S_table",
+      module, "S_table",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapS_table(python::module &module)
       )
       .def_property_readonly(
          "gridded2d",
-         [](const Component &self) { return self.gridded2d(); },
+         [](const Component &self)
+         {
+            return self.gridded2d();
+         },
          Component::documentation("gridded2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

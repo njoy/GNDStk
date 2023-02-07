@@ -73,13 +73,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->value, \
       this->domainMin, \
       this->domainMax, \
-      this->axes)
+      this->axes \
+   )
 
    // default
    Constant1d() :

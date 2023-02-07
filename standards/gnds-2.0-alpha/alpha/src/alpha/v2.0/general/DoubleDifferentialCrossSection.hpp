@@ -82,14 +82,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->CoulombPlusNuclearElastic, \
       this->coherentPhotonScattering, \
       this->incoherentPhotonScattering, \
       this->thermalNeutronScatteringLaw_coherentElastic, \
       this->thermalNeutronScatteringLaw_incoherentElastic, \
-      this->thermalNeutronScatteringLaw_incoherentInelastic)
+      this->thermalNeutronScatteringLaw_incoherentInelastic \
+   )
 
    // default
    DoubleDifferentialCrossSection() :

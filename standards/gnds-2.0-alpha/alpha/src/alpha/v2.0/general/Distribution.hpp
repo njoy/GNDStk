@@ -107,7 +107,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->thermalNeutronScatteringLaw, \
       this->uncorrelated, \
@@ -119,7 +121,8 @@ public:
       this->angularEnergy, \
       this->CoulombPlusNuclearElastic, \
       this->coherentPhotonScattering, \
-      this->incoherentPhotonScattering)
+      this->incoherentPhotonScattering \
+   )
 
    // default
    Distribution() :

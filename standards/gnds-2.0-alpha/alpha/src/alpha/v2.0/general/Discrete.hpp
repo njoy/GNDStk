@@ -79,13 +79,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->type, \
       this->intensity, \
       this->energy, \
       this->internalConversionCoefficients, \
-      this->positronEmissionIntensity)
+      this->positronEmissionIntensity \
+   )
 
    // default
    Discrete() :

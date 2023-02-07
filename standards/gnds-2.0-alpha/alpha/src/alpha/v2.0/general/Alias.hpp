@@ -59,10 +59,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
-      this->pid)
+      this->pid \
+   )
 
    // default
    Alias() :

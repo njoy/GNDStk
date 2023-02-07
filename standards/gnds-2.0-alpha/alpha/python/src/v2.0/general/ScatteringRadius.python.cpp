@@ -27,8 +27,7 @@ void wrapScatteringRadius(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ScatteringRadius",
+      module, "ScatteringRadius",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapScatteringRadius(python::module &module)
       )
       .def_property_readonly(
          "constant1d",
-         [](const Component &self) { return self.constant1d(); },
+         [](const Component &self)
+         {
+            return self.constant1d();
+         },
          Component::documentation("constant1d").data()
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

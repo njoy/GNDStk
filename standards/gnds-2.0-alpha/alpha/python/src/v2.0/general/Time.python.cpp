@@ -27,8 +27,7 @@ void wrapTime(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Time",
+      module, "Time",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapTime(python::module &module)
       )
       .def_property_readonly(
          "double",
-         [](const Component &self) { return self.Double(); },
+         [](const Component &self)
+         {
+            return self.Double();
+         },
          Component::documentation("double").data()
       )
       .def_property_readonly(
          "string",
-         [](const Component &self) { return self.string(); },
+         [](const Component &self)
+         {
+            return self.string();
+         },
          Component::documentation("string").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

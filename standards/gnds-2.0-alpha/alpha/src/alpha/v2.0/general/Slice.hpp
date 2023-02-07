@@ -68,13 +68,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->dimension, \
       this->domainValue, \
       this->domainMin, \
       this->domainMax, \
-      this->domainUnit)
+      this->domainUnit \
+   )
 
    // default
    Slice() :

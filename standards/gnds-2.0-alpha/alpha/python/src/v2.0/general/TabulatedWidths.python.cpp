@@ -27,8 +27,7 @@ void wrapTabulatedWidths(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "TabulatedWidths",
+      module, "TabulatedWidths",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapTabulatedWidths(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
-         [](const Component &self) { return self.approximation(); },
+         [](const Component &self)
+         {
+            return self.approximation();
+         },
          Component::documentation("approximation").data()
       )
       .def_property_readonly(
          "use_for_self_shielding_only",
-         [](const Component &self) { return self.useForSelfShieldingOnly(); },
+         [](const Component &self)
+         {
+            return self.useForSelfShieldingOnly();
+         },
          Component::documentation("use_for_self_shielding_only").data()
       )
       .def_property_readonly(
          "resonance_reactions",
-         [](const Component &self) { return self.resonanceReactions(); },
+         [](const Component &self)
+         {
+            return self.resonanceReactions();
+         },
          Component::documentation("resonance_reactions").data()
       )
       .def_property_readonly(
          "ls",
-         [](const Component &self) { return self.Ls(); },
+         [](const Component &self)
+         {
+            return self.Ls();
+         },
          Component::documentation("ls").data()
       )
       .def_property_readonly(
          "po_ps",
-         [](const Component &self) { return self.PoPs(); },
+         [](const Component &self)
+         {
+            return self.PoPs();
+         },
          Component::documentation("po_ps").data()
       )
       .def_property_readonly(
          "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
+         [](const Component &self)
+         {
+            return self.scatteringRadius();
+         },
          Component::documentation("scattering_radius").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

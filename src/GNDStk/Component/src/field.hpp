@@ -889,14 +889,14 @@ struct wrapper {
    { }
 
    // wrapper(optional::value_type)
-   // If T == std::optional or GNDStk::Optional
+   // If T == std::optional or T == GNDStk::Optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const typename TEE::value_type &v) :
       value(v)
    { }
 
    // wrapper(nullopt_t)
-   // If T == std::optional or GNDStk::Optional
+   // If T == std::optional or T == GNDStk::Optional
    template<class TEE = T, class = std::enable_if_t<detail::isOptional<TEE>>>
    wrapper(const std::nullopt_t &v) :
       value(v)

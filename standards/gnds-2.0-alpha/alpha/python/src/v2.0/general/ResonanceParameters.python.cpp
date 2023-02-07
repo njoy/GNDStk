@@ -27,8 +27,7 @@ void wrapResonanceParameters(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ResonanceParameters",
+      module, "ResonanceParameters",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapResonanceParameters(python::module &module)
       )
       .def_property_readonly(
          "table",
-         [](const Component &self) { return self.table(); },
+         [](const Component &self)
+         {
+            return self.table();
+         },
          Component::documentation("table").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

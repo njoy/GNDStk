@@ -27,8 +27,7 @@ void wrapAtomic(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Atomic",
+      module, "Atomic",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapAtomic(python::module &module)
       )
       .def_property_readonly(
          "configurations",
-         [](const Component &self) { return self.configurations(); },
+         [](const Component &self)
+         {
+            return self.configurations();
+         },
          Component::documentation("configurations").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

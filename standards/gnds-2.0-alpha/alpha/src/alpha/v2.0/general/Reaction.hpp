@@ -80,14 +80,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->ENDF_MT, \
       this->fissionGenre, \
       this->crossSection, \
       this->outputChannel, \
-      this->doubleDifferentialCrossSection)
+      this->doubleDifferentialCrossSection \
+   )
 
    // default
    Reaction() :

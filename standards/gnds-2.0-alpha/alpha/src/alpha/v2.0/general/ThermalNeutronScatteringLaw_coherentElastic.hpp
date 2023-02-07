@@ -70,12 +70,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
-      this->S_table)
+      this->S_table \
+   )
 
    // default
    ThermalNeutronScatteringLaw_coherentElastic() :

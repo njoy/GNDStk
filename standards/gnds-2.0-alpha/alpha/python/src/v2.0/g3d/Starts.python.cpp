@@ -27,8 +27,7 @@ void wrapStarts(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Starts",
+      module, "Starts",
       Component::documentation().data()
    );
 
@@ -52,23 +51,32 @@ void wrapStarts(python::module &module)
       )
       .def_property_readonly(
          "value_type",
-         [](const Component &self) { return self.valueType(); },
+         [](const Component &self)
+         {
+            return self.valueType();
+         },
          Component::documentation("value_type").data()
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "ints",
-         [] (const Component &self) { return self.ints(); },
+         [](const Component &self) -> const std::vector<int> &
+         {
+            return self;
+         },
          Component::documentation("ints").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_g3d

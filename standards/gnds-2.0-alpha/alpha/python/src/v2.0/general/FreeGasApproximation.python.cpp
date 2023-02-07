@@ -27,8 +27,7 @@ void wrapFreeGasApproximation(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "FreeGasApproximation",
+      module, "FreeGasApproximation",
       Component::documentation().data()
    );
 
@@ -42,7 +41,7 @@ void wrapFreeGasApproximation(python::module &module)
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

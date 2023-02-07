@@ -27,8 +27,7 @@ void wrapFissionEnergyRelease(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "FissionEnergyRelease",
+      module, "FissionEnergyRelease",
       Component::documentation().data()
    );
 
@@ -61,58 +60,88 @@ void wrapFissionEnergyRelease(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "prompt_product_ke",
-         [](const Component &self) { return self.promptProductKE(); },
+         [](const Component &self)
+         {
+            return self.promptProductKE();
+         },
          Component::documentation("prompt_product_ke").data()
       )
       .def_property_readonly(
          "prompt_neutron_ke",
-         [](const Component &self) { return self.promptNeutronKE(); },
+         [](const Component &self)
+         {
+            return self.promptNeutronKE();
+         },
          Component::documentation("prompt_neutron_ke").data()
       )
       .def_property_readonly(
          "delayed_neutron_ke",
-         [](const Component &self) { return self.delayedNeutronKE(); },
+         [](const Component &self)
+         {
+            return self.delayedNeutronKE();
+         },
          Component::documentation("delayed_neutron_ke").data()
       )
       .def_property_readonly(
          "prompt_gamma_energy",
-         [](const Component &self) { return self.promptGammaEnergy(); },
+         [](const Component &self)
+         {
+            return self.promptGammaEnergy();
+         },
          Component::documentation("prompt_gamma_energy").data()
       )
       .def_property_readonly(
          "delayed_gamma_energy",
-         [](const Component &self) { return self.delayedGammaEnergy(); },
+         [](const Component &self)
+         {
+            return self.delayedGammaEnergy();
+         },
          Component::documentation("delayed_gamma_energy").data()
       )
       .def_property_readonly(
          "delayed_beta_energy",
-         [](const Component &self) { return self.delayedBetaEnergy(); },
+         [](const Component &self)
+         {
+            return self.delayedBetaEnergy();
+         },
          Component::documentation("delayed_beta_energy").data()
       )
       .def_property_readonly(
          "neutrino_energy",
-         [](const Component &self) { return self.neutrinoEnergy(); },
+         [](const Component &self)
+         {
+            return self.neutrinoEnergy();
+         },
          Component::documentation("neutrino_energy").data()
       )
       .def_property_readonly(
          "non_neutrino_energy",
-         [](const Component &self) { return self.nonNeutrinoEnergy(); },
+         [](const Component &self)
+         {
+            return self.nonNeutrinoEnergy();
+         },
          Component::documentation("non_neutrino_energy").data()
       )
       .def_property_readonly(
          "total_energy",
-         [](const Component &self) { return self.totalEnergy(); },
+         [](const Component &self)
+         {
+            return self.totalEnergy();
+         },
          Component::documentation("total_energy").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

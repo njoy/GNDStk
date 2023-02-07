@@ -27,8 +27,7 @@ void wrapConfiguration(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Configuration",
+      module, "Configuration",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapConfiguration(python::module &module)
       )
       .def_property_readonly(
          "subshell",
-         [](const Component &self) { return self.subshell(); },
+         [](const Component &self)
+         {
+            return self.subshell();
+         },
          Component::documentation("subshell").data()
       )
       .def_property_readonly(
          "electron_number",
-         [](const Component &self) { return self.electronNumber(); },
+         [](const Component &self)
+         {
+            return self.electronNumber();
+         },
          Component::documentation("electron_number").data()
       )
       .def_property_readonly(
          "binding_energy",
-         [](const Component &self) { return self.bindingEnergy(); },
+         [](const Component &self)
+         {
+            return self.bindingEnergy();
+         },
          Component::documentation("binding_energy").data()
       )
       .def_property_readonly(
          "decay_data",
-         [](const Component &self) { return self.decayData(); },
+         [](const Component &self)
+         {
+            return self.decayData();
+         },
          Component::documentation("decay_data").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

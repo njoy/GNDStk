@@ -64,10 +64,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->ENDFconversionFlags)
+      this->ENDFconversionFlags \
+   )
 
    // default
    Institution() :

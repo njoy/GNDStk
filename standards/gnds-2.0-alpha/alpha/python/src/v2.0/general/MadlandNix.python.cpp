@@ -27,8 +27,7 @@ void wrapMadlandNix(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "MadlandNix",
+      module, "MadlandNix",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapMadlandNix(python::module &module)
       )
       .def_property_readonly(
          "efl",
-         [](const Component &self) { return self.EFL(); },
+         [](const Component &self)
+         {
+            return self.EFL();
+         },
          Component::documentation("efl").data()
       )
       .def_property_readonly(
          "efh",
-         [](const Component &self) { return self.EFH(); },
+         [](const Component &self)
+         {
+            return self.EFH();
+         },
          Component::documentation("efh").data()
       )
       .def_property_readonly(
          "t_m",
-         [](const Component &self) { return self.T_M(); },
+         [](const Component &self)
+         {
+            return self.T_M();
+         },
          Component::documentation("t_m").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

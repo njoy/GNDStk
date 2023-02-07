@@ -711,9 +711,13 @@ struct DataNode : public T
 {
    using T::operator=;
    bool cdata = preferCDATA;
+
+   // constructors
    explicit DataNode(const T &from = T{}) : T(from) { }
    DataNode(const DataNode &from) = default;
    DataNode(DataNode &&from) = default;
+
+   // assignment
    DataNode &operator=(const DataNode &from) = default;
    DataNode &operator=(DataNode &&from) = default;
 };

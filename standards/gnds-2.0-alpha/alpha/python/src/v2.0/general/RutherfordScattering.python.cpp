@@ -27,8 +27,7 @@ void wrapRutherfordScattering(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "RutherfordScattering",
+      module, "RutherfordScattering",
       Component::documentation().data()
    );
 
@@ -42,7 +41,7 @@ void wrapRutherfordScattering(python::module &module)
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

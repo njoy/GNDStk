@@ -73,13 +73,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
-      this->summand)
+      this->summand \
+   )
 
    // default
    Sum() :

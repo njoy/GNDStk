@@ -57,9 +57,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->multiplicitySum)
+      this->multiplicitySum \
+   )
 
    // default
    MultiplicitySums() :

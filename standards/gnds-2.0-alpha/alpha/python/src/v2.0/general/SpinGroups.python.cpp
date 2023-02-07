@@ -27,8 +27,7 @@ void wrapSpinGroups(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "SpinGroups",
+      module, "SpinGroups",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapSpinGroups(python::module &module)
       )
       .def_property_readonly(
          "spin_group",
-         [](const Component &self) { return self.spinGroup(); },
+         [](const Component &self)
+         {
+            return self.spinGroup();
+         },
          Component::documentation("spin_group").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

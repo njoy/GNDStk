@@ -27,8 +27,7 @@ void wrapXYs1d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "XYs1d",
+      module, "XYs1d",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapXYs1d(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "index",
-         [](const Component &self) { return self.index(); },
+         [](const Component &self)
+         {
+            return self.index();
+         },
          Component::documentation("index").data()
       )
       .def_property_readonly(
          "interpolation",
-         [](const Component &self) { return self.interpolation(); },
+         [](const Component &self)
+         {
+            return self.interpolation();
+         },
          Component::documentation("interpolation").data()
       )
       .def_property_readonly(
          "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
+         [](const Component &self)
+         {
+            return self.outerDomainValue();
+         },
          Component::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "axes",
-         [](const Component &self) { return self.axes(); },
+         [](const Component &self)
+         {
+            return self.axes();
+         },
          Component::documentation("axes").data()
       )
       .def_property_readonly(
          "values",
-         [](const Component &self) { return self.values(); },
+         [](const Component &self)
+         {
+            return self.values();
+         },
          Component::documentation("values").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

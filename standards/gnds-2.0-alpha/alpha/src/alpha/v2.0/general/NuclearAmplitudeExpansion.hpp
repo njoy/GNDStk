@@ -67,11 +67,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->nuclearTerm, \
       this->realInterferenceTerm, \
-      this->imaginaryInterferenceTerm)
+      this->imaginaryInterferenceTerm \
+   )
 
    // default
    NuclearAmplitudeExpansion() :

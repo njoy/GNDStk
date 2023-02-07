@@ -27,8 +27,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ThermalNeutronScatteringLaw_incoherentInelastic",
+      module, "ThermalNeutronScatteringLaw_incoherentInelastic",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "primary_scatterer",
-         [](const Component &self) { return self.primaryScatterer(); },
+         [](const Component &self)
+         {
+            return self.primaryScatterer();
+         },
          Component::documentation("primary_scatterer").data()
       )
       .def_property_readonly(
          "calculated_at_thermal",
-         [](const Component &self) { return self.calculatedAtThermal(); },
+         [](const Component &self)
+         {
+            return self.calculatedAtThermal();
+         },
          Component::documentation("calculated_at_thermal").data()
       )
       .def_property_readonly(
          "scattering_atoms",
-         [](const Component &self) { return self.scatteringAtoms(); },
+         [](const Component &self)
+         {
+            return self.scatteringAtoms();
+         },
          Component::documentation("scattering_atoms").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

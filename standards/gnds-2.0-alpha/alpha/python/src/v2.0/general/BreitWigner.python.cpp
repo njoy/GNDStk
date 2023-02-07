@@ -27,8 +27,7 @@ void wrapBreitWigner(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "BreitWigner",
+      module, "BreitWigner",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapBreitWigner(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
-         [](const Component &self) { return self.approximation(); },
+         [](const Component &self)
+         {
+            return self.approximation();
+         },
          Component::documentation("approximation").data()
       )
       .def_property_readonly(
          "calculate_channel_radius",
-         [](const Component &self) { return self.calculateChannelRadius(); },
+         [](const Component &self)
+         {
+            return self.calculateChannelRadius();
+         },
          Component::documentation("calculate_channel_radius").data()
       )
       .def_property_readonly(
          "resonance_parameters",
-         [](const Component &self) { return self.resonanceParameters(); },
+         [](const Component &self)
+         {
+            return self.resonanceParameters();
+         },
          Component::documentation("resonance_parameters").data()
       )
       .def_property_readonly(
          "po_ps",
-         [](const Component &self) { return self.PoPs(); },
+         [](const Component &self)
+         {
+            return self.PoPs();
+         },
          Component::documentation("po_ps").data()
       )
       .def_property_readonly(
          "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
+         [](const Component &self)
+         {
+            return self.scatteringRadius();
+         },
          Component::documentation("scattering_radius").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -49,8 +49,11 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
-      this->comment)
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
+      this->comment \
+   )
 
    // default
    SCTApproximation() :

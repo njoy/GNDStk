@@ -27,8 +27,7 @@ void wrapTable(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Table",
+      module, "Table",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapTable(python::module &module)
       )
       .def_property_readonly(
          "rows",
-         [](const Component &self) { return self.rows(); },
+         [](const Component &self)
+         {
+            return self.rows();
+         },
          Component::documentation("rows").data()
       )
       .def_property_readonly(
          "columns",
-         [](const Component &self) { return self.columns(); },
+         [](const Component &self)
+         {
+            return self.columns();
+         },
          Component::documentation("columns").data()
       )
       .def_property_readonly(
          "column_headers",
-         [](const Component &self) { return self.columnHeaders(); },
+         [](const Component &self)
+         {
+            return self.columnHeaders();
+         },
          Component::documentation("column_headers").data()
       )
       .def_property_readonly(
          "data",
-         [](const Component &self) { return self.data(); },
+         [](const Component &self)
+         {
+            return self.data();
+         },
          Component::documentation("data").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

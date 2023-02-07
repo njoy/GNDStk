@@ -27,8 +27,7 @@ void wrapEvaluated(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Evaluated",
+      module, "Evaluated",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapEvaluated(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "date",
-         [](const Component &self) { return self.date(); },
+         [](const Component &self)
+         {
+            return self.date();
+         },
          Component::documentation("date").data()
       )
       .def_property_readonly(
          "library",
-         [](const Component &self) { return self.library(); },
+         [](const Component &self)
+         {
+            return self.library();
+         },
          Component::documentation("library").data()
       )
       .def_property_readonly(
          "version",
-         [](const Component &self) { return self.version(); },
+         [](const Component &self)
+         {
+            return self.version();
+         },
          Component::documentation("version").data()
       )
       .def_property_readonly(
          "documentation",
-         [](const Component &self) { return self.documentation(); },
+         [](const Component &self)
+         {
+            return self.documentation();
+         },
          Component::documentation("documentation").data()
       )
       .def_property_readonly(
          "temperature",
-         [](const Component &self) { return self.temperature(); },
+         [](const Component &self)
+         {
+            return self.temperature();
+         },
          Component::documentation("temperature").data()
       )
       .def_property_readonly(
          "projectile_energy_domain",
-         [](const Component &self) { return self.projectileEnergyDomain(); },
+         [](const Component &self)
+         {
+            return self.projectileEnergyDomain();
+         },
          Component::documentation("projectile_energy_domain").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -62,11 +62,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MFMT, \
       this->coefficient, \
-      this->href)
+      this->href \
+   )
 
    // default
    Summand() :

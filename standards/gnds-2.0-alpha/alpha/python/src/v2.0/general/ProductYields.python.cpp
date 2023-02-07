@@ -27,8 +27,7 @@ void wrapProductYields(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ProductYields",
+      module, "ProductYields",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapProductYields(python::module &module)
       )
       .def_property_readonly(
          "product_yield",
-         [](const Component &self) { return self.productYield(); },
+         [](const Component &self)
+         {
+            return self.productYield();
+         },
          Component::documentation("product_yield").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

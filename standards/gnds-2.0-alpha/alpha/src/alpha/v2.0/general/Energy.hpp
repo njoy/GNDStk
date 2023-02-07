@@ -117,7 +117,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->value, \
       this->unit, \
@@ -131,7 +133,8 @@ public:
       this->evaporation, \
       this->weightedFunctionals, \
       this->simpleMaxwellianFission, \
-      this->MadlandNix)
+      this->MadlandNix \
+   )
 
    // default
    Energy() :

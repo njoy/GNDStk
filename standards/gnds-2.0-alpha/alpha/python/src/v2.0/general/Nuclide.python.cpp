@@ -27,8 +27,7 @@ void wrapNuclide(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Nuclide",
+      module, "Nuclide",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapNuclide(python::module &module)
       )
       .def_property_readonly(
          "id",
-         [](const Component &self) { return self.id(); },
+         [](const Component &self)
+         {
+            return self.id();
+         },
          Component::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
-         [](const Component &self) { return self.mass(); },
+         [](const Component &self)
+         {
+            return self.mass();
+         },
          Component::documentation("mass").data()
       )
       .def_property_readonly(
          "charge",
-         [](const Component &self) { return self.charge(); },
+         [](const Component &self)
+         {
+            return self.charge();
+         },
          Component::documentation("charge").data()
       )
       .def_property_readonly(
          "nucleus",
-         [](const Component &self) { return self.nucleus(); },
+         [](const Component &self)
+         {
+            return self.nucleus();
+         },
          Component::documentation("nucleus").data()
       )
       .def_property_readonly(
          "decay_data",
-         [](const Component &self) { return self.decayData(); },
+         [](const Component &self)
+         {
+            return self.decayData();
+         },
          Component::documentation("decay_data").data()
       )
       .def_property_readonly(
          "fission_fragment_data",
-         [](const Component &self) { return self.fissionFragmentData(); },
+         [](const Component &self)
+         {
+            return self.fissionFragmentData();
+         },
          Component::documentation("fission_fragment_data").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

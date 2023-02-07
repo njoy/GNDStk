@@ -27,8 +27,7 @@ void wrapSpectrum(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Spectrum",
+      module, "Spectrum",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapSpectrum(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "discrete",
-         [](const Component &self) { return self.discrete(); },
+         [](const Component &self)
+         {
+            return self.discrete();
+         },
          Component::documentation("discrete").data()
       )
       .def_property_readonly(
          "continuum",
-         [](const Component &self) { return self.continuum(); },
+         [](const Component &self)
+         {
+            return self.continuum();
+         },
          Component::documentation("continuum").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -80,14 +80,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->resonanceReaction, \
       this->degreesOfFreedom, \
       this->XYs1d, \
       this->constant1d, \
-      this->regions1d)
+      this->regions1d \
+   )
 
    // default
    Width() :

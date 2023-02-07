@@ -27,8 +27,7 @@ void wrapWidths(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Widths",
+      module, "Widths",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapWidths(python::module &module)
       )
       .def_property_readonly(
          "width",
-         [](const Component &self) { return self.width(); },
+         [](const Component &self)
+         {
+            return self.width();
+         },
          Component::documentation("width").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

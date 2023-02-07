@@ -27,8 +27,7 @@ void wrapRegions2d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Regions2d",
+      module, "Regions2d",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapRegions2d(python::module &module)
       )
       .def_property_readonly(
          "axes",
-         [](const Component &self) { return self.axes(); },
+         [](const Component &self)
+         {
+            return self.axes();
+         },
          Component::documentation("axes").data()
       )
       .def_property_readonly(
          "function2ds",
-         [](const Component &self) { return self.function2ds(); },
+         [](const Component &self)
+         {
+            return self.function2ds();
+         },
          Component::documentation("function2ds").data()
       )
       .def_property_readonly(
          "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
+         [](const Component &self)
+         {
+            return self.uncertainty();
+         },
          Component::documentation("uncertainty").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

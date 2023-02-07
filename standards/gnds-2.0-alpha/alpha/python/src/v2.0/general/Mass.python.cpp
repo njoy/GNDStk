@@ -27,8 +27,7 @@ void wrapMass(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Mass",
+      module, "Mass",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapMass(python::module &module)
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit(); },
+         [](const Component &self)
+         {
+            return self.unit();
+         },
          Component::documentation("unit").data()
       )
       .def_property_readonly(
          "double",
-         [](const Component &self) { return self.Double(); },
+         [](const Component &self)
+         {
+            return self.Double();
+         },
          Component::documentation("double").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

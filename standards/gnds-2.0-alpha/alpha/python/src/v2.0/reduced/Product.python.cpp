@@ -27,8 +27,7 @@ void wrapProduct(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Product",
+      module, "Product",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapProduct(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "multiplicity",
-         [](const Component &self) { return self.multiplicity(); },
+         [](const Component &self)
+         {
+            return self.multiplicity();
+         },
          Component::documentation("multiplicity").data()
       )
       .def_property_readonly(
          "distribution",
-         [](const Component &self) { return self.distribution(); },
+         [](const Component &self)
+         {
+            return self.distribution();
+         },
          Component::documentation("distribution").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_reduced

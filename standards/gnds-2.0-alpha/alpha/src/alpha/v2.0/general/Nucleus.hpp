@@ -97,7 +97,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->index, \
@@ -107,7 +109,8 @@ public:
       this->charge, \
       this->halflife, \
       this->energy, \
-      this->decayData)
+      this->decayData \
+   )
 
    // default
    Nucleus() :

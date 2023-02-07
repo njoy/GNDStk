@@ -27,8 +27,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ShortRangeSelfScalingVariance",
+      module, "ShortRangeSelfScalingVariance",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "type",
-         [](const Component &self) { return self.type(); },
+         [](const Component &self)
+         {
+            return self.type();
+         },
          Component::documentation("type").data()
       )
       .def_property_readonly(
          "dependence_on_processed_group_width",
-         [](const Component &self) { return self.dependenceOnProcessedGroupWidth(); },
+         [](const Component &self)
+         {
+            return self.dependenceOnProcessedGroupWidth();
+         },
          Component::documentation("dependence_on_processed_group_width").data()
       )
       .def_property_readonly(
          "gridded2d",
-         [](const Component &self) { return self.gridded2d(); },
+         [](const Component &self)
+         {
+            return self.gridded2d();
+         },
          Component::documentation("gridded2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

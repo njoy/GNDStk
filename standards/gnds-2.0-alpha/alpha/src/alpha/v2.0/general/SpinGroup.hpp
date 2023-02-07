@@ -75,13 +75,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->spin, \
       this->parity, \
       this->channels, \
-      this->resonanceParameters)
+      this->resonanceParameters \
+   )
 
    // default
    SpinGroup() :

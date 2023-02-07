@@ -27,8 +27,7 @@ void wrapNeutrinoEnergy(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "NeutrinoEnergy",
+      module, "NeutrinoEnergy",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapNeutrinoEnergy(python::module &module)
       )
       .def_property_readonly(
          "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
+         [](const Component &self)
+         {
+            return self.polynomial1d();
+         },
          Component::documentation("polynomial1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

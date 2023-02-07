@@ -91,7 +91,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->projectile, \
       this->target, \
@@ -101,7 +103,8 @@ public:
       this->externalFiles, \
       this->styles, \
       this->covarianceSections, \
-      this->parameterCovariances)
+      this->parameterCovariances \
+   )
 
    // default
    CovarianceSuite() :

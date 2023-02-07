@@ -27,8 +27,7 @@ void wrapBackground(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Background",
+      module, "Background",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapBackground(python::module &module)
       )
       .def_property_readonly(
          "resolved_region",
-         [](const Component &self) { return self.resolvedRegion(); },
+         [](const Component &self)
+         {
+            return self.resolvedRegion();
+         },
          Component::documentation("resolved_region").data()
       )
       .def_property_readonly(
          "fast_region",
-         [](const Component &self) { return self.fastRegion(); },
+         [](const Component &self)
+         {
+            return self.fastRegion();
+         },
          Component::documentation("fast_region").data()
       )
       .def_property_readonly(
          "unresolved_region",
-         [](const Component &self) { return self.unresolvedRegion(); },
+         [](const Component &self)
+         {
+            return self.unresolvedRegion();
+         },
          Component::documentation("unresolved_region").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

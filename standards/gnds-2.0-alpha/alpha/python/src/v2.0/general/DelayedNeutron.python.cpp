@@ -27,8 +27,7 @@ void wrapDelayedNeutron(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DelayedNeutron",
+      module, "DelayedNeutron",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapDelayedNeutron(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "rate",
-         [](const Component &self) { return self.rate(); },
+         [](const Component &self)
+         {
+            return self.rate();
+         },
          Component::documentation("rate").data()
       )
       .def_property_readonly(
          "product",
-         [](const Component &self) { return self.product(); },
+         [](const Component &self)
+         {
+            return self.product();
+         },
          Component::documentation("product").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

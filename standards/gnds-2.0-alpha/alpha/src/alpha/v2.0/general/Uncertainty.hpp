@@ -72,12 +72,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->covariance, \
       this->standard, \
       this->listOfCovariances, \
-      this->polynomial1d)
+      this->polynomial1d \
+   )
 
    // default
    Uncertainty() :

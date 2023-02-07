@@ -27,8 +27,7 @@ void wrapParameterCovariances(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ParameterCovariances",
+      module, "ParameterCovariances",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapParameterCovariances(python::module &module)
       )
       .def_property_readonly(
          "parameter_covariance",
-         [](const Component &self) { return self.parameterCovariance(); },
+         [](const Component &self)
+         {
+            return self.parameterCovariance();
+         },
          Component::documentation("parameter_covariance").data()
       )
       .def_property_readonly(
          "average_parameter_covariance",
-         [](const Component &self) { return self.averageParameterCovariance(); },
+         [](const Component &self)
+         {
+            return self.averageParameterCovariance();
+         },
          Component::documentation("average_parameter_covariance").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapSummand(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Summand",
+      module, "Summand",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapSummand(python::module &module)
       )
       .def_property_readonly(
          "endf_mfmt",
-         [](const Component &self) { return self.ENDF_MFMT(); },
+         [](const Component &self)
+         {
+            return self.ENDF_MFMT();
+         },
          Component::documentation("endf_mfmt").data()
       )
       .def_property_readonly(
          "coefficient",
-         [](const Component &self) { return self.coefficient(); },
+         [](const Component &self)
+         {
+            return self.coefficient();
+         },
          Component::documentation("coefficient").data()
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

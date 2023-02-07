@@ -82,14 +82,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
       this->XYs2d, \
       this->regions2d, \
       this->recoil, \
-      this->isotropic2d)
+      this->isotropic2d \
+   )
 
    // default
    AngularTwoBody() :

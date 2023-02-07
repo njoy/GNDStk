@@ -27,8 +27,7 @@ void wrapRMatrix(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "RMatrix",
+      module, "RMatrix",
       Component::documentation().data()
    );
 
@@ -57,48 +56,72 @@ void wrapRMatrix(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
-         [](const Component &self) { return self.approximation(); },
+         [](const Component &self)
+         {
+            return self.approximation();
+         },
          Component::documentation("approximation").data()
       )
       .def_property_readonly(
          "boundary_condition",
-         [](const Component &self) { return self.boundaryCondition(); },
+         [](const Component &self)
+         {
+            return self.boundaryCondition();
+         },
          Component::documentation("boundary_condition").data()
       )
       .def_property_readonly(
          "calculate_channel_radius",
-         [](const Component &self) { return self.calculateChannelRadius(); },
+         [](const Component &self)
+         {
+            return self.calculateChannelRadius();
+         },
          Component::documentation("calculate_channel_radius").data()
       )
       .def_property_readonly(
          "supports_angular_reconstruction",
-         [](const Component &self) { return self.supportsAngularReconstruction(); },
+         [](const Component &self)
+         {
+            return self.supportsAngularReconstruction();
+         },
          Component::documentation("supports_angular_reconstruction").data()
       )
       .def_property_readonly(
          "po_ps",
-         [](const Component &self) { return self.PoPs(); },
+         [](const Component &self)
+         {
+            return self.PoPs();
+         },
          Component::documentation("po_ps").data()
       )
       .def_property_readonly(
          "resonance_reactions",
-         [](const Component &self) { return self.resonanceReactions(); },
+         [](const Component &self)
+         {
+            return self.resonanceReactions();
+         },
          Component::documentation("resonance_reactions").data()
       )
       .def_property_readonly(
          "spin_groups",
-         [](const Component &self) { return self.spinGroups(); },
+         [](const Component &self)
+         {
+            return self.spinGroups();
+         },
          Component::documentation("spin_groups").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

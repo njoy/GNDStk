@@ -27,8 +27,7 @@ void wrapLs(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Ls",
+      module, "Ls",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapLs(python::module &module)
       )
       .def_property_readonly(
          "l",
-         [](const Component &self) { return self.L(); },
+         [](const Component &self)
+         {
+            return self.L();
+         },
          Component::documentation("l").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

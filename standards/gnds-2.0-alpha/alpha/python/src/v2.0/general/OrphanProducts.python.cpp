@@ -27,8 +27,7 @@ void wrapOrphanProducts(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "OrphanProducts",
+      module, "OrphanProducts",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapOrphanProducts(python::module &module)
       )
       .def_property_readonly(
          "orphan_product",
-         [](const Component &self) { return self.orphanProduct(); },
+         [](const Component &self)
+         {
+            return self.orphanProduct();
+         },
          Component::documentation("orphan_product").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

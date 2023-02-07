@@ -378,6 +378,7 @@ void add(
 // Child<*> with Allow::many, and an optional container
 // -----------------------------------------------------------------------------
 
+// std::optional
 // SFINAE as in (non-optional) container case
 template<
    class TYPE, class CONVERTER, class FILTER,
@@ -403,6 +404,7 @@ void add(
       add(TYPE{}/kwd, opt.value());
 }
 
+// GNDStk::Optional
 template<
    class TYPE, class CONVERTER, class FILTER,
 

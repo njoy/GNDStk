@@ -532,26 +532,26 @@ operator[](const std::size_t n)
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>, const std::vector<TYPE> & \
+      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      const std::vector<TYPE> & \
    > name() const { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>, std::vector<TYPE> & \
+      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      std::vector<TYPE> & \
    > name() { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>, const TYPE & \
+      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      const TYPE & \
    > name(const std::size_t n) const { return get<TYPE>(n); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || \
-      std::is_same_v<TYPE,D>, TYPE & \
+      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      TYPE & \
    > name(const std::size_t n) { return get<TYPE>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string)

@@ -27,8 +27,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ThermalNeutronScatteringLaw_coherentElastic",
+      module, "ThermalNeutronScatteringLaw_coherentElastic",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "s_table",
-         [](const Component &self) { return self.S_table(); },
+         [](const Component &self)
+         {
+            return self.S_table();
+         },
          Component::documentation("s_table").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

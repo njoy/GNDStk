@@ -27,8 +27,7 @@ void wrapColumn(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Column",
+      module, "Column",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapColumn(python::module &module)
       )
       .def_property_readonly(
          "index",
-         [](const Component &self) { return self.index(); },
+         [](const Component &self)
+         {
+            return self.index();
+         },
          Component::documentation("index").data()
       )
       .def_property_readonly(
          "name",
-         [](const Component &self) { return self.name(); },
+         [](const Component &self)
+         {
+            return self.name();
+         },
          Component::documentation("name").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit(); },
+         [](const Component &self)
+         {
+            return self.unit();
+         },
          Component::documentation("unit").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

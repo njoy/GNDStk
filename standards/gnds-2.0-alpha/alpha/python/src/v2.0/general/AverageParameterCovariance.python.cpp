@@ -27,8 +27,7 @@ void wrapAverageParameterCovariance(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "AverageParameterCovariance",
+      module, "AverageParameterCovariance",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapAverageParameterCovariance(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "cross_term",
-         [](const Component &self) { return self.crossTerm(); },
+         [](const Component &self)
+         {
+            return self.crossTerm();
+         },
          Component::documentation("cross_term").data()
       )
       .def_property_readonly(
          "covariance_matrix",
-         [](const Component &self) { return self.covarianceMatrix(); },
+         [](const Component &self)
+         {
+            return self.covarianceMatrix();
+         },
          Component::documentation("covariance_matrix").data()
       )
       .def_property_readonly(
          "row_data",
-         [](const Component &self) { return self.rowData(); },
+         [](const Component &self)
+         {
+            return self.rowData();
+         },
          Component::documentation("row_data").data()
       )
       .def_property_readonly(
          "column_data",
-         [](const Component &self) { return self.columnData(); },
+         [](const Component &self)
+         {
+            return self.columnData();
+         },
          Component::documentation("column_data").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

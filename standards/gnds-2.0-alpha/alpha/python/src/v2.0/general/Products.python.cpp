@@ -27,8 +27,7 @@ void wrapProducts(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Products",
+      module, "Products",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapProducts(python::module &module)
       )
       .def_property_readonly(
          "product",
-         [](const Component &self) { return self.product(); },
+         [](const Component &self)
+         {
+            return self.product();
+         },
          Component::documentation("product").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

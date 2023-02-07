@@ -27,8 +27,7 @@ void wrapAngularTwoBody(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "AngularTwoBody",
+      module, "AngularTwoBody",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapAngularTwoBody(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
       .def_property_readonly(
          "regions2d",
-         [](const Component &self) { return self.regions2d(); },
+         [](const Component &self)
+         {
+            return self.regions2d();
+         },
          Component::documentation("regions2d").data()
       )
       .def_property_readonly(
          "recoil",
-         [](const Component &self) { return self.recoil(); },
+         [](const Component &self)
+         {
+            return self.recoil();
+         },
          Component::documentation("recoil").data()
       )
       .def_property_readonly(
          "isotropic2d",
-         [](const Component &self) { return self.isotropic2d(); },
+         [](const Component &self)
+         {
+            return self.isotropic2d();
+         },
          Component::documentation("isotropic2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

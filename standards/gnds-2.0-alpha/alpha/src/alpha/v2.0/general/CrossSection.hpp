@@ -82,14 +82,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->XYs1d, \
       this->regions1d, \
       this->reference, \
       this->resonancesWithBackground, \
       this->CoulombPlusNuclearElastic, \
-      this->thermalNeutronScatteringLaw1d)
+      this->thermalNeutronScatteringLaw1d \
+   )
 
    // default
    CrossSection() :

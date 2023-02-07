@@ -27,8 +27,7 @@ void wrapAxes(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Axes",
+      module, "Axes",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapAxes(python::module &module)
       )
       .def_property_readonly(
          "axis",
-         [](const Component &self) { return self.axis(); },
+         [](const Component &self)
+         {
+            return self.axis();
+         },
          Component::documentation("axis").data()
       )
       .def_property_readonly(
          "grid",
-         [](const Component &self) { return self.grid(); },
+         [](const Component &self)
+         {
+            return self.grid();
+         },
          Component::documentation("grid").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapBranching1d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Branching1d",
+      module, "Branching1d",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapBranching1d(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

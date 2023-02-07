@@ -61,10 +61,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
-      static_cast<DataNode &>(*this))
+      static_cast<DataNode &>(*this) \
+   )
 
    // default
    Nuclides() :

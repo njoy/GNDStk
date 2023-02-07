@@ -27,8 +27,7 @@ void wrapXYs3d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "XYs3d",
+      module, "XYs3d",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapXYs3d(python::module &module)
       )
       .def_property_readonly(
          "interpolation_qualifier",
-         [](const Component &self) { return self.interpolationQualifier(); },
+         [](const Component &self)
+         {
+            return self.interpolationQualifier();
+         },
          Component::documentation("interpolation_qualifier").data()
       )
       .def_property_readonly(
          "axes",
-         [](const Component &self) { return self.axes(); },
+         [](const Component &self)
+         {
+            return self.axes();
+         },
          Component::documentation("axes").data()
       )
       .def_property_readonly(
          "function2ds",
-         [](const Component &self) { return self.function2ds(); },
+         [](const Component &self)
+         {
+            return self.function2ds();
+         },
          Component::documentation("function2ds").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

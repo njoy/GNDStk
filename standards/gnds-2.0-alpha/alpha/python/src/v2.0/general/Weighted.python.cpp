@@ -27,8 +27,7 @@ void wrapWeighted(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Weighted",
+      module, "Weighted",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapWeighted(python::module &module)
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
       .def_property_readonly(
          "evaporation",
-         [](const Component &self) { return self.evaporation(); },
+         [](const Component &self)
+         {
+            return self.evaporation();
+         },
          Component::documentation("evaporation").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

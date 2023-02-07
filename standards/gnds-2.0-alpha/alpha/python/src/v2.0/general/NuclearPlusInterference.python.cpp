@@ -27,8 +27,7 @@ void wrapNuclearPlusInterference(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "NuclearPlusInterference",
+      module, "NuclearPlusInterference",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapNuclearPlusInterference(python::module &module)
       )
       .def_property_readonly(
          "mu_cutoff",
-         [](const Component &self) { return self.muCutoff(); },
+         [](const Component &self)
+         {
+            return self.muCutoff();
+         },
          Component::documentation("mu_cutoff").data()
       )
       .def_property_readonly(
          "cross_section",
-         [](const Component &self) { return self.crossSection(); },
+         [](const Component &self)
+         {
+            return self.crossSection();
+         },
          Component::documentation("cross_section").data()
       )
       .def_property_readonly(
          "distribution",
-         [](const Component &self) { return self.distribution(); },
+         [](const Component &self)
+         {
+            return self.distribution();
+         },
          Component::documentation("distribution").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapResonanceReactions(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ResonanceReactions",
+      module, "ResonanceReactions",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapResonanceReactions(python::module &module)
       )
       .def_property_readonly(
          "resonance_reaction",
-         [](const Component &self) { return self.resonanceReaction(); },
+         [](const Component &self)
+         {
+            return self.resonanceReaction();
+         },
          Component::documentation("resonance_reaction").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapNuclides(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Nuclides",
+      module, "Nuclides",
       Component::documentation().data()
    );
 
@@ -50,18 +49,24 @@ void wrapNuclides(python::module &module)
       )
       .def_property_readonly(
          "href",
-         [](const Component &self) { return self.href(); },
+         [](const Component &self)
+         {
+            return self.href();
+         },
          Component::documentation("href").data()
       )
       .def_property_readonly(
          "strings",
-         [] (const Component &self) { return self.strings(); },
+         [](const Component &self) -> const std::vector<std::string> &
+         {
+            return self;
+         },
          Component::documentation("strings").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_reduced

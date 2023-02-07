@@ -27,8 +27,7 @@ void wrapSlices(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Slices",
+      module, "Slices",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapSlices(python::module &module)
       )
       .def_property_readonly(
          "slice",
-         [](const Component &self) { return self.slice(); },
+         [](const Component &self)
+         {
+            return self.slice();
+         },
          Component::documentation("slice").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

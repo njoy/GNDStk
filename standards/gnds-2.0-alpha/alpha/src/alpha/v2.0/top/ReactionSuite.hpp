@@ -129,7 +129,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->projectile, \
       this->target, \
@@ -147,7 +149,8 @@ public:
       this->productions, \
       this->fissionComponents, \
       this->orphanProducts, \
-      this->incompleteReactions)
+      this->incompleteReactions \
+   )
 
    // default
    ReactionSuite() :

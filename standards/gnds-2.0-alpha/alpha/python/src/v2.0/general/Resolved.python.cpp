@@ -27,8 +27,7 @@ void wrapResolved(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Resolved",
+      module, "Resolved",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapResolved(python::module &module)
       )
       .def_property_readonly(
          "domain_min",
-         [](const Component &self) { return self.domainMin(); },
+         [](const Component &self)
+         {
+            return self.domainMin();
+         },
          Component::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
-         [](const Component &self) { return self.domainMax(); },
+         [](const Component &self)
+         {
+            return self.domainMax();
+         },
          Component::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
+         [](const Component &self)
+         {
+            return self.domainUnit();
+         },
          Component::documentation("domain_unit").data()
       )
       .def_property_readonly(
          "breit_wigner",
-         [](const Component &self) { return self.BreitWigner(); },
+         [](const Component &self)
+         {
+            return self.BreitWigner();
+         },
          Component::documentation("breit_wigner").data()
       )
       .def_property_readonly(
          "rmatrix",
-         [](const Component &self) { return self.RMatrix(); },
+         [](const Component &self)
+         {
+            return self.RMatrix();
+         },
          Component::documentation("rmatrix").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

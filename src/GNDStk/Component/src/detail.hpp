@@ -704,6 +704,8 @@ struct queryResult {
 };
 
 // for Meta<Defaulted>
+// Needed, because Node{}(std::declval<KEY>()) in the above "general" case
+// doesn't instantiate for Defaulted, which has no default constructor.
 template<class TYPE, class CONVERTER>
 struct queryResult<Meta<Defaulted<TYPE>,CONVERTER>> {
    using type = Defaulted<TYPE>;

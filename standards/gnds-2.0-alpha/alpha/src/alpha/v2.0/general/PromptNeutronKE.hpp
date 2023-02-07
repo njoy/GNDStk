@@ -62,10 +62,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->polynomial1d, \
-      this->XYs1d)
+      this->XYs1d \
+   )
 
    // default
    PromptNeutronKE() :

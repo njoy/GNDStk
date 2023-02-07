@@ -27,8 +27,7 @@ void wrapFissionComponents(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "FissionComponents",
+      module, "FissionComponents",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapFissionComponents(python::module &module)
       )
       .def_property_readonly(
          "fission_component",
-         [](const Component &self) { return self.fissionComponent(); },
+         [](const Component &self)
+         {
+            return self.fissionComponent();
+         },
          Component::documentation("fission_component").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

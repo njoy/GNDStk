@@ -27,8 +27,7 @@ void wrapLepton(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Lepton",
+      module, "Lepton",
       Component::documentation().data()
    );
 
@@ -55,43 +54,64 @@ void wrapLepton(python::module &module)
       )
       .def_property_readonly(
          "id",
-         [](const Component &self) { return self.id(); },
+         [](const Component &self)
+         {
+            return self.id();
+         },
          Component::documentation("id").data()
       )
       .def_property_readonly(
          "generation",
-         [](const Component &self) { return self.generation(); },
+         [](const Component &self)
+         {
+            return self.generation();
+         },
          Component::documentation("generation").data()
       )
       .def_property_readonly(
          "mass",
-         [](const Component &self) { return self.mass(); },
+         [](const Component &self)
+         {
+            return self.mass();
+         },
          Component::documentation("mass").data()
       )
       .def_property_readonly(
          "spin",
-         [](const Component &self) { return self.spin(); },
+         [](const Component &self)
+         {
+            return self.spin();
+         },
          Component::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
-         [](const Component &self) { return self.parity(); },
+         [](const Component &self)
+         {
+            return self.parity();
+         },
          Component::documentation("parity").data()
       )
       .def_property_readonly(
          "charge",
-         [](const Component &self) { return self.charge(); },
+         [](const Component &self)
+         {
+            return self.charge();
+         },
          Component::documentation("charge").data()
       )
       .def_property_readonly(
          "halflife",
-         [](const Component &self) { return self.halflife(); },
+         [](const Component &self)
+         {
+            return self.halflife();
+         },
          Component::documentation("halflife").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

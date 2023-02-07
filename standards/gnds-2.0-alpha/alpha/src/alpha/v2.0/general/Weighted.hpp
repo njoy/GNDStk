@@ -62,10 +62,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->XYs1d, \
-      this->evaporation)
+      this->evaporation \
+   )
 
    // default
    Weighted() :

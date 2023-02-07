@@ -89,7 +89,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->mass, \
@@ -97,7 +99,8 @@ public:
       this->parity, \
       this->charge, \
       this->halflife, \
-      this->decayData)
+      this->decayData \
+   )
 
    // default
    Baryon() :

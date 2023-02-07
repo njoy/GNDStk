@@ -27,8 +27,7 @@ void wrapQ(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Q",
+      module, "Q",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapQ(python::module &module)
       )
       .def_property_readonly(
          "double",
-         [](const Component &self) { return self.Double(); },
+         [](const Component &self)
+         {
+            return self.Double();
+         },
          Component::documentation("double").data()
       )
       .def_property_readonly(
          "constant1d",
-         [](const Component &self) { return self.constant1d(); },
+         [](const Component &self)
+         {
+            return self.constant1d();
+         },
          Component::documentation("constant1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

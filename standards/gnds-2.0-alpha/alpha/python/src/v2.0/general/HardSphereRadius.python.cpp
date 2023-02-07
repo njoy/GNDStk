@@ -27,8 +27,7 @@ void wrapHardSphereRadius(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "HardSphereRadius",
+      module, "HardSphereRadius",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapHardSphereRadius(python::module &module)
       )
       .def_property_readonly(
          "constant1d",
-         [](const Component &self) { return self.constant1d(); },
+         [](const Component &self)
+         {
+            return self.constant1d();
+         },
          Component::documentation("constant1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

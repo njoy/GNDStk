@@ -80,14 +80,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->domainMin, \
       this->domainMax, \
       this->axes, \
       this->values, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    Polynomial1d() :

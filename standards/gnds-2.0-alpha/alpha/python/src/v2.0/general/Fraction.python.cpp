@@ -27,8 +27,7 @@ void wrapFraction(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Fraction",
+      module, "Fraction",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapFraction(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
-         [](const Component &self) { return self.unit(); },
+         [](const Component &self)
+         {
+            return self.unit();
+         },
          Component::documentation("unit").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

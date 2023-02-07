@@ -104,7 +104,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->promptProductKE, \
@@ -115,7 +117,8 @@ public:
       this->delayedBetaEnergy, \
       this->neutrinoEnergy, \
       this->nonNeutrinoEnergy, \
-      this->totalEnergy)
+      this->totalEnergy \
+   )
 
    // default
    FissionEnergyRelease() :

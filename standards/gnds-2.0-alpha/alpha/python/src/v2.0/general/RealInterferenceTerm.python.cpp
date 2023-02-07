@@ -27,8 +27,7 @@ void wrapRealInterferenceTerm(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "RealInterferenceTerm",
+      module, "RealInterferenceTerm",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapRealInterferenceTerm(python::module &module)
       )
       .def_property_readonly(
          "regions2d",
-         [](const Component &self) { return self.regions2d(); },
+         [](const Component &self)
+         {
+            return self.regions2d();
+         },
          Component::documentation("regions2d").data()
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

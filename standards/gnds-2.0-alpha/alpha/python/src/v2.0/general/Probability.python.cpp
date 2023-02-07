@@ -27,8 +27,7 @@ void wrapProbability(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Probability",
+      module, "Probability",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapProbability(python::module &module)
       )
       .def_property_readonly(
          "double",
-         [](const Component &self) { return self.Double(); },
+         [](const Component &self)
+         {
+            return self.Double();
+         },
          Component::documentation("double").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

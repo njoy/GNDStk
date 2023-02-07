@@ -70,12 +70,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->type, \
       this->dependenceOnProcessedGroupWidth, \
-      this->gridded2d)
+      this->gridded2d \
+   )
 
    // default
    ShortRangeSelfScalingVariance() :

@@ -83,7 +83,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->date, \
@@ -91,7 +93,8 @@ public:
       this->version, \
       this->documentation, \
       this->temperature, \
-      this->projectileEnergyDomain)
+      this->projectileEnergyDomain \
+   )
 
    // default
    Evaluated() :

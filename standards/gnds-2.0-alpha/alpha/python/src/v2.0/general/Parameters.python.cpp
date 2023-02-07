@@ -27,8 +27,7 @@ void wrapParameters(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Parameters",
+      module, "Parameters",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapParameters(python::module &module)
       )
       .def_property_readonly(
          "parameter_link",
-         [](const Component &self) { return self.parameterLink(); },
+         [](const Component &self)
+         {
+            return self.parameterLink();
+         },
          Component::documentation("parameter_link").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

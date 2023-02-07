@@ -87,7 +87,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->generation, \
@@ -95,7 +97,8 @@ public:
       this->spin, \
       this->parity, \
       this->charge, \
-      this->halflife)
+      this->halflife \
+   )
 
    // default
    Lepton() :

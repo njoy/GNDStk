@@ -77,13 +77,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
       this->uncertainty, \
-      this->function1ds)
+      this->function1ds \
+   )
 
    // default
    Regions1d() :

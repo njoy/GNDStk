@@ -27,8 +27,7 @@ void wrapUncorrelated(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Uncorrelated",
+      module, "Uncorrelated",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapUncorrelated(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
-         [](const Component &self) { return self.productFrame(); },
+         [](const Component &self)
+         {
+            return self.productFrame();
+         },
          Component::documentation("product_frame").data()
       )
       .def_property_readonly(
          "angular",
-         [](const Component &self) { return self.angular(); },
+         [](const Component &self)
+         {
+            return self.angular();
+         },
          Component::documentation("angular").data()
       )
       .def_property_readonly(
          "energy",
-         [](const Component &self) { return self.energy(); },
+         [](const Component &self)
+         {
+            return self.energy();
+         },
          Component::documentation("energy").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

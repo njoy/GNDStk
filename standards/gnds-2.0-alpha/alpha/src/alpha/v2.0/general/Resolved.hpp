@@ -75,13 +75,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
       this->BreitWigner, \
-      this->RMatrix)
+      this->RMatrix \
+   )
 
    // default
    Resolved() :

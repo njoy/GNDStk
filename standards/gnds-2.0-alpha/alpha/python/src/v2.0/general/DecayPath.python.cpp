@@ -27,8 +27,7 @@ void wrapDecayPath(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "DecayPath",
+      module, "DecayPath",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapDecayPath(python::module &module)
       )
       .def_property_readonly(
          "decay",
-         [](const Component &self) { return self.decay(); },
+         [](const Component &self)
+         {
+            return self.decay();
+         },
          Component::documentation("decay").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

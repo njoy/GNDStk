@@ -27,8 +27,7 @@ void wrapSpinGroup(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "SpinGroup",
+      module, "SpinGroup",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapSpinGroup(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "spin",
-         [](const Component &self) { return self.spin(); },
+         [](const Component &self)
+         {
+            return self.spin();
+         },
          Component::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
-         [](const Component &self) { return self.parity(); },
+         [](const Component &self)
+         {
+            return self.parity();
+         },
          Component::documentation("parity").data()
       )
       .def_property_readonly(
          "channels",
-         [](const Component &self) { return self.channels(); },
+         [](const Component &self)
+         {
+            return self.channels();
+         },
          Component::documentation("channels").data()
       )
       .def_property_readonly(
          "resonance_parameters",
-         [](const Component &self) { return self.resonanceParameters(); },
+         [](const Component &self)
+         {
+            return self.resonanceParameters();
+         },
          Component::documentation("resonance_parameters").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

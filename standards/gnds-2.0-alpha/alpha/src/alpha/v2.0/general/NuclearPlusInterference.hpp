@@ -69,11 +69,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->muCutoff, \
       this->crossSection, \
-      this->distribution)
+      this->distribution \
+   )
 
    // default
    NuclearPlusInterference() :

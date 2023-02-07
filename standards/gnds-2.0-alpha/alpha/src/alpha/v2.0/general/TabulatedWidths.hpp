@@ -85,7 +85,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->approximation, \
@@ -93,7 +95,8 @@ public:
       this->resonanceReactions, \
       this->Ls, \
       this->PoPs, \
-      this->scatteringRadius)
+      this->scatteringRadius \
+   )
 
    // default
    TabulatedWidths() :

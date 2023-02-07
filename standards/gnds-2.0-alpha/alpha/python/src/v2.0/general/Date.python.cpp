@@ -27,8 +27,7 @@ void wrapDate(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Date",
+      module, "Date",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapDate(python::module &module)
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "date_type",
-         [](const Component &self) { return self.dateType(); },
+         [](const Component &self)
+         {
+            return self.dateType();
+         },
          Component::documentation("date_type").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

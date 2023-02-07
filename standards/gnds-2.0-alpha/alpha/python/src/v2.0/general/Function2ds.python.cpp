@@ -27,8 +27,7 @@ void wrapFunction2ds(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Function2ds",
+      module, "Function2ds",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapFunction2ds(python::module &module)
       )
       .def_property_readonly(
          "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
+         [](const Component &self)
+         {
+            return self.XYs2d();
+         },
          Component::documentation("xys2d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

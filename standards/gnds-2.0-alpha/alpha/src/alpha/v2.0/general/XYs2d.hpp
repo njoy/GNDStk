@@ -83,7 +83,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->interpolation, \
@@ -91,7 +93,8 @@ public:
       this->outerDomainValue, \
       this->axes, \
       this->function1ds, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    XYs2d() :

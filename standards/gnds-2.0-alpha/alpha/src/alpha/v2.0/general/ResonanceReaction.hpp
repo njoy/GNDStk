@@ -85,7 +85,9 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->ejectile, \
@@ -93,7 +95,8 @@ public:
       this->link, \
       this->hardSphereRadius, \
       this->Q, \
-      this->scatteringRadius)
+      this->scatteringRadius \
+   )
 
    // default
    ResonanceReaction() :

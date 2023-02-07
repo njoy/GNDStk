@@ -27,8 +27,7 @@ void wrapIsotropic2d(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Isotropic2d",
+      module, "Isotropic2d",
       Component::documentation().data()
    );
 
@@ -42,7 +41,7 @@ void wrapIsotropic2d(python::module &module)
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

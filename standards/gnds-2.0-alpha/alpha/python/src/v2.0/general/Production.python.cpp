@@ -27,8 +27,7 @@ void wrapProduction(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Production",
+      module, "Production",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapProduction(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
+         [](const Component &self)
+         {
+            return self.ENDF_MT();
+         },
          Component::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "cross_section",
-         [](const Component &self) { return self.crossSection(); },
+         [](const Component &self)
+         {
+            return self.crossSection();
+         },
          Component::documentation("cross_section").data()
       )
       .def_property_readonly(
          "output_channel",
-         [](const Component &self) { return self.outputChannel(); },
+         [](const Component &self)
+         {
+            return self.outputChannel();
+         },
          Component::documentation("output_channel").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

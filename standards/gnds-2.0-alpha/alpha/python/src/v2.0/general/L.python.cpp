@@ -27,8 +27,7 @@ void wrapL(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "L",
+      module, "L",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapL(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "value",
-         [](const Component &self) { return self.value(); },
+         [](const Component &self)
+         {
+            return self.value();
+         },
          Component::documentation("value").data()
       )
       .def_property_readonly(
          "js",
-         [](const Component &self) { return self.Js(); },
+         [](const Component &self)
+         {
+            return self.Js();
+         },
          Component::documentation("js").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

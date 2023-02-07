@@ -27,8 +27,7 @@ void wrapFissionEnergyReleases(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "FissionEnergyReleases",
+      module, "FissionEnergyReleases",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapFissionEnergyReleases(python::module &module)
       )
       .def_property_readonly(
          "fission_energy_release",
-         [](const Component &self) { return self.fissionEnergyRelease(); },
+         [](const Component &self)
+         {
+            return self.fissionEnergyRelease();
+         },
          Component::documentation("fission_energy_release").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

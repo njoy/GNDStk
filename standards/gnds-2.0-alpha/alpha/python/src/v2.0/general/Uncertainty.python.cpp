@@ -27,8 +27,7 @@ void wrapUncertainty(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Uncertainty",
+      module, "Uncertainty",
       Component::documentation().data()
    );
 
@@ -49,28 +48,40 @@ void wrapUncertainty(python::module &module)
       )
       .def_property_readonly(
          "covariance",
-         [](const Component &self) { return self.covariance(); },
+         [](const Component &self)
+         {
+            return self.covariance();
+         },
          Component::documentation("covariance").data()
       )
       .def_property_readonly(
          "standard",
-         [](const Component &self) { return self.standard(); },
+         [](const Component &self)
+         {
+            return self.standard();
+         },
          Component::documentation("standard").data()
       )
       .def_property_readonly(
          "list_of_covariances",
-         [](const Component &self) { return self.listOfCovariances(); },
+         [](const Component &self)
+         {
+            return self.listOfCovariances();
+         },
          Component::documentation("list_of_covariances").data()
       )
       .def_property_readonly(
          "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
+         [](const Component &self)
+         {
+            return self.polynomial1d();
+         },
          Component::documentation("polynomial1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -27,8 +27,7 @@ void wrapListOfCovariances(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ListOfCovariances",
+      module, "ListOfCovariances",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapListOfCovariances(python::module &module)
       )
       .def_property_readonly(
          "covariance",
-         [](const Component &self) { return self.covariance(); },
+         [](const Component &self)
+         {
+            return self.covariance();
+         },
          Component::documentation("covariance").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

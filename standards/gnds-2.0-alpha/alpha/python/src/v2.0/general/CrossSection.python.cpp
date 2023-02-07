@@ -27,8 +27,7 @@ void wrapCrossSection(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "CrossSection",
+      module, "CrossSection",
       Component::documentation().data()
    );
 
@@ -53,38 +52,56 @@ void wrapCrossSection(python::module &module)
       )
       .def_property_readonly(
          "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
+         [](const Component &self)
+         {
+            return self.XYs1d();
+         },
          Component::documentation("xys1d").data()
       )
       .def_property_readonly(
          "regions1d",
-         [](const Component &self) { return self.regions1d(); },
+         [](const Component &self)
+         {
+            return self.regions1d();
+         },
          Component::documentation("regions1d").data()
       )
       .def_property_readonly(
          "reference",
-         [](const Component &self) { return self.reference(); },
+         [](const Component &self)
+         {
+            return self.reference();
+         },
          Component::documentation("reference").data()
       )
       .def_property_readonly(
          "resonances_with_background",
-         [](const Component &self) { return self.resonancesWithBackground(); },
+         [](const Component &self)
+         {
+            return self.resonancesWithBackground();
+         },
          Component::documentation("resonances_with_background").data()
       )
       .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
+         [](const Component &self)
+         {
+            return self.CoulombPlusNuclearElastic();
+         },
          Component::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law1d",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw1d(); },
+         [](const Component &self)
+         {
+            return self.thermalNeutronScatteringLaw1d();
+         },
          Component::documentation("thermal_neutron_scattering_law1d").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

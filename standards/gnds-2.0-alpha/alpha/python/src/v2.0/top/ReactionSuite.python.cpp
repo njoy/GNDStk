@@ -27,8 +27,7 @@ void wrapReactionSuite(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ReactionSuite",
+      module, "ReactionSuite",
       Component::documentation().data()
    );
 
@@ -75,93 +74,144 @@ void wrapReactionSuite(python::module &module)
       )
       .def_property_readonly(
          "projectile",
-         [](const Component &self) { return self.projectile(); },
+         [](const Component &self)
+         {
+            return self.projectile();
+         },
          Component::documentation("projectile").data()
       )
       .def_property_readonly(
          "target",
-         [](const Component &self) { return self.target(); },
+         [](const Component &self)
+         {
+            return self.target();
+         },
          Component::documentation("target").data()
       )
       .def_property_readonly(
          "evaluation",
-         [](const Component &self) { return self.evaluation(); },
+         [](const Component &self)
+         {
+            return self.evaluation();
+         },
          Component::documentation("evaluation").data()
       )
       .def_property_readonly(
          "format",
-         [](const Component &self) { return self.format(); },
+         [](const Component &self)
+         {
+            return self.format();
+         },
          Component::documentation("format").data()
       )
       .def_property_readonly(
          "projectile_frame",
-         [](const Component &self) { return self.projectileFrame(); },
+         [](const Component &self)
+         {
+            return self.projectileFrame();
+         },
          Component::documentation("projectile_frame").data()
       )
       .def_property_readonly(
          "interaction",
-         [](const Component &self) { return self.interaction(); },
+         [](const Component &self)
+         {
+            return self.interaction();
+         },
          Component::documentation("interaction").data()
       )
       .def_property_readonly(
          "styles",
-         [](const Component &self) { return self.styles(); },
+         [](const Component &self)
+         {
+            return self.styles();
+         },
          Component::documentation("styles").data()
       )
       .def_property_readonly(
          "po_ps",
-         [](const Component &self) { return self.PoPs(); },
+         [](const Component &self)
+         {
+            return self.PoPs();
+         },
          Component::documentation("po_ps").data()
       )
       .def_property_readonly(
          "reactions",
-         [](const Component &self) { return self.reactions(); },
+         [](const Component &self)
+         {
+            return self.reactions();
+         },
          Component::documentation("reactions").data()
       )
       .def_property_readonly(
          "application_data",
-         [](const Component &self) { return self.applicationData(); },
+         [](const Component &self)
+         {
+            return self.applicationData();
+         },
          Component::documentation("application_data").data()
       )
       .def_property_readonly(
          "external_files",
-         [](const Component &self) { return self.externalFiles(); },
+         [](const Component &self)
+         {
+            return self.externalFiles();
+         },
          Component::documentation("external_files").data()
       )
       .def_property_readonly(
          "resonances",
-         [](const Component &self) { return self.resonances(); },
+         [](const Component &self)
+         {
+            return self.resonances();
+         },
          Component::documentation("resonances").data()
       )
       .def_property_readonly(
          "sums",
-         [](const Component &self) { return self.sums(); },
+         [](const Component &self)
+         {
+            return self.sums();
+         },
          Component::documentation("sums").data()
       )
       .def_property_readonly(
          "productions",
-         [](const Component &self) { return self.productions(); },
+         [](const Component &self)
+         {
+            return self.productions();
+         },
          Component::documentation("productions").data()
       )
       .def_property_readonly(
          "fission_components",
-         [](const Component &self) { return self.fissionComponents(); },
+         [](const Component &self)
+         {
+            return self.fissionComponents();
+         },
          Component::documentation("fission_components").data()
       )
       .def_property_readonly(
          "orphan_products",
-         [](const Component &self) { return self.orphanProducts(); },
+         [](const Component &self)
+         {
+            return self.orphanProducts();
+         },
          Component::documentation("orphan_products").data()
       )
       .def_property_readonly(
          "incomplete_reactions",
-         [](const Component &self) { return self.incompleteReactions(); },
+         [](const Component &self)
+         {
+            return self.incompleteReactions();
+         },
          Component::documentation("incomplete_reactions").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_top

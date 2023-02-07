@@ -27,8 +27,7 @@ void wrapAliases(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Aliases",
+      module, "Aliases",
       Component::documentation().data()
    );
 
@@ -45,18 +44,24 @@ void wrapAliases(python::module &module)
       )
       .def_property_readonly(
          "alias",
-         [](const Component &self) { return self.alias(); },
+         [](const Component &self)
+         {
+            return self.alias();
+         },
          Component::documentation("alias").data()
       )
       .def_property_readonly(
          "meta_stable",
-         [](const Component &self) { return self.metaStable(); },
+         [](const Component &self)
+         {
+            return self.metaStable();
+         },
          Component::documentation("meta_stable").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

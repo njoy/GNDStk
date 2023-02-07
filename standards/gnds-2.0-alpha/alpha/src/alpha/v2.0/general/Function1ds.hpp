@@ -67,11 +67,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->Legendre, \
       this->XYs1d, \
-      this->regions1d)
+      this->regions1d \
+   )
 
    // default
    Function1ds() :

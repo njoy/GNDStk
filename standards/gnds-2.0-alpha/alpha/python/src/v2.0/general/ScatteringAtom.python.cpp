@@ -27,8 +27,7 @@ void wrapScatteringAtom(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ScatteringAtom",
+      module, "ScatteringAtom",
       Component::documentation().data()
    );
 
@@ -59,53 +58,80 @@ void wrapScatteringAtom(python::module &module)
       )
       .def_property_readonly(
          "pid",
-         [](const Component &self) { return self.pid(); },
+         [](const Component &self)
+         {
+            return self.pid();
+         },
          Component::documentation("pid").data()
       )
       .def_property_readonly(
          "number_per_molecule",
-         [](const Component &self) { return self.numberPerMolecule(); },
+         [](const Component &self)
+         {
+            return self.numberPerMolecule();
+         },
          Component::documentation("number_per_molecule").data()
       )
       .def_property_readonly(
          "primary_scatterer",
-         [](const Component &self) { return self.primaryScatterer(); },
+         [](const Component &self)
+         {
+            return self.primaryScatterer();
+         },
          Component::documentation("primary_scatterer").data()
       )
       .def_property_readonly(
          "mass",
-         [](const Component &self) { return self.mass(); },
+         [](const Component &self)
+         {
+            return self.mass();
+         },
          Component::documentation("mass").data()
       )
       .def_property_readonly(
          "e_critical",
-         [](const Component &self) { return self.e_critical(); },
+         [](const Component &self)
+         {
+            return self.e_critical();
+         },
          Component::documentation("e_critical").data()
       )
       .def_property_readonly(
          "e_max",
-         [](const Component &self) { return self.e_max(); },
+         [](const Component &self)
+         {
+            return self.e_max();
+         },
          Component::documentation("e_max").data()
       )
       .def_property_readonly(
          "bound_atom_cross_section",
-         [](const Component &self) { return self.boundAtomCrossSection(); },
+         [](const Component &self)
+         {
+            return self.boundAtomCrossSection();
+         },
          Component::documentation("bound_atom_cross_section").data()
       )
       .def_property_readonly(
          "self_scattering_kernel",
-         [](const Component &self) { return self.selfScatteringKernel(); },
+         [](const Component &self)
+         {
+            return self.selfScatteringKernel();
+         },
          Component::documentation("self_scattering_kernel").data()
       )
       .def_property_readonly(
          "t_effective",
-         [](const Component &self) { return self.T_effective(); },
+         [](const Component &self)
+         {
+            return self.T_effective();
+         },
          Component::documentation("t_effective").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

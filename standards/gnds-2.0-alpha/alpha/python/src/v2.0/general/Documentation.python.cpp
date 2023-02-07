@@ -27,8 +27,7 @@ void wrapDocumentation(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Documentation",
+      module, "Documentation",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapDocumentation(python::module &module)
       )
       .def_property_readonly(
          "authors",
-         [](const Component &self) { return self.authors(); },
+         [](const Component &self)
+         {
+            return self.authors();
+         },
          Component::documentation("authors").data()
       )
       .def_property_readonly(
          "dates",
-         [](const Component &self) { return self.dates(); },
+         [](const Component &self)
+         {
+            return self.dates();
+         },
          Component::documentation("dates").data()
       )
       .def_property_readonly(
          "title",
-         [](const Component &self) { return self.title(); },
+         [](const Component &self)
+         {
+            return self.title();
+         },
          Component::documentation("title").data()
       )
       .def_property_readonly(
          "body",
-         [](const Component &self) { return self.body(); },
+         [](const Component &self)
+         {
+            return self.body();
+         },
          Component::documentation("body").data()
       )
       .def_property_readonly(
          "endf_compatible",
-         [](const Component &self) { return self.endfCompatible(); },
+         [](const Component &self)
+         {
+            return self.endfCompatible();
+         },
          Component::documentation("endf_compatible").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

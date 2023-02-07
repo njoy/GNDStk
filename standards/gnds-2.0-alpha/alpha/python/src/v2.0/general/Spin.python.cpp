@@ -27,8 +27,7 @@ void wrapSpin(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Spin",
+      module, "Spin",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapSpin(python::module &module)
       )
       .def_property_readonly(
          "fraction",
-         [](const Component &self) { return self.fraction(); },
+         [](const Component &self)
+         {
+            return self.fraction();
+         },
          Component::documentation("fraction").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

@@ -80,14 +80,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->approximation, \
       this->calculateChannelRadius, \
       this->resonanceParameters, \
       this->PoPs, \
-      this->scatteringRadius)
+      this->scatteringRadius \
+   )
 
    // default
    BreitWigner() :

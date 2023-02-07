@@ -27,8 +27,7 @@ void wrapNuclides(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Nuclides",
+      module, "Nuclides",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapNuclides(python::module &module)
       )
       .def_property_readonly(
          "nuclide",
-         [](const Component &self) { return self.nuclide(); },
+         [](const Component &self)
+         {
+            return self.nuclide();
+         },
          Component::documentation("nuclide").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

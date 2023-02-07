@@ -70,12 +70,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->mode, \
       this->complete, \
-      this->products)
+      this->products \
+   )
 
    // default
    Decay() :

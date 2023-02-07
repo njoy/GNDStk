@@ -72,12 +72,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->ENDF_MT, \
       this->crossSection, \
-      this->outputChannel)
+      this->outputChannel \
+   )
 
    // default
    OrphanProduct() :

@@ -74,12 +74,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->scatteringRadius, \
       this->resolved, \
-      this->unresolved)
+      this->unresolved \
+   )
 
    // default
    Resonances() :

@@ -27,8 +27,7 @@ void wrapFissionFragmentData(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "FissionFragmentData",
+      module, "FissionFragmentData",
       Component::documentation().data()
    );
 
@@ -47,23 +46,32 @@ void wrapFissionFragmentData(python::module &module)
       )
       .def_property_readonly(
          "product_yields",
-         [](const Component &self) { return self.productYields(); },
+         [](const Component &self)
+         {
+            return self.productYields();
+         },
          Component::documentation("product_yields").data()
       )
       .def_property_readonly(
          "delayed_neutrons",
-         [](const Component &self) { return self.delayedNeutrons(); },
+         [](const Component &self)
+         {
+            return self.delayedNeutrons();
+         },
          Component::documentation("delayed_neutrons").data()
       )
       .def_property_readonly(
          "fission_energy_releases",
-         [](const Component &self) { return self.fissionEnergyReleases(); },
+         [](const Component &self)
+         {
+            return self.fissionEnergyReleases();
+         },
          Component::documentation("fission_energy_releases").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_top

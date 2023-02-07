@@ -27,8 +27,7 @@ void wrapSum(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "Sum",
+      module, "Sum",
       Component::documentation().data()
    );
 
@@ -51,33 +50,48 @@ void wrapSum(python::module &module)
       )
       .def_property_readonly(
          "label",
-         [](const Component &self) { return self.label(); },
+         [](const Component &self)
+         {
+            return self.label();
+         },
          Component::documentation("label").data()
       )
       .def_property_readonly(
          "domain_min",
-         [](const Component &self) { return self.domainMin(); },
+         [](const Component &self)
+         {
+            return self.domainMin();
+         },
          Component::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
-         [](const Component &self) { return self.domainMax(); },
+         [](const Component &self)
+         {
+            return self.domainMax();
+         },
          Component::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
+         [](const Component &self)
+         {
+            return self.domainUnit();
+         },
          Component::documentation("domain_unit").data()
       )
       .def_property_readonly(
          "summand",
-         [](const Component &self) { return self.summand(); },
+         [](const Component &self)
+         {
+            return self.summand();
+         },
          Component::documentation("summand").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general

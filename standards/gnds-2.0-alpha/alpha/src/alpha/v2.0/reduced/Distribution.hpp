@@ -77,13 +77,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->thermalNeutronScatteringLaw, \
       this->uncorrelated, \
       this->unspecified, \
       this->XYs2d, \
-      this->branching3d)
+      this->branching3d \
+   )
 
    // default
    Distribution() :

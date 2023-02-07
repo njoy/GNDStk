@@ -27,8 +27,7 @@ void wrapChemicalElements(python::module &module)
 
    // create the component
    python::class_<Component> component(
-      module,
-      "ChemicalElements",
+      module, "ChemicalElements",
       Component::documentation().data()
    );
 
@@ -43,13 +42,16 @@ void wrapChemicalElements(python::module &module)
       )
       .def_property_readonly(
          "chemical_element",
-         [](const Component &self) { return self.chemicalElement(); },
+         [](const Component &self)
+         {
+            return self.chemicalElement();
+         },
          Component::documentation("chemical_element").data()
       )
    ;
 
    // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   addStandardComponentDefinitions<Component>(component);
 }
 
 } // namespace python_general
