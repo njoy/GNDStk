@@ -28,7 +28,7 @@ void wrapIncidentEnergies(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "IncidentEnergies",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapIncidentEnergies(python::module &module)
             const std::vector<general::IncidentEnergy> &
          >(),
          python::arg("incident_energy"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "incident_energy",
@@ -46,7 +46,7 @@ void wrapIncidentEnergies(python::module &module)
          {
             return self.incidentEnergy();
          },
-         Component::documentation("incident_energy").data()
+         Component::component_t::documentation("incident_energy").data()
       )
    ;
 

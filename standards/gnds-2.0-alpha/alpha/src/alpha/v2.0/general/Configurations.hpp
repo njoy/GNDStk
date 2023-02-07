@@ -44,6 +44,7 @@ class Configurations :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment

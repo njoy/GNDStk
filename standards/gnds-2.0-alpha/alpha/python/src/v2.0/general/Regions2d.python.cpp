@@ -28,7 +28,7 @@ void wrapRegions2d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Regions2d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapRegions2d(python::module &module)
          python::arg("axes"),
          python::arg("function2ds"),
          python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "axes",
@@ -50,7 +50,7 @@ void wrapRegions2d(python::module &module)
          {
             return self.axes();
          },
-         Component::documentation("axes").data()
+         Component::component_t::documentation("axes").data()
       )
       .def_property_readonly(
          "function2ds",
@@ -58,7 +58,7 @@ void wrapRegions2d(python::module &module)
          {
             return self.function2ds();
          },
-         Component::documentation("function2ds").data()
+         Component::component_t::documentation("function2ds").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -66,7 +66,7 @@ void wrapRegions2d(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
    ;
 

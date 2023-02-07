@@ -28,7 +28,7 @@ void wrapChannel(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Channel",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapChannel(python::module &module)
          python::arg("column_index"),
          python::arg("scattering_radius") = std::nullopt,
          python::arg("hard_sphere_radius") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapChannel(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "resonance_reaction",
@@ -66,7 +66,7 @@ void wrapChannel(python::module &module)
          {
             return self.resonanceReaction();
          },
-         Component::documentation("resonance_reaction").data()
+         Component::component_t::documentation("resonance_reaction").data()
       )
       .def_property_readonly(
          "l",
@@ -74,7 +74,7 @@ void wrapChannel(python::module &module)
          {
             return self.L();
          },
-         Component::documentation("l").data()
+         Component::component_t::documentation("l").data()
       )
       .def_property_readonly(
          "channel_spin",
@@ -82,7 +82,7 @@ void wrapChannel(python::module &module)
          {
             return self.channelSpin();
          },
-         Component::documentation("channel_spin").data()
+         Component::component_t::documentation("channel_spin").data()
       )
       .def_property_readonly(
          "column_index",
@@ -90,7 +90,7 @@ void wrapChannel(python::module &module)
          {
             return self.columnIndex();
          },
-         Component::documentation("column_index").data()
+         Component::component_t::documentation("column_index").data()
       )
       .def_property_readonly(
          "scattering_radius",
@@ -98,7 +98,7 @@ void wrapChannel(python::module &module)
          {
             return self.scatteringRadius();
          },
-         Component::documentation("scattering_radius").data()
+         Component::component_t::documentation("scattering_radius").data()
       )
       .def_property_readonly(
          "hard_sphere_radius",
@@ -106,7 +106,7 @@ void wrapChannel(python::module &module)
          {
             return self.hardSphereRadius();
          },
-         Component::documentation("hard_sphere_radius").data()
+         Component::component_t::documentation("hard_sphere_radius").data()
       )
    ;
 

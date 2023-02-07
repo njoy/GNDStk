@@ -28,7 +28,7 @@ void wrapEnergy(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Energy",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -62,7 +62,7 @@ void wrapEnergy(python::module &module)
          python::arg("weighted_functionals") = std::nullopt,
          python::arg("simple_maxwellian_fission") = std::nullopt,
          python::arg("madland_nix") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "value",
@@ -70,7 +70,7 @@ void wrapEnergy(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
@@ -78,7 +78,7 @@ void wrapEnergy(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
       .def_property_readonly(
          "double",
@@ -86,7 +86,7 @@ void wrapEnergy(python::module &module)
          {
             return self.Double();
          },
-         Component::documentation("double").data()
+         Component::component_t::documentation("double").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -94,7 +94,7 @@ void wrapEnergy(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
       .def_property_readonly(
          "nbody_phase_space",
@@ -102,7 +102,7 @@ void wrapEnergy(python::module &module)
          {
             return self.NBodyPhaseSpace();
          },
-         Component::documentation("nbody_phase_space").data()
+         Component::component_t::documentation("nbody_phase_space").data()
       )
       .def_property_readonly(
          "primary_gamma",
@@ -110,7 +110,7 @@ void wrapEnergy(python::module &module)
          {
             return self.primaryGamma();
          },
-         Component::documentation("primary_gamma").data()
+         Component::component_t::documentation("primary_gamma").data()
       )
       .def_property_readonly(
          "discrete_gamma",
@@ -118,7 +118,7 @@ void wrapEnergy(python::module &module)
          {
             return self.discreteGamma();
          },
-         Component::documentation("discrete_gamma").data()
+         Component::component_t::documentation("discrete_gamma").data()
       )
       .def_property_readonly(
          "xys2d",
@@ -126,7 +126,7 @@ void wrapEnergy(python::module &module)
          {
             return self.XYs2d();
          },
-         Component::documentation("xys2d").data()
+         Component::component_t::documentation("xys2d").data()
       )
       .def_property_readonly(
          "general_evaporation",
@@ -134,7 +134,7 @@ void wrapEnergy(python::module &module)
          {
             return self.generalEvaporation();
          },
-         Component::documentation("general_evaporation").data()
+         Component::component_t::documentation("general_evaporation").data()
       )
       .def_property_readonly(
          "evaporation",
@@ -142,7 +142,7 @@ void wrapEnergy(python::module &module)
          {
             return self.evaporation();
          },
-         Component::documentation("evaporation").data()
+         Component::component_t::documentation("evaporation").data()
       )
       .def_property_readonly(
          "weighted_functionals",
@@ -150,7 +150,7 @@ void wrapEnergy(python::module &module)
          {
             return self.weightedFunctionals();
          },
-         Component::documentation("weighted_functionals").data()
+         Component::component_t::documentation("weighted_functionals").data()
       )
       .def_property_readonly(
          "simple_maxwellian_fission",
@@ -158,7 +158,7 @@ void wrapEnergy(python::module &module)
          {
             return self.simpleMaxwellianFission();
          },
-         Component::documentation("simple_maxwellian_fission").data()
+         Component::component_t::documentation("simple_maxwellian_fission").data()
       )
       .def_property_readonly(
          "madland_nix",
@@ -166,7 +166,7 @@ void wrapEnergy(python::module &module)
          {
             return self.MadlandNix();
          },
-         Component::documentation("madland_nix").data()
+         Component::component_t::documentation("madland_nix").data()
       )
    ;
 

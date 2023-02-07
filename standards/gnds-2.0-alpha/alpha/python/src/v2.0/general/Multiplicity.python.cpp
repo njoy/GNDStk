@@ -28,7 +28,7 @@ void wrapMultiplicity(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Multiplicity",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -52,7 +52,7 @@ void wrapMultiplicity(python::module &module)
          python::arg("branching1d") = std::nullopt,
          python::arg("branching3d") = std::nullopt,
          python::arg("unspecified") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "constant1d",
@@ -60,7 +60,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.constant1d();
          },
-         Component::documentation("constant1d").data()
+         Component::component_t::documentation("constant1d").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -68,7 +68,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
       .def_property_readonly(
          "regions1d",
@@ -76,7 +76,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.regions1d();
          },
-         Component::documentation("regions1d").data()
+         Component::component_t::documentation("regions1d").data()
       )
       .def_property_readonly(
          "polynomial1d",
@@ -84,7 +84,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.polynomial1d();
          },
-         Component::documentation("polynomial1d").data()
+         Component::component_t::documentation("polynomial1d").data()
       )
       .def_property_readonly(
          "reference",
@@ -92,7 +92,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.reference();
          },
-         Component::documentation("reference").data()
+         Component::component_t::documentation("reference").data()
       )
       .def_property_readonly(
          "branching1d",
@@ -100,7 +100,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.branching1d();
          },
-         Component::documentation("branching1d").data()
+         Component::component_t::documentation("branching1d").data()
       )
       .def_property_readonly(
          "branching3d",
@@ -108,7 +108,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.branching3d();
          },
-         Component::documentation("branching3d").data()
+         Component::component_t::documentation("branching3d").data()
       )
       .def_property_readonly(
          "unspecified",
@@ -116,7 +116,7 @@ void wrapMultiplicity(python::module &module)
          {
             return self.unspecified();
          },
-         Component::documentation("unspecified").data()
+         Component::component_t::documentation("unspecified").data()
       )
    ;
 

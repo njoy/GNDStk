@@ -28,7 +28,7 @@ void wrapSums(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Sums",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapSums(python::module &module)
          >(),
          python::arg("cross_section_sums") = std::nullopt,
          python::arg("multiplicity_sums") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "cross_section_sums",
@@ -48,7 +48,7 @@ void wrapSums(python::module &module)
          {
             return self.crossSectionSums();
          },
-         Component::documentation("cross_section_sums").data()
+         Component::component_t::documentation("cross_section_sums").data()
       )
       .def_property_readonly(
          "multiplicity_sums",
@@ -56,7 +56,7 @@ void wrapSums(python::module &module)
          {
             return self.multiplicitySums();
          },
-         Component::documentation("multiplicity_sums").data()
+         Component::component_t::documentation("multiplicity_sums").data()
       )
    ;
 

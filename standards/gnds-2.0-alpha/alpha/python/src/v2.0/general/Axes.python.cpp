@@ -28,7 +28,7 @@ void wrapAxes(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Axes",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapAxes(python::module &module)
          >(),
          python::arg("axis"),
          python::arg("grid") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "axis",
@@ -48,7 +48,7 @@ void wrapAxes(python::module &module)
          {
             return self.axis();
          },
-         Component::documentation("axis").data()
+         Component::component_t::documentation("axis").data()
       )
       .def_property_readonly(
          "grid",
@@ -56,7 +56,7 @@ void wrapAxes(python::module &module)
          {
             return self.grid();
          },
-         Component::documentation("grid").data()
+         Component::component_t::documentation("grid").data()
       )
    ;
 

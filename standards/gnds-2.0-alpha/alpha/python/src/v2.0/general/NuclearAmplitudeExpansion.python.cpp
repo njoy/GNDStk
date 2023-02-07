@@ -28,7 +28,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "NuclearAmplitudeExpansion",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
          python::arg("nuclear_term"),
          python::arg("real_interference_term"),
          python::arg("imaginary_interference_term"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "nuclear_term",
@@ -50,7 +50,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
          {
             return self.nuclearTerm();
          },
-         Component::documentation("nuclear_term").data()
+         Component::component_t::documentation("nuclear_term").data()
       )
       .def_property_readonly(
          "real_interference_term",
@@ -58,7 +58,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
          {
             return self.realInterferenceTerm();
          },
-         Component::documentation("real_interference_term").data()
+         Component::component_t::documentation("real_interference_term").data()
       )
       .def_property_readonly(
          "imaginary_interference_term",
@@ -66,7 +66,7 @@ void wrapNuclearAmplitudeExpansion(python::module &module)
          {
             return self.imaginaryInterferenceTerm();
          },
-         Component::documentation("imaginary_interference_term").data()
+         Component::component_t::documentation("imaginary_interference_term").data()
       )
    ;
 

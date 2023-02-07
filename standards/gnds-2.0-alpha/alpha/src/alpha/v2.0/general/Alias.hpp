@@ -46,14 +46,17 @@ class Alias :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> id{this};
-   Field<std::optional<std::string>> pid{this};
+   Field<std::optional<std::string>>
+      id{this};
+   Field<std::optional<std::string>>
+      pid{this};
 
    // ------------------------
    // Constructors

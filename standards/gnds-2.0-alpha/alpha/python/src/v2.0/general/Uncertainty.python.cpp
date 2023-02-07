@@ -28,7 +28,7 @@ void wrapUncertainty(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Uncertainty",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapUncertainty(python::module &module)
          python::arg("standard") = std::nullopt,
          python::arg("list_of_covariances") = std::nullopt,
          python::arg("polynomial1d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "covariance",
@@ -52,7 +52,7 @@ void wrapUncertainty(python::module &module)
          {
             return self.covariance();
          },
-         Component::documentation("covariance").data()
+         Component::component_t::documentation("covariance").data()
       )
       .def_property_readonly(
          "standard",
@@ -60,7 +60,7 @@ void wrapUncertainty(python::module &module)
          {
             return self.standard();
          },
-         Component::documentation("standard").data()
+         Component::component_t::documentation("standard").data()
       )
       .def_property_readonly(
          "list_of_covariances",
@@ -68,7 +68,7 @@ void wrapUncertainty(python::module &module)
          {
             return self.listOfCovariances();
          },
-         Component::documentation("list_of_covariances").data()
+         Component::component_t::documentation("list_of_covariances").data()
       )
       .def_property_readonly(
          "polynomial1d",
@@ -76,7 +76,7 @@ void wrapUncertainty(python::module &module)
          {
             return self.polynomial1d();
          },
-         Component::documentation("polynomial1d").data()
+         Component::component_t::documentation("polynomial1d").data()
       )
    ;
 

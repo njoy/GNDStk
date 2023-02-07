@@ -28,7 +28,7 @@ void wrapConversion(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Conversion",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapConversion(python::module &module)
          >(),
          python::arg("flags"),
          python::arg("href"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "flags",
@@ -48,7 +48,7 @@ void wrapConversion(python::module &module)
          {
             return self.flags();
          },
-         Component::documentation("flags").data()
+         Component::component_t::documentation("flags").data()
       )
       .def_property_readonly(
          "href",
@@ -56,7 +56,7 @@ void wrapConversion(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
    ;
 

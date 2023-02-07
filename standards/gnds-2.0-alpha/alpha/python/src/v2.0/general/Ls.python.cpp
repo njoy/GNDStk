@@ -28,7 +28,7 @@ void wrapLs(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Ls",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapLs(python::module &module)
             const std::vector<general::L> &
          >(),
          python::arg("l"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "l",
@@ -46,7 +46,7 @@ void wrapLs(python::module &module)
          {
             return self.L();
          },
-         Component::documentation("l").data()
+         Component::component_t::documentation("l").data()
       )
    ;
 

@@ -52,15 +52,19 @@ class RowData :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> ENDF_MFMT{this};
-   Field<std::optional<int>> dimension{this};
-   Field<std::string> href{this};
+   Field<std::optional<std::string>>
+      ENDF_MFMT{this};
+   Field<std::optional<int>>
+      dimension{this};
+   Field<std::string>
+      href{this};
 
    // children
    Field<std::optional<general::Slices>>

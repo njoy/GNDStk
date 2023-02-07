@@ -50,14 +50,17 @@ class ENDFconversionFlags :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> flags{this};
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      flags{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // children
    Field<std::vector<general::Conversion>>

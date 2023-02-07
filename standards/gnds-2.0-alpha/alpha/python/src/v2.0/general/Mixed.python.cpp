@@ -28,7 +28,7 @@ void wrapMixed(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Mixed",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapMixed(python::module &module)
          python::arg("covariance_matrix"),
          python::arg("sum") = std::nullopt,
          python::arg("short_range_self_scaling_variance") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapMixed(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "covariance_matrix",
@@ -60,7 +60,7 @@ void wrapMixed(python::module &module)
          {
             return self.covarianceMatrix();
          },
-         Component::documentation("covariance_matrix").data()
+         Component::component_t::documentation("covariance_matrix").data()
       )
       .def_property_readonly(
          "sum",
@@ -68,7 +68,7 @@ void wrapMixed(python::module &module)
          {
             return self.sum();
          },
-         Component::documentation("sum").data()
+         Component::component_t::documentation("sum").data()
       )
       .def_property_readonly(
          "short_range_self_scaling_variance",
@@ -76,7 +76,7 @@ void wrapMixed(python::module &module)
          {
             return self.shortRangeSelfScalingVariance();
          },
-         Component::documentation("short_range_self_scaling_variance").data()
+         Component::component_t::documentation("short_range_self_scaling_variance").data()
       )
    ;
 

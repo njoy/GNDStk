@@ -28,7 +28,7 @@ void wrapCovarianceSection(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CovarianceSection",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapCovarianceSection(python::module &module)
          python::arg("covariance_matrix") = std::nullopt,
          python::arg("mixed") = std::nullopt,
          python::arg("sum") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "cross_term",
@@ -66,7 +66,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.crossTerm();
          },
-         Component::documentation("cross_term").data()
+         Component::component_t::documentation("cross_term").data()
       )
       .def_property_readonly(
          "row_data",
@@ -74,7 +74,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.rowData();
          },
-         Component::documentation("row_data").data()
+         Component::component_t::documentation("row_data").data()
       )
       .def_property_readonly(
          "column_data",
@@ -82,7 +82,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.columnData();
          },
-         Component::documentation("column_data").data()
+         Component::component_t::documentation("column_data").data()
       )
       .def_property_readonly(
          "covariance_matrix",
@@ -90,7 +90,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.covarianceMatrix();
          },
-         Component::documentation("covariance_matrix").data()
+         Component::component_t::documentation("covariance_matrix").data()
       )
       .def_property_readonly(
          "mixed",
@@ -98,7 +98,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.mixed();
          },
-         Component::documentation("mixed").data()
+         Component::component_t::documentation("mixed").data()
       )
       .def_property_readonly(
          "sum",
@@ -106,7 +106,7 @@ void wrapCovarianceSection(python::module &module)
          {
             return self.sum();
          },
-         Component::documentation("sum").data()
+         Component::component_t::documentation("sum").data()
       )
    ;
 

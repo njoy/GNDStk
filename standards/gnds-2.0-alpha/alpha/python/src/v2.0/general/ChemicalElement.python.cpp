@@ -28,7 +28,7 @@ void wrapChemicalElement(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ChemicalElement",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapChemicalElement(python::module &module)
          python::arg("name"),
          python::arg("atomic") = std::nullopt,
          python::arg("isotopes") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "symbol",
@@ -54,7 +54,7 @@ void wrapChemicalElement(python::module &module)
          {
             return self.symbol();
          },
-         Component::documentation("symbol").data()
+         Component::component_t::documentation("symbol").data()
       )
       .def_property_readonly(
          "z",
@@ -62,7 +62,7 @@ void wrapChemicalElement(python::module &module)
          {
             return self.Z();
          },
-         Component::documentation("z").data()
+         Component::component_t::documentation("z").data()
       )
       .def_property_readonly(
          "name",
@@ -70,7 +70,7 @@ void wrapChemicalElement(python::module &module)
          {
             return self.name();
          },
-         Component::documentation("name").data()
+         Component::component_t::documentation("name").data()
       )
       .def_property_readonly(
          "atomic",
@@ -78,7 +78,7 @@ void wrapChemicalElement(python::module &module)
          {
             return self.atomic();
          },
-         Component::documentation("atomic").data()
+         Component::component_t::documentation("atomic").data()
       )
       .def_property_readonly(
          "isotopes",
@@ -86,7 +86,7 @@ void wrapChemicalElement(python::module &module)
          {
             return self.isotopes();
          },
-         Component::documentation("isotopes").data()
+         Component::component_t::documentation("isotopes").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapFissionEnergyReleases(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "FissionEnergyReleases",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapFissionEnergyReleases(python::module &module)
             const std::vector<general::FissionEnergyRelease> &
          >(),
          python::arg("fission_energy_release"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "fission_energy_release",
@@ -46,7 +46,7 @@ void wrapFissionEnergyReleases(python::module &module)
          {
             return self.fissionEnergyRelease();
          },
-         Component::documentation("fission_energy_release").data()
+         Component::component_t::documentation("fission_energy_release").data()
       )
    ;
 

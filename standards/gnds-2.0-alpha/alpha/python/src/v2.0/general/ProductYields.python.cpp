@@ -28,7 +28,7 @@ void wrapProductYields(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ProductYields",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapProductYields(python::module &module)
             const std::vector<general::ProductYield> &
          >(),
          python::arg("product_yield"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "product_yield",
@@ -46,7 +46,7 @@ void wrapProductYields(python::module &module)
          {
             return self.productYield();
          },
-         Component::documentation("product_yield").data()
+         Component::component_t::documentation("product_yield").data()
       )
    ;
 

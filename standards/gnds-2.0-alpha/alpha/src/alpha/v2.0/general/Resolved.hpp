@@ -55,15 +55,19 @@ class Resolved :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> domainMin{this};
-   Field<double> domainMax{this};
-   Field<std::string> domainUnit{this};
+   Field<double>
+      domainMin{this};
+   Field<double>
+      domainMax{this};
+   Field<std::string>
+      domainUnit{this};
 
    // children
    Field<std::optional<general::BreitWigner>>

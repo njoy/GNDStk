@@ -58,15 +58,19 @@ class Polynomial1d :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> label{this};
-   Field<double> domainMin{this};
-   Field<double> domainMax{this};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<double>
+      domainMin{this};
+   Field<double>
+      domainMax{this};
 
    // children
    Field<general::Axes>

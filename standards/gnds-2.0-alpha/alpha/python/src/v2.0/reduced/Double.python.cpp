@@ -28,7 +28,7 @@ void wrapDouble(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Double",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapDouble(python::module &module)
             const double &
          >(),
          python::arg("value"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "value",
@@ -46,7 +46,7 @@ void wrapDouble(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
    ;
 

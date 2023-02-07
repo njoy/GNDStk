@@ -28,7 +28,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ThermalNeutronScatteringLaw_incoherentElastic",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          python::arg("product_frame"),
          python::arg("bound_atom_cross_section"),
          python::arg("debye_waller_integral"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
@@ -62,7 +62,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -70,7 +70,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "bound_atom_cross_section",
@@ -78,7 +78,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          {
             return self.boundAtomCrossSection();
          },
-         Component::documentation("bound_atom_cross_section").data()
+         Component::component_t::documentation("bound_atom_cross_section").data()
       )
       .def_property_readonly(
          "debye_waller_integral",
@@ -86,7 +86,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
          {
             return self.DebyeWallerIntegral();
          },
-         Component::documentation("debye_waller_integral").data()
+         Component::component_t::documentation("debye_waller_integral").data()
       )
    ;
 

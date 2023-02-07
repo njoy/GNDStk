@@ -28,7 +28,7 @@ void wrapNeutrinoEnergy(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "NeutrinoEnergy",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapNeutrinoEnergy(python::module &module)
             const general::Polynomial1d &
          >(),
          python::arg("polynomial1d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "polynomial1d",
@@ -46,7 +46,7 @@ void wrapNeutrinoEnergy(python::module &module)
          {
             return self.polynomial1d();
          },
-         Component::documentation("polynomial1d").data()
+         Component::component_t::documentation("polynomial1d").data()
       )
    ;
 

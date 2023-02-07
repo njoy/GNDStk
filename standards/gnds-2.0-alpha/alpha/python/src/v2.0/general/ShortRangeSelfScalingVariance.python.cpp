@@ -28,7 +28,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ShortRangeSelfScalingVariance",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
          python::arg("type"),
          python::arg("dependence_on_processed_group_width"),
          python::arg("gridded2d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "type",
@@ -60,7 +60,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
          {
             return self.type();
          },
-         Component::documentation("type").data()
+         Component::component_t::documentation("type").data()
       )
       .def_property_readonly(
          "dependence_on_processed_group_width",
@@ -68,7 +68,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
          {
             return self.dependenceOnProcessedGroupWidth();
          },
-         Component::documentation("dependence_on_processed_group_width").data()
+         Component::component_t::documentation("dependence_on_processed_group_width").data()
       )
       .def_property_readonly(
          "gridded2d",
@@ -76,7 +76,7 @@ void wrapShortRangeSelfScalingVariance(python::module &module)
          {
             return self.gridded2d();
          },
-         Component::documentation("gridded2d").data()
+         Component::component_t::documentation("gridded2d").data()
       )
    ;
 

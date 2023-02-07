@@ -28,7 +28,7 @@ void wrapHardSphereRadius(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "HardSphereRadius",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapHardSphereRadius(python::module &module)
             const general::Constant1d &
          >(),
          python::arg("constant1d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "constant1d",
@@ -46,7 +46,7 @@ void wrapHardSphereRadius(python::module &module)
          {
             return self.constant1d();
          },
-         Component::documentation("constant1d").data()
+         Component::component_t::documentation("constant1d").data()
       )
    ;
 

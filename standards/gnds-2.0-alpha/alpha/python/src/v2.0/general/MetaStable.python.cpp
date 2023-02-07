@@ -28,7 +28,7 @@ void wrapMetaStable(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "MetaStable",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapMetaStable(python::module &module)
          python::arg("id"),
          python::arg("pid"),
          python::arg("meta_stable_index"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -50,7 +50,7 @@ void wrapMetaStable(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "pid",
@@ -58,7 +58,7 @@ void wrapMetaStable(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "meta_stable_index",
@@ -66,7 +66,7 @@ void wrapMetaStable(python::module &module)
          {
             return self.metaStableIndex();
          },
-         Component::documentation("meta_stable_index").data()
+         Component::component_t::documentation("meta_stable_index").data()
       )
    ;
 

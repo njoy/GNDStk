@@ -28,7 +28,7 @@ void wrapDecayMode(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "DecayMode",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapDecayMode(python::module &module)
          python::arg("photon_emission_probabilities") = std::nullopt,
          python::arg("q") = std::nullopt,
          python::arg("spectra") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "mode",
@@ -66,7 +66,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.mode();
          },
-         Component::documentation("mode").data()
+         Component::component_t::documentation("mode").data()
       )
       .def_property_readonly(
          "probability",
@@ -74,7 +74,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.probability();
          },
-         Component::documentation("probability").data()
+         Component::component_t::documentation("probability").data()
       )
       .def_property_readonly(
          "decay_path",
@@ -82,7 +82,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.decayPath();
          },
-         Component::documentation("decay_path").data()
+         Component::component_t::documentation("decay_path").data()
       )
       .def_property_readonly(
          "photon_emission_probabilities",
@@ -90,7 +90,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.photonEmissionProbabilities();
          },
-         Component::documentation("photon_emission_probabilities").data()
+         Component::component_t::documentation("photon_emission_probabilities").data()
       )
       .def_property_readonly(
          "q",
@@ -98,7 +98,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.Q();
          },
-         Component::documentation("q").data()
+         Component::component_t::documentation("q").data()
       )
       .def_property_readonly(
          "spectra",
@@ -106,7 +106,7 @@ void wrapDecayMode(python::module &module)
          {
             return self.spectra();
          },
-         Component::documentation("spectra").data()
+         Component::component_t::documentation("spectra").data()
       )
    ;
 

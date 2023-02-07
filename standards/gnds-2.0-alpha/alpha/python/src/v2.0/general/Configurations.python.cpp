@@ -28,7 +28,7 @@ void wrapConfigurations(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Configurations",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapConfigurations(python::module &module)
             const std::vector<general::Configuration> &
          >(),
          python::arg("configuration"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "configuration",
@@ -46,7 +46,7 @@ void wrapConfigurations(python::module &module)
          {
             return self.configuration();
          },
-         Component::documentation("configuration").data()
+         Component::component_t::documentation("configuration").data()
       )
    ;
 

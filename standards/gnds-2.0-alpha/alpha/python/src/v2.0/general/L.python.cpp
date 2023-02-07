@@ -28,7 +28,7 @@ void wrapL(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "L",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapL(python::module &module)
          python::arg("label"),
          python::arg("value"),
          python::arg("js"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapL(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "value",
@@ -58,7 +58,7 @@ void wrapL(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
       .def_property_readonly(
          "js",
@@ -66,7 +66,7 @@ void wrapL(python::module &module)
          {
             return self.Js();
          },
-         Component::documentation("js").data()
+         Component::component_t::documentation("js").data()
       )
    ;
 

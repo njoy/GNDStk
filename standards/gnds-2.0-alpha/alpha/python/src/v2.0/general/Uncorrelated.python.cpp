@@ -28,7 +28,7 @@ void wrapUncorrelated(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Uncorrelated",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapUncorrelated(python::module &module)
          python::arg("product_frame"),
          python::arg("angular"),
          python::arg("energy"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapUncorrelated(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -60,7 +60,7 @@ void wrapUncorrelated(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "angular",
@@ -68,7 +68,7 @@ void wrapUncorrelated(python::module &module)
          {
             return self.angular();
          },
-         Component::documentation("angular").data()
+         Component::component_t::documentation("angular").data()
       )
       .def_property_readonly(
          "energy",
@@ -76,7 +76,7 @@ void wrapUncorrelated(python::module &module)
          {
             return self.energy();
          },
-         Component::documentation("energy").data()
+         Component::component_t::documentation("energy").data()
       )
    ;
 

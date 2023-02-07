@@ -56,17 +56,23 @@ class ThermalNeutronScatteringLaw_incoherentInelastic :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> pid{this};
-   Field<std::string> productFrame{this};
-   Field<std::string> primaryScatterer{this};
-   Field<std::optional<bool>> calculatedAtThermal{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      pid{this};
+   Field<std::string>
+      productFrame{this};
+   Field<std::string>
+      primaryScatterer{this};
+   Field<std::optional<bool>>
+      calculatedAtThermal{this};
 
    // children
    Field<general::ScatteringAtoms>

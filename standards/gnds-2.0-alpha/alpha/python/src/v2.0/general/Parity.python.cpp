@@ -28,7 +28,7 @@ void wrapParity(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Parity",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapParity(python::module &module)
             const general::Integer &
          >(),
          python::arg("integer"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "integer",
@@ -46,7 +46,7 @@ void wrapParity(python::module &module)
          {
             return self.integer();
          },
-         Component::documentation("integer").data()
+         Component::component_t::documentation("integer").data()
       )
    ;
 

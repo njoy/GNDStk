@@ -28,7 +28,7 @@ void wrapAtomic(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Atomic",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapAtomic(python::module &module)
             const general::Configurations &
          >(),
          python::arg("configurations"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "configurations",
@@ -46,7 +46,7 @@ void wrapAtomic(python::module &module)
          {
             return self.configurations();
          },
-         Component::documentation("configurations").data()
+         Component::component_t::documentation("configurations").data()
       )
    ;
 

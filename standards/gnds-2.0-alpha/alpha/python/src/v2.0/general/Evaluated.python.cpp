@@ -28,7 +28,7 @@ void wrapEvaluated(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Evaluated",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapEvaluated(python::module &module)
          python::arg("documentation"),
          python::arg("temperature") = std::nullopt,
          python::arg("projectile_energy_domain") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "date",
@@ -66,7 +66,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.date();
          },
-         Component::documentation("date").data()
+         Component::component_t::documentation("date").data()
       )
       .def_property_readonly(
          "library",
@@ -74,7 +74,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.library();
          },
-         Component::documentation("library").data()
+         Component::component_t::documentation("library").data()
       )
       .def_property_readonly(
          "version",
@@ -82,7 +82,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.version();
          },
-         Component::documentation("version").data()
+         Component::component_t::documentation("version").data()
       )
       .def_property_readonly(
          "documentation",
@@ -90,7 +90,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.documentation();
          },
-         Component::documentation("documentation").data()
+         Component::component_t::documentation("documentation").data()
       )
       .def_property_readonly(
          "temperature",
@@ -98,7 +98,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.temperature();
          },
-         Component::documentation("temperature").data()
+         Component::component_t::documentation("temperature").data()
       )
       .def_property_readonly(
          "projectile_energy_domain",
@@ -106,7 +106,7 @@ void wrapEvaluated(python::module &module)
          {
             return self.projectileEnergyDomain();
          },
-         Component::documentation("projectile_energy_domain").data()
+         Component::component_t::documentation("projectile_energy_domain").data()
       )
    ;
 

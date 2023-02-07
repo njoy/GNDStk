@@ -28,7 +28,7 @@ void wrapResonanceReactions(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ResonanceReactions",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapResonanceReactions(python::module &module)
             const std::vector<general::ResonanceReaction> &
          >(),
          python::arg("resonance_reaction"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "resonance_reaction",
@@ -46,7 +46,7 @@ void wrapResonanceReactions(python::module &module)
          {
             return self.resonanceReaction();
          },
-         Component::documentation("resonance_reaction").data()
+         Component::component_t::documentation("resonance_reaction").data()
       )
    ;
 

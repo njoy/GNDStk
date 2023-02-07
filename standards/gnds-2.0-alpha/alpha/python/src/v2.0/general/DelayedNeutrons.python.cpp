@@ -28,7 +28,7 @@ void wrapDelayedNeutrons(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "DelayedNeutrons",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapDelayedNeutrons(python::module &module)
             const std::vector<general::DelayedNeutron> &
          >(),
          python::arg("delayed_neutron"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "delayed_neutron",
@@ -46,7 +46,7 @@ void wrapDelayedNeutrons(python::module &module)
          {
             return self.delayedNeutron();
          },
-         Component::documentation("delayed_neutron").data()
+         Component::component_t::documentation("delayed_neutron").data()
       )
    ;
 

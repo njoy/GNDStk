@@ -70,15 +70,19 @@ class PoPs :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> name{this};
-   Field<std::string> version{this};
-   Field<std::string> format{this};
+   Field<std::string>
+      name{this};
+   Field<std::string>
+      version{this};
+   Field<std::string>
+      format{this};
 
    // children
    Field<std::optional<general::Aliases>>

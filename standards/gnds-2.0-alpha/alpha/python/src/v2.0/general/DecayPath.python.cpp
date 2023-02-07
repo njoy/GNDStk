@@ -28,7 +28,7 @@ void wrapDecayPath(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "DecayPath",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapDecayPath(python::module &module)
             const std::vector<general::Decay> &
          >(),
          python::arg("decay"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "decay",
@@ -46,7 +46,7 @@ void wrapDecayPath(python::module &module)
          {
             return self.decay();
          },
-         Component::documentation("decay").data()
+         Component::component_t::documentation("decay").data()
       )
    ;
 

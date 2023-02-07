@@ -28,7 +28,7 @@ void wrapJ(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "J",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapJ(python::module &module)
          python::arg("value"),
          python::arg("level_spacing"),
          python::arg("widths"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapJ(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "value",
@@ -60,7 +60,7 @@ void wrapJ(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
       .def_property_readonly(
          "level_spacing",
@@ -68,7 +68,7 @@ void wrapJ(python::module &module)
          {
             return self.levelSpacing();
          },
-         Component::documentation("level_spacing").data()
+         Component::component_t::documentation("level_spacing").data()
       )
       .def_property_readonly(
          "widths",
@@ -76,7 +76,7 @@ void wrapJ(python::module &module)
          {
             return self.widths();
          },
-         Component::documentation("widths").data()
+         Component::component_t::documentation("widths").data()
       )
    ;
 

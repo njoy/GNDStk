@@ -61,15 +61,19 @@ class TabulatedWidths :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> approximation{this};
-   Field<std::optional<bool>> useForSelfShieldingOnly{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      approximation{this};
+   Field<std::optional<bool>>
+      useForSelfShieldingOnly{this};
 
    // children
    Field<general::ResonanceReactions>

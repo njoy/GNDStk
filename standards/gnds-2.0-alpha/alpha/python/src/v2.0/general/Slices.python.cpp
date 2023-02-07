@@ -28,7 +28,7 @@ void wrapSlices(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Slices",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapSlices(python::module &module)
             const std::vector<general::Slice> &
          >(),
          python::arg("slice"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "slice",
@@ -46,7 +46,7 @@ void wrapSlices(python::module &module)
          {
             return self.slice();
          },
-         Component::documentation("slice").data()
+         Component::component_t::documentation("slice").data()
       )
    ;
 

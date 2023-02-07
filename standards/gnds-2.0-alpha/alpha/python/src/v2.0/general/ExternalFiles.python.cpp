@@ -28,7 +28,7 @@ void wrapExternalFiles(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ExternalFiles",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapExternalFiles(python::module &module)
             const std::vector<general::ExternalFile> &
          >(),
          python::arg("external_file"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "external_file",
@@ -46,7 +46,7 @@ void wrapExternalFiles(python::module &module)
          {
             return self.externalFile();
          },
-         Component::documentation("external_file").data()
+         Component::component_t::documentation("external_file").data()
       )
    ;
 

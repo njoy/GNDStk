@@ -28,7 +28,7 @@ void wrapScatteringAtom(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ScatteringAtom",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -54,7 +54,7 @@ void wrapScatteringAtom(python::module &module)
          python::arg("bound_atom_cross_section"),
          python::arg("self_scattering_kernel"),
          python::arg("t_effective") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "pid",
@@ -62,7 +62,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "number_per_molecule",
@@ -70,7 +70,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.numberPerMolecule();
          },
-         Component::documentation("number_per_molecule").data()
+         Component::component_t::documentation("number_per_molecule").data()
       )
       .def_property_readonly(
          "primary_scatterer",
@@ -78,7 +78,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.primaryScatterer();
          },
-         Component::documentation("primary_scatterer").data()
+         Component::component_t::documentation("primary_scatterer").data()
       )
       .def_property_readonly(
          "mass",
@@ -86,7 +86,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.mass();
          },
-         Component::documentation("mass").data()
+         Component::component_t::documentation("mass").data()
       )
       .def_property_readonly(
          "e_critical",
@@ -94,7 +94,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.e_critical();
          },
-         Component::documentation("e_critical").data()
+         Component::component_t::documentation("e_critical").data()
       )
       .def_property_readonly(
          "e_max",
@@ -102,7 +102,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.e_max();
          },
-         Component::documentation("e_max").data()
+         Component::component_t::documentation("e_max").data()
       )
       .def_property_readonly(
          "bound_atom_cross_section",
@@ -110,7 +110,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.boundAtomCrossSection();
          },
-         Component::documentation("bound_atom_cross_section").data()
+         Component::component_t::documentation("bound_atom_cross_section").data()
       )
       .def_property_readonly(
          "self_scattering_kernel",
@@ -118,7 +118,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.selfScatteringKernel();
          },
-         Component::documentation("self_scattering_kernel").data()
+         Component::component_t::documentation("self_scattering_kernel").data()
       )
       .def_property_readonly(
          "t_effective",
@@ -126,7 +126,7 @@ void wrapScatteringAtom(python::module &module)
          {
             return self.T_effective();
          },
-         Component::documentation("t_effective").data()
+         Component::component_t::documentation("t_effective").data()
       )
    ;
 

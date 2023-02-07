@@ -54,13 +54,15 @@ class SelfScatteringKernel :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<bool>> symmetric{this};
+   Field<std::optional<bool>>
+      symmetric{this};
 
    // children
    Field<std::optional<general::Gridded3d>>

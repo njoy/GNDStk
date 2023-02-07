@@ -28,7 +28,7 @@ void wrapColumnData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ColumnData",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapColumnData(python::module &module)
          python::arg("endf_mfmt") = std::nullopt,
          python::arg("href"),
          python::arg("slices") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "endf_mfmt",
@@ -50,7 +50,7 @@ void wrapColumnData(python::module &module)
          {
             return self.ENDF_MFMT();
          },
-         Component::documentation("endf_mfmt").data()
+         Component::component_t::documentation("endf_mfmt").data()
       )
       .def_property_readonly(
          "href",
@@ -58,7 +58,7 @@ void wrapColumnData(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "slices",
@@ -66,7 +66,7 @@ void wrapColumnData(python::module &module)
          {
             return self.slices();
          },
-         Component::documentation("slices").data()
+         Component::component_t::documentation("slices").data()
       )
    ;
 

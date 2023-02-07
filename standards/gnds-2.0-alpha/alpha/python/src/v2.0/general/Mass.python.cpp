@@ -28,7 +28,7 @@ void wrapMass(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Mass",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapMass(python::module &module)
          python::arg("value") = std::nullopt,
          python::arg("unit") = std::nullopt,
          python::arg("double") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "value",
@@ -50,7 +50,7 @@ void wrapMass(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
@@ -58,7 +58,7 @@ void wrapMass(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
       .def_property_readonly(
          "double",
@@ -66,7 +66,7 @@ void wrapMass(python::module &module)
          {
             return self.Double();
          },
-         Component::documentation("double").data()
+         Component::component_t::documentation("double").data()
       )
    ;
 

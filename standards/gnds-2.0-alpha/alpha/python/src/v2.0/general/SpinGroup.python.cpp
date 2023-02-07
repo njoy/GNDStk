@@ -28,7 +28,7 @@ void wrapSpinGroup(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "SpinGroup",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapSpinGroup(python::module &module)
          python::arg("parity"),
          python::arg("channels"),
          python::arg("resonance_parameters"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapSpinGroup(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "spin",
@@ -62,7 +62,7 @@ void wrapSpinGroup(python::module &module)
          {
             return self.spin();
          },
-         Component::documentation("spin").data()
+         Component::component_t::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
@@ -70,7 +70,7 @@ void wrapSpinGroup(python::module &module)
          {
             return self.parity();
          },
-         Component::documentation("parity").data()
+         Component::component_t::documentation("parity").data()
       )
       .def_property_readonly(
          "channels",
@@ -78,7 +78,7 @@ void wrapSpinGroup(python::module &module)
          {
             return self.channels();
          },
-         Component::documentation("channels").data()
+         Component::component_t::documentation("channels").data()
       )
       .def_property_readonly(
          "resonance_parameters",
@@ -86,7 +86,7 @@ void wrapSpinGroup(python::module &module)
          {
             return self.resonanceParameters();
          },
-         Component::documentation("resonance_parameters").data()
+         Component::component_t::documentation("resonance_parameters").data()
       )
    ;
 

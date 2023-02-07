@@ -28,7 +28,7 @@ void wrapCrossSectionSums(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CrossSectionSums",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapCrossSectionSums(python::module &module)
             const std::vector<general::CrossSectionSum> &
          >(),
          python::arg("cross_section_sum"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "cross_section_sum",
@@ -46,7 +46,7 @@ void wrapCrossSectionSums(python::module &module)
          {
             return self.crossSectionSum();
          },
-         Component::documentation("cross_section_sum").data()
+         Component::component_t::documentation("cross_section_sum").data()
       )
    ;
 

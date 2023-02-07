@@ -28,7 +28,7 @@ void wrapUnorthodox(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Unorthodox",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapUnorthodox(python::module &module)
          >(),
          python::arg("id"),
          python::arg("mass"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -48,7 +48,7 @@ void wrapUnorthodox(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
@@ -56,7 +56,7 @@ void wrapUnorthodox(python::module &module)
          {
             return self.mass();
          },
-         Component::documentation("mass").data()
+         Component::component_t::documentation("mass").data()
       )
    ;
 

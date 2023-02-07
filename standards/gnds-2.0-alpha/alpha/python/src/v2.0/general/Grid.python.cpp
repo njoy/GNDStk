@@ -28,7 +28,7 @@ void wrapGrid(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Grid",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapGrid(python::module &module)
          python::arg("interpolation") = std::nullopt,
          python::arg("link") = std::nullopt,
          python::arg("values") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
@@ -58,7 +58,7 @@ void wrapGrid(python::module &module)
          {
             return self.index();
          },
-         Component::documentation("index").data()
+         Component::component_t::documentation("index").data()
       )
       .def_property_readonly(
          "label",
@@ -66,7 +66,7 @@ void wrapGrid(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "unit",
@@ -74,7 +74,7 @@ void wrapGrid(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
       .def_property_readonly(
          "style",
@@ -82,7 +82,7 @@ void wrapGrid(python::module &module)
          {
             return self.style();
          },
-         Component::documentation("style").data()
+         Component::component_t::documentation("style").data()
       )
       .def_property_readonly(
          "interpolation",
@@ -90,7 +90,7 @@ void wrapGrid(python::module &module)
          {
             return self.interpolation();
          },
-         Component::documentation("interpolation").data()
+         Component::component_t::documentation("interpolation").data()
       )
       .def_property_readonly(
          "link",
@@ -98,7 +98,7 @@ void wrapGrid(python::module &module)
          {
             return self.link();
          },
-         Component::documentation("link").data()
+         Component::component_t::documentation("link").data()
       )
       .def_property_readonly(
          "values",
@@ -106,7 +106,7 @@ void wrapGrid(python::module &module)
          {
             return self.values();
          },
-         Component::documentation("values").data()
+         Component::component_t::documentation("values").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapInstitution(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Institution",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapInstitution(python::module &module)
          >(),
          python::arg("label") = std::nullopt,
          python::arg("endfconversion_flags"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -48,7 +48,7 @@ void wrapInstitution(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "endfconversion_flags",
@@ -56,7 +56,7 @@ void wrapInstitution(python::module &module)
          {
             return self.ENDFconversionFlags();
          },
-         Component::documentation("endfconversion_flags").data()
+         Component::component_t::documentation("endfconversion_flags").data()
       )
    ;
 

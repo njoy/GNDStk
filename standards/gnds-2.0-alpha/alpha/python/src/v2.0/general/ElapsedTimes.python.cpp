@@ -28,7 +28,7 @@ void wrapElapsedTimes(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ElapsedTimes",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapElapsedTimes(python::module &module)
             const std::vector<general::ElapsedTime> &
          >(),
          python::arg("elapsed_time"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "elapsed_time",
@@ -46,7 +46,7 @@ void wrapElapsedTimes(python::module &module)
          {
             return self.elapsedTime();
          },
-         Component::documentation("elapsed_time").data()
+         Component::component_t::documentation("elapsed_time").data()
       )
    ;
 

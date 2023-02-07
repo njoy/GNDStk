@@ -54,13 +54,15 @@ class Mixed :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
+   Field<std::string>
+      label{this};
 
    // children
    Field<std::vector<general::CovarianceMatrix>>

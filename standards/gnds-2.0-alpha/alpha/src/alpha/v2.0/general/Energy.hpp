@@ -80,14 +80,17 @@ class Energy :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<double>> value{this};
-   Field<std::optional<std::string>> unit{this};
+   Field<std::optional<double>>
+      value{this};
+   Field<std::optional<std::string>>
+      unit{this};
 
    // children
    Field<std::optional<general::Double>>

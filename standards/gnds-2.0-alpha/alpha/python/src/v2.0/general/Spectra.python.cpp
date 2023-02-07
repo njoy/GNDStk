@@ -28,7 +28,7 @@ void wrapSpectra(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Spectra",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapSpectra(python::module &module)
             const std::vector<general::Spectrum> &
          >(),
          python::arg("spectrum"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "spectrum",
@@ -46,7 +46,7 @@ void wrapSpectra(python::module &module)
          {
             return self.spectrum();
          },
-         Component::documentation("spectrum").data()
+         Component::component_t::documentation("spectrum").data()
       )
    ;
 

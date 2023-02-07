@@ -28,7 +28,7 @@ void wrapEFH(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "EFH",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapEFH(python::module &module)
          >(),
          python::arg("value"),
          python::arg("unit"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "value",
@@ -48,7 +48,7 @@ void wrapEFH(python::module &module)
          {
             return self.value();
          },
-         Component::documentation("value").data()
+         Component::component_t::documentation("value").data()
       )
       .def_property_readonly(
          "unit",
@@ -56,7 +56,7 @@ void wrapEFH(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapAngularTwoBody(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "AngularTwoBody",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapAngularTwoBody(python::module &module)
          python::arg("regions2d") = std::nullopt,
          python::arg("recoil") = std::nullopt,
          python::arg("isotropic2d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -64,7 +64,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "xys2d",
@@ -72,7 +72,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.XYs2d();
          },
-         Component::documentation("xys2d").data()
+         Component::component_t::documentation("xys2d").data()
       )
       .def_property_readonly(
          "regions2d",
@@ -80,7 +80,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.regions2d();
          },
-         Component::documentation("regions2d").data()
+         Component::component_t::documentation("regions2d").data()
       )
       .def_property_readonly(
          "recoil",
@@ -88,7 +88,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.recoil();
          },
-         Component::documentation("recoil").data()
+         Component::component_t::documentation("recoil").data()
       )
       .def_property_readonly(
          "isotropic2d",
@@ -96,7 +96,7 @@ void wrapAngularTwoBody(python::module &module)
          {
             return self.isotropic2d();
          },
-         Component::documentation("isotropic2d").data()
+         Component::component_t::documentation("isotropic2d").data()
       )
    ;
 

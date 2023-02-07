@@ -28,7 +28,7 @@ void wrapENDFconversionFlags(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ENDFconversionFlags",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapENDFconversionFlags(python::module &module)
          python::arg("flags") = std::nullopt,
          python::arg("href") = std::nullopt,
          python::arg("conversion"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "flags",
@@ -50,7 +50,7 @@ void wrapENDFconversionFlags(python::module &module)
          {
             return self.flags();
          },
-         Component::documentation("flags").data()
+         Component::component_t::documentation("flags").data()
       )
       .def_property_readonly(
          "href",
@@ -58,7 +58,7 @@ void wrapENDFconversionFlags(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "conversion",
@@ -66,7 +66,7 @@ void wrapENDFconversionFlags(python::module &module)
          {
             return self.conversion();
          },
-         Component::documentation("conversion").data()
+         Component::component_t::documentation("conversion").data()
       )
    ;
 

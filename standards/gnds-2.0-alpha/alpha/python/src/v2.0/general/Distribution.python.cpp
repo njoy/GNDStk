@@ -28,7 +28,7 @@ void wrapDistribution(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Distribution",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -58,7 +58,7 @@ void wrapDistribution(python::module &module)
          python::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
          python::arg("coherent_photon_scattering") = std::nullopt,
          python::arg("incoherent_photon_scattering") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law",
@@ -66,7 +66,7 @@ void wrapDistribution(python::module &module)
          {
             return self.thermalNeutronScatteringLaw();
          },
-         Component::documentation("thermal_neutron_scattering_law").data()
+         Component::component_t::documentation("thermal_neutron_scattering_law").data()
       )
       .def_property_readonly(
          "uncorrelated",
@@ -74,7 +74,7 @@ void wrapDistribution(python::module &module)
          {
             return self.uncorrelated();
          },
-         Component::documentation("uncorrelated").data()
+         Component::component_t::documentation("uncorrelated").data()
       )
       .def_property_readonly(
          "unspecified",
@@ -82,7 +82,7 @@ void wrapDistribution(python::module &module)
          {
             return self.unspecified();
          },
-         Component::documentation("unspecified").data()
+         Component::component_t::documentation("unspecified").data()
       )
       .def_property_readonly(
          "branching3d",
@@ -90,7 +90,7 @@ void wrapDistribution(python::module &module)
          {
             return self.branching3d();
          },
-         Component::documentation("branching3d").data()
+         Component::component_t::documentation("branching3d").data()
       )
       .def_property_readonly(
          "angular_two_body",
@@ -98,7 +98,7 @@ void wrapDistribution(python::module &module)
          {
             return self.angularTwoBody();
          },
-         Component::documentation("angular_two_body").data()
+         Component::component_t::documentation("angular_two_body").data()
       )
       .def_property_readonly(
          "energy_angular",
@@ -106,7 +106,7 @@ void wrapDistribution(python::module &module)
          {
             return self.energyAngular();
          },
-         Component::documentation("energy_angular").data()
+         Component::component_t::documentation("energy_angular").data()
       )
       .def_property_readonly(
          "kalbach_mann",
@@ -114,7 +114,7 @@ void wrapDistribution(python::module &module)
          {
             return self.KalbachMann();
          },
-         Component::documentation("kalbach_mann").data()
+         Component::component_t::documentation("kalbach_mann").data()
       )
       .def_property_readonly(
          "angular_energy",
@@ -122,7 +122,7 @@ void wrapDistribution(python::module &module)
          {
             return self.angularEnergy();
          },
-         Component::documentation("angular_energy").data()
+         Component::component_t::documentation("angular_energy").data()
       )
       .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
@@ -130,7 +130,7 @@ void wrapDistribution(python::module &module)
          {
             return self.CoulombPlusNuclearElastic();
          },
-         Component::documentation("coulomb_plus_nuclear_elastic").data()
+         Component::component_t::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "coherent_photon_scattering",
@@ -138,7 +138,7 @@ void wrapDistribution(python::module &module)
          {
             return self.coherentPhotonScattering();
          },
-         Component::documentation("coherent_photon_scattering").data()
+         Component::component_t::documentation("coherent_photon_scattering").data()
       )
       .def_property_readonly(
          "incoherent_photon_scattering",
@@ -146,7 +146,7 @@ void wrapDistribution(python::module &module)
          {
             return self.incoherentPhotonScattering();
          },
-         Component::documentation("incoherent_photon_scattering").data()
+         Component::component_t::documentation("incoherent_photon_scattering").data()
       )
    ;
 

@@ -60,13 +60,15 @@ class Nuclide :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> id{this};
+   Field<std::string>
+      id{this};
 
    // children
    Field<std::optional<general::Mass>>

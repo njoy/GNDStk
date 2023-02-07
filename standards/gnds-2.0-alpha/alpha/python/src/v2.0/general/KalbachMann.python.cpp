@@ -28,7 +28,7 @@ void wrapKalbachMann(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "KalbachMann",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapKalbachMann(python::module &module)
          python::arg("product_frame"),
          python::arg("f") = std::nullopt,
          python::arg("r") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapKalbachMann(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -60,7 +60,7 @@ void wrapKalbachMann(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "f",
@@ -68,7 +68,7 @@ void wrapKalbachMann(python::module &module)
          {
             return self.f();
          },
-         Component::documentation("f").data()
+         Component::component_t::documentation("f").data()
       )
       .def_property_readonly(
          "r",
@@ -76,7 +76,7 @@ void wrapKalbachMann(python::module &module)
          {
             return self.r();
          },
-         Component::documentation("r").data()
+         Component::component_t::documentation("r").data()
       )
    ;
 

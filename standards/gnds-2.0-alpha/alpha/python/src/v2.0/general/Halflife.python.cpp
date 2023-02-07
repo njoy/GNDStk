@@ -28,7 +28,7 @@ void wrapHalflife(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Halflife",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapHalflife(python::module &module)
          >(),
          python::arg("string") = std::nullopt,
          python::arg("double") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "string",
@@ -48,7 +48,7 @@ void wrapHalflife(python::module &module)
          {
             return self.string();
          },
-         Component::documentation("string").data()
+         Component::component_t::documentation("string").data()
       )
       .def_property_readonly(
          "double",
@@ -56,7 +56,7 @@ void wrapHalflife(python::module &module)
          {
             return self.Double();
          },
-         Component::documentation("double").data()
+         Component::component_t::documentation("double").data()
       )
    ;
 

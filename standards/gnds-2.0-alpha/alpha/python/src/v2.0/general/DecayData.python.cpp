@@ -28,7 +28,7 @@ void wrapDecayData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "DecayData",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapDecayData(python::module &module)
          >(),
          python::arg("decay_modes"),
          python::arg("average_energies") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "decay_modes",
@@ -48,7 +48,7 @@ void wrapDecayData(python::module &module)
          {
             return self.decayModes();
          },
-         Component::documentation("decay_modes").data()
+         Component::component_t::documentation("decay_modes").data()
       )
       .def_property_readonly(
          "average_energies",
@@ -56,7 +56,7 @@ void wrapDecayData(python::module &module)
          {
             return self.averageEnergies();
          },
-         Component::documentation("average_energies").data()
+         Component::component_t::documentation("average_energies").data()
       )
    ;
 

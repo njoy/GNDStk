@@ -28,7 +28,7 @@ void wrapAuthors(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Authors",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapAuthors(python::module &module)
             const std::vector<general::Author> &
          >(),
          python::arg("author"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "author",
@@ -46,7 +46,7 @@ void wrapAuthors(python::module &module)
          {
             return self.author();
          },
-         Component::documentation("author").data()
+         Component::component_t::documentation("author").data()
       )
    ;
 

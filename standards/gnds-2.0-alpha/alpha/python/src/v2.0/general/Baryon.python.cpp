@@ -28,7 +28,7 @@ void wrapBaryon(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Baryon",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapBaryon(python::module &module)
          python::arg("charge"),
          python::arg("halflife"),
          python::arg("decay_data") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -58,7 +58,7 @@ void wrapBaryon(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
@@ -66,7 +66,7 @@ void wrapBaryon(python::module &module)
          {
             return self.mass();
          },
-         Component::documentation("mass").data()
+         Component::component_t::documentation("mass").data()
       )
       .def_property_readonly(
          "spin",
@@ -74,7 +74,7 @@ void wrapBaryon(python::module &module)
          {
             return self.spin();
          },
-         Component::documentation("spin").data()
+         Component::component_t::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
@@ -82,7 +82,7 @@ void wrapBaryon(python::module &module)
          {
             return self.parity();
          },
-         Component::documentation("parity").data()
+         Component::component_t::documentation("parity").data()
       )
       .def_property_readonly(
          "charge",
@@ -90,7 +90,7 @@ void wrapBaryon(python::module &module)
          {
             return self.charge();
          },
-         Component::documentation("charge").data()
+         Component::component_t::documentation("charge").data()
       )
       .def_property_readonly(
          "halflife",
@@ -98,7 +98,7 @@ void wrapBaryon(python::module &module)
          {
             return self.halflife();
          },
-         Component::documentation("halflife").data()
+         Component::component_t::documentation("halflife").data()
       )
       .def_property_readonly(
          "decay_data",
@@ -106,7 +106,7 @@ void wrapBaryon(python::module &module)
          {
             return self.decayData();
          },
-         Component::documentation("decay_data").data()
+         Component::component_t::documentation("decay_data").data()
       )
    ;
 

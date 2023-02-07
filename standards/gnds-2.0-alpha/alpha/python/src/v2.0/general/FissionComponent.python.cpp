@@ -28,7 +28,7 @@ void wrapFissionComponent(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "FissionComponent",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapFissionComponent(python::module &module)
          python::arg("fission_genre"),
          python::arg("cross_section"),
          python::arg("output_channel"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapFissionComponent(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
@@ -62,7 +62,7 @@ void wrapFissionComponent(python::module &module)
          {
             return self.ENDF_MT();
          },
-         Component::documentation("endf_mt").data()
+         Component::component_t::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "fission_genre",
@@ -70,7 +70,7 @@ void wrapFissionComponent(python::module &module)
          {
             return self.fissionGenre();
          },
-         Component::documentation("fission_genre").data()
+         Component::component_t::documentation("fission_genre").data()
       )
       .def_property_readonly(
          "cross_section",
@@ -78,7 +78,7 @@ void wrapFissionComponent(python::module &module)
          {
             return self.crossSection();
          },
-         Component::documentation("cross_section").data()
+         Component::component_t::documentation("cross_section").data()
       )
       .def_property_readonly(
          "output_channel",
@@ -86,7 +86,7 @@ void wrapFissionComponent(python::module &module)
          {
             return self.outputChannel();
          },
-         Component::documentation("output_channel").data()
+         Component::component_t::documentation("output_channel").data()
       )
    ;
 

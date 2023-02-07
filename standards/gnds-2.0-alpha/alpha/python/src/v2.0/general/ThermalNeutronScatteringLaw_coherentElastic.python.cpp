@@ -28,7 +28,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ThermalNeutronScatteringLaw_coherentElastic",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
          python::arg("pid"),
          python::arg("product_frame"),
          python::arg("s_table"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
@@ -60,7 +60,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -68,7 +68,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "s_table",
@@ -76,7 +76,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &module)
          {
             return self.S_table();
          },
-         Component::documentation("s_table").data()
+         Component::component_t::documentation("s_table").data()
       )
    ;
 

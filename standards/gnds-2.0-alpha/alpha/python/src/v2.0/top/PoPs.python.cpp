@@ -28,7 +28,7 @@ void wrapPoPs(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "PoPs",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -56,7 +56,7 @@ void wrapPoPs(python::module &module)
          python::arg("unorthodoxes") = std::nullopt,
          python::arg("gauge_bosons") = std::nullopt,
          python::arg("leptons") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "name",
@@ -64,7 +64,7 @@ void wrapPoPs(python::module &module)
          {
             return self.name();
          },
-         Component::documentation("name").data()
+         Component::component_t::documentation("name").data()
       )
       .def_property_readonly(
          "version",
@@ -72,7 +72,7 @@ void wrapPoPs(python::module &module)
          {
             return self.version();
          },
-         Component::documentation("version").data()
+         Component::component_t::documentation("version").data()
       )
       .def_property_readonly(
          "format",
@@ -80,7 +80,7 @@ void wrapPoPs(python::module &module)
          {
             return self.format();
          },
-         Component::documentation("format").data()
+         Component::component_t::documentation("format").data()
       )
       .def_property_readonly(
          "aliases",
@@ -88,7 +88,7 @@ void wrapPoPs(python::module &module)
          {
             return self.aliases();
          },
-         Component::documentation("aliases").data()
+         Component::component_t::documentation("aliases").data()
       )
       .def_property_readonly(
          "baryons",
@@ -96,7 +96,7 @@ void wrapPoPs(python::module &module)
          {
             return self.baryons();
          },
-         Component::documentation("baryons").data()
+         Component::component_t::documentation("baryons").data()
       )
       .def_property_readonly(
          "chemical_elements",
@@ -104,7 +104,7 @@ void wrapPoPs(python::module &module)
          {
             return self.chemicalElements();
          },
-         Component::documentation("chemical_elements").data()
+         Component::component_t::documentation("chemical_elements").data()
       )
       .def_property_readonly(
          "styles",
@@ -112,7 +112,7 @@ void wrapPoPs(python::module &module)
          {
             return self.styles();
          },
-         Component::documentation("styles").data()
+         Component::component_t::documentation("styles").data()
       )
       .def_property_readonly(
          "unorthodoxes",
@@ -120,7 +120,7 @@ void wrapPoPs(python::module &module)
          {
             return self.unorthodoxes();
          },
-         Component::documentation("unorthodoxes").data()
+         Component::component_t::documentation("unorthodoxes").data()
       )
       .def_property_readonly(
          "gauge_bosons",
@@ -128,7 +128,7 @@ void wrapPoPs(python::module &module)
          {
             return self.gaugeBosons();
          },
-         Component::documentation("gauge_bosons").data()
+         Component::component_t::documentation("gauge_bosons").data()
       )
       .def_property_readonly(
          "leptons",
@@ -136,7 +136,7 @@ void wrapPoPs(python::module &module)
          {
             return self.leptons();
          },
-         Component::documentation("leptons").data()
+         Component::component_t::documentation("leptons").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapNuclearPlusInterference(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "NuclearPlusInterference",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapNuclearPlusInterference(python::module &module)
          python::arg("mu_cutoff"),
          python::arg("cross_section"),
          python::arg("distribution"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "mu_cutoff",
@@ -50,7 +50,7 @@ void wrapNuclearPlusInterference(python::module &module)
          {
             return self.muCutoff();
          },
-         Component::documentation("mu_cutoff").data()
+         Component::component_t::documentation("mu_cutoff").data()
       )
       .def_property_readonly(
          "cross_section",
@@ -58,7 +58,7 @@ void wrapNuclearPlusInterference(python::module &module)
          {
             return self.crossSection();
          },
-         Component::documentation("cross_section").data()
+         Component::component_t::documentation("cross_section").data()
       )
       .def_property_readonly(
          "distribution",
@@ -66,7 +66,7 @@ void wrapNuclearPlusInterference(python::module &module)
          {
             return self.distribution();
          },
-         Component::documentation("distribution").data()
+         Component::component_t::documentation("distribution").data()
       )
    ;
 

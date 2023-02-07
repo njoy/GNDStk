@@ -28,7 +28,7 @@ void wrapChemicalElements(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ChemicalElements",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapChemicalElements(python::module &module)
             const std::vector<general::ChemicalElement> &
          >(),
          python::arg("chemical_element"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "chemical_element",
@@ -46,7 +46,7 @@ void wrapChemicalElements(python::module &module)
          {
             return self.chemicalElement();
          },
-         Component::documentation("chemical_element").data()
+         Component::component_t::documentation("chemical_element").data()
       )
    ;
 

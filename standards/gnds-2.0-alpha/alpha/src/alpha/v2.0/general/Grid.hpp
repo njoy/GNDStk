@@ -59,17 +59,23 @@ class Grid :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> index{this};
-   Field<std::string> label{this};
-   Field<std::string> unit{this};
-   Field<std::string> style{this};
-   Field<std::optional<std::string>> interpolation{this};
+   Field<int>
+      index{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      unit{this};
+   Field<std::string>
+      style{this};
+   Field<std::optional<std::string>>
+      interpolation{this};
 
    // children
    Field<std::optional<general::Link>>

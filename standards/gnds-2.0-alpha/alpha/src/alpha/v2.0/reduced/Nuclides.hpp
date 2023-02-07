@@ -48,6 +48,7 @@ class Nuclides :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
    using DataNode::operator=;
 
@@ -55,7 +56,8 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // ------------------------
    // Constructors
@@ -95,7 +97,7 @@ public:
    }
 
    // from vector<std::string>
-   Nuclides(const std::vector<std::string> &vector) :
+   explicit Nuclides(const std::vector<std::string> &vector) :
       GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {

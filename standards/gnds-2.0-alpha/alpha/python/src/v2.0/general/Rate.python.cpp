@@ -28,7 +28,7 @@ void wrapRate(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Rate",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapRate(python::module &module)
             const general::Double &
          >(),
          python::arg("double"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "double",
@@ -46,7 +46,7 @@ void wrapRate(python::module &module)
          {
             return self.Double();
          },
-         Component::documentation("double").data()
+         Component::component_t::documentation("double").data()
       )
    ;
 

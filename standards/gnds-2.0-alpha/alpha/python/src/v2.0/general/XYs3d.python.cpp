@@ -28,7 +28,7 @@ void wrapXYs3d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "XYs3d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapXYs3d(python::module &module)
          python::arg("interpolation_qualifier") = std::nullopt,
          python::arg("axes") = std::nullopt,
          python::arg("function2ds"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "interpolation_qualifier",
@@ -50,7 +50,7 @@ void wrapXYs3d(python::module &module)
          {
             return self.interpolationQualifier();
          },
-         Component::documentation("interpolation_qualifier").data()
+         Component::component_t::documentation("interpolation_qualifier").data()
       )
       .def_property_readonly(
          "axes",
@@ -58,7 +58,7 @@ void wrapXYs3d(python::module &module)
          {
             return self.axes();
          },
-         Component::documentation("axes").data()
+         Component::component_t::documentation("axes").data()
       )
       .def_property_readonly(
          "function2ds",
@@ -66,7 +66,7 @@ void wrapXYs3d(python::module &module)
          {
             return self.function2ds();
          },
-         Component::documentation("function2ds").data()
+         Component::component_t::documentation("function2ds").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapDistribution(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Distribution",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapDistribution(python::module &module)
          python::arg("unspecified") = std::nullopt,
          python::arg("xys2d") = std::nullopt,
          python::arg("branching3d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law",
@@ -54,7 +54,7 @@ void wrapDistribution(python::module &module)
          {
             return self.thermalNeutronScatteringLaw();
          },
-         Component::documentation("thermal_neutron_scattering_law").data()
+         Component::component_t::documentation("thermal_neutron_scattering_law").data()
       )
       .def_property_readonly(
          "uncorrelated",
@@ -62,7 +62,7 @@ void wrapDistribution(python::module &module)
          {
             return self.uncorrelated();
          },
-         Component::documentation("uncorrelated").data()
+         Component::component_t::documentation("uncorrelated").data()
       )
       .def_property_readonly(
          "unspecified",
@@ -70,7 +70,7 @@ void wrapDistribution(python::module &module)
          {
             return self.unspecified();
          },
-         Component::documentation("unspecified").data()
+         Component::component_t::documentation("unspecified").data()
       )
       .def_property_readonly(
          "xys2d",
@@ -78,7 +78,7 @@ void wrapDistribution(python::module &module)
          {
             return self.XYs2d();
          },
-         Component::documentation("xys2d").data()
+         Component::component_t::documentation("xys2d").data()
       )
       .def_property_readonly(
          "branching3d",
@@ -86,7 +86,7 @@ void wrapDistribution(python::module &module)
          {
             return self.branching3d();
          },
-         Component::documentation("branching3d").data()
+         Component::component_t::documentation("branching3d").data()
       )
    ;
 

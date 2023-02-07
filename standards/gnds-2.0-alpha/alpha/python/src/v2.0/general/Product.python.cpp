@@ -28,7 +28,7 @@ void wrapProduct(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Product",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapProduct(python::module &module)
          python::arg("distribution") = std::nullopt,
          python::arg("output_channel") = std::nullopt,
          python::arg("average_product_energy") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapProduct(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
@@ -64,7 +64,7 @@ void wrapProduct(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "multiplicity",
@@ -72,7 +72,7 @@ void wrapProduct(python::module &module)
          {
             return self.multiplicity();
          },
-         Component::documentation("multiplicity").data()
+         Component::component_t::documentation("multiplicity").data()
       )
       .def_property_readonly(
          "distribution",
@@ -80,7 +80,7 @@ void wrapProduct(python::module &module)
          {
             return self.distribution();
          },
-         Component::documentation("distribution").data()
+         Component::component_t::documentation("distribution").data()
       )
       .def_property_readonly(
          "output_channel",
@@ -88,7 +88,7 @@ void wrapProduct(python::module &module)
          {
             return self.outputChannel();
          },
-         Component::documentation("output_channel").data()
+         Component::component_t::documentation("output_channel").data()
       )
       .def_property_readonly(
          "average_product_energy",
@@ -96,7 +96,7 @@ void wrapProduct(python::module &module)
          {
             return self.averageProductEnergy();
          },
-         Component::documentation("average_product_energy").data()
+         Component::component_t::documentation("average_product_energy").data()
       )
    ;
 

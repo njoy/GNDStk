@@ -28,7 +28,7 @@ void wrapDocumentation(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Documentation",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapDocumentation(python::module &module)
          python::arg("title"),
          python::arg("body"),
          python::arg("endf_compatible") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "authors",
@@ -54,7 +54,7 @@ void wrapDocumentation(python::module &module)
          {
             return self.authors();
          },
-         Component::documentation("authors").data()
+         Component::component_t::documentation("authors").data()
       )
       .def_property_readonly(
          "dates",
@@ -62,7 +62,7 @@ void wrapDocumentation(python::module &module)
          {
             return self.dates();
          },
-         Component::documentation("dates").data()
+         Component::component_t::documentation("dates").data()
       )
       .def_property_readonly(
          "title",
@@ -70,7 +70,7 @@ void wrapDocumentation(python::module &module)
          {
             return self.title();
          },
-         Component::documentation("title").data()
+         Component::component_t::documentation("title").data()
       )
       .def_property_readonly(
          "body",
@@ -78,7 +78,7 @@ void wrapDocumentation(python::module &module)
          {
             return self.body();
          },
-         Component::documentation("body").data()
+         Component::component_t::documentation("body").data()
       )
       .def_property_readonly(
          "endf_compatible",
@@ -86,7 +86,7 @@ void wrapDocumentation(python::module &module)
          {
             return self.endfCompatible();
          },
-         Component::documentation("endf_compatible").data()
+         Component::component_t::documentation("endf_compatible").data()
       )
    ;
 

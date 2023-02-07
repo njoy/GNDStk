@@ -28,7 +28,7 @@ void wrapUnresolved(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Unresolved",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapUnresolved(python::module &module)
          python::arg("domain_max"),
          python::arg("domain_unit"),
          python::arg("tabulated_widths"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "domain_min",
@@ -52,7 +52,7 @@ void wrapUnresolved(python::module &module)
          {
             return self.domainMin();
          },
-         Component::documentation("domain_min").data()
+         Component::component_t::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
@@ -60,7 +60,7 @@ void wrapUnresolved(python::module &module)
          {
             return self.domainMax();
          },
-         Component::documentation("domain_max").data()
+         Component::component_t::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
@@ -68,7 +68,7 @@ void wrapUnresolved(python::module &module)
          {
             return self.domainUnit();
          },
-         Component::documentation("domain_unit").data()
+         Component::component_t::documentation("domain_unit").data()
       )
       .def_property_readonly(
          "tabulated_widths",
@@ -76,7 +76,7 @@ void wrapUnresolved(python::module &module)
          {
             return self.tabulatedWidths();
          },
-         Component::documentation("tabulated_widths").data()
+         Component::component_t::documentation("tabulated_widths").data()
       )
    ;
 

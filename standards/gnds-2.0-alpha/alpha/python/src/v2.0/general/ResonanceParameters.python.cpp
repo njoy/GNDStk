@@ -28,7 +28,7 @@ void wrapResonanceParameters(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ResonanceParameters",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapResonanceParameters(python::module &module)
             const general::Table &
          >(),
          python::arg("table"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "table",
@@ -46,7 +46,7 @@ void wrapResonanceParameters(python::module &module)
          {
             return self.table();
          },
-         Component::documentation("table").data()
+         Component::component_t::documentation("table").data()
       )
    ;
 

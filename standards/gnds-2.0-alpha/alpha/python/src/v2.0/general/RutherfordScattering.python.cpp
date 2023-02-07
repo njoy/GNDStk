@@ -28,7 +28,7 @@ void wrapRutherfordScattering(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "RutherfordScattering",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -36,7 +36,7 @@ void wrapRutherfordScattering(python::module &module)
       .def(
          python::init<
          >(),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapResonancesWithBackground(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ResonancesWithBackground",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapResonancesWithBackground(python::module &module)
          python::arg("resonances"),
          python::arg("background"),
          python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapResonancesWithBackground(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "resonances",
@@ -60,7 +60,7 @@ void wrapResonancesWithBackground(python::module &module)
          {
             return self.resonances();
          },
-         Component::documentation("resonances").data()
+         Component::component_t::documentation("resonances").data()
       )
       .def_property_readonly(
          "background",
@@ -68,7 +68,7 @@ void wrapResonancesWithBackground(python::module &module)
          {
             return self.background();
          },
-         Component::documentation("background").data()
+         Component::component_t::documentation("background").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -76,7 +76,7 @@ void wrapResonancesWithBackground(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
    ;
 

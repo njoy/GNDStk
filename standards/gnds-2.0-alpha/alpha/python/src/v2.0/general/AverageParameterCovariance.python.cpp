@@ -28,7 +28,7 @@ void wrapAverageParameterCovariance(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "AverageParameterCovariance",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapAverageParameterCovariance(python::module &module)
          python::arg("covariance_matrix"),
          python::arg("row_data"),
          python::arg("column_data") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapAverageParameterCovariance(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "cross_term",
@@ -62,7 +62,7 @@ void wrapAverageParameterCovariance(python::module &module)
          {
             return self.crossTerm();
          },
-         Component::documentation("cross_term").data()
+         Component::component_t::documentation("cross_term").data()
       )
       .def_property_readonly(
          "covariance_matrix",
@@ -70,7 +70,7 @@ void wrapAverageParameterCovariance(python::module &module)
          {
             return self.covarianceMatrix();
          },
-         Component::documentation("covariance_matrix").data()
+         Component::component_t::documentation("covariance_matrix").data()
       )
       .def_property_readonly(
          "row_data",
@@ -78,7 +78,7 @@ void wrapAverageParameterCovariance(python::module &module)
          {
             return self.rowData();
          },
-         Component::documentation("row_data").data()
+         Component::component_t::documentation("row_data").data()
       )
       .def_property_readonly(
          "column_data",
@@ -86,7 +86,7 @@ void wrapAverageParameterCovariance(python::module &module)
          {
             return self.columnData();
          },
-         Component::documentation("column_data").data()
+         Component::component_t::documentation("column_data").data()
       )
    ;
 

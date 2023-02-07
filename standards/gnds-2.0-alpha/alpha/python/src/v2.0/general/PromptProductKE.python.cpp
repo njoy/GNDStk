@@ -28,7 +28,7 @@ void wrapPromptProductKE(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "PromptProductKE",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapPromptProductKE(python::module &module)
          >(),
          python::arg("polynomial1d") = std::nullopt,
          python::arg("xys1d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "polynomial1d",
@@ -48,7 +48,7 @@ void wrapPromptProductKE(python::module &module)
          {
             return self.polynomial1d();
          },
-         Component::documentation("polynomial1d").data()
+         Component::component_t::documentation("polynomial1d").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -56,7 +56,7 @@ void wrapPromptProductKE(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapEvaporation(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Evaporation",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapEvaporation(python::module &module)
          >(),
          python::arg("u"),
          python::arg("theta"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "u",
@@ -48,7 +48,7 @@ void wrapEvaporation(python::module &module)
          {
             return self.U();
          },
-         Component::documentation("u").data()
+         Component::component_t::documentation("u").data()
       )
       .def_property_readonly(
          "theta",
@@ -56,7 +56,7 @@ void wrapEvaporation(python::module &module)
          {
             return self.theta();
          },
-         Component::documentation("theta").data()
+         Component::component_t::documentation("theta").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapElapsedTime(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ElapsedTime",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapElapsedTime(python::module &module)
          python::arg("time"),
          python::arg("yields") = std::nullopt,
          python::arg("incident_energies") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapElapsedTime(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "time",
@@ -60,7 +60,7 @@ void wrapElapsedTime(python::module &module)
          {
             return self.time();
          },
-         Component::documentation("time").data()
+         Component::component_t::documentation("time").data()
       )
       .def_property_readonly(
          "yields",
@@ -68,7 +68,7 @@ void wrapElapsedTime(python::module &module)
          {
             return self.yields();
          },
-         Component::documentation("yields").data()
+         Component::component_t::documentation("yields").data()
       )
       .def_property_readonly(
          "incident_energies",
@@ -76,7 +76,7 @@ void wrapElapsedTime(python::module &module)
          {
             return self.incidentEnergies();
          },
-         Component::documentation("incident_energies").data()
+         Component::component_t::documentation("incident_energies").data()
       )
    ;
 

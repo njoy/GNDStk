@@ -28,7 +28,7 @@ void wrapReaction(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Reaction",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapReaction(python::module &module)
          python::arg("cross_section"),
          python::arg("output_channel"),
          python::arg("double_differential_cross_section") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapReaction(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
@@ -64,7 +64,7 @@ void wrapReaction(python::module &module)
          {
             return self.ENDF_MT();
          },
-         Component::documentation("endf_mt").data()
+         Component::component_t::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "fission_genre",
@@ -72,7 +72,7 @@ void wrapReaction(python::module &module)
          {
             return self.fissionGenre();
          },
-         Component::documentation("fission_genre").data()
+         Component::component_t::documentation("fission_genre").data()
       )
       .def_property_readonly(
          "cross_section",
@@ -80,7 +80,7 @@ void wrapReaction(python::module &module)
          {
             return self.crossSection();
          },
-         Component::documentation("cross_section").data()
+         Component::component_t::documentation("cross_section").data()
       )
       .def_property_readonly(
          "output_channel",
@@ -88,7 +88,7 @@ void wrapReaction(python::module &module)
          {
             return self.outputChannel();
          },
-         Component::documentation("output_channel").data()
+         Component::component_t::documentation("output_channel").data()
       )
       .def_property_readonly(
          "double_differential_cross_section",
@@ -96,7 +96,7 @@ void wrapReaction(python::module &module)
          {
             return self.doubleDifferentialCrossSection();
          },
-         Component::documentation("double_differential_cross_section").data()
+         Component::component_t::documentation("double_differential_cross_section").data()
       )
    ;
 

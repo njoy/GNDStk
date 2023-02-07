@@ -61,15 +61,19 @@ class ResonanceReaction :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::optional<std::string>> ejectile{this};
-   Field<std::optional<bool>> eliminated{this};
+   Field<std::string>
+      label{this};
+   Field<std::optional<std::string>>
+      ejectile{this};
+   Field<std::optional<bool>>
+      eliminated{this};
 
    // children
    Field<general::Link>

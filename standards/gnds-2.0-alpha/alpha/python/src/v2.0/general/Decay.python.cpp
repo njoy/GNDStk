@@ -28,7 +28,7 @@ void wrapDecay(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Decay",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapDecay(python::module &module)
          python::arg("mode") = std::nullopt,
          python::arg("complete") = std::nullopt,
          python::arg("products") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
@@ -52,7 +52,7 @@ void wrapDecay(python::module &module)
          {
             return self.index();
          },
-         Component::documentation("index").data()
+         Component::component_t::documentation("index").data()
       )
       .def_property_readonly(
          "mode",
@@ -60,7 +60,7 @@ void wrapDecay(python::module &module)
          {
             return self.mode();
          },
-         Component::documentation("mode").data()
+         Component::component_t::documentation("mode").data()
       )
       .def_property_readonly(
          "complete",
@@ -68,7 +68,7 @@ void wrapDecay(python::module &module)
          {
             return self.complete();
          },
-         Component::documentation("complete").data()
+         Component::component_t::documentation("complete").data()
       )
       .def_property_readonly(
          "products",
@@ -76,7 +76,7 @@ void wrapDecay(python::module &module)
          {
             return self.products();
          },
-         Component::documentation("products").data()
+         Component::component_t::documentation("products").data()
       )
    ;
 

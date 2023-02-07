@@ -33,7 +33,7 @@ void node_add(
 
 public:
 
-operator Node() const
+explicit operator Node() const
 {
    // Initialize a Node, with the necessary name
    Node node(DERIVED::FIELD());
@@ -92,7 +92,7 @@ operator Node() const
 // Like conversion to Node, but with a proper root Node.
 // -----------------------------------------------------------------------------
 
-operator Tree() const
+explicit operator Tree() const
 {
    Tree tree;
    tree.add(Node(*this));

@@ -28,7 +28,7 @@ void wrapAngularEnergy(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "AngularEnergy",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapAngularEnergy(python::module &module)
          python::arg("label"),
          python::arg("product_frame"),
          python::arg("xys3d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapAngularEnergy(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -58,7 +58,7 @@ void wrapAngularEnergy(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "xys3d",
@@ -66,7 +66,7 @@ void wrapAngularEnergy(python::module &module)
          {
             return self.XYs3d();
          },
-         Component::documentation("xys3d").data()
+         Component::component_t::documentation("xys3d").data()
       )
    ;
 

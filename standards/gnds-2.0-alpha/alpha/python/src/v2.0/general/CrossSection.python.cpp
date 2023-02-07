@@ -28,7 +28,7 @@ void wrapCrossSection(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CrossSection",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapCrossSection(python::module &module)
          python::arg("resonances_with_background") = std::nullopt,
          python::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
          python::arg("thermal_neutron_scattering_law1d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -56,7 +56,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
       .def_property_readonly(
          "regions1d",
@@ -64,7 +64,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.regions1d();
          },
-         Component::documentation("regions1d").data()
+         Component::component_t::documentation("regions1d").data()
       )
       .def_property_readonly(
          "reference",
@@ -72,7 +72,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.reference();
          },
-         Component::documentation("reference").data()
+         Component::component_t::documentation("reference").data()
       )
       .def_property_readonly(
          "resonances_with_background",
@@ -80,7 +80,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.resonancesWithBackground();
          },
-         Component::documentation("resonances_with_background").data()
+         Component::component_t::documentation("resonances_with_background").data()
       )
       .def_property_readonly(
          "coulomb_plus_nuclear_elastic",
@@ -88,7 +88,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.CoulombPlusNuclearElastic();
          },
-         Component::documentation("coulomb_plus_nuclear_elastic").data()
+         Component::component_t::documentation("coulomb_plus_nuclear_elastic").data()
       )
       .def_property_readonly(
          "thermal_neutron_scattering_law1d",
@@ -96,7 +96,7 @@ void wrapCrossSection(python::module &module)
          {
             return self.thermalNeutronScatteringLaw1d();
          },
-         Component::documentation("thermal_neutron_scattering_law1d").data()
+         Component::component_t::documentation("thermal_neutron_scattering_law1d").data()
       )
    ;
 

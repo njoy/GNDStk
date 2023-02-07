@@ -28,7 +28,7 @@ void wrapPhotonEmissionProbabilities(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "PhotonEmissionProbabilities",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapPhotonEmissionProbabilities(python::module &module)
             const general::Shell &
          >(),
          python::arg("shell"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "shell",
@@ -46,7 +46,7 @@ void wrapPhotonEmissionProbabilities(python::module &module)
          {
             return self.shell();
          },
-         Component::documentation("shell").data()
+         Component::component_t::documentation("shell").data()
       )
    ;
 

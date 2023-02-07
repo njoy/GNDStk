@@ -28,7 +28,7 @@ void wrapBreitWigner(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "BreitWigner",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapBreitWigner(python::module &module)
          python::arg("resonance_parameters"),
          python::arg("po_ps") = std::nullopt,
          python::arg("scattering_radius") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
@@ -64,7 +64,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.approximation();
          },
-         Component::documentation("approximation").data()
+         Component::component_t::documentation("approximation").data()
       )
       .def_property_readonly(
          "calculate_channel_radius",
@@ -72,7 +72,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.calculateChannelRadius();
          },
-         Component::documentation("calculate_channel_radius").data()
+         Component::component_t::documentation("calculate_channel_radius").data()
       )
       .def_property_readonly(
          "resonance_parameters",
@@ -80,7 +80,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.resonanceParameters();
          },
-         Component::documentation("resonance_parameters").data()
+         Component::component_t::documentation("resonance_parameters").data()
       )
       .def_property_readonly(
          "po_ps",
@@ -88,7 +88,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.PoPs();
          },
-         Component::documentation("po_ps").data()
+         Component::component_t::documentation("po_ps").data()
       )
       .def_property_readonly(
          "scattering_radius",
@@ -96,7 +96,7 @@ void wrapBreitWigner(python::module &module)
          {
             return self.scatteringRadius();
          },
-         Component::documentation("scattering_radius").data()
+         Component::component_t::documentation("scattering_radius").data()
       )
    ;
 

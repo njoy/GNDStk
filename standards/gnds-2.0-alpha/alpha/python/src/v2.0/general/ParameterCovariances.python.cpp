@@ -28,7 +28,7 @@ void wrapParameterCovariances(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ParameterCovariances",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapParameterCovariances(python::module &module)
          >(),
          python::arg("parameter_covariance"),
          python::arg("average_parameter_covariance") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "parameter_covariance",
@@ -48,7 +48,7 @@ void wrapParameterCovariances(python::module &module)
          {
             return self.parameterCovariance();
          },
-         Component::documentation("parameter_covariance").data()
+         Component::component_t::documentation("parameter_covariance").data()
       )
       .def_property_readonly(
          "average_parameter_covariance",
@@ -56,7 +56,7 @@ void wrapParameterCovariances(python::module &module)
          {
             return self.averageParameterCovariance();
          },
-         Component::documentation("average_parameter_covariance").data()
+         Component::component_t::documentation("average_parameter_covariance").data()
       )
    ;
 

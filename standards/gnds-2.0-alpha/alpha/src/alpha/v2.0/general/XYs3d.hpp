@@ -51,13 +51,15 @@ class XYs3d :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> interpolationQualifier{this};
+   Field<std::optional<std::string>>
+      interpolationQualifier{this};
 
    // children
    Field<std::optional<general::Axes>>

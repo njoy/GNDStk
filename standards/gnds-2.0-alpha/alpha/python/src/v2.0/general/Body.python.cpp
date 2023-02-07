@@ -28,7 +28,7 @@ void wrapBody(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Body",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -36,7 +36,7 @@ void wrapBody(python::module &module)
       .def(
          python::init<
          >(),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
    ;
 

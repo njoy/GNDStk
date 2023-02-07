@@ -28,7 +28,7 @@ void wrapSelfScatteringKernel(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "SelfScatteringKernel",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapSelfScatteringKernel(python::module &module)
          python::arg("gridded3d") = std::nullopt,
          python::arg("sctapproximation") = std::nullopt,
          python::arg("free_gas_approximation") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "symmetric",
@@ -52,7 +52,7 @@ void wrapSelfScatteringKernel(python::module &module)
          {
             return self.symmetric();
          },
-         Component::documentation("symmetric").data()
+         Component::component_t::documentation("symmetric").data()
       )
       .def_property_readonly(
          "gridded3d",
@@ -60,7 +60,7 @@ void wrapSelfScatteringKernel(python::module &module)
          {
             return self.gridded3d();
          },
-         Component::documentation("gridded3d").data()
+         Component::component_t::documentation("gridded3d").data()
       )
       .def_property_readonly(
          "sctapproximation",
@@ -68,7 +68,7 @@ void wrapSelfScatteringKernel(python::module &module)
          {
             return self.SCTApproximation();
          },
-         Component::documentation("sctapproximation").data()
+         Component::component_t::documentation("sctapproximation").data()
       )
       .def_property_readonly(
          "free_gas_approximation",
@@ -76,7 +76,7 @@ void wrapSelfScatteringKernel(python::module &module)
          {
             return self.freeGasApproximation();
          },
-         Component::documentation("free_gas_approximation").data()
+         Component::component_t::documentation("free_gas_approximation").data()
       )
    ;
 

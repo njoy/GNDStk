@@ -1239,10 +1239,15 @@ void writeClassContentMetadata(writer &out, const PerClass &per)
             << color::reset << std::endl;
       }
 
-      per.isDataVector && per.elementType == "" && (
-      m.name == "length" || m.name == "start" || m.name == "valueType")
-         ? out(1,"mutable Field<@> @{this", m.typeFull, m.name, false)
-         : out(1,        "Field<@> @{this", m.typeFull, m.name, false);
+      if (per.isDataVector && per.elementType == "" &&
+         (m.name == "length" || m.name == "start" || m.name == "valueType")
+      ) {
+         out(1,"mutable Field<@>", m.typeFull);
+         out(2,"@{this", m.name, false);
+      } else {
+         out(1,"Field<@>", m.typeFull);
+         out(2,"@{this", m.name, false);
+      }
       if (m.defaultValue != "")
          out(",defaults.@", m.name, false);
       out("};");

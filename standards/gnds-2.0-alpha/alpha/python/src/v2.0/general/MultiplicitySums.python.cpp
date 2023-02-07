@@ -28,7 +28,7 @@ void wrapMultiplicitySums(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "MultiplicitySums",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapMultiplicitySums(python::module &module)
             const std::vector<general::MultiplicitySum> &
          >(),
          python::arg("multiplicity_sum"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "multiplicity_sum",
@@ -46,7 +46,7 @@ void wrapMultiplicitySums(python::module &module)
          {
             return self.multiplicitySum();
          },
-         Component::documentation("multiplicity_sum").data()
+         Component::component_t::documentation("multiplicity_sum").data()
       )
    ;
 

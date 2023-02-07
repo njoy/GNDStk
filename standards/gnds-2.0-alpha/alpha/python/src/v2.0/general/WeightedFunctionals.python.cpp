@@ -28,7 +28,7 @@ void wrapWeightedFunctionals(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "WeightedFunctionals",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapWeightedFunctionals(python::module &module)
             const std::vector<general::Weighted> &
          >(),
          python::arg("weighted"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "weighted",
@@ -46,7 +46,7 @@ void wrapWeightedFunctionals(python::module &module)
          {
             return self.weighted();
          },
-         Component::documentation("weighted").data()
+         Component::component_t::documentation("weighted").data()
       )
    ;
 

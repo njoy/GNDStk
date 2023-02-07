@@ -44,6 +44,7 @@ class Data :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
    using DataNode::operator=;
 
@@ -76,7 +77,7 @@ public:
    }
 
    // from vector<double>
-   Data(const std::vector<double> &vector) :
+   explicit Data(const std::vector<double> &vector) :
       GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {

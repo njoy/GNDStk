@@ -28,7 +28,7 @@ void wrapFissionEnergyRelease(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "FissionEnergyRelease",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -56,7 +56,7 @@ void wrapFissionEnergyRelease(python::module &module)
          python::arg("neutrino_energy"),
          python::arg("non_neutrino_energy"),
          python::arg("total_energy"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -64,7 +64,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "prompt_product_ke",
@@ -72,7 +72,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.promptProductKE();
          },
-         Component::documentation("prompt_product_ke").data()
+         Component::component_t::documentation("prompt_product_ke").data()
       )
       .def_property_readonly(
          "prompt_neutron_ke",
@@ -80,7 +80,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.promptNeutronKE();
          },
-         Component::documentation("prompt_neutron_ke").data()
+         Component::component_t::documentation("prompt_neutron_ke").data()
       )
       .def_property_readonly(
          "delayed_neutron_ke",
@@ -88,7 +88,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.delayedNeutronKE();
          },
-         Component::documentation("delayed_neutron_ke").data()
+         Component::component_t::documentation("delayed_neutron_ke").data()
       )
       .def_property_readonly(
          "prompt_gamma_energy",
@@ -96,7 +96,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.promptGammaEnergy();
          },
-         Component::documentation("prompt_gamma_energy").data()
+         Component::component_t::documentation("prompt_gamma_energy").data()
       )
       .def_property_readonly(
          "delayed_gamma_energy",
@@ -104,7 +104,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.delayedGammaEnergy();
          },
-         Component::documentation("delayed_gamma_energy").data()
+         Component::component_t::documentation("delayed_gamma_energy").data()
       )
       .def_property_readonly(
          "delayed_beta_energy",
@@ -112,7 +112,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.delayedBetaEnergy();
          },
-         Component::documentation("delayed_beta_energy").data()
+         Component::component_t::documentation("delayed_beta_energy").data()
       )
       .def_property_readonly(
          "neutrino_energy",
@@ -120,7 +120,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.neutrinoEnergy();
          },
-         Component::documentation("neutrino_energy").data()
+         Component::component_t::documentation("neutrino_energy").data()
       )
       .def_property_readonly(
          "non_neutrino_energy",
@@ -128,7 +128,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.nonNeutrinoEnergy();
          },
-         Component::documentation("non_neutrino_energy").data()
+         Component::component_t::documentation("non_neutrino_energy").data()
       )
       .def_property_readonly(
          "total_energy",
@@ -136,7 +136,7 @@ void wrapFissionEnergyRelease(python::module &module)
          {
             return self.totalEnergy();
          },
-         Component::documentation("total_energy").data()
+         Component::component_t::documentation("total_energy").data()
       )
    ;
 

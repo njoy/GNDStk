@@ -28,7 +28,7 @@ void wrapFissionFragmentData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "FissionFragmentData",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapFissionFragmentData(python::module &module)
          python::arg("product_yields") = std::nullopt,
          python::arg("delayed_neutrons") = std::nullopt,
          python::arg("fission_energy_releases") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "product_yields",
@@ -50,7 +50,7 @@ void wrapFissionFragmentData(python::module &module)
          {
             return self.productYields();
          },
-         Component::documentation("product_yields").data()
+         Component::component_t::documentation("product_yields").data()
       )
       .def_property_readonly(
          "delayed_neutrons",
@@ -58,7 +58,7 @@ void wrapFissionFragmentData(python::module &module)
          {
             return self.delayedNeutrons();
          },
-         Component::documentation("delayed_neutrons").data()
+         Component::component_t::documentation("delayed_neutrons").data()
       )
       .def_property_readonly(
          "fission_energy_releases",
@@ -66,7 +66,7 @@ void wrapFissionFragmentData(python::module &module)
          {
             return self.fissionEnergyReleases();
          },
-         Component::documentation("fission_energy_releases").data()
+         Component::component_t::documentation("fission_energy_releases").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ThermalNeutronScatteringLaw_incoherentInelastic",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          python::arg("primary_scatterer"),
          python::arg("calculated_at_thermal") = std::nullopt,
          python::arg("scattering_atoms"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
@@ -64,7 +64,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -72,7 +72,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "primary_scatterer",
@@ -80,7 +80,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.primaryScatterer();
          },
-         Component::documentation("primary_scatterer").data()
+         Component::component_t::documentation("primary_scatterer").data()
       )
       .def_property_readonly(
          "calculated_at_thermal",
@@ -88,7 +88,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.calculatedAtThermal();
          },
-         Component::documentation("calculated_at_thermal").data()
+         Component::component_t::documentation("calculated_at_thermal").data()
       )
       .def_property_readonly(
          "scattering_atoms",
@@ -96,7 +96,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
          {
             return self.scatteringAtoms();
          },
-         Component::documentation("scattering_atoms").data()
+         Component::component_t::documentation("scattering_atoms").data()
       )
    ;
 

@@ -88,18 +88,25 @@ class ReactionSuite :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> projectile{this};
-   Field<std::string> target{this};
-   Field<std::string> evaluation{this};
-   Field<std::string> format{this};
-   Field<std::string> projectileFrame{this};
-   Field<std::string> interaction{this};
+   Field<std::string>
+      projectile{this};
+   Field<std::string>
+      target{this};
+   Field<std::string>
+      evaluation{this};
+   Field<std::string>
+      format{this};
+   Field<std::string>
+      projectileFrame{this};
+   Field<std::string>
+      interaction{this};
 
    // children
    Field<general::Styles>

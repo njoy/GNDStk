@@ -28,7 +28,7 @@ void wrapReactions(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Reactions",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapReactions(python::module &module)
             const std::vector<general::Reaction> &
          >(),
          python::arg("reaction"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "reaction",
@@ -46,7 +46,7 @@ void wrapReactions(python::module &module)
          {
             return self.reaction();
          },
-         Component::documentation("reaction").data()
+         Component::component_t::documentation("reaction").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapRowData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "RowData",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapRowData(python::module &module)
          python::arg("dimension") = std::nullopt,
          python::arg("href"),
          python::arg("slices") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "endf_mfmt",
@@ -52,7 +52,7 @@ void wrapRowData(python::module &module)
          {
             return self.ENDF_MFMT();
          },
-         Component::documentation("endf_mfmt").data()
+         Component::component_t::documentation("endf_mfmt").data()
       )
       .def_property_readonly(
          "dimension",
@@ -60,7 +60,7 @@ void wrapRowData(python::module &module)
          {
             return self.dimension();
          },
-         Component::documentation("dimension").data()
+         Component::component_t::documentation("dimension").data()
       )
       .def_property_readonly(
          "href",
@@ -68,7 +68,7 @@ void wrapRowData(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "slices",
@@ -76,7 +76,7 @@ void wrapRowData(python::module &module)
          {
             return self.slices();
          },
-         Component::documentation("slices").data()
+         Component::component_t::documentation("slices").data()
       )
    ;
 

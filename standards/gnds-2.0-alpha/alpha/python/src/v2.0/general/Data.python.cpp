@@ -28,7 +28,7 @@ void wrapData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Data",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -36,14 +36,14 @@ void wrapData(python::module &module)
       .def(
          python::init<
          >(),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def(
          python::init<
             const std::vector<double> &
          >(),
          python::arg("doubles"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "doubles",
@@ -51,7 +51,7 @@ void wrapData(python::module &module)
          {
             return self;
          },
-         Component::documentation("doubles").data()
+         Component::component_t::documentation("doubles").data()
       )
    ;
 

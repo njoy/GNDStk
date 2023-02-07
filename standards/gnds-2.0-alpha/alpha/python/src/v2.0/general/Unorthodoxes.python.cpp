@@ -28,7 +28,7 @@ void wrapUnorthodoxes(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Unorthodoxes",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapUnorthodoxes(python::module &module)
             const std::vector<general::Unorthodox> &
          >(),
          python::arg("unorthodox"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "unorthodox",
@@ -46,7 +46,7 @@ void wrapUnorthodoxes(python::module &module)
          {
             return self.unorthodox();
          },
-         Component::documentation("unorthodox").data()
+         Component::component_t::documentation("unorthodox").data()
       )
    ;
 

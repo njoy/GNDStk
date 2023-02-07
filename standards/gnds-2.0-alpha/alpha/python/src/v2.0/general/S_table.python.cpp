@@ -28,7 +28,7 @@ void wrapS_table(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "S_table",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapS_table(python::module &module)
             const general::Gridded2d &
          >(),
          python::arg("gridded2d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "gridded2d",
@@ -46,7 +46,7 @@ void wrapS_table(python::module &module)
          {
             return self.gridded2d();
          },
-         Component::documentation("gridded2d").data()
+         Component::component_t::documentation("gridded2d").data()
       )
    ;
 

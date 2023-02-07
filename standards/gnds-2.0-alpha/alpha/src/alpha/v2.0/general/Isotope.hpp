@@ -50,14 +50,17 @@ class Isotope :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> symbol{this};
-   Field<int> A{this};
+   Field<std::string>
+      symbol{this};
+   Field<int>
+      A{this};
 
    // children
    Field<general::Nuclides>

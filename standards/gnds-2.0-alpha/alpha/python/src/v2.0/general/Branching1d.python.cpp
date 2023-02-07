@@ -28,7 +28,7 @@ void wrapBranching1d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Branching1d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapBranching1d(python::module &module)
             const std::string &
          >(),
          python::arg("label"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -46,7 +46,7 @@ void wrapBranching1d(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapProductYield(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ProductYield",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapProductYield(python::module &module)
          python::arg("label") = std::nullopt,
          python::arg("nuclides") = std::nullopt,
          python::arg("elapsed_times"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapProductYield(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "nuclides",
@@ -58,7 +58,7 @@ void wrapProductYield(python::module &module)
          {
             return self.nuclides();
          },
-         Component::documentation("nuclides").data()
+         Component::component_t::documentation("nuclides").data()
       )
       .def_property_readonly(
          "elapsed_times",
@@ -66,7 +66,7 @@ void wrapProductYield(python::module &module)
          {
             return self.elapsedTimes();
          },
-         Component::documentation("elapsed_times").data()
+         Component::component_t::documentation("elapsed_times").data()
       )
    ;
 

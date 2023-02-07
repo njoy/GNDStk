@@ -28,7 +28,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CoulombPlusNuclearElastic",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -52,7 +52,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          python::arg("rutherford_scattering") = std::nullopt,
          python::arg("nuclear_amplitude_expansion") = std::nullopt,
          python::arg("nuclear_plus_interference") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -60,7 +60,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "href",
@@ -68,7 +68,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "pid",
@@ -76,7 +76,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -84,7 +84,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "identical_particles",
@@ -92,7 +92,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.identicalParticles();
          },
-         Component::documentation("identical_particles").data()
+         Component::component_t::documentation("identical_particles").data()
       )
       .def_property_readonly(
          "rutherford_scattering",
@@ -100,7 +100,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.RutherfordScattering();
          },
-         Component::documentation("rutherford_scattering").data()
+         Component::component_t::documentation("rutherford_scattering").data()
       )
       .def_property_readonly(
          "nuclear_amplitude_expansion",
@@ -108,7 +108,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.nuclearAmplitudeExpansion();
          },
-         Component::documentation("nuclear_amplitude_expansion").data()
+         Component::component_t::documentation("nuclear_amplitude_expansion").data()
       )
       .def_property_readonly(
          "nuclear_plus_interference",
@@ -116,7 +116,7 @@ void wrapCoulombPlusNuclearElastic(python::module &module)
          {
             return self.nuclearPlusInterference();
          },
-         Component::documentation("nuclear_plus_interference").data()
+         Component::component_t::documentation("nuclear_plus_interference").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapAlias(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Alias",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapAlias(python::module &module)
          >(),
          python::arg("id") = std::nullopt,
          python::arg("pid") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -48,7 +48,7 @@ void wrapAlias(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "pid",
@@ -56,7 +56,7 @@ void wrapAlias(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
    ;
 

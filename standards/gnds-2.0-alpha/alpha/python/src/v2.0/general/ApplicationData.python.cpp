@@ -28,7 +28,7 @@ void wrapApplicationData(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ApplicationData",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapApplicationData(python::module &module)
             const general::Institution &
          >(),
          python::arg("institution"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "institution",
@@ -46,7 +46,7 @@ void wrapApplicationData(python::module &module)
          {
             return self.institution();
          },
-         Component::documentation("institution").data()
+         Component::component_t::documentation("institution").data()
       )
    ;
 

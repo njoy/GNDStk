@@ -51,13 +51,15 @@ class NuclearPlusInterference :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> muCutoff{this};
+   Field<double>
+      muCutoff{this};
 
    // children
    Field<reduced::CrossSection>

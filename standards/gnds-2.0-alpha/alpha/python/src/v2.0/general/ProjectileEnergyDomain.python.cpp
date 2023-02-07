@@ -28,7 +28,7 @@ void wrapProjectileEnergyDomain(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ProjectileEnergyDomain",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapProjectileEnergyDomain(python::module &module)
          python::arg("min"),
          python::arg("max"),
          python::arg("unit"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "min",
@@ -50,7 +50,7 @@ void wrapProjectileEnergyDomain(python::module &module)
          {
             return self.min();
          },
-         Component::documentation("min").data()
+         Component::component_t::documentation("min").data()
       )
       .def_property_readonly(
          "max",
@@ -58,7 +58,7 @@ void wrapProjectileEnergyDomain(python::module &module)
          {
             return self.max();
          },
-         Component::documentation("max").data()
+         Component::component_t::documentation("max").data()
       )
       .def_property_readonly(
          "unit",
@@ -66,7 +66,7 @@ void wrapProjectileEnergyDomain(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
    ;
 

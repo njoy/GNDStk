@@ -28,7 +28,7 @@ void wrapConfiguration(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Configuration",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapConfiguration(python::module &module)
          python::arg("electron_number"),
          python::arg("binding_energy"),
          python::arg("decay_data"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "subshell",
@@ -52,7 +52,7 @@ void wrapConfiguration(python::module &module)
          {
             return self.subshell();
          },
-         Component::documentation("subshell").data()
+         Component::component_t::documentation("subshell").data()
       )
       .def_property_readonly(
          "electron_number",
@@ -60,7 +60,7 @@ void wrapConfiguration(python::module &module)
          {
             return self.electronNumber();
          },
-         Component::documentation("electron_number").data()
+         Component::component_t::documentation("electron_number").data()
       )
       .def_property_readonly(
          "binding_energy",
@@ -68,7 +68,7 @@ void wrapConfiguration(python::module &module)
          {
             return self.bindingEnergy();
          },
-         Component::documentation("binding_energy").data()
+         Component::component_t::documentation("binding_energy").data()
       )
       .def_property_readonly(
          "decay_data",
@@ -76,7 +76,7 @@ void wrapConfiguration(python::module &module)
          {
             return self.decayData();
          },
-         Component::documentation("decay_data").data()
+         Component::component_t::documentation("decay_data").data()
       )
    ;
 

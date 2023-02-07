@@ -28,7 +28,7 @@ void wrapBackground(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Background",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapBackground(python::module &module)
          python::arg("resolved_region") = std::nullopt,
          python::arg("fast_region"),
          python::arg("unresolved_region") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "resolved_region",
@@ -50,7 +50,7 @@ void wrapBackground(python::module &module)
          {
             return self.resolvedRegion();
          },
-         Component::documentation("resolved_region").data()
+         Component::component_t::documentation("resolved_region").data()
       )
       .def_property_readonly(
          "fast_region",
@@ -58,7 +58,7 @@ void wrapBackground(python::module &module)
          {
             return self.fastRegion();
          },
-         Component::documentation("fast_region").data()
+         Component::component_t::documentation("fast_region").data()
       )
       .def_property_readonly(
          "unresolved_region",
@@ -66,7 +66,7 @@ void wrapBackground(python::module &module)
          {
             return self.unresolvedRegion();
          },
-         Component::documentation("unresolved_region").data()
+         Component::component_t::documentation("unresolved_region").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapIsotopes(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Isotopes",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapIsotopes(python::module &module)
             const std::vector<general::Isotope> &
          >(),
          python::arg("isotope"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "isotope",
@@ -46,7 +46,7 @@ void wrapIsotopes(python::module &module)
          {
             return self.isotope();
          },
-         Component::documentation("isotope").data()
+         Component::component_t::documentation("isotope").data()
       )
    ;
 

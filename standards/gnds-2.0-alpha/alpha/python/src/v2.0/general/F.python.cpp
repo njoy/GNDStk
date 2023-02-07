@@ -28,7 +28,7 @@ void wrapF(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "F",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapF(python::module &module)
             const general::XYs2d &
          >(),
          python::arg("xys2d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "xys2d",
@@ -46,7 +46,7 @@ void wrapF(python::module &module)
          {
             return self.XYs2d();
          },
-         Component::documentation("xys2d").data()
+         Component::component_t::documentation("xys2d").data()
       )
    ;
 

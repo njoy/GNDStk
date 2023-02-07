@@ -28,7 +28,7 @@ void wrapIsotope(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Isotope",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapIsotope(python::module &module)
          python::arg("symbol"),
          python::arg("a"),
          python::arg("nuclides"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "symbol",
@@ -50,7 +50,7 @@ void wrapIsotope(python::module &module)
          {
             return self.symbol();
          },
-         Component::documentation("symbol").data()
+         Component::component_t::documentation("symbol").data()
       )
       .def_property_readonly(
          "a",
@@ -58,7 +58,7 @@ void wrapIsotope(python::module &module)
          {
             return self.A();
          },
-         Component::documentation("a").data()
+         Component::component_t::documentation("a").data()
       )
       .def_property_readonly(
          "nuclides",
@@ -66,7 +66,7 @@ void wrapIsotope(python::module &module)
          {
             return self.nuclides();
          },
-         Component::documentation("nuclides").data()
+         Component::component_t::documentation("nuclides").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapArray(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Array",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapArray(python::module &module)
          python::arg("compression") = std::nullopt,
          python::arg("symmetry") = std::nullopt,
          python::arg("values"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "shape",
@@ -52,7 +52,7 @@ void wrapArray(python::module &module)
          {
             return self.shape();
          },
-         Component::documentation("shape").data()
+         Component::component_t::documentation("shape").data()
       )
       .def_property_readonly(
          "compression",
@@ -60,7 +60,7 @@ void wrapArray(python::module &module)
          {
             return self.compression();
          },
-         Component::documentation("compression").data()
+         Component::component_t::documentation("compression").data()
       )
       .def_property_readonly(
          "symmetry",
@@ -68,7 +68,7 @@ void wrapArray(python::module &module)
          {
             return self.symmetry();
          },
-         Component::documentation("symmetry").data()
+         Component::component_t::documentation("symmetry").data()
       )
       .def_property_readonly(
          "values",
@@ -76,7 +76,7 @@ void wrapArray(python::module &module)
          {
             return self.values();
          },
-         Component::documentation("values").data()
+         Component::component_t::documentation("values").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapCovariance(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Covariance",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapCovariance(python::module &module)
          python::arg("label") = std::nullopt,
          python::arg("href") = std::nullopt,
          python::arg("array") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapCovariance(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "href",
@@ -58,7 +58,7 @@ void wrapCovariance(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "array",
@@ -66,7 +66,7 @@ void wrapCovariance(python::module &module)
          {
             return self.array();
          },
-         Component::documentation("array").data()
+         Component::component_t::documentation("array").data()
       )
    ;
 

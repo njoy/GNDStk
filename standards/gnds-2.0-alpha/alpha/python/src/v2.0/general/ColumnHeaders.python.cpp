@@ -28,7 +28,7 @@ void wrapColumnHeaders(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ColumnHeaders",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapColumnHeaders(python::module &module)
             const std::vector<general::Column> &
          >(),
          python::arg("column"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "column",
@@ -46,7 +46,7 @@ void wrapColumnHeaders(python::module &module)
          {
             return self.column();
          },
-         Component::documentation("column").data()
+         Component::component_t::documentation("column").data()
       )
    ;
 

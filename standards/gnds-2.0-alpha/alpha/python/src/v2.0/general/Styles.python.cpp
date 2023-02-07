@@ -28,7 +28,7 @@ void wrapStyles(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Styles",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapStyles(python::module &module)
          >(),
          python::arg("evaluated"),
          python::arg("cross_section_reconstructed") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "evaluated",
@@ -48,7 +48,7 @@ void wrapStyles(python::module &module)
          {
             return self.evaluated();
          },
-         Component::documentation("evaluated").data()
+         Component::component_t::documentation("evaluated").data()
       )
       .def_property_readonly(
          "cross_section_reconstructed",
@@ -56,7 +56,7 @@ void wrapStyles(python::module &module)
          {
             return self.crossSectionReconstructed();
          },
-         Component::documentation("cross_section_reconstructed").data()
+         Component::component_t::documentation("cross_section_reconstructed").data()
       )
    ;
 

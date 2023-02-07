@@ -28,7 +28,7 @@ void wrapReactionSuite(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ReactionSuite",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -70,7 +70,7 @@ void wrapReactionSuite(python::module &module)
          python::arg("fission_components") = std::nullopt,
          python::arg("orphan_products") = std::nullopt,
          python::arg("incomplete_reactions") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "projectile",
@@ -78,7 +78,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.projectile();
          },
-         Component::documentation("projectile").data()
+         Component::component_t::documentation("projectile").data()
       )
       .def_property_readonly(
          "target",
@@ -86,7 +86,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.target();
          },
-         Component::documentation("target").data()
+         Component::component_t::documentation("target").data()
       )
       .def_property_readonly(
          "evaluation",
@@ -94,7 +94,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.evaluation();
          },
-         Component::documentation("evaluation").data()
+         Component::component_t::documentation("evaluation").data()
       )
       .def_property_readonly(
          "format",
@@ -102,7 +102,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.format();
          },
-         Component::documentation("format").data()
+         Component::component_t::documentation("format").data()
       )
       .def_property_readonly(
          "projectile_frame",
@@ -110,7 +110,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.projectileFrame();
          },
-         Component::documentation("projectile_frame").data()
+         Component::component_t::documentation("projectile_frame").data()
       )
       .def_property_readonly(
          "interaction",
@@ -118,7 +118,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.interaction();
          },
-         Component::documentation("interaction").data()
+         Component::component_t::documentation("interaction").data()
       )
       .def_property_readonly(
          "styles",
@@ -126,7 +126,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.styles();
          },
-         Component::documentation("styles").data()
+         Component::component_t::documentation("styles").data()
       )
       .def_property_readonly(
          "po_ps",
@@ -134,7 +134,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.PoPs();
          },
-         Component::documentation("po_ps").data()
+         Component::component_t::documentation("po_ps").data()
       )
       .def_property_readonly(
          "reactions",
@@ -142,7 +142,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.reactions();
          },
-         Component::documentation("reactions").data()
+         Component::component_t::documentation("reactions").data()
       )
       .def_property_readonly(
          "application_data",
@@ -150,7 +150,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.applicationData();
          },
-         Component::documentation("application_data").data()
+         Component::component_t::documentation("application_data").data()
       )
       .def_property_readonly(
          "external_files",
@@ -158,7 +158,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.externalFiles();
          },
-         Component::documentation("external_files").data()
+         Component::component_t::documentation("external_files").data()
       )
       .def_property_readonly(
          "resonances",
@@ -166,7 +166,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.resonances();
          },
-         Component::documentation("resonances").data()
+         Component::component_t::documentation("resonances").data()
       )
       .def_property_readonly(
          "sums",
@@ -174,7 +174,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.sums();
          },
-         Component::documentation("sums").data()
+         Component::component_t::documentation("sums").data()
       )
       .def_property_readonly(
          "productions",
@@ -182,7 +182,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.productions();
          },
-         Component::documentation("productions").data()
+         Component::component_t::documentation("productions").data()
       )
       .def_property_readonly(
          "fission_components",
@@ -190,7 +190,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.fissionComponents();
          },
-         Component::documentation("fission_components").data()
+         Component::component_t::documentation("fission_components").data()
       )
       .def_property_readonly(
          "orphan_products",
@@ -198,7 +198,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.orphanProducts();
          },
-         Component::documentation("orphan_products").data()
+         Component::component_t::documentation("orphan_products").data()
       )
       .def_property_readonly(
          "incomplete_reactions",
@@ -206,7 +206,7 @@ void wrapReactionSuite(python::module &module)
          {
             return self.incompleteReactions();
          },
-         Component::documentation("incomplete_reactions").data()
+         Component::component_t::documentation("incomplete_reactions").data()
       )
    ;
 

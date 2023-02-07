@@ -28,7 +28,7 @@ void wrapLeptons(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Leptons",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapLeptons(python::module &module)
             const std::vector<general::Lepton> &
          >(),
          python::arg("lepton"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "lepton",
@@ -46,7 +46,7 @@ void wrapLeptons(python::module &module)
          {
             return self.lepton();
          },
-         Component::documentation("lepton").data()
+         Component::component_t::documentation("lepton").data()
       )
    ;
 

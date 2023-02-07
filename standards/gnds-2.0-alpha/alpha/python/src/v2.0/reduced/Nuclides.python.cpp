@@ -28,7 +28,7 @@ void wrapNuclides(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Nuclides",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,14 +38,14 @@ void wrapNuclides(python::module &module)
             const std::optional<std::string> &
          >(),
          python::arg("href") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def(
          python::init<
             const std::vector<std::string> &
          >(),
          python::arg("strings"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "href",
@@ -53,7 +53,7 @@ void wrapNuclides(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "strings",
@@ -61,7 +61,7 @@ void wrapNuclides(python::module &module)
          {
             return self;
          },
-         Component::documentation("strings").data()
+         Component::component_t::documentation("strings").data()
       )
    ;
 

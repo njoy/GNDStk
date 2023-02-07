@@ -28,7 +28,7 @@ void wrapPolynomial1d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Polynomial1d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapPolynomial1d(python::module &module)
          python::arg("axes"),
          python::arg("values"),
          python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "domain_min",
@@ -64,7 +64,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.domainMin();
          },
-         Component::documentation("domain_min").data()
+         Component::component_t::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
@@ -72,7 +72,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.domainMax();
          },
-         Component::documentation("domain_max").data()
+         Component::component_t::documentation("domain_max").data()
       )
       .def_property_readonly(
          "axes",
@@ -80,7 +80,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.axes();
          },
-         Component::documentation("axes").data()
+         Component::component_t::documentation("axes").data()
       )
       .def_property_readonly(
          "values",
@@ -88,7 +88,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.values();
          },
-         Component::documentation("values").data()
+         Component::component_t::documentation("values").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -96,7 +96,7 @@ void wrapPolynomial1d(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
    ;
 

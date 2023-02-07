@@ -28,7 +28,7 @@ void wrapScatteringAtoms(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ScatteringAtoms",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapScatteringAtoms(python::module &module)
             const std::vector<general::ScatteringAtom> &
          >(),
          python::arg("scattering_atom"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "scattering_atom",
@@ -46,7 +46,7 @@ void wrapScatteringAtoms(python::module &module)
          {
             return self.scatteringAtom();
          },
-         Component::documentation("scattering_atom").data()
+         Component::component_t::documentation("scattering_atom").data()
       )
    ;
 

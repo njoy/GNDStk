@@ -28,7 +28,7 @@ void wrapTabulatedWidths(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "TabulatedWidths",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapTabulatedWidths(python::module &module)
          python::arg("ls"),
          python::arg("po_ps") = std::nullopt,
          python::arg("scattering_radius") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
@@ -66,7 +66,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.approximation();
          },
-         Component::documentation("approximation").data()
+         Component::component_t::documentation("approximation").data()
       )
       .def_property_readonly(
          "use_for_self_shielding_only",
@@ -74,7 +74,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.useForSelfShieldingOnly();
          },
-         Component::documentation("use_for_self_shielding_only").data()
+         Component::component_t::documentation("use_for_self_shielding_only").data()
       )
       .def_property_readonly(
          "resonance_reactions",
@@ -82,7 +82,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.resonanceReactions();
          },
-         Component::documentation("resonance_reactions").data()
+         Component::component_t::documentation("resonance_reactions").data()
       )
       .def_property_readonly(
          "ls",
@@ -90,7 +90,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.Ls();
          },
-         Component::documentation("ls").data()
+         Component::component_t::documentation("ls").data()
       )
       .def_property_readonly(
          "po_ps",
@@ -98,7 +98,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.PoPs();
          },
-         Component::documentation("po_ps").data()
+         Component::component_t::documentation("po_ps").data()
       )
       .def_property_readonly(
          "scattering_radius",
@@ -106,7 +106,7 @@ void wrapTabulatedWidths(python::module &module)
          {
             return self.scatteringRadius();
          },
-         Component::documentation("scattering_radius").data()
+         Component::component_t::documentation("scattering_radius").data()
       )
    ;
 

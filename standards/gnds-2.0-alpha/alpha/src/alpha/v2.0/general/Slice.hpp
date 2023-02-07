@@ -52,17 +52,23 @@ class Slice :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> dimension{this};
-   Field<std::optional<int>> domainValue{this};
-   Field<std::optional<double>> domainMin{this};
-   Field<std::optional<double>> domainMax{this};
-   Field<std::optional<std::string>> domainUnit{this};
+   Field<int>
+      dimension{this};
+   Field<std::optional<int>>
+      domainValue{this};
+   Field<std::optional<double>>
+      domainMin{this};
+   Field<std::optional<double>>
+      domainMax{this};
+   Field<std::optional<std::string>>
+      domainUnit{this};
 
    // ------------------------
    // Constructors

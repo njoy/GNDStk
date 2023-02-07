@@ -28,7 +28,7 @@ void wrapImaginaryInterferenceTerm(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ImaginaryInterferenceTerm",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapImaginaryInterferenceTerm(python::module &module)
          >(),
          python::arg("regions2d") = std::nullopt,
          python::arg("xys2d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "regions2d",
@@ -48,7 +48,7 @@ void wrapImaginaryInterferenceTerm(python::module &module)
          {
             return self.regions2d();
          },
-         Component::documentation("regions2d").data()
+         Component::component_t::documentation("regions2d").data()
       )
       .def_property_readonly(
          "xys2d",
@@ -56,7 +56,7 @@ void wrapImaginaryInterferenceTerm(python::module &module)
          {
             return self.XYs2d();
          },
-         Component::documentation("xys2d").data()
+         Component::component_t::documentation("xys2d").data()
       )
    ;
 

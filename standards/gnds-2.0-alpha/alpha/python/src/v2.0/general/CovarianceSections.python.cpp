@@ -28,7 +28,7 @@ void wrapCovarianceSections(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CovarianceSections",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapCovarianceSections(python::module &module)
             const std::vector<general::CovarianceSection> &
          >(),
          python::arg("covariance_section"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "covariance_section",
@@ -46,7 +46,7 @@ void wrapCovarianceSections(python::module &module)
          {
             return self.covarianceSection();
          },
-         Component::documentation("covariance_section").data()
+         Component::component_t::documentation("covariance_section").data()
       )
    ;
 

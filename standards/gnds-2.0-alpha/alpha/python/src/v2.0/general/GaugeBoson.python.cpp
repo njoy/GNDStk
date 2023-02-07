@@ -28,7 +28,7 @@ void wrapGaugeBoson(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "GaugeBoson",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapGaugeBoson(python::module &module)
          python::arg("parity"),
          python::arg("charge"),
          python::arg("halflife"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -56,7 +56,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
@@ -64,7 +64,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.mass();
          },
-         Component::documentation("mass").data()
+         Component::component_t::documentation("mass").data()
       )
       .def_property_readonly(
          "spin",
@@ -72,7 +72,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.spin();
          },
-         Component::documentation("spin").data()
+         Component::component_t::documentation("spin").data()
       )
       .def_property_readonly(
          "parity",
@@ -80,7 +80,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.parity();
          },
-         Component::documentation("parity").data()
+         Component::component_t::documentation("parity").data()
       )
       .def_property_readonly(
          "charge",
@@ -88,7 +88,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.charge();
          },
-         Component::documentation("charge").data()
+         Component::component_t::documentation("charge").data()
       )
       .def_property_readonly(
          "halflife",
@@ -96,7 +96,7 @@ void wrapGaugeBoson(python::module &module)
          {
             return self.halflife();
          },
-         Component::documentation("halflife").data()
+         Component::component_t::documentation("halflife").data()
       )
    ;
 

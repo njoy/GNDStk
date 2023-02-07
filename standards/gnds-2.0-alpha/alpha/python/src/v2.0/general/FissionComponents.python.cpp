@@ -28,7 +28,7 @@ void wrapFissionComponents(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "FissionComponents",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapFissionComponents(python::module &module)
             const std::optional<std::vector<general::FissionComponent>> &
          >(),
          python::arg("fission_component") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "fission_component",
@@ -46,7 +46,7 @@ void wrapFissionComponents(python::module &module)
          {
             return self.fissionComponent();
          },
-         Component::documentation("fission_component").data()
+         Component::component_t::documentation("fission_component").data()
       )
    ;
 

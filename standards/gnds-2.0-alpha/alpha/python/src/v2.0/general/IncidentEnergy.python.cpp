@@ -28,7 +28,7 @@ void wrapIncidentEnergy(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "IncidentEnergy",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapIncidentEnergy(python::module &module)
          python::arg("label"),
          python::arg("energy"),
          python::arg("yields"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapIncidentEnergy(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "energy",
@@ -58,7 +58,7 @@ void wrapIncidentEnergy(python::module &module)
          {
             return self.energy();
          },
-         Component::documentation("energy").data()
+         Component::component_t::documentation("energy").data()
       )
       .def_property_readonly(
          "yields",
@@ -66,7 +66,7 @@ void wrapIncidentEnergy(python::module &module)
          {
             return self.yields();
          },
-         Component::documentation("yields").data()
+         Component::component_t::documentation("yields").data()
       )
    ;
 

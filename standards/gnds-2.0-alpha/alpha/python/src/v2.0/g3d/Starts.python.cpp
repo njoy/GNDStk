@@ -28,7 +28,7 @@ void wrapStarts(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Starts",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,14 +40,14 @@ void wrapStarts(python::module &module)
          >(),
          python::arg("value_type"),
          python::arg("label"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def(
          python::init<
             const std::vector<int> &
          >(),
          python::arg("ints"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "value_type",
@@ -55,7 +55,7 @@ void wrapStarts(python::module &module)
          {
             return self.valueType();
          },
-         Component::documentation("value_type").data()
+         Component::component_t::documentation("value_type").data()
       )
       .def_property_readonly(
          "label",
@@ -63,7 +63,7 @@ void wrapStarts(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "ints",
@@ -71,7 +71,7 @@ void wrapStarts(python::module &module)
          {
             return self;
          },
-         Component::documentation("ints").data()
+         Component::component_t::documentation("ints").data()
       )
    ;
 

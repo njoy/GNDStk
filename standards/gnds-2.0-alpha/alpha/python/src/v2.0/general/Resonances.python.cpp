@@ -28,7 +28,7 @@ void wrapResonances(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Resonances",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapResonances(python::module &module)
          python::arg("scattering_radius") = std::nullopt,
          python::arg("resolved") = std::nullopt,
          python::arg("unresolved") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "href",
@@ -52,7 +52,7 @@ void wrapResonances(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "scattering_radius",
@@ -60,7 +60,7 @@ void wrapResonances(python::module &module)
          {
             return self.scatteringRadius();
          },
-         Component::documentation("scattering_radius").data()
+         Component::component_t::documentation("scattering_radius").data()
       )
       .def_property_readonly(
          "resolved",
@@ -68,7 +68,7 @@ void wrapResonances(python::module &module)
          {
             return self.resolved();
          },
-         Component::documentation("resolved").data()
+         Component::component_t::documentation("resolved").data()
       )
       .def_property_readonly(
          "unresolved",
@@ -76,7 +76,7 @@ void wrapResonances(python::module &module)
          {
             return self.unresolved();
          },
-         Component::documentation("unresolved").data()
+         Component::component_t::documentation("unresolved").data()
       )
    ;
 

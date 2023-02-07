@@ -28,7 +28,7 @@ void wrapSpinGroups(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "SpinGroups",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapSpinGroups(python::module &module)
             const std::vector<general::SpinGroup> &
          >(),
          python::arg("spin_group"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "spin_group",
@@ -46,7 +46,7 @@ void wrapSpinGroups(python::module &module)
          {
             return self.spinGroup();
          },
-         Component::documentation("spin_group").data()
+         Component::component_t::documentation("spin_group").data()
       )
    ;
 

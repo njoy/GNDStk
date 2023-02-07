@@ -48,15 +48,19 @@ class Column :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> index{this};
-   Field<std::string> name{this};
-   Field<std::string> unit{this};
+   Field<int>
+      index{this};
+   Field<std::string>
+      name{this};
+   Field<std::string>
+      unit{this};
 
    // ------------------------
    // Constructors

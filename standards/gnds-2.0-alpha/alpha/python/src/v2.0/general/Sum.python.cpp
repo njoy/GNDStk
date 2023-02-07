@@ -28,7 +28,7 @@ void wrapSum(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Sum",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapSum(python::module &module)
          python::arg("domain_max") = std::nullopt,
          python::arg("domain_unit") = std::nullopt,
          python::arg("summand"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapSum(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "domain_min",
@@ -62,7 +62,7 @@ void wrapSum(python::module &module)
          {
             return self.domainMin();
          },
-         Component::documentation("domain_min").data()
+         Component::component_t::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
@@ -70,7 +70,7 @@ void wrapSum(python::module &module)
          {
             return self.domainMax();
          },
-         Component::documentation("domain_max").data()
+         Component::component_t::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
@@ -78,7 +78,7 @@ void wrapSum(python::module &module)
          {
             return self.domainUnit();
          },
-         Component::documentation("domain_unit").data()
+         Component::component_t::documentation("domain_unit").data()
       )
       .def_property_readonly(
          "summand",
@@ -86,7 +86,7 @@ void wrapSum(python::module &module)
          {
             return self.summand();
          },
-         Component::documentation("summand").data()
+         Component::component_t::documentation("summand").data()
       )
    ;
 

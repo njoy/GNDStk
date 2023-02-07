@@ -28,7 +28,7 @@ void wrapOutputChannel(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "OutputChannel",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapOutputChannel(python::module &module)
          python::arg("process") = std::nullopt,
          python::arg("q"),
          python::arg("products") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "genre",
@@ -52,7 +52,7 @@ void wrapOutputChannel(python::module &module)
          {
             return self.genre();
          },
-         Component::documentation("genre").data()
+         Component::component_t::documentation("genre").data()
       )
       .def_property_readonly(
          "process",
@@ -60,7 +60,7 @@ void wrapOutputChannel(python::module &module)
          {
             return self.process();
          },
-         Component::documentation("process").data()
+         Component::component_t::documentation("process").data()
       )
       .def_property_readonly(
          "q",
@@ -68,7 +68,7 @@ void wrapOutputChannel(python::module &module)
          {
             return self.Q();
          },
-         Component::documentation("q").data()
+         Component::component_t::documentation("q").data()
       )
       .def_property_readonly(
          "products",
@@ -76,7 +76,7 @@ void wrapOutputChannel(python::module &module)
          {
             return self.products();
          },
-         Component::documentation("products").data()
+         Component::component_t::documentation("products").data()
       )
    ;
 

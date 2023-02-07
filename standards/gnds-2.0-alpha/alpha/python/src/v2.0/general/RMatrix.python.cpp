@@ -28,7 +28,7 @@ void wrapRMatrix(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "RMatrix",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -52,7 +52,7 @@ void wrapRMatrix(python::module &module)
          python::arg("po_ps") = std::nullopt,
          python::arg("resonance_reactions"),
          python::arg("spin_groups"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -60,7 +60,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "approximation",
@@ -68,7 +68,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.approximation();
          },
-         Component::documentation("approximation").data()
+         Component::component_t::documentation("approximation").data()
       )
       .def_property_readonly(
          "boundary_condition",
@@ -76,7 +76,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.boundaryCondition();
          },
-         Component::documentation("boundary_condition").data()
+         Component::component_t::documentation("boundary_condition").data()
       )
       .def_property_readonly(
          "calculate_channel_radius",
@@ -84,7 +84,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.calculateChannelRadius();
          },
-         Component::documentation("calculate_channel_radius").data()
+         Component::component_t::documentation("calculate_channel_radius").data()
       )
       .def_property_readonly(
          "supports_angular_reconstruction",
@@ -92,7 +92,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.supportsAngularReconstruction();
          },
-         Component::documentation("supports_angular_reconstruction").data()
+         Component::component_t::documentation("supports_angular_reconstruction").data()
       )
       .def_property_readonly(
          "po_ps",
@@ -100,7 +100,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.PoPs();
          },
-         Component::documentation("po_ps").data()
+         Component::component_t::documentation("po_ps").data()
       )
       .def_property_readonly(
          "resonance_reactions",
@@ -108,7 +108,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.resonanceReactions();
          },
-         Component::documentation("resonance_reactions").data()
+         Component::component_t::documentation("resonance_reactions").data()
       )
       .def_property_readonly(
          "spin_groups",
@@ -116,7 +116,7 @@ void wrapRMatrix(python::module &module)
          {
             return self.spinGroups();
          },
-         Component::documentation("spin_groups").data()
+         Component::component_t::documentation("spin_groups").data()
       )
    ;
 

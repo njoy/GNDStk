@@ -28,7 +28,7 @@ void wrapAliases(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Aliases",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapAliases(python::module &module)
          >(),
          python::arg("alias") = std::nullopt,
          python::arg("meta_stable") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "alias",
@@ -48,7 +48,7 @@ void wrapAliases(python::module &module)
          {
             return self.alias();
          },
-         Component::documentation("alias").data()
+         Component::component_t::documentation("alias").data()
       )
       .def_property_readonly(
          "meta_stable",
@@ -56,7 +56,7 @@ void wrapAliases(python::module &module)
          {
             return self.metaStable();
          },
-         Component::documentation("meta_stable").data()
+         Component::component_t::documentation("meta_stable").data()
       )
    ;
 

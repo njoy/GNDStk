@@ -28,7 +28,7 @@ void wrapParameterLink(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ParameterLink",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapParameterLink(python::module &module)
          python::arg("href"),
          python::arg("n_parameters") = std::nullopt,
          python::arg("matrix_start_index") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapParameterLink(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "href",
@@ -60,7 +60,7 @@ void wrapParameterLink(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "n_parameters",
@@ -68,7 +68,7 @@ void wrapParameterLink(python::module &module)
          {
             return self.nParameters();
          },
-         Component::documentation("n_parameters").data()
+         Component::component_t::documentation("n_parameters").data()
       )
       .def_property_readonly(
          "matrix_start_index",
@@ -76,7 +76,7 @@ void wrapParameterLink(python::module &module)
          {
             return self.matrixStartIndex();
          },
-         Component::documentation("matrix_start_index").data()
+         Component::component_t::documentation("matrix_start_index").data()
       )
    ;
 

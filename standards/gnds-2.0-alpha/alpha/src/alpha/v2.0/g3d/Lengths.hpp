@@ -50,6 +50,7 @@ class Lengths :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
    using DataNode::operator=;
 
@@ -57,8 +58,10 @@ public:
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> valueType{this};
-   Field<std::string> label{this};
+   Field<std::string>
+      valueType{this};
+   Field<std::string>
+      label{this};
 
    // ------------------------
    // Constructors
@@ -102,7 +105,7 @@ public:
    }
 
    // from vector<int>
-   Lengths(const std::vector<int> &vector) :
+   explicit Lengths(const std::vector<int> &vector) :
       GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {

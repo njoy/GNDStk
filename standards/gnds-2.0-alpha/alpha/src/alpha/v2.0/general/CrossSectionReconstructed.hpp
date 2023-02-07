@@ -48,15 +48,19 @@ class CrossSectionReconstructed :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<std::string> derivedFrom{this};
-   Field<std::string> date{this};
+   Field<std::string>
+      label{this};
+   Field<std::string>
+      derivedFrom{this};
+   Field<std::string>
+      date{this};
 
    // ------------------------
    // Constructors

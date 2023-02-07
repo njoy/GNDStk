@@ -28,7 +28,7 @@ void wrapWidth(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Width",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapWidth(python::module &module)
          python::arg("xys1d") = std::nullopt,
          python::arg("constant1d") = std::nullopt,
          python::arg("regions1d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -56,7 +56,7 @@ void wrapWidth(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "resonance_reaction",
@@ -64,7 +64,7 @@ void wrapWidth(python::module &module)
          {
             return self.resonanceReaction();
          },
-         Component::documentation("resonance_reaction").data()
+         Component::component_t::documentation("resonance_reaction").data()
       )
       .def_property_readonly(
          "degrees_of_freedom",
@@ -72,7 +72,7 @@ void wrapWidth(python::module &module)
          {
             return self.degreesOfFreedom();
          },
-         Component::documentation("degrees_of_freedom").data()
+         Component::component_t::documentation("degrees_of_freedom").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -80,7 +80,7 @@ void wrapWidth(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
       .def_property_readonly(
          "constant1d",
@@ -88,7 +88,7 @@ void wrapWidth(python::module &module)
          {
             return self.constant1d();
          },
-         Component::documentation("constant1d").data()
+         Component::component_t::documentation("constant1d").data()
       )
       .def_property_readonly(
          "regions1d",
@@ -96,7 +96,7 @@ void wrapWidth(python::module &module)
          {
             return self.regions1d();
          },
-         Component::documentation("regions1d").data()
+         Component::component_t::documentation("regions1d").data()
       )
    ;
 

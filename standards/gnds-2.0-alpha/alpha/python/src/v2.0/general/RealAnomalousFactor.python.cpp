@@ -28,7 +28,7 @@ void wrapRealAnomalousFactor(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "RealAnomalousFactor",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapRealAnomalousFactor(python::module &module)
             const general::XYs1d &
          >(),
          python::arg("xys1d"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -46,7 +46,7 @@ void wrapRealAnomalousFactor(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapWidths(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Widths",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapWidths(python::module &module)
             const std::vector<general::Width> &
          >(),
          python::arg("width"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "width",
@@ -46,7 +46,7 @@ void wrapWidths(python::module &module)
          {
             return self.width();
          },
-         Component::documentation("width").data()
+         Component::component_t::documentation("width").data()
       )
    ;
 

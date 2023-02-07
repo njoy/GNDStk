@@ -28,7 +28,7 @@ void wrapGridded2d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Gridded2d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapGridded2d(python::module &module)
          >(),
          python::arg("axes"),
          python::arg("array"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "axes",
@@ -48,7 +48,7 @@ void wrapGridded2d(python::module &module)
          {
             return self.axes();
          },
-         Component::documentation("axes").data()
+         Component::component_t::documentation("axes").data()
       )
       .def_property_readonly(
          "array",
@@ -56,7 +56,7 @@ void wrapGridded2d(python::module &module)
          {
             return self.array();
          },
-         Component::documentation("array").data()
+         Component::component_t::documentation("array").data()
       )
    ;
 

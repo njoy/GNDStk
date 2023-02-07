@@ -28,7 +28,7 @@ void wrapSpectrum(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Spectrum",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapSpectrum(python::module &module)
          python::arg("pid"),
          python::arg("discrete"),
          python::arg("continuum") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapSpectrum(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "pid",
@@ -60,7 +60,7 @@ void wrapSpectrum(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "discrete",
@@ -68,7 +68,7 @@ void wrapSpectrum(python::module &module)
          {
             return self.discrete();
          },
-         Component::documentation("discrete").data()
+         Component::component_t::documentation("discrete").data()
       )
       .def_property_readonly(
          "continuum",
@@ -76,7 +76,7 @@ void wrapSpectrum(python::module &module)
          {
             return self.continuum();
          },
-         Component::documentation("continuum").data()
+         Component::component_t::documentation("continuum").data()
       )
    ;
 

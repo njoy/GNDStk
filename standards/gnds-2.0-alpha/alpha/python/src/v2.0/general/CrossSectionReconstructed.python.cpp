@@ -28,7 +28,7 @@ void wrapCrossSectionReconstructed(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CrossSectionReconstructed",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapCrossSectionReconstructed(python::module &module)
          python::arg("label"),
          python::arg("derived_from"),
          python::arg("date"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -50,7 +50,7 @@ void wrapCrossSectionReconstructed(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "derived_from",
@@ -58,7 +58,7 @@ void wrapCrossSectionReconstructed(python::module &module)
          {
             return self.derivedFrom();
          },
-         Component::documentation("derived_from").data()
+         Component::component_t::documentation("derived_from").data()
       )
       .def_property_readonly(
          "date",
@@ -66,7 +66,7 @@ void wrapCrossSectionReconstructed(python::module &module)
          {
             return self.date();
          },
-         Component::documentation("date").data()
+         Component::component_t::documentation("date").data()
       )
    ;
 

@@ -67,15 +67,19 @@ class ScatteringAtom :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> pid{this};
-   Field<int> numberPerMolecule{this};
-   Field<std::optional<bool>> primaryScatterer{this};
+   Field<std::string>
+      pid{this};
+   Field<int>
+      numberPerMolecule{this};
+   Field<std::optional<bool>>
+      primaryScatterer{this};
 
    // children
    Field<general::Mass>

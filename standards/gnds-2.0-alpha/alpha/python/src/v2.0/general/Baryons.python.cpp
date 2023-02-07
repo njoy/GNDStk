@@ -28,7 +28,7 @@ void wrapBaryons(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Baryons",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapBaryons(python::module &module)
             const std::vector<general::Baryon> &
          >(),
          python::arg("baryon"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "baryon",
@@ -46,7 +46,7 @@ void wrapBaryons(python::module &module)
          {
             return self.baryon();
          },
-         Component::documentation("baryon").data()
+         Component::component_t::documentation("baryon").data()
       )
    ;
 

@@ -52,15 +52,19 @@ class Array :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> shape{this};
-   Field<std::optional<std::string>> compression{this};
-   Field<std::optional<std::string>> symmetry{this};
+   Field<std::string>
+      shape{this};
+   Field<std::optional<std::string>>
+      compression{this};
+   Field<std::optional<std::string>>
+      symmetry{this};
 
    // children
    Field<general::Values>

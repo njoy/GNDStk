@@ -28,7 +28,7 @@ void wrapColumn(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Column",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapColumn(python::module &module)
          python::arg("index"),
          python::arg("name"),
          python::arg("unit"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
@@ -50,7 +50,7 @@ void wrapColumn(python::module &module)
          {
             return self.index();
          },
-         Component::documentation("index").data()
+         Component::component_t::documentation("index").data()
       )
       .def_property_readonly(
          "name",
@@ -58,7 +58,7 @@ void wrapColumn(python::module &module)
          {
             return self.name();
          },
-         Component::documentation("name").data()
+         Component::component_t::documentation("name").data()
       )
       .def_property_readonly(
          "unit",
@@ -66,7 +66,7 @@ void wrapColumn(python::module &module)
          {
             return self.unit();
          },
-         Component::documentation("unit").data()
+         Component::component_t::documentation("unit").data()
       )
    ;
 

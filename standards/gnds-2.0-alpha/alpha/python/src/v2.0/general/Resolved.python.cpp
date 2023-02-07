@@ -28,7 +28,7 @@ void wrapResolved(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Resolved",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapResolved(python::module &module)
          python::arg("domain_unit"),
          python::arg("breit_wigner") = std::nullopt,
          python::arg("rmatrix") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "domain_min",
@@ -54,7 +54,7 @@ void wrapResolved(python::module &module)
          {
             return self.domainMin();
          },
-         Component::documentation("domain_min").data()
+         Component::component_t::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
@@ -62,7 +62,7 @@ void wrapResolved(python::module &module)
          {
             return self.domainMax();
          },
-         Component::documentation("domain_max").data()
+         Component::component_t::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
@@ -70,7 +70,7 @@ void wrapResolved(python::module &module)
          {
             return self.domainUnit();
          },
-         Component::documentation("domain_unit").data()
+         Component::component_t::documentation("domain_unit").data()
       )
       .def_property_readonly(
          "breit_wigner",
@@ -78,7 +78,7 @@ void wrapResolved(python::module &module)
          {
             return self.BreitWigner();
          },
-         Component::documentation("breit_wigner").data()
+         Component::component_t::documentation("breit_wigner").data()
       )
       .def_property_readonly(
          "rmatrix",
@@ -86,7 +86,7 @@ void wrapResolved(python::module &module)
          {
             return self.RMatrix();
          },
-         Component::documentation("rmatrix").data()
+         Component::component_t::documentation("rmatrix").data()
       )
    ;
 

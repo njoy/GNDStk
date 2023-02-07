@@ -28,7 +28,7 @@ void wrapNuclide(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Nuclide",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -48,7 +48,7 @@ void wrapNuclide(python::module &module)
          python::arg("nucleus"),
          python::arg("decay_data") = std::nullopt,
          python::arg("fission_fragment_data") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "id",
@@ -56,7 +56,7 @@ void wrapNuclide(python::module &module)
          {
             return self.id();
          },
-         Component::documentation("id").data()
+         Component::component_t::documentation("id").data()
       )
       .def_property_readonly(
          "mass",
@@ -64,7 +64,7 @@ void wrapNuclide(python::module &module)
          {
             return self.mass();
          },
-         Component::documentation("mass").data()
+         Component::component_t::documentation("mass").data()
       )
       .def_property_readonly(
          "charge",
@@ -72,7 +72,7 @@ void wrapNuclide(python::module &module)
          {
             return self.charge();
          },
-         Component::documentation("charge").data()
+         Component::component_t::documentation("charge").data()
       )
       .def_property_readonly(
          "nucleus",
@@ -80,7 +80,7 @@ void wrapNuclide(python::module &module)
          {
             return self.nucleus();
          },
-         Component::documentation("nucleus").data()
+         Component::component_t::documentation("nucleus").data()
       )
       .def_property_readonly(
          "decay_data",
@@ -88,7 +88,7 @@ void wrapNuclide(python::module &module)
          {
             return self.decayData();
          },
-         Component::documentation("decay_data").data()
+         Component::component_t::documentation("decay_data").data()
       )
       .def_property_readonly(
          "fission_fragment_data",
@@ -96,7 +96,7 @@ void wrapNuclide(python::module &module)
          {
             return self.fissionFragmentData();
          },
-         Component::documentation("fission_fragment_data").data()
+         Component::component_t::documentation("fission_fragment_data").data()
       )
    ;
 

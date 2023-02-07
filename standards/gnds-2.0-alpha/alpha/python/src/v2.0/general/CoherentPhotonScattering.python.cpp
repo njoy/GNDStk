@@ -28,7 +28,7 @@ void wrapCoherentPhotonScattering(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CoherentPhotonScattering",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          python::arg("form_factor") = std::nullopt,
          python::arg("real_anomalous_factor") = std::nullopt,
          python::arg("imaginary_anomalous_factor") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "href",
@@ -66,7 +66,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "pid",
@@ -74,7 +74,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -82,7 +82,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "form_factor",
@@ -90,7 +90,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.formFactor();
          },
-         Component::documentation("form_factor").data()
+         Component::component_t::documentation("form_factor").data()
       )
       .def_property_readonly(
          "real_anomalous_factor",
@@ -98,7 +98,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.realAnomalousFactor();
          },
-         Component::documentation("real_anomalous_factor").data()
+         Component::component_t::documentation("real_anomalous_factor").data()
       )
       .def_property_readonly(
          "imaginary_anomalous_factor",
@@ -106,7 +106,7 @@ void wrapCoherentPhotonScattering(python::module &module)
          {
             return self.imaginaryAnomalousFactor();
          },
-         Component::documentation("imaginary_anomalous_factor").data()
+         Component::component_t::documentation("imaginary_anomalous_factor").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapDecayModes(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "DecayModes",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapDecayModes(python::module &module)
             const std::vector<general::DecayMode> &
          >(),
          python::arg("decay_mode"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "decay_mode",
@@ -46,7 +46,7 @@ void wrapDecayModes(python::module &module)
          {
             return self.decayMode();
          },
-         Component::documentation("decay_mode").data()
+         Component::component_t::documentation("decay_mode").data()
       )
    ;
 

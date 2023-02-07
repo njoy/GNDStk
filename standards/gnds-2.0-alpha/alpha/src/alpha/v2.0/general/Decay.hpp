@@ -52,15 +52,19 @@ class Decay :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> index{this};
-   Field<std::optional<std::string>> mode{this};
-   Field<std::optional<bool>> complete{this};
+   Field<int>
+      index{this};
+   Field<std::optional<std::string>>
+      mode{this};
+   Field<std::optional<bool>>
+      complete{this};
 
    // children
    Field<std::optional<general::Products>>

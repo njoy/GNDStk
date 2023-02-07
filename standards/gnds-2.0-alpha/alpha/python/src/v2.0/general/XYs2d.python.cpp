@@ -28,7 +28,7 @@ void wrapXYs2d(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "XYs2d",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapXYs2d(python::module &module)
          python::arg("axes") = std::nullopt,
          python::arg("function1ds"),
          python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "index",
@@ -58,7 +58,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.index();
          },
-         Component::documentation("index").data()
+         Component::component_t::documentation("index").data()
       )
       .def_property_readonly(
          "interpolation",
@@ -66,7 +66,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.interpolation();
          },
-         Component::documentation("interpolation").data()
+         Component::component_t::documentation("interpolation").data()
       )
       .def_property_readonly(
          "interpolation_qualifier",
@@ -74,7 +74,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.interpolationQualifier();
          },
-         Component::documentation("interpolation_qualifier").data()
+         Component::component_t::documentation("interpolation_qualifier").data()
       )
       .def_property_readonly(
          "outer_domain_value",
@@ -82,7 +82,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.outerDomainValue();
          },
-         Component::documentation("outer_domain_value").data()
+         Component::component_t::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "axes",
@@ -90,7 +90,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.axes();
          },
-         Component::documentation("axes").data()
+         Component::component_t::documentation("axes").data()
       )
       .def_property_readonly(
          "function1ds",
@@ -98,7 +98,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.function1ds();
          },
-         Component::documentation("function1ds").data()
+         Component::component_t::documentation("function1ds").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -106,7 +106,7 @@ void wrapXYs2d(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
    ;
 

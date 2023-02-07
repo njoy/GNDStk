@@ -28,7 +28,7 @@ void wrapProducts(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Products",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapProducts(python::module &module)
             const std::vector<reduced::Product> &
          >(),
          python::arg("product"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "product",
@@ -46,7 +46,7 @@ void wrapProducts(python::module &module)
          {
             return self.product();
          },
-         Component::documentation("product").data()
+         Component::component_t::documentation("product").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapSlice(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Slice",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapSlice(python::module &module)
          python::arg("domain_min") = std::nullopt,
          python::arg("domain_max") = std::nullopt,
          python::arg("domain_unit") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "dimension",
@@ -54,7 +54,7 @@ void wrapSlice(python::module &module)
          {
             return self.dimension();
          },
-         Component::documentation("dimension").data()
+         Component::component_t::documentation("dimension").data()
       )
       .def_property_readonly(
          "domain_value",
@@ -62,7 +62,7 @@ void wrapSlice(python::module &module)
          {
             return self.domainValue();
          },
-         Component::documentation("domain_value").data()
+         Component::component_t::documentation("domain_value").data()
       )
       .def_property_readonly(
          "domain_min",
@@ -70,7 +70,7 @@ void wrapSlice(python::module &module)
          {
             return self.domainMin();
          },
-         Component::documentation("domain_min").data()
+         Component::component_t::documentation("domain_min").data()
       )
       .def_property_readonly(
          "domain_max",
@@ -78,7 +78,7 @@ void wrapSlice(python::module &module)
          {
             return self.domainMax();
          },
-         Component::documentation("domain_max").data()
+         Component::component_t::documentation("domain_max").data()
       )
       .def_property_readonly(
          "domain_unit",
@@ -86,7 +86,7 @@ void wrapSlice(python::module &module)
          {
             return self.domainUnit();
          },
-         Component::documentation("domain_unit").data()
+         Component::component_t::documentation("domain_unit").data()
       )
    ;
 

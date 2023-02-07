@@ -52,15 +52,19 @@ class PrimaryGamma :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<double> value{this};
-   Field<double> domainMin{this};
-   Field<double> domainMax{this};
+   Field<double>
+      value{this};
+   Field<double>
+      domainMin{this};
+   Field<double>
+      domainMax{this};
 
    // children
    Field<general::Axes>

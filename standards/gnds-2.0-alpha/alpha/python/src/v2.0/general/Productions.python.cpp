@@ -28,7 +28,7 @@ void wrapProductions(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Productions",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapProductions(python::module &module)
             const std::vector<general::Production> &
          >(),
          python::arg("production"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "production",
@@ -46,7 +46,7 @@ void wrapProductions(python::module &module)
          {
             return self.production();
          },
-         Component::documentation("production").data()
+         Component::component_t::documentation("production").data()
       )
    ;
 

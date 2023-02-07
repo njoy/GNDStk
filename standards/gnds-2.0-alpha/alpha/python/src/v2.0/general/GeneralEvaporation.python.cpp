@@ -28,7 +28,7 @@ void wrapGeneralEvaporation(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "GeneralEvaporation",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapGeneralEvaporation(python::module &module)
          python::arg("u"),
          python::arg("theta"),
          python::arg("g"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "u",
@@ -50,7 +50,7 @@ void wrapGeneralEvaporation(python::module &module)
          {
             return self.U();
          },
-         Component::documentation("u").data()
+         Component::component_t::documentation("u").data()
       )
       .def_property_readonly(
          "theta",
@@ -58,7 +58,7 @@ void wrapGeneralEvaporation(python::module &module)
          {
             return self.theta();
          },
-         Component::documentation("theta").data()
+         Component::component_t::documentation("theta").data()
       )
       .def_property_readonly(
          "g",
@@ -66,7 +66,7 @@ void wrapGeneralEvaporation(python::module &module)
          {
             return self.g();
          },
-         Component::documentation("g").data()
+         Component::component_t::documentation("g").data()
       )
    ;
 

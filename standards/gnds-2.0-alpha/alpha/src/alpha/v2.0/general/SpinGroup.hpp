@@ -55,15 +55,19 @@ class SpinGroup :
    }
 
 public:
+   using component_t = Component;
    using Component::construct;
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<int> spin{this};
-   Field<int> parity{this};
+   Field<std::string>
+      label{this};
+   Field<int>
+      spin{this};
+   Field<int>
+      parity{this};
 
    // children
    Field<general::Channels>

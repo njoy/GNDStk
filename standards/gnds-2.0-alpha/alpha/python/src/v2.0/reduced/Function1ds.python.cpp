@@ -28,7 +28,7 @@ void wrapFunction1ds(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Function1ds",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapFunction1ds(python::module &module)
          >(),
          python::arg("legendre"),
          python::arg("xys1d") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "legendre",
@@ -48,7 +48,7 @@ void wrapFunction1ds(python::module &module)
          {
             return self.Legendre();
          },
-         Component::documentation("legendre").data()
+         Component::component_t::documentation("legendre").data()
       )
       .def_property_readonly(
          "xys1d",
@@ -56,7 +56,7 @@ void wrapFunction1ds(python::module &module)
          {
             return self.XYs1d();
          },
-         Component::documentation("xys1d").data()
+         Component::component_t::documentation("xys1d").data()
       )
    ;
 

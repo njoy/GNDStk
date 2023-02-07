@@ -28,7 +28,7 @@ void wrapGaugeBosons(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "GaugeBosons",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapGaugeBosons(python::module &module)
             const std::vector<general::GaugeBoson> &
          >(),
          python::arg("gauge_boson"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "gauge_boson",
@@ -46,7 +46,7 @@ void wrapGaugeBosons(python::module &module)
          {
             return self.gaugeBoson();
          },
-         Component::documentation("gauge_boson").data()
+         Component::component_t::documentation("gauge_boson").data()
       )
    ;
 

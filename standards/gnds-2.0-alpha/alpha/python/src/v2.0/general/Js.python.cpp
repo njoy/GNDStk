@@ -28,7 +28,7 @@ void wrapJs(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Js",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapJs(python::module &module)
             const std::vector<general::J> &
          >(),
          python::arg("j"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "j",
@@ -46,7 +46,7 @@ void wrapJs(python::module &module)
          {
             return self.J();
          },
-         Component::documentation("j").data()
+         Component::component_t::documentation("j").data()
       )
    ;
 

@@ -28,7 +28,7 @@ void wrapTable(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Table",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapTable(python::module &module)
          python::arg("columns"),
          python::arg("column_headers"),
          python::arg("data"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "rows",
@@ -52,7 +52,7 @@ void wrapTable(python::module &module)
          {
             return self.rows();
          },
-         Component::documentation("rows").data()
+         Component::component_t::documentation("rows").data()
       )
       .def_property_readonly(
          "columns",
@@ -60,7 +60,7 @@ void wrapTable(python::module &module)
          {
             return self.columns();
          },
-         Component::documentation("columns").data()
+         Component::component_t::documentation("columns").data()
       )
       .def_property_readonly(
          "column_headers",
@@ -68,7 +68,7 @@ void wrapTable(python::module &module)
          {
             return self.columnHeaders();
          },
-         Component::documentation("column_headers").data()
+         Component::component_t::documentation("column_headers").data()
       )
       .def_property_readonly(
          "data",
@@ -76,7 +76,7 @@ void wrapTable(python::module &module)
          {
             return self.data();
          },
-         Component::documentation("data").data()
+         Component::component_t::documentation("data").data()
       )
    ;
 

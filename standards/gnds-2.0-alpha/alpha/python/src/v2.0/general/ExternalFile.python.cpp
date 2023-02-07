@@ -28,7 +28,7 @@ void wrapExternalFile(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ExternalFile",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapExternalFile(python::module &module)
          python::arg("path"),
          python::arg("checksum") = std::nullopt,
          python::arg("algorithm") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapExternalFile(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "path",
@@ -60,7 +60,7 @@ void wrapExternalFile(python::module &module)
          {
             return self.path();
          },
-         Component::documentation("path").data()
+         Component::component_t::documentation("path").data()
       )
       .def_property_readonly(
          "checksum",
@@ -68,7 +68,7 @@ void wrapExternalFile(python::module &module)
          {
             return self.checksum();
          },
-         Component::documentation("checksum").data()
+         Component::component_t::documentation("checksum").data()
       )
       .def_property_readonly(
          "algorithm",
@@ -76,7 +76,7 @@ void wrapExternalFile(python::module &module)
          {
             return self.algorithm();
          },
-         Component::documentation("algorithm").data()
+         Component::component_t::documentation("algorithm").data()
       )
    ;
 

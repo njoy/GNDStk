@@ -28,7 +28,7 @@ void wrapLegendre(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Legendre",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -40,7 +40,7 @@ void wrapLegendre(python::module &module)
          >(),
          python::arg("outer_domain_value"),
          python::arg("values"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "outer_domain_value",
@@ -48,7 +48,7 @@ void wrapLegendre(python::module &module)
          {
             return self.outerDomainValue();
          },
-         Component::documentation("outer_domain_value").data()
+         Component::component_t::documentation("outer_domain_value").data()
       )
       .def_property_readonly(
          "values",
@@ -56,7 +56,7 @@ void wrapLegendre(python::module &module)
          {
             return self.values();
          },
-         Component::documentation("values").data()
+         Component::component_t::documentation("values").data()
       )
    ;
 

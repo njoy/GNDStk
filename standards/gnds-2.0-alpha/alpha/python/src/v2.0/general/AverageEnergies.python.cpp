@@ -28,7 +28,7 @@ void wrapAverageEnergies(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "AverageEnergies",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -38,7 +38,7 @@ void wrapAverageEnergies(python::module &module)
             const std::vector<general::AverageEnergy> &
          >(),
          python::arg("average_energy"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "average_energy",
@@ -46,7 +46,7 @@ void wrapAverageEnergies(python::module &module)
          {
             return self.averageEnergy();
          },
-         Component::documentation("average_energy").data()
+         Component::component_t::documentation("average_energy").data()
       )
    ;
 

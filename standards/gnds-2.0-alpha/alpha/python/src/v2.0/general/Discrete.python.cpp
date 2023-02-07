@@ -28,7 +28,7 @@ void wrapDiscrete(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Discrete",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapDiscrete(python::module &module)
          python::arg("energy"),
          python::arg("internal_conversion_coefficients") = std::nullopt,
          python::arg("positron_emission_intensity") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "type",
@@ -54,7 +54,7 @@ void wrapDiscrete(python::module &module)
          {
             return self.type();
          },
-         Component::documentation("type").data()
+         Component::component_t::documentation("type").data()
       )
       .def_property_readonly(
          "intensity",
@@ -62,7 +62,7 @@ void wrapDiscrete(python::module &module)
          {
             return self.intensity();
          },
-         Component::documentation("intensity").data()
+         Component::component_t::documentation("intensity").data()
       )
       .def_property_readonly(
          "energy",
@@ -70,7 +70,7 @@ void wrapDiscrete(python::module &module)
          {
             return self.energy();
          },
-         Component::documentation("energy").data()
+         Component::component_t::documentation("energy").data()
       )
       .def_property_readonly(
          "internal_conversion_coefficients",
@@ -78,7 +78,7 @@ void wrapDiscrete(python::module &module)
          {
             return self.internalConversionCoefficients();
          },
-         Component::documentation("internal_conversion_coefficients").data()
+         Component::component_t::documentation("internal_conversion_coefficients").data()
       )
       .def_property_readonly(
          "positron_emission_intensity",
@@ -86,7 +86,7 @@ void wrapDiscrete(python::module &module)
          {
             return self.positronEmissionIntensity();
          },
-         Component::documentation("positron_emission_intensity").data()
+         Component::component_t::documentation("positron_emission_intensity").data()
       )
    ;
 

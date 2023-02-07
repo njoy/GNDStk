@@ -28,7 +28,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "IncoherentPhotonScattering",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -46,7 +46,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          python::arg("pid") = std::nullopt,
          python::arg("product_frame") = std::nullopt,
          python::arg("scattering_factor") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -54,7 +54,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "href",
@@ -62,7 +62,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          {
             return self.href();
          },
-         Component::documentation("href").data()
+         Component::component_t::documentation("href").data()
       )
       .def_property_readonly(
          "pid",
@@ -70,7 +70,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          {
             return self.pid();
          },
-         Component::documentation("pid").data()
+         Component::component_t::documentation("pid").data()
       )
       .def_property_readonly(
          "product_frame",
@@ -78,7 +78,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          {
             return self.productFrame();
          },
-         Component::documentation("product_frame").data()
+         Component::component_t::documentation("product_frame").data()
       )
       .def_property_readonly(
          "scattering_factor",
@@ -86,7 +86,7 @@ void wrapIncoherentPhotonScattering(python::module &module)
          {
             return self.scatteringFactor();
          },
-         Component::documentation("scattering_factor").data()
+         Component::component_t::documentation("scattering_factor").data()
       )
    ;
 

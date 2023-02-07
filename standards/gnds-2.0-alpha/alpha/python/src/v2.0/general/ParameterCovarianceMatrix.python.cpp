@@ -28,7 +28,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ParameterCovarianceMatrix",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
          python::arg("type"),
          python::arg("array"),
          python::arg("parameters"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "type",
@@ -60,7 +60,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
          {
             return self.type();
          },
-         Component::documentation("type").data()
+         Component::component_t::documentation("type").data()
       )
       .def_property_readonly(
          "array",
@@ -68,7 +68,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
          {
             return self.array();
          },
-         Component::documentation("array").data()
+         Component::component_t::documentation("array").data()
       )
       .def_property_readonly(
          "parameters",
@@ -76,7 +76,7 @@ void wrapParameterCovarianceMatrix(python::module &module)
          {
             return self.parameters();
          },
-         Component::documentation("parameters").data()
+         Component::component_t::documentation("parameters").data()
       )
    ;
 

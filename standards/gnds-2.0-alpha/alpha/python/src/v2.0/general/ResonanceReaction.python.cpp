@@ -28,7 +28,7 @@ void wrapResonanceReaction(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "ResonanceReaction",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -50,7 +50,7 @@ void wrapResonanceReaction(python::module &module)
          python::arg("hard_sphere_radius") = std::nullopt,
          python::arg("q") = std::nullopt,
          python::arg("scattering_radius") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -58,7 +58,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "ejectile",
@@ -66,7 +66,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.ejectile();
          },
-         Component::documentation("ejectile").data()
+         Component::component_t::documentation("ejectile").data()
       )
       .def_property_readonly(
          "eliminated",
@@ -74,7 +74,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.eliminated();
          },
-         Component::documentation("eliminated").data()
+         Component::component_t::documentation("eliminated").data()
       )
       .def_property_readonly(
          "link",
@@ -82,7 +82,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.link();
          },
-         Component::documentation("link").data()
+         Component::component_t::documentation("link").data()
       )
       .def_property_readonly(
          "hard_sphere_radius",
@@ -90,7 +90,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.hardSphereRadius();
          },
-         Component::documentation("hard_sphere_radius").data()
+         Component::component_t::documentation("hard_sphere_radius").data()
       )
       .def_property_readonly(
          "q",
@@ -98,7 +98,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.Q();
          },
-         Component::documentation("q").data()
+         Component::component_t::documentation("q").data()
       )
       .def_property_readonly(
          "scattering_radius",
@@ -106,7 +106,7 @@ void wrapResonanceReaction(python::module &module)
          {
             return self.scatteringRadius();
          },
-         Component::documentation("scattering_radius").data()
+         Component::component_t::documentation("scattering_radius").data()
       )
    ;
 

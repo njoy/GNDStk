@@ -28,7 +28,7 @@ void wrapYields(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "Yields",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapYields(python::module &module)
          python::arg("nuclides"),
          python::arg("values"),
          python::arg("uncertainty"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "nuclides",
@@ -50,7 +50,7 @@ void wrapYields(python::module &module)
          {
             return self.nuclides();
          },
-         Component::documentation("nuclides").data()
+         Component::component_t::documentation("nuclides").data()
       )
       .def_property_readonly(
          "values",
@@ -58,7 +58,7 @@ void wrapYields(python::module &module)
          {
             return self.values();
          },
-         Component::documentation("values").data()
+         Component::component_t::documentation("values").data()
       )
       .def_property_readonly(
          "uncertainty",
@@ -66,7 +66,7 @@ void wrapYields(python::module &module)
          {
             return self.uncertainty();
          },
-         Component::documentation("uncertainty").data()
+         Component::component_t::documentation("uncertainty").data()
       )
    ;
 

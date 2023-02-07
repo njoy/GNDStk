@@ -28,7 +28,7 @@ void wrapMadlandNix(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "MadlandNix",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -42,7 +42,7 @@ void wrapMadlandNix(python::module &module)
          python::arg("efl"),
          python::arg("efh"),
          python::arg("t_m"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "efl",
@@ -50,7 +50,7 @@ void wrapMadlandNix(python::module &module)
          {
             return self.EFL();
          },
-         Component::documentation("efl").data()
+         Component::component_t::documentation("efl").data()
       )
       .def_property_readonly(
          "efh",
@@ -58,7 +58,7 @@ void wrapMadlandNix(python::module &module)
          {
             return self.EFH();
          },
-         Component::documentation("efh").data()
+         Component::component_t::documentation("efh").data()
       )
       .def_property_readonly(
          "t_m",
@@ -66,7 +66,7 @@ void wrapMadlandNix(python::module &module)
          {
             return self.T_M();
          },
-         Component::documentation("t_m").data()
+         Component::component_t::documentation("t_m").data()
       )
    ;
 

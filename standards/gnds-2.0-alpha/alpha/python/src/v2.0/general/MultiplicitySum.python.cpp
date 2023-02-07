@@ -28,7 +28,7 @@ void wrapMultiplicitySum(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "MultiplicitySum",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -44,7 +44,7 @@ void wrapMultiplicitySum(python::module &module)
          python::arg("endf_mt"),
          python::arg("multiplicity"),
          python::arg("summands"),
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "label",
@@ -52,7 +52,7 @@ void wrapMultiplicitySum(python::module &module)
          {
             return self.label();
          },
-         Component::documentation("label").data()
+         Component::component_t::documentation("label").data()
       )
       .def_property_readonly(
          "endf_mt",
@@ -60,7 +60,7 @@ void wrapMultiplicitySum(python::module &module)
          {
             return self.ENDF_MT();
          },
-         Component::documentation("endf_mt").data()
+         Component::component_t::documentation("endf_mt").data()
       )
       .def_property_readonly(
          "multiplicity",
@@ -68,7 +68,7 @@ void wrapMultiplicitySum(python::module &module)
          {
             return self.multiplicity();
          },
-         Component::documentation("multiplicity").data()
+         Component::component_t::documentation("multiplicity").data()
       )
       .def_property_readonly(
          "summands",
@@ -76,7 +76,7 @@ void wrapMultiplicitySum(python::module &module)
          {
             return self.summands();
          },
-         Component::documentation("summands").data()
+         Component::component_t::documentation("summands").data()
       )
    ;
 

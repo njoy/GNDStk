@@ -28,7 +28,7 @@ void wrapCovarianceSuite(python::module &module)
    // create the component
    python::class_<Component> component(
       module, "CovarianceSuite",
-      Component::documentation().data()
+      Component::component_t::documentation().data()
    );
 
    // wrap the component
@@ -54,7 +54,7 @@ void wrapCovarianceSuite(python::module &module)
          python::arg("styles"),
          python::arg("covariance_sections") = std::nullopt,
          python::arg("parameter_covariances") = std::nullopt,
-         Component::documentation("constructor").data()
+         Component::component_t::documentation("constructor").data()
       )
       .def_property_readonly(
          "projectile",
@@ -62,7 +62,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.projectile();
          },
-         Component::documentation("projectile").data()
+         Component::component_t::documentation("projectile").data()
       )
       .def_property_readonly(
          "target",
@@ -70,7 +70,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.target();
          },
-         Component::documentation("target").data()
+         Component::component_t::documentation("target").data()
       )
       .def_property_readonly(
          "evaluation",
@@ -78,7 +78,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.evaluation();
          },
-         Component::documentation("evaluation").data()
+         Component::component_t::documentation("evaluation").data()
       )
       .def_property_readonly(
          "interaction",
@@ -86,7 +86,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.interaction();
          },
-         Component::documentation("interaction").data()
+         Component::component_t::documentation("interaction").data()
       )
       .def_property_readonly(
          "format",
@@ -94,7 +94,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.format();
          },
-         Component::documentation("format").data()
+         Component::component_t::documentation("format").data()
       )
       .def_property_readonly(
          "external_files",
@@ -102,7 +102,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.externalFiles();
          },
-         Component::documentation("external_files").data()
+         Component::component_t::documentation("external_files").data()
       )
       .def_property_readonly(
          "styles",
@@ -110,7 +110,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.styles();
          },
-         Component::documentation("styles").data()
+         Component::component_t::documentation("styles").data()
       )
       .def_property_readonly(
          "covariance_sections",
@@ -118,7 +118,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.covarianceSections();
          },
-         Component::documentation("covariance_sections").data()
+         Component::component_t::documentation("covariance_sections").data()
       )
       .def_property_readonly(
          "parameter_covariances",
@@ -126,7 +126,7 @@ void wrapCovarianceSuite(python::module &module)
          {
             return self.parameterCovariances();
          },
-         Component::documentation("parameter_covariances").data()
+         Component::component_t::documentation("parameter_covariances").data()
       )
    ;
 
