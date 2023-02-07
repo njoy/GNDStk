@@ -1396,7 +1396,9 @@ void writeClassCtors(writer &out, const PerClass &per)
             break;
          }
 
-      // signature, and base constructor call
+      // zzz Might change this re: wrapper...
+
+      // signature
       count = 0;
       out(1,"explicit @(", per.clname);
 
@@ -1422,6 +1424,7 @@ void writeClassCtors(writer &out, const PerClass &per)
          count++;
       }
 
+      // base constructor call
       out(1,") :");
       writeClassCtorComponent(out, per, false, false);
 
@@ -1462,13 +1465,15 @@ void writeClassCtors(writer &out, const PerClass &per)
       out(1,"// from vector");
       out(1,"template<class T, class = "
           "std::enable_if_t<BLOCKDATA::template supported<T>>>");
-      out(1,"@(const std::vector<T> &vector) :", per.clname);
+      out(1,"explicit @(const std::vector<T> &vector) :",
+          per.clname);
       writeClassCtorComponent(out, per, false);
       writeClassCtorBody(out, "vector", per.clname, "vector");
    } else if (per.isDataVector) {
       out();
       out(1,"// from vector<@>", per.elementType);
-      out(1,"@(const std::vector<@> &vector) :", per.clname, per.elementType);
+      out(1,"explicit @(const std::vector<@> &vector) :",
+          per.clname, per.elementType);
       writeClassCtorComponent(out, per, false,false);
       out(",");
       out(2,"DataNode(vector)");
@@ -1546,6 +1551,7 @@ void writeClass(PerClass &per, const InfoSpecs &specs)
    writeClassForComponent(out, per);
 
    // output: using directives
+   out(1,"using component_t = Component;");
    out(1,"using Component::construct;");
    if (per.isDataVector && per.elementType == "")
       out(1,"using BlockData::operator=;");
@@ -3483,7 +3489,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out(1,"// create the component");
    out(1,"python::class_<Component> component(");
    out(2,"module, \"@\",", clname);
-   out(2,"Component::documentation().data()");
+   out(2,"Component::component_t::documentation().data()");
    out(1,");");
 
    out();
@@ -3525,7 +3531,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    for (const auto &v : per.variants)
       out(3,"python::arg(\"@\"),",
           namePython(v.name));
-   out(3,"Component::documentation(\"constructor\").data()");
+   out(3,"Component::component_t::documentation(\"constructor\").data()");
    out(2,")"); // .def(
 
    // ------------------------
@@ -3541,7 +3547,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(4,"const std::vector<@> &", dataTypeName.first);
       out(3,">(),");
       out(3,"python::arg(\"@\"),", dataTypeName.second);
-      out(3,"Component::documentation(\"constructor\").data()");
+      out(3,"Component::component_t::documentation(\"constructor\").data()");
       out(2,")"); // .def(
    }
 
@@ -3560,7 +3566,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
          ? out(4,"return self.@().value();", m.name)
          : out(4,"return self.@();", m.name);
       out(3,"},");
-      out(3,"Component::documentation(\"@\").data()", pyname);
+      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
       out(2,")");
    }
 
@@ -3573,7 +3579,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(3,"{");
       out(4,"return self.@();", c.name);
       out(3,"},");
-      out(3,"Component::documentation(\"@\").data()", pyname);
+      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
       out(2,")");
    }
 
@@ -3588,7 +3594,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
             out(3,"{");
             out(4,"return self.@();", c.name);
             out(3,"},");
-            out(3,"Component::documentation(\"@\").data()", pyname);
+            out(3,"Component::component_t::documentation(\"@\").data()", pyname);
             out(2,")");
          }
       }
@@ -3599,7 +3605,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(3,"{");
       out(4,"return self.@();", v.name);
       out(3,"},");
-      out(3,"Component::documentation(\"@\").data()", pyname);
+      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
       out(2,")");
    }
 
@@ -3614,7 +3620,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
          ? out(4,"return self.@();", dataTypeName.second) // dynamic type
          : out(4,"return self;"); // fixed type
       out(3,"},");
-      out(3,"Component::documentation(\"@\").data()", dataTypeName.second);
+      out(3,"Component::component_t::documentation(\"@\").data()", dataTypeName.second);
       out(2,")");
    }
 
