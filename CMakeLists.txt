@@ -63,6 +63,7 @@ include_directories( python/src/ autogen/prototype/proto/src/ standards/gnds-2.0
 pybind11_add_module( GNDStk.python
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
+    python/src/v2.0/GNDS.python.cpp
     python/src/core/Node.python.cpp
     python/src/BoundaryCondition.python.cpp
     python/src/ContributorType.python.cpp
