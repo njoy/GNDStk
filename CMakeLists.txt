@@ -37,7 +37,8 @@ include_directories( src/ )
 
 add_library( GNDStk INTERFACE )
 target_include_directories( GNDStk INTERFACE src/ )
-target_link_libraries( GNDStk
+target_link_libraries(
+    GNDStk
     INTERFACE Log
     INTERFACE catch-adapter
     INTERFACE pugixml-adapter
@@ -45,22 +46,31 @@ target_link_libraries( GNDStk
     INTERFACE HighFive
     )
 
-add_executable( json2class.exe
+add_executable(
+    json2class.exe
     EXCLUDE_FROM_ALL
     autogen/json2class.cpp
     )
-target_link_libraries( json2class.exe
+target_link_libraries(
+    json2class.exe
     PRIVATE GNDStk
     PRIVATE nlohmann_json::nlohmann_json
     )
+
+set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # GNDStk : python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-include_directories( python/src/ autogen/prototype/proto/src/ standards/gnds-2.0-alpha/alpha/src )
+include_directories(
+    python/src/
+    autogen/prototype/proto/src/
+    standards/gnds-2.0-alpha/alpha/src
+    )
 
-pybind11_add_module( GNDStk.python
+pybind11_add_module(
+    GNDStk.python
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
     python/src/v2.0/GNDS.python.cpp
@@ -343,11 +353,11 @@ pybind11_add_module( GNDStk.python
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/reduced.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/g2d.python.cpp
     )
+
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
-target_compile_options( GNDStk.python PRIVATE "-fvisibility=hidden" )
+target_compile_options(GNDStk.python PRIVATE "-fvisibility=hidden" )
 set_target_properties( GNDStk.python PROPERTIES OUTPUT_NAME GNDStk )
 set_target_properties( GNDStk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
-set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_target_properties( GNDStk.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 #######################################################################
@@ -355,10 +365,8 @@ set_target_properties( GNDStk.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
 #######################################################################
 
 if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
-
     # unit testing
     if( GNDStk_unit_tests )
         include( cmake/unit_testing.cmake )
     endif()
-
 endif()
