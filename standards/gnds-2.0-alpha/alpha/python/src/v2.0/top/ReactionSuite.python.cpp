@@ -11,13 +11,13 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_top {
 
 // ReactionSuite wrapper
-void wrapReactionSuite(python::module &module)
+void wrapReactionSuite(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
@@ -26,189 +26,212 @@ void wrapReactionSuite(python::module &module)
    using Component = top::ReactionSuite;
 
    // create the component
-   python::class_<Component> component(
+   py::class_<Component> component(
       module, "ReactionSuite",
       Component::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const general::Styles &,
-            const top::PoPs &,
-            const general::Reactions &,
-            const std::optional<general::ApplicationData> &,
-            const std::optional<general::ExternalFiles> &,
-            const std::optional<general::Resonances> &,
-            const std::optional<general::Sums> &,
-            const std::optional<general::Productions> &,
-            const std::optional<general::FissionComponents> &,
-            const std::optional<general::OrphanProducts> &,
-            const std::optional<general::IncompleteReactions> &
-         >(),
-         python::arg("projectile"),
-         python::arg("target"),
-         python::arg("evaluation"),
-         python::arg("format"),
-         python::arg("projectile_frame"),
-         python::arg("interaction"),
-         python::arg("styles"),
-         python::arg("po_ps"),
-         python::arg("reactions"),
-         python::arg("application_data") = std::nullopt,
-         python::arg("external_files") = std::nullopt,
-         python::arg("resonances") = std::nullopt,
-         python::arg("sums") = std::nullopt,
-         python::arg("productions") = std::nullopt,
-         python::arg("fission_components") = std::nullopt,
-         python::arg("orphan_products") = std::nullopt,
-         python::arg("incomplete_reactions") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self)
-         {
-            return self.projectile();
-         },
-         Component::component_t::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "target",
-         [](const Component &self)
-         {
-            return self.target();
-         },
-         Component::component_t::documentation("target").data()
-      )
-      .def_property_readonly(
-         "evaluation",
-         [](const Component &self)
-         {
-            return self.evaluation();
-         },
-         Component::component_t::documentation("evaluation").data()
-      )
-      .def_property_readonly(
+   // constructor
+   component.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const general::Styles &,
+         const top::PoPs &,
+         const general::Reactions &,
+         const std::optional<general::ApplicationData> &,
+         const std::optional<general::ExternalFiles> &,
+         const std::optional<general::Resonances> &,
+         const std::optional<general::Sums> &,
+         const std::optional<general::Productions> &,
+         const std::optional<general::FissionComponents> &,
+         const std::optional<general::OrphanProducts> &,
+         const std::optional<general::IncompleteReactions> &
+      >(),
+      py::arg("projectile"),
+      py::arg("target"),
+      py::arg("evaluation"),
+      py::arg("format"),
+      py::arg("projectile_frame"),
+      py::arg("interaction"),
+      py::arg("styles"),
+      py::arg("po_ps"),
+      py::arg("reactions"),
+      py::arg("application_data") = std::nullopt,
+      py::arg("external_files") = std::nullopt,
+      py::arg("resonances") = std::nullopt,
+      py::arg("sums") = std::nullopt,
+      py::arg("productions") = std::nullopt,
+      py::arg("fission_components") = std::nullopt,
+      py::arg("orphan_products") = std::nullopt,
+      py::arg("incomplete_reactions") = std::nullopt,
+      Component::component_t::documentation("constructor").data()
+   );
+
+   component.def_property(
+      "projectile",
+      [](const top::ReactionSuite &r)
+      {
+         return r.projectile();
+      },
+      [](top::ReactionSuite &r, const std::string &value)
+      {
+         r.projectile() = value;
+      },
+      Component::component_t::documentation("projectile").data()
+   );
+
+   component.def_property(
+      "target",
+      [](const Component &self)
+      {
+         return self.target();
+      },
+      [](Component &self, const std::string &value)
+      {
+         self.target() = value;
+      },
+      Component::component_t::documentation("target").data()
+   );
+
+   component.def_property_readonly(
+      "evaluation",
+      [](const Component &self)
+      {
+         return self.evaluation();
+      },
+      Component::component_t::documentation("evaluation").data()
+   );
+
+   component.def_property_readonly(
          "format",
          [](const Component &self)
          {
             return self.format();
          },
          Component::component_t::documentation("format").data()
-      )
-      .def_property_readonly(
-         "projectile_frame",
-         [](const Component &self)
-         {
-            return self.projectileFrame();
-         },
-         Component::component_t::documentation("projectile_frame").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         [](const Component &self)
-         {
-            return self.interaction();
-         },
-         Component::component_t::documentation("interaction").data()
-      )
-      .def_property_readonly(
-         "styles",
-         [](const Component &self)
-         {
-            return self.styles();
-         },
-         Component::component_t::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "po_ps",
-         [](const Component &self)
-         {
-            return self.PoPs();
-         },
-         Component::component_t::documentation("po_ps").data()
-      )
-      .def_property_readonly(
-         "reactions",
-         [](const Component &self)
-         {
-            return self.reactions();
-         },
-         Component::component_t::documentation("reactions").data()
-      )
-      .def_property_readonly(
-         "application_data",
-         [](const Component &self)
-         {
-            return self.applicationData();
-         },
-         Component::component_t::documentation("application_data").data()
-      )
-      .def_property_readonly(
-         "external_files",
-         [](const Component &self)
-         {
-            return self.externalFiles();
-         },
-         Component::component_t::documentation("external_files").data()
-      )
-      .def_property_readonly(
-         "resonances",
-         [](const Component &self)
-         {
-            return self.resonances();
-         },
-         Component::component_t::documentation("resonances").data()
-      )
-      .def_property_readonly(
-         "sums",
-         [](const Component &self)
-         {
-            return self.sums();
-         },
-         Component::component_t::documentation("sums").data()
-      )
-      .def_property_readonly(
-         "productions",
-         [](const Component &self)
-         {
-            return self.productions();
-         },
-         Component::component_t::documentation("productions").data()
-      )
-      .def_property_readonly(
-         "fission_components",
-         [](const Component &self)
-         {
-            return self.fissionComponents();
-         },
-         Component::component_t::documentation("fission_components").data()
-      )
-      .def_property_readonly(
-         "orphan_products",
-         [](const Component &self)
-         {
-            return self.orphanProducts();
-         },
-         Component::component_t::documentation("orphan_products").data()
-      )
-      .def_property_readonly(
-         "incomplete_reactions",
-         [](const Component &self)
-         {
-            return self.incompleteReactions();
-         },
-         Component::component_t::documentation("incomplete_reactions").data()
-      )
-   ;
+      );
+
+   component.def_property_readonly(
+      "projectile_frame",
+      [](const Component &self)
+      {
+         return self.projectileFrame();
+      },
+      Component::component_t::documentation("projectile_frame").data()
+   );
+
+   component.def_property_readonly(
+      "interaction",
+      [](const Component &self)
+      {
+         return self.interaction();
+      },
+      Component::component_t::documentation("interaction").data()
+   );
+
+   component.def_property_readonly(
+      "styles",
+      [](const Component &self)
+      {
+         return self.styles();
+      },
+      Component::component_t::documentation("styles").data()
+   );
+
+   component.def_property_readonly(
+      "po_ps",
+      [](const Component &self)
+      {
+         return self.PoPs();
+      },
+      Component::component_t::documentation("po_ps").data()
+   );
+
+   component.def_property_readonly(
+      "reactions",
+      [](const Component &self)
+      {
+         return self.reactions();
+      },
+      Component::component_t::documentation("reactions").data()
+   );
+
+   component.def_property_readonly(
+      "application_data",
+      [](const Component &self)
+      {
+         return self.applicationData();
+      },
+      Component::component_t::documentation("application_data").data()
+   );
+
+   component.def_property_readonly(
+      "external_files",
+      [](const Component &self)
+      {
+         return self.externalFiles();
+      },
+      Component::component_t::documentation("external_files").data()
+   );
+
+   component.def_property_readonly(
+      "resonances",
+      [](const Component &self)
+      {
+         return self.resonances();
+      },
+      Component::component_t::documentation("resonances").data()
+   );
+
+   component.def_property_readonly(
+      "sums",
+      [](const Component &self)
+      {
+         return self.sums();
+      },
+      Component::component_t::documentation("sums").data()
+   );
+
+   component.def_property_readonly(
+      "productions",
+      [](const Component &self)
+      {
+         return self.productions();
+      },
+      Component::component_t::documentation("productions").data()
+   );
+
+   component.def_property_readonly(
+      "fission_components",
+      [](const Component &self)
+      {
+         return self.fissionComponents();
+      },
+      Component::component_t::documentation("fission_components").data()
+   );
+
+   component.def_property_readonly(
+      "orphan_products",
+      [](const Component &self)
+      {
+         return self.orphanProducts();
+      },
+      Component::component_t::documentation("orphan_products").data()
+   );
+
+   component.def_property_readonly(
+      "incomplete_reactions",
+      [](const Component &self)
+      {
+         return self.incompleteReactions();
+      },
+      Component::component_t::documentation("incomplete_reactions").data()
+   );
 
    // add standard component definitions
    addStandardComponentDefinitions<Component>(component);

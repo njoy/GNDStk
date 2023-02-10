@@ -260,19 +260,19 @@ DERIVED &print(std::ostream &os = std::cout)
 // xml
 std::ostream &xml(std::ostream &os = std::cout, const bool decl = false) const
 {
-   return write(os, "xml", decl) << std::endl, os;
+   return write(os,"xml",decl) << std::endl, os;
 }
 
 // json
 std::ostream &json(std::ostream &os = std::cout, const bool decl = false) const
 {
-   return write(os, "json", decl) << std::endl, os;
+   return write(os,"json",decl) << std::endl, os;
 }
 
 // hdf5
 std::ostream &hdf5(std::ostream &os = std::cout, const bool decl = false) const
 {
-   return write(os, "hdf5", decl) << std::endl, os;
+   return write(os,"hdf5",decl) << std::endl, os;
 }
 
 // ------------------------

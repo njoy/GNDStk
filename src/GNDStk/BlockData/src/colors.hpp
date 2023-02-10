@@ -1,5 +1,5 @@
 
-inline bool shades = false;
+inline bool shades = true;
 
 namespace color {
 
@@ -611,10 +611,13 @@ namespace custom {
       purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
       blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
       green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
-      red    = makeColor( (240+128)/2, ( 40+128)/2, ( 80+128)/2 );
+      red    = makeColor( (240+128)/2, ( 40+128)/2, ( 80+128)/2 ),
+      yellow = makeColor( (220+128)/2, (220+128)/2, ( 40+128)/2 );
    }
 
    inline const std::string
+   black = makeColor(   0,   0,   0 ),
+   gray  = makeColor( 128, 128, 128 ),
    white = makeColor( 255, 255, 255 );
 }
 
@@ -644,7 +647,7 @@ inline std::string value = "";
 
 // Comments that the prettyprinter optionally emits (but not comments that
 // appear in the comment vector<string> in a Component-derived class.)
-inline std::string comment = custom::red;
+inline std::string comment = custom::white;
 
 // Comments that appear in a comment vector<string>.
 // Strings and vectors in data nodes. Emphasis: only strings and vectors
