@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Width wrapper
-void wrapWidth(python::module &module)
+// wrapper for general::Width
+void wrapWidth(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Width;
+   using cppCLASS = general::Width;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Width",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const int &,
-            const std::optional<general::XYs1d> &,
-            const std::optional<general::Constant1d> &,
-            const std::optional<general::Regions1d> &
-         >(),
-         python::arg("label"),
-         python::arg("resonance_reaction"),
-         python::arg("degrees_of_freedom"),
-         python::arg("xys1d") = std::nullopt,
-         python::arg("constant1d") = std::nullopt,
-         python::arg("regions1d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "resonance_reaction",
-         [](const Component &self)
-         {
-            return self.resonanceReaction();
-         },
-         Component::component_t::documentation("resonance_reaction").data()
-      )
-      .def_property_readonly(
-         "degrees_of_freedom",
-         [](const Component &self)
-         {
-            return self.degreesOfFreedom();
-         },
-         Component::component_t::documentation("degrees_of_freedom").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self)
-         {
-            return self.XYs1d();
-         },
-         Component::component_t::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "constant1d",
-         [](const Component &self)
-         {
-            return self.constant1d();
-         },
-         Component::component_t::documentation("constant1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self)
-         {
-            return self.regions1d();
-         },
-         Component::component_t::documentation("regions1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const int &,
+         const std::optional<general::XYs1d> &,
+         const std::optional<general::Constant1d> &,
+         const std::optional<general::Regions1d> &
+      >(),
+      py::arg("label"),
+      py::arg("resonance_reaction"),
+      py::arg("degrees_of_freedom"),
+      py::arg("xys1d") = std::nullopt,
+      py::arg("constant1d") = std::nullopt,
+      py::arg("regions1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // get/set degreesOfFreedom
+   object.def_property(
+      "degrees_of_freedom",
+      [](const cppCLASS &self)
+      {
+         return self.degreesOfFreedom();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.degreesOfFreedom() = value;
+      },
+      cppCLASS::component_t::documentation("degrees_of_freedom").data()
+   );
+
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set constant1d
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const std::optional<general::Constant1d> &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
+   // get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::optional<general::Regions1d> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

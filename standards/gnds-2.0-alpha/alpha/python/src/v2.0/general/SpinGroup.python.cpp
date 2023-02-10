@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// SpinGroup wrapper
-void wrapSpinGroup(python::module &module)
+// wrapper for general::SpinGroup
+void wrapSpinGroup(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::SpinGroup;
+   using cppCLASS = general::SpinGroup;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "SpinGroup",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const int &,
-            const general::Channels &,
-            const general::ResonanceParameters &
-         >(),
-         python::arg("label"),
-         python::arg("spin"),
-         python::arg("parity"),
-         python::arg("channels"),
-         python::arg("resonance_parameters"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "spin",
-         [](const Component &self)
-         {
-            return self.spin();
-         },
-         Component::component_t::documentation("spin").data()
-      )
-      .def_property_readonly(
-         "parity",
-         [](const Component &self)
-         {
-            return self.parity();
-         },
-         Component::component_t::documentation("parity").data()
-      )
-      .def_property_readonly(
-         "channels",
-         [](const Component &self)
-         {
-            return self.channels();
-         },
-         Component::component_t::documentation("channels").data()
-      )
-      .def_property_readonly(
-         "resonance_parameters",
-         [](const Component &self)
-         {
-            return self.resonanceParameters();
-         },
-         Component::component_t::documentation("resonance_parameters").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const int &,
+         const general::Channels &,
+         const general::ResonanceParameters &
+      >(),
+      py::arg("label"),
+      py::arg("spin"),
+      py::arg("parity"),
+      py::arg("channels"),
+      py::arg("resonance_parameters"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set spin
+   object.def_property(
+      "spin",
+      [](const cppCLASS &self)
+      {
+         return self.spin();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.spin() = value;
+      },
+      cppCLASS::component_t::documentation("spin").data()
+   );
+
+   // get/set parity
+   object.def_property(
+      "parity",
+      [](const cppCLASS &self)
+      {
+         return self.parity();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.parity() = value;
+      },
+      cppCLASS::component_t::documentation("parity").data()
+   );
+
+   // get/set channels
+   object.def_property(
+      "channels",
+      [](const cppCLASS &self)
+      {
+         return self.channels();
+      },
+      [](cppCLASS &self, const general::Channels &value)
+      {
+         self.channels() = value;
+      },
+      cppCLASS::component_t::documentation("channels").data()
+   );
+
+   // get/set resonanceParameters
+   object.def_property(
+      "resonance_parameters",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceParameters();
+      },
+      [](cppCLASS &self, const general::ResonanceParameters &value)
+      {
+         self.resonanceParameters() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_parameters").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

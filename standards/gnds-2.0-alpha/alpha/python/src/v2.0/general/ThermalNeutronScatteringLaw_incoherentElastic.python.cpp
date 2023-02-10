@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ThermalNeutronScatteringLaw_incoherentElastic wrapper
-void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
+// wrapper for general::ThermalNeutronScatteringLaw_incoherentElastic
+void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ThermalNeutronScatteringLaw_incoherentElastic;
+   using cppCLASS = general::ThermalNeutronScatteringLaw_incoherentElastic;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ThermalNeutronScatteringLaw_incoherentElastic",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const general::BoundAtomCrossSection &,
-            const general::DebyeWallerIntegral &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("product_frame"),
-         python::arg("bound_atom_cross_section"),
-         python::arg("debye_waller_integral"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "bound_atom_cross_section",
-         [](const Component &self)
-         {
-            return self.boundAtomCrossSection();
-         },
-         Component::component_t::documentation("bound_atom_cross_section").data()
-      )
-      .def_property_readonly(
-         "debye_waller_integral",
-         [](const Component &self)
-         {
-            return self.DebyeWallerIntegral();
-         },
-         Component::component_t::documentation("debye_waller_integral").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const general::BoundAtomCrossSection &,
+         const general::DebyeWallerIntegral &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("product_frame"),
+      py::arg("bound_atom_cross_section"),
+      py::arg("debye_waller_integral"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set boundAtomCrossSection
+   object.def_property(
+      "bound_atom_cross_section",
+      [](const cppCLASS &self)
+      {
+         return self.boundAtomCrossSection();
+      },
+      [](cppCLASS &self, const general::BoundAtomCrossSection &value)
+      {
+         self.boundAtomCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("bound_atom_cross_section").data()
+   );
+
+   // get/set DebyeWallerIntegral
+   object.def_property(
+      "debye_waller_integral",
+      [](const cppCLASS &self)
+      {
+         return self.DebyeWallerIntegral();
+      },
+      [](cppCLASS &self, const general::DebyeWallerIntegral &value)
+      {
+         self.DebyeWallerIntegral() = value;
+      },
+      cppCLASS::component_t::documentation("debye_waller_integral").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

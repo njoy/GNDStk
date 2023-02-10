@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Dates wrapper
-void wrapDates(python::module &module)
+// wrapper for general::Dates
+void wrapDates(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Dates;
+   using cppCLASS = general::Dates;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Dates",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Date> &
-         >(),
-         python::arg("date"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self)
-         {
-            return self.date();
-         },
-         Component::component_t::documentation("date").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Date> &
+      >(),
+      py::arg("date"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::vector<general::Date> &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

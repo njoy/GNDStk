@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Date wrapper
-void wrapDate(python::module &module)
+// wrapper for general::Date
+void wrapDate(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Date;
+   using cppCLASS = general::Date;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Date",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &
-         >(),
-         python::arg("value"),
-         python::arg("date_type"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self)
-         {
-            return self.value();
-         },
-         Component::component_t::documentation("value").data()
-      )
-      .def_property_readonly(
-         "date_type",
-         [](const Component &self)
-         {
-            return self.dateType();
-         },
-         Component::component_t::documentation("date_type").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &
+      >(),
+      py::arg("value"),
+      py::arg("date_type"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set dateType
+   object.def_property(
+      "date_type",
+      [](const cppCLASS &self)
+      {
+         return self.dateType();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.dateType() = value;
+      },
+      cppCLASS::component_t::documentation("date_type").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

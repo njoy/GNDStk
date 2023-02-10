@@ -1396,7 +1396,7 @@ void writeClassCtors(writer &out, const PerClass &per)
             break;
          }
 
-      // zzz Might change this re: wrapper...
+      // qqq Might change this re: wrapper...
 
       // signature
       count = 0;
@@ -3335,7 +3335,7 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
    out();
-   out("namespace python = pybind11;");
+   out("namespace py = pybind11;");
    out();
    out("// @ interface", specs.Version);
    out("namespace python_@ {", specs.VersionUnderscore);
@@ -3345,15 +3345,15 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out("namespace python_@ {", per.nsname);
    for (const auto &cl : specs.ClassDependenciesSorted)
       if (cl.theClass.nsname == per.nsname)
-         out(1,"void wrap@(python::module &);", cl.theClass.clname);
+         out(1,"void wrap@(py::module &);", cl.theClass.clname);
    out("} // namespace python_@", per.nsname);
 
    out();
-   out("// @ wrapper", per.nsname);
-   out("void wrap@(python::module &module)", capital(per.nsname));
+   out("// wrapper for @", per.nsname);
+   out("void wrap@(py::module &module)", capital(per.nsname));
    out("{");
    out(1,"// create the @ submodule", per.nsname);
-   out(1,"python::module submodule = module.def_submodule(");
+   out(1,"py::module submodule = module.def_submodule(");
    out(2,"\"@\",", per.nsname);
    if (specs.Project == "GNDStk")
       out(2,"\"GNDS @ @\"", specs.Version, per.nsname); // "GNDS", not "GNDStk"
@@ -3456,15 +3456,15 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    out();
    out("// namespace aliases");
-   out("namespace python = pybind11;");
+   out("namespace py = pybind11;");
 
    out();
    out("namespace python_@ {", specs.VersionUnderscore);
    out("namespace python_@ {", nsname);
 
    out();
-   out("// @ wrapper", clname);
-   out("void wrap@(python::module &module)", clname);
+   out("// wrapper for @::@", nsname, clname);
+   out("void wrap@(py::module &module)", clname);
    out("{");
    const std::string prefix = specs.Project == "GNDStk" ? "njoy::" : "";
    out(1,"using namespace @@;",
@@ -3473,7 +3473,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
        prefix, specs.Project, specs.VersionUnderscore);
    out();
    out(1,"// type aliases");
-   out(1,"using Component = @::@;", nsname, clname);
+   out(1,"using cppCLASS = @::@;", nsname, clname);
 
    // using [variant name] = std::variant..., if necessary
    for (const auto &v : per.variants) {
@@ -3486,18 +3486,14 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    }
 
    out();
-   out(1,"// create the component");
-   out(1,"python::class_<Component> component(");
+   out(1,"// create the Python object");
+   out(1,"py::class_<cppCLASS> object(");
    out(2,"module, \"@\",", clname);
-   out(2,"Component::component_t::documentation().data()");
+   out(2,"cppCLASS::component_t::documentation().data()");
    out(1,");");
 
-   out();
-   out(1,"// wrap the component");
-   out(1,"component");
-
    // ------------------------
-   // python::init<...>
+   // py::init<...>
    // for construction from
    // metadata and children
    // ------------------------
@@ -3505,82 +3501,112 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    int count = 0;
    const int total = per.nfields();
 
-   out(2,".def(");
-   out(3,"python::init<");
+   out();
+   out(1,"// constructor: from fields");
+   out(1,"object.def(");
+   out(2,"py::init<");
    {
       // init<> arguments
       for (const auto &m : per.metadata)
-         out(4,"const @ &@",
+         out(3,"const @ &@",
              m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull,
              sep(count,total));
       for (const auto &c : per.children)
-         out(4,"const @ &@", c.typeFull, sep(count,total));
+         out(3,"const @ &@", c.typeFull, sep(count,total));
       for (const auto &v : per.variants)
-         out(4,"const @ &@", v.typeFull, sep(count,total));
+         out(3,"const @ &@", v.typeFull, sep(count,total));
    }
-   out(3,">(),");
+   out(2,">(),");
 
    for (const auto &m : per.metadata)
-      out(3,"python::arg(\"@\")@,",
+      out(2,"py::arg(\"@\")@,",
           namePython(m.name),
           m.isOptional || m.isDefaulted ? " = std::nullopt" : "");
    for (const auto &c : per.children)
-      out(3,"python::arg(\"@\")@,",
+      out(2,"py::arg(\"@\")@,",
           namePython(c.name),
           c.isOptional ? " = std::nullopt" : "");
    for (const auto &v : per.variants)
-      out(3,"python::arg(\"@\"),",
+      out(2,"py::arg(\"@\"),",
           namePython(v.name));
-   out(3,"Component::component_t::documentation(\"constructor\").data()");
-   out(2,")"); // .def(
+   out(2,"cppCLASS::component_t::documentation(\"constructor\").data()");
+   out(1,");"); // object.def(
 
    // ------------------------
-   // python::init<...>
+   // py::init<...>
    // for construction from
    // vector
    // ------------------------
 
    // vector type[s], as computed above
    for (const auto &dataTypeName : dataTypesNames) {
-      out(2,".def(");
-      out(3,"python::init<");
-      out(4,"const std::vector<@> &", dataTypeName.first);
-      out(3,">(),");
-      out(3,"python::arg(\"@\"),", dataTypeName.second);
-      out(3,"Component::component_t::documentation(\"constructor\").data()");
-      out(2,")"); // .def(
+      out();
+      out(1,"// constructor: from vector");
+      out(1,"object.def(");
+      out(2,"py::init<");
+      out(3,"const std::vector<@> &", dataTypeName.first);
+      out(2,">(),");
+      out(2,"py::arg(\"@\"),", dataTypeName.second);
+      out(2,"cppCLASS::component_t::documentation(\"constructor\").data()");
+      out(1,");"); // object.def(
    }
 
    // ------------------------
-   // .def_property_readonly
+   // .def_property
    // ------------------------
+
+   // qqq We need to ensure that what we're doing, below, works for optional,
+   // Defaulted, and variant. (At the time of this writing, I'm not using
+   // Defaulted or variant anywhere in the GNDS 2.0 specs.)
 
    // metadata
    for (const auto &m : per.metadata) {
       const auto pyname = namePython(m.name);
-      out(2,".def_property_readonly(");
-      out(3,"\"@\",", pyname);
-      out(3,"[](const Component &self)");
-      out(3,"{");
+      out();
+      out(1,"// get/set @", m.name);
+      out(1,"object.def_property(");
+      // name
+      out(2,"\"@\",", pyname);
+      // get
+      out(2,"[](const cppCLASS &self)");
+      out(2,"{");
       m.isDefaulted
-         ? out(4,"return self.@().value();", m.name)
-         : out(4,"return self.@();", m.name);
-      out(3,"},");
-      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
-      out(2,")");
+         ? out(3,"return self.@().value();", m.name)
+         : out(3,"return self.@();", m.name);
+      out(2,"},");
+      // set
+      m.isDefaulted
+         ? out(2,"[](cppCLASS &self, const @ &value)", m.type)
+         : out(2,"[](cppCLASS &self, const @ &value)", m.typeFull);
+      out(2,"{");
+      out(3,"self.@() = value;", m.name);
+      out(2,"},");
+      // documentation
+      out(2,"cppCLASS::component_t::documentation(\"@\").data()", pyname);
+      out(1,");");
    }
 
    // children
    for (const auto &c : per.children) {
       const auto pyname = namePython(c.name);
-      out(2,".def_property_readonly(");
-      out(3,"\"@\",", pyname);
-      out(3,"[](const Component &self)");
-      out(3,"{");
-      out(4,"return self.@();", c.name);
-      out(3,"},");
-      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
-      out(2,")");
+      out();
+      out(1,"// get/set @", c.name);
+      out(1,"object.def_property(");
+      // name
+      out(2,"\"@\",", pyname);
+      // get
+      out(2,"[](const cppCLASS &self)");
+      out(2,"{");
+      out(3,"return self.@();", c.name);
+      out(2,"},");
+      // set
+      out(2,"[](cppCLASS &self, const @ &value)", c.typeFull);
+      out(2,"{");
+      out(3,"self.@() = value;", c.name);
+      out(2,"},");
+      // documentation
+      out(2,"cppCLASS::component_t::documentation(\"@\").data()", pyname);
+      out(1,");");
    }
 
    // variants
@@ -3588,47 +3614,78 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       if (!v.isVector) {
          for (const auto &c : v.children) {
             const auto pyname = namePython(c.name);
-            out(2,".def_property_readonly(");
-            out(3,"\"@\",", pyname);
-            out(3,"[](const Component &self)");
-            out(3,"{");
-            out(4,"return self.@();", c.name);
-            out(3,"},");
-            out(3,"Component::component_t::documentation(\"@\").data()", pyname);
-            out(2,")");
+            out();
+            out(1,"object.def_property(");
+            // name
+            out(2,"\"@\",", pyname);
+            // get
+            out(2,"[](const cppCLASS &self)");
+            out(2,"{");
+            out(3,"return self.@();", c.name);
+            out(2,"},");
+            // set
+            out(2,"[](cppCLASS &self, const @ &value)", c.type);
+            out(2,"{");
+            out(3,"self.@() = value;", c.name);
+            out(2,"},");
+            // documentation
+            out(2,"cppCLASS::component_t::documentation(\"@\").data()", pyname);
+            out(1,");");
          }
       }
       const auto pyname = namePython(v.name);
-      out(2,".def_property_readonly(");
-      out(3,"\"@\",", pyname);
-      out(3,"[](const Component &self)");
-      out(3,"{");
-      out(4,"return self.@();", v.name);
-      out(3,"},");
-      out(3,"Component::component_t::documentation(\"@\").data()", pyname);
-      out(2,")");
+      out();
+      out(1,"object.def_property(");
+      // name
+      out(2,"\"@\",", pyname);
+      // get
+      out(2,"[](const cppCLASS &self)");
+      out(2,"{");
+      out(3,"return self.@();", v.name);
+      out(2,"},");
+      // set
+      out(2,"[](cppCLASS &self, const @ &value)", v.typeFull);
+      out(2,"{");
+      out(3,"self.@() = value;", v.name);
+      out(2,"},");
+      // documentation
+      out(2,"cppCLASS::component_t::documentation(\"@\").data()", pyname);
+      out(1,");");
    }
 
    // vector(s)
    for (const auto &dataTypeName : dataTypesNames) {
-      out(2,".def_property_readonly(");
-      out(3,"\"@\",", dataTypeName.second);
-      out(3,"[](const Component &self) -> const std::vector<@> &",
+      out();
+      out(1,"// get/set vector<@>", dataTypeName.first);
+      out(1,"object.def_property(");
+      // name
+      out(2,"\"@\",", dataTypeName.second);
+      // get
+      out(2,"[](const cppCLASS &self) -> const std::vector<@> &",
           dataTypeName.first);
-      out(3,"{");
+      out(2,"{");
       per.elementType == "" // vector is...
-         ? out(4,"return self.@();", dataTypeName.second) // dynamic type
-         : out(4,"return self;"); // fixed type
-      out(3,"},");
-      out(3,"Component::component_t::documentation(\"@\").data()", dataTypeName.second);
-      out(2,")");
+         ? out(3,"return self.@();", dataTypeName.second) // ...of dynamic type
+         : out(3,"return self;"); // ...of a fixed type
+      out(2,"},");
+      // set
+      out(2,"[](cppCLASS &self, const std::vector<@> &value)",
+          dataTypeName.first);
+      out(2,"{");
+      per.elementType == "" // vector is...
+         ? out(3,"self.@() = value;", dataTypeName.second) // ...of dynamic type
+         : out(3,"self = value;"); // ...of a fixed type
+      out(2,"},");
+      // documentation
+      out(2,"cppCLASS::component_t::documentation(\"@\").data()",
+          dataTypeName.second);
+      out(1,");");
    }
 
    // finish
-   out(1,";");
    out();
-   out(1,"// add standard component definitions");
-   out(1,"addStandardComponentDefinitions<Component>(component);");
+   out(1,"// add standard definitions");
+   out(1,"addStandardComponentDefinitions<cppCLASS>(object);");
    out("}");
 
    out();

@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ElapsedTimes wrapper
-void wrapElapsedTimes(python::module &module)
+// wrapper for general::ElapsedTimes
+void wrapElapsedTimes(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ElapsedTimes;
+   using cppCLASS = general::ElapsedTimes;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ElapsedTimes",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ElapsedTime> &
-         >(),
-         python::arg("elapsed_time"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "elapsed_time",
-         [](const Component &self)
-         {
-            return self.elapsedTime();
-         },
-         Component::component_t::documentation("elapsed_time").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ElapsedTime> &
+      >(),
+      py::arg("elapsed_time"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set elapsedTime
+   object.def_property(
+      "elapsed_time",
+      [](const cppCLASS &self)
+      {
+         return self.elapsedTime();
+      },
+      [](cppCLASS &self, const std::vector<general::ElapsedTime> &value)
+      {
+         self.elapsedTime() = value;
+      },
+      cppCLASS::component_t::documentation("elapsed_time").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// F wrapper
-void wrapF(python::module &module)
+// wrapper for general::F
+void wrapF(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::F;
+   using cppCLASS = general::F;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "F",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::XYs2d &
-         >(),
-         python::arg("xys2d"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self)
-         {
-            return self.XYs2d();
-         },
-         Component::component_t::documentation("xys2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::XYs2d &
+      >(),
+      py::arg("xys2d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const general::XYs2d &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

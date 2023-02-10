@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_reduced {
 
-// CrossSection wrapper
-void wrapCrossSection(python::module &module)
+// wrapper for reduced::CrossSection
+void wrapCrossSection(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = reduced::CrossSection;
+   using cppCLASS = reduced::CrossSection;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CrossSection",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::XYs1d> &,
-            const std::optional<general::Regions1d> &,
-            const std::optional<general::Reference> &
-         >(),
-         python::arg("xys1d") = std::nullopt,
-         python::arg("regions1d") = std::nullopt,
-         python::arg("reference") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self)
-         {
-            return self.XYs1d();
-         },
-         Component::component_t::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self)
-         {
-            return self.regions1d();
-         },
-         Component::component_t::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "reference",
-         [](const Component &self)
-         {
-            return self.reference();
-         },
-         Component::component_t::documentation("reference").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::XYs1d> &,
+         const std::optional<general::Regions1d> &,
+         const std::optional<general::Reference> &
+      >(),
+      py::arg("xys1d") = std::nullopt,
+      py::arg("regions1d") = std::nullopt,
+      py::arg("reference") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::optional<general::Regions1d> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // get/set reference
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const std::optional<general::Reference> &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_reduced

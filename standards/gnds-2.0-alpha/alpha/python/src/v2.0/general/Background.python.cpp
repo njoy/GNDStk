@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Background wrapper
-void wrapBackground(python::module &module)
+// wrapper for general::Background
+void wrapBackground(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Background;
+   using cppCLASS = general::Background;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Background",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::ResolvedRegion> &,
-            const general::FastRegion &,
-            const std::optional<general::UnresolvedRegion> &
-         >(),
-         python::arg("resolved_region") = std::nullopt,
-         python::arg("fast_region"),
-         python::arg("unresolved_region") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "resolved_region",
-         [](const Component &self)
-         {
-            return self.resolvedRegion();
-         },
-         Component::component_t::documentation("resolved_region").data()
-      )
-      .def_property_readonly(
-         "fast_region",
-         [](const Component &self)
-         {
-            return self.fastRegion();
-         },
-         Component::component_t::documentation("fast_region").data()
-      )
-      .def_property_readonly(
-         "unresolved_region",
-         [](const Component &self)
-         {
-            return self.unresolvedRegion();
-         },
-         Component::component_t::documentation("unresolved_region").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::ResolvedRegion> &,
+         const general::FastRegion &,
+         const std::optional<general::UnresolvedRegion> &
+      >(),
+      py::arg("resolved_region") = std::nullopt,
+      py::arg("fast_region"),
+      py::arg("unresolved_region") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set resolvedRegion
+   object.def_property(
+      "resolved_region",
+      [](const cppCLASS &self)
+      {
+         return self.resolvedRegion();
+      },
+      [](cppCLASS &self, const std::optional<general::ResolvedRegion> &value)
+      {
+         self.resolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("resolved_region").data()
+   );
+
+   // get/set fastRegion
+   object.def_property(
+      "fast_region",
+      [](const cppCLASS &self)
+      {
+         return self.fastRegion();
+      },
+      [](cppCLASS &self, const general::FastRegion &value)
+      {
+         self.fastRegion() = value;
+      },
+      cppCLASS::component_t::documentation("fast_region").data()
+   );
+
+   // get/set unresolvedRegion
+   object.def_property(
+      "unresolved_region",
+      [](const cppCLASS &self)
+      {
+         return self.unresolvedRegion();
+      },
+      [](cppCLASS &self, const std::optional<general::UnresolvedRegion> &value)
+      {
+         self.unresolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("unresolved_region").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

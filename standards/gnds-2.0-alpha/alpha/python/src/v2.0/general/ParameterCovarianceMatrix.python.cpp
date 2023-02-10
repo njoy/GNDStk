@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ParameterCovarianceMatrix wrapper
-void wrapParameterCovarianceMatrix(python::module &module)
+// wrapper for general::ParameterCovarianceMatrix
+void wrapParameterCovarianceMatrix(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ParameterCovarianceMatrix;
+   using cppCLASS = general::ParameterCovarianceMatrix;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ParameterCovarianceMatrix",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const g3d::Array &,
-            const general::Parameters &
-         >(),
-         python::arg("label"),
-         python::arg("type"),
-         python::arg("array"),
-         python::arg("parameters"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self)
-         {
-            return self.type();
-         },
-         Component::component_t::documentation("type").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self)
-         {
-            return self.array();
-         },
-         Component::component_t::documentation("array").data()
-      )
-      .def_property_readonly(
-         "parameters",
-         [](const Component &self)
-         {
-            return self.parameters();
-         },
-         Component::component_t::documentation("parameters").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const g3d::Array &,
+         const general::Parameters &
+      >(),
+      py::arg("label"),
+      py::arg("type"),
+      py::arg("array"),
+      py::arg("parameters"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const g3d::Array &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // get/set parameters
+   object.def_property(
+      "parameters",
+      [](const cppCLASS &self)
+      {
+         return self.parameters();
+      },
+      [](cppCLASS &self, const general::Parameters &value)
+      {
+         self.parameters() = value;
+      },
+      cppCLASS::component_t::documentation("parameters").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

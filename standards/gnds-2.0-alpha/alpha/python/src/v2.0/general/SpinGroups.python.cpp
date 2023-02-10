@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// SpinGroups wrapper
-void wrapSpinGroups(python::module &module)
+// wrapper for general::SpinGroups
+void wrapSpinGroups(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::SpinGroups;
+   using cppCLASS = general::SpinGroups;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "SpinGroups",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::SpinGroup> &
-         >(),
-         python::arg("spin_group"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "spin_group",
-         [](const Component &self)
-         {
-            return self.spinGroup();
-         },
-         Component::component_t::documentation("spin_group").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::SpinGroup> &
+      >(),
+      py::arg("spin_group"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set spinGroup
+   object.def_property(
+      "spin_group",
+      [](const cppCLASS &self)
+      {
+         return self.spinGroup();
+      },
+      [](cppCLASS &self, const std::vector<general::SpinGroup> &value)
+      {
+         self.spinGroup() = value;
+      },
+      cppCLASS::component_t::documentation("spin_group").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

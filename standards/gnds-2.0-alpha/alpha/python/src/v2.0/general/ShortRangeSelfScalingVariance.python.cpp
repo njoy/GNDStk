@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ShortRangeSelfScalingVariance wrapper
-void wrapShortRangeSelfScalingVariance(python::module &module)
+// wrapper for general::ShortRangeSelfScalingVariance
+void wrapShortRangeSelfScalingVariance(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ShortRangeSelfScalingVariance;
+   using cppCLASS = general::ShortRangeSelfScalingVariance;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ShortRangeSelfScalingVariance",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const general::Gridded2d &
-         >(),
-         python::arg("label"),
-         python::arg("type"),
-         python::arg("dependence_on_processed_group_width"),
-         python::arg("gridded2d"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self)
-         {
-            return self.type();
-         },
-         Component::component_t::documentation("type").data()
-      )
-      .def_property_readonly(
-         "dependence_on_processed_group_width",
-         [](const Component &self)
-         {
-            return self.dependenceOnProcessedGroupWidth();
-         },
-         Component::component_t::documentation("dependence_on_processed_group_width").data()
-      )
-      .def_property_readonly(
-         "gridded2d",
-         [](const Component &self)
-         {
-            return self.gridded2d();
-         },
-         Component::component_t::documentation("gridded2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const general::Gridded2d &
+      >(),
+      py::arg("label"),
+      py::arg("type"),
+      py::arg("dependence_on_processed_group_width"),
+      py::arg("gridded2d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set dependenceOnProcessedGroupWidth
+   object.def_property(
+      "dependence_on_processed_group_width",
+      [](const cppCLASS &self)
+      {
+         return self.dependenceOnProcessedGroupWidth();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.dependenceOnProcessedGroupWidth() = value;
+      },
+      cppCLASS::component_t::documentation("dependence_on_processed_group_width").data()
+   );
+
+   // get/set gridded2d
+   object.def_property(
+      "gridded2d",
+      [](const cppCLASS &self)
+      {
+         return self.gridded2d();
+      },
+      [](cppCLASS &self, const general::Gridded2d &value)
+      {
+         self.gridded2d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

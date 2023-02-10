@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_top {
 
-// FissionFragmentData wrapper
-void wrapFissionFragmentData(python::module &module)
+// wrapper for top::FissionFragmentData
+void wrapFissionFragmentData(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = top::FissionFragmentData;
+   using cppCLASS = top::FissionFragmentData;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "FissionFragmentData",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::ProductYields> &,
-            const std::optional<general::DelayedNeutrons> &,
-            const std::optional<general::FissionEnergyReleases> &
-         >(),
-         python::arg("product_yields") = std::nullopt,
-         python::arg("delayed_neutrons") = std::nullopt,
-         python::arg("fission_energy_releases") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "product_yields",
-         [](const Component &self)
-         {
-            return self.productYields();
-         },
-         Component::component_t::documentation("product_yields").data()
-      )
-      .def_property_readonly(
-         "delayed_neutrons",
-         [](const Component &self)
-         {
-            return self.delayedNeutrons();
-         },
-         Component::component_t::documentation("delayed_neutrons").data()
-      )
-      .def_property_readonly(
-         "fission_energy_releases",
-         [](const Component &self)
-         {
-            return self.fissionEnergyReleases();
-         },
-         Component::component_t::documentation("fission_energy_releases").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::ProductYields> &,
+         const std::optional<general::DelayedNeutrons> &,
+         const std::optional<general::FissionEnergyReleases> &
+      >(),
+      py::arg("product_yields") = std::nullopt,
+      py::arg("delayed_neutrons") = std::nullopt,
+      py::arg("fission_energy_releases") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set productYields
+   object.def_property(
+      "product_yields",
+      [](const cppCLASS &self)
+      {
+         return self.productYields();
+      },
+      [](cppCLASS &self, const std::optional<general::ProductYields> &value)
+      {
+         self.productYields() = value;
+      },
+      cppCLASS::component_t::documentation("product_yields").data()
+   );
+
+   // get/set delayedNeutrons
+   object.def_property(
+      "delayed_neutrons",
+      [](const cppCLASS &self)
+      {
+         return self.delayedNeutrons();
+      },
+      [](cppCLASS &self, const std::optional<general::DelayedNeutrons> &value)
+      {
+         self.delayedNeutrons() = value;
+      },
+      cppCLASS::component_t::documentation("delayed_neutrons").data()
+   );
+
+   // get/set fissionEnergyReleases
+   object.def_property(
+      "fission_energy_releases",
+      [](const cppCLASS &self)
+      {
+         return self.fissionEnergyReleases();
+      },
+      [](cppCLASS &self, const std::optional<general::FissionEnergyReleases> &value)
+      {
+         self.fissionEnergyReleases() = value;
+      },
+      cppCLASS::component_t::documentation("fission_energy_releases").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_top

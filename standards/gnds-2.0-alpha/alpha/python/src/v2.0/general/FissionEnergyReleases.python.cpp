@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// FissionEnergyReleases wrapper
-void wrapFissionEnergyReleases(python::module &module)
+// wrapper for general::FissionEnergyReleases
+void wrapFissionEnergyReleases(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::FissionEnergyReleases;
+   using cppCLASS = general::FissionEnergyReleases;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "FissionEnergyReleases",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::FissionEnergyRelease> &
-         >(),
-         python::arg("fission_energy_release"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "fission_energy_release",
-         [](const Component &self)
-         {
-            return self.fissionEnergyRelease();
-         },
-         Component::component_t::documentation("fission_energy_release").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::FissionEnergyRelease> &
+      >(),
+      py::arg("fission_energy_release"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set fissionEnergyRelease
+   object.def_property(
+      "fission_energy_release",
+      [](const cppCLASS &self)
+      {
+         return self.fissionEnergyRelease();
+      },
+      [](cppCLASS &self, const std::vector<general::FissionEnergyRelease> &value)
+      {
+         self.fissionEnergyRelease() = value;
+      },
+      cppCLASS::component_t::documentation("fission_energy_release").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

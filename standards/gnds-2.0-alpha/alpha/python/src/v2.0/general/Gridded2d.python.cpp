@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Gridded2d wrapper
-void wrapGridded2d(python::module &module)
+// wrapper for general::Gridded2d
+void wrapGridded2d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Gridded2d;
+   using cppCLASS = general::Gridded2d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Gridded2d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Axes &,
-            const g2d::Array &
-         >(),
-         python::arg("axes"),
-         python::arg("array"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self)
-         {
-            return self.array();
-         },
-         Component::component_t::documentation("array").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Axes &,
+         const g2d::Array &
+      >(),
+      py::arg("axes"),
+      py::arg("array"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const general::Axes &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const g2d::Array &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

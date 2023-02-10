@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Baryons wrapper
-void wrapBaryons(python::module &module)
+// wrapper for general::Baryons
+void wrapBaryons(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Baryons;
+   using cppCLASS = general::Baryons;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Baryons",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Baryon> &
-         >(),
-         python::arg("baryon"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "baryon",
-         [](const Component &self)
-         {
-            return self.baryon();
-         },
-         Component::component_t::documentation("baryon").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Baryon> &
+      >(),
+      py::arg("baryon"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set baryon
+   object.def_property(
+      "baryon",
+      [](const cppCLASS &self)
+      {
+         return self.baryon();
+      },
+      [](cppCLASS &self, const std::vector<general::Baryon> &value)
+      {
+         self.baryon() = value;
+      },
+      cppCLASS::component_t::documentation("baryon").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

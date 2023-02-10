@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Legendre wrapper
-void wrapLegendre(python::module &module)
+// wrapper for general::Legendre
+void wrapLegendre(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Legendre;
+   using cppCLASS = general::Legendre;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Legendre",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const double &,
-            const general::Values &
-         >(),
-         python::arg("outer_domain_value"),
-         python::arg("values"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self)
-         {
-            return self.outerDomainValue();
-         },
-         Component::component_t::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self)
-         {
-            return self.values();
-         },
-         Component::component_t::documentation("values").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const double &,
+         const general::Values &
+      >(),
+      py::arg("outer_domain_value"),
+      py::arg("values"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const general::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

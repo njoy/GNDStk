@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// InternalConversionCoefficients wrapper
-void wrapInternalConversionCoefficients(python::module &module)
+// wrapper for general::InternalConversionCoefficients
+void wrapInternalConversionCoefficients(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::InternalConversionCoefficients;
+   using cppCLASS = general::InternalConversionCoefficients;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "InternalConversionCoefficients",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Shell> &
-         >(),
-         python::arg("shell"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "shell",
-         [](const Component &self)
-         {
-            return self.shell();
-         },
-         Component::component_t::documentation("shell").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Shell> &
+      >(),
+      py::arg("shell"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set shell
+   object.def_property(
+      "shell",
+      [](const cppCLASS &self)
+      {
+         return self.shell();
+      },
+      [](cppCLASS &self, const std::vector<general::Shell> &value)
+      {
+         self.shell() = value;
+      },
+      cppCLASS::component_t::documentation("shell").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

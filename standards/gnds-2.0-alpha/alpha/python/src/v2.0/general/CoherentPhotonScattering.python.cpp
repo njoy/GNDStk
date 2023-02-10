@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CoherentPhotonScattering wrapper
-void wrapCoherentPhotonScattering(python::module &module)
+// wrapper for general::CoherentPhotonScattering
+void wrapCoherentPhotonScattering(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CoherentPhotonScattering;
+   using cppCLASS = general::CoherentPhotonScattering;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CoherentPhotonScattering",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<general::FormFactor> &,
-            const std::optional<general::RealAnomalousFactor> &,
-            const std::optional<general::ImaginaryAnomalousFactor> &
-         >(),
-         python::arg("label"),
-         python::arg("href") = std::nullopt,
-         python::arg("pid") = std::nullopt,
-         python::arg("product_frame") = std::nullopt,
-         python::arg("form_factor") = std::nullopt,
-         python::arg("real_anomalous_factor") = std::nullopt,
-         python::arg("imaginary_anomalous_factor") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "form_factor",
-         [](const Component &self)
-         {
-            return self.formFactor();
-         },
-         Component::component_t::documentation("form_factor").data()
-      )
-      .def_property_readonly(
-         "real_anomalous_factor",
-         [](const Component &self)
-         {
-            return self.realAnomalousFactor();
-         },
-         Component::component_t::documentation("real_anomalous_factor").data()
-      )
-      .def_property_readonly(
-         "imaginary_anomalous_factor",
-         [](const Component &self)
-         {
-            return self.imaginaryAnomalousFactor();
-         },
-         Component::component_t::documentation("imaginary_anomalous_factor").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<general::FormFactor> &,
+         const std::optional<general::RealAnomalousFactor> &,
+         const std::optional<general::ImaginaryAnomalousFactor> &
+      >(),
+      py::arg("label"),
+      py::arg("href") = std::nullopt,
+      py::arg("pid") = std::nullopt,
+      py::arg("product_frame") = std::nullopt,
+      py::arg("form_factor") = std::nullopt,
+      py::arg("real_anomalous_factor") = std::nullopt,
+      py::arg("imaginary_anomalous_factor") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set formFactor
+   object.def_property(
+      "form_factor",
+      [](const cppCLASS &self)
+      {
+         return self.formFactor();
+      },
+      [](cppCLASS &self, const std::optional<general::FormFactor> &value)
+      {
+         self.formFactor() = value;
+      },
+      cppCLASS::component_t::documentation("form_factor").data()
+   );
+
+   // get/set realAnomalousFactor
+   object.def_property(
+      "real_anomalous_factor",
+      [](const cppCLASS &self)
+      {
+         return self.realAnomalousFactor();
+      },
+      [](cppCLASS &self, const std::optional<general::RealAnomalousFactor> &value)
+      {
+         self.realAnomalousFactor() = value;
+      },
+      cppCLASS::component_t::documentation("real_anomalous_factor").data()
+   );
+
+   // get/set imaginaryAnomalousFactor
+   object.def_property(
+      "imaginary_anomalous_factor",
+      [](const cppCLASS &self)
+      {
+         return self.imaginaryAnomalousFactor();
+      },
+      [](cppCLASS &self, const std::optional<general::ImaginaryAnomalousFactor> &value)
+      {
+         self.imaginaryAnomalousFactor() = value;
+      },
+      cppCLASS::component_t::documentation("imaginary_anomalous_factor").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

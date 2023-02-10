@@ -5,21 +5,21 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // g2d declarations
 namespace python_g2d {
-   void wrapArray(python::module &);
+   void wrapArray(py::module &);
 } // namespace python_g2d
 
-// g2d wrapper
-void wrapG2d(python::module &module)
+// wrapper for g2d
+void wrapG2d(py::module &module)
 {
    // create the g2d submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "g2d",
       "alpha v2.0 g2d"
    );

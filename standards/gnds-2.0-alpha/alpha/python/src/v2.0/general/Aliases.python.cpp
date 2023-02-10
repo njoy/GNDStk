@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Aliases wrapper
-void wrapAliases(python::module &module)
+// wrapper for general::Aliases
+void wrapAliases(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Aliases;
+   using cppCLASS = general::Aliases;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Aliases",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<general::Alias>> &,
-            const std::optional<std::vector<general::MetaStable>> &
-         >(),
-         python::arg("alias") = std::nullopt,
-         python::arg("meta_stable") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "alias",
-         [](const Component &self)
-         {
-            return self.alias();
-         },
-         Component::component_t::documentation("alias").data()
-      )
-      .def_property_readonly(
-         "meta_stable",
-         [](const Component &self)
-         {
-            return self.metaStable();
-         },
-         Component::component_t::documentation("meta_stable").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<general::Alias>> &,
+         const std::optional<std::vector<general::MetaStable>> &
+      >(),
+      py::arg("alias") = std::nullopt,
+      py::arg("meta_stable") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set alias
+   object.def_property(
+      "alias",
+      [](const cppCLASS &self)
+      {
+         return self.alias();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::Alias>> &value)
+      {
+         self.alias() = value;
+      },
+      cppCLASS::component_t::documentation("alias").data()
+   );
+
+   // get/set metaStable
+   object.def_property(
+      "meta_stable",
+      [](const cppCLASS &self)
+      {
+         return self.metaStable();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::MetaStable>> &value)
+      {
+         self.metaStable() = value;
+      },
+      cppCLASS::component_t::documentation("meta_stable").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

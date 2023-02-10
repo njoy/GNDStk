@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Productions wrapper
-void wrapProductions(python::module &module)
+// wrapper for general::Productions
+void wrapProductions(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Productions;
+   using cppCLASS = general::Productions;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Productions",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Production> &
-         >(),
-         python::arg("production"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "production",
-         [](const Component &self)
-         {
-            return self.production();
-         },
-         Component::component_t::documentation("production").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Production> &
+      >(),
+      py::arg("production"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set production
+   object.def_property(
+      "production",
+      [](const cppCLASS &self)
+      {
+         return self.production();
+      },
+      [](cppCLASS &self, const std::vector<general::Production> &value)
+      {
+         self.production() = value;
+      },
+      cppCLASS::component_t::documentation("production").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

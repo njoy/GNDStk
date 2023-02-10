@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Atomic wrapper
-void wrapAtomic(python::module &module)
+// wrapper for general::Atomic
+void wrapAtomic(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Atomic;
+   using cppCLASS = general::Atomic;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Atomic",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Configurations &
-         >(),
-         python::arg("configurations"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "configurations",
-         [](const Component &self)
-         {
-            return self.configurations();
-         },
-         Component::component_t::documentation("configurations").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Configurations &
+      >(),
+      py::arg("configurations"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set configurations
+   object.def_property(
+      "configurations",
+      [](const cppCLASS &self)
+      {
+         return self.configurations();
+      },
+      [](cppCLASS &self, const general::Configurations &value)
+      {
+         self.configurations() = value;
+      },
+      cppCLASS::component_t::documentation("configurations").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

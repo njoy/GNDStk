@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// XYs3d wrapper
-void wrapXYs3d(python::module &module)
+// wrapper for general::XYs3d
+void wrapXYs3d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::XYs3d;
+   using cppCLASS = general::XYs3d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "XYs3d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<general::Axes> &,
-            const std::vector<general::Function2ds> &
-         >(),
-         python::arg("interpolation_qualifier") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("function2ds"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "interpolation_qualifier",
-         [](const Component &self)
-         {
-            return self.interpolationQualifier();
-         },
-         Component::component_t::documentation("interpolation_qualifier").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "function2ds",
-         [](const Component &self)
-         {
-            return self.function2ds();
-         },
-         Component::component_t::documentation("function2ds").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<general::Axes> &,
+         const std::vector<general::Function2ds> &
+      >(),
+      py::arg("interpolation_qualifier") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("function2ds"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set interpolationQualifier
+   object.def_property(
+      "interpolation_qualifier",
+      [](const cppCLASS &self)
+      {
+         return self.interpolationQualifier();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.interpolationQualifier() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation_qualifier").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<general::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const std::vector<general::Function2ds> &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

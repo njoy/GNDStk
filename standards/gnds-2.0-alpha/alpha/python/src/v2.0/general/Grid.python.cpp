@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Grid wrapper
-void wrapGrid(python::module &module)
+// wrapper for general::Grid
+void wrapGrid(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Grid;
+   using cppCLASS = general::Grid;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Grid",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::optional<std::string> &,
-            const std::optional<general::Link> &,
-            const std::optional<general::Values> &
-         >(),
-         python::arg("index"),
-         python::arg("label"),
-         python::arg("unit"),
-         python::arg("style"),
-         python::arg("interpolation") = std::nullopt,
-         python::arg("link") = std::nullopt,
-         python::arg("values") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self)
-         {
-            return self.index();
-         },
-         Component::component_t::documentation("index").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self)
-         {
-            return self.unit();
-         },
-         Component::component_t::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "style",
-         [](const Component &self)
-         {
-            return self.style();
-         },
-         Component::component_t::documentation("style").data()
-      )
-      .def_property_readonly(
-         "interpolation",
-         [](const Component &self)
-         {
-            return self.interpolation();
-         },
-         Component::component_t::documentation("interpolation").data()
-      )
-      .def_property_readonly(
-         "link",
-         [](const Component &self)
-         {
-            return self.link();
-         },
-         Component::component_t::documentation("link").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self)
-         {
-            return self.values();
-         },
-         Component::component_t::documentation("values").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::optional<std::string> &,
+         const std::optional<general::Link> &,
+         const std::optional<general::Values> &
+      >(),
+      py::arg("index"),
+      py::arg("label"),
+      py::arg("unit"),
+      py::arg("style"),
+      py::arg("interpolation") = std::nullopt,
+      py::arg("link") = std::nullopt,
+      py::arg("values") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set style
+   object.def_property(
+      "style",
+      [](const cppCLASS &self)
+      {
+         return self.style();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.style() = value;
+      },
+      cppCLASS::component_t::documentation("style").data()
+   );
+
+   // get/set interpolation
+   object.def_property(
+      "interpolation",
+      [](const cppCLASS &self)
+      {
+         return self.interpolation();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.interpolation() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation").data()
+   );
+
+   // get/set link
+   object.def_property(
+      "link",
+      [](const cppCLASS &self)
+      {
+         return self.link();
+      },
+      [](cppCLASS &self, const std::optional<general::Link> &value)
+      {
+         self.link() = value;
+      },
+      cppCLASS::component_t::documentation("link").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::optional<general::Values> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

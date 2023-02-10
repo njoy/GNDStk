@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// L wrapper
-void wrapL(python::module &module)
+// wrapper for general::L
+void wrapL(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::L;
+   using cppCLASS = general::L;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "L",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const general::Js &
-         >(),
-         python::arg("label"),
-         python::arg("value"),
-         python::arg("js"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self)
-         {
-            return self.value();
-         },
-         Component::component_t::documentation("value").data()
-      )
-      .def_property_readonly(
-         "js",
-         [](const Component &self)
-         {
-            return self.Js();
-         },
-         Component::component_t::documentation("js").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const general::Js &
+      >(),
+      py::arg("label"),
+      py::arg("value"),
+      py::arg("js"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set Js
+   object.def_property(
+      "js",
+      [](const cppCLASS &self)
+      {
+         return self.Js();
+      },
+      [](cppCLASS &self, const general::Js &value)
+      {
+         self.Js() = value;
+      },
+      cppCLASS::component_t::documentation("js").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

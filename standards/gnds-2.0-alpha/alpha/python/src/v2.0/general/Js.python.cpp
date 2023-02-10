@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Js wrapper
-void wrapJs(python::module &module)
+// wrapper for general::Js
+void wrapJs(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Js;
+   using cppCLASS = general::Js;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Js",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::J> &
-         >(),
-         python::arg("j"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "j",
-         [](const Component &self)
-         {
-            return self.J();
-         },
-         Component::component_t::documentation("j").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::J> &
+      >(),
+      py::arg("j"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set J
+   object.def_property(
+      "j",
+      [](const cppCLASS &self)
+      {
+         return self.J();
+      },
+      [](cppCLASS &self, const std::vector<general::J> &value)
+      {
+         self.J() = value;
+      },
+      cppCLASS::component_t::documentation("j").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -5,23 +5,23 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // g3d declarations
 namespace python_g3d {
-   void wrapStarts(python::module &);
-   void wrapLengths(python::module &);
-   void wrapArray(python::module &);
+   void wrapStarts(py::module &);
+   void wrapLengths(py::module &);
+   void wrapArray(py::module &);
 } // namespace python_g3d
 
-// g3d wrapper
-void wrapG3d(python::module &module)
+// wrapper for g3d
+void wrapG3d(py::module &module)
 {
    // create the g3d submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "g3d",
       "alpha v2.0 g3d"
    );

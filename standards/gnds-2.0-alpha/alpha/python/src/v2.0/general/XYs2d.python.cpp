@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// XYs2d wrapper
-void wrapXYs2d(python::module &module)
+// wrapper for general::XYs2d
+void wrapXYs2d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::XYs2d;
+   using cppCLASS = general::XYs2d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "XYs2d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<int> &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<double> &,
-            const std::optional<general::Axes> &,
-            const general::Function1ds &,
-            const std::optional<general::Uncertainty> &
-         >(),
-         python::arg("index") = std::nullopt,
-         python::arg("interpolation") = std::nullopt,
-         python::arg("interpolation_qualifier") = std::nullopt,
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("function1ds"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self)
-         {
-            return self.index();
-         },
-         Component::component_t::documentation("index").data()
-      )
-      .def_property_readonly(
-         "interpolation",
-         [](const Component &self)
-         {
-            return self.interpolation();
-         },
-         Component::component_t::documentation("interpolation").data()
-      )
-      .def_property_readonly(
-         "interpolation_qualifier",
-         [](const Component &self)
-         {
-            return self.interpolationQualifier();
-         },
-         Component::component_t::documentation("interpolation_qualifier").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self)
-         {
-            return self.outerDomainValue();
-         },
-         Component::component_t::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "function1ds",
-         [](const Component &self)
-         {
-            return self.function1ds();
-         },
-         Component::component_t::documentation("function1ds").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<int> &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<double> &,
+         const std::optional<general::Axes> &,
+         const general::Function1ds &,
+         const std::optional<general::Uncertainty> &
+      >(),
+      py::arg("index") = std::nullopt,
+      py::arg("interpolation") = std::nullopt,
+      py::arg("interpolation_qualifier") = std::nullopt,
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("function1ds"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const std::optional<int> &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set interpolation
+   object.def_property(
+      "interpolation",
+      [](const cppCLASS &self)
+      {
+         return self.interpolation();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.interpolation() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation").data()
+   );
+
+   // get/set interpolationQualifier
+   object.def_property(
+      "interpolation_qualifier",
+      [](const cppCLASS &self)
+      {
+         return self.interpolationQualifier();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.interpolationQualifier() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation_qualifier").data()
+   );
+
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<general::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set function1ds
+   object.def_property(
+      "function1ds",
+      [](const cppCLASS &self)
+      {
+         return self.function1ds();
+      },
+      [](cppCLASS &self, const general::Function1ds &value)
+      {
+         self.function1ds() = value;
+      },
+      cppCLASS::component_t::documentation("function1ds").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

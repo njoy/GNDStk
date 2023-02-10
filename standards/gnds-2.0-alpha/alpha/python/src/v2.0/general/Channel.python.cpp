@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Channel wrapper
-void wrapChannel(python::module &module)
+// wrapper for general::Channel
+void wrapChannel(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Channel;
+   using cppCLASS = general::Channel;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Channel",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const int &,
-            const int &,
-            const int &,
-            const std::optional<general::ScatteringRadius> &,
-            const std::optional<general::HardSphereRadius> &
-         >(),
-         python::arg("label"),
-         python::arg("resonance_reaction"),
-         python::arg("l"),
-         python::arg("channel_spin"),
-         python::arg("column_index"),
-         python::arg("scattering_radius") = std::nullopt,
-         python::arg("hard_sphere_radius") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "resonance_reaction",
-         [](const Component &self)
-         {
-            return self.resonanceReaction();
-         },
-         Component::component_t::documentation("resonance_reaction").data()
-      )
-      .def_property_readonly(
-         "l",
-         [](const Component &self)
-         {
-            return self.L();
-         },
-         Component::component_t::documentation("l").data()
-      )
-      .def_property_readonly(
-         "channel_spin",
-         [](const Component &self)
-         {
-            return self.channelSpin();
-         },
-         Component::component_t::documentation("channel_spin").data()
-      )
-      .def_property_readonly(
-         "column_index",
-         [](const Component &self)
-         {
-            return self.columnIndex();
-         },
-         Component::component_t::documentation("column_index").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self)
-         {
-            return self.scatteringRadius();
-         },
-         Component::component_t::documentation("scattering_radius").data()
-      )
-      .def_property_readonly(
-         "hard_sphere_radius",
-         [](const Component &self)
-         {
-            return self.hardSphereRadius();
-         },
-         Component::component_t::documentation("hard_sphere_radius").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const int &,
+         const int &,
+         const int &,
+         const std::optional<general::ScatteringRadius> &,
+         const std::optional<general::HardSphereRadius> &
+      >(),
+      py::arg("label"),
+      py::arg("resonance_reaction"),
+      py::arg("l"),
+      py::arg("channel_spin"),
+      py::arg("column_index"),
+      py::arg("scattering_radius") = std::nullopt,
+      py::arg("hard_sphere_radius") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // get/set L
+   object.def_property(
+      "l",
+      [](const cppCLASS &self)
+      {
+         return self.L();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.L() = value;
+      },
+      cppCLASS::component_t::documentation("l").data()
+   );
+
+   // get/set channelSpin
+   object.def_property(
+      "channel_spin",
+      [](const cppCLASS &self)
+      {
+         return self.channelSpin();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.channelSpin() = value;
+      },
+      cppCLASS::component_t::documentation("channel_spin").data()
+   );
+
+   // get/set columnIndex
+   object.def_property(
+      "column_index",
+      [](const cppCLASS &self)
+      {
+         return self.columnIndex();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.columnIndex() = value;
+      },
+      cppCLASS::component_t::documentation("column_index").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<general::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // get/set hardSphereRadius
+   object.def_property(
+      "hard_sphere_radius",
+      [](const cppCLASS &self)
+      {
+         return self.hardSphereRadius();
+      },
+      [](cppCLASS &self, const std::optional<general::HardSphereRadius> &value)
+      {
+         self.hardSphereRadius() = value;
+      },
+      cppCLASS::component_t::documentation("hard_sphere_radius").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

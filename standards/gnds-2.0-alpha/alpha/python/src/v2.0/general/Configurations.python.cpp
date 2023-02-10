@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Configurations wrapper
-void wrapConfigurations(python::module &module)
+// wrapper for general::Configurations
+void wrapConfigurations(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Configurations;
+   using cppCLASS = general::Configurations;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Configurations",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Configuration> &
-         >(),
-         python::arg("configuration"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "configuration",
-         [](const Component &self)
-         {
-            return self.configuration();
-         },
-         Component::component_t::documentation("configuration").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Configuration> &
+      >(),
+      py::arg("configuration"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set configuration
+   object.def_property(
+      "configuration",
+      [](const cppCLASS &self)
+      {
+         return self.configuration();
+      },
+      [](cppCLASS &self, const std::vector<general::Configuration> &value)
+      {
+         self.configuration() = value;
+      },
+      cppCLASS::component_t::documentation("configuration").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

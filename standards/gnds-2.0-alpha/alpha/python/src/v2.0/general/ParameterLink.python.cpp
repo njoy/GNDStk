@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ParameterLink wrapper
-void wrapParameterLink(python::module &module)
+// wrapper for general::ParameterLink
+void wrapParameterLink(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ParameterLink;
+   using cppCLASS = general::ParameterLink;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ParameterLink",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<int> &,
-            const std::optional<int> &
-         >(),
-         python::arg("label"),
-         python::arg("href"),
-         python::arg("n_parameters") = std::nullopt,
-         python::arg("matrix_start_index") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "n_parameters",
-         [](const Component &self)
-         {
-            return self.nParameters();
-         },
-         Component::component_t::documentation("n_parameters").data()
-      )
-      .def_property_readonly(
-         "matrix_start_index",
-         [](const Component &self)
-         {
-            return self.matrixStartIndex();
-         },
-         Component::component_t::documentation("matrix_start_index").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<int> &,
+         const std::optional<int> &
+      >(),
+      py::arg("label"),
+      py::arg("href"),
+      py::arg("n_parameters") = std::nullopt,
+      py::arg("matrix_start_index") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set nParameters
+   object.def_property(
+      "n_parameters",
+      [](const cppCLASS &self)
+      {
+         return self.nParameters();
+      },
+      [](cppCLASS &self, const std::optional<int> &value)
+      {
+         self.nParameters() = value;
+      },
+      cppCLASS::component_t::documentation("n_parameters").data()
+   );
+
+   // get/set matrixStartIndex
+   object.def_property(
+      "matrix_start_index",
+      [](const cppCLASS &self)
+      {
+         return self.matrixStartIndex();
+      },
+      [](cppCLASS &self, const std::optional<int> &value)
+      {
+         self.matrixStartIndex() = value;
+      },
+      cppCLASS::component_t::documentation("matrix_start_index").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

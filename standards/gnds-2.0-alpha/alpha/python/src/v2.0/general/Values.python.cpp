@@ -11,52 +11,58 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Values wrapper
-void wrapValues(python::module &module)
+// wrapper for general::Values
+void wrapValues(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Values;
+   using cppCLASS = general::Values;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Values",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-         >(),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<double> &
-         >(),
-         python::arg("doubles"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "doubles",
-         [](const Component &self) -> const std::vector<double> &
-         {
-            return self;
-         },
-         Component::component_t::documentation("doubles").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+      >(),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<double> &
+      >(),
+      py::arg("doubles"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // get/set vector<double>
+   object.def_property(
+      "doubles",
+      [](const cppCLASS &self) -> const std::vector<double> &
+      {
+         return self;
+      },
+      [](cppCLASS &self, const std::vector<double> &value)
+      {
+         self = value;
+      },
+      cppCLASS::component_t::documentation("doubles").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

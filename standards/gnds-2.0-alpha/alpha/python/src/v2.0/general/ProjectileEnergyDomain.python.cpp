@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ProjectileEnergyDomain wrapper
-void wrapProjectileEnergyDomain(python::module &module)
+// wrapper for general::ProjectileEnergyDomain
+void wrapProjectileEnergyDomain(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ProjectileEnergyDomain;
+   using cppCLASS = general::ProjectileEnergyDomain;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ProjectileEnergyDomain",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const double &,
-            const double &,
-            const std::string &
-         >(),
-         python::arg("min"),
-         python::arg("max"),
-         python::arg("unit"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "min",
-         [](const Component &self)
-         {
-            return self.min();
-         },
-         Component::component_t::documentation("min").data()
-      )
-      .def_property_readonly(
-         "max",
-         [](const Component &self)
-         {
-            return self.max();
-         },
-         Component::component_t::documentation("max").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self)
-         {
-            return self.unit();
-         },
-         Component::component_t::documentation("unit").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const double &,
+         const double &,
+         const std::string &
+      >(),
+      py::arg("min"),
+      py::arg("max"),
+      py::arg("unit"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set min
+   object.def_property(
+      "min",
+      [](const cppCLASS &self)
+      {
+         return self.min();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.min() = value;
+      },
+      cppCLASS::component_t::documentation("min").data()
+   );
+
+   // get/set max
+   object.def_property(
+      "max",
+      [](const cppCLASS &self)
+      {
+         return self.max();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.max() = value;
+      },
+      cppCLASS::component_t::documentation("max").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

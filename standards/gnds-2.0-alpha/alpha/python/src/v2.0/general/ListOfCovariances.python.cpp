@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ListOfCovariances wrapper
-void wrapListOfCovariances(python::module &module)
+// wrapper for general::ListOfCovariances
+void wrapListOfCovariances(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ListOfCovariances;
+   using cppCLASS = general::ListOfCovariances;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ListOfCovariances",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Covariance> &
-         >(),
-         python::arg("covariance"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "covariance",
-         [](const Component &self)
-         {
-            return self.covariance();
-         },
-         Component::component_t::documentation("covariance").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Covariance> &
+      >(),
+      py::arg("covariance"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set covariance
+   object.def_property(
+      "covariance",
+      [](const cppCLASS &self)
+      {
+         return self.covariance();
+      },
+      [](cppCLASS &self, const std::vector<general::Covariance> &value)
+      {
+         self.covariance() = value;
+      },
+      cppCLASS::component_t::documentation("covariance").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

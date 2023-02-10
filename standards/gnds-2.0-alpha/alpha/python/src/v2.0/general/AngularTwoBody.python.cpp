@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// AngularTwoBody wrapper
-void wrapAngularTwoBody(python::module &module)
+// wrapper for general::AngularTwoBody
+void wrapAngularTwoBody(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::AngularTwoBody;
+   using cppCLASS = general::AngularTwoBody;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "AngularTwoBody",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<general::XYs2d> &,
-            const std::optional<general::Regions2d> &,
-            const std::optional<general::Recoil> &,
-            const std::optional<general::Isotropic2d> &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         python::arg("xys2d") = std::nullopt,
-         python::arg("regions2d") = std::nullopt,
-         python::arg("recoil") = std::nullopt,
-         python::arg("isotropic2d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self)
-         {
-            return self.XYs2d();
-         },
-         Component::component_t::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "regions2d",
-         [](const Component &self)
-         {
-            return self.regions2d();
-         },
-         Component::component_t::documentation("regions2d").data()
-      )
-      .def_property_readonly(
-         "recoil",
-         [](const Component &self)
-         {
-            return self.recoil();
-         },
-         Component::component_t::documentation("recoil").data()
-      )
-      .def_property_readonly(
-         "isotropic2d",
-         [](const Component &self)
-         {
-            return self.isotropic2d();
-         },
-         Component::component_t::documentation("isotropic2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<general::XYs2d> &,
+         const std::optional<general::Regions2d> &,
+         const std::optional<general::Recoil> &,
+         const std::optional<general::Isotropic2d> &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      py::arg("xys2d") = std::nullopt,
+      py::arg("regions2d") = std::nullopt,
+      py::arg("recoil") = std::nullopt,
+      py::arg("isotropic2d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set regions2d
+   object.def_property(
+      "regions2d",
+      [](const cppCLASS &self)
+      {
+         return self.regions2d();
+      },
+      [](cppCLASS &self, const std::optional<general::Regions2d> &value)
+      {
+         self.regions2d() = value;
+      },
+      cppCLASS::component_t::documentation("regions2d").data()
+   );
+
+   // get/set recoil
+   object.def_property(
+      "recoil",
+      [](const cppCLASS &self)
+      {
+         return self.recoil();
+      },
+      [](cppCLASS &self, const std::optional<general::Recoil> &value)
+      {
+         self.recoil() = value;
+      },
+      cppCLASS::component_t::documentation("recoil").data()
+   );
+
+   // get/set isotropic2d
+   object.def_property(
+      "isotropic2d",
+      [](const cppCLASS &self)
+      {
+         return self.isotropic2d();
+      },
+      [](cppCLASS &self, const std::optional<general::Isotropic2d> &value)
+      {
+         self.isotropic2d() = value;
+      },
+      cppCLASS::component_t::documentation("isotropic2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

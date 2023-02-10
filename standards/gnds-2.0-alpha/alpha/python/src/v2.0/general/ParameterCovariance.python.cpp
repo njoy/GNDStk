@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ParameterCovariance wrapper
-void wrapParameterCovariance(python::module &module)
+// wrapper for general::ParameterCovariance
+void wrapParameterCovariance(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ParameterCovariance;
+   using cppCLASS = general::ParameterCovariance;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ParameterCovariance",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::RowData &,
-            const general::ParameterCovarianceMatrix &
-         >(),
-         python::arg("label"),
-         python::arg("row_data"),
-         python::arg("parameter_covariance_matrix"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "row_data",
-         [](const Component &self)
-         {
-            return self.rowData();
-         },
-         Component::component_t::documentation("row_data").data()
-      )
-      .def_property_readonly(
-         "parameter_covariance_matrix",
-         [](const Component &self)
-         {
-            return self.parameterCovarianceMatrix();
-         },
-         Component::component_t::documentation("parameter_covariance_matrix").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::RowData &,
+         const general::ParameterCovarianceMatrix &
+      >(),
+      py::arg("label"),
+      py::arg("row_data"),
+      py::arg("parameter_covariance_matrix"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set rowData
+   object.def_property(
+      "row_data",
+      [](const cppCLASS &self)
+      {
+         return self.rowData();
+      },
+      [](cppCLASS &self, const general::RowData &value)
+      {
+         self.rowData() = value;
+      },
+      cppCLASS::component_t::documentation("row_data").data()
+   );
+
+   // get/set parameterCovarianceMatrix
+   object.def_property(
+      "parameter_covariance_matrix",
+      [](const cppCLASS &self)
+      {
+         return self.parameterCovarianceMatrix();
+      },
+      [](cppCLASS &self, const general::ParameterCovarianceMatrix &value)
+      {
+         self.parameterCovarianceMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_covariance_matrix").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

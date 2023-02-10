@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Institution wrapper
-void wrapInstitution(python::module &module)
+// wrapper for general::Institution
+void wrapInstitution(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Institution;
+   using cppCLASS = general::Institution;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Institution",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const general::ENDFconversionFlags &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("endfconversion_flags"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "endfconversion_flags",
-         [](const Component &self)
-         {
-            return self.ENDFconversionFlags();
-         },
-         Component::component_t::documentation("endfconversion_flags").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const general::ENDFconversionFlags &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("endfconversion_flags"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set ENDFconversionFlags
+   object.def_property(
+      "endfconversion_flags",
+      [](const cppCLASS &self)
+      {
+         return self.ENDFconversionFlags();
+      },
+      [](cppCLASS &self, const general::ENDFconversionFlags &value)
+      {
+         self.ENDFconversionFlags() = value;
+      },
+      cppCLASS::component_t::documentation("endfconversion_flags").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

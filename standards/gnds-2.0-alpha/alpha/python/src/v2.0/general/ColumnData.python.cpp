@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ColumnData wrapper
-void wrapColumnData(python::module &module)
+// wrapper for general::ColumnData
+void wrapColumnData(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ColumnData;
+   using cppCLASS = general::ColumnData;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ColumnData",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::string &,
-            const std::optional<general::Slices> &
-         >(),
-         python::arg("endf_mfmt") = std::nullopt,
-         python::arg("href"),
-         python::arg("slices") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mfmt",
-         [](const Component &self)
-         {
-            return self.ENDF_MFMT();
-         },
-         Component::component_t::documentation("endf_mfmt").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "slices",
-         [](const Component &self)
-         {
-            return self.slices();
-         },
-         Component::component_t::documentation("slices").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::string &,
+         const std::optional<general::Slices> &
+      >(),
+      py::arg("endf_mfmt") = std::nullopt,
+      py::arg("href"),
+      py::arg("slices") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set ENDF_MFMT
+   object.def_property(
+      "endf_mfmt",
+      [](const cppCLASS &self)
+      {
+         return self.ENDF_MFMT();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.ENDF_MFMT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mfmt").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set slices
+   object.def_property(
+      "slices",
+      [](const cppCLASS &self)
+      {
+         return self.slices();
+      },
+      [](cppCLASS &self, const std::optional<general::Slices> &value)
+      {
+         self.slices() = value;
+      },
+      cppCLASS::component_t::documentation("slices").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

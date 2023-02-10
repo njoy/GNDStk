@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Widths wrapper
-void wrapWidths(python::module &module)
+// wrapper for general::Widths
+void wrapWidths(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Widths;
+   using cppCLASS = general::Widths;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Widths",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Width> &
-         >(),
-         python::arg("width"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "width",
-         [](const Component &self)
-         {
-            return self.width();
-         },
-         Component::component_t::documentation("width").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Width> &
+      >(),
+      py::arg("width"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set width
+   object.def_property(
+      "width",
+      [](const cppCLASS &self)
+      {
+         return self.width();
+      },
+      [](cppCLASS &self, const std::vector<general::Width> &value)
+      {
+         self.width() = value;
+      },
+      cppCLASS::component_t::documentation("width").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

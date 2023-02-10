@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// GaugeBosons wrapper
-void wrapGaugeBosons(python::module &module)
+// wrapper for general::GaugeBosons
+void wrapGaugeBosons(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::GaugeBosons;
+   using cppCLASS = general::GaugeBosons;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "GaugeBosons",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::GaugeBoson> &
-         >(),
-         python::arg("gauge_boson"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "gauge_boson",
-         [](const Component &self)
-         {
-            return self.gaugeBoson();
-         },
-         Component::component_t::documentation("gauge_boson").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::GaugeBoson> &
+      >(),
+      py::arg("gauge_boson"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set gaugeBoson
+   object.def_property(
+      "gauge_boson",
+      [](const cppCLASS &self)
+      {
+         return self.gaugeBoson();
+      },
+      [](cppCLASS &self, const std::vector<general::GaugeBoson> &value)
+      {
+         self.gaugeBoson() = value;
+      },
+      cppCLASS::component_t::documentation("gauge_boson").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

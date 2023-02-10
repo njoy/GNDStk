@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// IncidentEnergies wrapper
-void wrapIncidentEnergies(python::module &module)
+// wrapper for general::IncidentEnergies
+void wrapIncidentEnergies(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::IncidentEnergies;
+   using cppCLASS = general::IncidentEnergies;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "IncidentEnergies",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::IncidentEnergy> &
-         >(),
-         python::arg("incident_energy"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "incident_energy",
-         [](const Component &self)
-         {
-            return self.incidentEnergy();
-         },
-         Component::component_t::documentation("incident_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::IncidentEnergy> &
+      >(),
+      py::arg("incident_energy"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set incidentEnergy
+   object.def_property(
+      "incident_energy",
+      [](const cppCLASS &self)
+      {
+         return self.incidentEnergy();
+      },
+      [](cppCLASS &self, const std::vector<general::IncidentEnergy> &value)
+      {
+         self.incidentEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("incident_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

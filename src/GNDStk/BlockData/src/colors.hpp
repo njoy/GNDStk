@@ -647,7 +647,7 @@ inline std::string value = "";
 
 // Comments that the prettyprinter optionally emits (but not comments that
 // appear in the comment vector<string> in a Component-derived class.)
-inline std::string comment = custom::white;
+inline std::string comment = custom::faded::yellow;///custom::white;
 
 // Comments that appear in a comment vector<string>.
 // Strings and vectors in data nodes. Emphasis: only strings and vectors

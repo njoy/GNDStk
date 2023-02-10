@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Resolved wrapper
-void wrapResolved(python::module &module)
+// wrapper for general::Resolved
+void wrapResolved(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Resolved;
+   using cppCLASS = general::Resolved;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Resolved",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const double &,
-            const double &,
-            const std::string &,
-            const std::optional<general::BreitWigner> &,
-            const std::optional<general::RMatrix> &
-         >(),
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("domain_unit"),
-         python::arg("breit_wigner") = std::nullopt,
-         python::arg("rmatrix") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self)
-         {
-            return self.domainMin();
-         },
-         Component::component_t::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self)
-         {
-            return self.domainMax();
-         },
-         Component::component_t::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self)
-         {
-            return self.domainUnit();
-         },
-         Component::component_t::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "breit_wigner",
-         [](const Component &self)
-         {
-            return self.BreitWigner();
-         },
-         Component::component_t::documentation("breit_wigner").data()
-      )
-      .def_property_readonly(
-         "rmatrix",
-         [](const Component &self)
-         {
-            return self.RMatrix();
-         },
-         Component::component_t::documentation("rmatrix").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const double &,
+         const double &,
+         const std::string &,
+         const std::optional<general::BreitWigner> &,
+         const std::optional<general::RMatrix> &
+      >(),
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("domain_unit"),
+      py::arg("breit_wigner") = std::nullopt,
+      py::arg("rmatrix") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   // get/set BreitWigner
+   object.def_property(
+      "breit_wigner",
+      [](const cppCLASS &self)
+      {
+         return self.BreitWigner();
+      },
+      [](cppCLASS &self, const std::optional<general::BreitWigner> &value)
+      {
+         self.BreitWigner() = value;
+      },
+      cppCLASS::component_t::documentation("breit_wigner").data()
+   );
+
+   // get/set RMatrix
+   object.def_property(
+      "rmatrix",
+      [](const cppCLASS &self)
+      {
+         return self.RMatrix();
+      },
+      [](cppCLASS &self, const std::optional<general::RMatrix> &value)
+      {
+         self.RMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("rmatrix").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

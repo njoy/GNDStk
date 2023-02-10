@@ -11,37 +11,35 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Isotropic2d wrapper
-void wrapIsotropic2d(python::module &module)
+// wrapper for general::Isotropic2d
+void wrapIsotropic2d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Isotropic2d;
+   using cppCLASS = general::Isotropic2d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Isotropic2d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-         >(),
-         Component::component_t::documentation("constructor").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+      >(),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

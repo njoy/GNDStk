@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// EnergyAngular wrapper
-void wrapEnergyAngular(python::module &module)
+// wrapper for general::EnergyAngular
+void wrapEnergyAngular(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::EnergyAngular;
+   using cppCLASS = general::EnergyAngular;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "EnergyAngular",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<general::XYs3d> &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         python::arg("xys3d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "xys3d",
-         [](const Component &self)
-         {
-            return self.XYs3d();
-         },
-         Component::component_t::documentation("xys3d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<general::XYs3d> &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      py::arg("xys3d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set XYs3d
+   object.def_property(
+      "xys3d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs3d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs3d> &value)
+      {
+         self.XYs3d() = value;
+      },
+      cppCLASS::component_t::documentation("xys3d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

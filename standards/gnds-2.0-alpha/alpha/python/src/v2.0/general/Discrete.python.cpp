@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Discrete wrapper
-void wrapDiscrete(python::module &module)
+// wrapper for general::Discrete
+void wrapDiscrete(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Discrete;
+   using cppCLASS = general::Discrete;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Discrete",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const general::Intensity &,
-            const general::Energy &,
-            const std::optional<general::InternalConversionCoefficients> &,
-            const std::optional<general::PositronEmissionIntensity> &
-         >(),
-         python::arg("type") = std::nullopt,
-         python::arg("intensity"),
-         python::arg("energy"),
-         python::arg("internal_conversion_coefficients") = std::nullopt,
-         python::arg("positron_emission_intensity") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self)
-         {
-            return self.type();
-         },
-         Component::component_t::documentation("type").data()
-      )
-      .def_property_readonly(
-         "intensity",
-         [](const Component &self)
-         {
-            return self.intensity();
-         },
-         Component::component_t::documentation("intensity").data()
-      )
-      .def_property_readonly(
-         "energy",
-         [](const Component &self)
-         {
-            return self.energy();
-         },
-         Component::component_t::documentation("energy").data()
-      )
-      .def_property_readonly(
-         "internal_conversion_coefficients",
-         [](const Component &self)
-         {
-            return self.internalConversionCoefficients();
-         },
-         Component::component_t::documentation("internal_conversion_coefficients").data()
-      )
-      .def_property_readonly(
-         "positron_emission_intensity",
-         [](const Component &self)
-         {
-            return self.positronEmissionIntensity();
-         },
-         Component::component_t::documentation("positron_emission_intensity").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const general::Intensity &,
+         const general::Energy &,
+         const std::optional<general::InternalConversionCoefficients> &,
+         const std::optional<general::PositronEmissionIntensity> &
+      >(),
+      py::arg("type") = std::nullopt,
+      py::arg("intensity"),
+      py::arg("energy"),
+      py::arg("internal_conversion_coefficients") = std::nullopt,
+      py::arg("positron_emission_intensity") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set intensity
+   object.def_property(
+      "intensity",
+      [](const cppCLASS &self)
+      {
+         return self.intensity();
+      },
+      [](cppCLASS &self, const general::Intensity &value)
+      {
+         self.intensity() = value;
+      },
+      cppCLASS::component_t::documentation("intensity").data()
+   );
+
+   // get/set energy
+   object.def_property(
+      "energy",
+      [](const cppCLASS &self)
+      {
+         return self.energy();
+      },
+      [](cppCLASS &self, const general::Energy &value)
+      {
+         self.energy() = value;
+      },
+      cppCLASS::component_t::documentation("energy").data()
+   );
+
+   // get/set internalConversionCoefficients
+   object.def_property(
+      "internal_conversion_coefficients",
+      [](const cppCLASS &self)
+      {
+         return self.internalConversionCoefficients();
+      },
+      [](cppCLASS &self, const std::optional<general::InternalConversionCoefficients> &value)
+      {
+         self.internalConversionCoefficients() = value;
+      },
+      cppCLASS::component_t::documentation("internal_conversion_coefficients").data()
+   );
+
+   // get/set positronEmissionIntensity
+   object.def_property(
+      "positron_emission_intensity",
+      [](const cppCLASS &self)
+      {
+         return self.positronEmissionIntensity();
+      },
+      [](cppCLASS &self, const std::optional<general::PositronEmissionIntensity> &value)
+      {
+         self.positronEmissionIntensity() = value;
+      },
+      cppCLASS::component_t::documentation("positron_emission_intensity").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

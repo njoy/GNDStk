@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Unresolved wrapper
-void wrapUnresolved(python::module &module)
+// wrapper for general::Unresolved
+void wrapUnresolved(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Unresolved;
+   using cppCLASS = general::Unresolved;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Unresolved",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const double &,
-            const double &,
-            const std::string &,
-            const general::TabulatedWidths &
-         >(),
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("domain_unit"),
-         python::arg("tabulated_widths"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self)
-         {
-            return self.domainMin();
-         },
-         Component::component_t::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self)
-         {
-            return self.domainMax();
-         },
-         Component::component_t::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self)
-         {
-            return self.domainUnit();
-         },
-         Component::component_t::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "tabulated_widths",
-         [](const Component &self)
-         {
-            return self.tabulatedWidths();
-         },
-         Component::component_t::documentation("tabulated_widths").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const double &,
+         const double &,
+         const std::string &,
+         const general::TabulatedWidths &
+      >(),
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("domain_unit"),
+      py::arg("tabulated_widths"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   // get/set tabulatedWidths
+   object.def_property(
+      "tabulated_widths",
+      [](const cppCLASS &self)
+      {
+         return self.tabulatedWidths();
+      },
+      [](cppCLASS &self, const general::TabulatedWidths &value)
+      {
+         self.tabulatedWidths() = value;
+      },
+      cppCLASS::component_t::documentation("tabulated_widths").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

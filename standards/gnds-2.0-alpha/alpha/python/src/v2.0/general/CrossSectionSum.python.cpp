@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CrossSectionSum wrapper
-void wrapCrossSectionSum(python::module &module)
+// wrapper for general::CrossSectionSum
+void wrapCrossSectionSum(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CrossSectionSum;
+   using cppCLASS = general::CrossSectionSum;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CrossSectionSum",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const general::Summands &,
-            const general::Q &,
-            const general::CrossSection &
-         >(),
-         python::arg("label"),
-         python::arg("endf_mt"),
-         python::arg("summands"),
-         python::arg("q"),
-         python::arg("cross_section"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self)
-         {
-            return self.ENDF_MT();
-         },
-         Component::component_t::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "summands",
-         [](const Component &self)
-         {
-            return self.summands();
-         },
-         Component::component_t::documentation("summands").data()
-      )
-      .def_property_readonly(
-         "q",
-         [](const Component &self)
-         {
-            return self.Q();
-         },
-         Component::component_t::documentation("q").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self)
-         {
-            return self.crossSection();
-         },
-         Component::component_t::documentation("cross_section").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const general::Summands &,
+         const general::Q &,
+         const general::CrossSection &
+      >(),
+      py::arg("label"),
+      py::arg("endf_mt"),
+      py::arg("summands"),
+      py::arg("q"),
+      py::arg("cross_section"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set summands
+   object.def_property(
+      "summands",
+      [](const cppCLASS &self)
+      {
+         return self.summands();
+      },
+      [](cppCLASS &self, const general::Summands &value)
+      {
+         self.summands() = value;
+      },
+      cppCLASS::component_t::documentation("summands").data()
+   );
+
+   // get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const general::Q &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const general::CrossSection &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

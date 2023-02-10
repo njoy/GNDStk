@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Unorthodoxes wrapper
-void wrapUnorthodoxes(python::module &module)
+// wrapper for general::Unorthodoxes
+void wrapUnorthodoxes(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Unorthodoxes;
+   using cppCLASS = general::Unorthodoxes;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Unorthodoxes",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Unorthodox> &
-         >(),
-         python::arg("unorthodox"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "unorthodox",
-         [](const Component &self)
-         {
-            return self.unorthodox();
-         },
-         Component::component_t::documentation("unorthodox").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Unorthodox> &
+      >(),
+      py::arg("unorthodox"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set unorthodox
+   object.def_property(
+      "unorthodox",
+      [](const cppCLASS &self)
+      {
+         return self.unorthodox();
+      },
+      [](cppCLASS &self, const std::vector<general::Unorthodox> &value)
+      {
+         self.unorthodox() = value;
+      },
+      cppCLASS::component_t::documentation("unorthodox").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

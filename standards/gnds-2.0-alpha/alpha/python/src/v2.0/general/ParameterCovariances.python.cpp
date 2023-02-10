@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ParameterCovariances wrapper
-void wrapParameterCovariances(python::module &module)
+// wrapper for general::ParameterCovariances
+void wrapParameterCovariances(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ParameterCovariances;
+   using cppCLASS = general::ParameterCovariances;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ParameterCovariances",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ParameterCovariance> &,
-            const std::optional<std::vector<general::AverageParameterCovariance>> &
-         >(),
-         python::arg("parameter_covariance"),
-         python::arg("average_parameter_covariance") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "parameter_covariance",
-         [](const Component &self)
-         {
-            return self.parameterCovariance();
-         },
-         Component::component_t::documentation("parameter_covariance").data()
-      )
-      .def_property_readonly(
-         "average_parameter_covariance",
-         [](const Component &self)
-         {
-            return self.averageParameterCovariance();
-         },
-         Component::component_t::documentation("average_parameter_covariance").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ParameterCovariance> &,
+         const std::optional<std::vector<general::AverageParameterCovariance>> &
+      >(),
+      py::arg("parameter_covariance"),
+      py::arg("average_parameter_covariance") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set parameterCovariance
+   object.def_property(
+      "parameter_covariance",
+      [](const cppCLASS &self)
+      {
+         return self.parameterCovariance();
+      },
+      [](cppCLASS &self, const std::vector<general::ParameterCovariance> &value)
+      {
+         self.parameterCovariance() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_covariance").data()
+   );
+
+   // get/set averageParameterCovariance
+   object.def_property(
+      "average_parameter_covariance",
+      [](const cppCLASS &self)
+      {
+         return self.averageParameterCovariance();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::AverageParameterCovariance>> &value)
+      {
+         self.averageParameterCovariance() = value;
+      },
+      cppCLASS::component_t::documentation("average_parameter_covariance").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

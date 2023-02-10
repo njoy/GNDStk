@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Sum wrapper
-void wrapSum(python::module &module)
+// wrapper for general::Sum
+void wrapSum(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Sum;
+   using cppCLASS = general::Sum;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Sum",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<double> &,
-            const std::optional<double> &,
-            const std::optional<std::string> &,
-            const std::vector<general::Summand> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("domain_min") = std::nullopt,
-         python::arg("domain_max") = std::nullopt,
-         python::arg("domain_unit") = std::nullopt,
-         python::arg("summand"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self)
-         {
-            return self.domainMin();
-         },
-         Component::component_t::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self)
-         {
-            return self.domainMax();
-         },
-         Component::component_t::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self)
-         {
-            return self.domainUnit();
-         },
-         Component::component_t::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "summand",
-         [](const Component &self)
-         {
-            return self.summand();
-         },
-         Component::component_t::documentation("summand").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<double> &,
+         const std::optional<double> &,
+         const std::optional<std::string> &,
+         const std::vector<general::Summand> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("domain_min") = std::nullopt,
+      py::arg("domain_max") = std::nullopt,
+      py::arg("domain_unit") = std::nullopt,
+      py::arg("summand"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   // get/set summand
+   object.def_property(
+      "summand",
+      [](const cppCLASS &self)
+      {
+         return self.summand();
+      },
+      [](cppCLASS &self, const std::vector<general::Summand> &value)
+      {
+         self.summand() = value;
+      },
+      cppCLASS::component_t::documentation("summand").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

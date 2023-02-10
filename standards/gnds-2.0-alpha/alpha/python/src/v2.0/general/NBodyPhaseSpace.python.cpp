@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// NBodyPhaseSpace wrapper
-void wrapNBodyPhaseSpace(python::module &module)
+// wrapper for general::NBodyPhaseSpace
+void wrapNBodyPhaseSpace(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::NBodyPhaseSpace;
+   using cppCLASS = general::NBodyPhaseSpace;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "NBodyPhaseSpace",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const general::Mass &
-         >(),
-         python::arg("number_of_products"),
-         python::arg("mass"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "number_of_products",
-         [](const Component &self)
-         {
-            return self.numberOfProducts();
-         },
-         Component::component_t::documentation("number_of_products").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self)
-         {
-            return self.mass();
-         },
-         Component::component_t::documentation("mass").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const general::Mass &
+      >(),
+      py::arg("number_of_products"),
+      py::arg("mass"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set numberOfProducts
+   object.def_property(
+      "number_of_products",
+      [](const cppCLASS &self)
+      {
+         return self.numberOfProducts();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.numberOfProducts() = value;
+      },
+      cppCLASS::component_t::documentation("number_of_products").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const general::Mass &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

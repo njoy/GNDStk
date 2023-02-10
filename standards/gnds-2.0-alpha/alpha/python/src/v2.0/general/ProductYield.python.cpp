@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ProductYield wrapper
-void wrapProductYield(python::module &module)
+// wrapper for general::ProductYield
+void wrapProductYield(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ProductYield;
+   using cppCLASS = general::ProductYield;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ProductYield",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<reduced::Nuclides> &,
-            const general::ElapsedTimes &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("nuclides") = std::nullopt,
-         python::arg("elapsed_times"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "nuclides",
-         [](const Component &self)
-         {
-            return self.nuclides();
-         },
-         Component::component_t::documentation("nuclides").data()
-      )
-      .def_property_readonly(
-         "elapsed_times",
-         [](const Component &self)
-         {
-            return self.elapsedTimes();
-         },
-         Component::component_t::documentation("elapsed_times").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<reduced::Nuclides> &,
+         const general::ElapsedTimes &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("nuclides") = std::nullopt,
+      py::arg("elapsed_times"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const std::optional<reduced::Nuclides> &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // get/set elapsedTimes
+   object.def_property(
+      "elapsed_times",
+      [](const cppCLASS &self)
+      {
+         return self.elapsedTimes();
+      },
+      [](cppCLASS &self, const general::ElapsedTimes &value)
+      {
+         self.elapsedTimes() = value;
+      },
+      cppCLASS::component_t::documentation("elapsed_times").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

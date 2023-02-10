@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Yields wrapper
-void wrapYields(python::module &module)
+// wrapper for general::Yields
+void wrapYields(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Yields;
+   using cppCLASS = general::Yields;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Yields",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const reduced::Nuclides &,
-            const general::Values &,
-            const general::Uncertainty &
-         >(),
-         python::arg("nuclides"),
-         python::arg("values"),
-         python::arg("uncertainty"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "nuclides",
-         [](const Component &self)
-         {
-            return self.nuclides();
-         },
-         Component::component_t::documentation("nuclides").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self)
-         {
-            return self.values();
-         },
-         Component::component_t::documentation("values").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const reduced::Nuclides &,
+         const general::Values &,
+         const general::Uncertainty &
+      >(),
+      py::arg("nuclides"),
+      py::arg("values"),
+      py::arg("uncertainty"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const reduced::Nuclides &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const general::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const general::Uncertainty &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

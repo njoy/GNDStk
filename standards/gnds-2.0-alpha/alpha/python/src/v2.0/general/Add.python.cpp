@@ -16,7 +16,7 @@ namespace py = pybind11;
 namespace python_v2_0 {
 namespace python_general {
 
-// Add wrapper
+// wrapper for general::Add
 void wrapAdd(py::module &module)
 {
    using namespace alpha;
@@ -50,7 +50,8 @@ void wrapAdd(py::module &module)
       [](cppCLASS &self, const std::string &value)
       {
          self.href() = value;
-      }
+      },
+      cppCLASS::component_t::documentation("href").data()
    );
 
    // add standard definitions

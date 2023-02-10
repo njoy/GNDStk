@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ApplicationData wrapper
-void wrapApplicationData(python::module &module)
+// wrapper for general::ApplicationData
+void wrapApplicationData(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ApplicationData;
+   using cppCLASS = general::ApplicationData;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ApplicationData",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Institution &
-         >(),
-         python::arg("institution"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "institution",
-         [](const Component &self)
-         {
-            return self.institution();
-         },
-         Component::component_t::documentation("institution").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Institution &
+      >(),
+      py::arg("institution"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set institution
+   object.def_property(
+      "institution",
+      [](const cppCLASS &self)
+      {
+         return self.institution();
+      },
+      [](cppCLASS &self, const general::Institution &value)
+      {
+         self.institution() = value;
+      },
+      cppCLASS::component_t::documentation("institution").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

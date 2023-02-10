@@ -16,23 +16,23 @@ namespace py = pybind11;
 namespace python_v2_0 {
 namespace python_top {
 
-// ReactionSuite wrapper
+// wrapper for top::ReactionSuite
 void wrapReactionSuite(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = top::ReactionSuite;
+   using cppCLASS = top::ReactionSuite;
 
-   // create the component
-   py::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ReactionSuite",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // constructor
-   component.def(
+   // constructor: from fields
+   object.def(
       py::init<
          const std::string &,
          const std::string &,
@@ -69,172 +69,249 @@ void wrapReactionSuite(py::module &module)
       py::arg("fission_components") = std::nullopt,
       py::arg("orphan_products") = std::nullopt,
       py::arg("incomplete_reactions") = std::nullopt,
-      Component::component_t::documentation("constructor").data()
+      cppCLASS::component_t::documentation("constructor").data()
    );
 
-   component.def_property(
+   // get/set projectile
+   object.def_property(
       "projectile",
-      [](const top::ReactionSuite &r)
+      [](const cppCLASS &self)
       {
-         return r.projectile();
+         return self.projectile();
       },
-      [](top::ReactionSuite &r, const std::string &value)
+      [](cppCLASS &self, const std::string &value)
       {
-         r.projectile() = value;
+         self.projectile() = value;
       },
-      Component::component_t::documentation("projectile").data()
+      cppCLASS::component_t::documentation("projectile").data()
    );
 
-   component.def_property(
+   // get/set target
+   object.def_property(
       "target",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.target();
       },
-      [](Component &self, const std::string &value)
+      [](cppCLASS &self, const std::string &value)
       {
          self.target() = value;
       },
-      Component::component_t::documentation("target").data()
+      cppCLASS::component_t::documentation("target").data()
    );
 
-   component.def_property_readonly(
+   // get/set evaluation
+   object.def_property(
       "evaluation",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.evaluation();
       },
-      Component::component_t::documentation("evaluation").data()
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.evaluation() = value;
+      },
+      cppCLASS::component_t::documentation("evaluation").data()
    );
 
-   component.def_property_readonly(
-         "format",
-         [](const Component &self)
-         {
-            return self.format();
-         },
-         Component::component_t::documentation("format").data()
-      );
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
 
-   component.def_property_readonly(
+   // get/set projectileFrame
+   object.def_property(
       "projectile_frame",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.projectileFrame();
       },
-      Component::component_t::documentation("projectile_frame").data()
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.projectileFrame() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_frame").data()
    );
 
-   component.def_property_readonly(
+   // get/set interaction
+   object.def_property(
       "interaction",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.interaction();
       },
-      Component::component_t::documentation("interaction").data()
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.interaction() = value;
+      },
+      cppCLASS::component_t::documentation("interaction").data()
    );
 
-   component.def_property_readonly(
+   // get/set styles
+   object.def_property(
       "styles",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.styles();
       },
-      Component::component_t::documentation("styles").data()
+      [](cppCLASS &self, const general::Styles &value)
+      {
+         self.styles() = value;
+      },
+      cppCLASS::component_t::documentation("styles").data()
    );
 
-   component.def_property_readonly(
+   // get/set PoPs
+   object.def_property(
       "po_ps",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.PoPs();
       },
-      Component::component_t::documentation("po_ps").data()
+      [](cppCLASS &self, const top::PoPs &value)
+      {
+         self.PoPs() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps").data()
    );
 
-   component.def_property_readonly(
+   // get/set reactions
+   object.def_property(
       "reactions",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.reactions();
       },
-      Component::component_t::documentation("reactions").data()
+      [](cppCLASS &self, const general::Reactions &value)
+      {
+         self.reactions() = value;
+      },
+      cppCLASS::component_t::documentation("reactions").data()
    );
 
-   component.def_property_readonly(
+   // get/set applicationData
+   object.def_property(
       "application_data",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.applicationData();
       },
-      Component::component_t::documentation("application_data").data()
+      [](cppCLASS &self, const std::optional<general::ApplicationData> &value)
+      {
+         self.applicationData() = value;
+      },
+      cppCLASS::component_t::documentation("application_data").data()
    );
 
-   component.def_property_readonly(
+   // get/set externalFiles
+   object.def_property(
       "external_files",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.externalFiles();
       },
-      Component::component_t::documentation("external_files").data()
+      [](cppCLASS &self, const std::optional<general::ExternalFiles> &value)
+      {
+         self.externalFiles() = value;
+      },
+      cppCLASS::component_t::documentation("external_files").data()
    );
 
-   component.def_property_readonly(
+   // get/set resonances
+   object.def_property(
       "resonances",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.resonances();
       },
-      Component::component_t::documentation("resonances").data()
+      [](cppCLASS &self, const std::optional<general::Resonances> &value)
+      {
+         self.resonances() = value;
+      },
+      cppCLASS::component_t::documentation("resonances").data()
    );
 
-   component.def_property_readonly(
+   // get/set sums
+   object.def_property(
       "sums",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.sums();
       },
-      Component::component_t::documentation("sums").data()
+      [](cppCLASS &self, const std::optional<general::Sums> &value)
+      {
+         self.sums() = value;
+      },
+      cppCLASS::component_t::documentation("sums").data()
    );
 
-   component.def_property_readonly(
+   // get/set productions
+   object.def_property(
       "productions",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.productions();
       },
-      Component::component_t::documentation("productions").data()
+      [](cppCLASS &self, const std::optional<general::Productions> &value)
+      {
+         self.productions() = value;
+      },
+      cppCLASS::component_t::documentation("productions").data()
    );
 
-   component.def_property_readonly(
+   // get/set fissionComponents
+   object.def_property(
       "fission_components",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.fissionComponents();
       },
-      Component::component_t::documentation("fission_components").data()
+      [](cppCLASS &self, const std::optional<general::FissionComponents> &value)
+      {
+         self.fissionComponents() = value;
+      },
+      cppCLASS::component_t::documentation("fission_components").data()
    );
 
-   component.def_property_readonly(
+   // get/set orphanProducts
+   object.def_property(
       "orphan_products",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.orphanProducts();
       },
-      Component::component_t::documentation("orphan_products").data()
+      [](cppCLASS &self, const std::optional<general::OrphanProducts> &value)
+      {
+         self.orphanProducts() = value;
+      },
+      cppCLASS::component_t::documentation("orphan_products").data()
    );
 
-   component.def_property_readonly(
+   // get/set incompleteReactions
+   object.def_property(
       "incomplete_reactions",
-      [](const Component &self)
+      [](const cppCLASS &self)
       {
          return self.incompleteReactions();
       },
-      Component::component_t::documentation("incomplete_reactions").data()
+      [](cppCLASS &self, const std::optional<general::IncompleteReactions> &value)
+      {
+         self.incompleteReactions() = value;
+      },
+      cppCLASS::component_t::documentation("incomplete_reactions").data()
    );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_top

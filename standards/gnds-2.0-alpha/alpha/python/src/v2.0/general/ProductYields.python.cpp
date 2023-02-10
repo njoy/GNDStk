@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ProductYields wrapper
-void wrapProductYields(python::module &module)
+// wrapper for general::ProductYields
+void wrapProductYields(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ProductYields;
+   using cppCLASS = general::ProductYields;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ProductYields",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ProductYield> &
-         >(),
-         python::arg("product_yield"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "product_yield",
-         [](const Component &self)
-         {
-            return self.productYield();
-         },
-         Component::component_t::documentation("product_yield").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ProductYield> &
+      >(),
+      py::arg("product_yield"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set productYield
+   object.def_property(
+      "product_yield",
+      [](const cppCLASS &self)
+      {
+         return self.productYield();
+      },
+      [](cppCLASS &self, const std::vector<general::ProductYield> &value)
+      {
+         self.productYield() = value;
+      },
+      cppCLASS::component_t::documentation("product_yield").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Summands wrapper
-void wrapSummands(python::module &module)
+// wrapper for general::Summands
+void wrapSummands(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Summands;
+   using cppCLASS = general::Summands;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Summands",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Add> &
-         >(),
-         python::arg("add"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "add",
-         [](const Component &self)
-         {
-            return self.add();
-         },
-         Component::component_t::documentation("add").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Add> &
+      >(),
+      py::arg("add"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set add
+   object.def_property(
+      "add",
+      [](const cppCLASS &self)
+      {
+         return self.add();
+      },
+      [](cppCLASS &self, const std::vector<general::Add> &value)
+      {
+         self.add() = value;
+      },
+      cppCLASS::component_t::documentation("add").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

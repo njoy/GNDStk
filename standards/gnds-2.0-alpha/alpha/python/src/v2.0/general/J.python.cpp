@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// J wrapper
-void wrapJ(python::module &module)
+// wrapper for general::J
+void wrapJ(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::J;
+   using cppCLASS = general::J;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "J",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const general::LevelSpacing &,
-            const general::Widths &
-         >(),
-         python::arg("label"),
-         python::arg("value"),
-         python::arg("level_spacing"),
-         python::arg("widths"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self)
-         {
-            return self.value();
-         },
-         Component::component_t::documentation("value").data()
-      )
-      .def_property_readonly(
-         "level_spacing",
-         [](const Component &self)
-         {
-            return self.levelSpacing();
-         },
-         Component::component_t::documentation("level_spacing").data()
-      )
-      .def_property_readonly(
-         "widths",
-         [](const Component &self)
-         {
-            return self.widths();
-         },
-         Component::component_t::documentation("widths").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const general::LevelSpacing &,
+         const general::Widths &
+      >(),
+      py::arg("label"),
+      py::arg("value"),
+      py::arg("level_spacing"),
+      py::arg("widths"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set levelSpacing
+   object.def_property(
+      "level_spacing",
+      [](const cppCLASS &self)
+      {
+         return self.levelSpacing();
+      },
+      [](cppCLASS &self, const general::LevelSpacing &value)
+      {
+         self.levelSpacing() = value;
+      },
+      cppCLASS::component_t::documentation("level_spacing").data()
+   );
+
+   // get/set widths
+   object.def_property(
+      "widths",
+      [](const cppCLASS &self)
+      {
+         return self.widths();
+      },
+      [](cppCLASS &self, const general::Widths &value)
+      {
+         self.widths() = value;
+      },
+      cppCLASS::component_t::documentation("widths").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

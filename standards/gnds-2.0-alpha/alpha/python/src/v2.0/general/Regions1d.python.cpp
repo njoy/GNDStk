@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Regions1d wrapper
-void wrapRegions1d(python::module &module)
+// wrapper for general::Regions1d
+void wrapRegions1d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Regions1d;
+   using cppCLASS = general::Regions1d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Regions1d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<double> &,
-            const std::optional<general::Axes> &,
-            const std::optional<general::Uncertainty> &,
-            const reduced::Function1ds &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("uncertainty") = std::nullopt,
-         python::arg("function1ds"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self)
-         {
-            return self.outerDomainValue();
-         },
-         Component::component_t::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-      .def_property_readonly(
-         "function1ds",
-         [](const Component &self)
-         {
-            return self.function1ds();
-         },
-         Component::component_t::documentation("function1ds").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<double> &,
+         const std::optional<general::Axes> &,
+         const std::optional<general::Uncertainty> &,
+         const reduced::Function1ds &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("uncertainty") = std::nullopt,
+      py::arg("function1ds"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<general::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // get/set function1ds
+   object.def_property(
+      "function1ds",
+      [](const cppCLASS &self)
+      {
+         return self.function1ds();
+      },
+      [](cppCLASS &self, const reduced::Function1ds &value)
+      {
+         self.function1ds() = value;
+      },
+      cppCLASS::component_t::documentation("function1ds").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

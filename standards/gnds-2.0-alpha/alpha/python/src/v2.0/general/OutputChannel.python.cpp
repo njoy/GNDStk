@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// OutputChannel wrapper
-void wrapOutputChannel(python::module &module)
+// wrapper for general::OutputChannel
+void wrapOutputChannel(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::OutputChannel;
+   using cppCLASS = general::OutputChannel;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "OutputChannel",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<std::string> &,
-            const general::Q &,
-            const std::optional<general::Products> &,
-            const std::optional<top::FissionFragmentData> &
-         >(),
-         python::arg("genre"),
-         python::arg("process") = std::nullopt,
-         python::arg("q"),
-         python::arg("products") = std::nullopt,
-         python::arg("fission_fragment_data") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "genre",
-         [](const Component &self)
-         {
-            return self.genre();
-         },
-         Component::component_t::documentation("genre").data()
-      )
-      .def_property_readonly(
-         "process",
-         [](const Component &self)
-         {
-            return self.process();
-         },
-         Component::component_t::documentation("process").data()
-      )
-      .def_property_readonly(
-         "q",
-         [](const Component &self)
-         {
-            return self.Q();
-         },
-         Component::component_t::documentation("q").data()
-      )
-      .def_property_readonly(
-         "products",
-         [](const Component &self)
-         {
-            return self.products();
-         },
-         Component::component_t::documentation("products").data()
-      )
-      .def_property_readonly(
-         "fission_fragment_data",
-         [](const Component &self)
-         {
-            return self.fissionFragmentData();
-         },
-         Component::component_t::documentation("fission_fragment_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<std::string> &,
+         const general::Q &,
+         const std::optional<general::Products> &,
+         const std::optional<top::FissionFragmentData> &
+      >(),
+      py::arg("genre"),
+      py::arg("process") = std::nullopt,
+      py::arg("q"),
+      py::arg("products") = std::nullopt,
+      py::arg("fission_fragment_data") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set genre
+   object.def_property(
+      "genre",
+      [](const cppCLASS &self)
+      {
+         return self.genre();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.genre() = value;
+      },
+      cppCLASS::component_t::documentation("genre").data()
+   );
+
+   // get/set process
+   object.def_property(
+      "process",
+      [](const cppCLASS &self)
+      {
+         return self.process();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.process() = value;
+      },
+      cppCLASS::component_t::documentation("process").data()
+   );
+
+   // get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const general::Q &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // get/set products
+   object.def_property(
+      "products",
+      [](const cppCLASS &self)
+      {
+         return self.products();
+      },
+      [](cppCLASS &self, const std::optional<general::Products> &value)
+      {
+         self.products() = value;
+      },
+      cppCLASS::component_t::documentation("products").data()
+   );
+
+   // get/set fissionFragmentData
+   object.def_property(
+      "fission_fragment_data",
+      [](const cppCLASS &self)
+      {
+         return self.fissionFragmentData();
+      },
+      [](cppCLASS &self, const std::optional<top::FissionFragmentData> &value)
+      {
+         self.fissionFragmentData() = value;
+      },
+      cppCLASS::component_t::documentation("fission_fragment_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

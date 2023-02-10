@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// BreitWigner wrapper
-void wrapBreitWigner(python::module &module)
+// wrapper for general::BreitWigner
+void wrapBreitWigner(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::BreitWigner;
+   using cppCLASS = general::BreitWigner;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "BreitWigner",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<bool> &,
-            const general::ResonanceParameters &,
-            const std::optional<top::PoPs> &,
-            const std::optional<general::ScatteringRadius> &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("calculate_channel_radius") = std::nullopt,
-         python::arg("resonance_parameters"),
-         python::arg("po_ps") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self)
-         {
-            return self.approximation();
-         },
-         Component::component_t::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "calculate_channel_radius",
-         [](const Component &self)
-         {
-            return self.calculateChannelRadius();
-         },
-         Component::component_t::documentation("calculate_channel_radius").data()
-      )
-      .def_property_readonly(
-         "resonance_parameters",
-         [](const Component &self)
-         {
-            return self.resonanceParameters();
-         },
-         Component::component_t::documentation("resonance_parameters").data()
-      )
-      .def_property_readonly(
-         "po_ps",
-         [](const Component &self)
-         {
-            return self.PoPs();
-         },
-         Component::component_t::documentation("po_ps").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self)
-         {
-            return self.scatteringRadius();
-         },
-         Component::component_t::documentation("scattering_radius").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<bool> &,
+         const general::ResonanceParameters &,
+         const std::optional<top::PoPs> &,
+         const std::optional<general::ScatteringRadius> &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("calculate_channel_radius") = std::nullopt,
+      py::arg("resonance_parameters"),
+      py::arg("po_ps") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set calculateChannelRadius
+   object.def_property(
+      "calculate_channel_radius",
+      [](const cppCLASS &self)
+      {
+         return self.calculateChannelRadius();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.calculateChannelRadius() = value;
+      },
+      cppCLASS::component_t::documentation("calculate_channel_radius").data()
+   );
+
+   // get/set resonanceParameters
+   object.def_property(
+      "resonance_parameters",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceParameters();
+      },
+      [](cppCLASS &self, const general::ResonanceParameters &value)
+      {
+         self.resonanceParameters() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_parameters").data()
+   );
+
+   // get/set PoPs
+   object.def_property(
+      "po_ps",
+      [](const cppCLASS &self)
+      {
+         return self.PoPs();
+      },
+      [](cppCLASS &self, const std::optional<top::PoPs> &value)
+      {
+         self.PoPs() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<general::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

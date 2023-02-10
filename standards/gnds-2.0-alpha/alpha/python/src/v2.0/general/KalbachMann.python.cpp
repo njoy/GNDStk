@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// KalbachMann wrapper
-void wrapKalbachMann(python::module &module)
+// wrapper for general::KalbachMann
+void wrapKalbachMann(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::KalbachMann;
+   using cppCLASS = general::KalbachMann;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "KalbachMann",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<general::F> &,
-            const std::optional<general::R> &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         python::arg("f") = std::nullopt,
-         python::arg("r") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "f",
-         [](const Component &self)
-         {
-            return self.f();
-         },
-         Component::component_t::documentation("f").data()
-      )
-      .def_property_readonly(
-         "r",
-         [](const Component &self)
-         {
-            return self.r();
-         },
-         Component::component_t::documentation("r").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<general::F> &,
+         const std::optional<general::R> &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      py::arg("f") = std::nullopt,
+      py::arg("r") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set f
+   object.def_property(
+      "f",
+      [](const cppCLASS &self)
+      {
+         return self.f();
+      },
+      [](cppCLASS &self, const std::optional<general::F> &value)
+      {
+         self.f() = value;
+      },
+      cppCLASS::component_t::documentation("f").data()
+   );
+
+   // get/set r
+   object.def_property(
+      "r",
+      [](const cppCLASS &self)
+      {
+         return self.r();
+      },
+      [](cppCLASS &self, const std::optional<general::R> &value)
+      {
+         self.r() = value;
+      },
+      cppCLASS::component_t::documentation("r").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

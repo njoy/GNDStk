@@ -5,24 +5,24 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // top declarations
 namespace python_top {
-   void wrapFissionFragmentData(python::module &);
-   void wrapPoPs(python::module &);
-   void wrapReactionSuite(python::module &);
-   void wrapCovarianceSuite(python::module &);
+   void wrapFissionFragmentData(py::module &);
+   void wrapPoPs(py::module &);
+   void wrapReactionSuite(py::module &);
+   void wrapCovarianceSuite(py::module &);
 } // namespace python_top
 
-// top wrapper
-void wrapTop(python::module &module)
+// wrapper for top
+void wrapTop(py::module &module)
 {
    // create the top submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "top",
       "alpha v2.0 top"
    );

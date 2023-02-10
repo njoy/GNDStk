@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Column wrapper
-void wrapColumn(python::module &module)
+// wrapper for general::Column
+void wrapColumn(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Column;
+   using cppCLASS = general::Column;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Column",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const std::string &,
-            const std::string &
-         >(),
-         python::arg("index"),
-         python::arg("name"),
-         python::arg("unit"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self)
-         {
-            return self.index();
-         },
-         Component::component_t::documentation("index").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self)
-         {
-            return self.name();
-         },
-         Component::component_t::documentation("name").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self)
-         {
-            return self.unit();
-         },
-         Component::component_t::documentation("unit").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const std::string &,
+         const std::string &
+      >(),
+      py::arg("index"),
+      py::arg("name"),
+      py::arg("unit"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

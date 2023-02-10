@@ -212,6 +212,16 @@ void addStandardComponentDefinitions(pyCLASS &object)
       }
    );
 
+   // print as HDF5
+   object.def(
+      "hdf5",
+      [](const cppCLASS &self)
+      {
+         std::ostringstream oss;
+         return self.write(oss,"hdf5"), oss.str();
+      }
+   );
+
    // ------------------------
    // read from file or string
    // ------------------------

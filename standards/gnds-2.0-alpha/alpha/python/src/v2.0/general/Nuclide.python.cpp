@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Nuclide wrapper
-void wrapNuclide(python::module &module)
+// wrapper for general::Nuclide
+void wrapNuclide(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Nuclide;
+   using cppCLASS = general::Nuclide;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Nuclide",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<general::Mass> &,
-            const general::Charge &,
-            const general::Nucleus &,
-            const std::optional<general::DecayData> &,
-            const std::optional<top::FissionFragmentData> &
-         >(),
-         python::arg("id"),
-         python::arg("mass") = std::nullopt,
-         python::arg("charge"),
-         python::arg("nucleus"),
-         python::arg("decay_data") = std::nullopt,
-         python::arg("fission_fragment_data") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self)
-         {
-            return self.id();
-         },
-         Component::component_t::documentation("id").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self)
-         {
-            return self.mass();
-         },
-         Component::component_t::documentation("mass").data()
-      )
-      .def_property_readonly(
-         "charge",
-         [](const Component &self)
-         {
-            return self.charge();
-         },
-         Component::component_t::documentation("charge").data()
-      )
-      .def_property_readonly(
-         "nucleus",
-         [](const Component &self)
-         {
-            return self.nucleus();
-         },
-         Component::component_t::documentation("nucleus").data()
-      )
-      .def_property_readonly(
-         "decay_data",
-         [](const Component &self)
-         {
-            return self.decayData();
-         },
-         Component::component_t::documentation("decay_data").data()
-      )
-      .def_property_readonly(
-         "fission_fragment_data",
-         [](const Component &self)
-         {
-            return self.fissionFragmentData();
-         },
-         Component::component_t::documentation("fission_fragment_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<general::Mass> &,
+         const general::Charge &,
+         const general::Nucleus &,
+         const std::optional<general::DecayData> &,
+         const std::optional<top::FissionFragmentData> &
+      >(),
+      py::arg("id"),
+      py::arg("mass") = std::nullopt,
+      py::arg("charge"),
+      py::arg("nucleus"),
+      py::arg("decay_data") = std::nullopt,
+      py::arg("fission_fragment_data") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const std::optional<general::Mass> &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // get/set charge
+   object.def_property(
+      "charge",
+      [](const cppCLASS &self)
+      {
+         return self.charge();
+      },
+      [](cppCLASS &self, const general::Charge &value)
+      {
+         self.charge() = value;
+      },
+      cppCLASS::component_t::documentation("charge").data()
+   );
+
+   // get/set nucleus
+   object.def_property(
+      "nucleus",
+      [](const cppCLASS &self)
+      {
+         return self.nucleus();
+      },
+      [](cppCLASS &self, const general::Nucleus &value)
+      {
+         self.nucleus() = value;
+      },
+      cppCLASS::component_t::documentation("nucleus").data()
+   );
+
+   // get/set decayData
+   object.def_property(
+      "decay_data",
+      [](const cppCLASS &self)
+      {
+         return self.decayData();
+      },
+      [](cppCLASS &self, const std::optional<general::DecayData> &value)
+      {
+         self.decayData() = value;
+      },
+      cppCLASS::component_t::documentation("decay_data").data()
+   );
+
+   // get/set fissionFragmentData
+   object.def_property(
+      "fission_fragment_data",
+      [](const cppCLASS &self)
+      {
+         return self.fissionFragmentData();
+      },
+      [](cppCLASS &self, const std::optional<top::FissionFragmentData> &value)
+      {
+         self.fissionFragmentData() = value;
+      },
+      cppCLASS::component_t::documentation("fission_fragment_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

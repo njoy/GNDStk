@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ElapsedTime wrapper
-void wrapElapsedTime(python::module &module)
+// wrapper for general::ElapsedTime
+void wrapElapsedTime(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ElapsedTime;
+   using cppCLASS = general::ElapsedTime;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ElapsedTime",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::Time &,
-            const std::optional<general::Yields> &,
-            const std::optional<general::IncidentEnergies> &
-         >(),
-         python::arg("label"),
-         python::arg("time"),
-         python::arg("yields") = std::nullopt,
-         python::arg("incident_energies") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "time",
-         [](const Component &self)
-         {
-            return self.time();
-         },
-         Component::component_t::documentation("time").data()
-      )
-      .def_property_readonly(
-         "yields",
-         [](const Component &self)
-         {
-            return self.yields();
-         },
-         Component::component_t::documentation("yields").data()
-      )
-      .def_property_readonly(
-         "incident_energies",
-         [](const Component &self)
-         {
-            return self.incidentEnergies();
-         },
-         Component::component_t::documentation("incident_energies").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::Time &,
+         const std::optional<general::Yields> &,
+         const std::optional<general::IncidentEnergies> &
+      >(),
+      py::arg("label"),
+      py::arg("time"),
+      py::arg("yields") = std::nullopt,
+      py::arg("incident_energies") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set time
+   object.def_property(
+      "time",
+      [](const cppCLASS &self)
+      {
+         return self.time();
+      },
+      [](cppCLASS &self, const general::Time &value)
+      {
+         self.time() = value;
+      },
+      cppCLASS::component_t::documentation("time").data()
+   );
+
+   // get/set yields
+   object.def_property(
+      "yields",
+      [](const cppCLASS &self)
+      {
+         return self.yields();
+      },
+      [](cppCLASS &self, const std::optional<general::Yields> &value)
+      {
+         self.yields() = value;
+      },
+      cppCLASS::component_t::documentation("yields").data()
+   );
+
+   // get/set incidentEnergies
+   object.def_property(
+      "incident_energies",
+      [](const cppCLASS &self)
+      {
+         return self.incidentEnergies();
+      },
+      [](cppCLASS &self, const std::optional<general::IncidentEnergies> &value)
+      {
+         self.incidentEnergies() = value;
+      },
+      cppCLASS::component_t::documentation("incident_energies").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

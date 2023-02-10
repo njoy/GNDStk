@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Isotope wrapper
-void wrapIsotope(python::module &module)
+// wrapper for general::Isotope
+void wrapIsotope(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Isotope;
+   using cppCLASS = general::Isotope;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Isotope",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const general::Nuclides &
-         >(),
-         python::arg("symbol"),
-         python::arg("a"),
-         python::arg("nuclides"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "symbol",
-         [](const Component &self)
-         {
-            return self.symbol();
-         },
-         Component::component_t::documentation("symbol").data()
-      )
-      .def_property_readonly(
-         "a",
-         [](const Component &self)
-         {
-            return self.A();
-         },
-         Component::component_t::documentation("a").data()
-      )
-      .def_property_readonly(
-         "nuclides",
-         [](const Component &self)
-         {
-            return self.nuclides();
-         },
-         Component::component_t::documentation("nuclides").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const general::Nuclides &
+      >(),
+      py::arg("symbol"),
+      py::arg("a"),
+      py::arg("nuclides"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set symbol
+   object.def_property(
+      "symbol",
+      [](const cppCLASS &self)
+      {
+         return self.symbol();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.symbol() = value;
+      },
+      cppCLASS::component_t::documentation("symbol").data()
+   );
+
+   // get/set A
+   object.def_property(
+      "a",
+      [](const cppCLASS &self)
+      {
+         return self.A();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.A() = value;
+      },
+      cppCLASS::component_t::documentation("a").data()
+   );
+
+   // get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const general::Nuclides &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general
