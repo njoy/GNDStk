@@ -3321,12 +3321,14 @@ void fileCInterface(
 
 
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // For the Python interface
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // filePythonNamespace
-// ------------------------
+// -----------------------------------------------------------------------------
 
 void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 {
@@ -3372,15 +3374,19 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 } // filePythonNamespace
 
 
-// ------------------------
+// -----------------------------------------------------------------------------
 // filePythonClass
-// ------------------------
+// -----------------------------------------------------------------------------
 
 void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 {
    const std::string &nsname = per.nsname;
    const std::string &clname = per.clname;
    writer out(per.cppPython);
+
+   // ------------------------
+   // Preliminaries
+   // ------------------------
 
    static const std::map<std::string,std::pair<std::string,std::string>> map =
    {
@@ -3442,6 +3448,10 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
          }
       }
    }
+
+   // ------------------------
+   // Begin file
+   // ------------------------
 
    out();
    out("// system includes");
@@ -3552,14 +3562,14 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    }
 
    // ------------------------
-   // .def_property
+   // def_property
+   // metadata
    // ------------------------
 
    // qqq We need to ensure that what we're doing, below, works for optional,
    // Defaulted, and variant. (At the time of this writing, I'm not using
    // Defaulted or variant anywhere in the GNDS 2.0 specs.)
 
-   // metadata
    for (const auto &m : per.metadata) {
       const auto pyname = namePython(m.name);
       out();
@@ -3586,7 +3596,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(1,");");
    }
 
+   // ------------------------
+   // def_property
    // children
+   // ------------------------
+
    for (const auto &c : per.children) {
       const auto pyname = namePython(c.name);
       out();
@@ -3609,7 +3623,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(1,");");
    }
 
+   // ------------------------
+   // def_property
    // variants
+   // ------------------------
+
    for (const auto &v : per.variants) {
       if (!v.isVector) {
          for (const auto &c : v.children) {
@@ -3653,7 +3671,11 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(1,");");
    }
 
+   // ------------------------
+   // def_property
    // vector(s)
+   // ------------------------
+
    for (const auto &dataTypeName : dataTypesNames) {
       out();
       out(1,"// get/set vector<@>", dataTypeName.first);
@@ -3682,7 +3704,10 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out(1,");");
    }
 
+   // ------------------------
    // finish
+   // ------------------------
+
    out();
    out(1,"// add standard definitions");
    out(1,"addStandardComponentDefinitions<cppCLASS>(object);");
