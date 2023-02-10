@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Alias wrapper
-void wrapAlias(python::module &module)
+// wrapper for general::Alias
+void wrapAlias(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Alias;
+   using cppCLASS = general::Alias;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Alias",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<std::string> &
-         >(),
-         python::arg("id") = std::nullopt,
-         python::arg("pid") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self)
-         {
-            return self.id();
-         },
-         Component::component_t::documentation("id").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<std::string> &
+      >(),
+      py::arg("id") = std::nullopt,
+      py::arg("pid") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

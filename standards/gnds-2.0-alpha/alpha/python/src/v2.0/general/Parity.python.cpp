@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Parity wrapper
-void wrapParity(python::module &module)
+// wrapper for general::Parity
+void wrapParity(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Parity;
+   using cppCLASS = general::Parity;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Parity",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Integer &
-         >(),
-         python::arg("integer"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "integer",
-         [](const Component &self)
-         {
-            return self.integer();
-         },
-         Component::component_t::documentation("integer").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Integer &
+      >(),
+      py::arg("integer"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set integer
+   object.def_property(
+      "integer",
+      [](const cppCLASS &self)
+      {
+         return self.integer();
+      },
+      [](cppCLASS &self, const general::Integer &value)
+      {
+         self.integer() = value;
+      },
+      cppCLASS::component_t::documentation("integer").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

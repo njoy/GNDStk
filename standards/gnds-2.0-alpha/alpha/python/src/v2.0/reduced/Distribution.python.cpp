@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_reduced {
 
-// Distribution wrapper
-void wrapDistribution(python::module &module)
+// wrapper for reduced::Distribution
+void wrapDistribution(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = reduced::Distribution;
+   using cppCLASS = reduced::Distribution;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Distribution",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::ThermalNeutronScatteringLaw> &,
-            const std::optional<general::Uncorrelated> &,
-            const std::optional<general::Unspecified> &,
-            const std::optional<general::XYs2d> &,
-            const std::optional<general::Branching3d> &
-         >(),
-         python::arg("thermal_neutron_scattering_law") = std::nullopt,
-         python::arg("uncorrelated") = std::nullopt,
-         python::arg("unspecified") = std::nullopt,
-         python::arg("xys2d") = std::nullopt,
-         python::arg("branching3d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "thermal_neutron_scattering_law",
-         [](const Component &self)
-         {
-            return self.thermalNeutronScatteringLaw();
-         },
-         Component::component_t::documentation("thermal_neutron_scattering_law").data()
-      )
-      .def_property_readonly(
-         "uncorrelated",
-         [](const Component &self)
-         {
-            return self.uncorrelated();
-         },
-         Component::component_t::documentation("uncorrelated").data()
-      )
-      .def_property_readonly(
-         "unspecified",
-         [](const Component &self)
-         {
-            return self.unspecified();
-         },
-         Component::component_t::documentation("unspecified").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self)
-         {
-            return self.XYs2d();
-         },
-         Component::component_t::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "branching3d",
-         [](const Component &self)
-         {
-            return self.branching3d();
-         },
-         Component::component_t::documentation("branching3d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::ThermalNeutronScatteringLaw> &,
+         const std::optional<general::Uncorrelated> &,
+         const std::optional<general::Unspecified> &,
+         const std::optional<general::XYs2d> &,
+         const std::optional<general::Branching3d> &
+      >(),
+      py::arg("thermal_neutron_scattering_law") = std::nullopt,
+      py::arg("uncorrelated") = std::nullopt,
+      py::arg("unspecified") = std::nullopt,
+      py::arg("xys2d") = std::nullopt,
+      py::arg("branching3d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set thermalNeutronScatteringLaw
+   object.def_property(
+      "thermal_neutron_scattering_law",
+      [](const cppCLASS &self)
+      {
+         return self.thermalNeutronScatteringLaw();
+      },
+      [](cppCLASS &self, const std::optional<general::ThermalNeutronScatteringLaw> &value)
+      {
+         self.thermalNeutronScatteringLaw() = value;
+      },
+      cppCLASS::component_t::documentation("thermal_neutron_scattering_law").data()
+   );
+
+   // get/set uncorrelated
+   object.def_property(
+      "uncorrelated",
+      [](const cppCLASS &self)
+      {
+         return self.uncorrelated();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncorrelated> &value)
+      {
+         self.uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("uncorrelated").data()
+   );
+
+   // get/set unspecified
+   object.def_property(
+      "unspecified",
+      [](const cppCLASS &self)
+      {
+         return self.unspecified();
+      },
+      [](cppCLASS &self, const std::optional<general::Unspecified> &value)
+      {
+         self.unspecified() = value;
+      },
+      cppCLASS::component_t::documentation("unspecified").data()
+   );
+
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set branching3d
+   object.def_property(
+      "branching3d",
+      [](const cppCLASS &self)
+      {
+         return self.branching3d();
+      },
+      [](cppCLASS &self, const std::optional<general::Branching3d> &value)
+      {
+         self.branching3d() = value;
+      },
+      cppCLASS::component_t::documentation("branching3d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_reduced

@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// DelayedNeutron wrapper
-void wrapDelayedNeutron(python::module &module)
+// wrapper for general::DelayedNeutron
+void wrapDelayedNeutron(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::DelayedNeutron;
+   using cppCLASS = general::DelayedNeutron;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "DelayedNeutron",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::Rate &,
-            const reduced::Product &
-         >(),
-         python::arg("label"),
-         python::arg("rate"),
-         python::arg("product"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "rate",
-         [](const Component &self)
-         {
-            return self.rate();
-         },
-         Component::component_t::documentation("rate").data()
-      )
-      .def_property_readonly(
-         "product",
-         [](const Component &self)
-         {
-            return self.product();
-         },
-         Component::component_t::documentation("product").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::Rate &,
+         const reduced::Product &
+      >(),
+      py::arg("label"),
+      py::arg("rate"),
+      py::arg("product"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set rate
+   object.def_property(
+      "rate",
+      [](const cppCLASS &self)
+      {
+         return self.rate();
+      },
+      [](cppCLASS &self, const general::Rate &value)
+      {
+         self.rate() = value;
+      },
+      cppCLASS::component_t::documentation("rate").data()
+   );
+
+   // get/set product
+   object.def_property(
+      "product",
+      [](const cppCLASS &self)
+      {
+         return self.product();
+      },
+      [](cppCLASS &self, const reduced::Product &value)
+      {
+         self.product() = value;
+      },
+      cppCLASS::component_t::documentation("product").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

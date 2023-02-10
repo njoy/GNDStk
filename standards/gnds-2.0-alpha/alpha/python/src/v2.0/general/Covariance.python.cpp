@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Covariance wrapper
-void wrapCovariance(python::module &module)
+// wrapper for general::Covariance
+void wrapCovariance(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Covariance;
+   using cppCLASS = general::Covariance;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Covariance",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<general::Array> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("href") = std::nullopt,
-         python::arg("array") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self)
-         {
-            return self.array();
-         },
-         Component::component_t::documentation("array").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<general::Array> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("href") = std::nullopt,
+      py::arg("array") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::optional<general::Array> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

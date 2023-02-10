@@ -11,117 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// RMatrix wrapper
-void wrapRMatrix(python::module &module)
+// wrapper for general::RMatrix
+void wrapRMatrix(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::RMatrix;
+   using cppCLASS = general::RMatrix;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "RMatrix",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const std::optional<top::PoPs> &,
-            const general::ResonanceReactions &,
-            const general::SpinGroups &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("boundary_condition"),
-         python::arg("calculate_channel_radius") = std::nullopt,
-         python::arg("supports_angular_reconstruction") = std::nullopt,
-         python::arg("po_ps") = std::nullopt,
-         python::arg("resonance_reactions"),
-         python::arg("spin_groups"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self)
-         {
-            return self.approximation();
-         },
-         Component::component_t::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "boundary_condition",
-         [](const Component &self)
-         {
-            return self.boundaryCondition();
-         },
-         Component::component_t::documentation("boundary_condition").data()
-      )
-      .def_property_readonly(
-         "calculate_channel_radius",
-         [](const Component &self)
-         {
-            return self.calculateChannelRadius();
-         },
-         Component::component_t::documentation("calculate_channel_radius").data()
-      )
-      .def_property_readonly(
-         "supports_angular_reconstruction",
-         [](const Component &self)
-         {
-            return self.supportsAngularReconstruction();
-         },
-         Component::component_t::documentation("supports_angular_reconstruction").data()
-      )
-      .def_property_readonly(
-         "po_ps",
-         [](const Component &self)
-         {
-            return self.PoPs();
-         },
-         Component::component_t::documentation("po_ps").data()
-      )
-      .def_property_readonly(
-         "resonance_reactions",
-         [](const Component &self)
-         {
-            return self.resonanceReactions();
-         },
-         Component::component_t::documentation("resonance_reactions").data()
-      )
-      .def_property_readonly(
-         "spin_groups",
-         [](const Component &self)
-         {
-            return self.spinGroups();
-         },
-         Component::component_t::documentation("spin_groups").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const std::optional<top::PoPs> &,
+         const general::ResonanceReactions &,
+         const general::SpinGroups &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("boundary_condition"),
+      py::arg("calculate_channel_radius") = std::nullopt,
+      py::arg("supports_angular_reconstruction") = std::nullopt,
+      py::arg("po_ps") = std::nullopt,
+      py::arg("resonance_reactions"),
+      py::arg("spin_groups"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set boundaryCondition
+   object.def_property(
+      "boundary_condition",
+      [](const cppCLASS &self)
+      {
+         return self.boundaryCondition();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.boundaryCondition() = value;
+      },
+      cppCLASS::component_t::documentation("boundary_condition").data()
+   );
+
+   // get/set calculateChannelRadius
+   object.def_property(
+      "calculate_channel_radius",
+      [](const cppCLASS &self)
+      {
+         return self.calculateChannelRadius();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.calculateChannelRadius() = value;
+      },
+      cppCLASS::component_t::documentation("calculate_channel_radius").data()
+   );
+
+   // get/set supportsAngularReconstruction
+   object.def_property(
+      "supports_angular_reconstruction",
+      [](const cppCLASS &self)
+      {
+         return self.supportsAngularReconstruction();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.supportsAngularReconstruction() = value;
+      },
+      cppCLASS::component_t::documentation("supports_angular_reconstruction").data()
+   );
+
+   // get/set PoPs
+   object.def_property(
+      "po_ps",
+      [](const cppCLASS &self)
+      {
+         return self.PoPs();
+      },
+      [](cppCLASS &self, const std::optional<top::PoPs> &value)
+      {
+         self.PoPs() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps").data()
+   );
+
+   // get/set resonanceReactions
+   object.def_property(
+      "resonance_reactions",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceReactions();
+      },
+      [](cppCLASS &self, const general::ResonanceReactions &value)
+      {
+         self.resonanceReactions() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reactions").data()
+   );
+
+   // get/set spinGroups
+   object.def_property(
+      "spin_groups",
+      [](const cppCLASS &self)
+      {
+         return self.spinGroups();
+      },
+      [](cppCLASS &self, const general::SpinGroups &value)
+      {
+         self.spinGroups() = value;
+      },
+      cppCLASS::component_t::documentation("spin_groups").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

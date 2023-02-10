@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CrossSectionSums wrapper
-void wrapCrossSectionSums(python::module &module)
+// wrapper for general::CrossSectionSums
+void wrapCrossSectionSums(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CrossSectionSums;
+   using cppCLASS = general::CrossSectionSums;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CrossSectionSums",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::CrossSectionSum> &
-         >(),
-         python::arg("cross_section_sum"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_section_sum",
-         [](const Component &self)
-         {
-            return self.crossSectionSum();
-         },
-         Component::component_t::documentation("cross_section_sum").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::CrossSectionSum> &
+      >(),
+      py::arg("cross_section_sum"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set crossSectionSum
+   object.def_property(
+      "cross_section_sum",
+      [](const cppCLASS &self)
+      {
+         return self.crossSectionSum();
+      },
+      [](cppCLASS &self, const std::vector<general::CrossSectionSum> &value)
+      {
+         self.crossSectionSum() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_sum").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// TabulatedWidths wrapper
-void wrapTabulatedWidths(python::module &module)
+// wrapper for general::TabulatedWidths
+void wrapTabulatedWidths(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::TabulatedWidths;
+   using cppCLASS = general::TabulatedWidths;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "TabulatedWidths",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<bool> &,
-            const general::ResonanceReactions &,
-            const general::Ls &,
-            const std::optional<top::PoPs> &,
-            const std::optional<general::ScatteringRadius> &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("use_for_self_shielding_only") = std::nullopt,
-         python::arg("resonance_reactions"),
-         python::arg("ls"),
-         python::arg("po_ps") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self)
-         {
-            return self.approximation();
-         },
-         Component::component_t::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "use_for_self_shielding_only",
-         [](const Component &self)
-         {
-            return self.useForSelfShieldingOnly();
-         },
-         Component::component_t::documentation("use_for_self_shielding_only").data()
-      )
-      .def_property_readonly(
-         "resonance_reactions",
-         [](const Component &self)
-         {
-            return self.resonanceReactions();
-         },
-         Component::component_t::documentation("resonance_reactions").data()
-      )
-      .def_property_readonly(
-         "ls",
-         [](const Component &self)
-         {
-            return self.Ls();
-         },
-         Component::component_t::documentation("ls").data()
-      )
-      .def_property_readonly(
-         "po_ps",
-         [](const Component &self)
-         {
-            return self.PoPs();
-         },
-         Component::component_t::documentation("po_ps").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self)
-         {
-            return self.scatteringRadius();
-         },
-         Component::component_t::documentation("scattering_radius").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<bool> &,
+         const general::ResonanceReactions &,
+         const general::Ls &,
+         const std::optional<top::PoPs> &,
+         const std::optional<general::ScatteringRadius> &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("use_for_self_shielding_only") = std::nullopt,
+      py::arg("resonance_reactions"),
+      py::arg("ls"),
+      py::arg("po_ps") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set useForSelfShieldingOnly
+   object.def_property(
+      "use_for_self_shielding_only",
+      [](const cppCLASS &self)
+      {
+         return self.useForSelfShieldingOnly();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.useForSelfShieldingOnly() = value;
+      },
+      cppCLASS::component_t::documentation("use_for_self_shielding_only").data()
+   );
+
+   // get/set resonanceReactions
+   object.def_property(
+      "resonance_reactions",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceReactions();
+      },
+      [](cppCLASS &self, const general::ResonanceReactions &value)
+      {
+         self.resonanceReactions() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reactions").data()
+   );
+
+   // get/set Ls
+   object.def_property(
+      "ls",
+      [](const cppCLASS &self)
+      {
+         return self.Ls();
+      },
+      [](cppCLASS &self, const general::Ls &value)
+      {
+         self.Ls() = value;
+      },
+      cppCLASS::component_t::documentation("ls").data()
+   );
+
+   // get/set PoPs
+   object.def_property(
+      "po_ps",
+      [](const cppCLASS &self)
+      {
+         return self.PoPs();
+      },
+      [](cppCLASS &self, const std::optional<top::PoPs> &value)
+      {
+         self.PoPs() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<general::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

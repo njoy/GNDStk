@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// FissionComponents wrapper
-void wrapFissionComponents(python::module &module)
+// wrapper for general::FissionComponents
+void wrapFissionComponents(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::FissionComponents;
+   using cppCLASS = general::FissionComponents;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "FissionComponents",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<general::FissionComponent>> &
-         >(),
-         python::arg("fission_component") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "fission_component",
-         [](const Component &self)
-         {
-            return self.fissionComponent();
-         },
-         Component::component_t::documentation("fission_component").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<general::FissionComponent>> &
+      >(),
+      py::arg("fission_component") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set fissionComponent
+   object.def_property(
+      "fission_component",
+      [](const cppCLASS &self)
+      {
+         return self.fissionComponent();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::FissionComponent>> &value)
+      {
+         self.fissionComponent() = value;
+      },
+      cppCLASS::component_t::documentation("fission_component").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

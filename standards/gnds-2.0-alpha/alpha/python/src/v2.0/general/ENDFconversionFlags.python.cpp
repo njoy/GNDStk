@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ENDFconversionFlags wrapper
-void wrapENDFconversionFlags(python::module &module)
+// wrapper for general::ENDFconversionFlags
+void wrapENDFconversionFlags(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ENDFconversionFlags;
+   using cppCLASS = general::ENDFconversionFlags;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ENDFconversionFlags",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::vector<general::Conversion> &
-         >(),
-         python::arg("flags") = std::nullopt,
-         python::arg("href") = std::nullopt,
-         python::arg("conversion"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "flags",
-         [](const Component &self)
-         {
-            return self.flags();
-         },
-         Component::component_t::documentation("flags").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "conversion",
-         [](const Component &self)
-         {
-            return self.conversion();
-         },
-         Component::component_t::documentation("conversion").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::vector<general::Conversion> &
+      >(),
+      py::arg("flags") = std::nullopt,
+      py::arg("href") = std::nullopt,
+      py::arg("conversion"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set flags
+   object.def_property(
+      "flags",
+      [](const cppCLASS &self)
+      {
+         return self.flags();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.flags() = value;
+      },
+      cppCLASS::component_t::documentation("flags").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set conversion
+   object.def_property(
+      "conversion",
+      [](const cppCLASS &self)
+      {
+         return self.conversion();
+      },
+      [](cppCLASS &self, const std::vector<general::Conversion> &value)
+      {
+         self.conversion() = value;
+      },
+      cppCLASS::component_t::documentation("conversion").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,117 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CoulombPlusNuclearElastic wrapper
-void wrapCoulombPlusNuclearElastic(python::module &module)
+// wrapper for general::CoulombPlusNuclearElastic
+void wrapCoulombPlusNuclearElastic(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CoulombPlusNuclearElastic;
+   using cppCLASS = general::CoulombPlusNuclearElastic;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CoulombPlusNuclearElastic",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<bool> &,
-            const std::optional<general::RutherfordScattering> &,
-            const std::optional<general::NuclearAmplitudeExpansion> &,
-            const std::optional<general::NuclearPlusInterference> &
-         >(),
-         python::arg("label"),
-         python::arg("href") = std::nullopt,
-         python::arg("pid") = std::nullopt,
-         python::arg("product_frame") = std::nullopt,
-         python::arg("identical_particles") = std::nullopt,
-         python::arg("rutherford_scattering") = std::nullopt,
-         python::arg("nuclear_amplitude_expansion") = std::nullopt,
-         python::arg("nuclear_plus_interference") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "identical_particles",
-         [](const Component &self)
-         {
-            return self.identicalParticles();
-         },
-         Component::component_t::documentation("identical_particles").data()
-      )
-      .def_property_readonly(
-         "rutherford_scattering",
-         [](const Component &self)
-         {
-            return self.RutherfordScattering();
-         },
-         Component::component_t::documentation("rutherford_scattering").data()
-      )
-      .def_property_readonly(
-         "nuclear_amplitude_expansion",
-         [](const Component &self)
-         {
-            return self.nuclearAmplitudeExpansion();
-         },
-         Component::component_t::documentation("nuclear_amplitude_expansion").data()
-      )
-      .def_property_readonly(
-         "nuclear_plus_interference",
-         [](const Component &self)
-         {
-            return self.nuclearPlusInterference();
-         },
-         Component::component_t::documentation("nuclear_plus_interference").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<bool> &,
+         const std::optional<general::RutherfordScattering> &,
+         const std::optional<general::NuclearAmplitudeExpansion> &,
+         const std::optional<general::NuclearPlusInterference> &
+      >(),
+      py::arg("label"),
+      py::arg("href") = std::nullopt,
+      py::arg("pid") = std::nullopt,
+      py::arg("product_frame") = std::nullopt,
+      py::arg("identical_particles") = std::nullopt,
+      py::arg("rutherford_scattering") = std::nullopt,
+      py::arg("nuclear_amplitude_expansion") = std::nullopt,
+      py::arg("nuclear_plus_interference") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set identicalParticles
+   object.def_property(
+      "identical_particles",
+      [](const cppCLASS &self)
+      {
+         return self.identicalParticles();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.identicalParticles() = value;
+      },
+      cppCLASS::component_t::documentation("identical_particles").data()
+   );
+
+   // get/set RutherfordScattering
+   object.def_property(
+      "rutherford_scattering",
+      [](const cppCLASS &self)
+      {
+         return self.RutherfordScattering();
+      },
+      [](cppCLASS &self, const std::optional<general::RutherfordScattering> &value)
+      {
+         self.RutherfordScattering() = value;
+      },
+      cppCLASS::component_t::documentation("rutherford_scattering").data()
+   );
+
+   // get/set nuclearAmplitudeExpansion
+   object.def_property(
+      "nuclear_amplitude_expansion",
+      [](const cppCLASS &self)
+      {
+         return self.nuclearAmplitudeExpansion();
+      },
+      [](cppCLASS &self, const std::optional<general::NuclearAmplitudeExpansion> &value)
+      {
+         self.nuclearAmplitudeExpansion() = value;
+      },
+      cppCLASS::component_t::documentation("nuclear_amplitude_expansion").data()
+   );
+
+   // get/set nuclearPlusInterference
+   object.def_property(
+      "nuclear_plus_interference",
+      [](const cppCLASS &self)
+      {
+         return self.nuclearPlusInterference();
+      },
+      [](cppCLASS &self, const std::optional<general::NuclearPlusInterference> &value)
+      {
+         self.nuclearPlusInterference() = value;
+      },
+      cppCLASS::component_t::documentation("nuclear_plus_interference").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

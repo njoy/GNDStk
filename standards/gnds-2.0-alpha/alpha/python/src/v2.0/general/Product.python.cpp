@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Product wrapper
-void wrapProduct(python::module &module)
+// wrapper for general::Product
+void wrapProduct(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Product;
+   using cppCLASS = general::Product;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Product",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<general::Multiplicity> &,
-            const std::optional<general::Distribution> &,
-            const std::optional<reduced::OutputChannel> &,
-            const std::optional<general::AverageProductEnergy> &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("multiplicity") = std::nullopt,
-         python::arg("distribution") = std::nullopt,
-         python::arg("output_channel") = std::nullopt,
-         python::arg("average_product_energy") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "multiplicity",
-         [](const Component &self)
-         {
-            return self.multiplicity();
-         },
-         Component::component_t::documentation("multiplicity").data()
-      )
-      .def_property_readonly(
-         "distribution",
-         [](const Component &self)
-         {
-            return self.distribution();
-         },
-         Component::component_t::documentation("distribution").data()
-      )
-      .def_property_readonly(
-         "output_channel",
-         [](const Component &self)
-         {
-            return self.outputChannel();
-         },
-         Component::component_t::documentation("output_channel").data()
-      )
-      .def_property_readonly(
-         "average_product_energy",
-         [](const Component &self)
-         {
-            return self.averageProductEnergy();
-         },
-         Component::component_t::documentation("average_product_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<general::Multiplicity> &,
+         const std::optional<general::Distribution> &,
+         const std::optional<reduced::OutputChannel> &,
+         const std::optional<general::AverageProductEnergy> &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("multiplicity") = std::nullopt,
+      py::arg("distribution") = std::nullopt,
+      py::arg("output_channel") = std::nullopt,
+      py::arg("average_product_energy") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set multiplicity
+   object.def_property(
+      "multiplicity",
+      [](const cppCLASS &self)
+      {
+         return self.multiplicity();
+      },
+      [](cppCLASS &self, const std::optional<general::Multiplicity> &value)
+      {
+         self.multiplicity() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity").data()
+   );
+
+   // get/set distribution
+   object.def_property(
+      "distribution",
+      [](const cppCLASS &self)
+      {
+         return self.distribution();
+      },
+      [](cppCLASS &self, const std::optional<general::Distribution> &value)
+      {
+         self.distribution() = value;
+      },
+      cppCLASS::component_t::documentation("distribution").data()
+   );
+
+   // get/set outputChannel
+   object.def_property(
+      "output_channel",
+      [](const cppCLASS &self)
+      {
+         return self.outputChannel();
+      },
+      [](cppCLASS &self, const std::optional<reduced::OutputChannel> &value)
+      {
+         self.outputChannel() = value;
+      },
+      cppCLASS::component_t::documentation("output_channel").data()
+   );
+
+   // get/set averageProductEnergy
+   object.def_property(
+      "average_product_energy",
+      [](const cppCLASS &self)
+      {
+         return self.averageProductEnergy();
+      },
+      [](cppCLASS &self, const std::optional<general::AverageProductEnergy> &value)
+      {
+         self.averageProductEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("average_product_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

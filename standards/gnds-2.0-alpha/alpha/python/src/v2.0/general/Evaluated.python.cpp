@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Evaluated wrapper
-void wrapEvaluated(python::module &module)
+// wrapper for general::Evaluated
+void wrapEvaluated(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Evaluated;
+   using cppCLASS = general::Evaluated;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Evaluated",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const general::Documentation &,
-            const std::optional<general::Temperature> &,
-            const std::optional<general::ProjectileEnergyDomain> &
-         >(),
-         python::arg("label"),
-         python::arg("date"),
-         python::arg("library"),
-         python::arg("version"),
-         python::arg("documentation"),
-         python::arg("temperature") = std::nullopt,
-         python::arg("projectile_energy_domain") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self)
-         {
-            return self.date();
-         },
-         Component::component_t::documentation("date").data()
-      )
-      .def_property_readonly(
-         "library",
-         [](const Component &self)
-         {
-            return self.library();
-         },
-         Component::component_t::documentation("library").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self)
-         {
-            return self.version();
-         },
-         Component::component_t::documentation("version").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self)
-         {
-            return self.documentation();
-         },
-         Component::component_t::documentation("documentation").data()
-      )
-      .def_property_readonly(
-         "temperature",
-         [](const Component &self)
-         {
-            return self.temperature();
-         },
-         Component::component_t::documentation("temperature").data()
-      )
-      .def_property_readonly(
-         "projectile_energy_domain",
-         [](const Component &self)
-         {
-            return self.projectileEnergyDomain();
-         },
-         Component::component_t::documentation("projectile_energy_domain").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const general::Documentation &,
+         const std::optional<general::Temperature> &,
+         const std::optional<general::ProjectileEnergyDomain> &
+      >(),
+      py::arg("label"),
+      py::arg("date"),
+      py::arg("library"),
+      py::arg("version"),
+      py::arg("documentation"),
+      py::arg("temperature") = std::nullopt,
+      py::arg("projectile_energy_domain") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // get/set library
+   object.def_property(
+      "library",
+      [](const cppCLASS &self)
+      {
+         return self.library();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.library() = value;
+      },
+      cppCLASS::component_t::documentation("library").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const general::Documentation &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // get/set temperature
+   object.def_property(
+      "temperature",
+      [](const cppCLASS &self)
+      {
+         return self.temperature();
+      },
+      [](cppCLASS &self, const std::optional<general::Temperature> &value)
+      {
+         self.temperature() = value;
+      },
+      cppCLASS::component_t::documentation("temperature").data()
+   );
+
+   // get/set projectileEnergyDomain
+   object.def_property(
+      "projectile_energy_domain",
+      [](const cppCLASS &self)
+      {
+         return self.projectileEnergyDomain();
+      },
+      [](cppCLASS &self, const std::optional<general::ProjectileEnergyDomain> &value)
+      {
+         self.projectileEnergyDomain() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_energy_domain").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

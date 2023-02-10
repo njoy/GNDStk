@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Q wrapper
-void wrapQ(python::module &module)
+// wrapper for general::Q
+void wrapQ(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Q;
+   using cppCLASS = general::Q;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Q",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::Double> &,
-            const std::optional<general::Constant1d> &
-         >(),
-         python::arg("double") = std::nullopt,
-         python::arg("constant1d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self)
-         {
-            return self.Double();
-         },
-         Component::component_t::documentation("double").data()
-      )
-      .def_property_readonly(
-         "constant1d",
-         [](const Component &self)
-         {
-            return self.constant1d();
-         },
-         Component::component_t::documentation("constant1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::Double> &,
+         const std::optional<general::Constant1d> &
+      >(),
+      py::arg("double") = std::nullopt,
+      py::arg("constant1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::optional<general::Double> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // get/set constant1d
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const std::optional<general::Constant1d> &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

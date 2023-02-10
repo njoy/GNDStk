@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Array wrapper
-void wrapArray(python::module &module)
+// wrapper for general::Array
+void wrapArray(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Array;
+   using cppCLASS = general::Array;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Array",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<std::string> &,
-            const general::Values &
-         >(),
-         python::arg("shape"),
-         python::arg("compression") = std::nullopt,
-         python::arg("values"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "shape",
-         [](const Component &self)
-         {
-            return self.shape();
-         },
-         Component::component_t::documentation("shape").data()
-      )
-      .def_property_readonly(
-         "compression",
-         [](const Component &self)
-         {
-            return self.compression();
-         },
-         Component::component_t::documentation("compression").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self)
-         {
-            return self.values();
-         },
-         Component::component_t::documentation("values").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<std::string> &,
+         const general::Values &
+      >(),
+      py::arg("shape"),
+      py::arg("compression") = std::nullopt,
+      py::arg("values"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set shape
+   object.def_property(
+      "shape",
+      [](const cppCLASS &self)
+      {
+         return self.shape();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.shape() = value;
+      },
+      cppCLASS::component_t::documentation("shape").data()
+   );
+
+   // get/set compression
+   object.def_property(
+      "compression",
+      [](const cppCLASS &self)
+      {
+         return self.compression();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.compression() = value;
+      },
+      cppCLASS::component_t::documentation("compression").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const general::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

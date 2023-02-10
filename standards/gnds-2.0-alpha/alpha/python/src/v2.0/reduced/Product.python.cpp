@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_reduced {
 
-// Product wrapper
-void wrapProduct(python::module &module)
+// wrapper for reduced::Product
+void wrapProduct(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = reduced::Product;
+   using cppCLASS = reduced::Product;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Product",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const general::Multiplicity &,
-            const reduced::Distribution &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("multiplicity"),
-         python::arg("distribution"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "multiplicity",
-         [](const Component &self)
-         {
-            return self.multiplicity();
-         },
-         Component::component_t::documentation("multiplicity").data()
-      )
-      .def_property_readonly(
-         "distribution",
-         [](const Component &self)
-         {
-            return self.distribution();
-         },
-         Component::component_t::documentation("distribution").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const general::Multiplicity &,
+         const reduced::Distribution &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("multiplicity"),
+      py::arg("distribution"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set multiplicity
+   object.def_property(
+      "multiplicity",
+      [](const cppCLASS &self)
+      {
+         return self.multiplicity();
+      },
+      [](cppCLASS &self, const general::Multiplicity &value)
+      {
+         self.multiplicity() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity").data()
+   );
+
+   // get/set distribution
+   object.def_property(
+      "distribution",
+      [](const cppCLASS &self)
+      {
+         return self.distribution();
+      },
+      [](cppCLASS &self, const reduced::Distribution &value)
+      {
+         self.distribution() = value;
+      },
+      cppCLASS::component_t::documentation("distribution").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_reduced

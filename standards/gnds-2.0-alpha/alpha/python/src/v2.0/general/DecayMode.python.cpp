@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// DecayMode wrapper
-void wrapDecayMode(python::module &module)
+// wrapper for general::DecayMode
+void wrapDecayMode(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::DecayMode;
+   using cppCLASS = general::DecayMode;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "DecayMode",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const general::Probability &,
-            const general::DecayPath &,
-            const std::optional<general::PhotonEmissionProbabilities> &,
-            const std::optional<general::Q> &,
-            const std::optional<general::Spectra> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("mode") = std::nullopt,
-         python::arg("probability"),
-         python::arg("decay_path"),
-         python::arg("photon_emission_probabilities") = std::nullopt,
-         python::arg("q") = std::nullopt,
-         python::arg("spectra") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "mode",
-         [](const Component &self)
-         {
-            return self.mode();
-         },
-         Component::component_t::documentation("mode").data()
-      )
-      .def_property_readonly(
-         "probability",
-         [](const Component &self)
-         {
-            return self.probability();
-         },
-         Component::component_t::documentation("probability").data()
-      )
-      .def_property_readonly(
-         "decay_path",
-         [](const Component &self)
-         {
-            return self.decayPath();
-         },
-         Component::component_t::documentation("decay_path").data()
-      )
-      .def_property_readonly(
-         "photon_emission_probabilities",
-         [](const Component &self)
-         {
-            return self.photonEmissionProbabilities();
-         },
-         Component::component_t::documentation("photon_emission_probabilities").data()
-      )
-      .def_property_readonly(
-         "q",
-         [](const Component &self)
-         {
-            return self.Q();
-         },
-         Component::component_t::documentation("q").data()
-      )
-      .def_property_readonly(
-         "spectra",
-         [](const Component &self)
-         {
-            return self.spectra();
-         },
-         Component::component_t::documentation("spectra").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const general::Probability &,
+         const general::DecayPath &,
+         const std::optional<general::PhotonEmissionProbabilities> &,
+         const std::optional<general::Q> &,
+         const std::optional<general::Spectra> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("mode") = std::nullopt,
+      py::arg("probability"),
+      py::arg("decay_path"),
+      py::arg("photon_emission_probabilities") = std::nullopt,
+      py::arg("q") = std::nullopt,
+      py::arg("spectra") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set mode
+   object.def_property(
+      "mode",
+      [](const cppCLASS &self)
+      {
+         return self.mode();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.mode() = value;
+      },
+      cppCLASS::component_t::documentation("mode").data()
+   );
+
+   // get/set probability
+   object.def_property(
+      "probability",
+      [](const cppCLASS &self)
+      {
+         return self.probability();
+      },
+      [](cppCLASS &self, const general::Probability &value)
+      {
+         self.probability() = value;
+      },
+      cppCLASS::component_t::documentation("probability").data()
+   );
+
+   // get/set decayPath
+   object.def_property(
+      "decay_path",
+      [](const cppCLASS &self)
+      {
+         return self.decayPath();
+      },
+      [](cppCLASS &self, const general::DecayPath &value)
+      {
+         self.decayPath() = value;
+      },
+      cppCLASS::component_t::documentation("decay_path").data()
+   );
+
+   // get/set photonEmissionProbabilities
+   object.def_property(
+      "photon_emission_probabilities",
+      [](const cppCLASS &self)
+      {
+         return self.photonEmissionProbabilities();
+      },
+      [](cppCLASS &self, const std::optional<general::PhotonEmissionProbabilities> &value)
+      {
+         self.photonEmissionProbabilities() = value;
+      },
+      cppCLASS::component_t::documentation("photon_emission_probabilities").data()
+   );
+
+   // get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const std::optional<general::Q> &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // get/set spectra
+   object.def_property(
+      "spectra",
+      [](const cppCLASS &self)
+      {
+         return self.spectra();
+      },
+      [](cppCLASS &self, const std::optional<general::Spectra> &value)
+      {
+         self.spectra() = value;
+      },
+      cppCLASS::component_t::documentation("spectra").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

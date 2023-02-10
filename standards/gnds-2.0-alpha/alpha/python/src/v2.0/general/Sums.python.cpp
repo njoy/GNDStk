@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Sums wrapper
-void wrapSums(python::module &module)
+// wrapper for general::Sums
+void wrapSums(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Sums;
+   using cppCLASS = general::Sums;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Sums",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::CrossSectionSums> &,
-            const std::optional<general::MultiplicitySums> &
-         >(),
-         python::arg("cross_section_sums") = std::nullopt,
-         python::arg("multiplicity_sums") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_section_sums",
-         [](const Component &self)
-         {
-            return self.crossSectionSums();
-         },
-         Component::component_t::documentation("cross_section_sums").data()
-      )
-      .def_property_readonly(
-         "multiplicity_sums",
-         [](const Component &self)
-         {
-            return self.multiplicitySums();
-         },
-         Component::component_t::documentation("multiplicity_sums").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::CrossSectionSums> &,
+         const std::optional<general::MultiplicitySums> &
+      >(),
+      py::arg("cross_section_sums") = std::nullopt,
+      py::arg("multiplicity_sums") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set crossSectionSums
+   object.def_property(
+      "cross_section_sums",
+      [](const cppCLASS &self)
+      {
+         return self.crossSectionSums();
+      },
+      [](cppCLASS &self, const std::optional<general::CrossSectionSums> &value)
+      {
+         self.crossSectionSums() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_sums").data()
+   );
+
+   // get/set multiplicitySums
+   object.def_property(
+      "multiplicity_sums",
+      [](const cppCLASS &self)
+      {
+         return self.multiplicitySums();
+      },
+      [](cppCLASS &self, const std::optional<general::MultiplicitySums> &value)
+      {
+         self.multiplicitySums() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity_sums").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

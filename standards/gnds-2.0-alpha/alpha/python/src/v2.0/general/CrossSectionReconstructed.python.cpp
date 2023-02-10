@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CrossSectionReconstructed wrapper
-void wrapCrossSectionReconstructed(python::module &module)
+// wrapper for general::CrossSectionReconstructed
+void wrapCrossSectionReconstructed(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CrossSectionReconstructed;
+   using cppCLASS = general::CrossSectionReconstructed;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CrossSectionReconstructed",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &
-         >(),
-         python::arg("label"),
-         python::arg("derived_from"),
-         python::arg("date"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "derived_from",
-         [](const Component &self)
-         {
-            return self.derivedFrom();
-         },
-         Component::component_t::documentation("derived_from").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self)
-         {
-            return self.date();
-         },
-         Component::component_t::documentation("date").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &
+      >(),
+      py::arg("label"),
+      py::arg("derived_from"),
+      py::arg("date"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set derivedFrom
+   object.def_property(
+      "derived_from",
+      [](const cppCLASS &self)
+      {
+         return self.derivedFrom();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.derivedFrom() = value;
+      },
+      cppCLASS::component_t::documentation("derived_from").data()
+   );
+
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

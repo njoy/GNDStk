@@ -40,6 +40,9 @@ void scenario_print_string_active()
             BlockData<true,DATATYPE> b;
             b.string("foo bar baz");
 
+            njoy::GNDStk::colors = false;
+            njoy::GNDStk::shades = false;
+
             // with no indentation
             std::ostringstream oss;
             b.print(oss,0);

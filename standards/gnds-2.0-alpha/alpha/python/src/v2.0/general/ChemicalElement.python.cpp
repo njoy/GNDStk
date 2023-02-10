@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ChemicalElement wrapper
-void wrapChemicalElement(python::module &module)
+// wrapper for general::ChemicalElement
+void wrapChemicalElement(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ChemicalElement;
+   using cppCLASS = general::ChemicalElement;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ChemicalElement",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const std::string &,
-            const std::optional<general::Atomic> &,
-            const std::optional<general::Isotopes> &
-         >(),
-         python::arg("symbol"),
-         python::arg("z"),
-         python::arg("name"),
-         python::arg("atomic") = std::nullopt,
-         python::arg("isotopes") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "symbol",
-         [](const Component &self)
-         {
-            return self.symbol();
-         },
-         Component::component_t::documentation("symbol").data()
-      )
-      .def_property_readonly(
-         "z",
-         [](const Component &self)
-         {
-            return self.Z();
-         },
-         Component::component_t::documentation("z").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self)
-         {
-            return self.name();
-         },
-         Component::component_t::documentation("name").data()
-      )
-      .def_property_readonly(
-         "atomic",
-         [](const Component &self)
-         {
-            return self.atomic();
-         },
-         Component::component_t::documentation("atomic").data()
-      )
-      .def_property_readonly(
-         "isotopes",
-         [](const Component &self)
-         {
-            return self.isotopes();
-         },
-         Component::component_t::documentation("isotopes").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const std::string &,
+         const std::optional<general::Atomic> &,
+         const std::optional<general::Isotopes> &
+      >(),
+      py::arg("symbol"),
+      py::arg("z"),
+      py::arg("name"),
+      py::arg("atomic") = std::nullopt,
+      py::arg("isotopes") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set symbol
+   object.def_property(
+      "symbol",
+      [](const cppCLASS &self)
+      {
+         return self.symbol();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.symbol() = value;
+      },
+      cppCLASS::component_t::documentation("symbol").data()
+   );
+
+   // get/set Z
+   object.def_property(
+      "z",
+      [](const cppCLASS &self)
+      {
+         return self.Z();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.Z() = value;
+      },
+      cppCLASS::component_t::documentation("z").data()
+   );
+
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set atomic
+   object.def_property(
+      "atomic",
+      [](const cppCLASS &self)
+      {
+         return self.atomic();
+      },
+      [](cppCLASS &self, const std::optional<general::Atomic> &value)
+      {
+         self.atomic() = value;
+      },
+      cppCLASS::component_t::documentation("atomic").data()
+   );
+
+   // get/set isotopes
+   object.def_property(
+      "isotopes",
+      [](const cppCLASS &self)
+      {
+         return self.isotopes();
+      },
+      [](cppCLASS &self, const std::optional<general::Isotopes> &value)
+      {
+         self.isotopes() = value;
+      },
+      cppCLASS::component_t::documentation("isotopes").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

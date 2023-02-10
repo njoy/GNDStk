@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Polynomial1d wrapper
-void wrapPolynomial1d(python::module &module)
+// wrapper for general::Polynomial1d
+void wrapPolynomial1d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Polynomial1d;
+   using cppCLASS = general::Polynomial1d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Polynomial1d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const double &,
-            const double &,
-            const general::Axes &,
-            const general::Values &,
-            const std::optional<general::Uncertainty> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("axes"),
-         python::arg("values"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self)
-         {
-            return self.domainMin();
-         },
-         Component::component_t::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self)
-         {
-            return self.domainMax();
-         },
-         Component::component_t::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self)
-         {
-            return self.values();
-         },
-         Component::component_t::documentation("values").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const double &,
+         const double &,
+         const general::Axes &,
+         const general::Values &,
+         const std::optional<general::Uncertainty> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("axes"),
+      py::arg("values"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const general::Axes &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const general::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ExternalFile wrapper
-void wrapExternalFile(python::module &module)
+// wrapper for general::ExternalFile
+void wrapExternalFile(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ExternalFile;
+   using cppCLASS = general::ExternalFile;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ExternalFile",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &
-         >(),
-         python::arg("label"),
-         python::arg("path"),
-         python::arg("checksum") = std::nullopt,
-         python::arg("algorithm") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "path",
-         [](const Component &self)
-         {
-            return self.path();
-         },
-         Component::component_t::documentation("path").data()
-      )
-      .def_property_readonly(
-         "checksum",
-         [](const Component &self)
-         {
-            return self.checksum();
-         },
-         Component::component_t::documentation("checksum").data()
-      )
-      .def_property_readonly(
-         "algorithm",
-         [](const Component &self)
-         {
-            return self.algorithm();
-         },
-         Component::component_t::documentation("algorithm").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &
+      >(),
+      py::arg("label"),
+      py::arg("path"),
+      py::arg("checksum") = std::nullopt,
+      py::arg("algorithm") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set path
+   object.def_property(
+      "path",
+      [](const cppCLASS &self)
+      {
+         return self.path();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.path() = value;
+      },
+      cppCLASS::component_t::documentation("path").data()
+   );
+
+   // get/set checksum
+   object.def_property(
+      "checksum",
+      [](const cppCLASS &self)
+      {
+         return self.checksum();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.checksum() = value;
+      },
+      cppCLASS::component_t::documentation("checksum").data()
+   );
+
+   // get/set algorithm
+   object.def_property(
+      "algorithm",
+      [](const cppCLASS &self)
+      {
+         return self.algorithm();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.algorithm() = value;
+      },
+      cppCLASS::component_t::documentation("algorithm").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

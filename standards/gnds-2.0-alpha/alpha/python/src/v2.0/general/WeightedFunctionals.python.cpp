@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// WeightedFunctionals wrapper
-void wrapWeightedFunctionals(python::module &module)
+// wrapper for general::WeightedFunctionals
+void wrapWeightedFunctionals(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::WeightedFunctionals;
+   using cppCLASS = general::WeightedFunctionals;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "WeightedFunctionals",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Weighted> &
-         >(),
-         python::arg("weighted"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "weighted",
-         [](const Component &self)
-         {
-            return self.weighted();
-         },
-         Component::component_t::documentation("weighted").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Weighted> &
+      >(),
+      py::arg("weighted"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set weighted
+   object.def_property(
+      "weighted",
+      [](const cppCLASS &self)
+      {
+         return self.weighted();
+      },
+      [](cppCLASS &self, const std::vector<general::Weighted> &value)
+      {
+         self.weighted() = value;
+      },
+      cppCLASS::component_t::documentation("weighted").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,127 +11,179 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_top {
 
-// CovarianceSuite wrapper
-void wrapCovarianceSuite(python::module &module)
+// wrapper for top::CovarianceSuite
+void wrapCovarianceSuite(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = top::CovarianceSuite;
+   using cppCLASS = top::CovarianceSuite;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CovarianceSuite",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::optional<general::ExternalFiles> &,
-            const general::Styles &,
-            const std::optional<general::CovarianceSections> &,
-            const std::optional<general::ParameterCovariances> &
-         >(),
-         python::arg("projectile"),
-         python::arg("target"),
-         python::arg("evaluation"),
-         python::arg("interaction"),
-         python::arg("format"),
-         python::arg("external_files") = std::nullopt,
-         python::arg("styles"),
-         python::arg("covariance_sections") = std::nullopt,
-         python::arg("parameter_covariances") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self)
-         {
-            return self.projectile();
-         },
-         Component::component_t::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "target",
-         [](const Component &self)
-         {
-            return self.target();
-         },
-         Component::component_t::documentation("target").data()
-      )
-      .def_property_readonly(
-         "evaluation",
-         [](const Component &self)
-         {
-            return self.evaluation();
-         },
-         Component::component_t::documentation("evaluation").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         [](const Component &self)
-         {
-            return self.interaction();
-         },
-         Component::component_t::documentation("interaction").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self)
-         {
-            return self.format();
-         },
-         Component::component_t::documentation("format").data()
-      )
-      .def_property_readonly(
-         "external_files",
-         [](const Component &self)
-         {
-            return self.externalFiles();
-         },
-         Component::component_t::documentation("external_files").data()
-      )
-      .def_property_readonly(
-         "styles",
-         [](const Component &self)
-         {
-            return self.styles();
-         },
-         Component::component_t::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "covariance_sections",
-         [](const Component &self)
-         {
-            return self.covarianceSections();
-         },
-         Component::component_t::documentation("covariance_sections").data()
-      )
-      .def_property_readonly(
-         "parameter_covariances",
-         [](const Component &self)
-         {
-            return self.parameterCovariances();
-         },
-         Component::component_t::documentation("parameter_covariances").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::optional<general::ExternalFiles> &,
+         const general::Styles &,
+         const std::optional<general::CovarianceSections> &,
+         const std::optional<general::ParameterCovariances> &
+      >(),
+      py::arg("projectile"),
+      py::arg("target"),
+      py::arg("evaluation"),
+      py::arg("interaction"),
+      py::arg("format"),
+      py::arg("external_files") = std::nullopt,
+      py::arg("styles"),
+      py::arg("covariance_sections") = std::nullopt,
+      py::arg("parameter_covariances") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set projectile
+   object.def_property(
+      "projectile",
+      [](const cppCLASS &self)
+      {
+         return self.projectile();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.projectile() = value;
+      },
+      cppCLASS::component_t::documentation("projectile").data()
+   );
+
+   // get/set target
+   object.def_property(
+      "target",
+      [](const cppCLASS &self)
+      {
+         return self.target();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.target() = value;
+      },
+      cppCLASS::component_t::documentation("target").data()
+   );
+
+   // get/set evaluation
+   object.def_property(
+      "evaluation",
+      [](const cppCLASS &self)
+      {
+         return self.evaluation();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.evaluation() = value;
+      },
+      cppCLASS::component_t::documentation("evaluation").data()
+   );
+
+   // get/set interaction
+   object.def_property(
+      "interaction",
+      [](const cppCLASS &self)
+      {
+         return self.interaction();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.interaction() = value;
+      },
+      cppCLASS::component_t::documentation("interaction").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set externalFiles
+   object.def_property(
+      "external_files",
+      [](const cppCLASS &self)
+      {
+         return self.externalFiles();
+      },
+      [](cppCLASS &self, const std::optional<general::ExternalFiles> &value)
+      {
+         self.externalFiles() = value;
+      },
+      cppCLASS::component_t::documentation("external_files").data()
+   );
+
+   // get/set styles
+   object.def_property(
+      "styles",
+      [](const cppCLASS &self)
+      {
+         return self.styles();
+      },
+      [](cppCLASS &self, const general::Styles &value)
+      {
+         self.styles() = value;
+      },
+      cppCLASS::component_t::documentation("styles").data()
+   );
+
+   // get/set covarianceSections
+   object.def_property(
+      "covariance_sections",
+      [](const cppCLASS &self)
+      {
+         return self.covarianceSections();
+      },
+      [](cppCLASS &self, const std::optional<general::CovarianceSections> &value)
+      {
+         self.covarianceSections() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_sections").data()
+   );
+
+   // get/set parameterCovariances
+   object.def_property(
+      "parameter_covariances",
+      [](const cppCLASS &self)
+      {
+         return self.parameterCovariances();
+      },
+      [](cppCLASS &self, const std::optional<general::ParameterCovariances> &value)
+      {
+         self.parameterCovariances() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_covariances").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_top

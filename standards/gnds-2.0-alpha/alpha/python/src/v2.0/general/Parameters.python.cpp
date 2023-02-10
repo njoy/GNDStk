@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Parameters wrapper
-void wrapParameters(python::module &module)
+// wrapper for general::Parameters
+void wrapParameters(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Parameters;
+   using cppCLASS = general::Parameters;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Parameters",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ParameterLink> &
-         >(),
-         python::arg("parameter_link"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "parameter_link",
-         [](const Component &self)
-         {
-            return self.parameterLink();
-         },
-         Component::component_t::documentation("parameter_link").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ParameterLink> &
+      >(),
+      py::arg("parameter_link"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set parameterLink
+   object.def_property(
+      "parameter_link",
+      [](const cppCLASS &self)
+      {
+         return self.parameterLink();
+      },
+      [](cppCLASS &self, const std::vector<general::ParameterLink> &value)
+      {
+         self.parameterLink() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_link").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

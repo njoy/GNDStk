@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Ls wrapper
-void wrapLs(python::module &module)
+// wrapper for general::Ls
+void wrapLs(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Ls;
+   using cppCLASS = general::Ls;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Ls",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::L> &
-         >(),
-         python::arg("l"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "l",
-         [](const Component &self)
-         {
-            return self.L();
-         },
-         Component::component_t::documentation("l").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::L> &
+      >(),
+      py::arg("l"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set L
+   object.def_property(
+      "l",
+      [](const cppCLASS &self)
+      {
+         return self.L();
+      },
+      [](cppCLASS &self, const std::vector<general::L> &value)
+      {
+         self.L() = value;
+      },
+      cppCLASS::component_t::documentation("l").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

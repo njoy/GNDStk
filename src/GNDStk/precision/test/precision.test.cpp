@@ -610,6 +610,9 @@ SCENARIO("Precision code in Component::write(), "
    // Context/action:
    //    metadata, write
 
+   njoy::GNDStk::colors = false;
+   njoy::GNDStk::shades = false;
+
    Node node;
    node << input_numbers_metadata;
 

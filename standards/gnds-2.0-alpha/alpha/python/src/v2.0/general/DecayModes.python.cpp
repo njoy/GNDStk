@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// DecayModes wrapper
-void wrapDecayModes(python::module &module)
+// wrapper for general::DecayModes
+void wrapDecayModes(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::DecayModes;
+   using cppCLASS = general::DecayModes;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "DecayModes",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::DecayMode> &
-         >(),
-         python::arg("decay_mode"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "decay_mode",
-         [](const Component &self)
-         {
-            return self.decayMode();
-         },
-         Component::component_t::documentation("decay_mode").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::DecayMode> &
+      >(),
+      py::arg("decay_mode"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set decayMode
+   object.def_property(
+      "decay_mode",
+      [](const cppCLASS &self)
+      {
+         return self.decayMode();
+      },
+      [](cppCLASS &self, const std::vector<general::DecayMode> &value)
+      {
+         self.decayMode() = value;
+      },
+      cppCLASS::component_t::documentation("decay_mode").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

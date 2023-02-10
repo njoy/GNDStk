@@ -11,97 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CrossSection wrapper
-void wrapCrossSection(python::module &module)
+// wrapper for general::CrossSection
+void wrapCrossSection(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CrossSection;
+   using cppCLASS = general::CrossSection;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CrossSection",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::XYs1d> &,
-            const std::optional<general::Regions1d> &,
-            const std::optional<general::Reference> &,
-            const std::optional<general::ResonancesWithBackground> &,
-            const std::optional<general::CoulombPlusNuclearElastic> &,
-            const std::optional<general::ThermalNeutronScatteringLaw1d> &
-         >(),
-         python::arg("xys1d") = std::nullopt,
-         python::arg("regions1d") = std::nullopt,
-         python::arg("reference") = std::nullopt,
-         python::arg("resonances_with_background") = std::nullopt,
-         python::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
-         python::arg("thermal_neutron_scattering_law1d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self)
-         {
-            return self.XYs1d();
-         },
-         Component::component_t::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self)
-         {
-            return self.regions1d();
-         },
-         Component::component_t::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "reference",
-         [](const Component &self)
-         {
-            return self.reference();
-         },
-         Component::component_t::documentation("reference").data()
-      )
-      .def_property_readonly(
-         "resonances_with_background",
-         [](const Component &self)
-         {
-            return self.resonancesWithBackground();
-         },
-         Component::component_t::documentation("resonances_with_background").data()
-      )
-      .def_property_readonly(
-         "coulomb_plus_nuclear_elastic",
-         [](const Component &self)
-         {
-            return self.CoulombPlusNuclearElastic();
-         },
-         Component::component_t::documentation("coulomb_plus_nuclear_elastic").data()
-      )
-      .def_property_readonly(
-         "thermal_neutron_scattering_law1d",
-         [](const Component &self)
-         {
-            return self.thermalNeutronScatteringLaw1d();
-         },
-         Component::component_t::documentation("thermal_neutron_scattering_law1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::XYs1d> &,
+         const std::optional<general::Regions1d> &,
+         const std::optional<general::Reference> &,
+         const std::optional<general::ResonancesWithBackground> &,
+         const std::optional<general::CoulombPlusNuclearElastic> &,
+         const std::optional<general::ThermalNeutronScatteringLaw1d> &
+      >(),
+      py::arg("xys1d") = std::nullopt,
+      py::arg("regions1d") = std::nullopt,
+      py::arg("reference") = std::nullopt,
+      py::arg("resonances_with_background") = std::nullopt,
+      py::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
+      py::arg("thermal_neutron_scattering_law1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::optional<general::Regions1d> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // get/set reference
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const std::optional<general::Reference> &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   // get/set resonancesWithBackground
+   object.def_property(
+      "resonances_with_background",
+      [](const cppCLASS &self)
+      {
+         return self.resonancesWithBackground();
+      },
+      [](cppCLASS &self, const std::optional<general::ResonancesWithBackground> &value)
+      {
+         self.resonancesWithBackground() = value;
+      },
+      cppCLASS::component_t::documentation("resonances_with_background").data()
+   );
+
+   // get/set CoulombPlusNuclearElastic
+   object.def_property(
+      "coulomb_plus_nuclear_elastic",
+      [](const cppCLASS &self)
+      {
+         return self.CoulombPlusNuclearElastic();
+      },
+      [](cppCLASS &self, const std::optional<general::CoulombPlusNuclearElastic> &value)
+      {
+         self.CoulombPlusNuclearElastic() = value;
+      },
+      cppCLASS::component_t::documentation("coulomb_plus_nuclear_elastic").data()
+   );
+
+   // get/set thermalNeutronScatteringLaw1d
+   object.def_property(
+      "thermal_neutron_scattering_law1d",
+      [](const cppCLASS &self)
+      {
+         return self.thermalNeutronScatteringLaw1d();
+      },
+      [](cppCLASS &self, const std::optional<general::ThermalNeutronScatteringLaw1d> &value)
+      {
+         self.thermalNeutronScatteringLaw1d() = value;
+      },
+      cppCLASS::component_t::documentation("thermal_neutron_scattering_law1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

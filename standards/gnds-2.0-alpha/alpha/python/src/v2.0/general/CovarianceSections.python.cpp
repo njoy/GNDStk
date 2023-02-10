@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// CovarianceSections wrapper
-void wrapCovarianceSections(python::module &module)
+// wrapper for general::CovarianceSections
+void wrapCovarianceSections(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::CovarianceSections;
+   using cppCLASS = general::CovarianceSections;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "CovarianceSections",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::CovarianceSection> &
-         >(),
-         python::arg("covariance_section"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "covariance_section",
-         [](const Component &self)
-         {
-            return self.covarianceSection();
-         },
-         Component::component_t::documentation("covariance_section").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::CovarianceSection> &
+      >(),
+      py::arg("covariance_section"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set covarianceSection
+   object.def_property(
+      "covariance_section",
+      [](const cppCLASS &self)
+      {
+         return self.covarianceSection();
+      },
+      [](cppCLASS &self, const std::vector<general::CovarianceSection> &value)
+      {
+         self.covarianceSection() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_section").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

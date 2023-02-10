@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Uncertainty wrapper
-void wrapUncertainty(python::module &module)
+// wrapper for general::Uncertainty
+void wrapUncertainty(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Uncertainty;
+   using cppCLASS = general::Uncertainty;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Uncertainty",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<general::Covariance> &,
-            const std::optional<general::Standard> &,
-            const std::optional<general::ListOfCovariances> &,
-            const std::optional<reduced::Polynomial1d> &
-         >(),
-         python::arg("covariance") = std::nullopt,
-         python::arg("standard") = std::nullopt,
-         python::arg("list_of_covariances") = std::nullopt,
-         python::arg("polynomial1d") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "covariance",
-         [](const Component &self)
-         {
-            return self.covariance();
-         },
-         Component::component_t::documentation("covariance").data()
-      )
-      .def_property_readonly(
-         "standard",
-         [](const Component &self)
-         {
-            return self.standard();
-         },
-         Component::component_t::documentation("standard").data()
-      )
-      .def_property_readonly(
-         "list_of_covariances",
-         [](const Component &self)
-         {
-            return self.listOfCovariances();
-         },
-         Component::component_t::documentation("list_of_covariances").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self)
-         {
-            return self.polynomial1d();
-         },
-         Component::component_t::documentation("polynomial1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<general::Covariance> &,
+         const std::optional<general::Standard> &,
+         const std::optional<general::ListOfCovariances> &,
+         const std::optional<reduced::Polynomial1d> &
+      >(),
+      py::arg("covariance") = std::nullopt,
+      py::arg("standard") = std::nullopt,
+      py::arg("list_of_covariances") = std::nullopt,
+      py::arg("polynomial1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set covariance
+   object.def_property(
+      "covariance",
+      [](const cppCLASS &self)
+      {
+         return self.covariance();
+      },
+      [](cppCLASS &self, const std::optional<general::Covariance> &value)
+      {
+         self.covariance() = value;
+      },
+      cppCLASS::component_t::documentation("covariance").data()
+   );
+
+   // get/set standard
+   object.def_property(
+      "standard",
+      [](const cppCLASS &self)
+      {
+         return self.standard();
+      },
+      [](cppCLASS &self, const std::optional<general::Standard> &value)
+      {
+         self.standard() = value;
+      },
+      cppCLASS::component_t::documentation("standard").data()
+   );
+
+   // get/set listOfCovariances
+   object.def_property(
+      "list_of_covariances",
+      [](const cppCLASS &self)
+      {
+         return self.listOfCovariances();
+      },
+      [](cppCLASS &self, const std::optional<general::ListOfCovariances> &value)
+      {
+         self.listOfCovariances() = value;
+      },
+      cppCLASS::component_t::documentation("list_of_covariances").data()
+   );
+
+   // get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const std::optional<reduced::Polynomial1d> &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

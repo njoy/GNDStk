@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Styles wrapper
-void wrapStyles(python::module &module)
+// wrapper for general::Styles
+void wrapStyles(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Styles;
+   using cppCLASS = general::Styles;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Styles",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Evaluated &,
-            const std::optional<general::CrossSectionReconstructed> &
-         >(),
-         python::arg("evaluated"),
-         python::arg("cross_section_reconstructed") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "evaluated",
-         [](const Component &self)
-         {
-            return self.evaluated();
-         },
-         Component::component_t::documentation("evaluated").data()
-      )
-      .def_property_readonly(
-         "cross_section_reconstructed",
-         [](const Component &self)
-         {
-            return self.crossSectionReconstructed();
-         },
-         Component::component_t::documentation("cross_section_reconstructed").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Evaluated &,
+         const std::optional<general::CrossSectionReconstructed> &
+      >(),
+      py::arg("evaluated"),
+      py::arg("cross_section_reconstructed") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set evaluated
+   object.def_property(
+      "evaluated",
+      [](const cppCLASS &self)
+      {
+         return self.evaluated();
+      },
+      [](cppCLASS &self, const general::Evaluated &value)
+      {
+         self.evaluated() = value;
+      },
+      cppCLASS::component_t::documentation("evaluated").data()
+   );
+
+   // get/set crossSectionReconstructed
+   object.def_property(
+      "cross_section_reconstructed",
+      [](const cppCLASS &self)
+      {
+         return self.crossSectionReconstructed();
+      },
+      [](cppCLASS &self, const std::optional<general::CrossSectionReconstructed> &value)
+      {
+         self.crossSectionReconstructed() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_reconstructed").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

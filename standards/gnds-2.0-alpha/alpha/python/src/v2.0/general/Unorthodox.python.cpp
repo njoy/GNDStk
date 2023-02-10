@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Unorthodox wrapper
-void wrapUnorthodox(python::module &module)
+// wrapper for general::Unorthodox
+void wrapUnorthodox(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Unorthodox;
+   using cppCLASS = general::Unorthodox;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Unorthodox",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::Mass &
-         >(),
-         python::arg("id"),
-         python::arg("mass"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self)
-         {
-            return self.id();
-         },
-         Component::component_t::documentation("id").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self)
-         {
-            return self.mass();
-         },
-         Component::component_t::documentation("mass").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::Mass &
+      >(),
+      py::arg("id"),
+      py::arg("mass"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const general::Mass &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

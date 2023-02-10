@@ -11,127 +11,179 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ScatteringAtom wrapper
-void wrapScatteringAtom(python::module &module)
+// wrapper for general::ScatteringAtom
+void wrapScatteringAtom(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ScatteringAtom;
+   using cppCLASS = general::ScatteringAtom;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ScatteringAtom",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const std::optional<bool> &,
-            const general::Mass &,
-            const std::optional<general::E_critical> &,
-            const general::E_max &,
-            const general::BoundAtomCrossSection &,
-            const general::SelfScatteringKernel &,
-            const std::optional<general::T_effective> &
-         >(),
-         python::arg("pid"),
-         python::arg("number_per_molecule"),
-         python::arg("primary_scatterer") = std::nullopt,
-         python::arg("mass"),
-         python::arg("e_critical") = std::nullopt,
-         python::arg("e_max"),
-         python::arg("bound_atom_cross_section"),
-         python::arg("self_scattering_kernel"),
-         python::arg("t_effective") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "number_per_molecule",
-         [](const Component &self)
-         {
-            return self.numberPerMolecule();
-         },
-         Component::component_t::documentation("number_per_molecule").data()
-      )
-      .def_property_readonly(
-         "primary_scatterer",
-         [](const Component &self)
-         {
-            return self.primaryScatterer();
-         },
-         Component::component_t::documentation("primary_scatterer").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self)
-         {
-            return self.mass();
-         },
-         Component::component_t::documentation("mass").data()
-      )
-      .def_property_readonly(
-         "e_critical",
-         [](const Component &self)
-         {
-            return self.e_critical();
-         },
-         Component::component_t::documentation("e_critical").data()
-      )
-      .def_property_readonly(
-         "e_max",
-         [](const Component &self)
-         {
-            return self.e_max();
-         },
-         Component::component_t::documentation("e_max").data()
-      )
-      .def_property_readonly(
-         "bound_atom_cross_section",
-         [](const Component &self)
-         {
-            return self.boundAtomCrossSection();
-         },
-         Component::component_t::documentation("bound_atom_cross_section").data()
-      )
-      .def_property_readonly(
-         "self_scattering_kernel",
-         [](const Component &self)
-         {
-            return self.selfScatteringKernel();
-         },
-         Component::component_t::documentation("self_scattering_kernel").data()
-      )
-      .def_property_readonly(
-         "t_effective",
-         [](const Component &self)
-         {
-            return self.T_effective();
-         },
-         Component::component_t::documentation("t_effective").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const std::optional<bool> &,
+         const general::Mass &,
+         const std::optional<general::E_critical> &,
+         const general::E_max &,
+         const general::BoundAtomCrossSection &,
+         const general::SelfScatteringKernel &,
+         const std::optional<general::T_effective> &
+      >(),
+      py::arg("pid"),
+      py::arg("number_per_molecule"),
+      py::arg("primary_scatterer") = std::nullopt,
+      py::arg("mass"),
+      py::arg("e_critical") = std::nullopt,
+      py::arg("e_max"),
+      py::arg("bound_atom_cross_section"),
+      py::arg("self_scattering_kernel"),
+      py::arg("t_effective") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set numberPerMolecule
+   object.def_property(
+      "number_per_molecule",
+      [](const cppCLASS &self)
+      {
+         return self.numberPerMolecule();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.numberPerMolecule() = value;
+      },
+      cppCLASS::component_t::documentation("number_per_molecule").data()
+   );
+
+   // get/set primaryScatterer
+   object.def_property(
+      "primary_scatterer",
+      [](const cppCLASS &self)
+      {
+         return self.primaryScatterer();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.primaryScatterer() = value;
+      },
+      cppCLASS::component_t::documentation("primary_scatterer").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const general::Mass &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // get/set e_critical
+   object.def_property(
+      "e_critical",
+      [](const cppCLASS &self)
+      {
+         return self.e_critical();
+      },
+      [](cppCLASS &self, const std::optional<general::E_critical> &value)
+      {
+         self.e_critical() = value;
+      },
+      cppCLASS::component_t::documentation("e_critical").data()
+   );
+
+   // get/set e_max
+   object.def_property(
+      "e_max",
+      [](const cppCLASS &self)
+      {
+         return self.e_max();
+      },
+      [](cppCLASS &self, const general::E_max &value)
+      {
+         self.e_max() = value;
+      },
+      cppCLASS::component_t::documentation("e_max").data()
+   );
+
+   // get/set boundAtomCrossSection
+   object.def_property(
+      "bound_atom_cross_section",
+      [](const cppCLASS &self)
+      {
+         return self.boundAtomCrossSection();
+      },
+      [](cppCLASS &self, const general::BoundAtomCrossSection &value)
+      {
+         self.boundAtomCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("bound_atom_cross_section").data()
+   );
+
+   // get/set selfScatteringKernel
+   object.def_property(
+      "self_scattering_kernel",
+      [](const cppCLASS &self)
+      {
+         return self.selfScatteringKernel();
+      },
+      [](cppCLASS &self, const general::SelfScatteringKernel &value)
+      {
+         self.selfScatteringKernel() = value;
+      },
+      cppCLASS::component_t::documentation("self_scattering_kernel").data()
+   );
+
+   // get/set T_effective
+   object.def_property(
+      "t_effective",
+      [](const cppCLASS &self)
+      {
+         return self.T_effective();
+      },
+      [](cppCLASS &self, const std::optional<general::T_effective> &value)
+      {
+         self.T_effective() = value;
+      },
+      cppCLASS::component_t::documentation("t_effective").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

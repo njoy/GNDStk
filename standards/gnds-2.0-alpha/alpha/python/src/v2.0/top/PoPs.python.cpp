@@ -11,137 +11,195 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_top {
 
-// PoPs wrapper
-void wrapPoPs(python::module &module)
+// wrapper for top::PoPs
+void wrapPoPs(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = top::PoPs;
+   using cppCLASS = top::PoPs;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "PoPs",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::optional<general::Aliases> &,
-            const std::optional<general::Baryons> &,
-            const std::optional<general::ChemicalElements> &,
-            const std::optional<general::Styles> &,
-            const std::optional<general::Unorthodoxes> &,
-            const std::optional<general::GaugeBosons> &,
-            const std::optional<general::Leptons> &
-         >(),
-         python::arg("name"),
-         python::arg("version"),
-         python::arg("format"),
-         python::arg("aliases") = std::nullopt,
-         python::arg("baryons") = std::nullopt,
-         python::arg("chemical_elements") = std::nullopt,
-         python::arg("styles") = std::nullopt,
-         python::arg("unorthodoxes") = std::nullopt,
-         python::arg("gauge_bosons") = std::nullopt,
-         python::arg("leptons") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self)
-         {
-            return self.name();
-         },
-         Component::component_t::documentation("name").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self)
-         {
-            return self.version();
-         },
-         Component::component_t::documentation("version").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self)
-         {
-            return self.format();
-         },
-         Component::component_t::documentation("format").data()
-      )
-      .def_property_readonly(
-         "aliases",
-         [](const Component &self)
-         {
-            return self.aliases();
-         },
-         Component::component_t::documentation("aliases").data()
-      )
-      .def_property_readonly(
-         "baryons",
-         [](const Component &self)
-         {
-            return self.baryons();
-         },
-         Component::component_t::documentation("baryons").data()
-      )
-      .def_property_readonly(
-         "chemical_elements",
-         [](const Component &self)
-         {
-            return self.chemicalElements();
-         },
-         Component::component_t::documentation("chemical_elements").data()
-      )
-      .def_property_readonly(
-         "styles",
-         [](const Component &self)
-         {
-            return self.styles();
-         },
-         Component::component_t::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "unorthodoxes",
-         [](const Component &self)
-         {
-            return self.unorthodoxes();
-         },
-         Component::component_t::documentation("unorthodoxes").data()
-      )
-      .def_property_readonly(
-         "gauge_bosons",
-         [](const Component &self)
-         {
-            return self.gaugeBosons();
-         },
-         Component::component_t::documentation("gauge_bosons").data()
-      )
-      .def_property_readonly(
-         "leptons",
-         [](const Component &self)
-         {
-            return self.leptons();
-         },
-         Component::component_t::documentation("leptons").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::optional<general::Aliases> &,
+         const std::optional<general::Baryons> &,
+         const std::optional<general::ChemicalElements> &,
+         const std::optional<general::Styles> &,
+         const std::optional<general::Unorthodoxes> &,
+         const std::optional<general::GaugeBosons> &,
+         const std::optional<general::Leptons> &
+      >(),
+      py::arg("name"),
+      py::arg("version"),
+      py::arg("format"),
+      py::arg("aliases") = std::nullopt,
+      py::arg("baryons") = std::nullopt,
+      py::arg("chemical_elements") = std::nullopt,
+      py::arg("styles") = std::nullopt,
+      py::arg("unorthodoxes") = std::nullopt,
+      py::arg("gauge_bosons") = std::nullopt,
+      py::arg("leptons") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set aliases
+   object.def_property(
+      "aliases",
+      [](const cppCLASS &self)
+      {
+         return self.aliases();
+      },
+      [](cppCLASS &self, const std::optional<general::Aliases> &value)
+      {
+         self.aliases() = value;
+      },
+      cppCLASS::component_t::documentation("aliases").data()
+   );
+
+   // get/set baryons
+   object.def_property(
+      "baryons",
+      [](const cppCLASS &self)
+      {
+         return self.baryons();
+      },
+      [](cppCLASS &self, const std::optional<general::Baryons> &value)
+      {
+         self.baryons() = value;
+      },
+      cppCLASS::component_t::documentation("baryons").data()
+   );
+
+   // get/set chemicalElements
+   object.def_property(
+      "chemical_elements",
+      [](const cppCLASS &self)
+      {
+         return self.chemicalElements();
+      },
+      [](cppCLASS &self, const std::optional<general::ChemicalElements> &value)
+      {
+         self.chemicalElements() = value;
+      },
+      cppCLASS::component_t::documentation("chemical_elements").data()
+   );
+
+   // get/set styles
+   object.def_property(
+      "styles",
+      [](const cppCLASS &self)
+      {
+         return self.styles();
+      },
+      [](cppCLASS &self, const std::optional<general::Styles> &value)
+      {
+         self.styles() = value;
+      },
+      cppCLASS::component_t::documentation("styles").data()
+   );
+
+   // get/set unorthodoxes
+   object.def_property(
+      "unorthodoxes",
+      [](const cppCLASS &self)
+      {
+         return self.unorthodoxes();
+      },
+      [](cppCLASS &self, const std::optional<general::Unorthodoxes> &value)
+      {
+         self.unorthodoxes() = value;
+      },
+      cppCLASS::component_t::documentation("unorthodoxes").data()
+   );
+
+   // get/set gaugeBosons
+   object.def_property(
+      "gauge_bosons",
+      [](const cppCLASS &self)
+      {
+         return self.gaugeBosons();
+      },
+      [](cppCLASS &self, const std::optional<general::GaugeBosons> &value)
+      {
+         self.gaugeBosons() = value;
+      },
+      cppCLASS::component_t::documentation("gauge_bosons").data()
+   );
+
+   // get/set leptons
+   object.def_property(
+      "leptons",
+      [](const cppCLASS &self)
+      {
+         return self.leptons();
+      },
+      [](cppCLASS &self, const std::optional<general::Leptons> &value)
+      {
+         self.leptons() = value;
+      },
+      cppCLASS::component_t::documentation("leptons").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_top

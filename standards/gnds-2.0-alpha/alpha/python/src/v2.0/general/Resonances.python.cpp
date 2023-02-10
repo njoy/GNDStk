@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Resonances wrapper
-void wrapResonances(python::module &module)
+// wrapper for general::Resonances
+void wrapResonances(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Resonances;
+   using cppCLASS = general::Resonances;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Resonances",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<general::ScatteringRadius> &,
-            const std::optional<general::Resolved> &,
-            const std::optional<general::Unresolved> &
-         >(),
-         python::arg("href") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         python::arg("resolved") = std::nullopt,
-         python::arg("unresolved") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self)
-         {
-            return self.scatteringRadius();
-         },
-         Component::component_t::documentation("scattering_radius").data()
-      )
-      .def_property_readonly(
-         "resolved",
-         [](const Component &self)
-         {
-            return self.resolved();
-         },
-         Component::component_t::documentation("resolved").data()
-      )
-      .def_property_readonly(
-         "unresolved",
-         [](const Component &self)
-         {
-            return self.unresolved();
-         },
-         Component::component_t::documentation("unresolved").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<general::ScatteringRadius> &,
+         const std::optional<general::Resolved> &,
+         const std::optional<general::Unresolved> &
+      >(),
+      py::arg("href") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      py::arg("resolved") = std::nullopt,
+      py::arg("unresolved") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<general::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // get/set resolved
+   object.def_property(
+      "resolved",
+      [](const cppCLASS &self)
+      {
+         return self.resolved();
+      },
+      [](cppCLASS &self, const std::optional<general::Resolved> &value)
+      {
+         self.resolved() = value;
+      },
+      cppCLASS::component_t::documentation("resolved").data()
+   );
+
+   // get/set unresolved
+   object.def_property(
+      "unresolved",
+      [](const cppCLASS &self)
+      {
+         return self.unresolved();
+      },
+      [](cppCLASS &self, const std::optional<general::Unresolved> &value)
+      {
+         self.unresolved() = value;
+      },
+      cppCLASS::component_t::documentation("unresolved").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

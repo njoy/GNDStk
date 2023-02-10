@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Axes wrapper
-void wrapAxes(python::module &module)
+// wrapper for general::Axes
+void wrapAxes(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Axes;
+   using cppCLASS = general::Axes;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Axes",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Axis> &,
-            const std::optional<std::vector<general::Grid>> &
-         >(),
-         python::arg("axis"),
-         python::arg("grid") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "axis",
-         [](const Component &self)
-         {
-            return self.axis();
-         },
-         Component::component_t::documentation("axis").data()
-      )
-      .def_property_readonly(
-         "grid",
-         [](const Component &self)
-         {
-            return self.grid();
-         },
-         Component::component_t::documentation("grid").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Axis> &,
+         const std::optional<std::vector<general::Grid>> &
+      >(),
+      py::arg("axis"),
+      py::arg("grid") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set axis
+   object.def_property(
+      "axis",
+      [](const cppCLASS &self)
+      {
+         return self.axis();
+      },
+      [](cppCLASS &self, const std::vector<general::Axis> &value)
+      {
+         self.axis() = value;
+      },
+      cppCLASS::component_t::documentation("axis").data()
+   );
+
+   // get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::Grid>> &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

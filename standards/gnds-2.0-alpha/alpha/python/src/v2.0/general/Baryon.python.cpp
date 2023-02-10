@@ -11,107 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Baryon wrapper
-void wrapBaryon(python::module &module)
+// wrapper for general::Baryon
+void wrapBaryon(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Baryon;
+   using cppCLASS = general::Baryon;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Baryon",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::Mass &,
-            const general::Spin &,
-            const general::Parity &,
-            const general::Charge &,
-            const general::Halflife &,
-            const std::optional<general::DecayData> &
-         >(),
-         python::arg("id"),
-         python::arg("mass"),
-         python::arg("spin"),
-         python::arg("parity"),
-         python::arg("charge"),
-         python::arg("halflife"),
-         python::arg("decay_data") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self)
-         {
-            return self.id();
-         },
-         Component::component_t::documentation("id").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self)
-         {
-            return self.mass();
-         },
-         Component::component_t::documentation("mass").data()
-      )
-      .def_property_readonly(
-         "spin",
-         [](const Component &self)
-         {
-            return self.spin();
-         },
-         Component::component_t::documentation("spin").data()
-      )
-      .def_property_readonly(
-         "parity",
-         [](const Component &self)
-         {
-            return self.parity();
-         },
-         Component::component_t::documentation("parity").data()
-      )
-      .def_property_readonly(
-         "charge",
-         [](const Component &self)
-         {
-            return self.charge();
-         },
-         Component::component_t::documentation("charge").data()
-      )
-      .def_property_readonly(
-         "halflife",
-         [](const Component &self)
-         {
-            return self.halflife();
-         },
-         Component::component_t::documentation("halflife").data()
-      )
-      .def_property_readonly(
-         "decay_data",
-         [](const Component &self)
-         {
-            return self.decayData();
-         },
-         Component::component_t::documentation("decay_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::Mass &,
+         const general::Spin &,
+         const general::Parity &,
+         const general::Charge &,
+         const general::Halflife &,
+         const std::optional<general::DecayData> &
+      >(),
+      py::arg("id"),
+      py::arg("mass"),
+      py::arg("spin"),
+      py::arg("parity"),
+      py::arg("charge"),
+      py::arg("halflife"),
+      py::arg("decay_data") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const general::Mass &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // get/set spin
+   object.def_property(
+      "spin",
+      [](const cppCLASS &self)
+      {
+         return self.spin();
+      },
+      [](cppCLASS &self, const general::Spin &value)
+      {
+         self.spin() = value;
+      },
+      cppCLASS::component_t::documentation("spin").data()
+   );
+
+   // get/set parity
+   object.def_property(
+      "parity",
+      [](const cppCLASS &self)
+      {
+         return self.parity();
+      },
+      [](cppCLASS &self, const general::Parity &value)
+      {
+         self.parity() = value;
+      },
+      cppCLASS::component_t::documentation("parity").data()
+   );
+
+   // get/set charge
+   object.def_property(
+      "charge",
+      [](const cppCLASS &self)
+      {
+         return self.charge();
+      },
+      [](cppCLASS &self, const general::Charge &value)
+      {
+         self.charge() = value;
+      },
+      cppCLASS::component_t::documentation("charge").data()
+   );
+
+   // get/set halflife
+   object.def_property(
+      "halflife",
+      [](const cppCLASS &self)
+      {
+         return self.halflife();
+      },
+      [](cppCLASS &self, const general::Halflife &value)
+      {
+         self.halflife() = value;
+      },
+      cppCLASS::component_t::documentation("halflife").data()
+   );
+
+   // get/set decayData
+   object.def_property(
+      "decay_data",
+      [](const cppCLASS &self)
+      {
+         return self.decayData();
+      },
+      [](cppCLASS &self, const std::optional<general::DecayData> &value)
+      {
+         self.decayData() = value;
+      },
+      cppCLASS::component_t::documentation("decay_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

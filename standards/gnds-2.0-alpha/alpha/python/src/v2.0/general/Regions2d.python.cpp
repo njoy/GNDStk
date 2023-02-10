@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Regions2d wrapper
-void wrapRegions2d(python::module &module)
+// wrapper for general::Regions2d
+void wrapRegions2d(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Regions2d;
+   using cppCLASS = general::Regions2d;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Regions2d",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Axes &,
-            const general::Function2ds &,
-            const std::optional<general::Uncertainty> &
-         >(),
-         python::arg("axes"),
-         python::arg("function2ds"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self)
-         {
-            return self.axes();
-         },
-         Component::component_t::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "function2ds",
-         [](const Component &self)
-         {
-            return self.function2ds();
-         },
-         Component::component_t::documentation("function2ds").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Axes &,
+         const general::Function2ds &,
+         const std::optional<general::Uncertainty> &
+      >(),
+      py::arg("axes"),
+      py::arg("function2ds"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const general::Axes &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const general::Function2ds &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

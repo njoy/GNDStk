@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// HardSphereRadius wrapper
-void wrapHardSphereRadius(python::module &module)
+// wrapper for general::HardSphereRadius
+void wrapHardSphereRadius(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::HardSphereRadius;
+   using cppCLASS = general::HardSphereRadius;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "HardSphereRadius",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Constant1d &
-         >(),
-         python::arg("constant1d"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "constant1d",
-         [](const Component &self)
-         {
-            return self.constant1d();
-         },
-         Component::component_t::documentation("constant1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Constant1d &
+      >(),
+      py::arg("constant1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set constant1d
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const general::Constant1d &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

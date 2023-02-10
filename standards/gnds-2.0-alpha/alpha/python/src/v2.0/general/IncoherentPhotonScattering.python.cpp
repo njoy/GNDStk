@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// IncoherentPhotonScattering wrapper
-void wrapIncoherentPhotonScattering(python::module &module)
+// wrapper for general::IncoherentPhotonScattering
+void wrapIncoherentPhotonScattering(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::IncoherentPhotonScattering;
+   using cppCLASS = general::IncoherentPhotonScattering;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "IncoherentPhotonScattering",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &,
-            const std::optional<general::ScatteringFactor> &
-         >(),
-         python::arg("label"),
-         python::arg("href") = std::nullopt,
-         python::arg("pid") = std::nullopt,
-         python::arg("product_frame") = std::nullopt,
-         python::arg("scattering_factor") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self)
-         {
-            return self.productFrame();
-         },
-         Component::component_t::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "scattering_factor",
-         [](const Component &self)
-         {
-            return self.scatteringFactor();
-         },
-         Component::component_t::documentation("scattering_factor").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &,
+         const std::optional<general::ScatteringFactor> &
+      >(),
+      py::arg("label"),
+      py::arg("href") = std::nullopt,
+      py::arg("pid") = std::nullopt,
+      py::arg("product_frame") = std::nullopt,
+      py::arg("scattering_factor") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set scatteringFactor
+   object.def_property(
+      "scattering_factor",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringFactor();
+      },
+      [](cppCLASS &self, const std::optional<general::ScatteringFactor> &value)
+      {
+         self.scatteringFactor() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_factor").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

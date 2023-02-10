@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Configuration wrapper
-void wrapConfiguration(python::module &module)
+// wrapper for general::Configuration
+void wrapConfiguration(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Configuration;
+   using cppCLASS = general::Configuration;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Configuration",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const double &,
-            const general::BindingEnergy &,
-            const std::vector<general::DecayData> &
-         >(),
-         python::arg("subshell"),
-         python::arg("electron_number"),
-         python::arg("binding_energy"),
-         python::arg("decay_data"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "subshell",
-         [](const Component &self)
-         {
-            return self.subshell();
-         },
-         Component::component_t::documentation("subshell").data()
-      )
-      .def_property_readonly(
-         "electron_number",
-         [](const Component &self)
-         {
-            return self.electronNumber();
-         },
-         Component::component_t::documentation("electron_number").data()
-      )
-      .def_property_readonly(
-         "binding_energy",
-         [](const Component &self)
-         {
-            return self.bindingEnergy();
-         },
-         Component::component_t::documentation("binding_energy").data()
-      )
-      .def_property_readonly(
-         "decay_data",
-         [](const Component &self)
-         {
-            return self.decayData();
-         },
-         Component::component_t::documentation("decay_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const double &,
+         const general::BindingEnergy &,
+         const std::vector<general::DecayData> &
+      >(),
+      py::arg("subshell"),
+      py::arg("electron_number"),
+      py::arg("binding_energy"),
+      py::arg("decay_data"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set subshell
+   object.def_property(
+      "subshell",
+      [](const cppCLASS &self)
+      {
+         return self.subshell();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.subshell() = value;
+      },
+      cppCLASS::component_t::documentation("subshell").data()
+   );
+
+   // get/set electronNumber
+   object.def_property(
+      "electron_number",
+      [](const cppCLASS &self)
+      {
+         return self.electronNumber();
+      },
+      [](cppCLASS &self, const double &value)
+      {
+         self.electronNumber() = value;
+      },
+      cppCLASS::component_t::documentation("electron_number").data()
+   );
+
+   // get/set bindingEnergy
+   object.def_property(
+      "binding_energy",
+      [](const cppCLASS &self)
+      {
+         return self.bindingEnergy();
+      },
+      [](cppCLASS &self, const general::BindingEnergy &value)
+      {
+         self.bindingEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("binding_energy").data()
+   );
+
+   // get/set decayData
+   object.def_property(
+      "decay_data",
+      [](const cppCLASS &self)
+      {
+         return self.decayData();
+      },
+      [](cppCLASS &self, const std::vector<general::DecayData> &value)
+      {
+         self.decayData() = value;
+      },
+      cppCLASS::component_t::documentation("decay_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

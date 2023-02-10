@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// DelayedBetaEnergy wrapper
-void wrapDelayedBetaEnergy(python::module &module)
+// wrapper for general::DelayedBetaEnergy
+void wrapDelayedBetaEnergy(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::DelayedBetaEnergy;
+   using cppCLASS = general::DelayedBetaEnergy;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "DelayedBetaEnergy",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Polynomial1d &
-         >(),
-         python::arg("polynomial1d"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self)
-         {
-            return self.polynomial1d();
-         },
-         Component::component_t::documentation("polynomial1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Polynomial1d &
+      >(),
+      py::arg("polynomial1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const general::Polynomial1d &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

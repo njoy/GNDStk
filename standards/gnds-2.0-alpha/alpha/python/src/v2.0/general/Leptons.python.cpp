@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Leptons wrapper
-void wrapLeptons(python::module &module)
+// wrapper for general::Leptons
+void wrapLeptons(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Leptons;
+   using cppCLASS = general::Leptons;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Leptons",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Lepton> &
-         >(),
-         python::arg("lepton"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "lepton",
-         [](const Component &self)
-         {
-            return self.lepton();
-         },
-         Component::component_t::documentation("lepton").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Lepton> &
+      >(),
+      py::arg("lepton"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set lepton
+   object.def_property(
+      "lepton",
+      [](const cppCLASS &self)
+      {
+         return self.lepton();
+      },
+      [](cppCLASS &self, const std::vector<general::Lepton> &value)
+      {
+         self.lepton() = value;
+      },
+      cppCLASS::component_t::documentation("lepton").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

@@ -11,57 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Conversion wrapper
-void wrapConversion(python::module &module)
+// wrapper for general::Conversion
+void wrapConversion(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Conversion;
+   using cppCLASS = general::Conversion;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Conversion",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &
-         >(),
-         python::arg("flags"),
-         python::arg("href"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "flags",
-         [](const Component &self)
-         {
-            return self.flags();
-         },
-         Component::component_t::documentation("flags").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &
+      >(),
+      py::arg("flags"),
+      py::arg("href"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set flags
+   object.def_property(
+      "flags",
+      [](const cppCLASS &self)
+      {
+         return self.flags();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.flags() = value;
+      },
+      cppCLASS::component_t::documentation("flags").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

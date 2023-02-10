@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ResonanceReactions wrapper
-void wrapResonanceReactions(python::module &module)
+// wrapper for general::ResonanceReactions
+void wrapResonanceReactions(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ResonanceReactions;
+   using cppCLASS = general::ResonanceReactions;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ResonanceReactions",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ResonanceReaction> &
-         >(),
-         python::arg("resonance_reaction"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "resonance_reaction",
-         [](const Component &self)
-         {
-            return self.resonanceReaction();
-         },
-         Component::component_t::documentation("resonance_reaction").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ResonanceReaction> &
+      >(),
+      py::arg("resonance_reaction"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::vector<general::ResonanceReaction> &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

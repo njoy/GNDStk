@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Decay wrapper
-void wrapDecay(python::module &module)
+// wrapper for general::Decay
+void wrapDecay(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Decay;
+   using cppCLASS = general::Decay;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Decay",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const std::optional<std::string> &,
-            const std::optional<bool> &,
-            const std::optional<general::Products> &
-         >(),
-         python::arg("index"),
-         python::arg("mode") = std::nullopt,
-         python::arg("complete") = std::nullopt,
-         python::arg("products") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self)
-         {
-            return self.index();
-         },
-         Component::component_t::documentation("index").data()
-      )
-      .def_property_readonly(
-         "mode",
-         [](const Component &self)
-         {
-            return self.mode();
-         },
-         Component::component_t::documentation("mode").data()
-      )
-      .def_property_readonly(
-         "complete",
-         [](const Component &self)
-         {
-            return self.complete();
-         },
-         Component::component_t::documentation("complete").data()
-      )
-      .def_property_readonly(
-         "products",
-         [](const Component &self)
-         {
-            return self.products();
-         },
-         Component::component_t::documentation("products").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const std::optional<std::string> &,
+         const std::optional<bool> &,
+         const std::optional<general::Products> &
+      >(),
+      py::arg("index"),
+      py::arg("mode") = std::nullopt,
+      py::arg("complete") = std::nullopt,
+      py::arg("products") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set mode
+   object.def_property(
+      "mode",
+      [](const cppCLASS &self)
+      {
+         return self.mode();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.mode() = value;
+      },
+      cppCLASS::component_t::documentation("mode").data()
+   );
+
+   // get/set complete
+   object.def_property(
+      "complete",
+      [](const cppCLASS &self)
+      {
+         return self.complete();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.complete() = value;
+      },
+      cppCLASS::component_t::documentation("complete").data()
+   );
+
+   // get/set products
+   object.def_property(
+      "products",
+      [](const cppCLASS &self)
+      {
+         return self.products();
+      },
+      [](cppCLASS &self, const std::optional<general::Products> &value)
+      {
+         self.products() = value;
+      },
+      cppCLASS::component_t::documentation("products").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

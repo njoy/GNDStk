@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Isotopes wrapper
-void wrapIsotopes(python::module &module)
+// wrapper for general::Isotopes
+void wrapIsotopes(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Isotopes;
+   using cppCLASS = general::Isotopes;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Isotopes",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::Isotope> &
-         >(),
-         python::arg("isotope"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "isotope",
-         [](const Component &self)
-         {
-            return self.isotope();
-         },
-         Component::component_t::documentation("isotope").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::Isotope> &
+      >(),
+      py::arg("isotope"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set isotope
+   object.def_property(
+      "isotope",
+      [](const cppCLASS &self)
+      {
+         return self.isotope();
+      },
+      [](cppCLASS &self, const std::vector<general::Isotope> &value)
+      {
+         self.isotope() = value;
+      },
+      cppCLASS::component_t::documentation("isotope").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

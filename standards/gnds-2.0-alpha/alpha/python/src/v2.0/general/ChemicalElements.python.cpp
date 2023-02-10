@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ChemicalElements wrapper
-void wrapChemicalElements(python::module &module)
+// wrapper for general::ChemicalElements
+void wrapChemicalElements(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ChemicalElements;
+   using cppCLASS = general::ChemicalElements;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ChemicalElements",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ChemicalElement> &
-         >(),
-         python::arg("chemical_element"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "chemical_element",
-         [](const Component &self)
-         {
-            return self.chemicalElement();
-         },
-         Component::component_t::documentation("chemical_element").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ChemicalElement> &
+      >(),
+      py::arg("chemical_element"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set chemicalElement
+   object.def_property(
+      "chemical_element",
+      [](const cppCLASS &self)
+      {
+         return self.chemicalElement();
+      },
+      [](cppCLASS &self, const std::vector<general::ChemicalElement> &value)
+      {
+         self.chemicalElement() = value;
+      },
+      cppCLASS::component_t::documentation("chemical_element").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

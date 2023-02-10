@@ -11,62 +11,74 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_reduced {
 
-// Nuclides wrapper
-void wrapNuclides(python::module &module)
+// wrapper for reduced::Nuclides
+void wrapNuclides(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = reduced::Nuclides;
+   using cppCLASS = reduced::Nuclides;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Nuclides",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &
-         >(),
-         python::arg("href") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<std::string> &
-         >(),
-         python::arg("strings"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self)
-         {
-            return self.href();
-         },
-         Component::component_t::documentation("href").data()
-      )
-      .def_property_readonly(
-         "strings",
-         [](const Component &self) -> const std::vector<std::string> &
-         {
-            return self;
-         },
-         Component::component_t::documentation("strings").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &
+      >(),
+      py::arg("href") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<std::string> &
+      >(),
+      py::arg("strings"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set vector<std::string>
+   object.def_property(
+      "strings",
+      [](const cppCLASS &self) -> const std::vector<std::string> &
+      {
+         return self;
+      },
+      [](cppCLASS &self, const std::vector<std::string> &value)
+      {
+         self = value;
+      },
+      cppCLASS::component_t::documentation("strings").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_reduced

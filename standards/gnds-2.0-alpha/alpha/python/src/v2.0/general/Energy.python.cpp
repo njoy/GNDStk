@@ -11,167 +11,243 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Energy wrapper
-void wrapEnergy(python::module &module)
+// wrapper for general::Energy
+void wrapEnergy(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Energy;
+   using cppCLASS = general::Energy;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Energy",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<double> &,
-            const std::optional<std::string> &,
-            const std::optional<general::Double> &,
-            const std::optional<general::Uncertainty> &,
-            const std::optional<general::NBodyPhaseSpace> &,
-            const std::optional<general::PrimaryGamma> &,
-            const std::optional<general::DiscreteGamma> &,
-            const std::optional<general::XYs2d> &,
-            const std::optional<general::GeneralEvaporation> &,
-            const std::optional<general::Evaporation> &,
-            const std::optional<general::WeightedFunctionals> &,
-            const std::optional<general::SimpleMaxwellianFission> &,
-            const std::optional<general::MadlandNix> &
-         >(),
-         python::arg("value") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         python::arg("double") = std::nullopt,
-         python::arg("uncertainty") = std::nullopt,
-         python::arg("nbody_phase_space") = std::nullopt,
-         python::arg("primary_gamma") = std::nullopt,
-         python::arg("discrete_gamma") = std::nullopt,
-         python::arg("xys2d") = std::nullopt,
-         python::arg("general_evaporation") = std::nullopt,
-         python::arg("evaporation") = std::nullopt,
-         python::arg("weighted_functionals") = std::nullopt,
-         python::arg("simple_maxwellian_fission") = std::nullopt,
-         python::arg("madland_nix") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self)
-         {
-            return self.value();
-         },
-         Component::component_t::documentation("value").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self)
-         {
-            return self.unit();
-         },
-         Component::component_t::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self)
-         {
-            return self.Double();
-         },
-         Component::component_t::documentation("double").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-      .def_property_readonly(
-         "nbody_phase_space",
-         [](const Component &self)
-         {
-            return self.NBodyPhaseSpace();
-         },
-         Component::component_t::documentation("nbody_phase_space").data()
-      )
-      .def_property_readonly(
-         "primary_gamma",
-         [](const Component &self)
-         {
-            return self.primaryGamma();
-         },
-         Component::component_t::documentation("primary_gamma").data()
-      )
-      .def_property_readonly(
-         "discrete_gamma",
-         [](const Component &self)
-         {
-            return self.discreteGamma();
-         },
-         Component::component_t::documentation("discrete_gamma").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self)
-         {
-            return self.XYs2d();
-         },
-         Component::component_t::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "general_evaporation",
-         [](const Component &self)
-         {
-            return self.generalEvaporation();
-         },
-         Component::component_t::documentation("general_evaporation").data()
-      )
-      .def_property_readonly(
-         "evaporation",
-         [](const Component &self)
-         {
-            return self.evaporation();
-         },
-         Component::component_t::documentation("evaporation").data()
-      )
-      .def_property_readonly(
-         "weighted_functionals",
-         [](const Component &self)
-         {
-            return self.weightedFunctionals();
-         },
-         Component::component_t::documentation("weighted_functionals").data()
-      )
-      .def_property_readonly(
-         "simple_maxwellian_fission",
-         [](const Component &self)
-         {
-            return self.simpleMaxwellianFission();
-         },
-         Component::component_t::documentation("simple_maxwellian_fission").data()
-      )
-      .def_property_readonly(
-         "madland_nix",
-         [](const Component &self)
-         {
-            return self.MadlandNix();
-         },
-         Component::component_t::documentation("madland_nix").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<double> &,
+         const std::optional<std::string> &,
+         const std::optional<general::Double> &,
+         const std::optional<general::Uncertainty> &,
+         const std::optional<general::NBodyPhaseSpace> &,
+         const std::optional<general::PrimaryGamma> &,
+         const std::optional<general::DiscreteGamma> &,
+         const std::optional<general::XYs2d> &,
+         const std::optional<general::GeneralEvaporation> &,
+         const std::optional<general::Evaporation> &,
+         const std::optional<general::WeightedFunctionals> &,
+         const std::optional<general::SimpleMaxwellianFission> &,
+         const std::optional<general::MadlandNix> &
+      >(),
+      py::arg("value") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      py::arg("double") = std::nullopt,
+      py::arg("uncertainty") = std::nullopt,
+      py::arg("nbody_phase_space") = std::nullopt,
+      py::arg("primary_gamma") = std::nullopt,
+      py::arg("discrete_gamma") = std::nullopt,
+      py::arg("xys2d") = std::nullopt,
+      py::arg("general_evaporation") = std::nullopt,
+      py::arg("evaporation") = std::nullopt,
+      py::arg("weighted_functionals") = std::nullopt,
+      py::arg("simple_maxwellian_fission") = std::nullopt,
+      py::arg("madland_nix") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::optional<general::Double> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // get/set NBodyPhaseSpace
+   object.def_property(
+      "nbody_phase_space",
+      [](const cppCLASS &self)
+      {
+         return self.NBodyPhaseSpace();
+      },
+      [](cppCLASS &self, const std::optional<general::NBodyPhaseSpace> &value)
+      {
+         self.NBodyPhaseSpace() = value;
+      },
+      cppCLASS::component_t::documentation("nbody_phase_space").data()
+   );
+
+   // get/set primaryGamma
+   object.def_property(
+      "primary_gamma",
+      [](const cppCLASS &self)
+      {
+         return self.primaryGamma();
+      },
+      [](cppCLASS &self, const std::optional<general::PrimaryGamma> &value)
+      {
+         self.primaryGamma() = value;
+      },
+      cppCLASS::component_t::documentation("primary_gamma").data()
+   );
+
+   // get/set discreteGamma
+   object.def_property(
+      "discrete_gamma",
+      [](const cppCLASS &self)
+      {
+         return self.discreteGamma();
+      },
+      [](cppCLASS &self, const std::optional<general::DiscreteGamma> &value)
+      {
+         self.discreteGamma() = value;
+      },
+      cppCLASS::component_t::documentation("discrete_gamma").data()
+   );
+
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<general::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set generalEvaporation
+   object.def_property(
+      "general_evaporation",
+      [](const cppCLASS &self)
+      {
+         return self.generalEvaporation();
+      },
+      [](cppCLASS &self, const std::optional<general::GeneralEvaporation> &value)
+      {
+         self.generalEvaporation() = value;
+      },
+      cppCLASS::component_t::documentation("general_evaporation").data()
+   );
+
+   // get/set evaporation
+   object.def_property(
+      "evaporation",
+      [](const cppCLASS &self)
+      {
+         return self.evaporation();
+      },
+      [](cppCLASS &self, const std::optional<general::Evaporation> &value)
+      {
+         self.evaporation() = value;
+      },
+      cppCLASS::component_t::documentation("evaporation").data()
+   );
+
+   // get/set weightedFunctionals
+   object.def_property(
+      "weighted_functionals",
+      [](const cppCLASS &self)
+      {
+         return self.weightedFunctionals();
+      },
+      [](cppCLASS &self, const std::optional<general::WeightedFunctionals> &value)
+      {
+         self.weightedFunctionals() = value;
+      },
+      cppCLASS::component_t::documentation("weighted_functionals").data()
+   );
+
+   // get/set simpleMaxwellianFission
+   object.def_property(
+      "simple_maxwellian_fission",
+      [](const cppCLASS &self)
+      {
+         return self.simpleMaxwellianFission();
+      },
+      [](cppCLASS &self, const std::optional<general::SimpleMaxwellianFission> &value)
+      {
+         self.simpleMaxwellianFission() = value;
+      },
+      cppCLASS::component_t::documentation("simple_maxwellian_fission").data()
+   );
+
+   // get/set MadlandNix
+   object.def_property(
+      "madland_nix",
+      [](const cppCLASS &self)
+      {
+         return self.MadlandNix();
+      },
+      [](cppCLASS &self, const std::optional<general::MadlandNix> &value)
+      {
+         self.MadlandNix() = value;
+      },
+      cppCLASS::component_t::documentation("madland_nix").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

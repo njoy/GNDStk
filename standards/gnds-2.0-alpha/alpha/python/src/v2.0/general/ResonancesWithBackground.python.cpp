@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ResonancesWithBackground wrapper
-void wrapResonancesWithBackground(python::module &module)
+// wrapper for general::ResonancesWithBackground
+void wrapResonancesWithBackground(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ResonancesWithBackground;
+   using cppCLASS = general::ResonancesWithBackground;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ResonancesWithBackground",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const general::Resonances &,
-            const general::Background &,
-            const std::optional<general::Uncertainty> &
-         >(),
-         python::arg("label"),
-         python::arg("resonances"),
-         python::arg("background"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "resonances",
-         [](const Component &self)
-         {
-            return self.resonances();
-         },
-         Component::component_t::documentation("resonances").data()
-      )
-      .def_property_readonly(
-         "background",
-         [](const Component &self)
-         {
-            return self.background();
-         },
-         Component::component_t::documentation("background").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self)
-         {
-            return self.uncertainty();
-         },
-         Component::component_t::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const general::Resonances &,
+         const general::Background &,
+         const std::optional<general::Uncertainty> &
+      >(),
+      py::arg("label"),
+      py::arg("resonances"),
+      py::arg("background"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set resonances
+   object.def_property(
+      "resonances",
+      [](const cppCLASS &self)
+      {
+         return self.resonances();
+      },
+      [](cppCLASS &self, const general::Resonances &value)
+      {
+         self.resonances() = value;
+      },
+      cppCLASS::component_t::documentation("resonances").data()
+   );
+
+   // get/set background
+   object.def_property(
+      "background",
+      [](const cppCLASS &self)
+      {
+         return self.background();
+      },
+      [](cppCLASS &self, const general::Background &value)
+      {
+         self.background() = value;
+      },
+      cppCLASS::component_t::documentation("background").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<general::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

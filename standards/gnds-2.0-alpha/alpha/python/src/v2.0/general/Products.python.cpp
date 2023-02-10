@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Products wrapper
-void wrapProducts(python::module &module)
+// wrapper for general::Products
+void wrapProducts(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Products;
+   using cppCLASS = general::Products;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Products",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<general::Product>> &
-         >(),
-         python::arg("product") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "product",
-         [](const Component &self)
-         {
-            return self.product();
-         },
-         Component::component_t::documentation("product").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<general::Product>> &
+      >(),
+      py::arg("product") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set product
+   object.def_property(
+      "product",
+      [](const cppCLASS &self)
+      {
+         return self.product();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<general::Product>> &value)
+      {
+         self.product() = value;
+      },
+      cppCLASS::component_t::documentation("product").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

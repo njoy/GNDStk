@@ -5,29 +5,29 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // reduced declarations
 namespace python_reduced {
-   void wrapDouble(python::module &);
-   void wrapPolynomial1d(python::module &);
-   void wrapFunction1ds(python::module &);
-   void wrapCrossSection(python::module &);
-   void wrapDistribution(python::module &);
-   void wrapProduct(python::module &);
-   void wrapProducts(python::module &);
-   void wrapOutputChannel(python::module &);
-   void wrapNuclides(python::module &);
+   void wrapDouble(py::module &);
+   void wrapPolynomial1d(py::module &);
+   void wrapFunction1ds(py::module &);
+   void wrapCrossSection(py::module &);
+   void wrapDistribution(py::module &);
+   void wrapProduct(py::module &);
+   void wrapProducts(py::module &);
+   void wrapOutputChannel(py::module &);
+   void wrapNuclides(py::module &);
 } // namespace python_reduced
 
-// reduced wrapper
-void wrapReduced(python::module &module)
+// wrapper for reduced
+void wrapReduced(py::module &module)
 {
    // create the reduced submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "reduced",
       "alpha v2.0 reduced"
    );

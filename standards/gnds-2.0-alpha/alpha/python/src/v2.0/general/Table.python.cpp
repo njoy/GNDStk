@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Table wrapper
-void wrapTable(python::module &module)
+// wrapper for general::Table
+void wrapTable(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Table;
+   using cppCLASS = general::Table;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Table",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const int &,
-            const general::ColumnHeaders &,
-            const general::Data &
-         >(),
-         python::arg("rows"),
-         python::arg("columns"),
-         python::arg("column_headers"),
-         python::arg("data"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "rows",
-         [](const Component &self)
-         {
-            return self.rows();
-         },
-         Component::component_t::documentation("rows").data()
-      )
-      .def_property_readonly(
-         "columns",
-         [](const Component &self)
-         {
-            return self.columns();
-         },
-         Component::component_t::documentation("columns").data()
-      )
-      .def_property_readonly(
-         "column_headers",
-         [](const Component &self)
-         {
-            return self.columnHeaders();
-         },
-         Component::component_t::documentation("column_headers").data()
-      )
-      .def_property_readonly(
-         "data",
-         [](const Component &self)
-         {
-            return self.data();
-         },
-         Component::component_t::documentation("data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const int &,
+         const general::ColumnHeaders &,
+         const general::Data &
+      >(),
+      py::arg("rows"),
+      py::arg("columns"),
+      py::arg("column_headers"),
+      py::arg("data"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set rows
+   object.def_property(
+      "rows",
+      [](const cppCLASS &self)
+      {
+         return self.rows();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.rows() = value;
+      },
+      cppCLASS::component_t::documentation("rows").data()
+   );
+
+   // get/set columns
+   object.def_property(
+      "columns",
+      [](const cppCLASS &self)
+      {
+         return self.columns();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.columns() = value;
+      },
+      cppCLASS::component_t::documentation("columns").data()
+   );
+
+   // get/set columnHeaders
+   object.def_property(
+      "column_headers",
+      [](const cppCLASS &self)
+      {
+         return self.columnHeaders();
+      },
+      [](cppCLASS &self, const general::ColumnHeaders &value)
+      {
+         self.columnHeaders() = value;
+      },
+      cppCLASS::component_t::documentation("column_headers").data()
+   );
+
+   // get/set data
+   object.def_property(
+      "data",
+      [](const cppCLASS &self)
+      {
+         return self.data();
+      },
+      [](cppCLASS &self, const general::Data &value)
+      {
+         self.data() = value;
+      },
+      cppCLASS::component_t::documentation("data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

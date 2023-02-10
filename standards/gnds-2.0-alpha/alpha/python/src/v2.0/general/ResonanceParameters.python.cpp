@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ResonanceParameters wrapper
-void wrapResonanceParameters(python::module &module)
+// wrapper for general::ResonanceParameters
+void wrapResonanceParameters(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ResonanceParameters;
+   using cppCLASS = general::ResonanceParameters;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ResonanceParameters",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::Table &
-         >(),
-         python::arg("table"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "table",
-         [](const Component &self)
-         {
-            return self.table();
-         },
-         Component::component_t::documentation("table").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::Table &
+      >(),
+      py::arg("table"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set table
+   object.def_property(
+      "table",
+      [](const cppCLASS &self)
+      {
+         return self.table();
+      },
+      [](cppCLASS &self, const general::Table &value)
+      {
+         self.table() = value;
+      },
+      cppCLASS::component_t::documentation("table").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

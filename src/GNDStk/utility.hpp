@@ -102,7 +102,7 @@ inline void failback(std::istream &is, const std::streampos pos)
 // Users can set these in their own codes.
 // Remember that they're scoped in njoy::GNDStk, like other things.
 inline bool align = true;  // extra spaces, to line stuff up for easy reading
-inline bool colors = false; // default: no colors; so no ANSI escape sequences
+inline bool colors = true; // default: yes, colors. Switch off if not wanted.
 
 namespace detail {
 

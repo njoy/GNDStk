@@ -11,87 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// FissionComponent wrapper
-void wrapFissionComponent(python::module &module)
+// wrapper for general::FissionComponent
+void wrapFissionComponent(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::FissionComponent;
+   using cppCLASS = general::FissionComponent;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "FissionComponent",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const std::string &,
-            const general::CrossSection &,
-            const general::OutputChannel &
-         >(),
-         python::arg("label"),
-         python::arg("endf_mt"),
-         python::arg("fission_genre"),
-         python::arg("cross_section"),
-         python::arg("output_channel"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self)
-         {
-            return self.ENDF_MT();
-         },
-         Component::component_t::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "fission_genre",
-         [](const Component &self)
-         {
-            return self.fissionGenre();
-         },
-         Component::component_t::documentation("fission_genre").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self)
-         {
-            return self.crossSection();
-         },
-         Component::component_t::documentation("cross_section").data()
-      )
-      .def_property_readonly(
-         "output_channel",
-         [](const Component &self)
-         {
-            return self.outputChannel();
-         },
-         Component::component_t::documentation("output_channel").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const std::string &,
+         const general::CrossSection &,
+         const general::OutputChannel &
+      >(),
+      py::arg("label"),
+      py::arg("endf_mt"),
+      py::arg("fission_genre"),
+      py::arg("cross_section"),
+      py::arg("output_channel"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set fissionGenre
+   object.def_property(
+      "fission_genre",
+      [](const cppCLASS &self)
+      {
+         return self.fissionGenre();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.fissionGenre() = value;
+      },
+      cppCLASS::component_t::documentation("fission_genre").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const general::CrossSection &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // get/set outputChannel
+   object.def_property(
+      "output_channel",
+      [](const cppCLASS &self)
+      {
+         return self.outputChannel();
+      },
+      [](cppCLASS &self, const general::OutputChannel &value)
+      {
+         self.outputChannel() = value;
+      },
+      cppCLASS::component_t::documentation("output_channel").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

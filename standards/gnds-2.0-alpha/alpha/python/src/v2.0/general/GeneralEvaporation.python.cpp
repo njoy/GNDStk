@@ -11,67 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// GeneralEvaporation wrapper
-void wrapGeneralEvaporation(python::module &module)
+// wrapper for general::GeneralEvaporation
+void wrapGeneralEvaporation(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::GeneralEvaporation;
+   using cppCLASS = general::GeneralEvaporation;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "GeneralEvaporation",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const general::U &,
-            const general::Theta &,
-            const general::G &
-         >(),
-         python::arg("u"),
-         python::arg("theta"),
-         python::arg("g"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "u",
-         [](const Component &self)
-         {
-            return self.U();
-         },
-         Component::component_t::documentation("u").data()
-      )
-      .def_property_readonly(
-         "theta",
-         [](const Component &self)
-         {
-            return self.theta();
-         },
-         Component::component_t::documentation("theta").data()
-      )
-      .def_property_readonly(
-         "g",
-         [](const Component &self)
-         {
-            return self.g();
-         },
-         Component::component_t::documentation("g").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const general::U &,
+         const general::Theta &,
+         const general::G &
+      >(),
+      py::arg("u"),
+      py::arg("theta"),
+      py::arg("g"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set U
+   object.def_property(
+      "u",
+      [](const cppCLASS &self)
+      {
+         return self.U();
+      },
+      [](cppCLASS &self, const general::U &value)
+      {
+         self.U() = value;
+      },
+      cppCLASS::component_t::documentation("u").data()
+   );
+
+   // get/set theta
+   object.def_property(
+      "theta",
+      [](const cppCLASS &self)
+      {
+         return self.theta();
+      },
+      [](cppCLASS &self, const general::Theta &value)
+      {
+         self.theta() = value;
+      },
+      cppCLASS::component_t::documentation("theta").data()
+   );
+
+   // get/set g
+   object.def_property(
+      "g",
+      [](const cppCLASS &self)
+      {
+         return self.g();
+      },
+      [](cppCLASS &self, const general::G &value)
+      {
+         self.g() = value;
+      },
+      cppCLASS::component_t::documentation("g").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

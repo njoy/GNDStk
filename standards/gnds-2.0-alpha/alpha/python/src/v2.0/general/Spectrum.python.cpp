@@ -11,77 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// Spectrum wrapper
-void wrapSpectrum(python::module &module)
+// wrapper for general::Spectrum
+void wrapSpectrum(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::Spectrum;
+   using cppCLASS = general::Spectrum;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "Spectrum",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::vector<general::Discrete> &,
-            const std::optional<general::Continuum> &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("discrete"),
-         python::arg("continuum") = std::nullopt,
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self)
-         {
-            return self.label();
-         },
-         Component::component_t::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self)
-         {
-            return self.pid();
-         },
-         Component::component_t::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "discrete",
-         [](const Component &self)
-         {
-            return self.discrete();
-         },
-         Component::component_t::documentation("discrete").data()
-      )
-      .def_property_readonly(
-         "continuum",
-         [](const Component &self)
-         {
-            return self.continuum();
-         },
-         Component::component_t::documentation("continuum").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::vector<general::Discrete> &,
+         const std::optional<general::Continuum> &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("discrete"),
+      py::arg("continuum") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set discrete
+   object.def_property(
+      "discrete",
+      [](const cppCLASS &self)
+      {
+         return self.discrete();
+      },
+      [](cppCLASS &self, const std::vector<general::Discrete> &value)
+      {
+         self.discrete() = value;
+      },
+      cppCLASS::component_t::documentation("discrete").data()
+   );
+
+   // get/set continuum
+   object.def_property(
+      "continuum",
+      [](const cppCLASS &self)
+      {
+         return self.continuum();
+      },
+      [](cppCLASS &self, const std::optional<general::Continuum> &value)
+      {
+         self.continuum() = value;
+      },
+      cppCLASS::component_t::documentation("continuum").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general

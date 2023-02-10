@@ -11,47 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_general {
 
-// ScatteringAtoms wrapper
-void wrapScatteringAtoms(python::module &module)
+// wrapper for general::ScatteringAtoms
+void wrapScatteringAtoms(py::module &module)
 {
    using namespace alpha;
    using namespace alpha::v2_0;
 
    // type aliases
-   using Component = general::ScatteringAtoms;
+   using cppCLASS = general::ScatteringAtoms;
 
-   // create the component
-   python::class_<Component> component(
+   // create the Python object
+   py::class_<cppCLASS> object(
       module, "ScatteringAtoms",
-      Component::component_t::documentation().data()
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<general::ScatteringAtom> &
-         >(),
-         python::arg("scattering_atom"),
-         Component::component_t::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "scattering_atom",
-         [](const Component &self)
-         {
-            return self.scatteringAtom();
-         },
-         Component::component_t::documentation("scattering_atom").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<general::ScatteringAtom> &
+      >(),
+      py::arg("scattering_atom"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions<Component>(component);
+   // get/set scatteringAtom
+   object.def_property(
+      "scattering_atom",
+      [](const cppCLASS &self)
+      {
+         return self.scatteringAtom();
+      },
+      [](cppCLASS &self, const std::vector<general::ScatteringAtom> &value)
+      {
+         self.scatteringAtom() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_atom").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_general
