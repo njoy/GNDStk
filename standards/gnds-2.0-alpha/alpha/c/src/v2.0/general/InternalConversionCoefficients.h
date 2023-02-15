@@ -90,13 +90,13 @@ InternalConversionCoefficientsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InternalConversionCoefficientsAssign(ConstHandle2InternalConversionCoefficients This, ConstHandle2ConstInternalConversionCoefficients from);
+InternalConversionCoefficientsAssign(ConstHandle2InternalConversionCoefficients self, ConstHandle2ConstInternalConversionCoefficients from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InternalConversionCoefficientsDelete(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsDelete(ConstHandle2ConstInternalConversionCoefficients self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ InternalConversionCoefficientsDelete(ConstHandle2ConstInternalConversionCoeffici
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InternalConversionCoefficientsRead(ConstHandle2InternalConversionCoefficients This, const char *const filename);
+InternalConversionCoefficientsRead(ConstHandle2InternalConversionCoefficients self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InternalConversionCoefficientsWrite(ConstHandle2ConstInternalConversionCoefficients This, const char *const filename);
+InternalConversionCoefficientsWrite(ConstHandle2ConstInternalConversionCoefficients self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InternalConversionCoefficientsPrint(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsPrint(ConstHandle2ConstInternalConversionCoefficients self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InternalConversionCoefficientsPrintXML(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsPrintXML(ConstHandle2ConstInternalConversionCoefficients self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InternalConversionCoefficientsPrintJSON(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsPrintJSON(ConstHandle2ConstInternalConversionCoefficients self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ InternalConversionCoefficientsPrintJSON(ConstHandle2ConstInternalConversionCoeff
 
 // +++ Has
 extern_c int
-InternalConversionCoefficientsShellHas(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsShellHas(ConstHandle2ConstInternalConversionCoefficients self);
 
 // +++ Clear
 extern_c void
-InternalConversionCoefficientsShellClear(ConstHandle2InternalConversionCoefficients This);
+InternalConversionCoefficientsShellClear(ConstHandle2InternalConversionCoefficients self);
 
 // +++ Size
 extern_c size_t
-InternalConversionCoefficientsShellSize(ConstHandle2ConstInternalConversionCoefficients This);
+InternalConversionCoefficientsShellSize(ConstHandle2ConstInternalConversionCoefficients self);
 
 // +++ Add
 extern_c void
-InternalConversionCoefficientsShellAdd(ConstHandle2InternalConversionCoefficients This, ConstHandle2ConstShell shell);
+InternalConversionCoefficientsShellAdd(ConstHandle2InternalConversionCoefficients self, ConstHandle2ConstShell shell);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstShell
-InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionCoefficients This, const size_t index_);
+InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionCoefficients self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Shell
-InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients This, const size_t index_);
+InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 InternalConversionCoefficientsShellSet(
-   ConstHandle2InternalConversionCoefficients This,
+   ConstHandle2InternalConversionCoefficients self,
    const size_t index_,
    ConstHandle2ConstShell shell
 );
@@ -169,28 +169,28 @@ InternalConversionCoefficientsShellSet(
 // +++ Has, by label
 extern_c int
 InternalConversionCoefficientsShellHasByLabel(
-   ConstHandle2ConstInternalConversionCoefficients This,
+   ConstHandle2ConstInternalConversionCoefficients self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstShell
 InternalConversionCoefficientsShellGetByLabelConst(
-   ConstHandle2ConstInternalConversionCoefficients This,
+   ConstHandle2ConstInternalConversionCoefficients self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByLabel(
-   ConstHandle2InternalConversionCoefficients This,
+   ConstHandle2InternalConversionCoefficients self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 InternalConversionCoefficientsShellSetByLabel(
-   ConstHandle2InternalConversionCoefficients This,
+   ConstHandle2InternalConversionCoefficients self,
    const char *const label,
    ConstHandle2ConstShell shell
 );
@@ -198,28 +198,28 @@ InternalConversionCoefficientsShellSetByLabel(
 // +++ Has, by value
 extern_c int
 InternalConversionCoefficientsShellHasByValue(
-   ConstHandle2ConstInternalConversionCoefficients This,
+   ConstHandle2ConstInternalConversionCoefficients self,
    const double value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstShell
 InternalConversionCoefficientsShellGetByValueConst(
-   ConstHandle2ConstInternalConversionCoefficients This,
+   ConstHandle2ConstInternalConversionCoefficients self,
    const double value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByValue(
-   ConstHandle2InternalConversionCoefficients This,
+   ConstHandle2InternalConversionCoefficients self,
    const double value
 );
 
 // +++ Set, by value
 extern_c void
 InternalConversionCoefficientsShellSetByValue(
-   ConstHandle2InternalConversionCoefficients This,
+   ConstHandle2InternalConversionCoefficients self,
    const double value,
    ConstHandle2ConstShell shell
 );

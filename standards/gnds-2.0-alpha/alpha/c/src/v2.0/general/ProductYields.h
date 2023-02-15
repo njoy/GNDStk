@@ -90,13 +90,13 @@ ProductYieldsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductYieldsAssign(ConstHandle2ProductYields This, ConstHandle2ConstProductYields from);
+ProductYieldsAssign(ConstHandle2ProductYields self, ConstHandle2ConstProductYields from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductYieldsDelete(ConstHandle2ConstProductYields This);
+ProductYieldsDelete(ConstHandle2ConstProductYields self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ProductYieldsDelete(ConstHandle2ConstProductYields This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductYieldsRead(ConstHandle2ProductYields This, const char *const filename);
+ProductYieldsRead(ConstHandle2ProductYields self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductYieldsWrite(ConstHandle2ConstProductYields This, const char *const filename);
+ProductYieldsWrite(ConstHandle2ConstProductYields self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductYieldsPrint(ConstHandle2ConstProductYields This);
+ProductYieldsPrint(ConstHandle2ConstProductYields self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductYieldsPrintXML(ConstHandle2ConstProductYields This);
+ProductYieldsPrintXML(ConstHandle2ConstProductYields self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductYieldsPrintJSON(ConstHandle2ConstProductYields This);
+ProductYieldsPrintJSON(ConstHandle2ConstProductYields self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ProductYieldsPrintJSON(ConstHandle2ConstProductYields This);
 
 // +++ Has
 extern_c int
-ProductYieldsProductYieldHas(ConstHandle2ConstProductYields This);
+ProductYieldsProductYieldHas(ConstHandle2ConstProductYields self);
 
 // +++ Clear
 extern_c void
-ProductYieldsProductYieldClear(ConstHandle2ProductYields This);
+ProductYieldsProductYieldClear(ConstHandle2ProductYields self);
 
 // +++ Size
 extern_c size_t
-ProductYieldsProductYieldSize(ConstHandle2ConstProductYields This);
+ProductYieldsProductYieldSize(ConstHandle2ConstProductYields self);
 
 // +++ Add
 extern_c void
-ProductYieldsProductYieldAdd(ConstHandle2ProductYields This, ConstHandle2ConstProductYield productYield);
+ProductYieldsProductYieldAdd(ConstHandle2ProductYields self, ConstHandle2ConstProductYield productYield);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstProductYield
-ProductYieldsProductYieldGetConst(ConstHandle2ConstProductYields This, const size_t index_);
+ProductYieldsProductYieldGetConst(ConstHandle2ConstProductYields self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ProductYield
-ProductYieldsProductYieldGet(ConstHandle2ProductYields This, const size_t index_);
+ProductYieldsProductYieldGet(ConstHandle2ProductYields self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ProductYieldsProductYieldSet(
-   ConstHandle2ProductYields This,
+   ConstHandle2ProductYields self,
    const size_t index_,
    ConstHandle2ConstProductYield productYield
 );
@@ -169,28 +169,28 @@ ProductYieldsProductYieldSet(
 // +++ Has, by label
 extern_c int
 ProductYieldsProductYieldHasByLabel(
-   ConstHandle2ConstProductYields This,
+   ConstHandle2ConstProductYields self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstProductYield
 ProductYieldsProductYieldGetByLabelConst(
-   ConstHandle2ConstProductYields This,
+   ConstHandle2ConstProductYields self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ProductYield
 ProductYieldsProductYieldGetByLabel(
-   ConstHandle2ProductYields This,
+   ConstHandle2ProductYields self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 ProductYieldsProductYieldSetByLabel(
-   ConstHandle2ProductYields This,
+   ConstHandle2ProductYields self,
    const char *const label,
    ConstHandle2ConstProductYield productYield
 );

@@ -57,7 +57,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -71,7 +71,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -85,7 +85,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -99,7 +99,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -113,7 +113,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set identicalParticles
    object.def_property(
       "identical_particles",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.identicalParticles();
       },
@@ -127,7 +127,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set RutherfordScattering
    object.def_property(
       "rutherford_scattering",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.RutherfordScattering();
       },
@@ -141,7 +141,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set nuclearAmplitudeExpansion
    object.def_property(
       "nuclear_amplitude_expansion",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclearAmplitudeExpansion();
       },
@@ -155,7 +155,7 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    // get/set nuclearPlusInterference
    object.def_property(
       "nuclear_plus_interference",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclearPlusInterference();
       },

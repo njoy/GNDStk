@@ -45,7 +45,7 @@ void wrapQ(py::module &module)
    // get/set Double
    object.def_property(
       "double",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Double();
       },
@@ -59,7 +59,7 @@ void wrapQ(py::module &module)
    // get/set constant1d
    object.def_property(
       "constant1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.constant1d();
       },

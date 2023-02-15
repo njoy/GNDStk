@@ -85,13 +85,13 @@ ValuesCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ValuesAssign(ConstHandle2Values This, ConstHandle2ConstValues from);
+ValuesAssign(ConstHandle2Values self, ConstHandle2ConstValues from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ValuesDelete(ConstHandle2ConstValues This);
+ValuesDelete(ConstHandle2ConstValues self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ ValuesDelete(ConstHandle2ConstValues This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ValuesRead(ConstHandle2Values This, const char *const filename);
+ValuesRead(ConstHandle2Values self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ValuesWrite(ConstHandle2ConstValues This, const char *const filename);
+ValuesWrite(ConstHandle2ConstValues self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ValuesPrint(ConstHandle2ConstValues This);
+ValuesPrint(ConstHandle2ConstValues self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ValuesPrintXML(ConstHandle2ConstValues This);
+ValuesPrintXML(ConstHandle2ConstValues self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ValuesPrintJSON(ConstHandle2ConstValues This);
+ValuesPrintJSON(ConstHandle2ConstValues self);
 
 
 // -----------------------------------------------------------------------------
@@ -131,33 +131,33 @@ ValuesPrintJSON(ConstHandle2ConstValues This);
 
 // +++ Clear
 extern_c void
-ValuesDoublesClear(ConstHandle2Values This);
+ValuesDoublesClear(ConstHandle2Values self);
 
 // +++ Get size
 extern_c size_t
-ValuesDoublesSize(ConstHandle2ConstValues This);
+ValuesDoublesSize(ConstHandle2ConstValues self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-ValuesDoublesGet(ConstHandle2ConstValues This, const size_t index);
+ValuesDoublesGet(ConstHandle2ConstValues self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-ValuesDoublesSet(ConstHandle2Values This, const size_t index, const double value);
+ValuesDoublesSet(ConstHandle2Values self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-ValuesDoublesGetArrayConst(ConstHandle2ConstValues This);
+ValuesDoublesGetArrayConst(ConstHandle2ConstValues self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-ValuesDoublesGetArray(ConstHandle2Values This);
+ValuesDoublesGetArray(ConstHandle2Values self);
 
 // +++ Set completely new values and size
 extern_c void
-ValuesDoublesSetArray(ConstHandle2Values This, const double *const values, const size_t size);
+ValuesDoublesSetArray(ConstHandle2Values self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------

@@ -454,7 +454,17 @@ inline bool endsin_hdf5(const std::string &str)
      || endsin(str,".hdf5")
      || endsin(str,".HDF5")
      || endsin(str,".he5" )
-     || endsin(str,".HE5" );
+     || endsin(str,".HE5" )
+     || endsin(str,".hdf" )
+     || endsin(str,".HDF" );
+   // The last two aren't official HDF5 extensions, but we'll allow them. This
+   // was motivated by the experience of one of our users, who wrote a file with
+   // the .hdf extension. At the time, we didn't recognize .hdf as an allowable
+   // HDF5 extention, and so our "file type guesser" fell back on its default:
+   // our internal debug-dump format. The user saw the debug dump, and wondered
+   // if it was HDF5. (It wasn't.) So, now, we'll write HDF5 when someone calls
+   // their file something.hdf or something.HDF. But if that happens, then we'll
+   // also print a message about that extension not officially being for HDF5.
 }
 
 
@@ -499,7 +509,8 @@ inline bool eq_hdf5(const std::string &str)
    return
         nocasecmp(str,"h5"  )
      || nocasecmp(str,"hdf5")
-     || nocasecmp(str,"he5" );
+     || nocasecmp(str,"he5" )
+     || nocasecmp(str,"hdf" ); // not official, but we'll allow
 }
 
 inline FileType string2filetype(const std::string &str, bool &matched)

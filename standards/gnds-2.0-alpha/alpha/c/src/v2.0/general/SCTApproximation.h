@@ -85,13 +85,13 @@ SCTApproximationCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SCTApproximationAssign(ConstHandle2SCTApproximation This, ConstHandle2ConstSCTApproximation from);
+SCTApproximationAssign(ConstHandle2SCTApproximation self, ConstHandle2ConstSCTApproximation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SCTApproximationDelete(ConstHandle2ConstSCTApproximation This);
+SCTApproximationDelete(ConstHandle2ConstSCTApproximation self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ SCTApproximationDelete(ConstHandle2ConstSCTApproximation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SCTApproximationRead(ConstHandle2SCTApproximation This, const char *const filename);
+SCTApproximationRead(ConstHandle2SCTApproximation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SCTApproximationWrite(ConstHandle2ConstSCTApproximation This, const char *const filename);
+SCTApproximationWrite(ConstHandle2ConstSCTApproximation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SCTApproximationPrint(ConstHandle2ConstSCTApproximation This);
+SCTApproximationPrint(ConstHandle2ConstSCTApproximation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SCTApproximationPrintXML(ConstHandle2ConstSCTApproximation This);
+SCTApproximationPrintXML(ConstHandle2ConstSCTApproximation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation This);
+SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation self);
 
 
 // -----------------------------------------------------------------------------

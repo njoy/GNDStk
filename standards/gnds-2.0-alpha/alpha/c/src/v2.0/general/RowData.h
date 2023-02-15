@@ -96,13 +96,13 @@ RowDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RowDataAssign(ConstHandle2RowData This, ConstHandle2ConstRowData from);
+RowDataAssign(ConstHandle2RowData self, ConstHandle2ConstRowData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RowDataDelete(ConstHandle2ConstRowData This);
+RowDataDelete(ConstHandle2ConstRowData self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ RowDataDelete(ConstHandle2ConstRowData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RowDataRead(ConstHandle2RowData This, const char *const filename);
+RowDataRead(ConstHandle2RowData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RowDataWrite(ConstHandle2ConstRowData This, const char *const filename);
+RowDataWrite(ConstHandle2ConstRowData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RowDataPrint(ConstHandle2ConstRowData This);
+RowDataPrint(ConstHandle2ConstRowData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RowDataPrintXML(ConstHandle2ConstRowData This);
+RowDataPrintXML(ConstHandle2ConstRowData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RowDataPrintJSON(ConstHandle2ConstRowData This);
+RowDataPrintJSON(ConstHandle2ConstRowData self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ RowDataPrintJSON(ConstHandle2ConstRowData This);
 
 // +++ Has
 extern_c int
-RowDataENDFMFMTHas(ConstHandle2ConstRowData This);
+RowDataENDFMFMTHas(ConstHandle2ConstRowData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-RowDataENDFMFMTGet(ConstHandle2ConstRowData This);
+RowDataENDFMFMTGet(ConstHandle2ConstRowData self);
 
 // +++ Set
 extern_c void
-RowDataENDFMFMTSet(ConstHandle2RowData This, const char *const ENDF_MFMT);
+RowDataENDFMFMTSet(ConstHandle2RowData self, const char *const ENDF_MFMT);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ RowDataENDFMFMTSet(ConstHandle2RowData This, const char *const ENDF_MFMT);
 
 // +++ Has
 extern_c int
-RowDataDimensionHas(ConstHandle2ConstRowData This);
+RowDataDimensionHas(ConstHandle2ConstRowData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-RowDataDimensionGet(ConstHandle2ConstRowData This);
+RowDataDimensionGet(ConstHandle2ConstRowData self);
 
 // +++ Set
 extern_c void
-RowDataDimensionSet(ConstHandle2RowData This, const int dimension);
+RowDataDimensionSet(ConstHandle2RowData self, const int dimension);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ RowDataDimensionSet(ConstHandle2RowData This, const int dimension);
 
 // +++ Has
 extern_c int
-RowDataHrefHas(ConstHandle2ConstRowData This);
+RowDataHrefHas(ConstHandle2ConstRowData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-RowDataHrefGet(ConstHandle2ConstRowData This);
+RowDataHrefGet(ConstHandle2ConstRowData self);
 
 // +++ Set
 extern_c void
-RowDataHrefSet(ConstHandle2RowData This, const char *const href);
+RowDataHrefSet(ConstHandle2RowData self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ RowDataHrefSet(ConstHandle2RowData This, const char *const href);
 
 // +++ Has
 extern_c int
-RowDataSlicesHas(ConstHandle2ConstRowData This);
+RowDataSlicesHas(ConstHandle2ConstRowData self);
 
 // --- Get, const
 extern_c Handle2ConstSlices
-RowDataSlicesGetConst(ConstHandle2ConstRowData This);
+RowDataSlicesGetConst(ConstHandle2ConstRowData self);
 
 // +++ Get, non-const
 extern_c Handle2Slices
-RowDataSlicesGet(ConstHandle2RowData This);
+RowDataSlicesGet(ConstHandle2RowData self);
 
 // +++ Set
 extern_c void
-RowDataSlicesSet(ConstHandle2RowData This, ConstHandle2ConstSlices slices);
+RowDataSlicesSet(ConstHandle2RowData self, ConstHandle2ConstSlices slices);
 
 
 // -----------------------------------------------------------------------------

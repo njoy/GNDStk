@@ -69,20 +69,20 @@ ParityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ParityAssign(ConstHandle2Parity This, ConstHandle2ConstParity from)
+ParityAssign(ConstHandle2Parity self, ConstHandle2ConstParity from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ParityDelete(ConstHandle2ConstParity This)
+ParityDelete(ConstHandle2ConstParity self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ParityDelete(ConstHandle2ConstParity This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ParityRead(ConstHandle2Parity This, const char *const filename)
+ParityRead(ConstHandle2Parity self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ParityWrite(ConstHandle2ConstParity This, const char *const filename)
+ParityWrite(ConstHandle2ConstParity self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ParityPrint(ConstHandle2ConstParity This)
+ParityPrint(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ParityPrintXML(ConstHandle2ConstParity This)
+ParityPrintXML(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ParityPrintJSON(ConstHandle2ConstParity This)
+ParityPrintJSON(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ParityPrintJSON(ConstHandle2ConstParity This)
 
 // Has
 int
-ParityIntegerHas(ConstHandle2ConstParity This)
+ParityIntegerHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IntegerHas", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerHas", self, extract::integer);
 }
 
 // Get, const
 Handle2ConstInteger
-ParityIntegerGetConst(ConstHandle2ConstParity This)
+ParityIntegerGetConst(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP,Handle2ConstInteger>
-      (CLASSNAME, CLASSNAME+"IntegerGetConst", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
 // Get, non-const
 Handle2Integer
-ParityIntegerGet(ConstHandle2Parity This)
+ParityIntegerGet(ConstHandle2Parity self)
 {
    return detail::getField<CPP,Handle2Integer>
-      (CLASSNAME, CLASSNAME+"IntegerGet", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerGet", self, extract::integer);
 }
 
 // Set
 void
-ParityIntegerSet(ConstHandle2Parity This, ConstHandle2ConstInteger integer)
+ParityIntegerSet(ConstHandle2Parity self, ConstHandle2ConstInteger integer)
 {
    detail::setField<CPP,CPPInteger>
-      (CLASSNAME, CLASSNAME+"IntegerSet", This, extract::integer, integer);
+      (CLASSNAME, CLASSNAME+"IntegerSet", self, extract::integer, integer);
 }
 
 

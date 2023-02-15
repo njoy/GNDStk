@@ -43,7 +43,7 @@ void wrapMultiplicitySums(py::module &module)
    // get/set multiplicitySum
    object.def_property(
       "multiplicity_sum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.multiplicitySum();
       },

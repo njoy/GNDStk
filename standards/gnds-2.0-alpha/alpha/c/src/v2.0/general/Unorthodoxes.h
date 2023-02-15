@@ -90,13 +90,13 @@ UnorthodoxesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UnorthodoxesAssign(ConstHandle2Unorthodoxes This, ConstHandle2ConstUnorthodoxes from);
+UnorthodoxesAssign(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorthodoxes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UnorthodoxesRead(ConstHandle2Unorthodoxes This, const char *const filename);
+UnorthodoxesRead(ConstHandle2Unorthodoxes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes This, const char *const filename);
+UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This);
 
 // +++ Has
 extern_c int
-UnorthodoxesUnorthodoxHas(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesUnorthodoxHas(ConstHandle2ConstUnorthodoxes self);
 
 // +++ Clear
 extern_c void
-UnorthodoxesUnorthodoxClear(ConstHandle2Unorthodoxes This);
+UnorthodoxesUnorthodoxClear(ConstHandle2Unorthodoxes self);
 
 // +++ Size
 extern_c size_t
-UnorthodoxesUnorthodoxSize(ConstHandle2ConstUnorthodoxes This);
+UnorthodoxesUnorthodoxSize(ConstHandle2ConstUnorthodoxes self);
 
 // +++ Add
 extern_c void
-UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstUnorthodox unorthodox);
+UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorthodox unorthodox);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstUnorthodox
-UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes This, const size_t index_);
+UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Unorthodox
-UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes This, const size_t index_);
+UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 UnorthodoxesUnorthodoxSet(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const size_t index_,
    ConstHandle2ConstUnorthodox unorthodox
 );
@@ -169,28 +169,28 @@ UnorthodoxesUnorthodoxSet(
 // +++ Has, by id
 extern_c int
 UnorthodoxesUnorthodoxHasById(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const char *const id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstUnorthodox
 UnorthodoxesUnorthodoxGetByIdConst(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const char *const id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const char *const id
 );
 
 // +++ Set, by id
 extern_c void
 UnorthodoxesUnorthodoxSetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const char *const id,
    ConstHandle2ConstUnorthodox unorthodox
 );

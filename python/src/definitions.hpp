@@ -45,6 +45,24 @@ void addStandardComponentDefinitions(pyCLASS &object)
    );
 
    // ------------------------
+   // Get/set comment
+   // ------------------------
+
+   // get/set comment
+   object.def_property(
+      "comment",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.comment();
+      },
+      [](cppCLASS &self, const std::vector<std::string> &value)
+      {
+         self.comment() = value;
+      },
+      "Array of comments to appear at the beginning of the node."
+   );
+
+   // ------------------------
    // Re: input from string;
    // the type (XML, JSON, or
    // HDF5) is auto-determined
@@ -58,7 +76,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
          self << string;
       },
       py::arg("string"),
-      "Read the object from an XML, JSON, or HDF5 (binary) string.\n"
+      "Read the object from an XML, JSON, or HDF5 string.\n"
       "An exception is raised if something fails during the read.\n\n"
       "Arguments:\n"
       "    string    The string representing the object."
@@ -71,11 +89,10 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_xml_string
    object.def(
       "to_xml_string",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
-         using namespace njoy::GNDStk;
          std::ostringstream oss;
-         XML(Node(self)).write(oss,false);
+         self.write(oss,"xml");
          return oss.str();
       },
       "Write the object to an XML formatted string.\n\n"
@@ -86,10 +103,9 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_xml_file
    object.def(
       "to_xml_file",
-      [](const cppCLASS &self, const std::string &file)
+      [](const cppCLASS &self, const std::string &filename)
       {
-         using namespace njoy::GNDStk;
-         XML(Node(self)).write(file);
+         self.write(filename,"xml");
       },
       py::arg("file"),
       "Write the object to an XML file.\n\n"
@@ -105,14 +121,13 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_json_string
    object.def(
       "to_json_string",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
-         using namespace njoy::GNDStk;
          std::ostringstream oss;
-         JSON(Node(self)).write(oss,false);
+         self.write(oss,"json");
          return oss.str();
       },
-      "Write the object to an JSON formatted string.\n\n"
+      "Write the object to a JSON formatted string.\n\n"
       "Arguments:\n"
       "    self    The object."
    );
@@ -120,13 +135,12 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_json_file
    object.def(
       "to_json_file",
-      [](const cppCLASS &self, const std::string &file)
+      [](const cppCLASS &self, const std::string &filename)
       {
-         using namespace njoy::GNDStk;
-         JSON(Node(self)).write(file);
+         self.write(filename,"json");
       },
       py::arg("file"),
-      "Write the object to an JSON file.\n\n"
+      "Write the object to a JSON file.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
       "    file    The name of the JSON file."
@@ -139,11 +153,10 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_hdf5_string
    object.def(
       "to_hdf5_string",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
-         using namespace njoy::GNDStk;
          std::ostringstream oss;
-         HDF5(Node(self)).write(oss,false);
+         self.write(oss,"hdf5");
          return oss.str();
       },
       "Write the object to an HDF5 formatted string.\n\n"
@@ -154,10 +167,9 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // to_hdf5_file
    object.def(
       "to_hdf5_file",
-      [](const cppCLASS &self, const std::string &file)
+      [](const cppCLASS &self, const std::string &filename)
       {
-         using namespace njoy::GNDStk;
-         HDF5(Node(self)).write(file);
+         self.write(filename,"hdf5");
       },
       py::arg("file"),
       "Write the object to an HDF5 file.\n\n"
@@ -172,76 +184,110 @@ void addStandardComponentDefinitions(pyCLASS &object)
 
    // These use GNDStk::Component's prettyprinter
 
-   // Python's __repr__
+   // prettyprint: for Python's __repr__
    object.def(
       "__repr__",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          std::ostringstream oss;
-         return self.print(oss,0), oss.str();
+         self.print(oss,0);
+         return oss.str();
       }
    );
 
-   // print
+   // prettyprint: into string
    object.def(
       "print",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          std::ostringstream oss;
-         return self.print(oss,0), oss.str();
+         self.print(oss,0);
+         return oss.str();
       }
    );
 
-   // print as XML
+   // ------------------------
+   // write into string, as
+   // XML, JSON, HDF5, or our
+   // internal debug format
+   // ------------------------
+
+   // write into string, as XML
    object.def(
       "xml",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          std::ostringstream oss;
-         return self.write(oss,"xml"), oss.str();
+         self.write(oss,"xml");
+         return oss.str();
       }
    );
 
-   // print as JSON
+   // write into string, as JSON
    object.def(
       "json",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          std::ostringstream oss;
-         return self.write(oss,"json"), oss.str();
+         self.write(oss,"json");
+         return oss.str();
       }
    );
 
-   // print as HDF5
+   // write into string, as HDF5
    object.def(
       "hdf5",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          std::ostringstream oss;
-         return self.write(oss,"hdf5"), oss.str();
+         self.write(oss,"hdf5");
+         return oss.str();
+      }
+   );
+
+   // write into string, in our internal debug format
+   object.def(
+      "debug",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"debug");
+         return oss.str();
       }
    );
 
    // ------------------------
-   // read from file or string
+   // read/write from/to file
    // ------------------------
 
+   // read
    object.def(
       "read",
-      [](cppCLASS &self, const std::string &string)
+      [](cppCLASS &self, const std::string &filename)
       {
-         std::ifstream ifs(string);
-         if (ifs)
-            self.read(ifs);
-         else
-            self << string;
+         self.read(filename);
       },
-      py::arg("string"),
-      "If string can be opened as a file, read the object from the file.\n"
-      "Else, assume string contains literal XML, JSON, or HDF5 content.\n\n"
+      py::arg("file"),
+      "Read the object from a file. "
+      "The file's type will be determined from its contents.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
-      "    file    The name of the HDF5 file."
+      "    file    The name of the file."
+   );
+
+   // write
+   object.def(
+      "write",
+      [](const cppCLASS &self, const std::string &filename)
+      {
+         self.write(filename);
+      },
+      py::arg("file"),
+      "Write the object to a file. "
+      "The file's type will be determined from its extension.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the file."
    );
 }
 

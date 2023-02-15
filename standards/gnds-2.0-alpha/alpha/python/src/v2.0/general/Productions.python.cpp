@@ -43,7 +43,7 @@ void wrapProductions(py::module &module)
    // get/set production
    object.def_property(
       "production",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.production();
       },

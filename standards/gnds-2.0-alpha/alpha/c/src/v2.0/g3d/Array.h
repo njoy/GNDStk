@@ -102,13 +102,13 @@ ArrayCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ArrayAssign(ConstHandle2Array This, ConstHandle2ConstArray from);
+ArrayAssign(ConstHandle2Array self, ConstHandle2ConstArray from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ArrayDelete(ConstHandle2ConstArray This);
+ArrayDelete(ConstHandle2ConstArray self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ ArrayDelete(ConstHandle2ConstArray This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ArrayRead(ConstHandle2Array This, const char *const filename);
+ArrayRead(ConstHandle2Array self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ArrayWrite(ConstHandle2ConstArray This, const char *const filename);
+ArrayWrite(ConstHandle2ConstArray self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ArrayPrint(ConstHandle2ConstArray This);
+ArrayPrint(ConstHandle2ConstArray self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ArrayPrintXML(ConstHandle2ConstArray This);
+ArrayPrintXML(ConstHandle2ConstArray self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ArrayPrintJSON(ConstHandle2ConstArray This);
+ArrayPrintJSON(ConstHandle2ConstArray self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ ArrayPrintJSON(ConstHandle2ConstArray This);
 
 // +++ Has
 extern_c int
-ArrayShapeHas(ConstHandle2ConstArray This);
+ArrayShapeHas(ConstHandle2ConstArray self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ArrayShapeGet(ConstHandle2ConstArray This);
+ArrayShapeGet(ConstHandle2ConstArray self);
 
 // +++ Set
 extern_c void
-ArrayShapeSet(ConstHandle2Array This, const char *const shape);
+ArrayShapeSet(ConstHandle2Array self, const char *const shape);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ ArrayShapeSet(ConstHandle2Array This, const char *const shape);
 
 // +++ Has
 extern_c int
-ArrayCompressionHas(ConstHandle2ConstArray This);
+ArrayCompressionHas(ConstHandle2ConstArray self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ArrayCompressionGet(ConstHandle2ConstArray This);
+ArrayCompressionGet(ConstHandle2ConstArray self);
 
 // +++ Set
 extern_c void
-ArrayCompressionSet(ConstHandle2Array This, const char *const compression);
+ArrayCompressionSet(ConstHandle2Array self, const char *const compression);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ ArrayCompressionSet(ConstHandle2Array This, const char *const compression);
 
 // +++ Has
 extern_c int
-ArraySymmetryHas(ConstHandle2ConstArray This);
+ArraySymmetryHas(ConstHandle2ConstArray self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ArraySymmetryGet(ConstHandle2ConstArray This);
+ArraySymmetryGet(ConstHandle2ConstArray self);
 
 // +++ Set
 extern_c void
-ArraySymmetrySet(ConstHandle2Array This, const char *const symmetry);
+ArraySymmetrySet(ConstHandle2Array self, const char *const symmetry);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ ArraySymmetrySet(ConstHandle2Array This, const char *const symmetry);
 
 // +++ Has
 extern_c int
-ArrayStartsHas(ConstHandle2ConstArray This);
+ArrayStartsHas(ConstHandle2ConstArray self);
 
 // --- Get, const
 extern_c Handle2ConstStarts
-ArrayStartsGetConst(ConstHandle2ConstArray This);
+ArrayStartsGetConst(ConstHandle2ConstArray self);
 
 // +++ Get, non-const
 extern_c Handle2Starts
-ArrayStartsGet(ConstHandle2Array This);
+ArrayStartsGet(ConstHandle2Array self);
 
 // +++ Set
 extern_c void
-ArrayStartsSet(ConstHandle2Array This, ConstHandle2ConstStarts starts);
+ArrayStartsSet(ConstHandle2Array self, ConstHandle2ConstStarts starts);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ ArrayStartsSet(ConstHandle2Array This, ConstHandle2ConstStarts starts);
 
 // +++ Has
 extern_c int
-ArrayLengthsHas(ConstHandle2ConstArray This);
+ArrayLengthsHas(ConstHandle2ConstArray self);
 
 // --- Get, const
 extern_c Handle2ConstLengths
-ArrayLengthsGetConst(ConstHandle2ConstArray This);
+ArrayLengthsGetConst(ConstHandle2ConstArray self);
 
 // +++ Get, non-const
 extern_c Handle2Lengths
-ArrayLengthsGet(ConstHandle2Array This);
+ArrayLengthsGet(ConstHandle2Array self);
 
 // +++ Set
 extern_c void
-ArrayLengthsSet(ConstHandle2Array This, ConstHandle2ConstLengths lengths);
+ArrayLengthsSet(ConstHandle2Array self, ConstHandle2ConstLengths lengths);
 
 
 // -----------------------------------------------------------------------------
@@ -244,19 +244,19 @@ ArrayLengthsSet(ConstHandle2Array This, ConstHandle2ConstLengths lengths);
 
 // +++ Has
 extern_c int
-ArrayValuesHas(ConstHandle2ConstArray This);
+ArrayValuesHas(ConstHandle2ConstArray self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-ArrayValuesGetConst(ConstHandle2ConstArray This);
+ArrayValuesGetConst(ConstHandle2ConstArray self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-ArrayValuesGet(ConstHandle2Array This);
+ArrayValuesGet(ConstHandle2Array self);
 
 // +++ Set
 extern_c void
-ArrayValuesSet(ConstHandle2Array This, ConstHandle2ConstValues values);
+ArrayValuesSet(ConstHandle2Array self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------

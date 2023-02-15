@@ -43,7 +43,7 @@ void wrapIncompleteReactions(py::module &module)
    // get/set reaction
    object.def_property(
       "reaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.reaction();
       },

@@ -90,13 +90,13 @@ FCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FAssign(ConstHandle2F This, ConstHandle2ConstF from);
+FAssign(ConstHandle2F self, ConstHandle2ConstF from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FDelete(ConstHandle2ConstF This);
+FDelete(ConstHandle2ConstF self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ FDelete(ConstHandle2ConstF This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FRead(ConstHandle2F This, const char *const filename);
+FRead(ConstHandle2F self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FWrite(ConstHandle2ConstF This, const char *const filename);
+FWrite(ConstHandle2ConstF self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FPrint(ConstHandle2ConstF This);
+FPrint(ConstHandle2ConstF self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FPrintXML(ConstHandle2ConstF This);
+FPrintXML(ConstHandle2ConstF self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FPrintJSON(ConstHandle2ConstF This);
+FPrintJSON(ConstHandle2ConstF self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ FPrintJSON(ConstHandle2ConstF This);
 
 // +++ Has
 extern_c int
-FXYs2dHas(ConstHandle2ConstF This);
+FXYs2dHas(ConstHandle2ConstF self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-FXYs2dGetConst(ConstHandle2ConstF This);
+FXYs2dGetConst(ConstHandle2ConstF self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-FXYs2dGet(ConstHandle2F This);
+FXYs2dGet(ConstHandle2F self);
 
 // +++ Set
 extern_c void
-FXYs2dSet(ConstHandle2F This, ConstHandle2ConstXYs2d XYs2d);
+FXYs2dSet(ConstHandle2F self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------

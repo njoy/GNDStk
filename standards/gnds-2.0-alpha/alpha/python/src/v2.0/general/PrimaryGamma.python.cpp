@@ -49,7 +49,7 @@ void wrapPrimaryGamma(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -63,7 +63,7 @@ void wrapPrimaryGamma(py::module &module)
    // get/set domainMin
    object.def_property(
       "domain_min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMin();
       },
@@ -77,7 +77,7 @@ void wrapPrimaryGamma(py::module &module)
    // get/set domainMax
    object.def_property(
       "domain_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMax();
       },
@@ -91,7 +91,7 @@ void wrapPrimaryGamma(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },

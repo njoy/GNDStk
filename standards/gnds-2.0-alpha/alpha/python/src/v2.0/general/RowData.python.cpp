@@ -49,7 +49,7 @@ void wrapRowData(py::module &module)
    // get/set ENDF_MFMT
    object.def_property(
       "endf_mfmt",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDF_MFMT();
       },
@@ -63,7 +63,7 @@ void wrapRowData(py::module &module)
    // get/set dimension
    object.def_property(
       "dimension",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.dimension();
       },
@@ -77,7 +77,7 @@ void wrapRowData(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -91,7 +91,7 @@ void wrapRowData(py::module &module)
    // get/set slices
    object.def_property(
       "slices",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.slices();
       },

@@ -43,7 +43,7 @@ void wrapBranching1d(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },

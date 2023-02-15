@@ -73,20 +73,20 @@ ProductsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProductsAssign(ConstHandle2Products This, ConstHandle2ConstProducts from)
+ProductsAssign(ConstHandle2Products self, ConstHandle2ConstProducts from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProductsDelete(ConstHandle2ConstProducts This)
+ProductsDelete(ConstHandle2ConstProducts self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ProductsDelete(ConstHandle2ConstProducts This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProductsRead(ConstHandle2Products This, const char *const filename)
+ProductsRead(ConstHandle2Products self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProductsWrite(ConstHandle2ConstProducts This, const char *const filename)
+ProductsWrite(ConstHandle2ConstProducts self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProductsPrint(ConstHandle2ConstProducts This)
+ProductsPrint(ConstHandle2ConstProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProductsPrintXML(ConstHandle2ConstProducts This)
+ProductsPrintXML(ConstHandle2ConstProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProductsPrintJSON(ConstHandle2ConstProducts This)
+ProductsPrintJSON(ConstHandle2ConstProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ ProductsPrintJSON(ConstHandle2ConstProducts This)
 
 // Has
 int
-ProductsProductHas(ConstHandle2ConstProducts This)
+ProductsProductHas(ConstHandle2ConstProducts self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductHas", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductHas", self, extract::product);
 }
 
 // Clear
 void
-ProductsProductClear(ConstHandle2Products This)
+ProductsProductClear(ConstHandle2Products self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ProductClear", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductClear", self, extract::product);
 }
 
 // Size
 size_t
-ProductsProductSize(ConstHandle2ConstProducts This)
+ProductsProductSize(ConstHandle2ConstProducts self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ProductSize", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductSize", self, extract::product);
 }
 
 // Add
 void
-ProductsProductAdd(ConstHandle2Products This, ConstHandle2ConstProduct product)
+ProductsProductAdd(ConstHandle2Products self, ConstHandle2ConstProduct product)
 {
    detail::addToContainer<CPP,CPPProduct>
-      (CLASSNAME, CLASSNAME+"ProductAdd", This, extract::product, product);
+      (CLASSNAME, CLASSNAME+"ProductAdd", self, extract::product, product);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstProduct
-ProductsProductGetConst(ConstHandle2ConstProducts This, const size_t index_)
+ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstProduct>
-      (CLASSNAME, CLASSNAME+"ProductGetConst", This, extract::product, index_);
+      (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Product
-ProductsProductGet(ConstHandle2Products This, const size_t index_)
+ProductsProductGet(ConstHandle2Products self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Product>
-      (CLASSNAME, CLASSNAME+"ProductGet", This, extract::product, index_);
+      (CLASSNAME, CLASSNAME+"ProductGet", self, extract::product, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ProductsProductSet(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const size_t index_,
    ConstHandle2ConstProduct product
 ) {
    detail::setByIndex<CPP,CPPProduct>
-      (CLASSNAME, CLASSNAME+"ProductSet", This, extract::product, index_, product);
+      (CLASSNAME, CLASSNAME+"ProductSet", self, extract::product, index_, product);
 }
 
 // Has, by label
 int
 ProductsProductHasByLabel(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProductHasByLabel",
-       This, extract::product, meta::label, label);
+       self, extract::product, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstProduct
 ProductsProductGetByLabelConst(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProduct>
       (CLASSNAME, CLASSNAME+"ProductGetByLabelConst",
-       This, extract::product, meta::label, label);
+       self, extract::product, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Product
 ProductsProductGetByLabel(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2Product>
       (CLASSNAME, CLASSNAME+"ProductGetByLabel",
-       This, extract::product, meta::label, label);
+       self, extract::product, meta::label, label);
 }
 
 // Set, by label
 void
 ProductsProductSetByLabel(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const label,
    ConstHandle2ConstProduct product
 ) {
    detail::setByMetadatum<CPP,CPPProduct>
       (CLASSNAME, CLASSNAME+"ProductSetByLabel",
-       This, extract::product, meta::label, label, product);
+       self, extract::product, meta::label, label, product);
 }
 
 // Has, by pid
 int
 ProductsProductHasByPid(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const pid
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProductHasByPid",
-       This, extract::product, meta::pid, pid);
+       self, extract::product, meta::pid, pid);
 }
 
 // Get, by pid, const
 Handle2ConstProduct
 ProductsProductGetByPidConst(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProduct>
       (CLASSNAME, CLASSNAME+"ProductGetByPidConst",
-       This, extract::product, meta::pid, pid);
+       self, extract::product, meta::pid, pid);
 }
 
 // Get, by pid, non-const
 Handle2Product
 ProductsProductGetByPid(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2Product>
       (CLASSNAME, CLASSNAME+"ProductGetByPid",
-       This, extract::product, meta::pid, pid);
+       self, extract::product, meta::pid, pid);
 }
 
 // Set, by pid
 void
 ProductsProductSetByPid(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const pid,
    ConstHandle2ConstProduct product
 ) {
    detail::setByMetadatum<CPP,CPPProduct>
       (CLASSNAME, CLASSNAME+"ProductSetByPid",
-       This, extract::product, meta::pid, pid, product);
+       self, extract::product, meta::pid, pid, product);
 }
 
 

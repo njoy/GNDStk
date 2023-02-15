@@ -90,13 +90,13 @@ RateCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RateAssign(ConstHandle2Rate This, ConstHandle2ConstRate from);
+RateAssign(ConstHandle2Rate self, ConstHandle2ConstRate from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RateDelete(ConstHandle2ConstRate This);
+RateDelete(ConstHandle2ConstRate self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ RateDelete(ConstHandle2ConstRate This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RateRead(ConstHandle2Rate This, const char *const filename);
+RateRead(ConstHandle2Rate self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RateWrite(ConstHandle2ConstRate This, const char *const filename);
+RateWrite(ConstHandle2ConstRate self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RatePrint(ConstHandle2ConstRate This);
+RatePrint(ConstHandle2ConstRate self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RatePrintXML(ConstHandle2ConstRate This);
+RatePrintXML(ConstHandle2ConstRate self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RatePrintJSON(ConstHandle2ConstRate This);
+RatePrintJSON(ConstHandle2ConstRate self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ RatePrintJSON(ConstHandle2ConstRate This);
 
 // +++ Has
 extern_c int
-RateDoubleHas(ConstHandle2ConstRate This);
+RateDoubleHas(ConstHandle2ConstRate self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-RateDoubleGetConst(ConstHandle2ConstRate This);
+RateDoubleGetConst(ConstHandle2ConstRate self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-RateDoubleGet(ConstHandle2Rate This);
+RateDoubleGet(ConstHandle2Rate self);
 
 // +++ Set
 extern_c void
-RateDoubleSet(ConstHandle2Rate This, ConstHandle2ConstDouble Double);
+RateDoubleSet(ConstHandle2Rate self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

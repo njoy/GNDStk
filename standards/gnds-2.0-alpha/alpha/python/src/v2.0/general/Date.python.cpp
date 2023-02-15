@@ -45,7 +45,7 @@ void wrapDate(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -59,7 +59,7 @@ void wrapDate(py::module &module)
    // get/set dateType
    object.def_property(
       "date_type",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.dateType();
       },

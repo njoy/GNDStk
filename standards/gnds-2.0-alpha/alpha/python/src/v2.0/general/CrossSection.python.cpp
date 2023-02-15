@@ -53,7 +53,7 @@ void wrapCrossSection(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -67,7 +67,7 @@ void wrapCrossSection(py::module &module)
    // get/set regions1d
    object.def_property(
       "regions1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions1d();
       },
@@ -81,7 +81,7 @@ void wrapCrossSection(py::module &module)
    // get/set reference
    object.def_property(
       "reference",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.reference();
       },
@@ -95,7 +95,7 @@ void wrapCrossSection(py::module &module)
    // get/set resonancesWithBackground
    object.def_property(
       "resonances_with_background",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonancesWithBackground();
       },
@@ -109,7 +109,7 @@ void wrapCrossSection(py::module &module)
    // get/set CoulombPlusNuclearElastic
    object.def_property(
       "coulomb_plus_nuclear_elastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.CoulombPlusNuclearElastic();
       },
@@ -123,7 +123,7 @@ void wrapCrossSection(py::module &module)
    // get/set thermalNeutronScatteringLaw1d
    object.def_property(
       "thermal_neutron_scattering_law1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw1d();
       },

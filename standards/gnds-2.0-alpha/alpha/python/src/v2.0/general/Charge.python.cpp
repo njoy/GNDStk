@@ -43,7 +43,7 @@ void wrapCharge(py::module &module)
    // get/set integer
    object.def_property(
       "integer",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.integer();
       },

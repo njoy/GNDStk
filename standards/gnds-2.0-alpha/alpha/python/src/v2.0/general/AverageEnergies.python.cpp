@@ -43,7 +43,7 @@ void wrapAverageEnergies(py::module &module)
    // get/set averageEnergy
    object.def_property(
       "average_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.averageEnergy();
       },

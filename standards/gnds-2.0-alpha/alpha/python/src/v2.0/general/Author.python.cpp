@@ -43,7 +43,7 @@ void wrapAuthor(py::module &module)
    // get/set name
    object.def_property(
       "name",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.name();
       },

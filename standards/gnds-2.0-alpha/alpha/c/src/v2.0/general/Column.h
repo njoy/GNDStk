@@ -93,13 +93,13 @@ ColumnCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ColumnAssign(ConstHandle2Column This, ConstHandle2ConstColumn from);
+ColumnAssign(ConstHandle2Column self, ConstHandle2ConstColumn from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ColumnDelete(ConstHandle2ConstColumn This);
+ColumnDelete(ConstHandle2ConstColumn self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ColumnDelete(ConstHandle2ConstColumn This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ColumnRead(ConstHandle2Column This, const char *const filename);
+ColumnRead(ConstHandle2Column self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ColumnWrite(ConstHandle2ConstColumn This, const char *const filename);
+ColumnWrite(ConstHandle2ConstColumn self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ColumnPrint(ConstHandle2ConstColumn This);
+ColumnPrint(ConstHandle2ConstColumn self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ColumnPrintXML(ConstHandle2ConstColumn This);
+ColumnPrintXML(ConstHandle2ConstColumn self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ColumnPrintJSON(ConstHandle2ConstColumn This);
+ColumnPrintJSON(ConstHandle2ConstColumn self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ ColumnPrintJSON(ConstHandle2ConstColumn This);
 
 // +++ Has
 extern_c int
-ColumnIndexHas(ConstHandle2ConstColumn This);
+ColumnIndexHas(ConstHandle2ConstColumn self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ColumnIndexGet(ConstHandle2ConstColumn This);
+ColumnIndexGet(ConstHandle2ConstColumn self);
 
 // +++ Set
 extern_c void
-ColumnIndexSet(ConstHandle2Column This, const int index);
+ColumnIndexSet(ConstHandle2Column self, const int index);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ ColumnIndexSet(ConstHandle2Column This, const int index);
 
 // +++ Has
 extern_c int
-ColumnNameHas(ConstHandle2ConstColumn This);
+ColumnNameHas(ConstHandle2ConstColumn self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ColumnNameGet(ConstHandle2ConstColumn This);
+ColumnNameGet(ConstHandle2ConstColumn self);
 
 // +++ Set
 extern_c void
-ColumnNameSet(ConstHandle2Column This, const char *const name);
+ColumnNameSet(ConstHandle2Column self, const char *const name);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ ColumnNameSet(ConstHandle2Column This, const char *const name);
 
 // +++ Has
 extern_c int
-ColumnUnitHas(ConstHandle2ConstColumn This);
+ColumnUnitHas(ConstHandle2ConstColumn self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ColumnUnitGet(ConstHandle2ConstColumn This);
+ColumnUnitGet(ConstHandle2ConstColumn self);
 
 // +++ Set
 extern_c void
-ColumnUnitSet(ConstHandle2Column This, const char *const unit);
+ColumnUnitSet(ConstHandle2Column self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

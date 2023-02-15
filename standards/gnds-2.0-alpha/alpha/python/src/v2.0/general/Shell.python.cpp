@@ -47,7 +47,7 @@ void wrapShell(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapShell(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -75,7 +75,7 @@ void wrapShell(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

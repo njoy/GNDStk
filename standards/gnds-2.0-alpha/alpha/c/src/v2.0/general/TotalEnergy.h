@@ -90,13 +90,13 @@ TotalEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TotalEnergyAssign(ConstHandle2TotalEnergy This, ConstHandle2ConstTotalEnergy from);
+TotalEnergyAssign(ConstHandle2TotalEnergy self, ConstHandle2ConstTotalEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TotalEnergyDelete(ConstHandle2ConstTotalEnergy This);
+TotalEnergyDelete(ConstHandle2ConstTotalEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ TotalEnergyDelete(ConstHandle2ConstTotalEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TotalEnergyRead(ConstHandle2TotalEnergy This, const char *const filename);
+TotalEnergyRead(ConstHandle2TotalEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TotalEnergyWrite(ConstHandle2ConstTotalEnergy This, const char *const filename);
+TotalEnergyWrite(ConstHandle2ConstTotalEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TotalEnergyPrint(ConstHandle2ConstTotalEnergy This);
+TotalEnergyPrint(ConstHandle2ConstTotalEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TotalEnergyPrintXML(ConstHandle2ConstTotalEnergy This);
+TotalEnergyPrintXML(ConstHandle2ConstTotalEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TotalEnergyPrintJSON(ConstHandle2ConstTotalEnergy This);
+TotalEnergyPrintJSON(ConstHandle2ConstTotalEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ TotalEnergyPrintJSON(ConstHandle2ConstTotalEnergy This);
 
 // +++ Has
 extern_c int
-TotalEnergyPolynomial1dHas(ConstHandle2ConstTotalEnergy This);
+TotalEnergyPolynomial1dHas(ConstHandle2ConstTotalEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy This);
+TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy This);
+TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy self);
 
 // +++ Set
 extern_c void
-TotalEnergyPolynomial1dSet(ConstHandle2TotalEnergy This, ConstHandle2ConstPolynomial1d polynomial1d);
+TotalEnergyPolynomial1dSet(ConstHandle2TotalEnergy self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

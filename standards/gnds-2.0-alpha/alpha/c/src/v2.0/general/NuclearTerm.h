@@ -93,13 +93,13 @@ NuclearTermCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclearTermAssign(ConstHandle2NuclearTerm This, ConstHandle2ConstNuclearTerm from);
+NuclearTermAssign(ConstHandle2NuclearTerm self, ConstHandle2ConstNuclearTerm from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclearTermDelete(ConstHandle2ConstNuclearTerm This);
+NuclearTermDelete(ConstHandle2ConstNuclearTerm self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ NuclearTermDelete(ConstHandle2ConstNuclearTerm This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclearTermRead(ConstHandle2NuclearTerm This, const char *const filename);
+NuclearTermRead(ConstHandle2NuclearTerm self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclearTermWrite(ConstHandle2ConstNuclearTerm This, const char *const filename);
+NuclearTermWrite(ConstHandle2ConstNuclearTerm self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclearTermPrint(ConstHandle2ConstNuclearTerm This);
+NuclearTermPrint(ConstHandle2ConstNuclearTerm self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclearTermPrintXML(ConstHandle2ConstNuclearTerm This);
+NuclearTermPrintXML(ConstHandle2ConstNuclearTerm self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm This);
+NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm This);
 
 // +++ Has
 extern_c int
-NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm This);
+NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm self);
 
 // --- Get, const
 extern_c Handle2ConstRegions2d
-NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm This);
+NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self);
 
 // +++ Get, non-const
 extern_c Handle2Regions2d
-NuclearTermRegions2dGet(ConstHandle2NuclearTerm This);
+NuclearTermRegions2dGet(ConstHandle2NuclearTerm self);
 
 // +++ Set
 extern_c void
-NuclearTermRegions2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstRegions2d regions2d);
+NuclearTermRegions2dSet(ConstHandle2NuclearTerm self, ConstHandle2ConstRegions2d regions2d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ NuclearTermRegions2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstRegions2d
 
 // +++ Has
 extern_c int
-NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm This);
+NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm This);
+NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-NuclearTermXYs2dGet(ConstHandle2NuclearTerm This);
+NuclearTermXYs2dGet(ConstHandle2NuclearTerm self);
 
 // +++ Set
 extern_c void
-NuclearTermXYs2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstXYs2d XYs2d);
+NuclearTermXYs2dSet(ConstHandle2NuclearTerm self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------

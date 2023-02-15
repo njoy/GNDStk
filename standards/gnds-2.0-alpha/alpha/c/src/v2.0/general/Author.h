@@ -89,13 +89,13 @@ AuthorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AuthorAssign(ConstHandle2Author This, ConstHandle2ConstAuthor from);
+AuthorAssign(ConstHandle2Author self, ConstHandle2ConstAuthor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AuthorDelete(ConstHandle2ConstAuthor This);
+AuthorDelete(ConstHandle2ConstAuthor self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ AuthorDelete(ConstHandle2ConstAuthor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AuthorRead(ConstHandle2Author This, const char *const filename);
+AuthorRead(ConstHandle2Author self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AuthorWrite(ConstHandle2ConstAuthor This, const char *const filename);
+AuthorWrite(ConstHandle2ConstAuthor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AuthorPrint(ConstHandle2ConstAuthor This);
+AuthorPrint(ConstHandle2ConstAuthor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AuthorPrintXML(ConstHandle2ConstAuthor This);
+AuthorPrintXML(ConstHandle2ConstAuthor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AuthorPrintJSON(ConstHandle2ConstAuthor This);
+AuthorPrintJSON(ConstHandle2ConstAuthor self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ AuthorPrintJSON(ConstHandle2ConstAuthor This);
 
 // +++ Has
 extern_c int
-AuthorNameHas(ConstHandle2ConstAuthor This);
+AuthorNameHas(ConstHandle2ConstAuthor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AuthorNameGet(ConstHandle2ConstAuthor This);
+AuthorNameGet(ConstHandle2ConstAuthor self);
 
 // +++ Set
 extern_c void
-AuthorNameSet(ConstHandle2Author This, const char *const name);
+AuthorNameSet(ConstHandle2Author self, const char *const name);
 
 
 // -----------------------------------------------------------------------------

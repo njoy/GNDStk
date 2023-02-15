@@ -85,13 +85,13 @@ TitleCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TitleAssign(ConstHandle2Title This, ConstHandle2ConstTitle from);
+TitleAssign(ConstHandle2Title self, ConstHandle2ConstTitle from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TitleDelete(ConstHandle2ConstTitle This);
+TitleDelete(ConstHandle2ConstTitle self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ TitleDelete(ConstHandle2ConstTitle This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TitleRead(ConstHandle2Title This, const char *const filename);
+TitleRead(ConstHandle2Title self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TitleWrite(ConstHandle2ConstTitle This, const char *const filename);
+TitleWrite(ConstHandle2ConstTitle self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TitlePrint(ConstHandle2ConstTitle This);
+TitlePrint(ConstHandle2ConstTitle self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TitlePrintXML(ConstHandle2ConstTitle This);
+TitlePrintXML(ConstHandle2ConstTitle self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TitlePrintJSON(ConstHandle2ConstTitle This);
+TitlePrintJSON(ConstHandle2ConstTitle self);
 
 
 // -----------------------------------------------------------------------------

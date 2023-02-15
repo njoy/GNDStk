@@ -73,20 +73,20 @@ UnorthodoxesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UnorthodoxesAssign(ConstHandle2Unorthodoxes This, ConstHandle2ConstUnorthodoxes from)
+UnorthodoxesAssign(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorthodoxes from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UnorthodoxesRead(ConstHandle2Unorthodoxes This, const char *const filename)
+UnorthodoxesRead(ConstHandle2Unorthodoxes self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes This, const char *const filename)
+UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This)
 
 // Has
 int
-UnorthodoxesUnorthodoxHas(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesUnorthodoxHas(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnorthodoxHas", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"UnorthodoxHas", self, extract::unorthodox);
 }
 
 // Clear
 void
-UnorthodoxesUnorthodoxClear(ConstHandle2Unorthodoxes This)
+UnorthodoxesUnorthodoxClear(ConstHandle2Unorthodoxes self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"UnorthodoxClear", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"UnorthodoxClear", self, extract::unorthodox);
 }
 
 // Size
 size_t
-UnorthodoxesUnorthodoxSize(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesUnorthodoxSize(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"UnorthodoxSize", This, extract::unorthodox);
+      (CLASSNAME, CLASSNAME+"UnorthodoxSize", self, extract::unorthodox);
 }
 
 // Add
 void
-UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstUnorthodox unorthodox)
+UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorthodox unorthodox)
 {
    detail::addToContainer<CPP,CPPUnorthodox>
-      (CLASSNAME, CLASSNAME+"UnorthodoxAdd", This, extract::unorthodox, unorthodox);
+      (CLASSNAME, CLASSNAME+"UnorthodoxAdd", self, extract::unorthodox, unorthodox);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstUnorthodox
-UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes This, const size_t index_)
+UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstUnorthodox>
-      (CLASSNAME, CLASSNAME+"UnorthodoxGetConst", This, extract::unorthodox, index_);
+      (CLASSNAME, CLASSNAME+"UnorthodoxGetConst", self, extract::unorthodox, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Unorthodox
-UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes This, const size_t index_)
+UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Unorthodox>
-      (CLASSNAME, CLASSNAME+"UnorthodoxGet", This, extract::unorthodox, index_);
+      (CLASSNAME, CLASSNAME+"UnorthodoxGet", self, extract::unorthodox, index_);
 }
 
 // Set, by index \in [0,size)
 void
 UnorthodoxesUnorthodoxSet(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const size_t index_,
    ConstHandle2ConstUnorthodox unorthodox
 ) {
    detail::setByIndex<CPP,CPPUnorthodox>
-      (CLASSNAME, CLASSNAME+"UnorthodoxSet", This, extract::unorthodox, index_, unorthodox);
+      (CLASSNAME, CLASSNAME+"UnorthodoxSet", self, extract::unorthodox, index_, unorthodox);
 }
 
 // Has, by id
 int
 UnorthodoxesUnorthodoxHasById(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const char *const id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"UnorthodoxHasById",
-       This, extract::unorthodox, meta::id, id);
+       self, extract::unorthodox, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstUnorthodox
 UnorthodoxesUnorthodoxGetByIdConst(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstUnorthodox>
       (CLASSNAME, CLASSNAME+"UnorthodoxGetByIdConst",
-       This, extract::unorthodox, meta::id, id);
+       self, extract::unorthodox, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2Unorthodox>
       (CLASSNAME, CLASSNAME+"UnorthodoxGetById",
-       This, extract::unorthodox, meta::id, id);
+       self, extract::unorthodox, meta::id, id);
 }
 
 // Set, by id
 void
 UnorthodoxesUnorthodoxSetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const char *const id,
    ConstHandle2ConstUnorthodox unorthodox
 ) {
    detail::setByMetadatum<CPP,CPPUnorthodox>
       (CLASSNAME, CLASSNAME+"UnorthodoxSetById",
-       This, extract::unorthodox, meta::id, id, unorthodox);
+       self, extract::unorthodox, meta::id, id, unorthodox);
 }
 
 

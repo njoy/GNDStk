@@ -53,7 +53,7 @@ void wrapNuclide(py::module &module)
    // get/set id
    object.def_property(
       "id",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.id();
       },
@@ -67,7 +67,7 @@ void wrapNuclide(py::module &module)
    // get/set mass
    object.def_property(
       "mass",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mass();
       },
@@ -81,7 +81,7 @@ void wrapNuclide(py::module &module)
    // get/set charge
    object.def_property(
       "charge",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.charge();
       },
@@ -95,7 +95,7 @@ void wrapNuclide(py::module &module)
    // get/set nucleus
    object.def_property(
       "nucleus",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nucleus();
       },
@@ -109,7 +109,7 @@ void wrapNuclide(py::module &module)
    // get/set decayData
    object.def_property(
       "decay_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decayData();
       },
@@ -123,7 +123,7 @@ void wrapNuclide(py::module &module)
    // get/set fissionFragmentData
    object.def_property(
       "fission_fragment_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionFragmentData();
       },

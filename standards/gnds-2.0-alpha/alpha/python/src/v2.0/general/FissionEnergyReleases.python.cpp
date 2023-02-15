@@ -43,7 +43,7 @@ void wrapFissionEnergyReleases(py::module &module)
    // get/set fissionEnergyRelease
    object.def_property(
       "fission_energy_release",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionEnergyRelease();
       },

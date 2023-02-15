@@ -93,20 +93,20 @@ DistributionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DistributionAssign(ConstHandle2Distribution This, ConstHandle2ConstDistribution from)
+DistributionAssign(ConstHandle2Distribution self, ConstHandle2ConstDistribution from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DistributionDelete(ConstHandle2ConstDistribution This)
+DistributionDelete(ConstHandle2ConstDistribution self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -120,44 +120,44 @@ DistributionDelete(ConstHandle2ConstDistribution This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DistributionRead(ConstHandle2Distribution This, const char *const filename)
+DistributionRead(ConstHandle2Distribution self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DistributionWrite(ConstHandle2ConstDistribution This, const char *const filename)
+DistributionWrite(ConstHandle2ConstDistribution self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DistributionPrint(ConstHandle2ConstDistribution This)
+DistributionPrint(ConstHandle2ConstDistribution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DistributionPrintXML(ConstHandle2ConstDistribution This)
+DistributionPrintXML(ConstHandle2ConstDistribution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DistributionPrintJSON(ConstHandle2ConstDistribution This)
+DistributionPrintJSON(ConstHandle2ConstDistribution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -167,34 +167,34 @@ DistributionPrintJSON(ConstHandle2ConstDistribution This)
 
 // Has
 int
-DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This)
+DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawHas", This, extract::thermalNeutronScatteringLaw);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawHas", self, extract::thermalNeutronScatteringLaw);
 }
 
 // Get, const
 Handle2ConstThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This)
+DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution self)
 {
    return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", This, extract::thermalNeutronScatteringLaw);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", self, extract::thermalNeutronScatteringLaw);
 }
 
 // Get, non-const
 Handle2ThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This)
+DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self)
 {
    return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGet", This, extract::thermalNeutronScatteringLaw);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGet", self, extract::thermalNeutronScatteringLaw);
 }
 
 // Set
 void
-DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw)
+DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution self, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw)
 {
    detail::setField<CPP,CPPThermalNeutronScatteringLaw>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawSet", This, extract::thermalNeutronScatteringLaw, thermalNeutronScatteringLaw);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawSet", self, extract::thermalNeutronScatteringLaw, thermalNeutronScatteringLaw);
 }
 
 
@@ -204,34 +204,34 @@ DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstH
 
 // Has
 int
-DistributionUncorrelatedHas(ConstHandle2ConstDistribution This)
+DistributionUncorrelatedHas(ConstHandle2ConstDistribution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncorrelatedHas", This, extract::uncorrelated);
+      (CLASSNAME, CLASSNAME+"UncorrelatedHas", self, extract::uncorrelated);
 }
 
 // Get, const
 Handle2ConstUncorrelated
-DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution This)
+DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self)
 {
    return detail::getField<CPP,Handle2ConstUncorrelated>
-      (CLASSNAME, CLASSNAME+"UncorrelatedGetConst", This, extract::uncorrelated);
+      (CLASSNAME, CLASSNAME+"UncorrelatedGetConst", self, extract::uncorrelated);
 }
 
 // Get, non-const
 Handle2Uncorrelated
-DistributionUncorrelatedGet(ConstHandle2Distribution This)
+DistributionUncorrelatedGet(ConstHandle2Distribution self)
 {
    return detail::getField<CPP,Handle2Uncorrelated>
-      (CLASSNAME, CLASSNAME+"UncorrelatedGet", This, extract::uncorrelated);
+      (CLASSNAME, CLASSNAME+"UncorrelatedGet", self, extract::uncorrelated);
 }
 
 // Set
 void
-DistributionUncorrelatedSet(ConstHandle2Distribution This, ConstHandle2ConstUncorrelated uncorrelated)
+DistributionUncorrelatedSet(ConstHandle2Distribution self, ConstHandle2ConstUncorrelated uncorrelated)
 {
    detail::setField<CPP,CPPUncorrelated>
-      (CLASSNAME, CLASSNAME+"UncorrelatedSet", This, extract::uncorrelated, uncorrelated);
+      (CLASSNAME, CLASSNAME+"UncorrelatedSet", self, extract::uncorrelated, uncorrelated);
 }
 
 
@@ -241,34 +241,34 @@ DistributionUncorrelatedSet(ConstHandle2Distribution This, ConstHandle2ConstUnco
 
 // Has
 int
-DistributionUnspecifiedHas(ConstHandle2ConstDistribution This)
+DistributionUnspecifiedHas(ConstHandle2ConstDistribution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnspecifiedHas", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedHas", self, extract::unspecified);
 }
 
 // Get, const
 Handle2ConstUnspecified
-DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution This)
+DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self)
 {
    return detail::getField<CPP,Handle2ConstUnspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", self, extract::unspecified);
 }
 
 // Get, non-const
 Handle2Unspecified
-DistributionUnspecifiedGet(ConstHandle2Distribution This)
+DistributionUnspecifiedGet(ConstHandle2Distribution self)
 {
    return detail::getField<CPP,Handle2Unspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedGet", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedGet", self, extract::unspecified);
 }
 
 // Set
 void
-DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspecified unspecified)
+DistributionUnspecifiedSet(ConstHandle2Distribution self, ConstHandle2ConstUnspecified unspecified)
 {
    detail::setField<CPP,CPPUnspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedSet", This, extract::unspecified, unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedSet", self, extract::unspecified, unspecified);
 }
 
 
@@ -278,34 +278,34 @@ DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspe
 
 // Has
 int
-DistributionXYs2dHas(ConstHandle2ConstDistribution This)
+DistributionXYs2dHas(ConstHandle2ConstDistribution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-DistributionXYs2dGetConst(ConstHandle2ConstDistribution This)
+DistributionXYs2dGetConst(ConstHandle2ConstDistribution self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-DistributionXYs2dGet(ConstHandle2Distribution This)
+DistributionXYs2dGet(ConstHandle2Distribution self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d)
+DistributionXYs2dSet(ConstHandle2Distribution self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 
@@ -315,34 +315,34 @@ DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d
 
 // Has
 int
-DistributionBranching3dHas(ConstHandle2ConstDistribution This)
+DistributionBranching3dHas(ConstHandle2ConstDistribution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Branching3dHas", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dHas", self, extract::branching3d);
 }
 
 // Get, const
 Handle2ConstBranching3d
-DistributionBranching3dGetConst(ConstHandle2ConstDistribution This)
+DistributionBranching3dGetConst(ConstHandle2ConstDistribution self)
 {
    return detail::getField<CPP,Handle2ConstBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGetConst", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dGetConst", self, extract::branching3d);
 }
 
 // Get, non-const
 Handle2Branching3d
-DistributionBranching3dGet(ConstHandle2Distribution This)
+DistributionBranching3dGet(ConstHandle2Distribution self)
 {
    return detail::getField<CPP,Handle2Branching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGet", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dGet", self, extract::branching3d);
 }
 
 // Set
 void
-DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d)
+DistributionBranching3dSet(ConstHandle2Distribution self, ConstHandle2ConstBranching3d branching3d)
 {
    detail::setField<CPP,CPPBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dSet", This, extract::branching3d, branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dSet", self, extract::branching3d, branching3d);
 }
 
 

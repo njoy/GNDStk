@@ -43,7 +43,7 @@ void wrapSummands(py::module &module)
    // get/set add
    object.def_property(
       "add",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.add();
       },

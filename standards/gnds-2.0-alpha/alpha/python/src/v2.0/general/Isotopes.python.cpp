@@ -43,7 +43,7 @@ void wrapIsotopes(py::module &module)
    // get/set isotope
    object.def_property(
       "isotope",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.isotope();
       },

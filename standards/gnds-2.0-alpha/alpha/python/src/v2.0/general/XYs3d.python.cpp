@@ -47,7 +47,7 @@ void wrapXYs3d(py::module &module)
    // get/set interpolationQualifier
    object.def_property(
       "interpolation_qualifier",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interpolationQualifier();
       },
@@ -61,7 +61,7 @@ void wrapXYs3d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -75,7 +75,7 @@ void wrapXYs3d(py::module &module)
    // get/set function2ds
    object.def_property(
       "function2ds",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.function2ds();
       },

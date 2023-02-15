@@ -84,20 +84,20 @@ DiscreteGammaCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DiscreteGammaAssign(ConstHandle2DiscreteGamma This, ConstHandle2ConstDiscreteGamma from)
+DiscreteGammaAssign(ConstHandle2DiscreteGamma self, ConstHandle2ConstDiscreteGamma from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DiscreteGammaRead(ConstHandle2DiscreteGamma This, const char *const filename)
+DiscreteGammaRead(ConstHandle2DiscreteGamma self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DiscreteGammaWrite(ConstHandle2ConstDiscreteGamma This, const char *const filename)
+DiscreteGammaWrite(ConstHandle2ConstDiscreteGamma self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DiscreteGammaPrint(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaPrint(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DiscreteGammaPrintXML(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaPrintXML(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma This)
 
 // Has
 int
-DiscreteGammaValueHas(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaValueHas(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-DiscreteGammaValueGet(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaValueGet(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-DiscreteGammaValueSet(ConstHandle2DiscreteGamma This, const double value)
+DiscreteGammaValueSet(ConstHandle2DiscreteGamma self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -188,27 +188,27 @@ DiscreteGammaValueSet(ConstHandle2DiscreteGamma This, const double value)
 
 // Has
 int
-DiscreteGammaDomainMinHas(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaDomainMinHas(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-DiscreteGammaDomainMinGet(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaDomainMinGet(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma This, const double domainMin)
+DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -218,27 +218,27 @@ DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma This, const double domainMin
 
 // Has
 int
-DiscreteGammaDomainMaxHas(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaDomainMaxHas(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-DiscreteGammaDomainMaxGet(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaDomainMaxGet(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma This, const double domainMax)
+DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -248,34 +248,34 @@ DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma This, const double domainMax
 
 // Has
 int
-DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma This)
+DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-DiscreteGammaAxesGet(ConstHandle2DiscreteGamma This)
+DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-DiscreteGammaAxesSet(ConstHandle2DiscreteGamma This, ConstHandle2ConstAxes axes)
+DiscreteGammaAxesSet(ConstHandle2DiscreteGamma self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 

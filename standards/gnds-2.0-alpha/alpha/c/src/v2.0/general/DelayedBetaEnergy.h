@@ -90,13 +90,13 @@ DelayedBetaEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DelayedBetaEnergyAssign(ConstHandle2DelayedBetaEnergy This, ConstHandle2ConstDelayedBetaEnergy from);
+DelayedBetaEnergyAssign(ConstHandle2DelayedBetaEnergy self, ConstHandle2ConstDelayedBetaEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DelayedBetaEnergyDelete(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyDelete(ConstHandle2ConstDelayedBetaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DelayedBetaEnergyDelete(ConstHandle2ConstDelayedBetaEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DelayedBetaEnergyRead(ConstHandle2DelayedBetaEnergy This, const char *const filename);
+DelayedBetaEnergyRead(ConstHandle2DelayedBetaEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DelayedBetaEnergyWrite(ConstHandle2ConstDelayedBetaEnergy This, const char *const filename);
+DelayedBetaEnergyWrite(ConstHandle2ConstDelayedBetaEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DelayedBetaEnergyPrint(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyPrint(ConstHandle2ConstDelayedBetaEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DelayedBetaEnergyPrintXML(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyPrintXML(ConstHandle2ConstDelayedBetaEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DelayedBetaEnergyPrintJSON(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyPrintJSON(ConstHandle2ConstDelayedBetaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ DelayedBetaEnergyPrintJSON(ConstHandle2ConstDelayedBetaEnergy This);
 
 // +++ Has
 extern_c int
-DelayedBetaEnergyPolynomial1dHas(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyPolynomial1dHas(ConstHandle2ConstDelayedBetaEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy This);
+DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy This);
+DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy self);
 
 // +++ Set
 extern_c void
-DelayedBetaEnergyPolynomial1dSet(ConstHandle2DelayedBetaEnergy This, ConstHandle2ConstPolynomial1d polynomial1d);
+DelayedBetaEnergyPolynomial1dSet(ConstHandle2DelayedBetaEnergy self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

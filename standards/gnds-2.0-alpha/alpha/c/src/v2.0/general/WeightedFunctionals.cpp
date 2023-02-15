@@ -73,20 +73,20 @@ WeightedFunctionalsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-WeightedFunctionalsAssign(ConstHandle2WeightedFunctionals This, ConstHandle2ConstWeightedFunctionals from)
+WeightedFunctionalsAssign(ConstHandle2WeightedFunctionals self, ConstHandle2ConstWeightedFunctionals from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-WeightedFunctionalsRead(ConstHandle2WeightedFunctionals This, const char *const filename)
+WeightedFunctionalsRead(ConstHandle2WeightedFunctionals self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-WeightedFunctionalsWrite(ConstHandle2ConstWeightedFunctionals This, const char *const filename)
+WeightedFunctionalsWrite(ConstHandle2ConstWeightedFunctionals self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-WeightedFunctionalsPrint(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsPrint(ConstHandle2ConstWeightedFunctionals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-WeightedFunctionalsPrintXML(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsPrintXML(ConstHandle2ConstWeightedFunctionals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,61 +147,61 @@ WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals This)
 
 // Has
 int
-WeightedFunctionalsWeightedHas(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsWeightedHas(ConstHandle2ConstWeightedFunctionals self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"WeightedHas", This, extract::weighted);
+      (CLASSNAME, CLASSNAME+"WeightedHas", self, extract::weighted);
 }
 
 // Clear
 void
-WeightedFunctionalsWeightedClear(ConstHandle2WeightedFunctionals This)
+WeightedFunctionalsWeightedClear(ConstHandle2WeightedFunctionals self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"WeightedClear", This, extract::weighted);
+      (CLASSNAME, CLASSNAME+"WeightedClear", self, extract::weighted);
 }
 
 // Size
 size_t
-WeightedFunctionalsWeightedSize(ConstHandle2ConstWeightedFunctionals This)
+WeightedFunctionalsWeightedSize(ConstHandle2ConstWeightedFunctionals self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"WeightedSize", This, extract::weighted);
+      (CLASSNAME, CLASSNAME+"WeightedSize", self, extract::weighted);
 }
 
 // Add
 void
-WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals This, ConstHandle2ConstWeighted weighted)
+WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals self, ConstHandle2ConstWeighted weighted)
 {
    detail::addToContainer<CPP,CPPWeighted>
-      (CLASSNAME, CLASSNAME+"WeightedAdd", This, extract::weighted, weighted);
+      (CLASSNAME, CLASSNAME+"WeightedAdd", self, extract::weighted, weighted);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstWeighted
-WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals This, const size_t index_)
+WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstWeighted>
-      (CLASSNAME, CLASSNAME+"WeightedGetConst", This, extract::weighted, index_);
+      (CLASSNAME, CLASSNAME+"WeightedGetConst", self, extract::weighted, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Weighted
-WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals This, const size_t index_)
+WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Weighted>
-      (CLASSNAME, CLASSNAME+"WeightedGet", This, extract::weighted, index_);
+      (CLASSNAME, CLASSNAME+"WeightedGet", self, extract::weighted, index_);
 }
 
 // Set, by index \in [0,size)
 void
 WeightedFunctionalsWeightedSet(
-   ConstHandle2WeightedFunctionals This,
+   ConstHandle2WeightedFunctionals self,
    const size_t index_,
    ConstHandle2ConstWeighted weighted
 ) {
    detail::setByIndex<CPP,CPPWeighted>
-      (CLASSNAME, CLASSNAME+"WeightedSet", This, extract::weighted, index_, weighted);
+      (CLASSNAME, CLASSNAME+"WeightedSet", self, extract::weighted, index_, weighted);
 }
 
 

@@ -95,13 +95,13 @@ ParameterLinkCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ParameterLinkAssign(ConstHandle2ParameterLink This, ConstHandle2ConstParameterLink from);
+ParameterLinkAssign(ConstHandle2ParameterLink self, ConstHandle2ConstParameterLink from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ParameterLinkDelete(ConstHandle2ConstParameterLink This);
+ParameterLinkDelete(ConstHandle2ConstParameterLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ ParameterLinkDelete(ConstHandle2ConstParameterLink This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ParameterLinkRead(ConstHandle2ParameterLink This, const char *const filename);
+ParameterLinkRead(ConstHandle2ParameterLink self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ParameterLinkWrite(ConstHandle2ConstParameterLink This, const char *const filename);
+ParameterLinkWrite(ConstHandle2ConstParameterLink self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ParameterLinkPrint(ConstHandle2ConstParameterLink This);
+ParameterLinkPrint(ConstHandle2ConstParameterLink self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ParameterLinkPrintXML(ConstHandle2ConstParameterLink This);
+ParameterLinkPrintXML(ConstHandle2ConstParameterLink self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ParameterLinkPrintJSON(ConstHandle2ConstParameterLink This);
+ParameterLinkPrintJSON(ConstHandle2ConstParameterLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ ParameterLinkPrintJSON(ConstHandle2ConstParameterLink This);
 
 // +++ Has
 extern_c int
-ParameterLinkLabelHas(ConstHandle2ConstParameterLink This);
+ParameterLinkLabelHas(ConstHandle2ConstParameterLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ParameterLinkLabelGet(ConstHandle2ConstParameterLink This);
+ParameterLinkLabelGet(ConstHandle2ConstParameterLink self);
 
 // +++ Set
 extern_c void
-ParameterLinkLabelSet(ConstHandle2ParameterLink This, const char *const label);
+ParameterLinkLabelSet(ConstHandle2ParameterLink self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,16 +159,16 @@ ParameterLinkLabelSet(ConstHandle2ParameterLink This, const char *const label);
 
 // +++ Has
 extern_c int
-ParameterLinkHrefHas(ConstHandle2ConstParameterLink This);
+ParameterLinkHrefHas(ConstHandle2ConstParameterLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ParameterLinkHrefGet(ConstHandle2ConstParameterLink This);
+ParameterLinkHrefGet(ConstHandle2ConstParameterLink self);
 
 // +++ Set
 extern_c void
-ParameterLinkHrefSet(ConstHandle2ParameterLink This, const char *const href);
+ParameterLinkHrefSet(ConstHandle2ParameterLink self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -177,16 +177,16 @@ ParameterLinkHrefSet(ConstHandle2ParameterLink This, const char *const href);
 
 // +++ Has
 extern_c int
-ParameterLinkNParametersHas(ConstHandle2ConstParameterLink This);
+ParameterLinkNParametersHas(ConstHandle2ConstParameterLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ParameterLinkNParametersGet(ConstHandle2ConstParameterLink This);
+ParameterLinkNParametersGet(ConstHandle2ConstParameterLink self);
 
 // +++ Set
 extern_c void
-ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const int nParameters);
+ParameterLinkNParametersSet(ConstHandle2ParameterLink self, const int nParameters);
 
 
 // -----------------------------------------------------------------------------
@@ -195,16 +195,16 @@ ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const int nParameter
 
 // +++ Has
 extern_c int
-ParameterLinkMatrixStartIndexHas(ConstHandle2ConstParameterLink This);
+ParameterLinkMatrixStartIndexHas(ConstHandle2ConstParameterLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ParameterLinkMatrixStartIndexGet(ConstHandle2ConstParameterLink This);
+ParameterLinkMatrixStartIndexGet(ConstHandle2ConstParameterLink self);
 
 // +++ Set
 extern_c void
-ParameterLinkMatrixStartIndexSet(ConstHandle2ParameterLink This, const int matrixStartIndex);
+ParameterLinkMatrixStartIndexSet(ConstHandle2ParameterLink self, const int matrixStartIndex);
 
 
 // -----------------------------------------------------------------------------

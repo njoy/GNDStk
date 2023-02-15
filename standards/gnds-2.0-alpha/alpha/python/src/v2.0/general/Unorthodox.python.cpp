@@ -45,7 +45,7 @@ void wrapUnorthodox(py::module &module)
    // get/set id
    object.def_property(
       "id",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.id();
       },
@@ -59,7 +59,7 @@ void wrapUnorthodox(py::module &module)
    // get/set mass
    object.def_property(
       "mass",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mass();
       },

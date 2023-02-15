@@ -84,20 +84,20 @@ UnresolvedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UnresolvedAssign(ConstHandle2Unresolved This, ConstHandle2ConstUnresolved from)
+UnresolvedAssign(ConstHandle2Unresolved self, ConstHandle2ConstUnresolved from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UnresolvedDelete(ConstHandle2ConstUnresolved This)
+UnresolvedDelete(ConstHandle2ConstUnresolved self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ UnresolvedDelete(ConstHandle2ConstUnresolved This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UnresolvedRead(ConstHandle2Unresolved This, const char *const filename)
+UnresolvedRead(ConstHandle2Unresolved self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UnresolvedWrite(ConstHandle2ConstUnresolved This, const char *const filename)
+UnresolvedWrite(ConstHandle2ConstUnresolved self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UnresolvedPrint(ConstHandle2ConstUnresolved This)
+UnresolvedPrint(ConstHandle2ConstUnresolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UnresolvedPrintXML(ConstHandle2ConstUnresolved This)
+UnresolvedPrintXML(ConstHandle2ConstUnresolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UnresolvedPrintJSON(ConstHandle2ConstUnresolved This)
+UnresolvedPrintJSON(ConstHandle2ConstUnresolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ UnresolvedPrintJSON(ConstHandle2ConstUnresolved This)
 
 // Has
 int
-UnresolvedDomainMinHas(ConstHandle2ConstUnresolved This)
+UnresolvedDomainMinHas(ConstHandle2ConstUnresolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-UnresolvedDomainMinGet(ConstHandle2ConstUnresolved This)
+UnresolvedDomainMinGet(ConstHandle2ConstUnresolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-UnresolvedDomainMinSet(ConstHandle2Unresolved This, const double domainMin)
+UnresolvedDomainMinSet(ConstHandle2Unresolved self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -188,27 +188,27 @@ UnresolvedDomainMinSet(ConstHandle2Unresolved This, const double domainMin)
 
 // Has
 int
-UnresolvedDomainMaxHas(ConstHandle2ConstUnresolved This)
+UnresolvedDomainMaxHas(ConstHandle2ConstUnresolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-UnresolvedDomainMaxGet(ConstHandle2ConstUnresolved This)
+UnresolvedDomainMaxGet(ConstHandle2ConstUnresolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-UnresolvedDomainMaxSet(ConstHandle2Unresolved This, const double domainMax)
+UnresolvedDomainMaxSet(ConstHandle2Unresolved self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -218,27 +218,27 @@ UnresolvedDomainMaxSet(ConstHandle2Unresolved This, const double domainMax)
 
 // Has
 int
-UnresolvedDomainUnitHas(ConstHandle2ConstUnresolved This)
+UnresolvedDomainUnitHas(ConstHandle2ConstUnresolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitHas", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitHas", self, extract::domainUnit);
 }
 
 // Get
 // Returns by value
 const char *
-UnresolvedDomainUnitGet(ConstHandle2ConstUnresolved This)
+UnresolvedDomainUnitGet(ConstHandle2ConstUnresolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitGet", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitGet", self, extract::domainUnit);
 }
 
 // Set
 void
-UnresolvedDomainUnitSet(ConstHandle2Unresolved This, const char *const domainUnit)
+UnresolvedDomainUnitSet(ConstHandle2Unresolved self, const char *const domainUnit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitSet", self, extract::domainUnit, domainUnit);
 }
 
 
@@ -248,34 +248,34 @@ UnresolvedDomainUnitSet(ConstHandle2Unresolved This, const char *const domainUni
 
 // Has
 int
-UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved This)
+UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TabulatedWidthsHas", This, extract::tabulatedWidths);
+      (CLASSNAME, CLASSNAME+"TabulatedWidthsHas", self, extract::tabulatedWidths);
 }
 
 // Get, const
 Handle2ConstTabulatedWidths
-UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved This)
+UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self)
 {
    return detail::getField<CPP,Handle2ConstTabulatedWidths>
-      (CLASSNAME, CLASSNAME+"TabulatedWidthsGetConst", This, extract::tabulatedWidths);
+      (CLASSNAME, CLASSNAME+"TabulatedWidthsGetConst", self, extract::tabulatedWidths);
 }
 
 // Get, non-const
 Handle2TabulatedWidths
-UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved This)
+UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self)
 {
    return detail::getField<CPP,Handle2TabulatedWidths>
-      (CLASSNAME, CLASSNAME+"TabulatedWidthsGet", This, extract::tabulatedWidths);
+      (CLASSNAME, CLASSNAME+"TabulatedWidthsGet", self, extract::tabulatedWidths);
 }
 
 // Set
 void
-UnresolvedTabulatedWidthsSet(ConstHandle2Unresolved This, ConstHandle2ConstTabulatedWidths tabulatedWidths)
+UnresolvedTabulatedWidthsSet(ConstHandle2Unresolved self, ConstHandle2ConstTabulatedWidths tabulatedWidths)
 {
    detail::setField<CPP,CPPTabulatedWidths>
-      (CLASSNAME, CLASSNAME+"TabulatedWidthsSet", This, extract::tabulatedWidths, tabulatedWidths);
+      (CLASSNAME, CLASSNAME+"TabulatedWidthsSet", self, extract::tabulatedWidths, tabulatedWidths);
 }
 
 

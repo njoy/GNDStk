@@ -55,7 +55,7 @@ void wrapXYs2d(py::module &module)
    // get/set index
    object.def_property(
       "index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.index();
       },
@@ -69,7 +69,7 @@ void wrapXYs2d(py::module &module)
    // get/set interpolation
    object.def_property(
       "interpolation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interpolation();
       },
@@ -83,7 +83,7 @@ void wrapXYs2d(py::module &module)
    // get/set interpolationQualifier
    object.def_property(
       "interpolation_qualifier",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interpolationQualifier();
       },
@@ -97,7 +97,7 @@ void wrapXYs2d(py::module &module)
    // get/set outerDomainValue
    object.def_property(
       "outer_domain_value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outerDomainValue();
       },
@@ -111,7 +111,7 @@ void wrapXYs2d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -125,7 +125,7 @@ void wrapXYs2d(py::module &module)
    // get/set function1ds
    object.def_property(
       "function1ds",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.function1ds();
       },
@@ -139,7 +139,7 @@ void wrapXYs2d(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

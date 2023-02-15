@@ -85,13 +85,13 @@ EndfCompatibleCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EndfCompatibleAssign(ConstHandle2EndfCompatible This, ConstHandle2ConstEndfCompatible from);
+EndfCompatibleAssign(ConstHandle2EndfCompatible self, ConstHandle2ConstEndfCompatible from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleDelete(ConstHandle2ConstEndfCompatible self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EndfCompatibleRead(ConstHandle2EndfCompatible This, const char *const filename);
+EndfCompatibleRead(ConstHandle2EndfCompatible self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EndfCompatibleWrite(ConstHandle2ConstEndfCompatible This, const char *const filename);
+EndfCompatibleWrite(ConstHandle2ConstEndfCompatible self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EndfCompatiblePrint(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrint(ConstHandle2ConstEndfCompatible self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible self);
 
 
 // -----------------------------------------------------------------------------

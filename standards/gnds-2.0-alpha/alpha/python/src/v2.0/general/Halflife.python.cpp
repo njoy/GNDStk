@@ -45,7 +45,7 @@ void wrapHalflife(py::module &module)
    // get/set string
    object.def_property(
       "string",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.string();
       },
@@ -59,7 +59,7 @@ void wrapHalflife(py::module &module)
    // get/set Double
    object.def_property(
       "double",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Double();
       },

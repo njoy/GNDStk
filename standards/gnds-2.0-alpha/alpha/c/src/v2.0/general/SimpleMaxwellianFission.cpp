@@ -75,20 +75,20 @@ SimpleMaxwellianFissionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SimpleMaxwellianFissionAssign(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstSimpleMaxwellianFission from)
+SimpleMaxwellianFissionAssign(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstSimpleMaxwellianFission from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SimpleMaxwellianFissionRead(ConstHandle2SimpleMaxwellianFission This, const char *const filename)
+SimpleMaxwellianFissionRead(ConstHandle2SimpleMaxwellianFission self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SimpleMaxwellianFissionWrite(ConstHandle2ConstSimpleMaxwellianFission This, const char *const filename)
+SimpleMaxwellianFissionWrite(ConstHandle2ConstSimpleMaxwellianFission self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SimpleMaxwellianFissionPrint(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionPrint(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SimpleMaxwellianFissionPrintXML(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionPrintXML(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission This)
 
 // Has
 int
-SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UHas", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UHas", self, extract::U);
 }
 
 // Get, const
 Handle2ConstU
-SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::getField<CPP,Handle2ConstU>
-      (CLASSNAME, CLASSNAME+"UGetConst", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
 // Get, non-const
 Handle2U
-SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission This)
+SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self)
 {
    return detail::getField<CPP,Handle2U>
-      (CLASSNAME, CLASSNAME+"UGet", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGet", self, extract::U);
 }
 
 // Set
 void
-SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstU U)
+SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstU U)
 {
    detail::setField<CPP,CPPU>
-      (CLASSNAME, CLASSNAME+"USet", This, extract::U, U);
+      (CLASSNAME, CLASSNAME+"USet", self, extract::U, U);
 }
 
 
@@ -186,34 +186,34 @@ SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission This, ConstHandl
 
 // Has
 int
-SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThetaHas", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaHas", self, extract::theta);
 }
 
 // Get, const
 Handle2ConstTheta
-SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission This)
+SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission self)
 {
    return detail::getField<CPP,Handle2ConstTheta>
-      (CLASSNAME, CLASSNAME+"ThetaGetConst", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
 // Get, non-const
 Handle2Theta
-SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission This)
+SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self)
 {
    return detail::getField<CPP,Handle2Theta>
-      (CLASSNAME, CLASSNAME+"ThetaGet", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaGet", self, extract::theta);
 }
 
 // Set
 void
-SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstTheta theta)
+SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstTheta theta)
 {
    detail::setField<CPP,CPPTheta>
-      (CLASSNAME, CLASSNAME+"ThetaSet", This, extract::theta, theta);
+      (CLASSNAME, CLASSNAME+"ThetaSet", self, extract::theta, theta);
 }
 
 

@@ -72,20 +72,20 @@ LengthsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LengthsAssign(ConstHandle2Lengths This, ConstHandle2ConstLengths from)
+LengthsAssign(ConstHandle2Lengths self, ConstHandle2ConstLengths from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LengthsDelete(ConstHandle2ConstLengths This)
+LengthsDelete(ConstHandle2ConstLengths self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ LengthsDelete(ConstHandle2ConstLengths This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LengthsRead(ConstHandle2Lengths This, const char *const filename)
+LengthsRead(ConstHandle2Lengths self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LengthsWrite(ConstHandle2ConstLengths This, const char *const filename)
+LengthsWrite(ConstHandle2ConstLengths self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LengthsPrint(ConstHandle2ConstLengths This)
+LengthsPrint(ConstHandle2ConstLengths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LengthsPrintXML(ConstHandle2ConstLengths This)
+LengthsPrintXML(ConstHandle2ConstLengths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LengthsPrintJSON(ConstHandle2ConstLengths This)
+LengthsPrintJSON(ConstHandle2ConstLengths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,60 +146,60 @@ LengthsPrintJSON(ConstHandle2ConstLengths This)
 
 // Clear
 void
-LengthsIntsClear(ConstHandle2Lengths This)
+LengthsIntsClear(ConstHandle2Lengths self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-LengthsIntsSize(ConstHandle2ConstLengths This)
+LengthsIntsSize(ConstHandle2ConstLengths self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-LengthsIntsGet(ConstHandle2ConstLengths This, const size_t index)
+LengthsIntsGet(ConstHandle2ConstLengths self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-LengthsIntsSet(ConstHandle2Lengths This, const size_t index, const int value)
+LengthsIntsSet(ConstHandle2Lengths self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-LengthsIntsGetArrayConst(ConstHandle2ConstLengths This)
+LengthsIntsGetArrayConst(ConstHandle2ConstLengths self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-LengthsIntsGetArray(ConstHandle2Lengths This)
+LengthsIntsGetArray(ConstHandle2Lengths self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-LengthsIntsSetArray(ConstHandle2Lengths This, const int *const values, const size_t size)
+LengthsIntsSetArray(ConstHandle2Lengths self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 
@@ -209,27 +209,27 @@ LengthsIntsSetArray(ConstHandle2Lengths This, const int *const values, const siz
 
 // Has
 int
-LengthsValueTypeHas(ConstHandle2ConstLengths This)
+LengthsValueTypeHas(ConstHandle2ConstLengths self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueTypeHas", This, extract::valueType);
+      (CLASSNAME, CLASSNAME+"ValueTypeHas", self, extract::valueType);
 }
 
 // Get
 // Returns by value
 const char *
-LengthsValueTypeGet(ConstHandle2ConstLengths This)
+LengthsValueTypeGet(ConstHandle2ConstLengths self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueTypeGet", This, extract::valueType);
+      (CLASSNAME, CLASSNAME+"ValueTypeGet", self, extract::valueType);
 }
 
 // Set
 void
-LengthsValueTypeSet(ConstHandle2Lengths This, const char *const valueType)
+LengthsValueTypeSet(ConstHandle2Lengths self, const char *const valueType)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueTypeSet", This, extract::valueType, valueType);
+      (CLASSNAME, CLASSNAME+"ValueTypeSet", self, extract::valueType, valueType);
 }
 
 
@@ -239,27 +239,27 @@ LengthsValueTypeSet(ConstHandle2Lengths This, const char *const valueType)
 
 // Has
 int
-LengthsLabelHas(ConstHandle2ConstLengths This)
+LengthsLabelHas(ConstHandle2ConstLengths self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-LengthsLabelGet(ConstHandle2ConstLengths This)
+LengthsLabelGet(ConstHandle2ConstLengths self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-LengthsLabelSet(ConstHandle2Lengths This, const char *const label)
+LengthsLabelSet(ConstHandle2Lengths self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

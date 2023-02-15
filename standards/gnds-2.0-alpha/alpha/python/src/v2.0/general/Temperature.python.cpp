@@ -45,7 +45,7 @@ void wrapTemperature(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -59,7 +59,7 @@ void wrapTemperature(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },

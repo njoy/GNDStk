@@ -96,13 +96,13 @@ YieldsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-YieldsAssign(ConstHandle2Yields This, ConstHandle2ConstYields from);
+YieldsAssign(ConstHandle2Yields self, ConstHandle2ConstYields from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-YieldsDelete(ConstHandle2ConstYields This);
+YieldsDelete(ConstHandle2ConstYields self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ YieldsDelete(ConstHandle2ConstYields This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-YieldsRead(ConstHandle2Yields This, const char *const filename);
+YieldsRead(ConstHandle2Yields self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-YieldsWrite(ConstHandle2ConstYields This, const char *const filename);
+YieldsWrite(ConstHandle2ConstYields self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-YieldsPrint(ConstHandle2ConstYields This);
+YieldsPrint(ConstHandle2ConstYields self);
 
 // +++ Print to standard output, as XML
 extern_c int
-YieldsPrintXML(ConstHandle2ConstYields This);
+YieldsPrintXML(ConstHandle2ConstYields self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-YieldsPrintJSON(ConstHandle2ConstYields This);
+YieldsPrintJSON(ConstHandle2ConstYields self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ YieldsPrintJSON(ConstHandle2ConstYields This);
 
 // +++ Has
 extern_c int
-YieldsNuclidesHas(ConstHandle2ConstYields This);
+YieldsNuclidesHas(ConstHandle2ConstYields self);
 
 // --- Get, const
 extern_c Handle2ConstNuclides
-YieldsNuclidesGetConst(ConstHandle2ConstYields This);
+YieldsNuclidesGetConst(ConstHandle2ConstYields self);
 
 // +++ Get, non-const
 extern_c Handle2Nuclides
-YieldsNuclidesGet(ConstHandle2Yields This);
+YieldsNuclidesGet(ConstHandle2Yields self);
 
 // +++ Set
 extern_c void
-YieldsNuclidesSet(ConstHandle2Yields This, ConstHandle2ConstNuclides nuclides);
+YieldsNuclidesSet(ConstHandle2Yields self, ConstHandle2ConstNuclides nuclides);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ YieldsNuclidesSet(ConstHandle2Yields This, ConstHandle2ConstNuclides nuclides);
 
 // +++ Has
 extern_c int
-YieldsValuesHas(ConstHandle2ConstYields This);
+YieldsValuesHas(ConstHandle2ConstYields self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-YieldsValuesGetConst(ConstHandle2ConstYields This);
+YieldsValuesGetConst(ConstHandle2ConstYields self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-YieldsValuesGet(ConstHandle2Yields This);
+YieldsValuesGet(ConstHandle2Yields self);
 
 // +++ Set
 extern_c void
-YieldsValuesSet(ConstHandle2Yields This, ConstHandle2ConstValues values);
+YieldsValuesSet(ConstHandle2Yields self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ YieldsValuesSet(ConstHandle2Yields This, ConstHandle2ConstValues values);
 
 // +++ Has
 extern_c int
-YieldsUncertaintyHas(ConstHandle2ConstYields This);
+YieldsUncertaintyHas(ConstHandle2ConstYields self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-YieldsUncertaintyGetConst(ConstHandle2ConstYields This);
+YieldsUncertaintyGetConst(ConstHandle2ConstYields self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-YieldsUncertaintyGet(ConstHandle2Yields This);
+YieldsUncertaintyGet(ConstHandle2Yields self);
 
 // +++ Set
 extern_c void
-YieldsUncertaintySet(ConstHandle2Yields This, ConstHandle2ConstUncertainty uncertainty);
+YieldsUncertaintySet(ConstHandle2Yields self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

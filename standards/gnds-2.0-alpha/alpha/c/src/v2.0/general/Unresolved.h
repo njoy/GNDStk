@@ -96,13 +96,13 @@ UnresolvedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UnresolvedAssign(ConstHandle2Unresolved This, ConstHandle2ConstUnresolved from);
+UnresolvedAssign(ConstHandle2Unresolved self, ConstHandle2ConstUnresolved from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UnresolvedDelete(ConstHandle2ConstUnresolved This);
+UnresolvedDelete(ConstHandle2ConstUnresolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ UnresolvedDelete(ConstHandle2ConstUnresolved This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UnresolvedRead(ConstHandle2Unresolved This, const char *const filename);
+UnresolvedRead(ConstHandle2Unresolved self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UnresolvedWrite(ConstHandle2ConstUnresolved This, const char *const filename);
+UnresolvedWrite(ConstHandle2ConstUnresolved self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UnresolvedPrint(ConstHandle2ConstUnresolved This);
+UnresolvedPrint(ConstHandle2ConstUnresolved self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UnresolvedPrintXML(ConstHandle2ConstUnresolved This);
+UnresolvedPrintXML(ConstHandle2ConstUnresolved self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UnresolvedPrintJSON(ConstHandle2ConstUnresolved This);
+UnresolvedPrintJSON(ConstHandle2ConstUnresolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ UnresolvedPrintJSON(ConstHandle2ConstUnresolved This);
 
 // +++ Has
 extern_c int
-UnresolvedDomainMinHas(ConstHandle2ConstUnresolved This);
+UnresolvedDomainMinHas(ConstHandle2ConstUnresolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-UnresolvedDomainMinGet(ConstHandle2ConstUnresolved This);
+UnresolvedDomainMinGet(ConstHandle2ConstUnresolved self);
 
 // +++ Set
 extern_c void
-UnresolvedDomainMinSet(ConstHandle2Unresolved This, const double domainMin);
+UnresolvedDomainMinSet(ConstHandle2Unresolved self, const double domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ UnresolvedDomainMinSet(ConstHandle2Unresolved This, const double domainMin);
 
 // +++ Has
 extern_c int
-UnresolvedDomainMaxHas(ConstHandle2ConstUnresolved This);
+UnresolvedDomainMaxHas(ConstHandle2ConstUnresolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-UnresolvedDomainMaxGet(ConstHandle2ConstUnresolved This);
+UnresolvedDomainMaxGet(ConstHandle2ConstUnresolved self);
 
 // +++ Set
 extern_c void
-UnresolvedDomainMaxSet(ConstHandle2Unresolved This, const double domainMax);
+UnresolvedDomainMaxSet(ConstHandle2Unresolved self, const double domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ UnresolvedDomainMaxSet(ConstHandle2Unresolved This, const double domainMax);
 
 // +++ Has
 extern_c int
-UnresolvedDomainUnitHas(ConstHandle2ConstUnresolved This);
+UnresolvedDomainUnitHas(ConstHandle2ConstUnresolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-UnresolvedDomainUnitGet(ConstHandle2ConstUnresolved This);
+UnresolvedDomainUnitGet(ConstHandle2ConstUnresolved self);
 
 // +++ Set
 extern_c void
-UnresolvedDomainUnitSet(ConstHandle2Unresolved This, const char *const domainUnit);
+UnresolvedDomainUnitSet(ConstHandle2Unresolved self, const char *const domainUnit);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ UnresolvedDomainUnitSet(ConstHandle2Unresolved This, const char *const domainUni
 
 // +++ Has
 extern_c int
-UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved This);
+UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved self);
 
 // --- Get, const
 extern_c Handle2ConstTabulatedWidths
-UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved This);
+UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self);
 
 // +++ Get, non-const
 extern_c Handle2TabulatedWidths
-UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved This);
+UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self);
 
 // +++ Set
 extern_c void
-UnresolvedTabulatedWidthsSet(ConstHandle2Unresolved This, ConstHandle2ConstTabulatedWidths tabulatedWidths);
+UnresolvedTabulatedWidthsSet(ConstHandle2Unresolved self, ConstHandle2ConstTabulatedWidths tabulatedWidths);
 
 
 // -----------------------------------------------------------------------------

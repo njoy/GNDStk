@@ -96,13 +96,13 @@ ThermalNeutronScatteringLaw_coherentElasticCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticAssign(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic from);
+ThermalNeutronScatteringLaw_coherentElasticAssign(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutro
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticRead(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const char *const filename);
+ThermalNeutronScatteringLaw_coherentElasticRead(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This, const char *const filename);
+ThermalNeutronScatteringLaw_coherentElasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeu
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ThermalNeutronScatteringLaw_coherentElasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const char *const label);
+ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronSc
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ThermalNeutronScatteringLaw_coherentElasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const char *const pid);
+ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const char *const pid);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScat
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ThermalNeutronScatteringLaw_coherentElasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const char *const productFrame);
+ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const char *const productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNe
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw_coherentElasticS_tableHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticS_tableHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // --- Get, const
 extern_c Handle2ConstS_table
-ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Get, non-const
 extern_c Handle2S_table
-ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This);
+ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw_coherentElasticS_tableSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, ConstHandle2ConstS_table S_table);
+ThermalNeutronScatteringLaw_coherentElasticS_tableSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, ConstHandle2ConstS_table S_table);
 
 
 // -----------------------------------------------------------------------------

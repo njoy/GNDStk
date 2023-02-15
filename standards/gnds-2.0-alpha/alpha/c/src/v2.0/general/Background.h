@@ -96,13 +96,13 @@ BackgroundCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BackgroundAssign(ConstHandle2Background This, ConstHandle2ConstBackground from);
+BackgroundAssign(ConstHandle2Background self, ConstHandle2ConstBackground from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BackgroundDelete(ConstHandle2ConstBackground This);
+BackgroundDelete(ConstHandle2ConstBackground self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ BackgroundDelete(ConstHandle2ConstBackground This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BackgroundRead(ConstHandle2Background This, const char *const filename);
+BackgroundRead(ConstHandle2Background self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BackgroundWrite(ConstHandle2ConstBackground This, const char *const filename);
+BackgroundWrite(ConstHandle2ConstBackground self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BackgroundPrint(ConstHandle2ConstBackground This);
+BackgroundPrint(ConstHandle2ConstBackground self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BackgroundPrintXML(ConstHandle2ConstBackground This);
+BackgroundPrintXML(ConstHandle2ConstBackground self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BackgroundPrintJSON(ConstHandle2ConstBackground This);
+BackgroundPrintJSON(ConstHandle2ConstBackground self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ BackgroundPrintJSON(ConstHandle2ConstBackground This);
 
 // +++ Has
 extern_c int
-BackgroundResolvedRegionHas(ConstHandle2ConstBackground This);
+BackgroundResolvedRegionHas(ConstHandle2ConstBackground self);
 
 // --- Get, const
 extern_c Handle2ConstResolvedRegion
-BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground This);
+BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground self);
 
 // +++ Get, non-const
 extern_c Handle2ResolvedRegion
-BackgroundResolvedRegionGet(ConstHandle2Background This);
+BackgroundResolvedRegionGet(ConstHandle2Background self);
 
 // +++ Set
 extern_c void
-BackgroundResolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstResolvedRegion resolvedRegion);
+BackgroundResolvedRegionSet(ConstHandle2Background self, ConstHandle2ConstResolvedRegion resolvedRegion);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ BackgroundResolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstResolv
 
 // +++ Has
 extern_c int
-BackgroundFastRegionHas(ConstHandle2ConstBackground This);
+BackgroundFastRegionHas(ConstHandle2ConstBackground self);
 
 // --- Get, const
 extern_c Handle2ConstFastRegion
-BackgroundFastRegionGetConst(ConstHandle2ConstBackground This);
+BackgroundFastRegionGetConst(ConstHandle2ConstBackground self);
 
 // +++ Get, non-const
 extern_c Handle2FastRegion
-BackgroundFastRegionGet(ConstHandle2Background This);
+BackgroundFastRegionGet(ConstHandle2Background self);
 
 // +++ Set
 extern_c void
-BackgroundFastRegionSet(ConstHandle2Background This, ConstHandle2ConstFastRegion fastRegion);
+BackgroundFastRegionSet(ConstHandle2Background self, ConstHandle2ConstFastRegion fastRegion);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ BackgroundFastRegionSet(ConstHandle2Background This, ConstHandle2ConstFastRegion
 
 // +++ Has
 extern_c int
-BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground This);
+BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground self);
 
 // --- Get, const
 extern_c Handle2ConstUnresolvedRegion
-BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground This);
+BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground self);
 
 // +++ Get, non-const
 extern_c Handle2UnresolvedRegion
-BackgroundUnresolvedRegionGet(ConstHandle2Background This);
+BackgroundUnresolvedRegionGet(ConstHandle2Background self);
 
 // +++ Set
 extern_c void
-BackgroundUnresolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstUnresolvedRegion unresolvedRegion);
+BackgroundUnresolvedRegionSet(ConstHandle2Background self, ConstHandle2ConstUnresolvedRegion unresolvedRegion);
 
 
 // -----------------------------------------------------------------------------

@@ -98,13 +98,13 @@ ElapsedTimeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ElapsedTimeAssign(ConstHandle2ElapsedTime This, ConstHandle2ConstElapsedTime from);
+ElapsedTimeAssign(ConstHandle2ElapsedTime self, ConstHandle2ConstElapsedTime from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ElapsedTimeDelete(ConstHandle2ConstElapsedTime This);
+ElapsedTimeDelete(ConstHandle2ConstElapsedTime self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ ElapsedTimeDelete(ConstHandle2ConstElapsedTime This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ElapsedTimeRead(ConstHandle2ElapsedTime This, const char *const filename);
+ElapsedTimeRead(ConstHandle2ElapsedTime self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ElapsedTimeWrite(ConstHandle2ConstElapsedTime This, const char *const filename);
+ElapsedTimeWrite(ConstHandle2ConstElapsedTime self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ElapsedTimePrint(ConstHandle2ConstElapsedTime This);
+ElapsedTimePrint(ConstHandle2ConstElapsedTime self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ElapsedTimePrintXML(ConstHandle2ConstElapsedTime This);
+ElapsedTimePrintXML(ConstHandle2ConstElapsedTime self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime This);
+ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime This);
 
 // +++ Has
 extern_c int
-ElapsedTimeLabelHas(ConstHandle2ConstElapsedTime This);
+ElapsedTimeLabelHas(ConstHandle2ConstElapsedTime self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ElapsedTimeLabelGet(ConstHandle2ConstElapsedTime This);
+ElapsedTimeLabelGet(ConstHandle2ConstElapsedTime self);
 
 // +++ Set
 extern_c void
-ElapsedTimeLabelSet(ConstHandle2ElapsedTime This, const char *const label);
+ElapsedTimeLabelSet(ConstHandle2ElapsedTime self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -162,19 +162,19 @@ ElapsedTimeLabelSet(ConstHandle2ElapsedTime This, const char *const label);
 
 // +++ Has
 extern_c int
-ElapsedTimeTimeHas(ConstHandle2ConstElapsedTime This);
+ElapsedTimeTimeHas(ConstHandle2ConstElapsedTime self);
 
 // --- Get, const
 extern_c Handle2ConstTime
-ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime This);
+ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime self);
 
 // +++ Get, non-const
 extern_c Handle2Time
-ElapsedTimeTimeGet(ConstHandle2ElapsedTime This);
+ElapsedTimeTimeGet(ConstHandle2ElapsedTime self);
 
 // +++ Set
 extern_c void
-ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time);
+ElapsedTimeTimeSet(ConstHandle2ElapsedTime self, ConstHandle2ConstTime time);
 
 
 // -----------------------------------------------------------------------------
@@ -183,19 +183,19 @@ ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time);
 
 // +++ Has
 extern_c int
-ElapsedTimeYieldsHas(ConstHandle2ConstElapsedTime This);
+ElapsedTimeYieldsHas(ConstHandle2ConstElapsedTime self);
 
 // --- Get, const
 extern_c Handle2ConstYields
-ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime This);
+ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime self);
 
 // +++ Get, non-const
 extern_c Handle2Yields
-ElapsedTimeYieldsGet(ConstHandle2ElapsedTime This);
+ElapsedTimeYieldsGet(ConstHandle2ElapsedTime self);
 
 // +++ Set
 extern_c void
-ElapsedTimeYieldsSet(ConstHandle2ElapsedTime This, ConstHandle2ConstYields yields);
+ElapsedTimeYieldsSet(ConstHandle2ElapsedTime self, ConstHandle2ConstYields yields);
 
 
 // -----------------------------------------------------------------------------
@@ -204,19 +204,19 @@ ElapsedTimeYieldsSet(ConstHandle2ElapsedTime This, ConstHandle2ConstYields yield
 
 // +++ Has
 extern_c int
-ElapsedTimeIncidentEnergiesHas(ConstHandle2ConstElapsedTime This);
+ElapsedTimeIncidentEnergiesHas(ConstHandle2ConstElapsedTime self);
 
 // --- Get, const
 extern_c Handle2ConstIncidentEnergies
-ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime This);
+ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime self);
 
 // +++ Get, non-const
 extern_c Handle2IncidentEnergies
-ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime This);
+ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime self);
 
 // +++ Set
 extern_c void
-ElapsedTimeIncidentEnergiesSet(ConstHandle2ElapsedTime This, ConstHandle2ConstIncidentEnergies incidentEnergies);
+ElapsedTimeIncidentEnergiesSet(ConstHandle2ElapsedTime self, ConstHandle2ConstIncidentEnergies incidentEnergies);
 
 
 // -----------------------------------------------------------------------------

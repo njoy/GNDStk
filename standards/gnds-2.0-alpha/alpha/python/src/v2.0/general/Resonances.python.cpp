@@ -49,7 +49,7 @@ void wrapResonances(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -63,7 +63,7 @@ void wrapResonances(py::module &module)
    // get/set scatteringRadius
    object.def_property(
       "scattering_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringRadius();
       },
@@ -77,7 +77,7 @@ void wrapResonances(py::module &module)
    // get/set resolved
    object.def_property(
       "resolved",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resolved();
       },
@@ -91,7 +91,7 @@ void wrapResonances(py::module &module)
    // get/set unresolved
    object.def_property(
       "unresolved",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unresolved();
       },

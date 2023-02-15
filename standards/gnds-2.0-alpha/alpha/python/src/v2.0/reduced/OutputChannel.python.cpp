@@ -49,7 +49,7 @@ void wrapOutputChannel(py::module &module)
    // get/set genre
    object.def_property(
       "genre",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.genre();
       },
@@ -63,7 +63,7 @@ void wrapOutputChannel(py::module &module)
    // get/set process
    object.def_property(
       "process",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.process();
       },
@@ -77,7 +77,7 @@ void wrapOutputChannel(py::module &module)
    // get/set Q
    object.def_property(
       "q",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Q();
       },
@@ -91,7 +91,7 @@ void wrapOutputChannel(py::module &module)
    // get/set products
    object.def_property(
       "products",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.products();
       },

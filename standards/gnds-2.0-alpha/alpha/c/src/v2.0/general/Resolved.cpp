@@ -90,20 +90,20 @@ ResolvedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResolvedAssign(ConstHandle2Resolved This, ConstHandle2ConstResolved from)
+ResolvedAssign(ConstHandle2Resolved self, ConstHandle2ConstResolved from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResolvedDelete(ConstHandle2ConstResolved This)
+ResolvedDelete(ConstHandle2ConstResolved self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ ResolvedDelete(ConstHandle2ConstResolved This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResolvedRead(ConstHandle2Resolved This, const char *const filename)
+ResolvedRead(ConstHandle2Resolved self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResolvedWrite(ConstHandle2ConstResolved This, const char *const filename)
+ResolvedWrite(ConstHandle2ConstResolved self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResolvedPrint(ConstHandle2ConstResolved This)
+ResolvedPrint(ConstHandle2ConstResolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResolvedPrintXML(ConstHandle2ConstResolved This)
+ResolvedPrintXML(ConstHandle2ConstResolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResolvedPrintJSON(ConstHandle2ConstResolved This)
+ResolvedPrintJSON(ConstHandle2ConstResolved self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ ResolvedPrintJSON(ConstHandle2ConstResolved This)
 
 // Has
 int
-ResolvedDomainMinHas(ConstHandle2ConstResolved This)
+ResolvedDomainMinHas(ConstHandle2ConstResolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-ResolvedDomainMinGet(ConstHandle2ConstResolved This)
+ResolvedDomainMinGet(ConstHandle2ConstResolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-ResolvedDomainMinSet(ConstHandle2Resolved This, const double domainMin)
+ResolvedDomainMinSet(ConstHandle2Resolved self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -194,27 +194,27 @@ ResolvedDomainMinSet(ConstHandle2Resolved This, const double domainMin)
 
 // Has
 int
-ResolvedDomainMaxHas(ConstHandle2ConstResolved This)
+ResolvedDomainMaxHas(ConstHandle2ConstResolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-ResolvedDomainMaxGet(ConstHandle2ConstResolved This)
+ResolvedDomainMaxGet(ConstHandle2ConstResolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-ResolvedDomainMaxSet(ConstHandle2Resolved This, const double domainMax)
+ResolvedDomainMaxSet(ConstHandle2Resolved self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -224,27 +224,27 @@ ResolvedDomainMaxSet(ConstHandle2Resolved This, const double domainMax)
 
 // Has
 int
-ResolvedDomainUnitHas(ConstHandle2ConstResolved This)
+ResolvedDomainUnitHas(ConstHandle2ConstResolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitHas", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitHas", self, extract::domainUnit);
 }
 
 // Get
 // Returns by value
 const char *
-ResolvedDomainUnitGet(ConstHandle2ConstResolved This)
+ResolvedDomainUnitGet(ConstHandle2ConstResolved self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitGet", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitGet", self, extract::domainUnit);
 }
 
 // Set
 void
-ResolvedDomainUnitSet(ConstHandle2Resolved This, const char *const domainUnit)
+ResolvedDomainUnitSet(ConstHandle2Resolved self, const char *const domainUnit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitSet", self, extract::domainUnit, domainUnit);
 }
 
 
@@ -254,34 +254,34 @@ ResolvedDomainUnitSet(ConstHandle2Resolved This, const char *const domainUnit)
 
 // Has
 int
-ResolvedBreitWignerHas(ConstHandle2ConstResolved This)
+ResolvedBreitWignerHas(ConstHandle2ConstResolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BreitWignerHas", This, extract::BreitWigner);
+      (CLASSNAME, CLASSNAME+"BreitWignerHas", self, extract::BreitWigner);
 }
 
 // Get, const
 Handle2ConstBreitWigner
-ResolvedBreitWignerGetConst(ConstHandle2ConstResolved This)
+ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self)
 {
    return detail::getField<CPP,Handle2ConstBreitWigner>
-      (CLASSNAME, CLASSNAME+"BreitWignerGetConst", This, extract::BreitWigner);
+      (CLASSNAME, CLASSNAME+"BreitWignerGetConst", self, extract::BreitWigner);
 }
 
 // Get, non-const
 Handle2BreitWigner
-ResolvedBreitWignerGet(ConstHandle2Resolved This)
+ResolvedBreitWignerGet(ConstHandle2Resolved self)
 {
    return detail::getField<CPP,Handle2BreitWigner>
-      (CLASSNAME, CLASSNAME+"BreitWignerGet", This, extract::BreitWigner);
+      (CLASSNAME, CLASSNAME+"BreitWignerGet", self, extract::BreitWigner);
 }
 
 // Set
 void
-ResolvedBreitWignerSet(ConstHandle2Resolved This, ConstHandle2ConstBreitWigner BreitWigner)
+ResolvedBreitWignerSet(ConstHandle2Resolved self, ConstHandle2ConstBreitWigner BreitWigner)
 {
    detail::setField<CPP,CPPBreitWigner>
-      (CLASSNAME, CLASSNAME+"BreitWignerSet", This, extract::BreitWigner, BreitWigner);
+      (CLASSNAME, CLASSNAME+"BreitWignerSet", self, extract::BreitWigner, BreitWigner);
 }
 
 
@@ -291,34 +291,34 @@ ResolvedBreitWignerSet(ConstHandle2Resolved This, ConstHandle2ConstBreitWigner B
 
 // Has
 int
-ResolvedRMatrixHas(ConstHandle2ConstResolved This)
+ResolvedRMatrixHas(ConstHandle2ConstResolved self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RMatrixHas", This, extract::RMatrix);
+      (CLASSNAME, CLASSNAME+"RMatrixHas", self, extract::RMatrix);
 }
 
 // Get, const
 Handle2ConstRMatrix
-ResolvedRMatrixGetConst(ConstHandle2ConstResolved This)
+ResolvedRMatrixGetConst(ConstHandle2ConstResolved self)
 {
    return detail::getField<CPP,Handle2ConstRMatrix>
-      (CLASSNAME, CLASSNAME+"RMatrixGetConst", This, extract::RMatrix);
+      (CLASSNAME, CLASSNAME+"RMatrixGetConst", self, extract::RMatrix);
 }
 
 // Get, non-const
 Handle2RMatrix
-ResolvedRMatrixGet(ConstHandle2Resolved This)
+ResolvedRMatrixGet(ConstHandle2Resolved self)
 {
    return detail::getField<CPP,Handle2RMatrix>
-      (CLASSNAME, CLASSNAME+"RMatrixGet", This, extract::RMatrix);
+      (CLASSNAME, CLASSNAME+"RMatrixGet", self, extract::RMatrix);
 }
 
 // Set
 void
-ResolvedRMatrixSet(ConstHandle2Resolved This, ConstHandle2ConstRMatrix RMatrix)
+ResolvedRMatrixSet(ConstHandle2Resolved self, ConstHandle2ConstRMatrix RMatrix)
 {
    detail::setField<CPP,CPPRMatrix>
-      (CLASSNAME, CLASSNAME+"RMatrixSet", This, extract::RMatrix, RMatrix);
+      (CLASSNAME, CLASSNAME+"RMatrixSet", self, extract::RMatrix, RMatrix);
 }
 
 

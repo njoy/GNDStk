@@ -89,13 +89,13 @@ Branching1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Branching1dAssign(ConstHandle2Branching1d This, ConstHandle2ConstBranching1d from);
+Branching1dAssign(ConstHandle2Branching1d self, ConstHandle2ConstBranching1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Branching1dDelete(ConstHandle2ConstBranching1d This);
+Branching1dDelete(ConstHandle2ConstBranching1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ Branching1dDelete(ConstHandle2ConstBranching1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Branching1dRead(ConstHandle2Branching1d This, const char *const filename);
+Branching1dRead(ConstHandle2Branching1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Branching1dWrite(ConstHandle2ConstBranching1d This, const char *const filename);
+Branching1dWrite(ConstHandle2ConstBranching1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Branching1dPrint(ConstHandle2ConstBranching1d This);
+Branching1dPrint(ConstHandle2ConstBranching1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Branching1dPrintXML(ConstHandle2ConstBranching1d This);
+Branching1dPrintXML(ConstHandle2ConstBranching1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Branching1dPrintJSON(ConstHandle2ConstBranching1d This);
+Branching1dPrintJSON(ConstHandle2ConstBranching1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ Branching1dPrintJSON(ConstHandle2ConstBranching1d This);
 
 // +++ Has
 extern_c int
-Branching1dLabelHas(ConstHandle2ConstBranching1d This);
+Branching1dLabelHas(ConstHandle2ConstBranching1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-Branching1dLabelGet(ConstHandle2ConstBranching1d This);
+Branching1dLabelGet(ConstHandle2ConstBranching1d self);
 
 // +++ Set
 extern_c void
-Branching1dLabelSet(ConstHandle2Branching1d This, const char *const label);
+Branching1dLabelSet(ConstHandle2Branching1d self, const char *const label);
 
 
 // -----------------------------------------------------------------------------

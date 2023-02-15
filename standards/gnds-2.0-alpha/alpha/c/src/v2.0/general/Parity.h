@@ -90,13 +90,13 @@ ParityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ParityAssign(ConstHandle2Parity This, ConstHandle2ConstParity from);
+ParityAssign(ConstHandle2Parity self, ConstHandle2ConstParity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ParityDelete(ConstHandle2ConstParity This);
+ParityDelete(ConstHandle2ConstParity self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ParityDelete(ConstHandle2ConstParity This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ParityRead(ConstHandle2Parity This, const char *const filename);
+ParityRead(ConstHandle2Parity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ParityWrite(ConstHandle2ConstParity This, const char *const filename);
+ParityWrite(ConstHandle2ConstParity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ParityPrint(ConstHandle2ConstParity This);
+ParityPrint(ConstHandle2ConstParity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ParityPrintXML(ConstHandle2ConstParity This);
+ParityPrintXML(ConstHandle2ConstParity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ParityPrintJSON(ConstHandle2ConstParity This);
+ParityPrintJSON(ConstHandle2ConstParity self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ParityPrintJSON(ConstHandle2ConstParity This);
 
 // +++ Has
 extern_c int
-ParityIntegerHas(ConstHandle2ConstParity This);
+ParityIntegerHas(ConstHandle2ConstParity self);
 
 // --- Get, const
 extern_c Handle2ConstInteger
-ParityIntegerGetConst(ConstHandle2ConstParity This);
+ParityIntegerGetConst(ConstHandle2ConstParity self);
 
 // +++ Get, non-const
 extern_c Handle2Integer
-ParityIntegerGet(ConstHandle2Parity This);
+ParityIntegerGet(ConstHandle2Parity self);
 
 // +++ Set
 extern_c void
-ParityIntegerSet(ConstHandle2Parity This, ConstHandle2ConstInteger integer);
+ParityIntegerSet(ConstHandle2Parity self, ConstHandle2ConstInteger integer);
 
 
 // -----------------------------------------------------------------------------

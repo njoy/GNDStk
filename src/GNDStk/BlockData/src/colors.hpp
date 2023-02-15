@@ -599,20 +599,22 @@ std::string blue2red(T min, T value, T max)
 // color::custom::
 namespace custom {
    inline const std::string
-   purple = makeColor( 142, 110, 202 ),
-   blue   = makeColor(  40, 160, 240 ),
-   green  = makeColor(  20, 200, 120 ),
    red    = makeColor( 240,  40,  80 ),
-   yellow = makeColor( 220, 220,  40 );
+   yellow = makeColor( 220, 220,  40 ),
+   green  = makeColor(  20, 200, 120 ),
+   blue   = makeColor(  40, 160, 240 ),
+   purple = makeColor( 142, 110, 202 ),
+   brown  = makeColor( 190, 128, 120 );
 
    // color::custom::faded::
    namespace faded {
       inline const std::string
-      purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
-      blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
-      green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
       red    = makeColor( (240+128)/2, ( 40+128)/2, ( 80+128)/2 ),
-      yellow = makeColor( (220+128)/2, (220+128)/2, ( 40+128)/2 );
+      yellow = makeColor( (220+128)/2, (220+128)/2, ( 40+128)/2 ),
+      green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
+      blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
+      purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
+      brown  = makeColor( (190+128)/2, (128+128)/2, (120+128)/2 );
    }
 
    inline const std::string
@@ -634,7 +636,7 @@ namespace custom {
 inline std::string component = custom::purple;
 inline std::string brace = component;
 
-// General labels, and the colon separator between label and value
+// General labels, and the colon separator between it and the value
 inline std::string label = custom::blue;
 inline std::string colon = label;
 
@@ -643,19 +645,19 @@ inline std::string vector = custom::green;
 inline std::string bracket = vector;
 
 // General values
-inline std::string value = "";
+inline std::string value = custom::red;
 
-// Comments that the prettyprinter optionally emits (but not comments that
-// appear in the comment vector<string> in a Component-derived class.)
-inline std::string comment = custom::faded::yellow;///custom::white;
+// General comments that the prettyprinter creates
+inline std::string comment = custom::brown;
 
-// Comments that appear in a comment vector<string>.
-// Strings and vectors in data nodes. Emphasis: only strings and vectors
-// specifically in DATA NODES, not those appearing in other ways.
+// Re: data nodes
 namespace data {
+   // Comments that appear in a Component.comment vector<string>.
    inline std::string comment = custom::yellow;
-   inline std::string string  = custom::yellow;
-   inline std::string vector  = "";
+   // Strings and vectors in data nodes. Emphasis: only strings and vectors
+   // specifically in DATA NODES, not those appearing in other ways.
+   inline std::string string  = custom::white;
+   inline std::string vector  = custom::white;
 }
 
 // If an object is optional or GNDStk::Defaulted, the color for its label (but
@@ -665,7 +667,7 @@ namespace optional {
    inline std::string component = custom::faded::purple;
    inline std::string label     = custom::faded::blue;
    inline std::string vector    = custom::faded::green;
-   inline std::string value = "";
+   inline std::string value     = custom::faded::red;
 }
 
 
@@ -696,17 +698,17 @@ inline void simple()
    colon     = label;
    vector    = plain::green;
    bracket   = vector;
-   value     = "";
-   comment   = plain::red;
+   value     = plain::red;
+   comment   = "";
 
    data::comment = plain::yellow;
-   data::string  = plain::yellow;
-   data::vector  = "";
+   data::string  = plain::white;
+   data::vector  = plain::white;
 
-   optional::component = plain::magenta;
-   optional::label     = plain::blue;
-   optional::vector    = plain::green;
-   optional::value = "";
+   optional::component = component;
+   optional::label     = label;
+   optional::vector    = vector;
+   optional::value     = value;
 }
 
 } // namespace color

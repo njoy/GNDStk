@@ -45,7 +45,7 @@ void wrapStyles(py::module &module)
    // get/set evaluated
    object.def_property(
       "evaluated",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.evaluated();
       },
@@ -59,7 +59,7 @@ void wrapStyles(py::module &module)
    // get/set crossSectionReconstructed
    object.def_property(
       "cross_section_reconstructed",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSectionReconstructed();
       },

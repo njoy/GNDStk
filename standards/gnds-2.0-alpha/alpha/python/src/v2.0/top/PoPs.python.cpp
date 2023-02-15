@@ -61,7 +61,7 @@ void wrapPoPs(py::module &module)
    // get/set name
    object.def_property(
       "name",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.name();
       },
@@ -75,7 +75,7 @@ void wrapPoPs(py::module &module)
    // get/set version
    object.def_property(
       "version",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.version();
       },
@@ -89,7 +89,7 @@ void wrapPoPs(py::module &module)
    // get/set format
    object.def_property(
       "format",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.format();
       },
@@ -103,7 +103,7 @@ void wrapPoPs(py::module &module)
    // get/set aliases
    object.def_property(
       "aliases",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.aliases();
       },
@@ -117,7 +117,7 @@ void wrapPoPs(py::module &module)
    // get/set baryons
    object.def_property(
       "baryons",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.baryons();
       },
@@ -131,7 +131,7 @@ void wrapPoPs(py::module &module)
    // get/set chemicalElements
    object.def_property(
       "chemical_elements",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.chemicalElements();
       },
@@ -145,7 +145,7 @@ void wrapPoPs(py::module &module)
    // get/set styles
    object.def_property(
       "styles",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.styles();
       },
@@ -159,7 +159,7 @@ void wrapPoPs(py::module &module)
    // get/set unorthodoxes
    object.def_property(
       "unorthodoxes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unorthodoxes();
       },
@@ -173,7 +173,7 @@ void wrapPoPs(py::module &module)
    // get/set gaugeBosons
    object.def_property(
       "gauge_bosons",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gaugeBosons();
       },
@@ -187,7 +187,7 @@ void wrapPoPs(py::module &module)
    // get/set leptons
    object.def_property(
       "leptons",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.leptons();
       },

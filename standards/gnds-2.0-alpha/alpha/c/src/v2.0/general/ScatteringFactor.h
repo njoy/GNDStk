@@ -90,13 +90,13 @@ ScatteringFactorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ScatteringFactorAssign(ConstHandle2ScatteringFactor This, ConstHandle2ConstScatteringFactor from);
+ScatteringFactorAssign(ConstHandle2ScatteringFactor self, ConstHandle2ConstScatteringFactor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ScatteringFactorDelete(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorDelete(ConstHandle2ConstScatteringFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ScatteringFactorDelete(ConstHandle2ConstScatteringFactor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ScatteringFactorRead(ConstHandle2ScatteringFactor This, const char *const filename);
+ScatteringFactorRead(ConstHandle2ScatteringFactor self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ScatteringFactorWrite(ConstHandle2ConstScatteringFactor This, const char *const filename);
+ScatteringFactorWrite(ConstHandle2ConstScatteringFactor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ScatteringFactorPrint(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorPrint(ConstHandle2ConstScatteringFactor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ScatteringFactorPrintXML(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorPrintXML(ConstHandle2ConstScatteringFactor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor This);
 
 // +++ Has
 extern_c int
-ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor This);
+ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor This);
+ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor self);
 
 // +++ Set
 extern_c void
-ScatteringFactorXYs1dSet(ConstHandle2ScatteringFactor This, ConstHandle2ConstXYs1d XYs1d);
+ScatteringFactorXYs1dSet(ConstHandle2ScatteringFactor self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

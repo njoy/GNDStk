@@ -106,13 +106,13 @@ DecayModeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DecayModeAssign(ConstHandle2DecayMode This, ConstHandle2ConstDecayMode from);
+DecayModeAssign(ConstHandle2DecayMode self, ConstHandle2ConstDecayMode from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DecayModeDelete(ConstHandle2ConstDecayMode This);
+DecayModeDelete(ConstHandle2ConstDecayMode self);
 
 
 // -----------------------------------------------------------------------------
@@ -125,25 +125,25 @@ DecayModeDelete(ConstHandle2ConstDecayMode This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DecayModeRead(ConstHandle2DecayMode This, const char *const filename);
+DecayModeRead(ConstHandle2DecayMode self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DecayModeWrite(ConstHandle2ConstDecayMode This, const char *const filename);
+DecayModeWrite(ConstHandle2ConstDecayMode self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DecayModePrint(ConstHandle2ConstDecayMode This);
+DecayModePrint(ConstHandle2ConstDecayMode self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DecayModePrintXML(ConstHandle2ConstDecayMode This);
+DecayModePrintXML(ConstHandle2ConstDecayMode self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DecayModePrintJSON(ConstHandle2ConstDecayMode This);
+DecayModePrintJSON(ConstHandle2ConstDecayMode self);
 
 
 // -----------------------------------------------------------------------------
@@ -152,16 +152,16 @@ DecayModePrintJSON(ConstHandle2ConstDecayMode This);
 
 // +++ Has
 extern_c int
-DecayModeLabelHas(ConstHandle2ConstDecayMode This);
+DecayModeLabelHas(ConstHandle2ConstDecayMode self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-DecayModeLabelGet(ConstHandle2ConstDecayMode This);
+DecayModeLabelGet(ConstHandle2ConstDecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeLabelSet(ConstHandle2DecayMode This, const char *const label);
+DecayModeLabelSet(ConstHandle2DecayMode self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ DecayModeLabelSet(ConstHandle2DecayMode This, const char *const label);
 
 // +++ Has
 extern_c int
-DecayModeModeHas(ConstHandle2ConstDecayMode This);
+DecayModeModeHas(ConstHandle2ConstDecayMode self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-DecayModeModeGet(ConstHandle2ConstDecayMode This);
+DecayModeModeGet(ConstHandle2ConstDecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeModeSet(ConstHandle2DecayMode This, const char *const mode);
+DecayModeModeSet(ConstHandle2DecayMode self, const char *const mode);
 
 
 // -----------------------------------------------------------------------------
@@ -188,19 +188,19 @@ DecayModeModeSet(ConstHandle2DecayMode This, const char *const mode);
 
 // +++ Has
 extern_c int
-DecayModeProbabilityHas(ConstHandle2ConstDecayMode This);
+DecayModeProbabilityHas(ConstHandle2ConstDecayMode self);
 
 // --- Get, const
 extern_c Handle2ConstProbability
-DecayModeProbabilityGetConst(ConstHandle2ConstDecayMode This);
+DecayModeProbabilityGetConst(ConstHandle2ConstDecayMode self);
 
 // +++ Get, non-const
 extern_c Handle2Probability
-DecayModeProbabilityGet(ConstHandle2DecayMode This);
+DecayModeProbabilityGet(ConstHandle2DecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeProbabilitySet(ConstHandle2DecayMode This, ConstHandle2ConstProbability probability);
+DecayModeProbabilitySet(ConstHandle2DecayMode self, ConstHandle2ConstProbability probability);
 
 
 // -----------------------------------------------------------------------------
@@ -209,19 +209,19 @@ DecayModeProbabilitySet(ConstHandle2DecayMode This, ConstHandle2ConstProbability
 
 // +++ Has
 extern_c int
-DecayModeDecayPathHas(ConstHandle2ConstDecayMode This);
+DecayModeDecayPathHas(ConstHandle2ConstDecayMode self);
 
 // --- Get, const
 extern_c Handle2ConstDecayPath
-DecayModeDecayPathGetConst(ConstHandle2ConstDecayMode This);
+DecayModeDecayPathGetConst(ConstHandle2ConstDecayMode self);
 
 // +++ Get, non-const
 extern_c Handle2DecayPath
-DecayModeDecayPathGet(ConstHandle2DecayMode This);
+DecayModeDecayPathGet(ConstHandle2DecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeDecayPathSet(ConstHandle2DecayMode This, ConstHandle2ConstDecayPath decayPath);
+DecayModeDecayPathSet(ConstHandle2DecayMode self, ConstHandle2ConstDecayPath decayPath);
 
 
 // -----------------------------------------------------------------------------
@@ -230,19 +230,19 @@ DecayModeDecayPathSet(ConstHandle2DecayMode This, ConstHandle2ConstDecayPath dec
 
 // +++ Has
 extern_c int
-DecayModePhotonEmissionProbabilitiesHas(ConstHandle2ConstDecayMode This);
+DecayModePhotonEmissionProbabilitiesHas(ConstHandle2ConstDecayMode self);
 
 // --- Get, const
 extern_c Handle2ConstPhotonEmissionProbabilities
-DecayModePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDecayMode This);
+DecayModePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDecayMode self);
 
 // +++ Get, non-const
 extern_c Handle2PhotonEmissionProbabilities
-DecayModePhotonEmissionProbabilitiesGet(ConstHandle2DecayMode This);
+DecayModePhotonEmissionProbabilitiesGet(ConstHandle2DecayMode self);
 
 // +++ Set
 extern_c void
-DecayModePhotonEmissionProbabilitiesSet(ConstHandle2DecayMode This, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities);
+DecayModePhotonEmissionProbabilitiesSet(ConstHandle2DecayMode self, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities);
 
 
 // -----------------------------------------------------------------------------
@@ -251,19 +251,19 @@ DecayModePhotonEmissionProbabilitiesSet(ConstHandle2DecayMode This, ConstHandle2
 
 // +++ Has
 extern_c int
-DecayModeQHas(ConstHandle2ConstDecayMode This);
+DecayModeQHas(ConstHandle2ConstDecayMode self);
 
 // --- Get, const
 extern_c Handle2ConstQ
-DecayModeQGetConst(ConstHandle2ConstDecayMode This);
+DecayModeQGetConst(ConstHandle2ConstDecayMode self);
 
 // +++ Get, non-const
 extern_c Handle2Q
-DecayModeQGet(ConstHandle2DecayMode This);
+DecayModeQGet(ConstHandle2DecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeQSet(ConstHandle2DecayMode This, ConstHandle2ConstQ Q);
+DecayModeQSet(ConstHandle2DecayMode self, ConstHandle2ConstQ Q);
 
 
 // -----------------------------------------------------------------------------
@@ -272,19 +272,19 @@ DecayModeQSet(ConstHandle2DecayMode This, ConstHandle2ConstQ Q);
 
 // +++ Has
 extern_c int
-DecayModeSpectraHas(ConstHandle2ConstDecayMode This);
+DecayModeSpectraHas(ConstHandle2ConstDecayMode self);
 
 // --- Get, const
 extern_c Handle2ConstSpectra
-DecayModeSpectraGetConst(ConstHandle2ConstDecayMode This);
+DecayModeSpectraGetConst(ConstHandle2ConstDecayMode self);
 
 // +++ Get, non-const
 extern_c Handle2Spectra
-DecayModeSpectraGet(ConstHandle2DecayMode This);
+DecayModeSpectraGet(ConstHandle2DecayMode self);
 
 // +++ Set
 extern_c void
-DecayModeSpectraSet(ConstHandle2DecayMode This, ConstHandle2ConstSpectra spectra);
+DecayModeSpectraSet(ConstHandle2DecayMode self, ConstHandle2ConstSpectra spectra);
 
 
 // -----------------------------------------------------------------------------

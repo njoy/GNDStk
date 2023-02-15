@@ -96,13 +96,13 @@ NuclearAmplitudeExpansionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclearAmplitudeExpansionAssign(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstNuclearAmplitudeExpansion from);
+NuclearAmplitudeExpansionAssign(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstNuclearAmplitudeExpansion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclearAmplitudeExpansionRead(ConstHandle2NuclearAmplitudeExpansion This, const char *const filename);
+NuclearAmplitudeExpansionRead(ConstHandle2NuclearAmplitudeExpansion self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclearAmplitudeExpansionWrite(ConstHandle2ConstNuclearAmplitudeExpansion This, const char *const filename);
+NuclearAmplitudeExpansionWrite(ConstHandle2ConstNuclearAmplitudeExpansion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclearAmplitudeExpansionPrint(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionPrint(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclearAmplitudeExpansionPrintXML(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionPrintXML(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion Th
 
 // +++ Has
 extern_c int
-NuclearAmplitudeExpansionNuclearTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionNuclearTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // --- Get, const
 extern_c Handle2ConstNuclearTerm
-NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // +++ Get, non-const
 extern_c Handle2NuclearTerm
-NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 
 // +++ Set
 extern_c void
-NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstNuclearTerm nuclearTerm);
+NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstNuclearTerm nuclearTerm);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion Th
 
 // +++ Has
 extern_c int
-NuclearAmplitudeExpansionRealInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionRealInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // --- Get, const
 extern_c Handle2ConstRealInterferenceTerm
-NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // +++ Get, non-const
 extern_c Handle2RealInterferenceTerm
-NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 
 // +++ Set
 extern_c void
-NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstRealInterferenceTerm realInterferenceTerm);
+NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstRealInterferenceTerm realInterferenceTerm);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExp
 
 // +++ Has
 extern_c int
-NuclearAmplitudeExpansionImaginaryInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionImaginaryInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // --- Get, const
 extern_c Handle2ConstImaginaryInterferenceTerm
-NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
 // +++ Get, non-const
 extern_c Handle2ImaginaryInterferenceTerm
-NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion This);
+NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 
 // +++ Set
 extern_c void
-NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstImaginaryInterferenceTerm imaginaryInterferenceTerm);
+NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstImaginaryInterferenceTerm imaginaryInterferenceTerm);
 
 
 // -----------------------------------------------------------------------------

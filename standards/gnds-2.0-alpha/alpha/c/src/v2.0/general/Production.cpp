@@ -85,20 +85,20 @@ ProductionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProductionAssign(ConstHandle2Production This, ConstHandle2ConstProduction from)
+ProductionAssign(ConstHandle2Production self, ConstHandle2ConstProduction from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProductionDelete(ConstHandle2ConstProduction This)
+ProductionDelete(ConstHandle2ConstProduction self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ ProductionDelete(ConstHandle2ConstProduction This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProductionRead(ConstHandle2Production This, const char *const filename)
+ProductionRead(ConstHandle2Production self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProductionWrite(ConstHandle2ConstProduction This, const char *const filename)
+ProductionWrite(ConstHandle2ConstProduction self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProductionPrint(ConstHandle2ConstProduction This)
+ProductionPrint(ConstHandle2ConstProduction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProductionPrintXML(ConstHandle2ConstProduction This)
+ProductionPrintXML(ConstHandle2ConstProduction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProductionPrintJSON(ConstHandle2ConstProduction This)
+ProductionPrintJSON(ConstHandle2ConstProduction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ ProductionPrintJSON(ConstHandle2ConstProduction This)
 
 // Has
 int
-ProductionLabelHas(ConstHandle2ConstProduction This)
+ProductionLabelHas(ConstHandle2ConstProduction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ProductionLabelGet(ConstHandle2ConstProduction This)
+ProductionLabelGet(ConstHandle2ConstProduction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ProductionLabelSet(ConstHandle2Production This, const char *const label)
+ProductionLabelSet(ConstHandle2Production self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -189,27 +189,27 @@ ProductionLabelSet(ConstHandle2Production This, const char *const label)
 
 // Has
 int
-ProductionENDFMTHas(ConstHandle2ConstProduction This)
+ProductionENDFMTHas(ConstHandle2ConstProduction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTHas", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTHas", self, extract::ENDF_MT);
 }
 
 // Get
 // Returns by value
 int
-ProductionENDFMTGet(ConstHandle2ConstProduction This)
+ProductionENDFMTGet(ConstHandle2ConstProduction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTGet", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTGet", self, extract::ENDF_MT);
 }
 
 // Set
 void
-ProductionENDFMTSet(ConstHandle2Production This, const int ENDF_MT)
+ProductionENDFMTSet(ConstHandle2Production self, const int ENDF_MT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTSet", This, extract::ENDF_MT, ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTSet", self, extract::ENDF_MT, ENDF_MT);
 }
 
 
@@ -219,34 +219,34 @@ ProductionENDFMTSet(ConstHandle2Production This, const int ENDF_MT)
 
 // Has
 int
-ProductionCrossSectionHas(ConstHandle2ConstProduction This)
+ProductionCrossSectionHas(ConstHandle2ConstProduction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionHas", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionHas", self, extract::crossSection);
 }
 
 // Get, const
 Handle2ConstCrossSection
-ProductionCrossSectionGetConst(ConstHandle2ConstProduction This)
+ProductionCrossSectionGetConst(ConstHandle2ConstProduction self)
 {
    return detail::getField<CPP,Handle2ConstCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
 // Get, non-const
 Handle2CrossSection
-ProductionCrossSectionGet(ConstHandle2Production This)
+ProductionCrossSectionGet(ConstHandle2Production self)
 {
    return detail::getField<CPP,Handle2CrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGet", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGet", self, extract::crossSection);
 }
 
 // Set
 void
-ProductionCrossSectionSet(ConstHandle2Production This, ConstHandle2ConstCrossSection crossSection)
+ProductionCrossSectionSet(ConstHandle2Production self, ConstHandle2ConstCrossSection crossSection)
 {
    detail::setField<CPP,CPPCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionSet", This, extract::crossSection, crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionSet", self, extract::crossSection, crossSection);
 }
 
 
@@ -256,34 +256,34 @@ ProductionCrossSectionSet(ConstHandle2Production This, ConstHandle2ConstCrossSec
 
 // Has
 int
-ProductionOutputChannelHas(ConstHandle2ConstProduction This)
+ProductionOutputChannelHas(ConstHandle2ConstProduction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputChannelHas", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelHas", self, extract::outputChannel);
 }
 
 // Get, const
 Handle2ConstOutputChannel
-ProductionOutputChannelGetConst(ConstHandle2ConstProduction This)
+ProductionOutputChannelGetConst(ConstHandle2ConstProduction self)
 {
    return detail::getField<CPP,Handle2ConstOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
 // Get, non-const
 Handle2OutputChannel
-ProductionOutputChannelGet(ConstHandle2Production This)
+ProductionOutputChannelGet(ConstHandle2Production self)
 {
    return detail::getField<CPP,Handle2OutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGet", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGet", self, extract::outputChannel);
 }
 
 // Set
 void
-ProductionOutputChannelSet(ConstHandle2Production This, ConstHandle2ConstOutputChannel outputChannel)
+ProductionOutputChannelSet(ConstHandle2Production self, ConstHandle2ConstOutputChannel outputChannel)
 {
    detail::setField<CPP,CPPOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelSet", self, extract::outputChannel, outputChannel);
 }
 
 

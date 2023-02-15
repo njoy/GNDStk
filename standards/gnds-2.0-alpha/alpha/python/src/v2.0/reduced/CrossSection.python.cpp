@@ -47,7 +47,7 @@ void wrapCrossSection(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -61,7 +61,7 @@ void wrapCrossSection(py::module &module)
    // get/set regions1d
    object.def_property(
       "regions1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions1d();
       },
@@ -75,7 +75,7 @@ void wrapCrossSection(py::module &module)
    // get/set reference
    object.def_property(
       "reference",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.reference();
       },

@@ -93,13 +93,13 @@ FractionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FractionAssign(ConstHandle2Fraction This, ConstHandle2ConstFraction from);
+FractionAssign(ConstHandle2Fraction self, ConstHandle2ConstFraction from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FractionDelete(ConstHandle2ConstFraction This);
+FractionDelete(ConstHandle2ConstFraction self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ FractionDelete(ConstHandle2ConstFraction This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FractionRead(ConstHandle2Fraction This, const char *const filename);
+FractionRead(ConstHandle2Fraction self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FractionWrite(ConstHandle2ConstFraction This, const char *const filename);
+FractionWrite(ConstHandle2ConstFraction self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FractionPrint(ConstHandle2ConstFraction This);
+FractionPrint(ConstHandle2ConstFraction self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FractionPrintXML(ConstHandle2ConstFraction This);
+FractionPrintXML(ConstHandle2ConstFraction self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FractionPrintJSON(ConstHandle2ConstFraction This);
+FractionPrintJSON(ConstHandle2ConstFraction self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ FractionPrintJSON(ConstHandle2ConstFraction This);
 
 // +++ Has
 extern_c int
-FractionLabelHas(ConstHandle2ConstFraction This);
+FractionLabelHas(ConstHandle2ConstFraction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-FractionLabelGet(ConstHandle2ConstFraction This);
+FractionLabelGet(ConstHandle2ConstFraction self);
 
 // +++ Set
 extern_c void
-FractionLabelSet(ConstHandle2Fraction This, const char *const label);
+FractionLabelSet(ConstHandle2Fraction self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ FractionLabelSet(ConstHandle2Fraction This, const char *const label);
 
 // +++ Has
 extern_c int
-FractionValueHas(ConstHandle2ConstFraction This);
+FractionValueHas(ConstHandle2ConstFraction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-FractionValueGet(ConstHandle2ConstFraction This);
+FractionValueGet(ConstHandle2ConstFraction self);
 
 // +++ Set
 extern_c void
-FractionValueSet(ConstHandle2Fraction This, const char *const value);
+FractionValueSet(ConstHandle2Fraction self, const char *const value);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ FractionValueSet(ConstHandle2Fraction This, const char *const value);
 
 // +++ Has
 extern_c int
-FractionUnitHas(ConstHandle2ConstFraction This);
+FractionUnitHas(ConstHandle2ConstFraction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-FractionUnitGet(ConstHandle2ConstFraction This);
+FractionUnitGet(ConstHandle2ConstFraction self);
 
 // +++ Set
 extern_c void
-FractionUnitSet(ConstHandle2Fraction This, const char *const unit);
+FractionUnitSet(ConstHandle2Fraction self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

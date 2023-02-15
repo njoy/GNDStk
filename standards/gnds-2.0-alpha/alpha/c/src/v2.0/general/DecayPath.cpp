@@ -73,20 +73,20 @@ DecayPathCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DecayPathAssign(ConstHandle2DecayPath This, ConstHandle2ConstDecayPath from)
+DecayPathAssign(ConstHandle2DecayPath self, ConstHandle2ConstDecayPath from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DecayPathDelete(ConstHandle2ConstDecayPath This)
+DecayPathDelete(ConstHandle2ConstDecayPath self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ DecayPathDelete(ConstHandle2ConstDecayPath This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DecayPathRead(ConstHandle2DecayPath This, const char *const filename)
+DecayPathRead(ConstHandle2DecayPath self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DecayPathWrite(ConstHandle2ConstDecayPath This, const char *const filename)
+DecayPathWrite(ConstHandle2ConstDecayPath self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DecayPathPrint(ConstHandle2ConstDecayPath This)
+DecayPathPrint(ConstHandle2ConstDecayPath self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DecayPathPrintXML(ConstHandle2ConstDecayPath This)
+DecayPathPrintXML(ConstHandle2ConstDecayPath self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DecayPathPrintJSON(ConstHandle2ConstDecayPath This)
+DecayPathPrintJSON(ConstHandle2ConstDecayPath self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ DecayPathPrintJSON(ConstHandle2ConstDecayPath This)
 
 // Has
 int
-DecayPathDecayHas(ConstHandle2ConstDecayPath This)
+DecayPathDecayHas(ConstHandle2ConstDecayPath self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayHas", This, extract::decay);
+      (CLASSNAME, CLASSNAME+"DecayHas", self, extract::decay);
 }
 
 // Clear
 void
-DecayPathDecayClear(ConstHandle2DecayPath This)
+DecayPathDecayClear(ConstHandle2DecayPath self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecayClear", This, extract::decay);
+      (CLASSNAME, CLASSNAME+"DecayClear", self, extract::decay);
 }
 
 // Size
 size_t
-DecayPathDecaySize(ConstHandle2ConstDecayPath This)
+DecayPathDecaySize(ConstHandle2ConstDecayPath self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecaySize", This, extract::decay);
+      (CLASSNAME, CLASSNAME+"DecaySize", self, extract::decay);
 }
 
 // Add
 void
-DecayPathDecayAdd(ConstHandle2DecayPath This, ConstHandle2ConstDecay decay)
+DecayPathDecayAdd(ConstHandle2DecayPath self, ConstHandle2ConstDecay decay)
 {
    detail::addToContainer<CPP,CPPDecay>
-      (CLASSNAME, CLASSNAME+"DecayAdd", This, extract::decay, decay);
+      (CLASSNAME, CLASSNAME+"DecayAdd", self, extract::decay, decay);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDecay
-DecayPathDecayGetConst(ConstHandle2ConstDecayPath This, const size_t index_)
+DecayPathDecayGetConst(ConstHandle2ConstDecayPath self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDecay>
-      (CLASSNAME, CLASSNAME+"DecayGetConst", This, extract::decay, index_);
+      (CLASSNAME, CLASSNAME+"DecayGetConst", self, extract::decay, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Decay
-DecayPathDecayGet(ConstHandle2DecayPath This, const size_t index_)
+DecayPathDecayGet(ConstHandle2DecayPath self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Decay>
-      (CLASSNAME, CLASSNAME+"DecayGet", This, extract::decay, index_);
+      (CLASSNAME, CLASSNAME+"DecayGet", self, extract::decay, index_);
 }
 
 // Set, by index \in [0,size)
 void
 DecayPathDecaySet(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const size_t index_,
    ConstHandle2ConstDecay decay
 ) {
    detail::setByIndex<CPP,CPPDecay>
-      (CLASSNAME, CLASSNAME+"DecaySet", This, extract::decay, index_, decay);
+      (CLASSNAME, CLASSNAME+"DecaySet", self, extract::decay, index_, decay);
 }
 
 // Has, by index
 int
 DecayPathDecayHasByIndex(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const int index
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DecayHasByIndex",
-       This, extract::decay, meta::index, index);
+       self, extract::decay, meta::index, index);
 }
 
 // Get, by index, const
 Handle2ConstDecay
 DecayPathDecayGetByIndexConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDecay>
       (CLASSNAME, CLASSNAME+"DecayGetByIndexConst",
-       This, extract::decay, meta::index, index);
+       self, extract::decay, meta::index, index);
 }
 
 // Get, by index, non-const
 Handle2Decay
 DecayPathDecayGetByIndex(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2Decay>
       (CLASSNAME, CLASSNAME+"DecayGetByIndex",
-       This, extract::decay, meta::index, index);
+       self, extract::decay, meta::index, index);
 }
 
 // Set, by index
 void
 DecayPathDecaySetByIndex(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const int index,
    ConstHandle2ConstDecay decay
 ) {
    detail::setByMetadatum<CPP,CPPDecay>
       (CLASSNAME, CLASSNAME+"DecaySetByIndex",
-       This, extract::decay, meta::index, index, decay);
+       self, extract::decay, meta::index, index, decay);
 }
 
 // Has, by mode
 int
 DecayPathDecayHasByMode(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const char *const mode
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DecayHasByMode",
-       This, extract::decay, meta::mode, mode);
+       self, extract::decay, meta::mode, mode);
 }
 
 // Get, by mode, const
 Handle2ConstDecay
 DecayPathDecayGetByModeConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const char *const mode
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDecay>
       (CLASSNAME, CLASSNAME+"DecayGetByModeConst",
-       This, extract::decay, meta::mode, mode);
+       self, extract::decay, meta::mode, mode);
 }
 
 // Get, by mode, non-const
 Handle2Decay
 DecayPathDecayGetByMode(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const char *const mode
 ) {
    return detail::getByMetadatum<CPP,Handle2Decay>
       (CLASSNAME, CLASSNAME+"DecayGetByMode",
-       This, extract::decay, meta::mode, mode);
+       self, extract::decay, meta::mode, mode);
 }
 
 // Set, by mode
 void
 DecayPathDecaySetByMode(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const char *const mode,
    ConstHandle2ConstDecay decay
 ) {
    detail::setByMetadatum<CPP,CPPDecay>
       (CLASSNAME, CLASSNAME+"DecaySetByMode",
-       This, extract::decay, meta::mode, mode, decay);
+       self, extract::decay, meta::mode, mode, decay);
 }
 
 // Has, by complete
 int
 DecayPathDecayHasByComplete(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const bool complete
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DecayHasByComplete",
-       This, extract::decay, meta::complete, complete);
+       self, extract::decay, meta::complete, complete);
 }
 
 // Get, by complete, const
 Handle2ConstDecay
 DecayPathDecayGetByCompleteConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const bool complete
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDecay>
       (CLASSNAME, CLASSNAME+"DecayGetByCompleteConst",
-       This, extract::decay, meta::complete, complete);
+       self, extract::decay, meta::complete, complete);
 }
 
 // Get, by complete, non-const
 Handle2Decay
 DecayPathDecayGetByComplete(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const bool complete
 ) {
    return detail::getByMetadatum<CPP,Handle2Decay>
       (CLASSNAME, CLASSNAME+"DecayGetByComplete",
-       This, extract::decay, meta::complete, complete);
+       self, extract::decay, meta::complete, complete);
 }
 
 // Set, by complete
 void
 DecayPathDecaySetByComplete(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const bool complete,
    ConstHandle2ConstDecay decay
 ) {
    detail::setByMetadatum<CPP,CPPDecay>
       (CLASSNAME, CLASSNAME+"DecaySetByComplete",
-       This, extract::decay, meta::complete, complete, decay);
+       self, extract::decay, meta::complete, complete, decay);
 }
 
 

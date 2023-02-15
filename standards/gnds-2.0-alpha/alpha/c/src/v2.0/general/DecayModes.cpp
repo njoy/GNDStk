@@ -73,20 +73,20 @@ DecayModesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DecayModesAssign(ConstHandle2DecayModes This, ConstHandle2ConstDecayModes from)
+DecayModesAssign(ConstHandle2DecayModes self, ConstHandle2ConstDecayModes from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DecayModesDelete(ConstHandle2ConstDecayModes This)
+DecayModesDelete(ConstHandle2ConstDecayModes self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ DecayModesDelete(ConstHandle2ConstDecayModes This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DecayModesRead(ConstHandle2DecayModes This, const char *const filename)
+DecayModesRead(ConstHandle2DecayModes self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DecayModesWrite(ConstHandle2ConstDecayModes This, const char *const filename)
+DecayModesWrite(ConstHandle2ConstDecayModes self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DecayModesPrint(ConstHandle2ConstDecayModes This)
+DecayModesPrint(ConstHandle2ConstDecayModes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DecayModesPrintXML(ConstHandle2ConstDecayModes This)
+DecayModesPrintXML(ConstHandle2ConstDecayModes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DecayModesPrintJSON(ConstHandle2ConstDecayModes This)
+DecayModesPrintJSON(ConstHandle2ConstDecayModes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ DecayModesPrintJSON(ConstHandle2ConstDecayModes This)
 
 // Has
 int
-DecayModesDecayModeHas(ConstHandle2ConstDecayModes This)
+DecayModesDecayModeHas(ConstHandle2ConstDecayModes self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayModeHas", This, extract::decayMode);
+      (CLASSNAME, CLASSNAME+"DecayModeHas", self, extract::decayMode);
 }
 
 // Clear
 void
-DecayModesDecayModeClear(ConstHandle2DecayModes This)
+DecayModesDecayModeClear(ConstHandle2DecayModes self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecayModeClear", This, extract::decayMode);
+      (CLASSNAME, CLASSNAME+"DecayModeClear", self, extract::decayMode);
 }
 
 // Size
 size_t
-DecayModesDecayModeSize(ConstHandle2ConstDecayModes This)
+DecayModesDecayModeSize(ConstHandle2ConstDecayModes self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecayModeSize", This, extract::decayMode);
+      (CLASSNAME, CLASSNAME+"DecayModeSize", self, extract::decayMode);
 }
 
 // Add
 void
-DecayModesDecayModeAdd(ConstHandle2DecayModes This, ConstHandle2ConstDecayMode decayMode)
+DecayModesDecayModeAdd(ConstHandle2DecayModes self, ConstHandle2ConstDecayMode decayMode)
 {
    detail::addToContainer<CPP,CPPDecayMode>
-      (CLASSNAME, CLASSNAME+"DecayModeAdd", This, extract::decayMode, decayMode);
+      (CLASSNAME, CLASSNAME+"DecayModeAdd", self, extract::decayMode, decayMode);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDecayMode
-DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes This, const size_t index_)
+DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDecayMode>
-      (CLASSNAME, CLASSNAME+"DecayModeGetConst", This, extract::decayMode, index_);
+      (CLASSNAME, CLASSNAME+"DecayModeGetConst", self, extract::decayMode, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2DecayMode
-DecayModesDecayModeGet(ConstHandle2DecayModes This, const size_t index_)
+DecayModesDecayModeGet(ConstHandle2DecayModes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2DecayMode>
-      (CLASSNAME, CLASSNAME+"DecayModeGet", This, extract::decayMode, index_);
+      (CLASSNAME, CLASSNAME+"DecayModeGet", self, extract::decayMode, index_);
 }
 
 // Set, by index \in [0,size)
 void
 DecayModesDecayModeSet(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const size_t index_,
    ConstHandle2ConstDecayMode decayMode
 ) {
    detail::setByIndex<CPP,CPPDecayMode>
-      (CLASSNAME, CLASSNAME+"DecayModeSet", This, extract::decayMode, index_, decayMode);
+      (CLASSNAME, CLASSNAME+"DecayModeSet", self, extract::decayMode, index_, decayMode);
 }
 
 // Has, by label
 int
 DecayModesDecayModeHasByLabel(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DecayModeHasByLabel",
-       This, extract::decayMode, meta::label, label);
+       self, extract::decayMode, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstDecayMode
 DecayModesDecayModeGetByLabelConst(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeGetByLabelConst",
-       This, extract::decayMode, meta::label, label);
+       self, extract::decayMode, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2DecayMode
 DecayModesDecayModeGetByLabel(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2DecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeGetByLabel",
-       This, extract::decayMode, meta::label, label);
+       self, extract::decayMode, meta::label, label);
 }
 
 // Set, by label
 void
 DecayModesDecayModeSetByLabel(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const char *const label,
    ConstHandle2ConstDecayMode decayMode
 ) {
    detail::setByMetadatum<CPP,CPPDecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeSetByLabel",
-       This, extract::decayMode, meta::label, label, decayMode);
+       self, extract::decayMode, meta::label, label, decayMode);
 }
 
 // Has, by mode
 int
 DecayModesDecayModeHasByMode(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const char *const mode
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DecayModeHasByMode",
-       This, extract::decayMode, meta::mode, mode);
+       self, extract::decayMode, meta::mode, mode);
 }
 
 // Get, by mode, const
 Handle2ConstDecayMode
 DecayModesDecayModeGetByModeConst(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const char *const mode
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeGetByModeConst",
-       This, extract::decayMode, meta::mode, mode);
+       self, extract::decayMode, meta::mode, mode);
 }
 
 // Get, by mode, non-const
 Handle2DecayMode
 DecayModesDecayModeGetByMode(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const char *const mode
 ) {
    return detail::getByMetadatum<CPP,Handle2DecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeGetByMode",
-       This, extract::decayMode, meta::mode, mode);
+       self, extract::decayMode, meta::mode, mode);
 }
 
 // Set, by mode
 void
 DecayModesDecayModeSetByMode(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const char *const mode,
    ConstHandle2ConstDecayMode decayMode
 ) {
    detail::setByMetadatum<CPP,CPPDecayMode>
       (CLASSNAME, CLASSNAME+"DecayModeSetByMode",
-       This, extract::decayMode, meta::mode, mode, decayMode);
+       self, extract::decayMode, meta::mode, mode, decayMode);
 }
 
 

@@ -59,20 +59,20 @@ SCTApproximationCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SCTApproximationAssign(ConstHandle2SCTApproximation This, ConstHandle2ConstSCTApproximation from)
+SCTApproximationAssign(ConstHandle2SCTApproximation self, ConstHandle2ConstSCTApproximation from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SCTApproximationDelete(ConstHandle2ConstSCTApproximation This)
+SCTApproximationDelete(ConstHandle2ConstSCTApproximation self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ SCTApproximationDelete(ConstHandle2ConstSCTApproximation This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SCTApproximationRead(ConstHandle2SCTApproximation This, const char *const filename)
+SCTApproximationRead(ConstHandle2SCTApproximation self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SCTApproximationWrite(ConstHandle2ConstSCTApproximation This, const char *const filename)
+SCTApproximationWrite(ConstHandle2ConstSCTApproximation self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SCTApproximationPrint(ConstHandle2ConstSCTApproximation This)
+SCTApproximationPrint(ConstHandle2ConstSCTApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SCTApproximationPrintXML(ConstHandle2ConstSCTApproximation This)
+SCTApproximationPrintXML(ConstHandle2ConstSCTApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation This)
+SCTApproximationPrintJSON(ConstHandle2ConstSCTApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

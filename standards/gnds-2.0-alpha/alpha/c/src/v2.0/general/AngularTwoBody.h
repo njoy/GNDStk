@@ -103,13 +103,13 @@ AngularTwoBodyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AngularTwoBodyAssign(ConstHandle2AngularTwoBody This, ConstHandle2ConstAngularTwoBody from);
+AngularTwoBodyAssign(ConstHandle2AngularTwoBody self, ConstHandle2ConstAngularTwoBody from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AngularTwoBodyDelete(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyDelete(ConstHandle2ConstAngularTwoBody self);
 
 
 // -----------------------------------------------------------------------------
@@ -122,25 +122,25 @@ AngularTwoBodyDelete(ConstHandle2ConstAngularTwoBody This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AngularTwoBodyRead(ConstHandle2AngularTwoBody This, const char *const filename);
+AngularTwoBodyRead(ConstHandle2AngularTwoBody self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AngularTwoBodyWrite(ConstHandle2ConstAngularTwoBody This, const char *const filename);
+AngularTwoBodyWrite(ConstHandle2ConstAngularTwoBody self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AngularTwoBodyPrint(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyPrint(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AngularTwoBodyPrintXML(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyPrintXML(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AngularTwoBodyPrintJSON(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyPrintJSON(ConstHandle2ConstAngularTwoBody self);
 
 
 // -----------------------------------------------------------------------------
@@ -149,16 +149,16 @@ AngularTwoBodyPrintJSON(ConstHandle2ConstAngularTwoBody This);
 
 // +++ Has
 extern_c int
-AngularTwoBodyLabelHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyLabelHas(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AngularTwoBodyLabelGet(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyLabelGet(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyLabelSet(ConstHandle2AngularTwoBody This, const char *const label);
+AngularTwoBodyLabelSet(ConstHandle2AngularTwoBody self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -167,16 +167,16 @@ AngularTwoBodyLabelSet(ConstHandle2AngularTwoBody This, const char *const label)
 
 // +++ Has
 extern_c int
-AngularTwoBodyProductFrameHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyProductFrameHas(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AngularTwoBodyProductFrameGet(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyProductFrameGet(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyProductFrameSet(ConstHandle2AngularTwoBody This, const char *const productFrame);
+AngularTwoBodyProductFrameSet(ConstHandle2AngularTwoBody self, const char *const productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -185,19 +185,19 @@ AngularTwoBodyProductFrameSet(ConstHandle2AngularTwoBody This, const char *const
 
 // +++ Has
 extern_c int
-AngularTwoBodyXYs2dHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyXYs2dHas(ConstHandle2ConstAngularTwoBody self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-AngularTwoBodyXYs2dGetConst(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyXYs2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-AngularTwoBodyXYs2dGet(ConstHandle2AngularTwoBody This);
+AngularTwoBodyXYs2dGet(ConstHandle2AngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyXYs2dSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstXYs2d XYs2d);
+AngularTwoBodyXYs2dSet(ConstHandle2AngularTwoBody self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
@@ -206,19 +206,19 @@ AngularTwoBodyXYs2dSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstXYs2d X
 
 // +++ Has
 extern_c int
-AngularTwoBodyRegions2dHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyRegions2dHas(ConstHandle2ConstAngularTwoBody self);
 
 // --- Get, const
 extern_c Handle2ConstRegions2d
-AngularTwoBodyRegions2dGetConst(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyRegions2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get, non-const
 extern_c Handle2Regions2d
-AngularTwoBodyRegions2dGet(ConstHandle2AngularTwoBody This);
+AngularTwoBodyRegions2dGet(ConstHandle2AngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyRegions2dSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstRegions2d regions2d);
+AngularTwoBodyRegions2dSet(ConstHandle2AngularTwoBody self, ConstHandle2ConstRegions2d regions2d);
 
 
 // -----------------------------------------------------------------------------
@@ -227,19 +227,19 @@ AngularTwoBodyRegions2dSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstReg
 
 // +++ Has
 extern_c int
-AngularTwoBodyRecoilHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyRecoilHas(ConstHandle2ConstAngularTwoBody self);
 
 // --- Get, const
 extern_c Handle2ConstRecoil
-AngularTwoBodyRecoilGetConst(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyRecoilGetConst(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get, non-const
 extern_c Handle2Recoil
-AngularTwoBodyRecoilGet(ConstHandle2AngularTwoBody This);
+AngularTwoBodyRecoilGet(ConstHandle2AngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyRecoilSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstRecoil recoil);
+AngularTwoBodyRecoilSet(ConstHandle2AngularTwoBody self, ConstHandle2ConstRecoil recoil);
 
 
 // -----------------------------------------------------------------------------
@@ -248,19 +248,19 @@ AngularTwoBodyRecoilSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstRecoil
 
 // +++ Has
 extern_c int
-AngularTwoBodyIsotropic2dHas(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyIsotropic2dHas(ConstHandle2ConstAngularTwoBody self);
 
 // --- Get, const
 extern_c Handle2ConstIsotropic2d
-AngularTwoBodyIsotropic2dGetConst(ConstHandle2ConstAngularTwoBody This);
+AngularTwoBodyIsotropic2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
 // +++ Get, non-const
 extern_c Handle2Isotropic2d
-AngularTwoBodyIsotropic2dGet(ConstHandle2AngularTwoBody This);
+AngularTwoBodyIsotropic2dGet(ConstHandle2AngularTwoBody self);
 
 // +++ Set
 extern_c void
-AngularTwoBodyIsotropic2dSet(ConstHandle2AngularTwoBody This, ConstHandle2ConstIsotropic2d isotropic2d);
+AngularTwoBodyIsotropic2dSet(ConstHandle2AngularTwoBody self, ConstHandle2ConstIsotropic2d isotropic2d);
 
 
 // -----------------------------------------------------------------------------

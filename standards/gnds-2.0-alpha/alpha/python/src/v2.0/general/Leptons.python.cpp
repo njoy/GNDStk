@@ -43,7 +43,7 @@ void wrapLeptons(py::module &module)
    // get/set lepton
    object.def_property(
       "lepton",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.lepton();
       },

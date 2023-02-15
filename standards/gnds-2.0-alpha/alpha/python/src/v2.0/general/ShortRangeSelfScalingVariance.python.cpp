@@ -49,7 +49,7 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
    // get/set type
    object.def_property(
       "type",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.type();
       },
@@ -77,7 +77,7 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
    // get/set dependenceOnProcessedGroupWidth
    object.def_property(
       "dependence_on_processed_group_width",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.dependenceOnProcessedGroupWidth();
       },
@@ -91,7 +91,7 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
    // get/set gridded2d
    object.def_property(
       "gridded2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gridded2d();
       },

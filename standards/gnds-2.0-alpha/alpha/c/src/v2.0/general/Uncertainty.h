@@ -99,13 +99,13 @@ UncertaintyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UncertaintyAssign(ConstHandle2Uncertainty This, ConstHandle2ConstUncertainty from);
+UncertaintyAssign(ConstHandle2Uncertainty self, ConstHandle2ConstUncertainty from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UncertaintyDelete(ConstHandle2ConstUncertainty This);
+UncertaintyDelete(ConstHandle2ConstUncertainty self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ UncertaintyDelete(ConstHandle2ConstUncertainty This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UncertaintyRead(ConstHandle2Uncertainty This, const char *const filename);
+UncertaintyRead(ConstHandle2Uncertainty self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UncertaintyWrite(ConstHandle2ConstUncertainty This, const char *const filename);
+UncertaintyWrite(ConstHandle2ConstUncertainty self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UncertaintyPrint(ConstHandle2ConstUncertainty This);
+UncertaintyPrint(ConstHandle2ConstUncertainty self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UncertaintyPrintXML(ConstHandle2ConstUncertainty This);
+UncertaintyPrintXML(ConstHandle2ConstUncertainty self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UncertaintyPrintJSON(ConstHandle2ConstUncertainty This);
+UncertaintyPrintJSON(ConstHandle2ConstUncertainty self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,19 +145,19 @@ UncertaintyPrintJSON(ConstHandle2ConstUncertainty This);
 
 // +++ Has
 extern_c int
-UncertaintyCovarianceHas(ConstHandle2ConstUncertainty This);
+UncertaintyCovarianceHas(ConstHandle2ConstUncertainty self);
 
 // --- Get, const
 extern_c Handle2ConstCovariance
-UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty This);
+UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty self);
 
 // +++ Get, non-const
 extern_c Handle2Covariance
-UncertaintyCovarianceGet(ConstHandle2Uncertainty This);
+UncertaintyCovarianceGet(ConstHandle2Uncertainty self);
 
 // +++ Set
 extern_c void
-UncertaintyCovarianceSet(ConstHandle2Uncertainty This, ConstHandle2ConstCovariance covariance);
+UncertaintyCovarianceSet(ConstHandle2Uncertainty self, ConstHandle2ConstCovariance covariance);
 
 
 // -----------------------------------------------------------------------------
@@ -166,19 +166,19 @@ UncertaintyCovarianceSet(ConstHandle2Uncertainty This, ConstHandle2ConstCovarian
 
 // +++ Has
 extern_c int
-UncertaintyStandardHas(ConstHandle2ConstUncertainty This);
+UncertaintyStandardHas(ConstHandle2ConstUncertainty self);
 
 // --- Get, const
 extern_c Handle2ConstStandard
-UncertaintyStandardGetConst(ConstHandle2ConstUncertainty This);
+UncertaintyStandardGetConst(ConstHandle2ConstUncertainty self);
 
 // +++ Get, non-const
 extern_c Handle2Standard
-UncertaintyStandardGet(ConstHandle2Uncertainty This);
+UncertaintyStandardGet(ConstHandle2Uncertainty self);
 
 // +++ Set
 extern_c void
-UncertaintyStandardSet(ConstHandle2Uncertainty This, ConstHandle2ConstStandard standard);
+UncertaintyStandardSet(ConstHandle2Uncertainty self, ConstHandle2ConstStandard standard);
 
 
 // -----------------------------------------------------------------------------
@@ -187,19 +187,19 @@ UncertaintyStandardSet(ConstHandle2Uncertainty This, ConstHandle2ConstStandard s
 
 // +++ Has
 extern_c int
-UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty This);
+UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty self);
 
 // --- Get, const
 extern_c Handle2ConstListOfCovariances
-UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty This);
+UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty self);
 
 // +++ Get, non-const
 extern_c Handle2ListOfCovariances
-UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty This);
+UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty self);
 
 // +++ Set
 extern_c void
-UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstListOfCovariances listOfCovariances);
+UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty self, ConstHandle2ConstListOfCovariances listOfCovariances);
 
 
 // -----------------------------------------------------------------------------
@@ -208,19 +208,19 @@ UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstL
 
 // +++ Has
 extern_c int
-UncertaintyPolynomial1dHas(ConstHandle2ConstUncertainty This);
+UncertaintyPolynomial1dHas(ConstHandle2ConstUncertainty self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty This);
+UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-UncertaintyPolynomial1dGet(ConstHandle2Uncertainty This);
+UncertaintyPolynomial1dGet(ConstHandle2Uncertainty self);
 
 // +++ Set
 extern_c void
-UncertaintyPolynomial1dSet(ConstHandle2Uncertainty This, ConstHandle2ConstPolynomial1d polynomial1d);
+UncertaintyPolynomial1dSet(ConstHandle2Uncertainty self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

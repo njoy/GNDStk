@@ -49,7 +49,7 @@ void wrapSpectrum(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapSpectrum(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -77,7 +77,7 @@ void wrapSpectrum(py::module &module)
    // get/set discrete
    object.def_property(
       "discrete",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.discrete();
       },
@@ -91,7 +91,7 @@ void wrapSpectrum(py::module &module)
    // get/set continuum
    object.def_property(
       "continuum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.continuum();
       },

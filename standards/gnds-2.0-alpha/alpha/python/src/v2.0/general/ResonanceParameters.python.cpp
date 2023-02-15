@@ -43,7 +43,7 @@ void wrapResonanceParameters(py::module &module)
    // get/set table
    object.def_property(
       "table",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.table();
       },

@@ -47,7 +47,7 @@ void wrapProjectileEnergyDomain(py::module &module)
    // get/set min
    object.def_property(
       "min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.min();
       },
@@ -61,7 +61,7 @@ void wrapProjectileEnergyDomain(py::module &module)
    // get/set max
    object.def_property(
       "max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.max();
       },
@@ -75,7 +75,7 @@ void wrapProjectileEnergyDomain(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },

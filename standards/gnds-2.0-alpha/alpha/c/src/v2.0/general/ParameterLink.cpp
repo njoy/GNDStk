@@ -82,20 +82,20 @@ ParameterLinkCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ParameterLinkAssign(ConstHandle2ParameterLink This, ConstHandle2ConstParameterLink from)
+ParameterLinkAssign(ConstHandle2ParameterLink self, ConstHandle2ConstParameterLink from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ParameterLinkDelete(ConstHandle2ConstParameterLink This)
+ParameterLinkDelete(ConstHandle2ConstParameterLink self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ ParameterLinkDelete(ConstHandle2ConstParameterLink This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ParameterLinkRead(ConstHandle2ParameterLink This, const char *const filename)
+ParameterLinkRead(ConstHandle2ParameterLink self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ParameterLinkWrite(ConstHandle2ConstParameterLink This, const char *const filename)
+ParameterLinkWrite(ConstHandle2ConstParameterLink self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ParameterLinkPrint(ConstHandle2ConstParameterLink This)
+ParameterLinkPrint(ConstHandle2ConstParameterLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ParameterLinkPrintXML(ConstHandle2ConstParameterLink This)
+ParameterLinkPrintXML(ConstHandle2ConstParameterLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ParameterLinkPrintJSON(ConstHandle2ConstParameterLink This)
+ParameterLinkPrintJSON(ConstHandle2ConstParameterLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -156,27 +156,27 @@ ParameterLinkPrintJSON(ConstHandle2ConstParameterLink This)
 
 // Has
 int
-ParameterLinkLabelHas(ConstHandle2ConstParameterLink This)
+ParameterLinkLabelHas(ConstHandle2ConstParameterLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ParameterLinkLabelGet(ConstHandle2ConstParameterLink This)
+ParameterLinkLabelGet(ConstHandle2ConstParameterLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ParameterLinkLabelSet(ConstHandle2ParameterLink This, const char *const label)
+ParameterLinkLabelSet(ConstHandle2ParameterLink self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -186,27 +186,27 @@ ParameterLinkLabelSet(ConstHandle2ParameterLink This, const char *const label)
 
 // Has
 int
-ParameterLinkHrefHas(ConstHandle2ConstParameterLink This)
+ParameterLinkHrefHas(ConstHandle2ConstParameterLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-ParameterLinkHrefGet(ConstHandle2ConstParameterLink This)
+ParameterLinkHrefGet(ConstHandle2ConstParameterLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ParameterLinkHrefSet(ConstHandle2ParameterLink This, const char *const href)
+ParameterLinkHrefSet(ConstHandle2ParameterLink self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -216,27 +216,27 @@ ParameterLinkHrefSet(ConstHandle2ParameterLink This, const char *const href)
 
 // Has
 int
-ParameterLinkNParametersHas(ConstHandle2ConstParameterLink This)
+ParameterLinkNParametersHas(ConstHandle2ConstParameterLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NParametersHas", This, extract::nParameters);
+      (CLASSNAME, CLASSNAME+"NParametersHas", self, extract::nParameters);
 }
 
 // Get
 // Returns by value
 int
-ParameterLinkNParametersGet(ConstHandle2ConstParameterLink This)
+ParameterLinkNParametersGet(ConstHandle2ConstParameterLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NParametersGet", This, extract::nParameters);
+      (CLASSNAME, CLASSNAME+"NParametersGet", self, extract::nParameters);
 }
 
 // Set
 void
-ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const int nParameters)
+ParameterLinkNParametersSet(ConstHandle2ParameterLink self, const int nParameters)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NParametersSet", This, extract::nParameters, nParameters);
+      (CLASSNAME, CLASSNAME+"NParametersSet", self, extract::nParameters, nParameters);
 }
 
 
@@ -246,27 +246,27 @@ ParameterLinkNParametersSet(ConstHandle2ParameterLink This, const int nParameter
 
 // Has
 int
-ParameterLinkMatrixStartIndexHas(ConstHandle2ConstParameterLink This)
+ParameterLinkMatrixStartIndexHas(ConstHandle2ConstParameterLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MatrixStartIndexHas", This, extract::matrixStartIndex);
+      (CLASSNAME, CLASSNAME+"MatrixStartIndexHas", self, extract::matrixStartIndex);
 }
 
 // Get
 // Returns by value
 int
-ParameterLinkMatrixStartIndexGet(ConstHandle2ConstParameterLink This)
+ParameterLinkMatrixStartIndexGet(ConstHandle2ConstParameterLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MatrixStartIndexGet", This, extract::matrixStartIndex);
+      (CLASSNAME, CLASSNAME+"MatrixStartIndexGet", self, extract::matrixStartIndex);
 }
 
 // Set
 void
-ParameterLinkMatrixStartIndexSet(ConstHandle2ParameterLink This, const int matrixStartIndex)
+ParameterLinkMatrixStartIndexSet(ConstHandle2ParameterLink self, const int matrixStartIndex)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MatrixStartIndexSet", This, extract::matrixStartIndex, matrixStartIndex);
+      (CLASSNAME, CLASSNAME+"MatrixStartIndexSet", self, extract::matrixStartIndex, matrixStartIndex);
 }
 
 

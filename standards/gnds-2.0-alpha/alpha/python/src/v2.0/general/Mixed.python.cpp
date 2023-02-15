@@ -49,7 +49,7 @@ void wrapMixed(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapMixed(py::module &module)
    // get/set covarianceMatrix
    object.def_property(
       "covariance_matrix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covarianceMatrix();
       },
@@ -77,7 +77,7 @@ void wrapMixed(py::module &module)
    // get/set sum
    object.def_property(
       "sum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.sum();
       },
@@ -91,7 +91,7 @@ void wrapMixed(py::module &module)
    // get/set shortRangeSelfScalingVariance
    object.def_property(
       "short_range_self_scaling_variance",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.shortRangeSelfScalingVariance();
       },

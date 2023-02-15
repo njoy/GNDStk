@@ -69,20 +69,20 @@ DelayedGammaEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DelayedGammaEnergyAssign(ConstHandle2DelayedGammaEnergy This, ConstHandle2ConstDelayedGammaEnergy from)
+DelayedGammaEnergyAssign(ConstHandle2DelayedGammaEnergy self, ConstHandle2ConstDelayedGammaEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DelayedGammaEnergyRead(ConstHandle2DelayedGammaEnergy This, const char *const filename)
+DelayedGammaEnergyRead(ConstHandle2DelayedGammaEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DelayedGammaEnergyWrite(ConstHandle2ConstDelayedGammaEnergy This, const char *const filename)
+DelayedGammaEnergyWrite(ConstHandle2ConstDelayedGammaEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DelayedGammaEnergyPrint(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyPrint(ConstHandle2ConstDelayedGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DelayedGammaEnergyPrintXML(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyPrintXML(ConstHandle2ConstDelayedGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy This)
 
 // Has
 int
-DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy This)
+DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy This)
+DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy This, ConstHandle2ConstPolynomial1d polynomial1d)
+DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 

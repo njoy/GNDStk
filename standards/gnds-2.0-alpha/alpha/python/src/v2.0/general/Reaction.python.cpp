@@ -53,7 +53,7 @@ void wrapReaction(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapReaction(py::module &module)
    // get/set ENDF_MT
    object.def_property(
       "endf_mt",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDF_MT();
       },
@@ -81,7 +81,7 @@ void wrapReaction(py::module &module)
    // get/set fissionGenre
    object.def_property(
       "fission_genre",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionGenre();
       },
@@ -95,7 +95,7 @@ void wrapReaction(py::module &module)
    // get/set crossSection
    object.def_property(
       "cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSection();
       },
@@ -109,7 +109,7 @@ void wrapReaction(py::module &module)
    // get/set outputChannel
    object.def_property(
       "output_channel",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outputChannel();
       },
@@ -123,7 +123,7 @@ void wrapReaction(py::module &module)
    // get/set doubleDifferentialCrossSection
    object.def_property(
       "double_differential_cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.doubleDifferentialCrossSection();
       },

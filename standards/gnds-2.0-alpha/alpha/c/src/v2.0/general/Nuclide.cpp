@@ -98,20 +98,20 @@ NuclideCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclideAssign(ConstHandle2Nuclide This, ConstHandle2ConstNuclide from)
+NuclideAssign(ConstHandle2Nuclide self, ConstHandle2ConstNuclide from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclideDelete(ConstHandle2ConstNuclide This)
+NuclideDelete(ConstHandle2ConstNuclide self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -125,44 +125,44 @@ NuclideDelete(ConstHandle2ConstNuclide This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclideRead(ConstHandle2Nuclide This, const char *const filename)
+NuclideRead(ConstHandle2Nuclide self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclideWrite(ConstHandle2ConstNuclide This, const char *const filename)
+NuclideWrite(ConstHandle2ConstNuclide self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclidePrint(ConstHandle2ConstNuclide This)
+NuclidePrint(ConstHandle2ConstNuclide self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclidePrintXML(ConstHandle2ConstNuclide This)
+NuclidePrintXML(ConstHandle2ConstNuclide self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclidePrintJSON(ConstHandle2ConstNuclide This)
+NuclidePrintJSON(ConstHandle2ConstNuclide self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -172,27 +172,27 @@ NuclidePrintJSON(ConstHandle2ConstNuclide This)
 
 // Has
 int
-NuclideIdHas(ConstHandle2ConstNuclide This)
+NuclideIdHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 const char *
-NuclideIdGet(ConstHandle2ConstNuclide This)
+NuclideIdGet(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-NuclideIdSet(ConstHandle2Nuclide This, const char *const id)
+NuclideIdSet(ConstHandle2Nuclide self, const char *const id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -202,34 +202,34 @@ NuclideIdSet(ConstHandle2Nuclide This, const char *const id)
 
 // Has
 int
-NuclideMassHas(ConstHandle2ConstNuclide This)
+NuclideMassHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-NuclideMassGetConst(ConstHandle2ConstNuclide This)
+NuclideMassGetConst(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-NuclideMassGet(ConstHandle2Nuclide This)
+NuclideMassGet(ConstHandle2Nuclide self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-NuclideMassSet(ConstHandle2Nuclide This, ConstHandle2ConstMass mass)
+NuclideMassSet(ConstHandle2Nuclide self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 
@@ -239,34 +239,34 @@ NuclideMassSet(ConstHandle2Nuclide This, ConstHandle2ConstMass mass)
 
 // Has
 int
-NuclideChargeHas(ConstHandle2ConstNuclide This)
+NuclideChargeHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChargeHas", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeHas", self, extract::charge);
 }
 
 // Get, const
 Handle2ConstCharge
-NuclideChargeGetConst(ConstHandle2ConstNuclide This)
+NuclideChargeGetConst(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP,Handle2ConstCharge>
-      (CLASSNAME, CLASSNAME+"ChargeGetConst", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
 // Get, non-const
 Handle2Charge
-NuclideChargeGet(ConstHandle2Nuclide This)
+NuclideChargeGet(ConstHandle2Nuclide self)
 {
    return detail::getField<CPP,Handle2Charge>
-      (CLASSNAME, CLASSNAME+"ChargeGet", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGet", self, extract::charge);
 }
 
 // Set
 void
-NuclideChargeSet(ConstHandle2Nuclide This, ConstHandle2ConstCharge charge)
+NuclideChargeSet(ConstHandle2Nuclide self, ConstHandle2ConstCharge charge)
 {
    detail::setField<CPP,CPPCharge>
-      (CLASSNAME, CLASSNAME+"ChargeSet", This, extract::charge, charge);
+      (CLASSNAME, CLASSNAME+"ChargeSet", self, extract::charge, charge);
 }
 
 
@@ -276,34 +276,34 @@ NuclideChargeSet(ConstHandle2Nuclide This, ConstHandle2ConstCharge charge)
 
 // Has
 int
-NuclideNucleusHas(ConstHandle2ConstNuclide This)
+NuclideNucleusHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NucleusHas", This, extract::nucleus);
+      (CLASSNAME, CLASSNAME+"NucleusHas", self, extract::nucleus);
 }
 
 // Get, const
 Handle2ConstNucleus
-NuclideNucleusGetConst(ConstHandle2ConstNuclide This)
+NuclideNucleusGetConst(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP,Handle2ConstNucleus>
-      (CLASSNAME, CLASSNAME+"NucleusGetConst", This, extract::nucleus);
+      (CLASSNAME, CLASSNAME+"NucleusGetConst", self, extract::nucleus);
 }
 
 // Get, non-const
 Handle2Nucleus
-NuclideNucleusGet(ConstHandle2Nuclide This)
+NuclideNucleusGet(ConstHandle2Nuclide self)
 {
    return detail::getField<CPP,Handle2Nucleus>
-      (CLASSNAME, CLASSNAME+"NucleusGet", This, extract::nucleus);
+      (CLASSNAME, CLASSNAME+"NucleusGet", self, extract::nucleus);
 }
 
 // Set
 void
-NuclideNucleusSet(ConstHandle2Nuclide This, ConstHandle2ConstNucleus nucleus)
+NuclideNucleusSet(ConstHandle2Nuclide self, ConstHandle2ConstNucleus nucleus)
 {
    detail::setField<CPP,CPPNucleus>
-      (CLASSNAME, CLASSNAME+"NucleusSet", This, extract::nucleus, nucleus);
+      (CLASSNAME, CLASSNAME+"NucleusSet", self, extract::nucleus, nucleus);
 }
 
 
@@ -313,34 +313,34 @@ NuclideNucleusSet(ConstHandle2Nuclide This, ConstHandle2ConstNucleus nucleus)
 
 // Has
 int
-NuclideDecayDataHas(ConstHandle2ConstNuclide This)
+NuclideDecayDataHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataHas", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataHas", self, extract::decayData);
 }
 
 // Get, const
 Handle2ConstDecayData
-NuclideDecayDataGetConst(ConstHandle2ConstNuclide This)
+NuclideDecayDataGetConst(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP,Handle2ConstDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGetConst", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
 // Get, non-const
 Handle2DecayData
-NuclideDecayDataGet(ConstHandle2Nuclide This)
+NuclideDecayDataGet(ConstHandle2Nuclide self)
 {
    return detail::getField<CPP,Handle2DecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGet", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGet", self, extract::decayData);
 }
 
 // Set
 void
-NuclideDecayDataSet(ConstHandle2Nuclide This, ConstHandle2ConstDecayData decayData)
+NuclideDecayDataSet(ConstHandle2Nuclide self, ConstHandle2ConstDecayData decayData)
 {
    detail::setField<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSet", self, extract::decayData, decayData);
 }
 
 
@@ -350,34 +350,34 @@ NuclideDecayDataSet(ConstHandle2Nuclide This, ConstHandle2ConstDecayData decayDa
 
 // Has
 int
-NuclideFissionFragmentDataHas(ConstHandle2ConstNuclide This)
+NuclideFissionFragmentDataHas(ConstHandle2ConstNuclide self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionFragmentDataHas", This, extract::fissionFragmentData);
+      (CLASSNAME, CLASSNAME+"FissionFragmentDataHas", self, extract::fissionFragmentData);
 }
 
 // Get, const
 Handle2ConstFissionFragmentData
-NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide This)
+NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide self)
 {
    return detail::getField<CPP,Handle2ConstFissionFragmentData>
-      (CLASSNAME, CLASSNAME+"FissionFragmentDataGetConst", This, extract::fissionFragmentData);
+      (CLASSNAME, CLASSNAME+"FissionFragmentDataGetConst", self, extract::fissionFragmentData);
 }
 
 // Get, non-const
 Handle2FissionFragmentData
-NuclideFissionFragmentDataGet(ConstHandle2Nuclide This)
+NuclideFissionFragmentDataGet(ConstHandle2Nuclide self)
 {
    return detail::getField<CPP,Handle2FissionFragmentData>
-      (CLASSNAME, CLASSNAME+"FissionFragmentDataGet", This, extract::fissionFragmentData);
+      (CLASSNAME, CLASSNAME+"FissionFragmentDataGet", self, extract::fissionFragmentData);
 }
 
 // Set
 void
-NuclideFissionFragmentDataSet(ConstHandle2Nuclide This, ConstHandle2ConstFissionFragmentData fissionFragmentData)
+NuclideFissionFragmentDataSet(ConstHandle2Nuclide self, ConstHandle2ConstFissionFragmentData fissionFragmentData)
 {
    detail::setField<CPP,CPPFissionFragmentData>
-      (CLASSNAME, CLASSNAME+"FissionFragmentDataSet", This, extract::fissionFragmentData, fissionFragmentData);
+      (CLASSNAME, CLASSNAME+"FissionFragmentDataSet", self, extract::fissionFragmentData, fissionFragmentData);
 }
 
 

@@ -49,7 +49,7 @@ void wrapDouble(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapDouble(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -77,7 +77,7 @@ void wrapDouble(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },
@@ -91,7 +91,7 @@ void wrapDouble(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

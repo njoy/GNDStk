@@ -43,7 +43,7 @@ void wrapOrphanProducts(py::module &module)
    // get/set orphanProduct
    object.def_property(
       "orphan_product",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.orphanProduct();
       },

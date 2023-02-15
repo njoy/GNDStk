@@ -49,7 +49,7 @@ void wrapConfiguration(py::module &module)
    // get/set subshell
    object.def_property(
       "subshell",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.subshell();
       },
@@ -63,7 +63,7 @@ void wrapConfiguration(py::module &module)
    // get/set electronNumber
    object.def_property(
       "electron_number",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.electronNumber();
       },
@@ -77,7 +77,7 @@ void wrapConfiguration(py::module &module)
    // get/set bindingEnergy
    object.def_property(
       "binding_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.bindingEnergy();
       },
@@ -91,7 +91,7 @@ void wrapConfiguration(py::module &module)
    // get/set decayData
    object.def_property(
       "decay_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decayData();
       },

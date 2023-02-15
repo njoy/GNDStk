@@ -90,13 +90,13 @@ LsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LsAssign(ConstHandle2Ls This, ConstHandle2ConstLs from);
+LsAssign(ConstHandle2Ls self, ConstHandle2ConstLs from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LsDelete(ConstHandle2ConstLs This);
+LsDelete(ConstHandle2ConstLs self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ LsDelete(ConstHandle2ConstLs This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LsRead(ConstHandle2Ls This, const char *const filename);
+LsRead(ConstHandle2Ls self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LsWrite(ConstHandle2ConstLs This, const char *const filename);
+LsWrite(ConstHandle2ConstLs self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LsPrint(ConstHandle2ConstLs This);
+LsPrint(ConstHandle2ConstLs self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LsPrintXML(ConstHandle2ConstLs This);
+LsPrintXML(ConstHandle2ConstLs self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LsPrintJSON(ConstHandle2ConstLs This);
+LsPrintJSON(ConstHandle2ConstLs self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ LsPrintJSON(ConstHandle2ConstLs This);
 
 // +++ Has
 extern_c int
-LsLHas(ConstHandle2ConstLs This);
+LsLHas(ConstHandle2ConstLs self);
 
 // +++ Clear
 extern_c void
-LsLClear(ConstHandle2Ls This);
+LsLClear(ConstHandle2Ls self);
 
 // +++ Size
 extern_c size_t
-LsLSize(ConstHandle2ConstLs This);
+LsLSize(ConstHandle2ConstLs self);
 
 // +++ Add
 extern_c void
-LsLAdd(ConstHandle2Ls This, ConstHandle2ConstL L);
+LsLAdd(ConstHandle2Ls self, ConstHandle2ConstL L);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstL
-LsLGetConst(ConstHandle2ConstLs This, const size_t index_);
+LsLGetConst(ConstHandle2ConstLs self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2L
-LsLGet(ConstHandle2Ls This, const size_t index_);
+LsLGet(ConstHandle2Ls self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 LsLSet(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const size_t index_,
    ConstHandle2ConstL L
 );
@@ -169,28 +169,28 @@ LsLSet(
 // +++ Has, by label
 extern_c int
 LsLHasByLabel(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstL
 LsLGetByLabelConst(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2L
 LsLGetByLabel(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 LsLSetByLabel(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const char *const label,
    ConstHandle2ConstL L
 );
@@ -198,28 +198,28 @@ LsLSetByLabel(
 // +++ Has, by value
 extern_c int
 LsLHasByValue(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const int value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstL
 LsLGetByValueConst(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const int value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2L
 LsLGetByValue(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const int value
 );
 
 // +++ Set, by value
 extern_c void
 LsLSetByValue(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const int value,
    ConstHandle2ConstL L
 );

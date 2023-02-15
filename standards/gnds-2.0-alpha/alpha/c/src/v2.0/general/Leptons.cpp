@@ -73,20 +73,20 @@ LeptonsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LeptonsAssign(ConstHandle2Leptons This, ConstHandle2ConstLeptons from)
+LeptonsAssign(ConstHandle2Leptons self, ConstHandle2ConstLeptons from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LeptonsDelete(ConstHandle2ConstLeptons This)
+LeptonsDelete(ConstHandle2ConstLeptons self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ LeptonsDelete(ConstHandle2ConstLeptons This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LeptonsRead(ConstHandle2Leptons This, const char *const filename)
+LeptonsRead(ConstHandle2Leptons self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LeptonsWrite(ConstHandle2ConstLeptons This, const char *const filename)
+LeptonsWrite(ConstHandle2ConstLeptons self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LeptonsPrint(ConstHandle2ConstLeptons This)
+LeptonsPrint(ConstHandle2ConstLeptons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LeptonsPrintXML(ConstHandle2ConstLeptons This)
+LeptonsPrintXML(ConstHandle2ConstLeptons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LeptonsPrintJSON(ConstHandle2ConstLeptons This)
+LeptonsPrintJSON(ConstHandle2ConstLeptons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ LeptonsPrintJSON(ConstHandle2ConstLeptons This)
 
 // Has
 int
-LeptonsLeptonHas(ConstHandle2ConstLeptons This)
+LeptonsLeptonHas(ConstHandle2ConstLeptons self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LeptonHas", This, extract::lepton);
+      (CLASSNAME, CLASSNAME+"LeptonHas", self, extract::lepton);
 }
 
 // Clear
 void
-LeptonsLeptonClear(ConstHandle2Leptons This)
+LeptonsLeptonClear(ConstHandle2Leptons self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"LeptonClear", This, extract::lepton);
+      (CLASSNAME, CLASSNAME+"LeptonClear", self, extract::lepton);
 }
 
 // Size
 size_t
-LeptonsLeptonSize(ConstHandle2ConstLeptons This)
+LeptonsLeptonSize(ConstHandle2ConstLeptons self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"LeptonSize", This, extract::lepton);
+      (CLASSNAME, CLASSNAME+"LeptonSize", self, extract::lepton);
 }
 
 // Add
 void
-LeptonsLeptonAdd(ConstHandle2Leptons This, ConstHandle2ConstLepton lepton)
+LeptonsLeptonAdd(ConstHandle2Leptons self, ConstHandle2ConstLepton lepton)
 {
    detail::addToContainer<CPP,CPPLepton>
-      (CLASSNAME, CLASSNAME+"LeptonAdd", This, extract::lepton, lepton);
+      (CLASSNAME, CLASSNAME+"LeptonAdd", self, extract::lepton, lepton);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstLepton
-LeptonsLeptonGetConst(ConstHandle2ConstLeptons This, const size_t index_)
+LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstLepton>
-      (CLASSNAME, CLASSNAME+"LeptonGetConst", This, extract::lepton, index_);
+      (CLASSNAME, CLASSNAME+"LeptonGetConst", self, extract::lepton, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Lepton
-LeptonsLeptonGet(ConstHandle2Leptons This, const size_t index_)
+LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Lepton>
-      (CLASSNAME, CLASSNAME+"LeptonGet", This, extract::lepton, index_);
+      (CLASSNAME, CLASSNAME+"LeptonGet", self, extract::lepton, index_);
 }
 
 // Set, by index \in [0,size)
 void
 LeptonsLeptonSet(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const size_t index_,
    ConstHandle2ConstLepton lepton
 ) {
    detail::setByIndex<CPP,CPPLepton>
-      (CLASSNAME, CLASSNAME+"LeptonSet", This, extract::lepton, index_, lepton);
+      (CLASSNAME, CLASSNAME+"LeptonSet", self, extract::lepton, index_, lepton);
 }
 
 // Has, by id
 int
 LeptonsLeptonHasById(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const char *const id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"LeptonHasById",
-       This, extract::lepton, meta::id, id);
+       self, extract::lepton, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstLepton
 LeptonsLeptonGetByIdConst(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstLepton>
       (CLASSNAME, CLASSNAME+"LeptonGetByIdConst",
-       This, extract::lepton, meta::id, id);
+       self, extract::lepton, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Lepton
 LeptonsLeptonGetById(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2Lepton>
       (CLASSNAME, CLASSNAME+"LeptonGetById",
-       This, extract::lepton, meta::id, id);
+       self, extract::lepton, meta::id, id);
 }
 
 // Set, by id
 void
 LeptonsLeptonSetById(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const char *const id,
    ConstHandle2ConstLepton lepton
 ) {
    detail::setByMetadatum<CPP,CPPLepton>
       (CLASSNAME, CLASSNAME+"LeptonSetById",
-       This, extract::lepton, meta::id, id, lepton);
+       self, extract::lepton, meta::id, id, lepton);
 }
 
 // Has, by generation
 int
 LeptonsLeptonHasByGeneration(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const char *const generation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"LeptonHasByGeneration",
-       This, extract::lepton, meta::generation, generation);
+       self, extract::lepton, meta::generation, generation);
 }
 
 // Get, by generation, const
 Handle2ConstLepton
 LeptonsLeptonGetByGenerationConst(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const char *const generation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstLepton>
       (CLASSNAME, CLASSNAME+"LeptonGetByGenerationConst",
-       This, extract::lepton, meta::generation, generation);
+       self, extract::lepton, meta::generation, generation);
 }
 
 // Get, by generation, non-const
 Handle2Lepton
 LeptonsLeptonGetByGeneration(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const char *const generation
 ) {
    return detail::getByMetadatum<CPP,Handle2Lepton>
       (CLASSNAME, CLASSNAME+"LeptonGetByGeneration",
-       This, extract::lepton, meta::generation, generation);
+       self, extract::lepton, meta::generation, generation);
 }
 
 // Set, by generation
 void
 LeptonsLeptonSetByGeneration(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const char *const generation,
    ConstHandle2ConstLepton lepton
 ) {
    detail::setByMetadatum<CPP,CPPLepton>
       (CLASSNAME, CLASSNAME+"LeptonSetByGeneration",
-       This, extract::lepton, meta::generation, generation, lepton);
+       self, extract::lepton, meta::generation, generation, lepton);
 }
 
 

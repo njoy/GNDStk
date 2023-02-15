@@ -43,7 +43,7 @@ void wrapS_table(py::module &module)
    // get/set gridded2d
    object.def_property(
       "gridded2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gridded2d();
       },

@@ -47,7 +47,7 @@ void wrapEnergyAngular(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapEnergyAngular(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -75,7 +75,7 @@ void wrapEnergyAngular(py::module &module)
    // get/set XYs3d
    object.def_property(
       "xys3d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs3d();
       },

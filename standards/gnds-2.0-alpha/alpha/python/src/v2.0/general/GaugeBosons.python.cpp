@@ -43,7 +43,7 @@ void wrapGaugeBosons(py::module &module)
    // get/set gaugeBoson
    object.def_property(
       "gauge_boson",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gaugeBoson();
       },

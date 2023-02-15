@@ -59,7 +59,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set projectile
    object.def_property(
       "projectile",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.projectile();
       },
@@ -73,7 +73,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set target
    object.def_property(
       "target",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.target();
       },
@@ -87,7 +87,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set evaluation
    object.def_property(
       "evaluation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.evaluation();
       },
@@ -101,7 +101,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set interaction
    object.def_property(
       "interaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interaction();
       },
@@ -115,7 +115,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set format
    object.def_property(
       "format",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.format();
       },
@@ -129,7 +129,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set externalFiles
    object.def_property(
       "external_files",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.externalFiles();
       },
@@ -143,7 +143,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set styles
    object.def_property(
       "styles",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.styles();
       },
@@ -157,7 +157,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set covarianceSections
    object.def_property(
       "covariance_sections",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covarianceSections();
       },
@@ -171,7 +171,7 @@ void wrapCovarianceSuite(py::module &module)
    // get/set parameterCovariances
    object.def_property(
       "parameter_covariances",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parameterCovariances();
       },

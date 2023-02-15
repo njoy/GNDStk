@@ -106,13 +106,13 @@ CovarianceSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceSectionAssign(ConstHandle2CovarianceSection This, ConstHandle2ConstCovarianceSection from);
+CovarianceSectionAssign(ConstHandle2CovarianceSection self, ConstHandle2ConstCovarianceSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceSectionDelete(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionDelete(ConstHandle2ConstCovarianceSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -125,25 +125,25 @@ CovarianceSectionDelete(ConstHandle2ConstCovarianceSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceSectionRead(ConstHandle2CovarianceSection This, const char *const filename);
+CovarianceSectionRead(ConstHandle2CovarianceSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceSectionWrite(ConstHandle2ConstCovarianceSection This, const char *const filename);
+CovarianceSectionWrite(ConstHandle2ConstCovarianceSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovarianceSectionPrint(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionPrint(ConstHandle2ConstCovarianceSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovarianceSectionPrintXML(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionPrintXML(ConstHandle2ConstCovarianceSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovarianceSectionPrintJSON(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionPrintJSON(ConstHandle2ConstCovarianceSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -152,16 +152,16 @@ CovarianceSectionPrintJSON(ConstHandle2ConstCovarianceSection This);
 
 // +++ Has
 extern_c int
-CovarianceSectionLabelHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionLabelHas(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceSectionLabelGet(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionLabelGet(ConstHandle2ConstCovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionLabelSet(ConstHandle2CovarianceSection This, const char *const label);
+CovarianceSectionLabelSet(ConstHandle2CovarianceSection self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ CovarianceSectionLabelSet(ConstHandle2CovarianceSection This, const char *const 
 
 // +++ Has
 extern_c int
-CovarianceSectionCrossTermHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionCrossTermHas(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-CovarianceSectionCrossTermGet(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionCrossTermGet(ConstHandle2ConstCovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionCrossTermSet(ConstHandle2CovarianceSection This, const bool crossTerm);
+CovarianceSectionCrossTermSet(ConstHandle2CovarianceSection self, const bool crossTerm);
 
 
 // -----------------------------------------------------------------------------
@@ -188,19 +188,19 @@ CovarianceSectionCrossTermSet(ConstHandle2CovarianceSection This, const bool cro
 
 // +++ Has
 extern_c int
-CovarianceSectionRowDataHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionRowDataHas(ConstHandle2ConstCovarianceSection self);
 
 // --- Get, const
 extern_c Handle2ConstRowData
-CovarianceSectionRowDataGetConst(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionRowDataGetConst(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get, non-const
 extern_c Handle2RowData
-CovarianceSectionRowDataGet(ConstHandle2CovarianceSection This);
+CovarianceSectionRowDataGet(ConstHandle2CovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionRowDataSet(ConstHandle2CovarianceSection This, ConstHandle2ConstRowData rowData);
+CovarianceSectionRowDataSet(ConstHandle2CovarianceSection self, ConstHandle2ConstRowData rowData);
 
 
 // -----------------------------------------------------------------------------
@@ -209,19 +209,19 @@ CovarianceSectionRowDataSet(ConstHandle2CovarianceSection This, ConstHandle2Cons
 
 // +++ Has
 extern_c int
-CovarianceSectionColumnDataHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionColumnDataHas(ConstHandle2ConstCovarianceSection self);
 
 // --- Get, const
 extern_c Handle2ConstColumnData
-CovarianceSectionColumnDataGetConst(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionColumnDataGetConst(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get, non-const
 extern_c Handle2ColumnData
-CovarianceSectionColumnDataGet(ConstHandle2CovarianceSection This);
+CovarianceSectionColumnDataGet(ConstHandle2CovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionColumnDataSet(ConstHandle2CovarianceSection This, ConstHandle2ConstColumnData columnData);
+CovarianceSectionColumnDataSet(ConstHandle2CovarianceSection self, ConstHandle2ConstColumnData columnData);
 
 
 // -----------------------------------------------------------------------------
@@ -230,19 +230,19 @@ CovarianceSectionColumnDataSet(ConstHandle2CovarianceSection This, ConstHandle2C
 
 // +++ Has
 extern_c int
-CovarianceSectionCovarianceMatrixHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionCovarianceMatrixHas(ConstHandle2ConstCovarianceSection self);
 
 // --- Get, const
 extern_c Handle2ConstCovarianceMatrix
-CovarianceSectionCovarianceMatrixGetConst(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionCovarianceMatrixGetConst(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get, non-const
 extern_c Handle2CovarianceMatrix
-CovarianceSectionCovarianceMatrixGet(ConstHandle2CovarianceSection This);
+CovarianceSectionCovarianceMatrixGet(ConstHandle2CovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionCovarianceMatrixSet(ConstHandle2CovarianceSection This, ConstHandle2ConstCovarianceMatrix covarianceMatrix);
+CovarianceSectionCovarianceMatrixSet(ConstHandle2CovarianceSection self, ConstHandle2ConstCovarianceMatrix covarianceMatrix);
 
 
 // -----------------------------------------------------------------------------
@@ -251,19 +251,19 @@ CovarianceSectionCovarianceMatrixSet(ConstHandle2CovarianceSection This, ConstHa
 
 // +++ Has
 extern_c int
-CovarianceSectionMixedHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionMixedHas(ConstHandle2ConstCovarianceSection self);
 
 // --- Get, const
 extern_c Handle2ConstMixed
-CovarianceSectionMixedGetConst(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionMixedGetConst(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get, non-const
 extern_c Handle2Mixed
-CovarianceSectionMixedGet(ConstHandle2CovarianceSection This);
+CovarianceSectionMixedGet(ConstHandle2CovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionMixedSet(ConstHandle2CovarianceSection This, ConstHandle2ConstMixed mixed);
+CovarianceSectionMixedSet(ConstHandle2CovarianceSection self, ConstHandle2ConstMixed mixed);
 
 
 // -----------------------------------------------------------------------------
@@ -272,19 +272,19 @@ CovarianceSectionMixedSet(ConstHandle2CovarianceSection This, ConstHandle2ConstM
 
 // +++ Has
 extern_c int
-CovarianceSectionSumHas(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionSumHas(ConstHandle2ConstCovarianceSection self);
 
 // --- Get, const
 extern_c Handle2ConstSum
-CovarianceSectionSumGetConst(ConstHandle2ConstCovarianceSection This);
+CovarianceSectionSumGetConst(ConstHandle2ConstCovarianceSection self);
 
 // +++ Get, non-const
 extern_c Handle2Sum
-CovarianceSectionSumGet(ConstHandle2CovarianceSection This);
+CovarianceSectionSumGet(ConstHandle2CovarianceSection self);
 
 // +++ Set
 extern_c void
-CovarianceSectionSumSet(ConstHandle2CovarianceSection This, ConstHandle2ConstSum sum);
+CovarianceSectionSumSet(ConstHandle2CovarianceSection self, ConstHandle2ConstSum sum);
 
 
 // -----------------------------------------------------------------------------

@@ -90,13 +90,13 @@ DecayPathCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DecayPathAssign(ConstHandle2DecayPath This, ConstHandle2ConstDecayPath from);
+DecayPathAssign(ConstHandle2DecayPath self, ConstHandle2ConstDecayPath from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DecayPathDelete(ConstHandle2ConstDecayPath This);
+DecayPathDelete(ConstHandle2ConstDecayPath self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DecayPathDelete(ConstHandle2ConstDecayPath This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DecayPathRead(ConstHandle2DecayPath This, const char *const filename);
+DecayPathRead(ConstHandle2DecayPath self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DecayPathWrite(ConstHandle2ConstDecayPath This, const char *const filename);
+DecayPathWrite(ConstHandle2ConstDecayPath self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DecayPathPrint(ConstHandle2ConstDecayPath This);
+DecayPathPrint(ConstHandle2ConstDecayPath self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DecayPathPrintXML(ConstHandle2ConstDecayPath This);
+DecayPathPrintXML(ConstHandle2ConstDecayPath self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DecayPathPrintJSON(ConstHandle2ConstDecayPath This);
+DecayPathPrintJSON(ConstHandle2ConstDecayPath self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ DecayPathPrintJSON(ConstHandle2ConstDecayPath This);
 
 // +++ Has
 extern_c int
-DecayPathDecayHas(ConstHandle2ConstDecayPath This);
+DecayPathDecayHas(ConstHandle2ConstDecayPath self);
 
 // +++ Clear
 extern_c void
-DecayPathDecayClear(ConstHandle2DecayPath This);
+DecayPathDecayClear(ConstHandle2DecayPath self);
 
 // +++ Size
 extern_c size_t
-DecayPathDecaySize(ConstHandle2ConstDecayPath This);
+DecayPathDecaySize(ConstHandle2ConstDecayPath self);
 
 // +++ Add
 extern_c void
-DecayPathDecayAdd(ConstHandle2DecayPath This, ConstHandle2ConstDecay decay);
+DecayPathDecayAdd(ConstHandle2DecayPath self, ConstHandle2ConstDecay decay);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDecay
-DecayPathDecayGetConst(ConstHandle2ConstDecayPath This, const size_t index_);
+DecayPathDecayGetConst(ConstHandle2ConstDecayPath self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Decay
-DecayPathDecayGet(ConstHandle2DecayPath This, const size_t index_);
+DecayPathDecayGet(ConstHandle2DecayPath self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 DecayPathDecaySet(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const size_t index_,
    ConstHandle2ConstDecay decay
 );
@@ -169,28 +169,28 @@ DecayPathDecaySet(
 // +++ Has, by index
 extern_c int
 DecayPathDecayHasByIndex(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstDecay
 DecayPathDecayGetByIndexConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByIndex(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 DecayPathDecaySetByIndex(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const int index,
    ConstHandle2ConstDecay decay
 );
@@ -198,28 +198,28 @@ DecayPathDecaySetByIndex(
 // +++ Has, by mode
 extern_c int
 DecayPathDecayHasByMode(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const char *const mode
 );
 
 // --- Get, by mode, const
 extern_c Handle2ConstDecay
 DecayPathDecayGetByModeConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const char *const mode
 );
 
 // +++ Get, by mode, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByMode(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const char *const mode
 );
 
 // +++ Set, by mode
 extern_c void
 DecayPathDecaySetByMode(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const char *const mode,
    ConstHandle2ConstDecay decay
 );
@@ -227,28 +227,28 @@ DecayPathDecaySetByMode(
 // +++ Has, by complete
 extern_c int
 DecayPathDecayHasByComplete(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const bool complete
 );
 
 // --- Get, by complete, const
 extern_c Handle2ConstDecay
 DecayPathDecayGetByCompleteConst(
-   ConstHandle2ConstDecayPath This,
+   ConstHandle2ConstDecayPath self,
    const bool complete
 );
 
 // +++ Get, by complete, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByComplete(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const bool complete
 );
 
 // +++ Set, by complete
 extern_c void
 DecayPathDecaySetByComplete(
-   ConstHandle2DecayPath This,
+   ConstHandle2DecayPath self,
    const bool complete,
    ConstHandle2ConstDecay decay
 );

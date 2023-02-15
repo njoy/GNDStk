@@ -97,13 +97,13 @@ KalbachMannCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-KalbachMannAssign(ConstHandle2KalbachMann This, ConstHandle2ConstKalbachMann from);
+KalbachMannAssign(ConstHandle2KalbachMann self, ConstHandle2ConstKalbachMann from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-KalbachMannDelete(ConstHandle2ConstKalbachMann This);
+KalbachMannDelete(ConstHandle2ConstKalbachMann self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ KalbachMannDelete(ConstHandle2ConstKalbachMann This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-KalbachMannRead(ConstHandle2KalbachMann This, const char *const filename);
+KalbachMannRead(ConstHandle2KalbachMann self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-KalbachMannWrite(ConstHandle2ConstKalbachMann This, const char *const filename);
+KalbachMannWrite(ConstHandle2ConstKalbachMann self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-KalbachMannPrint(ConstHandle2ConstKalbachMann This);
+KalbachMannPrint(ConstHandle2ConstKalbachMann self);
 
 // +++ Print to standard output, as XML
 extern_c int
-KalbachMannPrintXML(ConstHandle2ConstKalbachMann This);
+KalbachMannPrintXML(ConstHandle2ConstKalbachMann self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-KalbachMannPrintJSON(ConstHandle2ConstKalbachMann This);
+KalbachMannPrintJSON(ConstHandle2ConstKalbachMann self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ KalbachMannPrintJSON(ConstHandle2ConstKalbachMann This);
 
 // +++ Has
 extern_c int
-KalbachMannLabelHas(ConstHandle2ConstKalbachMann This);
+KalbachMannLabelHas(ConstHandle2ConstKalbachMann self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-KalbachMannLabelGet(ConstHandle2ConstKalbachMann This);
+KalbachMannLabelGet(ConstHandle2ConstKalbachMann self);
 
 // +++ Set
 extern_c void
-KalbachMannLabelSet(ConstHandle2KalbachMann This, const char *const label);
+KalbachMannLabelSet(ConstHandle2KalbachMann self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ KalbachMannLabelSet(ConstHandle2KalbachMann This, const char *const label);
 
 // +++ Has
 extern_c int
-KalbachMannProductFrameHas(ConstHandle2ConstKalbachMann This);
+KalbachMannProductFrameHas(ConstHandle2ConstKalbachMann self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-KalbachMannProductFrameGet(ConstHandle2ConstKalbachMann This);
+KalbachMannProductFrameGet(ConstHandle2ConstKalbachMann self);
 
 // +++ Set
 extern_c void
-KalbachMannProductFrameSet(ConstHandle2KalbachMann This, const char *const productFrame);
+KalbachMannProductFrameSet(ConstHandle2KalbachMann self, const char *const productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ KalbachMannProductFrameSet(ConstHandle2KalbachMann This, const char *const produ
 
 // +++ Has
 extern_c int
-KalbachMannFHas(ConstHandle2ConstKalbachMann This);
+KalbachMannFHas(ConstHandle2ConstKalbachMann self);
 
 // --- Get, const
 extern_c Handle2ConstF
-KalbachMannFGetConst(ConstHandle2ConstKalbachMann This);
+KalbachMannFGetConst(ConstHandle2ConstKalbachMann self);
 
 // +++ Get, non-const
 extern_c Handle2F
-KalbachMannFGet(ConstHandle2KalbachMann This);
+KalbachMannFGet(ConstHandle2KalbachMann self);
 
 // +++ Set
 extern_c void
-KalbachMannFSet(ConstHandle2KalbachMann This, ConstHandle2ConstF f);
+KalbachMannFSet(ConstHandle2KalbachMann self, ConstHandle2ConstF f);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ KalbachMannFSet(ConstHandle2KalbachMann This, ConstHandle2ConstF f);
 
 // +++ Has
 extern_c int
-KalbachMannRHas(ConstHandle2ConstKalbachMann This);
+KalbachMannRHas(ConstHandle2ConstKalbachMann self);
 
 // --- Get, const
 extern_c Handle2ConstR
-KalbachMannRGetConst(ConstHandle2ConstKalbachMann This);
+KalbachMannRGetConst(ConstHandle2ConstKalbachMann self);
 
 // +++ Get, non-const
 extern_c Handle2R
-KalbachMannRGet(ConstHandle2KalbachMann This);
+KalbachMannRGet(ConstHandle2KalbachMann self);
 
 // +++ Set
 extern_c void
-KalbachMannRSet(ConstHandle2KalbachMann This, ConstHandle2ConstR r);
+KalbachMannRSet(ConstHandle2KalbachMann self, ConstHandle2ConstR r);
 
 
 // -----------------------------------------------------------------------------

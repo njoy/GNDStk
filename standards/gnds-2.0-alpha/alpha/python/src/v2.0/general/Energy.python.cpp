@@ -67,7 +67,7 @@ void wrapEnergy(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -81,7 +81,7 @@ void wrapEnergy(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },
@@ -95,7 +95,7 @@ void wrapEnergy(py::module &module)
    // get/set Double
    object.def_property(
       "double",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Double();
       },
@@ -109,7 +109,7 @@ void wrapEnergy(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },
@@ -123,7 +123,7 @@ void wrapEnergy(py::module &module)
    // get/set NBodyPhaseSpace
    object.def_property(
       "nbody_phase_space",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.NBodyPhaseSpace();
       },
@@ -137,7 +137,7 @@ void wrapEnergy(py::module &module)
    // get/set primaryGamma
    object.def_property(
       "primary_gamma",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.primaryGamma();
       },
@@ -151,7 +151,7 @@ void wrapEnergy(py::module &module)
    // get/set discreteGamma
    object.def_property(
       "discrete_gamma",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.discreteGamma();
       },
@@ -165,7 +165,7 @@ void wrapEnergy(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },
@@ -179,7 +179,7 @@ void wrapEnergy(py::module &module)
    // get/set generalEvaporation
    object.def_property(
       "general_evaporation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.generalEvaporation();
       },
@@ -193,7 +193,7 @@ void wrapEnergy(py::module &module)
    // get/set evaporation
    object.def_property(
       "evaporation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.evaporation();
       },
@@ -207,7 +207,7 @@ void wrapEnergy(py::module &module)
    // get/set weightedFunctionals
    object.def_property(
       "weighted_functionals",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.weightedFunctionals();
       },
@@ -221,7 +221,7 @@ void wrapEnergy(py::module &module)
    // get/set simpleMaxwellianFission
    object.def_property(
       "simple_maxwellian_fission",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.simpleMaxwellianFission();
       },
@@ -235,7 +235,7 @@ void wrapEnergy(py::module &module)
    // get/set MadlandNix
    object.def_property(
       "madland_nix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.MadlandNix();
       },

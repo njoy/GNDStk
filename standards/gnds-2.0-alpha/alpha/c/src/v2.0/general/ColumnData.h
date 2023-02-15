@@ -94,13 +94,13 @@ ColumnDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ColumnDataAssign(ConstHandle2ColumnData This, ConstHandle2ConstColumnData from);
+ColumnDataAssign(ConstHandle2ColumnData self, ConstHandle2ConstColumnData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ColumnDataDelete(ConstHandle2ConstColumnData This);
+ColumnDataDelete(ConstHandle2ConstColumnData self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ ColumnDataDelete(ConstHandle2ConstColumnData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ColumnDataRead(ConstHandle2ColumnData This, const char *const filename);
+ColumnDataRead(ConstHandle2ColumnData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ColumnDataWrite(ConstHandle2ConstColumnData This, const char *const filename);
+ColumnDataWrite(ConstHandle2ConstColumnData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ColumnDataPrint(ConstHandle2ConstColumnData This);
+ColumnDataPrint(ConstHandle2ConstColumnData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ColumnDataPrintXML(ConstHandle2ConstColumnData This);
+ColumnDataPrintXML(ConstHandle2ConstColumnData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ColumnDataPrintJSON(ConstHandle2ConstColumnData This);
+ColumnDataPrintJSON(ConstHandle2ConstColumnData self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ ColumnDataPrintJSON(ConstHandle2ConstColumnData This);
 
 // +++ Has
 extern_c int
-ColumnDataENDFMFMTHas(ConstHandle2ConstColumnData This);
+ColumnDataENDFMFMTHas(ConstHandle2ConstColumnData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ColumnDataENDFMFMTGet(ConstHandle2ConstColumnData This);
+ColumnDataENDFMFMTGet(ConstHandle2ConstColumnData self);
 
 // +++ Set
 extern_c void
-ColumnDataENDFMFMTSet(ConstHandle2ColumnData This, const char *const ENDF_MFMT);
+ColumnDataENDFMFMTSet(ConstHandle2ColumnData self, const char *const ENDF_MFMT);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ ColumnDataENDFMFMTSet(ConstHandle2ColumnData This, const char *const ENDF_MFMT);
 
 // +++ Has
 extern_c int
-ColumnDataHrefHas(ConstHandle2ConstColumnData This);
+ColumnDataHrefHas(ConstHandle2ConstColumnData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ColumnDataHrefGet(ConstHandle2ConstColumnData This);
+ColumnDataHrefGet(ConstHandle2ConstColumnData self);
 
 // +++ Set
 extern_c void
-ColumnDataHrefSet(ConstHandle2ColumnData This, const char *const href);
+ColumnDataHrefSet(ConstHandle2ColumnData self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ ColumnDataHrefSet(ConstHandle2ColumnData This, const char *const href);
 
 // +++ Has
 extern_c int
-ColumnDataSlicesHas(ConstHandle2ConstColumnData This);
+ColumnDataSlicesHas(ConstHandle2ConstColumnData self);
 
 // --- Get, const
 extern_c Handle2ConstSlices
-ColumnDataSlicesGetConst(ConstHandle2ConstColumnData This);
+ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self);
 
 // +++ Get, non-const
 extern_c Handle2Slices
-ColumnDataSlicesGet(ConstHandle2ColumnData This);
+ColumnDataSlicesGet(ConstHandle2ColumnData self);
 
 // +++ Set
 extern_c void
-ColumnDataSlicesSet(ConstHandle2ColumnData This, ConstHandle2ConstSlices slices);
+ColumnDataSlicesSet(ConstHandle2ColumnData self, ConstHandle2ConstSlices slices);
 
 
 // -----------------------------------------------------------------------------

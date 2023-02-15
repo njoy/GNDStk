@@ -45,7 +45,7 @@ void wrapDecayData(py::module &module)
    // get/set decayModes
    object.def_property(
       "decay_modes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decayModes();
       },
@@ -59,7 +59,7 @@ void wrapDecayData(py::module &module)
    // get/set averageEnergies
    object.def_property(
       "average_energies",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.averageEnergies();
       },

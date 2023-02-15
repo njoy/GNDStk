@@ -51,7 +51,7 @@ void wrapDistribution(py::module &module)
    // get/set thermalNeutronScatteringLaw
    object.def_property(
       "thermal_neutron_scattering_law",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw();
       },
@@ -65,7 +65,7 @@ void wrapDistribution(py::module &module)
    // get/set uncorrelated
    object.def_property(
       "uncorrelated",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncorrelated();
       },
@@ -79,7 +79,7 @@ void wrapDistribution(py::module &module)
    // get/set unspecified
    object.def_property(
       "unspecified",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unspecified();
       },
@@ -93,7 +93,7 @@ void wrapDistribution(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },
@@ -107,7 +107,7 @@ void wrapDistribution(py::module &module)
    // get/set branching3d
    object.def_property(
       "branching3d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.branching3d();
       },

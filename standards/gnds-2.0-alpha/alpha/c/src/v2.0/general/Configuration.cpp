@@ -89,20 +89,20 @@ ConfigurationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ConfigurationAssign(ConstHandle2Configuration This, ConstHandle2ConstConfiguration from)
+ConfigurationAssign(ConstHandle2Configuration self, ConstHandle2ConstConfiguration from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ConfigurationDelete(ConstHandle2ConstConfiguration This)
+ConfigurationDelete(ConstHandle2ConstConfiguration self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ ConfigurationDelete(ConstHandle2ConstConfiguration This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ConfigurationRead(ConstHandle2Configuration This, const char *const filename)
+ConfigurationRead(ConstHandle2Configuration self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ConfigurationWrite(ConstHandle2ConstConfiguration This, const char *const filename)
+ConfigurationWrite(ConstHandle2ConstConfiguration self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ConfigurationPrint(ConstHandle2ConstConfiguration This)
+ConfigurationPrint(ConstHandle2ConstConfiguration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ConfigurationPrintXML(ConstHandle2ConstConfiguration This)
+ConfigurationPrintXML(ConstHandle2ConstConfiguration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ConfigurationPrintJSON(ConstHandle2ConstConfiguration This)
+ConfigurationPrintJSON(ConstHandle2ConstConfiguration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ ConfigurationPrintJSON(ConstHandle2ConstConfiguration This)
 
 // Has
 int
-ConfigurationSubshellHas(ConstHandle2ConstConfiguration This)
+ConfigurationSubshellHas(ConstHandle2ConstConfiguration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SubshellHas", This, extract::subshell);
+      (CLASSNAME, CLASSNAME+"SubshellHas", self, extract::subshell);
 }
 
 // Get
 // Returns by value
 const char *
-ConfigurationSubshellGet(ConstHandle2ConstConfiguration This)
+ConfigurationSubshellGet(ConstHandle2ConstConfiguration self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SubshellGet", This, extract::subshell);
+      (CLASSNAME, CLASSNAME+"SubshellGet", self, extract::subshell);
 }
 
 // Set
 void
-ConfigurationSubshellSet(ConstHandle2Configuration This, const char *const subshell)
+ConfigurationSubshellSet(ConstHandle2Configuration self, const char *const subshell)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SubshellSet", This, extract::subshell, subshell);
+      (CLASSNAME, CLASSNAME+"SubshellSet", self, extract::subshell, subshell);
 }
 
 
@@ -193,27 +193,27 @@ ConfigurationSubshellSet(ConstHandle2Configuration This, const char *const subsh
 
 // Has
 int
-ConfigurationElectronNumberHas(ConstHandle2ConstConfiguration This)
+ConfigurationElectronNumberHas(ConstHandle2ConstConfiguration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ElectronNumberHas", This, extract::electronNumber);
+      (CLASSNAME, CLASSNAME+"ElectronNumberHas", self, extract::electronNumber);
 }
 
 // Get
 // Returns by value
 double
-ConfigurationElectronNumberGet(ConstHandle2ConstConfiguration This)
+ConfigurationElectronNumberGet(ConstHandle2ConstConfiguration self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ElectronNumberGet", This, extract::electronNumber);
+      (CLASSNAME, CLASSNAME+"ElectronNumberGet", self, extract::electronNumber);
 }
 
 // Set
 void
-ConfigurationElectronNumberSet(ConstHandle2Configuration This, const double electronNumber)
+ConfigurationElectronNumberSet(ConstHandle2Configuration self, const double electronNumber)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ElectronNumberSet", This, extract::electronNumber, electronNumber);
+      (CLASSNAME, CLASSNAME+"ElectronNumberSet", self, extract::electronNumber, electronNumber);
 }
 
 
@@ -223,34 +223,34 @@ ConfigurationElectronNumberSet(ConstHandle2Configuration This, const double elec
 
 // Has
 int
-ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration This)
+ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BindingEnergyHas", This, extract::bindingEnergy);
+      (CLASSNAME, CLASSNAME+"BindingEnergyHas", self, extract::bindingEnergy);
 }
 
 // Get, const
 Handle2ConstBindingEnergy
-ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration This)
+ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self)
 {
    return detail::getField<CPP,Handle2ConstBindingEnergy>
-      (CLASSNAME, CLASSNAME+"BindingEnergyGetConst", This, extract::bindingEnergy);
+      (CLASSNAME, CLASSNAME+"BindingEnergyGetConst", self, extract::bindingEnergy);
 }
 
 // Get, non-const
 Handle2BindingEnergy
-ConfigurationBindingEnergyGet(ConstHandle2Configuration This)
+ConfigurationBindingEnergyGet(ConstHandle2Configuration self)
 {
    return detail::getField<CPP,Handle2BindingEnergy>
-      (CLASSNAME, CLASSNAME+"BindingEnergyGet", This, extract::bindingEnergy);
+      (CLASSNAME, CLASSNAME+"BindingEnergyGet", self, extract::bindingEnergy);
 }
 
 // Set
 void
-ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstBindingEnergy bindingEnergy)
+ConfigurationBindingEnergySet(ConstHandle2Configuration self, ConstHandle2ConstBindingEnergy bindingEnergy)
 {
    detail::setField<CPP,CPPBindingEnergy>
-      (CLASSNAME, CLASSNAME+"BindingEnergySet", This, extract::bindingEnergy, bindingEnergy);
+      (CLASSNAME, CLASSNAME+"BindingEnergySet", self, extract::bindingEnergy, bindingEnergy);
 }
 
 
@@ -260,61 +260,61 @@ ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstB
 
 // Has
 int
-ConfigurationDecayDataHas(ConstHandle2ConstConfiguration This)
+ConfigurationDecayDataHas(ConstHandle2ConstConfiguration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataHas", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataHas", self, extract::decayData);
 }
 
 // Clear
 void
-ConfigurationDecayDataClear(ConstHandle2Configuration This)
+ConfigurationDecayDataClear(ConstHandle2Configuration self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataClear", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataClear", self, extract::decayData);
 }
 
 // Size
 size_t
-ConfigurationDecayDataSize(ConstHandle2ConstConfiguration This)
+ConfigurationDecayDataSize(ConstHandle2ConstConfiguration self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataSize", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSize", self, extract::decayData);
 }
 
 // Add
 void
-ConfigurationDecayDataAdd(ConstHandle2Configuration This, ConstHandle2ConstDecayData decayData)
+ConfigurationDecayDataAdd(ConstHandle2Configuration self, ConstHandle2ConstDecayData decayData)
 {
    detail::addToContainer<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataAdd", This, extract::decayData, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataAdd", self, extract::decayData, decayData);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDecayData
-ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration This, const size_t index_)
+ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGetConst", This, extract::decayData, index_);
+      (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2DecayData
-ConfigurationDecayDataGet(ConstHandle2Configuration This, const size_t index_)
+ConfigurationDecayDataGet(ConstHandle2Configuration self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2DecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGet", This, extract::decayData, index_);
+      (CLASSNAME, CLASSNAME+"DecayDataGet", self, extract::decayData, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ConfigurationDecayDataSet(
-   ConstHandle2Configuration This,
+   ConstHandle2Configuration self,
    const size_t index_,
    ConstHandle2ConstDecayData decayData
 ) {
    detail::setByIndex<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, index_, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSet", self, extract::decayData, index_, decayData);
 }
 
 

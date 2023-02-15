@@ -74,20 +74,20 @@ InstitutionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-InstitutionAssign(ConstHandle2Institution This, ConstHandle2ConstInstitution from)
+InstitutionAssign(ConstHandle2Institution self, ConstHandle2ConstInstitution from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-InstitutionDelete(ConstHandle2ConstInstitution This)
+InstitutionDelete(ConstHandle2ConstInstitution self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ InstitutionDelete(ConstHandle2ConstInstitution This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-InstitutionRead(ConstHandle2Institution This, const char *const filename)
+InstitutionRead(ConstHandle2Institution self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-InstitutionWrite(ConstHandle2ConstInstitution This, const char *const filename)
+InstitutionWrite(ConstHandle2ConstInstitution self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-InstitutionPrint(ConstHandle2ConstInstitution This)
+InstitutionPrint(ConstHandle2ConstInstitution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-InstitutionPrintXML(ConstHandle2ConstInstitution This)
+InstitutionPrintXML(ConstHandle2ConstInstitution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-InstitutionPrintJSON(ConstHandle2ConstInstitution This)
+InstitutionPrintJSON(ConstHandle2ConstInstitution self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ InstitutionPrintJSON(ConstHandle2ConstInstitution This)
 
 // Has
 int
-InstitutionLabelHas(ConstHandle2ConstInstitution This)
+InstitutionLabelHas(ConstHandle2ConstInstitution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-InstitutionLabelGet(ConstHandle2ConstInstitution This)
+InstitutionLabelGet(ConstHandle2ConstInstitution self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-InstitutionLabelSet(ConstHandle2Institution This, const char *const label)
+InstitutionLabelSet(ConstHandle2Institution self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -178,34 +178,34 @@ InstitutionLabelSet(ConstHandle2Institution This, const char *const label)
 
 // Has
 int
-InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution This)
+InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsHas", This, extract::ENDFconversionFlags);
+      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsHas", self, extract::ENDFconversionFlags);
 }
 
 // Get, const
 Handle2ConstENDFconversionFlags
-InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution This)
+InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self)
 {
    return detail::getField<CPP,Handle2ConstENDFconversionFlags>
-      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGetConst", This, extract::ENDFconversionFlags);
+      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGetConst", self, extract::ENDFconversionFlags);
 }
 
 // Get, non-const
 Handle2ENDFconversionFlags
-InstitutionENDFconversionFlagsGet(ConstHandle2Institution This)
+InstitutionENDFconversionFlagsGet(ConstHandle2Institution self)
 {
    return detail::getField<CPP,Handle2ENDFconversionFlags>
-      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGet", This, extract::ENDFconversionFlags);
+      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGet", self, extract::ENDFconversionFlags);
 }
 
 // Set
 void
-InstitutionENDFconversionFlagsSet(ConstHandle2Institution This, ConstHandle2ConstENDFconversionFlags ENDFconversionFlags)
+InstitutionENDFconversionFlagsSet(ConstHandle2Institution self, ConstHandle2ConstENDFconversionFlags ENDFconversionFlags)
 {
    detail::setField<CPP,CPPENDFconversionFlags>
-      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsSet", This, extract::ENDFconversionFlags, ENDFconversionFlags);
+      (CLASSNAME, CLASSNAME+"ENDFconversionFlagsSet", self, extract::ENDFconversionFlags, ENDFconversionFlags);
 }
 
 

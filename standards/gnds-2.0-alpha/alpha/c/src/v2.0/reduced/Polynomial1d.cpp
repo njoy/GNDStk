@@ -85,20 +85,20 @@ Polynomial1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Polynomial1dAssign(ConstHandle2Polynomial1d This, ConstHandle2ConstPolynomial1d from)
+Polynomial1dAssign(ConstHandle2Polynomial1d self, ConstHandle2ConstPolynomial1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Polynomial1dDelete(ConstHandle2ConstPolynomial1d This)
+Polynomial1dDelete(ConstHandle2ConstPolynomial1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ Polynomial1dDelete(ConstHandle2ConstPolynomial1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Polynomial1dRead(ConstHandle2Polynomial1d This, const char *const filename)
+Polynomial1dRead(ConstHandle2Polynomial1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Polynomial1dWrite(ConstHandle2ConstPolynomial1d This, const char *const filename)
+Polynomial1dWrite(ConstHandle2ConstPolynomial1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Polynomial1dPrint(ConstHandle2ConstPolynomial1d This)
+Polynomial1dPrint(ConstHandle2ConstPolynomial1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Polynomial1dPrintXML(ConstHandle2ConstPolynomial1d This)
+Polynomial1dPrintXML(ConstHandle2ConstPolynomial1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d This)
+Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d This)
 
 // Has
 int
-Polynomial1dDomainMinHas(ConstHandle2ConstPolynomial1d This)
+Polynomial1dDomainMinHas(ConstHandle2ConstPolynomial1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-Polynomial1dDomainMinGet(ConstHandle2ConstPolynomial1d This)
+Polynomial1dDomainMinGet(ConstHandle2ConstPolynomial1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-Polynomial1dDomainMinSet(ConstHandle2Polynomial1d This, const double domainMin)
+Polynomial1dDomainMinSet(ConstHandle2Polynomial1d self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -189,27 +189,27 @@ Polynomial1dDomainMinSet(ConstHandle2Polynomial1d This, const double domainMin)
 
 // Has
 int
-Polynomial1dDomainMaxHas(ConstHandle2ConstPolynomial1d This)
+Polynomial1dDomainMaxHas(ConstHandle2ConstPolynomial1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-Polynomial1dDomainMaxGet(ConstHandle2ConstPolynomial1d This)
+Polynomial1dDomainMaxGet(ConstHandle2ConstPolynomial1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d This, const double domainMax)
+Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -219,34 +219,34 @@ Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d This, const double domainMax)
 
 // Has
 int
-Polynomial1dAxesHas(ConstHandle2ConstPolynomial1d This)
+Polynomial1dAxesHas(ConstHandle2ConstPolynomial1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d This)
+Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Polynomial1dAxesGet(ConstHandle2Polynomial1d This)
+Polynomial1dAxesGet(ConstHandle2Polynomial1d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes)
+Polynomial1dAxesSet(ConstHandle2Polynomial1d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -256,34 +256,34 @@ Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Polynomial1dValuesHas(ConstHandle2ConstPolynomial1d This)
+Polynomial1dValuesHas(ConstHandle2ConstPolynomial1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d This)
+Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-Polynomial1dValuesGet(ConstHandle2Polynomial1d This)
+Polynomial1dValuesGet(ConstHandle2Polynomial1d self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-Polynomial1dValuesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstValues values)
+Polynomial1dValuesSet(ConstHandle2Polynomial1d self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

@@ -90,13 +90,13 @@ OrphanProductsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-OrphanProductsAssign(ConstHandle2OrphanProducts This, ConstHandle2ConstOrphanProducts from);
+OrphanProductsAssign(ConstHandle2OrphanProducts self, ConstHandle2ConstOrphanProducts from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-OrphanProductsDelete(ConstHandle2ConstOrphanProducts This);
+OrphanProductsDelete(ConstHandle2ConstOrphanProducts self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ OrphanProductsDelete(ConstHandle2ConstOrphanProducts This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-OrphanProductsRead(ConstHandle2OrphanProducts This, const char *const filename);
+OrphanProductsRead(ConstHandle2OrphanProducts self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-OrphanProductsWrite(ConstHandle2ConstOrphanProducts This, const char *const filename);
+OrphanProductsWrite(ConstHandle2ConstOrphanProducts self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-OrphanProductsPrint(ConstHandle2ConstOrphanProducts This);
+OrphanProductsPrint(ConstHandle2ConstOrphanProducts self);
 
 // +++ Print to standard output, as XML
 extern_c int
-OrphanProductsPrintXML(ConstHandle2ConstOrphanProducts This);
+OrphanProductsPrintXML(ConstHandle2ConstOrphanProducts self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts This);
+OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts This);
 
 // +++ Has
 extern_c int
-OrphanProductsOrphanProductHas(ConstHandle2ConstOrphanProducts This);
+OrphanProductsOrphanProductHas(ConstHandle2ConstOrphanProducts self);
 
 // +++ Clear
 extern_c void
-OrphanProductsOrphanProductClear(ConstHandle2OrphanProducts This);
+OrphanProductsOrphanProductClear(ConstHandle2OrphanProducts self);
 
 // +++ Size
 extern_c size_t
-OrphanProductsOrphanProductSize(ConstHandle2ConstOrphanProducts This);
+OrphanProductsOrphanProductSize(ConstHandle2ConstOrphanProducts self);
 
 // +++ Add
 extern_c void
-OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts This, ConstHandle2ConstOrphanProduct orphanProduct);
+OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts self, ConstHandle2ConstOrphanProduct orphanProduct);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstOrphanProduct
-OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts This, const size_t index_);
+OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2OrphanProduct
-OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts This, const size_t index_);
+OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 OrphanProductsOrphanProductSet(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const size_t index_,
    ConstHandle2ConstOrphanProduct orphanProduct
 );
@@ -169,28 +169,28 @@ OrphanProductsOrphanProductSet(
 // +++ Has, by label
 extern_c int
 OrphanProductsOrphanProductHasByLabel(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetByLabelConst(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 OrphanProductsOrphanProductSetByLabel(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const char *const label,
    ConstHandle2ConstOrphanProduct orphanProduct
 );
@@ -198,28 +198,28 @@ OrphanProductsOrphanProductSetByLabel(
 // +++ Has, by ENDF_MT
 extern_c int
 OrphanProductsOrphanProductHasByENDFMT(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const int ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetByENDFMTConst(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const int ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const int ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 OrphanProductsOrphanProductSetByENDFMT(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const int ENDF_MT,
    ConstHandle2ConstOrphanProduct orphanProduct
 );

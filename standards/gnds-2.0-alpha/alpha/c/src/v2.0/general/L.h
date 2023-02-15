@@ -94,13 +94,13 @@ LCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LAssign(ConstHandle2L This, ConstHandle2ConstL from);
+LAssign(ConstHandle2L self, ConstHandle2ConstL from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LDelete(ConstHandle2ConstL This);
+LDelete(ConstHandle2ConstL self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ LDelete(ConstHandle2ConstL This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LRead(ConstHandle2L This, const char *const filename);
+LRead(ConstHandle2L self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LWrite(ConstHandle2ConstL This, const char *const filename);
+LWrite(ConstHandle2ConstL self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LPrint(ConstHandle2ConstL This);
+LPrint(ConstHandle2ConstL self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LPrintXML(ConstHandle2ConstL This);
+LPrintXML(ConstHandle2ConstL self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LPrintJSON(ConstHandle2ConstL This);
+LPrintJSON(ConstHandle2ConstL self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ LPrintJSON(ConstHandle2ConstL This);
 
 // +++ Has
 extern_c int
-LLabelHas(ConstHandle2ConstL This);
+LLabelHas(ConstHandle2ConstL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LLabelGet(ConstHandle2ConstL This);
+LLabelGet(ConstHandle2ConstL self);
 
 // +++ Set
 extern_c void
-LLabelSet(ConstHandle2L This, const char *const label);
+LLabelSet(ConstHandle2L self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ LLabelSet(ConstHandle2L This, const char *const label);
 
 // +++ Has
 extern_c int
-LValueHas(ConstHandle2ConstL This);
+LValueHas(ConstHandle2ConstL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-LValueGet(ConstHandle2ConstL This);
+LValueGet(ConstHandle2ConstL self);
 
 // +++ Set
 extern_c void
-LValueSet(ConstHandle2L This, const int value);
+LValueSet(ConstHandle2L self, const int value);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ LValueSet(ConstHandle2L This, const int value);
 
 // +++ Has
 extern_c int
-LJsHas(ConstHandle2ConstL This);
+LJsHas(ConstHandle2ConstL self);
 
 // --- Get, const
 extern_c Handle2ConstJs
-LJsGetConst(ConstHandle2ConstL This);
+LJsGetConst(ConstHandle2ConstL self);
 
 // +++ Get, non-const
 extern_c Handle2Js
-LJsGet(ConstHandle2L This);
+LJsGet(ConstHandle2L self);
 
 // +++ Set
 extern_c void
-LJsSet(ConstHandle2L This, ConstHandle2ConstJs Js);
+LJsSet(ConstHandle2L self, ConstHandle2ConstJs Js);
 
 
 // -----------------------------------------------------------------------------

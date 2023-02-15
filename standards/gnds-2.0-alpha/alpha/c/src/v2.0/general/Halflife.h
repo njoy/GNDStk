@@ -93,13 +93,13 @@ HalflifeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-HalflifeAssign(ConstHandle2Halflife This, ConstHandle2ConstHalflife from);
+HalflifeAssign(ConstHandle2Halflife self, ConstHandle2ConstHalflife from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-HalflifeDelete(ConstHandle2ConstHalflife This);
+HalflifeDelete(ConstHandle2ConstHalflife self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ HalflifeDelete(ConstHandle2ConstHalflife This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-HalflifeRead(ConstHandle2Halflife This, const char *const filename);
+HalflifeRead(ConstHandle2Halflife self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-HalflifeWrite(ConstHandle2ConstHalflife This, const char *const filename);
+HalflifeWrite(ConstHandle2ConstHalflife self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-HalflifePrint(ConstHandle2ConstHalflife This);
+HalflifePrint(ConstHandle2ConstHalflife self);
 
 // +++ Print to standard output, as XML
 extern_c int
-HalflifePrintXML(ConstHandle2ConstHalflife This);
+HalflifePrintXML(ConstHandle2ConstHalflife self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-HalflifePrintJSON(ConstHandle2ConstHalflife This);
+HalflifePrintJSON(ConstHandle2ConstHalflife self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ HalflifePrintJSON(ConstHandle2ConstHalflife This);
 
 // +++ Has
 extern_c int
-HalflifeStringHas(ConstHandle2ConstHalflife This);
+HalflifeStringHas(ConstHandle2ConstHalflife self);
 
 // --- Get, const
 extern_c Handle2ConstString
-HalflifeStringGetConst(ConstHandle2ConstHalflife This);
+HalflifeStringGetConst(ConstHandle2ConstHalflife self);
 
 // +++ Get, non-const
 extern_c Handle2String
-HalflifeStringGet(ConstHandle2Halflife This);
+HalflifeStringGet(ConstHandle2Halflife self);
 
 // +++ Set
 extern_c void
-HalflifeStringSet(ConstHandle2Halflife This, ConstHandle2ConstString string);
+HalflifeStringSet(ConstHandle2Halflife self, ConstHandle2ConstString string);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ HalflifeStringSet(ConstHandle2Halflife This, ConstHandle2ConstString string);
 
 // +++ Has
 extern_c int
-HalflifeDoubleHas(ConstHandle2ConstHalflife This);
+HalflifeDoubleHas(ConstHandle2ConstHalflife self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-HalflifeDoubleGetConst(ConstHandle2ConstHalflife This);
+HalflifeDoubleGetConst(ConstHandle2ConstHalflife self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-HalflifeDoubleGet(ConstHandle2Halflife This);
+HalflifeDoubleGet(ConstHandle2Halflife self);
 
 // +++ Set
 extern_c void
-HalflifeDoubleSet(ConstHandle2Halflife This, ConstHandle2ConstDouble Double);
+HalflifeDoubleSet(ConstHandle2Halflife self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

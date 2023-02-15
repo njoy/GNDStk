@@ -85,20 +85,20 @@ MultiplicitySumCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MultiplicitySumAssign(ConstHandle2MultiplicitySum This, ConstHandle2ConstMultiplicitySum from)
+MultiplicitySumAssign(ConstHandle2MultiplicitySum self, ConstHandle2ConstMultiplicitySum from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MultiplicitySumDelete(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumDelete(ConstHandle2ConstMultiplicitySum self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ MultiplicitySumDelete(ConstHandle2ConstMultiplicitySum This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MultiplicitySumRead(ConstHandle2MultiplicitySum This, const char *const filename)
+MultiplicitySumRead(ConstHandle2MultiplicitySum self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MultiplicitySumWrite(ConstHandle2ConstMultiplicitySum This, const char *const filename)
+MultiplicitySumWrite(ConstHandle2ConstMultiplicitySum self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MultiplicitySumPrint(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumPrint(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MultiplicitySumPrintXML(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumPrintXML(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MultiplicitySumPrintJSON(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumPrintJSON(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ MultiplicitySumPrintJSON(ConstHandle2ConstMultiplicitySum This)
 
 // Has
 int
-MultiplicitySumLabelHas(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumLabelHas(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-MultiplicitySumLabelGet(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumLabelGet(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MultiplicitySumLabelSet(ConstHandle2MultiplicitySum This, const char *const label)
+MultiplicitySumLabelSet(ConstHandle2MultiplicitySum self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -189,27 +189,27 @@ MultiplicitySumLabelSet(ConstHandle2MultiplicitySum This, const char *const labe
 
 // Has
 int
-MultiplicitySumENDFMTHas(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumENDFMTHas(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTHas", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTHas", self, extract::ENDF_MT);
 }
 
 // Get
 // Returns by value
 int
-MultiplicitySumENDFMTGet(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumENDFMTGet(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTGet", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTGet", self, extract::ENDF_MT);
 }
 
 // Set
 void
-MultiplicitySumENDFMTSet(ConstHandle2MultiplicitySum This, const int ENDF_MT)
+MultiplicitySumENDFMTSet(ConstHandle2MultiplicitySum self, const int ENDF_MT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTSet", This, extract::ENDF_MT, ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTSet", self, extract::ENDF_MT, ENDF_MT);
 }
 
 
@@ -219,34 +219,34 @@ MultiplicitySumENDFMTSet(ConstHandle2MultiplicitySum This, const int ENDF_MT)
 
 // Has
 int
-MultiplicitySumMultiplicityHas(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumMultiplicityHas(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicityHas", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityHas", self, extract::multiplicity);
 }
 
 // Get, const
 Handle2ConstMultiplicity
-MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::getField<CPP,Handle2ConstMultiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicityGetConst", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
 // Get, non-const
 Handle2Multiplicity
-MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum This)
+MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum self)
 {
    return detail::getField<CPP,Handle2Multiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicityGet", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityGet", self, extract::multiplicity);
 }
 
 // Set
 void
-MultiplicitySumMultiplicitySet(ConstHandle2MultiplicitySum This, ConstHandle2ConstMultiplicity multiplicity)
+MultiplicitySumMultiplicitySet(ConstHandle2MultiplicitySum self, ConstHandle2ConstMultiplicity multiplicity)
 {
    detail::setField<CPP,CPPMultiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicitySet", This, extract::multiplicity, multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicitySet", self, extract::multiplicity, multiplicity);
 }
 
 
@@ -256,34 +256,34 @@ MultiplicitySumMultiplicitySet(ConstHandle2MultiplicitySum This, ConstHandle2Con
 
 // Has
 int
-MultiplicitySumSummandsHas(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumSummandsHas(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SummandsHas", This, extract::summands);
+      (CLASSNAME, CLASSNAME+"SummandsHas", self, extract::summands);
 }
 
 // Get, const
 Handle2ConstSummands
-MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum This)
+MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum self)
 {
    return detail::getField<CPP,Handle2ConstSummands>
-      (CLASSNAME, CLASSNAME+"SummandsGetConst", This, extract::summands);
+      (CLASSNAME, CLASSNAME+"SummandsGetConst", self, extract::summands);
 }
 
 // Get, non-const
 Handle2Summands
-MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum This)
+MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum self)
 {
    return detail::getField<CPP,Handle2Summands>
-      (CLASSNAME, CLASSNAME+"SummandsGet", This, extract::summands);
+      (CLASSNAME, CLASSNAME+"SummandsGet", self, extract::summands);
 }
 
 // Set
 void
-MultiplicitySumSummandsSet(ConstHandle2MultiplicitySum This, ConstHandle2ConstSummands summands)
+MultiplicitySumSummandsSet(ConstHandle2MultiplicitySum self, ConstHandle2ConstSummands summands)
 {
    detail::setField<CPP,CPPSummands>
-      (CLASSNAME, CLASSNAME+"SummandsSet", This, extract::summands, summands);
+      (CLASSNAME, CLASSNAME+"SummandsSet", self, extract::summands, summands);
 }
 
 

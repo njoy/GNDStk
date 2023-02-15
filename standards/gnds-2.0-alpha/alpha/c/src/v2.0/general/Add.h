@@ -89,13 +89,13 @@ AddCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AddAssign(ConstHandle2Add This, ConstHandle2ConstAdd from);
+AddAssign(ConstHandle2Add self, ConstHandle2ConstAdd from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AddDelete(ConstHandle2ConstAdd This);
+AddDelete(ConstHandle2ConstAdd self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ AddDelete(ConstHandle2ConstAdd This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AddRead(ConstHandle2Add This, const char *const filename);
+AddRead(ConstHandle2Add self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AddWrite(ConstHandle2ConstAdd This, const char *const filename);
+AddWrite(ConstHandle2ConstAdd self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AddPrint(ConstHandle2ConstAdd This);
+AddPrint(ConstHandle2ConstAdd self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AddPrintXML(ConstHandle2ConstAdd This);
+AddPrintXML(ConstHandle2ConstAdd self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AddPrintJSON(ConstHandle2ConstAdd This);
+AddPrintJSON(ConstHandle2ConstAdd self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ AddPrintJSON(ConstHandle2ConstAdd This);
 
 // +++ Has
 extern_c int
-AddHrefHas(ConstHandle2ConstAdd This);
+AddHrefHas(ConstHandle2ConstAdd self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AddHrefGet(ConstHandle2ConstAdd This);
+AddHrefGet(ConstHandle2ConstAdd self);
 
 // +++ Set
 extern_c void
-AddHrefSet(ConstHandle2Add This, const char *const href);
+AddHrefSet(ConstHandle2Add self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

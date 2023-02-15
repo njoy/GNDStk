@@ -47,7 +47,7 @@ void wrapParameterCovariance(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapParameterCovariance(py::module &module)
    // get/set rowData
    object.def_property(
       "row_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.rowData();
       },
@@ -75,7 +75,7 @@ void wrapParameterCovariance(py::module &module)
    // get/set parameterCovarianceMatrix
    object.def_property(
       "parameter_covariance_matrix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parameterCovarianceMatrix();
       },

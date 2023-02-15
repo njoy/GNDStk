@@ -49,7 +49,7 @@ void wrapSelfScatteringKernel(py::module &module)
    // get/set symmetric
    object.def_property(
       "symmetric",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.symmetric();
       },
@@ -63,7 +63,7 @@ void wrapSelfScatteringKernel(py::module &module)
    // get/set gridded3d
    object.def_property(
       "gridded3d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gridded3d();
       },
@@ -77,7 +77,7 @@ void wrapSelfScatteringKernel(py::module &module)
    // get/set SCTApproximation
    object.def_property(
       "sctapproximation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.SCTApproximation();
       },
@@ -91,7 +91,7 @@ void wrapSelfScatteringKernel(py::module &module)
    // get/set freeGasApproximation
    object.def_property(
       "free_gas_approximation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.freeGasApproximation();
       },

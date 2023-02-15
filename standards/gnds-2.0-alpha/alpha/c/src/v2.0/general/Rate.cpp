@@ -69,20 +69,20 @@ RateCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RateAssign(ConstHandle2Rate This, ConstHandle2ConstRate from)
+RateAssign(ConstHandle2Rate self, ConstHandle2ConstRate from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RateDelete(ConstHandle2ConstRate This)
+RateDelete(ConstHandle2ConstRate self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ RateDelete(ConstHandle2ConstRate This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RateRead(ConstHandle2Rate This, const char *const filename)
+RateRead(ConstHandle2Rate self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RateWrite(ConstHandle2ConstRate This, const char *const filename)
+RateWrite(ConstHandle2ConstRate self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RatePrint(ConstHandle2ConstRate This)
+RatePrint(ConstHandle2ConstRate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RatePrintXML(ConstHandle2ConstRate This)
+RatePrintXML(ConstHandle2ConstRate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RatePrintJSON(ConstHandle2ConstRate This)
+RatePrintJSON(ConstHandle2ConstRate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ RatePrintJSON(ConstHandle2ConstRate This)
 
 // Has
 int
-RateDoubleHas(ConstHandle2ConstRate This)
+RateDoubleHas(ConstHandle2ConstRate self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-RateDoubleGetConst(ConstHandle2ConstRate This)
+RateDoubleGetConst(ConstHandle2ConstRate self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-RateDoubleGet(ConstHandle2Rate This)
+RateDoubleGet(ConstHandle2Rate self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-RateDoubleSet(ConstHandle2Rate This, ConstHandle2ConstDouble Double)
+RateDoubleSet(ConstHandle2Rate self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 

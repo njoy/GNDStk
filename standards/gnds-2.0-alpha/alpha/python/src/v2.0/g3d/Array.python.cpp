@@ -53,7 +53,7 @@ void wrapArray(py::module &module)
    // get/set shape
    object.def_property(
       "shape",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.shape();
       },
@@ -67,7 +67,7 @@ void wrapArray(py::module &module)
    // get/set compression
    object.def_property(
       "compression",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.compression();
       },
@@ -81,7 +81,7 @@ void wrapArray(py::module &module)
    // get/set symmetry
    object.def_property(
       "symmetry",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.symmetry();
       },
@@ -95,7 +95,7 @@ void wrapArray(py::module &module)
    // get/set starts
    object.def_property(
       "starts",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.starts();
       },
@@ -109,7 +109,7 @@ void wrapArray(py::module &module)
    // get/set lengths
    object.def_property(
       "lengths",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.lengths();
       },
@@ -123,7 +123,7 @@ void wrapArray(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },

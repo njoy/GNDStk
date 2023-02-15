@@ -72,20 +72,20 @@ ThermalNeutronScatteringLawCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ThermalNeutronScatteringLawAssign(ConstHandle2ThermalNeutronScatteringLaw This, ConstHandle2ConstThermalNeutronScatteringLaw from)
+ThermalNeutronScatteringLawAssign(ConstHandle2ThermalNeutronScatteringLaw self, ConstHandle2ConstThermalNeutronScatteringLaw from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ThermalNeutronScatteringLawDelete(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawDelete(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ ThermalNeutronScatteringLawDelete(ConstHandle2ConstThermalNeutronScatteringLaw T
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ThermalNeutronScatteringLawRead(ConstHandle2ThermalNeutronScatteringLaw This, const char *const filename)
+ThermalNeutronScatteringLawRead(ConstHandle2ThermalNeutronScatteringLaw self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ThermalNeutronScatteringLawWrite(ConstHandle2ConstThermalNeutronScatteringLaw This, const char *const filename)
+ThermalNeutronScatteringLawWrite(ConstHandle2ConstThermalNeutronScatteringLaw self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ThermalNeutronScatteringLawPrint(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawPrint(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ThermalNeutronScatteringLawPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ThermalNeutronScatteringLawPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ ThermalNeutronScatteringLawPrintJSON(ConstHandle2ConstThermalNeutronScatteringLa
 
 // Has
 int
-ThermalNeutronScatteringLawLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ThermalNeutronScatteringLawLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ThermalNeutronScatteringLawLabelSet(ConstHandle2ThermalNeutronScatteringLaw This, const char *const label)
+ThermalNeutronScatteringLawLabelSet(ConstHandle2ThermalNeutronScatteringLaw self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -176,27 +176,27 @@ ThermalNeutronScatteringLawLabelSet(ConstHandle2ThermalNeutronScatteringLaw This
 
 // Has
 int
-ThermalNeutronScatteringLawHrefHas(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawHrefHas(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-ThermalNeutronScatteringLawHrefGet(ConstHandle2ConstThermalNeutronScatteringLaw This)
+ThermalNeutronScatteringLawHrefGet(ConstHandle2ConstThermalNeutronScatteringLaw self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ThermalNeutronScatteringLawHrefSet(ConstHandle2ThermalNeutronScatteringLaw This, const char *const href)
+ThermalNeutronScatteringLawHrefSet(ConstHandle2ThermalNeutronScatteringLaw self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

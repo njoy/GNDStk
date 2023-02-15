@@ -85,13 +85,13 @@ FreeGasApproximationCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FreeGasApproximationAssign(ConstHandle2FreeGasApproximation This, ConstHandle2ConstFreeGasApproximation from);
+FreeGasApproximationAssign(ConstHandle2FreeGasApproximation self, ConstHandle2ConstFreeGasApproximation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FreeGasApproximationDelete(ConstHandle2ConstFreeGasApproximation This);
+FreeGasApproximationDelete(ConstHandle2ConstFreeGasApproximation self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ FreeGasApproximationDelete(ConstHandle2ConstFreeGasApproximation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FreeGasApproximationRead(ConstHandle2FreeGasApproximation This, const char *const filename);
+FreeGasApproximationRead(ConstHandle2FreeGasApproximation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FreeGasApproximationWrite(ConstHandle2ConstFreeGasApproximation This, const char *const filename);
+FreeGasApproximationWrite(ConstHandle2ConstFreeGasApproximation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FreeGasApproximationPrint(ConstHandle2ConstFreeGasApproximation This);
+FreeGasApproximationPrint(ConstHandle2ConstFreeGasApproximation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FreeGasApproximationPrintXML(ConstHandle2ConstFreeGasApproximation This);
+FreeGasApproximationPrintXML(ConstHandle2ConstFreeGasApproximation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FreeGasApproximationPrintJSON(ConstHandle2ConstFreeGasApproximation This);
+FreeGasApproximationPrintJSON(ConstHandle2ConstFreeGasApproximation self);
 
 
 // -----------------------------------------------------------------------------

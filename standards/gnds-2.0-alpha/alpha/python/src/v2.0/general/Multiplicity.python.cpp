@@ -57,7 +57,7 @@ void wrapMultiplicity(py::module &module)
    // get/set constant1d
    object.def_property(
       "constant1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.constant1d();
       },
@@ -71,7 +71,7 @@ void wrapMultiplicity(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -85,7 +85,7 @@ void wrapMultiplicity(py::module &module)
    // get/set regions1d
    object.def_property(
       "regions1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions1d();
       },
@@ -99,7 +99,7 @@ void wrapMultiplicity(py::module &module)
    // get/set polynomial1d
    object.def_property(
       "polynomial1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.polynomial1d();
       },
@@ -113,7 +113,7 @@ void wrapMultiplicity(py::module &module)
    // get/set reference
    object.def_property(
       "reference",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.reference();
       },
@@ -127,7 +127,7 @@ void wrapMultiplicity(py::module &module)
    // get/set branching1d
    object.def_property(
       "branching1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.branching1d();
       },
@@ -141,7 +141,7 @@ void wrapMultiplicity(py::module &module)
    // get/set branching3d
    object.def_property(
       "branching3d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.branching3d();
       },
@@ -155,7 +155,7 @@ void wrapMultiplicity(py::module &module)
    // get/set unspecified
    object.def_property(
       "unspecified",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unspecified();
       },

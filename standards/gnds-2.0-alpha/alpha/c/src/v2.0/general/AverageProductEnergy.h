@@ -90,13 +90,13 @@ AverageProductEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageProductEnergyAssign(ConstHandle2AverageProductEnergy This, ConstHandle2ConstAverageProductEnergy from);
+AverageProductEnergyAssign(ConstHandle2AverageProductEnergy self, ConstHandle2ConstAverageProductEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageProductEnergyRead(ConstHandle2AverageProductEnergy This, const char *const filename);
+AverageProductEnergyRead(ConstHandle2AverageProductEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy This, const char *const filename);
+AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This);
 
 // +++ Has
 extern_c int
-AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy This);
+AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy This);
+AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self);
 
 // +++ Set
 extern_c void
-AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2ConstXYs1d XYs1d);
+AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

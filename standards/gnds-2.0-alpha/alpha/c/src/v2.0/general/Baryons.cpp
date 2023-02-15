@@ -73,20 +73,20 @@ BaryonsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BaryonsAssign(ConstHandle2Baryons This, ConstHandle2ConstBaryons from)
+BaryonsAssign(ConstHandle2Baryons self, ConstHandle2ConstBaryons from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BaryonsDelete(ConstHandle2ConstBaryons This)
+BaryonsDelete(ConstHandle2ConstBaryons self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ BaryonsDelete(ConstHandle2ConstBaryons This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BaryonsRead(ConstHandle2Baryons This, const char *const filename)
+BaryonsRead(ConstHandle2Baryons self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BaryonsWrite(ConstHandle2ConstBaryons This, const char *const filename)
+BaryonsWrite(ConstHandle2ConstBaryons self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BaryonsPrint(ConstHandle2ConstBaryons This)
+BaryonsPrint(ConstHandle2ConstBaryons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BaryonsPrintXML(ConstHandle2ConstBaryons This)
+BaryonsPrintXML(ConstHandle2ConstBaryons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BaryonsPrintJSON(ConstHandle2ConstBaryons This)
+BaryonsPrintJSON(ConstHandle2ConstBaryons self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ BaryonsPrintJSON(ConstHandle2ConstBaryons This)
 
 // Has
 int
-BaryonsBaryonHas(ConstHandle2ConstBaryons This)
+BaryonsBaryonHas(ConstHandle2ConstBaryons self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BaryonHas", This, extract::baryon);
+      (CLASSNAME, CLASSNAME+"BaryonHas", self, extract::baryon);
 }
 
 // Clear
 void
-BaryonsBaryonClear(ConstHandle2Baryons This)
+BaryonsBaryonClear(ConstHandle2Baryons self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"BaryonClear", This, extract::baryon);
+      (CLASSNAME, CLASSNAME+"BaryonClear", self, extract::baryon);
 }
 
 // Size
 size_t
-BaryonsBaryonSize(ConstHandle2ConstBaryons This)
+BaryonsBaryonSize(ConstHandle2ConstBaryons self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"BaryonSize", This, extract::baryon);
+      (CLASSNAME, CLASSNAME+"BaryonSize", self, extract::baryon);
 }
 
 // Add
 void
-BaryonsBaryonAdd(ConstHandle2Baryons This, ConstHandle2ConstBaryon baryon)
+BaryonsBaryonAdd(ConstHandle2Baryons self, ConstHandle2ConstBaryon baryon)
 {
    detail::addToContainer<CPP,CPPBaryon>
-      (CLASSNAME, CLASSNAME+"BaryonAdd", This, extract::baryon, baryon);
+      (CLASSNAME, CLASSNAME+"BaryonAdd", self, extract::baryon, baryon);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstBaryon
-BaryonsBaryonGetConst(ConstHandle2ConstBaryons This, const size_t index_)
+BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstBaryon>
-      (CLASSNAME, CLASSNAME+"BaryonGetConst", This, extract::baryon, index_);
+      (CLASSNAME, CLASSNAME+"BaryonGetConst", self, extract::baryon, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Baryon
-BaryonsBaryonGet(ConstHandle2Baryons This, const size_t index_)
+BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Baryon>
-      (CLASSNAME, CLASSNAME+"BaryonGet", This, extract::baryon, index_);
+      (CLASSNAME, CLASSNAME+"BaryonGet", self, extract::baryon, index_);
 }
 
 // Set, by index \in [0,size)
 void
 BaryonsBaryonSet(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const size_t index_,
    ConstHandle2ConstBaryon baryon
 ) {
    detail::setByIndex<CPP,CPPBaryon>
-      (CLASSNAME, CLASSNAME+"BaryonSet", This, extract::baryon, index_, baryon);
+      (CLASSNAME, CLASSNAME+"BaryonSet", self, extract::baryon, index_, baryon);
 }
 
 // Has, by id
 int
 BaryonsBaryonHasById(
-   ConstHandle2ConstBaryons This,
+   ConstHandle2ConstBaryons self,
    const char *const id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"BaryonHasById",
-       This, extract::baryon, meta::id, id);
+       self, extract::baryon, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstBaryon
 BaryonsBaryonGetByIdConst(
-   ConstHandle2ConstBaryons This,
+   ConstHandle2ConstBaryons self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstBaryon>
       (CLASSNAME, CLASSNAME+"BaryonGetByIdConst",
-       This, extract::baryon, meta::id, id);
+       self, extract::baryon, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Baryon
 BaryonsBaryonGetById(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2Baryon>
       (CLASSNAME, CLASSNAME+"BaryonGetById",
-       This, extract::baryon, meta::id, id);
+       self, extract::baryon, meta::id, id);
 }
 
 // Set, by id
 void
 BaryonsBaryonSetById(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const char *const id,
    ConstHandle2ConstBaryon baryon
 ) {
    detail::setByMetadatum<CPP,CPPBaryon>
       (CLASSNAME, CLASSNAME+"BaryonSetById",
-       This, extract::baryon, meta::id, id, baryon);
+       self, extract::baryon, meta::id, id, baryon);
 }
 
 

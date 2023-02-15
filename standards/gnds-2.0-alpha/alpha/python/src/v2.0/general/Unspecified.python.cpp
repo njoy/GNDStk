@@ -45,7 +45,7 @@ void wrapUnspecified(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -59,7 +59,7 @@ void wrapUnspecified(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },

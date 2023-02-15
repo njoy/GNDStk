@@ -75,20 +75,20 @@ DelayedNeutronKECreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DelayedNeutronKEAssign(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstDelayedNeutronKE from)
+DelayedNeutronKEAssign(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstDelayedNeutronKE from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DelayedNeutronKERead(ConstHandle2DelayedNeutronKE This, const char *const filename)
+DelayedNeutronKERead(ConstHandle2DelayedNeutronKE self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DelayedNeutronKEWrite(ConstHandle2ConstDelayedNeutronKE This, const char *const filename)
+DelayedNeutronKEWrite(ConstHandle2ConstDelayedNeutronKE self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DelayedNeutronKEPrint(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEPrint(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DelayedNeutronKEPrintXML(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEPrintXML(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE This)
 
 // Has
 int
-DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE This)
+DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstPolynomial1d polynomial1d)
+DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 
@@ -186,34 +186,34 @@ DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2C
 
 // Has
 int
-DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE This)
+DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE This)
+DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-DelayedNeutronKEXYs1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstXYs1d XYs1d)
+DelayedNeutronKEXYs1dSet(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

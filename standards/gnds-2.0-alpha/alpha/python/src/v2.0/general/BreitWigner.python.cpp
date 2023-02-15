@@ -53,7 +53,7 @@ void wrapBreitWigner(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapBreitWigner(py::module &module)
    // get/set approximation
    object.def_property(
       "approximation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.approximation();
       },
@@ -81,7 +81,7 @@ void wrapBreitWigner(py::module &module)
    // get/set calculateChannelRadius
    object.def_property(
       "calculate_channel_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.calculateChannelRadius();
       },
@@ -95,7 +95,7 @@ void wrapBreitWigner(py::module &module)
    // get/set resonanceParameters
    object.def_property(
       "resonance_parameters",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceParameters();
       },
@@ -109,7 +109,7 @@ void wrapBreitWigner(py::module &module)
    // get/set PoPs
    object.def_property(
       "po_ps",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.PoPs();
       },
@@ -123,7 +123,7 @@ void wrapBreitWigner(py::module &module)
    // get/set scatteringRadius
    object.def_property(
       "scattering_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringRadius();
       },

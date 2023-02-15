@@ -49,7 +49,7 @@ void wrapPolynomial1d(py::module &module)
    // get/set domainMin
    object.def_property(
       "domain_min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMin();
       },
@@ -63,7 +63,7 @@ void wrapPolynomial1d(py::module &module)
    // get/set domainMax
    object.def_property(
       "domain_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMax();
       },
@@ -77,7 +77,7 @@ void wrapPolynomial1d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -91,7 +91,7 @@ void wrapPolynomial1d(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },

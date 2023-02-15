@@ -43,7 +43,7 @@ void wrapInternalConversionCoefficients(py::module &module)
    // get/set shell
    object.def_property(
       "shell",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.shell();
       },

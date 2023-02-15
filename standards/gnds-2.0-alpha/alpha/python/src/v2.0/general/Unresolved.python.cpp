@@ -49,7 +49,7 @@ void wrapUnresolved(py::module &module)
    // get/set domainMin
    object.def_property(
       "domain_min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMin();
       },
@@ -63,7 +63,7 @@ void wrapUnresolved(py::module &module)
    // get/set domainMax
    object.def_property(
       "domain_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMax();
       },
@@ -77,7 +77,7 @@ void wrapUnresolved(py::module &module)
    // get/set domainUnit
    object.def_property(
       "domain_unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainUnit();
       },
@@ -91,7 +91,7 @@ void wrapUnresolved(py::module &module)
    // get/set tabulatedWidths
    object.def_property(
       "tabulated_widths",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.tabulatedWidths();
       },

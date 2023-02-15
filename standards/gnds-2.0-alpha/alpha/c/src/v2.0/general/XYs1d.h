@@ -104,13 +104,13 @@ XYs1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-XYs1dAssign(ConstHandle2XYs1d This, ConstHandle2ConstXYs1d from);
+XYs1dAssign(ConstHandle2XYs1d self, ConstHandle2ConstXYs1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-XYs1dDelete(ConstHandle2ConstXYs1d This);
+XYs1dDelete(ConstHandle2ConstXYs1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -123,25 +123,25 @@ XYs1dDelete(ConstHandle2ConstXYs1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-XYs1dRead(ConstHandle2XYs1d This, const char *const filename);
+XYs1dRead(ConstHandle2XYs1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-XYs1dWrite(ConstHandle2ConstXYs1d This, const char *const filename);
+XYs1dWrite(ConstHandle2ConstXYs1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-XYs1dPrint(ConstHandle2ConstXYs1d This);
+XYs1dPrint(ConstHandle2ConstXYs1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-XYs1dPrintXML(ConstHandle2ConstXYs1d This);
+XYs1dPrintXML(ConstHandle2ConstXYs1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-XYs1dPrintJSON(ConstHandle2ConstXYs1d This);
+XYs1dPrintJSON(ConstHandle2ConstXYs1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -150,16 +150,16 @@ XYs1dPrintJSON(ConstHandle2ConstXYs1d This);
 
 // +++ Has
 extern_c int
-XYs1dLabelHas(ConstHandle2ConstXYs1d This);
+XYs1dLabelHas(ConstHandle2ConstXYs1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-XYs1dLabelGet(ConstHandle2ConstXYs1d This);
+XYs1dLabelGet(ConstHandle2ConstXYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dLabelSet(ConstHandle2XYs1d This, const char *const label);
+XYs1dLabelSet(ConstHandle2XYs1d self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -168,16 +168,16 @@ XYs1dLabelSet(ConstHandle2XYs1d This, const char *const label);
 
 // +++ Has
 extern_c int
-XYs1dIndexHas(ConstHandle2ConstXYs1d This);
+XYs1dIndexHas(ConstHandle2ConstXYs1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-XYs1dIndexGet(ConstHandle2ConstXYs1d This);
+XYs1dIndexGet(ConstHandle2ConstXYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dIndexSet(ConstHandle2XYs1d This, const int index);
+XYs1dIndexSet(ConstHandle2XYs1d self, const int index);
 
 
 // -----------------------------------------------------------------------------
@@ -186,16 +186,16 @@ XYs1dIndexSet(ConstHandle2XYs1d This, const int index);
 
 // +++ Has
 extern_c int
-XYs1dInterpolationHas(ConstHandle2ConstXYs1d This);
+XYs1dInterpolationHas(ConstHandle2ConstXYs1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-XYs1dInterpolationGet(ConstHandle2ConstXYs1d This);
+XYs1dInterpolationGet(ConstHandle2ConstXYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dInterpolationSet(ConstHandle2XYs1d This, const char *const interpolation);
+XYs1dInterpolationSet(ConstHandle2XYs1d self, const char *const interpolation);
 
 
 // -----------------------------------------------------------------------------
@@ -204,16 +204,16 @@ XYs1dInterpolationSet(ConstHandle2XYs1d This, const char *const interpolation);
 
 // +++ Has
 extern_c int
-XYs1dOuterDomainValueHas(ConstHandle2ConstXYs1d This);
+XYs1dOuterDomainValueHas(ConstHandle2ConstXYs1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-XYs1dOuterDomainValueGet(ConstHandle2ConstXYs1d This);
+XYs1dOuterDomainValueGet(ConstHandle2ConstXYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dOuterDomainValueSet(ConstHandle2XYs1d This, const double outerDomainValue);
+XYs1dOuterDomainValueSet(ConstHandle2XYs1d self, const double outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -222,19 +222,19 @@ XYs1dOuterDomainValueSet(ConstHandle2XYs1d This, const double outerDomainValue);
 
 // +++ Has
 extern_c int
-XYs1dAxesHas(ConstHandle2ConstXYs1d This);
+XYs1dAxesHas(ConstHandle2ConstXYs1d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-XYs1dAxesGetConst(ConstHandle2ConstXYs1d This);
+XYs1dAxesGetConst(ConstHandle2ConstXYs1d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-XYs1dAxesGet(ConstHandle2XYs1d This);
+XYs1dAxesGet(ConstHandle2XYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dAxesSet(ConstHandle2XYs1d This, ConstHandle2ConstAxes axes);
+XYs1dAxesSet(ConstHandle2XYs1d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -243,19 +243,19 @@ XYs1dAxesSet(ConstHandle2XYs1d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-XYs1dValuesHas(ConstHandle2ConstXYs1d This);
+XYs1dValuesHas(ConstHandle2ConstXYs1d self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-XYs1dValuesGetConst(ConstHandle2ConstXYs1d This);
+XYs1dValuesGetConst(ConstHandle2ConstXYs1d self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-XYs1dValuesGet(ConstHandle2XYs1d This);
+XYs1dValuesGet(ConstHandle2XYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dValuesSet(ConstHandle2XYs1d This, ConstHandle2ConstValues values);
+XYs1dValuesSet(ConstHandle2XYs1d self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
@@ -264,19 +264,19 @@ XYs1dValuesSet(ConstHandle2XYs1d This, ConstHandle2ConstValues values);
 
 // +++ Has
 extern_c int
-XYs1dUncertaintyHas(ConstHandle2ConstXYs1d This);
+XYs1dUncertaintyHas(ConstHandle2ConstXYs1d self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d This);
+XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-XYs1dUncertaintyGet(ConstHandle2XYs1d This);
+XYs1dUncertaintyGet(ConstHandle2XYs1d self);
 
 // +++ Set
 extern_c void
-XYs1dUncertaintySet(ConstHandle2XYs1d This, ConstHandle2ConstUncertainty uncertainty);
+XYs1dUncertaintySet(ConstHandle2XYs1d self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

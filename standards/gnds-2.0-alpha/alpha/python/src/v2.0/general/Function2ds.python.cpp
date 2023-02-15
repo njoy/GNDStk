@@ -43,7 +43,7 @@ void wrapFunction2ds(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },

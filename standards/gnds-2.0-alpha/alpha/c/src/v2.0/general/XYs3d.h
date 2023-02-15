@@ -95,13 +95,13 @@ XYs3dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-XYs3dAssign(ConstHandle2XYs3d This, ConstHandle2ConstXYs3d from);
+XYs3dAssign(ConstHandle2XYs3d self, ConstHandle2ConstXYs3d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-XYs3dDelete(ConstHandle2ConstXYs3d This);
+XYs3dDelete(ConstHandle2ConstXYs3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ XYs3dDelete(ConstHandle2ConstXYs3d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-XYs3dRead(ConstHandle2XYs3d This, const char *const filename);
+XYs3dRead(ConstHandle2XYs3d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-XYs3dWrite(ConstHandle2ConstXYs3d This, const char *const filename);
+XYs3dWrite(ConstHandle2ConstXYs3d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-XYs3dPrint(ConstHandle2ConstXYs3d This);
+XYs3dPrint(ConstHandle2ConstXYs3d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-XYs3dPrintXML(ConstHandle2ConstXYs3d This);
+XYs3dPrintXML(ConstHandle2ConstXYs3d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-XYs3dPrintJSON(ConstHandle2ConstXYs3d This);
+XYs3dPrintJSON(ConstHandle2ConstXYs3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ XYs3dPrintJSON(ConstHandle2ConstXYs3d This);
 
 // +++ Has
 extern_c int
-XYs3dInterpolationQualifierHas(ConstHandle2ConstXYs3d This);
+XYs3dInterpolationQualifierHas(ConstHandle2ConstXYs3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-XYs3dInterpolationQualifierGet(ConstHandle2ConstXYs3d This);
+XYs3dInterpolationQualifierGet(ConstHandle2ConstXYs3d self);
 
 // +++ Set
 extern_c void
-XYs3dInterpolationQualifierSet(ConstHandle2XYs3d This, const char *const interpolationQualifier);
+XYs3dInterpolationQualifierSet(ConstHandle2XYs3d self, const char *const interpolationQualifier);
 
 
 // -----------------------------------------------------------------------------
@@ -159,19 +159,19 @@ XYs3dInterpolationQualifierSet(ConstHandle2XYs3d This, const char *const interpo
 
 // +++ Has
 extern_c int
-XYs3dAxesHas(ConstHandle2ConstXYs3d This);
+XYs3dAxesHas(ConstHandle2ConstXYs3d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-XYs3dAxesGetConst(ConstHandle2ConstXYs3d This);
+XYs3dAxesGetConst(ConstHandle2ConstXYs3d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-XYs3dAxesGet(ConstHandle2XYs3d This);
+XYs3dAxesGet(ConstHandle2XYs3d self);
 
 // +++ Set
 extern_c void
-XYs3dAxesSet(ConstHandle2XYs3d This, ConstHandle2ConstAxes axes);
+XYs3dAxesSet(ConstHandle2XYs3d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -180,32 +180,32 @@ XYs3dAxesSet(ConstHandle2XYs3d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-XYs3dFunction2dsHas(ConstHandle2ConstXYs3d This);
+XYs3dFunction2dsHas(ConstHandle2ConstXYs3d self);
 
 // +++ Clear
 extern_c void
-XYs3dFunction2dsClear(ConstHandle2XYs3d This);
+XYs3dFunction2dsClear(ConstHandle2XYs3d self);
 
 // +++ Size
 extern_c size_t
-XYs3dFunction2dsSize(ConstHandle2ConstXYs3d This);
+XYs3dFunction2dsSize(ConstHandle2ConstXYs3d self);
 
 // +++ Add
 extern_c void
-XYs3dFunction2dsAdd(ConstHandle2XYs3d This, ConstHandle2ConstFunction2ds function2ds);
+XYs3dFunction2dsAdd(ConstHandle2XYs3d self, ConstHandle2ConstFunction2ds function2ds);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstFunction2ds
-XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d This, const size_t index_);
+XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Function2ds
-XYs3dFunction2dsGet(ConstHandle2XYs3d This, const size_t index_);
+XYs3dFunction2dsGet(ConstHandle2XYs3d self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 XYs3dFunction2dsSet(
-   ConstHandle2XYs3d This,
+   ConstHandle2XYs3d self,
    const size_t index_,
    ConstHandle2ConstFunction2ds function2ds
 );

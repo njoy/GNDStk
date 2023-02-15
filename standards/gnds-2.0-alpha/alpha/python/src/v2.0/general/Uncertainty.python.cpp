@@ -49,7 +49,7 @@ void wrapUncertainty(py::module &module)
    // get/set covariance
    object.def_property(
       "covariance",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covariance();
       },
@@ -63,7 +63,7 @@ void wrapUncertainty(py::module &module)
    // get/set standard
    object.def_property(
       "standard",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.standard();
       },
@@ -77,7 +77,7 @@ void wrapUncertainty(py::module &module)
    // get/set listOfCovariances
    object.def_property(
       "list_of_covariances",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.listOfCovariances();
       },
@@ -91,7 +91,7 @@ void wrapUncertainty(py::module &module)
    // get/set polynomial1d
    object.def_property(
       "polynomial1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.polynomial1d();
       },

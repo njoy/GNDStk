@@ -43,7 +43,7 @@ void wrapChannels(py::module &module)
    // get/set channel
    object.def_property(
       "channel",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.channel();
       },

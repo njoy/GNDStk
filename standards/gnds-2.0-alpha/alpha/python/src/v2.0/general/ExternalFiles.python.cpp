@@ -43,7 +43,7 @@ void wrapExternalFiles(py::module &module)
    // get/set externalFile
    object.def_property(
       "external_file",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.externalFile();
       },

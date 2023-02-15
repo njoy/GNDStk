@@ -75,20 +75,20 @@ Gridded2dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Gridded2dAssign(ConstHandle2Gridded2d This, ConstHandle2ConstGridded2d from)
+Gridded2dAssign(ConstHandle2Gridded2d self, ConstHandle2ConstGridded2d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Gridded2dDelete(ConstHandle2ConstGridded2d This)
+Gridded2dDelete(ConstHandle2ConstGridded2d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ Gridded2dDelete(ConstHandle2ConstGridded2d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Gridded2dRead(ConstHandle2Gridded2d This, const char *const filename)
+Gridded2dRead(ConstHandle2Gridded2d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Gridded2dWrite(ConstHandle2ConstGridded2d This, const char *const filename)
+Gridded2dWrite(ConstHandle2ConstGridded2d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Gridded2dPrint(ConstHandle2ConstGridded2d This)
+Gridded2dPrint(ConstHandle2ConstGridded2d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Gridded2dPrintXML(ConstHandle2ConstGridded2d This)
+Gridded2dPrintXML(ConstHandle2ConstGridded2d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Gridded2dPrintJSON(ConstHandle2ConstGridded2d This)
+Gridded2dPrintJSON(ConstHandle2ConstGridded2d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ Gridded2dPrintJSON(ConstHandle2ConstGridded2d This)
 
 // Has
 int
-Gridded2dAxesHas(ConstHandle2ConstGridded2d This)
+Gridded2dAxesHas(ConstHandle2ConstGridded2d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Gridded2dAxesGetConst(ConstHandle2ConstGridded2d This)
+Gridded2dAxesGetConst(ConstHandle2ConstGridded2d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Gridded2dAxesGet(ConstHandle2Gridded2d This)
+Gridded2dAxesGet(ConstHandle2Gridded2d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Gridded2dAxesSet(ConstHandle2Gridded2d This, ConstHandle2ConstAxes axes)
+Gridded2dAxesSet(ConstHandle2Gridded2d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -186,34 +186,34 @@ Gridded2dAxesSet(ConstHandle2Gridded2d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Gridded2dArrayHas(ConstHandle2ConstGridded2d This)
+Gridded2dArrayHas(ConstHandle2ConstGridded2d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ArrayHas", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayHas", self, extract::array);
 }
 
 // Get, const
 Handle2ConstArray
-Gridded2dArrayGetConst(ConstHandle2ConstGridded2d This)
+Gridded2dArrayGetConst(ConstHandle2ConstGridded2d self)
 {
    return detail::getField<CPP,Handle2ConstArray>
-      (CLASSNAME, CLASSNAME+"ArrayGetConst", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
 // Get, non-const
 Handle2Array
-Gridded2dArrayGet(ConstHandle2Gridded2d This)
+Gridded2dArrayGet(ConstHandle2Gridded2d self)
 {
    return detail::getField<CPP,Handle2Array>
-      (CLASSNAME, CLASSNAME+"ArrayGet", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayGet", self, extract::array);
 }
 
 // Set
 void
-Gridded2dArraySet(ConstHandle2Gridded2d This, ConstHandle2ConstArray array)
+Gridded2dArraySet(ConstHandle2Gridded2d self, ConstHandle2ConstArray array)
 {
    detail::setField<CPP,CPPArray>
-      (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
+      (CLASSNAME, CLASSNAME+"ArraySet", self, extract::array, array);
 }
 
 

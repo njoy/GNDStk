@@ -49,7 +49,7 @@ void wrapExternalFile(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapExternalFile(py::module &module)
    // get/set path
    object.def_property(
       "path",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.path();
       },
@@ -77,7 +77,7 @@ void wrapExternalFile(py::module &module)
    // get/set checksum
    object.def_property(
       "checksum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.checksum();
       },
@@ -91,7 +91,7 @@ void wrapExternalFile(py::module &module)
    // get/set algorithm
    object.def_property(
       "algorithm",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.algorithm();
       },

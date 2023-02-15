@@ -73,20 +73,20 @@ SlicesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SlicesAssign(ConstHandle2Slices This, ConstHandle2ConstSlices from)
+SlicesAssign(ConstHandle2Slices self, ConstHandle2ConstSlices from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SlicesDelete(ConstHandle2ConstSlices This)
+SlicesDelete(ConstHandle2ConstSlices self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ SlicesDelete(ConstHandle2ConstSlices This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SlicesRead(ConstHandle2Slices This, const char *const filename)
+SlicesRead(ConstHandle2Slices self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SlicesWrite(ConstHandle2ConstSlices This, const char *const filename)
+SlicesWrite(ConstHandle2ConstSlices self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SlicesPrint(ConstHandle2ConstSlices This)
+SlicesPrint(ConstHandle2ConstSlices self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SlicesPrintXML(ConstHandle2ConstSlices This)
+SlicesPrintXML(ConstHandle2ConstSlices self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SlicesPrintJSON(ConstHandle2ConstSlices This)
+SlicesPrintJSON(ConstHandle2ConstSlices self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,286 +147,286 @@ SlicesPrintJSON(ConstHandle2ConstSlices This)
 
 // Has
 int
-SlicesSliceHas(ConstHandle2ConstSlices This)
+SlicesSliceHas(ConstHandle2ConstSlices self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SliceHas", This, extract::slice);
+      (CLASSNAME, CLASSNAME+"SliceHas", self, extract::slice);
 }
 
 // Clear
 void
-SlicesSliceClear(ConstHandle2Slices This)
+SlicesSliceClear(ConstHandle2Slices self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SliceClear", This, extract::slice);
+      (CLASSNAME, CLASSNAME+"SliceClear", self, extract::slice);
 }
 
 // Size
 size_t
-SlicesSliceSize(ConstHandle2ConstSlices This)
+SlicesSliceSize(ConstHandle2ConstSlices self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SliceSize", This, extract::slice);
+      (CLASSNAME, CLASSNAME+"SliceSize", self, extract::slice);
 }
 
 // Add
 void
-SlicesSliceAdd(ConstHandle2Slices This, ConstHandle2ConstSlice slice)
+SlicesSliceAdd(ConstHandle2Slices self, ConstHandle2ConstSlice slice)
 {
    detail::addToContainer<CPP,CPPSlice>
-      (CLASSNAME, CLASSNAME+"SliceAdd", This, extract::slice, slice);
+      (CLASSNAME, CLASSNAME+"SliceAdd", self, extract::slice, slice);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSlice
-SlicesSliceGetConst(ConstHandle2ConstSlices This, const size_t index_)
+SlicesSliceGetConst(ConstHandle2ConstSlices self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSlice>
-      (CLASSNAME, CLASSNAME+"SliceGetConst", This, extract::slice, index_);
+      (CLASSNAME, CLASSNAME+"SliceGetConst", self, extract::slice, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Slice
-SlicesSliceGet(ConstHandle2Slices This, const size_t index_)
+SlicesSliceGet(ConstHandle2Slices self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Slice>
-      (CLASSNAME, CLASSNAME+"SliceGet", This, extract::slice, index_);
+      (CLASSNAME, CLASSNAME+"SliceGet", self, extract::slice, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SlicesSliceSet(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const size_t index_,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByIndex<CPP,CPPSlice>
-      (CLASSNAME, CLASSNAME+"SliceSet", This, extract::slice, index_, slice);
+      (CLASSNAME, CLASSNAME+"SliceSet", self, extract::slice, index_, slice);
 }
 
 // Has, by dimension
 int
 SlicesSliceHasByDimension(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const int dimension
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SliceHasByDimension",
-       This, extract::slice, meta::dimension, dimension);
+       self, extract::slice, meta::dimension, dimension);
 }
 
 // Get, by dimension, const
 Handle2ConstSlice
 SlicesSliceGetByDimensionConst(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const int dimension
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSlice>
       (CLASSNAME, CLASSNAME+"SliceGetByDimensionConst",
-       This, extract::slice, meta::dimension, dimension);
+       self, extract::slice, meta::dimension, dimension);
 }
 
 // Get, by dimension, non-const
 Handle2Slice
 SlicesSliceGetByDimension(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const int dimension
 ) {
    return detail::getByMetadatum<CPP,Handle2Slice>
       (CLASSNAME, CLASSNAME+"SliceGetByDimension",
-       This, extract::slice, meta::dimension, dimension);
+       self, extract::slice, meta::dimension, dimension);
 }
 
 // Set, by dimension
 void
 SlicesSliceSetByDimension(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const int dimension,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByMetadatum<CPP,CPPSlice>
       (CLASSNAME, CLASSNAME+"SliceSetByDimension",
-       This, extract::slice, meta::dimension, dimension, slice);
+       self, extract::slice, meta::dimension, dimension, slice);
 }
 
 // Has, by domainValue
 int
 SlicesSliceHasByDomainValue(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const int domainValue
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SliceHasByDomainValue",
-       This, extract::slice, meta::domainValue, domainValue);
+       self, extract::slice, meta::domainValue, domainValue);
 }
 
 // Get, by domainValue, const
 Handle2ConstSlice
 SlicesSliceGetByDomainValueConst(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const int domainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSlice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainValueConst",
-       This, extract::slice, meta::domainValue, domainValue);
+       self, extract::slice, meta::domainValue, domainValue);
 }
 
 // Get, by domainValue, non-const
 Handle2Slice
 SlicesSliceGetByDomainValue(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const int domainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2Slice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainValue",
-       This, extract::slice, meta::domainValue, domainValue);
+       self, extract::slice, meta::domainValue, domainValue);
 }
 
 // Set, by domainValue
 void
 SlicesSliceSetByDomainValue(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const int domainValue,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByMetadatum<CPP,CPPSlice>
       (CLASSNAME, CLASSNAME+"SliceSetByDomainValue",
-       This, extract::slice, meta::domainValue, domainValue, slice);
+       self, extract::slice, meta::domainValue, domainValue, slice);
 }
 
 // Has, by domainMin
 int
 SlicesSliceHasByDomainMin(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const double domainMin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SliceHasByDomainMin",
-       This, extract::slice, meta::domainMin, domainMin);
+       self, extract::slice, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, const
 Handle2ConstSlice
 SlicesSliceGetByDomainMinConst(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const double domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSlice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainMinConst",
-       This, extract::slice, meta::domainMin, domainMin);
+       self, extract::slice, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, non-const
 Handle2Slice
 SlicesSliceGetByDomainMin(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const double domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2Slice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainMin",
-       This, extract::slice, meta::domainMin, domainMin);
+       self, extract::slice, meta::domainMin, domainMin);
 }
 
 // Set, by domainMin
 void
 SlicesSliceSetByDomainMin(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const double domainMin,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByMetadatum<CPP,CPPSlice>
       (CLASSNAME, CLASSNAME+"SliceSetByDomainMin",
-       This, extract::slice, meta::domainMin, domainMin, slice);
+       self, extract::slice, meta::domainMin, domainMin, slice);
 }
 
 // Has, by domainMax
 int
 SlicesSliceHasByDomainMax(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const double domainMax
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SliceHasByDomainMax",
-       This, extract::slice, meta::domainMax, domainMax);
+       self, extract::slice, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, const
 Handle2ConstSlice
 SlicesSliceGetByDomainMaxConst(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const double domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSlice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainMaxConst",
-       This, extract::slice, meta::domainMax, domainMax);
+       self, extract::slice, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, non-const
 Handle2Slice
 SlicesSliceGetByDomainMax(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const double domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2Slice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainMax",
-       This, extract::slice, meta::domainMax, domainMax);
+       self, extract::slice, meta::domainMax, domainMax);
 }
 
 // Set, by domainMax
 void
 SlicesSliceSetByDomainMax(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const double domainMax,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByMetadatum<CPP,CPPSlice>
       (CLASSNAME, CLASSNAME+"SliceSetByDomainMax",
-       This, extract::slice, meta::domainMax, domainMax, slice);
+       self, extract::slice, meta::domainMax, domainMax, slice);
 }
 
 // Has, by domainUnit
 int
 SlicesSliceHasByDomainUnit(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const char *const domainUnit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SliceHasByDomainUnit",
-       This, extract::slice, meta::domainUnit, domainUnit);
+       self, extract::slice, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, const
 Handle2ConstSlice
 SlicesSliceGetByDomainUnitConst(
-   ConstHandle2ConstSlices This,
+   ConstHandle2ConstSlices self,
    const char *const domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSlice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainUnitConst",
-       This, extract::slice, meta::domainUnit, domainUnit);
+       self, extract::slice, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, non-const
 Handle2Slice
 SlicesSliceGetByDomainUnit(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const char *const domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2Slice>
       (CLASSNAME, CLASSNAME+"SliceGetByDomainUnit",
-       This, extract::slice, meta::domainUnit, domainUnit);
+       self, extract::slice, meta::domainUnit, domainUnit);
 }
 
 // Set, by domainUnit
 void
 SlicesSliceSetByDomainUnit(
-   ConstHandle2Slices This,
+   ConstHandle2Slices self,
    const char *const domainUnit,
    ConstHandle2ConstSlice slice
 ) {
    detail::setByMetadatum<CPP,CPPSlice>
       (CLASSNAME, CLASSNAME+"SliceSetByDomainUnit",
-       This, extract::slice, meta::domainUnit, domainUnit, slice);
+       self, extract::slice, meta::domainUnit, domainUnit, slice);
 }
 
 

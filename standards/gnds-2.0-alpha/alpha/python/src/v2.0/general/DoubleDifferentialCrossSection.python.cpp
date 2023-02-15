@@ -53,7 +53,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set CoulombPlusNuclearElastic
    object.def_property(
       "coulomb_plus_nuclear_elastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.CoulombPlusNuclearElastic();
       },
@@ -67,7 +67,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set coherentPhotonScattering
    object.def_property(
       "coherent_photon_scattering",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.coherentPhotonScattering();
       },
@@ -81,7 +81,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set incoherentPhotonScattering
    object.def_property(
       "incoherent_photon_scattering",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.incoherentPhotonScattering();
       },
@@ -95,7 +95,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set thermalNeutronScatteringLaw_coherentElastic
    object.def_property(
       "thermal_neutron_scattering_law_coherent_elastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw_coherentElastic();
       },
@@ -109,7 +109,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set thermalNeutronScatteringLaw_incoherentElastic
    object.def_property(
       "thermal_neutron_scattering_law_incoherent_elastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw_incoherentElastic();
       },
@@ -123,7 +123,7 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    // get/set thermalNeutronScatteringLaw_incoherentInelastic
    object.def_property(
       "thermal_neutron_scattering_law_incoherent_inelastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw_incoherentInelastic();
       },

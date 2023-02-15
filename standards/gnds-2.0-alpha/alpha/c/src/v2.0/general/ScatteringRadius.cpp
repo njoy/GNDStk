@@ -75,20 +75,20 @@ ScatteringRadiusCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ScatteringRadiusAssign(ConstHandle2ScatteringRadius This, ConstHandle2ConstScatteringRadius from)
+ScatteringRadiusAssign(ConstHandle2ScatteringRadius self, ConstHandle2ConstScatteringRadius from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ScatteringRadiusRead(ConstHandle2ScatteringRadius This, const char *const filename)
+ScatteringRadiusRead(ConstHandle2ScatteringRadius self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ScatteringRadiusWrite(ConstHandle2ConstScatteringRadius This, const char *const filename)
+ScatteringRadiusWrite(ConstHandle2ConstScatteringRadius self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ScatteringRadiusPrint(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusPrint(ConstHandle2ConstScatteringRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ScatteringRadiusPrintXML(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusPrintXML(ConstHandle2ConstScatteringRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius This)
 
 // Has
 int
-ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Constant1dHas", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dHas", self, extract::constant1d);
 }
 
 // Get, const
 Handle2ConstConstant1d
-ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self)
 {
    return detail::getField<CPP,Handle2ConstConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGetConst", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
 // Get, non-const
 Handle2Constant1d
-ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius This)
+ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self)
 {
    return detail::getField<CPP,Handle2Constant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGet", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGet", self, extract::constant1d);
 }
 
 // Set
 void
-ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius This, ConstHandle2ConstConstant1d constant1d)
+ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius self, ConstHandle2ConstConstant1d constant1d)
 {
    detail::setField<CPP,CPPConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dSet", self, extract::constant1d, constant1d);
 }
 
 
@@ -186,34 +186,34 @@ ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius This, ConstHandle2Con
 
 // Has
 int
-ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius This)
+ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius This)
+ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-ScatteringRadiusXYs1dSet(ConstHandle2ScatteringRadius This, ConstHandle2ConstXYs1d XYs1d)
+ScatteringRadiusXYs1dSet(ConstHandle2ScatteringRadius self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

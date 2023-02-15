@@ -43,7 +43,7 @@ void wrapListOfCovariances(py::module &module)
    // get/set covariance
    object.def_property(
       "covariance",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covariance();
       },

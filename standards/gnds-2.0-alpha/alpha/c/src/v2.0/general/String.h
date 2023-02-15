@@ -93,13 +93,13 @@ StringCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StringAssign(ConstHandle2String This, ConstHandle2ConstString from);
+StringAssign(ConstHandle2String self, ConstHandle2ConstString from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StringDelete(ConstHandle2ConstString This);
+StringDelete(ConstHandle2ConstString self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ StringDelete(ConstHandle2ConstString This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StringRead(ConstHandle2String This, const char *const filename);
+StringRead(ConstHandle2String self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StringWrite(ConstHandle2ConstString This, const char *const filename);
+StringWrite(ConstHandle2ConstString self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StringPrint(ConstHandle2ConstString This);
+StringPrint(ConstHandle2ConstString self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StringPrintXML(ConstHandle2ConstString This);
+StringPrintXML(ConstHandle2ConstString self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StringPrintJSON(ConstHandle2ConstString This);
+StringPrintJSON(ConstHandle2ConstString self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ StringPrintJSON(ConstHandle2ConstString This);
 
 // +++ Has
 extern_c int
-StringLabelHas(ConstHandle2ConstString This);
+StringLabelHas(ConstHandle2ConstString self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-StringLabelGet(ConstHandle2ConstString This);
+StringLabelGet(ConstHandle2ConstString self);
 
 // +++ Set
 extern_c void
-StringLabelSet(ConstHandle2String This, const char *const label);
+StringLabelSet(ConstHandle2String self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ StringLabelSet(ConstHandle2String This, const char *const label);
 
 // +++ Has
 extern_c int
-StringValueHas(ConstHandle2ConstString This);
+StringValueHas(ConstHandle2ConstString self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-StringValueGet(ConstHandle2ConstString This);
+StringValueGet(ConstHandle2ConstString self);
 
 // +++ Set
 extern_c void
-StringValueSet(ConstHandle2String This, const char *const value);
+StringValueSet(ConstHandle2String self, const char *const value);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ StringValueSet(ConstHandle2String This, const char *const value);
 
 // +++ Has
 extern_c int
-StringUnitHas(ConstHandle2ConstString This);
+StringUnitHas(ConstHandle2ConstString self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-StringUnitGet(ConstHandle2ConstString This);
+StringUnitGet(ConstHandle2ConstString self);
 
 // +++ Set
 extern_c void
-StringUnitSet(ConstHandle2String This, const char *const unit);
+StringUnitSet(ConstHandle2String self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

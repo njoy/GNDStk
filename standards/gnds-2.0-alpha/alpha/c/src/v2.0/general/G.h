@@ -90,13 +90,13 @@ GCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GAssign(ConstHandle2G This, ConstHandle2ConstG from);
+GAssign(ConstHandle2G self, ConstHandle2ConstG from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GDelete(ConstHandle2ConstG This);
+GDelete(ConstHandle2ConstG self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ GDelete(ConstHandle2ConstG This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GRead(ConstHandle2G This, const char *const filename);
+GRead(ConstHandle2G self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GWrite(ConstHandle2ConstG This, const char *const filename);
+GWrite(ConstHandle2ConstG self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GPrint(ConstHandle2ConstG This);
+GPrint(ConstHandle2ConstG self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GPrintXML(ConstHandle2ConstG This);
+GPrintXML(ConstHandle2ConstG self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GPrintJSON(ConstHandle2ConstG This);
+GPrintJSON(ConstHandle2ConstG self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ GPrintJSON(ConstHandle2ConstG This);
 
 // +++ Has
 extern_c int
-GXYs1dHas(ConstHandle2ConstG This);
+GXYs1dHas(ConstHandle2ConstG self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-GXYs1dGetConst(ConstHandle2ConstG This);
+GXYs1dGetConst(ConstHandle2ConstG self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-GXYs1dGet(ConstHandle2G This);
+GXYs1dGet(ConstHandle2G self);
 
 // +++ Set
 extern_c void
-GXYs1dSet(ConstHandle2G This, ConstHandle2ConstXYs1d XYs1d);
+GXYs1dSet(ConstHandle2G self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

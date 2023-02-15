@@ -43,7 +43,7 @@ void wrapDecayPath(py::module &module)
    // get/set decay
    object.def_property(
       "decay",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decay();
       },

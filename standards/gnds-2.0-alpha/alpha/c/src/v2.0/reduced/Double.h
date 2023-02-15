@@ -89,13 +89,13 @@ DoubleCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DoubleAssign(ConstHandle2Double This, ConstHandle2ConstDouble from);
+DoubleAssign(ConstHandle2Double self, ConstHandle2ConstDouble from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DoubleDelete(ConstHandle2ConstDouble This);
+DoubleDelete(ConstHandle2ConstDouble self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ DoubleDelete(ConstHandle2ConstDouble This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DoubleRead(ConstHandle2Double This, const char *const filename);
+DoubleRead(ConstHandle2Double self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DoubleWrite(ConstHandle2ConstDouble This, const char *const filename);
+DoubleWrite(ConstHandle2ConstDouble self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DoublePrint(ConstHandle2ConstDouble This);
+DoublePrint(ConstHandle2ConstDouble self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DoublePrintXML(ConstHandle2ConstDouble This);
+DoublePrintXML(ConstHandle2ConstDouble self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DoublePrintJSON(ConstHandle2ConstDouble This);
+DoublePrintJSON(ConstHandle2ConstDouble self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ DoublePrintJSON(ConstHandle2ConstDouble This);
 
 // +++ Has
 extern_c int
-DoubleValueHas(ConstHandle2ConstDouble This);
+DoubleValueHas(ConstHandle2ConstDouble self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-DoubleValueGet(ConstHandle2ConstDouble This);
+DoubleValueGet(ConstHandle2ConstDouble self);
 
 // +++ Set
 extern_c void
-DoubleValueSet(ConstHandle2Double This, const double value);
+DoubleValueSet(ConstHandle2Double self, const double value);
 
 
 // -----------------------------------------------------------------------------

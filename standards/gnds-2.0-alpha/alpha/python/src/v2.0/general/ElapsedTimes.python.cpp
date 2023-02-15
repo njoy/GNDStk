@@ -43,7 +43,7 @@ void wrapElapsedTimes(py::module &module)
    // get/set elapsedTime
    object.def_property(
       "elapsed_time",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.elapsedTime();
       },

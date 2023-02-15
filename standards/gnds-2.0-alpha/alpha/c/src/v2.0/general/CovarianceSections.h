@@ -90,13 +90,13 @@ CovarianceSectionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceSectionsAssign(ConstHandle2CovarianceSections This, ConstHandle2ConstCovarianceSections from);
+CovarianceSectionsAssign(ConstHandle2CovarianceSections self, ConstHandle2ConstCovarianceSections from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceSectionsDelete(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsDelete(ConstHandle2ConstCovarianceSections self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ CovarianceSectionsDelete(ConstHandle2ConstCovarianceSections This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceSectionsRead(ConstHandle2CovarianceSections This, const char *const filename);
+CovarianceSectionsRead(ConstHandle2CovarianceSections self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceSectionsWrite(ConstHandle2ConstCovarianceSections This, const char *const filename);
+CovarianceSectionsWrite(ConstHandle2ConstCovarianceSections self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovarianceSectionsPrint(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsPrint(ConstHandle2ConstCovarianceSections self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovarianceSectionsPrintXML(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsPrintXML(ConstHandle2ConstCovarianceSections self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovarianceSectionsPrintJSON(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsPrintJSON(ConstHandle2ConstCovarianceSections self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ CovarianceSectionsPrintJSON(ConstHandle2ConstCovarianceSections This);
 
 // +++ Has
 extern_c int
-CovarianceSectionsCovarianceSectionHas(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsCovarianceSectionHas(ConstHandle2ConstCovarianceSections self);
 
 // +++ Clear
 extern_c void
-CovarianceSectionsCovarianceSectionClear(ConstHandle2CovarianceSections This);
+CovarianceSectionsCovarianceSectionClear(ConstHandle2CovarianceSections self);
 
 // +++ Size
 extern_c size_t
-CovarianceSectionsCovarianceSectionSize(ConstHandle2ConstCovarianceSections This);
+CovarianceSectionsCovarianceSectionSize(ConstHandle2ConstCovarianceSections self);
 
 // +++ Add
 extern_c void
-CovarianceSectionsCovarianceSectionAdd(ConstHandle2CovarianceSections This, ConstHandle2ConstCovarianceSection covarianceSection);
+CovarianceSectionsCovarianceSectionAdd(ConstHandle2CovarianceSections self, ConstHandle2ConstCovarianceSection covarianceSection);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCovarianceSection
-CovarianceSectionsCovarianceSectionGetConst(ConstHandle2ConstCovarianceSections This, const size_t index_);
+CovarianceSectionsCovarianceSectionGetConst(ConstHandle2ConstCovarianceSections self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2CovarianceSection
-CovarianceSectionsCovarianceSectionGet(ConstHandle2CovarianceSections This, const size_t index_);
+CovarianceSectionsCovarianceSectionGet(ConstHandle2CovarianceSections self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 CovarianceSectionsCovarianceSectionSet(
-   ConstHandle2CovarianceSections This,
+   ConstHandle2CovarianceSections self,
    const size_t index_,
    ConstHandle2ConstCovarianceSection covarianceSection
 );
@@ -169,28 +169,28 @@ CovarianceSectionsCovarianceSectionSet(
 // +++ Has, by label
 extern_c int
 CovarianceSectionsCovarianceSectionHasByLabel(
-   ConstHandle2ConstCovarianceSections This,
+   ConstHandle2ConstCovarianceSections self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstCovarianceSection
 CovarianceSectionsCovarianceSectionGetByLabelConst(
-   ConstHandle2ConstCovarianceSections This,
+   ConstHandle2ConstCovarianceSections self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByLabel(
-   ConstHandle2CovarianceSections This,
+   ConstHandle2CovarianceSections self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 CovarianceSectionsCovarianceSectionSetByLabel(
-   ConstHandle2CovarianceSections This,
+   ConstHandle2CovarianceSections self,
    const char *const label,
    ConstHandle2ConstCovarianceSection covarianceSection
 );
@@ -198,28 +198,28 @@ CovarianceSectionsCovarianceSectionSetByLabel(
 // +++ Has, by crossTerm
 extern_c int
 CovarianceSectionsCovarianceSectionHasByCrossTerm(
-   ConstHandle2ConstCovarianceSections This,
+   ConstHandle2ConstCovarianceSections self,
    const bool crossTerm
 );
 
 // --- Get, by crossTerm, const
 extern_c Handle2ConstCovarianceSection
 CovarianceSectionsCovarianceSectionGetByCrossTermConst(
-   ConstHandle2ConstCovarianceSections This,
+   ConstHandle2ConstCovarianceSections self,
    const bool crossTerm
 );
 
 // +++ Get, by crossTerm, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByCrossTerm(
-   ConstHandle2CovarianceSections This,
+   ConstHandle2CovarianceSections self,
    const bool crossTerm
 );
 
 // +++ Set, by crossTerm
 extern_c void
 CovarianceSectionsCovarianceSectionSetByCrossTerm(
-   ConstHandle2CovarianceSections This,
+   ConstHandle2CovarianceSections self,
    const bool crossTerm,
    ConstHandle2ConstCovarianceSection covarianceSection
 );

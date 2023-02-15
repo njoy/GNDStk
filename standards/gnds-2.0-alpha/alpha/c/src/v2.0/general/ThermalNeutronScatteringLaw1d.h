@@ -91,13 +91,13 @@ ThermalNeutronScatteringLaw1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ThermalNeutronScatteringLaw1dAssign(ConstHandle2ThermalNeutronScatteringLaw1d This, ConstHandle2ConstThermalNeutronScatteringLaw1d from);
+ThermalNeutronScatteringLaw1dAssign(ConstHandle2ThermalNeutronScatteringLaw1d self, ConstHandle2ConstThermalNeutronScatteringLaw1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ThermalNeutronScatteringLaw1dDelete(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dDelete(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ ThermalNeutronScatteringLaw1dDelete(ConstHandle2ConstThermalNeutronScatteringLaw
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ThermalNeutronScatteringLaw1dRead(ConstHandle2ThermalNeutronScatteringLaw1d This, const char *const filename);
+ThermalNeutronScatteringLaw1dRead(ConstHandle2ThermalNeutronScatteringLaw1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ThermalNeutronScatteringLaw1dWrite(ConstHandle2ConstThermalNeutronScatteringLaw1d This, const char *const filename);
+ThermalNeutronScatteringLaw1dWrite(ConstHandle2ConstThermalNeutronScatteringLaw1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ThermalNeutronScatteringLaw1dPrint(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dPrint(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ThermalNeutronScatteringLaw1dPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ThermalNeutronScatteringLaw1dPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ ThermalNeutronScatteringLaw1dPrintJSON(ConstHandle2ConstThermalNeutronScattering
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw1dLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ThermalNeutronScatteringLaw1dLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw1dLabelSet(ConstHandle2ThermalNeutronScatteringLaw1d This, const char *const label);
+ThermalNeutronScatteringLaw1dLabelSet(ConstHandle2ThermalNeutronScatteringLaw1d self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ ThermalNeutronScatteringLaw1dLabelSet(ConstHandle2ThermalNeutronScatteringLaw1d 
 
 // +++ Has
 extern_c int
-ThermalNeutronScatteringLaw1dHrefHas(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dHrefHas(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ThermalNeutronScatteringLaw1dHrefGet(ConstHandle2ConstThermalNeutronScatteringLaw1d This);
+ThermalNeutronScatteringLaw1dHrefGet(ConstHandle2ConstThermalNeutronScatteringLaw1d self);
 
 // +++ Set
 extern_c void
-ThermalNeutronScatteringLaw1dHrefSet(ConstHandle2ThermalNeutronScatteringLaw1d This, const char *const href);
+ThermalNeutronScatteringLaw1dHrefSet(ConstHandle2ThermalNeutronScatteringLaw1d self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

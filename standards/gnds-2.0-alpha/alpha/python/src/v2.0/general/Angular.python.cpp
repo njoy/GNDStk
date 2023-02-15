@@ -45,7 +45,7 @@ void wrapAngular(py::module &module)
    // get/set isotropic2d
    object.def_property(
       "isotropic2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.isotropic2d();
       },
@@ -59,7 +59,7 @@ void wrapAngular(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },

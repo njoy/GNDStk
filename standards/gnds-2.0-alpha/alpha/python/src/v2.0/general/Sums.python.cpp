@@ -45,7 +45,7 @@ void wrapSums(py::module &module)
    // get/set crossSectionSums
    object.def_property(
       "cross_section_sums",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSectionSums();
       },
@@ -59,7 +59,7 @@ void wrapSums(py::module &module)
    // get/set multiplicitySums
    object.def_property(
       "multiplicity_sums",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.multiplicitySums();
       },

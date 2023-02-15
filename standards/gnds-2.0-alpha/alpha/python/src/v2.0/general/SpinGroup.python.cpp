@@ -51,7 +51,7 @@ void wrapSpinGroup(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -65,7 +65,7 @@ void wrapSpinGroup(py::module &module)
    // get/set spin
    object.def_property(
       "spin",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spin();
       },
@@ -79,7 +79,7 @@ void wrapSpinGroup(py::module &module)
    // get/set parity
    object.def_property(
       "parity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parity();
       },
@@ -93,7 +93,7 @@ void wrapSpinGroup(py::module &module)
    // get/set channels
    object.def_property(
       "channels",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.channels();
       },
@@ -107,7 +107,7 @@ void wrapSpinGroup(py::module &module)
    // get/set resonanceParameters
    object.def_property(
       "resonance_parameters",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceParameters();
       },

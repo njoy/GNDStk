@@ -69,20 +69,20 @@ StandardCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-StandardAssign(ConstHandle2Standard This, ConstHandle2ConstStandard from)
+StandardAssign(ConstHandle2Standard self, ConstHandle2ConstStandard from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-StandardDelete(ConstHandle2ConstStandard This)
+StandardDelete(ConstHandle2ConstStandard self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ StandardDelete(ConstHandle2ConstStandard This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-StandardRead(ConstHandle2Standard This, const char *const filename)
+StandardRead(ConstHandle2Standard self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-StandardWrite(ConstHandle2ConstStandard This, const char *const filename)
+StandardWrite(ConstHandle2ConstStandard self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-StandardPrint(ConstHandle2ConstStandard This)
+StandardPrint(ConstHandle2ConstStandard self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-StandardPrintXML(ConstHandle2ConstStandard This)
+StandardPrintXML(ConstHandle2ConstStandard self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-StandardPrintJSON(ConstHandle2ConstStandard This)
+StandardPrintJSON(ConstHandle2ConstStandard self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ StandardPrintJSON(ConstHandle2ConstStandard This)
 
 // Has
 int
-StandardDoubleHas(ConstHandle2ConstStandard This)
+StandardDoubleHas(ConstHandle2ConstStandard self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-StandardDoubleGetConst(ConstHandle2ConstStandard This)
+StandardDoubleGetConst(ConstHandle2ConstStandard self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-StandardDoubleGet(ConstHandle2Standard This)
+StandardDoubleGet(ConstHandle2Standard self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-StandardDoubleSet(ConstHandle2Standard This, ConstHandle2ConstDouble Double)
+StandardDoubleSet(ConstHandle2Standard self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 

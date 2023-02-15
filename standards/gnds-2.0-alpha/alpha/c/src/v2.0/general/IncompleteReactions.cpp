@@ -73,20 +73,20 @@ IncompleteReactionsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IncompleteReactionsAssign(ConstHandle2IncompleteReactions This, ConstHandle2ConstIncompleteReactions from)
+IncompleteReactionsAssign(ConstHandle2IncompleteReactions self, ConstHandle2ConstIncompleteReactions from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IncompleteReactionsRead(ConstHandle2IncompleteReactions This, const char *const filename)
+IncompleteReactionsRead(ConstHandle2IncompleteReactions self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions This, const char *const filename)
+IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This)
 
 // Has
 int
-IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionHas", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionHas", self, extract::reaction);
 }
 
 // Clear
 void
-IncompleteReactionsReactionClear(ConstHandle2IncompleteReactions This)
+IncompleteReactionsReactionClear(ConstHandle2IncompleteReactions self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionClear", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionClear", self, extract::reaction);
 }
 
 // Size
 size_t
-IncompleteReactionsReactionSize(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsReactionSize(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionSize", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionSize", self, extract::reaction);
 }
 
 // Add
 void
-IncompleteReactionsReactionAdd(ConstHandle2IncompleteReactions This, ConstHandle2ConstReaction reaction)
+IncompleteReactionsReactionAdd(ConstHandle2IncompleteReactions self, ConstHandle2ConstReaction reaction)
 {
    detail::addToContainer<CPP,CPPReaction>
-      (CLASSNAME, CLASSNAME+"ReactionAdd", This, extract::reaction, reaction);
+      (CLASSNAME, CLASSNAME+"ReactionAdd", self, extract::reaction, reaction);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstReaction
-IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions This, const size_t index_)
+IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstReaction>
-      (CLASSNAME, CLASSNAME+"ReactionGetConst", This, extract::reaction, index_);
+      (CLASSNAME, CLASSNAME+"ReactionGetConst", self, extract::reaction, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Reaction
-IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions This, const size_t index_)
+IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Reaction>
-      (CLASSNAME, CLASSNAME+"ReactionGet", This, extract::reaction, index_);
+      (CLASSNAME, CLASSNAME+"ReactionGet", self, extract::reaction, index_);
 }
 
 // Set, by index \in [0,size)
 void
 IncompleteReactionsReactionSet(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const size_t index_,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByIndex<CPP,CPPReaction>
-      (CLASSNAME, CLASSNAME+"ReactionSet", This, extract::reaction, index_, reaction);
+      (CLASSNAME, CLASSNAME+"ReactionSet", self, extract::reaction, index_, reaction);
 }
 
 // Has, by label
 int
 IncompleteReactionsReactionHasByLabel(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByLabel",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstReaction
 IncompleteReactionsReactionGetByLabelConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByLabelConst",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Reaction
 IncompleteReactionsReactionGetByLabel(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByLabel",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Set, by label
 void
 IncompleteReactionsReactionSetByLabel(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const label,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByLabel",
-       This, extract::reaction, meta::label, label, reaction);
+       self, extract::reaction, meta::label, label, reaction);
 }
 
 // Has, by ENDF_MT
 int
 IncompleteReactionsReactionHasByENDFMT(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const int ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstReaction
 IncompleteReactionsReactionGetByENDFMTConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByENDFMTConst",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2Reaction
 IncompleteReactionsReactionGetByENDFMT(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 IncompleteReactionsReactionSetByENDFMT(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const int ENDF_MT,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT, reaction);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT, reaction);
 }
 
 // Has, by fissionGenre
 int
 IncompleteReactionsReactionHasByFissionGenre(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const fissionGenre
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, const
 Handle2ConstReaction
 IncompleteReactionsReactionGetByFissionGenreConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByFissionGenreConst",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, non-const
 Handle2Reaction
 IncompleteReactionsReactionGetByFissionGenre(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Set, by fissionGenre
 void
 IncompleteReactionsReactionSetByFissionGenre(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const fissionGenre,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre, reaction);
+       self, extract::reaction, meta::fissionGenre, fissionGenre, reaction);
 }
 
 

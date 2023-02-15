@@ -97,13 +97,13 @@ OutputChannelCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-OutputChannelAssign(ConstHandle2OutputChannel This, ConstHandle2ConstOutputChannel from);
+OutputChannelAssign(ConstHandle2OutputChannel self, ConstHandle2ConstOutputChannel from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-OutputChannelDelete(ConstHandle2ConstOutputChannel This);
+OutputChannelDelete(ConstHandle2ConstOutputChannel self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ OutputChannelDelete(ConstHandle2ConstOutputChannel This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-OutputChannelRead(ConstHandle2OutputChannel This, const char *const filename);
+OutputChannelRead(ConstHandle2OutputChannel self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-OutputChannelWrite(ConstHandle2ConstOutputChannel This, const char *const filename);
+OutputChannelWrite(ConstHandle2ConstOutputChannel self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-OutputChannelPrint(ConstHandle2ConstOutputChannel This);
+OutputChannelPrint(ConstHandle2ConstOutputChannel self);
 
 // +++ Print to standard output, as XML
 extern_c int
-OutputChannelPrintXML(ConstHandle2ConstOutputChannel This);
+OutputChannelPrintXML(ConstHandle2ConstOutputChannel self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-OutputChannelPrintJSON(ConstHandle2ConstOutputChannel This);
+OutputChannelPrintJSON(ConstHandle2ConstOutputChannel self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ OutputChannelPrintJSON(ConstHandle2ConstOutputChannel This);
 
 // +++ Has
 extern_c int
-OutputChannelGenreHas(ConstHandle2ConstOutputChannel This);
+OutputChannelGenreHas(ConstHandle2ConstOutputChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-OutputChannelGenreGet(ConstHandle2ConstOutputChannel This);
+OutputChannelGenreGet(ConstHandle2ConstOutputChannel self);
 
 // +++ Set
 extern_c void
-OutputChannelGenreSet(ConstHandle2OutputChannel This, const char *const genre);
+OutputChannelGenreSet(ConstHandle2OutputChannel self, const char *const genre);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ OutputChannelGenreSet(ConstHandle2OutputChannel This, const char *const genre);
 
 // +++ Has
 extern_c int
-OutputChannelProcessHas(ConstHandle2ConstOutputChannel This);
+OutputChannelProcessHas(ConstHandle2ConstOutputChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-OutputChannelProcessGet(ConstHandle2ConstOutputChannel This);
+OutputChannelProcessGet(ConstHandle2ConstOutputChannel self);
 
 // +++ Set
 extern_c void
-OutputChannelProcessSet(ConstHandle2OutputChannel This, const char *const process);
+OutputChannelProcessSet(ConstHandle2OutputChannel self, const char *const process);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ OutputChannelProcessSet(ConstHandle2OutputChannel This, const char *const proces
 
 // +++ Has
 extern_c int
-OutputChannelQHas(ConstHandle2ConstOutputChannel This);
+OutputChannelQHas(ConstHandle2ConstOutputChannel self);
 
 // --- Get, const
 extern_c Handle2ConstQ
-OutputChannelQGetConst(ConstHandle2ConstOutputChannel This);
+OutputChannelQGetConst(ConstHandle2ConstOutputChannel self);
 
 // +++ Get, non-const
 extern_c Handle2Q
-OutputChannelQGet(ConstHandle2OutputChannel This);
+OutputChannelQGet(ConstHandle2OutputChannel self);
 
 // +++ Set
 extern_c void
-OutputChannelQSet(ConstHandle2OutputChannel This, ConstHandle2ConstQ Q);
+OutputChannelQSet(ConstHandle2OutputChannel self, ConstHandle2ConstQ Q);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ OutputChannelQSet(ConstHandle2OutputChannel This, ConstHandle2ConstQ Q);
 
 // +++ Has
 extern_c int
-OutputChannelProductsHas(ConstHandle2ConstOutputChannel This);
+OutputChannelProductsHas(ConstHandle2ConstOutputChannel self);
 
 // --- Get, const
 extern_c Handle2ConstProducts
-OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel This);
+OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self);
 
 // +++ Get, non-const
 extern_c Handle2Products
-OutputChannelProductsGet(ConstHandle2OutputChannel This);
+OutputChannelProductsGet(ConstHandle2OutputChannel self);
 
 // +++ Set
 extern_c void
-OutputChannelProductsSet(ConstHandle2OutputChannel This, ConstHandle2ConstProducts products);
+OutputChannelProductsSet(ConstHandle2OutputChannel self, ConstHandle2ConstProducts products);
 
 
 // -----------------------------------------------------------------------------

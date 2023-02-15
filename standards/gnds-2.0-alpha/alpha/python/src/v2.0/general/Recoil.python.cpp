@@ -43,7 +43,7 @@ void wrapRecoil(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },

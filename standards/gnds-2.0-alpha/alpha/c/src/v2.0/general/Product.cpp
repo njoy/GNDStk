@@ -97,20 +97,20 @@ ProductCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProductAssign(ConstHandle2Product This, ConstHandle2ConstProduct from)
+ProductAssign(ConstHandle2Product self, ConstHandle2ConstProduct from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProductDelete(ConstHandle2ConstProduct This)
+ProductDelete(ConstHandle2ConstProduct self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -124,44 +124,44 @@ ProductDelete(ConstHandle2ConstProduct This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProductRead(ConstHandle2Product This, const char *const filename)
+ProductRead(ConstHandle2Product self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProductWrite(ConstHandle2ConstProduct This, const char *const filename)
+ProductWrite(ConstHandle2ConstProduct self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProductPrint(ConstHandle2ConstProduct This)
+ProductPrint(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProductPrintXML(ConstHandle2ConstProduct This)
+ProductPrintXML(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProductPrintJSON(ConstHandle2ConstProduct This)
+ProductPrintJSON(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -171,27 +171,27 @@ ProductPrintJSON(ConstHandle2ConstProduct This)
 
 // Has
 int
-ProductLabelHas(ConstHandle2ConstProduct This)
+ProductLabelHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ProductLabelGet(ConstHandle2ConstProduct This)
+ProductLabelGet(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ProductLabelSet(ConstHandle2Product This, const char *const label)
+ProductLabelSet(ConstHandle2Product self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -201,27 +201,27 @@ ProductLabelSet(ConstHandle2Product This, const char *const label)
 
 // Has
 int
-ProductPidHas(ConstHandle2ConstProduct This)
+ProductPidHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 const char *
-ProductPidGet(ConstHandle2ConstProduct This)
+ProductPidGet(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-ProductPidSet(ConstHandle2Product This, const char *const pid)
+ProductPidSet(ConstHandle2Product self, const char *const pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -231,34 +231,34 @@ ProductPidSet(ConstHandle2Product This, const char *const pid)
 
 // Has
 int
-ProductMultiplicityHas(ConstHandle2ConstProduct This)
+ProductMultiplicityHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicityHas", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityHas", self, extract::multiplicity);
 }
 
 // Get, const
 Handle2ConstMultiplicity
-ProductMultiplicityGetConst(ConstHandle2ConstProduct This)
+ProductMultiplicityGetConst(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP,Handle2ConstMultiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicityGetConst", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
 // Get, non-const
 Handle2Multiplicity
-ProductMultiplicityGet(ConstHandle2Product This)
+ProductMultiplicityGet(ConstHandle2Product self)
 {
    return detail::getField<CPP,Handle2Multiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicityGet", This, extract::multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicityGet", self, extract::multiplicity);
 }
 
 // Set
 void
-ProductMultiplicitySet(ConstHandle2Product This, ConstHandle2ConstMultiplicity multiplicity)
+ProductMultiplicitySet(ConstHandle2Product self, ConstHandle2ConstMultiplicity multiplicity)
 {
    detail::setField<CPP,CPPMultiplicity>
-      (CLASSNAME, CLASSNAME+"MultiplicitySet", This, extract::multiplicity, multiplicity);
+      (CLASSNAME, CLASSNAME+"MultiplicitySet", self, extract::multiplicity, multiplicity);
 }
 
 
@@ -268,34 +268,34 @@ ProductMultiplicitySet(ConstHandle2Product This, ConstHandle2ConstMultiplicity m
 
 // Has
 int
-ProductDistributionHas(ConstHandle2ConstProduct This)
+ProductDistributionHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DistributionHas", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionHas", self, extract::distribution);
 }
 
 // Get, const
 Handle2ConstDistribution
-ProductDistributionGetConst(ConstHandle2ConstProduct This)
+ProductDistributionGetConst(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP,Handle2ConstDistribution>
-      (CLASSNAME, CLASSNAME+"DistributionGetConst", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
 // Get, non-const
 Handle2Distribution
-ProductDistributionGet(ConstHandle2Product This)
+ProductDistributionGet(ConstHandle2Product self)
 {
    return detail::getField<CPP,Handle2Distribution>
-      (CLASSNAME, CLASSNAME+"DistributionGet", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionGet", self, extract::distribution);
 }
 
 // Set
 void
-ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution distribution)
+ProductDistributionSet(ConstHandle2Product self, ConstHandle2ConstDistribution distribution)
 {
    detail::setField<CPP,CPPDistribution>
-      (CLASSNAME, CLASSNAME+"DistributionSet", This, extract::distribution, distribution);
+      (CLASSNAME, CLASSNAME+"DistributionSet", self, extract::distribution, distribution);
 }
 
 
@@ -305,34 +305,34 @@ ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution d
 
 // Has
 int
-ProductOutputChannelHas(ConstHandle2ConstProduct This)
+ProductOutputChannelHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputChannelHas", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelHas", self, extract::outputChannel);
 }
 
 // Get, const
 Handle2ConstOutputChannel
-ProductOutputChannelGetConst(ConstHandle2ConstProduct This)
+ProductOutputChannelGetConst(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP,Handle2ConstOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
 // Get, non-const
 Handle2OutputChannel
-ProductOutputChannelGet(ConstHandle2Product This)
+ProductOutputChannelGet(ConstHandle2Product self)
 {
    return detail::getField<CPP,Handle2OutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGet", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGet", self, extract::outputChannel);
 }
 
 // Set
 void
-ProductOutputChannelSet(ConstHandle2Product This, ConstHandle2ConstOutputChannel outputChannel)
+ProductOutputChannelSet(ConstHandle2Product self, ConstHandle2ConstOutputChannel outputChannel)
 {
    detail::setField<CPP,CPPOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelSet", self, extract::outputChannel, outputChannel);
 }
 
 
@@ -342,34 +342,34 @@ ProductOutputChannelSet(ConstHandle2Product This, ConstHandle2ConstOutputChannel
 
 // Has
 int
-ProductAverageProductEnergyHas(ConstHandle2ConstProduct This)
+ProductAverageProductEnergyHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AverageProductEnergyHas", This, extract::averageProductEnergy);
+      (CLASSNAME, CLASSNAME+"AverageProductEnergyHas", self, extract::averageProductEnergy);
 }
 
 // Get, const
 Handle2ConstAverageProductEnergy
-ProductAverageProductEnergyGetConst(ConstHandle2ConstProduct This)
+ProductAverageProductEnergyGetConst(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP,Handle2ConstAverageProductEnergy>
-      (CLASSNAME, CLASSNAME+"AverageProductEnergyGetConst", This, extract::averageProductEnergy);
+      (CLASSNAME, CLASSNAME+"AverageProductEnergyGetConst", self, extract::averageProductEnergy);
 }
 
 // Get, non-const
 Handle2AverageProductEnergy
-ProductAverageProductEnergyGet(ConstHandle2Product This)
+ProductAverageProductEnergyGet(ConstHandle2Product self)
 {
    return detail::getField<CPP,Handle2AverageProductEnergy>
-      (CLASSNAME, CLASSNAME+"AverageProductEnergyGet", This, extract::averageProductEnergy);
+      (CLASSNAME, CLASSNAME+"AverageProductEnergyGet", self, extract::averageProductEnergy);
 }
 
 // Set
 void
-ProductAverageProductEnergySet(ConstHandle2Product This, ConstHandle2ConstAverageProductEnergy averageProductEnergy)
+ProductAverageProductEnergySet(ConstHandle2Product self, ConstHandle2ConstAverageProductEnergy averageProductEnergy)
 {
    detail::setField<CPP,CPPAverageProductEnergy>
-      (CLASSNAME, CLASSNAME+"AverageProductEnergySet", This, extract::averageProductEnergy, averageProductEnergy);
+      (CLASSNAME, CLASSNAME+"AverageProductEnergySet", self, extract::averageProductEnergy, averageProductEnergy);
 }
 
 

@@ -55,7 +55,7 @@ void wrapGrid(py::module &module)
    // get/set index
    object.def_property(
       "index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.index();
       },
@@ -69,7 +69,7 @@ void wrapGrid(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -83,7 +83,7 @@ void wrapGrid(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },
@@ -97,7 +97,7 @@ void wrapGrid(py::module &module)
    // get/set style
    object.def_property(
       "style",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.style();
       },
@@ -111,7 +111,7 @@ void wrapGrid(py::module &module)
    // get/set interpolation
    object.def_property(
       "interpolation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interpolation();
       },
@@ -125,7 +125,7 @@ void wrapGrid(py::module &module)
    // get/set link
    object.def_property(
       "link",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.link();
       },
@@ -139,7 +139,7 @@ void wrapGrid(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },

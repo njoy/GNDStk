@@ -69,20 +69,20 @@ ChargeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChargeAssign(ConstHandle2Charge This, ConstHandle2ConstCharge from)
+ChargeAssign(ConstHandle2Charge self, ConstHandle2ConstCharge from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChargeDelete(ConstHandle2ConstCharge This)
+ChargeDelete(ConstHandle2ConstCharge self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ChargeDelete(ConstHandle2ConstCharge This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChargeRead(ConstHandle2Charge This, const char *const filename)
+ChargeRead(ConstHandle2Charge self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChargeWrite(ConstHandle2ConstCharge This, const char *const filename)
+ChargeWrite(ConstHandle2ConstCharge self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChargePrint(ConstHandle2ConstCharge This)
+ChargePrint(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChargePrintXML(ConstHandle2ConstCharge This)
+ChargePrintXML(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChargePrintJSON(ConstHandle2ConstCharge This)
+ChargePrintJSON(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ChargePrintJSON(ConstHandle2ConstCharge This)
 
 // Has
 int
-ChargeIntegerHas(ConstHandle2ConstCharge This)
+ChargeIntegerHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IntegerHas", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerHas", self, extract::integer);
 }
 
 // Get, const
 Handle2ConstInteger
-ChargeIntegerGetConst(ConstHandle2ConstCharge This)
+ChargeIntegerGetConst(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP,Handle2ConstInteger>
-      (CLASSNAME, CLASSNAME+"IntegerGetConst", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
 // Get, non-const
 Handle2Integer
-ChargeIntegerGet(ConstHandle2Charge This)
+ChargeIntegerGet(ConstHandle2Charge self)
 {
    return detail::getField<CPP,Handle2Integer>
-      (CLASSNAME, CLASSNAME+"IntegerGet", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerGet", self, extract::integer);
 }
 
 // Set
 void
-ChargeIntegerSet(ConstHandle2Charge This, ConstHandle2ConstInteger integer)
+ChargeIntegerSet(ConstHandle2Charge self, ConstHandle2ConstInteger integer)
 {
    detail::setField<CPP,CPPInteger>
-      (CLASSNAME, CLASSNAME+"IntegerSet", This, extract::integer, integer);
+      (CLASSNAME, CLASSNAME+"IntegerSet", self, extract::integer, integer);
 }
 
 

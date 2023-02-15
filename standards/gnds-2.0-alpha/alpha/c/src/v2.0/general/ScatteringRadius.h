@@ -93,13 +93,13 @@ ScatteringRadiusCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ScatteringRadiusAssign(ConstHandle2ScatteringRadius This, ConstHandle2ConstScatteringRadius from);
+ScatteringRadiusAssign(ConstHandle2ScatteringRadius self, ConstHandle2ConstScatteringRadius from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ScatteringRadiusDelete(ConstHandle2ConstScatteringRadius This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ScatteringRadiusRead(ConstHandle2ScatteringRadius This, const char *const filename);
+ScatteringRadiusRead(ConstHandle2ScatteringRadius self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ScatteringRadiusWrite(ConstHandle2ConstScatteringRadius This, const char *const filename);
+ScatteringRadiusWrite(ConstHandle2ConstScatteringRadius self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ScatteringRadiusPrint(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusPrint(ConstHandle2ConstScatteringRadius self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ScatteringRadiusPrintXML(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusPrintXML(ConstHandle2ConstScatteringRadius self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ ScatteringRadiusPrintJSON(ConstHandle2ConstScatteringRadius This);
 
 // +++ Has
 extern_c int
-ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius self);
 
 // --- Get, const
 extern_c Handle2ConstConstant1d
-ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self);
 
 // +++ Get, non-const
 extern_c Handle2Constant1d
-ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius This);
+ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self);
 
 // +++ Set
 extern_c void
-ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius This, ConstHandle2ConstConstant1d constant1d);
+ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius self, ConstHandle2ConstConstant1d constant1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ ScatteringRadiusConstant1dSet(ConstHandle2ScatteringRadius This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius This);
+ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius This);
+ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self);
 
 // +++ Set
 extern_c void
-ScatteringRadiusXYs1dSet(ConstHandle2ScatteringRadius This, ConstHandle2ConstXYs1d XYs1d);
+ScatteringRadiusXYs1dSet(ConstHandle2ScatteringRadius self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

@@ -96,13 +96,13 @@ CovarianceMatrixCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceMatrixAssign(ConstHandle2CovarianceMatrix This, ConstHandle2ConstCovarianceMatrix from);
+CovarianceMatrixAssign(ConstHandle2CovarianceMatrix self, ConstHandle2ConstCovarianceMatrix from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceMatrixRead(ConstHandle2CovarianceMatrix This, const char *const filename);
+CovarianceMatrixRead(ConstHandle2CovarianceMatrix self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceMatrixWrite(ConstHandle2ConstCovarianceMatrix This, const char *const filename);
+CovarianceMatrixWrite(ConstHandle2ConstCovarianceMatrix self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovarianceMatrixPrint(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixPrint(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovarianceMatrixPrintXML(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixPrintXML(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix This);
 
 // +++ Has
 extern_c int
-CovarianceMatrixLabelHas(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixLabelHas(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceMatrixLabelGet(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixLabelGet(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix This, const char *const label);
+CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix This, const char *const la
 
 // +++ Has
 extern_c int
-CovarianceMatrixTypeHas(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixTypeHas(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceMatrixTypeGet(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixTypeGet(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix This, const char *const type);
+CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix self, const char *const type);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix This, const char *const typ
 
 // +++ Has
 extern_c int
-CovarianceMatrixProductFrameHas(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixProductFrameHas(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceMatrixProductFrameGet(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixProductFrameGet(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix This, const char *const productFrame);
+CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix self, const char *const productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix This, const char *c
 
 // +++ Has
 extern_c int
-CovarianceMatrixGridded2dHas(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixGridded2dHas(ConstHandle2ConstCovarianceMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstGridded2d
-CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix This);
+CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded2d
-CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix This);
+CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix self);
 
 // +++ Set
 extern_c void
-CovarianceMatrixGridded2dSet(ConstHandle2CovarianceMatrix This, ConstHandle2ConstGridded2d gridded2d);
+CovarianceMatrixGridded2dSet(ConstHandle2CovarianceMatrix self, ConstHandle2ConstGridded2d gridded2d);
 
 
 // -----------------------------------------------------------------------------

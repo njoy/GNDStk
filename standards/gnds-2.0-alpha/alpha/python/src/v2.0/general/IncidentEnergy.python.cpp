@@ -47,7 +47,7 @@ void wrapIncidentEnergy(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapIncidentEnergy(py::module &module)
    // get/set energy
    object.def_property(
       "energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.energy();
       },
@@ -75,7 +75,7 @@ void wrapIncidentEnergy(py::module &module)
    // get/set yields
    object.def_property(
       "yields",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.yields();
       },

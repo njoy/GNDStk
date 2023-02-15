@@ -53,7 +53,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -81,7 +81,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },
@@ -95,7 +95,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set regions2d
    object.def_property(
       "regions2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions2d();
       },
@@ -109,7 +109,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set recoil
    object.def_property(
       "recoil",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.recoil();
       },
@@ -123,7 +123,7 @@ void wrapAngularTwoBody(py::module &module)
    // get/set isotropic2d
    object.def_property(
       "isotropic2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.isotropic2d();
       },

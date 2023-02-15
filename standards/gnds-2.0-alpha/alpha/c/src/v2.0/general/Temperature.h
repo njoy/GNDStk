@@ -91,13 +91,13 @@ TemperatureCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TemperatureAssign(ConstHandle2Temperature This, ConstHandle2ConstTemperature from);
+TemperatureAssign(ConstHandle2Temperature self, ConstHandle2ConstTemperature from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TemperatureDelete(ConstHandle2ConstTemperature This);
+TemperatureDelete(ConstHandle2ConstTemperature self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ TemperatureDelete(ConstHandle2ConstTemperature This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TemperatureRead(ConstHandle2Temperature This, const char *const filename);
+TemperatureRead(ConstHandle2Temperature self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TemperatureWrite(ConstHandle2ConstTemperature This, const char *const filename);
+TemperatureWrite(ConstHandle2ConstTemperature self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TemperaturePrint(ConstHandle2ConstTemperature This);
+TemperaturePrint(ConstHandle2ConstTemperature self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TemperaturePrintXML(ConstHandle2ConstTemperature This);
+TemperaturePrintXML(ConstHandle2ConstTemperature self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TemperaturePrintJSON(ConstHandle2ConstTemperature This);
+TemperaturePrintJSON(ConstHandle2ConstTemperature self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ TemperaturePrintJSON(ConstHandle2ConstTemperature This);
 
 // +++ Has
 extern_c int
-TemperatureValueHas(ConstHandle2ConstTemperature This);
+TemperatureValueHas(ConstHandle2ConstTemperature self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-TemperatureValueGet(ConstHandle2ConstTemperature This);
+TemperatureValueGet(ConstHandle2ConstTemperature self);
 
 // +++ Set
 extern_c void
-TemperatureValueSet(ConstHandle2Temperature This, const double value);
+TemperatureValueSet(ConstHandle2Temperature self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ TemperatureValueSet(ConstHandle2Temperature This, const double value);
 
 // +++ Has
 extern_c int
-TemperatureUnitHas(ConstHandle2ConstTemperature This);
+TemperatureUnitHas(ConstHandle2ConstTemperature self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-TemperatureUnitGet(ConstHandle2ConstTemperature This);
+TemperatureUnitGet(ConstHandle2ConstTemperature self);
 
 // +++ Set
 extern_c void
-TemperatureUnitSet(ConstHandle2Temperature This, const char *const unit);
+TemperatureUnitSet(ConstHandle2Temperature self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

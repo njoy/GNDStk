@@ -92,13 +92,13 @@ UnorthodoxCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UnorthodoxAssign(ConstHandle2Unorthodox This, ConstHandle2ConstUnorthodox from);
+UnorthodoxAssign(ConstHandle2Unorthodox self, ConstHandle2ConstUnorthodox from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UnorthodoxDelete(ConstHandle2ConstUnorthodox This);
+UnorthodoxDelete(ConstHandle2ConstUnorthodox self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ UnorthodoxDelete(ConstHandle2ConstUnorthodox This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UnorthodoxRead(ConstHandle2Unorthodox This, const char *const filename);
+UnorthodoxRead(ConstHandle2Unorthodox self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UnorthodoxWrite(ConstHandle2ConstUnorthodox This, const char *const filename);
+UnorthodoxWrite(ConstHandle2ConstUnorthodox self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UnorthodoxPrint(ConstHandle2ConstUnorthodox This);
+UnorthodoxPrint(ConstHandle2ConstUnorthodox self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UnorthodoxPrintXML(ConstHandle2ConstUnorthodox This);
+UnorthodoxPrintXML(ConstHandle2ConstUnorthodox self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox This);
+UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox This);
 
 // +++ Has
 extern_c int
-UnorthodoxIdHas(ConstHandle2ConstUnorthodox This);
+UnorthodoxIdHas(ConstHandle2ConstUnorthodox self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-UnorthodoxIdGet(ConstHandle2ConstUnorthodox This);
+UnorthodoxIdGet(ConstHandle2ConstUnorthodox self);
 
 // +++ Set
 extern_c void
-UnorthodoxIdSet(ConstHandle2Unorthodox This, const char *const id);
+UnorthodoxIdSet(ConstHandle2Unorthodox self, const char *const id);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ UnorthodoxIdSet(ConstHandle2Unorthodox This, const char *const id);
 
 // +++ Has
 extern_c int
-UnorthodoxMassHas(ConstHandle2ConstUnorthodox This);
+UnorthodoxMassHas(ConstHandle2ConstUnorthodox self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox This);
+UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-UnorthodoxMassGet(ConstHandle2Unorthodox This);
+UnorthodoxMassGet(ConstHandle2Unorthodox self);
 
 // +++ Set
 extern_c void
-UnorthodoxMassSet(ConstHandle2Unorthodox This, ConstHandle2ConstMass mass);
+UnorthodoxMassSet(ConstHandle2Unorthodox self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------

@@ -95,13 +95,13 @@ ExternalFileCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExternalFileAssign(ConstHandle2ExternalFile This, ConstHandle2ConstExternalFile from);
+ExternalFileAssign(ConstHandle2ExternalFile self, ConstHandle2ConstExternalFile from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExternalFileDelete(ConstHandle2ConstExternalFile This);
+ExternalFileDelete(ConstHandle2ConstExternalFile self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ ExternalFileDelete(ConstHandle2ConstExternalFile This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExternalFileRead(ConstHandle2ExternalFile This, const char *const filename);
+ExternalFileRead(ConstHandle2ExternalFile self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExternalFileWrite(ConstHandle2ConstExternalFile This, const char *const filename);
+ExternalFileWrite(ConstHandle2ConstExternalFile self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExternalFilePrint(ConstHandle2ConstExternalFile This);
+ExternalFilePrint(ConstHandle2ConstExternalFile self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExternalFilePrintXML(ConstHandle2ConstExternalFile This);
+ExternalFilePrintXML(ConstHandle2ConstExternalFile self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExternalFilePrintJSON(ConstHandle2ConstExternalFile This);
+ExternalFilePrintJSON(ConstHandle2ConstExternalFile self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ ExternalFilePrintJSON(ConstHandle2ConstExternalFile This);
 
 // +++ Has
 extern_c int
-ExternalFileLabelHas(ConstHandle2ConstExternalFile This);
+ExternalFileLabelHas(ConstHandle2ConstExternalFile self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExternalFileLabelGet(ConstHandle2ConstExternalFile This);
+ExternalFileLabelGet(ConstHandle2ConstExternalFile self);
 
 // +++ Set
 extern_c void
-ExternalFileLabelSet(ConstHandle2ExternalFile This, const char *const label);
+ExternalFileLabelSet(ConstHandle2ExternalFile self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,16 +159,16 @@ ExternalFileLabelSet(ConstHandle2ExternalFile This, const char *const label);
 
 // +++ Has
 extern_c int
-ExternalFilePathHas(ConstHandle2ConstExternalFile This);
+ExternalFilePathHas(ConstHandle2ConstExternalFile self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExternalFilePathGet(ConstHandle2ConstExternalFile This);
+ExternalFilePathGet(ConstHandle2ConstExternalFile self);
 
 // +++ Set
 extern_c void
-ExternalFilePathSet(ConstHandle2ExternalFile This, const char *const path);
+ExternalFilePathSet(ConstHandle2ExternalFile self, const char *const path);
 
 
 // -----------------------------------------------------------------------------
@@ -177,16 +177,16 @@ ExternalFilePathSet(ConstHandle2ExternalFile This, const char *const path);
 
 // +++ Has
 extern_c int
-ExternalFileChecksumHas(ConstHandle2ConstExternalFile This);
+ExternalFileChecksumHas(ConstHandle2ConstExternalFile self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExternalFileChecksumGet(ConstHandle2ConstExternalFile This);
+ExternalFileChecksumGet(ConstHandle2ConstExternalFile self);
 
 // +++ Set
 extern_c void
-ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksum);
+ExternalFileChecksumSet(ConstHandle2ExternalFile self, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -195,16 +195,16 @@ ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksu
 
 // +++ Has
 extern_c int
-ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile This);
+ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile This);
+ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile self);
 
 // +++ Set
 extern_c void
-ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const char *const algorithm);
+ExternalFileAlgorithmSet(ConstHandle2ExternalFile self, const char *const algorithm);
 
 
 // -----------------------------------------------------------------------------

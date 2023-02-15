@@ -67,20 +67,20 @@ RecoilCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RecoilAssign(ConstHandle2Recoil This, ConstHandle2ConstRecoil from)
+RecoilAssign(ConstHandle2Recoil self, ConstHandle2ConstRecoil from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RecoilDelete(ConstHandle2ConstRecoil This)
+RecoilDelete(ConstHandle2ConstRecoil self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ RecoilDelete(ConstHandle2ConstRecoil This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RecoilRead(ConstHandle2Recoil This, const char *const filename)
+RecoilRead(ConstHandle2Recoil self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RecoilWrite(ConstHandle2ConstRecoil This, const char *const filename)
+RecoilWrite(ConstHandle2ConstRecoil self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RecoilPrint(ConstHandle2ConstRecoil This)
+RecoilPrint(ConstHandle2ConstRecoil self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RecoilPrintXML(ConstHandle2ConstRecoil This)
+RecoilPrintXML(ConstHandle2ConstRecoil self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RecoilPrintJSON(ConstHandle2ConstRecoil This)
+RecoilPrintJSON(ConstHandle2ConstRecoil self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,27 +141,27 @@ RecoilPrintJSON(ConstHandle2ConstRecoil This)
 
 // Has
 int
-RecoilHrefHas(ConstHandle2ConstRecoil This)
+RecoilHrefHas(ConstHandle2ConstRecoil self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-RecoilHrefGet(ConstHandle2ConstRecoil This)
+RecoilHrefGet(ConstHandle2ConstRecoil self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-RecoilHrefSet(ConstHandle2Recoil This, const char *const href)
+RecoilHrefSet(ConstHandle2Recoil self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

@@ -73,20 +73,20 @@ OrphanProductsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-OrphanProductsAssign(ConstHandle2OrphanProducts This, ConstHandle2ConstOrphanProducts from)
+OrphanProductsAssign(ConstHandle2OrphanProducts self, ConstHandle2ConstOrphanProducts from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-OrphanProductsDelete(ConstHandle2ConstOrphanProducts This)
+OrphanProductsDelete(ConstHandle2ConstOrphanProducts self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ OrphanProductsDelete(ConstHandle2ConstOrphanProducts This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-OrphanProductsRead(ConstHandle2OrphanProducts This, const char *const filename)
+OrphanProductsRead(ConstHandle2OrphanProducts self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-OrphanProductsWrite(ConstHandle2ConstOrphanProducts This, const char *const filename)
+OrphanProductsWrite(ConstHandle2ConstOrphanProducts self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-OrphanProductsPrint(ConstHandle2ConstOrphanProducts This)
+OrphanProductsPrint(ConstHandle2ConstOrphanProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-OrphanProductsPrintXML(ConstHandle2ConstOrphanProducts This)
+OrphanProductsPrintXML(ConstHandle2ConstOrphanProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts This)
+OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ OrphanProductsPrintJSON(ConstHandle2ConstOrphanProducts This)
 
 // Has
 int
-OrphanProductsOrphanProductHas(ConstHandle2ConstOrphanProducts This)
+OrphanProductsOrphanProductHas(ConstHandle2ConstOrphanProducts self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OrphanProductHas", This, extract::orphanProduct);
+      (CLASSNAME, CLASSNAME+"OrphanProductHas", self, extract::orphanProduct);
 }
 
 // Clear
 void
-OrphanProductsOrphanProductClear(ConstHandle2OrphanProducts This)
+OrphanProductsOrphanProductClear(ConstHandle2OrphanProducts self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"OrphanProductClear", This, extract::orphanProduct);
+      (CLASSNAME, CLASSNAME+"OrphanProductClear", self, extract::orphanProduct);
 }
 
 // Size
 size_t
-OrphanProductsOrphanProductSize(ConstHandle2ConstOrphanProducts This)
+OrphanProductsOrphanProductSize(ConstHandle2ConstOrphanProducts self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"OrphanProductSize", This, extract::orphanProduct);
+      (CLASSNAME, CLASSNAME+"OrphanProductSize", self, extract::orphanProduct);
 }
 
 // Add
 void
-OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts This, ConstHandle2ConstOrphanProduct orphanProduct)
+OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts self, ConstHandle2ConstOrphanProduct orphanProduct)
 {
    detail::addToContainer<CPP,CPPOrphanProduct>
-      (CLASSNAME, CLASSNAME+"OrphanProductAdd", This, extract::orphanProduct, orphanProduct);
+      (CLASSNAME, CLASSNAME+"OrphanProductAdd", self, extract::orphanProduct, orphanProduct);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstOrphanProduct
-OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts This, const size_t index_)
+OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstOrphanProduct>
-      (CLASSNAME, CLASSNAME+"OrphanProductGetConst", This, extract::orphanProduct, index_);
+      (CLASSNAME, CLASSNAME+"OrphanProductGetConst", self, extract::orphanProduct, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2OrphanProduct
-OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts This, const size_t index_)
+OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2OrphanProduct>
-      (CLASSNAME, CLASSNAME+"OrphanProductGet", This, extract::orphanProduct, index_);
+      (CLASSNAME, CLASSNAME+"OrphanProductGet", self, extract::orphanProduct, index_);
 }
 
 // Set, by index \in [0,size)
 void
 OrphanProductsOrphanProductSet(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const size_t index_,
    ConstHandle2ConstOrphanProduct orphanProduct
 ) {
    detail::setByIndex<CPP,CPPOrphanProduct>
-      (CLASSNAME, CLASSNAME+"OrphanProductSet", This, extract::orphanProduct, index_, orphanProduct);
+      (CLASSNAME, CLASSNAME+"OrphanProductSet", self, extract::orphanProduct, index_, orphanProduct);
 }
 
 // Has, by label
 int
 OrphanProductsOrphanProductHasByLabel(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OrphanProductHasByLabel",
-       This, extract::orphanProduct, meta::label, label);
+       self, extract::orphanProduct, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetByLabelConst(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductGetByLabelConst",
-       This, extract::orphanProduct, meta::label, label);
+       self, extract::orphanProduct, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2OrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductGetByLabel",
-       This, extract::orphanProduct, meta::label, label);
+       self, extract::orphanProduct, meta::label, label);
 }
 
 // Set, by label
 void
 OrphanProductsOrphanProductSetByLabel(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const char *const label,
    ConstHandle2ConstOrphanProduct orphanProduct
 ) {
    detail::setByMetadatum<CPP,CPPOrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductSetByLabel",
-       This, extract::orphanProduct, meta::label, label, orphanProduct);
+       self, extract::orphanProduct, meta::label, label, orphanProduct);
 }
 
 // Has, by ENDF_MT
 int
 OrphanProductsOrphanProductHasByENDFMT(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const int ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OrphanProductHasByENDFMT",
-       This, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
+       self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetByENDFMTConst(
-   ConstHandle2ConstOrphanProducts This,
+   ConstHandle2ConstOrphanProducts self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductGetByENDFMTConst",
-       This, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
+       self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2OrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductGetByENDFMT",
-       This, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
+       self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 OrphanProductsOrphanProductSetByENDFMT(
-   ConstHandle2OrphanProducts This,
+   ConstHandle2OrphanProducts self,
    const int ENDF_MT,
    ConstHandle2ConstOrphanProduct orphanProduct
 ) {
    detail::setByMetadatum<CPP,CPPOrphanProduct>
       (CLASSNAME, CLASSNAME+"OrphanProductSetByENDFMT",
-       This, extract::orphanProduct, meta::ENDF_MT, ENDF_MT, orphanProduct);
+       self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT, orphanProduct);
 }
 
 

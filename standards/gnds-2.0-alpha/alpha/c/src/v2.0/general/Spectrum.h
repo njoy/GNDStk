@@ -97,13 +97,13 @@ SpectrumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SpectrumAssign(ConstHandle2Spectrum This, ConstHandle2ConstSpectrum from);
+SpectrumAssign(ConstHandle2Spectrum self, ConstHandle2ConstSpectrum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SpectrumDelete(ConstHandle2ConstSpectrum This);
+SpectrumDelete(ConstHandle2ConstSpectrum self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ SpectrumDelete(ConstHandle2ConstSpectrum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SpectrumRead(ConstHandle2Spectrum This, const char *const filename);
+SpectrumRead(ConstHandle2Spectrum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SpectrumWrite(ConstHandle2ConstSpectrum This, const char *const filename);
+SpectrumWrite(ConstHandle2ConstSpectrum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SpectrumPrint(ConstHandle2ConstSpectrum This);
+SpectrumPrint(ConstHandle2ConstSpectrum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SpectrumPrintXML(ConstHandle2ConstSpectrum This);
+SpectrumPrintXML(ConstHandle2ConstSpectrum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SpectrumPrintJSON(ConstHandle2ConstSpectrum This);
+SpectrumPrintJSON(ConstHandle2ConstSpectrum self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ SpectrumPrintJSON(ConstHandle2ConstSpectrum This);
 
 // +++ Has
 extern_c int
-SpectrumLabelHas(ConstHandle2ConstSpectrum This);
+SpectrumLabelHas(ConstHandle2ConstSpectrum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-SpectrumLabelGet(ConstHandle2ConstSpectrum This);
+SpectrumLabelGet(ConstHandle2ConstSpectrum self);
 
 // +++ Set
 extern_c void
-SpectrumLabelSet(ConstHandle2Spectrum This, const char *const label);
+SpectrumLabelSet(ConstHandle2Spectrum self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ SpectrumLabelSet(ConstHandle2Spectrum This, const char *const label);
 
 // +++ Has
 extern_c int
-SpectrumPidHas(ConstHandle2ConstSpectrum This);
+SpectrumPidHas(ConstHandle2ConstSpectrum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-SpectrumPidGet(ConstHandle2ConstSpectrum This);
+SpectrumPidGet(ConstHandle2ConstSpectrum self);
 
 // +++ Set
 extern_c void
-SpectrumPidSet(ConstHandle2Spectrum This, const char *const pid);
+SpectrumPidSet(ConstHandle2Spectrum self, const char *const pid);
 
 
 // -----------------------------------------------------------------------------
@@ -179,32 +179,32 @@ SpectrumPidSet(ConstHandle2Spectrum This, const char *const pid);
 
 // +++ Has
 extern_c int
-SpectrumDiscreteHas(ConstHandle2ConstSpectrum This);
+SpectrumDiscreteHas(ConstHandle2ConstSpectrum self);
 
 // +++ Clear
 extern_c void
-SpectrumDiscreteClear(ConstHandle2Spectrum This);
+SpectrumDiscreteClear(ConstHandle2Spectrum self);
 
 // +++ Size
 extern_c size_t
-SpectrumDiscreteSize(ConstHandle2ConstSpectrum This);
+SpectrumDiscreteSize(ConstHandle2ConstSpectrum self);
 
 // +++ Add
 extern_c void
-SpectrumDiscreteAdd(ConstHandle2Spectrum This, ConstHandle2ConstDiscrete discrete);
+SpectrumDiscreteAdd(ConstHandle2Spectrum self, ConstHandle2ConstDiscrete discrete);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDiscrete
-SpectrumDiscreteGetConst(ConstHandle2ConstSpectrum This, const size_t index_);
+SpectrumDiscreteGetConst(ConstHandle2ConstSpectrum self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Discrete
-SpectrumDiscreteGet(ConstHandle2Spectrum This, const size_t index_);
+SpectrumDiscreteGet(ConstHandle2Spectrum self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 SpectrumDiscreteSet(
-   ConstHandle2Spectrum This,
+   ConstHandle2Spectrum self,
    const size_t index_,
    ConstHandle2ConstDiscrete discrete
 );
@@ -212,28 +212,28 @@ SpectrumDiscreteSet(
 // +++ Has, by type
 extern_c int
 SpectrumDiscreteHasByType(
-   ConstHandle2ConstSpectrum This,
+   ConstHandle2ConstSpectrum self,
    const char *const type
 );
 
 // --- Get, by type, const
 extern_c Handle2ConstDiscrete
 SpectrumDiscreteGetByTypeConst(
-   ConstHandle2ConstSpectrum This,
+   ConstHandle2ConstSpectrum self,
    const char *const type
 );
 
 // +++ Get, by type, non-const
 extern_c Handle2Discrete
 SpectrumDiscreteGetByType(
-   ConstHandle2Spectrum This,
+   ConstHandle2Spectrum self,
    const char *const type
 );
 
 // +++ Set, by type
 extern_c void
 SpectrumDiscreteSetByType(
-   ConstHandle2Spectrum This,
+   ConstHandle2Spectrum self,
    const char *const type,
    ConstHandle2ConstDiscrete discrete
 );
@@ -245,19 +245,19 @@ SpectrumDiscreteSetByType(
 
 // +++ Has
 extern_c int
-SpectrumContinuumHas(ConstHandle2ConstSpectrum This);
+SpectrumContinuumHas(ConstHandle2ConstSpectrum self);
 
 // --- Get, const
 extern_c Handle2ConstContinuum
-SpectrumContinuumGetConst(ConstHandle2ConstSpectrum This);
+SpectrumContinuumGetConst(ConstHandle2ConstSpectrum self);
 
 // +++ Get, non-const
 extern_c Handle2Continuum
-SpectrumContinuumGet(ConstHandle2Spectrum This);
+SpectrumContinuumGet(ConstHandle2Spectrum self);
 
 // +++ Set
 extern_c void
-SpectrumContinuumSet(ConstHandle2Spectrum This, ConstHandle2ConstContinuum continuum);
+SpectrumContinuumSet(ConstHandle2Spectrum self, ConstHandle2ConstContinuum continuum);
 
 
 // -----------------------------------------------------------------------------

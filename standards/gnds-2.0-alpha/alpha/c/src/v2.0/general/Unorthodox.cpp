@@ -74,20 +74,20 @@ UnorthodoxCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UnorthodoxAssign(ConstHandle2Unorthodox This, ConstHandle2ConstUnorthodox from)
+UnorthodoxAssign(ConstHandle2Unorthodox self, ConstHandle2ConstUnorthodox from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UnorthodoxDelete(ConstHandle2ConstUnorthodox This)
+UnorthodoxDelete(ConstHandle2ConstUnorthodox self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ UnorthodoxDelete(ConstHandle2ConstUnorthodox This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UnorthodoxRead(ConstHandle2Unorthodox This, const char *const filename)
+UnorthodoxRead(ConstHandle2Unorthodox self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UnorthodoxWrite(ConstHandle2ConstUnorthodox This, const char *const filename)
+UnorthodoxWrite(ConstHandle2ConstUnorthodox self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UnorthodoxPrint(ConstHandle2ConstUnorthodox This)
+UnorthodoxPrint(ConstHandle2ConstUnorthodox self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UnorthodoxPrintXML(ConstHandle2ConstUnorthodox This)
+UnorthodoxPrintXML(ConstHandle2ConstUnorthodox self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox This)
+UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ UnorthodoxPrintJSON(ConstHandle2ConstUnorthodox This)
 
 // Has
 int
-UnorthodoxIdHas(ConstHandle2ConstUnorthodox This)
+UnorthodoxIdHas(ConstHandle2ConstUnorthodox self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 const char *
-UnorthodoxIdGet(ConstHandle2ConstUnorthodox This)
+UnorthodoxIdGet(ConstHandle2ConstUnorthodox self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-UnorthodoxIdSet(ConstHandle2Unorthodox This, const char *const id)
+UnorthodoxIdSet(ConstHandle2Unorthodox self, const char *const id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -178,34 +178,34 @@ UnorthodoxIdSet(ConstHandle2Unorthodox This, const char *const id)
 
 // Has
 int
-UnorthodoxMassHas(ConstHandle2ConstUnorthodox This)
+UnorthodoxMassHas(ConstHandle2ConstUnorthodox self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox This)
+UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-UnorthodoxMassGet(ConstHandle2Unorthodox This)
+UnorthodoxMassGet(ConstHandle2Unorthodox self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-UnorthodoxMassSet(ConstHandle2Unorthodox This, ConstHandle2ConstMass mass)
+UnorthodoxMassSet(ConstHandle2Unorthodox self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 

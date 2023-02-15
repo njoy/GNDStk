@@ -103,13 +103,13 @@ GridCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GridAssign(ConstHandle2Grid This, ConstHandle2ConstGrid from);
+GridAssign(ConstHandle2Grid self, ConstHandle2ConstGrid from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GridDelete(ConstHandle2ConstGrid This);
+GridDelete(ConstHandle2ConstGrid self);
 
 
 // -----------------------------------------------------------------------------
@@ -122,25 +122,25 @@ GridDelete(ConstHandle2ConstGrid This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GridRead(ConstHandle2Grid This, const char *const filename);
+GridRead(ConstHandle2Grid self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GridWrite(ConstHandle2ConstGrid This, const char *const filename);
+GridWrite(ConstHandle2ConstGrid self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GridPrint(ConstHandle2ConstGrid This);
+GridPrint(ConstHandle2ConstGrid self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GridPrintXML(ConstHandle2ConstGrid This);
+GridPrintXML(ConstHandle2ConstGrid self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GridPrintJSON(ConstHandle2ConstGrid This);
+GridPrintJSON(ConstHandle2ConstGrid self);
 
 
 // -----------------------------------------------------------------------------
@@ -149,16 +149,16 @@ GridPrintJSON(ConstHandle2ConstGrid This);
 
 // +++ Has
 extern_c int
-GridIndexHas(ConstHandle2ConstGrid This);
+GridIndexHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-GridIndexGet(ConstHandle2ConstGrid This);
+GridIndexGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridIndexSet(ConstHandle2Grid This, const int index);
+GridIndexSet(ConstHandle2Grid self, const int index);
 
 
 // -----------------------------------------------------------------------------
@@ -167,16 +167,16 @@ GridIndexSet(ConstHandle2Grid This, const int index);
 
 // +++ Has
 extern_c int
-GridLabelHas(ConstHandle2ConstGrid This);
+GridLabelHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-GridLabelGet(ConstHandle2ConstGrid This);
+GridLabelGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridLabelSet(ConstHandle2Grid This, const char *const label);
+GridLabelSet(ConstHandle2Grid self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -185,16 +185,16 @@ GridLabelSet(ConstHandle2Grid This, const char *const label);
 
 // +++ Has
 extern_c int
-GridUnitHas(ConstHandle2ConstGrid This);
+GridUnitHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-GridUnitGet(ConstHandle2ConstGrid This);
+GridUnitGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridUnitSet(ConstHandle2Grid This, const char *const unit);
+GridUnitSet(ConstHandle2Grid self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
@@ -203,16 +203,16 @@ GridUnitSet(ConstHandle2Grid This, const char *const unit);
 
 // +++ Has
 extern_c int
-GridStyleHas(ConstHandle2ConstGrid This);
+GridStyleHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-GridStyleGet(ConstHandle2ConstGrid This);
+GridStyleGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridStyleSet(ConstHandle2Grid This, const char *const style);
+GridStyleSet(ConstHandle2Grid self, const char *const style);
 
 
 // -----------------------------------------------------------------------------
@@ -221,16 +221,16 @@ GridStyleSet(ConstHandle2Grid This, const char *const style);
 
 // +++ Has
 extern_c int
-GridInterpolationHas(ConstHandle2ConstGrid This);
+GridInterpolationHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-GridInterpolationGet(ConstHandle2ConstGrid This);
+GridInterpolationGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridInterpolationSet(ConstHandle2Grid This, const char *const interpolation);
+GridInterpolationSet(ConstHandle2Grid self, const char *const interpolation);
 
 
 // -----------------------------------------------------------------------------
@@ -239,19 +239,19 @@ GridInterpolationSet(ConstHandle2Grid This, const char *const interpolation);
 
 // +++ Has
 extern_c int
-GridLinkHas(ConstHandle2ConstGrid This);
+GridLinkHas(ConstHandle2ConstGrid self);
 
 // --- Get, const
 extern_c Handle2ConstLink
-GridLinkGetConst(ConstHandle2ConstGrid This);
+GridLinkGetConst(ConstHandle2ConstGrid self);
 
 // +++ Get, non-const
 extern_c Handle2Link
-GridLinkGet(ConstHandle2Grid This);
+GridLinkGet(ConstHandle2Grid self);
 
 // +++ Set
 extern_c void
-GridLinkSet(ConstHandle2Grid This, ConstHandle2ConstLink link);
+GridLinkSet(ConstHandle2Grid self, ConstHandle2ConstLink link);
 
 
 // -----------------------------------------------------------------------------
@@ -260,19 +260,19 @@ GridLinkSet(ConstHandle2Grid This, ConstHandle2ConstLink link);
 
 // +++ Has
 extern_c int
-GridValuesHas(ConstHandle2ConstGrid This);
+GridValuesHas(ConstHandle2ConstGrid self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-GridValuesGetConst(ConstHandle2ConstGrid This);
+GridValuesGetConst(ConstHandle2ConstGrid self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-GridValuesGet(ConstHandle2Grid This);
+GridValuesGet(ConstHandle2Grid self);
 
 // +++ Set
 extern_c void
-GridValuesSet(ConstHandle2Grid This, ConstHandle2ConstValues values);
+GridValuesSet(ConstHandle2Grid self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------

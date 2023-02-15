@@ -45,7 +45,7 @@ void wrapInstitution(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -59,7 +59,7 @@ void wrapInstitution(py::module &module)
    // get/set ENDFconversionFlags
    object.def_property(
       "endfconversion_flags",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDFconversionFlags();
       },

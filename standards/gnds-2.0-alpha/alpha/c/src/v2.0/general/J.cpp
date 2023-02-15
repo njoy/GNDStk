@@ -85,20 +85,20 @@ JCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-JAssign(ConstHandle2J This, ConstHandle2ConstJ from)
+JAssign(ConstHandle2J self, ConstHandle2ConstJ from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-JDelete(ConstHandle2ConstJ This)
+JDelete(ConstHandle2ConstJ self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ JDelete(ConstHandle2ConstJ This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-JRead(ConstHandle2J This, const char *const filename)
+JRead(ConstHandle2J self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-JWrite(ConstHandle2ConstJ This, const char *const filename)
+JWrite(ConstHandle2ConstJ self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-JPrint(ConstHandle2ConstJ This)
+JPrint(ConstHandle2ConstJ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-JPrintXML(ConstHandle2ConstJ This)
+JPrintXML(ConstHandle2ConstJ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-JPrintJSON(ConstHandle2ConstJ This)
+JPrintJSON(ConstHandle2ConstJ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ JPrintJSON(ConstHandle2ConstJ This)
 
 // Has
 int
-JLabelHas(ConstHandle2ConstJ This)
+JLabelHas(ConstHandle2ConstJ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-JLabelGet(ConstHandle2ConstJ This)
+JLabelGet(ConstHandle2ConstJ self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-JLabelSet(ConstHandle2J This, const char *const label)
+JLabelSet(ConstHandle2J self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -189,27 +189,27 @@ JLabelSet(ConstHandle2J This, const char *const label)
 
 // Has
 int
-JValueHas(ConstHandle2ConstJ This)
+JValueHas(ConstHandle2ConstJ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 int
-JValueGet(ConstHandle2ConstJ This)
+JValueGet(ConstHandle2ConstJ self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-JValueSet(ConstHandle2J This, const int value)
+JValueSet(ConstHandle2J self, const int value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -219,34 +219,34 @@ JValueSet(ConstHandle2J This, const int value)
 
 // Has
 int
-JLevelSpacingHas(ConstHandle2ConstJ This)
+JLevelSpacingHas(ConstHandle2ConstJ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LevelSpacingHas", This, extract::levelSpacing);
+      (CLASSNAME, CLASSNAME+"LevelSpacingHas", self, extract::levelSpacing);
 }
 
 // Get, const
 Handle2ConstLevelSpacing
-JLevelSpacingGetConst(ConstHandle2ConstJ This)
+JLevelSpacingGetConst(ConstHandle2ConstJ self)
 {
    return detail::getField<CPP,Handle2ConstLevelSpacing>
-      (CLASSNAME, CLASSNAME+"LevelSpacingGetConst", This, extract::levelSpacing);
+      (CLASSNAME, CLASSNAME+"LevelSpacingGetConst", self, extract::levelSpacing);
 }
 
 // Get, non-const
 Handle2LevelSpacing
-JLevelSpacingGet(ConstHandle2J This)
+JLevelSpacingGet(ConstHandle2J self)
 {
    return detail::getField<CPP,Handle2LevelSpacing>
-      (CLASSNAME, CLASSNAME+"LevelSpacingGet", This, extract::levelSpacing);
+      (CLASSNAME, CLASSNAME+"LevelSpacingGet", self, extract::levelSpacing);
 }
 
 // Set
 void
-JLevelSpacingSet(ConstHandle2J This, ConstHandle2ConstLevelSpacing levelSpacing)
+JLevelSpacingSet(ConstHandle2J self, ConstHandle2ConstLevelSpacing levelSpacing)
 {
    detail::setField<CPP,CPPLevelSpacing>
-      (CLASSNAME, CLASSNAME+"LevelSpacingSet", This, extract::levelSpacing, levelSpacing);
+      (CLASSNAME, CLASSNAME+"LevelSpacingSet", self, extract::levelSpacing, levelSpacing);
 }
 
 
@@ -256,34 +256,34 @@ JLevelSpacingSet(ConstHandle2J This, ConstHandle2ConstLevelSpacing levelSpacing)
 
 // Has
 int
-JWidthsHas(ConstHandle2ConstJ This)
+JWidthsHas(ConstHandle2ConstJ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"WidthsHas", This, extract::widths);
+      (CLASSNAME, CLASSNAME+"WidthsHas", self, extract::widths);
 }
 
 // Get, const
 Handle2ConstWidths
-JWidthsGetConst(ConstHandle2ConstJ This)
+JWidthsGetConst(ConstHandle2ConstJ self)
 {
    return detail::getField<CPP,Handle2ConstWidths>
-      (CLASSNAME, CLASSNAME+"WidthsGetConst", This, extract::widths);
+      (CLASSNAME, CLASSNAME+"WidthsGetConst", self, extract::widths);
 }
 
 // Get, non-const
 Handle2Widths
-JWidthsGet(ConstHandle2J This)
+JWidthsGet(ConstHandle2J self)
 {
    return detail::getField<CPP,Handle2Widths>
-      (CLASSNAME, CLASSNAME+"WidthsGet", This, extract::widths);
+      (CLASSNAME, CLASSNAME+"WidthsGet", self, extract::widths);
 }
 
 // Set
 void
-JWidthsSet(ConstHandle2J This, ConstHandle2ConstWidths widths)
+JWidthsSet(ConstHandle2J self, ConstHandle2ConstWidths widths)
 {
    detail::setField<CPP,CPPWidths>
-      (CLASSNAME, CLASSNAME+"WidthsSet", This, extract::widths, widths);
+      (CLASSNAME, CLASSNAME+"WidthsSet", self, extract::widths, widths);
 }
 
 

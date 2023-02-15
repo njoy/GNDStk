@@ -93,13 +93,13 @@ AxesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AxesAssign(ConstHandle2Axes This, ConstHandle2ConstAxes from);
+AxesAssign(ConstHandle2Axes self, ConstHandle2ConstAxes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AxesDelete(ConstHandle2ConstAxes This);
+AxesDelete(ConstHandle2ConstAxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AxesDelete(ConstHandle2ConstAxes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AxesRead(ConstHandle2Axes This, const char *const filename);
+AxesRead(ConstHandle2Axes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AxesWrite(ConstHandle2ConstAxes This, const char *const filename);
+AxesWrite(ConstHandle2ConstAxes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AxesPrint(ConstHandle2ConstAxes This);
+AxesPrint(ConstHandle2ConstAxes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AxesPrintXML(ConstHandle2ConstAxes This);
+AxesPrintXML(ConstHandle2ConstAxes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AxesPrintJSON(ConstHandle2ConstAxes This);
+AxesPrintJSON(ConstHandle2ConstAxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,32 +139,32 @@ AxesPrintJSON(ConstHandle2ConstAxes This);
 
 // +++ Has
 extern_c int
-AxesAxisHas(ConstHandle2ConstAxes This);
+AxesAxisHas(ConstHandle2ConstAxes self);
 
 // +++ Clear
 extern_c void
-AxesAxisClear(ConstHandle2Axes This);
+AxesAxisClear(ConstHandle2Axes self);
 
 // +++ Size
 extern_c size_t
-AxesAxisSize(ConstHandle2ConstAxes This);
+AxesAxisSize(ConstHandle2ConstAxes self);
 
 // +++ Add
 extern_c void
-AxesAxisAdd(ConstHandle2Axes This, ConstHandle2ConstAxis axis);
+AxesAxisAdd(ConstHandle2Axes self, ConstHandle2ConstAxis axis);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAxis
-AxesAxisGetConst(ConstHandle2ConstAxes This, const size_t index_);
+AxesAxisGetConst(ConstHandle2ConstAxes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Axis
-AxesAxisGet(ConstHandle2Axes This, const size_t index_);
+AxesAxisGet(ConstHandle2Axes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AxesAxisSet(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const size_t index_,
    ConstHandle2ConstAxis axis
 );
@@ -172,28 +172,28 @@ AxesAxisSet(
 // +++ Has, by index
 extern_c int
 AxesAxisHasByIndex(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstAxis
 AxesAxisGetByIndexConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2Axis
 AxesAxisGetByIndex(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 AxesAxisSetByIndex(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const int index,
    ConstHandle2ConstAxis axis
 );
@@ -201,28 +201,28 @@ AxesAxisSetByIndex(
 // +++ Has, by label
 extern_c int
 AxesAxisHasByLabel(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAxis
 AxesAxisGetByLabelConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Axis
 AxesAxisGetByLabel(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 AxesAxisSetByLabel(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const label,
    ConstHandle2ConstAxis axis
 );
@@ -230,28 +230,28 @@ AxesAxisSetByLabel(
 // +++ Has, by unit
 extern_c int
 AxesAxisHasByUnit(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstAxis
 AxesAxisGetByUnitConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Axis
 AxesAxisGetByUnit(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const unit
 );
 
 // +++ Set, by unit
 extern_c void
 AxesAxisSetByUnit(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const unit,
    ConstHandle2ConstAxis axis
 );
@@ -263,32 +263,32 @@ AxesAxisSetByUnit(
 
 // +++ Has
 extern_c int
-AxesGridHas(ConstHandle2ConstAxes This);
+AxesGridHas(ConstHandle2ConstAxes self);
 
 // +++ Clear
 extern_c void
-AxesGridClear(ConstHandle2Axes This);
+AxesGridClear(ConstHandle2Axes self);
 
 // +++ Size
 extern_c size_t
-AxesGridSize(ConstHandle2ConstAxes This);
+AxesGridSize(ConstHandle2ConstAxes self);
 
 // +++ Add
 extern_c void
-AxesGridAdd(ConstHandle2Axes This, ConstHandle2ConstGrid grid);
+AxesGridAdd(ConstHandle2Axes self, ConstHandle2ConstGrid grid);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstGrid
-AxesGridGetConst(ConstHandle2ConstAxes This, const size_t index_);
+AxesGridGetConst(ConstHandle2ConstAxes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Grid
-AxesGridGet(ConstHandle2Axes This, const size_t index_);
+AxesGridGet(ConstHandle2Axes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AxesGridSet(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const size_t index_,
    ConstHandle2ConstGrid grid
 );
@@ -296,28 +296,28 @@ AxesGridSet(
 // +++ Has, by index
 extern_c int
 AxesGridHasByIndex(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstGrid
 AxesGridGetByIndexConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2Grid
 AxesGridGetByIndex(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 AxesGridSetByIndex(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const int index,
    ConstHandle2ConstGrid grid
 );
@@ -325,28 +325,28 @@ AxesGridSetByIndex(
 // +++ Has, by label
 extern_c int
 AxesGridHasByLabel(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstGrid
 AxesGridGetByLabelConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Grid
 AxesGridGetByLabel(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 AxesGridSetByLabel(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const label,
    ConstHandle2ConstGrid grid
 );
@@ -354,28 +354,28 @@ AxesGridSetByLabel(
 // +++ Has, by unit
 extern_c int
 AxesGridHasByUnit(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstGrid
 AxesGridGetByUnitConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Grid
 AxesGridGetByUnit(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const unit
 );
 
 // +++ Set, by unit
 extern_c void
 AxesGridSetByUnit(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const unit,
    ConstHandle2ConstGrid grid
 );
@@ -383,28 +383,28 @@ AxesGridSetByUnit(
 // +++ Has, by style
 extern_c int
 AxesGridHasByStyle(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const style
 );
 
 // --- Get, by style, const
 extern_c Handle2ConstGrid
 AxesGridGetByStyleConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const style
 );
 
 // +++ Get, by style, non-const
 extern_c Handle2Grid
 AxesGridGetByStyle(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const style
 );
 
 // +++ Set, by style
 extern_c void
 AxesGridSetByStyle(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const style,
    ConstHandle2ConstGrid grid
 );
@@ -412,28 +412,28 @@ AxesGridSetByStyle(
 // +++ Has, by interpolation
 extern_c int
 AxesGridHasByInterpolation(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const interpolation
 );
 
 // --- Get, by interpolation, const
 extern_c Handle2ConstGrid
 AxesGridGetByInterpolationConst(
-   ConstHandle2ConstAxes This,
+   ConstHandle2ConstAxes self,
    const char *const interpolation
 );
 
 // +++ Get, by interpolation, non-const
 extern_c Handle2Grid
 AxesGridGetByInterpolation(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const interpolation
 );
 
 // +++ Set, by interpolation
 extern_c void
 AxesGridSetByInterpolation(
-   ConstHandle2Axes This,
+   ConstHandle2Axes self,
    const char *const interpolation,
    ConstHandle2ConstGrid grid
 );

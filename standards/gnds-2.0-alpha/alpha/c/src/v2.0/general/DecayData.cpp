@@ -75,20 +75,20 @@ DecayDataCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DecayDataAssign(ConstHandle2DecayData This, ConstHandle2ConstDecayData from)
+DecayDataAssign(ConstHandle2DecayData self, ConstHandle2ConstDecayData from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DecayDataDelete(ConstHandle2ConstDecayData This)
+DecayDataDelete(ConstHandle2ConstDecayData self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ DecayDataDelete(ConstHandle2ConstDecayData This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DecayDataRead(ConstHandle2DecayData This, const char *const filename)
+DecayDataRead(ConstHandle2DecayData self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DecayDataWrite(ConstHandle2ConstDecayData This, const char *const filename)
+DecayDataWrite(ConstHandle2ConstDecayData self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DecayDataPrint(ConstHandle2ConstDecayData This)
+DecayDataPrint(ConstHandle2ConstDecayData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DecayDataPrintXML(ConstHandle2ConstDecayData This)
+DecayDataPrintXML(ConstHandle2ConstDecayData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DecayDataPrintJSON(ConstHandle2ConstDecayData This)
+DecayDataPrintJSON(ConstHandle2ConstDecayData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ DecayDataPrintJSON(ConstHandle2ConstDecayData This)
 
 // Has
 int
-DecayDataDecayModesHas(ConstHandle2ConstDecayData This)
+DecayDataDecayModesHas(ConstHandle2ConstDecayData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayModesHas", This, extract::decayModes);
+      (CLASSNAME, CLASSNAME+"DecayModesHas", self, extract::decayModes);
 }
 
 // Get, const
 Handle2ConstDecayModes
-DecayDataDecayModesGetConst(ConstHandle2ConstDecayData This)
+DecayDataDecayModesGetConst(ConstHandle2ConstDecayData self)
 {
    return detail::getField<CPP,Handle2ConstDecayModes>
-      (CLASSNAME, CLASSNAME+"DecayModesGetConst", This, extract::decayModes);
+      (CLASSNAME, CLASSNAME+"DecayModesGetConst", self, extract::decayModes);
 }
 
 // Get, non-const
 Handle2DecayModes
-DecayDataDecayModesGet(ConstHandle2DecayData This)
+DecayDataDecayModesGet(ConstHandle2DecayData self)
 {
    return detail::getField<CPP,Handle2DecayModes>
-      (CLASSNAME, CLASSNAME+"DecayModesGet", This, extract::decayModes);
+      (CLASSNAME, CLASSNAME+"DecayModesGet", self, extract::decayModes);
 }
 
 // Set
 void
-DecayDataDecayModesSet(ConstHandle2DecayData This, ConstHandle2ConstDecayModes decayModes)
+DecayDataDecayModesSet(ConstHandle2DecayData self, ConstHandle2ConstDecayModes decayModes)
 {
    detail::setField<CPP,CPPDecayModes>
-      (CLASSNAME, CLASSNAME+"DecayModesSet", This, extract::decayModes, decayModes);
+      (CLASSNAME, CLASSNAME+"DecayModesSet", self, extract::decayModes, decayModes);
 }
 
 
@@ -186,34 +186,34 @@ DecayDataDecayModesSet(ConstHandle2DecayData This, ConstHandle2ConstDecayModes d
 
 // Has
 int
-DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData This)
+DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AverageEnergiesHas", This, extract::averageEnergies);
+      (CLASSNAME, CLASSNAME+"AverageEnergiesHas", self, extract::averageEnergies);
 }
 
 // Get, const
 Handle2ConstAverageEnergies
-DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData This)
+DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData self)
 {
    return detail::getField<CPP,Handle2ConstAverageEnergies>
-      (CLASSNAME, CLASSNAME+"AverageEnergiesGetConst", This, extract::averageEnergies);
+      (CLASSNAME, CLASSNAME+"AverageEnergiesGetConst", self, extract::averageEnergies);
 }
 
 // Get, non-const
 Handle2AverageEnergies
-DecayDataAverageEnergiesGet(ConstHandle2DecayData This)
+DecayDataAverageEnergiesGet(ConstHandle2DecayData self)
 {
    return detail::getField<CPP,Handle2AverageEnergies>
-      (CLASSNAME, CLASSNAME+"AverageEnergiesGet", This, extract::averageEnergies);
+      (CLASSNAME, CLASSNAME+"AverageEnergiesGet", self, extract::averageEnergies);
 }
 
 // Set
 void
-DecayDataAverageEnergiesSet(ConstHandle2DecayData This, ConstHandle2ConstAverageEnergies averageEnergies)
+DecayDataAverageEnergiesSet(ConstHandle2DecayData self, ConstHandle2ConstAverageEnergies averageEnergies)
 {
    detail::setField<CPP,CPPAverageEnergies>
-      (CLASSNAME, CLASSNAME+"AverageEnergiesSet", This, extract::averageEnergies, averageEnergies);
+      (CLASSNAME, CLASSNAME+"AverageEnergiesSet", self, extract::averageEnergies, averageEnergies);
 }
 
 

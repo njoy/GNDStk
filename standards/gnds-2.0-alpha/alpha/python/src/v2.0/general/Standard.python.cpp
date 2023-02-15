@@ -43,7 +43,7 @@ void wrapStandard(py::module &module)
    // get/set Double
    object.def_property(
       "double",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Double();
       },

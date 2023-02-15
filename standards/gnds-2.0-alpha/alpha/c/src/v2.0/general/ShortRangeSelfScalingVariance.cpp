@@ -84,20 +84,20 @@ ShortRangeSelfScalingVarianceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ShortRangeSelfScalingVarianceAssign(ConstHandle2ShortRangeSelfScalingVariance This, ConstHandle2ConstShortRangeSelfScalingVariance from)
+ShortRangeSelfScalingVarianceAssign(ConstHandle2ShortRangeSelfScalingVariance self, ConstHandle2ConstShortRangeSelfScalingVariance from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVarian
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ShortRangeSelfScalingVarianceRead(ConstHandle2ShortRangeSelfScalingVariance This, const char *const filename)
+ShortRangeSelfScalingVarianceRead(ConstHandle2ShortRangeSelfScalingVariance self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ShortRangeSelfScalingVarianceWrite(ConstHandle2ConstShortRangeSelfScalingVariance This, const char *const filename)
+ShortRangeSelfScalingVarianceWrite(ConstHandle2ConstShortRangeSelfScalingVariance self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ShortRangeSelfScalingVariancePrint(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVariancePrint(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ShortRangeSelfScalingVariancePrintXML(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVariancePrintXML(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVar
 
 // Has
 int
-ShortRangeSelfScalingVarianceLabelHas(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceLabelHas(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ShortRangeSelfScalingVarianceLabelGet(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceLabelGet(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance This, const char *const label)
+ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -188,27 +188,27 @@ ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance 
 
 // Has
 int
-ShortRangeSelfScalingVarianceTypeHas(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceTypeHas(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeHas", self, extract::type);
 }
 
 // Get
 // Returns by value
 const char *
-ShortRangeSelfScalingVarianceTypeGet(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceTypeGet(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeGet", self, extract::type);
 }
 
 // Set
 void
-ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance This, const char *const type)
+ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance self, const char *const type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
+      (CLASSNAME, CLASSNAME+"TypeSet", self, extract::type, type);
 }
 
 
@@ -218,27 +218,27 @@ ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance T
 
 // Has
 int
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthHas", This, extract::dependenceOnProcessedGroupWidth);
+      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthHas", self, extract::dependenceOnProcessedGroupWidth);
 }
 
 // Get
 // Returns by value
 const char *
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthGet", This, extract::dependenceOnProcessedGroupWidth);
+      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthGet", self, extract::dependenceOnProcessedGroupWidth);
 }
 
 // Set
 void
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2ShortRangeSelfScalingVariance This, const char *const dependenceOnProcessedGroupWidth)
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2ShortRangeSelfScalingVariance self, const char *const dependenceOnProcessedGroupWidth)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthSet", This, extract::dependenceOnProcessedGroupWidth, dependenceOnProcessedGroupWidth);
+      (CLASSNAME, CLASSNAME+"DependenceOnProcessedGroupWidthSet", self, extract::dependenceOnProcessedGroupWidth, dependenceOnProcessedGroupWidth);
 }
 
 
@@ -248,34 +248,34 @@ ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2Shor
 
 // Has
 int
-ShortRangeSelfScalingVarianceGridded2dHas(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceGridded2dHas(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded2dHas", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dHas", self, extract::gridded2d);
 }
 
 // Get, const
 Handle2ConstGridded2d
-ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfScalingVariance self)
 {
    return detail::getField<CPP,Handle2ConstGridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dGetConst", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
 // Get, non-const
 Handle2Gridded2d
-ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance This)
+ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance self)
 {
    return detail::getField<CPP,Handle2Gridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dGet", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dGet", self, extract::gridded2d);
 }
 
 // Set
 void
-ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVariance This, ConstHandle2ConstGridded2d gridded2d)
+ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVariance self, ConstHandle2ConstGridded2d gridded2d)
 {
    detail::setField<CPP,CPPGridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dSet", This, extract::gridded2d, gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dSet", self, extract::gridded2d, gridded2d);
 }
 
 

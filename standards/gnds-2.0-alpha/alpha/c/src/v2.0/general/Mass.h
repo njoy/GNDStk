@@ -94,13 +94,13 @@ MassCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MassAssign(ConstHandle2Mass This, ConstHandle2ConstMass from);
+MassAssign(ConstHandle2Mass self, ConstHandle2ConstMass from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MassDelete(ConstHandle2ConstMass This);
+MassDelete(ConstHandle2ConstMass self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ MassDelete(ConstHandle2ConstMass This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MassRead(ConstHandle2Mass This, const char *const filename);
+MassRead(ConstHandle2Mass self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MassWrite(ConstHandle2ConstMass This, const char *const filename);
+MassWrite(ConstHandle2ConstMass self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MassPrint(ConstHandle2ConstMass This);
+MassPrint(ConstHandle2ConstMass self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MassPrintXML(ConstHandle2ConstMass This);
+MassPrintXML(ConstHandle2ConstMass self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MassPrintJSON(ConstHandle2ConstMass This);
+MassPrintJSON(ConstHandle2ConstMass self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ MassPrintJSON(ConstHandle2ConstMass This);
 
 // +++ Has
 extern_c int
-MassValueHas(ConstHandle2ConstMass This);
+MassValueHas(ConstHandle2ConstMass self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-MassValueGet(ConstHandle2ConstMass This);
+MassValueGet(ConstHandle2ConstMass self);
 
 // +++ Set
 extern_c void
-MassValueSet(ConstHandle2Mass This, const double value);
+MassValueSet(ConstHandle2Mass self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ MassValueSet(ConstHandle2Mass This, const double value);
 
 // +++ Has
 extern_c int
-MassUnitHas(ConstHandle2ConstMass This);
+MassUnitHas(ConstHandle2ConstMass self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-MassUnitGet(ConstHandle2ConstMass This);
+MassUnitGet(ConstHandle2ConstMass self);
 
 // +++ Set
 extern_c void
-MassUnitSet(ConstHandle2Mass This, const char *const unit);
+MassUnitSet(ConstHandle2Mass self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ MassUnitSet(ConstHandle2Mass This, const char *const unit);
 
 // +++ Has
 extern_c int
-MassDoubleHas(ConstHandle2ConstMass This);
+MassDoubleHas(ConstHandle2ConstMass self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-MassDoubleGetConst(ConstHandle2ConstMass This);
+MassDoubleGetConst(ConstHandle2ConstMass self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-MassDoubleGet(ConstHandle2Mass This);
+MassDoubleGet(ConstHandle2Mass self);
 
 // +++ Set
 extern_c void
-MassDoubleSet(ConstHandle2Mass This, ConstHandle2ConstDouble Double);
+MassDoubleSet(ConstHandle2Mass self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

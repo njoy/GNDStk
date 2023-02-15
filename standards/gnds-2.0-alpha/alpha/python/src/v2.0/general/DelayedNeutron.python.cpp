@@ -47,7 +47,7 @@ void wrapDelayedNeutron(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapDelayedNeutron(py::module &module)
    // get/set rate
    object.def_property(
       "rate",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.rate();
       },
@@ -75,7 +75,7 @@ void wrapDelayedNeutron(py::module &module)
    // get/set product
    object.def_property(
       "product",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.product();
       },

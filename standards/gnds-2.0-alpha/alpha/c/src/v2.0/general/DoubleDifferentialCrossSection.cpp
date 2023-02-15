@@ -99,20 +99,20 @@ DoubleDifferentialCrossSectionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DoubleDifferentialCrossSectionAssign(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstDoubleDifferentialCrossSection from)
+DoubleDifferentialCrossSectionAssign(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstDoubleDifferentialCrossSection from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -126,44 +126,44 @@ DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSec
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DoubleDifferentialCrossSectionRead(ConstHandle2DoubleDifferentialCrossSection This, const char *const filename)
+DoubleDifferentialCrossSectionRead(ConstHandle2DoubleDifferentialCrossSection self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DoubleDifferentialCrossSectionWrite(ConstHandle2ConstDoubleDifferentialCrossSection This, const char *const filename)
+DoubleDifferentialCrossSectionWrite(ConstHandle2ConstDoubleDifferentialCrossSection self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DoubleDifferentialCrossSectionPrint(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionPrint(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DoubleDifferentialCrossSectionPrintXML(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionPrintXML(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -173,34 +173,34 @@ DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCross
 
 // Has
 int
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticHas", This, extract::CoulombPlusNuclearElastic);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticHas", self, extract::CoulombPlusNuclearElastic);
 }
 
 // Get, const
 Handle2ConstCoulombPlusNuclearElastic
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstCoulombPlusNuclearElastic>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGetConst", This, extract::CoulombPlusNuclearElastic);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGetConst", self, extract::CoulombPlusNuclearElastic);
 }
 
 // Get, non-const
 Handle2CoulombPlusNuclearElastic
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2CoulombPlusNuclearElastic>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGet", This, extract::CoulombPlusNuclearElastic);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGet", self, extract::CoulombPlusNuclearElastic);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic)
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic)
 {
    detail::setField<CPP,CPPCoulombPlusNuclearElastic>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticSet", This, extract::CoulombPlusNuclearElastic, CoulombPlusNuclearElastic);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticSet", self, extract::CoulombPlusNuclearElastic, CoulombPlusNuclearElastic);
 }
 
 
@@ -210,34 +210,34 @@ DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDif
 
 // Has
 int
-DoubleDifferentialCrossSectionCoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringHas", This, extract::coherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringHas", self, extract::coherentPhotonScattering);
 }
 
 // Get, const
 Handle2ConstCoherentPhotonScattering
-DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstCoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGetConst", This, extract::coherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGetConst", self, extract::coherentPhotonScattering);
 }
 
 // Get, non-const
 Handle2CoherentPhotonScattering
-DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2CoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGet", This, extract::coherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGet", self, extract::coherentPhotonScattering);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering)
+DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering)
 {
    detail::setField<CPP,CPPCoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringSet", This, extract::coherentPhotonScattering, coherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringSet", self, extract::coherentPhotonScattering, coherentPhotonScattering);
 }
 
 
@@ -247,34 +247,34 @@ DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDiff
 
 // Has
 int
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringHas", This, extract::incoherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringHas", self, extract::incoherentPhotonScattering);
 }
 
 // Get, const
 Handle2ConstIncoherentPhotonScattering
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstIncoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGetConst", This, extract::incoherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGetConst", self, extract::incoherentPhotonScattering);
 }
 
 // Get, non-const
 Handle2IncoherentPhotonScattering
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2IncoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGet", This, extract::incoherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGet", self, extract::incoherentPhotonScattering);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering)
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering)
 {
    detail::setField<CPP,CPPIncoherentPhotonScattering>
-      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringSet", This, extract::incoherentPhotonScattering, incoherentPhotonScattering);
+      (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringSet", self, extract::incoherentPhotonScattering, incoherentPhotonScattering);
 }
 
 
@@ -284,34 +284,34 @@ DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDi
 
 // Has
 int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticHas", This, extract::thermalNeutronScatteringLaw_coherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticHas", self, extract::thermalNeutronScatteringLaw_coherentElastic);
 }
 
 // Get, const
 Handle2ConstThermalNeutronScatteringLaw_coherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw_coherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticGetConst", This, extract::thermalNeutronScatteringLaw_coherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticGetConst", self, extract::thermalNeutronScatteringLaw_coherentElastic);
 }
 
 // Get, non-const
 Handle2ThermalNeutronScatteringLaw_coherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw_coherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticGet", This, extract::thermalNeutronScatteringLaw_coherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticGet", self, extract::thermalNeutronScatteringLaw_coherentElastic);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic thermalNeutronScatteringLaw_coherentElastic)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic thermalNeutronScatteringLaw_coherentElastic)
 {
    detail::setField<CPP,CPPThermalNeutronScatteringLaw_coherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticSet", This, extract::thermalNeutronScatteringLaw_coherentElastic, thermalNeutronScatteringLaw_coherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticSet", self, extract::thermalNeutronScatteringLaw_coherentElastic, thermalNeutronScatteringLaw_coherentElastic);
 }
 
 
@@ -321,34 +321,34 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(Con
 
 // Has
 int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticHas", This, extract::thermalNeutronScatteringLaw_incoherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticHas", self, extract::thermalNeutronScatteringLaw_incoherentElastic);
 }
 
 // Get, const
 Handle2ConstThermalNeutronScatteringLaw_incoherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw_incoherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticGetConst", This, extract::thermalNeutronScatteringLaw_incoherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticGetConst", self, extract::thermalNeutronScatteringLaw_incoherentElastic);
 }
 
 // Get, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw_incoherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticGet", This, extract::thermalNeutronScatteringLaw_incoherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticGet", self, extract::thermalNeutronScatteringLaw_incoherentElastic);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic thermalNeutronScatteringLaw_incoherentElastic)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic thermalNeutronScatteringLaw_incoherentElastic)
 {
    detail::setField<CPP,CPPThermalNeutronScatteringLaw_incoherentElastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticSet", This, extract::thermalNeutronScatteringLaw_incoherentElastic, thermalNeutronScatteringLaw_incoherentElastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticSet", self, extract::thermalNeutronScatteringLaw_incoherentElastic, thermalNeutronScatteringLaw_incoherentElastic);
 }
 
 
@@ -358,34 +358,34 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(C
 
 // Has
 int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticHas", This, extract::thermalNeutronScatteringLaw_incoherentInelastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticHas", self, extract::thermalNeutronScatteringLaw_incoherentInelastic);
 }
 
 // Get, const
 Handle2ConstThermalNeutronScatteringLaw_incoherentInelastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstThermalNeutronScatteringLaw_incoherentInelastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticGetConst", This, extract::thermalNeutronScatteringLaw_incoherentInelastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticGetConst", self, extract::thermalNeutronScatteringLaw_incoherentInelastic);
 }
 
 // Get, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentInelastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(ConstHandle2DoubleDifferentialCrossSection This)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
    return detail::getField<CPP,Handle2ThermalNeutronScatteringLaw_incoherentInelastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticGet", This, extract::thermalNeutronScatteringLaw_incoherentInelastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticGet", self, extract::thermalNeutronScatteringLaw_incoherentInelastic);
 }
 
 // Set
 void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic thermalNeutronScatteringLaw_incoherentInelastic)
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic thermalNeutronScatteringLaw_incoherentInelastic)
 {
    detail::setField<CPP,CPPThermalNeutronScatteringLaw_incoherentInelastic>
-      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticSet", This, extract::thermalNeutronScatteringLaw_incoherentInelastic, thermalNeutronScatteringLaw_incoherentInelastic);
+      (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticSet", self, extract::thermalNeutronScatteringLaw_incoherentInelastic, thermalNeutronScatteringLaw_incoherentInelastic);
 }
 
 

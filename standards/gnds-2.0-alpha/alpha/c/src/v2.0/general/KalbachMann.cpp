@@ -85,20 +85,20 @@ KalbachMannCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-KalbachMannAssign(ConstHandle2KalbachMann This, ConstHandle2ConstKalbachMann from)
+KalbachMannAssign(ConstHandle2KalbachMann self, ConstHandle2ConstKalbachMann from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-KalbachMannDelete(ConstHandle2ConstKalbachMann This)
+KalbachMannDelete(ConstHandle2ConstKalbachMann self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ KalbachMannDelete(ConstHandle2ConstKalbachMann This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-KalbachMannRead(ConstHandle2KalbachMann This, const char *const filename)
+KalbachMannRead(ConstHandle2KalbachMann self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-KalbachMannWrite(ConstHandle2ConstKalbachMann This, const char *const filename)
+KalbachMannWrite(ConstHandle2ConstKalbachMann self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-KalbachMannPrint(ConstHandle2ConstKalbachMann This)
+KalbachMannPrint(ConstHandle2ConstKalbachMann self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-KalbachMannPrintXML(ConstHandle2ConstKalbachMann This)
+KalbachMannPrintXML(ConstHandle2ConstKalbachMann self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-KalbachMannPrintJSON(ConstHandle2ConstKalbachMann This)
+KalbachMannPrintJSON(ConstHandle2ConstKalbachMann self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ KalbachMannPrintJSON(ConstHandle2ConstKalbachMann This)
 
 // Has
 int
-KalbachMannLabelHas(ConstHandle2ConstKalbachMann This)
+KalbachMannLabelHas(ConstHandle2ConstKalbachMann self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-KalbachMannLabelGet(ConstHandle2ConstKalbachMann This)
+KalbachMannLabelGet(ConstHandle2ConstKalbachMann self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-KalbachMannLabelSet(ConstHandle2KalbachMann This, const char *const label)
+KalbachMannLabelSet(ConstHandle2KalbachMann self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -189,27 +189,27 @@ KalbachMannLabelSet(ConstHandle2KalbachMann This, const char *const label)
 
 // Has
 int
-KalbachMannProductFrameHas(ConstHandle2ConstKalbachMann This)
+KalbachMannProductFrameHas(ConstHandle2ConstKalbachMann self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 const char *
-KalbachMannProductFrameGet(ConstHandle2ConstKalbachMann This)
+KalbachMannProductFrameGet(ConstHandle2ConstKalbachMann self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-KalbachMannProductFrameSet(ConstHandle2KalbachMann This, const char *const productFrame)
+KalbachMannProductFrameSet(ConstHandle2KalbachMann self, const char *const productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -219,34 +219,34 @@ KalbachMannProductFrameSet(ConstHandle2KalbachMann This, const char *const produ
 
 // Has
 int
-KalbachMannFHas(ConstHandle2ConstKalbachMann This)
+KalbachMannFHas(ConstHandle2ConstKalbachMann self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FHas", This, extract::f);
+      (CLASSNAME, CLASSNAME+"FHas", self, extract::f);
 }
 
 // Get, const
 Handle2ConstF
-KalbachMannFGetConst(ConstHandle2ConstKalbachMann This)
+KalbachMannFGetConst(ConstHandle2ConstKalbachMann self)
 {
    return detail::getField<CPP,Handle2ConstF>
-      (CLASSNAME, CLASSNAME+"FGetConst", This, extract::f);
+      (CLASSNAME, CLASSNAME+"FGetConst", self, extract::f);
 }
 
 // Get, non-const
 Handle2F
-KalbachMannFGet(ConstHandle2KalbachMann This)
+KalbachMannFGet(ConstHandle2KalbachMann self)
 {
    return detail::getField<CPP,Handle2F>
-      (CLASSNAME, CLASSNAME+"FGet", This, extract::f);
+      (CLASSNAME, CLASSNAME+"FGet", self, extract::f);
 }
 
 // Set
 void
-KalbachMannFSet(ConstHandle2KalbachMann This, ConstHandle2ConstF f)
+KalbachMannFSet(ConstHandle2KalbachMann self, ConstHandle2ConstF f)
 {
    detail::setField<CPP,CPPF>
-      (CLASSNAME, CLASSNAME+"FSet", This, extract::f, f);
+      (CLASSNAME, CLASSNAME+"FSet", self, extract::f, f);
 }
 
 
@@ -256,34 +256,34 @@ KalbachMannFSet(ConstHandle2KalbachMann This, ConstHandle2ConstF f)
 
 // Has
 int
-KalbachMannRHas(ConstHandle2ConstKalbachMann This)
+KalbachMannRHas(ConstHandle2ConstKalbachMann self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RHas", This, extract::r);
+      (CLASSNAME, CLASSNAME+"RHas", self, extract::r);
 }
 
 // Get, const
 Handle2ConstR
-KalbachMannRGetConst(ConstHandle2ConstKalbachMann This)
+KalbachMannRGetConst(ConstHandle2ConstKalbachMann self)
 {
    return detail::getField<CPP,Handle2ConstR>
-      (CLASSNAME, CLASSNAME+"RGetConst", This, extract::r);
+      (CLASSNAME, CLASSNAME+"RGetConst", self, extract::r);
 }
 
 // Get, non-const
 Handle2R
-KalbachMannRGet(ConstHandle2KalbachMann This)
+KalbachMannRGet(ConstHandle2KalbachMann self)
 {
    return detail::getField<CPP,Handle2R>
-      (CLASSNAME, CLASSNAME+"RGet", This, extract::r);
+      (CLASSNAME, CLASSNAME+"RGet", self, extract::r);
 }
 
 // Set
 void
-KalbachMannRSet(ConstHandle2KalbachMann This, ConstHandle2ConstR r)
+KalbachMannRSet(ConstHandle2KalbachMann self, ConstHandle2ConstR r)
 {
    detail::setField<CPP,CPPR>
-      (CLASSNAME, CLASSNAME+"RSet", This, extract::r, r);
+      (CLASSNAME, CLASSNAME+"RSet", self, extract::r, r);
 }
 
 

@@ -90,13 +90,13 @@ ScatteringAtomsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ScatteringAtomsAssign(ConstHandle2ScatteringAtoms This, ConstHandle2ConstScatteringAtoms from);
+ScatteringAtomsAssign(ConstHandle2ScatteringAtoms self, ConstHandle2ConstScatteringAtoms from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ScatteringAtomsRead(ConstHandle2ScatteringAtoms This, const char *const filename);
+ScatteringAtomsRead(ConstHandle2ScatteringAtoms self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ScatteringAtomsWrite(ConstHandle2ConstScatteringAtoms This, const char *const filename);
+ScatteringAtomsWrite(ConstHandle2ConstScatteringAtoms self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ScatteringAtomsPrint(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsPrint(ConstHandle2ConstScatteringAtoms self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ScatteringAtomsPrintXML(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsPrintXML(ConstHandle2ConstScatteringAtoms self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms This);
 
 // +++ Has
 extern_c int
-ScatteringAtomsScatteringAtomHas(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsScatteringAtomHas(ConstHandle2ConstScatteringAtoms self);
 
 // +++ Clear
 extern_c void
-ScatteringAtomsScatteringAtomClear(ConstHandle2ScatteringAtoms This);
+ScatteringAtomsScatteringAtomClear(ConstHandle2ScatteringAtoms self);
 
 // +++ Size
 extern_c size_t
-ScatteringAtomsScatteringAtomSize(ConstHandle2ConstScatteringAtoms This);
+ScatteringAtomsScatteringAtomSize(ConstHandle2ConstScatteringAtoms self);
 
 // +++ Add
 extern_c void
-ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms This, ConstHandle2ConstScatteringAtom scatteringAtom);
+ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms self, ConstHandle2ConstScatteringAtom scatteringAtom);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstScatteringAtom
-ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms This, const size_t index_);
+ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ScatteringAtom
-ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms This, const size_t index_);
+ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ScatteringAtomsScatteringAtomSet(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const size_t index_,
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
@@ -169,28 +169,28 @@ ScatteringAtomsScatteringAtomSet(
 // +++ Has, by pid
 extern_c int
 ScatteringAtomsScatteringAtomHasByPid(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const char *const pid
 );
 
 // --- Get, by pid, const
 extern_c Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByPidConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const char *const pid
 );
 
 // +++ Get, by pid, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPid(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const char *const pid
 );
 
 // +++ Set, by pid
 extern_c void
 ScatteringAtomsScatteringAtomSetByPid(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const char *const pid,
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
@@ -198,28 +198,28 @@ ScatteringAtomsScatteringAtomSetByPid(
 // +++ Has, by numberPerMolecule
 extern_c int
 ScatteringAtomsScatteringAtomHasByNumberPerMolecule(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const int numberPerMolecule
 );
 
 // --- Get, by numberPerMolecule, const
 extern_c Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const int numberPerMolecule
 );
 
 // +++ Get, by numberPerMolecule, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMolecule(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const int numberPerMolecule
 );
 
 // +++ Set, by numberPerMolecule
 extern_c void
 ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const int numberPerMolecule,
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
@@ -227,28 +227,28 @@ ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
 // +++ Has, by primaryScatterer
 extern_c int
 ScatteringAtomsScatteringAtomHasByPrimaryScatterer(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const bool primaryScatterer
 );
 
 // --- Get, by primaryScatterer, const
 extern_c Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const bool primaryScatterer
 );
 
 // +++ Get, by primaryScatterer, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScatterer(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const bool primaryScatterer
 );
 
 // +++ Set, by primaryScatterer
 extern_c void
 ScatteringAtomsScatteringAtomSetByPrimaryScatterer(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const bool primaryScatterer,
    ConstHandle2ConstScatteringAtom scatteringAtom
 );

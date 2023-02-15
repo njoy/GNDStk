@@ -80,20 +80,20 @@ NuclearPlusInterferenceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclearPlusInterferenceAssign(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstNuclearPlusInterference from)
+NuclearPlusInterferenceAssign(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstNuclearPlusInterference from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -107,44 +107,44 @@ NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclearPlusInterferenceRead(ConstHandle2NuclearPlusInterference This, const char *const filename)
+NuclearPlusInterferenceRead(ConstHandle2NuclearPlusInterference self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclearPlusInterferenceWrite(ConstHandle2ConstNuclearPlusInterference This, const char *const filename)
+NuclearPlusInterferenceWrite(ConstHandle2ConstNuclearPlusInterference self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclearPlusInterferencePrint(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferencePrint(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclearPlusInterferencePrintXML(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferencePrintXML(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -154,27 +154,27 @@ NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference This)
 
 // Has
 int
-NuclearPlusInterferenceMuCutoffHas(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceMuCutoffHas(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffHas", This, extract::muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffHas", self, extract::muCutoff);
 }
 
 // Get
 // Returns by value
 double
-NuclearPlusInterferenceMuCutoffGet(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceMuCutoffGet(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffGet", This, extract::muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffGet", self, extract::muCutoff);
 }
 
 // Set
 void
-NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference This, const double muCutoff)
+NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference self, const double muCutoff)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffSet", This, extract::muCutoff, muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffSet", self, extract::muCutoff, muCutoff);
 }
 
 
@@ -184,34 +184,34 @@ NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference This, con
 
 // Has
 int
-NuclearPlusInterferenceCrossSectionHas(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceCrossSectionHas(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionHas", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionHas", self, extract::crossSection);
 }
 
 // Get, const
 Handle2ConstCrossSection
-NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::getField<CPP,Handle2ConstCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
 // Get, non-const
 Handle2CrossSection
-NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference This)
+NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference self)
 {
    return detail::getField<CPP,Handle2CrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGet", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGet", self, extract::crossSection);
 }
 
 // Set
 void
-NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstCrossSection crossSection)
+NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstCrossSection crossSection)
 {
    detail::setField<CPP,CPPCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionSet", This, extract::crossSection, crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionSet", self, extract::crossSection, crossSection);
 }
 
 
@@ -221,34 +221,34 @@ NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference This,
 
 // Has
 int
-NuclearPlusInterferenceDistributionHas(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceDistributionHas(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DistributionHas", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionHas", self, extract::distribution);
 }
 
 // Get, const
 Handle2ConstDistribution
-NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterference This)
+NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterference self)
 {
    return detail::getField<CPP,Handle2ConstDistribution>
-      (CLASSNAME, CLASSNAME+"DistributionGetConst", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
 // Get, non-const
 Handle2Distribution
-NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference This)
+NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference self)
 {
    return detail::getField<CPP,Handle2Distribution>
-      (CLASSNAME, CLASSNAME+"DistributionGet", This, extract::distribution);
+      (CLASSNAME, CLASSNAME+"DistributionGet", self, extract::distribution);
 }
 
 // Set
 void
-NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstDistribution distribution)
+NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstDistribution distribution)
 {
    detail::setField<CPP,CPPDistribution>
-      (CLASSNAME, CLASSNAME+"DistributionSet", This, extract::distribution, distribution);
+      (CLASSNAME, CLASSNAME+"DistributionSet", self, extract::distribution, distribution);
 }
 
 

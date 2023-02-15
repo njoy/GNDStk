@@ -96,13 +96,13 @@ PrimaryGammaCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PrimaryGammaAssign(ConstHandle2PrimaryGamma This, ConstHandle2ConstPrimaryGamma from);
+PrimaryGammaAssign(ConstHandle2PrimaryGamma self, ConstHandle2ConstPrimaryGamma from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PrimaryGammaRead(ConstHandle2PrimaryGamma This, const char *const filename);
+PrimaryGammaRead(ConstHandle2PrimaryGamma self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PrimaryGammaWrite(ConstHandle2ConstPrimaryGamma This, const char *const filename);
+PrimaryGammaWrite(ConstHandle2ConstPrimaryGamma self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PrimaryGammaPrint(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaPrint(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PrimaryGammaPrintXML(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaPrintXML(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma This);
 
 // +++ Has
 extern_c int
-PrimaryGammaValueHas(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaValueHas(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-PrimaryGammaValueGet(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaValueGet(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Set
 extern_c void
-PrimaryGammaValueSet(ConstHandle2PrimaryGamma This, const double value);
+PrimaryGammaValueSet(ConstHandle2PrimaryGamma self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ PrimaryGammaValueSet(ConstHandle2PrimaryGamma This, const double value);
 
 // +++ Has
 extern_c int
-PrimaryGammaDomainMinHas(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaDomainMinHas(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-PrimaryGammaDomainMinGet(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaDomainMinGet(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Set
 extern_c void
-PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma This, const double domainMin);
+PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma self, const double domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma This, const double domainMin);
 
 // +++ Has
 extern_c int
-PrimaryGammaDomainMaxHas(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaDomainMaxHas(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-PrimaryGammaDomainMaxGet(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaDomainMaxGet(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Set
 extern_c void
-PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma This, const double domainMax);
+PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma self, const double domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma This, const double domainMax);
 
 // +++ Has
 extern_c int
-PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma This);
+PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-PrimaryGammaAxesGet(ConstHandle2PrimaryGamma This);
+PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self);
 
 // +++ Set
 extern_c void
-PrimaryGammaAxesSet(ConstHandle2PrimaryGamma This, ConstHandle2ConstAxes axes);
+PrimaryGammaAxesSet(ConstHandle2PrimaryGamma self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------

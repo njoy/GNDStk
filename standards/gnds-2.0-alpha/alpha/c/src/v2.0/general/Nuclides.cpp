@@ -73,20 +73,20 @@ NuclidesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from)
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclidesDelete(ConstHandle2ConstNuclides This)
+NuclidesDelete(ConstHandle2ConstNuclides self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ NuclidesDelete(ConstHandle2ConstNuclides This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename)
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename)
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclidesPrint(ConstHandle2ConstNuclides This)
+NuclidesPrint(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclidesPrintXML(ConstHandle2ConstNuclides This)
+NuclidesPrintXML(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This)
+NuclidesPrintJSON(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This)
 
 // Has
 int
-NuclidesNuclideHas(ConstHandle2ConstNuclides This)
+NuclidesNuclideHas(ConstHandle2ConstNuclides self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideHas", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideHas", self, extract::nuclide);
 }
 
 // Clear
 void
-NuclidesNuclideClear(ConstHandle2Nuclides This)
+NuclidesNuclideClear(ConstHandle2Nuclides self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideClear", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideClear", self, extract::nuclide);
 }
 
 // Size
 size_t
-NuclidesNuclideSize(ConstHandle2ConstNuclides This)
+NuclidesNuclideSize(ConstHandle2ConstNuclides self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideSize", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideSize", self, extract::nuclide);
 }
 
 // Add
 void
-NuclidesNuclideAdd(ConstHandle2Nuclides This, ConstHandle2ConstNuclide nuclide)
+NuclidesNuclideAdd(ConstHandle2Nuclides self, ConstHandle2ConstNuclide nuclide)
 {
    detail::addToContainer<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideAdd", This, extract::nuclide, nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideAdd", self, extract::nuclide, nuclide);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstNuclide
-NuclidesNuclideGetConst(ConstHandle2ConstNuclides This, const size_t index_)
+NuclidesNuclideGetConst(ConstHandle2ConstNuclides self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGetConst", This, extract::nuclide, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGetConst", self, extract::nuclide, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Nuclide
-NuclidesNuclideGet(ConstHandle2Nuclides This, const size_t index_)
+NuclidesNuclideGet(ConstHandle2Nuclides self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Nuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGet", This, extract::nuclide, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGet", self, extract::nuclide, index_);
 }
 
 // Set, by index \in [0,size)
 void
 NuclidesNuclideSet(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const size_t index_,
    ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByIndex<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideSet", This, extract::nuclide, index_, nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideSet", self, extract::nuclide, index_, nuclide);
 }
 
 // Has, by id
 int
 NuclidesNuclideHasById(
-   ConstHandle2ConstNuclides This,
+   ConstHandle2ConstNuclides self,
    const char *const id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"NuclideHasById",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstNuclide
 NuclidesNuclideGetByIdConst(
-   ConstHandle2ConstNuclides This,
+   ConstHandle2ConstNuclides self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstNuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetByIdConst",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Nuclide
 NuclidesNuclideGetById(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const char *const id
 ) {
    return detail::getByMetadatum<CPP,Handle2Nuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetById",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Set, by id
 void
 NuclidesNuclideSetById(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const char *const id,
    ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByMetadatum<CPP,CPPNuclide>
       (CLASSNAME, CLASSNAME+"NuclideSetById",
-       This, extract::nuclide, meta::id, id, nuclide);
+       self, extract::nuclide, meta::id, id, nuclide);
 }
 
 

@@ -73,20 +73,20 @@ FissionComponentsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FissionComponentsAssign(ConstHandle2FissionComponents This, ConstHandle2ConstFissionComponents from)
+FissionComponentsAssign(ConstHandle2FissionComponents self, ConstHandle2ConstFissionComponents from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FissionComponentsDelete(ConstHandle2ConstFissionComponents This)
+FissionComponentsDelete(ConstHandle2ConstFissionComponents self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ FissionComponentsDelete(ConstHandle2ConstFissionComponents This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FissionComponentsRead(ConstHandle2FissionComponents This, const char *const filename)
+FissionComponentsRead(ConstHandle2FissionComponents self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FissionComponentsWrite(ConstHandle2ConstFissionComponents This, const char *const filename)
+FissionComponentsWrite(ConstHandle2ConstFissionComponents self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FissionComponentsPrint(ConstHandle2ConstFissionComponents This)
+FissionComponentsPrint(ConstHandle2ConstFissionComponents self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FissionComponentsPrintXML(ConstHandle2ConstFissionComponents This)
+FissionComponentsPrintXML(ConstHandle2ConstFissionComponents self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents This)
+FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents This)
 
 // Has
 int
-FissionComponentsFissionComponentHas(ConstHandle2ConstFissionComponents This)
+FissionComponentsFissionComponentHas(ConstHandle2ConstFissionComponents self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionComponentHas", This, extract::fissionComponent);
+      (CLASSNAME, CLASSNAME+"FissionComponentHas", self, extract::fissionComponent);
 }
 
 // Clear
 void
-FissionComponentsFissionComponentClear(ConstHandle2FissionComponents This)
+FissionComponentsFissionComponentClear(ConstHandle2FissionComponents self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"FissionComponentClear", This, extract::fissionComponent);
+      (CLASSNAME, CLASSNAME+"FissionComponentClear", self, extract::fissionComponent);
 }
 
 // Size
 size_t
-FissionComponentsFissionComponentSize(ConstHandle2ConstFissionComponents This)
+FissionComponentsFissionComponentSize(ConstHandle2ConstFissionComponents self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"FissionComponentSize", This, extract::fissionComponent);
+      (CLASSNAME, CLASSNAME+"FissionComponentSize", self, extract::fissionComponent);
 }
 
 // Add
 void
-FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents This, ConstHandle2ConstFissionComponent fissionComponent)
+FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents self, ConstHandle2ConstFissionComponent fissionComponent)
 {
    detail::addToContainer<CPP,CPPFissionComponent>
-      (CLASSNAME, CLASSNAME+"FissionComponentAdd", This, extract::fissionComponent, fissionComponent);
+      (CLASSNAME, CLASSNAME+"FissionComponentAdd", self, extract::fissionComponent, fissionComponent);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstFissionComponent
-FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents This, const size_t index_)
+FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstFissionComponent>
-      (CLASSNAME, CLASSNAME+"FissionComponentGetConst", This, extract::fissionComponent, index_);
+      (CLASSNAME, CLASSNAME+"FissionComponentGetConst", self, extract::fissionComponent, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2FissionComponent
-FissionComponentsFissionComponentGet(ConstHandle2FissionComponents This, const size_t index_)
+FissionComponentsFissionComponentGet(ConstHandle2FissionComponents self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2FissionComponent>
-      (CLASSNAME, CLASSNAME+"FissionComponentGet", This, extract::fissionComponent, index_);
+      (CLASSNAME, CLASSNAME+"FissionComponentGet", self, extract::fissionComponent, index_);
 }
 
 // Set, by index \in [0,size)
 void
 FissionComponentsFissionComponentSet(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const size_t index_,
    ConstHandle2ConstFissionComponent fissionComponent
 ) {
    detail::setByIndex<CPP,CPPFissionComponent>
-      (CLASSNAME, CLASSNAME+"FissionComponentSet", This, extract::fissionComponent, index_, fissionComponent);
+      (CLASSNAME, CLASSNAME+"FissionComponentSet", self, extract::fissionComponent, index_, fissionComponent);
 }
 
 // Has, by label
 int
 FissionComponentsFissionComponentHasByLabel(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FissionComponentHasByLabel",
-       This, extract::fissionComponent, meta::label, label);
+       self, extract::fissionComponent, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByLabelConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByLabelConst",
-       This, extract::fissionComponent, meta::label, label);
+       self, extract::fissionComponent, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByLabel(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2FissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByLabel",
-       This, extract::fissionComponent, meta::label, label);
+       self, extract::fissionComponent, meta::label, label);
 }
 
 // Set, by label
 void
 FissionComponentsFissionComponentSetByLabel(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const char *const label,
    ConstHandle2ConstFissionComponent fissionComponent
 ) {
    detail::setByMetadatum<CPP,CPPFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentSetByLabel",
-       This, extract::fissionComponent, meta::label, label, fissionComponent);
+       self, extract::fissionComponent, meta::label, label, fissionComponent);
 }
 
 // Has, by ENDF_MT
 int
 FissionComponentsFissionComponentHasByENDFMT(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const int ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FissionComponentHasByENDFMT",
-       This, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
+       self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByENDFMTConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByENDFMTConst",
-       This, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
+       self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByENDFMT(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2FissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByENDFMT",
-       This, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
+       self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 FissionComponentsFissionComponentSetByENDFMT(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const int ENDF_MT,
    ConstHandle2ConstFissionComponent fissionComponent
 ) {
    detail::setByMetadatum<CPP,CPPFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentSetByENDFMT",
-       This, extract::fissionComponent, meta::ENDF_MT, ENDF_MT, fissionComponent);
+       self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT, fissionComponent);
 }
 
 // Has, by fissionGenre
 int
 FissionComponentsFissionComponentHasByFissionGenre(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const char *const fissionGenre
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FissionComponentHasByFissionGenre",
-       This, extract::fissionComponent, meta::fissionGenre, fissionGenre);
+       self, extract::fissionComponent, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, const
 Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByFissionGenreConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const char *const fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByFissionGenreConst",
-       This, extract::fissionComponent, meta::fissionGenre, fissionGenre);
+       self, extract::fissionComponent, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, non-const
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByFissionGenre(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const char *const fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2FissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentGetByFissionGenre",
-       This, extract::fissionComponent, meta::fissionGenre, fissionGenre);
+       self, extract::fissionComponent, meta::fissionGenre, fissionGenre);
 }
 
 // Set, by fissionGenre
 void
 FissionComponentsFissionComponentSetByFissionGenre(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const char *const fissionGenre,
    ConstHandle2ConstFissionComponent fissionComponent
 ) {
    detail::setByMetadatum<CPP,CPPFissionComponent>
       (CLASSNAME, CLASSNAME+"FissionComponentSetByFissionGenre",
-       This, extract::fissionComponent, meta::fissionGenre, fissionGenre, fissionComponent);
+       self, extract::fissionComponent, meta::fissionGenre, fissionGenre, fissionComponent);
 }
 
 

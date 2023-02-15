@@ -45,7 +45,7 @@ void wrapPromptGammaEnergy(py::module &module)
    // get/set polynomial1d
    object.def_property(
       "polynomial1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.polynomial1d();
       },
@@ -59,7 +59,7 @@ void wrapPromptGammaEnergy(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },

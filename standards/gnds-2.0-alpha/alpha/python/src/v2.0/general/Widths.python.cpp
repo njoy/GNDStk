@@ -43,7 +43,7 @@ void wrapWidths(py::module &module)
    // get/set width
    object.def_property(
       "width",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.width();
       },

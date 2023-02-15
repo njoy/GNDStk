@@ -93,13 +93,13 @@ FastRegionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FastRegionAssign(ConstHandle2FastRegion This, ConstHandle2ConstFastRegion from);
+FastRegionAssign(ConstHandle2FastRegion self, ConstHandle2ConstFastRegion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FastRegionDelete(ConstHandle2ConstFastRegion This);
+FastRegionDelete(ConstHandle2ConstFastRegion self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ FastRegionDelete(ConstHandle2ConstFastRegion This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FastRegionRead(ConstHandle2FastRegion This, const char *const filename);
+FastRegionRead(ConstHandle2FastRegion self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FastRegionWrite(ConstHandle2ConstFastRegion This, const char *const filename);
+FastRegionWrite(ConstHandle2ConstFastRegion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FastRegionPrint(ConstHandle2ConstFastRegion This);
+FastRegionPrint(ConstHandle2ConstFastRegion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FastRegionPrintXML(ConstHandle2ConstFastRegion This);
+FastRegionPrintXML(ConstHandle2ConstFastRegion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FastRegionPrintJSON(ConstHandle2ConstFastRegion This);
+FastRegionPrintJSON(ConstHandle2ConstFastRegion self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ FastRegionPrintJSON(ConstHandle2ConstFastRegion This);
 
 // +++ Has
 extern_c int
-FastRegionXYs1dHas(ConstHandle2ConstFastRegion This);
+FastRegionXYs1dHas(ConstHandle2ConstFastRegion self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion This);
+FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-FastRegionXYs1dGet(ConstHandle2FastRegion This);
+FastRegionXYs1dGet(ConstHandle2FastRegion self);
 
 // +++ Set
 extern_c void
-FastRegionXYs1dSet(ConstHandle2FastRegion This, ConstHandle2ConstXYs1d XYs1d);
+FastRegionXYs1dSet(ConstHandle2FastRegion self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ FastRegionXYs1dSet(ConstHandle2FastRegion This, ConstHandle2ConstXYs1d XYs1d);
 
 // +++ Has
 extern_c int
-FastRegionRegions1dHas(ConstHandle2ConstFastRegion This);
+FastRegionRegions1dHas(ConstHandle2ConstFastRegion self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion This);
+FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-FastRegionRegions1dGet(ConstHandle2FastRegion This);
+FastRegionRegions1dGet(ConstHandle2FastRegion self);
 
 // +++ Set
 extern_c void
-FastRegionRegions1dSet(ConstHandle2FastRegion This, ConstHandle2ConstRegions1d regions1d);
+FastRegionRegions1dSet(ConstHandle2FastRegion self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

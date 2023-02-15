@@ -51,7 +51,7 @@ void wrapCrossSectionSum(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -65,7 +65,7 @@ void wrapCrossSectionSum(py::module &module)
    // get/set ENDF_MT
    object.def_property(
       "endf_mt",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDF_MT();
       },
@@ -79,7 +79,7 @@ void wrapCrossSectionSum(py::module &module)
    // get/set summands
    object.def_property(
       "summands",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.summands();
       },
@@ -93,7 +93,7 @@ void wrapCrossSectionSum(py::module &module)
    // get/set Q
    object.def_property(
       "q",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Q();
       },
@@ -107,7 +107,7 @@ void wrapCrossSectionSum(py::module &module)
    // get/set crossSection
    object.def_property(
       "cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSection();
       },

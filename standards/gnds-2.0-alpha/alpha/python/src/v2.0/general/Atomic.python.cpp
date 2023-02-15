@@ -43,7 +43,7 @@ void wrapAtomic(py::module &module)
    // get/set configurations
    object.def_property(
       "configurations",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.configurations();
       },

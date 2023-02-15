@@ -120,20 +120,20 @@ PoPsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PoPsAssign(ConstHandle2PoPs This, ConstHandle2ConstPoPs from)
+PoPsAssign(ConstHandle2PoPs self, ConstHandle2ConstPoPs from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PoPsDelete(ConstHandle2ConstPoPs This)
+PoPsDelete(ConstHandle2ConstPoPs self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -147,44 +147,44 @@ PoPsDelete(ConstHandle2ConstPoPs This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PoPsRead(ConstHandle2PoPs This, const char *const filename)
+PoPsRead(ConstHandle2PoPs self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PoPsWrite(ConstHandle2ConstPoPs This, const char *const filename)
+PoPsWrite(ConstHandle2ConstPoPs self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PoPsPrint(ConstHandle2ConstPoPs This)
+PoPsPrint(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PoPsPrintXML(ConstHandle2ConstPoPs This)
+PoPsPrintXML(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PoPsPrintJSON(ConstHandle2ConstPoPs This)
+PoPsPrintJSON(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -194,27 +194,27 @@ PoPsPrintJSON(ConstHandle2ConstPoPs This)
 
 // Has
 int
-PoPsNameHas(ConstHandle2ConstPoPs This)
+PoPsNameHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsNameGet(ConstHandle2ConstPoPs This)
+PoPsNameGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-PoPsNameSet(ConstHandle2PoPs This, const char *const name)
+PoPsNameSet(ConstHandle2PoPs self, const char *const name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -224,27 +224,27 @@ PoPsNameSet(ConstHandle2PoPs This, const char *const name)
 
 // Has
 int
-PoPsVersionHas(ConstHandle2ConstPoPs This)
+PoPsVersionHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionHas", self, extract::version);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsVersionGet(ConstHandle2ConstPoPs This)
+PoPsVersionGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionGet", self, extract::version);
 }
 
 // Set
 void
-PoPsVersionSet(ConstHandle2PoPs This, const char *const version)
+PoPsVersionSet(ConstHandle2PoPs self, const char *const version)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"VersionSet", self, extract::version, version);
 }
 
 
@@ -254,27 +254,27 @@ PoPsVersionSet(ConstHandle2PoPs This, const char *const version)
 
 // Has
 int
-PoPsFormatHas(ConstHandle2ConstPoPs This)
+PoPsFormatHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsFormatGet(ConstHandle2ConstPoPs This)
+PoPsFormatGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-PoPsFormatSet(ConstHandle2PoPs This, const char *const format)
+PoPsFormatSet(ConstHandle2PoPs self, const char *const format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -284,34 +284,34 @@ PoPsFormatSet(ConstHandle2PoPs This, const char *const format)
 
 // Has
 int
-PoPsAliasesHas(ConstHandle2ConstPoPs This)
+PoPsAliasesHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AliasesHas", This, extract::aliases);
+      (CLASSNAME, CLASSNAME+"AliasesHas", self, extract::aliases);
 }
 
 // Get, const
 Handle2ConstAliases
-PoPsAliasesGetConst(ConstHandle2ConstPoPs This)
+PoPsAliasesGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstAliases>
-      (CLASSNAME, CLASSNAME+"AliasesGetConst", This, extract::aliases);
+      (CLASSNAME, CLASSNAME+"AliasesGetConst", self, extract::aliases);
 }
 
 // Get, non-const
 Handle2Aliases
-PoPsAliasesGet(ConstHandle2PoPs This)
+PoPsAliasesGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Aliases>
-      (CLASSNAME, CLASSNAME+"AliasesGet", This, extract::aliases);
+      (CLASSNAME, CLASSNAME+"AliasesGet", self, extract::aliases);
 }
 
 // Set
 void
-PoPsAliasesSet(ConstHandle2PoPs This, ConstHandle2ConstAliases aliases)
+PoPsAliasesSet(ConstHandle2PoPs self, ConstHandle2ConstAliases aliases)
 {
    detail::setField<CPP,CPPAliases>
-      (CLASSNAME, CLASSNAME+"AliasesSet", This, extract::aliases, aliases);
+      (CLASSNAME, CLASSNAME+"AliasesSet", self, extract::aliases, aliases);
 }
 
 
@@ -321,34 +321,34 @@ PoPsAliasesSet(ConstHandle2PoPs This, ConstHandle2ConstAliases aliases)
 
 // Has
 int
-PoPsBaryonsHas(ConstHandle2ConstPoPs This)
+PoPsBaryonsHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BaryonsHas", This, extract::baryons);
+      (CLASSNAME, CLASSNAME+"BaryonsHas", self, extract::baryons);
 }
 
 // Get, const
 Handle2ConstBaryons
-PoPsBaryonsGetConst(ConstHandle2ConstPoPs This)
+PoPsBaryonsGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstBaryons>
-      (CLASSNAME, CLASSNAME+"BaryonsGetConst", This, extract::baryons);
+      (CLASSNAME, CLASSNAME+"BaryonsGetConst", self, extract::baryons);
 }
 
 // Get, non-const
 Handle2Baryons
-PoPsBaryonsGet(ConstHandle2PoPs This)
+PoPsBaryonsGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Baryons>
-      (CLASSNAME, CLASSNAME+"BaryonsGet", This, extract::baryons);
+      (CLASSNAME, CLASSNAME+"BaryonsGet", self, extract::baryons);
 }
 
 // Set
 void
-PoPsBaryonsSet(ConstHandle2PoPs This, ConstHandle2ConstBaryons baryons)
+PoPsBaryonsSet(ConstHandle2PoPs self, ConstHandle2ConstBaryons baryons)
 {
    detail::setField<CPP,CPPBaryons>
-      (CLASSNAME, CLASSNAME+"BaryonsSet", This, extract::baryons, baryons);
+      (CLASSNAME, CLASSNAME+"BaryonsSet", self, extract::baryons, baryons);
 }
 
 
@@ -358,34 +358,34 @@ PoPsBaryonsSet(ConstHandle2PoPs This, ConstHandle2ConstBaryons baryons)
 
 // Has
 int
-PoPsChemicalElementsHas(ConstHandle2ConstPoPs This)
+PoPsChemicalElementsHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", self, extract::chemicalElements);
 }
 
 // Get, const
 Handle2ConstChemicalElements
-PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This)
+PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", self, extract::chemicalElements);
 }
 
 // Get, non-const
 Handle2ChemicalElements
-PoPsChemicalElementsGet(ConstHandle2PoPs This)
+PoPsChemicalElementsGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2ChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", self, extract::chemicalElements);
 }
 
 // Set
 void
-PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements)
+PoPsChemicalElementsSet(ConstHandle2PoPs self, ConstHandle2ConstChemicalElements chemicalElements)
 {
    detail::setField<CPP,CPPChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", This, extract::chemicalElements, chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", self, extract::chemicalElements, chemicalElements);
 }
 
 
@@ -395,34 +395,34 @@ PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements
 
 // Has
 int
-PoPsStylesHas(ConstHandle2ConstPoPs This)
+PoPsStylesHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesHas", self, extract::styles);
 }
 
 // Get, const
 Handle2ConstStyles
-PoPsStylesGetConst(ConstHandle2ConstPoPs This)
+PoPsStylesGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstStyles>
-      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
 // Get, non-const
 Handle2Styles
-PoPsStylesGet(ConstHandle2PoPs This)
+PoPsStylesGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Styles>
-      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGet", self, extract::styles);
 }
 
 // Set
 void
-PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
+PoPsStylesSet(ConstHandle2PoPs self, ConstHandle2ConstStyles styles)
 {
    detail::setField<CPP,CPPStyles>
-      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
+      (CLASSNAME, CLASSNAME+"StylesSet", self, extract::styles, styles);
 }
 
 
@@ -432,34 +432,34 @@ PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
 
 // Has
 int
-PoPsUnorthodoxesHas(ConstHandle2ConstPoPs This)
+PoPsUnorthodoxesHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnorthodoxesHas", This, extract::unorthodoxes);
+      (CLASSNAME, CLASSNAME+"UnorthodoxesHas", self, extract::unorthodoxes);
 }
 
 // Get, const
 Handle2ConstUnorthodoxes
-PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs This)
+PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstUnorthodoxes>
-      (CLASSNAME, CLASSNAME+"UnorthodoxesGetConst", This, extract::unorthodoxes);
+      (CLASSNAME, CLASSNAME+"UnorthodoxesGetConst", self, extract::unorthodoxes);
 }
 
 // Get, non-const
 Handle2Unorthodoxes
-PoPsUnorthodoxesGet(ConstHandle2PoPs This)
+PoPsUnorthodoxesGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Unorthodoxes>
-      (CLASSNAME, CLASSNAME+"UnorthodoxesGet", This, extract::unorthodoxes);
+      (CLASSNAME, CLASSNAME+"UnorthodoxesGet", self, extract::unorthodoxes);
 }
 
 // Set
 void
-PoPsUnorthodoxesSet(ConstHandle2PoPs This, ConstHandle2ConstUnorthodoxes unorthodoxes)
+PoPsUnorthodoxesSet(ConstHandle2PoPs self, ConstHandle2ConstUnorthodoxes unorthodoxes)
 {
    detail::setField<CPP,CPPUnorthodoxes>
-      (CLASSNAME, CLASSNAME+"UnorthodoxesSet", This, extract::unorthodoxes, unorthodoxes);
+      (CLASSNAME, CLASSNAME+"UnorthodoxesSet", self, extract::unorthodoxes, unorthodoxes);
 }
 
 
@@ -469,34 +469,34 @@ PoPsUnorthodoxesSet(ConstHandle2PoPs This, ConstHandle2ConstUnorthodoxes unortho
 
 // Has
 int
-PoPsGaugeBosonsHas(ConstHandle2ConstPoPs This)
+PoPsGaugeBosonsHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GaugeBosonsHas", This, extract::gaugeBosons);
+      (CLASSNAME, CLASSNAME+"GaugeBosonsHas", self, extract::gaugeBosons);
 }
 
 // Get, const
 Handle2ConstGaugeBosons
-PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs This)
+PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstGaugeBosons>
-      (CLASSNAME, CLASSNAME+"GaugeBosonsGetConst", This, extract::gaugeBosons);
+      (CLASSNAME, CLASSNAME+"GaugeBosonsGetConst", self, extract::gaugeBosons);
 }
 
 // Get, non-const
 Handle2GaugeBosons
-PoPsGaugeBosonsGet(ConstHandle2PoPs This)
+PoPsGaugeBosonsGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2GaugeBosons>
-      (CLASSNAME, CLASSNAME+"GaugeBosonsGet", This, extract::gaugeBosons);
+      (CLASSNAME, CLASSNAME+"GaugeBosonsGet", self, extract::gaugeBosons);
 }
 
 // Set
 void
-PoPsGaugeBosonsSet(ConstHandle2PoPs This, ConstHandle2ConstGaugeBosons gaugeBosons)
+PoPsGaugeBosonsSet(ConstHandle2PoPs self, ConstHandle2ConstGaugeBosons gaugeBosons)
 {
    detail::setField<CPP,CPPGaugeBosons>
-      (CLASSNAME, CLASSNAME+"GaugeBosonsSet", This, extract::gaugeBosons, gaugeBosons);
+      (CLASSNAME, CLASSNAME+"GaugeBosonsSet", self, extract::gaugeBosons, gaugeBosons);
 }
 
 
@@ -506,34 +506,34 @@ PoPsGaugeBosonsSet(ConstHandle2PoPs This, ConstHandle2ConstGaugeBosons gaugeBoso
 
 // Has
 int
-PoPsLeptonsHas(ConstHandle2ConstPoPs This)
+PoPsLeptonsHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LeptonsHas", This, extract::leptons);
+      (CLASSNAME, CLASSNAME+"LeptonsHas", self, extract::leptons);
 }
 
 // Get, const
 Handle2ConstLeptons
-PoPsLeptonsGetConst(ConstHandle2ConstPoPs This)
+PoPsLeptonsGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstLeptons>
-      (CLASSNAME, CLASSNAME+"LeptonsGetConst", This, extract::leptons);
+      (CLASSNAME, CLASSNAME+"LeptonsGetConst", self, extract::leptons);
 }
 
 // Get, non-const
 Handle2Leptons
-PoPsLeptonsGet(ConstHandle2PoPs This)
+PoPsLeptonsGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Leptons>
-      (CLASSNAME, CLASSNAME+"LeptonsGet", This, extract::leptons);
+      (CLASSNAME, CLASSNAME+"LeptonsGet", self, extract::leptons);
 }
 
 // Set
 void
-PoPsLeptonsSet(ConstHandle2PoPs This, ConstHandle2ConstLeptons leptons)
+PoPsLeptonsSet(ConstHandle2PoPs self, ConstHandle2ConstLeptons leptons)
 {
    detail::setField<CPP,CPPLeptons>
-      (CLASSNAME, CLASSNAME+"LeptonsSet", This, extract::leptons, leptons);
+      (CLASSNAME, CLASSNAME+"LeptonsSet", self, extract::leptons, leptons);
 }
 
 

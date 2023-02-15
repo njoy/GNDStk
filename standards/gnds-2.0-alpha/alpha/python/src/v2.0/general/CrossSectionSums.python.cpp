@@ -43,7 +43,7 @@ void wrapCrossSectionSums(py::module &module)
    // get/set crossSectionSum
    object.def_property(
       "cross_section_sum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSectionSum();
       },

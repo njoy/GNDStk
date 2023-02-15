@@ -47,7 +47,7 @@ void wrapYields(py::module &module)
    // get/set nuclides
    object.def_property(
       "nuclides",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclides();
       },
@@ -61,7 +61,7 @@ void wrapYields(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },
@@ -75,7 +75,7 @@ void wrapYields(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

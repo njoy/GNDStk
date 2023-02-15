@@ -43,7 +43,7 @@ void wrapDecayModes(py::module &module)
    // get/set decayMode
    object.def_property(
       "decay_mode",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decayMode();
       },

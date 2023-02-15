@@ -49,7 +49,7 @@ void wrapJ(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapJ(py::module &module)
    // get/set value
    object.def_property(
       "value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.value();
       },
@@ -77,7 +77,7 @@ void wrapJ(py::module &module)
    // get/set levelSpacing
    object.def_property(
       "level_spacing",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.levelSpacing();
       },
@@ -91,7 +91,7 @@ void wrapJ(py::module &module)
    // get/set widths
    object.def_property(
       "widths",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.widths();
       },

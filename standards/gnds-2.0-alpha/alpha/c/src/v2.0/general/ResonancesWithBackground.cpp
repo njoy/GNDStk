@@ -86,20 +86,20 @@ ResonancesWithBackgroundCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResonancesWithBackgroundAssign(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesWithBackground from)
+ResonancesWithBackgroundAssign(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstResonancesWithBackground from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -113,44 +113,44 @@ ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResonancesWithBackgroundRead(ConstHandle2ResonancesWithBackground This, const char *const filename)
+ResonancesWithBackgroundRead(ConstHandle2ResonancesWithBackground self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResonancesWithBackgroundWrite(ConstHandle2ConstResonancesWithBackground This, const char *const filename)
+ResonancesWithBackgroundWrite(ConstHandle2ConstResonancesWithBackground self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResonancesWithBackgroundPrint(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundPrint(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResonancesWithBackgroundPrintXML(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundPrintXML(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,27 +160,27 @@ ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground This
 
 // Has
 int
-ResonancesWithBackgroundLabelHas(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundLabelHas(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ResonancesWithBackgroundLabelGet(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundLabelGet(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, const char *const label)
+ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -190,34 +190,34 @@ ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, cons
 
 // Has
 int
-ResonancesWithBackgroundResonancesHas(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundResonancesHas(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonancesHas", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesHas", self, extract::resonances);
 }
 
 // Get, const
 Handle2ConstResonances
-ResonancesWithBackgroundResonancesGetConst(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundResonancesGetConst(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2ConstResonances>
-      (CLASSNAME, CLASSNAME+"ResonancesGetConst", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesGetConst", self, extract::resonances);
 }
 
 // Get, non-const
 Handle2Resonances
-ResonancesWithBackgroundResonancesGet(ConstHandle2ResonancesWithBackground This)
+ResonancesWithBackgroundResonancesGet(ConstHandle2ResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2Resonances>
-      (CLASSNAME, CLASSNAME+"ResonancesGet", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesGet", self, extract::resonances);
 }
 
 // Set
 void
-ResonancesWithBackgroundResonancesSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonances resonances)
+ResonancesWithBackgroundResonancesSet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstResonances resonances)
 {
    detail::setField<CPP,CPPResonances>
-      (CLASSNAME, CLASSNAME+"ResonancesSet", This, extract::resonances, resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesSet", self, extract::resonances, resonances);
 }
 
 
@@ -227,34 +227,34 @@ ResonancesWithBackgroundResonancesSet(ConstHandle2ResonancesWithBackground This,
 
 // Has
 int
-ResonancesWithBackgroundBackgroundHas(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundBackgroundHas(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BackgroundHas", This, extract::background);
+      (CLASSNAME, CLASSNAME+"BackgroundHas", self, extract::background);
 }
 
 // Get, const
 Handle2ConstBackground
-ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2ConstBackground>
-      (CLASSNAME, CLASSNAME+"BackgroundGetConst", This, extract::background);
+      (CLASSNAME, CLASSNAME+"BackgroundGetConst", self, extract::background);
 }
 
 // Get, non-const
 Handle2Background
-ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground This)
+ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2Background>
-      (CLASSNAME, CLASSNAME+"BackgroundGet", This, extract::background);
+      (CLASSNAME, CLASSNAME+"BackgroundGet", self, extract::background);
 }
 
 // Set
 void
-ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstBackground background)
+ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstBackground background)
 {
    detail::setField<CPP,CPPBackground>
-      (CLASSNAME, CLASSNAME+"BackgroundSet", This, extract::background, background);
+      (CLASSNAME, CLASSNAME+"BackgroundSet", self, extract::background, background);
 }
 
 
@@ -264,34 +264,34 @@ ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground This,
 
 // Has
 int
-ResonancesWithBackgroundUncertaintyHas(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundUncertaintyHas(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackground This)
+ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground This)
+ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstUncertainty uncertainty)
+ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

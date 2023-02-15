@@ -73,20 +73,20 @@ JsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-JsAssign(ConstHandle2Js This, ConstHandle2ConstJs from)
+JsAssign(ConstHandle2Js self, ConstHandle2ConstJs from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-JsDelete(ConstHandle2ConstJs This)
+JsDelete(ConstHandle2ConstJs self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ JsDelete(ConstHandle2ConstJs This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-JsRead(ConstHandle2Js This, const char *const filename)
+JsRead(ConstHandle2Js self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-JsWrite(ConstHandle2ConstJs This, const char *const filename)
+JsWrite(ConstHandle2ConstJs self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-JsPrint(ConstHandle2ConstJs This)
+JsPrint(ConstHandle2ConstJs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-JsPrintXML(ConstHandle2ConstJs This)
+JsPrintXML(ConstHandle2ConstJs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-JsPrintJSON(ConstHandle2ConstJs This)
+JsPrintJSON(ConstHandle2ConstJs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ JsPrintJSON(ConstHandle2ConstJs This)
 
 // Has
 int
-JsJHas(ConstHandle2ConstJs This)
+JsJHas(ConstHandle2ConstJs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"JHas", This, extract::J);
+      (CLASSNAME, CLASSNAME+"JHas", self, extract::J);
 }
 
 // Clear
 void
-JsJClear(ConstHandle2Js This)
+JsJClear(ConstHandle2Js self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"JClear", This, extract::J);
+      (CLASSNAME, CLASSNAME+"JClear", self, extract::J);
 }
 
 // Size
 size_t
-JsJSize(ConstHandle2ConstJs This)
+JsJSize(ConstHandle2ConstJs self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"JSize", This, extract::J);
+      (CLASSNAME, CLASSNAME+"JSize", self, extract::J);
 }
 
 // Add
 void
-JsJAdd(ConstHandle2Js This, ConstHandle2ConstJ J)
+JsJAdd(ConstHandle2Js self, ConstHandle2ConstJ J)
 {
    detail::addToContainer<CPP,CPPJ>
-      (CLASSNAME, CLASSNAME+"JAdd", This, extract::J, J);
+      (CLASSNAME, CLASSNAME+"JAdd", self, extract::J, J);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstJ
-JsJGetConst(ConstHandle2ConstJs This, const size_t index_)
+JsJGetConst(ConstHandle2ConstJs self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstJ>
-      (CLASSNAME, CLASSNAME+"JGetConst", This, extract::J, index_);
+      (CLASSNAME, CLASSNAME+"JGetConst", self, extract::J, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2J
-JsJGet(ConstHandle2Js This, const size_t index_)
+JsJGet(ConstHandle2Js self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2J>
-      (CLASSNAME, CLASSNAME+"JGet", This, extract::J, index_);
+      (CLASSNAME, CLASSNAME+"JGet", self, extract::J, index_);
 }
 
 // Set, by index \in [0,size)
 void
 JsJSet(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const size_t index_,
    ConstHandle2ConstJ J
 ) {
    detail::setByIndex<CPP,CPPJ>
-      (CLASSNAME, CLASSNAME+"JSet", This, extract::J, index_, J);
+      (CLASSNAME, CLASSNAME+"JSet", self, extract::J, index_, J);
 }
 
 // Has, by label
 int
 JsJHasByLabel(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"JHasByLabel",
-       This, extract::J, meta::label, label);
+       self, extract::J, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstJ
 JsJGetByLabelConst(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstJ>
       (CLASSNAME, CLASSNAME+"JGetByLabelConst",
-       This, extract::J, meta::label, label);
+       self, extract::J, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2J
 JsJGetByLabel(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2J>
       (CLASSNAME, CLASSNAME+"JGetByLabel",
-       This, extract::J, meta::label, label);
+       self, extract::J, meta::label, label);
 }
 
 // Set, by label
 void
 JsJSetByLabel(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const char *const label,
    ConstHandle2ConstJ J
 ) {
    detail::setByMetadatum<CPP,CPPJ>
       (CLASSNAME, CLASSNAME+"JSetByLabel",
-       This, extract::J, meta::label, label, J);
+       self, extract::J, meta::label, label, J);
 }
 
 // Has, by value
 int
 JsJHasByValue(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const int value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"JHasByValue",
-       This, extract::J, meta::value, value);
+       self, extract::J, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstJ
 JsJGetByValueConst(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const int value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstJ>
       (CLASSNAME, CLASSNAME+"JGetByValueConst",
-       This, extract::J, meta::value, value);
+       self, extract::J, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2J
 JsJGetByValue(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const int value
 ) {
    return detail::getByMetadatum<CPP,Handle2J>
       (CLASSNAME, CLASSNAME+"JGetByValue",
-       This, extract::J, meta::value, value);
+       self, extract::J, meta::value, value);
 }
 
 // Set, by value
 void
 JsJSetByValue(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const int value,
    ConstHandle2ConstJ J
 ) {
    detail::setByMetadatum<CPP,CPPJ>
       (CLASSNAME, CLASSNAME+"JSetByValue",
-       This, extract::J, meta::value, value, J);
+       self, extract::J, meta::value, value, J);
 }
 
 

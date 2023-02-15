@@ -90,13 +90,13 @@ ProductionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductionsAssign(ConstHandle2Productions This, ConstHandle2ConstProductions from);
+ProductionsAssign(ConstHandle2Productions self, ConstHandle2ConstProductions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductionsDelete(ConstHandle2ConstProductions This);
+ProductionsDelete(ConstHandle2ConstProductions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ProductionsDelete(ConstHandle2ConstProductions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductionsRead(ConstHandle2Productions This, const char *const filename);
+ProductionsRead(ConstHandle2Productions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductionsWrite(ConstHandle2ConstProductions This, const char *const filename);
+ProductionsWrite(ConstHandle2ConstProductions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductionsPrint(ConstHandle2ConstProductions This);
+ProductionsPrint(ConstHandle2ConstProductions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductionsPrintXML(ConstHandle2ConstProductions This);
+ProductionsPrintXML(ConstHandle2ConstProductions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductionsPrintJSON(ConstHandle2ConstProductions This);
+ProductionsPrintJSON(ConstHandle2ConstProductions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ProductionsPrintJSON(ConstHandle2ConstProductions This);
 
 // +++ Has
 extern_c int
-ProductionsProductionHas(ConstHandle2ConstProductions This);
+ProductionsProductionHas(ConstHandle2ConstProductions self);
 
 // +++ Clear
 extern_c void
-ProductionsProductionClear(ConstHandle2Productions This);
+ProductionsProductionClear(ConstHandle2Productions self);
 
 // +++ Size
 extern_c size_t
-ProductionsProductionSize(ConstHandle2ConstProductions This);
+ProductionsProductionSize(ConstHandle2ConstProductions self);
 
 // +++ Add
 extern_c void
-ProductionsProductionAdd(ConstHandle2Productions This, ConstHandle2ConstProduction production);
+ProductionsProductionAdd(ConstHandle2Productions self, ConstHandle2ConstProduction production);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstProduction
-ProductionsProductionGetConst(ConstHandle2ConstProductions This, const size_t index_);
+ProductionsProductionGetConst(ConstHandle2ConstProductions self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Production
-ProductionsProductionGet(ConstHandle2Productions This, const size_t index_);
+ProductionsProductionGet(ConstHandle2Productions self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ProductionsProductionSet(
-   ConstHandle2Productions This,
+   ConstHandle2Productions self,
    const size_t index_,
    ConstHandle2ConstProduction production
 );
@@ -169,28 +169,28 @@ ProductionsProductionSet(
 // +++ Has, by label
 extern_c int
 ProductionsProductionHasByLabel(
-   ConstHandle2ConstProductions This,
+   ConstHandle2ConstProductions self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstProduction
 ProductionsProductionGetByLabelConst(
-   ConstHandle2ConstProductions This,
+   ConstHandle2ConstProductions self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Production
 ProductionsProductionGetByLabel(
-   ConstHandle2Productions This,
+   ConstHandle2Productions self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 ProductionsProductionSetByLabel(
-   ConstHandle2Productions This,
+   ConstHandle2Productions self,
    const char *const label,
    ConstHandle2ConstProduction production
 );
@@ -198,28 +198,28 @@ ProductionsProductionSetByLabel(
 // +++ Has, by ENDF_MT
 extern_c int
 ProductionsProductionHasByENDFMT(
-   ConstHandle2ConstProductions This,
+   ConstHandle2ConstProductions self,
    const int ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstProduction
 ProductionsProductionGetByENDFMTConst(
-   ConstHandle2ConstProductions This,
+   ConstHandle2ConstProductions self,
    const int ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2Production
 ProductionsProductionGetByENDFMT(
-   ConstHandle2Productions This,
+   ConstHandle2Productions self,
    const int ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 ProductionsProductionSetByENDFMT(
-   ConstHandle2Productions This,
+   ConstHandle2Productions self,
    const int ENDF_MT,
    ConstHandle2ConstProduction production
 );

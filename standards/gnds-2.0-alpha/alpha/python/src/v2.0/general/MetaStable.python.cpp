@@ -47,7 +47,7 @@ void wrapMetaStable(py::module &module)
    // get/set id
    object.def_property(
       "id",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.id();
       },
@@ -61,7 +61,7 @@ void wrapMetaStable(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -75,7 +75,7 @@ void wrapMetaStable(py::module &module)
    // get/set metaStableIndex
    object.def_property(
       "meta_stable_index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.metaStableIndex();
       },

@@ -96,13 +96,13 @@ GeneralEvaporationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GeneralEvaporationAssign(ConstHandle2GeneralEvaporation This, ConstHandle2ConstGeneralEvaporation from);
+GeneralEvaporationAssign(ConstHandle2GeneralEvaporation self, ConstHandle2ConstGeneralEvaporation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GeneralEvaporationRead(ConstHandle2GeneralEvaporation This, const char *const filename);
+GeneralEvaporationRead(ConstHandle2GeneralEvaporation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GeneralEvaporationWrite(ConstHandle2ConstGeneralEvaporation This, const char *const filename);
+GeneralEvaporationWrite(ConstHandle2ConstGeneralEvaporation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GeneralEvaporationPrint(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationPrint(ConstHandle2ConstGeneralEvaporation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GeneralEvaporationPrintXML(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationPrintXML(ConstHandle2ConstGeneralEvaporation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation This);
 
 // +++ Has
 extern_c int
-GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation self);
 
 // --- Get, const
 extern_c Handle2ConstU
-GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation self);
 
 // +++ Get, non-const
 extern_c Handle2U
-GeneralEvaporationUGet(ConstHandle2GeneralEvaporation This);
+GeneralEvaporationUGet(ConstHandle2GeneralEvaporation self);
 
 // +++ Set
 extern_c void
-GeneralEvaporationUSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstU U);
+GeneralEvaporationUSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstU U);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ GeneralEvaporationUSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstU U
 
 // +++ Has
 extern_c int
-GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation self);
 
 // --- Get, const
 extern_c Handle2ConstTheta
-GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation self);
 
 // +++ Get, non-const
 extern_c Handle2Theta
-GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation This);
+GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation self);
 
 // +++ Set
 extern_c void
-GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstTheta theta);
+GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstTheta theta);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation This, ConstHandle2Cons
 
 // +++ Has
 extern_c int
-GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation self);
 
 // --- Get, const
 extern_c Handle2ConstG
-GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation This);
+GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation self);
 
 // +++ Get, non-const
 extern_c Handle2G
-GeneralEvaporationGGet(ConstHandle2GeneralEvaporation This);
+GeneralEvaporationGGet(ConstHandle2GeneralEvaporation self);
 
 // +++ Set
 extern_c void
-GeneralEvaporationGSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstG g);
+GeneralEvaporationGSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstG g);
 
 
 // -----------------------------------------------------------------------------

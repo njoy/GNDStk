@@ -94,13 +94,13 @@ ENDFconversionFlagsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstENDFconversionFlags from);
+ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstENDFconversionFlags from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags This, const char *const filename);
+ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags This, const char *const filename);
+ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This);
 
 // +++ Has
 extern_c int
-ENDFconversionFlagsFlagsHas(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsFlagsHas(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ENDFconversionFlagsFlagsGet(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsFlagsGet(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Set
 extern_c void
-ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags This, const char *const flags);
+ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags self, const char *const flags);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags This, const char *co
 
 // +++ Has
 extern_c int
-ENDFconversionFlagsHrefHas(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsHrefHas(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ENDFconversionFlagsHrefGet(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsHrefGet(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Set
 extern_c void
-ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags This, const char *const href);
+ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -176,32 +176,32 @@ ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags This, const char *con
 
 // +++ Has
 extern_c int
-ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Clear
 extern_c void
-ENDFconversionFlagsConversionClear(ConstHandle2ENDFconversionFlags This);
+ENDFconversionFlagsConversionClear(ConstHandle2ENDFconversionFlags self);
 
 // +++ Size
 extern_c size_t
-ENDFconversionFlagsConversionSize(ConstHandle2ConstENDFconversionFlags This);
+ENDFconversionFlagsConversionSize(ConstHandle2ConstENDFconversionFlags self);
 
 // +++ Add
 extern_c void
-ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstConversion conversion);
+ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstConversion conversion);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstConversion
-ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags This, const size_t index_);
+ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Conversion
-ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags This, const size_t index_);
+ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ENDFconversionFlagsConversionSet(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const size_t index_,
    ConstHandle2ConstConversion conversion
 );
@@ -209,28 +209,28 @@ ENDFconversionFlagsConversionSet(
 // +++ Has, by flags
 extern_c int
 ENDFconversionFlagsConversionHasByFlags(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const flags
 );
 
 // --- Get, by flags, const
 extern_c Handle2ConstConversion
 ENDFconversionFlagsConversionGetByFlagsConst(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const flags
 );
 
 // +++ Get, by flags, non-const
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByFlags(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const flags
 );
 
 // +++ Set, by flags
 extern_c void
 ENDFconversionFlagsConversionSetByFlags(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const flags,
    ConstHandle2ConstConversion conversion
 );
@@ -238,28 +238,28 @@ ENDFconversionFlagsConversionSetByFlags(
 // +++ Has, by href
 extern_c int
 ENDFconversionFlagsConversionHasByHref(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstConversion
 ENDFconversionFlagsConversionGetByHrefConst(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByHref(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const href
 );
 
 // +++ Set, by href
 extern_c void
 ENDFconversionFlagsConversionSetByHref(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const href,
    ConstHandle2ConstConversion conversion
 );

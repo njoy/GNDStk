@@ -53,7 +53,7 @@ void wrapProduct(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapProduct(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -81,7 +81,7 @@ void wrapProduct(py::module &module)
    // get/set multiplicity
    object.def_property(
       "multiplicity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.multiplicity();
       },
@@ -95,7 +95,7 @@ void wrapProduct(py::module &module)
    // get/set distribution
    object.def_property(
       "distribution",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.distribution();
       },
@@ -109,7 +109,7 @@ void wrapProduct(py::module &module)
    // get/set outputChannel
    object.def_property(
       "output_channel",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outputChannel();
       },
@@ -123,7 +123,7 @@ void wrapProduct(py::module &module)
    // get/set averageProductEnergy
    object.def_property(
       "average_product_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.averageProductEnergy();
       },

@@ -45,7 +45,7 @@ void wrapGridded2d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -59,7 +59,7 @@ void wrapGridded2d(py::module &module)
    // get/set array
    object.def_property(
       "array",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.array();
       },

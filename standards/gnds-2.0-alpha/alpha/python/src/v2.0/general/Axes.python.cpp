@@ -45,7 +45,7 @@ void wrapAxes(py::module &module)
    // get/set axis
    object.def_property(
       "axis",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axis();
       },
@@ -59,7 +59,7 @@ void wrapAxes(py::module &module)
    // get/set grid
    object.def_property(
       "grid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.grid();
       },

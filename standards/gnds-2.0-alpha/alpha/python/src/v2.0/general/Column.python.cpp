@@ -47,7 +47,7 @@ void wrapColumn(py::module &module)
    // get/set index
    object.def_property(
       "index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.index();
       },
@@ -61,7 +61,7 @@ void wrapColumn(py::module &module)
    // get/set name
    object.def_property(
       "name",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.name();
       },
@@ -75,7 +75,7 @@ void wrapColumn(py::module &module)
    // get/set unit
    object.def_property(
       "unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unit();
       },

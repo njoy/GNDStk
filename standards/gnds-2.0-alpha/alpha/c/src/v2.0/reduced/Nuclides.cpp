@@ -67,20 +67,20 @@ NuclidesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from)
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclidesDelete(ConstHandle2ConstNuclides This)
+NuclidesDelete(ConstHandle2ConstNuclides self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ NuclidesDelete(ConstHandle2ConstNuclides This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename)
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename)
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclidesPrint(ConstHandle2ConstNuclides This)
+NuclidesPrint(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclidesPrintXML(ConstHandle2ConstNuclides This)
+NuclidesPrintXML(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This)
+NuclidesPrintJSON(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,60 +141,60 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This)
 
 // Clear
 void
-NuclidesStd::stringsClear(ConstHandle2Nuclides This)
+NuclidesStd::stringsClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"Std::stringsClear", This);
+      (CLASSNAME, CLASSNAME+"Std::stringsClear", self);
 }
 
 // Get size
 size_t
-NuclidesStd::stringsSize(ConstHandle2ConstNuclides This)
+NuclidesStd::stringsSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"Std::stringsSize", This);
+      (CLASSNAME, CLASSNAME+"Std::stringsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 std::string
-NuclidesStd::stringsGet(ConstHandle2ConstNuclides This, const size_t index)
+NuclidesStd::stringsGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGet", This, index);
+      (CLASSNAME, CLASSNAME+"Std::stringsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesStd::stringsSet(ConstHandle2Nuclides This, const size_t index, const std::string value)
+NuclidesStd::stringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value)
 {
    detail::vectorSet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"Std::stringsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const std::string *
-NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides This)
+NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"Std::stringsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 std::string *
-NuclidesStd::stringsGetArray(ConstHandle2Nuclides This)
+NuclidesStd::stringsGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGetArray", This);
+      (CLASSNAME, CLASSNAME+"Std::stringsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesStd::stringsSetArray(ConstHandle2Nuclides This, const std::string *const values, const size_t size)
+NuclidesStd::stringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size)
 {
    return detail::vectorSet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"Std::stringsSetArray", self, size, values);
 }
 
 
@@ -204,27 +204,27 @@ NuclidesStd::stringsSetArray(ConstHandle2Nuclides This, const std::string *const
 
 // Has
 int
-NuclidesHrefHas(ConstHandle2ConstNuclides This)
+NuclidesHrefHas(ConstHandle2ConstNuclides self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-NuclidesHrefGet(ConstHandle2ConstNuclides This)
+NuclidesHrefGet(ConstHandle2ConstNuclides self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-NuclidesHrefSet(ConstHandle2Nuclides This, const char *const href)
+NuclidesHrefSet(ConstHandle2Nuclides self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

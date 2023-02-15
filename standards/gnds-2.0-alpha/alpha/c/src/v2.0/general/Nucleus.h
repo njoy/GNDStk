@@ -112,13 +112,13 @@ NucleusCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NucleusAssign(ConstHandle2Nucleus This, ConstHandle2ConstNucleus from);
+NucleusAssign(ConstHandle2Nucleus self, ConstHandle2ConstNucleus from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NucleusDelete(ConstHandle2ConstNucleus This);
+NucleusDelete(ConstHandle2ConstNucleus self);
 
 
 // -----------------------------------------------------------------------------
@@ -131,25 +131,25 @@ NucleusDelete(ConstHandle2ConstNucleus This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NucleusRead(ConstHandle2Nucleus This, const char *const filename);
+NucleusRead(ConstHandle2Nucleus self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NucleusWrite(ConstHandle2ConstNucleus This, const char *const filename);
+NucleusWrite(ConstHandle2ConstNucleus self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NucleusPrint(ConstHandle2ConstNucleus This);
+NucleusPrint(ConstHandle2ConstNucleus self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NucleusPrintXML(ConstHandle2ConstNucleus This);
+NucleusPrintXML(ConstHandle2ConstNucleus self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NucleusPrintJSON(ConstHandle2ConstNucleus This);
+NucleusPrintJSON(ConstHandle2ConstNucleus self);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ NucleusPrintJSON(ConstHandle2ConstNucleus This);
 
 // +++ Has
 extern_c int
-NucleusIdHas(ConstHandle2ConstNucleus This);
+NucleusIdHas(ConstHandle2ConstNucleus self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-NucleusIdGet(ConstHandle2ConstNucleus This);
+NucleusIdGet(ConstHandle2ConstNucleus self);
 
 // +++ Set
 extern_c void
-NucleusIdSet(ConstHandle2Nucleus This, const char *const id);
+NucleusIdSet(ConstHandle2Nucleus self, const char *const id);
 
 
 // -----------------------------------------------------------------------------
@@ -176,16 +176,16 @@ NucleusIdSet(ConstHandle2Nucleus This, const char *const id);
 
 // +++ Has
 extern_c int
-NucleusIndexHas(ConstHandle2ConstNucleus This);
+NucleusIndexHas(ConstHandle2ConstNucleus self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-NucleusIndexGet(ConstHandle2ConstNucleus This);
+NucleusIndexGet(ConstHandle2ConstNucleus self);
 
 // +++ Set
 extern_c void
-NucleusIndexSet(ConstHandle2Nucleus This, const int index);
+NucleusIndexSet(ConstHandle2Nucleus self, const int index);
 
 
 // -----------------------------------------------------------------------------
@@ -194,19 +194,19 @@ NucleusIndexSet(ConstHandle2Nucleus This, const int index);
 
 // +++ Has
 extern_c int
-NucleusMassHas(ConstHandle2ConstNucleus This);
+NucleusMassHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-NucleusMassGetConst(ConstHandle2ConstNucleus This);
+NucleusMassGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-NucleusMassGet(ConstHandle2Nucleus This);
+NucleusMassGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusMassSet(ConstHandle2Nucleus This, ConstHandle2ConstMass mass);
+NucleusMassSet(ConstHandle2Nucleus self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
@@ -215,19 +215,19 @@ NucleusMassSet(ConstHandle2Nucleus This, ConstHandle2ConstMass mass);
 
 // +++ Has
 extern_c int
-NucleusSpinHas(ConstHandle2ConstNucleus This);
+NucleusSpinHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstSpin
-NucleusSpinGetConst(ConstHandle2ConstNucleus This);
+NucleusSpinGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Spin
-NucleusSpinGet(ConstHandle2Nucleus This);
+NucleusSpinGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusSpinSet(ConstHandle2Nucleus This, ConstHandle2ConstSpin spin);
+NucleusSpinSet(ConstHandle2Nucleus self, ConstHandle2ConstSpin spin);
 
 
 // -----------------------------------------------------------------------------
@@ -236,19 +236,19 @@ NucleusSpinSet(ConstHandle2Nucleus This, ConstHandle2ConstSpin spin);
 
 // +++ Has
 extern_c int
-NucleusParityHas(ConstHandle2ConstNucleus This);
+NucleusParityHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstParity
-NucleusParityGetConst(ConstHandle2ConstNucleus This);
+NucleusParityGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Parity
-NucleusParityGet(ConstHandle2Nucleus This);
+NucleusParityGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusParitySet(ConstHandle2Nucleus This, ConstHandle2ConstParity parity);
+NucleusParitySet(ConstHandle2Nucleus self, ConstHandle2ConstParity parity);
 
 
 // -----------------------------------------------------------------------------
@@ -257,19 +257,19 @@ NucleusParitySet(ConstHandle2Nucleus This, ConstHandle2ConstParity parity);
 
 // +++ Has
 extern_c int
-NucleusChargeHas(ConstHandle2ConstNucleus This);
+NucleusChargeHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstCharge
-NucleusChargeGetConst(ConstHandle2ConstNucleus This);
+NucleusChargeGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Charge
-NucleusChargeGet(ConstHandle2Nucleus This);
+NucleusChargeGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusChargeSet(ConstHandle2Nucleus This, ConstHandle2ConstCharge charge);
+NucleusChargeSet(ConstHandle2Nucleus self, ConstHandle2ConstCharge charge);
 
 
 // -----------------------------------------------------------------------------
@@ -278,19 +278,19 @@ NucleusChargeSet(ConstHandle2Nucleus This, ConstHandle2ConstCharge charge);
 
 // +++ Has
 extern_c int
-NucleusHalflifeHas(ConstHandle2ConstNucleus This);
+NucleusHalflifeHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstHalflife
-NucleusHalflifeGetConst(ConstHandle2ConstNucleus This);
+NucleusHalflifeGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Halflife
-NucleusHalflifeGet(ConstHandle2Nucleus This);
+NucleusHalflifeGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusHalflifeSet(ConstHandle2Nucleus This, ConstHandle2ConstHalflife halflife);
+NucleusHalflifeSet(ConstHandle2Nucleus self, ConstHandle2ConstHalflife halflife);
 
 
 // -----------------------------------------------------------------------------
@@ -299,19 +299,19 @@ NucleusHalflifeSet(ConstHandle2Nucleus This, ConstHandle2ConstHalflife halflife)
 
 // +++ Has
 extern_c int
-NucleusEnergyHas(ConstHandle2ConstNucleus This);
+NucleusEnergyHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstEnergy
-NucleusEnergyGetConst(ConstHandle2ConstNucleus This);
+NucleusEnergyGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2Energy
-NucleusEnergyGet(ConstHandle2Nucleus This);
+NucleusEnergyGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusEnergySet(ConstHandle2Nucleus This, ConstHandle2ConstEnergy energy);
+NucleusEnergySet(ConstHandle2Nucleus self, ConstHandle2ConstEnergy energy);
 
 
 // -----------------------------------------------------------------------------
@@ -320,19 +320,19 @@ NucleusEnergySet(ConstHandle2Nucleus This, ConstHandle2ConstEnergy energy);
 
 // +++ Has
 extern_c int
-NucleusDecayDataHas(ConstHandle2ConstNucleus This);
+NucleusDecayDataHas(ConstHandle2ConstNucleus self);
 
 // --- Get, const
 extern_c Handle2ConstDecayData
-NucleusDecayDataGetConst(ConstHandle2ConstNucleus This);
+NucleusDecayDataGetConst(ConstHandle2ConstNucleus self);
 
 // +++ Get, non-const
 extern_c Handle2DecayData
-NucleusDecayDataGet(ConstHandle2Nucleus This);
+NucleusDecayDataGet(ConstHandle2Nucleus self);
 
 // +++ Set
 extern_c void
-NucleusDecayDataSet(ConstHandle2Nucleus This, ConstHandle2ConstDecayData decayData);
+NucleusDecayDataSet(ConstHandle2Nucleus self, ConstHandle2ConstDecayData decayData);
 
 
 // -----------------------------------------------------------------------------

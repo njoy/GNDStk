@@ -90,13 +90,13 @@ RealAnomalousFactorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RealAnomalousFactorAssign(ConstHandle2RealAnomalousFactor This, ConstHandle2ConstRealAnomalousFactor from);
+RealAnomalousFactorAssign(ConstHandle2RealAnomalousFactor self, ConstHandle2ConstRealAnomalousFactor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RealAnomalousFactorRead(ConstHandle2RealAnomalousFactor This, const char *const filename);
+RealAnomalousFactorRead(ConstHandle2RealAnomalousFactor self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RealAnomalousFactorWrite(ConstHandle2ConstRealAnomalousFactor This, const char *const filename);
+RealAnomalousFactorWrite(ConstHandle2ConstRealAnomalousFactor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RealAnomalousFactorPrint(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorPrint(ConstHandle2ConstRealAnomalousFactor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RealAnomalousFactorPrintXML(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorPrintXML(ConstHandle2ConstRealAnomalousFactor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor This);
 
 // +++ Has
 extern_c int
-RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor This);
+RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor This);
+RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self);
 
 // +++ Set
 extern_c void
-RealAnomalousFactorXYs1dSet(ConstHandle2RealAnomalousFactor This, ConstHandle2ConstXYs1d XYs1d);
+RealAnomalousFactorXYs1dSet(ConstHandle2RealAnomalousFactor self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

@@ -49,7 +49,7 @@ void wrapMultiplicitySum(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapMultiplicitySum(py::module &module)
    // get/set ENDF_MT
    object.def_property(
       "endf_mt",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDF_MT();
       },
@@ -77,7 +77,7 @@ void wrapMultiplicitySum(py::module &module)
    // get/set multiplicity
    object.def_property(
       "multiplicity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.multiplicity();
       },
@@ -91,7 +91,7 @@ void wrapMultiplicitySum(py::module &module)
    // get/set summands
    object.def_property(
       "summands",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.summands();
       },

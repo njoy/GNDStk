@@ -43,7 +43,7 @@ void wrapSpectra(py::module &module)
    // get/set spectrum
    object.def_property(
       "spectrum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spectrum();
       },

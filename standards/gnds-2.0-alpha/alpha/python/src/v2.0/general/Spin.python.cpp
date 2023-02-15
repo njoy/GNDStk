@@ -43,7 +43,7 @@ void wrapSpin(py::module &module)
    // get/set fraction
    object.def_property(
       "fraction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fraction();
       },

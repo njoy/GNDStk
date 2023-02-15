@@ -73,20 +73,20 @@ ChemicalElementsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChemicalElementsAssign(ConstHandle2ChemicalElements This, ConstHandle2ConstChemicalElements from)
+ChemicalElementsAssign(ConstHandle2ChemicalElements self, ConstHandle2ConstChemicalElements from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChemicalElementsDelete(ConstHandle2ConstChemicalElements This)
+ChemicalElementsDelete(ConstHandle2ConstChemicalElements self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ChemicalElementsDelete(ConstHandle2ConstChemicalElements This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChemicalElementsRead(ConstHandle2ChemicalElements This, const char *const filename)
+ChemicalElementsRead(ConstHandle2ChemicalElements self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChemicalElementsWrite(ConstHandle2ConstChemicalElements This, const char *const filename)
+ChemicalElementsWrite(ConstHandle2ConstChemicalElements self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChemicalElementsPrint(ConstHandle2ConstChemicalElements This)
+ChemicalElementsPrint(ConstHandle2ConstChemicalElements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChemicalElementsPrintXML(ConstHandle2ConstChemicalElements This)
+ChemicalElementsPrintXML(ConstHandle2ConstChemicalElements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChemicalElementsPrintJSON(ConstHandle2ConstChemicalElements This)
+ChemicalElementsPrintJSON(ConstHandle2ConstChemicalElements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ ChemicalElementsPrintJSON(ConstHandle2ConstChemicalElements This)
 
 // Has
 int
-ChemicalElementsChemicalElementHas(ConstHandle2ConstChemicalElements This)
+ChemicalElementsChemicalElementHas(ConstHandle2ConstChemicalElements self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementHas", This, extract::chemicalElement);
+      (CLASSNAME, CLASSNAME+"ChemicalElementHas", self, extract::chemicalElement);
 }
 
 // Clear
 void
-ChemicalElementsChemicalElementClear(ConstHandle2ChemicalElements This)
+ChemicalElementsChemicalElementClear(ConstHandle2ChemicalElements self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementClear", This, extract::chemicalElement);
+      (CLASSNAME, CLASSNAME+"ChemicalElementClear", self, extract::chemicalElement);
 }
 
 // Size
 size_t
-ChemicalElementsChemicalElementSize(ConstHandle2ConstChemicalElements This)
+ChemicalElementsChemicalElementSize(ConstHandle2ConstChemicalElements self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementSize", This, extract::chemicalElement);
+      (CLASSNAME, CLASSNAME+"ChemicalElementSize", self, extract::chemicalElement);
 }
 
 // Add
 void
-ChemicalElementsChemicalElementAdd(ConstHandle2ChemicalElements This, ConstHandle2ConstChemicalElement chemicalElement)
+ChemicalElementsChemicalElementAdd(ConstHandle2ChemicalElements self, ConstHandle2ConstChemicalElement chemicalElement)
 {
    detail::addToContainer<CPP,CPPChemicalElement>
-      (CLASSNAME, CLASSNAME+"ChemicalElementAdd", This, extract::chemicalElement, chemicalElement);
+      (CLASSNAME, CLASSNAME+"ChemicalElementAdd", self, extract::chemicalElement, chemicalElement);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstChemicalElement
-ChemicalElementsChemicalElementGetConst(ConstHandle2ConstChemicalElements This, const size_t index_)
+ChemicalElementsChemicalElementGetConst(ConstHandle2ConstChemicalElements self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstChemicalElement>
-      (CLASSNAME, CLASSNAME+"ChemicalElementGetConst", This, extract::chemicalElement, index_);
+      (CLASSNAME, CLASSNAME+"ChemicalElementGetConst", self, extract::chemicalElement, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2ChemicalElement
-ChemicalElementsChemicalElementGet(ConstHandle2ChemicalElements This, const size_t index_)
+ChemicalElementsChemicalElementGet(ConstHandle2ChemicalElements self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ChemicalElement>
-      (CLASSNAME, CLASSNAME+"ChemicalElementGet", This, extract::chemicalElement, index_);
+      (CLASSNAME, CLASSNAME+"ChemicalElementGet", self, extract::chemicalElement, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ChemicalElementsChemicalElementSet(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const size_t index_,
    ConstHandle2ConstChemicalElement chemicalElement
 ) {
    detail::setByIndex<CPP,CPPChemicalElement>
-      (CLASSNAME, CLASSNAME+"ChemicalElementSet", This, extract::chemicalElement, index_, chemicalElement);
+      (CLASSNAME, CLASSNAME+"ChemicalElementSet", self, extract::chemicalElement, index_, chemicalElement);
 }
 
 // Has, by symbol
 int
 ChemicalElementsChemicalElementHasBySymbol(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const char *const symbol
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChemicalElementHasBySymbol",
-       This, extract::chemicalElement, meta::symbol, symbol);
+       self, extract::chemicalElement, meta::symbol, symbol);
 }
 
 // Get, by symbol, const
 Handle2ConstChemicalElement
 ChemicalElementsChemicalElementGetBySymbolConst(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetBySymbolConst",
-       This, extract::chemicalElement, meta::symbol, symbol);
+       self, extract::chemicalElement, meta::symbol, symbol);
 }
 
 // Get, by symbol, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetBySymbol(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2ChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetBySymbol",
-       This, extract::chemicalElement, meta::symbol, symbol);
+       self, extract::chemicalElement, meta::symbol, symbol);
 }
 
 // Set, by symbol
 void
 ChemicalElementsChemicalElementSetBySymbol(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const char *const symbol,
    ConstHandle2ConstChemicalElement chemicalElement
 ) {
    detail::setByMetadatum<CPP,CPPChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementSetBySymbol",
-       This, extract::chemicalElement, meta::symbol, symbol, chemicalElement);
+       self, extract::chemicalElement, meta::symbol, symbol, chemicalElement);
 }
 
 // Has, by Z
 int
 ChemicalElementsChemicalElementHasByZ(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const int Z
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChemicalElementHasByZ",
-       This, extract::chemicalElement, meta::Z, Z);
+       self, extract::chemicalElement, meta::Z, Z);
 }
 
 // Get, by Z, const
 Handle2ConstChemicalElement
 ChemicalElementsChemicalElementGetByZConst(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const int Z
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetByZConst",
-       This, extract::chemicalElement, meta::Z, Z);
+       self, extract::chemicalElement, meta::Z, Z);
 }
 
 // Get, by Z, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByZ(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const int Z
 ) {
    return detail::getByMetadatum<CPP,Handle2ChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetByZ",
-       This, extract::chemicalElement, meta::Z, Z);
+       self, extract::chemicalElement, meta::Z, Z);
 }
 
 // Set, by Z
 void
 ChemicalElementsChemicalElementSetByZ(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const int Z,
    ConstHandle2ConstChemicalElement chemicalElement
 ) {
    detail::setByMetadatum<CPP,CPPChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementSetByZ",
-       This, extract::chemicalElement, meta::Z, Z, chemicalElement);
+       self, extract::chemicalElement, meta::Z, Z, chemicalElement);
 }
 
 // Has, by name
 int
 ChemicalElementsChemicalElementHasByName(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const char *const name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChemicalElementHasByName",
-       This, extract::chemicalElement, meta::name, name);
+       self, extract::chemicalElement, meta::name, name);
 }
 
 // Get, by name, const
 Handle2ConstChemicalElement
 ChemicalElementsChemicalElementGetByNameConst(
-   ConstHandle2ConstChemicalElements This,
+   ConstHandle2ConstChemicalElements self,
    const char *const name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetByNameConst",
-       This, extract::chemicalElement, meta::name, name);
+       self, extract::chemicalElement, meta::name, name);
 }
 
 // Get, by name, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByName(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const char *const name
 ) {
    return detail::getByMetadatum<CPP,Handle2ChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementGetByName",
-       This, extract::chemicalElement, meta::name, name);
+       self, extract::chemicalElement, meta::name, name);
 }
 
 // Set, by name
 void
 ChemicalElementsChemicalElementSetByName(
-   ConstHandle2ChemicalElements This,
+   ConstHandle2ChemicalElements self,
    const char *const name,
    ConstHandle2ConstChemicalElement chemicalElement
 ) {
    detail::setByMetadatum<CPP,CPPChemicalElement>
       (CLASSNAME, CLASSNAME+"ChemicalElementSetByName",
-       This, extract::chemicalElement, meta::name, name, chemicalElement);
+       self, extract::chemicalElement, meta::name, name, chemicalElement);
 }
 
 

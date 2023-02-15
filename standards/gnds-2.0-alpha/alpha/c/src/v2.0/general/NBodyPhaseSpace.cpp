@@ -74,20 +74,20 @@ NBodyPhaseSpaceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NBodyPhaseSpaceAssign(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstNBodyPhaseSpace from)
+NBodyPhaseSpaceAssign(ConstHandle2NBodyPhaseSpace self, ConstHandle2ConstNBodyPhaseSpace from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NBodyPhaseSpaceRead(ConstHandle2NBodyPhaseSpace This, const char *const filename)
+NBodyPhaseSpaceRead(ConstHandle2NBodyPhaseSpace self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NBodyPhaseSpaceWrite(ConstHandle2ConstNBodyPhaseSpace This, const char *const filename)
+NBodyPhaseSpaceWrite(ConstHandle2ConstNBodyPhaseSpace self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NBodyPhaseSpacePrint(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpacePrint(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NBodyPhaseSpacePrintXML(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpacePrintXML(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace This)
 
 // Has
 int
-NBodyPhaseSpaceNumberOfProductsHas(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpaceNumberOfProductsHas(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfProductsHas", This, extract::numberOfProducts);
+      (CLASSNAME, CLASSNAME+"NumberOfProductsHas", self, extract::numberOfProducts);
 }
 
 // Get
 // Returns by value
 int
-NBodyPhaseSpaceNumberOfProductsGet(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpaceNumberOfProductsGet(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfProductsGet", This, extract::numberOfProducts);
+      (CLASSNAME, CLASSNAME+"NumberOfProductsGet", self, extract::numberOfProducts);
 }
 
 // Set
 void
-NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace This, const int numberOfProducts)
+NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace self, const int numberOfProducts)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfProductsSet", This, extract::numberOfProducts, numberOfProducts);
+      (CLASSNAME, CLASSNAME+"NumberOfProductsSet", self, extract::numberOfProducts, numberOfProducts);
 }
 
 
@@ -178,34 +178,34 @@ NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace This, const int n
 
 // Has
 int
-NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace This)
+NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace This)
+NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstMass mass)
+NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 

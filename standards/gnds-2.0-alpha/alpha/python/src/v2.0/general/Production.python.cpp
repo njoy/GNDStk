@@ -49,7 +49,7 @@ void wrapProduction(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapProduction(py::module &module)
    // get/set ENDF_MT
    object.def_property(
       "endf_mt",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ENDF_MT();
       },
@@ -77,7 +77,7 @@ void wrapProduction(py::module &module)
    // get/set crossSection
    object.def_property(
       "cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSection();
       },
@@ -91,7 +91,7 @@ void wrapProduction(py::module &module)
    // get/set outputChannel
    object.def_property(
       "output_channel",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outputChannel();
       },

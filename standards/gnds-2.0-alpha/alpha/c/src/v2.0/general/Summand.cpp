@@ -77,20 +77,20 @@ SummandCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SummandAssign(ConstHandle2Summand This, ConstHandle2ConstSummand from)
+SummandAssign(ConstHandle2Summand self, ConstHandle2ConstSummand from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SummandDelete(ConstHandle2ConstSummand This)
+SummandDelete(ConstHandle2ConstSummand self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ SummandDelete(ConstHandle2ConstSummand This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SummandRead(ConstHandle2Summand This, const char *const filename)
+SummandRead(ConstHandle2Summand self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SummandWrite(ConstHandle2ConstSummand This, const char *const filename)
+SummandWrite(ConstHandle2ConstSummand self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SummandPrint(ConstHandle2ConstSummand This)
+SummandPrint(ConstHandle2ConstSummand self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SummandPrintXML(ConstHandle2ConstSummand This)
+SummandPrintXML(ConstHandle2ConstSummand self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SummandPrintJSON(ConstHandle2ConstSummand This)
+SummandPrintJSON(ConstHandle2ConstSummand self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ SummandPrintJSON(ConstHandle2ConstSummand This)
 
 // Has
 int
-SummandENDFMFMTHas(ConstHandle2ConstSummand This)
+SummandENDFMFMTHas(ConstHandle2ConstSummand self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTHas", This, extract::ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTHas", self, extract::ENDF_MFMT);
 }
 
 // Get
 // Returns by value
 const char *
-SummandENDFMFMTGet(ConstHandle2ConstSummand This)
+SummandENDFMFMTGet(ConstHandle2ConstSummand self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTGet", This, extract::ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTGet", self, extract::ENDF_MFMT);
 }
 
 // Set
 void
-SummandENDFMFMTSet(ConstHandle2Summand This, const char *const ENDF_MFMT)
+SummandENDFMFMTSet(ConstHandle2Summand self, const char *const ENDF_MFMT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTSet", This, extract::ENDF_MFMT, ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTSet", self, extract::ENDF_MFMT, ENDF_MFMT);
 }
 
 
@@ -181,27 +181,27 @@ SummandENDFMFMTSet(ConstHandle2Summand This, const char *const ENDF_MFMT)
 
 // Has
 int
-SummandCoefficientHas(ConstHandle2ConstSummand This)
+SummandCoefficientHas(ConstHandle2ConstSummand self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CoefficientHas", This, extract::coefficient);
+      (CLASSNAME, CLASSNAME+"CoefficientHas", self, extract::coefficient);
 }
 
 // Get
 // Returns by value
 const char *
-SummandCoefficientGet(ConstHandle2ConstSummand This)
+SummandCoefficientGet(ConstHandle2ConstSummand self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CoefficientGet", This, extract::coefficient);
+      (CLASSNAME, CLASSNAME+"CoefficientGet", self, extract::coefficient);
 }
 
 // Set
 void
-SummandCoefficientSet(ConstHandle2Summand This, const char *const coefficient)
+SummandCoefficientSet(ConstHandle2Summand self, const char *const coefficient)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CoefficientSet", This, extract::coefficient, coefficient);
+      (CLASSNAME, CLASSNAME+"CoefficientSet", self, extract::coefficient, coefficient);
 }
 
 
@@ -211,27 +211,27 @@ SummandCoefficientSet(ConstHandle2Summand This, const char *const coefficient)
 
 // Has
 int
-SummandHrefHas(ConstHandle2ConstSummand This)
+SummandHrefHas(ConstHandle2ConstSummand self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-SummandHrefGet(ConstHandle2ConstSummand This)
+SummandHrefGet(ConstHandle2ConstSummand self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-SummandHrefSet(ConstHandle2Summand This, const char *const href)
+SummandHrefSet(ConstHandle2Summand self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

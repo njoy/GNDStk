@@ -86,20 +86,20 @@ ElapsedTimeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ElapsedTimeAssign(ConstHandle2ElapsedTime This, ConstHandle2ConstElapsedTime from)
+ElapsedTimeAssign(ConstHandle2ElapsedTime self, ConstHandle2ConstElapsedTime from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ElapsedTimeDelete(ConstHandle2ConstElapsedTime This)
+ElapsedTimeDelete(ConstHandle2ConstElapsedTime self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -113,44 +113,44 @@ ElapsedTimeDelete(ConstHandle2ConstElapsedTime This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ElapsedTimeRead(ConstHandle2ElapsedTime This, const char *const filename)
+ElapsedTimeRead(ConstHandle2ElapsedTime self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ElapsedTimeWrite(ConstHandle2ConstElapsedTime This, const char *const filename)
+ElapsedTimeWrite(ConstHandle2ConstElapsedTime self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ElapsedTimePrint(ConstHandle2ConstElapsedTime This)
+ElapsedTimePrint(ConstHandle2ConstElapsedTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ElapsedTimePrintXML(ConstHandle2ConstElapsedTime This)
+ElapsedTimePrintXML(ConstHandle2ConstElapsedTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime This)
+ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,27 +160,27 @@ ElapsedTimePrintJSON(ConstHandle2ConstElapsedTime This)
 
 // Has
 int
-ElapsedTimeLabelHas(ConstHandle2ConstElapsedTime This)
+ElapsedTimeLabelHas(ConstHandle2ConstElapsedTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ElapsedTimeLabelGet(ConstHandle2ConstElapsedTime This)
+ElapsedTimeLabelGet(ConstHandle2ConstElapsedTime self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ElapsedTimeLabelSet(ConstHandle2ElapsedTime This, const char *const label)
+ElapsedTimeLabelSet(ConstHandle2ElapsedTime self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -190,34 +190,34 @@ ElapsedTimeLabelSet(ConstHandle2ElapsedTime This, const char *const label)
 
 // Has
 int
-ElapsedTimeTimeHas(ConstHandle2ConstElapsedTime This)
+ElapsedTimeTimeHas(ConstHandle2ConstElapsedTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TimeHas", This, extract::time);
+      (CLASSNAME, CLASSNAME+"TimeHas", self, extract::time);
 }
 
 // Get, const
 Handle2ConstTime
-ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime This)
+ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime self)
 {
    return detail::getField<CPP,Handle2ConstTime>
-      (CLASSNAME, CLASSNAME+"TimeGetConst", This, extract::time);
+      (CLASSNAME, CLASSNAME+"TimeGetConst", self, extract::time);
 }
 
 // Get, non-const
 Handle2Time
-ElapsedTimeTimeGet(ConstHandle2ElapsedTime This)
+ElapsedTimeTimeGet(ConstHandle2ElapsedTime self)
 {
    return detail::getField<CPP,Handle2Time>
-      (CLASSNAME, CLASSNAME+"TimeGet", This, extract::time);
+      (CLASSNAME, CLASSNAME+"TimeGet", self, extract::time);
 }
 
 // Set
 void
-ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time)
+ElapsedTimeTimeSet(ConstHandle2ElapsedTime self, ConstHandle2ConstTime time)
 {
    detail::setField<CPP,CPPTime>
-      (CLASSNAME, CLASSNAME+"TimeSet", This, extract::time, time);
+      (CLASSNAME, CLASSNAME+"TimeSet", self, extract::time, time);
 }
 
 
@@ -227,34 +227,34 @@ ElapsedTimeTimeSet(ConstHandle2ElapsedTime This, ConstHandle2ConstTime time)
 
 // Has
 int
-ElapsedTimeYieldsHas(ConstHandle2ConstElapsedTime This)
+ElapsedTimeYieldsHas(ConstHandle2ConstElapsedTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"YieldsHas", This, extract::yields);
+      (CLASSNAME, CLASSNAME+"YieldsHas", self, extract::yields);
 }
 
 // Get, const
 Handle2ConstYields
-ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime This)
+ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime self)
 {
    return detail::getField<CPP,Handle2ConstYields>
-      (CLASSNAME, CLASSNAME+"YieldsGetConst", This, extract::yields);
+      (CLASSNAME, CLASSNAME+"YieldsGetConst", self, extract::yields);
 }
 
 // Get, non-const
 Handle2Yields
-ElapsedTimeYieldsGet(ConstHandle2ElapsedTime This)
+ElapsedTimeYieldsGet(ConstHandle2ElapsedTime self)
 {
    return detail::getField<CPP,Handle2Yields>
-      (CLASSNAME, CLASSNAME+"YieldsGet", This, extract::yields);
+      (CLASSNAME, CLASSNAME+"YieldsGet", self, extract::yields);
 }
 
 // Set
 void
-ElapsedTimeYieldsSet(ConstHandle2ElapsedTime This, ConstHandle2ConstYields yields)
+ElapsedTimeYieldsSet(ConstHandle2ElapsedTime self, ConstHandle2ConstYields yields)
 {
    detail::setField<CPP,CPPYields>
-      (CLASSNAME, CLASSNAME+"YieldsSet", This, extract::yields, yields);
+      (CLASSNAME, CLASSNAME+"YieldsSet", self, extract::yields, yields);
 }
 
 
@@ -264,34 +264,34 @@ ElapsedTimeYieldsSet(ConstHandle2ElapsedTime This, ConstHandle2ConstYields yield
 
 // Has
 int
-ElapsedTimeIncidentEnergiesHas(ConstHandle2ConstElapsedTime This)
+ElapsedTimeIncidentEnergiesHas(ConstHandle2ConstElapsedTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IncidentEnergiesHas", This, extract::incidentEnergies);
+      (CLASSNAME, CLASSNAME+"IncidentEnergiesHas", self, extract::incidentEnergies);
 }
 
 // Get, const
 Handle2ConstIncidentEnergies
-ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime This)
+ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime self)
 {
    return detail::getField<CPP,Handle2ConstIncidentEnergies>
-      (CLASSNAME, CLASSNAME+"IncidentEnergiesGetConst", This, extract::incidentEnergies);
+      (CLASSNAME, CLASSNAME+"IncidentEnergiesGetConst", self, extract::incidentEnergies);
 }
 
 // Get, non-const
 Handle2IncidentEnergies
-ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime This)
+ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime self)
 {
    return detail::getField<CPP,Handle2IncidentEnergies>
-      (CLASSNAME, CLASSNAME+"IncidentEnergiesGet", This, extract::incidentEnergies);
+      (CLASSNAME, CLASSNAME+"IncidentEnergiesGet", self, extract::incidentEnergies);
 }
 
 // Set
 void
-ElapsedTimeIncidentEnergiesSet(ConstHandle2ElapsedTime This, ConstHandle2ConstIncidentEnergies incidentEnergies)
+ElapsedTimeIncidentEnergiesSet(ConstHandle2ElapsedTime self, ConstHandle2ConstIncidentEnergies incidentEnergies)
 {
    detail::setField<CPP,CPPIncidentEnergies>
-      (CLASSNAME, CLASSNAME+"IncidentEnergiesSet", This, extract::incidentEnergies, incidentEnergies);
+      (CLASSNAME, CLASSNAME+"IncidentEnergiesSet", self, extract::incidentEnergies, incidentEnergies);
 }
 
 

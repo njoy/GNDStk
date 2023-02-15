@@ -105,13 +105,13 @@ CrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CrossSectionAssign(ConstHandle2CrossSection This, ConstHandle2ConstCrossSection from);
+CrossSectionAssign(ConstHandle2CrossSection self, ConstHandle2ConstCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CrossSectionDelete(ConstHandle2ConstCrossSection This);
+CrossSectionDelete(ConstHandle2ConstCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -124,25 +124,25 @@ CrossSectionDelete(ConstHandle2ConstCrossSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CrossSectionRead(ConstHandle2CrossSection This, const char *const filename);
+CrossSectionRead(ConstHandle2CrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CrossSectionWrite(ConstHandle2ConstCrossSection This, const char *const filename);
+CrossSectionWrite(ConstHandle2ConstCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CrossSectionPrint(ConstHandle2ConstCrossSection This);
+CrossSectionPrint(ConstHandle2ConstCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CrossSectionPrintXML(ConstHandle2ConstCrossSection This);
+CrossSectionPrintXML(ConstHandle2ConstCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CrossSectionPrintJSON(ConstHandle2ConstCrossSection This);
+CrossSectionPrintJSON(ConstHandle2ConstCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -151,19 +151,19 @@ CrossSectionPrintJSON(ConstHandle2ConstCrossSection This);
 
 // +++ Has
 extern_c int
-CrossSectionXYs1dHas(ConstHandle2ConstCrossSection This);
+CrossSectionXYs1dHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-CrossSectionXYs1dGet(ConstHandle2CrossSection This);
+CrossSectionXYs1dGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionXYs1dSet(ConstHandle2CrossSection This, ConstHandle2ConstXYs1d XYs1d);
+CrossSectionXYs1dSet(ConstHandle2CrossSection self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -172,19 +172,19 @@ CrossSectionXYs1dSet(ConstHandle2CrossSection This, ConstHandle2ConstXYs1d XYs1d
 
 // +++ Has
 extern_c int
-CrossSectionRegions1dHas(ConstHandle2ConstCrossSection This);
+CrossSectionRegions1dHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-CrossSectionRegions1dGet(ConstHandle2CrossSection This);
+CrossSectionRegions1dGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionRegions1dSet(ConstHandle2CrossSection This, ConstHandle2ConstRegions1d regions1d);
+CrossSectionRegions1dSet(ConstHandle2CrossSection self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------
@@ -193,19 +193,19 @@ CrossSectionRegions1dSet(ConstHandle2CrossSection This, ConstHandle2ConstRegions
 
 // +++ Has
 extern_c int
-CrossSectionReferenceHas(ConstHandle2ConstCrossSection This);
+CrossSectionReferenceHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstReference
-CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Reference
-CrossSectionReferenceGet(ConstHandle2CrossSection This);
+CrossSectionReferenceGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionReferenceSet(ConstHandle2CrossSection This, ConstHandle2ConstReference reference);
+CrossSectionReferenceSet(ConstHandle2CrossSection self, ConstHandle2ConstReference reference);
 
 
 // -----------------------------------------------------------------------------
@@ -214,19 +214,19 @@ CrossSectionReferenceSet(ConstHandle2CrossSection This, ConstHandle2ConstReferen
 
 // +++ Has
 extern_c int
-CrossSectionResonancesWithBackgroundHas(ConstHandle2ConstCrossSection This);
+CrossSectionResonancesWithBackgroundHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstResonancesWithBackground
-CrossSectionResonancesWithBackgroundGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionResonancesWithBackgroundGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2ResonancesWithBackground
-CrossSectionResonancesWithBackgroundGet(ConstHandle2CrossSection This);
+CrossSectionResonancesWithBackgroundGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionResonancesWithBackgroundSet(ConstHandle2CrossSection This, ConstHandle2ConstResonancesWithBackground resonancesWithBackground);
+CrossSectionResonancesWithBackgroundSet(ConstHandle2CrossSection self, ConstHandle2ConstResonancesWithBackground resonancesWithBackground);
 
 
 // -----------------------------------------------------------------------------
@@ -235,19 +235,19 @@ CrossSectionResonancesWithBackgroundSet(ConstHandle2CrossSection This, ConstHand
 
 // +++ Has
 extern_c int
-CrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstCrossSection This);
+CrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstCoulombPlusNuclearElastic
-CrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2CoulombPlusNuclearElastic
-CrossSectionCoulombPlusNuclearElasticGet(ConstHandle2CrossSection This);
+CrossSectionCoulombPlusNuclearElasticGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionCoulombPlusNuclearElasticSet(ConstHandle2CrossSection This, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic);
+CrossSectionCoulombPlusNuclearElasticSet(ConstHandle2CrossSection self, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic);
 
 
 // -----------------------------------------------------------------------------
@@ -256,19 +256,19 @@ CrossSectionCoulombPlusNuclearElasticSet(ConstHandle2CrossSection This, ConstHan
 
 // +++ Has
 extern_c int
-CrossSectionThermalNeutronScatteringLaw1dHas(ConstHandle2ConstCrossSection This);
+CrossSectionThermalNeutronScatteringLaw1dHas(ConstHandle2ConstCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstThermalNeutronScatteringLaw1d
-CrossSectionThermalNeutronScatteringLaw1dGetConst(ConstHandle2ConstCrossSection This);
+CrossSectionThermalNeutronScatteringLaw1dGetConst(ConstHandle2ConstCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw1d
-CrossSectionThermalNeutronScatteringLaw1dGet(ConstHandle2CrossSection This);
+CrossSectionThermalNeutronScatteringLaw1dGet(ConstHandle2CrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionThermalNeutronScatteringLaw1dSet(ConstHandle2CrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw1d thermalNeutronScatteringLaw1d);
+CrossSectionThermalNeutronScatteringLaw1dSet(ConstHandle2CrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw1d thermalNeutronScatteringLaw1d);
 
 
 // -----------------------------------------------------------------------------

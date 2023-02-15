@@ -97,13 +97,13 @@ ProductCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductAssign(ConstHandle2Product This, ConstHandle2ConstProduct from);
+ProductAssign(ConstHandle2Product self, ConstHandle2ConstProduct from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductDelete(ConstHandle2ConstProduct This);
+ProductDelete(ConstHandle2ConstProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ ProductDelete(ConstHandle2ConstProduct This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductRead(ConstHandle2Product This, const char *const filename);
+ProductRead(ConstHandle2Product self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductWrite(ConstHandle2ConstProduct This, const char *const filename);
+ProductWrite(ConstHandle2ConstProduct self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductPrint(ConstHandle2ConstProduct This);
+ProductPrint(ConstHandle2ConstProduct self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductPrintXML(ConstHandle2ConstProduct This);
+ProductPrintXML(ConstHandle2ConstProduct self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductPrintJSON(ConstHandle2ConstProduct This);
+ProductPrintJSON(ConstHandle2ConstProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ ProductPrintJSON(ConstHandle2ConstProduct This);
 
 // +++ Has
 extern_c int
-ProductLabelHas(ConstHandle2ConstProduct This);
+ProductLabelHas(ConstHandle2ConstProduct self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ProductLabelGet(ConstHandle2ConstProduct This);
+ProductLabelGet(ConstHandle2ConstProduct self);
 
 // +++ Set
 extern_c void
-ProductLabelSet(ConstHandle2Product This, const char *const label);
+ProductLabelSet(ConstHandle2Product self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ ProductLabelSet(ConstHandle2Product This, const char *const label);
 
 // +++ Has
 extern_c int
-ProductPidHas(ConstHandle2ConstProduct This);
+ProductPidHas(ConstHandle2ConstProduct self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ProductPidGet(ConstHandle2ConstProduct This);
+ProductPidGet(ConstHandle2ConstProduct self);
 
 // +++ Set
 extern_c void
-ProductPidSet(ConstHandle2Product This, const char *const pid);
+ProductPidSet(ConstHandle2Product self, const char *const pid);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ ProductPidSet(ConstHandle2Product This, const char *const pid);
 
 // +++ Has
 extern_c int
-ProductMultiplicityHas(ConstHandle2ConstProduct This);
+ProductMultiplicityHas(ConstHandle2ConstProduct self);
 
 // --- Get, const
 extern_c Handle2ConstMultiplicity
-ProductMultiplicityGetConst(ConstHandle2ConstProduct This);
+ProductMultiplicityGetConst(ConstHandle2ConstProduct self);
 
 // +++ Get, non-const
 extern_c Handle2Multiplicity
-ProductMultiplicityGet(ConstHandle2Product This);
+ProductMultiplicityGet(ConstHandle2Product self);
 
 // +++ Set
 extern_c void
-ProductMultiplicitySet(ConstHandle2Product This, ConstHandle2ConstMultiplicity multiplicity);
+ProductMultiplicitySet(ConstHandle2Product self, ConstHandle2ConstMultiplicity multiplicity);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ ProductMultiplicitySet(ConstHandle2Product This, ConstHandle2ConstMultiplicity m
 
 // +++ Has
 extern_c int
-ProductDistributionHas(ConstHandle2ConstProduct This);
+ProductDistributionHas(ConstHandle2ConstProduct self);
 
 // --- Get, const
 extern_c Handle2ConstDistribution
-ProductDistributionGetConst(ConstHandle2ConstProduct This);
+ProductDistributionGetConst(ConstHandle2ConstProduct self);
 
 // +++ Get, non-const
 extern_c Handle2Distribution
-ProductDistributionGet(ConstHandle2Product This);
+ProductDistributionGet(ConstHandle2Product self);
 
 // +++ Set
 extern_c void
-ProductDistributionSet(ConstHandle2Product This, ConstHandle2ConstDistribution distribution);
+ProductDistributionSet(ConstHandle2Product self, ConstHandle2ConstDistribution distribution);
 
 
 // -----------------------------------------------------------------------------

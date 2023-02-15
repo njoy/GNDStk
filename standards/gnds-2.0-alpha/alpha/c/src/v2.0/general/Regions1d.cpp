@@ -91,20 +91,20 @@ Regions1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Regions1dAssign(ConstHandle2Regions1d This, ConstHandle2ConstRegions1d from)
+Regions1dAssign(ConstHandle2Regions1d self, ConstHandle2ConstRegions1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Regions1dDelete(ConstHandle2ConstRegions1d This)
+Regions1dDelete(ConstHandle2ConstRegions1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -118,44 +118,44 @@ Regions1dDelete(ConstHandle2ConstRegions1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Regions1dRead(ConstHandle2Regions1d This, const char *const filename)
+Regions1dRead(ConstHandle2Regions1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Regions1dWrite(ConstHandle2ConstRegions1d This, const char *const filename)
+Regions1dWrite(ConstHandle2ConstRegions1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Regions1dPrint(ConstHandle2ConstRegions1d This)
+Regions1dPrint(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Regions1dPrintXML(ConstHandle2ConstRegions1d This)
+Regions1dPrintXML(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Regions1dPrintJSON(ConstHandle2ConstRegions1d This)
+Regions1dPrintJSON(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -165,27 +165,27 @@ Regions1dPrintJSON(ConstHandle2ConstRegions1d This)
 
 // Has
 int
-Regions1dLabelHas(ConstHandle2ConstRegions1d This)
+Regions1dLabelHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-Regions1dLabelGet(ConstHandle2ConstRegions1d This)
+Regions1dLabelGet(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label)
+Regions1dLabelSet(ConstHandle2Regions1d self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -195,27 +195,27 @@ Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label)
 
 // Has
 int
-Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d This)
+Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 double
-Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d This)
+Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomainValue)
+Regions1dOuterDomainValueSet(ConstHandle2Regions1d self, const double outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -225,34 +225,34 @@ Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomai
 
 // Has
 int
-Regions1dAxesHas(ConstHandle2ConstRegions1d This)
+Regions1dAxesHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Regions1dAxesGetConst(ConstHandle2ConstRegions1d This)
+Regions1dAxesGetConst(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Regions1dAxesGet(ConstHandle2Regions1d This)
+Regions1dAxesGet(ConstHandle2Regions1d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes)
+Regions1dAxesSet(ConstHandle2Regions1d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -262,34 +262,34 @@ Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Regions1dUncertaintyHas(ConstHandle2ConstRegions1d This)
+Regions1dUncertaintyHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d This)
+Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-Regions1dUncertaintyGet(ConstHandle2Regions1d This)
+Regions1dUncertaintyGet(ConstHandle2Regions1d self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-Regions1dUncertaintySet(ConstHandle2Regions1d This, ConstHandle2ConstUncertainty uncertainty)
+Regions1dUncertaintySet(ConstHandle2Regions1d self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 
@@ -299,34 +299,34 @@ Regions1dUncertaintySet(ConstHandle2Regions1d This, ConstHandle2ConstUncertainty
 
 // Has
 int
-Regions1dFunction1dsHas(ConstHandle2ConstRegions1d This)
+Regions1dFunction1dsHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Function1dsHas", This, extract::function1ds);
+      (CLASSNAME, CLASSNAME+"Function1dsHas", self, extract::function1ds);
 }
 
 // Get, const
 Handle2ConstFunction1ds
-Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d This)
+Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP,Handle2ConstFunction1ds>
-      (CLASSNAME, CLASSNAME+"Function1dsGetConst", This, extract::function1ds);
+      (CLASSNAME, CLASSNAME+"Function1dsGetConst", self, extract::function1ds);
 }
 
 // Get, non-const
 Handle2Function1ds
-Regions1dFunction1dsGet(ConstHandle2Regions1d This)
+Regions1dFunction1dsGet(ConstHandle2Regions1d self)
 {
    return detail::getField<CPP,Handle2Function1ds>
-      (CLASSNAME, CLASSNAME+"Function1dsGet", This, extract::function1ds);
+      (CLASSNAME, CLASSNAME+"Function1dsGet", self, extract::function1ds);
 }
 
 // Set
 void
-Regions1dFunction1dsSet(ConstHandle2Regions1d This, ConstHandle2ConstFunction1ds function1ds)
+Regions1dFunction1dsSet(ConstHandle2Regions1d self, ConstHandle2ConstFunction1ds function1ds)
 {
    detail::setField<CPP,CPPFunction1ds>
-      (CLASSNAME, CLASSNAME+"Function1dsSet", This, extract::function1ds, function1ds);
+      (CLASSNAME, CLASSNAME+"Function1dsSet", self, extract::function1ds, function1ds);
 }
 
 

@@ -47,7 +47,7 @@ void wrapENDFconversionFlags(py::module &module)
    // get/set flags
    object.def_property(
       "flags",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.flags();
       },
@@ -61,7 +61,7 @@ void wrapENDFconversionFlags(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -75,7 +75,7 @@ void wrapENDFconversionFlags(py::module &module)
    // get/set conversion
    object.def_property(
       "conversion",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.conversion();
       },

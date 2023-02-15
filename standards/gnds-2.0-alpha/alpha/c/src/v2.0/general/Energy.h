@@ -124,13 +124,13 @@ EnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyAssign(ConstHandle2Energy This, ConstHandle2ConstEnergy from);
+EnergyAssign(ConstHandle2Energy self, ConstHandle2ConstEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyDelete(ConstHandle2ConstEnergy This);
+EnergyDelete(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,25 +143,25 @@ EnergyDelete(ConstHandle2ConstEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyRead(ConstHandle2Energy This, const char *const filename);
+EnergyRead(ConstHandle2Energy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyWrite(ConstHandle2ConstEnergy This, const char *const filename);
+EnergyWrite(ConstHandle2ConstEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyPrint(ConstHandle2ConstEnergy This);
+EnergyPrint(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyPrintXML(ConstHandle2ConstEnergy This);
+EnergyPrintXML(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyPrintJSON(ConstHandle2ConstEnergy This);
+EnergyPrintJSON(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ EnergyPrintJSON(ConstHandle2ConstEnergy This);
 
 // +++ Has
 extern_c int
-EnergyValueHas(ConstHandle2ConstEnergy This);
+EnergyValueHas(ConstHandle2ConstEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-EnergyValueGet(ConstHandle2ConstEnergy This);
+EnergyValueGet(ConstHandle2ConstEnergy self);
 
 // +++ Set
 extern_c void
-EnergyValueSet(ConstHandle2Energy This, const double value);
+EnergyValueSet(ConstHandle2Energy self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -188,16 +188,16 @@ EnergyValueSet(ConstHandle2Energy This, const double value);
 
 // +++ Has
 extern_c int
-EnergyUnitHas(ConstHandle2ConstEnergy This);
+EnergyUnitHas(ConstHandle2ConstEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EnergyUnitGet(ConstHandle2ConstEnergy This);
+EnergyUnitGet(ConstHandle2ConstEnergy self);
 
 // +++ Set
 extern_c void
-EnergyUnitSet(ConstHandle2Energy This, const char *const unit);
+EnergyUnitSet(ConstHandle2Energy self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------
@@ -206,19 +206,19 @@ EnergyUnitSet(ConstHandle2Energy This, const char *const unit);
 
 // +++ Has
 extern_c int
-EnergyDoubleHas(ConstHandle2ConstEnergy This);
+EnergyDoubleHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-EnergyDoubleGetConst(ConstHandle2ConstEnergy This);
+EnergyDoubleGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-EnergyDoubleGet(ConstHandle2Energy This);
+EnergyDoubleGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyDoubleSet(ConstHandle2Energy This, ConstHandle2ConstDouble Double);
+EnergyDoubleSet(ConstHandle2Energy self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------
@@ -227,19 +227,19 @@ EnergyDoubleSet(ConstHandle2Energy This, ConstHandle2ConstDouble Double);
 
 // +++ Has
 extern_c int
-EnergyUncertaintyHas(ConstHandle2ConstEnergy This);
+EnergyUncertaintyHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-EnergyUncertaintyGetConst(ConstHandle2ConstEnergy This);
+EnergyUncertaintyGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-EnergyUncertaintyGet(ConstHandle2Energy This);
+EnergyUncertaintyGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyUncertaintySet(ConstHandle2Energy This, ConstHandle2ConstUncertainty uncertainty);
+EnergyUncertaintySet(ConstHandle2Energy self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -248,19 +248,19 @@ EnergyUncertaintySet(ConstHandle2Energy This, ConstHandle2ConstUncertainty uncer
 
 // +++ Has
 extern_c int
-EnergyNBodyPhaseSpaceHas(ConstHandle2ConstEnergy This);
+EnergyNBodyPhaseSpaceHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstNBodyPhaseSpace
-EnergyNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy This);
+EnergyNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2NBodyPhaseSpace
-EnergyNBodyPhaseSpaceGet(ConstHandle2Energy This);
+EnergyNBodyPhaseSpaceGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyNBodyPhaseSpaceSet(ConstHandle2Energy This, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace);
+EnergyNBodyPhaseSpaceSet(ConstHandle2Energy self, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace);
 
 
 // -----------------------------------------------------------------------------
@@ -269,19 +269,19 @@ EnergyNBodyPhaseSpaceSet(ConstHandle2Energy This, ConstHandle2ConstNBodyPhaseSpa
 
 // +++ Has
 extern_c int
-EnergyPrimaryGammaHas(ConstHandle2ConstEnergy This);
+EnergyPrimaryGammaHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPrimaryGamma
-EnergyPrimaryGammaGetConst(ConstHandle2ConstEnergy This);
+EnergyPrimaryGammaGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2PrimaryGamma
-EnergyPrimaryGammaGet(ConstHandle2Energy This);
+EnergyPrimaryGammaGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyPrimaryGammaSet(ConstHandle2Energy This, ConstHandle2ConstPrimaryGamma primaryGamma);
+EnergyPrimaryGammaSet(ConstHandle2Energy self, ConstHandle2ConstPrimaryGamma primaryGamma);
 
 
 // -----------------------------------------------------------------------------
@@ -290,19 +290,19 @@ EnergyPrimaryGammaSet(ConstHandle2Energy This, ConstHandle2ConstPrimaryGamma pri
 
 // +++ Has
 extern_c int
-EnergyDiscreteGammaHas(ConstHandle2ConstEnergy This);
+EnergyDiscreteGammaHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDiscreteGamma
-EnergyDiscreteGammaGetConst(ConstHandle2ConstEnergy This);
+EnergyDiscreteGammaGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2DiscreteGamma
-EnergyDiscreteGammaGet(ConstHandle2Energy This);
+EnergyDiscreteGammaGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyDiscreteGammaSet(ConstHandle2Energy This, ConstHandle2ConstDiscreteGamma discreteGamma);
+EnergyDiscreteGammaSet(ConstHandle2Energy self, ConstHandle2ConstDiscreteGamma discreteGamma);
 
 
 // -----------------------------------------------------------------------------
@@ -311,19 +311,19 @@ EnergyDiscreteGammaSet(ConstHandle2Energy This, ConstHandle2ConstDiscreteGamma d
 
 // +++ Has
 extern_c int
-EnergyXYs2dHas(ConstHandle2ConstEnergy This);
+EnergyXYs2dHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-EnergyXYs2dGetConst(ConstHandle2ConstEnergy This);
+EnergyXYs2dGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-EnergyXYs2dGet(ConstHandle2Energy This);
+EnergyXYs2dGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyXYs2dSet(ConstHandle2Energy This, ConstHandle2ConstXYs2d XYs2d);
+EnergyXYs2dSet(ConstHandle2Energy self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
@@ -332,19 +332,19 @@ EnergyXYs2dSet(ConstHandle2Energy This, ConstHandle2ConstXYs2d XYs2d);
 
 // +++ Has
 extern_c int
-EnergyGeneralEvaporationHas(ConstHandle2ConstEnergy This);
+EnergyGeneralEvaporationHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstGeneralEvaporation
-EnergyGeneralEvaporationGetConst(ConstHandle2ConstEnergy This);
+EnergyGeneralEvaporationGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2GeneralEvaporation
-EnergyGeneralEvaporationGet(ConstHandle2Energy This);
+EnergyGeneralEvaporationGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyGeneralEvaporationSet(ConstHandle2Energy This, ConstHandle2ConstGeneralEvaporation generalEvaporation);
+EnergyGeneralEvaporationSet(ConstHandle2Energy self, ConstHandle2ConstGeneralEvaporation generalEvaporation);
 
 
 // -----------------------------------------------------------------------------
@@ -353,19 +353,19 @@ EnergyGeneralEvaporationSet(ConstHandle2Energy This, ConstHandle2ConstGeneralEva
 
 // +++ Has
 extern_c int
-EnergyEvaporationHas(ConstHandle2ConstEnergy This);
+EnergyEvaporationHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstEvaporation
-EnergyEvaporationGetConst(ConstHandle2ConstEnergy This);
+EnergyEvaporationGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Evaporation
-EnergyEvaporationGet(ConstHandle2Energy This);
+EnergyEvaporationGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyEvaporationSet(ConstHandle2Energy This, ConstHandle2ConstEvaporation evaporation);
+EnergyEvaporationSet(ConstHandle2Energy self, ConstHandle2ConstEvaporation evaporation);
 
 
 // -----------------------------------------------------------------------------
@@ -374,19 +374,19 @@ EnergyEvaporationSet(ConstHandle2Energy This, ConstHandle2ConstEvaporation evapo
 
 // +++ Has
 extern_c int
-EnergyWeightedFunctionalsHas(ConstHandle2ConstEnergy This);
+EnergyWeightedFunctionalsHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstWeightedFunctionals
-EnergyWeightedFunctionalsGetConst(ConstHandle2ConstEnergy This);
+EnergyWeightedFunctionalsGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2WeightedFunctionals
-EnergyWeightedFunctionalsGet(ConstHandle2Energy This);
+EnergyWeightedFunctionalsGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyWeightedFunctionalsSet(ConstHandle2Energy This, ConstHandle2ConstWeightedFunctionals weightedFunctionals);
+EnergyWeightedFunctionalsSet(ConstHandle2Energy self, ConstHandle2ConstWeightedFunctionals weightedFunctionals);
 
 
 // -----------------------------------------------------------------------------
@@ -395,19 +395,19 @@ EnergyWeightedFunctionalsSet(ConstHandle2Energy This, ConstHandle2ConstWeightedF
 
 // +++ Has
 extern_c int
-EnergySimpleMaxwellianFissionHas(ConstHandle2ConstEnergy This);
+EnergySimpleMaxwellianFissionHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstSimpleMaxwellianFission
-EnergySimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy This);
+EnergySimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2SimpleMaxwellianFission
-EnergySimpleMaxwellianFissionGet(ConstHandle2Energy This);
+EnergySimpleMaxwellianFissionGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergySimpleMaxwellianFissionSet(ConstHandle2Energy This, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission);
+EnergySimpleMaxwellianFissionSet(ConstHandle2Energy self, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission);
 
 
 // -----------------------------------------------------------------------------
@@ -416,19 +416,19 @@ EnergySimpleMaxwellianFissionSet(ConstHandle2Energy This, ConstHandle2ConstSimpl
 
 // +++ Has
 extern_c int
-EnergyMadlandNixHas(ConstHandle2ConstEnergy This);
+EnergyMadlandNixHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstMadlandNix
-EnergyMadlandNixGetConst(ConstHandle2ConstEnergy This);
+EnergyMadlandNixGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2MadlandNix
-EnergyMadlandNixGet(ConstHandle2Energy This);
+EnergyMadlandNixGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyMadlandNixSet(ConstHandle2Energy This, ConstHandle2ConstMadlandNix MadlandNix);
+EnergyMadlandNixSet(ConstHandle2Energy self, ConstHandle2ConstMadlandNix MadlandNix);
 
 
 // -----------------------------------------------------------------------------

@@ -43,7 +43,7 @@ void wrapSpinGroups(py::module &module)
    // get/set spinGroup
    object.def_property(
       "spin_group",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spinGroup();
       },

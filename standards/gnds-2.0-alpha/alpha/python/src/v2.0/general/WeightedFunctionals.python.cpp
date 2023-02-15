@@ -43,7 +43,7 @@ void wrapWeightedFunctionals(py::module &module)
    // get/set weighted
    object.def_property(
       "weighted",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.weighted();
       },

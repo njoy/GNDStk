@@ -61,7 +61,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -75,7 +75,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set promptProductKE
    object.def_property(
       "prompt_product_ke",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.promptProductKE();
       },
@@ -89,7 +89,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set promptNeutronKE
    object.def_property(
       "prompt_neutron_ke",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.promptNeutronKE();
       },
@@ -103,7 +103,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set delayedNeutronKE
    object.def_property(
       "delayed_neutron_ke",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.delayedNeutronKE();
       },
@@ -117,7 +117,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set promptGammaEnergy
    object.def_property(
       "prompt_gamma_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.promptGammaEnergy();
       },
@@ -131,7 +131,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set delayedGammaEnergy
    object.def_property(
       "delayed_gamma_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.delayedGammaEnergy();
       },
@@ -145,7 +145,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set delayedBetaEnergy
    object.def_property(
       "delayed_beta_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.delayedBetaEnergy();
       },
@@ -159,7 +159,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set neutrinoEnergy
    object.def_property(
       "neutrino_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.neutrinoEnergy();
       },
@@ -173,7 +173,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set nonNeutrinoEnergy
    object.def_property(
       "non_neutrino_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nonNeutrinoEnergy();
       },
@@ -187,7 +187,7 @@ void wrapFissionEnergyRelease(py::module &module)
    // get/set totalEnergy
    object.def_property(
       "total_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.totalEnergy();
       },

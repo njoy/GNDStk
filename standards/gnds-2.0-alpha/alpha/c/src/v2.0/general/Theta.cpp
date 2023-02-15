@@ -75,20 +75,20 @@ ThetaCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ThetaAssign(ConstHandle2Theta This, ConstHandle2ConstTheta from)
+ThetaAssign(ConstHandle2Theta self, ConstHandle2ConstTheta from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ThetaDelete(ConstHandle2ConstTheta This)
+ThetaDelete(ConstHandle2ConstTheta self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ ThetaDelete(ConstHandle2ConstTheta This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ThetaRead(ConstHandle2Theta This, const char *const filename)
+ThetaRead(ConstHandle2Theta self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ThetaWrite(ConstHandle2ConstTheta This, const char *const filename)
+ThetaWrite(ConstHandle2ConstTheta self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ThetaPrint(ConstHandle2ConstTheta This)
+ThetaPrint(ConstHandle2ConstTheta self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ThetaPrintXML(ConstHandle2ConstTheta This)
+ThetaPrintXML(ConstHandle2ConstTheta self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ThetaPrintJSON(ConstHandle2ConstTheta This)
+ThetaPrintJSON(ConstHandle2ConstTheta self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ ThetaPrintJSON(ConstHandle2ConstTheta This)
 
 // Has
 int
-ThetaXYs1dHas(ConstHandle2ConstTheta This)
+ThetaXYs1dHas(ConstHandle2ConstTheta self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-ThetaXYs1dGetConst(ConstHandle2ConstTheta This)
+ThetaXYs1dGetConst(ConstHandle2ConstTheta self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-ThetaXYs1dGet(ConstHandle2Theta This)
+ThetaXYs1dGet(ConstHandle2Theta self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-ThetaXYs1dSet(ConstHandle2Theta This, ConstHandle2ConstXYs1d XYs1d)
+ThetaXYs1dSet(ConstHandle2Theta self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ ThetaXYs1dSet(ConstHandle2Theta This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-ThetaRegions1dHas(ConstHandle2ConstTheta This)
+ThetaRegions1dHas(ConstHandle2ConstTheta self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-ThetaRegions1dGetConst(ConstHandle2ConstTheta This)
+ThetaRegions1dGetConst(ConstHandle2ConstTheta self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-ThetaRegions1dGet(ConstHandle2Theta This)
+ThetaRegions1dGet(ConstHandle2Theta self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-ThetaRegions1dSet(ConstHandle2Theta This, ConstHandle2ConstRegions1d regions1d)
+ThetaRegions1dSet(ConstHandle2Theta self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

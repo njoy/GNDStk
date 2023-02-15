@@ -73,20 +73,20 @@ Function2dsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Function2dsAssign(ConstHandle2Function2ds This, ConstHandle2ConstFunction2ds from)
+Function2dsAssign(ConstHandle2Function2ds self, ConstHandle2ConstFunction2ds from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Function2dsDelete(ConstHandle2ConstFunction2ds This)
+Function2dsDelete(ConstHandle2ConstFunction2ds self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ Function2dsDelete(ConstHandle2ConstFunction2ds This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Function2dsRead(ConstHandle2Function2ds This, const char *const filename)
+Function2dsRead(ConstHandle2Function2ds self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Function2dsWrite(ConstHandle2ConstFunction2ds This, const char *const filename)
+Function2dsWrite(ConstHandle2ConstFunction2ds self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Function2dsPrint(ConstHandle2ConstFunction2ds This)
+Function2dsPrint(ConstHandle2ConstFunction2ds self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Function2dsPrintXML(ConstHandle2ConstFunction2ds This)
+Function2dsPrintXML(ConstHandle2ConstFunction2ds self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Function2dsPrintJSON(ConstHandle2ConstFunction2ds This)
+Function2dsPrintJSON(ConstHandle2ConstFunction2ds self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ Function2dsPrintJSON(ConstHandle2ConstFunction2ds This)
 
 // Has
 int
-Function2dsXYs2dHas(ConstHandle2ConstFunction2ds This)
+Function2dsXYs2dHas(ConstHandle2ConstFunction2ds self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Clear
 void
-Function2dsXYs2dClear(ConstHandle2Function2ds This)
+Function2dsXYs2dClear(ConstHandle2Function2ds self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dClear", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dClear", self, extract::XYs2d);
 }
 
 // Size
 size_t
-Function2dsXYs2dSize(ConstHandle2ConstFunction2ds This)
+Function2dsXYs2dSize(ConstHandle2ConstFunction2ds self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dSize", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSize", self, extract::XYs2d);
 }
 
 // Add
 void
-Function2dsXYs2dAdd(ConstHandle2Function2ds This, ConstHandle2ConstXYs2d XYs2d)
+Function2dsXYs2dAdd(ConstHandle2Function2ds self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::addToContainer<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dAdd", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dAdd", self, extract::XYs2d, XYs2d);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstXYs2d
-Function2dsXYs2dGetConst(ConstHandle2ConstFunction2ds This, const size_t index_)
+Function2dsXYs2dGetConst(ConstHandle2ConstFunction2ds self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d, index_);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2XYs2d
-Function2dsXYs2dGet(ConstHandle2Function2ds This, const size_t index_)
+Function2dsXYs2dGet(ConstHandle2Function2ds self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d, index_);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d, index_);
 }
 
 // Set, by index \in [0,size)
 void
 Function2dsXYs2dSet(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const size_t index_,
    ConstHandle2ConstXYs2d XYs2d
 ) {
    detail::setByIndex<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, index_, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, index_, XYs2d);
 }
 
 // Has, by index
 int
 Function2dsXYs2dHasByIndex(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const int index
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs2dHasByIndex",
-       This, extract::XYs2d, meta::index, index);
+       self, extract::XYs2d, meta::index, index);
 }
 
 // Get, by index, const
 Handle2ConstXYs2d
 Function2dsXYs2dGetByIndexConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByIndexConst",
-       This, extract::XYs2d, meta::index, index);
+       self, extract::XYs2d, meta::index, index);
 }
 
 // Get, by index, non-const
 Handle2XYs2d
 Function2dsXYs2dGetByIndex(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByIndex",
-       This, extract::XYs2d, meta::index, index);
+       self, extract::XYs2d, meta::index, index);
 }
 
 // Set, by index
 void
 Function2dsXYs2dSetByIndex(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const int index,
    ConstHandle2ConstXYs2d XYs2d
 ) {
    detail::setByMetadatum<CPP,CPPXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dSetByIndex",
-       This, extract::XYs2d, meta::index, index, XYs2d);
+       self, extract::XYs2d, meta::index, index, XYs2d);
 }
 
 // Has, by interpolation
 int
 Function2dsXYs2dHasByInterpolation(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs2dHasByInterpolation",
-       This, extract::XYs2d, meta::interpolation, interpolation);
+       self, extract::XYs2d, meta::interpolation, interpolation);
 }
 
 // Get, by interpolation, const
 Handle2ConstXYs2d
 Function2dsXYs2dGetByInterpolationConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByInterpolationConst",
-       This, extract::XYs2d, meta::interpolation, interpolation);
+       self, extract::XYs2d, meta::interpolation, interpolation);
 }
 
 // Get, by interpolation, non-const
 Handle2XYs2d
 Function2dsXYs2dGetByInterpolation(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolation
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByInterpolation",
-       This, extract::XYs2d, meta::interpolation, interpolation);
+       self, extract::XYs2d, meta::interpolation, interpolation);
 }
 
 // Set, by interpolation
 void
 Function2dsXYs2dSetByInterpolation(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolation,
    ConstHandle2ConstXYs2d XYs2d
 ) {
    detail::setByMetadatum<CPP,CPPXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dSetByInterpolation",
-       This, extract::XYs2d, meta::interpolation, interpolation, XYs2d);
+       self, extract::XYs2d, meta::interpolation, interpolation, XYs2d);
 }
 
 // Has, by interpolationQualifier
 int
 Function2dsXYs2dHasByInterpolationQualifier(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolationQualifier
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs2dHasByInterpolationQualifier",
-       This, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
+       self, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
 }
 
 // Get, by interpolationQualifier, const
 Handle2ConstXYs2d
 Function2dsXYs2dGetByInterpolationQualifierConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolationQualifier
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByInterpolationQualifierConst",
-       This, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
+       self, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
 }
 
 // Get, by interpolationQualifier, non-const
 Handle2XYs2d
 Function2dsXYs2dGetByInterpolationQualifier(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolationQualifier
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByInterpolationQualifier",
-       This, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
+       self, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier);
 }
 
 // Set, by interpolationQualifier
 void
 Function2dsXYs2dSetByInterpolationQualifier(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolationQualifier,
    ConstHandle2ConstXYs2d XYs2d
 ) {
    detail::setByMetadatum<CPP,CPPXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dSetByInterpolationQualifier",
-       This, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier, XYs2d);
+       self, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier, XYs2d);
 }
 
 // Has, by outerDomainValue
 int
 Function2dsXYs2dHasByOuterDomainValue(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const double outerDomainValue
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs2dHasByOuterDomainValue",
-       This, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Get, by outerDomainValue, const
 Handle2ConstXYs2d
 Function2dsXYs2dGetByOuterDomainValueConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const double outerDomainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByOuterDomainValueConst",
-       This, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Get, by outerDomainValue, non-const
 Handle2XYs2d
 Function2dsXYs2dGetByOuterDomainValue(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const double outerDomainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dGetByOuterDomainValue",
-       This, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs2d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Set, by outerDomainValue
 void
 Function2dsXYs2dSetByOuterDomainValue(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const double outerDomainValue,
    ConstHandle2ConstXYs2d XYs2d
 ) {
    detail::setByMetadatum<CPP,CPPXYs2d>
       (CLASSNAME, CLASSNAME+"XYs2dSetByOuterDomainValue",
-       This, extract::XYs2d, meta::outerDomainValue, outerDomainValue, XYs2d);
+       self, extract::XYs2d, meta::outerDomainValue, outerDomainValue, XYs2d);
 }
 
 

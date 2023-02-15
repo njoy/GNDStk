@@ -92,13 +92,13 @@ PositronEmissionIntensityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PositronEmissionIntensityAssign(ConstHandle2PositronEmissionIntensity This, ConstHandle2ConstPositronEmissionIntensity from);
+PositronEmissionIntensityAssign(ConstHandle2PositronEmissionIntensity self, ConstHandle2ConstPositronEmissionIntensity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PositronEmissionIntensityDelete(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityDelete(ConstHandle2ConstPositronEmissionIntensity self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ PositronEmissionIntensityDelete(ConstHandle2ConstPositronEmissionIntensity This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PositronEmissionIntensityRead(ConstHandle2PositronEmissionIntensity This, const char *const filename);
+PositronEmissionIntensityRead(ConstHandle2PositronEmissionIntensity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PositronEmissionIntensityWrite(ConstHandle2ConstPositronEmissionIntensity This, const char *const filename);
+PositronEmissionIntensityWrite(ConstHandle2ConstPositronEmissionIntensity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PositronEmissionIntensityPrint(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityPrint(ConstHandle2ConstPositronEmissionIntensity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PositronEmissionIntensityPrintXML(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityPrintXML(ConstHandle2ConstPositronEmissionIntensity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PositronEmissionIntensityPrintJSON(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityPrintJSON(ConstHandle2ConstPositronEmissionIntensity self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ PositronEmissionIntensityPrintJSON(ConstHandle2ConstPositronEmissionIntensity Th
 
 // +++ Has
 extern_c int
-PositronEmissionIntensityValueHas(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityValueHas(ConstHandle2ConstPositronEmissionIntensity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-PositronEmissionIntensityValueGet(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityValueGet(ConstHandle2ConstPositronEmissionIntensity self);
 
 // +++ Set
 extern_c void
-PositronEmissionIntensityValueSet(ConstHandle2PositronEmissionIntensity This, const double value);
+PositronEmissionIntensityValueSet(ConstHandle2PositronEmissionIntensity self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ PositronEmissionIntensityValueSet(ConstHandle2PositronEmissionIntensity This, co
 
 // +++ Has
 extern_c int
-PositronEmissionIntensityUncertaintyHas(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityUncertaintyHas(ConstHandle2ConstPositronEmissionIntensity self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIntensity This);
+PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIntensity self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity This);
+PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity self);
 
 // +++ Set
 extern_c void
-PositronEmissionIntensityUncertaintySet(ConstHandle2PositronEmissionIntensity This, ConstHandle2ConstUncertainty uncertainty);
+PositronEmissionIntensityUncertaintySet(ConstHandle2PositronEmissionIntensity self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

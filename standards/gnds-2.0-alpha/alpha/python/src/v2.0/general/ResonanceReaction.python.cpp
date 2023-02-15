@@ -55,7 +55,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set ejectile
    object.def_property(
       "ejectile",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.ejectile();
       },
@@ -83,7 +83,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set eliminated
    object.def_property(
       "eliminated",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.eliminated();
       },
@@ -97,7 +97,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set link
    object.def_property(
       "link",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.link();
       },
@@ -111,7 +111,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set hardSphereRadius
    object.def_property(
       "hard_sphere_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.hardSphereRadius();
       },
@@ -125,7 +125,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set Q
    object.def_property(
       "q",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Q();
       },
@@ -139,7 +139,7 @@ void wrapResonanceReaction(py::module &module)
    // get/set scatteringRadius
    object.def_property(
       "scattering_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringRadius();
       },

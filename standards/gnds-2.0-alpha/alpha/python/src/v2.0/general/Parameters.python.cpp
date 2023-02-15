@@ -43,7 +43,7 @@ void wrapParameters(py::module &module)
    // get/set parameterLink
    object.def_property(
       "parameter_link",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parameterLink();
       },

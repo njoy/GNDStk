@@ -91,13 +91,13 @@ E_maxCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-E_maxAssign(ConstHandle2E_max This, ConstHandle2ConstE_max from);
+E_maxAssign(ConstHandle2E_max self, ConstHandle2ConstE_max from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-E_maxDelete(ConstHandle2ConstE_max This);
+E_maxDelete(ConstHandle2ConstE_max self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ E_maxDelete(ConstHandle2ConstE_max This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-E_maxRead(ConstHandle2E_max This, const char *const filename);
+E_maxRead(ConstHandle2E_max self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-E_maxWrite(ConstHandle2ConstE_max This, const char *const filename);
+E_maxWrite(ConstHandle2ConstE_max self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-E_maxPrint(ConstHandle2ConstE_max This);
+E_maxPrint(ConstHandle2ConstE_max self);
 
 // +++ Print to standard output, as XML
 extern_c int
-E_maxPrintXML(ConstHandle2ConstE_max This);
+E_maxPrintXML(ConstHandle2ConstE_max self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-E_maxPrintJSON(ConstHandle2ConstE_max This);
+E_maxPrintJSON(ConstHandle2ConstE_max self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ E_maxPrintJSON(ConstHandle2ConstE_max This);
 
 // +++ Has
 extern_c int
-E_maxValueHas(ConstHandle2ConstE_max This);
+E_maxValueHas(ConstHandle2ConstE_max self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-E_maxValueGet(ConstHandle2ConstE_max This);
+E_maxValueGet(ConstHandle2ConstE_max self);
 
 // +++ Set
 extern_c void
-E_maxValueSet(ConstHandle2E_max This, const double value);
+E_maxValueSet(ConstHandle2E_max self, const double value);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ E_maxValueSet(ConstHandle2E_max This, const double value);
 
 // +++ Has
 extern_c int
-E_maxUnitHas(ConstHandle2ConstE_max This);
+E_maxUnitHas(ConstHandle2ConstE_max self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-E_maxUnitGet(ConstHandle2ConstE_max This);
+E_maxUnitGet(ConstHandle2ConstE_max self);
 
 // +++ Set
 extern_c void
-E_maxUnitSet(ConstHandle2E_max This, const char *const unit);
+E_maxUnitSet(ConstHandle2E_max self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

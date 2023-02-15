@@ -51,7 +51,7 @@ void wrapChemicalElement(py::module &module)
    // get/set symbol
    object.def_property(
       "symbol",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.symbol();
       },
@@ -65,7 +65,7 @@ void wrapChemicalElement(py::module &module)
    // get/set Z
    object.def_property(
       "z",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Z();
       },
@@ -79,7 +79,7 @@ void wrapChemicalElement(py::module &module)
    // get/set name
    object.def_property(
       "name",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.name();
       },
@@ -93,7 +93,7 @@ void wrapChemicalElement(py::module &module)
    // get/set atomic
    object.def_property(
       "atomic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.atomic();
       },
@@ -107,7 +107,7 @@ void wrapChemicalElement(py::module &module)
    // get/set isotopes
    object.def_property(
       "isotopes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.isotopes();
       },

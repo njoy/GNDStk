@@ -51,7 +51,7 @@ void wrapSlice(py::module &module)
    // get/set dimension
    object.def_property(
       "dimension",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.dimension();
       },
@@ -65,7 +65,7 @@ void wrapSlice(py::module &module)
    // get/set domainValue
    object.def_property(
       "domain_value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainValue();
       },
@@ -79,7 +79,7 @@ void wrapSlice(py::module &module)
    // get/set domainMin
    object.def_property(
       "domain_min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMin();
       },
@@ -93,7 +93,7 @@ void wrapSlice(py::module &module)
    // get/set domainMax
    object.def_property(
       "domain_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMax();
       },
@@ -107,7 +107,7 @@ void wrapSlice(py::module &module)
    // get/set domainUnit
    object.def_property(
       "domain_unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainUnit();
       },

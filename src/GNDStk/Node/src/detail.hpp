@@ -764,8 +764,9 @@ inline void warning_io_name(
    const std::string &name
 ) {
    log::warning(
-      "Node.{}() called with format FileType::{} and filename \"{}\",\n"
-      "but the filename extension does not appear to be one for {}",
+      "Node.{}() called with format FileType::{}, but filename \"{}\".\n"
+      "The file extension does not appear to be one for {}. "
+      "Writing anyway.",
       op, fileformat, filename, name
    );
 }

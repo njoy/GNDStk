@@ -49,7 +49,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -77,7 +77,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -91,7 +91,7 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
    // get/set S_table
    object.def_property(
       "s_table",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.S_table();
       },

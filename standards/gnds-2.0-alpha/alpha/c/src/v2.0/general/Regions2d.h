@@ -96,13 +96,13 @@ Regions2dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Regions2dAssign(ConstHandle2Regions2d This, ConstHandle2ConstRegions2d from);
+Regions2dAssign(ConstHandle2Regions2d self, ConstHandle2ConstRegions2d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Regions2dDelete(ConstHandle2ConstRegions2d This);
+Regions2dDelete(ConstHandle2ConstRegions2d self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ Regions2dDelete(ConstHandle2ConstRegions2d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Regions2dRead(ConstHandle2Regions2d This, const char *const filename);
+Regions2dRead(ConstHandle2Regions2d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Regions2dWrite(ConstHandle2ConstRegions2d This, const char *const filename);
+Regions2dWrite(ConstHandle2ConstRegions2d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Regions2dPrint(ConstHandle2ConstRegions2d This);
+Regions2dPrint(ConstHandle2ConstRegions2d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Regions2dPrintXML(ConstHandle2ConstRegions2d This);
+Regions2dPrintXML(ConstHandle2ConstRegions2d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Regions2dPrintJSON(ConstHandle2ConstRegions2d This);
+Regions2dPrintJSON(ConstHandle2ConstRegions2d self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ Regions2dPrintJSON(ConstHandle2ConstRegions2d This);
 
 // +++ Has
 extern_c int
-Regions2dAxesHas(ConstHandle2ConstRegions2d This);
+Regions2dAxesHas(ConstHandle2ConstRegions2d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Regions2dAxesGetConst(ConstHandle2ConstRegions2d This);
+Regions2dAxesGetConst(ConstHandle2ConstRegions2d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Regions2dAxesGet(ConstHandle2Regions2d This);
+Regions2dAxesGet(ConstHandle2Regions2d self);
 
 // +++ Set
 extern_c void
-Regions2dAxesSet(ConstHandle2Regions2d This, ConstHandle2ConstAxes axes);
+Regions2dAxesSet(ConstHandle2Regions2d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ Regions2dAxesSet(ConstHandle2Regions2d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-Regions2dFunction2dsHas(ConstHandle2ConstRegions2d This);
+Regions2dFunction2dsHas(ConstHandle2ConstRegions2d self);
 
 // --- Get, const
 extern_c Handle2ConstFunction2ds
-Regions2dFunction2dsGetConst(ConstHandle2ConstRegions2d This);
+Regions2dFunction2dsGetConst(ConstHandle2ConstRegions2d self);
 
 // +++ Get, non-const
 extern_c Handle2Function2ds
-Regions2dFunction2dsGet(ConstHandle2Regions2d This);
+Regions2dFunction2dsGet(ConstHandle2Regions2d self);
 
 // +++ Set
 extern_c void
-Regions2dFunction2dsSet(ConstHandle2Regions2d This, ConstHandle2ConstFunction2ds function2ds);
+Regions2dFunction2dsSet(ConstHandle2Regions2d self, ConstHandle2ConstFunction2ds function2ds);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ Regions2dFunction2dsSet(ConstHandle2Regions2d This, ConstHandle2ConstFunction2ds
 
 // +++ Has
 extern_c int
-Regions2dUncertaintyHas(ConstHandle2ConstRegions2d This);
+Regions2dUncertaintyHas(ConstHandle2ConstRegions2d self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-Regions2dUncertaintyGetConst(ConstHandle2ConstRegions2d This);
+Regions2dUncertaintyGetConst(ConstHandle2ConstRegions2d self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-Regions2dUncertaintyGet(ConstHandle2Regions2d This);
+Regions2dUncertaintyGet(ConstHandle2Regions2d self);
 
 // +++ Set
 extern_c void
-Regions2dUncertaintySet(ConstHandle2Regions2d This, ConstHandle2ConstUncertainty uncertainty);
+Regions2dUncertaintySet(ConstHandle2Regions2d self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

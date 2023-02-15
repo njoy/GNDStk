@@ -51,7 +51,7 @@ void wrapAverageParameterCovariance(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -65,7 +65,7 @@ void wrapAverageParameterCovariance(py::module &module)
    // get/set crossTerm
    object.def_property(
       "cross_term",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossTerm();
       },
@@ -79,7 +79,7 @@ void wrapAverageParameterCovariance(py::module &module)
    // get/set covarianceMatrix
    object.def_property(
       "covariance_matrix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covarianceMatrix();
       },
@@ -93,7 +93,7 @@ void wrapAverageParameterCovariance(py::module &module)
    // get/set rowData
    object.def_property(
       "row_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.rowData();
       },
@@ -107,7 +107,7 @@ void wrapAverageParameterCovariance(py::module &module)
    // get/set columnData
    object.def_property(
       "column_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.columnData();
       },

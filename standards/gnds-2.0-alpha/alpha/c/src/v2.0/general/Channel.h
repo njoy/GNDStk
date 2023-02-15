@@ -103,13 +103,13 @@ ChannelCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ChannelAssign(ConstHandle2Channel This, ConstHandle2ConstChannel from);
+ChannelAssign(ConstHandle2Channel self, ConstHandle2ConstChannel from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ChannelDelete(ConstHandle2ConstChannel This);
+ChannelDelete(ConstHandle2ConstChannel self);
 
 
 // -----------------------------------------------------------------------------
@@ -122,25 +122,25 @@ ChannelDelete(ConstHandle2ConstChannel This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ChannelRead(ConstHandle2Channel This, const char *const filename);
+ChannelRead(ConstHandle2Channel self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ChannelWrite(ConstHandle2ConstChannel This, const char *const filename);
+ChannelWrite(ConstHandle2ConstChannel self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ChannelPrint(ConstHandle2ConstChannel This);
+ChannelPrint(ConstHandle2ConstChannel self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ChannelPrintXML(ConstHandle2ConstChannel This);
+ChannelPrintXML(ConstHandle2ConstChannel self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ChannelPrintJSON(ConstHandle2ConstChannel This);
+ChannelPrintJSON(ConstHandle2ConstChannel self);
 
 
 // -----------------------------------------------------------------------------
@@ -149,16 +149,16 @@ ChannelPrintJSON(ConstHandle2ConstChannel This);
 
 // +++ Has
 extern_c int
-ChannelLabelHas(ConstHandle2ConstChannel This);
+ChannelLabelHas(ConstHandle2ConstChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ChannelLabelGet(ConstHandle2ConstChannel This);
+ChannelLabelGet(ConstHandle2ConstChannel self);
 
 // +++ Set
 extern_c void
-ChannelLabelSet(ConstHandle2Channel This, const char *const label);
+ChannelLabelSet(ConstHandle2Channel self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -167,16 +167,16 @@ ChannelLabelSet(ConstHandle2Channel This, const char *const label);
 
 // +++ Has
 extern_c int
-ChannelResonanceReactionHas(ConstHandle2ConstChannel This);
+ChannelResonanceReactionHas(ConstHandle2ConstChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ChannelResonanceReactionGet(ConstHandle2ConstChannel This);
+ChannelResonanceReactionGet(ConstHandle2ConstChannel self);
 
 // +++ Set
 extern_c void
-ChannelResonanceReactionSet(ConstHandle2Channel This, const char *const resonanceReaction);
+ChannelResonanceReactionSet(ConstHandle2Channel self, const char *const resonanceReaction);
 
 
 // -----------------------------------------------------------------------------
@@ -185,16 +185,16 @@ ChannelResonanceReactionSet(ConstHandle2Channel This, const char *const resonanc
 
 // +++ Has
 extern_c int
-ChannelLHas(ConstHandle2ConstChannel This);
+ChannelLHas(ConstHandle2ConstChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ChannelLGet(ConstHandle2ConstChannel This);
+ChannelLGet(ConstHandle2ConstChannel self);
 
 // +++ Set
 extern_c void
-ChannelLSet(ConstHandle2Channel This, const int L);
+ChannelLSet(ConstHandle2Channel self, const int L);
 
 
 // -----------------------------------------------------------------------------
@@ -203,16 +203,16 @@ ChannelLSet(ConstHandle2Channel This, const int L);
 
 // +++ Has
 extern_c int
-ChannelChannelSpinHas(ConstHandle2ConstChannel This);
+ChannelChannelSpinHas(ConstHandle2ConstChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ChannelChannelSpinGet(ConstHandle2ConstChannel This);
+ChannelChannelSpinGet(ConstHandle2ConstChannel self);
 
 // +++ Set
 extern_c void
-ChannelChannelSpinSet(ConstHandle2Channel This, const int channelSpin);
+ChannelChannelSpinSet(ConstHandle2Channel self, const int channelSpin);
 
 
 // -----------------------------------------------------------------------------
@@ -221,16 +221,16 @@ ChannelChannelSpinSet(ConstHandle2Channel This, const int channelSpin);
 
 // +++ Has
 extern_c int
-ChannelColumnIndexHas(ConstHandle2ConstChannel This);
+ChannelColumnIndexHas(ConstHandle2ConstChannel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ChannelColumnIndexGet(ConstHandle2ConstChannel This);
+ChannelColumnIndexGet(ConstHandle2ConstChannel self);
 
 // +++ Set
 extern_c void
-ChannelColumnIndexSet(ConstHandle2Channel This, const int columnIndex);
+ChannelColumnIndexSet(ConstHandle2Channel self, const int columnIndex);
 
 
 // -----------------------------------------------------------------------------
@@ -239,19 +239,19 @@ ChannelColumnIndexSet(ConstHandle2Channel This, const int columnIndex);
 
 // +++ Has
 extern_c int
-ChannelScatteringRadiusHas(ConstHandle2ConstChannel This);
+ChannelScatteringRadiusHas(ConstHandle2ConstChannel self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringRadius
-ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel This);
+ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringRadius
-ChannelScatteringRadiusGet(ConstHandle2Channel This);
+ChannelScatteringRadiusGet(ConstHandle2Channel self);
 
 // +++ Set
 extern_c void
-ChannelScatteringRadiusSet(ConstHandle2Channel This, ConstHandle2ConstScatteringRadius scatteringRadius);
+ChannelScatteringRadiusSet(ConstHandle2Channel self, ConstHandle2ConstScatteringRadius scatteringRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -260,19 +260,19 @@ ChannelScatteringRadiusSet(ConstHandle2Channel This, ConstHandle2ConstScattering
 
 // +++ Has
 extern_c int
-ChannelHardSphereRadiusHas(ConstHandle2ConstChannel This);
+ChannelHardSphereRadiusHas(ConstHandle2ConstChannel self);
 
 // --- Get, const
 extern_c Handle2ConstHardSphereRadius
-ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel This);
+ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel self);
 
 // +++ Get, non-const
 extern_c Handle2HardSphereRadius
-ChannelHardSphereRadiusGet(ConstHandle2Channel This);
+ChannelHardSphereRadiusGet(ConstHandle2Channel self);
 
 // +++ Set
 extern_c void
-ChannelHardSphereRadiusSet(ConstHandle2Channel This, ConstHandle2ConstHardSphereRadius hardSphereRadius);
+ChannelHardSphereRadiusSet(ConstHandle2Channel self, ConstHandle2ConstHardSphereRadius hardSphereRadius);
 
 
 // -----------------------------------------------------------------------------

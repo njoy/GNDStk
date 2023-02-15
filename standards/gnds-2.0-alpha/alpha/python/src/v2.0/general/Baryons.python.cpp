@@ -43,7 +43,7 @@ void wrapBaryons(py::module &module)
    // get/set baryon
    object.def_property(
       "baryon",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.baryon();
       },

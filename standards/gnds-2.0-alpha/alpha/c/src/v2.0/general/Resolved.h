@@ -99,13 +99,13 @@ ResolvedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResolvedAssign(ConstHandle2Resolved This, ConstHandle2ConstResolved from);
+ResolvedAssign(ConstHandle2Resolved self, ConstHandle2ConstResolved from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResolvedDelete(ConstHandle2ConstResolved This);
+ResolvedDelete(ConstHandle2ConstResolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ ResolvedDelete(ConstHandle2ConstResolved This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResolvedRead(ConstHandle2Resolved This, const char *const filename);
+ResolvedRead(ConstHandle2Resolved self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResolvedWrite(ConstHandle2ConstResolved This, const char *const filename);
+ResolvedWrite(ConstHandle2ConstResolved self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResolvedPrint(ConstHandle2ConstResolved This);
+ResolvedPrint(ConstHandle2ConstResolved self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResolvedPrintXML(ConstHandle2ConstResolved This);
+ResolvedPrintXML(ConstHandle2ConstResolved self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResolvedPrintJSON(ConstHandle2ConstResolved This);
+ResolvedPrintJSON(ConstHandle2ConstResolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ ResolvedPrintJSON(ConstHandle2ConstResolved This);
 
 // +++ Has
 extern_c int
-ResolvedDomainMinHas(ConstHandle2ConstResolved This);
+ResolvedDomainMinHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-ResolvedDomainMinGet(ConstHandle2ConstResolved This);
+ResolvedDomainMinGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainMinSet(ConstHandle2Resolved This, const double domainMin);
+ResolvedDomainMinSet(ConstHandle2Resolved self, const double domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ ResolvedDomainMinSet(ConstHandle2Resolved This, const double domainMin);
 
 // +++ Has
 extern_c int
-ResolvedDomainMaxHas(ConstHandle2ConstResolved This);
+ResolvedDomainMaxHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-ResolvedDomainMaxGet(ConstHandle2ConstResolved This);
+ResolvedDomainMaxGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainMaxSet(ConstHandle2Resolved This, const double domainMax);
+ResolvedDomainMaxSet(ConstHandle2Resolved self, const double domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ ResolvedDomainMaxSet(ConstHandle2Resolved This, const double domainMax);
 
 // +++ Has
 extern_c int
-ResolvedDomainUnitHas(ConstHandle2ConstResolved This);
+ResolvedDomainUnitHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ResolvedDomainUnitGet(ConstHandle2ConstResolved This);
+ResolvedDomainUnitGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainUnitSet(ConstHandle2Resolved This, const char *const domainUnit);
+ResolvedDomainUnitSet(ConstHandle2Resolved self, const char *const domainUnit);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ ResolvedDomainUnitSet(ConstHandle2Resolved This, const char *const domainUnit);
 
 // +++ Has
 extern_c int
-ResolvedBreitWignerHas(ConstHandle2ConstResolved This);
+ResolvedBreitWignerHas(ConstHandle2ConstResolved self);
 
 // --- Get, const
 extern_c Handle2ConstBreitWigner
-ResolvedBreitWignerGetConst(ConstHandle2ConstResolved This);
+ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self);
 
 // +++ Get, non-const
 extern_c Handle2BreitWigner
-ResolvedBreitWignerGet(ConstHandle2Resolved This);
+ResolvedBreitWignerGet(ConstHandle2Resolved self);
 
 // +++ Set
 extern_c void
-ResolvedBreitWignerSet(ConstHandle2Resolved This, ConstHandle2ConstBreitWigner BreitWigner);
+ResolvedBreitWignerSet(ConstHandle2Resolved self, ConstHandle2ConstBreitWigner BreitWigner);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ ResolvedBreitWignerSet(ConstHandle2Resolved This, ConstHandle2ConstBreitWigner B
 
 // +++ Has
 extern_c int
-ResolvedRMatrixHas(ConstHandle2ConstResolved This);
+ResolvedRMatrixHas(ConstHandle2ConstResolved self);
 
 // --- Get, const
 extern_c Handle2ConstRMatrix
-ResolvedRMatrixGetConst(ConstHandle2ConstResolved This);
+ResolvedRMatrixGetConst(ConstHandle2ConstResolved self);
 
 // +++ Get, non-const
 extern_c Handle2RMatrix
-ResolvedRMatrixGet(ConstHandle2Resolved This);
+ResolvedRMatrixGet(ConstHandle2Resolved self);
 
 // +++ Set
 extern_c void
-ResolvedRMatrixSet(ConstHandle2Resolved This, ConstHandle2ConstRMatrix RMatrix);
+ResolvedRMatrixSet(ConstHandle2Resolved self, ConstHandle2ConstRMatrix RMatrix);
 
 
 // -----------------------------------------------------------------------------

@@ -43,7 +43,7 @@ void wrapChemicalElements(py::module &module)
    // get/set chemicalElement
    object.def_property(
       "chemical_element",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.chemicalElement();
       },

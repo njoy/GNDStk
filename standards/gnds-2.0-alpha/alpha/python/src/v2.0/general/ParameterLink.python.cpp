@@ -49,7 +49,7 @@ void wrapParameterLink(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapParameterLink(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -77,7 +77,7 @@ void wrapParameterLink(py::module &module)
    // get/set nParameters
    object.def_property(
       "n_parameters",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nParameters();
       },
@@ -91,7 +91,7 @@ void wrapParameterLink(py::module &module)
    // get/set matrixStartIndex
    object.def_property(
       "matrix_start_index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.matrixStartIndex();
       },

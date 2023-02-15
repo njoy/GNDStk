@@ -92,13 +92,13 @@ LegendreCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LegendreAssign(ConstHandle2Legendre This, ConstHandle2ConstLegendre from);
+LegendreAssign(ConstHandle2Legendre self, ConstHandle2ConstLegendre from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LegendreDelete(ConstHandle2ConstLegendre This);
+LegendreDelete(ConstHandle2ConstLegendre self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ LegendreDelete(ConstHandle2ConstLegendre This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LegendreRead(ConstHandle2Legendre This, const char *const filename);
+LegendreRead(ConstHandle2Legendre self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LegendreWrite(ConstHandle2ConstLegendre This, const char *const filename);
+LegendreWrite(ConstHandle2ConstLegendre self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LegendrePrint(ConstHandle2ConstLegendre This);
+LegendrePrint(ConstHandle2ConstLegendre self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LegendrePrintXML(ConstHandle2ConstLegendre This);
+LegendrePrintXML(ConstHandle2ConstLegendre self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LegendrePrintJSON(ConstHandle2ConstLegendre This);
+LegendrePrintJSON(ConstHandle2ConstLegendre self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ LegendrePrintJSON(ConstHandle2ConstLegendre This);
 
 // +++ Has
 extern_c int
-LegendreOuterDomainValueHas(ConstHandle2ConstLegendre This);
+LegendreOuterDomainValueHas(ConstHandle2ConstLegendre self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-LegendreOuterDomainValueGet(ConstHandle2ConstLegendre This);
+LegendreOuterDomainValueGet(ConstHandle2ConstLegendre self);
 
 // +++ Set
 extern_c void
-LegendreOuterDomainValueSet(ConstHandle2Legendre This, const double outerDomainValue);
+LegendreOuterDomainValueSet(ConstHandle2Legendre self, const double outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ LegendreOuterDomainValueSet(ConstHandle2Legendre This, const double outerDomainV
 
 // +++ Has
 extern_c int
-LegendreValuesHas(ConstHandle2ConstLegendre This);
+LegendreValuesHas(ConstHandle2ConstLegendre self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-LegendreValuesGetConst(ConstHandle2ConstLegendre This);
+LegendreValuesGetConst(ConstHandle2ConstLegendre self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-LegendreValuesGet(ConstHandle2Legendre This);
+LegendreValuesGet(ConstHandle2Legendre self);
 
 // +++ Set
 extern_c void
-LegendreValuesSet(ConstHandle2Legendre This, ConstHandle2ConstValues values);
+LegendreValuesSet(ConstHandle2Legendre self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------

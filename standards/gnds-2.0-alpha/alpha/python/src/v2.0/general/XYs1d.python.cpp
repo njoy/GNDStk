@@ -55,7 +55,7 @@ void wrapXYs1d(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapXYs1d(py::module &module)
    // get/set index
    object.def_property(
       "index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.index();
       },
@@ -83,7 +83,7 @@ void wrapXYs1d(py::module &module)
    // get/set interpolation
    object.def_property(
       "interpolation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interpolation();
       },
@@ -97,7 +97,7 @@ void wrapXYs1d(py::module &module)
    // get/set outerDomainValue
    object.def_property(
       "outer_domain_value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outerDomainValue();
       },
@@ -111,7 +111,7 @@ void wrapXYs1d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -125,7 +125,7 @@ void wrapXYs1d(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },
@@ -139,7 +139,7 @@ void wrapXYs1d(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

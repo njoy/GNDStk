@@ -73,20 +73,20 @@ SpectraCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SpectraAssign(ConstHandle2Spectra This, ConstHandle2ConstSpectra from)
+SpectraAssign(ConstHandle2Spectra self, ConstHandle2ConstSpectra from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SpectraDelete(ConstHandle2ConstSpectra This)
+SpectraDelete(ConstHandle2ConstSpectra self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ SpectraDelete(ConstHandle2ConstSpectra This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SpectraRead(ConstHandle2Spectra This, const char *const filename)
+SpectraRead(ConstHandle2Spectra self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SpectraWrite(ConstHandle2ConstSpectra This, const char *const filename)
+SpectraWrite(ConstHandle2ConstSpectra self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SpectraPrint(ConstHandle2ConstSpectra This)
+SpectraPrint(ConstHandle2ConstSpectra self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SpectraPrintXML(ConstHandle2ConstSpectra This)
+SpectraPrintXML(ConstHandle2ConstSpectra self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SpectraPrintJSON(ConstHandle2ConstSpectra This)
+SpectraPrintJSON(ConstHandle2ConstSpectra self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ SpectraPrintJSON(ConstHandle2ConstSpectra This)
 
 // Has
 int
-SpectraSpectrumHas(ConstHandle2ConstSpectra This)
+SpectraSpectrumHas(ConstHandle2ConstSpectra self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpectrumHas", This, extract::spectrum);
+      (CLASSNAME, CLASSNAME+"SpectrumHas", self, extract::spectrum);
 }
 
 // Clear
 void
-SpectraSpectrumClear(ConstHandle2Spectra This)
+SpectraSpectrumClear(ConstHandle2Spectra self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SpectrumClear", This, extract::spectrum);
+      (CLASSNAME, CLASSNAME+"SpectrumClear", self, extract::spectrum);
 }
 
 // Size
 size_t
-SpectraSpectrumSize(ConstHandle2ConstSpectra This)
+SpectraSpectrumSize(ConstHandle2ConstSpectra self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SpectrumSize", This, extract::spectrum);
+      (CLASSNAME, CLASSNAME+"SpectrumSize", self, extract::spectrum);
 }
 
 // Add
 void
-SpectraSpectrumAdd(ConstHandle2Spectra This, ConstHandle2ConstSpectrum spectrum)
+SpectraSpectrumAdd(ConstHandle2Spectra self, ConstHandle2ConstSpectrum spectrum)
 {
    detail::addToContainer<CPP,CPPSpectrum>
-      (CLASSNAME, CLASSNAME+"SpectrumAdd", This, extract::spectrum, spectrum);
+      (CLASSNAME, CLASSNAME+"SpectrumAdd", self, extract::spectrum, spectrum);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSpectrum
-SpectraSpectrumGetConst(ConstHandle2ConstSpectra This, const size_t index_)
+SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSpectrum>
-      (CLASSNAME, CLASSNAME+"SpectrumGetConst", This, extract::spectrum, index_);
+      (CLASSNAME, CLASSNAME+"SpectrumGetConst", self, extract::spectrum, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Spectrum
-SpectraSpectrumGet(ConstHandle2Spectra This, const size_t index_)
+SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Spectrum>
-      (CLASSNAME, CLASSNAME+"SpectrumGet", This, extract::spectrum, index_);
+      (CLASSNAME, CLASSNAME+"SpectrumGet", self, extract::spectrum, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SpectraSpectrumSet(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const size_t index_,
    ConstHandle2ConstSpectrum spectrum
 ) {
    detail::setByIndex<CPP,CPPSpectrum>
-      (CLASSNAME, CLASSNAME+"SpectrumSet", This, extract::spectrum, index_, spectrum);
+      (CLASSNAME, CLASSNAME+"SpectrumSet", self, extract::spectrum, index_, spectrum);
 }
 
 // Has, by label
 int
 SpectraSpectrumHasByLabel(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SpectrumHasByLabel",
-       This, extract::spectrum, meta::label, label);
+       self, extract::spectrum, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstSpectrum
 SpectraSpectrumGetByLabelConst(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSpectrum>
       (CLASSNAME, CLASSNAME+"SpectrumGetByLabelConst",
-       This, extract::spectrum, meta::label, label);
+       self, extract::spectrum, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Spectrum
 SpectraSpectrumGetByLabel(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2Spectrum>
       (CLASSNAME, CLASSNAME+"SpectrumGetByLabel",
-       This, extract::spectrum, meta::label, label);
+       self, extract::spectrum, meta::label, label);
 }
 
 // Set, by label
 void
 SpectraSpectrumSetByLabel(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const char *const label,
    ConstHandle2ConstSpectrum spectrum
 ) {
    detail::setByMetadatum<CPP,CPPSpectrum>
       (CLASSNAME, CLASSNAME+"SpectrumSetByLabel",
-       This, extract::spectrum, meta::label, label, spectrum);
+       self, extract::spectrum, meta::label, label, spectrum);
 }
 
 // Has, by pid
 int
 SpectraSpectrumHasByPid(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const char *const pid
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SpectrumHasByPid",
-       This, extract::spectrum, meta::pid, pid);
+       self, extract::spectrum, meta::pid, pid);
 }
 
 // Get, by pid, const
 Handle2ConstSpectrum
 SpectraSpectrumGetByPidConst(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSpectrum>
       (CLASSNAME, CLASSNAME+"SpectrumGetByPidConst",
-       This, extract::spectrum, meta::pid, pid);
+       self, extract::spectrum, meta::pid, pid);
 }
 
 // Get, by pid, non-const
 Handle2Spectrum
 SpectraSpectrumGetByPid(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2Spectrum>
       (CLASSNAME, CLASSNAME+"SpectrumGetByPid",
-       This, extract::spectrum, meta::pid, pid);
+       self, extract::spectrum, meta::pid, pid);
 }
 
 // Set, by pid
 void
 SpectraSpectrumSetByPid(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const char *const pid,
    ConstHandle2ConstSpectrum spectrum
 ) {
    detail::setByMetadatum<CPP,CPPSpectrum>
       (CLASSNAME, CLASSNAME+"SpectrumSetByPid",
-       This, extract::spectrum, meta::pid, pid, spectrum);
+       self, extract::spectrum, meta::pid, pid, spectrum);
 }
 
 

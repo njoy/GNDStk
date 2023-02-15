@@ -89,13 +89,13 @@ LinkCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LinkAssign(ConstHandle2Link This, ConstHandle2ConstLink from);
+LinkAssign(ConstHandle2Link self, ConstHandle2ConstLink from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LinkDelete(ConstHandle2ConstLink This);
+LinkDelete(ConstHandle2ConstLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ LinkDelete(ConstHandle2ConstLink This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LinkRead(ConstHandle2Link This, const char *const filename);
+LinkRead(ConstHandle2Link self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LinkWrite(ConstHandle2ConstLink This, const char *const filename);
+LinkWrite(ConstHandle2ConstLink self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LinkPrint(ConstHandle2ConstLink This);
+LinkPrint(ConstHandle2ConstLink self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LinkPrintXML(ConstHandle2ConstLink This);
+LinkPrintXML(ConstHandle2ConstLink self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LinkPrintJSON(ConstHandle2ConstLink This);
+LinkPrintJSON(ConstHandle2ConstLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ LinkPrintJSON(ConstHandle2ConstLink This);
 
 // +++ Has
 extern_c int
-LinkHrefHas(ConstHandle2ConstLink This);
+LinkHrefHas(ConstHandle2ConstLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LinkHrefGet(ConstHandle2ConstLink This);
+LinkHrefGet(ConstHandle2ConstLink self);
 
 // +++ Set
 extern_c void
-LinkHrefSet(ConstHandle2Link This, const char *const href);
+LinkHrefSet(ConstHandle2Link self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

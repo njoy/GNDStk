@@ -90,13 +90,13 @@ ApplicationDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ApplicationDataAssign(ConstHandle2ApplicationData This, ConstHandle2ConstApplicationData from);
+ApplicationDataAssign(ConstHandle2ApplicationData self, ConstHandle2ConstApplicationData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ApplicationDataDelete(ConstHandle2ConstApplicationData This);
+ApplicationDataDelete(ConstHandle2ConstApplicationData self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ApplicationDataDelete(ConstHandle2ConstApplicationData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ApplicationDataRead(ConstHandle2ApplicationData This, const char *const filename);
+ApplicationDataRead(ConstHandle2ApplicationData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ApplicationDataWrite(ConstHandle2ConstApplicationData This, const char *const filename);
+ApplicationDataWrite(ConstHandle2ConstApplicationData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ApplicationDataPrint(ConstHandle2ConstApplicationData This);
+ApplicationDataPrint(ConstHandle2ConstApplicationData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ApplicationDataPrintXML(ConstHandle2ConstApplicationData This);
+ApplicationDataPrintXML(ConstHandle2ConstApplicationData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ApplicationDataPrintJSON(ConstHandle2ConstApplicationData This);
+ApplicationDataPrintJSON(ConstHandle2ConstApplicationData self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ApplicationDataPrintJSON(ConstHandle2ConstApplicationData This);
 
 // +++ Has
 extern_c int
-ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData This);
+ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData self);
 
 // --- Get, const
 extern_c Handle2ConstInstitution
-ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData This);
+ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self);
 
 // +++ Get, non-const
 extern_c Handle2Institution
-ApplicationDataInstitutionGet(ConstHandle2ApplicationData This);
+ApplicationDataInstitutionGet(ConstHandle2ApplicationData self);
 
 // +++ Set
 extern_c void
-ApplicationDataInstitutionSet(ConstHandle2ApplicationData This, ConstHandle2ConstInstitution institution);
+ApplicationDataInstitutionSet(ConstHandle2ApplicationData self, ConstHandle2ConstInstitution institution);
 
 
 // -----------------------------------------------------------------------------

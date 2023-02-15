@@ -51,7 +51,7 @@ void wrapResolved(py::module &module)
    // get/set domainMin
    object.def_property(
       "domain_min",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMin();
       },
@@ -65,7 +65,7 @@ void wrapResolved(py::module &module)
    // get/set domainMax
    object.def_property(
       "domain_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainMax();
       },
@@ -79,7 +79,7 @@ void wrapResolved(py::module &module)
    // get/set domainUnit
    object.def_property(
       "domain_unit",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.domainUnit();
       },
@@ -93,7 +93,7 @@ void wrapResolved(py::module &module)
    // get/set BreitWigner
    object.def_property(
       "breit_wigner",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.BreitWigner();
       },
@@ -107,7 +107,7 @@ void wrapResolved(py::module &module)
    // get/set RMatrix
    object.def_property(
       "rmatrix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.RMatrix();
       },

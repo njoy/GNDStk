@@ -49,7 +49,7 @@ void wrapElapsedTime(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapElapsedTime(py::module &module)
    // get/set time
    object.def_property(
       "time",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.time();
       },
@@ -77,7 +77,7 @@ void wrapElapsedTime(py::module &module)
    // get/set yields
    object.def_property(
       "yields",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.yields();
       },
@@ -91,7 +91,7 @@ void wrapElapsedTime(py::module &module)
    // get/set incidentEnergies
    object.def_property(
       "incident_energies",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.incidentEnergies();
       },

@@ -49,7 +49,7 @@ void wrapDecay(py::module &module)
    // get/set index
    object.def_property(
       "index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.index();
       },
@@ -63,7 +63,7 @@ void wrapDecay(py::module &module)
    // get/set mode
    object.def_property(
       "mode",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mode();
       },
@@ -77,7 +77,7 @@ void wrapDecay(py::module &module)
    // get/set complete
    object.def_property(
       "complete",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.complete();
       },
@@ -91,7 +91,7 @@ void wrapDecay(py::module &module)
    // get/set products
    object.def_property(
       "products",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.products();
       },

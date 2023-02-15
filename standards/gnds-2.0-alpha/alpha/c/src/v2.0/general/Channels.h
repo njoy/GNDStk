@@ -90,13 +90,13 @@ ChannelsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ChannelsAssign(ConstHandle2Channels This, ConstHandle2ConstChannels from);
+ChannelsAssign(ConstHandle2Channels self, ConstHandle2ConstChannels from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ChannelsDelete(ConstHandle2ConstChannels This);
+ChannelsDelete(ConstHandle2ConstChannels self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ChannelsDelete(ConstHandle2ConstChannels This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ChannelsRead(ConstHandle2Channels This, const char *const filename);
+ChannelsRead(ConstHandle2Channels self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ChannelsWrite(ConstHandle2ConstChannels This, const char *const filename);
+ChannelsWrite(ConstHandle2ConstChannels self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ChannelsPrint(ConstHandle2ConstChannels This);
+ChannelsPrint(ConstHandle2ConstChannels self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ChannelsPrintXML(ConstHandle2ConstChannels This);
+ChannelsPrintXML(ConstHandle2ConstChannels self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ChannelsPrintJSON(ConstHandle2ConstChannels This);
+ChannelsPrintJSON(ConstHandle2ConstChannels self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ChannelsPrintJSON(ConstHandle2ConstChannels This);
 
 // +++ Has
 extern_c int
-ChannelsChannelHas(ConstHandle2ConstChannels This);
+ChannelsChannelHas(ConstHandle2ConstChannels self);
 
 // +++ Clear
 extern_c void
-ChannelsChannelClear(ConstHandle2Channels This);
+ChannelsChannelClear(ConstHandle2Channels self);
 
 // +++ Size
 extern_c size_t
-ChannelsChannelSize(ConstHandle2ConstChannels This);
+ChannelsChannelSize(ConstHandle2ConstChannels self);
 
 // +++ Add
 extern_c void
-ChannelsChannelAdd(ConstHandle2Channels This, ConstHandle2ConstChannel channel);
+ChannelsChannelAdd(ConstHandle2Channels self, ConstHandle2ConstChannel channel);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstChannel
-ChannelsChannelGetConst(ConstHandle2ConstChannels This, const size_t index_);
+ChannelsChannelGetConst(ConstHandle2ConstChannels self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Channel
-ChannelsChannelGet(ConstHandle2Channels This, const size_t index_);
+ChannelsChannelGet(ConstHandle2Channels self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ChannelsChannelSet(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const size_t index_,
    ConstHandle2ConstChannel channel
 );
@@ -169,28 +169,28 @@ ChannelsChannelSet(
 // +++ Has, by label
 extern_c int
 ChannelsChannelHasByLabel(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstChannel
 ChannelsChannelGetByLabelConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByLabel(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 ChannelsChannelSetByLabel(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const label,
    ConstHandle2ConstChannel channel
 );
@@ -198,28 +198,28 @@ ChannelsChannelSetByLabel(
 // +++ Has, by resonanceReaction
 extern_c int
 ChannelsChannelHasByResonanceReaction(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const resonanceReaction
 );
 
 // --- Get, by resonanceReaction, const
 extern_c Handle2ConstChannel
 ChannelsChannelGetByResonanceReactionConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const resonanceReaction
 );
 
 // +++ Get, by resonanceReaction, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByResonanceReaction(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const resonanceReaction
 );
 
 // +++ Set, by resonanceReaction
 extern_c void
 ChannelsChannelSetByResonanceReaction(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const resonanceReaction,
    ConstHandle2ConstChannel channel
 );
@@ -227,28 +227,28 @@ ChannelsChannelSetByResonanceReaction(
 // +++ Has, by L
 extern_c int
 ChannelsChannelHasByL(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int L
 );
 
 // --- Get, by L, const
 extern_c Handle2ConstChannel
 ChannelsChannelGetByLConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int L
 );
 
 // +++ Get, by L, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByL(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int L
 );
 
 // +++ Set, by L
 extern_c void
 ChannelsChannelSetByL(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int L,
    ConstHandle2ConstChannel channel
 );
@@ -256,28 +256,28 @@ ChannelsChannelSetByL(
 // +++ Has, by channelSpin
 extern_c int
 ChannelsChannelHasByChannelSpin(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int channelSpin
 );
 
 // --- Get, by channelSpin, const
 extern_c Handle2ConstChannel
 ChannelsChannelGetByChannelSpinConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int channelSpin
 );
 
 // +++ Get, by channelSpin, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByChannelSpin(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int channelSpin
 );
 
 // +++ Set, by channelSpin
 extern_c void
 ChannelsChannelSetByChannelSpin(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int channelSpin,
    ConstHandle2ConstChannel channel
 );
@@ -285,28 +285,28 @@ ChannelsChannelSetByChannelSpin(
 // +++ Has, by columnIndex
 extern_c int
 ChannelsChannelHasByColumnIndex(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int columnIndex
 );
 
 // --- Get, by columnIndex, const
 extern_c Handle2ConstChannel
 ChannelsChannelGetByColumnIndexConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const int columnIndex
 );
 
 // +++ Get, by columnIndex, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByColumnIndex(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int columnIndex
 );
 
 // +++ Set, by columnIndex
 extern_c void
 ChannelsChannelSetByColumnIndex(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const int columnIndex,
    ConstHandle2ConstChannel channel
 );

@@ -69,20 +69,20 @@ AverageProductEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AverageProductEnergyAssign(ConstHandle2AverageProductEnergy This, ConstHandle2ConstAverageProductEnergy from)
+AverageProductEnergyAssign(ConstHandle2AverageProductEnergy self, ConstHandle2ConstAverageProductEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AverageProductEnergyRead(ConstHandle2AverageProductEnergy This, const char *const filename)
+AverageProductEnergyRead(ConstHandle2AverageProductEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy This, const char *const filename)
+AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This)
 
 // Has
 int
-AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy This)
+AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2ConstXYs1d XYs1d)
+AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

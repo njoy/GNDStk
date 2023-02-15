@@ -90,13 +90,13 @@ FormFactorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FormFactorAssign(ConstHandle2FormFactor This, ConstHandle2ConstFormFactor from);
+FormFactorAssign(ConstHandle2FormFactor self, ConstHandle2ConstFormFactor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FormFactorDelete(ConstHandle2ConstFormFactor This);
+FormFactorDelete(ConstHandle2ConstFormFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ FormFactorDelete(ConstHandle2ConstFormFactor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FormFactorRead(ConstHandle2FormFactor This, const char *const filename);
+FormFactorRead(ConstHandle2FormFactor self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FormFactorWrite(ConstHandle2ConstFormFactor This, const char *const filename);
+FormFactorWrite(ConstHandle2ConstFormFactor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FormFactorPrint(ConstHandle2ConstFormFactor This);
+FormFactorPrint(ConstHandle2ConstFormFactor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FormFactorPrintXML(ConstHandle2ConstFormFactor This);
+FormFactorPrintXML(ConstHandle2ConstFormFactor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FormFactorPrintJSON(ConstHandle2ConstFormFactor This);
+FormFactorPrintJSON(ConstHandle2ConstFormFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ FormFactorPrintJSON(ConstHandle2ConstFormFactor This);
 
 // +++ Has
 extern_c int
-FormFactorXYs1dHas(ConstHandle2ConstFormFactor This);
+FormFactorXYs1dHas(ConstHandle2ConstFormFactor self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor This);
+FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-FormFactorXYs1dGet(ConstHandle2FormFactor This);
+FormFactorXYs1dGet(ConstHandle2FormFactor self);
 
 // +++ Set
 extern_c void
-FormFactorXYs1dSet(ConstHandle2FormFactor This, ConstHandle2ConstXYs1d XYs1d);
+FormFactorXYs1dSet(ConstHandle2FormFactor self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

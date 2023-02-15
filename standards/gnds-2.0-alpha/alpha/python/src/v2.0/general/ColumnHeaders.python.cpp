@@ -43,7 +43,7 @@ void wrapColumnHeaders(py::module &module)
    // get/set column
    object.def_property(
       "column",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.column();
       },

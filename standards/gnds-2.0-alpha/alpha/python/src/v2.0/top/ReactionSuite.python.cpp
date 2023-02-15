@@ -75,7 +75,7 @@ void wrapReactionSuite(py::module &module)
    // get/set projectile
    object.def_property(
       "projectile",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.projectile();
       },
@@ -89,7 +89,7 @@ void wrapReactionSuite(py::module &module)
    // get/set target
    object.def_property(
       "target",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.target();
       },
@@ -103,7 +103,7 @@ void wrapReactionSuite(py::module &module)
    // get/set evaluation
    object.def_property(
       "evaluation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.evaluation();
       },
@@ -117,7 +117,7 @@ void wrapReactionSuite(py::module &module)
    // get/set format
    object.def_property(
       "format",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.format();
       },
@@ -131,7 +131,7 @@ void wrapReactionSuite(py::module &module)
    // get/set projectileFrame
    object.def_property(
       "projectile_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.projectileFrame();
       },
@@ -145,7 +145,7 @@ void wrapReactionSuite(py::module &module)
    // get/set interaction
    object.def_property(
       "interaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.interaction();
       },
@@ -159,7 +159,7 @@ void wrapReactionSuite(py::module &module)
    // get/set styles
    object.def_property(
       "styles",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.styles();
       },
@@ -173,7 +173,7 @@ void wrapReactionSuite(py::module &module)
    // get/set PoPs
    object.def_property(
       "po_ps",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.PoPs();
       },
@@ -187,7 +187,7 @@ void wrapReactionSuite(py::module &module)
    // get/set reactions
    object.def_property(
       "reactions",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.reactions();
       },
@@ -201,7 +201,7 @@ void wrapReactionSuite(py::module &module)
    // get/set applicationData
    object.def_property(
       "application_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.applicationData();
       },
@@ -215,7 +215,7 @@ void wrapReactionSuite(py::module &module)
    // get/set externalFiles
    object.def_property(
       "external_files",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.externalFiles();
       },
@@ -229,7 +229,7 @@ void wrapReactionSuite(py::module &module)
    // get/set resonances
    object.def_property(
       "resonances",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonances();
       },
@@ -243,7 +243,7 @@ void wrapReactionSuite(py::module &module)
    // get/set sums
    object.def_property(
       "sums",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.sums();
       },
@@ -257,7 +257,7 @@ void wrapReactionSuite(py::module &module)
    // get/set productions
    object.def_property(
       "productions",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productions();
       },
@@ -271,7 +271,7 @@ void wrapReactionSuite(py::module &module)
    // get/set fissionComponents
    object.def_property(
       "fission_components",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionComponents();
       },
@@ -285,7 +285,7 @@ void wrapReactionSuite(py::module &module)
    // get/set orphanProducts
    object.def_property(
       "orphan_products",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.orphanProducts();
       },
@@ -299,7 +299,7 @@ void wrapReactionSuite(py::module &module)
    // get/set incompleteReactions
    object.def_property(
       "incomplete_reactions",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.incompleteReactions();
       },

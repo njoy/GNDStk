@@ -43,7 +43,7 @@ void wrapFissionComponents(py::module &module)
    // get/set fissionComponent
    object.def_property(
       "fission_component",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionComponent();
       },

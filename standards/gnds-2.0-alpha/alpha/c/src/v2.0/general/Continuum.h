@@ -90,13 +90,13 @@ ContinuumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ContinuumAssign(ConstHandle2Continuum This, ConstHandle2ConstContinuum from);
+ContinuumAssign(ConstHandle2Continuum self, ConstHandle2ConstContinuum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ContinuumDelete(ConstHandle2ConstContinuum This);
+ContinuumDelete(ConstHandle2ConstContinuum self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ContinuumDelete(ConstHandle2ConstContinuum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ContinuumRead(ConstHandle2Continuum This, const char *const filename);
+ContinuumRead(ConstHandle2Continuum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ContinuumWrite(ConstHandle2ConstContinuum This, const char *const filename);
+ContinuumWrite(ConstHandle2ConstContinuum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ContinuumPrint(ConstHandle2ConstContinuum This);
+ContinuumPrint(ConstHandle2ConstContinuum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ContinuumPrintXML(ConstHandle2ConstContinuum This);
+ContinuumPrintXML(ConstHandle2ConstContinuum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ContinuumPrintJSON(ConstHandle2ConstContinuum This);
+ContinuumPrintJSON(ConstHandle2ConstContinuum self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ContinuumPrintJSON(ConstHandle2ConstContinuum This);
 
 // +++ Has
 extern_c int
-ContinuumXYs1dHas(ConstHandle2ConstContinuum This);
+ContinuumXYs1dHas(ConstHandle2ConstContinuum self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-ContinuumXYs1dGetConst(ConstHandle2ConstContinuum This);
+ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-ContinuumXYs1dGet(ConstHandle2Continuum This);
+ContinuumXYs1dGet(ConstHandle2Continuum self);
 
 // +++ Set
 extern_c void
-ContinuumXYs1dSet(ConstHandle2Continuum This, ConstHandle2ConstXYs1d XYs1d);
+ContinuumXYs1dSet(ConstHandle2Continuum self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

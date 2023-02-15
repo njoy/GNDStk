@@ -49,7 +49,7 @@ void wrapCovarianceMatrix(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapCovarianceMatrix(py::module &module)
    // get/set type
    object.def_property(
       "type",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.type();
       },
@@ -77,7 +77,7 @@ void wrapCovarianceMatrix(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -91,7 +91,7 @@ void wrapCovarianceMatrix(py::module &module)
    // get/set gridded2d
    object.def_property(
       "gridded2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.gridded2d();
       },

@@ -94,20 +94,20 @@ MixedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MixedAssign(ConstHandle2Mixed This, ConstHandle2ConstMixed from)
+MixedAssign(ConstHandle2Mixed self, ConstHandle2ConstMixed from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MixedDelete(ConstHandle2ConstMixed This)
+MixedDelete(ConstHandle2ConstMixed self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -121,44 +121,44 @@ MixedDelete(ConstHandle2ConstMixed This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MixedRead(ConstHandle2Mixed This, const char *const filename)
+MixedRead(ConstHandle2Mixed self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MixedWrite(ConstHandle2ConstMixed This, const char *const filename)
+MixedWrite(ConstHandle2ConstMixed self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MixedPrint(ConstHandle2ConstMixed This)
+MixedPrint(ConstHandle2ConstMixed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MixedPrintXML(ConstHandle2ConstMixed This)
+MixedPrintXML(ConstHandle2ConstMixed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MixedPrintJSON(ConstHandle2ConstMixed This)
+MixedPrintJSON(ConstHandle2ConstMixed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -168,27 +168,27 @@ MixedPrintJSON(ConstHandle2ConstMixed This)
 
 // Has
 int
-MixedLabelHas(ConstHandle2ConstMixed This)
+MixedLabelHas(ConstHandle2ConstMixed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-MixedLabelGet(ConstHandle2ConstMixed This)
+MixedLabelGet(ConstHandle2ConstMixed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MixedLabelSet(ConstHandle2Mixed This, const char *const label)
+MixedLabelSet(ConstHandle2Mixed self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -198,196 +198,196 @@ MixedLabelSet(ConstHandle2Mixed This, const char *const label)
 
 // Has
 int
-MixedCovarianceMatrixHas(ConstHandle2ConstMixed This)
+MixedCovarianceMatrixHas(ConstHandle2ConstMixed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixHas", This, extract::covarianceMatrix);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixHas", self, extract::covarianceMatrix);
 }
 
 // Clear
 void
-MixedCovarianceMatrixClear(ConstHandle2Mixed This)
+MixedCovarianceMatrixClear(ConstHandle2Mixed self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixClear", This, extract::covarianceMatrix);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixClear", self, extract::covarianceMatrix);
 }
 
 // Size
 size_t
-MixedCovarianceMatrixSize(ConstHandle2ConstMixed This)
+MixedCovarianceMatrixSize(ConstHandle2ConstMixed self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixSize", This, extract::covarianceMatrix);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixSize", self, extract::covarianceMatrix);
 }
 
 // Add
 void
-MixedCovarianceMatrixAdd(ConstHandle2Mixed This, ConstHandle2ConstCovarianceMatrix covarianceMatrix)
+MixedCovarianceMatrixAdd(ConstHandle2Mixed self, ConstHandle2ConstCovarianceMatrix covarianceMatrix)
 {
    detail::addToContainer<CPP,CPPCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixAdd", This, extract::covarianceMatrix, covarianceMatrix);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixAdd", self, extract::covarianceMatrix, covarianceMatrix);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstCovarianceMatrix
-MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed This, const size_t index_)
+MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixGetConst", This, extract::covarianceMatrix, index_);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixGetConst", self, extract::covarianceMatrix, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2CovarianceMatrix
-MixedCovarianceMatrixGet(ConstHandle2Mixed This, const size_t index_)
+MixedCovarianceMatrixGet(ConstHandle2Mixed self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2CovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixGet", This, extract::covarianceMatrix, index_);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixGet", self, extract::covarianceMatrix, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MixedCovarianceMatrixSet(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const size_t index_,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 ) {
    detail::setByIndex<CPP,CPPCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"CovarianceMatrixSet", This, extract::covarianceMatrix, index_, covarianceMatrix);
+      (CLASSNAME, CLASSNAME+"CovarianceMatrixSet", self, extract::covarianceMatrix, index_, covarianceMatrix);
 }
 
 // Has, by label
 int
 MixedCovarianceMatrixHasByLabel(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixHasByLabel",
-       This, extract::covarianceMatrix, meta::label, label);
+       self, extract::covarianceMatrix, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByLabelConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByLabelConst",
-       This, extract::covarianceMatrix, meta::label, label);
+       self, extract::covarianceMatrix, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2CovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByLabel",
-       This, extract::covarianceMatrix, meta::label, label);
+       self, extract::covarianceMatrix, meta::label, label);
 }
 
 // Set, by label
 void
 MixedCovarianceMatrixSetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const label,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 ) {
    detail::setByMetadatum<CPP,CPPCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixSetByLabel",
-       This, extract::covarianceMatrix, meta::label, label, covarianceMatrix);
+       self, extract::covarianceMatrix, meta::label, label, covarianceMatrix);
 }
 
 // Has, by type
 int
 MixedCovarianceMatrixHasByType(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const type
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixHasByType",
-       This, extract::covarianceMatrix, meta::type, type);
+       self, extract::covarianceMatrix, meta::type, type);
 }
 
 // Get, by type, const
 Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByTypeConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const type
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByTypeConst",
-       This, extract::covarianceMatrix, meta::type, type);
+       self, extract::covarianceMatrix, meta::type, type);
 }
 
 // Get, by type, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const type
 ) {
    return detail::getByMetadatum<CPP,Handle2CovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByType",
-       This, extract::covarianceMatrix, meta::type, type);
+       self, extract::covarianceMatrix, meta::type, type);
 }
 
 // Set, by type
 void
 MixedCovarianceMatrixSetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const type,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 ) {
    detail::setByMetadatum<CPP,CPPCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixSetByType",
-       This, extract::covarianceMatrix, meta::type, type, covarianceMatrix);
+       self, extract::covarianceMatrix, meta::type, type, covarianceMatrix);
 }
 
 // Has, by productFrame
 int
 MixedCovarianceMatrixHasByProductFrame(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const productFrame
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixHasByProductFrame",
-       This, extract::covarianceMatrix, meta::productFrame, productFrame);
+       self, extract::covarianceMatrix, meta::productFrame, productFrame);
 }
 
 // Get, by productFrame, const
 Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByProductFrameConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const productFrame
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByProductFrameConst",
-       This, extract::covarianceMatrix, meta::productFrame, productFrame);
+       self, extract::covarianceMatrix, meta::productFrame, productFrame);
 }
 
 // Get, by productFrame, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByProductFrame(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const productFrame
 ) {
    return detail::getByMetadatum<CPP,Handle2CovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetByProductFrame",
-       This, extract::covarianceMatrix, meta::productFrame, productFrame);
+       self, extract::covarianceMatrix, meta::productFrame, productFrame);
 }
 
 // Set, by productFrame
 void
 MixedCovarianceMatrixSetByProductFrame(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const productFrame,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 ) {
    detail::setByMetadatum<CPP,CPPCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"CovarianceMatrixSetByProductFrame",
-       This, extract::covarianceMatrix, meta::productFrame, productFrame, covarianceMatrix);
+       self, extract::covarianceMatrix, meta::productFrame, productFrame, covarianceMatrix);
 }
 
 
@@ -397,241 +397,241 @@ MixedCovarianceMatrixSetByProductFrame(
 
 // Has
 int
-MixedSumHas(ConstHandle2ConstMixed This)
+MixedSumHas(ConstHandle2ConstMixed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SumHas", This, extract::sum);
+      (CLASSNAME, CLASSNAME+"SumHas", self, extract::sum);
 }
 
 // Clear
 void
-MixedSumClear(ConstHandle2Mixed This)
+MixedSumClear(ConstHandle2Mixed self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SumClear", This, extract::sum);
+      (CLASSNAME, CLASSNAME+"SumClear", self, extract::sum);
 }
 
 // Size
 size_t
-MixedSumSize(ConstHandle2ConstMixed This)
+MixedSumSize(ConstHandle2ConstMixed self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SumSize", This, extract::sum);
+      (CLASSNAME, CLASSNAME+"SumSize", self, extract::sum);
 }
 
 // Add
 void
-MixedSumAdd(ConstHandle2Mixed This, ConstHandle2ConstSum sum)
+MixedSumAdd(ConstHandle2Mixed self, ConstHandle2ConstSum sum)
 {
    detail::addToContainer<CPP,CPPSum>
-      (CLASSNAME, CLASSNAME+"SumAdd", This, extract::sum, sum);
+      (CLASSNAME, CLASSNAME+"SumAdd", self, extract::sum, sum);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSum
-MixedSumGetConst(ConstHandle2ConstMixed This, const size_t index_)
+MixedSumGetConst(ConstHandle2ConstMixed self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSum>
-      (CLASSNAME, CLASSNAME+"SumGetConst", This, extract::sum, index_);
+      (CLASSNAME, CLASSNAME+"SumGetConst", self, extract::sum, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Sum
-MixedSumGet(ConstHandle2Mixed This, const size_t index_)
+MixedSumGet(ConstHandle2Mixed self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Sum>
-      (CLASSNAME, CLASSNAME+"SumGet", This, extract::sum, index_);
+      (CLASSNAME, CLASSNAME+"SumGet", self, extract::sum, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MixedSumSet(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const size_t index_,
    ConstHandle2ConstSum sum
 ) {
    detail::setByIndex<CPP,CPPSum>
-      (CLASSNAME, CLASSNAME+"SumSet", This, extract::sum, index_, sum);
+      (CLASSNAME, CLASSNAME+"SumSet", self, extract::sum, index_, sum);
 }
 
 // Has, by label
 int
 MixedSumHasByLabel(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SumHasByLabel",
-       This, extract::sum, meta::label, label);
+       self, extract::sum, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstSum
 MixedSumGetByLabelConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSum>
       (CLASSNAME, CLASSNAME+"SumGetByLabelConst",
-       This, extract::sum, meta::label, label);
+       self, extract::sum, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Sum
 MixedSumGetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2Sum>
       (CLASSNAME, CLASSNAME+"SumGetByLabel",
-       This, extract::sum, meta::label, label);
+       self, extract::sum, meta::label, label);
 }
 
 // Set, by label
 void
 MixedSumSetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const label,
    ConstHandle2ConstSum sum
 ) {
    detail::setByMetadatum<CPP,CPPSum>
       (CLASSNAME, CLASSNAME+"SumSetByLabel",
-       This, extract::sum, meta::label, label, sum);
+       self, extract::sum, meta::label, label, sum);
 }
 
 // Has, by domainMin
 int
 MixedSumHasByDomainMin(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const double domainMin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SumHasByDomainMin",
-       This, extract::sum, meta::domainMin, domainMin);
+       self, extract::sum, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, const
 Handle2ConstSum
 MixedSumGetByDomainMinConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const double domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainMinConst",
-       This, extract::sum, meta::domainMin, domainMin);
+       self, extract::sum, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, non-const
 Handle2Sum
 MixedSumGetByDomainMin(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const double domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2Sum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainMin",
-       This, extract::sum, meta::domainMin, domainMin);
+       self, extract::sum, meta::domainMin, domainMin);
 }
 
 // Set, by domainMin
 void
 MixedSumSetByDomainMin(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const double domainMin,
    ConstHandle2ConstSum sum
 ) {
    detail::setByMetadatum<CPP,CPPSum>
       (CLASSNAME, CLASSNAME+"SumSetByDomainMin",
-       This, extract::sum, meta::domainMin, domainMin, sum);
+       self, extract::sum, meta::domainMin, domainMin, sum);
 }
 
 // Has, by domainMax
 int
 MixedSumHasByDomainMax(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const double domainMax
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SumHasByDomainMax",
-       This, extract::sum, meta::domainMax, domainMax);
+       self, extract::sum, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, const
 Handle2ConstSum
 MixedSumGetByDomainMaxConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const double domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainMaxConst",
-       This, extract::sum, meta::domainMax, domainMax);
+       self, extract::sum, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, non-const
 Handle2Sum
 MixedSumGetByDomainMax(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const double domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2Sum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainMax",
-       This, extract::sum, meta::domainMax, domainMax);
+       self, extract::sum, meta::domainMax, domainMax);
 }
 
 // Set, by domainMax
 void
 MixedSumSetByDomainMax(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const double domainMax,
    ConstHandle2ConstSum sum
 ) {
    detail::setByMetadatum<CPP,CPPSum>
       (CLASSNAME, CLASSNAME+"SumSetByDomainMax",
-       This, extract::sum, meta::domainMax, domainMax, sum);
+       self, extract::sum, meta::domainMax, domainMax, sum);
 }
 
 // Has, by domainUnit
 int
 MixedSumHasByDomainUnit(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const domainUnit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SumHasByDomainUnit",
-       This, extract::sum, meta::domainUnit, domainUnit);
+       self, extract::sum, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, const
 Handle2ConstSum
 MixedSumGetByDomainUnitConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const char *const domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainUnitConst",
-       This, extract::sum, meta::domainUnit, domainUnit);
+       self, extract::sum, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, non-const
 Handle2Sum
 MixedSumGetByDomainUnit(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2Sum>
       (CLASSNAME, CLASSNAME+"SumGetByDomainUnit",
-       This, extract::sum, meta::domainUnit, domainUnit);
+       self, extract::sum, meta::domainUnit, domainUnit);
 }
 
 // Set, by domainUnit
 void
 MixedSumSetByDomainUnit(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const char *const domainUnit,
    ConstHandle2ConstSum sum
 ) {
    detail::setByMetadatum<CPP,CPPSum>
       (CLASSNAME, CLASSNAME+"SumSetByDomainUnit",
-       This, extract::sum, meta::domainUnit, domainUnit, sum);
+       self, extract::sum, meta::domainUnit, domainUnit, sum);
 }
 
 
@@ -641,34 +641,34 @@ MixedSumSetByDomainUnit(
 
 // Has
 int
-MixedShortRangeSelfScalingVarianceHas(ConstHandle2ConstMixed This)
+MixedShortRangeSelfScalingVarianceHas(ConstHandle2ConstMixed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceHas", This, extract::shortRangeSelfScalingVariance);
+      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceHas", self, extract::shortRangeSelfScalingVariance);
 }
 
 // Get, const
 Handle2ConstShortRangeSelfScalingVariance
-MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed This)
+MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed self)
 {
    return detail::getField<CPP,Handle2ConstShortRangeSelfScalingVariance>
-      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceGetConst", This, extract::shortRangeSelfScalingVariance);
+      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceGetConst", self, extract::shortRangeSelfScalingVariance);
 }
 
 // Get, non-const
 Handle2ShortRangeSelfScalingVariance
-MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed This)
+MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed self)
 {
    return detail::getField<CPP,Handle2ShortRangeSelfScalingVariance>
-      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceGet", This, extract::shortRangeSelfScalingVariance);
+      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceGet", self, extract::shortRangeSelfScalingVariance);
 }
 
 // Set
 void
-MixedShortRangeSelfScalingVarianceSet(ConstHandle2Mixed This, ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance)
+MixedShortRangeSelfScalingVarianceSet(ConstHandle2Mixed self, ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance)
 {
    detail::setField<CPP,CPPShortRangeSelfScalingVariance>
-      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceSet", This, extract::shortRangeSelfScalingVariance, shortRangeSelfScalingVariance);
+      (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceSet", self, extract::shortRangeSelfScalingVariance, shortRangeSelfScalingVariance);
 }
 
 

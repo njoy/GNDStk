@@ -54,7 +54,7 @@ void wrapLengths(py::module &module)
    // get/set valueType
    object.def_property(
       "value_type",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.valueType();
       },
@@ -68,7 +68,7 @@ void wrapLengths(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },

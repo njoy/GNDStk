@@ -89,13 +89,13 @@ NuclidesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from);
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclidesDelete(ConstHandle2ConstNuclides This);
+NuclidesDelete(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ NuclidesDelete(ConstHandle2ConstNuclides This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename);
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename);
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclidesPrint(ConstHandle2ConstNuclides This);
+NuclidesPrint(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclidesPrintXML(ConstHandle2ConstNuclides This);
+NuclidesPrintXML(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This);
+NuclidesPrintJSON(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,33 +135,33 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This);
 
 // +++ Clear
 extern_c void
-NuclidesStd::stringsClear(ConstHandle2Nuclides This);
+NuclidesStd::stringsClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesStd::stringsSize(ConstHandle2ConstNuclides This);
+NuclidesStd::stringsSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c std::string
-NuclidesStd::stringsGet(ConstHandle2ConstNuclides This, const size_t index);
+NuclidesStd::stringsGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesStd::stringsSet(ConstHandle2Nuclides This, const size_t index, const std::string value);
+NuclidesStd::stringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value);
 
 // --- Get pointer to existing values, const
 extern_c const std::string *
-NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides This);
+NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values, non-const
 extern_c std::string *
-NuclidesStd::stringsGetArray(ConstHandle2Nuclides This);
+NuclidesStd::stringsGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesStd::stringsSetArray(ConstHandle2Nuclides This, const std::string *const values, const size_t size);
+NuclidesStd::stringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ NuclidesStd::stringsSetArray(ConstHandle2Nuclides This, const std::string *const
 
 // +++ Has
 extern_c int
-NuclidesHrefHas(ConstHandle2ConstNuclides This);
+NuclidesHrefHas(ConstHandle2ConstNuclides self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-NuclidesHrefGet(ConstHandle2ConstNuclides This);
+NuclidesHrefGet(ConstHandle2ConstNuclides self);
 
 // +++ Set
 extern_c void
-NuclidesHrefSet(ConstHandle2Nuclides This, const char *const href);
+NuclidesHrefSet(ConstHandle2Nuclides self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

@@ -106,13 +106,13 @@ LeptonCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LeptonAssign(ConstHandle2Lepton This, ConstHandle2ConstLepton from);
+LeptonAssign(ConstHandle2Lepton self, ConstHandle2ConstLepton from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LeptonDelete(ConstHandle2ConstLepton This);
+LeptonDelete(ConstHandle2ConstLepton self);
 
 
 // -----------------------------------------------------------------------------
@@ -125,25 +125,25 @@ LeptonDelete(ConstHandle2ConstLepton This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LeptonRead(ConstHandle2Lepton This, const char *const filename);
+LeptonRead(ConstHandle2Lepton self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LeptonWrite(ConstHandle2ConstLepton This, const char *const filename);
+LeptonWrite(ConstHandle2ConstLepton self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LeptonPrint(ConstHandle2ConstLepton This);
+LeptonPrint(ConstHandle2ConstLepton self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LeptonPrintXML(ConstHandle2ConstLepton This);
+LeptonPrintXML(ConstHandle2ConstLepton self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LeptonPrintJSON(ConstHandle2ConstLepton This);
+LeptonPrintJSON(ConstHandle2ConstLepton self);
 
 
 // -----------------------------------------------------------------------------
@@ -152,16 +152,16 @@ LeptonPrintJSON(ConstHandle2ConstLepton This);
 
 // +++ Has
 extern_c int
-LeptonIdHas(ConstHandle2ConstLepton This);
+LeptonIdHas(ConstHandle2ConstLepton self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LeptonIdGet(ConstHandle2ConstLepton This);
+LeptonIdGet(ConstHandle2ConstLepton self);
 
 // +++ Set
 extern_c void
-LeptonIdSet(ConstHandle2Lepton This, const char *const id);
+LeptonIdSet(ConstHandle2Lepton self, const char *const id);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ LeptonIdSet(ConstHandle2Lepton This, const char *const id);
 
 // +++ Has
 extern_c int
-LeptonGenerationHas(ConstHandle2ConstLepton This);
+LeptonGenerationHas(ConstHandle2ConstLepton self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LeptonGenerationGet(ConstHandle2ConstLepton This);
+LeptonGenerationGet(ConstHandle2ConstLepton self);
 
 // +++ Set
 extern_c void
-LeptonGenerationSet(ConstHandle2Lepton This, const char *const generation);
+LeptonGenerationSet(ConstHandle2Lepton self, const char *const generation);
 
 
 // -----------------------------------------------------------------------------
@@ -188,19 +188,19 @@ LeptonGenerationSet(ConstHandle2Lepton This, const char *const generation);
 
 // +++ Has
 extern_c int
-LeptonMassHas(ConstHandle2ConstLepton This);
+LeptonMassHas(ConstHandle2ConstLepton self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-LeptonMassGetConst(ConstHandle2ConstLepton This);
+LeptonMassGetConst(ConstHandle2ConstLepton self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-LeptonMassGet(ConstHandle2Lepton This);
+LeptonMassGet(ConstHandle2Lepton self);
 
 // +++ Set
 extern_c void
-LeptonMassSet(ConstHandle2Lepton This, ConstHandle2ConstMass mass);
+LeptonMassSet(ConstHandle2Lepton self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
@@ -209,19 +209,19 @@ LeptonMassSet(ConstHandle2Lepton This, ConstHandle2ConstMass mass);
 
 // +++ Has
 extern_c int
-LeptonSpinHas(ConstHandle2ConstLepton This);
+LeptonSpinHas(ConstHandle2ConstLepton self);
 
 // --- Get, const
 extern_c Handle2ConstSpin
-LeptonSpinGetConst(ConstHandle2ConstLepton This);
+LeptonSpinGetConst(ConstHandle2ConstLepton self);
 
 // +++ Get, non-const
 extern_c Handle2Spin
-LeptonSpinGet(ConstHandle2Lepton This);
+LeptonSpinGet(ConstHandle2Lepton self);
 
 // +++ Set
 extern_c void
-LeptonSpinSet(ConstHandle2Lepton This, ConstHandle2ConstSpin spin);
+LeptonSpinSet(ConstHandle2Lepton self, ConstHandle2ConstSpin spin);
 
 
 // -----------------------------------------------------------------------------
@@ -230,19 +230,19 @@ LeptonSpinSet(ConstHandle2Lepton This, ConstHandle2ConstSpin spin);
 
 // +++ Has
 extern_c int
-LeptonParityHas(ConstHandle2ConstLepton This);
+LeptonParityHas(ConstHandle2ConstLepton self);
 
 // --- Get, const
 extern_c Handle2ConstParity
-LeptonParityGetConst(ConstHandle2ConstLepton This);
+LeptonParityGetConst(ConstHandle2ConstLepton self);
 
 // +++ Get, non-const
 extern_c Handle2Parity
-LeptonParityGet(ConstHandle2Lepton This);
+LeptonParityGet(ConstHandle2Lepton self);
 
 // +++ Set
 extern_c void
-LeptonParitySet(ConstHandle2Lepton This, ConstHandle2ConstParity parity);
+LeptonParitySet(ConstHandle2Lepton self, ConstHandle2ConstParity parity);
 
 
 // -----------------------------------------------------------------------------
@@ -251,19 +251,19 @@ LeptonParitySet(ConstHandle2Lepton This, ConstHandle2ConstParity parity);
 
 // +++ Has
 extern_c int
-LeptonChargeHas(ConstHandle2ConstLepton This);
+LeptonChargeHas(ConstHandle2ConstLepton self);
 
 // --- Get, const
 extern_c Handle2ConstCharge
-LeptonChargeGetConst(ConstHandle2ConstLepton This);
+LeptonChargeGetConst(ConstHandle2ConstLepton self);
 
 // +++ Get, non-const
 extern_c Handle2Charge
-LeptonChargeGet(ConstHandle2Lepton This);
+LeptonChargeGet(ConstHandle2Lepton self);
 
 // +++ Set
 extern_c void
-LeptonChargeSet(ConstHandle2Lepton This, ConstHandle2ConstCharge charge);
+LeptonChargeSet(ConstHandle2Lepton self, ConstHandle2ConstCharge charge);
 
 
 // -----------------------------------------------------------------------------
@@ -272,19 +272,19 @@ LeptonChargeSet(ConstHandle2Lepton This, ConstHandle2ConstCharge charge);
 
 // +++ Has
 extern_c int
-LeptonHalflifeHas(ConstHandle2ConstLepton This);
+LeptonHalflifeHas(ConstHandle2ConstLepton self);
 
 // --- Get, const
 extern_c Handle2ConstHalflife
-LeptonHalflifeGetConst(ConstHandle2ConstLepton This);
+LeptonHalflifeGetConst(ConstHandle2ConstLepton self);
 
 // +++ Get, non-const
 extern_c Handle2Halflife
-LeptonHalflifeGet(ConstHandle2Lepton This);
+LeptonHalflifeGet(ConstHandle2Lepton self);
 
 // +++ Set
 extern_c void
-LeptonHalflifeSet(ConstHandle2Lepton This, ConstHandle2ConstHalflife halflife);
+LeptonHalflifeSet(ConstHandle2Lepton self, ConstHandle2ConstHalflife halflife);
 
 
 // -----------------------------------------------------------------------------

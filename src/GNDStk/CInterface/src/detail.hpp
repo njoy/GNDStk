@@ -11,30 +11,30 @@ namespace detail {
 
 // const
 template<class CPP, class C>
-const CPP &tocpp(const C *const This)
+const CPP &tocpp(const C *const self)
 {
-   if (This == nullptr) {
+   if (self == nullptr) {
       log::error(
          "detail::tocpp(pointer to const): pointer is null; "
          "it cannot be dereferenced"
       );
       throw std::exception{};
    }
-   return reinterpret_cast<const CPP &>(*This);
+   return reinterpret_cast<const CPP &>(*self);
 }
 
 // non-const
 template<class CPP, class C>
-CPP &tocpp(C *const This)
+CPP &tocpp(C *const self)
 {
-   if (This == nullptr) {
+   if (self == nullptr) {
       log::error(
          "detail::tocpp(pointer): pointer is null; "
          "it cannot be dereferenced"
       );
       throw std::exception{};
    }
-   return reinterpret_cast<CPP &>(*This);
+   return reinterpret_cast<CPP &>(*self);
 }
 
 // ------------------------

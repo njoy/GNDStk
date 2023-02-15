@@ -47,7 +47,7 @@ void wrapFunction1ds(py::module &module)
    // get/set Legendre
    object.def_property(
       "legendre",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Legendre();
       },
@@ -61,7 +61,7 @@ void wrapFunction1ds(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -75,7 +75,7 @@ void wrapFunction1ds(py::module &module)
    // get/set regions1d
    object.def_property(
       "regions1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions1d();
       },

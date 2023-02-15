@@ -92,13 +92,13 @@ InstitutionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InstitutionAssign(ConstHandle2Institution This, ConstHandle2ConstInstitution from);
+InstitutionAssign(ConstHandle2Institution self, ConstHandle2ConstInstitution from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InstitutionDelete(ConstHandle2ConstInstitution This);
+InstitutionDelete(ConstHandle2ConstInstitution self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ InstitutionDelete(ConstHandle2ConstInstitution This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InstitutionRead(ConstHandle2Institution This, const char *const filename);
+InstitutionRead(ConstHandle2Institution self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InstitutionWrite(ConstHandle2ConstInstitution This, const char *const filename);
+InstitutionWrite(ConstHandle2ConstInstitution self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InstitutionPrint(ConstHandle2ConstInstitution This);
+InstitutionPrint(ConstHandle2ConstInstitution self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InstitutionPrintXML(ConstHandle2ConstInstitution This);
+InstitutionPrintXML(ConstHandle2ConstInstitution self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InstitutionPrintJSON(ConstHandle2ConstInstitution This);
+InstitutionPrintJSON(ConstHandle2ConstInstitution self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ InstitutionPrintJSON(ConstHandle2ConstInstitution This);
 
 // +++ Has
 extern_c int
-InstitutionLabelHas(ConstHandle2ConstInstitution This);
+InstitutionLabelHas(ConstHandle2ConstInstitution self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-InstitutionLabelGet(ConstHandle2ConstInstitution This);
+InstitutionLabelGet(ConstHandle2ConstInstitution self);
 
 // +++ Set
 extern_c void
-InstitutionLabelSet(ConstHandle2Institution This, const char *const label);
+InstitutionLabelSet(ConstHandle2Institution self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ InstitutionLabelSet(ConstHandle2Institution This, const char *const label);
 
 // +++ Has
 extern_c int
-InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution This);
+InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution self);
 
 // --- Get, const
 extern_c Handle2ConstENDFconversionFlags
-InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution This);
+InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self);
 
 // +++ Get, non-const
 extern_c Handle2ENDFconversionFlags
-InstitutionENDFconversionFlagsGet(ConstHandle2Institution This);
+InstitutionENDFconversionFlagsGet(ConstHandle2Institution self);
 
 // +++ Set
 extern_c void
-InstitutionENDFconversionFlagsSet(ConstHandle2Institution This, ConstHandle2ConstENDFconversionFlags ENDFconversionFlags);
+InstitutionENDFconversionFlagsSet(ConstHandle2Institution self, ConstHandle2ConstENDFconversionFlags ENDFconversionFlags);
 
 
 // -----------------------------------------------------------------------------

@@ -72,20 +72,20 @@ E_criticalCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-E_criticalAssign(ConstHandle2E_critical This, ConstHandle2ConstE_critical from)
+E_criticalAssign(ConstHandle2E_critical self, ConstHandle2ConstE_critical from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-E_criticalDelete(ConstHandle2ConstE_critical This)
+E_criticalDelete(ConstHandle2ConstE_critical self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ E_criticalDelete(ConstHandle2ConstE_critical This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-E_criticalRead(ConstHandle2E_critical This, const char *const filename)
+E_criticalRead(ConstHandle2E_critical self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-E_criticalWrite(ConstHandle2ConstE_critical This, const char *const filename)
+E_criticalWrite(ConstHandle2ConstE_critical self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-E_criticalPrint(ConstHandle2ConstE_critical This)
+E_criticalPrint(ConstHandle2ConstE_critical self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-E_criticalPrintXML(ConstHandle2ConstE_critical This)
+E_criticalPrintXML(ConstHandle2ConstE_critical self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-E_criticalPrintJSON(ConstHandle2ConstE_critical This)
+E_criticalPrintJSON(ConstHandle2ConstE_critical self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ E_criticalPrintJSON(ConstHandle2ConstE_critical This)
 
 // Has
 int
-E_criticalValueHas(ConstHandle2ConstE_critical This)
+E_criticalValueHas(ConstHandle2ConstE_critical self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-E_criticalValueGet(ConstHandle2ConstE_critical This)
+E_criticalValueGet(ConstHandle2ConstE_critical self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-E_criticalValueSet(ConstHandle2E_critical This, const double value)
+E_criticalValueSet(ConstHandle2E_critical self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -176,27 +176,27 @@ E_criticalValueSet(ConstHandle2E_critical This, const double value)
 
 // Has
 int
-E_criticalUnitHas(ConstHandle2ConstE_critical This)
+E_criticalUnitHas(ConstHandle2ConstE_critical self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 const char *
-E_criticalUnitGet(ConstHandle2ConstE_critical This)
+E_criticalUnitGet(ConstHandle2ConstE_critical self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-E_criticalUnitSet(ConstHandle2E_critical This, const char *const unit)
+E_criticalUnitSet(ConstHandle2E_critical self, const char *const unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

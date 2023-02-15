@@ -79,20 +79,20 @@ LCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LAssign(ConstHandle2L This, ConstHandle2ConstL from)
+LAssign(ConstHandle2L self, ConstHandle2ConstL from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LDelete(ConstHandle2ConstL This)
+LDelete(ConstHandle2ConstL self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ LDelete(ConstHandle2ConstL This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LRead(ConstHandle2L This, const char *const filename)
+LRead(ConstHandle2L self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LWrite(ConstHandle2ConstL This, const char *const filename)
+LWrite(ConstHandle2ConstL self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LPrint(ConstHandle2ConstL This)
+LPrint(ConstHandle2ConstL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LPrintXML(ConstHandle2ConstL This)
+LPrintXML(ConstHandle2ConstL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LPrintJSON(ConstHandle2ConstL This)
+LPrintJSON(ConstHandle2ConstL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ LPrintJSON(ConstHandle2ConstL This)
 
 // Has
 int
-LLabelHas(ConstHandle2ConstL This)
+LLabelHas(ConstHandle2ConstL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-LLabelGet(ConstHandle2ConstL This)
+LLabelGet(ConstHandle2ConstL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-LLabelSet(ConstHandle2L This, const char *const label)
+LLabelSet(ConstHandle2L self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -183,27 +183,27 @@ LLabelSet(ConstHandle2L This, const char *const label)
 
 // Has
 int
-LValueHas(ConstHandle2ConstL This)
+LValueHas(ConstHandle2ConstL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 int
-LValueGet(ConstHandle2ConstL This)
+LValueGet(ConstHandle2ConstL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-LValueSet(ConstHandle2L This, const int value)
+LValueSet(ConstHandle2L self, const int value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -213,34 +213,34 @@ LValueSet(ConstHandle2L This, const int value)
 
 // Has
 int
-LJsHas(ConstHandle2ConstL This)
+LJsHas(ConstHandle2ConstL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"JsHas", This, extract::Js);
+      (CLASSNAME, CLASSNAME+"JsHas", self, extract::Js);
 }
 
 // Get, const
 Handle2ConstJs
-LJsGetConst(ConstHandle2ConstL This)
+LJsGetConst(ConstHandle2ConstL self)
 {
    return detail::getField<CPP,Handle2ConstJs>
-      (CLASSNAME, CLASSNAME+"JsGetConst", This, extract::Js);
+      (CLASSNAME, CLASSNAME+"JsGetConst", self, extract::Js);
 }
 
 // Get, non-const
 Handle2Js
-LJsGet(ConstHandle2L This)
+LJsGet(ConstHandle2L self)
 {
    return detail::getField<CPP,Handle2Js>
-      (CLASSNAME, CLASSNAME+"JsGet", This, extract::Js);
+      (CLASSNAME, CLASSNAME+"JsGet", self, extract::Js);
 }
 
 // Set
 void
-LJsSet(ConstHandle2L This, ConstHandle2ConstJs Js)
+LJsSet(ConstHandle2L self, ConstHandle2ConstJs Js)
 {
    detail::setField<CPP,CPPJs>
-      (CLASSNAME, CLASSNAME+"JsSet", This, extract::Js, Js);
+      (CLASSNAME, CLASSNAME+"JsSet", self, extract::Js, Js);
 }
 
 

@@ -73,20 +73,20 @@ MultiplicitySumsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MultiplicitySumsAssign(ConstHandle2MultiplicitySums This, ConstHandle2ConstMultiplicitySums from)
+MultiplicitySumsAssign(ConstHandle2MultiplicitySums self, ConstHandle2ConstMultiplicitySums from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MultiplicitySumsRead(ConstHandle2MultiplicitySums This, const char *const filename)
+MultiplicitySumsRead(ConstHandle2MultiplicitySums self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MultiplicitySumsWrite(ConstHandle2ConstMultiplicitySums This, const char *const filename)
+MultiplicitySumsWrite(ConstHandle2ConstMultiplicitySums self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MultiplicitySumsPrint(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsPrint(ConstHandle2ConstMultiplicitySums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MultiplicitySumsPrintXML(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsPrintXML(ConstHandle2ConstMultiplicitySums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums This)
 
 // Has
 int
-MultiplicitySumsMultiplicitySumHas(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsMultiplicitySumHas(ConstHandle2ConstMultiplicitySums self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumHas", This, extract::multiplicitySum);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumHas", self, extract::multiplicitySum);
 }
 
 // Clear
 void
-MultiplicitySumsMultiplicitySumClear(ConstHandle2MultiplicitySums This)
+MultiplicitySumsMultiplicitySumClear(ConstHandle2MultiplicitySums self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumClear", This, extract::multiplicitySum);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumClear", self, extract::multiplicitySum);
 }
 
 // Size
 size_t
-MultiplicitySumsMultiplicitySumSize(ConstHandle2ConstMultiplicitySums This)
+MultiplicitySumsMultiplicitySumSize(ConstHandle2ConstMultiplicitySums self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumSize", This, extract::multiplicitySum);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumSize", self, extract::multiplicitySum);
 }
 
 // Add
 void
-MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums This, ConstHandle2ConstMultiplicitySum multiplicitySum)
+MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums self, ConstHandle2ConstMultiplicitySum multiplicitySum)
 {
    detail::addToContainer<CPP,CPPMultiplicitySum>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumAdd", This, extract::multiplicitySum, multiplicitySum);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumAdd", self, extract::multiplicitySum, multiplicitySum);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstMultiplicitySum
-MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums This, const size_t index_)
+MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstMultiplicitySum>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumGetConst", This, extract::multiplicitySum, index_);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumGetConst", self, extract::multiplicitySum, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2MultiplicitySum
-MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums This, const size_t index_)
+MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2MultiplicitySum>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumGet", This, extract::multiplicitySum, index_);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumGet", self, extract::multiplicitySum, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MultiplicitySumsMultiplicitySumSet(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const size_t index_,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 ) {
    detail::setByIndex<CPP,CPPMultiplicitySum>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumSet", This, extract::multiplicitySum, index_, multiplicitySum);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumSet", self, extract::multiplicitySum, index_, multiplicitySum);
 }
 
 // Has, by label
 int
 MultiplicitySumsMultiplicitySumHasByLabel(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MultiplicitySumHasByLabel",
-       This, extract::multiplicitySum, meta::label, label);
+       self, extract::multiplicitySum, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabelConst(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumGetByLabelConst",
-       This, extract::multiplicitySum, meta::label, label);
+       self, extract::multiplicitySum, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabel(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2MultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumGetByLabel",
-       This, extract::multiplicitySum, meta::label, label);
+       self, extract::multiplicitySum, meta::label, label);
 }
 
 // Set, by label
 void
 MultiplicitySumsMultiplicitySumSetByLabel(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const char *const label,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 ) {
    detail::setByMetadatum<CPP,CPPMultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumSetByLabel",
-       This, extract::multiplicitySum, meta::label, label, multiplicitySum);
+       self, extract::multiplicitySum, meta::label, label, multiplicitySum);
 }
 
 // Has, by ENDF_MT
 int
 MultiplicitySumsMultiplicitySumHasByENDFMT(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const int ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MultiplicitySumHasByENDFMT",
-       This, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
+       self, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMTConst(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumGetByENDFMTConst",
-       This, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
+       self, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMT(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const int ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2MultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumGetByENDFMT",
-       This, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
+       self, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 MultiplicitySumsMultiplicitySumSetByENDFMT(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const int ENDF_MT,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 ) {
    detail::setByMetadatum<CPP,CPPMultiplicitySum>
       (CLASSNAME, CLASSNAME+"MultiplicitySumSetByENDFMT",
-       This, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT, multiplicitySum);
+       self, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT, multiplicitySum);
 }
 
 

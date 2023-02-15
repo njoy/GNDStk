@@ -55,7 +55,7 @@ void wrapChannel(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapChannel(py::module &module)
    // get/set resonanceReaction
    object.def_property(
       "resonance_reaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceReaction();
       },
@@ -83,7 +83,7 @@ void wrapChannel(py::module &module)
    // get/set L
    object.def_property(
       "l",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.L();
       },
@@ -97,7 +97,7 @@ void wrapChannel(py::module &module)
    // get/set channelSpin
    object.def_property(
       "channel_spin",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.channelSpin();
       },
@@ -111,7 +111,7 @@ void wrapChannel(py::module &module)
    // get/set columnIndex
    object.def_property(
       "column_index",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.columnIndex();
       },
@@ -125,7 +125,7 @@ void wrapChannel(py::module &module)
    // get/set scatteringRadius
    object.def_property(
       "scattering_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringRadius();
       },
@@ -139,7 +139,7 @@ void wrapChannel(py::module &module)
    // get/set hardSphereRadius
    object.def_property(
       "hard_sphere_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.hardSphereRadius();
       },

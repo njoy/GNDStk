@@ -55,7 +55,7 @@ void wrapDecayMode(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapDecayMode(py::module &module)
    // get/set mode
    object.def_property(
       "mode",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mode();
       },
@@ -83,7 +83,7 @@ void wrapDecayMode(py::module &module)
    // get/set probability
    object.def_property(
       "probability",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.probability();
       },
@@ -97,7 +97,7 @@ void wrapDecayMode(py::module &module)
    // get/set decayPath
    object.def_property(
       "decay_path",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.decayPath();
       },
@@ -111,7 +111,7 @@ void wrapDecayMode(py::module &module)
    // get/set photonEmissionProbabilities
    object.def_property(
       "photon_emission_probabilities",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.photonEmissionProbabilities();
       },
@@ -125,7 +125,7 @@ void wrapDecayMode(py::module &module)
    // get/set Q
    object.def_property(
       "q",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Q();
       },
@@ -139,7 +139,7 @@ void wrapDecayMode(py::module &module)
    // get/set spectra
    object.def_property(
       "spectra",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spectra();
       },

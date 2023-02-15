@@ -47,7 +47,7 @@ void wrapGeneralEvaporation(py::module &module)
    // get/set U
    object.def_property(
       "u",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.U();
       },
@@ -61,7 +61,7 @@ void wrapGeneralEvaporation(py::module &module)
    // get/set theta
    object.def_property(
       "theta",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.theta();
       },
@@ -75,7 +75,7 @@ void wrapGeneralEvaporation(py::module &module)
    // get/set g
    object.def_property(
       "g",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.g();
       },

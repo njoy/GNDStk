@@ -43,7 +43,7 @@ void wrapApplicationData(py::module &module)
    // get/set institution
    object.def_property(
       "institution",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.institution();
       },

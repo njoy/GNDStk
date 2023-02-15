@@ -49,7 +49,7 @@ void wrapUncorrelated(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapUncorrelated(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -77,7 +77,7 @@ void wrapUncorrelated(py::module &module)
    // get/set angular
    object.def_property(
       "angular",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.angular();
       },
@@ -91,7 +91,7 @@ void wrapUncorrelated(py::module &module)
    // get/set energy
    object.def_property(
       "energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.energy();
       },

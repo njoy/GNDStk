@@ -69,20 +69,20 @@ ContinuumCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ContinuumAssign(ConstHandle2Continuum This, ConstHandle2ConstContinuum from)
+ContinuumAssign(ConstHandle2Continuum self, ConstHandle2ConstContinuum from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ContinuumDelete(ConstHandle2ConstContinuum This)
+ContinuumDelete(ConstHandle2ConstContinuum self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ContinuumDelete(ConstHandle2ConstContinuum This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ContinuumRead(ConstHandle2Continuum This, const char *const filename)
+ContinuumRead(ConstHandle2Continuum self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ContinuumWrite(ConstHandle2ConstContinuum This, const char *const filename)
+ContinuumWrite(ConstHandle2ConstContinuum self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ContinuumPrint(ConstHandle2ConstContinuum This)
+ContinuumPrint(ConstHandle2ConstContinuum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ContinuumPrintXML(ConstHandle2ConstContinuum This)
+ContinuumPrintXML(ConstHandle2ConstContinuum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ContinuumPrintJSON(ConstHandle2ConstContinuum This)
+ContinuumPrintJSON(ConstHandle2ConstContinuum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ContinuumPrintJSON(ConstHandle2ConstContinuum This)
 
 // Has
 int
-ContinuumXYs1dHas(ConstHandle2ConstContinuum This)
+ContinuumXYs1dHas(ConstHandle2ConstContinuum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-ContinuumXYs1dGetConst(ConstHandle2ConstContinuum This)
+ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-ContinuumXYs1dGet(ConstHandle2Continuum This)
+ContinuumXYs1dGet(ConstHandle2Continuum self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-ContinuumXYs1dSet(ConstHandle2Continuum This, ConstHandle2ConstXYs1d XYs1d)
+ContinuumXYs1dSet(ConstHandle2Continuum self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

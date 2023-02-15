@@ -90,13 +90,13 @@ ChargeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ChargeAssign(ConstHandle2Charge This, ConstHandle2ConstCharge from);
+ChargeAssign(ConstHandle2Charge self, ConstHandle2ConstCharge from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ChargeDelete(ConstHandle2ConstCharge This);
+ChargeDelete(ConstHandle2ConstCharge self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ChargeDelete(ConstHandle2ConstCharge This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ChargeRead(ConstHandle2Charge This, const char *const filename);
+ChargeRead(ConstHandle2Charge self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ChargeWrite(ConstHandle2ConstCharge This, const char *const filename);
+ChargeWrite(ConstHandle2ConstCharge self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ChargePrint(ConstHandle2ConstCharge This);
+ChargePrint(ConstHandle2ConstCharge self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ChargePrintXML(ConstHandle2ConstCharge This);
+ChargePrintXML(ConstHandle2ConstCharge self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ChargePrintJSON(ConstHandle2ConstCharge This);
+ChargePrintJSON(ConstHandle2ConstCharge self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ChargePrintJSON(ConstHandle2ConstCharge This);
 
 // +++ Has
 extern_c int
-ChargeIntegerHas(ConstHandle2ConstCharge This);
+ChargeIntegerHas(ConstHandle2ConstCharge self);
 
 // --- Get, const
 extern_c Handle2ConstInteger
-ChargeIntegerGetConst(ConstHandle2ConstCharge This);
+ChargeIntegerGetConst(ConstHandle2ConstCharge self);
 
 // +++ Get, non-const
 extern_c Handle2Integer
-ChargeIntegerGet(ConstHandle2Charge This);
+ChargeIntegerGet(ConstHandle2Charge self);
 
 // +++ Set
 extern_c void
-ChargeIntegerSet(ConstHandle2Charge This, ConstHandle2ConstInteger integer);
+ChargeIntegerSet(ConstHandle2Charge self, ConstHandle2ConstInteger integer);
 
 
 // -----------------------------------------------------------------------------

@@ -85,13 +85,13 @@ BodyCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BodyAssign(ConstHandle2Body This, ConstHandle2ConstBody from);
+BodyAssign(ConstHandle2Body self, ConstHandle2ConstBody from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BodyDelete(ConstHandle2ConstBody This);
+BodyDelete(ConstHandle2ConstBody self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ BodyDelete(ConstHandle2ConstBody This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BodyRead(ConstHandle2Body This, const char *const filename);
+BodyRead(ConstHandle2Body self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BodyWrite(ConstHandle2ConstBody This, const char *const filename);
+BodyWrite(ConstHandle2ConstBody self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BodyPrint(ConstHandle2ConstBody This);
+BodyPrint(ConstHandle2ConstBody self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BodyPrintXML(ConstHandle2ConstBody This);
+BodyPrintXML(ConstHandle2ConstBody self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BodyPrintJSON(ConstHandle2ConstBody This);
+BodyPrintJSON(ConstHandle2ConstBody self);
 
 
 // -----------------------------------------------------------------------------

@@ -102,13 +102,13 @@ Polynomial1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Polynomial1dAssign(ConstHandle2Polynomial1d This, ConstHandle2ConstPolynomial1d from);
+Polynomial1dAssign(ConstHandle2Polynomial1d self, ConstHandle2ConstPolynomial1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Polynomial1dDelete(ConstHandle2ConstPolynomial1d This);
+Polynomial1dDelete(ConstHandle2ConstPolynomial1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ Polynomial1dDelete(ConstHandle2ConstPolynomial1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Polynomial1dRead(ConstHandle2Polynomial1d This, const char *const filename);
+Polynomial1dRead(ConstHandle2Polynomial1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Polynomial1dWrite(ConstHandle2ConstPolynomial1d This, const char *const filename);
+Polynomial1dWrite(ConstHandle2ConstPolynomial1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Polynomial1dPrint(ConstHandle2ConstPolynomial1d This);
+Polynomial1dPrint(ConstHandle2ConstPolynomial1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Polynomial1dPrintXML(ConstHandle2ConstPolynomial1d This);
+Polynomial1dPrintXML(ConstHandle2ConstPolynomial1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d This);
+Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ Polynomial1dPrintJSON(ConstHandle2ConstPolynomial1d This);
 
 // +++ Has
 extern_c int
-Polynomial1dLabelHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dLabelHas(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-Polynomial1dLabelGet(ConstHandle2ConstPolynomial1d This);
+Polynomial1dLabelGet(ConstHandle2ConstPolynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dLabelSet(ConstHandle2Polynomial1d This, const char *const label);
+Polynomial1dLabelSet(ConstHandle2Polynomial1d self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ Polynomial1dLabelSet(ConstHandle2Polynomial1d This, const char *const label);
 
 // +++ Has
 extern_c int
-Polynomial1dDomainMinHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dDomainMinHas(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-Polynomial1dDomainMinGet(ConstHandle2ConstPolynomial1d This);
+Polynomial1dDomainMinGet(ConstHandle2ConstPolynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dDomainMinSet(ConstHandle2Polynomial1d This, const double domainMin);
+Polynomial1dDomainMinSet(ConstHandle2Polynomial1d self, const double domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ Polynomial1dDomainMinSet(ConstHandle2Polynomial1d This, const double domainMin);
 
 // +++ Has
 extern_c int
-Polynomial1dDomainMaxHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dDomainMaxHas(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-Polynomial1dDomainMaxGet(ConstHandle2ConstPolynomial1d This);
+Polynomial1dDomainMaxGet(ConstHandle2ConstPolynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d This, const double domainMax);
+Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d self, const double domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ Polynomial1dDomainMaxSet(ConstHandle2Polynomial1d This, const double domainMax);
 
 // +++ Has
 extern_c int
-Polynomial1dAxesHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dAxesHas(ConstHandle2ConstPolynomial1d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d This);
+Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Polynomial1dAxesGet(ConstHandle2Polynomial1d This);
+Polynomial1dAxesGet(ConstHandle2Polynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes);
+Polynomial1dAxesSet(ConstHandle2Polynomial1d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ Polynomial1dAxesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-Polynomial1dValuesHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dValuesHas(ConstHandle2ConstPolynomial1d self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d This);
+Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-Polynomial1dValuesGet(ConstHandle2Polynomial1d This);
+Polynomial1dValuesGet(ConstHandle2Polynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dValuesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstValues values);
+Polynomial1dValuesSet(ConstHandle2Polynomial1d self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------
@@ -244,19 +244,19 @@ Polynomial1dValuesSet(ConstHandle2Polynomial1d This, ConstHandle2ConstValues val
 
 // +++ Has
 extern_c int
-Polynomial1dUncertaintyHas(ConstHandle2ConstPolynomial1d This);
+Polynomial1dUncertaintyHas(ConstHandle2ConstPolynomial1d self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d This);
+Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d This);
+Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d self);
 
 // +++ Set
 extern_c void
-Polynomial1dUncertaintySet(ConstHandle2Polynomial1d This, ConstHandle2ConstUncertainty uncertainty);
+Polynomial1dUncertaintySet(ConstHandle2Polynomial1d self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

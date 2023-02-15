@@ -73,20 +73,20 @@ SummandsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SummandsAssign(ConstHandle2Summands This, ConstHandle2ConstSummands from)
+SummandsAssign(ConstHandle2Summands self, ConstHandle2ConstSummands from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SummandsDelete(ConstHandle2ConstSummands This)
+SummandsDelete(ConstHandle2ConstSummands self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ SummandsDelete(ConstHandle2ConstSummands This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SummandsRead(ConstHandle2Summands This, const char *const filename)
+SummandsRead(ConstHandle2Summands self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SummandsWrite(ConstHandle2ConstSummands This, const char *const filename)
+SummandsWrite(ConstHandle2ConstSummands self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SummandsPrint(ConstHandle2ConstSummands This)
+SummandsPrint(ConstHandle2ConstSummands self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SummandsPrintXML(ConstHandle2ConstSummands This)
+SummandsPrintXML(ConstHandle2ConstSummands self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SummandsPrintJSON(ConstHandle2ConstSummands This)
+SummandsPrintJSON(ConstHandle2ConstSummands self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ SummandsPrintJSON(ConstHandle2ConstSummands This)
 
 // Has
 int
-SummandsAddHas(ConstHandle2ConstSummands This)
+SummandsAddHas(ConstHandle2ConstSummands self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AddHas", This, extract::add);
+      (CLASSNAME, CLASSNAME+"AddHas", self, extract::add);
 }
 
 // Clear
 void
-SummandsAddClear(ConstHandle2Summands This)
+SummandsAddClear(ConstHandle2Summands self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AddClear", This, extract::add);
+      (CLASSNAME, CLASSNAME+"AddClear", self, extract::add);
 }
 
 // Size
 size_t
-SummandsAddSize(ConstHandle2ConstSummands This)
+SummandsAddSize(ConstHandle2ConstSummands self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AddSize", This, extract::add);
+      (CLASSNAME, CLASSNAME+"AddSize", self, extract::add);
 }
 
 // Add
 void
-SummandsAddAdd(ConstHandle2Summands This, ConstHandle2ConstAdd add)
+SummandsAddAdd(ConstHandle2Summands self, ConstHandle2ConstAdd add)
 {
    detail::addToContainer<CPP,CPPAdd>
-      (CLASSNAME, CLASSNAME+"AddAdd", This, extract::add, add);
+      (CLASSNAME, CLASSNAME+"AddAdd", self, extract::add, add);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAdd
-SummandsAddGetConst(ConstHandle2ConstSummands This, const size_t index_)
+SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAdd>
-      (CLASSNAME, CLASSNAME+"AddGetConst", This, extract::add, index_);
+      (CLASSNAME, CLASSNAME+"AddGetConst", self, extract::add, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Add
-SummandsAddGet(ConstHandle2Summands This, const size_t index_)
+SummandsAddGet(ConstHandle2Summands self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Add>
-      (CLASSNAME, CLASSNAME+"AddGet", This, extract::add, index_);
+      (CLASSNAME, CLASSNAME+"AddGet", self, extract::add, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SummandsAddSet(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const size_t index_,
    ConstHandle2ConstAdd add
 ) {
    detail::setByIndex<CPP,CPPAdd>
-      (CLASSNAME, CLASSNAME+"AddSet", This, extract::add, index_, add);
+      (CLASSNAME, CLASSNAME+"AddSet", self, extract::add, index_, add);
 }
 
 // Has, by href
 int
 SummandsAddHasByHref(
-   ConstHandle2ConstSummands This,
+   ConstHandle2ConstSummands self,
    const char *const href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AddHasByHref",
-       This, extract::add, meta::href, href);
+       self, extract::add, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstAdd
 SummandsAddGetByHrefConst(
-   ConstHandle2ConstSummands This,
+   ConstHandle2ConstSummands self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAdd>
       (CLASSNAME, CLASSNAME+"AddGetByHrefConst",
-       This, extract::add, meta::href, href);
+       self, extract::add, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2Add
 SummandsAddGetByHref(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2Add>
       (CLASSNAME, CLASSNAME+"AddGetByHref",
-       This, extract::add, meta::href, href);
+       self, extract::add, meta::href, href);
 }
 
 // Set, by href
 void
 SummandsAddSetByHref(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const char *const href,
    ConstHandle2ConstAdd add
 ) {
    detail::setByMetadatum<CPP,CPPAdd>
       (CLASSNAME, CLASSNAME+"AddSetByHref",
-       This, extract::add, meta::href, href, add);
+       self, extract::add, meta::href, href, add);
 }
 
 

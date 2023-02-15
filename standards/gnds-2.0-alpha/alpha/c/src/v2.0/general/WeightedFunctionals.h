@@ -90,13 +90,13 @@ WeightedFunctionalsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-WeightedFunctionalsAssign(ConstHandle2WeightedFunctionals This, ConstHandle2ConstWeightedFunctionals from);
+WeightedFunctionalsAssign(ConstHandle2WeightedFunctionals self, ConstHandle2ConstWeightedFunctionals from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ WeightedFunctionalsDelete(ConstHandle2ConstWeightedFunctionals This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-WeightedFunctionalsRead(ConstHandle2WeightedFunctionals This, const char *const filename);
+WeightedFunctionalsRead(ConstHandle2WeightedFunctionals self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-WeightedFunctionalsWrite(ConstHandle2ConstWeightedFunctionals This, const char *const filename);
+WeightedFunctionalsWrite(ConstHandle2ConstWeightedFunctionals self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-WeightedFunctionalsPrint(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsPrint(ConstHandle2ConstWeightedFunctionals self);
 
 // +++ Print to standard output, as XML
 extern_c int
-WeightedFunctionalsPrintXML(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsPrintXML(ConstHandle2ConstWeightedFunctionals self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ WeightedFunctionalsPrintJSON(ConstHandle2ConstWeightedFunctionals This);
 
 // +++ Has
 extern_c int
-WeightedFunctionalsWeightedHas(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsWeightedHas(ConstHandle2ConstWeightedFunctionals self);
 
 // +++ Clear
 extern_c void
-WeightedFunctionalsWeightedClear(ConstHandle2WeightedFunctionals This);
+WeightedFunctionalsWeightedClear(ConstHandle2WeightedFunctionals self);
 
 // +++ Size
 extern_c size_t
-WeightedFunctionalsWeightedSize(ConstHandle2ConstWeightedFunctionals This);
+WeightedFunctionalsWeightedSize(ConstHandle2ConstWeightedFunctionals self);
 
 // +++ Add
 extern_c void
-WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals This, ConstHandle2ConstWeighted weighted);
+WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals self, ConstHandle2ConstWeighted weighted);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstWeighted
-WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals This, const size_t index_);
+WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Weighted
-WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals This, const size_t index_);
+WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 WeightedFunctionalsWeightedSet(
-   ConstHandle2WeightedFunctionals This,
+   ConstHandle2WeightedFunctionals self,
    const size_t index_,
    ConstHandle2ConstWeighted weighted
 );

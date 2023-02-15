@@ -47,7 +47,7 @@ void wrapProductYield(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapProductYield(py::module &module)
    // get/set nuclides
    object.def_property(
       "nuclides",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclides();
       },
@@ -75,7 +75,7 @@ void wrapProductYield(py::module &module)
    // get/set elapsedTimes
    object.def_property(
       "elapsed_times",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.elapsedTimes();
       },

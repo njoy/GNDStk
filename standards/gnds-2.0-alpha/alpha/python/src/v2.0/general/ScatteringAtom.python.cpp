@@ -59,7 +59,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -73,7 +73,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set numberPerMolecule
    object.def_property(
       "number_per_molecule",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.numberPerMolecule();
       },
@@ -87,7 +87,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set primaryScatterer
    object.def_property(
       "primary_scatterer",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.primaryScatterer();
       },
@@ -101,7 +101,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set mass
    object.def_property(
       "mass",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mass();
       },
@@ -115,7 +115,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set e_critical
    object.def_property(
       "e_critical",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.e_critical();
       },
@@ -129,7 +129,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set e_max
    object.def_property(
       "e_max",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.e_max();
       },
@@ -143,7 +143,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set boundAtomCrossSection
    object.def_property(
       "bound_atom_cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.boundAtomCrossSection();
       },
@@ -157,7 +157,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set selfScatteringKernel
    object.def_property(
       "self_scattering_kernel",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.selfScatteringKernel();
       },
@@ -171,7 +171,7 @@ void wrapScatteringAtom(py::module &module)
    // get/set T_effective
    object.def_property(
       "t_effective",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.T_effective();
       },

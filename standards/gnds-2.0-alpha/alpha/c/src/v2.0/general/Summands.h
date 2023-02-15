@@ -90,13 +90,13 @@ SummandsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SummandsAssign(ConstHandle2Summands This, ConstHandle2ConstSummands from);
+SummandsAssign(ConstHandle2Summands self, ConstHandle2ConstSummands from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SummandsDelete(ConstHandle2ConstSummands This);
+SummandsDelete(ConstHandle2ConstSummands self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ SummandsDelete(ConstHandle2ConstSummands This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SummandsRead(ConstHandle2Summands This, const char *const filename);
+SummandsRead(ConstHandle2Summands self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SummandsWrite(ConstHandle2ConstSummands This, const char *const filename);
+SummandsWrite(ConstHandle2ConstSummands self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SummandsPrint(ConstHandle2ConstSummands This);
+SummandsPrint(ConstHandle2ConstSummands self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SummandsPrintXML(ConstHandle2ConstSummands This);
+SummandsPrintXML(ConstHandle2ConstSummands self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SummandsPrintJSON(ConstHandle2ConstSummands This);
+SummandsPrintJSON(ConstHandle2ConstSummands self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ SummandsPrintJSON(ConstHandle2ConstSummands This);
 
 // +++ Has
 extern_c int
-SummandsAddHas(ConstHandle2ConstSummands This);
+SummandsAddHas(ConstHandle2ConstSummands self);
 
 // +++ Clear
 extern_c void
-SummandsAddClear(ConstHandle2Summands This);
+SummandsAddClear(ConstHandle2Summands self);
 
 // +++ Size
 extern_c size_t
-SummandsAddSize(ConstHandle2ConstSummands This);
+SummandsAddSize(ConstHandle2ConstSummands self);
 
 // +++ Add
 extern_c void
-SummandsAddAdd(ConstHandle2Summands This, ConstHandle2ConstAdd add);
+SummandsAddAdd(ConstHandle2Summands self, ConstHandle2ConstAdd add);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAdd
-SummandsAddGetConst(ConstHandle2ConstSummands This, const size_t index_);
+SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Add
-SummandsAddGet(ConstHandle2Summands This, const size_t index_);
+SummandsAddGet(ConstHandle2Summands self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 SummandsAddSet(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const size_t index_,
    ConstHandle2ConstAdd add
 );
@@ -169,28 +169,28 @@ SummandsAddSet(
 // +++ Has, by href
 extern_c int
 SummandsAddHasByHref(
-   ConstHandle2ConstSummands This,
+   ConstHandle2ConstSummands self,
    const char *const href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstAdd
 SummandsAddGetByHrefConst(
-   ConstHandle2ConstSummands This,
+   ConstHandle2ConstSummands self,
    const char *const href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Add
 SummandsAddGetByHref(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const char *const href
 );
 
 // +++ Set, by href
 extern_c void
 SummandsAddSetByHref(
-   ConstHandle2Summands This,
+   ConstHandle2Summands self,
    const char *const href,
    ConstHandle2ConstAdd add
 );

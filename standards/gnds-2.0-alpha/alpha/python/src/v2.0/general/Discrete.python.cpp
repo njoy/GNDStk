@@ -51,7 +51,7 @@ void wrapDiscrete(py::module &module)
    // get/set type
    object.def_property(
       "type",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.type();
       },
@@ -65,7 +65,7 @@ void wrapDiscrete(py::module &module)
    // get/set intensity
    object.def_property(
       "intensity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.intensity();
       },
@@ -79,7 +79,7 @@ void wrapDiscrete(py::module &module)
    // get/set energy
    object.def_property(
       "energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.energy();
       },
@@ -93,7 +93,7 @@ void wrapDiscrete(py::module &module)
    // get/set internalConversionCoefficients
    object.def_property(
       "internal_conversion_coefficients",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.internalConversionCoefficients();
       },
@@ -107,7 +107,7 @@ void wrapDiscrete(py::module &module)
    // get/set positronEmissionIntensity
    object.def_property(
       "positron_emission_intensity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.positronEmissionIntensity();
       },

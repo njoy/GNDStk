@@ -72,20 +72,20 @@ EFHCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EFHAssign(ConstHandle2EFH This, ConstHandle2ConstEFH from)
+EFHAssign(ConstHandle2EFH self, ConstHandle2ConstEFH from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EFHDelete(ConstHandle2ConstEFH This)
+EFHDelete(ConstHandle2ConstEFH self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ EFHDelete(ConstHandle2ConstEFH This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EFHRead(ConstHandle2EFH This, const char *const filename)
+EFHRead(ConstHandle2EFH self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EFHWrite(ConstHandle2ConstEFH This, const char *const filename)
+EFHWrite(ConstHandle2ConstEFH self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EFHPrint(ConstHandle2ConstEFH This)
+EFHPrint(ConstHandle2ConstEFH self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EFHPrintXML(ConstHandle2ConstEFH This)
+EFHPrintXML(ConstHandle2ConstEFH self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EFHPrintJSON(ConstHandle2ConstEFH This)
+EFHPrintJSON(ConstHandle2ConstEFH self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ EFHPrintJSON(ConstHandle2ConstEFH This)
 
 // Has
 int
-EFHValueHas(ConstHandle2ConstEFH This)
+EFHValueHas(ConstHandle2ConstEFH self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-EFHValueGet(ConstHandle2ConstEFH This)
+EFHValueGet(ConstHandle2ConstEFH self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-EFHValueSet(ConstHandle2EFH This, const double value)
+EFHValueSet(ConstHandle2EFH self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -176,27 +176,27 @@ EFHValueSet(ConstHandle2EFH This, const double value)
 
 // Has
 int
-EFHUnitHas(ConstHandle2ConstEFH This)
+EFHUnitHas(ConstHandle2ConstEFH self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 const char *
-EFHUnitGet(ConstHandle2ConstEFH This)
+EFHUnitGet(ConstHandle2ConstEFH self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-EFHUnitSet(ConstHandle2EFH This, const char *const unit)
+EFHUnitSet(ConstHandle2EFH self, const char *const unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

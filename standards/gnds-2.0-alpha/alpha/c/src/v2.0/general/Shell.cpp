@@ -79,20 +79,20 @@ ShellCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ShellAssign(ConstHandle2Shell This, ConstHandle2ConstShell from)
+ShellAssign(ConstHandle2Shell self, ConstHandle2ConstShell from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ShellDelete(ConstHandle2ConstShell This)
+ShellDelete(ConstHandle2ConstShell self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ ShellDelete(ConstHandle2ConstShell This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ShellRead(ConstHandle2Shell This, const char *const filename)
+ShellRead(ConstHandle2Shell self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ShellWrite(ConstHandle2ConstShell This, const char *const filename)
+ShellWrite(ConstHandle2ConstShell self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ShellPrint(ConstHandle2ConstShell This)
+ShellPrint(ConstHandle2ConstShell self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ShellPrintXML(ConstHandle2ConstShell This)
+ShellPrintXML(ConstHandle2ConstShell self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ShellPrintJSON(ConstHandle2ConstShell This)
+ShellPrintJSON(ConstHandle2ConstShell self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ ShellPrintJSON(ConstHandle2ConstShell This)
 
 // Has
 int
-ShellLabelHas(ConstHandle2ConstShell This)
+ShellLabelHas(ConstHandle2ConstShell self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-ShellLabelGet(ConstHandle2ConstShell This)
+ShellLabelGet(ConstHandle2ConstShell self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ShellLabelSet(ConstHandle2Shell This, const char *const label)
+ShellLabelSet(ConstHandle2Shell self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -183,27 +183,27 @@ ShellLabelSet(ConstHandle2Shell This, const char *const label)
 
 // Has
 int
-ShellValueHas(ConstHandle2ConstShell This)
+ShellValueHas(ConstHandle2ConstShell self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-ShellValueGet(ConstHandle2ConstShell This)
+ShellValueGet(ConstHandle2ConstShell self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-ShellValueSet(ConstHandle2Shell This, const double value)
+ShellValueSet(ConstHandle2Shell self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -213,34 +213,34 @@ ShellValueSet(ConstHandle2Shell This, const double value)
 
 // Has
 int
-ShellUncertaintyHas(ConstHandle2ConstShell This)
+ShellUncertaintyHas(ConstHandle2ConstShell self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-ShellUncertaintyGetConst(ConstHandle2ConstShell This)
+ShellUncertaintyGetConst(ConstHandle2ConstShell self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-ShellUncertaintyGet(ConstHandle2Shell This)
+ShellUncertaintyGet(ConstHandle2Shell self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-ShellUncertaintySet(ConstHandle2Shell This, ConstHandle2ConstUncertainty uncertainty)
+ShellUncertaintySet(ConstHandle2Shell self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

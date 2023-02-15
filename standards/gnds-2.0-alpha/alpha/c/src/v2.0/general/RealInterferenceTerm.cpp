@@ -75,20 +75,20 @@ RealInterferenceTermCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RealInterferenceTermAssign(ConstHandle2RealInterferenceTerm This, ConstHandle2ConstRealInterferenceTerm from)
+RealInterferenceTermAssign(ConstHandle2RealInterferenceTerm self, ConstHandle2ConstRealInterferenceTerm from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RealInterferenceTermDelete(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermDelete(ConstHandle2ConstRealInterferenceTerm self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ RealInterferenceTermDelete(ConstHandle2ConstRealInterferenceTerm This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RealInterferenceTermRead(ConstHandle2RealInterferenceTerm This, const char *const filename)
+RealInterferenceTermRead(ConstHandle2RealInterferenceTerm self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RealInterferenceTermWrite(ConstHandle2ConstRealInterferenceTerm This, const char *const filename)
+RealInterferenceTermWrite(ConstHandle2ConstRealInterferenceTerm self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RealInterferenceTermPrint(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermPrint(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RealInterferenceTermPrintXML(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermPrintXML(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RealInterferenceTermPrintJSON(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermPrintJSON(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ RealInterferenceTermPrintJSON(ConstHandle2ConstRealInterferenceTerm This)
 
 // Has
 int
-RealInterferenceTermRegions2dHas(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermRegions2dHas(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions2dHas", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dHas", self, extract::regions2d);
 }
 
 // Get, const
 Handle2ConstRegions2d
-RealInterferenceTermRegions2dGetConst(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermRegions2dGetConst(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::getField<CPP,Handle2ConstRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGetConst", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
 // Get, non-const
 Handle2Regions2d
-RealInterferenceTermRegions2dGet(ConstHandle2RealInterferenceTerm This)
+RealInterferenceTermRegions2dGet(ConstHandle2RealInterferenceTerm self)
 {
    return detail::getField<CPP,Handle2Regions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGet", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGet", self, extract::regions2d);
 }
 
 // Set
 void
-RealInterferenceTermRegions2dSet(ConstHandle2RealInterferenceTerm This, ConstHandle2ConstRegions2d regions2d)
+RealInterferenceTermRegions2dSet(ConstHandle2RealInterferenceTerm self, ConstHandle2ConstRegions2d regions2d)
 {
    detail::setField<CPP,CPPRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dSet", self, extract::regions2d, regions2d);
 }
 
 
@@ -186,34 +186,34 @@ RealInterferenceTermRegions2dSet(ConstHandle2RealInterferenceTerm This, ConstHan
 
 // Has
 int
-RealInterferenceTermXYs2dHas(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermXYs2dHas(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-RealInterferenceTermXYs2dGetConst(ConstHandle2ConstRealInterferenceTerm This)
+RealInterferenceTermXYs2dGetConst(ConstHandle2ConstRealInterferenceTerm self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-RealInterferenceTermXYs2dGet(ConstHandle2RealInterferenceTerm This)
+RealInterferenceTermXYs2dGet(ConstHandle2RealInterferenceTerm self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-RealInterferenceTermXYs2dSet(ConstHandle2RealInterferenceTerm This, ConstHandle2ConstXYs2d XYs2d)
+RealInterferenceTermXYs2dSet(ConstHandle2RealInterferenceTerm self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 

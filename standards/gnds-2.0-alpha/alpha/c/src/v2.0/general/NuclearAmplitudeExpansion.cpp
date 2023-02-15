@@ -81,20 +81,20 @@ NuclearAmplitudeExpansionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclearAmplitudeExpansionAssign(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstNuclearAmplitudeExpansion from)
+NuclearAmplitudeExpansionAssign(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstNuclearAmplitudeExpansion from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ NuclearAmplitudeExpansionDelete(ConstHandle2ConstNuclearAmplitudeExpansion This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclearAmplitudeExpansionRead(ConstHandle2NuclearAmplitudeExpansion This, const char *const filename)
+NuclearAmplitudeExpansionRead(ConstHandle2NuclearAmplitudeExpansion self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclearAmplitudeExpansionWrite(ConstHandle2ConstNuclearAmplitudeExpansion This, const char *const filename)
+NuclearAmplitudeExpansionWrite(ConstHandle2ConstNuclearAmplitudeExpansion self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclearAmplitudeExpansionPrint(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionPrint(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclearAmplitudeExpansionPrintXML(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionPrintXML(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ NuclearAmplitudeExpansionPrintJSON(ConstHandle2ConstNuclearAmplitudeExpansion Th
 
 // Has
 int
-NuclearAmplitudeExpansionNuclearTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionNuclearTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclearTermHas", This, extract::nuclearTerm);
+      (CLASSNAME, CLASSNAME+"NuclearTermHas", self, extract::nuclearTerm);
 }
 
 // Get, const
 Handle2ConstNuclearTerm
-NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2ConstNuclearTerm>
-      (CLASSNAME, CLASSNAME+"NuclearTermGetConst", This, extract::nuclearTerm);
+      (CLASSNAME, CLASSNAME+"NuclearTermGetConst", self, extract::nuclearTerm);
 }
 
 // Get, non-const
 Handle2NuclearTerm
-NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2NuclearTerm>
-      (CLASSNAME, CLASSNAME+"NuclearTermGet", This, extract::nuclearTerm);
+      (CLASSNAME, CLASSNAME+"NuclearTermGet", self, extract::nuclearTerm);
 }
 
 // Set
 void
-NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstNuclearTerm nuclearTerm)
+NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstNuclearTerm nuclearTerm)
 {
    detail::setField<CPP,CPPNuclearTerm>
-      (CLASSNAME, CLASSNAME+"NuclearTermSet", This, extract::nuclearTerm, nuclearTerm);
+      (CLASSNAME, CLASSNAME+"NuclearTermSet", self, extract::nuclearTerm, nuclearTerm);
 }
 
 
@@ -192,34 +192,34 @@ NuclearAmplitudeExpansionNuclearTermSet(ConstHandle2NuclearAmplitudeExpansion Th
 
 // Has
 int
-NuclearAmplitudeExpansionRealInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionRealInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RealInterferenceTermHas", This, extract::realInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"RealInterferenceTermHas", self, extract::realInterferenceTerm);
 }
 
 // Get, const
 Handle2ConstRealInterferenceTerm
-NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2ConstRealInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"RealInterferenceTermGetConst", This, extract::realInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"RealInterferenceTermGetConst", self, extract::realInterferenceTerm);
 }
 
 // Get, non-const
 Handle2RealInterferenceTerm
-NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2RealInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"RealInterferenceTermGet", This, extract::realInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"RealInterferenceTermGet", self, extract::realInterferenceTerm);
 }
 
 // Set
 void
-NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstRealInterferenceTerm realInterferenceTerm)
+NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstRealInterferenceTerm realInterferenceTerm)
 {
    detail::setField<CPP,CPPRealInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"RealInterferenceTermSet", This, extract::realInterferenceTerm, realInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"RealInterferenceTermSet", self, extract::realInterferenceTerm, realInterferenceTerm);
 }
 
 
@@ -229,34 +229,34 @@ NuclearAmplitudeExpansionRealInterferenceTermSet(ConstHandle2NuclearAmplitudeExp
 
 // Has
 int
-NuclearAmplitudeExpansionImaginaryInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionImaginaryInterferenceTermHas(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermHas", This, extract::imaginaryInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermHas", self, extract::imaginaryInterferenceTerm);
 }
 
 // Get, const
 Handle2ConstImaginaryInterferenceTerm
-NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2ConstImaginaryInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermGetConst", This, extract::imaginaryInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermGetConst", self, extract::imaginaryInterferenceTerm);
 }
 
 // Get, non-const
 Handle2ImaginaryInterferenceTerm
-NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion This)
+NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {
    return detail::getField<CPP,Handle2ImaginaryInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermGet", This, extract::imaginaryInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermGet", self, extract::imaginaryInterferenceTerm);
 }
 
 // Set
 void
-NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion This, ConstHandle2ConstImaginaryInterferenceTerm imaginaryInterferenceTerm)
+NuclearAmplitudeExpansionImaginaryInterferenceTermSet(ConstHandle2NuclearAmplitudeExpansion self, ConstHandle2ConstImaginaryInterferenceTerm imaginaryInterferenceTerm)
 {
    detail::setField<CPP,CPPImaginaryInterferenceTerm>
-      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermSet", This, extract::imaginaryInterferenceTerm, imaginaryInterferenceTerm);
+      (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermSet", self, extract::imaginaryInterferenceTerm, imaginaryInterferenceTerm);
 }
 
 

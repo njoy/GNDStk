@@ -81,20 +81,20 @@ YieldsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-YieldsAssign(ConstHandle2Yields This, ConstHandle2ConstYields from)
+YieldsAssign(ConstHandle2Yields self, ConstHandle2ConstYields from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-YieldsDelete(ConstHandle2ConstYields This)
+YieldsDelete(ConstHandle2ConstYields self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ YieldsDelete(ConstHandle2ConstYields This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-YieldsRead(ConstHandle2Yields This, const char *const filename)
+YieldsRead(ConstHandle2Yields self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-YieldsWrite(ConstHandle2ConstYields This, const char *const filename)
+YieldsWrite(ConstHandle2ConstYields self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-YieldsPrint(ConstHandle2ConstYields This)
+YieldsPrint(ConstHandle2ConstYields self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-YieldsPrintXML(ConstHandle2ConstYields This)
+YieldsPrintXML(ConstHandle2ConstYields self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-YieldsPrintJSON(ConstHandle2ConstYields This)
+YieldsPrintJSON(ConstHandle2ConstYields self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ YieldsPrintJSON(ConstHandle2ConstYields This)
 
 // Has
 int
-YieldsNuclidesHas(ConstHandle2ConstYields This)
+YieldsNuclidesHas(ConstHandle2ConstYields self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclidesHas", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesHas", self, extract::nuclides);
 }
 
 // Get, const
 Handle2ConstNuclides
-YieldsNuclidesGetConst(ConstHandle2ConstYields This)
+YieldsNuclidesGetConst(ConstHandle2ConstYields self)
 {
    return detail::getField<CPP,Handle2ConstNuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesGetConst", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
 // Get, non-const
 Handle2Nuclides
-YieldsNuclidesGet(ConstHandle2Yields This)
+YieldsNuclidesGet(ConstHandle2Yields self)
 {
    return detail::getField<CPP,Handle2Nuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesGet", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesGet", self, extract::nuclides);
 }
 
 // Set
 void
-YieldsNuclidesSet(ConstHandle2Yields This, ConstHandle2ConstNuclides nuclides)
+YieldsNuclidesSet(ConstHandle2Yields self, ConstHandle2ConstNuclides nuclides)
 {
    detail::setField<CPP,CPPNuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesSet", This, extract::nuclides, nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesSet", self, extract::nuclides, nuclides);
 }
 
 
@@ -192,34 +192,34 @@ YieldsNuclidesSet(ConstHandle2Yields This, ConstHandle2ConstNuclides nuclides)
 
 // Has
 int
-YieldsValuesHas(ConstHandle2ConstYields This)
+YieldsValuesHas(ConstHandle2ConstYields self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-YieldsValuesGetConst(ConstHandle2ConstYields This)
+YieldsValuesGetConst(ConstHandle2ConstYields self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-YieldsValuesGet(ConstHandle2Yields This)
+YieldsValuesGet(ConstHandle2Yields self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-YieldsValuesSet(ConstHandle2Yields This, ConstHandle2ConstValues values)
+YieldsValuesSet(ConstHandle2Yields self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 
@@ -229,34 +229,34 @@ YieldsValuesSet(ConstHandle2Yields This, ConstHandle2ConstValues values)
 
 // Has
 int
-YieldsUncertaintyHas(ConstHandle2ConstYields This)
+YieldsUncertaintyHas(ConstHandle2ConstYields self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-YieldsUncertaintyGetConst(ConstHandle2ConstYields This)
+YieldsUncertaintyGetConst(ConstHandle2ConstYields self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-YieldsUncertaintyGet(ConstHandle2Yields This)
+YieldsUncertaintyGet(ConstHandle2Yields self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-YieldsUncertaintySet(ConstHandle2Yields This, ConstHandle2ConstUncertainty uncertainty)
+YieldsUncertaintySet(ConstHandle2Yields self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

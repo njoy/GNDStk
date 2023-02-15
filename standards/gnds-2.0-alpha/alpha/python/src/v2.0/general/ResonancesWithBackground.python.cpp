@@ -49,7 +49,7 @@ void wrapResonancesWithBackground(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapResonancesWithBackground(py::module &module)
    // get/set resonances
    object.def_property(
       "resonances",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonances();
       },
@@ -77,7 +77,7 @@ void wrapResonancesWithBackground(py::module &module)
    // get/set background
    object.def_property(
       "background",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.background();
       },
@@ -91,7 +91,7 @@ void wrapResonancesWithBackground(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

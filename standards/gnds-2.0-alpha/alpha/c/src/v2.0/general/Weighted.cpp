@@ -75,20 +75,20 @@ WeightedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-WeightedAssign(ConstHandle2Weighted This, ConstHandle2ConstWeighted from)
+WeightedAssign(ConstHandle2Weighted self, ConstHandle2ConstWeighted from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-WeightedDelete(ConstHandle2ConstWeighted This)
+WeightedDelete(ConstHandle2ConstWeighted self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ WeightedDelete(ConstHandle2ConstWeighted This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-WeightedRead(ConstHandle2Weighted This, const char *const filename)
+WeightedRead(ConstHandle2Weighted self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-WeightedWrite(ConstHandle2ConstWeighted This, const char *const filename)
+WeightedWrite(ConstHandle2ConstWeighted self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-WeightedPrint(ConstHandle2ConstWeighted This)
+WeightedPrint(ConstHandle2ConstWeighted self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-WeightedPrintXML(ConstHandle2ConstWeighted This)
+WeightedPrintXML(ConstHandle2ConstWeighted self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-WeightedPrintJSON(ConstHandle2ConstWeighted This)
+WeightedPrintJSON(ConstHandle2ConstWeighted self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ WeightedPrintJSON(ConstHandle2ConstWeighted This)
 
 // Has
 int
-WeightedXYs1dHas(ConstHandle2ConstWeighted This)
+WeightedXYs1dHas(ConstHandle2ConstWeighted self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-WeightedXYs1dGetConst(ConstHandle2ConstWeighted This)
+WeightedXYs1dGetConst(ConstHandle2ConstWeighted self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-WeightedXYs1dGet(ConstHandle2Weighted This)
+WeightedXYs1dGet(ConstHandle2Weighted self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-WeightedXYs1dSet(ConstHandle2Weighted This, ConstHandle2ConstXYs1d XYs1d)
+WeightedXYs1dSet(ConstHandle2Weighted self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ WeightedXYs1dSet(ConstHandle2Weighted This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-WeightedEvaporationHas(ConstHandle2ConstWeighted This)
+WeightedEvaporationHas(ConstHandle2ConstWeighted self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaporationHas", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationHas", self, extract::evaporation);
 }
 
 // Get, const
 Handle2ConstEvaporation
-WeightedEvaporationGetConst(ConstHandle2ConstWeighted This)
+WeightedEvaporationGetConst(ConstHandle2ConstWeighted self)
 {
    return detail::getField<CPP,Handle2ConstEvaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationGetConst", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationGetConst", self, extract::evaporation);
 }
 
 // Get, non-const
 Handle2Evaporation
-WeightedEvaporationGet(ConstHandle2Weighted This)
+WeightedEvaporationGet(ConstHandle2Weighted self)
 {
    return detail::getField<CPP,Handle2Evaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationGet", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationGet", self, extract::evaporation);
 }
 
 // Set
 void
-WeightedEvaporationSet(ConstHandle2Weighted This, ConstHandle2ConstEvaporation evaporation)
+WeightedEvaporationSet(ConstHandle2Weighted self, ConstHandle2ConstEvaporation evaporation)
 {
    detail::setField<CPP,CPPEvaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationSet", This, extract::evaporation, evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationSet", self, extract::evaporation, evaporation);
 }
 
 

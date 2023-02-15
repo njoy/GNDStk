@@ -55,7 +55,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set crossTerm
    object.def_property(
       "cross_term",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossTerm();
       },
@@ -83,7 +83,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set rowData
    object.def_property(
       "row_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.rowData();
       },
@@ -97,7 +97,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set columnData
    object.def_property(
       "column_data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.columnData();
       },
@@ -111,7 +111,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set covarianceMatrix
    object.def_property(
       "covariance_matrix",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.covarianceMatrix();
       },
@@ -125,7 +125,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set mixed
    object.def_property(
       "mixed",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mixed();
       },
@@ -139,7 +139,7 @@ void wrapCovarianceSection(py::module &module)
    // get/set sum
    object.def_property(
       "sum",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.sum();
       },

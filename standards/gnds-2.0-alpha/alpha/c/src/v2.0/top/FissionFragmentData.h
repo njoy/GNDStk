@@ -96,13 +96,13 @@ FissionFragmentDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FissionFragmentDataAssign(ConstHandle2FissionFragmentData This, ConstHandle2ConstFissionFragmentData from);
+FissionFragmentDataAssign(ConstHandle2FissionFragmentData self, ConstHandle2ConstFissionFragmentData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FissionFragmentDataRead(ConstHandle2FissionFragmentData This, const char *const filename);
+FissionFragmentDataRead(ConstHandle2FissionFragmentData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FissionFragmentDataWrite(ConstHandle2ConstFissionFragmentData This, const char *const filename);
+FissionFragmentDataWrite(ConstHandle2ConstFissionFragmentData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FissionFragmentDataPrint(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataPrint(ConstHandle2ConstFissionFragmentData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FissionFragmentDataPrintXML(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataPrintXML(ConstHandle2ConstFissionFragmentData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData This);
 
 // +++ Has
 extern_c int
-FissionFragmentDataProductYieldsHas(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataProductYieldsHas(ConstHandle2ConstFissionFragmentData self);
 
 // --- Get, const
 extern_c Handle2ConstProductYields
-FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData self);
 
 // +++ Get, non-const
 extern_c Handle2ProductYields
-FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData This);
+FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData self);
 
 // +++ Set
 extern_c void
-FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstProductYields productYields);
+FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstProductYields productYields);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData This, ConstH
 
 // +++ Has
 extern_c int
-FissionFragmentDataDelayedNeutronsHas(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataDelayedNeutronsHas(ConstHandle2ConstFissionFragmentData self);
 
 // --- Get, const
 extern_c Handle2ConstDelayedNeutrons
-FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData self);
 
 // +++ Get, non-const
 extern_c Handle2DelayedNeutrons
-FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData This);
+FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData self);
 
 // +++ Set
 extern_c void
-FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstDelayedNeutrons delayedNeutrons);
+FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstDelayedNeutrons delayedNeutrons);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData This, Cons
 
 // +++ Has
 extern_c int
-FissionFragmentDataFissionEnergyReleasesHas(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataFissionEnergyReleasesHas(ConstHandle2ConstFissionFragmentData self);
 
 // --- Get, const
 extern_c Handle2ConstFissionEnergyReleases
-FissionFragmentDataFissionEnergyReleasesGetConst(ConstHandle2ConstFissionFragmentData This);
+FissionFragmentDataFissionEnergyReleasesGetConst(ConstHandle2ConstFissionFragmentData self);
 
 // +++ Get, non-const
 extern_c Handle2FissionEnergyReleases
-FissionFragmentDataFissionEnergyReleasesGet(ConstHandle2FissionFragmentData This);
+FissionFragmentDataFissionEnergyReleasesGet(ConstHandle2FissionFragmentData self);
 
 // +++ Set
 extern_c void
-FissionFragmentDataFissionEnergyReleasesSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstFissionEnergyReleases fissionEnergyReleases);
+FissionFragmentDataFissionEnergyReleasesSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstFissionEnergyReleases fissionEnergyReleases);
 
 
 // -----------------------------------------------------------------------------

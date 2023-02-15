@@ -53,7 +53,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -81,7 +81,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -95,7 +95,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set primaryScatterer
    object.def_property(
       "primary_scatterer",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.primaryScatterer();
       },
@@ -109,7 +109,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set calculatedAtThermal
    object.def_property(
       "calculated_at_thermal",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.calculatedAtThermal();
       },
@@ -123,7 +123,7 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    // get/set scatteringAtoms
    object.def_property(
       "scattering_atoms",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringAtoms();
       },

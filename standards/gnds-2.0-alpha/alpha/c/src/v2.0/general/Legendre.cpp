@@ -74,20 +74,20 @@ LegendreCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LegendreAssign(ConstHandle2Legendre This, ConstHandle2ConstLegendre from)
+LegendreAssign(ConstHandle2Legendre self, ConstHandle2ConstLegendre from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LegendreDelete(ConstHandle2ConstLegendre This)
+LegendreDelete(ConstHandle2ConstLegendre self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ LegendreDelete(ConstHandle2ConstLegendre This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LegendreRead(ConstHandle2Legendre This, const char *const filename)
+LegendreRead(ConstHandle2Legendre self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LegendreWrite(ConstHandle2ConstLegendre This, const char *const filename)
+LegendreWrite(ConstHandle2ConstLegendre self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LegendrePrint(ConstHandle2ConstLegendre This)
+LegendrePrint(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LegendrePrintXML(ConstHandle2ConstLegendre This)
+LegendrePrintXML(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LegendrePrintJSON(ConstHandle2ConstLegendre This)
+LegendrePrintJSON(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ LegendrePrintJSON(ConstHandle2ConstLegendre This)
 
 // Has
 int
-LegendreOuterDomainValueHas(ConstHandle2ConstLegendre This)
+LegendreOuterDomainValueHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 double
-LegendreOuterDomainValueGet(ConstHandle2ConstLegendre This)
+LegendreOuterDomainValueGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-LegendreOuterDomainValueSet(ConstHandle2Legendre This, const double outerDomainValue)
+LegendreOuterDomainValueSet(ConstHandle2Legendre self, const double outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -178,34 +178,34 @@ LegendreOuterDomainValueSet(ConstHandle2Legendre This, const double outerDomainV
 
 // Has
 int
-LegendreValuesHas(ConstHandle2ConstLegendre This)
+LegendreValuesHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-LegendreValuesGetConst(ConstHandle2ConstLegendre This)
+LegendreValuesGetConst(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-LegendreValuesGet(ConstHandle2Legendre This)
+LegendreValuesGet(ConstHandle2Legendre self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-LegendreValuesSet(ConstHandle2Legendre This, ConstHandle2ConstValues values)
+LegendreValuesSet(ConstHandle2Legendre self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

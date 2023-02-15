@@ -93,13 +93,13 @@ UnresolvedRegionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UnresolvedRegionAssign(ConstHandle2UnresolvedRegion This, ConstHandle2ConstUnresolvedRegion from);
+UnresolvedRegionAssign(ConstHandle2UnresolvedRegion self, ConstHandle2ConstUnresolvedRegion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UnresolvedRegionRead(ConstHandle2UnresolvedRegion This, const char *const filename);
+UnresolvedRegionRead(ConstHandle2UnresolvedRegion self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UnresolvedRegionWrite(ConstHandle2ConstUnresolvedRegion This, const char *const filename);
+UnresolvedRegionWrite(ConstHandle2ConstUnresolvedRegion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UnresolvedRegionPrint(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionPrint(ConstHandle2ConstUnresolvedRegion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UnresolvedRegionPrintXML(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionPrintXML(ConstHandle2ConstUnresolvedRegion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion This);
 
 // +++ Has
 extern_c int
-UnresolvedRegionXYs1dHas(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionXYs1dHas(ConstHandle2ConstUnresolvedRegion self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-UnresolvedRegionXYs1dGetConst(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionXYs1dGetConst(ConstHandle2ConstUnresolvedRegion self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-UnresolvedRegionXYs1dGet(ConstHandle2UnresolvedRegion This);
+UnresolvedRegionXYs1dGet(ConstHandle2UnresolvedRegion self);
 
 // +++ Set
 extern_c void
-UnresolvedRegionXYs1dSet(ConstHandle2UnresolvedRegion This, ConstHandle2ConstXYs1d XYs1d);
+UnresolvedRegionXYs1dSet(ConstHandle2UnresolvedRegion self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ UnresolvedRegionXYs1dSet(ConstHandle2UnresolvedRegion This, ConstHandle2ConstXYs
 
 // +++ Has
 extern_c int
-UnresolvedRegionRegions1dHas(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionRegions1dHas(ConstHandle2ConstUnresolvedRegion self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-UnresolvedRegionRegions1dGetConst(ConstHandle2ConstUnresolvedRegion This);
+UnresolvedRegionRegions1dGetConst(ConstHandle2ConstUnresolvedRegion self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-UnresolvedRegionRegions1dGet(ConstHandle2UnresolvedRegion This);
+UnresolvedRegionRegions1dGet(ConstHandle2UnresolvedRegion self);
 
 // +++ Set
 extern_c void
-UnresolvedRegionRegions1dSet(ConstHandle2UnresolvedRegion This, ConstHandle2ConstRegions1d regions1d);
+UnresolvedRegionRegions1dSet(ConstHandle2UnresolvedRegion self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

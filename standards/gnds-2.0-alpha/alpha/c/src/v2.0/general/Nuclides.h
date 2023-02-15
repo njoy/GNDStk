@@ -90,13 +90,13 @@ NuclidesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from);
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclidesDelete(ConstHandle2ConstNuclides This);
+NuclidesDelete(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ NuclidesDelete(ConstHandle2ConstNuclides This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename);
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename);
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclidesPrint(ConstHandle2ConstNuclides This);
+NuclidesPrint(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclidesPrintXML(ConstHandle2ConstNuclides This);
+NuclidesPrintXML(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This);
+NuclidesPrintJSON(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This);
 
 // +++ Has
 extern_c int
-NuclidesNuclideHas(ConstHandle2ConstNuclides This);
+NuclidesNuclideHas(ConstHandle2ConstNuclides self);
 
 // +++ Clear
 extern_c void
-NuclidesNuclideClear(ConstHandle2Nuclides This);
+NuclidesNuclideClear(ConstHandle2Nuclides self);
 
 // +++ Size
 extern_c size_t
-NuclidesNuclideSize(ConstHandle2ConstNuclides This);
+NuclidesNuclideSize(ConstHandle2ConstNuclides self);
 
 // +++ Add
 extern_c void
-NuclidesNuclideAdd(ConstHandle2Nuclides This, ConstHandle2ConstNuclide nuclide);
+NuclidesNuclideAdd(ConstHandle2Nuclides self, ConstHandle2ConstNuclide nuclide);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstNuclide
-NuclidesNuclideGetConst(ConstHandle2ConstNuclides This, const size_t index_);
+NuclidesNuclideGetConst(ConstHandle2ConstNuclides self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Nuclide
-NuclidesNuclideGet(ConstHandle2Nuclides This, const size_t index_);
+NuclidesNuclideGet(ConstHandle2Nuclides self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 NuclidesNuclideSet(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const size_t index_,
    ConstHandle2ConstNuclide nuclide
 );
@@ -169,28 +169,28 @@ NuclidesNuclideSet(
 // +++ Has, by id
 extern_c int
 NuclidesNuclideHasById(
-   ConstHandle2ConstNuclides This,
+   ConstHandle2ConstNuclides self,
    const char *const id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstNuclide
 NuclidesNuclideGetByIdConst(
-   ConstHandle2ConstNuclides This,
+   ConstHandle2ConstNuclides self,
    const char *const id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2Nuclide
 NuclidesNuclideGetById(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const char *const id
 );
 
 // +++ Set, by id
 extern_c void
 NuclidesNuclideSetById(
-   ConstHandle2Nuclides This,
+   ConstHandle2Nuclides self,
    const char *const id,
    ConstHandle2ConstNuclide nuclide
 );

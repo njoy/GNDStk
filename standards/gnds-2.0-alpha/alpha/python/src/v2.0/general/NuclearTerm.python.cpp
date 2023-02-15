@@ -45,7 +45,7 @@ void wrapNuclearTerm(py::module &module)
    // get/set regions2d
    object.def_property(
       "regions2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions2d();
       },
@@ -59,7 +59,7 @@ void wrapNuclearTerm(py::module &module)
    // get/set XYs2d
    object.def_property(
       "xys2d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs2d();
       },

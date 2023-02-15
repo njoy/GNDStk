@@ -83,20 +83,20 @@ ENDFconversionFlagsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstENDFconversionFlags from)
+ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstENDFconversionFlags from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -110,44 +110,44 @@ ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags This, const char *const filename)
+ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags This, const char *const filename)
+ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -157,27 +157,27 @@ ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This)
 
 // Has
 int
-ENDFconversionFlagsFlagsHas(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsFlagsHas(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsHas", This, extract::flags);
+      (CLASSNAME, CLASSNAME+"FlagsHas", self, extract::flags);
 }
 
 // Get
 // Returns by value
 const char *
-ENDFconversionFlagsFlagsGet(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsFlagsGet(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsGet", This, extract::flags);
+      (CLASSNAME, CLASSNAME+"FlagsGet", self, extract::flags);
 }
 
 // Set
 void
-ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags This, const char *const flags)
+ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags self, const char *const flags)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsSet", This, extract::flags, flags);
+      (CLASSNAME, CLASSNAME+"FlagsSet", self, extract::flags, flags);
 }
 
 
@@ -187,27 +187,27 @@ ENDFconversionFlagsFlagsSet(ConstHandle2ENDFconversionFlags This, const char *co
 
 // Has
 int
-ENDFconversionFlagsHrefHas(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsHrefHas(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-ENDFconversionFlagsHrefGet(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsHrefGet(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags This, const char *const href)
+ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -217,151 +217,151 @@ ENDFconversionFlagsHrefSet(ConstHandle2ENDFconversionFlags This, const char *con
 
 // Has
 int
-ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConversionHas", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionHas", self, extract::conversion);
 }
 
 // Clear
 void
-ENDFconversionFlagsConversionClear(ConstHandle2ENDFconversionFlags This)
+ENDFconversionFlagsConversionClear(ConstHandle2ENDFconversionFlags self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ConversionClear", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionClear", self, extract::conversion);
 }
 
 // Size
 size_t
-ENDFconversionFlagsConversionSize(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsConversionSize(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ConversionSize", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionSize", self, extract::conversion);
 }
 
 // Add
 void
-ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstConversion conversion)
+ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstConversion conversion)
 {
    detail::addToContainer<CPP,CPPConversion>
-      (CLASSNAME, CLASSNAME+"ConversionAdd", This, extract::conversion, conversion);
+      (CLASSNAME, CLASSNAME+"ConversionAdd", self, extract::conversion, conversion);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstConversion
-ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags This, const size_t index_)
+ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstConversion>
-      (CLASSNAME, CLASSNAME+"ConversionGetConst", This, extract::conversion, index_);
+      (CLASSNAME, CLASSNAME+"ConversionGetConst", self, extract::conversion, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Conversion
-ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags This, const size_t index_)
+ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Conversion>
-      (CLASSNAME, CLASSNAME+"ConversionGet", This, extract::conversion, index_);
+      (CLASSNAME, CLASSNAME+"ConversionGet", self, extract::conversion, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ENDFconversionFlagsConversionSet(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const size_t index_,
    ConstHandle2ConstConversion conversion
 ) {
    detail::setByIndex<CPP,CPPConversion>
-      (CLASSNAME, CLASSNAME+"ConversionSet", This, extract::conversion, index_, conversion);
+      (CLASSNAME, CLASSNAME+"ConversionSet", self, extract::conversion, index_, conversion);
 }
 
 // Has, by flags
 int
 ENDFconversionFlagsConversionHasByFlags(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const flags
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ConversionHasByFlags",
-       This, extract::conversion, meta::flags, flags);
+       self, extract::conversion, meta::flags, flags);
 }
 
 // Get, by flags, const
 Handle2ConstConversion
 ENDFconversionFlagsConversionGetByFlagsConst(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const flags
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstConversion>
       (CLASSNAME, CLASSNAME+"ConversionGetByFlagsConst",
-       This, extract::conversion, meta::flags, flags);
+       self, extract::conversion, meta::flags, flags);
 }
 
 // Get, by flags, non-const
 Handle2Conversion
 ENDFconversionFlagsConversionGetByFlags(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const flags
 ) {
    return detail::getByMetadatum<CPP,Handle2Conversion>
       (CLASSNAME, CLASSNAME+"ConversionGetByFlags",
-       This, extract::conversion, meta::flags, flags);
+       self, extract::conversion, meta::flags, flags);
 }
 
 // Set, by flags
 void
 ENDFconversionFlagsConversionSetByFlags(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const flags,
    ConstHandle2ConstConversion conversion
 ) {
    detail::setByMetadatum<CPP,CPPConversion>
       (CLASSNAME, CLASSNAME+"ConversionSetByFlags",
-       This, extract::conversion, meta::flags, flags, conversion);
+       self, extract::conversion, meta::flags, flags, conversion);
 }
 
 // Has, by href
 int
 ENDFconversionFlagsConversionHasByHref(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ConversionHasByHref",
-       This, extract::conversion, meta::href, href);
+       self, extract::conversion, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstConversion
 ENDFconversionFlagsConversionGetByHrefConst(
-   ConstHandle2ConstENDFconversionFlags This,
+   ConstHandle2ConstENDFconversionFlags self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstConversion>
       (CLASSNAME, CLASSNAME+"ConversionGetByHrefConst",
-       This, extract::conversion, meta::href, href);
+       self, extract::conversion, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2Conversion
 ENDFconversionFlagsConversionGetByHref(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2Conversion>
       (CLASSNAME, CLASSNAME+"ConversionGetByHref",
-       This, extract::conversion, meta::href, href);
+       self, extract::conversion, meta::href, href);
 }
 
 // Set, by href
 void
 ENDFconversionFlagsConversionSetByHref(
-   ConstHandle2ENDFconversionFlags This,
+   ConstHandle2ENDFconversionFlags self,
    const char *const href,
    ConstHandle2ConstConversion conversion
 ) {
    detail::setByMetadatum<CPP,CPPConversion>
       (CLASSNAME, CLASSNAME+"ConversionSetByHref",
-       This, extract::conversion, meta::href, href, conversion);
+       self, extract::conversion, meta::href, href, conversion);
 }
 
 

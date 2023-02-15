@@ -43,7 +43,7 @@ void wrapSlices(py::module &module)
    // get/set slice
    object.def_property(
       "slice",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.slice();
       },

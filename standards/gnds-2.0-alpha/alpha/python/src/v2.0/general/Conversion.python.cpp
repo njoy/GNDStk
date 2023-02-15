@@ -45,7 +45,7 @@ void wrapConversion(py::module &module)
    // get/set flags
    object.def_property(
       "flags",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.flags();
       },
@@ -59,7 +59,7 @@ void wrapConversion(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },

@@ -43,7 +43,7 @@ void wrapScatteringAtoms(py::module &module)
    // get/set scatteringAtom
    object.def_property(
       "scattering_atom",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringAtom();
       },

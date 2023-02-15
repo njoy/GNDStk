@@ -47,7 +47,7 @@ void wrapRegions2d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -61,7 +61,7 @@ void wrapRegions2d(py::module &module)
    // get/set function2ds
    object.def_property(
       "function2ds",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.function2ds();
       },
@@ -75,7 +75,7 @@ void wrapRegions2d(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },

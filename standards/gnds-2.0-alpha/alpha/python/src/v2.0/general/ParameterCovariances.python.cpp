@@ -45,7 +45,7 @@ void wrapParameterCovariances(py::module &module)
    // get/set parameterCovariance
    object.def_property(
       "parameter_covariance",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parameterCovariance();
       },
@@ -59,7 +59,7 @@ void wrapParameterCovariances(py::module &module)
    // get/set averageParameterCovariance
    object.def_property(
       "average_parameter_covariance",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.averageParameterCovariance();
       },

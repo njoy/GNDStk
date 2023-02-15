@@ -73,20 +73,20 @@ IsotopesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IsotopesAssign(ConstHandle2Isotopes This, ConstHandle2ConstIsotopes from)
+IsotopesAssign(ConstHandle2Isotopes self, ConstHandle2ConstIsotopes from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IsotopesDelete(ConstHandle2ConstIsotopes This)
+IsotopesDelete(ConstHandle2ConstIsotopes self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ IsotopesDelete(ConstHandle2ConstIsotopes This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IsotopesRead(ConstHandle2Isotopes This, const char *const filename)
+IsotopesRead(ConstHandle2Isotopes self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IsotopesWrite(ConstHandle2ConstIsotopes This, const char *const filename)
+IsotopesWrite(ConstHandle2ConstIsotopes self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IsotopesPrint(ConstHandle2ConstIsotopes This)
+IsotopesPrint(ConstHandle2ConstIsotopes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IsotopesPrintXML(ConstHandle2ConstIsotopes This)
+IsotopesPrintXML(ConstHandle2ConstIsotopes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IsotopesPrintJSON(ConstHandle2ConstIsotopes This)
+IsotopesPrintJSON(ConstHandle2ConstIsotopes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ IsotopesPrintJSON(ConstHandle2ConstIsotopes This)
 
 // Has
 int
-IsotopesIsotopeHas(ConstHandle2ConstIsotopes This)
+IsotopesIsotopeHas(ConstHandle2ConstIsotopes self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopeHas", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeHas", self, extract::isotope);
 }
 
 // Clear
 void
-IsotopesIsotopeClear(ConstHandle2Isotopes This)
+IsotopesIsotopeClear(ConstHandle2Isotopes self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopeClear", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeClear", self, extract::isotope);
 }
 
 // Size
 size_t
-IsotopesIsotopeSize(ConstHandle2ConstIsotopes This)
+IsotopesIsotopeSize(ConstHandle2ConstIsotopes self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopeSize", This, extract::isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeSize", self, extract::isotope);
 }
 
 // Add
 void
-IsotopesIsotopeAdd(ConstHandle2Isotopes This, ConstHandle2ConstIsotope isotope)
+IsotopesIsotopeAdd(ConstHandle2Isotopes self, ConstHandle2ConstIsotope isotope)
 {
    detail::addToContainer<CPP,CPPIsotope>
-      (CLASSNAME, CLASSNAME+"IsotopeAdd", This, extract::isotope, isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeAdd", self, extract::isotope, isotope);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstIsotope
-IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes This, const size_t index_)
+IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstIsotope>
-      (CLASSNAME, CLASSNAME+"IsotopeGetConst", This, extract::isotope, index_);
+      (CLASSNAME, CLASSNAME+"IsotopeGetConst", self, extract::isotope, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Isotope
-IsotopesIsotopeGet(ConstHandle2Isotopes This, const size_t index_)
+IsotopesIsotopeGet(ConstHandle2Isotopes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Isotope>
-      (CLASSNAME, CLASSNAME+"IsotopeGet", This, extract::isotope, index_);
+      (CLASSNAME, CLASSNAME+"IsotopeGet", self, extract::isotope, index_);
 }
 
 // Set, by index \in [0,size)
 void
 IsotopesIsotopeSet(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const size_t index_,
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByIndex<CPP,CPPIsotope>
-      (CLASSNAME, CLASSNAME+"IsotopeSet", This, extract::isotope, index_, isotope);
+      (CLASSNAME, CLASSNAME+"IsotopeSet", self, extract::isotope, index_, isotope);
 }
 
 // Has, by symbol
 int
 IsotopesIsotopeHasBySymbol(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const char *const symbol
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IsotopeHasBySymbol",
-       This, extract::isotope, meta::symbol, symbol);
+       self, extract::isotope, meta::symbol, symbol);
 }
 
 // Get, by symbol, const
 Handle2ConstIsotope
 IsotopesIsotopeGetBySymbolConst(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstIsotope>
       (CLASSNAME, CLASSNAME+"IsotopeGetBySymbolConst",
-       This, extract::isotope, meta::symbol, symbol);
+       self, extract::isotope, meta::symbol, symbol);
 }
 
 // Get, by symbol, non-const
 Handle2Isotope
 IsotopesIsotopeGetBySymbol(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const char *const symbol
 ) {
    return detail::getByMetadatum<CPP,Handle2Isotope>
       (CLASSNAME, CLASSNAME+"IsotopeGetBySymbol",
-       This, extract::isotope, meta::symbol, symbol);
+       self, extract::isotope, meta::symbol, symbol);
 }
 
 // Set, by symbol
 void
 IsotopesIsotopeSetBySymbol(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const char *const symbol,
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByMetadatum<CPP,CPPIsotope>
       (CLASSNAME, CLASSNAME+"IsotopeSetBySymbol",
-       This, extract::isotope, meta::symbol, symbol, isotope);
+       self, extract::isotope, meta::symbol, symbol, isotope);
 }
 
 // Has, by A
 int
 IsotopesIsotopeHasByA(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const int A
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IsotopeHasByA",
-       This, extract::isotope, meta::A, A);
+       self, extract::isotope, meta::A, A);
 }
 
 // Get, by A, const
 Handle2ConstIsotope
 IsotopesIsotopeGetByAConst(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const int A
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstIsotope>
       (CLASSNAME, CLASSNAME+"IsotopeGetByAConst",
-       This, extract::isotope, meta::A, A);
+       self, extract::isotope, meta::A, A);
 }
 
 // Get, by A, non-const
 Handle2Isotope
 IsotopesIsotopeGetByA(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const int A
 ) {
    return detail::getByMetadatum<CPP,Handle2Isotope>
       (CLASSNAME, CLASSNAME+"IsotopeGetByA",
-       This, extract::isotope, meta::A, A);
+       self, extract::isotope, meta::A, A);
 }
 
 // Set, by A
 void
 IsotopesIsotopeSetByA(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const int A,
    ConstHandle2ConstIsotope isotope
 ) {
    detail::setByMetadatum<CPP,CPPIsotope>
       (CLASSNAME, CLASSNAME+"IsotopeSetByA",
-       This, extract::isotope, meta::A, A, isotope);
+       self, extract::isotope, meta::A, A, isotope);
 }
 
 

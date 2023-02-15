@@ -47,7 +47,7 @@ void wrapNuclearPlusInterference(py::module &module)
    // get/set muCutoff
    object.def_property(
       "mu_cutoff",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.muCutoff();
       },
@@ -61,7 +61,7 @@ void wrapNuclearPlusInterference(py::module &module)
    // get/set crossSection
    object.def_property(
       "cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.crossSection();
       },
@@ -75,7 +75,7 @@ void wrapNuclearPlusInterference(py::module &module)
    // get/set distribution
    object.def_property(
       "distribution",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.distribution();
       },

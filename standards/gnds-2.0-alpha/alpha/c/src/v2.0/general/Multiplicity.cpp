@@ -111,20 +111,20 @@ MultiplicityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MultiplicityAssign(ConstHandle2Multiplicity This, ConstHandle2ConstMultiplicity from)
+MultiplicityAssign(ConstHandle2Multiplicity self, ConstHandle2ConstMultiplicity from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MultiplicityDelete(ConstHandle2ConstMultiplicity This)
+MultiplicityDelete(ConstHandle2ConstMultiplicity self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -138,44 +138,44 @@ MultiplicityDelete(ConstHandle2ConstMultiplicity This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MultiplicityRead(ConstHandle2Multiplicity This, const char *const filename)
+MultiplicityRead(ConstHandle2Multiplicity self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MultiplicityWrite(ConstHandle2ConstMultiplicity This, const char *const filename)
+MultiplicityWrite(ConstHandle2ConstMultiplicity self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MultiplicityPrint(ConstHandle2ConstMultiplicity This)
+MultiplicityPrint(ConstHandle2ConstMultiplicity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MultiplicityPrintXML(ConstHandle2ConstMultiplicity This)
+MultiplicityPrintXML(ConstHandle2ConstMultiplicity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MultiplicityPrintJSON(ConstHandle2ConstMultiplicity This)
+MultiplicityPrintJSON(ConstHandle2ConstMultiplicity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -185,34 +185,34 @@ MultiplicityPrintJSON(ConstHandle2ConstMultiplicity This)
 
 // Has
 int
-MultiplicityConstant1dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityConstant1dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Constant1dHas", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dHas", self, extract::constant1d);
 }
 
 // Get, const
 Handle2ConstConstant1d
-MultiplicityConstant1dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityConstant1dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGetConst", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
 // Get, non-const
 Handle2Constant1d
-MultiplicityConstant1dGet(ConstHandle2Multiplicity This)
+MultiplicityConstant1dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Constant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGet", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGet", self, extract::constant1d);
 }
 
 // Set
 void
-MultiplicityConstant1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstConstant1d constant1d)
+MultiplicityConstant1dSet(ConstHandle2Multiplicity self, ConstHandle2ConstConstant1d constant1d)
 {
    detail::setField<CPP,CPPConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dSet", self, extract::constant1d, constant1d);
 }
 
 
@@ -222,34 +222,34 @@ MultiplicityConstant1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstConsta
 
 // Has
 int
-MultiplicityXYs1dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityXYs1dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-MultiplicityXYs1dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityXYs1dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-MultiplicityXYs1dGet(ConstHandle2Multiplicity This)
+MultiplicityXYs1dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-MultiplicityXYs1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstXYs1d XYs1d)
+MultiplicityXYs1dSet(ConstHandle2Multiplicity self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -259,34 +259,34 @@ MultiplicityXYs1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstXYs1d XYs1d
 
 // Has
 int
-MultiplicityRegions1dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityRegions1dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-MultiplicityRegions1dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityRegions1dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-MultiplicityRegions1dGet(ConstHandle2Multiplicity This)
+MultiplicityRegions1dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-MultiplicityRegions1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstRegions1d regions1d)
+MultiplicityRegions1dSet(ConstHandle2Multiplicity self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 
@@ -296,34 +296,34 @@ MultiplicityRegions1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstRegions
 
 // Has
 int
-MultiplicityPolynomial1dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityPolynomial1dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-MultiplicityPolynomial1dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityPolynomial1dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-MultiplicityPolynomial1dGet(ConstHandle2Multiplicity This)
+MultiplicityPolynomial1dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-MultiplicityPolynomial1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstPolynomial1d polynomial1d)
+MultiplicityPolynomial1dSet(ConstHandle2Multiplicity self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 
@@ -333,34 +333,34 @@ MultiplicityPolynomial1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstPoly
 
 // Has
 int
-MultiplicityReferenceHas(ConstHandle2ConstMultiplicity This)
+MultiplicityReferenceHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReferenceHas", This, extract::reference);
+      (CLASSNAME, CLASSNAME+"ReferenceHas", self, extract::reference);
 }
 
 // Get, const
 Handle2ConstReference
-MultiplicityReferenceGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityReferenceGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstReference>
-      (CLASSNAME, CLASSNAME+"ReferenceGetConst", This, extract::reference);
+      (CLASSNAME, CLASSNAME+"ReferenceGetConst", self, extract::reference);
 }
 
 // Get, non-const
 Handle2Reference
-MultiplicityReferenceGet(ConstHandle2Multiplicity This)
+MultiplicityReferenceGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Reference>
-      (CLASSNAME, CLASSNAME+"ReferenceGet", This, extract::reference);
+      (CLASSNAME, CLASSNAME+"ReferenceGet", self, extract::reference);
 }
 
 // Set
 void
-MultiplicityReferenceSet(ConstHandle2Multiplicity This, ConstHandle2ConstReference reference)
+MultiplicityReferenceSet(ConstHandle2Multiplicity self, ConstHandle2ConstReference reference)
 {
    detail::setField<CPP,CPPReference>
-      (CLASSNAME, CLASSNAME+"ReferenceSet", This, extract::reference, reference);
+      (CLASSNAME, CLASSNAME+"ReferenceSet", self, extract::reference, reference);
 }
 
 
@@ -370,34 +370,34 @@ MultiplicityReferenceSet(ConstHandle2Multiplicity This, ConstHandle2ConstReferen
 
 // Has
 int
-MultiplicityBranching1dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityBranching1dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Branching1dHas", This, extract::branching1d);
+      (CLASSNAME, CLASSNAME+"Branching1dHas", self, extract::branching1d);
 }
 
 // Get, const
 Handle2ConstBranching1d
-MultiplicityBranching1dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityBranching1dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstBranching1d>
-      (CLASSNAME, CLASSNAME+"Branching1dGetConst", This, extract::branching1d);
+      (CLASSNAME, CLASSNAME+"Branching1dGetConst", self, extract::branching1d);
 }
 
 // Get, non-const
 Handle2Branching1d
-MultiplicityBranching1dGet(ConstHandle2Multiplicity This)
+MultiplicityBranching1dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Branching1d>
-      (CLASSNAME, CLASSNAME+"Branching1dGet", This, extract::branching1d);
+      (CLASSNAME, CLASSNAME+"Branching1dGet", self, extract::branching1d);
 }
 
 // Set
 void
-MultiplicityBranching1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstBranching1d branching1d)
+MultiplicityBranching1dSet(ConstHandle2Multiplicity self, ConstHandle2ConstBranching1d branching1d)
 {
    detail::setField<CPP,CPPBranching1d>
-      (CLASSNAME, CLASSNAME+"Branching1dSet", This, extract::branching1d, branching1d);
+      (CLASSNAME, CLASSNAME+"Branching1dSet", self, extract::branching1d, branching1d);
 }
 
 
@@ -407,34 +407,34 @@ MultiplicityBranching1dSet(ConstHandle2Multiplicity This, ConstHandle2ConstBranc
 
 // Has
 int
-MultiplicityBranching3dHas(ConstHandle2ConstMultiplicity This)
+MultiplicityBranching3dHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Branching3dHas", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dHas", self, extract::branching3d);
 }
 
 // Get, const
 Handle2ConstBranching3d
-MultiplicityBranching3dGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityBranching3dGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGetConst", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dGetConst", self, extract::branching3d);
 }
 
 // Get, non-const
 Handle2Branching3d
-MultiplicityBranching3dGet(ConstHandle2Multiplicity This)
+MultiplicityBranching3dGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Branching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dGet", This, extract::branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dGet", self, extract::branching3d);
 }
 
 // Set
 void
-MultiplicityBranching3dSet(ConstHandle2Multiplicity This, ConstHandle2ConstBranching3d branching3d)
+MultiplicityBranching3dSet(ConstHandle2Multiplicity self, ConstHandle2ConstBranching3d branching3d)
 {
    detail::setField<CPP,CPPBranching3d>
-      (CLASSNAME, CLASSNAME+"Branching3dSet", This, extract::branching3d, branching3d);
+      (CLASSNAME, CLASSNAME+"Branching3dSet", self, extract::branching3d, branching3d);
 }
 
 
@@ -444,34 +444,34 @@ MultiplicityBranching3dSet(ConstHandle2Multiplicity This, ConstHandle2ConstBranc
 
 // Has
 int
-MultiplicityUnspecifiedHas(ConstHandle2ConstMultiplicity This)
+MultiplicityUnspecifiedHas(ConstHandle2ConstMultiplicity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnspecifiedHas", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedHas", self, extract::unspecified);
 }
 
 // Get, const
 Handle2ConstUnspecified
-MultiplicityUnspecifiedGetConst(ConstHandle2ConstMultiplicity This)
+MultiplicityUnspecifiedGetConst(ConstHandle2ConstMultiplicity self)
 {
    return detail::getField<CPP,Handle2ConstUnspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", self, extract::unspecified);
 }
 
 // Get, non-const
 Handle2Unspecified
-MultiplicityUnspecifiedGet(ConstHandle2Multiplicity This)
+MultiplicityUnspecifiedGet(ConstHandle2Multiplicity self)
 {
    return detail::getField<CPP,Handle2Unspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedGet", This, extract::unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedGet", self, extract::unspecified);
 }
 
 // Set
 void
-MultiplicityUnspecifiedSet(ConstHandle2Multiplicity This, ConstHandle2ConstUnspecified unspecified)
+MultiplicityUnspecifiedSet(ConstHandle2Multiplicity self, ConstHandle2ConstUnspecified unspecified)
 {
    detail::setField<CPP,CPPUnspecified>
-      (CLASSNAME, CLASSNAME+"UnspecifiedSet", This, extract::unspecified, unspecified);
+      (CLASSNAME, CLASSNAME+"UnspecifiedSet", self, extract::unspecified, unspecified);
 }
 
 

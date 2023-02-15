@@ -73,20 +73,20 @@ IncidentEnergiesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IncidentEnergiesAssign(ConstHandle2IncidentEnergies This, ConstHandle2ConstIncidentEnergies from)
+IncidentEnergiesAssign(ConstHandle2IncidentEnergies self, ConstHandle2ConstIncidentEnergies from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IncidentEnergiesDelete(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesDelete(ConstHandle2ConstIncidentEnergies self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ IncidentEnergiesDelete(ConstHandle2ConstIncidentEnergies This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IncidentEnergiesRead(ConstHandle2IncidentEnergies This, const char *const filename)
+IncidentEnergiesRead(ConstHandle2IncidentEnergies self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IncidentEnergiesWrite(ConstHandle2ConstIncidentEnergies This, const char *const filename)
+IncidentEnergiesWrite(ConstHandle2ConstIncidentEnergies self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IncidentEnergiesPrint(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesPrint(ConstHandle2ConstIncidentEnergies self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IncidentEnergiesPrintXML(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesPrintXML(ConstHandle2ConstIncidentEnergies self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IncidentEnergiesPrintJSON(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesPrintJSON(ConstHandle2ConstIncidentEnergies self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ IncidentEnergiesPrintJSON(ConstHandle2ConstIncidentEnergies This)
 
 // Has
 int
-IncidentEnergiesIncidentEnergyHas(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesIncidentEnergyHas(ConstHandle2ConstIncidentEnergies self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IncidentEnergyHas", This, extract::incidentEnergy);
+      (CLASSNAME, CLASSNAME+"IncidentEnergyHas", self, extract::incidentEnergy);
 }
 
 // Clear
 void
-IncidentEnergiesIncidentEnergyClear(ConstHandle2IncidentEnergies This)
+IncidentEnergiesIncidentEnergyClear(ConstHandle2IncidentEnergies self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IncidentEnergyClear", This, extract::incidentEnergy);
+      (CLASSNAME, CLASSNAME+"IncidentEnergyClear", self, extract::incidentEnergy);
 }
 
 // Size
 size_t
-IncidentEnergiesIncidentEnergySize(ConstHandle2ConstIncidentEnergies This)
+IncidentEnergiesIncidentEnergySize(ConstHandle2ConstIncidentEnergies self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IncidentEnergySize", This, extract::incidentEnergy);
+      (CLASSNAME, CLASSNAME+"IncidentEnergySize", self, extract::incidentEnergy);
 }
 
 // Add
 void
-IncidentEnergiesIncidentEnergyAdd(ConstHandle2IncidentEnergies This, ConstHandle2ConstIncidentEnergy incidentEnergy)
+IncidentEnergiesIncidentEnergyAdd(ConstHandle2IncidentEnergies self, ConstHandle2ConstIncidentEnergy incidentEnergy)
 {
    detail::addToContainer<CPP,CPPIncidentEnergy>
-      (CLASSNAME, CLASSNAME+"IncidentEnergyAdd", This, extract::incidentEnergy, incidentEnergy);
+      (CLASSNAME, CLASSNAME+"IncidentEnergyAdd", self, extract::incidentEnergy, incidentEnergy);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstIncidentEnergy
-IncidentEnergiesIncidentEnergyGetConst(ConstHandle2ConstIncidentEnergies This, const size_t index_)
+IncidentEnergiesIncidentEnergyGetConst(ConstHandle2ConstIncidentEnergies self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstIncidentEnergy>
-      (CLASSNAME, CLASSNAME+"IncidentEnergyGetConst", This, extract::incidentEnergy, index_);
+      (CLASSNAME, CLASSNAME+"IncidentEnergyGetConst", self, extract::incidentEnergy, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2IncidentEnergy
-IncidentEnergiesIncidentEnergyGet(ConstHandle2IncidentEnergies This, const size_t index_)
+IncidentEnergiesIncidentEnergyGet(ConstHandle2IncidentEnergies self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2IncidentEnergy>
-      (CLASSNAME, CLASSNAME+"IncidentEnergyGet", This, extract::incidentEnergy, index_);
+      (CLASSNAME, CLASSNAME+"IncidentEnergyGet", self, extract::incidentEnergy, index_);
 }
 
 // Set, by index \in [0,size)
 void
 IncidentEnergiesIncidentEnergySet(
-   ConstHandle2IncidentEnergies This,
+   ConstHandle2IncidentEnergies self,
    const size_t index_,
    ConstHandle2ConstIncidentEnergy incidentEnergy
 ) {
    detail::setByIndex<CPP,CPPIncidentEnergy>
-      (CLASSNAME, CLASSNAME+"IncidentEnergySet", This, extract::incidentEnergy, index_, incidentEnergy);
+      (CLASSNAME, CLASSNAME+"IncidentEnergySet", self, extract::incidentEnergy, index_, incidentEnergy);
 }
 
 // Has, by label
 int
 IncidentEnergiesIncidentEnergyHasByLabel(
-   ConstHandle2ConstIncidentEnergies This,
+   ConstHandle2ConstIncidentEnergies self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IncidentEnergyHasByLabel",
-       This, extract::incidentEnergy, meta::label, label);
+       self, extract::incidentEnergy, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstIncidentEnergy
 IncidentEnergiesIncidentEnergyGetByLabelConst(
-   ConstHandle2ConstIncidentEnergies This,
+   ConstHandle2ConstIncidentEnergies self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstIncidentEnergy>
       (CLASSNAME, CLASSNAME+"IncidentEnergyGetByLabelConst",
-       This, extract::incidentEnergy, meta::label, label);
+       self, extract::incidentEnergy, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGetByLabel(
-   ConstHandle2IncidentEnergies This,
+   ConstHandle2IncidentEnergies self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2IncidentEnergy>
       (CLASSNAME, CLASSNAME+"IncidentEnergyGetByLabel",
-       This, extract::incidentEnergy, meta::label, label);
+       self, extract::incidentEnergy, meta::label, label);
 }
 
 // Set, by label
 void
 IncidentEnergiesIncidentEnergySetByLabel(
-   ConstHandle2IncidentEnergies This,
+   ConstHandle2IncidentEnergies self,
    const char *const label,
    ConstHandle2ConstIncidentEnergy incidentEnergy
 ) {
    detail::setByMetadatum<CPP,CPPIncidentEnergy>
       (CLASSNAME, CLASSNAME+"IncidentEnergySetByLabel",
-       This, extract::incidentEnergy, meta::label, label, incidentEnergy);
+       self, extract::incidentEnergy, meta::label, label, incidentEnergy);
 }
 
 

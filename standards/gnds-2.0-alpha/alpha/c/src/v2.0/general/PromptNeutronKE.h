@@ -93,13 +93,13 @@ PromptNeutronKECreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PromptNeutronKEAssign(ConstHandle2PromptNeutronKE This, ConstHandle2ConstPromptNeutronKE from);
+PromptNeutronKEAssign(ConstHandle2PromptNeutronKE self, ConstHandle2ConstPromptNeutronKE from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PromptNeutronKERead(ConstHandle2PromptNeutronKE This, const char *const filename);
+PromptNeutronKERead(ConstHandle2PromptNeutronKE self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PromptNeutronKEWrite(ConstHandle2ConstPromptNeutronKE This, const char *const filename);
+PromptNeutronKEWrite(ConstHandle2ConstPromptNeutronKE self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PromptNeutronKEPrint(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEPrint(ConstHandle2ConstPromptNeutronKE self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PromptNeutronKEPrintXML(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEPrintXML(ConstHandle2ConstPromptNeutronKE self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE This);
 
 // +++ Has
 extern_c int
-PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE This);
+PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE self);
 
 // +++ Set
 extern_c void
-PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2ConstPolynomial1d polynomial1d);
+PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE This);
+PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE This);
+PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE self);
 
 // +++ Set
 extern_c void
-PromptNeutronKEXYs1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2ConstXYs1d XYs1d);
+PromptNeutronKEXYs1dSet(ConstHandle2PromptNeutronKE self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

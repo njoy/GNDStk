@@ -85,20 +85,20 @@ OutputChannelCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-OutputChannelAssign(ConstHandle2OutputChannel This, ConstHandle2ConstOutputChannel from)
+OutputChannelAssign(ConstHandle2OutputChannel self, ConstHandle2ConstOutputChannel from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-OutputChannelDelete(ConstHandle2ConstOutputChannel This)
+OutputChannelDelete(ConstHandle2ConstOutputChannel self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ OutputChannelDelete(ConstHandle2ConstOutputChannel This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-OutputChannelRead(ConstHandle2OutputChannel This, const char *const filename)
+OutputChannelRead(ConstHandle2OutputChannel self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-OutputChannelWrite(ConstHandle2ConstOutputChannel This, const char *const filename)
+OutputChannelWrite(ConstHandle2ConstOutputChannel self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-OutputChannelPrint(ConstHandle2ConstOutputChannel This)
+OutputChannelPrint(ConstHandle2ConstOutputChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-OutputChannelPrintXML(ConstHandle2ConstOutputChannel This)
+OutputChannelPrintXML(ConstHandle2ConstOutputChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-OutputChannelPrintJSON(ConstHandle2ConstOutputChannel This)
+OutputChannelPrintJSON(ConstHandle2ConstOutputChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ OutputChannelPrintJSON(ConstHandle2ConstOutputChannel This)
 
 // Has
 int
-OutputChannelGenreHas(ConstHandle2ConstOutputChannel This)
+OutputChannelGenreHas(ConstHandle2ConstOutputChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GenreHas", This, extract::genre);
+      (CLASSNAME, CLASSNAME+"GenreHas", self, extract::genre);
 }
 
 // Get
 // Returns by value
 const char *
-OutputChannelGenreGet(ConstHandle2ConstOutputChannel This)
+OutputChannelGenreGet(ConstHandle2ConstOutputChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"GenreGet", This, extract::genre);
+      (CLASSNAME, CLASSNAME+"GenreGet", self, extract::genre);
 }
 
 // Set
 void
-OutputChannelGenreSet(ConstHandle2OutputChannel This, const char *const genre)
+OutputChannelGenreSet(ConstHandle2OutputChannel self, const char *const genre)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"GenreSet", This, extract::genre, genre);
+      (CLASSNAME, CLASSNAME+"GenreSet", self, extract::genre, genre);
 }
 
 
@@ -189,27 +189,27 @@ OutputChannelGenreSet(ConstHandle2OutputChannel This, const char *const genre)
 
 // Has
 int
-OutputChannelProcessHas(ConstHandle2ConstOutputChannel This)
+OutputChannelProcessHas(ConstHandle2ConstOutputChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProcessHas", This, extract::process);
+      (CLASSNAME, CLASSNAME+"ProcessHas", self, extract::process);
 }
 
 // Get
 // Returns by value
 const char *
-OutputChannelProcessGet(ConstHandle2ConstOutputChannel This)
+OutputChannelProcessGet(ConstHandle2ConstOutputChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProcessGet", This, extract::process);
+      (CLASSNAME, CLASSNAME+"ProcessGet", self, extract::process);
 }
 
 // Set
 void
-OutputChannelProcessSet(ConstHandle2OutputChannel This, const char *const process)
+OutputChannelProcessSet(ConstHandle2OutputChannel self, const char *const process)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProcessSet", This, extract::process, process);
+      (CLASSNAME, CLASSNAME+"ProcessSet", self, extract::process, process);
 }
 
 
@@ -219,34 +219,34 @@ OutputChannelProcessSet(ConstHandle2OutputChannel This, const char *const proces
 
 // Has
 int
-OutputChannelQHas(ConstHandle2ConstOutputChannel This)
+OutputChannelQHas(ConstHandle2ConstOutputChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"QHas", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QHas", self, extract::Q);
 }
 
 // Get, const
 Handle2ConstQ
-OutputChannelQGetConst(ConstHandle2ConstOutputChannel This)
+OutputChannelQGetConst(ConstHandle2ConstOutputChannel self)
 {
    return detail::getField<CPP,Handle2ConstQ>
-      (CLASSNAME, CLASSNAME+"QGetConst", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
 // Get, non-const
 Handle2Q
-OutputChannelQGet(ConstHandle2OutputChannel This)
+OutputChannelQGet(ConstHandle2OutputChannel self)
 {
    return detail::getField<CPP,Handle2Q>
-      (CLASSNAME, CLASSNAME+"QGet", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QGet", self, extract::Q);
 }
 
 // Set
 void
-OutputChannelQSet(ConstHandle2OutputChannel This, ConstHandle2ConstQ Q)
+OutputChannelQSet(ConstHandle2OutputChannel self, ConstHandle2ConstQ Q)
 {
    detail::setField<CPP,CPPQ>
-      (CLASSNAME, CLASSNAME+"QSet", This, extract::Q, Q);
+      (CLASSNAME, CLASSNAME+"QSet", self, extract::Q, Q);
 }
 
 
@@ -256,34 +256,34 @@ OutputChannelQSet(ConstHandle2OutputChannel This, ConstHandle2ConstQ Q)
 
 // Has
 int
-OutputChannelProductsHas(ConstHandle2ConstOutputChannel This)
+OutputChannelProductsHas(ConstHandle2ConstOutputChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductsHas", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsHas", self, extract::products);
 }
 
 // Get, const
 Handle2ConstProducts
-OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel This)
+OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self)
 {
    return detail::getField<CPP,Handle2ConstProducts>
-      (CLASSNAME, CLASSNAME+"ProductsGetConst", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
 // Get, non-const
 Handle2Products
-OutputChannelProductsGet(ConstHandle2OutputChannel This)
+OutputChannelProductsGet(ConstHandle2OutputChannel self)
 {
    return detail::getField<CPP,Handle2Products>
-      (CLASSNAME, CLASSNAME+"ProductsGet", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsGet", self, extract::products);
 }
 
 // Set
 void
-OutputChannelProductsSet(ConstHandle2OutputChannel This, ConstHandle2ConstProducts products)
+OutputChannelProductsSet(ConstHandle2OutputChannel self, ConstHandle2ConstProducts products)
 {
    detail::setField<CPP,CPPProducts>
-      (CLASSNAME, CLASSNAME+"ProductsSet", This, extract::products, products);
+      (CLASSNAME, CLASSNAME+"ProductsSet", self, extract::products, products);
 }
 
 

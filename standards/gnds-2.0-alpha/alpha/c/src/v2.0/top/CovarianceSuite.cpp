@@ -112,20 +112,20 @@ CovarianceSuiteCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CovarianceSuiteAssign(ConstHandle2CovarianceSuite This, ConstHandle2ConstCovarianceSuite from)
+CovarianceSuiteAssign(ConstHandle2CovarianceSuite self, ConstHandle2ConstCovarianceSuite from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -139,44 +139,44 @@ CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CovarianceSuiteRead(ConstHandle2CovarianceSuite This, const char *const filename)
+CovarianceSuiteRead(ConstHandle2CovarianceSuite self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CovarianceSuiteWrite(ConstHandle2ConstCovarianceSuite This, const char *const filename)
+CovarianceSuiteWrite(ConstHandle2ConstCovarianceSuite self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CovarianceSuitePrint(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuitePrint(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CovarianceSuitePrintXML(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuitePrintXML(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -186,27 +186,27 @@ CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite This)
 
 // Has
 int
-CovarianceSuiteProjectileHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteProjectileHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileHas", self, extract::projectile);
 }
 
 // Get
 // Returns by value
 const char *
-CovarianceSuiteProjectileGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteProjectileGet(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileGet", self, extract::projectile);
 }
 
 // Set
 void
-CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite This, const char *const projectile)
+CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite self, const char *const projectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileSet", self, extract::projectile, projectile);
 }
 
 
@@ -216,27 +216,27 @@ CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite This, const char *const
 
 // Has
 int
-CovarianceSuiteTargetHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteTargetHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetHas", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetHas", self, extract::target);
 }
 
 // Get
 // Returns by value
 const char *
-CovarianceSuiteTargetGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteTargetGet(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetGet", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetGet", self, extract::target);
 }
 
 // Set
 void
-CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite This, const char *const target)
+CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite self, const char *const target)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetSet", This, extract::target, target);
+      (CLASSNAME, CLASSNAME+"TargetSet", self, extract::target, target);
 }
 
 
@@ -246,27 +246,27 @@ CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite This, const char *const tar
 
 // Has
 int
-CovarianceSuiteEvaluationHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteEvaluationHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationHas", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationHas", self, extract::evaluation);
 }
 
 // Get
 // Returns by value
 const char *
-CovarianceSuiteEvaluationGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteEvaluationGet(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationGet", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationGet", self, extract::evaluation);
 }
 
 // Set
 void
-CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite This, const char *const evaluation)
+CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite self, const char *const evaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationSet", This, extract::evaluation, evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationSet", self, extract::evaluation, evaluation);
 }
 
 
@@ -276,27 +276,27 @@ CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite This, const char *const
 
 // Has
 int
-CovarianceSuiteInteractionHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteInteractionHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionHas", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionHas", self, extract::interaction);
 }
 
 // Get
 // Returns by value
 const char *
-CovarianceSuiteInteractionGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteInteractionGet(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionGet", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionGet", self, extract::interaction);
 }
 
 // Set
 void
-CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const char *const interaction)
+CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite self, const char *const interaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionSet", This, extract::interaction, interaction);
+      (CLASSNAME, CLASSNAME+"InteractionSet", self, extract::interaction, interaction);
 }
 
 
@@ -306,27 +306,27 @@ CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const char *cons
 
 // Has
 int
-CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 const char *
-CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const char *const format)
+CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite self, const char *const format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -336,34 +336,34 @@ CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const char *const for
 
 // Has
 int
-CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExternalFilesHas", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesHas", self, extract::externalFiles);
 }
 
 // Get, const
 Handle2ConstExternalFiles
-CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ConstExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", self, extract::externalFiles);
 }
 
 // Get, non-const
 Handle2ExternalFiles
-CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite This)
+CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesGet", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesGet", self, extract::externalFiles);
 }
 
 // Set
 void
-CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstExternalFiles externalFiles)
+CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstExternalFiles externalFiles)
 {
    detail::setField<CPP,CPPExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesSet", This, extract::externalFiles, externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesSet", self, extract::externalFiles, externalFiles);
 }
 
 
@@ -373,34 +373,34 @@ CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite This, ConstHandle2Co
 
 // Has
 int
-CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesHas", self, extract::styles);
 }
 
 // Get, const
 Handle2ConstStyles
-CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ConstStyles>
-      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
 // Get, non-const
 Handle2Styles
-CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite This)
+CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self)
 {
    return detail::getField<CPP,Handle2Styles>
-      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGet", self, extract::styles);
 }
 
 // Set
 void
-CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstStyles styles)
+CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstStyles styles)
 {
    detail::setField<CPP,CPPStyles>
-      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
+      (CLASSNAME, CLASSNAME+"StylesSet", self, extract::styles, styles);
 }
 
 
@@ -410,34 +410,34 @@ CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstStyl
 
 // Has
 int
-CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceSectionsHas", This, extract::covarianceSections);
+      (CLASSNAME, CLASSNAME+"CovarianceSectionsHas", self, extract::covarianceSections);
 }
 
 // Get, const
 Handle2ConstCovarianceSections
-CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ConstCovarianceSections>
-      (CLASSNAME, CLASSNAME+"CovarianceSectionsGetConst", This, extract::covarianceSections);
+      (CLASSNAME, CLASSNAME+"CovarianceSectionsGetConst", self, extract::covarianceSections);
 }
 
 // Get, non-const
 Handle2CovarianceSections
-CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite This)
+CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self)
 {
    return detail::getField<CPP,Handle2CovarianceSections>
-      (CLASSNAME, CLASSNAME+"CovarianceSectionsGet", This, extract::covarianceSections);
+      (CLASSNAME, CLASSNAME+"CovarianceSectionsGet", self, extract::covarianceSections);
 }
 
 // Set
 void
-CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstCovarianceSections covarianceSections)
+CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstCovarianceSections covarianceSections)
 {
    detail::setField<CPP,CPPCovarianceSections>
-      (CLASSNAME, CLASSNAME+"CovarianceSectionsSet", This, extract::covarianceSections, covarianceSections);
+      (CLASSNAME, CLASSNAME+"CovarianceSectionsSet", self, extract::covarianceSections, covarianceSections);
 }
 
 
@@ -447,34 +447,34 @@ CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite This, ConstHand
 
 // Has
 int
-CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ParameterCovariancesHas", This, extract::parameterCovariances);
+      (CLASSNAME, CLASSNAME+"ParameterCovariancesHas", self, extract::parameterCovariances);
 }
 
 // Get, const
 Handle2ConstParameterCovariances
-CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite This)
+CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ConstParameterCovariances>
-      (CLASSNAME, CLASSNAME+"ParameterCovariancesGetConst", This, extract::parameterCovariances);
+      (CLASSNAME, CLASSNAME+"ParameterCovariancesGetConst", self, extract::parameterCovariances);
 }
 
 // Get, non-const
 Handle2ParameterCovariances
-CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite This)
+CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self)
 {
    return detail::getField<CPP,Handle2ParameterCovariances>
-      (CLASSNAME, CLASSNAME+"ParameterCovariancesGet", This, extract::parameterCovariances);
+      (CLASSNAME, CLASSNAME+"ParameterCovariancesGet", self, extract::parameterCovariances);
 }
 
 // Set
 void
-CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstParameterCovariances parameterCovariances)
+CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstParameterCovariances parameterCovariances)
 {
    detail::setField<CPP,CPPParameterCovariances>
-      (CLASSNAME, CLASSNAME+"ParameterCovariancesSet", This, extract::parameterCovariances, parameterCovariances);
+      (CLASSNAME, CLASSNAME+"ParameterCovariancesSet", self, extract::parameterCovariances, parameterCovariances);
 }
 
 

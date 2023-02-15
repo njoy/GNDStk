@@ -74,20 +74,20 @@ IntensityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IntensityAssign(ConstHandle2Intensity This, ConstHandle2ConstIntensity from)
+IntensityAssign(ConstHandle2Intensity self, ConstHandle2ConstIntensity from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IntensityDelete(ConstHandle2ConstIntensity This)
+IntensityDelete(ConstHandle2ConstIntensity self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ IntensityDelete(ConstHandle2ConstIntensity This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IntensityRead(ConstHandle2Intensity This, const char *const filename)
+IntensityRead(ConstHandle2Intensity self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IntensityWrite(ConstHandle2ConstIntensity This, const char *const filename)
+IntensityWrite(ConstHandle2ConstIntensity self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IntensityPrint(ConstHandle2ConstIntensity This)
+IntensityPrint(ConstHandle2ConstIntensity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IntensityPrintXML(ConstHandle2ConstIntensity This)
+IntensityPrintXML(ConstHandle2ConstIntensity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IntensityPrintJSON(ConstHandle2ConstIntensity This)
+IntensityPrintJSON(ConstHandle2ConstIntensity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ IntensityPrintJSON(ConstHandle2ConstIntensity This)
 
 // Has
 int
-IntensityValueHas(ConstHandle2ConstIntensity This)
+IntensityValueHas(ConstHandle2ConstIntensity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-IntensityValueGet(ConstHandle2ConstIntensity This)
+IntensityValueGet(ConstHandle2ConstIntensity self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-IntensityValueSet(ConstHandle2Intensity This, const double value)
+IntensityValueSet(ConstHandle2Intensity self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -178,34 +178,34 @@ IntensityValueSet(ConstHandle2Intensity This, const double value)
 
 // Has
 int
-IntensityUncertaintyHas(ConstHandle2ConstIntensity This)
+IntensityUncertaintyHas(ConstHandle2ConstIntensity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-IntensityUncertaintyGetConst(ConstHandle2ConstIntensity This)
+IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-IntensityUncertaintyGet(ConstHandle2Intensity This)
+IntensityUncertaintyGet(ConstHandle2Intensity self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-IntensityUncertaintySet(ConstHandle2Intensity This, ConstHandle2ConstUncertainty uncertainty)
+IntensityUncertaintySet(ConstHandle2Intensity self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

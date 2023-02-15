@@ -43,7 +43,7 @@ void wrapUnorthodoxes(py::module &module)
    // get/set unorthodox
    object.def_property(
       "unorthodox",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unorthodox();
       },

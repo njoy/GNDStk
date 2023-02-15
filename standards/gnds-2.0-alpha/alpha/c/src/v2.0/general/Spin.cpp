@@ -69,20 +69,20 @@ SpinCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SpinAssign(ConstHandle2Spin This, ConstHandle2ConstSpin from)
+SpinAssign(ConstHandle2Spin self, ConstHandle2ConstSpin from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SpinDelete(ConstHandle2ConstSpin This)
+SpinDelete(ConstHandle2ConstSpin self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ SpinDelete(ConstHandle2ConstSpin This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SpinRead(ConstHandle2Spin This, const char *const filename)
+SpinRead(ConstHandle2Spin self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SpinWrite(ConstHandle2ConstSpin This, const char *const filename)
+SpinWrite(ConstHandle2ConstSpin self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SpinPrint(ConstHandle2ConstSpin This)
+SpinPrint(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SpinPrintXML(ConstHandle2ConstSpin This)
+SpinPrintXML(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SpinPrintJSON(ConstHandle2ConstSpin This)
+SpinPrintJSON(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ SpinPrintJSON(ConstHandle2ConstSpin This)
 
 // Has
 int
-SpinFractionHas(ConstHandle2ConstSpin This)
+SpinFractionHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FractionHas", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionHas", self, extract::fraction);
 }
 
 // Get, const
 Handle2ConstFraction
-SpinFractionGetConst(ConstHandle2ConstSpin This)
+SpinFractionGetConst(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP,Handle2ConstFraction>
-      (CLASSNAME, CLASSNAME+"FractionGetConst", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionGetConst", self, extract::fraction);
 }
 
 // Get, non-const
 Handle2Fraction
-SpinFractionGet(ConstHandle2Spin This)
+SpinFractionGet(ConstHandle2Spin self)
 {
    return detail::getField<CPP,Handle2Fraction>
-      (CLASSNAME, CLASSNAME+"FractionGet", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionGet", self, extract::fraction);
 }
 
 // Set
 void
-SpinFractionSet(ConstHandle2Spin This, ConstHandle2ConstFraction fraction)
+SpinFractionSet(ConstHandle2Spin self, ConstHandle2ConstFraction fraction)
 {
    detail::setField<CPP,CPPFraction>
-      (CLASSNAME, CLASSNAME+"FractionSet", This, extract::fraction, fraction);
+      (CLASSNAME, CLASSNAME+"FractionSet", self, extract::fraction, fraction);
 }
 
 

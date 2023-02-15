@@ -51,7 +51,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -65,7 +65,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -79,7 +79,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -93,7 +93,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    // get/set boundAtomCrossSection
    object.def_property(
       "bound_atom_cross_section",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.boundAtomCrossSection();
       },
@@ -107,7 +107,7 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    // get/set DebyeWallerIntegral
    object.def_property(
       "debye_waller_integral",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.DebyeWallerIntegral();
       },

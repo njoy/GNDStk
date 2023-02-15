@@ -49,7 +49,7 @@ void wrapKalbachMann(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -63,7 +63,7 @@ void wrapKalbachMann(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -77,7 +77,7 @@ void wrapKalbachMann(py::module &module)
    // get/set f
    object.def_property(
       "f",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.f();
       },
@@ -91,7 +91,7 @@ void wrapKalbachMann(py::module &module)
    // get/set r
    object.def_property(
       "r",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.r();
       },

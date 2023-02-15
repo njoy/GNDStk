@@ -97,13 +97,13 @@ ProductionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductionAssign(ConstHandle2Production This, ConstHandle2ConstProduction from);
+ProductionAssign(ConstHandle2Production self, ConstHandle2ConstProduction from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductionDelete(ConstHandle2ConstProduction This);
+ProductionDelete(ConstHandle2ConstProduction self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ ProductionDelete(ConstHandle2ConstProduction This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductionRead(ConstHandle2Production This, const char *const filename);
+ProductionRead(ConstHandle2Production self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductionWrite(ConstHandle2ConstProduction This, const char *const filename);
+ProductionWrite(ConstHandle2ConstProduction self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductionPrint(ConstHandle2ConstProduction This);
+ProductionPrint(ConstHandle2ConstProduction self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductionPrintXML(ConstHandle2ConstProduction This);
+ProductionPrintXML(ConstHandle2ConstProduction self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductionPrintJSON(ConstHandle2ConstProduction This);
+ProductionPrintJSON(ConstHandle2ConstProduction self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ ProductionPrintJSON(ConstHandle2ConstProduction This);
 
 // +++ Has
 extern_c int
-ProductionLabelHas(ConstHandle2ConstProduction This);
+ProductionLabelHas(ConstHandle2ConstProduction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ProductionLabelGet(ConstHandle2ConstProduction This);
+ProductionLabelGet(ConstHandle2ConstProduction self);
 
 // +++ Set
 extern_c void
-ProductionLabelSet(ConstHandle2Production This, const char *const label);
+ProductionLabelSet(ConstHandle2Production self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ ProductionLabelSet(ConstHandle2Production This, const char *const label);
 
 // +++ Has
 extern_c int
-ProductionENDFMTHas(ConstHandle2ConstProduction This);
+ProductionENDFMTHas(ConstHandle2ConstProduction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ProductionENDFMTGet(ConstHandle2ConstProduction This);
+ProductionENDFMTGet(ConstHandle2ConstProduction self);
 
 // +++ Set
 extern_c void
-ProductionENDFMTSet(ConstHandle2Production This, const int ENDF_MT);
+ProductionENDFMTSet(ConstHandle2Production self, const int ENDF_MT);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ ProductionENDFMTSet(ConstHandle2Production This, const int ENDF_MT);
 
 // +++ Has
 extern_c int
-ProductionCrossSectionHas(ConstHandle2ConstProduction This);
+ProductionCrossSectionHas(ConstHandle2ConstProduction self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-ProductionCrossSectionGetConst(ConstHandle2ConstProduction This);
+ProductionCrossSectionGetConst(ConstHandle2ConstProduction self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-ProductionCrossSectionGet(ConstHandle2Production This);
+ProductionCrossSectionGet(ConstHandle2Production self);
 
 // +++ Set
 extern_c void
-ProductionCrossSectionSet(ConstHandle2Production This, ConstHandle2ConstCrossSection crossSection);
+ProductionCrossSectionSet(ConstHandle2Production self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ ProductionCrossSectionSet(ConstHandle2Production This, ConstHandle2ConstCrossSec
 
 // +++ Has
 extern_c int
-ProductionOutputChannelHas(ConstHandle2ConstProduction This);
+ProductionOutputChannelHas(ConstHandle2ConstProduction self);
 
 // --- Get, const
 extern_c Handle2ConstOutputChannel
-ProductionOutputChannelGetConst(ConstHandle2ConstProduction This);
+ProductionOutputChannelGetConst(ConstHandle2ConstProduction self);
 
 // +++ Get, non-const
 extern_c Handle2OutputChannel
-ProductionOutputChannelGet(ConstHandle2Production This);
+ProductionOutputChannelGet(ConstHandle2Production self);
 
 // +++ Set
 extern_c void
-ProductionOutputChannelSet(ConstHandle2Production This, ConstHandle2ConstOutputChannel outputChannel);
+ProductionOutputChannelSet(ConstHandle2Production self, ConstHandle2ConstOutputChannel outputChannel);
 
 
 // -----------------------------------------------------------------------------

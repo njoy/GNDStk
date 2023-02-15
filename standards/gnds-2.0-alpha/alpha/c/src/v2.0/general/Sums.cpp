@@ -75,20 +75,20 @@ SumsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SumsAssign(ConstHandle2Sums This, ConstHandle2ConstSums from)
+SumsAssign(ConstHandle2Sums self, ConstHandle2ConstSums from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SumsDelete(ConstHandle2ConstSums This)
+SumsDelete(ConstHandle2ConstSums self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ SumsDelete(ConstHandle2ConstSums This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SumsRead(ConstHandle2Sums This, const char *const filename)
+SumsRead(ConstHandle2Sums self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SumsWrite(ConstHandle2ConstSums This, const char *const filename)
+SumsWrite(ConstHandle2ConstSums self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SumsPrint(ConstHandle2ConstSums This)
+SumsPrint(ConstHandle2ConstSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SumsPrintXML(ConstHandle2ConstSums This)
+SumsPrintXML(ConstHandle2ConstSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SumsPrintJSON(ConstHandle2ConstSums This)
+SumsPrintJSON(ConstHandle2ConstSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ SumsPrintJSON(ConstHandle2ConstSums This)
 
 // Has
 int
-SumsCrossSectionSumsHas(ConstHandle2ConstSums This)
+SumsCrossSectionSumsHas(ConstHandle2ConstSums self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumsHas", This, extract::crossSectionSums);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumsHas", self, extract::crossSectionSums);
 }
 
 // Get, const
 Handle2ConstCrossSectionSums
-SumsCrossSectionSumsGetConst(ConstHandle2ConstSums This)
+SumsCrossSectionSumsGetConst(ConstHandle2ConstSums self)
 {
    return detail::getField<CPP,Handle2ConstCrossSectionSums>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumsGetConst", This, extract::crossSectionSums);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumsGetConst", self, extract::crossSectionSums);
 }
 
 // Get, non-const
 Handle2CrossSectionSums
-SumsCrossSectionSumsGet(ConstHandle2Sums This)
+SumsCrossSectionSumsGet(ConstHandle2Sums self)
 {
    return detail::getField<CPP,Handle2CrossSectionSums>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumsGet", This, extract::crossSectionSums);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumsGet", self, extract::crossSectionSums);
 }
 
 // Set
 void
-SumsCrossSectionSumsSet(ConstHandle2Sums This, ConstHandle2ConstCrossSectionSums crossSectionSums)
+SumsCrossSectionSumsSet(ConstHandle2Sums self, ConstHandle2ConstCrossSectionSums crossSectionSums)
 {
    detail::setField<CPP,CPPCrossSectionSums>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumsSet", This, extract::crossSectionSums, crossSectionSums);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumsSet", self, extract::crossSectionSums, crossSectionSums);
 }
 
 
@@ -186,34 +186,34 @@ SumsCrossSectionSumsSet(ConstHandle2Sums This, ConstHandle2ConstCrossSectionSums
 
 // Has
 int
-SumsMultiplicitySumsHas(ConstHandle2ConstSums This)
+SumsMultiplicitySumsHas(ConstHandle2ConstSums self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumsHas", This, extract::multiplicitySums);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumsHas", self, extract::multiplicitySums);
 }
 
 // Get, const
 Handle2ConstMultiplicitySums
-SumsMultiplicitySumsGetConst(ConstHandle2ConstSums This)
+SumsMultiplicitySumsGetConst(ConstHandle2ConstSums self)
 {
    return detail::getField<CPP,Handle2ConstMultiplicitySums>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumsGetConst", This, extract::multiplicitySums);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumsGetConst", self, extract::multiplicitySums);
 }
 
 // Get, non-const
 Handle2MultiplicitySums
-SumsMultiplicitySumsGet(ConstHandle2Sums This)
+SumsMultiplicitySumsGet(ConstHandle2Sums self)
 {
    return detail::getField<CPP,Handle2MultiplicitySums>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumsGet", This, extract::multiplicitySums);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumsGet", self, extract::multiplicitySums);
 }
 
 // Set
 void
-SumsMultiplicitySumsSet(ConstHandle2Sums This, ConstHandle2ConstMultiplicitySums multiplicitySums)
+SumsMultiplicitySumsSet(ConstHandle2Sums self, ConstHandle2ConstMultiplicitySums multiplicitySums)
 {
    detail::setField<CPP,CPPMultiplicitySums>
-      (CLASSNAME, CLASSNAME+"MultiplicitySumsSet", This, extract::multiplicitySums, multiplicitySums);
+      (CLASSNAME, CLASSNAME+"MultiplicitySumsSet", self, extract::multiplicitySums, multiplicitySums);
 }
 
 

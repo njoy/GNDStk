@@ -98,13 +98,13 @@ SelfScatteringKernelCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSelfScatteringKernel from);
+SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSelfScatteringKernel from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel This, const char *const filename);
+SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel This, const char *const filename);
+SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This);
 
 // +++ Has
 extern_c int
-SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Set
 extern_c void
-SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bool symmetric);
+SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel self, const bool symmetric);
 
 
 // -----------------------------------------------------------------------------
@@ -162,19 +162,19 @@ SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bo
 
 // +++ Has
 extern_c int
-SelfScatteringKernelGridded3dHas(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelGridded3dHas(ConstHandle2ConstSelfScatteringKernel self);
 
 // --- Get, const
 extern_c Handle2ConstGridded3d
-SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded3d
-SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel This);
+SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel self);
 
 // +++ Set
 extern_c void
-SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstGridded3d gridded3d);
+SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstGridded3d gridded3d);
 
 
 // -----------------------------------------------------------------------------
@@ -183,19 +183,19 @@ SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel This, ConstHan
 
 // +++ Has
 extern_c int
-SelfScatteringKernelSCTApproximationHas(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSCTApproximationHas(ConstHandle2ConstSelfScatteringKernel self);
 
 // --- Get, const
 extern_c Handle2ConstSCTApproximation
-SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Get, non-const
 extern_c Handle2SCTApproximation
-SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel This);
+SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel self);
 
 // +++ Set
 extern_c void
-SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSCTApproximation SCTApproximation);
+SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSCTApproximation SCTApproximation);
 
 
 // -----------------------------------------------------------------------------
@@ -204,19 +204,19 @@ SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel This, C
 
 // +++ Has
 extern_c int
-SelfScatteringKernelFreeGasApproximationHas(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelFreeGasApproximationHas(ConstHandle2ConstSelfScatteringKernel self);
 
 // --- Get, const
 extern_c Handle2ConstFreeGasApproximation
-SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Get, non-const
 extern_c Handle2FreeGasApproximation
-SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel This);
+SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel self);
 
 // +++ Set
 extern_c void
-SelfScatteringKernelFreeGasApproximationSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstFreeGasApproximation freeGasApproximation);
+SelfScatteringKernelFreeGasApproximationSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstFreeGasApproximation freeGasApproximation);
 
 
 // -----------------------------------------------------------------------------

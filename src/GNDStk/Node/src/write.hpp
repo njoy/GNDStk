@@ -195,6 +195,23 @@ bool write(
    // Open and write
    // ------------------------
 
+   // Say we've decided we're actually writing an HDF5 file. (Independent of
+   // weird things that may have been reported on above, such as giving a file
+   // name of foo.xml, but a format of "hdf5", in which case we'll write HDF5
+   // but print a warning about the file name's ".xml" bit.) If we're really
+   // writing an HDF5 file, but the file extension is ".hdf" or ".HDF", then
+   // we'll note that those aren't officially HDF5 extensions. (The official
+   // ones always require the "5" in some form.)
+   if (format == FileType::hdf5 &&
+      (endsin(filename,".hdf") || endsin(filename,".HDF")
+   )) {
+      log::info(
+         "Writing file \"{}\" in HDF5 format, but we'll note that .hdf\n"
+         "and .HDF aren't official HDF5 file extensions.\n"
+         "Consider using .hdf5, .he5, or .h5 instead.", filename
+      );
+   }
+
    try {
       std::ofstream ofs(filename);
       if (!ofs) {

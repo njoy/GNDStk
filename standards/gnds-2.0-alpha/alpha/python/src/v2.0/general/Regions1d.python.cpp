@@ -51,7 +51,7 @@ void wrapRegions1d(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -65,7 +65,7 @@ void wrapRegions1d(py::module &module)
    // get/set outerDomainValue
    object.def_property(
       "outer_domain_value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outerDomainValue();
       },
@@ -79,7 +79,7 @@ void wrapRegions1d(py::module &module)
    // get/set axes
    object.def_property(
       "axes",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.axes();
       },
@@ -93,7 +93,7 @@ void wrapRegions1d(py::module &module)
    // get/set uncertainty
    object.def_property(
       "uncertainty",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncertainty();
       },
@@ -107,7 +107,7 @@ void wrapRegions1d(py::module &module)
    // get/set function1ds
    object.def_property(
       "function1ds",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.function1ds();
       },

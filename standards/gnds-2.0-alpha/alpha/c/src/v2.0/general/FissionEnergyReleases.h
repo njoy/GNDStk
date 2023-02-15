@@ -90,13 +90,13 @@ FissionEnergyReleasesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FissionEnergyReleasesAssign(ConstHandle2FissionEnergyReleases This, ConstHandle2ConstFissionEnergyReleases from);
+FissionEnergyReleasesAssign(ConstHandle2FissionEnergyReleases self, ConstHandle2ConstFissionEnergyReleases from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FissionEnergyReleasesDelete(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesDelete(ConstHandle2ConstFissionEnergyReleases self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ FissionEnergyReleasesDelete(ConstHandle2ConstFissionEnergyReleases This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FissionEnergyReleasesRead(ConstHandle2FissionEnergyReleases This, const char *const filename);
+FissionEnergyReleasesRead(ConstHandle2FissionEnergyReleases self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FissionEnergyReleasesWrite(ConstHandle2ConstFissionEnergyReleases This, const char *const filename);
+FissionEnergyReleasesWrite(ConstHandle2ConstFissionEnergyReleases self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FissionEnergyReleasesPrint(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesPrint(ConstHandle2ConstFissionEnergyReleases self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FissionEnergyReleasesPrintXML(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesPrintXML(ConstHandle2ConstFissionEnergyReleases self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FissionEnergyReleasesPrintJSON(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesPrintJSON(ConstHandle2ConstFissionEnergyReleases self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ FissionEnergyReleasesPrintJSON(ConstHandle2ConstFissionEnergyReleases This);
 
 // +++ Has
 extern_c int
-FissionEnergyReleasesFissionEnergyReleaseHas(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesFissionEnergyReleaseHas(ConstHandle2ConstFissionEnergyReleases self);
 
 // +++ Clear
 extern_c void
-FissionEnergyReleasesFissionEnergyReleaseClear(ConstHandle2FissionEnergyReleases This);
+FissionEnergyReleasesFissionEnergyReleaseClear(ConstHandle2FissionEnergyReleases self);
 
 // +++ Size
 extern_c size_t
-FissionEnergyReleasesFissionEnergyReleaseSize(ConstHandle2ConstFissionEnergyReleases This);
+FissionEnergyReleasesFissionEnergyReleaseSize(ConstHandle2ConstFissionEnergyReleases self);
 
 // +++ Add
 extern_c void
-FissionEnergyReleasesFissionEnergyReleaseAdd(ConstHandle2FissionEnergyReleases This, ConstHandle2ConstFissionEnergyRelease fissionEnergyRelease);
+FissionEnergyReleasesFissionEnergyReleaseAdd(ConstHandle2FissionEnergyReleases self, ConstHandle2ConstFissionEnergyRelease fissionEnergyRelease);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstFissionEnergyRelease
-FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergyReleases This, const size_t index_);
+FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergyReleases self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2FissionEnergyRelease
-FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases This, const size_t index_);
+FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 FissionEnergyReleasesFissionEnergyReleaseSet(
-   ConstHandle2FissionEnergyReleases This,
+   ConstHandle2FissionEnergyReleases self,
    const size_t index_,
    ConstHandle2ConstFissionEnergyRelease fissionEnergyRelease
 );
@@ -169,28 +169,28 @@ FissionEnergyReleasesFissionEnergyReleaseSet(
 // +++ Has, by label
 extern_c int
 FissionEnergyReleasesFissionEnergyReleaseHasByLabel(
-   ConstHandle2ConstFissionEnergyReleases This,
+   ConstHandle2ConstFissionEnergyReleases self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstFissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(
-   ConstHandle2ConstFissionEnergyReleases This,
+   ConstHandle2ConstFissionEnergyReleases self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabel(
-   ConstHandle2FissionEnergyReleases This,
+   ConstHandle2FissionEnergyReleases self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 FissionEnergyReleasesFissionEnergyReleaseSetByLabel(
-   ConstHandle2FissionEnergyReleases This,
+   ConstHandle2FissionEnergyReleases self,
    const char *const label,
    ConstHandle2ConstFissionEnergyRelease fissionEnergyRelease
 );

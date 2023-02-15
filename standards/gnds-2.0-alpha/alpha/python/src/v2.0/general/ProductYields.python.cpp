@@ -43,7 +43,7 @@ void wrapProductYields(py::module &module)
    // get/set productYield
    object.def_property(
       "product_yield",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productYield();
       },

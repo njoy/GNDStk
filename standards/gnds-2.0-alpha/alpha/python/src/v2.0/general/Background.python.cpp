@@ -47,7 +47,7 @@ void wrapBackground(py::module &module)
    // get/set resolvedRegion
    object.def_property(
       "resolved_region",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resolvedRegion();
       },
@@ -61,7 +61,7 @@ void wrapBackground(py::module &module)
    // get/set fastRegion
    object.def_property(
       "fast_region",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fastRegion();
       },
@@ -75,7 +75,7 @@ void wrapBackground(py::module &module)
    // get/set unresolvedRegion
    object.def_property(
       "unresolved_region",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unresolvedRegion();
       },

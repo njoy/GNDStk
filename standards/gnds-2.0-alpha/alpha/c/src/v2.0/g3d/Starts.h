@@ -91,13 +91,13 @@ StartsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StartsAssign(ConstHandle2Starts This, ConstHandle2ConstStarts from);
+StartsAssign(ConstHandle2Starts self, ConstHandle2ConstStarts from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StartsDelete(ConstHandle2ConstStarts This);
+StartsDelete(ConstHandle2ConstStarts self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ StartsDelete(ConstHandle2ConstStarts This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StartsRead(ConstHandle2Starts This, const char *const filename);
+StartsRead(ConstHandle2Starts self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StartsWrite(ConstHandle2ConstStarts This, const char *const filename);
+StartsWrite(ConstHandle2ConstStarts self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StartsPrint(ConstHandle2ConstStarts This);
+StartsPrint(ConstHandle2ConstStarts self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StartsPrintXML(ConstHandle2ConstStarts This);
+StartsPrintXML(ConstHandle2ConstStarts self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StartsPrintJSON(ConstHandle2ConstStarts This);
+StartsPrintJSON(ConstHandle2ConstStarts self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,33 +137,33 @@ StartsPrintJSON(ConstHandle2ConstStarts This);
 
 // +++ Clear
 extern_c void
-StartsIntsClear(ConstHandle2Starts This);
+StartsIntsClear(ConstHandle2Starts self);
 
 // +++ Get size
 extern_c size_t
-StartsIntsSize(ConstHandle2ConstStarts This);
+StartsIntsSize(ConstHandle2ConstStarts self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-StartsIntsGet(ConstHandle2ConstStarts This, const size_t index);
+StartsIntsGet(ConstHandle2ConstStarts self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-StartsIntsSet(ConstHandle2Starts This, const size_t index, const int value);
+StartsIntsSet(ConstHandle2Starts self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-StartsIntsGetArrayConst(ConstHandle2ConstStarts This);
+StartsIntsGetArrayConst(ConstHandle2ConstStarts self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-StartsIntsGetArray(ConstHandle2Starts This);
+StartsIntsGetArray(ConstHandle2Starts self);
 
 // +++ Set completely new values and size
 extern_c void
-StartsIntsSetArray(ConstHandle2Starts This, const int *const values, const size_t size);
+StartsIntsSetArray(ConstHandle2Starts self, const int *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -172,16 +172,16 @@ StartsIntsSetArray(ConstHandle2Starts This, const int *const values, const size_
 
 // +++ Has
 extern_c int
-StartsValueTypeHas(ConstHandle2ConstStarts This);
+StartsValueTypeHas(ConstHandle2ConstStarts self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-StartsValueTypeGet(ConstHandle2ConstStarts This);
+StartsValueTypeGet(ConstHandle2ConstStarts self);
 
 // +++ Set
 extern_c void
-StartsValueTypeSet(ConstHandle2Starts This, const char *const valueType);
+StartsValueTypeSet(ConstHandle2Starts self, const char *const valueType);
 
 
 // -----------------------------------------------------------------------------
@@ -190,16 +190,16 @@ StartsValueTypeSet(ConstHandle2Starts This, const char *const valueType);
 
 // +++ Has
 extern_c int
-StartsLabelHas(ConstHandle2ConstStarts This);
+StartsLabelHas(ConstHandle2ConstStarts self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-StartsLabelGet(ConstHandle2ConstStarts This);
+StartsLabelGet(ConstHandle2ConstStarts self);
 
 // +++ Set
 extern_c void
-StartsLabelSet(ConstHandle2Starts This, const char *const label);
+StartsLabelSet(ConstHandle2Starts self, const char *const label);
 
 
 // -----------------------------------------------------------------------------

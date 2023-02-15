@@ -237,6 +237,7 @@ bool printComponentPart(
    return printComponentPart(
       os, level, 0, "",
       static_cast<const std::string &>(value),
+      "",
       valueColor
    );
 }
@@ -395,7 +396,8 @@ bool printComponentPart(
    // form <!--a comment--> when writing to XML), to the name "comment" instead.
    // Also, because our code generator creates the comment vector<string> field
    // automatically, in generated classes, we won't print it here at all if the
-   // vector is empty; that is, we won't write "comment [(nothing)]").
+   // vector is empty; that is, we won't write "comment [(nothing)]"). This way,
+   // users won't wonder where it came from. (It was created automatically.)
    const bool isComment = label == special::comment;
    if (isComment && vec.size() == 0)
       return false; // <== so that the caller won't print a newline

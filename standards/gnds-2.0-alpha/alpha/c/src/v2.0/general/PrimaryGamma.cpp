@@ -84,20 +84,20 @@ PrimaryGammaCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PrimaryGammaAssign(ConstHandle2PrimaryGamma This, ConstHandle2ConstPrimaryGamma from)
+PrimaryGammaAssign(ConstHandle2PrimaryGamma self, ConstHandle2ConstPrimaryGamma from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ PrimaryGammaDelete(ConstHandle2ConstPrimaryGamma This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PrimaryGammaRead(ConstHandle2PrimaryGamma This, const char *const filename)
+PrimaryGammaRead(ConstHandle2PrimaryGamma self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PrimaryGammaWrite(ConstHandle2ConstPrimaryGamma This, const char *const filename)
+PrimaryGammaWrite(ConstHandle2ConstPrimaryGamma self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PrimaryGammaPrint(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaPrint(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PrimaryGammaPrintXML(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaPrintXML(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ PrimaryGammaPrintJSON(ConstHandle2ConstPrimaryGamma This)
 
 // Has
 int
-PrimaryGammaValueHas(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaValueHas(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-PrimaryGammaValueGet(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaValueGet(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-PrimaryGammaValueSet(ConstHandle2PrimaryGamma This, const double value)
+PrimaryGammaValueSet(ConstHandle2PrimaryGamma self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -188,27 +188,27 @@ PrimaryGammaValueSet(ConstHandle2PrimaryGamma This, const double value)
 
 // Has
 int
-PrimaryGammaDomainMinHas(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaDomainMinHas(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-PrimaryGammaDomainMinGet(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaDomainMinGet(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma This, const double domainMin)
+PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -218,27 +218,27 @@ PrimaryGammaDomainMinSet(ConstHandle2PrimaryGamma This, const double domainMin)
 
 // Has
 int
-PrimaryGammaDomainMaxHas(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaDomainMaxHas(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-PrimaryGammaDomainMaxGet(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaDomainMaxGet(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma This, const double domainMax)
+PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -248,34 +248,34 @@ PrimaryGammaDomainMaxSet(ConstHandle2PrimaryGamma This, const double domainMax)
 
 // Has
 int
-PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma This)
+PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-PrimaryGammaAxesGet(ConstHandle2PrimaryGamma This)
+PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-PrimaryGammaAxesSet(ConstHandle2PrimaryGamma This, ConstHandle2ConstAxes axes)
+PrimaryGammaAxesSet(ConstHandle2PrimaryGamma self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 

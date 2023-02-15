@@ -92,13 +92,13 @@ NBodyPhaseSpaceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NBodyPhaseSpaceAssign(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstNBodyPhaseSpace from);
+NBodyPhaseSpaceAssign(ConstHandle2NBodyPhaseSpace self, ConstHandle2ConstNBodyPhaseSpace from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ NBodyPhaseSpaceDelete(ConstHandle2ConstNBodyPhaseSpace This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NBodyPhaseSpaceRead(ConstHandle2NBodyPhaseSpace This, const char *const filename);
+NBodyPhaseSpaceRead(ConstHandle2NBodyPhaseSpace self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NBodyPhaseSpaceWrite(ConstHandle2ConstNBodyPhaseSpace This, const char *const filename);
+NBodyPhaseSpaceWrite(ConstHandle2ConstNBodyPhaseSpace self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NBodyPhaseSpacePrint(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpacePrint(ConstHandle2ConstNBodyPhaseSpace self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NBodyPhaseSpacePrintXML(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpacePrintXML(ConstHandle2ConstNBodyPhaseSpace self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ NBodyPhaseSpacePrintJSON(ConstHandle2ConstNBodyPhaseSpace This);
 
 // +++ Has
 extern_c int
-NBodyPhaseSpaceNumberOfProductsHas(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpaceNumberOfProductsHas(ConstHandle2ConstNBodyPhaseSpace self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-NBodyPhaseSpaceNumberOfProductsGet(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpaceNumberOfProductsGet(ConstHandle2ConstNBodyPhaseSpace self);
 
 // +++ Set
 extern_c void
-NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace This, const int numberOfProducts);
+NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace self, const int numberOfProducts);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ NBodyPhaseSpaceNumberOfProductsSet(ConstHandle2NBodyPhaseSpace This, const int n
 
 // +++ Has
 extern_c int
-NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace This);
+NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace This);
+NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self);
 
 // +++ Set
 extern_c void
-NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace This, ConstHandle2ConstMass mass);
+NBodyPhaseSpaceMassSet(ConstHandle2NBodyPhaseSpace self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------

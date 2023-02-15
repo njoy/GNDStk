@@ -90,13 +90,13 @@ SpinCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SpinAssign(ConstHandle2Spin This, ConstHandle2ConstSpin from);
+SpinAssign(ConstHandle2Spin self, ConstHandle2ConstSpin from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SpinDelete(ConstHandle2ConstSpin This);
+SpinDelete(ConstHandle2ConstSpin self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ SpinDelete(ConstHandle2ConstSpin This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SpinRead(ConstHandle2Spin This, const char *const filename);
+SpinRead(ConstHandle2Spin self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SpinWrite(ConstHandle2ConstSpin This, const char *const filename);
+SpinWrite(ConstHandle2ConstSpin self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SpinPrint(ConstHandle2ConstSpin This);
+SpinPrint(ConstHandle2ConstSpin self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SpinPrintXML(ConstHandle2ConstSpin This);
+SpinPrintXML(ConstHandle2ConstSpin self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SpinPrintJSON(ConstHandle2ConstSpin This);
+SpinPrintJSON(ConstHandle2ConstSpin self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ SpinPrintJSON(ConstHandle2ConstSpin This);
 
 // +++ Has
 extern_c int
-SpinFractionHas(ConstHandle2ConstSpin This);
+SpinFractionHas(ConstHandle2ConstSpin self);
 
 // --- Get, const
 extern_c Handle2ConstFraction
-SpinFractionGetConst(ConstHandle2ConstSpin This);
+SpinFractionGetConst(ConstHandle2ConstSpin self);
 
 // +++ Get, non-const
 extern_c Handle2Fraction
-SpinFractionGet(ConstHandle2Spin This);
+SpinFractionGet(ConstHandle2Spin self);
 
 // +++ Set
 extern_c void
-SpinFractionSet(ConstHandle2Spin This, ConstHandle2ConstFraction fraction);
+SpinFractionSet(ConstHandle2Spin self, ConstHandle2ConstFraction fraction);
 
 
 // -----------------------------------------------------------------------------

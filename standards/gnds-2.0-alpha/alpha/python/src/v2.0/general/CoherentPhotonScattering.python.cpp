@@ -55,7 +55,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set href
    object.def_property(
       "href",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.href();
       },
@@ -83,7 +83,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set pid
    object.def_property(
       "pid",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.pid();
       },
@@ -97,7 +97,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set productFrame
    object.def_property(
       "product_frame",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productFrame();
       },
@@ -111,7 +111,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set formFactor
    object.def_property(
       "form_factor",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.formFactor();
       },
@@ -125,7 +125,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set realAnomalousFactor
    object.def_property(
       "real_anomalous_factor",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.realAnomalousFactor();
       },
@@ -139,7 +139,7 @@ void wrapCoherentPhotonScattering(py::module &module)
    // get/set imaginaryAnomalousFactor
    object.def_property(
       "imaginary_anomalous_factor",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.imaginaryAnomalousFactor();
       },

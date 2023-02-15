@@ -90,13 +90,13 @@ ProductsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductsAssign(ConstHandle2Products This, ConstHandle2ConstProducts from);
+ProductsAssign(ConstHandle2Products self, ConstHandle2ConstProducts from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductsDelete(ConstHandle2ConstProducts This);
+ProductsDelete(ConstHandle2ConstProducts self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ProductsDelete(ConstHandle2ConstProducts This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductsRead(ConstHandle2Products This, const char *const filename);
+ProductsRead(ConstHandle2Products self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductsWrite(ConstHandle2ConstProducts This, const char *const filename);
+ProductsWrite(ConstHandle2ConstProducts self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductsPrint(ConstHandle2ConstProducts This);
+ProductsPrint(ConstHandle2ConstProducts self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductsPrintXML(ConstHandle2ConstProducts This);
+ProductsPrintXML(ConstHandle2ConstProducts self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductsPrintJSON(ConstHandle2ConstProducts This);
+ProductsPrintJSON(ConstHandle2ConstProducts self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ProductsPrintJSON(ConstHandle2ConstProducts This);
 
 // +++ Has
 extern_c int
-ProductsProductHas(ConstHandle2ConstProducts This);
+ProductsProductHas(ConstHandle2ConstProducts self);
 
 // +++ Clear
 extern_c void
-ProductsProductClear(ConstHandle2Products This);
+ProductsProductClear(ConstHandle2Products self);
 
 // +++ Size
 extern_c size_t
-ProductsProductSize(ConstHandle2ConstProducts This);
+ProductsProductSize(ConstHandle2ConstProducts self);
 
 // +++ Add
 extern_c void
-ProductsProductAdd(ConstHandle2Products This, ConstHandle2ConstProduct product);
+ProductsProductAdd(ConstHandle2Products self, ConstHandle2ConstProduct product);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstProduct
-ProductsProductGetConst(ConstHandle2ConstProducts This, const size_t index_);
+ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Product
-ProductsProductGet(ConstHandle2Products This, const size_t index_);
+ProductsProductGet(ConstHandle2Products self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ProductsProductSet(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const size_t index_,
    ConstHandle2ConstProduct product
 );
@@ -169,28 +169,28 @@ ProductsProductSet(
 // +++ Has, by label
 extern_c int
 ProductsProductHasByLabel(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstProduct
 ProductsProductGetByLabelConst(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Product
 ProductsProductGetByLabel(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 ProductsProductSetByLabel(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const label,
    ConstHandle2ConstProduct product
 );
@@ -198,28 +198,28 @@ ProductsProductSetByLabel(
 // +++ Has, by pid
 extern_c int
 ProductsProductHasByPid(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const pid
 );
 
 // --- Get, by pid, const
 extern_c Handle2ConstProduct
 ProductsProductGetByPidConst(
-   ConstHandle2ConstProducts This,
+   ConstHandle2ConstProducts self,
    const char *const pid
 );
 
 // +++ Get, by pid, non-const
 extern_c Handle2Product
 ProductsProductGetByPid(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const pid
 );
 
 // +++ Set, by pid
 extern_c void
 ProductsProductSetByPid(
-   ConstHandle2Products This,
+   ConstHandle2Products self,
    const char *const pid,
    ConstHandle2ConstProduct product
 );

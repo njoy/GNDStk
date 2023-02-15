@@ -86,20 +86,20 @@ SelfScatteringKernelCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSelfScatteringKernel from)
+SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSelfScatteringKernel from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -113,44 +113,44 @@ SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel This, const char *const filename)
+SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel This, const char *const filename)
+SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,27 +160,27 @@ SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This)
 
 // Has
 int
-SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricHas", This, extract::symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricHas", self, extract::symmetric);
 }
 
 // Get
 // Returns by value
 bool
-SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricGet", This, extract::symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricGet", self, extract::symmetric);
 }
 
 // Set
 void
-SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bool symmetric)
+SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel self, const bool symmetric)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricSet", This, extract::symmetric, symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricSet", self, extract::symmetric, symmetric);
 }
 
 
@@ -190,34 +190,34 @@ SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bo
 
 // Has
 int
-SelfScatteringKernelGridded3dHas(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelGridded3dHas(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded3dHas", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dHas", self, extract::gridded3d);
 }
 
 // Get, const
 Handle2ConstGridded3d
-SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2ConstGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", self, extract::gridded3d);
 }
 
 // Get, non-const
 Handle2Gridded3d
-SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel This)
+SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2Gridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGet", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGet", self, extract::gridded3d);
 }
 
 // Set
 void
-SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstGridded3d gridded3d)
+SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstGridded3d gridded3d)
 {
    detail::setField<CPP,CPPGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dSet", This, extract::gridded3d, gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dSet", self, extract::gridded3d, gridded3d);
 }
 
 
@@ -227,34 +227,34 @@ SelfScatteringKernelGridded3dSet(ConstHandle2SelfScatteringKernel This, ConstHan
 
 // Has
 int
-SelfScatteringKernelSCTApproximationHas(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSCTApproximationHas(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SCTApproximationHas", This, extract::SCTApproximation);
+      (CLASSNAME, CLASSNAME+"SCTApproximationHas", self, extract::SCTApproximation);
 }
 
 // Get, const
 Handle2ConstSCTApproximation
-SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2ConstSCTApproximation>
-      (CLASSNAME, CLASSNAME+"SCTApproximationGetConst", This, extract::SCTApproximation);
+      (CLASSNAME, CLASSNAME+"SCTApproximationGetConst", self, extract::SCTApproximation);
 }
 
 // Get, non-const
 Handle2SCTApproximation
-SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel This)
+SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2SCTApproximation>
-      (CLASSNAME, CLASSNAME+"SCTApproximationGet", This, extract::SCTApproximation);
+      (CLASSNAME, CLASSNAME+"SCTApproximationGet", self, extract::SCTApproximation);
 }
 
 // Set
 void
-SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSCTApproximation SCTApproximation)
+SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSCTApproximation SCTApproximation)
 {
    detail::setField<CPP,CPPSCTApproximation>
-      (CLASSNAME, CLASSNAME+"SCTApproximationSet", This, extract::SCTApproximation, SCTApproximation);
+      (CLASSNAME, CLASSNAME+"SCTApproximationSet", self, extract::SCTApproximation, SCTApproximation);
 }
 
 
@@ -264,34 +264,34 @@ SelfScatteringKernelSCTApproximationSet(ConstHandle2SelfScatteringKernel This, C
 
 // Has
 int
-SelfScatteringKernelFreeGasApproximationHas(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelFreeGasApproximationHas(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FreeGasApproximationHas", This, extract::freeGasApproximation);
+      (CLASSNAME, CLASSNAME+"FreeGasApproximationHas", self, extract::freeGasApproximation);
 }
 
 // Get, const
 Handle2ConstFreeGasApproximation
-SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2ConstFreeGasApproximation>
-      (CLASSNAME, CLASSNAME+"FreeGasApproximationGetConst", This, extract::freeGasApproximation);
+      (CLASSNAME, CLASSNAME+"FreeGasApproximationGetConst", self, extract::freeGasApproximation);
 }
 
 // Get, non-const
 Handle2FreeGasApproximation
-SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel This)
+SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel self)
 {
    return detail::getField<CPP,Handle2FreeGasApproximation>
-      (CLASSNAME, CLASSNAME+"FreeGasApproximationGet", This, extract::freeGasApproximation);
+      (CLASSNAME, CLASSNAME+"FreeGasApproximationGet", self, extract::freeGasApproximation);
 }
 
 // Set
 void
-SelfScatteringKernelFreeGasApproximationSet(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstFreeGasApproximation freeGasApproximation)
+SelfScatteringKernelFreeGasApproximationSet(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstFreeGasApproximation freeGasApproximation)
 {
    detail::setField<CPP,CPPFreeGasApproximation>
-      (CLASSNAME, CLASSNAME+"FreeGasApproximationSet", This, extract::freeGasApproximation, freeGasApproximation);
+      (CLASSNAME, CLASSNAME+"FreeGasApproximationSet", self, extract::freeGasApproximation, freeGasApproximation);
 }
 
 

@@ -47,7 +47,7 @@ void wrapMadlandNix(py::module &module)
    // get/set EFL
    object.def_property(
       "efl",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.EFL();
       },
@@ -61,7 +61,7 @@ void wrapMadlandNix(py::module &module)
    // get/set EFH
    object.def_property(
       "efh",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.EFH();
       },
@@ -75,7 +75,7 @@ void wrapMadlandNix(py::module &module)
    // get/set T_M
    object.def_property(
       "t_m",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.T_M();
       },

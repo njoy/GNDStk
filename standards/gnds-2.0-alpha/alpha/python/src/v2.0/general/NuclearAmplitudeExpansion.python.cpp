@@ -47,7 +47,7 @@ void wrapNuclearAmplitudeExpansion(py::module &module)
    // get/set nuclearTerm
    object.def_property(
       "nuclear_term",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclearTerm();
       },
@@ -61,7 +61,7 @@ void wrapNuclearAmplitudeExpansion(py::module &module)
    // get/set realInterferenceTerm
    object.def_property(
       "real_interference_term",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.realInterferenceTerm();
       },
@@ -75,7 +75,7 @@ void wrapNuclearAmplitudeExpansion(py::module &module)
    // get/set imaginaryInterferenceTerm
    object.def_property(
       "imaginary_interference_term",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.imaginaryInterferenceTerm();
       },

@@ -75,20 +75,20 @@ QCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-QAssign(ConstHandle2Q This, ConstHandle2ConstQ from)
+QAssign(ConstHandle2Q self, ConstHandle2ConstQ from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-QDelete(ConstHandle2ConstQ This)
+QDelete(ConstHandle2ConstQ self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ QDelete(ConstHandle2ConstQ This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-QRead(ConstHandle2Q This, const char *const filename)
+QRead(ConstHandle2Q self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-QWrite(ConstHandle2ConstQ This, const char *const filename)
+QWrite(ConstHandle2ConstQ self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-QPrint(ConstHandle2ConstQ This)
+QPrint(ConstHandle2ConstQ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-QPrintXML(ConstHandle2ConstQ This)
+QPrintXML(ConstHandle2ConstQ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-QPrintJSON(ConstHandle2ConstQ This)
+QPrintJSON(ConstHandle2ConstQ self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ QPrintJSON(ConstHandle2ConstQ This)
 
 // Has
 int
-QDoubleHas(ConstHandle2ConstQ This)
+QDoubleHas(ConstHandle2ConstQ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-QDoubleGetConst(ConstHandle2ConstQ This)
+QDoubleGetConst(ConstHandle2ConstQ self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-QDoubleGet(ConstHandle2Q This)
+QDoubleGet(ConstHandle2Q self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-QDoubleSet(ConstHandle2Q This, ConstHandle2ConstDouble Double)
+QDoubleSet(ConstHandle2Q self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 
@@ -186,34 +186,34 @@ QDoubleSet(ConstHandle2Q This, ConstHandle2ConstDouble Double)
 
 // Has
 int
-QConstant1dHas(ConstHandle2ConstQ This)
+QConstant1dHas(ConstHandle2ConstQ self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Constant1dHas", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dHas", self, extract::constant1d);
 }
 
 // Get, const
 Handle2ConstConstant1d
-QConstant1dGetConst(ConstHandle2ConstQ This)
+QConstant1dGetConst(ConstHandle2ConstQ self)
 {
    return detail::getField<CPP,Handle2ConstConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGetConst", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
 // Get, non-const
 Handle2Constant1d
-QConstant1dGet(ConstHandle2Q This)
+QConstant1dGet(ConstHandle2Q self)
 {
    return detail::getField<CPP,Handle2Constant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGet", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGet", self, extract::constant1d);
 }
 
 // Set
 void
-QConstant1dSet(ConstHandle2Q This, ConstHandle2ConstConstant1d constant1d)
+QConstant1dSet(ConstHandle2Q self, ConstHandle2ConstConstant1d constant1d)
 {
    detail::setField<CPP,CPPConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dSet", self, extract::constant1d, constant1d);
 }
 
 

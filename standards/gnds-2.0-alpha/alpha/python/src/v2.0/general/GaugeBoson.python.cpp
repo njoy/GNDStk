@@ -53,7 +53,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set id
    object.def_property(
       "id",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.id();
       },
@@ -67,7 +67,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set mass
    object.def_property(
       "mass",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mass();
       },
@@ -81,7 +81,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set spin
    object.def_property(
       "spin",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spin();
       },
@@ -95,7 +95,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set parity
    object.def_property(
       "parity",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.parity();
       },
@@ -109,7 +109,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set charge
    object.def_property(
       "charge",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.charge();
       },
@@ -123,7 +123,7 @@ void wrapGaugeBoson(py::module &module)
    // get/set halflife
    object.def_property(
       "halflife",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.halflife();
       },

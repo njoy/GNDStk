@@ -90,13 +90,13 @@ IncompleteReactionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IncompleteReactionsAssign(ConstHandle2IncompleteReactions This, ConstHandle2ConstIncompleteReactions from);
+IncompleteReactionsAssign(ConstHandle2IncompleteReactions self, ConstHandle2ConstIncompleteReactions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IncompleteReactionsRead(ConstHandle2IncompleteReactions This, const char *const filename);
+IncompleteReactionsRead(ConstHandle2IncompleteReactions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions This, const char *const filename);
+IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This);
 
 // +++ Has
 extern_c int
-IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Clear
 extern_c void
-IncompleteReactionsReactionClear(ConstHandle2IncompleteReactions This);
+IncompleteReactionsReactionClear(ConstHandle2IncompleteReactions self);
 
 // +++ Size
 extern_c size_t
-IncompleteReactionsReactionSize(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsReactionSize(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Add
 extern_c void
-IncompleteReactionsReactionAdd(ConstHandle2IncompleteReactions This, ConstHandle2ConstReaction reaction);
+IncompleteReactionsReactionAdd(ConstHandle2IncompleteReactions self, ConstHandle2ConstReaction reaction);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstReaction
-IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions This, const size_t index_);
+IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Reaction
-IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions This, const size_t index_);
+IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 IncompleteReactionsReactionSet(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const size_t index_,
    ConstHandle2ConstReaction reaction
 );
@@ -169,28 +169,28 @@ IncompleteReactionsReactionSet(
 // +++ Has, by label
 extern_c int
 IncompleteReactionsReactionHasByLabel(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstReaction
 IncompleteReactionsReactionGetByLabelConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByLabel(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 IncompleteReactionsReactionSetByLabel(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const label,
    ConstHandle2ConstReaction reaction
 );
@@ -198,28 +198,28 @@ IncompleteReactionsReactionSetByLabel(
 // +++ Has, by ENDF_MT
 extern_c int
 IncompleteReactionsReactionHasByENDFMT(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const int ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstReaction
 IncompleteReactionsReactionGetByENDFMTConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const int ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByENDFMT(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const int ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 IncompleteReactionsReactionSetByENDFMT(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const int ENDF_MT,
    ConstHandle2ConstReaction reaction
 );
@@ -227,28 +227,28 @@ IncompleteReactionsReactionSetByENDFMT(
 // +++ Has, by fissionGenre
 extern_c int
 IncompleteReactionsReactionHasByFissionGenre(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const fissionGenre
 );
 
 // --- Get, by fissionGenre, const
 extern_c Handle2ConstReaction
 IncompleteReactionsReactionGetByFissionGenreConst(
-   ConstHandle2ConstIncompleteReactions This,
+   ConstHandle2ConstIncompleteReactions self,
    const char *const fissionGenre
 );
 
 // +++ Get, by fissionGenre, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByFissionGenre(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const fissionGenre
 );
 
 // +++ Set, by fissionGenre
 extern_c void
 IncompleteReactionsReactionSetByFissionGenre(
-   ConstHandle2IncompleteReactions This,
+   ConstHandle2IncompleteReactions self,
    const char *const fissionGenre,
    ConstHandle2ConstReaction reaction
 );

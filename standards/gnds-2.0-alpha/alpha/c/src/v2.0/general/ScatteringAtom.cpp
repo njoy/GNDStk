@@ -114,20 +114,20 @@ ScatteringAtomCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ScatteringAtomAssign(ConstHandle2ScatteringAtom This, ConstHandle2ConstScatteringAtom from)
+ScatteringAtomAssign(ConstHandle2ScatteringAtom self, ConstHandle2ConstScatteringAtom from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ScatteringAtomDelete(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomDelete(ConstHandle2ConstScatteringAtom self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -141,44 +141,44 @@ ScatteringAtomDelete(ConstHandle2ConstScatteringAtom This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ScatteringAtomRead(ConstHandle2ScatteringAtom This, const char *const filename)
+ScatteringAtomRead(ConstHandle2ScatteringAtom self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ScatteringAtomWrite(ConstHandle2ConstScatteringAtom This, const char *const filename)
+ScatteringAtomWrite(ConstHandle2ConstScatteringAtom self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ScatteringAtomPrint(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPrint(ConstHandle2ConstScatteringAtom self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ScatteringAtomPrintXML(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPrintXML(ConstHandle2ConstScatteringAtom self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ScatteringAtomPrintJSON(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPrintJSON(ConstHandle2ConstScatteringAtom self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -188,27 +188,27 @@ ScatteringAtomPrintJSON(ConstHandle2ConstScatteringAtom This)
 
 // Has
 int
-ScatteringAtomPidHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPidHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 const char *
-ScatteringAtomPidGet(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPidGet(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-ScatteringAtomPidSet(ConstHandle2ScatteringAtom This, const char *const pid)
+ScatteringAtomPidSet(ConstHandle2ScatteringAtom self, const char *const pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -218,27 +218,27 @@ ScatteringAtomPidSet(ConstHandle2ScatteringAtom This, const char *const pid)
 
 // Has
 int
-ScatteringAtomNumberPerMoleculeHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomNumberPerMoleculeHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberPerMoleculeHas", This, extract::numberPerMolecule);
+      (CLASSNAME, CLASSNAME+"NumberPerMoleculeHas", self, extract::numberPerMolecule);
 }
 
 // Get
 // Returns by value
 int
-ScatteringAtomNumberPerMoleculeGet(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomNumberPerMoleculeGet(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberPerMoleculeGet", This, extract::numberPerMolecule);
+      (CLASSNAME, CLASSNAME+"NumberPerMoleculeGet", self, extract::numberPerMolecule);
 }
 
 // Set
 void
-ScatteringAtomNumberPerMoleculeSet(ConstHandle2ScatteringAtom This, const int numberPerMolecule)
+ScatteringAtomNumberPerMoleculeSet(ConstHandle2ScatteringAtom self, const int numberPerMolecule)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberPerMoleculeSet", This, extract::numberPerMolecule, numberPerMolecule);
+      (CLASSNAME, CLASSNAME+"NumberPerMoleculeSet", self, extract::numberPerMolecule, numberPerMolecule);
 }
 
 
@@ -248,27 +248,27 @@ ScatteringAtomNumberPerMoleculeSet(ConstHandle2ScatteringAtom This, const int nu
 
 // Has
 int
-ScatteringAtomPrimaryScattererHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPrimaryScattererHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererHas", This, extract::primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererHas", self, extract::primaryScatterer);
 }
 
 // Get
 // Returns by value
 bool
-ScatteringAtomPrimaryScattererGet(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomPrimaryScattererGet(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererGet", This, extract::primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererGet", self, extract::primaryScatterer);
 }
 
 // Set
 void
-ScatteringAtomPrimaryScattererSet(ConstHandle2ScatteringAtom This, const bool primaryScatterer)
+ScatteringAtomPrimaryScattererSet(ConstHandle2ScatteringAtom self, const bool primaryScatterer)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererSet", This, extract::primaryScatterer, primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererSet", self, extract::primaryScatterer, primaryScatterer);
 }
 
 
@@ -278,34 +278,34 @@ ScatteringAtomPrimaryScattererSet(ConstHandle2ScatteringAtom This, const bool pr
 
 // Has
 int
-ScatteringAtomMassHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomMassHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-ScatteringAtomMassGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomMassGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-ScatteringAtomMassGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomMassGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-ScatteringAtomMassSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstMass mass)
+ScatteringAtomMassSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 
@@ -315,34 +315,34 @@ ScatteringAtomMassSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstMass mas
 
 // Has
 int
-ScatteringAtomE_criticalHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomE_criticalHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"E_criticalHas", This, extract::e_critical);
+      (CLASSNAME, CLASSNAME+"E_criticalHas", self, extract::e_critical);
 }
 
 // Get, const
 Handle2ConstE_critical
-ScatteringAtomE_criticalGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomE_criticalGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstE_critical>
-      (CLASSNAME, CLASSNAME+"E_criticalGetConst", This, extract::e_critical);
+      (CLASSNAME, CLASSNAME+"E_criticalGetConst", self, extract::e_critical);
 }
 
 // Get, non-const
 Handle2E_critical
-ScatteringAtomE_criticalGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomE_criticalGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2E_critical>
-      (CLASSNAME, CLASSNAME+"E_criticalGet", This, extract::e_critical);
+      (CLASSNAME, CLASSNAME+"E_criticalGet", self, extract::e_critical);
 }
 
 // Set
 void
-ScatteringAtomE_criticalSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstE_critical e_critical)
+ScatteringAtomE_criticalSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstE_critical e_critical)
 {
    detail::setField<CPP,CPPE_critical>
-      (CLASSNAME, CLASSNAME+"E_criticalSet", This, extract::e_critical, e_critical);
+      (CLASSNAME, CLASSNAME+"E_criticalSet", self, extract::e_critical, e_critical);
 }
 
 
@@ -352,34 +352,34 @@ ScatteringAtomE_criticalSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstE_
 
 // Has
 int
-ScatteringAtomE_maxHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomE_maxHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"E_maxHas", This, extract::e_max);
+      (CLASSNAME, CLASSNAME+"E_maxHas", self, extract::e_max);
 }
 
 // Get, const
 Handle2ConstE_max
-ScatteringAtomE_maxGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomE_maxGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstE_max>
-      (CLASSNAME, CLASSNAME+"E_maxGetConst", This, extract::e_max);
+      (CLASSNAME, CLASSNAME+"E_maxGetConst", self, extract::e_max);
 }
 
 // Get, non-const
 Handle2E_max
-ScatteringAtomE_maxGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomE_maxGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2E_max>
-      (CLASSNAME, CLASSNAME+"E_maxGet", This, extract::e_max);
+      (CLASSNAME, CLASSNAME+"E_maxGet", self, extract::e_max);
 }
 
 // Set
 void
-ScatteringAtomE_maxSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstE_max e_max)
+ScatteringAtomE_maxSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstE_max e_max)
 {
    detail::setField<CPP,CPPE_max>
-      (CLASSNAME, CLASSNAME+"E_maxSet", This, extract::e_max, e_max);
+      (CLASSNAME, CLASSNAME+"E_maxSet", self, extract::e_max, e_max);
 }
 
 
@@ -389,34 +389,34 @@ ScatteringAtomE_maxSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstE_max e
 
 // Has
 int
-ScatteringAtomBoundAtomCrossSectionHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomBoundAtomCrossSectionHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionHas", This, extract::boundAtomCrossSection);
+      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionHas", self, extract::boundAtomCrossSection);
 }
 
 // Get, const
 Handle2ConstBoundAtomCrossSection
-ScatteringAtomBoundAtomCrossSectionGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomBoundAtomCrossSectionGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstBoundAtomCrossSection>
-      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGetConst", This, extract::boundAtomCrossSection);
+      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGetConst", self, extract::boundAtomCrossSection);
 }
 
 // Get, non-const
 Handle2BoundAtomCrossSection
-ScatteringAtomBoundAtomCrossSectionGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomBoundAtomCrossSectionGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2BoundAtomCrossSection>
-      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGet", This, extract::boundAtomCrossSection);
+      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGet", self, extract::boundAtomCrossSection);
 }
 
 // Set
 void
-ScatteringAtomBoundAtomCrossSectionSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstBoundAtomCrossSection boundAtomCrossSection)
+ScatteringAtomBoundAtomCrossSectionSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstBoundAtomCrossSection boundAtomCrossSection)
 {
    detail::setField<CPP,CPPBoundAtomCrossSection>
-      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionSet", This, extract::boundAtomCrossSection, boundAtomCrossSection);
+      (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionSet", self, extract::boundAtomCrossSection, boundAtomCrossSection);
 }
 
 
@@ -426,34 +426,34 @@ ScatteringAtomBoundAtomCrossSectionSet(ConstHandle2ScatteringAtom This, ConstHan
 
 // Has
 int
-ScatteringAtomSelfScatteringKernelHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomSelfScatteringKernelHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SelfScatteringKernelHas", This, extract::selfScatteringKernel);
+      (CLASSNAME, CLASSNAME+"SelfScatteringKernelHas", self, extract::selfScatteringKernel);
 }
 
 // Get, const
 Handle2ConstSelfScatteringKernel
-ScatteringAtomSelfScatteringKernelGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomSelfScatteringKernelGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstSelfScatteringKernel>
-      (CLASSNAME, CLASSNAME+"SelfScatteringKernelGetConst", This, extract::selfScatteringKernel);
+      (CLASSNAME, CLASSNAME+"SelfScatteringKernelGetConst", self, extract::selfScatteringKernel);
 }
 
 // Get, non-const
 Handle2SelfScatteringKernel
-ScatteringAtomSelfScatteringKernelGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomSelfScatteringKernelGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2SelfScatteringKernel>
-      (CLASSNAME, CLASSNAME+"SelfScatteringKernelGet", This, extract::selfScatteringKernel);
+      (CLASSNAME, CLASSNAME+"SelfScatteringKernelGet", self, extract::selfScatteringKernel);
 }
 
 // Set
 void
-ScatteringAtomSelfScatteringKernelSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstSelfScatteringKernel selfScatteringKernel)
+ScatteringAtomSelfScatteringKernelSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstSelfScatteringKernel selfScatteringKernel)
 {
    detail::setField<CPP,CPPSelfScatteringKernel>
-      (CLASSNAME, CLASSNAME+"SelfScatteringKernelSet", This, extract::selfScatteringKernel, selfScatteringKernel);
+      (CLASSNAME, CLASSNAME+"SelfScatteringKernelSet", self, extract::selfScatteringKernel, selfScatteringKernel);
 }
 
 
@@ -463,34 +463,34 @@ ScatteringAtomSelfScatteringKernelSet(ConstHandle2ScatteringAtom This, ConstHand
 
 // Has
 int
-ScatteringAtomT_effectiveHas(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomT_effectiveHas(ConstHandle2ConstScatteringAtom self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"T_effectiveHas", This, extract::T_effective);
+      (CLASSNAME, CLASSNAME+"T_effectiveHas", self, extract::T_effective);
 }
 
 // Get, const
 Handle2ConstT_effective
-ScatteringAtomT_effectiveGetConst(ConstHandle2ConstScatteringAtom This)
+ScatteringAtomT_effectiveGetConst(ConstHandle2ConstScatteringAtom self)
 {
    return detail::getField<CPP,Handle2ConstT_effective>
-      (CLASSNAME, CLASSNAME+"T_effectiveGetConst", This, extract::T_effective);
+      (CLASSNAME, CLASSNAME+"T_effectiveGetConst", self, extract::T_effective);
 }
 
 // Get, non-const
 Handle2T_effective
-ScatteringAtomT_effectiveGet(ConstHandle2ScatteringAtom This)
+ScatteringAtomT_effectiveGet(ConstHandle2ScatteringAtom self)
 {
    return detail::getField<CPP,Handle2T_effective>
-      (CLASSNAME, CLASSNAME+"T_effectiveGet", This, extract::T_effective);
+      (CLASSNAME, CLASSNAME+"T_effectiveGet", self, extract::T_effective);
 }
 
 // Set
 void
-ScatteringAtomT_effectiveSet(ConstHandle2ScatteringAtom This, ConstHandle2ConstT_effective T_effective)
+ScatteringAtomT_effectiveSet(ConstHandle2ScatteringAtom self, ConstHandle2ConstT_effective T_effective)
 {
    detail::setField<CPP,CPPT_effective>
-      (CLASSNAME, CLASSNAME+"T_effectiveSet", This, extract::T_effective, T_effective);
+      (CLASSNAME, CLASSNAME+"T_effectiveSet", self, extract::T_effective, T_effective);
 }
 
 

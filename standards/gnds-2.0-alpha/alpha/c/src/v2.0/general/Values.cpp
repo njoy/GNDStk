@@ -59,20 +59,20 @@ ValuesCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ValuesAssign(ConstHandle2Values This, ConstHandle2ConstValues from)
+ValuesAssign(ConstHandle2Values self, ConstHandle2ConstValues from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ValuesDelete(ConstHandle2ConstValues This)
+ValuesDelete(ConstHandle2ConstValues self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ ValuesDelete(ConstHandle2ConstValues This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ValuesRead(ConstHandle2Values This, const char *const filename)
+ValuesRead(ConstHandle2Values self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ValuesWrite(ConstHandle2ConstValues This, const char *const filename)
+ValuesWrite(ConstHandle2ConstValues self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ValuesPrint(ConstHandle2ConstValues This)
+ValuesPrint(ConstHandle2ConstValues self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ValuesPrintXML(ConstHandle2ConstValues This)
+ValuesPrintXML(ConstHandle2ConstValues self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ValuesPrintJSON(ConstHandle2ConstValues This)
+ValuesPrintJSON(ConstHandle2ConstValues self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -133,60 +133,60 @@ ValuesPrintJSON(ConstHandle2ConstValues This)
 
 // Clear
 void
-ValuesDoublesClear(ConstHandle2Values This)
+ValuesDoublesClear(ConstHandle2Values self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-ValuesDoublesSize(ConstHandle2ConstValues This)
+ValuesDoublesSize(ConstHandle2ConstValues self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-ValuesDoublesGet(ConstHandle2ConstValues This, const size_t index)
+ValuesDoublesGet(ConstHandle2ConstValues self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-ValuesDoublesSet(ConstHandle2Values This, const size_t index, const double value)
+ValuesDoublesSet(ConstHandle2Values self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-ValuesDoublesGetArrayConst(ConstHandle2ConstValues This)
+ValuesDoublesGetArrayConst(ConstHandle2ConstValues self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-ValuesDoublesGetArray(ConstHandle2Values This)
+ValuesDoublesGetArray(ConstHandle2Values self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-ValuesDoublesSetArray(ConstHandle2Values This, const double *const values, const size_t size)
+ValuesDoublesSetArray(ConstHandle2Values self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 

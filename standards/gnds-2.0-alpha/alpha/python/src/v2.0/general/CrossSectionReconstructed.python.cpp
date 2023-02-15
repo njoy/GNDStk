@@ -47,7 +47,7 @@ void wrapCrossSectionReconstructed(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -61,7 +61,7 @@ void wrapCrossSectionReconstructed(py::module &module)
    // get/set derivedFrom
    object.def_property(
       "derived_from",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.derivedFrom();
       },
@@ -75,7 +75,7 @@ void wrapCrossSectionReconstructed(py::module &module)
    // get/set date
    object.def_property(
       "date",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.date();
       },

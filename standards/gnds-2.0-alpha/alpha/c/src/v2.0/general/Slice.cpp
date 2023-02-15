@@ -87,20 +87,20 @@ SliceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SliceAssign(ConstHandle2Slice This, ConstHandle2ConstSlice from)
+SliceAssign(ConstHandle2Slice self, ConstHandle2ConstSlice from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SliceDelete(ConstHandle2ConstSlice This)
+SliceDelete(ConstHandle2ConstSlice self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -114,44 +114,44 @@ SliceDelete(ConstHandle2ConstSlice This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SliceRead(ConstHandle2Slice This, const char *const filename)
+SliceRead(ConstHandle2Slice self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SliceWrite(ConstHandle2ConstSlice This, const char *const filename)
+SliceWrite(ConstHandle2ConstSlice self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SlicePrint(ConstHandle2ConstSlice This)
+SlicePrint(ConstHandle2ConstSlice self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SlicePrintXML(ConstHandle2ConstSlice This)
+SlicePrintXML(ConstHandle2ConstSlice self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SlicePrintJSON(ConstHandle2ConstSlice This)
+SlicePrintJSON(ConstHandle2ConstSlice self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -161,27 +161,27 @@ SlicePrintJSON(ConstHandle2ConstSlice This)
 
 // Has
 int
-SliceDimensionHas(ConstHandle2ConstSlice This)
+SliceDimensionHas(ConstHandle2ConstSlice self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionHas", This, extract::dimension);
+      (CLASSNAME, CLASSNAME+"DimensionHas", self, extract::dimension);
 }
 
 // Get
 // Returns by value
 int
-SliceDimensionGet(ConstHandle2ConstSlice This)
+SliceDimensionGet(ConstHandle2ConstSlice self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionGet", This, extract::dimension);
+      (CLASSNAME, CLASSNAME+"DimensionGet", self, extract::dimension);
 }
 
 // Set
 void
-SliceDimensionSet(ConstHandle2Slice This, const int dimension)
+SliceDimensionSet(ConstHandle2Slice self, const int dimension)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionSet", This, extract::dimension, dimension);
+      (CLASSNAME, CLASSNAME+"DimensionSet", self, extract::dimension, dimension);
 }
 
 
@@ -191,27 +191,27 @@ SliceDimensionSet(ConstHandle2Slice This, const int dimension)
 
 // Has
 int
-SliceDomainValueHas(ConstHandle2ConstSlice This)
+SliceDomainValueHas(ConstHandle2ConstSlice self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainValueHas", This, extract::domainValue);
+      (CLASSNAME, CLASSNAME+"DomainValueHas", self, extract::domainValue);
 }
 
 // Get
 // Returns by value
 int
-SliceDomainValueGet(ConstHandle2ConstSlice This)
+SliceDomainValueGet(ConstHandle2ConstSlice self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainValueGet", This, extract::domainValue);
+      (CLASSNAME, CLASSNAME+"DomainValueGet", self, extract::domainValue);
 }
 
 // Set
 void
-SliceDomainValueSet(ConstHandle2Slice This, const int domainValue)
+SliceDomainValueSet(ConstHandle2Slice self, const int domainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainValueSet", This, extract::domainValue, domainValue);
+      (CLASSNAME, CLASSNAME+"DomainValueSet", self, extract::domainValue, domainValue);
 }
 
 
@@ -221,27 +221,27 @@ SliceDomainValueSet(ConstHandle2Slice This, const int domainValue)
 
 // Has
 int
-SliceDomainMinHas(ConstHandle2ConstSlice This)
+SliceDomainMinHas(ConstHandle2ConstSlice self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 double
-SliceDomainMinGet(ConstHandle2ConstSlice This)
+SliceDomainMinGet(ConstHandle2ConstSlice self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-SliceDomainMinSet(ConstHandle2Slice This, const double domainMin)
+SliceDomainMinSet(ConstHandle2Slice self, const double domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -251,27 +251,27 @@ SliceDomainMinSet(ConstHandle2Slice This, const double domainMin)
 
 // Has
 int
-SliceDomainMaxHas(ConstHandle2ConstSlice This)
+SliceDomainMaxHas(ConstHandle2ConstSlice self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 double
-SliceDomainMaxGet(ConstHandle2ConstSlice This)
+SliceDomainMaxGet(ConstHandle2ConstSlice self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-SliceDomainMaxSet(ConstHandle2Slice This, const double domainMax)
+SliceDomainMaxSet(ConstHandle2Slice self, const double domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -281,27 +281,27 @@ SliceDomainMaxSet(ConstHandle2Slice This, const double domainMax)
 
 // Has
 int
-SliceDomainUnitHas(ConstHandle2ConstSlice This)
+SliceDomainUnitHas(ConstHandle2ConstSlice self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitHas", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitHas", self, extract::domainUnit);
 }
 
 // Get
 // Returns by value
 const char *
-SliceDomainUnitGet(ConstHandle2ConstSlice This)
+SliceDomainUnitGet(ConstHandle2ConstSlice self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitGet", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitGet", self, extract::domainUnit);
 }
 
 // Set
 void
-SliceDomainUnitSet(ConstHandle2Slice This, const char *const domainUnit)
+SliceDomainUnitSet(ConstHandle2Slice self, const char *const domainUnit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitSet", self, extract::domainUnit, domainUnit);
 }
 
 

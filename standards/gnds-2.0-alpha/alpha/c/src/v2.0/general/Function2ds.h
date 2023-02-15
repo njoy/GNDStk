@@ -90,13 +90,13 @@ Function2dsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Function2dsAssign(ConstHandle2Function2ds This, ConstHandle2ConstFunction2ds from);
+Function2dsAssign(ConstHandle2Function2ds self, ConstHandle2ConstFunction2ds from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Function2dsDelete(ConstHandle2ConstFunction2ds This);
+Function2dsDelete(ConstHandle2ConstFunction2ds self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ Function2dsDelete(ConstHandle2ConstFunction2ds This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Function2dsRead(ConstHandle2Function2ds This, const char *const filename);
+Function2dsRead(ConstHandle2Function2ds self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Function2dsWrite(ConstHandle2ConstFunction2ds This, const char *const filename);
+Function2dsWrite(ConstHandle2ConstFunction2ds self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Function2dsPrint(ConstHandle2ConstFunction2ds This);
+Function2dsPrint(ConstHandle2ConstFunction2ds self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Function2dsPrintXML(ConstHandle2ConstFunction2ds This);
+Function2dsPrintXML(ConstHandle2ConstFunction2ds self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Function2dsPrintJSON(ConstHandle2ConstFunction2ds This);
+Function2dsPrintJSON(ConstHandle2ConstFunction2ds self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ Function2dsPrintJSON(ConstHandle2ConstFunction2ds This);
 
 // +++ Has
 extern_c int
-Function2dsXYs2dHas(ConstHandle2ConstFunction2ds This);
+Function2dsXYs2dHas(ConstHandle2ConstFunction2ds self);
 
 // +++ Clear
 extern_c void
-Function2dsXYs2dClear(ConstHandle2Function2ds This);
+Function2dsXYs2dClear(ConstHandle2Function2ds self);
 
 // +++ Size
 extern_c size_t
-Function2dsXYs2dSize(ConstHandle2ConstFunction2ds This);
+Function2dsXYs2dSize(ConstHandle2ConstFunction2ds self);
 
 // +++ Add
 extern_c void
-Function2dsXYs2dAdd(ConstHandle2Function2ds This, ConstHandle2ConstXYs2d XYs2d);
+Function2dsXYs2dAdd(ConstHandle2Function2ds self, ConstHandle2ConstXYs2d XYs2d);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstXYs2d
-Function2dsXYs2dGetConst(ConstHandle2ConstFunction2ds This, const size_t index_);
+Function2dsXYs2dGetConst(ConstHandle2ConstFunction2ds self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2XYs2d
-Function2dsXYs2dGet(ConstHandle2Function2ds This, const size_t index_);
+Function2dsXYs2dGet(ConstHandle2Function2ds self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 Function2dsXYs2dSet(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const size_t index_,
    ConstHandle2ConstXYs2d XYs2d
 );
@@ -169,28 +169,28 @@ Function2dsXYs2dSet(
 // +++ Has, by index
 extern_c int
 Function2dsXYs2dHasByIndex(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstXYs2d
 Function2dsXYs2dGetByIndexConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByIndex(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 Function2dsXYs2dSetByIndex(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const int index,
    ConstHandle2ConstXYs2d XYs2d
 );
@@ -198,28 +198,28 @@ Function2dsXYs2dSetByIndex(
 // +++ Has, by interpolation
 extern_c int
 Function2dsXYs2dHasByInterpolation(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolation
 );
 
 // --- Get, by interpolation, const
 extern_c Handle2ConstXYs2d
 Function2dsXYs2dGetByInterpolationConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolation
 );
 
 // +++ Get, by interpolation, non-const
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByInterpolation(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolation
 );
 
 // +++ Set, by interpolation
 extern_c void
 Function2dsXYs2dSetByInterpolation(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolation,
    ConstHandle2ConstXYs2d XYs2d
 );
@@ -227,28 +227,28 @@ Function2dsXYs2dSetByInterpolation(
 // +++ Has, by interpolationQualifier
 extern_c int
 Function2dsXYs2dHasByInterpolationQualifier(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolationQualifier
 );
 
 // --- Get, by interpolationQualifier, const
 extern_c Handle2ConstXYs2d
 Function2dsXYs2dGetByInterpolationQualifierConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const char *const interpolationQualifier
 );
 
 // +++ Get, by interpolationQualifier, non-const
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByInterpolationQualifier(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolationQualifier
 );
 
 // +++ Set, by interpolationQualifier
 extern_c void
 Function2dsXYs2dSetByInterpolationQualifier(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const char *const interpolationQualifier,
    ConstHandle2ConstXYs2d XYs2d
 );
@@ -256,28 +256,28 @@ Function2dsXYs2dSetByInterpolationQualifier(
 // +++ Has, by outerDomainValue
 extern_c int
 Function2dsXYs2dHasByOuterDomainValue(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const double outerDomainValue
 );
 
 // --- Get, by outerDomainValue, const
 extern_c Handle2ConstXYs2d
 Function2dsXYs2dGetByOuterDomainValueConst(
-   ConstHandle2ConstFunction2ds This,
+   ConstHandle2ConstFunction2ds self,
    const double outerDomainValue
 );
 
 // +++ Get, by outerDomainValue, non-const
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByOuterDomainValue(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const double outerDomainValue
 );
 
 // +++ Set, by outerDomainValue
 extern_c void
 Function2dsXYs2dSetByOuterDomainValue(
-   ConstHandle2Function2ds This,
+   ConstHandle2Function2ds self,
    const double outerDomainValue,
    ConstHandle2ConstXYs2d XYs2d
 );

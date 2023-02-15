@@ -43,7 +43,7 @@ void wrapLs(py::module &module)
    // get/set L
    object.def_property(
       "l",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.L();
       },

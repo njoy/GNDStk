@@ -55,7 +55,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set approximation
    object.def_property(
       "approximation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.approximation();
       },
@@ -83,7 +83,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set useForSelfShieldingOnly
    object.def_property(
       "use_for_self_shielding_only",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.useForSelfShieldingOnly();
       },
@@ -97,7 +97,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set resonanceReactions
    object.def_property(
       "resonance_reactions",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceReactions();
       },
@@ -111,7 +111,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set Ls
    object.def_property(
       "ls",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.Ls();
       },
@@ -125,7 +125,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set PoPs
    object.def_property(
       "po_ps",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.PoPs();
       },
@@ -139,7 +139,7 @@ void wrapTabulatedWidths(py::module &module)
    // get/set scatteringRadius
    object.def_property(
       "scattering_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.scatteringRadius();
       },

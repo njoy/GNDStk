@@ -59,20 +59,20 @@ EndfCompatibleCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EndfCompatibleAssign(ConstHandle2EndfCompatible This, ConstHandle2ConstEndfCompatible from)
+EndfCompatibleAssign(ConstHandle2EndfCompatible self, ConstHandle2ConstEndfCompatible from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This)
+EndfCompatibleDelete(ConstHandle2ConstEndfCompatible self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EndfCompatibleRead(ConstHandle2EndfCompatible This, const char *const filename)
+EndfCompatibleRead(ConstHandle2EndfCompatible self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EndfCompatibleWrite(ConstHandle2ConstEndfCompatible This, const char *const filename)
+EndfCompatibleWrite(ConstHandle2ConstEndfCompatible self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EndfCompatiblePrint(ConstHandle2ConstEndfCompatible This)
+EndfCompatiblePrint(ConstHandle2ConstEndfCompatible self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible This)
+EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible This)
+EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

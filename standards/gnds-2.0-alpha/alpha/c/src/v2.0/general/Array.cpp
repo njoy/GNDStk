@@ -79,20 +79,20 @@ ArrayCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ArrayAssign(ConstHandle2Array This, ConstHandle2ConstArray from)
+ArrayAssign(ConstHandle2Array self, ConstHandle2ConstArray from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ArrayDelete(ConstHandle2ConstArray This)
+ArrayDelete(ConstHandle2ConstArray self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ ArrayDelete(ConstHandle2ConstArray This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ArrayRead(ConstHandle2Array This, const char *const filename)
+ArrayRead(ConstHandle2Array self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ArrayWrite(ConstHandle2ConstArray This, const char *const filename)
+ArrayWrite(ConstHandle2ConstArray self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ArrayPrint(ConstHandle2ConstArray This)
+ArrayPrint(ConstHandle2ConstArray self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ArrayPrintXML(ConstHandle2ConstArray This)
+ArrayPrintXML(ConstHandle2ConstArray self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ArrayPrintJSON(ConstHandle2ConstArray This)
+ArrayPrintJSON(ConstHandle2ConstArray self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ ArrayPrintJSON(ConstHandle2ConstArray This)
 
 // Has
 int
-ArrayShapeHas(ConstHandle2ConstArray This)
+ArrayShapeHas(ConstHandle2ConstArray self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ShapeHas", This, extract::shape);
+      (CLASSNAME, CLASSNAME+"ShapeHas", self, extract::shape);
 }
 
 // Get
 // Returns by value
 const char *
-ArrayShapeGet(ConstHandle2ConstArray This)
+ArrayShapeGet(ConstHandle2ConstArray self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ShapeGet", This, extract::shape);
+      (CLASSNAME, CLASSNAME+"ShapeGet", self, extract::shape);
 }
 
 // Set
 void
-ArrayShapeSet(ConstHandle2Array This, const char *const shape)
+ArrayShapeSet(ConstHandle2Array self, const char *const shape)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ShapeSet", This, extract::shape, shape);
+      (CLASSNAME, CLASSNAME+"ShapeSet", self, extract::shape, shape);
 }
 
 
@@ -183,27 +183,27 @@ ArrayShapeSet(ConstHandle2Array This, const char *const shape)
 
 // Has
 int
-ArrayCompressionHas(ConstHandle2ConstArray This)
+ArrayCompressionHas(ConstHandle2ConstArray self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CompressionHas", This, extract::compression);
+      (CLASSNAME, CLASSNAME+"CompressionHas", self, extract::compression);
 }
 
 // Get
 // Returns by value
 const char *
-ArrayCompressionGet(ConstHandle2ConstArray This)
+ArrayCompressionGet(ConstHandle2ConstArray self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CompressionGet", This, extract::compression);
+      (CLASSNAME, CLASSNAME+"CompressionGet", self, extract::compression);
 }
 
 // Set
 void
-ArrayCompressionSet(ConstHandle2Array This, const char *const compression)
+ArrayCompressionSet(ConstHandle2Array self, const char *const compression)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CompressionSet", This, extract::compression, compression);
+      (CLASSNAME, CLASSNAME+"CompressionSet", self, extract::compression, compression);
 }
 
 
@@ -213,34 +213,34 @@ ArrayCompressionSet(ConstHandle2Array This, const char *const compression)
 
 // Has
 int
-ArrayValuesHas(ConstHandle2ConstArray This)
+ArrayValuesHas(ConstHandle2ConstArray self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-ArrayValuesGetConst(ConstHandle2ConstArray This)
+ArrayValuesGetConst(ConstHandle2ConstArray self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-ArrayValuesGet(ConstHandle2Array This)
+ArrayValuesGet(ConstHandle2Array self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-ArrayValuesSet(ConstHandle2Array This, ConstHandle2ConstValues values)
+ArrayValuesSet(ConstHandle2Array self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

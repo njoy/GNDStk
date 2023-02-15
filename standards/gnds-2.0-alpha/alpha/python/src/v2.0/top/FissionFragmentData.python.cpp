@@ -47,7 +47,7 @@ void wrapFissionFragmentData(py::module &module)
    // get/set productYields
    object.def_property(
       "product_yields",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.productYields();
       },
@@ -61,7 +61,7 @@ void wrapFissionFragmentData(py::module &module)
    // get/set delayedNeutrons
    object.def_property(
       "delayed_neutrons",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.delayedNeutrons();
       },
@@ -75,7 +75,7 @@ void wrapFissionFragmentData(py::module &module)
    // get/set fissionEnergyReleases
    object.def_property(
       "fission_energy_releases",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.fissionEnergyReleases();
       },

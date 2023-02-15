@@ -91,13 +91,13 @@ LengthsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LengthsAssign(ConstHandle2Lengths This, ConstHandle2ConstLengths from);
+LengthsAssign(ConstHandle2Lengths self, ConstHandle2ConstLengths from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LengthsDelete(ConstHandle2ConstLengths This);
+LengthsDelete(ConstHandle2ConstLengths self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ LengthsDelete(ConstHandle2ConstLengths This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LengthsRead(ConstHandle2Lengths This, const char *const filename);
+LengthsRead(ConstHandle2Lengths self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LengthsWrite(ConstHandle2ConstLengths This, const char *const filename);
+LengthsWrite(ConstHandle2ConstLengths self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LengthsPrint(ConstHandle2ConstLengths This);
+LengthsPrint(ConstHandle2ConstLengths self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LengthsPrintXML(ConstHandle2ConstLengths This);
+LengthsPrintXML(ConstHandle2ConstLengths self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LengthsPrintJSON(ConstHandle2ConstLengths This);
+LengthsPrintJSON(ConstHandle2ConstLengths self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,33 +137,33 @@ LengthsPrintJSON(ConstHandle2ConstLengths This);
 
 // +++ Clear
 extern_c void
-LengthsIntsClear(ConstHandle2Lengths This);
+LengthsIntsClear(ConstHandle2Lengths self);
 
 // +++ Get size
 extern_c size_t
-LengthsIntsSize(ConstHandle2ConstLengths This);
+LengthsIntsSize(ConstHandle2ConstLengths self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-LengthsIntsGet(ConstHandle2ConstLengths This, const size_t index);
+LengthsIntsGet(ConstHandle2ConstLengths self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-LengthsIntsSet(ConstHandle2Lengths This, const size_t index, const int value);
+LengthsIntsSet(ConstHandle2Lengths self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-LengthsIntsGetArrayConst(ConstHandle2ConstLengths This);
+LengthsIntsGetArrayConst(ConstHandle2ConstLengths self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-LengthsIntsGetArray(ConstHandle2Lengths This);
+LengthsIntsGetArray(ConstHandle2Lengths self);
 
 // +++ Set completely new values and size
 extern_c void
-LengthsIntsSetArray(ConstHandle2Lengths This, const int *const values, const size_t size);
+LengthsIntsSetArray(ConstHandle2Lengths self, const int *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -172,16 +172,16 @@ LengthsIntsSetArray(ConstHandle2Lengths This, const int *const values, const siz
 
 // +++ Has
 extern_c int
-LengthsValueTypeHas(ConstHandle2ConstLengths This);
+LengthsValueTypeHas(ConstHandle2ConstLengths self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LengthsValueTypeGet(ConstHandle2ConstLengths This);
+LengthsValueTypeGet(ConstHandle2ConstLengths self);
 
 // +++ Set
 extern_c void
-LengthsValueTypeSet(ConstHandle2Lengths This, const char *const valueType);
+LengthsValueTypeSet(ConstHandle2Lengths self, const char *const valueType);
 
 
 // -----------------------------------------------------------------------------
@@ -190,16 +190,16 @@ LengthsValueTypeSet(ConstHandle2Lengths This, const char *const valueType);
 
 // +++ Has
 extern_c int
-LengthsLabelHas(ConstHandle2ConstLengths This);
+LengthsLabelHas(ConstHandle2ConstLengths self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LengthsLabelGet(ConstHandle2ConstLengths This);
+LengthsLabelGet(ConstHandle2ConstLengths self);
 
 // +++ Set
 extern_c void
-LengthsLabelSet(ConstHandle2Lengths This, const char *const label);
+LengthsLabelSet(ConstHandle2Lengths self, const char *const label);
 
 
 // -----------------------------------------------------------------------------

@@ -69,20 +69,20 @@ NeutrinoEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NeutrinoEnergyAssign(ConstHandle2NeutrinoEnergy This, ConstHandle2ConstNeutrinoEnergy from)
+NeutrinoEnergyAssign(ConstHandle2NeutrinoEnergy self, ConstHandle2ConstNeutrinoEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NeutrinoEnergyRead(ConstHandle2NeutrinoEnergy This, const char *const filename)
+NeutrinoEnergyRead(ConstHandle2NeutrinoEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NeutrinoEnergyWrite(ConstHandle2ConstNeutrinoEnergy This, const char *const filename)
+NeutrinoEnergyWrite(ConstHandle2ConstNeutrinoEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NeutrinoEnergyPrint(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyPrint(ConstHandle2ConstNeutrinoEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NeutrinoEnergyPrintXML(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyPrintXML(ConstHandle2ConstNeutrinoEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy This)
 
 // Has
 int
-NeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNeutrinoEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-NeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNeutrinoEnergy This)
+NeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNeutrinoEnergy self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-NeutrinoEnergyPolynomial1dGet(ConstHandle2NeutrinoEnergy This)
+NeutrinoEnergyPolynomial1dGet(ConstHandle2NeutrinoEnergy self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy This, ConstHandle2ConstPolynomial1d polynomial1d)
+NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 

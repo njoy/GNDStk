@@ -43,7 +43,7 @@ void wrapDelayedNeutrons(py::module &module)
    // get/set delayedNeutron
    object.def_property(
       "delayed_neutron",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.delayedNeutron();
       },

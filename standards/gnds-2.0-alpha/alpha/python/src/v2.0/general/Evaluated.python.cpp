@@ -55,7 +55,7 @@ void wrapEvaluated(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -69,7 +69,7 @@ void wrapEvaluated(py::module &module)
    // get/set date
    object.def_property(
       "date",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.date();
       },
@@ -83,7 +83,7 @@ void wrapEvaluated(py::module &module)
    // get/set library
    object.def_property(
       "library",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.library();
       },
@@ -97,7 +97,7 @@ void wrapEvaluated(py::module &module)
    // get/set version
    object.def_property(
       "version",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.version();
       },
@@ -111,7 +111,7 @@ void wrapEvaluated(py::module &module)
    // get/set documentation
    object.def_property(
       "documentation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.documentation();
       },
@@ -125,7 +125,7 @@ void wrapEvaluated(py::module &module)
    // get/set temperature
    object.def_property(
       "temperature",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.temperature();
       },
@@ -139,7 +139,7 @@ void wrapEvaluated(py::module &module)
    // get/set projectileEnergyDomain
    object.def_property(
       "projectile_energy_domain",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.projectileEnergyDomain();
       },

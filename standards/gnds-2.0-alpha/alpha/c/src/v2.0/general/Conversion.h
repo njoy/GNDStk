@@ -91,13 +91,13 @@ ConversionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ConversionAssign(ConstHandle2Conversion This, ConstHandle2ConstConversion from);
+ConversionAssign(ConstHandle2Conversion self, ConstHandle2ConstConversion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ConversionDelete(ConstHandle2ConstConversion This);
+ConversionDelete(ConstHandle2ConstConversion self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ ConversionDelete(ConstHandle2ConstConversion This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ConversionRead(ConstHandle2Conversion This, const char *const filename);
+ConversionRead(ConstHandle2Conversion self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ConversionWrite(ConstHandle2ConstConversion This, const char *const filename);
+ConversionWrite(ConstHandle2ConstConversion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ConversionPrint(ConstHandle2ConstConversion This);
+ConversionPrint(ConstHandle2ConstConversion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ConversionPrintXML(ConstHandle2ConstConversion This);
+ConversionPrintXML(ConstHandle2ConstConversion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ConversionPrintJSON(ConstHandle2ConstConversion This);
+ConversionPrintJSON(ConstHandle2ConstConversion self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ ConversionPrintJSON(ConstHandle2ConstConversion This);
 
 // +++ Has
 extern_c int
-ConversionFlagsHas(ConstHandle2ConstConversion This);
+ConversionFlagsHas(ConstHandle2ConstConversion self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ConversionFlagsGet(ConstHandle2ConstConversion This);
+ConversionFlagsGet(ConstHandle2ConstConversion self);
 
 // +++ Set
 extern_c void
-ConversionFlagsSet(ConstHandle2Conversion This, const char *const flags);
+ConversionFlagsSet(ConstHandle2Conversion self, const char *const flags);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ ConversionFlagsSet(ConstHandle2Conversion This, const char *const flags);
 
 // +++ Has
 extern_c int
-ConversionHrefHas(ConstHandle2ConstConversion This);
+ConversionHrefHas(ConstHandle2ConstConversion self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ConversionHrefGet(ConstHandle2ConstConversion This);
+ConversionHrefGet(ConstHandle2ConstConversion self);
 
 // +++ Set
 extern_c void
-ConversionHrefSet(ConstHandle2Conversion This, const char *const href);
+ConversionHrefSet(ConstHandle2Conversion self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

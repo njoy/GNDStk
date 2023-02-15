@@ -116,13 +116,13 @@ FissionEnergyReleaseCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FissionEnergyReleaseAssign(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstFissionEnergyRelease from);
+FissionEnergyReleaseAssign(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstFissionEnergyRelease from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FissionEnergyReleaseDelete(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelete(ConstHandle2ConstFissionEnergyRelease self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,25 +135,25 @@ FissionEnergyReleaseDelete(ConstHandle2ConstFissionEnergyRelease This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FissionEnergyReleaseRead(ConstHandle2FissionEnergyRelease This, const char *const filename);
+FissionEnergyReleaseRead(ConstHandle2FissionEnergyRelease self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FissionEnergyReleaseWrite(ConstHandle2ConstFissionEnergyRelease This, const char *const filename);
+FissionEnergyReleaseWrite(ConstHandle2ConstFissionEnergyRelease self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FissionEnergyReleasePrint(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePrint(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FissionEnergyReleasePrintXML(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePrintXML(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FissionEnergyReleasePrintJSON(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePrintJSON(ConstHandle2ConstFissionEnergyRelease self);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ FissionEnergyReleasePrintJSON(ConstHandle2ConstFissionEnergyRelease This);
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseLabelHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseLabelHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-FissionEnergyReleaseLabelGet(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseLabelGet(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseLabelSet(ConstHandle2FissionEnergyRelease This, const char *const label);
+FissionEnergyReleaseLabelSet(ConstHandle2FissionEnergyRelease self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ FissionEnergyReleaseLabelSet(ConstHandle2FissionEnergyRelease This, const char *
 
 // +++ Has
 extern_c int
-FissionEnergyReleasePromptProductKEHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptProductKEHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstPromptProductKE
-FissionEnergyReleasePromptProductKEGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptProductKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2PromptProductKE
-FissionEnergyReleasePromptProductKEGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleasePromptProductKEGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleasePromptProductKESet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstPromptProductKE promptProductKE);
+FissionEnergyReleasePromptProductKESet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstPromptProductKE promptProductKE);
 
 
 // -----------------------------------------------------------------------------
@@ -201,19 +201,19 @@ FissionEnergyReleasePromptProductKESet(ConstHandle2FissionEnergyRelease This, Co
 
 // +++ Has
 extern_c int
-FissionEnergyReleasePromptNeutronKEHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptNeutronKEHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstPromptNeutronKE
-FissionEnergyReleasePromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2PromptNeutronKE
-FissionEnergyReleasePromptNeutronKEGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleasePromptNeutronKEGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleasePromptNeutronKESet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstPromptNeutronKE promptNeutronKE);
+FissionEnergyReleasePromptNeutronKESet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstPromptNeutronKE promptNeutronKE);
 
 
 // -----------------------------------------------------------------------------
@@ -222,19 +222,19 @@ FissionEnergyReleasePromptNeutronKESet(ConstHandle2FissionEnergyRelease This, Co
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseDelayedNeutronKEHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedNeutronKEHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstDelayedNeutronKE
-FissionEnergyReleaseDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2DelayedNeutronKE
-FissionEnergyReleaseDelayedNeutronKEGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseDelayedNeutronKEGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseDelayedNeutronKESet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstDelayedNeutronKE delayedNeutronKE);
+FissionEnergyReleaseDelayedNeutronKESet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstDelayedNeutronKE delayedNeutronKE);
 
 
 // -----------------------------------------------------------------------------
@@ -243,19 +243,19 @@ FissionEnergyReleaseDelayedNeutronKESet(ConstHandle2FissionEnergyRelease This, C
 
 // +++ Has
 extern_c int
-FissionEnergyReleasePromptGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstPromptGammaEnergy
-FissionEnergyReleasePromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleasePromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2PromptGammaEnergy
-FissionEnergyReleasePromptGammaEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleasePromptGammaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleasePromptGammaEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstPromptGammaEnergy promptGammaEnergy);
+FissionEnergyReleasePromptGammaEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstPromptGammaEnergy promptGammaEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -264,19 +264,19 @@ FissionEnergyReleasePromptGammaEnergySet(ConstHandle2FissionEnergyRelease This, 
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseDelayedGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstDelayedGammaEnergy
-FissionEnergyReleaseDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2DelayedGammaEnergy
-FissionEnergyReleaseDelayedGammaEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseDelayedGammaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseDelayedGammaEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstDelayedGammaEnergy delayedGammaEnergy);
+FissionEnergyReleaseDelayedGammaEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstDelayedGammaEnergy delayedGammaEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -285,19 +285,19 @@ FissionEnergyReleaseDelayedGammaEnergySet(ConstHandle2FissionEnergyRelease This,
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseDelayedBetaEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedBetaEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstDelayedBetaEnergy
-FissionEnergyReleaseDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2DelayedBetaEnergy
-FissionEnergyReleaseDelayedBetaEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseDelayedBetaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseDelayedBetaEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstDelayedBetaEnergy delayedBetaEnergy);
+FissionEnergyReleaseDelayedBetaEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstDelayedBetaEnergy delayedBetaEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -306,19 +306,19 @@ FissionEnergyReleaseDelayedBetaEnergySet(ConstHandle2FissionEnergyRelease This, 
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstNeutrinoEnergy
-FissionEnergyReleaseNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2NeutrinoEnergy
-FissionEnergyReleaseNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseNeutrinoEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstNeutrinoEnergy neutrinoEnergy);
+FissionEnergyReleaseNeutrinoEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstNeutrinoEnergy neutrinoEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -327,19 +327,19 @@ FissionEnergyReleaseNeutrinoEnergySet(ConstHandle2FissionEnergyRelease This, Con
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseNonNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseNonNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstNonNeutrinoEnergy
-FissionEnergyReleaseNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2NonNeutrinoEnergy
-FissionEnergyReleaseNonNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseNonNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseNonNeutrinoEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstNonNeutrinoEnergy nonNeutrinoEnergy);
+FissionEnergyReleaseNonNeutrinoEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstNonNeutrinoEnergy nonNeutrinoEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -348,19 +348,19 @@ FissionEnergyReleaseNonNeutrinoEnergySet(ConstHandle2FissionEnergyRelease This, 
 
 // +++ Has
 extern_c int
-FissionEnergyReleaseTotalEnergyHas(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseTotalEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 
 // --- Get, const
 extern_c Handle2ConstTotalEnergy
-FissionEnergyReleaseTotalEnergyGetConst(ConstHandle2ConstFissionEnergyRelease This);
+FissionEnergyReleaseTotalEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
 // +++ Get, non-const
 extern_c Handle2TotalEnergy
-FissionEnergyReleaseTotalEnergyGet(ConstHandle2FissionEnergyRelease This);
+FissionEnergyReleaseTotalEnergyGet(ConstHandle2FissionEnergyRelease self);
 
 // +++ Set
 extern_c void
-FissionEnergyReleaseTotalEnergySet(ConstHandle2FissionEnergyRelease This, ConstHandle2ConstTotalEnergy totalEnergy);
+FissionEnergyReleaseTotalEnergySet(ConstHandle2FissionEnergyRelease self, ConstHandle2ConstTotalEnergy totalEnergy);
 
 
 // -----------------------------------------------------------------------------

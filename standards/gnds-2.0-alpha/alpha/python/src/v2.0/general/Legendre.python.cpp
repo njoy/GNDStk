@@ -45,7 +45,7 @@ void wrapLegendre(py::module &module)
    // get/set outerDomainValue
    object.def_property(
       "outer_domain_value",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.outerDomainValue();
       },
@@ -59,7 +59,7 @@ void wrapLegendre(py::module &module)
    // get/set values
    object.def_property(
       "values",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.values();
       },

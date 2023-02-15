@@ -43,7 +43,7 @@ void wrapConfigurations(py::module &module)
    // get/set configuration
    object.def_property(
       "configuration",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.configuration();
       },

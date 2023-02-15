@@ -93,13 +93,13 @@ CrossSectionReconstructedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CrossSectionReconstructedAssign(ConstHandle2CrossSectionReconstructed This, ConstHandle2ConstCrossSectionReconstructed from);
+CrossSectionReconstructedAssign(ConstHandle2CrossSectionReconstructed self, ConstHandle2ConstCrossSectionReconstructed from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CrossSectionReconstructedRead(ConstHandle2CrossSectionReconstructed This, const char *const filename);
+CrossSectionReconstructedRead(ConstHandle2CrossSectionReconstructed self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CrossSectionReconstructedWrite(ConstHandle2ConstCrossSectionReconstructed This, const char *const filename);
+CrossSectionReconstructedWrite(ConstHandle2ConstCrossSectionReconstructed self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CrossSectionReconstructedPrint(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedPrint(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CrossSectionReconstructedPrintXML(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedPrintXML(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed Th
 
 // +++ Has
 extern_c int
-CrossSectionReconstructedLabelHas(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedLabelHas(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CrossSectionReconstructedLabelGet(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedLabelGet(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Set
 extern_c void
-CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed This, const char *const label);
+CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed This, co
 
 // +++ Has
 extern_c int
-CrossSectionReconstructedDerivedFromHas(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedDerivedFromHas(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CrossSectionReconstructedDerivedFromGet(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedDerivedFromGet(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Set
 extern_c void
-CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed This, const char *const derivedFrom);
+CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed self, const char *const derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed Th
 
 // +++ Has
 extern_c int
-CrossSectionReconstructedDateHas(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedDateHas(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CrossSectionReconstructedDateGet(ConstHandle2ConstCrossSectionReconstructed This);
+CrossSectionReconstructedDateGet(ConstHandle2ConstCrossSectionReconstructed self);
 
 // +++ Set
 extern_c void
-CrossSectionReconstructedDateSet(ConstHandle2CrossSectionReconstructed This, const char *const date);
+CrossSectionReconstructedDateSet(ConstHandle2CrossSectionReconstructed self, const char *const date);
 
 
 // -----------------------------------------------------------------------------

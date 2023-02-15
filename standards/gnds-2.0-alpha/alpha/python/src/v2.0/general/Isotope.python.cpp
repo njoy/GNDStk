@@ -47,7 +47,7 @@ void wrapIsotope(py::module &module)
    // get/set symbol
    object.def_property(
       "symbol",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.symbol();
       },
@@ -61,7 +61,7 @@ void wrapIsotope(py::module &module)
    // get/set A
    object.def_property(
       "a",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.A();
       },
@@ -75,7 +75,7 @@ void wrapIsotope(py::module &module)
    // get/set nuclides
    object.def_property(
       "nuclides",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclides();
       },

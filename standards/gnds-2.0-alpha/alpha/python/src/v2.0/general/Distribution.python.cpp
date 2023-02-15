@@ -63,7 +63,7 @@ void wrapDistribution(py::module &module)
    // get/set thermalNeutronScatteringLaw
    object.def_property(
       "thermal_neutron_scattering_law",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.thermalNeutronScatteringLaw();
       },
@@ -77,7 +77,7 @@ void wrapDistribution(py::module &module)
    // get/set uncorrelated
    object.def_property(
       "uncorrelated",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.uncorrelated();
       },
@@ -91,7 +91,7 @@ void wrapDistribution(py::module &module)
    // get/set unspecified
    object.def_property(
       "unspecified",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.unspecified();
       },
@@ -105,7 +105,7 @@ void wrapDistribution(py::module &module)
    // get/set branching3d
    object.def_property(
       "branching3d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.branching3d();
       },
@@ -119,7 +119,7 @@ void wrapDistribution(py::module &module)
    // get/set angularTwoBody
    object.def_property(
       "angular_two_body",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.angularTwoBody();
       },
@@ -133,7 +133,7 @@ void wrapDistribution(py::module &module)
    // get/set energyAngular
    object.def_property(
       "energy_angular",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.energyAngular();
       },
@@ -147,7 +147,7 @@ void wrapDistribution(py::module &module)
    // get/set KalbachMann
    object.def_property(
       "kalbach_mann",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.KalbachMann();
       },
@@ -161,7 +161,7 @@ void wrapDistribution(py::module &module)
    // get/set angularEnergy
    object.def_property(
       "angular_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.angularEnergy();
       },
@@ -175,7 +175,7 @@ void wrapDistribution(py::module &module)
    // get/set CoulombPlusNuclearElastic
    object.def_property(
       "coulomb_plus_nuclear_elastic",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.CoulombPlusNuclearElastic();
       },
@@ -189,7 +189,7 @@ void wrapDistribution(py::module &module)
    // get/set coherentPhotonScattering
    object.def_property(
       "coherent_photon_scattering",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.coherentPhotonScattering();
       },
@@ -203,7 +203,7 @@ void wrapDistribution(py::module &module)
    // get/set incoherentPhotonScattering
    object.def_property(
       "incoherent_photon_scattering",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.incoherentPhotonScattering();
       },

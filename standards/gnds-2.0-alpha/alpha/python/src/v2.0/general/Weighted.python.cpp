@@ -45,7 +45,7 @@ void wrapWeighted(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -59,7 +59,7 @@ void wrapWeighted(py::module &module)
    // get/set evaporation
    object.def_property(
       "evaporation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.evaporation();
       },

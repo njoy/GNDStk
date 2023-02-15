@@ -96,13 +96,13 @@ Function1dsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Function1dsAssign(ConstHandle2Function1ds This, ConstHandle2ConstFunction1ds from);
+Function1dsAssign(ConstHandle2Function1ds self, ConstHandle2ConstFunction1ds from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Function1dsDelete(ConstHandle2ConstFunction1ds This);
+Function1dsDelete(ConstHandle2ConstFunction1ds self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ Function1dsDelete(ConstHandle2ConstFunction1ds This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Function1dsRead(ConstHandle2Function1ds This, const char *const filename);
+Function1dsRead(ConstHandle2Function1ds self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Function1dsWrite(ConstHandle2ConstFunction1ds This, const char *const filename);
+Function1dsWrite(ConstHandle2ConstFunction1ds self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Function1dsPrint(ConstHandle2ConstFunction1ds This);
+Function1dsPrint(ConstHandle2ConstFunction1ds self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Function1dsPrintXML(ConstHandle2ConstFunction1ds This);
+Function1dsPrintXML(ConstHandle2ConstFunction1ds self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Function1dsPrintJSON(ConstHandle2ConstFunction1ds This);
+Function1dsPrintJSON(ConstHandle2ConstFunction1ds self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,32 +142,32 @@ Function1dsPrintJSON(ConstHandle2ConstFunction1ds This);
 
 // +++ Has
 extern_c int
-Function1dsLegendreHas(ConstHandle2ConstFunction1ds This);
+Function1dsLegendreHas(ConstHandle2ConstFunction1ds self);
 
 // +++ Clear
 extern_c void
-Function1dsLegendreClear(ConstHandle2Function1ds This);
+Function1dsLegendreClear(ConstHandle2Function1ds self);
 
 // +++ Size
 extern_c size_t
-Function1dsLegendreSize(ConstHandle2ConstFunction1ds This);
+Function1dsLegendreSize(ConstHandle2ConstFunction1ds self);
 
 // +++ Add
 extern_c void
-Function1dsLegendreAdd(ConstHandle2Function1ds This, ConstHandle2ConstLegendre Legendre);
+Function1dsLegendreAdd(ConstHandle2Function1ds self, ConstHandle2ConstLegendre Legendre);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstLegendre
-Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds This, const size_t index_);
+Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Legendre
-Function1dsLegendreGet(ConstHandle2Function1ds This, const size_t index_);
+Function1dsLegendreGet(ConstHandle2Function1ds self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 Function1dsLegendreSet(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const size_t index_,
    ConstHandle2ConstLegendre Legendre
 );
@@ -175,28 +175,28 @@ Function1dsLegendreSet(
 // +++ Has, by outerDomainValue
 extern_c int
 Function1dsLegendreHasByOuterDomainValue(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // --- Get, by outerDomainValue, const
 extern_c Handle2ConstLegendre
 Function1dsLegendreGetByOuterDomainValueConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // +++ Get, by outerDomainValue, non-const
 extern_c Handle2Legendre
 Function1dsLegendreGetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue
 );
 
 // +++ Set, by outerDomainValue
 extern_c void
 Function1dsLegendreSetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue,
    ConstHandle2ConstLegendre Legendre
 );
@@ -208,32 +208,32 @@ Function1dsLegendreSetByOuterDomainValue(
 
 // +++ Has
 extern_c int
-Function1dsXYs1dHas(ConstHandle2ConstFunction1ds This);
+Function1dsXYs1dHas(ConstHandle2ConstFunction1ds self);
 
 // +++ Clear
 extern_c void
-Function1dsXYs1dClear(ConstHandle2Function1ds This);
+Function1dsXYs1dClear(ConstHandle2Function1ds self);
 
 // +++ Size
 extern_c size_t
-Function1dsXYs1dSize(ConstHandle2ConstFunction1ds This);
+Function1dsXYs1dSize(ConstHandle2ConstFunction1ds self);
 
 // +++ Add
 extern_c void
-Function1dsXYs1dAdd(ConstHandle2Function1ds This, ConstHandle2ConstXYs1d XYs1d);
+Function1dsXYs1dAdd(ConstHandle2Function1ds self, ConstHandle2ConstXYs1d XYs1d);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstXYs1d
-Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds This, const size_t index_);
+Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2XYs1d
-Function1dsXYs1dGet(ConstHandle2Function1ds This, const size_t index_);
+Function1dsXYs1dGet(ConstHandle2Function1ds self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 Function1dsXYs1dSet(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const size_t index_,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -241,28 +241,28 @@ Function1dsXYs1dSet(
 // +++ Has, by label
 extern_c int
 Function1dsXYs1dHasByLabel(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetByLabelConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByLabel(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 Function1dsXYs1dSetByLabel(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const label,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -270,28 +270,28 @@ Function1dsXYs1dSetByLabel(
 // +++ Has, by index
 extern_c int
 Function1dsXYs1dHasByIndex(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetByIndexConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByIndex(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 Function1dsXYs1dSetByIndex(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const int index,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -299,28 +299,28 @@ Function1dsXYs1dSetByIndex(
 // +++ Has, by interpolation
 extern_c int
 Function1dsXYs1dHasByInterpolation(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const interpolation
 );
 
 // --- Get, by interpolation, const
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetByInterpolationConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const interpolation
 );
 
 // +++ Get, by interpolation, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByInterpolation(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const interpolation
 );
 
 // +++ Set, by interpolation
 extern_c void
 Function1dsXYs1dSetByInterpolation(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const interpolation,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -328,28 +328,28 @@ Function1dsXYs1dSetByInterpolation(
 // +++ Has, by outerDomainValue
 extern_c int
 Function1dsXYs1dHasByOuterDomainValue(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // --- Get, by outerDomainValue, const
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetByOuterDomainValueConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // +++ Get, by outerDomainValue, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue
 );
 
 // +++ Set, by outerDomainValue
 extern_c void
 Function1dsXYs1dSetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -361,32 +361,32 @@ Function1dsXYs1dSetByOuterDomainValue(
 
 // +++ Has
 extern_c int
-Function1dsRegions1dHas(ConstHandle2ConstFunction1ds This);
+Function1dsRegions1dHas(ConstHandle2ConstFunction1ds self);
 
 // +++ Clear
 extern_c void
-Function1dsRegions1dClear(ConstHandle2Function1ds This);
+Function1dsRegions1dClear(ConstHandle2Function1ds self);
 
 // +++ Size
 extern_c size_t
-Function1dsRegions1dSize(ConstHandle2ConstFunction1ds This);
+Function1dsRegions1dSize(ConstHandle2ConstFunction1ds self);
 
 // +++ Add
 extern_c void
-Function1dsRegions1dAdd(ConstHandle2Function1ds This, ConstHandle2ConstRegions1d regions1d);
+Function1dsRegions1dAdd(ConstHandle2Function1ds self, ConstHandle2ConstRegions1d regions1d);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstRegions1d
-Function1dsRegions1dGetConst(ConstHandle2ConstFunction1ds This, const size_t index_);
+Function1dsRegions1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Regions1d
-Function1dsRegions1dGet(ConstHandle2Function1ds This, const size_t index_);
+Function1dsRegions1dGet(ConstHandle2Function1ds self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 Function1dsRegions1dSet(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const size_t index_,
    ConstHandle2ConstRegions1d regions1d
 );
@@ -394,28 +394,28 @@ Function1dsRegions1dSet(
 // +++ Has, by label
 extern_c int
 Function1dsRegions1dHasByLabel(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstRegions1d
 Function1dsRegions1dGetByLabelConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Regions1d
 Function1dsRegions1dGetByLabel(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 Function1dsRegions1dSetByLabel(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const char *const label,
    ConstHandle2ConstRegions1d regions1d
 );
@@ -423,28 +423,28 @@ Function1dsRegions1dSetByLabel(
 // +++ Has, by outerDomainValue
 extern_c int
 Function1dsRegions1dHasByOuterDomainValue(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // --- Get, by outerDomainValue, const
 extern_c Handle2ConstRegions1d
 Function1dsRegions1dGetByOuterDomainValueConst(
-   ConstHandle2ConstFunction1ds This,
+   ConstHandle2ConstFunction1ds self,
    const double outerDomainValue
 );
 
 // +++ Get, by outerDomainValue, non-const
 extern_c Handle2Regions1d
 Function1dsRegions1dGetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue
 );
 
 // +++ Set, by outerDomainValue
 extern_c void
 Function1dsRegions1dSetByOuterDomainValue(
-   ConstHandle2Function1ds This,
+   ConstHandle2Function1ds self,
    const double outerDomainValue,
    ConstHandle2ConstRegions1d regions1d
 );

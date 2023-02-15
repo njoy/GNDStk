@@ -49,7 +49,7 @@ void wrapTable(py::module &module)
    // get/set rows
    object.def_property(
       "rows",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.rows();
       },
@@ -63,7 +63,7 @@ void wrapTable(py::module &module)
    // get/set columns
    object.def_property(
       "columns",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.columns();
       },
@@ -77,7 +77,7 @@ void wrapTable(py::module &module)
    // get/set columnHeaders
    object.def_property(
       "column_headers",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.columnHeaders();
       },
@@ -91,7 +91,7 @@ void wrapTable(py::module &module)
    // get/set data
    object.def_property(
       "data",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.data();
       },

@@ -75,20 +75,20 @@ AngularCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AngularAssign(ConstHandle2Angular This, ConstHandle2ConstAngular from)
+AngularAssign(ConstHandle2Angular self, ConstHandle2ConstAngular from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AngularDelete(ConstHandle2ConstAngular This)
+AngularDelete(ConstHandle2ConstAngular self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ AngularDelete(ConstHandle2ConstAngular This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AngularRead(ConstHandle2Angular This, const char *const filename)
+AngularRead(ConstHandle2Angular self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AngularWrite(ConstHandle2ConstAngular This, const char *const filename)
+AngularWrite(ConstHandle2ConstAngular self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AngularPrint(ConstHandle2ConstAngular This)
+AngularPrint(ConstHandle2ConstAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AngularPrintXML(ConstHandle2ConstAngular This)
+AngularPrintXML(ConstHandle2ConstAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AngularPrintJSON(ConstHandle2ConstAngular This)
+AngularPrintJSON(ConstHandle2ConstAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ AngularPrintJSON(ConstHandle2ConstAngular This)
 
 // Has
 int
-AngularIsotropic2dHas(ConstHandle2ConstAngular This)
+AngularIsotropic2dHas(ConstHandle2ConstAngular self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Isotropic2dHas", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dHas", self, extract::isotropic2d);
 }
 
 // Get, const
 Handle2ConstIsotropic2d
-AngularIsotropic2dGetConst(ConstHandle2ConstAngular This)
+AngularIsotropic2dGetConst(ConstHandle2ConstAngular self)
 {
    return detail::getField<CPP,Handle2ConstIsotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", self, extract::isotropic2d);
 }
 
 // Get, non-const
 Handle2Isotropic2d
-AngularIsotropic2dGet(ConstHandle2Angular This)
+AngularIsotropic2dGet(ConstHandle2Angular self)
 {
    return detail::getField<CPP,Handle2Isotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dGet", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dGet", self, extract::isotropic2d);
 }
 
 // Set
 void
-AngularIsotropic2dSet(ConstHandle2Angular This, ConstHandle2ConstIsotropic2d isotropic2d)
+AngularIsotropic2dSet(ConstHandle2Angular self, ConstHandle2ConstIsotropic2d isotropic2d)
 {
    detail::setField<CPP,CPPIsotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dSet", This, extract::isotropic2d, isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dSet", self, extract::isotropic2d, isotropic2d);
 }
 
 
@@ -186,34 +186,34 @@ AngularIsotropic2dSet(ConstHandle2Angular This, ConstHandle2ConstIsotropic2d iso
 
 // Has
 int
-AngularXYs2dHas(ConstHandle2ConstAngular This)
+AngularXYs2dHas(ConstHandle2ConstAngular self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-AngularXYs2dGetConst(ConstHandle2ConstAngular This)
+AngularXYs2dGetConst(ConstHandle2ConstAngular self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-AngularXYs2dGet(ConstHandle2Angular This)
+AngularXYs2dGet(ConstHandle2Angular self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-AngularXYs2dSet(ConstHandle2Angular This, ConstHandle2ConstXYs2d XYs2d)
+AngularXYs2dSet(ConstHandle2Angular self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 

@@ -45,7 +45,7 @@ void wrapNBodyPhaseSpace(py::module &module)
    // get/set numberOfProducts
    object.def_property(
       "number_of_products",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.numberOfProducts();
       },
@@ -59,7 +59,7 @@ void wrapNBodyPhaseSpace(py::module &module)
    // get/set mass
    object.def_property(
       "mass",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.mass();
       },

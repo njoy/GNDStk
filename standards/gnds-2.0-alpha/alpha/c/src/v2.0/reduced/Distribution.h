@@ -102,13 +102,13 @@ DistributionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DistributionAssign(ConstHandle2Distribution This, ConstHandle2ConstDistribution from);
+DistributionAssign(ConstHandle2Distribution self, ConstHandle2ConstDistribution from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DistributionDelete(ConstHandle2ConstDistribution This);
+DistributionDelete(ConstHandle2ConstDistribution self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ DistributionDelete(ConstHandle2ConstDistribution This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DistributionRead(ConstHandle2Distribution This, const char *const filename);
+DistributionRead(ConstHandle2Distribution self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DistributionWrite(ConstHandle2ConstDistribution This, const char *const filename);
+DistributionWrite(ConstHandle2ConstDistribution self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DistributionPrint(ConstHandle2ConstDistribution This);
+DistributionPrint(ConstHandle2ConstDistribution self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DistributionPrintXML(ConstHandle2ConstDistribution This);
+DistributionPrintXML(ConstHandle2ConstDistribution self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DistributionPrintJSON(ConstHandle2ConstDistribution This);
+DistributionPrintJSON(ConstHandle2ConstDistribution self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,19 +148,19 @@ DistributionPrintJSON(ConstHandle2ConstDistribution This);
 
 // +++ Has
 extern_c int
-DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution This);
+DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution self);
 
 // --- Get, const
 extern_c Handle2ConstThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution This);
+DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution self);
 
 // +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw
-DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution This);
+DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self);
 
 // +++ Set
 extern_c void
-DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw);
+DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution self, ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw);
 
 
 // -----------------------------------------------------------------------------
@@ -169,19 +169,19 @@ DistributionThermalNeutronScatteringLawSet(ConstHandle2Distribution This, ConstH
 
 // +++ Has
 extern_c int
-DistributionUncorrelatedHas(ConstHandle2ConstDistribution This);
+DistributionUncorrelatedHas(ConstHandle2ConstDistribution self);
 
 // --- Get, const
 extern_c Handle2ConstUncorrelated
-DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution This);
+DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self);
 
 // +++ Get, non-const
 extern_c Handle2Uncorrelated
-DistributionUncorrelatedGet(ConstHandle2Distribution This);
+DistributionUncorrelatedGet(ConstHandle2Distribution self);
 
 // +++ Set
 extern_c void
-DistributionUncorrelatedSet(ConstHandle2Distribution This, ConstHandle2ConstUncorrelated uncorrelated);
+DistributionUncorrelatedSet(ConstHandle2Distribution self, ConstHandle2ConstUncorrelated uncorrelated);
 
 
 // -----------------------------------------------------------------------------
@@ -190,19 +190,19 @@ DistributionUncorrelatedSet(ConstHandle2Distribution This, ConstHandle2ConstUnco
 
 // +++ Has
 extern_c int
-DistributionUnspecifiedHas(ConstHandle2ConstDistribution This);
+DistributionUnspecifiedHas(ConstHandle2ConstDistribution self);
 
 // --- Get, const
 extern_c Handle2ConstUnspecified
-DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution This);
+DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self);
 
 // +++ Get, non-const
 extern_c Handle2Unspecified
-DistributionUnspecifiedGet(ConstHandle2Distribution This);
+DistributionUnspecifiedGet(ConstHandle2Distribution self);
 
 // +++ Set
 extern_c void
-DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspecified unspecified);
+DistributionUnspecifiedSet(ConstHandle2Distribution self, ConstHandle2ConstUnspecified unspecified);
 
 
 // -----------------------------------------------------------------------------
@@ -211,19 +211,19 @@ DistributionUnspecifiedSet(ConstHandle2Distribution This, ConstHandle2ConstUnspe
 
 // +++ Has
 extern_c int
-DistributionXYs2dHas(ConstHandle2ConstDistribution This);
+DistributionXYs2dHas(ConstHandle2ConstDistribution self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-DistributionXYs2dGetConst(ConstHandle2ConstDistribution This);
+DistributionXYs2dGetConst(ConstHandle2ConstDistribution self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-DistributionXYs2dGet(ConstHandle2Distribution This);
+DistributionXYs2dGet(ConstHandle2Distribution self);
 
 // +++ Set
 extern_c void
-DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d);
+DistributionXYs2dSet(ConstHandle2Distribution self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
@@ -232,19 +232,19 @@ DistributionXYs2dSet(ConstHandle2Distribution This, ConstHandle2ConstXYs2d XYs2d
 
 // +++ Has
 extern_c int
-DistributionBranching3dHas(ConstHandle2ConstDistribution This);
+DistributionBranching3dHas(ConstHandle2ConstDistribution self);
 
 // --- Get, const
 extern_c Handle2ConstBranching3d
-DistributionBranching3dGetConst(ConstHandle2ConstDistribution This);
+DistributionBranching3dGetConst(ConstHandle2ConstDistribution self);
 
 // +++ Get, non-const
 extern_c Handle2Branching3d
-DistributionBranching3dGet(ConstHandle2Distribution This);
+DistributionBranching3dGet(ConstHandle2Distribution self);
 
 // +++ Set
 extern_c void
-DistributionBranching3dSet(ConstHandle2Distribution This, ConstHandle2ConstBranching3d branching3d);
+DistributionBranching3dSet(ConstHandle2Distribution self, ConstHandle2ConstBranching3d branching3d);
 
 
 // -----------------------------------------------------------------------------

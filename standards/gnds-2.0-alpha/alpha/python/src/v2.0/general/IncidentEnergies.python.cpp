@@ -43,7 +43,7 @@ void wrapIncidentEnergies(py::module &module)
    // get/set incidentEnergy
    object.def_property(
       "incident_energy",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.incidentEnergy();
       },

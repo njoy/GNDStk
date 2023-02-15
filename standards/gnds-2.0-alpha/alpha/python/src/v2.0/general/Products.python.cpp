@@ -43,7 +43,7 @@ void wrapProducts(py::module &module)
    // get/set product
    object.def_property(
       "product",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.product();
       },

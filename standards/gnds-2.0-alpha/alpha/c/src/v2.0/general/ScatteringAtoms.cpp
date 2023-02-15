@@ -73,20 +73,20 @@ ScatteringAtomsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ScatteringAtomsAssign(ConstHandle2ScatteringAtoms This, ConstHandle2ConstScatteringAtoms from)
+ScatteringAtomsAssign(ConstHandle2ScatteringAtoms self, ConstHandle2ConstScatteringAtoms from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ScatteringAtomsDelete(ConstHandle2ConstScatteringAtoms This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ScatteringAtomsRead(ConstHandle2ScatteringAtoms This, const char *const filename)
+ScatteringAtomsRead(ConstHandle2ScatteringAtoms self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ScatteringAtomsWrite(ConstHandle2ConstScatteringAtoms This, const char *const filename)
+ScatteringAtomsWrite(ConstHandle2ConstScatteringAtoms self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ScatteringAtomsPrint(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsPrint(ConstHandle2ConstScatteringAtoms self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ScatteringAtomsPrintXML(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsPrintXML(ConstHandle2ConstScatteringAtoms self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ ScatteringAtomsPrintJSON(ConstHandle2ConstScatteringAtoms This)
 
 // Has
 int
-ScatteringAtomsScatteringAtomHas(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsScatteringAtomHas(ConstHandle2ConstScatteringAtoms self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomHas", This, extract::scatteringAtom);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomHas", self, extract::scatteringAtom);
 }
 
 // Clear
 void
-ScatteringAtomsScatteringAtomClear(ConstHandle2ScatteringAtoms This)
+ScatteringAtomsScatteringAtomClear(ConstHandle2ScatteringAtoms self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomClear", This, extract::scatteringAtom);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomClear", self, extract::scatteringAtom);
 }
 
 // Size
 size_t
-ScatteringAtomsScatteringAtomSize(ConstHandle2ConstScatteringAtoms This)
+ScatteringAtomsScatteringAtomSize(ConstHandle2ConstScatteringAtoms self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomSize", This, extract::scatteringAtom);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomSize", self, extract::scatteringAtom);
 }
 
 // Add
 void
-ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms This, ConstHandle2ConstScatteringAtom scatteringAtom)
+ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms self, ConstHandle2ConstScatteringAtom scatteringAtom)
 {
    detail::addToContainer<CPP,CPPScatteringAtom>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomAdd", This, extract::scatteringAtom, scatteringAtom);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomAdd", self, extract::scatteringAtom, scatteringAtom);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstScatteringAtom
-ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms This, const size_t index_)
+ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstScatteringAtom>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomGetConst", This, extract::scatteringAtom, index_);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomGetConst", self, extract::scatteringAtom, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2ScatteringAtom
-ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms This, const size_t index_)
+ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ScatteringAtom>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomGet", This, extract::scatteringAtom, index_);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomGet", self, extract::scatteringAtom, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ScatteringAtomsScatteringAtomSet(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const size_t index_,
    ConstHandle2ConstScatteringAtom scatteringAtom
 ) {
    detail::setByIndex<CPP,CPPScatteringAtom>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomSet", This, extract::scatteringAtom, index_, scatteringAtom);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomSet", self, extract::scatteringAtom, index_, scatteringAtom);
 }
 
 // Has, by pid
 int
 ScatteringAtomsScatteringAtomHasByPid(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const char *const pid
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ScatteringAtomHasByPid",
-       This, extract::scatteringAtom, meta::pid, pid);
+       self, extract::scatteringAtom, meta::pid, pid);
 }
 
 // Get, by pid, const
 Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByPidConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByPidConst",
-       This, extract::scatteringAtom, meta::pid, pid);
+       self, extract::scatteringAtom, meta::pid, pid);
 }
 
 // Get, by pid, non-const
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPid(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const char *const pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByPid",
-       This, extract::scatteringAtom, meta::pid, pid);
+       self, extract::scatteringAtom, meta::pid, pid);
 }
 
 // Set, by pid
 void
 ScatteringAtomsScatteringAtomSetByPid(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const char *const pid,
    ConstHandle2ConstScatteringAtom scatteringAtom
 ) {
    detail::setByMetadatum<CPP,CPPScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomSetByPid",
-       This, extract::scatteringAtom, meta::pid, pid, scatteringAtom);
+       self, extract::scatteringAtom, meta::pid, pid, scatteringAtom);
 }
 
 // Has, by numberPerMolecule
 int
 ScatteringAtomsScatteringAtomHasByNumberPerMolecule(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const int numberPerMolecule
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ScatteringAtomHasByNumberPerMolecule",
-       This, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
+       self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
 }
 
 // Get, by numberPerMolecule, const
 Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const int numberPerMolecule
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByNumberPerMoleculeConst",
-       This, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
+       self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
 }
 
 // Get, by numberPerMolecule, non-const
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMolecule(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const int numberPerMolecule
 ) {
    return detail::getByMetadatum<CPP,Handle2ScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByNumberPerMolecule",
-       This, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
+       self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
 }
 
 // Set, by numberPerMolecule
 void
 ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const int numberPerMolecule,
    ConstHandle2ConstScatteringAtom scatteringAtom
 ) {
    detail::setByMetadatum<CPP,CPPScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomSetByNumberPerMolecule",
-       This, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule, scatteringAtom);
+       self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule, scatteringAtom);
 }
 
 // Has, by primaryScatterer
 int
 ScatteringAtomsScatteringAtomHasByPrimaryScatterer(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const bool primaryScatterer
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ScatteringAtomHasByPrimaryScatterer",
-       This, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
+       self, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
 }
 
 // Get, by primaryScatterer, const
 Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(
-   ConstHandle2ConstScatteringAtoms This,
+   ConstHandle2ConstScatteringAtoms self,
    const bool primaryScatterer
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByPrimaryScattererConst",
-       This, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
+       self, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
 }
 
 // Get, by primaryScatterer, non-const
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScatterer(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const bool primaryScatterer
 ) {
    return detail::getByMetadatum<CPP,Handle2ScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetByPrimaryScatterer",
-       This, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
+       self, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
 }
 
 // Set, by primaryScatterer
 void
 ScatteringAtomsScatteringAtomSetByPrimaryScatterer(
-   ConstHandle2ScatteringAtoms This,
+   ConstHandle2ScatteringAtoms self,
    const bool primaryScatterer,
    ConstHandle2ConstScatteringAtom scatteringAtom
 ) {
    detail::setByMetadatum<CPP,CPPScatteringAtom>
       (CLASSNAME, CLASSNAME+"ScatteringAtomSetByPrimaryScatterer",
-       This, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer, scatteringAtom);
+       self, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer, scatteringAtom);
 }
 
 

@@ -77,20 +77,20 @@ ProjectileEnergyDomainCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProjectileEnergyDomainAssign(ConstHandle2ProjectileEnergyDomain This, ConstHandle2ConstProjectileEnergyDomain from)
+ProjectileEnergyDomainAssign(ConstHandle2ProjectileEnergyDomain self, ConstHandle2ConstProjectileEnergyDomain from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProjectileEnergyDomainDelete(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainDelete(ConstHandle2ConstProjectileEnergyDomain self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ ProjectileEnergyDomainDelete(ConstHandle2ConstProjectileEnergyDomain This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProjectileEnergyDomainRead(ConstHandle2ProjectileEnergyDomain This, const char *const filename)
+ProjectileEnergyDomainRead(ConstHandle2ProjectileEnergyDomain self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProjectileEnergyDomainWrite(ConstHandle2ConstProjectileEnergyDomain This, const char *const filename)
+ProjectileEnergyDomainWrite(ConstHandle2ConstProjectileEnergyDomain self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProjectileEnergyDomainPrint(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainPrint(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProjectileEnergyDomainPrintXML(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainPrintXML(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProjectileEnergyDomainPrintJSON(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainPrintJSON(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ ProjectileEnergyDomainPrintJSON(ConstHandle2ConstProjectileEnergyDomain This)
 
 // Has
 int
-ProjectileEnergyDomainMinHas(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainMinHas(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MinHas", This, extract::min);
+      (CLASSNAME, CLASSNAME+"MinHas", self, extract::min);
 }
 
 // Get
 // Returns by value
 double
-ProjectileEnergyDomainMinGet(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainMinGet(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MinGet", This, extract::min);
+      (CLASSNAME, CLASSNAME+"MinGet", self, extract::min);
 }
 
 // Set
 void
-ProjectileEnergyDomainMinSet(ConstHandle2ProjectileEnergyDomain This, const double min)
+ProjectileEnergyDomainMinSet(ConstHandle2ProjectileEnergyDomain self, const double min)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MinSet", This, extract::min, min);
+      (CLASSNAME, CLASSNAME+"MinSet", self, extract::min, min);
 }
 
 
@@ -181,27 +181,27 @@ ProjectileEnergyDomainMinSet(ConstHandle2ProjectileEnergyDomain This, const doub
 
 // Has
 int
-ProjectileEnergyDomainMaxHas(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainMaxHas(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MaxHas", This, extract::max);
+      (CLASSNAME, CLASSNAME+"MaxHas", self, extract::max);
 }
 
 // Get
 // Returns by value
 double
-ProjectileEnergyDomainMaxGet(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainMaxGet(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MaxGet", This, extract::max);
+      (CLASSNAME, CLASSNAME+"MaxGet", self, extract::max);
 }
 
 // Set
 void
-ProjectileEnergyDomainMaxSet(ConstHandle2ProjectileEnergyDomain This, const double max)
+ProjectileEnergyDomainMaxSet(ConstHandle2ProjectileEnergyDomain self, const double max)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MaxSet", This, extract::max, max);
+      (CLASSNAME, CLASSNAME+"MaxSet", self, extract::max, max);
 }
 
 
@@ -211,27 +211,27 @@ ProjectileEnergyDomainMaxSet(ConstHandle2ProjectileEnergyDomain This, const doub
 
 // Has
 int
-ProjectileEnergyDomainUnitHas(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainUnitHas(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 const char *
-ProjectileEnergyDomainUnitGet(ConstHandle2ConstProjectileEnergyDomain This)
+ProjectileEnergyDomainUnitGet(ConstHandle2ConstProjectileEnergyDomain self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-ProjectileEnergyDomainUnitSet(ConstHandle2ProjectileEnergyDomain This, const char *const unit)
+ProjectileEnergyDomainUnitSet(ConstHandle2ProjectileEnergyDomain self, const char *const unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

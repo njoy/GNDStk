@@ -57,7 +57,7 @@ void wrapRMatrix(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -71,7 +71,7 @@ void wrapRMatrix(py::module &module)
    // get/set approximation
    object.def_property(
       "approximation",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.approximation();
       },
@@ -85,7 +85,7 @@ void wrapRMatrix(py::module &module)
    // get/set boundaryCondition
    object.def_property(
       "boundary_condition",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.boundaryCondition();
       },
@@ -99,7 +99,7 @@ void wrapRMatrix(py::module &module)
    // get/set calculateChannelRadius
    object.def_property(
       "calculate_channel_radius",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.calculateChannelRadius();
       },
@@ -113,7 +113,7 @@ void wrapRMatrix(py::module &module)
    // get/set supportsAngularReconstruction
    object.def_property(
       "supports_angular_reconstruction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.supportsAngularReconstruction();
       },
@@ -127,7 +127,7 @@ void wrapRMatrix(py::module &module)
    // get/set PoPs
    object.def_property(
       "po_ps",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.PoPs();
       },
@@ -141,7 +141,7 @@ void wrapRMatrix(py::module &module)
    // get/set resonanceReactions
    object.def_property(
       "resonance_reactions",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceReactions();
       },
@@ -155,7 +155,7 @@ void wrapRMatrix(py::module &module)
    // get/set spinGroups
    object.def_property(
       "spin_groups",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.spinGroups();
       },

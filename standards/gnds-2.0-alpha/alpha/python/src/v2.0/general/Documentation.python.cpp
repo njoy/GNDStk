@@ -51,7 +51,7 @@ void wrapDocumentation(py::module &module)
    // get/set authors
    object.def_property(
       "authors",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.authors();
       },
@@ -65,7 +65,7 @@ void wrapDocumentation(py::module &module)
    // get/set dates
    object.def_property(
       "dates",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.dates();
       },
@@ -79,7 +79,7 @@ void wrapDocumentation(py::module &module)
    // get/set title
    object.def_property(
       "title",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.title();
       },
@@ -93,7 +93,7 @@ void wrapDocumentation(py::module &module)
    // get/set body
    object.def_property(
       "body",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.body();
       },
@@ -107,7 +107,7 @@ void wrapDocumentation(py::module &module)
    // get/set endfCompatible
    object.def_property(
       "endf_compatible",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.endfCompatible();
       },

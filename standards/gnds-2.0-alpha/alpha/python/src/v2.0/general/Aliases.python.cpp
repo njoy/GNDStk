@@ -45,7 +45,7 @@ void wrapAliases(py::module &module)
    // get/set alias
    object.def_property(
       "alias",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.alias();
       },
@@ -59,7 +59,7 @@ void wrapAliases(py::module &module)
    // get/set metaStable
    object.def_property(
       "meta_stable",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.metaStable();
       },

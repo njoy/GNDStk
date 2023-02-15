@@ -90,13 +90,13 @@ ConfigurationsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ConfigurationsAssign(ConstHandle2Configurations This, ConstHandle2ConstConfigurations from);
+ConfigurationsAssign(ConstHandle2Configurations self, ConstHandle2ConstConfigurations from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ConfigurationsDelete(ConstHandle2ConstConfigurations This);
+ConfigurationsDelete(ConstHandle2ConstConfigurations self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ConfigurationsDelete(ConstHandle2ConstConfigurations This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ConfigurationsRead(ConstHandle2Configurations This, const char *const filename);
+ConfigurationsRead(ConstHandle2Configurations self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ConfigurationsWrite(ConstHandle2ConstConfigurations This, const char *const filename);
+ConfigurationsWrite(ConstHandle2ConstConfigurations self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ConfigurationsPrint(ConstHandle2ConstConfigurations This);
+ConfigurationsPrint(ConstHandle2ConstConfigurations self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ConfigurationsPrintXML(ConstHandle2ConstConfigurations This);
+ConfigurationsPrintXML(ConstHandle2ConstConfigurations self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ConfigurationsPrintJSON(ConstHandle2ConstConfigurations This);
+ConfigurationsPrintJSON(ConstHandle2ConstConfigurations self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ConfigurationsPrintJSON(ConstHandle2ConstConfigurations This);
 
 // +++ Has
 extern_c int
-ConfigurationsConfigurationHas(ConstHandle2ConstConfigurations This);
+ConfigurationsConfigurationHas(ConstHandle2ConstConfigurations self);
 
 // +++ Clear
 extern_c void
-ConfigurationsConfigurationClear(ConstHandle2Configurations This);
+ConfigurationsConfigurationClear(ConstHandle2Configurations self);
 
 // +++ Size
 extern_c size_t
-ConfigurationsConfigurationSize(ConstHandle2ConstConfigurations This);
+ConfigurationsConfigurationSize(ConstHandle2ConstConfigurations self);
 
 // +++ Add
 extern_c void
-ConfigurationsConfigurationAdd(ConstHandle2Configurations This, ConstHandle2ConstConfiguration configuration);
+ConfigurationsConfigurationAdd(ConstHandle2Configurations self, ConstHandle2ConstConfiguration configuration);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstConfiguration
-ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations This, const size_t index_);
+ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Configuration
-ConfigurationsConfigurationGet(ConstHandle2Configurations This, const size_t index_);
+ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ConfigurationsConfigurationSet(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const size_t index_,
    ConstHandle2ConstConfiguration configuration
 );
@@ -169,28 +169,28 @@ ConfigurationsConfigurationSet(
 // +++ Has, by subshell
 extern_c int
 ConfigurationsConfigurationHasBySubshell(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const subshell
 );
 
 // --- Get, by subshell, const
 extern_c Handle2ConstConfiguration
 ConfigurationsConfigurationGetBySubshellConst(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const subshell
 );
 
 // +++ Get, by subshell, non-const
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const subshell
 );
 
 // +++ Set, by subshell
 extern_c void
 ConfigurationsConfigurationSetBySubshell(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const subshell,
    ConstHandle2ConstConfiguration configuration
 );
@@ -198,28 +198,28 @@ ConfigurationsConfigurationSetBySubshell(
 // +++ Has, by electronNumber
 extern_c int
 ConfigurationsConfigurationHasByElectronNumber(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const double electronNumber
 );
 
 // --- Get, by electronNumber, const
 extern_c Handle2ConstConfiguration
 ConfigurationsConfigurationGetByElectronNumberConst(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const double electronNumber
 );
 
 // +++ Get, by electronNumber, non-const
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const double electronNumber
 );
 
 // +++ Set, by electronNumber
 extern_c void
 ConfigurationsConfigurationSetByElectronNumber(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const double electronNumber,
    ConstHandle2ConstConfiguration configuration
 );

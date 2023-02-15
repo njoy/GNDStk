@@ -90,13 +90,13 @@ AverageEnergiesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageEnergiesAssign(ConstHandle2AverageEnergies This, ConstHandle2ConstAverageEnergies from);
+AverageEnergiesAssign(ConstHandle2AverageEnergies self, ConstHandle2ConstAverageEnergies from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageEnergiesDelete(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesDelete(ConstHandle2ConstAverageEnergies self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AverageEnergiesDelete(ConstHandle2ConstAverageEnergies This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageEnergiesRead(ConstHandle2AverageEnergies This, const char *const filename);
+AverageEnergiesRead(ConstHandle2AverageEnergies self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageEnergiesWrite(ConstHandle2ConstAverageEnergies This, const char *const filename);
+AverageEnergiesWrite(ConstHandle2ConstAverageEnergies self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageEnergiesPrint(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesPrint(ConstHandle2ConstAverageEnergies self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageEnergiesPrintXML(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesPrintXML(ConstHandle2ConstAverageEnergies self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageEnergiesPrintJSON(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesPrintJSON(ConstHandle2ConstAverageEnergies self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ AverageEnergiesPrintJSON(ConstHandle2ConstAverageEnergies This);
 
 // +++ Has
 extern_c int
-AverageEnergiesAverageEnergyHas(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesAverageEnergyHas(ConstHandle2ConstAverageEnergies self);
 
 // +++ Clear
 extern_c void
-AverageEnergiesAverageEnergyClear(ConstHandle2AverageEnergies This);
+AverageEnergiesAverageEnergyClear(ConstHandle2AverageEnergies self);
 
 // +++ Size
 extern_c size_t
-AverageEnergiesAverageEnergySize(ConstHandle2ConstAverageEnergies This);
+AverageEnergiesAverageEnergySize(ConstHandle2ConstAverageEnergies self);
 
 // +++ Add
 extern_c void
-AverageEnergiesAverageEnergyAdd(ConstHandle2AverageEnergies This, ConstHandle2ConstAverageEnergy averageEnergy);
+AverageEnergiesAverageEnergyAdd(ConstHandle2AverageEnergies self, ConstHandle2ConstAverageEnergy averageEnergy);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAverageEnergy
-AverageEnergiesAverageEnergyGetConst(ConstHandle2ConstAverageEnergies This, const size_t index_);
+AverageEnergiesAverageEnergyGetConst(ConstHandle2ConstAverageEnergies self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2AverageEnergy
-AverageEnergiesAverageEnergyGet(ConstHandle2AverageEnergies This, const size_t index_);
+AverageEnergiesAverageEnergyGet(ConstHandle2AverageEnergies self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AverageEnergiesAverageEnergySet(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const size_t index_,
    ConstHandle2ConstAverageEnergy averageEnergy
 );
@@ -169,28 +169,28 @@ AverageEnergiesAverageEnergySet(
 // +++ Has, by label
 extern_c int
 AverageEnergiesAverageEnergyHasByLabel(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAverageEnergy
 AverageEnergiesAverageEnergyGetByLabelConst(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByLabel(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 AverageEnergiesAverageEnergySetByLabel(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const char *const label,
    ConstHandle2ConstAverageEnergy averageEnergy
 );
@@ -198,28 +198,28 @@ AverageEnergiesAverageEnergySetByLabel(
 // +++ Has, by value
 extern_c int
 AverageEnergiesAverageEnergyHasByValue(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const double value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstAverageEnergy
 AverageEnergiesAverageEnergyGetByValueConst(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const double value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByValue(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const double value
 );
 
 // +++ Set, by value
 extern_c void
 AverageEnergiesAverageEnergySetByValue(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const double value,
    ConstHandle2ConstAverageEnergy averageEnergy
 );
@@ -227,28 +227,28 @@ AverageEnergiesAverageEnergySetByValue(
 // +++ Has, by unit
 extern_c int
 AverageEnergiesAverageEnergyHasByUnit(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const char *const unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstAverageEnergy
 AverageEnergiesAverageEnergyGetByUnitConst(
-   ConstHandle2ConstAverageEnergies This,
+   ConstHandle2ConstAverageEnergies self,
    const char *const unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByUnit(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const char *const unit
 );
 
 // +++ Set, by unit
 extern_c void
 AverageEnergiesAverageEnergySetByUnit(
-   ConstHandle2AverageEnergies This,
+   ConstHandle2AverageEnergies self,
    const char *const unit,
    ConstHandle2ConstAverageEnergy averageEnergy
 );

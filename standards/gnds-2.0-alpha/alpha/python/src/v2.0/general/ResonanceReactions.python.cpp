@@ -43,7 +43,7 @@ void wrapResonanceReactions(py::module &module)
    // get/set resonanceReaction
    object.def_property(
       "resonance_reaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceReaction();
       },

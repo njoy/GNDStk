@@ -53,7 +53,7 @@ void wrapWidth(py::module &module)
    // get/set label
    object.def_property(
       "label",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.label();
       },
@@ -67,7 +67,7 @@ void wrapWidth(py::module &module)
    // get/set resonanceReaction
    object.def_property(
       "resonance_reaction",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.resonanceReaction();
       },
@@ -81,7 +81,7 @@ void wrapWidth(py::module &module)
    // get/set degreesOfFreedom
    object.def_property(
       "degrees_of_freedom",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.degreesOfFreedom();
       },
@@ -95,7 +95,7 @@ void wrapWidth(py::module &module)
    // get/set XYs1d
    object.def_property(
       "xys1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.XYs1d();
       },
@@ -109,7 +109,7 @@ void wrapWidth(py::module &module)
    // get/set constant1d
    object.def_property(
       "constant1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.constant1d();
       },
@@ -123,7 +123,7 @@ void wrapWidth(py::module &module)
    // get/set regions1d
    object.def_property(
       "regions1d",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.regions1d();
       },

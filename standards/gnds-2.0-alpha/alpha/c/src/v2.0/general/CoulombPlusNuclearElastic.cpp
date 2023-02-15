@@ -106,20 +106,20 @@ CoulombPlusNuclearElasticCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CoulombPlusNuclearElasticAssign(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstCoulombPlusNuclearElastic from)
+CoulombPlusNuclearElasticAssign(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstCoulombPlusNuclearElastic from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -133,44 +133,44 @@ CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CoulombPlusNuclearElasticRead(ConstHandle2CoulombPlusNuclearElastic This, const char *const filename)
+CoulombPlusNuclearElasticRead(ConstHandle2CoulombPlusNuclearElastic self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CoulombPlusNuclearElasticWrite(ConstHandle2ConstCoulombPlusNuclearElastic This, const char *const filename)
+CoulombPlusNuclearElasticWrite(ConstHandle2ConstCoulombPlusNuclearElastic self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CoulombPlusNuclearElasticPrint(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticPrint(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CoulombPlusNuclearElasticPrintXML(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticPrintXML(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -180,27 +180,27 @@ CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic Th
 
 // Has
 int
-CoulombPlusNuclearElasticLabelHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticLabelHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-CoulombPlusNuclearElasticLabelGet(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticLabelGet(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic This, const char *const label)
+CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -210,27 +210,27 @@ CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic This, co
 
 // Has
 int
-CoulombPlusNuclearElasticHrefHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticHrefHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-CoulombPlusNuclearElasticHrefGet(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticHrefGet(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic This, const char *const href)
+CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -240,27 +240,27 @@ CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic This, con
 
 // Has
 int
-CoulombPlusNuclearElasticPidHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticPidHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 const char *
-CoulombPlusNuclearElasticPidGet(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticPidGet(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic This, const char *const pid)
+CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic self, const char *const pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -270,27 +270,27 @@ CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic This, cons
 
 // Has
 int
-CoulombPlusNuclearElasticProductFrameHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticProductFrameHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 const char *
-CoulombPlusNuclearElasticProductFrameGet(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticProductFrameGet(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic This, const char *const productFrame)
+CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic self, const char *const productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -300,27 +300,27 @@ CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic T
 
 // Has
 int
-CoulombPlusNuclearElasticIdenticalParticlesHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticIdenticalParticlesHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdenticalParticlesHas", This, extract::identicalParticles);
+      (CLASSNAME, CLASSNAME+"IdenticalParticlesHas", self, extract::identicalParticles);
 }
 
 // Get
 // Returns by value
 bool
-CoulombPlusNuclearElasticIdenticalParticlesGet(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticIdenticalParticlesGet(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdenticalParticlesGet", This, extract::identicalParticles);
+      (CLASSNAME, CLASSNAME+"IdenticalParticlesGet", self, extract::identicalParticles);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearElastic This, const bool identicalParticles)
+CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearElastic self, const bool identicalParticles)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdenticalParticlesSet", This, extract::identicalParticles, identicalParticles);
+      (CLASSNAME, CLASSNAME+"IdenticalParticlesSet", self, extract::identicalParticles, identicalParticles);
 }
 
 
@@ -330,34 +330,34 @@ CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearEla
 
 // Has
 int
-CoulombPlusNuclearElasticRutherfordScatteringHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticRutherfordScatteringHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RutherfordScatteringHas", This, extract::RutherfordScattering);
+      (CLASSNAME, CLASSNAME+"RutherfordScatteringHas", self, extract::RutherfordScattering);
 }
 
 // Get, const
 Handle2ConstRutherfordScattering
-CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2ConstRutherfordScattering>
-      (CLASSNAME, CLASSNAME+"RutherfordScatteringGetConst", This, extract::RutherfordScattering);
+      (CLASSNAME, CLASSNAME+"RutherfordScatteringGetConst", self, extract::RutherfordScattering);
 }
 
 // Get, non-const
 Handle2RutherfordScattering
-CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2RutherfordScattering>
-      (CLASSNAME, CLASSNAME+"RutherfordScatteringGet", This, extract::RutherfordScattering);
+      (CLASSNAME, CLASSNAME+"RutherfordScatteringGet", self, extract::RutherfordScattering);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstRutherfordScattering RutherfordScattering)
+CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstRutherfordScattering RutherfordScattering)
 {
    detail::setField<CPP,CPPRutherfordScattering>
-      (CLASSNAME, CLASSNAME+"RutherfordScatteringSet", This, extract::RutherfordScattering, RutherfordScattering);
+      (CLASSNAME, CLASSNAME+"RutherfordScatteringSet", self, extract::RutherfordScattering, RutherfordScattering);
 }
 
 
@@ -367,34 +367,34 @@ CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearE
 
 // Has
 int
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionHas", This, extract::nuclearAmplitudeExpansion);
+      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionHas", self, extract::nuclearAmplitudeExpansion);
 }
 
 // Get, const
 Handle2ConstNuclearAmplitudeExpansion
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2ConstNuclearAmplitudeExpansion>
-      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionGetConst", This, extract::nuclearAmplitudeExpansion);
+      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionGetConst", self, extract::nuclearAmplitudeExpansion);
 }
 
 // Get, non-const
 Handle2NuclearAmplitudeExpansion
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2NuclearAmplitudeExpansion>
-      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionGet", This, extract::nuclearAmplitudeExpansion);
+      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionGet", self, extract::nuclearAmplitudeExpansion);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion)
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion)
 {
    detail::setField<CPP,CPPNuclearAmplitudeExpansion>
-      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionSet", This, extract::nuclearAmplitudeExpansion, nuclearAmplitudeExpansion);
+      (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionSet", self, extract::nuclearAmplitudeExpansion, nuclearAmplitudeExpansion);
 }
 
 
@@ -404,34 +404,34 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuc
 
 // Has
 int
-CoulombPlusNuclearElasticNuclearPlusInterferenceHas(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearPlusInterferenceHas(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceHas", This, extract::nuclearPlusInterference);
+      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceHas", self, extract::nuclearPlusInterference);
 }
 
 // Get, const
 Handle2ConstNuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2ConstNuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGetConst", This, extract::nuclearPlusInterference);
+      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGetConst", self, extract::nuclearPlusInterference);
 }
 
 // Get, non-const
 Handle2NuclearPlusInterference
-CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic This)
+CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic self)
 {
    return detail::getField<CPP,Handle2NuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGet", This, extract::nuclearPlusInterference);
+      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGet", self, extract::nuclearPlusInterference);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticNuclearPlusInterferenceSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference)
+CoulombPlusNuclearElasticNuclearPlusInterferenceSet(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference)
 {
    detail::setField<CPP,CPPNuclearPlusInterference>
-      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceSet", This, extract::nuclearPlusInterference, nuclearPlusInterference);
+      (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceSet", self, extract::nuclearPlusInterference, nuclearPlusInterference);
 }
 
 

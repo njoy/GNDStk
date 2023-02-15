@@ -93,13 +93,13 @@ WeightedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-WeightedAssign(ConstHandle2Weighted This, ConstHandle2ConstWeighted from);
+WeightedAssign(ConstHandle2Weighted self, ConstHandle2ConstWeighted from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-WeightedDelete(ConstHandle2ConstWeighted This);
+WeightedDelete(ConstHandle2ConstWeighted self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ WeightedDelete(ConstHandle2ConstWeighted This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-WeightedRead(ConstHandle2Weighted This, const char *const filename);
+WeightedRead(ConstHandle2Weighted self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-WeightedWrite(ConstHandle2ConstWeighted This, const char *const filename);
+WeightedWrite(ConstHandle2ConstWeighted self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-WeightedPrint(ConstHandle2ConstWeighted This);
+WeightedPrint(ConstHandle2ConstWeighted self);
 
 // +++ Print to standard output, as XML
 extern_c int
-WeightedPrintXML(ConstHandle2ConstWeighted This);
+WeightedPrintXML(ConstHandle2ConstWeighted self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-WeightedPrintJSON(ConstHandle2ConstWeighted This);
+WeightedPrintJSON(ConstHandle2ConstWeighted self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ WeightedPrintJSON(ConstHandle2ConstWeighted This);
 
 // +++ Has
 extern_c int
-WeightedXYs1dHas(ConstHandle2ConstWeighted This);
+WeightedXYs1dHas(ConstHandle2ConstWeighted self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-WeightedXYs1dGetConst(ConstHandle2ConstWeighted This);
+WeightedXYs1dGetConst(ConstHandle2ConstWeighted self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-WeightedXYs1dGet(ConstHandle2Weighted This);
+WeightedXYs1dGet(ConstHandle2Weighted self);
 
 // +++ Set
 extern_c void
-WeightedXYs1dSet(ConstHandle2Weighted This, ConstHandle2ConstXYs1d XYs1d);
+WeightedXYs1dSet(ConstHandle2Weighted self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ WeightedXYs1dSet(ConstHandle2Weighted This, ConstHandle2ConstXYs1d XYs1d);
 
 // +++ Has
 extern_c int
-WeightedEvaporationHas(ConstHandle2ConstWeighted This);
+WeightedEvaporationHas(ConstHandle2ConstWeighted self);
 
 // --- Get, const
 extern_c Handle2ConstEvaporation
-WeightedEvaporationGetConst(ConstHandle2ConstWeighted This);
+WeightedEvaporationGetConst(ConstHandle2ConstWeighted self);
 
 // +++ Get, non-const
 extern_c Handle2Evaporation
-WeightedEvaporationGet(ConstHandle2Weighted This);
+WeightedEvaporationGet(ConstHandle2Weighted self);
 
 // +++ Set
 extern_c void
-WeightedEvaporationSet(ConstHandle2Weighted This, ConstHandle2ConstEvaporation evaporation);
+WeightedEvaporationSet(ConstHandle2Weighted self, ConstHandle2ConstEvaporation evaporation);
 
 
 // -----------------------------------------------------------------------------

@@ -43,7 +43,7 @@ void wrapJs(py::module &module)
    // get/set J
    object.def_property(
       "j",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.J();
       },

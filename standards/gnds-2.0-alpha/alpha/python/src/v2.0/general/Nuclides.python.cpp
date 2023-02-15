@@ -43,7 +43,7 @@ void wrapNuclides(py::module &module)
    // get/set nuclide
    object.def_property(
       "nuclide",
-      [](const cppCLASS &self)
+      [](const cppCLASS &self) -> decltype(auto)
       {
          return self.nuclide();
       },

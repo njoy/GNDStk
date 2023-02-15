@@ -75,20 +75,20 @@ TimeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TimeAssign(ConstHandle2Time This, ConstHandle2ConstTime from)
+TimeAssign(ConstHandle2Time self, ConstHandle2ConstTime from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TimeDelete(ConstHandle2ConstTime This)
+TimeDelete(ConstHandle2ConstTime self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ TimeDelete(ConstHandle2ConstTime This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TimeRead(ConstHandle2Time This, const char *const filename)
+TimeRead(ConstHandle2Time self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TimeWrite(ConstHandle2ConstTime This, const char *const filename)
+TimeWrite(ConstHandle2ConstTime self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TimePrint(ConstHandle2ConstTime This)
+TimePrint(ConstHandle2ConstTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TimePrintXML(ConstHandle2ConstTime This)
+TimePrintXML(ConstHandle2ConstTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TimePrintJSON(ConstHandle2ConstTime This)
+TimePrintJSON(ConstHandle2ConstTime self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ TimePrintJSON(ConstHandle2ConstTime This)
 
 // Has
 int
-TimeDoubleHas(ConstHandle2ConstTime This)
+TimeDoubleHas(ConstHandle2ConstTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-TimeDoubleGetConst(ConstHandle2ConstTime This)
+TimeDoubleGetConst(ConstHandle2ConstTime self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-TimeDoubleGet(ConstHandle2Time This)
+TimeDoubleGet(ConstHandle2Time self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-TimeDoubleSet(ConstHandle2Time This, ConstHandle2ConstDouble Double)
+TimeDoubleSet(ConstHandle2Time self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 
@@ -186,34 +186,34 @@ TimeDoubleSet(ConstHandle2Time This, ConstHandle2ConstDouble Double)
 
 // Has
 int
-TimeStringHas(ConstHandle2ConstTime This)
+TimeStringHas(ConstHandle2ConstTime self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StringHas", This, extract::string);
+      (CLASSNAME, CLASSNAME+"StringHas", self, extract::string);
 }
 
 // Get, const
 Handle2ConstString
-TimeStringGetConst(ConstHandle2ConstTime This)
+TimeStringGetConst(ConstHandle2ConstTime self)
 {
    return detail::getField<CPP,Handle2ConstString>
-      (CLASSNAME, CLASSNAME+"StringGetConst", This, extract::string);
+      (CLASSNAME, CLASSNAME+"StringGetConst", self, extract::string);
 }
 
 // Get, non-const
 Handle2String
-TimeStringGet(ConstHandle2Time This)
+TimeStringGet(ConstHandle2Time self)
 {
    return detail::getField<CPP,Handle2String>
-      (CLASSNAME, CLASSNAME+"StringGet", This, extract::string);
+      (CLASSNAME, CLASSNAME+"StringGet", self, extract::string);
 }
 
 // Set
 void
-TimeStringSet(ConstHandle2Time This, ConstHandle2ConstString string)
+TimeStringSet(ConstHandle2Time self, ConstHandle2ConstString string)
 {
    detail::setField<CPP,CPPString>
-      (CLASSNAME, CLASSNAME+"StringSet", This, extract::string, string);
+      (CLASSNAME, CLASSNAME+"StringSet", self, extract::string, string);
 }
 
 
