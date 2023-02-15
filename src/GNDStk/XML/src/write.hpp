@@ -82,12 +82,10 @@ bool write(const std::string &filename, const bool decl = true) const
       return false;
    }
 
-   // write to ostream
-   if (!write(ofs,decl)) {
-      log::member("XML.write(\"{}\")", filename);
-      return false;
-   }
+   // write to the ofstream
+   if (write(ofs,decl) << std::endl)
+      return true;
 
-   // done
-   return true;
+   log::member("XML.write(\"{}\")", filename);
+   return false;
 }

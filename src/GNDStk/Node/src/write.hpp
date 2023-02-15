@@ -3,29 +3,23 @@
 // Node.write()
 // -----------------------------------------------------------------------------
 
-// Cases for our FileType::debug format:
-//    write(ostream, int level)
-//    write(file,    int level)
-// The "level" parameter keeps track of the indentation level.
-// These print exactly what's in the Node, even, say, if the Node's name
-// is the empty string.
-//
-// General cases:
-// 1. write(ostream, FileType)
-// 2. write(file,    FileType) calls 1 after making ostream from file
-// 3. write(ostream, string  ) calls 1 after making FileType from string
-// 4. write(file,    string  ) calls 2 after making FileType from string
-
+// Cases:
+// 0. Helper for writing in the FileType::debug format
+// 1. write(ostream,  FileType)
+// 2. write(filename, FileType) calls 1 after making ostream from filename
+// 3. write(ostream,  string  ) calls 1 after making FileType from string
+// 4. write(filename, string  ) calls 2 after making FileType from string
 
 
 // -----------------------------------------------------------------------------
-// Helper
+// 0. Helper
 // write(ostream, int level)
-// For FileType::debug
+// For FileType::debug, our internal "debug format".
 // -----------------------------------------------------------------------------
 
 private:
 
+// The level parameter keeps track of the indentation level.
 std::ostream &write(std::ostream &os, const int level) const
 {
    // indentation: spaces for current and next levels
@@ -67,7 +61,6 @@ std::ostream &write(std::ostream &os, const int level) const
 }
 
 
-
 // -----------------------------------------------------------------------------
 // 1. write(ostream, FileType)
 // -----------------------------------------------------------------------------
@@ -78,7 +71,7 @@ std::ostream &write(
    std::ostream &os = std::cout,
    const FileType format = FileType::guess,
    const bool &DECL = detail::default_bool,
-   // If circumstances are such that we end up writing an HDF5, the following
+   // If circumstances are such that we end up writing as HDF5, the following
    // may be != "" if the ostream is from an ofstream. In that case, the HDF5
    // writer can produce output directly into the intended file, bypassing the
    // need to create a temporary file and transfer its contents to the ostream.
@@ -108,7 +101,7 @@ std::ostream &write(
    // to examine. On the other hand, we like having format be optional, so
    // our various Node I/O functions are as consistent with one another as
    // reasonably possible. Note also that if the user calls operator<<, then
-   // there's no opportunity to explicitly provide a format.
+   // there's no opportunity to provide a format explicitly.
 
    try {
       const bool decl = detail::getDecl(*this,DECL);
@@ -146,9 +139,8 @@ std::ostream &write(
 }
 
 
-
 // -----------------------------------------------------------------------------
-// 2. write(file, FileType)
+// 2. write(filename, FileType)
 // -----------------------------------------------------------------------------
 
 bool write(
@@ -214,13 +206,29 @@ bool write(
       const bool decl = detail::getDecl(*this,DECL);
       if (!write(ofs, format, decl, filename))
          throw std::exception{};
+
+      // If the file is some type of text file (so, here, anything other than
+      // HDF5, which is binary), we'll also give the file a trailing newline.
+      // Note that throughout GNDStk, we generally *don't* write such newlines,
+      // because whether newlines are really wanted, or not wanted, depends on
+      // context. If, for example, someone is writing an xml representation into
+      // a string, via an ostringstream, a trailing newline is probably neither
+      // wanted nor expected. Right here, however, we're dealing specifically
+      // with the case of a caller having provided a file name. (The file was
+      // opened, a few lines above, as an ofstream.) We know, then, that we're
+      // writing to a file, and most people would expect a newline at the end
+      // of the last line with actual text. So, we'll add the newline after the
+      // above call to write(ostream,...) - which emits no newline - finishes.
+      if (format != FileType::hdf5)
+         ofs << std::endl;
+
+      // Done.
       return bool(ofs);
    } catch (...) {
       log::member("Node.write(\"{}\")", filename);
       throw;
    }
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -255,9 +263,8 @@ std::ostream &write(
 }
 
 
-
 // -----------------------------------------------------------------------------
-// 4. write(file, string)
+// 4. write(filename, string)
 // -----------------------------------------------------------------------------
 
 bool write(

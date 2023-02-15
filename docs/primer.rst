@@ -259,7 +259,7 @@ explicitly, and can either be something from GNDStk's ``FileType`` enumerator:
    :language: cpp
 
 or can be a direct string: ``"xml"``, etc. A direct string is shorter and
-slightly easier to type -- but, if mistyped, would lead to a run-time error,
+slightly easier to type -- but, if mistyped, would lead to a runtime error,
 not a compile-time error, if that matters to you in this simple context.
 
 *You should seldom, if ever, need to provide the second argument*. Absent the

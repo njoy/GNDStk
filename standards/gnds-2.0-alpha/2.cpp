@@ -39,12 +39,9 @@ int main(const int argc, const char *const *const argv)
       r.read(argv[i]);
 
       // Prettyprint the entire ReactionSuite.
-      std::cout << std::endl;
       r.print();
 
       // Prettyprint just the <reactions> portion.
-      std::cout << std::endl;
       r.reactions().print(); // <== ask me about the () business
-      std::cout << std::endl;
    }
 }

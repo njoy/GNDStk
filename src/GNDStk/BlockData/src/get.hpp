@@ -396,7 +396,7 @@ std::conditional_t<
          }
       );
       // We can't return the specific variant alternative that was just put
-      // in place; it depended on a run-time check. So, we return the entire
+      // in place; it depended on a runtime check. So, we return the entire
       // variant, for whatever use that might have to a caller.
       return variant;
    } else {

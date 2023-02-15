@@ -52,7 +52,7 @@ the enclosing class to do the right thing.
 // -----------------------------------------------------------------------------
 // print(ostream,level)
 // Low-level version, possibly building on other Component-derived objects.
-// Doesn't print the trailing newline.
+// Doesn't print a trailing newline.
 // -----------------------------------------------------------------------------
 
 std::ostream &print(
@@ -62,6 +62,10 @@ std::ostream &print(
    const std::string label = detail::fullName(Namespace(), Class());
 
    try {
+      // Consistency check
+      // todo Eventually remove, or make a proper error. Shouldn't happen.
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
+
       // ------------------------
       // Indent, header, newline
       // ------------------------
@@ -71,12 +75,6 @@ std::ostream &print(
          detail::colorize(label, labelColor) + ' ' + detail::colorize_brace("{")
       );
       os << std::endl;
-
-      // ------------------------
-      // Consistency check
-      // ------------------------
-
-      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // ------------------------
       // For alignment
@@ -215,7 +213,7 @@ std::ostream &print(
 
 
 // -----------------------------------------------------------------------------
-// print
+// print()
 // print(ostream)
 // Print trailing newlines.
 // -----------------------------------------------------------------------------
@@ -246,11 +244,13 @@ DERIVED &print(std::ostream &os = std::cout)
 // Component::xml()
 // Component::json()
 // Component::hdf5()
+// Component::debug()
+// Print trailing newlines.
 //
 // Shortcuts: like write(), but (1) in the given format, (2) to std::cout
 // by default, and (3) with a trailing newline, print()-style. In view of
 // points (2) and (3), these resemble print() more than write(), so I put
-// them here, not in the file that defines the write()s.
+// them here, not in the file that defines the write() functions.
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -275,6 +275,12 @@ std::ostream &hdf5(std::ostream &os = std::cout, const bool decl = false) const
    return write(os,"hdf5",decl) << std::endl, os;
 }
 
+// debug
+std::ostream &debug(std::ostream &os = std::cout, const bool decl = false) const
+{
+   return write(os,"debug",decl) << std::endl, os;
+}
+
 // ------------------------
 // decl, ostream
 // ------------------------
@@ -295,4 +301,10 @@ std::ostream &json(const bool decl, std::ostream &os = std::cout) const
 std::ostream &hdf5(const bool decl, std::ostream &os = std::cout) const
 {
    return hdf5(os,decl);
+}
+
+// debug
+std::ostream &debug(const bool decl, std::ostream &os = std::cout) const
+{
+   return debug(os,decl);
 }

@@ -5,6 +5,11 @@
 // So, Component-derived classes can use .write(...) directly.
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// stream, with enum- or
+// string-based file type
+// ------------------------
+
 // write(ostream, FileType)
 std::ostream &write(
    std::ostream &os = std::cout,
@@ -12,15 +17,6 @@ std::ostream &write(
    const bool decl = false
 ) const {
    return Node(*this).write(os, format, decl);
-}
-
-// write(file, FileType)
-bool write(
-   const std::string &filename,
-   const FileType format = FileType::guess,
-   const bool decl = false
-) const {
-   return Node(*this).write(filename, format, decl);
 }
 
 // write(ostream, string)
@@ -32,7 +28,21 @@ std::ostream &write(
    return Node(*this).write(os, format, decl);
 }
 
-// write(file, string)
+// ------------------------
+// filename, with enum- or
+// string-based file type
+// ------------------------
+
+// write(filename, FileType)
+bool write(
+   const std::string &filename,
+   const FileType format = FileType::guess,
+   const bool decl = false
+) const {
+   return Node(*this).write(filename, format, decl);
+}
+
+// write(filename, string)
 bool write(
    const std::string &filename,
    const std::string &format,

@@ -27,7 +27,7 @@ void toNode(std::string &text) const
         runtime ||
       (!runtime && std::is_same_v<std::string,DATATYPE>)
    ) {
-      // the run-time if's get<std::string>() calls below won't
+      // the runtime if's get<std::string>() calls below won't
       // necessarily make sense without the above if-constexpr
       if (isStringVector && !trim &&
           // only bother with the warning if trim would make a difference...

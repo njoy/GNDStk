@@ -38,6 +38,20 @@ void wrapTitle(py::module &module)
       cppCLASS::component_t::documentation("constructor").data()
    );
 
+   // get/set data string
+   object.def_property(
+      "string",
+      [](const cppCLASS &self) -> const std::string &
+      {
+         return self;
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self = value;
+      },
+      cppCLASS::component_t::documentation("string").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -81,9 +81,9 @@ bool added(
    // of the below constexpr ifs passes.
    (void)n;
 
-   // Remark. The below conditional code (involving both run-time and constexpr
+   // Remark. The below conditional code (involving both runtime and constexpr
    // ifs) doesn't simplify in what may seem like obvious ways. Note that bool
-   // exact is run-time, and came from looking over all types in the caller's
+   // exact is runtime, and came from looking over all types in the caller's
    // fold expression. For a given type from the fold expression, either or both
    // of the following constexpr ifs may fail, and their bodies not make sense
    // or not be something we'd necessarily want to call. (Specifically, if exact
