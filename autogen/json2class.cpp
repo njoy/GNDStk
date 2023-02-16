@@ -1529,8 +1529,6 @@ void writeClassCtors(writer &out, const PerClass &per)
             break;
          }
 
-      // qqq Might change this re: wrapper...
-
       // signature
       count = 0;
       out(1,"explicit @(", per.clname);

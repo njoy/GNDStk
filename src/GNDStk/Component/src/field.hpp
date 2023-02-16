@@ -7,6 +7,9 @@ class FieldPart {
 
 // -----------------------------------------------------------------------------
 // Field
+// Note that this class is defined inside of class Component. We do this because
+// it uses type Component itself (the particular Component<...> that it's in) as
+// well as type DERIVED (the class that derives from this Component via CRTP).
 // -----------------------------------------------------------------------------
 
 template<class T>
@@ -415,6 +418,7 @@ public:
 
 // -----------------------------------------------------------------------------
 // FieldPart
+// As with class Field, this is intentionally defined within class Component.
 // -----------------------------------------------------------------------------
 
 template<class WHOLE, class PART>
@@ -861,7 +865,19 @@ public:
 
 // -----------------------------------------------------------------------------
 // wrapper
+// This doesn't really need to be defined within class Component, but it's used
+// only in that context, so might as well be.
 // -----------------------------------------------------------------------------
+
+// This class is used in the context of parameters in certain constructors
+// of Component-derived classes that we create with the GNDStk Code Generator.
+// It helps to regularize and simplify the process of providing default values
+// to those parameters, and in doing so, it gives the constructors in question
+// a more streamlined, less bulky look and feel. We could do without it, but
+// we like the improved appearance it facilitates. Note: wrapper is formulated
+// in such a way that it shouldn't cause any issues with the py::init<...> and
+// py::arg(...) material in our pybind11-based Python binding code. If it ever
+// proves to cause any trouble in that respect, we'll reconsider using it.
 
 template<class T>
 struct wrapper {
