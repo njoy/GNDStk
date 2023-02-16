@@ -26,12 +26,12 @@ class SpinGroup :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "SpinGroup"; }
-   static auto FIELD() { return "spinGroup"; }
+   static auto NODENAME() { return "spinGroup"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,12 +47,49 @@ class SpinGroup :
             / Meta<>("parity") |
 
          // children
-         --Child<resonances::Channels>("channels") |
-         --Child<resonances::ResonanceParameters>("resonanceParameters")
+         --Child<resonances::Channels>
+            ("channels") |
+         --Child<resonances::ResonanceParameters>
+            ("resonanceParameters")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "spin",
+         "parity",
+         "channels",
+         "resonanceParameters"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "spin",
+         "parity",
+         "channels",
+         "resonance_parameters"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -60,29 +97,41 @@ public:
       static inline const Integer32 parity = 1;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<Fraction32> spin{this};
-   Field<Defaulted<Integer32>> parity{this,defaults.parity};
+   Field<XMLName>
+      label{this};
+   Field<Fraction32>
+      spin{this};
+   Field<Defaulted<Integer32>>
+      parity{this,defaults.parity};
 
    // children
-   Field<resonances::Channels> channels{this};
-   Field<resonances::ResonanceParameters> resonanceParameters{this};
+   Field<resonances::Channels>
+      channels{this};
+   Field<resonances::ResonanceParameters>
+      resonanceParameters{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->spin, \
       this->parity, \
       this->channels, \
-      this->resonanceParameters)
+      this->resonanceParameters \
+   )
 
    // default
    SpinGroup() :
@@ -94,11 +143,16 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit SpinGroup(
-      const wrapper<XMLName> &label,
-      const wrapper<Fraction32> &spin = {},
-      const wrapper<std::optional<Integer32>> &parity = {},
-      const wrapper<resonances::Channels> &channels = {},
-      const wrapper<resonances::ResonanceParameters> &resonanceParameters = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<Fraction32>
+         &spin = {},
+      const wrapper<std::optional<Integer32>>
+         &parity = {},
+      const wrapper<resonances::Channels>
+         &channels = {},
+      const wrapper<resonances::ResonanceParameters>
+         &resonanceParameters = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -147,8 +201,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   SpinGroup &operator=(const SpinGroup &) = default;
-   SpinGroup &operator=(SpinGroup &&) = default;
+   // copy
+   SpinGroup &operator=(const SpinGroup &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         spin = other.spin;
+         parity = other.parity;
+         channels = other.channels;
+         resonanceParameters = other.resonanceParameters;
+      }
+      return *this;
+   }
+
+   // move
+   SpinGroup &operator=(SpinGroup &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         channels = std::move(other.channels);
+         resonanceParameters = std::move(other.resonanceParameters);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

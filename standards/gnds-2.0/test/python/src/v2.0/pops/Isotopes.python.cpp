@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Isotopes wrapper
-void wrapIsotopes(python::module &module)
+// wrapper for pops::Isotopes
+void wrapIsotopes(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Isotopes;
+   using cppCLASS = pops::Isotopes;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Isotopes",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Isotopes",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Isotope> &
-         >(),
-         python::arg("isotope"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "isotope",
-         [](const Component &self) { return self.isotope(); },
-         Component::documentation("isotope").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Isotope> &
+      >(),
+      py::arg("isotope"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set isotope
+   object.def_property(
+      "isotope",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotope();
+      },
+      [](cppCLASS &self, const std::vector<pops::Isotope> &value)
+      {
+         self.isotope() = value;
+      },
+      cppCLASS::component_t::documentation("isotope").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

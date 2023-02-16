@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// OrphanProducts wrapper
-void wrapOrphanProducts(python::module &module)
+// wrapper for transport::OrphanProducts
+void wrapOrphanProducts(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::OrphanProducts;
+   using cppCLASS = transport::OrphanProducts;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "OrphanProducts",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "OrphanProducts",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<transport::OrphanProduct> &
-         >(),
-         python::arg("orphan_product"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "orphan_product",
-         [](const Component &self) { return self.orphanProduct(); },
-         Component::documentation("orphan_product").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<transport::OrphanProduct> &
+      >(),
+      py::arg("orphan_product"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set orphanProduct
+   object.def_property(
+      "orphan_product",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.orphanProduct();
+      },
+      [](cppCLASS &self, const std::vector<transport::OrphanProduct> &value)
+      {
+         self.orphanProduct() = value;
+      },
+      cppCLASS::component_t::documentation("orphan_product").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

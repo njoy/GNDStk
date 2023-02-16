@@ -113,20 +113,20 @@ MapCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MapAssign(ConstHandle2Map This, ConstHandle2ConstMap from)
+MapAssign(ConstHandle2Map self, ConstHandle2ConstMap from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MapDelete(ConstHandle2ConstMap This)
+MapDelete(ConstHandle2ConstMap self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -140,44 +140,44 @@ MapDelete(ConstHandle2ConstMap This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MapRead(ConstHandle2Map This, const char *const filename)
+MapRead(ConstHandle2Map self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MapWrite(ConstHandle2ConstMap This, const char *const filename)
+MapWrite(ConstHandle2ConstMap self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MapPrint(ConstHandle2ConstMap This)
+MapPrint(ConstHandle2ConstMap self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MapPrintXML(ConstHandle2ConstMap This)
+MapPrintXML(ConstHandle2ConstMap self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MapPrintJSON(ConstHandle2ConstMap This)
+MapPrintJSON(ConstHandle2ConstMap self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -187,27 +187,27 @@ MapPrintJSON(ConstHandle2ConstMap This)
 
 // Has
 int
-MapLibraryHas(ConstHandle2ConstMap This)
+MapLibraryHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LibraryHas", This, extract::library);
+      (CLASSNAME, CLASSNAME+"LibraryHas", self, extract::library);
 }
 
 // Get
 // Returns by value
 XMLName
-MapLibraryGet(ConstHandle2ConstMap This)
+MapLibraryGet(ConstHandle2ConstMap self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LibraryGet", This, extract::library);
+      (CLASSNAME, CLASSNAME+"LibraryGet", self, extract::library);
 }
 
 // Set
 void
-MapLibrarySet(ConstHandle2Map This, const XMLName library)
+MapLibrarySet(ConstHandle2Map self, const XMLName library)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LibrarySet", This, extract::library, library);
+      (CLASSNAME, CLASSNAME+"LibrarySet", self, extract::library, library);
 }
 
 
@@ -217,27 +217,27 @@ MapLibrarySet(ConstHandle2Map This, const XMLName library)
 
 // Has
 int
-MapFormatHas(ConstHandle2ConstMap This)
+MapFormatHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 XMLName
-MapFormatGet(ConstHandle2ConstMap This)
+MapFormatGet(ConstHandle2ConstMap self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-MapFormatSet(ConstHandle2Map This, const XMLName format)
+MapFormatSet(ConstHandle2Map self, const XMLName format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -247,27 +247,27 @@ MapFormatSet(ConstHandle2Map This, const XMLName format)
 
 // Has
 int
-MapChecksumHas(ConstHandle2ConstMap This)
+MapChecksumHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumHas", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumHas", self, extract::checksum);
 }
 
 // Get
 // Returns by value
 const char *
-MapChecksumGet(ConstHandle2ConstMap This)
+MapChecksumGet(ConstHandle2ConstMap self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumGet", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumGet", self, extract::checksum);
 }
 
 // Set
 void
-MapChecksumSet(ConstHandle2Map This, const char *const checksum)
+MapChecksumSet(ConstHandle2Map self, const char *const checksum)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumSet", self, extract::checksum, checksum);
 }
 
 
@@ -277,27 +277,27 @@ MapChecksumSet(ConstHandle2Map This, const char *const checksum)
 
 // Has
 int
-MapAlgorithmHas(ConstHandle2ConstMap This)
+MapAlgorithmHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmHas", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmHas", self, extract::algorithm);
 }
 
 // Get
 // Returns by value
 enums::HashAlgorithm
-MapAlgorithmGet(ConstHandle2ConstMap This)
+MapAlgorithmGet(ConstHandle2ConstMap self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmGet", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmGet", self, extract::algorithm);
 }
 
 // Set
 void
-MapAlgorithmSet(ConstHandle2Map This, const enums::HashAlgorithm algorithm)
+MapAlgorithmSet(ConstHandle2Map self, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmSet", self, extract::algorithm, algorithm);
 }
 
 
@@ -307,196 +307,196 @@ MapAlgorithmSet(ConstHandle2Map This, const enums::HashAlgorithm algorithm)
 
 // Has
 int
-MapImportHas(ConstHandle2ConstMap This)
+MapImportHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ImportHas", This, extract::import);
+      (CLASSNAME, CLASSNAME+"ImportHas", self, extract::import);
 }
 
 // Clear
 void
-MapImportClear(ConstHandle2Map This)
+MapImportClear(ConstHandle2Map self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ImportClear", This, extract::import);
+      (CLASSNAME, CLASSNAME+"ImportClear", self, extract::import);
 }
 
 // Size
 size_t
-MapImportSize(ConstHandle2ConstMap This)
+MapImportSize(ConstHandle2ConstMap self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ImportSize", This, extract::import);
+      (CLASSNAME, CLASSNAME+"ImportSize", self, extract::import);
 }
 
 // Add
 void
-MapImportAdd(ConstHandle2Map This, ConstHandle2ConstImport import)
+MapImportAdd(ConstHandle2Map self, ConstHandle2ConstImport import)
 {
    detail::addToContainer<CPP,CPPImport>
-      (CLASSNAME, CLASSNAME+"ImportAdd", This, extract::import, import);
+      (CLASSNAME, CLASSNAME+"ImportAdd", self, extract::import, import);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstImport
-MapImportGetConst(ConstHandle2ConstMap This, const size_t index_)
+MapImportGetConst(ConstHandle2ConstMap self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstImport>
-      (CLASSNAME, CLASSNAME+"ImportGetConst", This, extract::import, index_);
+      (CLASSNAME, CLASSNAME+"ImportGetConst", self, extract::import, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Import
-MapImportGet(ConstHandle2Map This, const size_t index_)
+MapImportGet(ConstHandle2Map self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Import>
-      (CLASSNAME, CLASSNAME+"ImportGet", This, extract::import, index_);
+      (CLASSNAME, CLASSNAME+"ImportGet", self, extract::import, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MapImportSet(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const size_t index_,
    ConstHandle2ConstImport import
 ) {
    detail::setByIndex<CPP,CPPImport>
-      (CLASSNAME, CLASSNAME+"ImportSet", This, extract::import, index_, import);
+      (CLASSNAME, CLASSNAME+"ImportSet", self, extract::import, index_, import);
 }
 
 // Has, by path
 int
 MapImportHasByPath(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ImportHasByPath",
-       This, extract::import, meta::path, path);
+       self, extract::import, meta::path, path);
 }
 
 // Get, by path, const
 Handle2ConstImport
 MapImportGetByPathConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstImport>
       (CLASSNAME, CLASSNAME+"ImportGetByPathConst",
-       This, extract::import, meta::path, path);
+       self, extract::import, meta::path, path);
 }
 
 // Get, by path, non-const
 Handle2Import
 MapImportGetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2Import>
       (CLASSNAME, CLASSNAME+"ImportGetByPath",
-       This, extract::import, meta::path, path);
+       self, extract::import, meta::path, path);
 }
 
 // Set, by path
 void
 MapImportSetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path,
    ConstHandle2ConstImport import
 ) {
    detail::setByMetadatum<CPP,CPPImport>
       (CLASSNAME, CLASSNAME+"ImportSetByPath",
-       This, extract::import, meta::path, path, import);
+       self, extract::import, meta::path, path, import);
 }
 
 // Has, by checksum
 int
 MapImportHasByChecksum(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ImportHasByChecksum",
-       This, extract::import, meta::checksum, checksum);
+       self, extract::import, meta::checksum, checksum);
 }
 
 // Get, by checksum, const
 Handle2ConstImport
 MapImportGetByChecksumConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstImport>
       (CLASSNAME, CLASSNAME+"ImportGetByChecksumConst",
-       This, extract::import, meta::checksum, checksum);
+       self, extract::import, meta::checksum, checksum);
 }
 
 // Get, by checksum, non-const
 Handle2Import
 MapImportGetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2Import>
       (CLASSNAME, CLASSNAME+"ImportGetByChecksum",
-       This, extract::import, meta::checksum, checksum);
+       self, extract::import, meta::checksum, checksum);
 }
 
 // Set, by checksum
 void
 MapImportSetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum,
    ConstHandle2ConstImport import
 ) {
    detail::setByMetadatum<CPP,CPPImport>
       (CLASSNAME, CLASSNAME+"ImportSetByChecksum",
-       This, extract::import, meta::checksum, checksum, import);
+       self, extract::import, meta::checksum, checksum, import);
 }
 
 // Has, by algorithm
 int
 MapImportHasByAlgorithm(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ImportHasByAlgorithm",
-       This, extract::import, meta::algorithm, algorithm);
+       self, extract::import, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, const
 Handle2ConstImport
 MapImportGetByAlgorithmConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstImport>
       (CLASSNAME, CLASSNAME+"ImportGetByAlgorithmConst",
-       This, extract::import, meta::algorithm, algorithm);
+       self, extract::import, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, non-const
 Handle2Import
 MapImportGetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2Import>
       (CLASSNAME, CLASSNAME+"ImportGetByAlgorithm",
-       This, extract::import, meta::algorithm, algorithm);
+       self, extract::import, meta::algorithm, algorithm);
 }
 
 // Set, by algorithm
 void
 MapImportSetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm,
    ConstHandle2ConstImport import
 ) {
    detail::setByMetadatum<CPP,CPPImport>
       (CLASSNAME, CLASSNAME+"ImportSetByAlgorithm",
-       This, extract::import, meta::algorithm, algorithm, import);
+       self, extract::import, meta::algorithm, algorithm, import);
 }
 
 
@@ -506,376 +506,376 @@ MapImportSetByAlgorithm(
 
 // Has
 int
-MapProtareHas(ConstHandle2ConstMap This)
+MapProtareHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProtareHas", This, extract::protare);
+      (CLASSNAME, CLASSNAME+"ProtareHas", self, extract::protare);
 }
 
 // Clear
 void
-MapProtareClear(ConstHandle2Map This)
+MapProtareClear(ConstHandle2Map self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ProtareClear", This, extract::protare);
+      (CLASSNAME, CLASSNAME+"ProtareClear", self, extract::protare);
 }
 
 // Size
 size_t
-MapProtareSize(ConstHandle2ConstMap This)
+MapProtareSize(ConstHandle2ConstMap self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ProtareSize", This, extract::protare);
+      (CLASSNAME, CLASSNAME+"ProtareSize", self, extract::protare);
 }
 
 // Add
 void
-MapProtareAdd(ConstHandle2Map This, ConstHandle2ConstProtare protare)
+MapProtareAdd(ConstHandle2Map self, ConstHandle2ConstProtare protare)
 {
    detail::addToContainer<CPP,CPPProtare>
-      (CLASSNAME, CLASSNAME+"ProtareAdd", This, extract::protare, protare);
+      (CLASSNAME, CLASSNAME+"ProtareAdd", self, extract::protare, protare);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstProtare
-MapProtareGetConst(ConstHandle2ConstMap This, const size_t index_)
+MapProtareGetConst(ConstHandle2ConstMap self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstProtare>
-      (CLASSNAME, CLASSNAME+"ProtareGetConst", This, extract::protare, index_);
+      (CLASSNAME, CLASSNAME+"ProtareGetConst", self, extract::protare, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Protare
-MapProtareGet(ConstHandle2Map This, const size_t index_)
+MapProtareGet(ConstHandle2Map self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Protare>
-      (CLASSNAME, CLASSNAME+"ProtareGet", This, extract::protare, index_);
+      (CLASSNAME, CLASSNAME+"ProtareGet", self, extract::protare, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MapProtareSet(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const size_t index_,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByIndex<CPP,CPPProtare>
-      (CLASSNAME, CLASSNAME+"ProtareSet", This, extract::protare, index_, protare);
+      (CLASSNAME, CLASSNAME+"ProtareSet", self, extract::protare, index_, protare);
 }
 
 // Has, by projectile
 int
 MapProtareHasByProjectile(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName projectile
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByProjectile",
-       This, extract::protare, meta::projectile, projectile);
+       self, extract::protare, meta::projectile, projectile);
 }
 
 // Get, by projectile, const
 Handle2ConstProtare
 MapProtareGetByProjectileConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName projectile
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByProjectileConst",
-       This, extract::protare, meta::projectile, projectile);
+       self, extract::protare, meta::projectile, projectile);
 }
 
 // Get, by projectile, non-const
 Handle2Protare
 MapProtareGetByProjectile(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName projectile
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByProjectile",
-       This, extract::protare, meta::projectile, projectile);
+       self, extract::protare, meta::projectile, projectile);
 }
 
 // Set, by projectile
 void
 MapProtareSetByProjectile(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName projectile,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByProjectile",
-       This, extract::protare, meta::projectile, projectile, protare);
+       self, extract::protare, meta::projectile, projectile, protare);
 }
 
 // Has, by target
 int
 MapProtareHasByTarget(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName target
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByTarget",
-       This, extract::protare, meta::target, target);
+       self, extract::protare, meta::target, target);
 }
 
 // Get, by target, const
 Handle2ConstProtare
 MapProtareGetByTargetConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName target
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByTargetConst",
-       This, extract::protare, meta::target, target);
+       self, extract::protare, meta::target, target);
 }
 
 // Get, by target, non-const
 Handle2Protare
 MapProtareGetByTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName target
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByTarget",
-       This, extract::protare, meta::target, target);
+       self, extract::protare, meta::target, target);
 }
 
 // Set, by target
 void
 MapProtareSetByTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName target,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByTarget",
-       This, extract::protare, meta::target, target, protare);
+       self, extract::protare, meta::target, target, protare);
 }
 
 // Has, by evaluation
 int
 MapProtareHasByEvaluation(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName evaluation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByEvaluation",
-       This, extract::protare, meta::evaluation, evaluation);
+       self, extract::protare, meta::evaluation, evaluation);
 }
 
 // Get, by evaluation, const
 Handle2ConstProtare
 MapProtareGetByEvaluationConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName evaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByEvaluationConst",
-       This, extract::protare, meta::evaluation, evaluation);
+       self, extract::protare, meta::evaluation, evaluation);
 }
 
 // Get, by evaluation, non-const
 Handle2Protare
 MapProtareGetByEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName evaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByEvaluation",
-       This, extract::protare, meta::evaluation, evaluation);
+       self, extract::protare, meta::evaluation, evaluation);
 }
 
 // Set, by evaluation
 void
 MapProtareSetByEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName evaluation,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByEvaluation",
-       This, extract::protare, meta::evaluation, evaluation, protare);
+       self, extract::protare, meta::evaluation, evaluation, protare);
 }
 
 // Has, by path
 int
 MapProtareHasByPath(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByPath",
-       This, extract::protare, meta::path, path);
+       self, extract::protare, meta::path, path);
 }
 
 // Get, by path, const
 Handle2ConstProtare
 MapProtareGetByPathConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByPathConst",
-       This, extract::protare, meta::path, path);
+       self, extract::protare, meta::path, path);
 }
 
 // Get, by path, non-const
 Handle2Protare
 MapProtareGetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByPath",
-       This, extract::protare, meta::path, path);
+       self, extract::protare, meta::path, path);
 }
 
 // Set, by path
 void
 MapProtareSetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByPath",
-       This, extract::protare, meta::path, path, protare);
+       self, extract::protare, meta::path, path, protare);
 }
 
 // Has, by interaction
 int
 MapProtareHasByInteraction(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName interaction
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByInteraction",
-       This, extract::protare, meta::interaction, interaction);
+       self, extract::protare, meta::interaction, interaction);
 }
 
 // Get, by interaction, const
 Handle2ConstProtare
 MapProtareGetByInteractionConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName interaction
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByInteractionConst",
-       This, extract::protare, meta::interaction, interaction);
+       self, extract::protare, meta::interaction, interaction);
 }
 
 // Get, by interaction, non-const
 Handle2Protare
 MapProtareGetByInteraction(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName interaction
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByInteraction",
-       This, extract::protare, meta::interaction, interaction);
+       self, extract::protare, meta::interaction, interaction);
 }
 
 // Set, by interaction
 void
 MapProtareSetByInteraction(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName interaction,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByInteraction",
-       This, extract::protare, meta::interaction, interaction, protare);
+       self, extract::protare, meta::interaction, interaction, protare);
 }
 
 // Has, by checksum
 int
 MapProtareHasByChecksum(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByChecksum",
-       This, extract::protare, meta::checksum, checksum);
+       self, extract::protare, meta::checksum, checksum);
 }
 
 // Get, by checksum, const
 Handle2ConstProtare
 MapProtareGetByChecksumConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByChecksumConst",
-       This, extract::protare, meta::checksum, checksum);
+       self, extract::protare, meta::checksum, checksum);
 }
 
 // Get, by checksum, non-const
 Handle2Protare
 MapProtareGetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByChecksum",
-       This, extract::protare, meta::checksum, checksum);
+       self, extract::protare, meta::checksum, checksum);
 }
 
 // Set, by checksum
 void
 MapProtareSetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByChecksum",
-       This, extract::protare, meta::checksum, checksum, protare);
+       self, extract::protare, meta::checksum, checksum, protare);
 }
 
 // Has, by algorithm
 int
 MapProtareHasByAlgorithm(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ProtareHasByAlgorithm",
-       This, extract::protare, meta::algorithm, algorithm);
+       self, extract::protare, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, const
 Handle2ConstProtare
 MapProtareGetByAlgorithmConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstProtare>
       (CLASSNAME, CLASSNAME+"ProtareGetByAlgorithmConst",
-       This, extract::protare, meta::algorithm, algorithm);
+       self, extract::protare, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, non-const
 Handle2Protare
 MapProtareGetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2Protare>
       (CLASSNAME, CLASSNAME+"ProtareGetByAlgorithm",
-       This, extract::protare, meta::algorithm, algorithm);
+       self, extract::protare, meta::algorithm, algorithm);
 }
 
 // Set, by algorithm
 void
 MapProtareSetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm,
    ConstHandle2ConstProtare protare
 ) {
    detail::setByMetadatum<CPP,CPPProtare>
       (CLASSNAME, CLASSNAME+"ProtareSetByAlgorithm",
-       This, extract::protare, meta::algorithm, algorithm, protare);
+       self, extract::protare, meta::algorithm, algorithm, protare);
 }
 
 
@@ -885,466 +885,466 @@ MapProtareSetByAlgorithm(
 
 // Has
 int
-MapTNSLHas(ConstHandle2ConstMap This)
+MapTNSLHas(ConstHandle2ConstMap self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TNSLHas", This, extract::TNSL);
+      (CLASSNAME, CLASSNAME+"TNSLHas", self, extract::TNSL);
 }
 
 // Clear
 void
-MapTNSLClear(ConstHandle2Map This)
+MapTNSLClear(ConstHandle2Map self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"TNSLClear", This, extract::TNSL);
+      (CLASSNAME, CLASSNAME+"TNSLClear", self, extract::TNSL);
 }
 
 // Size
 size_t
-MapTNSLSize(ConstHandle2ConstMap This)
+MapTNSLSize(ConstHandle2ConstMap self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"TNSLSize", This, extract::TNSL);
+      (CLASSNAME, CLASSNAME+"TNSLSize", self, extract::TNSL);
 }
 
 // Add
 void
-MapTNSLAdd(ConstHandle2Map This, ConstHandle2ConstTNSL TNSL)
+MapTNSLAdd(ConstHandle2Map self, ConstHandle2ConstTNSL TNSL)
 {
    detail::addToContainer<CPP,CPPTNSL>
-      (CLASSNAME, CLASSNAME+"TNSLAdd", This, extract::TNSL, TNSL);
+      (CLASSNAME, CLASSNAME+"TNSLAdd", self, extract::TNSL, TNSL);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstTNSL
-MapTNSLGetConst(ConstHandle2ConstMap This, const size_t index_)
+MapTNSLGetConst(ConstHandle2ConstMap self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstTNSL>
-      (CLASSNAME, CLASSNAME+"TNSLGetConst", This, extract::TNSL, index_);
+      (CLASSNAME, CLASSNAME+"TNSLGetConst", self, extract::TNSL, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2TNSL
-MapTNSLGet(ConstHandle2Map This, const size_t index_)
+MapTNSLGet(ConstHandle2Map self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2TNSL>
-      (CLASSNAME, CLASSNAME+"TNSLGet", This, extract::TNSL, index_);
+      (CLASSNAME, CLASSNAME+"TNSLGet", self, extract::TNSL, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MapTNSLSet(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const size_t index_,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByIndex<CPP,CPPTNSL>
-      (CLASSNAME, CLASSNAME+"TNSLSet", This, extract::TNSL, index_, TNSL);
+      (CLASSNAME, CLASSNAME+"TNSLSet", self, extract::TNSL, index_, TNSL);
 }
 
 // Has, by projectile
 int
 MapTNSLHasByProjectile(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName projectile
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByProjectile",
-       This, extract::TNSL, meta::projectile, projectile);
+       self, extract::TNSL, meta::projectile, projectile);
 }
 
 // Get, by projectile, const
 Handle2ConstTNSL
 MapTNSLGetByProjectileConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName projectile
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByProjectileConst",
-       This, extract::TNSL, meta::projectile, projectile);
+       self, extract::TNSL, meta::projectile, projectile);
 }
 
 // Get, by projectile, non-const
 Handle2TNSL
 MapTNSLGetByProjectile(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName projectile
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByProjectile",
-       This, extract::TNSL, meta::projectile, projectile);
+       self, extract::TNSL, meta::projectile, projectile);
 }
 
 // Set, by projectile
 void
 MapTNSLSetByProjectile(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName projectile,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByProjectile",
-       This, extract::TNSL, meta::projectile, projectile, TNSL);
+       self, extract::TNSL, meta::projectile, projectile, TNSL);
 }
 
 // Has, by target
 int
 MapTNSLHasByTarget(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName target
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByTarget",
-       This, extract::TNSL, meta::target, target);
+       self, extract::TNSL, meta::target, target);
 }
 
 // Get, by target, const
 Handle2ConstTNSL
 MapTNSLGetByTargetConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName target
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByTargetConst",
-       This, extract::TNSL, meta::target, target);
+       self, extract::TNSL, meta::target, target);
 }
 
 // Get, by target, non-const
 Handle2TNSL
 MapTNSLGetByTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName target
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByTarget",
-       This, extract::TNSL, meta::target, target);
+       self, extract::TNSL, meta::target, target);
 }
 
 // Set, by target
 void
 MapTNSLSetByTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName target,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByTarget",
-       This, extract::TNSL, meta::target, target, TNSL);
+       self, extract::TNSL, meta::target, target, TNSL);
 }
 
 // Has, by evaluation
 int
 MapTNSLHasByEvaluation(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName evaluation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByEvaluation",
-       This, extract::TNSL, meta::evaluation, evaluation);
+       self, extract::TNSL, meta::evaluation, evaluation);
 }
 
 // Get, by evaluation, const
 Handle2ConstTNSL
 MapTNSLGetByEvaluationConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName evaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByEvaluationConst",
-       This, extract::TNSL, meta::evaluation, evaluation);
+       self, extract::TNSL, meta::evaluation, evaluation);
 }
 
 // Get, by evaluation, non-const
 Handle2TNSL
 MapTNSLGetByEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName evaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByEvaluation",
-       This, extract::TNSL, meta::evaluation, evaluation);
+       self, extract::TNSL, meta::evaluation, evaluation);
 }
 
 // Set, by evaluation
 void
 MapTNSLSetByEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName evaluation,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByEvaluation",
-       This, extract::TNSL, meta::evaluation, evaluation, TNSL);
+       self, extract::TNSL, meta::evaluation, evaluation, TNSL);
 }
 
 // Has, by path
 int
 MapTNSLHasByPath(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByPath",
-       This, extract::TNSL, meta::path, path);
+       self, extract::TNSL, meta::path, path);
 }
 
 // Get, by path, const
 Handle2ConstTNSL
 MapTNSLGetByPathConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByPathConst",
-       This, extract::TNSL, meta::path, path);
+       self, extract::TNSL, meta::path, path);
 }
 
 // Get, by path, non-const
 Handle2TNSL
 MapTNSLGetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByPath",
-       This, extract::TNSL, meta::path, path);
+       self, extract::TNSL, meta::path, path);
 }
 
 // Set, by path
 void
 MapTNSLSetByPath(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName path,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByPath",
-       This, extract::TNSL, meta::path, path, TNSL);
+       self, extract::TNSL, meta::path, path, TNSL);
 }
 
 // Has, by interaction
 int
 MapTNSLHasByInteraction(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName interaction
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByInteraction",
-       This, extract::TNSL, meta::interaction, interaction);
+       self, extract::TNSL, meta::interaction, interaction);
 }
 
 // Get, by interaction, const
 Handle2ConstTNSL
 MapTNSLGetByInteractionConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName interaction
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByInteractionConst",
-       This, extract::TNSL, meta::interaction, interaction);
+       self, extract::TNSL, meta::interaction, interaction);
 }
 
 // Get, by interaction, non-const
 Handle2TNSL
 MapTNSLGetByInteraction(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName interaction
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByInteraction",
-       This, extract::TNSL, meta::interaction, interaction);
+       self, extract::TNSL, meta::interaction, interaction);
 }
 
 // Set, by interaction
 void
 MapTNSLSetByInteraction(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName interaction,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByInteraction",
-       This, extract::TNSL, meta::interaction, interaction, TNSL);
+       self, extract::TNSL, meta::interaction, interaction, TNSL);
 }
 
 // Has, by checksum
 int
 MapTNSLHasByChecksum(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByChecksum",
-       This, extract::TNSL, meta::checksum, checksum);
+       self, extract::TNSL, meta::checksum, checksum);
 }
 
 // Get, by checksum, const
 Handle2ConstTNSL
 MapTNSLGetByChecksumConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByChecksumConst",
-       This, extract::TNSL, meta::checksum, checksum);
+       self, extract::TNSL, meta::checksum, checksum);
 }
 
 // Get, by checksum, non-const
 Handle2TNSL
 MapTNSLGetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByChecksum",
-       This, extract::TNSL, meta::checksum, checksum);
+       self, extract::TNSL, meta::checksum, checksum);
 }
 
 // Set, by checksum
 void
 MapTNSLSetByChecksum(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const char *const checksum,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByChecksum",
-       This, extract::TNSL, meta::checksum, checksum, TNSL);
+       self, extract::TNSL, meta::checksum, checksum, TNSL);
 }
 
 // Has, by algorithm
 int
 MapTNSLHasByAlgorithm(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByAlgorithm",
-       This, extract::TNSL, meta::algorithm, algorithm);
+       self, extract::TNSL, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, const
 Handle2ConstTNSL
 MapTNSLGetByAlgorithmConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByAlgorithmConst",
-       This, extract::TNSL, meta::algorithm, algorithm);
+       self, extract::TNSL, meta::algorithm, algorithm);
 }
 
 // Get, by algorithm, non-const
 Handle2TNSL
 MapTNSLGetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByAlgorithm",
-       This, extract::TNSL, meta::algorithm, algorithm);
+       self, extract::TNSL, meta::algorithm, algorithm);
 }
 
 // Set, by algorithm
 void
 MapTNSLSetByAlgorithm(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const enums::HashAlgorithm algorithm,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByAlgorithm",
-       This, extract::TNSL, meta::algorithm, algorithm, TNSL);
+       self, extract::TNSL, meta::algorithm, algorithm, TNSL);
 }
 
 // Has, by standardTarget
 int
 MapTNSLHasByStandardTarget(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName standardTarget
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByStandardTarget",
-       This, extract::TNSL, meta::standardTarget, standardTarget);
+       self, extract::TNSL, meta::standardTarget, standardTarget);
 }
 
 // Get, by standardTarget, const
 Handle2ConstTNSL
 MapTNSLGetByStandardTargetConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName standardTarget
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByStandardTargetConst",
-       This, extract::TNSL, meta::standardTarget, standardTarget);
+       self, extract::TNSL, meta::standardTarget, standardTarget);
 }
 
 // Get, by standardTarget, non-const
 Handle2TNSL
 MapTNSLGetByStandardTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName standardTarget
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByStandardTarget",
-       This, extract::TNSL, meta::standardTarget, standardTarget);
+       self, extract::TNSL, meta::standardTarget, standardTarget);
 }
 
 // Set, by standardTarget
 void
 MapTNSLSetByStandardTarget(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName standardTarget,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByStandardTarget",
-       This, extract::TNSL, meta::standardTarget, standardTarget, TNSL);
+       self, extract::TNSL, meta::standardTarget, standardTarget, TNSL);
 }
 
 // Has, by standardEvaluation
 int
 MapTNSLHasByStandardEvaluation(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName standardEvaluation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TNSLHasByStandardEvaluation",
-       This, extract::TNSL, meta::standardEvaluation, standardEvaluation);
+       self, extract::TNSL, meta::standardEvaluation, standardEvaluation);
 }
 
 // Get, by standardEvaluation, const
 Handle2ConstTNSL
 MapTNSLGetByStandardEvaluationConst(
-   ConstHandle2ConstMap This,
+   ConstHandle2ConstMap self,
    const XMLName standardEvaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByStandardEvaluationConst",
-       This, extract::TNSL, meta::standardEvaluation, standardEvaluation);
+       self, extract::TNSL, meta::standardEvaluation, standardEvaluation);
 }
 
 // Get, by standardEvaluation, non-const
 Handle2TNSL
 MapTNSLGetByStandardEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName standardEvaluation
 ) {
    return detail::getByMetadatum<CPP,Handle2TNSL>
       (CLASSNAME, CLASSNAME+"TNSLGetByStandardEvaluation",
-       This, extract::TNSL, meta::standardEvaluation, standardEvaluation);
+       self, extract::TNSL, meta::standardEvaluation, standardEvaluation);
 }
 
 // Set, by standardEvaluation
 void
 MapTNSLSetByStandardEvaluation(
-   ConstHandle2Map This,
+   ConstHandle2Map self,
    const XMLName standardEvaluation,
    ConstHandle2ConstTNSL TNSL
 ) {
    detail::setByMetadatum<CPP,CPPTNSL>
       (CLASSNAME, CLASSNAME+"TNSLSetByStandardEvaluation",
-       This, extract::TNSL, meta::standardEvaluation, standardEvaluation, TNSL);
+       self, extract::TNSL, meta::standardEvaluation, standardEvaluation, TNSL);
 }
 
 

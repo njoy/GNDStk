@@ -25,12 +25,12 @@ class ComputerCodes :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ComputerCodes"; }
-   static auto FIELD() { return "computerCodes"; }
+   static auto NODENAME() { return "computerCodes"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ComputerCodes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::ComputerCode>("computerCode")
+         ++Child<documentation::ComputerCode>
+            ("computerCode")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "computerCode"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "computer_code"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::ComputerCode>> computerCode{this};
+   Field<std::vector<documentation::ComputerCode>>
+      computerCode{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->computerCode)
+      this->computerCode \
+   )
 
    // default
    ComputerCodes() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ComputerCodes(
-      const wrapper<std::vector<documentation::ComputerCode>> &computerCode
+      const wrapper<std::vector<documentation::ComputerCode>>
+         &computerCode
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       computerCode(this,computerCode)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ComputerCodes &operator=(const ComputerCodes &) = default;
-   ComputerCodes &operator=(ComputerCodes &&) = default;
+   // copy
+   ComputerCodes &operator=(const ComputerCodes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         computerCode = other.computerCode;
+      }
+      return *this;
+   }
+
+   // move
+   ComputerCodes &operator=(ComputerCodes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         computerCode = std::move(other.computerCode);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

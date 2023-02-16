@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// HeatedMultiGroup wrapper
-void wrapHeatedMultiGroup(python::module &module)
+// wrapper for styles::HeatedMultiGroup
+void wrapHeatedMultiGroup(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::HeatedMultiGroup;
+   using cppCLASS = styles::HeatedMultiGroup;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "HeatedMultiGroup",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "HeatedMultiGroup",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const XMLName &,
-            const XMLName &,
-            const styles::Transportables &,
-            const styles::Flux &,
-            const styles::InverseSpeed &,
-            const std::optional<documentation::Documentation> &
-         >(),
-         python::arg("date"),
-         python::arg("derived_from"),
-         python::arg("label"),
-         python::arg("transportables"),
-         python::arg("flux"),
-         python::arg("inverse_speed"),
-         python::arg("documentation") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self) { return self.date(); },
-         Component::documentation("date").data()
-      )
-      .def_property_readonly(
-         "derived_from",
-         [](const Component &self) { return self.derivedFrom(); },
-         Component::documentation("derived_from").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "transportables",
-         [](const Component &self) { return self.transportables(); },
-         Component::documentation("transportables").data()
-      )
-      .def_property_readonly(
-         "flux",
-         [](const Component &self) { return self.flux(); },
-         Component::documentation("flux").data()
-      )
-      .def_property_readonly(
-         "inverse_speed",
-         [](const Component &self) { return self.inverseSpeed(); },
-         Component::documentation("inverse_speed").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const XMLName &,
+         const XMLName &,
+         const styles::Transportables &,
+         const styles::Flux &,
+         const styles::InverseSpeed &,
+         const std::optional<documentation::Documentation> &
+      >(),
+      py::arg("date"),
+      py::arg("derived_from"),
+      py::arg("label"),
+      py::arg("transportables"),
+      py::arg("flux"),
+      py::arg("inverse_speed"),
+      py::arg("documentation") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // get/set derivedFrom
+   object.def_property(
+      "derived_from",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.derivedFrom();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.derivedFrom() = value;
+      },
+      cppCLASS::component_t::documentation("derived_from").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set transportables
+   object.def_property(
+      "transportables",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.transportables();
+      },
+      [](cppCLASS &self, const styles::Transportables &value)
+      {
+         self.transportables() = value;
+      },
+      cppCLASS::component_t::documentation("transportables").data()
+   );
+
+   // get/set flux
+   object.def_property(
+      "flux",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.flux();
+      },
+      [](cppCLASS &self, const styles::Flux &value)
+      {
+         self.flux() = value;
+      },
+      cppCLASS::component_t::documentation("flux").data()
+   );
+
+   // get/set inverseSpeed
+   object.def_property(
+      "inverse_speed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.inverseSpeed();
+      },
+      [](cppCLASS &self, const styles::InverseSpeed &value)
+      {
+         self.inverseSpeed() = value;
+      },
+      cppCLASS::component_t::documentation("inverse_speed").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Documentation> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

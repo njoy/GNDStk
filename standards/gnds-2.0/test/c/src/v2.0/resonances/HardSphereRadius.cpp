@@ -69,20 +69,20 @@ HardSphereRadiusCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-HardSphereRadiusAssign(ConstHandle2HardSphereRadius This, ConstHandle2ConstHardSphereRadius from)
+HardSphereRadiusAssign(ConstHandle2HardSphereRadius self, ConstHandle2ConstHardSphereRadius from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-HardSphereRadiusRead(ConstHandle2HardSphereRadius This, const char *const filename)
+HardSphereRadiusRead(ConstHandle2HardSphereRadius self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-HardSphereRadiusWrite(ConstHandle2ConstHardSphereRadius This, const char *const filename)
+HardSphereRadiusWrite(ConstHandle2ConstHardSphereRadius self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-HardSphereRadiusPrint(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusPrint(ConstHandle2ConstHardSphereRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-HardSphereRadiusPrintXML(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusPrintXML(ConstHandle2ConstHardSphereRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius This)
 
 // Has
 int
-HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Constant1dHas", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dHas", self, extract::constant1d);
 }
 
 // Get, const
 Handle2ConstConstant1d
-HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius This)
+HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self)
 {
    return detail::getField<CPP,Handle2ConstConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGetConst", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
 // Get, non-const
 Handle2Constant1d
-HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius This)
+HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self)
 {
    return detail::getField<CPP,Handle2Constant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGet", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGet", self, extract::constant1d);
 }
 
 // Set
 void
-HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius This, ConstHandle2ConstConstant1d constant1d)
+HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius self, ConstHandle2ConstConstant1d constant1d)
 {
    detail::setField<CPP,CPPConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dSet", self, extract::constant1d, constant1d);
 }
 
 

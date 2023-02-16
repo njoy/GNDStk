@@ -89,20 +89,20 @@ EqualProbableBinsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EqualProbableBinsAssign(ConstHandle2EqualProbableBins This, ConstHandle2ConstEqualProbableBins from)
+EqualProbableBinsAssign(ConstHandle2EqualProbableBins self, ConstHandle2ConstEqualProbableBins from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EqualProbableBinsRead(ConstHandle2EqualProbableBins This, const char *const filename)
+EqualProbableBinsRead(ConstHandle2EqualProbableBins self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EqualProbableBinsWrite(ConstHandle2ConstEqualProbableBins This, const char *const filename)
+EqualProbableBinsWrite(ConstHandle2ConstEqualProbableBins self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EqualProbableBinsPrint(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsPrint(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EqualProbableBinsPrintXML(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsPrintXML(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins This)
 
 // Has
 int
-EqualProbableBinsDateHas(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDateHas(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-EqualProbableBinsDateGet(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDateGet(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-EqualProbableBinsDateSet(ConstHandle2EqualProbableBins This, const char *const date)
+EqualProbableBinsDateSet(ConstHandle2EqualProbableBins self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -193,27 +193,27 @@ EqualProbableBinsDateSet(ConstHandle2EqualProbableBins This, const char *const d
 
 // Has
 int
-EqualProbableBinsDerivedFromHas(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDerivedFromHas(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-EqualProbableBinsDerivedFromGet(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDerivedFromGet(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins This, const XMLName derivedFrom)
+EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -223,27 +223,27 @@ EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins This, const XMLNam
 
 // Has
 int
-EqualProbableBinsLabelHas(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsLabelHas(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-EqualProbableBinsLabelGet(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsLabelGet(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins This, const XMLName label)
+EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -253,27 +253,27 @@ EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins This, const XMLName labe
 
 // Has
 int
-EqualProbableBinsNumberOfBinsHas(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsNumberOfBinsHas(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfBinsHas", This, extract::numberOfBins);
+      (CLASSNAME, CLASSNAME+"NumberOfBinsHas", self, extract::numberOfBins);
 }
 
 // Get
 // Returns by value
 Integer32
-EqualProbableBinsNumberOfBinsGet(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsNumberOfBinsGet(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfBinsGet", This, extract::numberOfBins);
+      (CLASSNAME, CLASSNAME+"NumberOfBinsGet", self, extract::numberOfBins);
 }
 
 // Set
 void
-EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins This, const Integer32 numberOfBins)
+EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins self, const Integer32 numberOfBins)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NumberOfBinsSet", This, extract::numberOfBins, numberOfBins);
+      (CLASSNAME, CLASSNAME+"NumberOfBinsSet", self, extract::numberOfBins, numberOfBins);
 }
 
 
@@ -283,34 +283,34 @@ EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins This, const Integ
 
 // Has
 int
-EqualProbableBinsDocumentationHas(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDocumentationHas(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-EqualProbableBinsDocumentationGetConst(ConstHandle2ConstEqualProbableBins This)
+EqualProbableBinsDocumentationGetConst(ConstHandle2ConstEqualProbableBins self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-EqualProbableBinsDocumentationGet(ConstHandle2EqualProbableBins This)
+EqualProbableBinsDocumentationGet(ConstHandle2EqualProbableBins self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins This, ConstHandle2ConstDocumentation documentation)
+EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

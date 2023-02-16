@@ -80,20 +80,20 @@ DelayedNeutronCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DelayedNeutronAssign(ConstHandle2DelayedNeutron This, ConstHandle2ConstDelayedNeutron from)
+DelayedNeutronAssign(ConstHandle2DelayedNeutron self, ConstHandle2ConstDelayedNeutron from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DelayedNeutronDelete(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronDelete(ConstHandle2ConstDelayedNeutron self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -107,44 +107,44 @@ DelayedNeutronDelete(ConstHandle2ConstDelayedNeutron This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DelayedNeutronRead(ConstHandle2DelayedNeutron This, const char *const filename)
+DelayedNeutronRead(ConstHandle2DelayedNeutron self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DelayedNeutronWrite(ConstHandle2ConstDelayedNeutron This, const char *const filename)
+DelayedNeutronWrite(ConstHandle2ConstDelayedNeutron self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DelayedNeutronPrint(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronPrint(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DelayedNeutronPrintXML(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronPrintXML(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DelayedNeutronPrintJSON(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronPrintJSON(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -154,27 +154,27 @@ DelayedNeutronPrintJSON(ConstHandle2ConstDelayedNeutron This)
 
 // Has
 int
-DelayedNeutronLabelHas(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronLabelHas(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-DelayedNeutronLabelGet(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronLabelGet(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-DelayedNeutronLabelSet(ConstHandle2DelayedNeutron This, const XMLName label)
+DelayedNeutronLabelSet(ConstHandle2DelayedNeutron self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -184,34 +184,34 @@ DelayedNeutronLabelSet(ConstHandle2DelayedNeutron This, const XMLName label)
 
 // Has
 int
-DelayedNeutronRateHas(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronRateHas(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RateHas", This, extract::rate);
+      (CLASSNAME, CLASSNAME+"RateHas", self, extract::rate);
 }
 
 // Get, const
 Handle2ConstRate
-DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::getField<CPP,Handle2ConstRate>
-      (CLASSNAME, CLASSNAME+"RateGetConst", This, extract::rate);
+      (CLASSNAME, CLASSNAME+"RateGetConst", self, extract::rate);
 }
 
 // Get, non-const
 Handle2Rate
-DelayedNeutronRateGet(ConstHandle2DelayedNeutron This)
+DelayedNeutronRateGet(ConstHandle2DelayedNeutron self)
 {
    return detail::getField<CPP,Handle2Rate>
-      (CLASSNAME, CLASSNAME+"RateGet", This, extract::rate);
+      (CLASSNAME, CLASSNAME+"RateGet", self, extract::rate);
 }
 
 // Set
 void
-DelayedNeutronRateSet(ConstHandle2DelayedNeutron This, ConstHandle2ConstRate rate)
+DelayedNeutronRateSet(ConstHandle2DelayedNeutron self, ConstHandle2ConstRate rate)
 {
    detail::setField<CPP,CPPRate>
-      (CLASSNAME, CLASSNAME+"RateSet", This, extract::rate, rate);
+      (CLASSNAME, CLASSNAME+"RateSet", self, extract::rate, rate);
 }
 
 
@@ -221,34 +221,34 @@ DelayedNeutronRateSet(ConstHandle2DelayedNeutron This, ConstHandle2ConstRate rat
 
 // Has
 int
-DelayedNeutronProductHas(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronProductHas(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductHas", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductHas", self, extract::product);
 }
 
 // Get, const
 Handle2ConstProduct
-DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron This)
+DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron self)
 {
    return detail::getField<CPP,Handle2ConstProduct>
-      (CLASSNAME, CLASSNAME+"ProductGetConst", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product);
 }
 
 // Get, non-const
 Handle2Product
-DelayedNeutronProductGet(ConstHandle2DelayedNeutron This)
+DelayedNeutronProductGet(ConstHandle2DelayedNeutron self)
 {
    return detail::getField<CPP,Handle2Product>
-      (CLASSNAME, CLASSNAME+"ProductGet", This, extract::product);
+      (CLASSNAME, CLASSNAME+"ProductGet", self, extract::product);
 }
 
 // Set
 void
-DelayedNeutronProductSet(ConstHandle2DelayedNeutron This, ConstHandle2ConstProduct product)
+DelayedNeutronProductSet(ConstHandle2DelayedNeutron self, ConstHandle2ConstProduct product)
 {
    detail::setField<CPP,CPPProduct>
-      (CLASSNAME, CLASSNAME+"ProductSet", This, extract::product, product);
+      (CLASSNAME, CLASSNAME+"ProductSet", self, extract::product, product);
 }
 
 

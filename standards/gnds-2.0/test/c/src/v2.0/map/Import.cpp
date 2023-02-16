@@ -77,20 +77,20 @@ ImportCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ImportAssign(ConstHandle2Import This, ConstHandle2ConstImport from)
+ImportAssign(ConstHandle2Import self, ConstHandle2ConstImport from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ImportDelete(ConstHandle2ConstImport This)
+ImportDelete(ConstHandle2ConstImport self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ ImportDelete(ConstHandle2ConstImport This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ImportRead(ConstHandle2Import This, const char *const filename)
+ImportRead(ConstHandle2Import self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ImportWrite(ConstHandle2ConstImport This, const char *const filename)
+ImportWrite(ConstHandle2ConstImport self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ImportPrint(ConstHandle2ConstImport This)
+ImportPrint(ConstHandle2ConstImport self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ImportPrintXML(ConstHandle2ConstImport This)
+ImportPrintXML(ConstHandle2ConstImport self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ImportPrintJSON(ConstHandle2ConstImport This)
+ImportPrintJSON(ConstHandle2ConstImport self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ ImportPrintJSON(ConstHandle2ConstImport This)
 
 // Has
 int
-ImportPathHas(ConstHandle2ConstImport This)
+ImportPathHas(ConstHandle2ConstImport self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PathHas", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathHas", self, extract::path);
 }
 
 // Get
 // Returns by value
 XMLName
-ImportPathGet(ConstHandle2ConstImport This)
+ImportPathGet(ConstHandle2ConstImport self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PathGet", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathGet", self, extract::path);
 }
 
 // Set
 void
-ImportPathSet(ConstHandle2Import This, const XMLName path)
+ImportPathSet(ConstHandle2Import self, const XMLName path)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PathSet", This, extract::path, path);
+      (CLASSNAME, CLASSNAME+"PathSet", self, extract::path, path);
 }
 
 
@@ -181,27 +181,27 @@ ImportPathSet(ConstHandle2Import This, const XMLName path)
 
 // Has
 int
-ImportChecksumHas(ConstHandle2ConstImport This)
+ImportChecksumHas(ConstHandle2ConstImport self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumHas", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumHas", self, extract::checksum);
 }
 
 // Get
 // Returns by value
 const char *
-ImportChecksumGet(ConstHandle2ConstImport This)
+ImportChecksumGet(ConstHandle2ConstImport self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumGet", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumGet", self, extract::checksum);
 }
 
 // Set
 void
-ImportChecksumSet(ConstHandle2Import This, const char *const checksum)
+ImportChecksumSet(ConstHandle2Import self, const char *const checksum)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumSet", self, extract::checksum, checksum);
 }
 
 
@@ -211,27 +211,27 @@ ImportChecksumSet(ConstHandle2Import This, const char *const checksum)
 
 // Has
 int
-ImportAlgorithmHas(ConstHandle2ConstImport This)
+ImportAlgorithmHas(ConstHandle2ConstImport self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmHas", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmHas", self, extract::algorithm);
 }
 
 // Get
 // Returns by value
 enums::HashAlgorithm
-ImportAlgorithmGet(ConstHandle2ConstImport This)
+ImportAlgorithmGet(ConstHandle2ConstImport self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmGet", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmGet", self, extract::algorithm);
 }
 
 // Set
 void
-ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm)
+ImportAlgorithmSet(ConstHandle2Import self, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmSet", self, extract::algorithm, algorithm);
 }
 
 

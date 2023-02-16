@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// CrossSectionSums wrapper
-void wrapCrossSectionSums(python::module &module)
+// wrapper for transport::CrossSectionSums
+void wrapCrossSectionSums(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::CrossSectionSums;
+   using cppCLASS = transport::CrossSectionSums;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CrossSectionSums",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CrossSectionSums",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<transport::CrossSectionSum>> &
-         >(),
-         python::arg("cross_section_sum") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_section_sum",
-         [](const Component &self) { return self.crossSectionSum(); },
-         Component::documentation("cross_section_sum").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<transport::CrossSectionSum>> &
+      >(),
+      py::arg("cross_section_sum") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set crossSectionSum
+   object.def_property(
+      "cross_section_sum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSectionSum();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<transport::CrossSectionSum>> &value)
+      {
+         self.crossSectionSum() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_sum").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

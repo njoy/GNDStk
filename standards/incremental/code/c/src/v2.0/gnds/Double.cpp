@@ -77,20 +77,20 @@ DoubleCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DoubleAssign(ConstHandle2Double This, ConstHandle2ConstDouble from)
+DoubleAssign(ConstHandle2Double self, ConstHandle2ConstDouble from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DoubleDelete(ConstHandle2ConstDouble This)
+DoubleDelete(ConstHandle2ConstDouble self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ DoubleDelete(ConstHandle2ConstDouble This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DoubleRead(ConstHandle2Double This, const char *const filename)
+DoubleRead(ConstHandle2Double self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DoubleWrite(ConstHandle2ConstDouble This, const char *const filename)
+DoubleWrite(ConstHandle2ConstDouble self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DoublePrint(ConstHandle2ConstDouble This)
+DoublePrint(ConstHandle2ConstDouble self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DoublePrintXML(ConstHandle2ConstDouble This)
+DoublePrintXML(ConstHandle2ConstDouble self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DoublePrintJSON(ConstHandle2ConstDouble This)
+DoublePrintJSON(ConstHandle2ConstDouble self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ DoublePrintJSON(ConstHandle2ConstDouble This)
 
 // Has
 int
-DoubleLabelHas(ConstHandle2ConstDouble This)
+DoubleLabelHas(ConstHandle2ConstDouble self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-DoubleLabelGet(ConstHandle2ConstDouble This)
+DoubleLabelGet(ConstHandle2ConstDouble self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-DoubleLabelSet(ConstHandle2Double This, const char *const label)
+DoubleLabelSet(ConstHandle2Double self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -181,27 +181,27 @@ DoubleLabelSet(ConstHandle2Double This, const char *const label)
 
 // Has
 int
-DoubleValueHas(ConstHandle2ConstDouble This)
+DoubleValueHas(ConstHandle2ConstDouble self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 double
-DoubleValueGet(ConstHandle2ConstDouble This)
+DoubleValueGet(ConstHandle2ConstDouble self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-DoubleValueSet(ConstHandle2Double This, const double value)
+DoubleValueSet(ConstHandle2Double self, const double value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -211,27 +211,27 @@ DoubleValueSet(ConstHandle2Double This, const double value)
 
 // Has
 int
-DoubleUnitHas(ConstHandle2ConstDouble This)
+DoubleUnitHas(ConstHandle2ConstDouble self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 const char *
-DoubleUnitGet(ConstHandle2ConstDouble This)
+DoubleUnitGet(ConstHandle2ConstDouble self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-DoubleUnitSet(ConstHandle2Double This, const char *const unit)
+DoubleUnitSet(ConstHandle2Double self, const char *const unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

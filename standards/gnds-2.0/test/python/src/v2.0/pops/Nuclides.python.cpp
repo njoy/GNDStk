@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Nuclides wrapper
-void wrapNuclides(python::module &module)
+// wrapper for pops::Nuclides
+void wrapNuclides(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Nuclides;
+   using cppCLASS = pops::Nuclides;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Nuclides",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Nuclides",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Nuclide> &
-         >(),
-         python::arg("nuclide"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "nuclide",
-         [](const Component &self) { return self.nuclide(); },
-         Component::documentation("nuclide").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Nuclide> &
+      >(),
+      py::arg("nuclide"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set nuclide
+   object.def_property(
+      "nuclide",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclide();
+      },
+      [](cppCLASS &self, const std::vector<pops::Nuclide> &value)
+      {
+         self.nuclide() = value;
+      },
+      cppCLASS::component_t::documentation("nuclide").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

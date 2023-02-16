@@ -95,13 +95,13 @@ Gridded3dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Gridded3dAssign(ConstHandle2Gridded3d This, ConstHandle2ConstGridded3d from);
+Gridded3dAssign(ConstHandle2Gridded3d self, ConstHandle2ConstGridded3d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Gridded3dDelete(ConstHandle2ConstGridded3d This);
+Gridded3dDelete(ConstHandle2ConstGridded3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ Gridded3dDelete(ConstHandle2ConstGridded3d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Gridded3dRead(ConstHandle2Gridded3d This, const char *const filename);
+Gridded3dRead(ConstHandle2Gridded3d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Gridded3dWrite(ConstHandle2ConstGridded3d This, const char *const filename);
+Gridded3dWrite(ConstHandle2ConstGridded3d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Gridded3dPrint(ConstHandle2ConstGridded3d This);
+Gridded3dPrint(ConstHandle2ConstGridded3d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Gridded3dPrintXML(ConstHandle2ConstGridded3d This);
+Gridded3dPrintXML(ConstHandle2ConstGridded3d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Gridded3dPrintJSON(ConstHandle2ConstGridded3d This);
+Gridded3dPrintJSON(ConstHandle2ConstGridded3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ Gridded3dPrintJSON(ConstHandle2ConstGridded3d This);
 
 // +++ Has
 extern_c int
-Gridded3dLabelHas(ConstHandle2ConstGridded3d This);
+Gridded3dLabelHas(ConstHandle2ConstGridded3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-Gridded3dLabelGet(ConstHandle2ConstGridded3d This);
+Gridded3dLabelGet(ConstHandle2ConstGridded3d self);
 
 // +++ Set
 extern_c void
-Gridded3dLabelSet(ConstHandle2Gridded3d This, const XMLName label);
+Gridded3dLabelSet(ConstHandle2Gridded3d self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,19 +159,19 @@ Gridded3dLabelSet(ConstHandle2Gridded3d This, const XMLName label);
 
 // +++ Has
 extern_c int
-Gridded3dArrayHas(ConstHandle2ConstGridded3d This);
+Gridded3dArrayHas(ConstHandle2ConstGridded3d self);
 
 // --- Get, const
 extern_c Handle2ConstArray
-Gridded3dArrayGetConst(ConstHandle2ConstGridded3d This);
+Gridded3dArrayGetConst(ConstHandle2ConstGridded3d self);
 
 // +++ Get, non-const
 extern_c Handle2Array
-Gridded3dArrayGet(ConstHandle2Gridded3d This);
+Gridded3dArrayGet(ConstHandle2Gridded3d self);
 
 // +++ Set
 extern_c void
-Gridded3dArraySet(ConstHandle2Gridded3d This, ConstHandle2ConstArray array);
+Gridded3dArraySet(ConstHandle2Gridded3d self, ConstHandle2ConstArray array);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ Gridded3dArraySet(ConstHandle2Gridded3d This, ConstHandle2ConstArray array);
 
 // +++ Has
 extern_c int
-Gridded3dAxesHas(ConstHandle2ConstGridded3d This);
+Gridded3dAxesHas(ConstHandle2ConstGridded3d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Gridded3dAxesGetConst(ConstHandle2ConstGridded3d This);
+Gridded3dAxesGetConst(ConstHandle2ConstGridded3d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Gridded3dAxesGet(ConstHandle2Gridded3d This);
+Gridded3dAxesGet(ConstHandle2Gridded3d self);
 
 // +++ Set
 extern_c void
-Gridded3dAxesSet(ConstHandle2Gridded3d This, ConstHandle2ConstAxes axes);
+Gridded3dAxesSet(ConstHandle2Gridded3d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------

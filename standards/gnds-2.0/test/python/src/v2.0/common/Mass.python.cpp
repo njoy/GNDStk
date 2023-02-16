@@ -11,80 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_common {
 
-// Mass wrapper
-void wrapMass(python::module &module)
+// wrapper for common::Mass
+void wrapMass(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = common::Mass;
+   using cppCLASS = common::Mass;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Mass",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Mass",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<documentation::Documentation> &,
-            const std::optional<containers::Uncertainty> &,
-            const std::vector<containers::Double> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         python::arg("value") = std::nullopt,
-         python::arg("documentation") = std::nullopt,
-         python::arg("uncertainty") = std::nullopt,
-         python::arg("double"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self) { return self.Double(); },
-         Component::documentation("double").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<documentation::Documentation> &,
+         const std::optional<containers::Uncertainty> &,
+         const std::vector<containers::Double> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      py::arg("value") = std::nullopt,
+      py::arg("documentation") = std::nullopt,
+      py::arg("uncertainty") = std::nullopt,
+      py::arg("double"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Documentation> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<containers::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::vector<containers::Double> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_common

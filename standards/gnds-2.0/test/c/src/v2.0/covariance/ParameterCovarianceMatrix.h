@@ -97,13 +97,13 @@ ParameterCovarianceMatrixCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ParameterCovarianceMatrixAssign(ConstHandle2ParameterCovarianceMatrix This, ConstHandle2ConstParameterCovarianceMatrix from);
+ParameterCovarianceMatrixAssign(ConstHandle2ParameterCovarianceMatrix self, ConstHandle2ConstParameterCovarianceMatrix from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ParameterCovarianceMatrixDelete(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixDelete(ConstHandle2ConstParameterCovarianceMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ ParameterCovarianceMatrixDelete(ConstHandle2ConstParameterCovarianceMatrix This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ParameterCovarianceMatrixRead(ConstHandle2ParameterCovarianceMatrix This, const char *const filename);
+ParameterCovarianceMatrixRead(ConstHandle2ParameterCovarianceMatrix self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ParameterCovarianceMatrixWrite(ConstHandle2ConstParameterCovarianceMatrix This, const char *const filename);
+ParameterCovarianceMatrixWrite(ConstHandle2ConstParameterCovarianceMatrix self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ParameterCovarianceMatrixPrint(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixPrint(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ParameterCovarianceMatrixPrintXML(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixPrintXML(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ParameterCovarianceMatrixPrintJSON(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixPrintJSON(ConstHandle2ConstParameterCovarianceMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ ParameterCovarianceMatrixPrintJSON(ConstHandle2ConstParameterCovarianceMatrix Th
 
 // +++ Has
 extern_c int
-ParameterCovarianceMatrixLabelHas(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixLabelHas(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ParameterCovarianceMatrixLabelGet(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixLabelGet(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-ParameterCovarianceMatrixLabelSet(ConstHandle2ParameterCovarianceMatrix This, const XMLName label);
+ParameterCovarianceMatrixLabelSet(ConstHandle2ParameterCovarianceMatrix self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ ParameterCovarianceMatrixLabelSet(ConstHandle2ParameterCovarianceMatrix This, co
 
 // +++ Has
 extern_c int
-ParameterCovarianceMatrixTypeHas(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixTypeHas(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ParameterCovarianceMatrixTypeGet(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixTypeGet(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-ParameterCovarianceMatrixTypeSet(ConstHandle2ParameterCovarianceMatrix This, const XMLName type);
+ParameterCovarianceMatrixTypeSet(ConstHandle2ParameterCovarianceMatrix self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ ParameterCovarianceMatrixTypeSet(ConstHandle2ParameterCovarianceMatrix This, con
 
 // +++ Has
 extern_c int
-ParameterCovarianceMatrixParametersHas(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixParametersHas(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstParameters
-ParameterCovarianceMatrixParametersGetConst(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixParametersGetConst(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2Parameters
-ParameterCovarianceMatrixParametersGet(ConstHandle2ParameterCovarianceMatrix This);
+ParameterCovarianceMatrixParametersGet(ConstHandle2ParameterCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-ParameterCovarianceMatrixParametersSet(ConstHandle2ParameterCovarianceMatrix This, ConstHandle2ConstParameters parameters);
+ParameterCovarianceMatrixParametersSet(ConstHandle2ParameterCovarianceMatrix self, ConstHandle2ConstParameters parameters);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ ParameterCovarianceMatrixParametersSet(ConstHandle2ParameterCovarianceMatrix Thi
 
 // +++ Has
 extern_c int
-ParameterCovarianceMatrixArrayHas(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixArrayHas(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstArray
-ParameterCovarianceMatrixArrayGetConst(ConstHandle2ConstParameterCovarianceMatrix This);
+ParameterCovarianceMatrixArrayGetConst(ConstHandle2ConstParameterCovarianceMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2Array
-ParameterCovarianceMatrixArrayGet(ConstHandle2ParameterCovarianceMatrix This);
+ParameterCovarianceMatrixArrayGet(ConstHandle2ParameterCovarianceMatrix self);
 
 // +++ Set
 extern_c void
-ParameterCovarianceMatrixArraySet(ConstHandle2ParameterCovarianceMatrix This, ConstHandle2ConstArray array);
+ParameterCovarianceMatrixArraySet(ConstHandle2ParameterCovarianceMatrix self, ConstHandle2ConstArray array);
 
 
 // -----------------------------------------------------------------------------

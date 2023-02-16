@@ -25,12 +25,12 @@ class Cdf_in_xs_pdf_cdf1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Cdf_in_xs_pdf_cdf1d"; }
-   static auto FIELD() { return "cdf"; }
+   static auto NODENAME() { return "cdf"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Cdf_in_xs_pdf_cdf1d :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<containers::Values>("values")
+         --Child<containers::Values>
+            ("values")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<containers::Values> values{this};
+   Field<containers::Values>
+      values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->values)
+      this->values \
+   )
 
    // default
    Cdf_in_xs_pdf_cdf1d() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Cdf_in_xs_pdf_cdf1d(
-      const wrapper<containers::Values> &values
+      const wrapper<containers::Values>
+         &values
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       values(this,values)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Cdf_in_xs_pdf_cdf1d &operator=(const Cdf_in_xs_pdf_cdf1d &) = default;
-   Cdf_in_xs_pdf_cdf1d &operator=(Cdf_in_xs_pdf_cdf1d &&) = default;
+   // copy
+   Cdf_in_xs_pdf_cdf1d &operator=(const Cdf_in_xs_pdf_cdf1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Cdf_in_xs_pdf_cdf1d &operator=(Cdf_in_xs_pdf_cdf1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

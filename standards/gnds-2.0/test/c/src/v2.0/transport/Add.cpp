@@ -67,20 +67,20 @@ AddCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AddAssign(ConstHandle2Add This, ConstHandle2ConstAdd from)
+AddAssign(ConstHandle2Add self, ConstHandle2ConstAdd from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AddDelete(ConstHandle2ConstAdd This)
+AddDelete(ConstHandle2ConstAdd self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ AddDelete(ConstHandle2ConstAdd This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AddRead(ConstHandle2Add This, const char *const filename)
+AddRead(ConstHandle2Add self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AddWrite(ConstHandle2ConstAdd This, const char *const filename)
+AddWrite(ConstHandle2ConstAdd self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AddPrint(ConstHandle2ConstAdd This)
+AddPrint(ConstHandle2ConstAdd self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AddPrintXML(ConstHandle2ConstAdd This)
+AddPrintXML(ConstHandle2ConstAdd self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AddPrintJSON(ConstHandle2ConstAdd This)
+AddPrintJSON(ConstHandle2ConstAdd self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,27 +141,27 @@ AddPrintJSON(ConstHandle2ConstAdd This)
 
 // Has
 int
-AddHrefHas(ConstHandle2ConstAdd This)
+AddHrefHas(ConstHandle2ConstAdd self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-AddHrefGet(ConstHandle2ConstAdd This)
+AddHrefGet(ConstHandle2ConstAdd self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-AddHrefSet(ConstHandle2Add This, const char *const href)
+AddHrefSet(ConstHandle2Add self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

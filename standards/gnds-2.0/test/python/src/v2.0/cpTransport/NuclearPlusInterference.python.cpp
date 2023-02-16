@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_cpTransport {
 
-// NuclearPlusInterference wrapper
-void wrapNuclearPlusInterference(python::module &module)
+// wrapper for cpTransport::NuclearPlusInterference
+void wrapNuclearPlusInterference(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = cpTransport::NuclearPlusInterference;
+   using cppCLASS = cpTransport::NuclearPlusInterference;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "NuclearPlusInterference",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "NuclearPlusInterference",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Float64 &,
-            const transport::CrossSection &,
-            const transport::Distribution &
-         >(),
-         python::arg("mu_cutoff"),
-         python::arg("cross_section"),
-         python::arg("distribution"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "mu_cutoff",
-         [](const Component &self) { return self.muCutoff(); },
-         Component::documentation("mu_cutoff").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self) { return self.crossSection(); },
-         Component::documentation("cross_section").data()
-      )
-      .def_property_readonly(
-         "distribution",
-         [](const Component &self) { return self.distribution(); },
-         Component::documentation("distribution").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Float64 &,
+         const transport::CrossSection &,
+         const transport::Distribution &
+      >(),
+      py::arg("mu_cutoff"),
+      py::arg("cross_section"),
+      py::arg("distribution"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set muCutoff
+   object.def_property(
+      "mu_cutoff",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.muCutoff();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.muCutoff() = value;
+      },
+      cppCLASS::component_t::documentation("mu_cutoff").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const transport::CrossSection &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // get/set distribution
+   object.def_property(
+      "distribution",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.distribution();
+      },
+      [](cppCLASS &self, const transport::Distribution &value)
+      {
+         self.distribution() = value;
+      },
+      cppCLASS::component_t::documentation("distribution").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_cpTransport

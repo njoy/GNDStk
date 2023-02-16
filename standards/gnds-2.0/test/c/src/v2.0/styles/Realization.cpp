@@ -84,20 +84,20 @@ RealizationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RealizationAssign(ConstHandle2Realization This, ConstHandle2ConstRealization from)
+RealizationAssign(ConstHandle2Realization self, ConstHandle2ConstRealization from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RealizationDelete(ConstHandle2ConstRealization This)
+RealizationDelete(ConstHandle2ConstRealization self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ RealizationDelete(ConstHandle2ConstRealization This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RealizationRead(ConstHandle2Realization This, const char *const filename)
+RealizationRead(ConstHandle2Realization self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RealizationWrite(ConstHandle2ConstRealization This, const char *const filename)
+RealizationWrite(ConstHandle2ConstRealization self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RealizationPrint(ConstHandle2ConstRealization This)
+RealizationPrint(ConstHandle2ConstRealization self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RealizationPrintXML(ConstHandle2ConstRealization This)
+RealizationPrintXML(ConstHandle2ConstRealization self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RealizationPrintJSON(ConstHandle2ConstRealization This)
+RealizationPrintJSON(ConstHandle2ConstRealization self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ RealizationPrintJSON(ConstHandle2ConstRealization This)
 
 // Has
 int
-RealizationDateHas(ConstHandle2ConstRealization This)
+RealizationDateHas(ConstHandle2ConstRealization self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-RealizationDateGet(ConstHandle2ConstRealization This)
+RealizationDateGet(ConstHandle2ConstRealization self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-RealizationDateSet(ConstHandle2Realization This, const char *const date)
+RealizationDateSet(ConstHandle2Realization self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -188,27 +188,27 @@ RealizationDateSet(ConstHandle2Realization This, const char *const date)
 
 // Has
 int
-RealizationDerivedFromHas(ConstHandle2ConstRealization This)
+RealizationDerivedFromHas(ConstHandle2ConstRealization self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-RealizationDerivedFromGet(ConstHandle2ConstRealization This)
+RealizationDerivedFromGet(ConstHandle2ConstRealization self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-RealizationDerivedFromSet(ConstHandle2Realization This, const XMLName derivedFrom)
+RealizationDerivedFromSet(ConstHandle2Realization self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -218,27 +218,27 @@ RealizationDerivedFromSet(ConstHandle2Realization This, const XMLName derivedFro
 
 // Has
 int
-RealizationLabelHas(ConstHandle2ConstRealization This)
+RealizationLabelHas(ConstHandle2ConstRealization self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-RealizationLabelGet(ConstHandle2ConstRealization This)
+RealizationLabelGet(ConstHandle2ConstRealization self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-RealizationLabelSet(ConstHandle2Realization This, const XMLName label)
+RealizationLabelSet(ConstHandle2Realization self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -248,34 +248,34 @@ RealizationLabelSet(ConstHandle2Realization This, const XMLName label)
 
 // Has
 int
-RealizationDocumentationHas(ConstHandle2ConstRealization This)
+RealizationDocumentationHas(ConstHandle2ConstRealization self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-RealizationDocumentationGetConst(ConstHandle2ConstRealization This)
+RealizationDocumentationGetConst(ConstHandle2ConstRealization self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-RealizationDocumentationGet(ConstHandle2Realization This)
+RealizationDocumentationGet(ConstHandle2Realization self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-RealizationDocumentationSet(ConstHandle2Realization This, ConstHandle2ConstDocumentation documentation)
+RealizationDocumentationSet(ConstHandle2Realization self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

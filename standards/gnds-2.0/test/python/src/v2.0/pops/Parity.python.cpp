@@ -11,80 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Parity wrapper
-void wrapParity(python::module &module)
+// wrapper for pops::Parity
+void wrapParity(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Parity;
+   using cppCLASS = pops::Parity;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Parity",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Parity",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<documentation::Documentation> &,
-            const std::optional<pops::Uncertainty> &,
-            const std::optional<std::vector<containers::Integer>> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         python::arg("value") = std::nullopt,
-         python::arg("documentation") = std::nullopt,
-         python::arg("uncertainty") = std::nullopt,
-         python::arg("integer") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-      .def_property_readonly(
-         "integer",
-         [](const Component &self) { return self.integer(); },
-         Component::documentation("integer").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<documentation::Documentation> &,
+         const std::optional<pops::Uncertainty> &,
+         const std::optional<std::vector<containers::Integer>> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      py::arg("value") = std::nullopt,
+      py::arg("documentation") = std::nullopt,
+      py::arg("uncertainty") = std::nullopt,
+      py::arg("integer") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Documentation> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<pops::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // get/set integer
+   object.def_property(
+      "integer",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.integer();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<containers::Integer>> &value)
+      {
+         self.integer() = value;
+      },
+      cppCLASS::component_t::documentation("integer").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

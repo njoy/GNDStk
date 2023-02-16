@@ -108,13 +108,13 @@ ComputerCodeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ComputerCodeAssign(ConstHandle2ComputerCode This, ConstHandle2ConstComputerCode from);
+ComputerCodeAssign(ConstHandle2ComputerCode self, ConstHandle2ConstComputerCode from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ComputerCodeDelete(ConstHandle2ConstComputerCode This);
+ComputerCodeDelete(ConstHandle2ConstComputerCode self);
 
 
 // -----------------------------------------------------------------------------
@@ -127,25 +127,25 @@ ComputerCodeDelete(ConstHandle2ConstComputerCode This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ComputerCodeRead(ConstHandle2ComputerCode This, const char *const filename);
+ComputerCodeRead(ConstHandle2ComputerCode self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ComputerCodeWrite(ConstHandle2ConstComputerCode This, const char *const filename);
+ComputerCodeWrite(ConstHandle2ConstComputerCode self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ComputerCodePrint(ConstHandle2ConstComputerCode This);
+ComputerCodePrint(ConstHandle2ConstComputerCode self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ComputerCodePrintXML(ConstHandle2ConstComputerCode This);
+ComputerCodePrintXML(ConstHandle2ConstComputerCode self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ComputerCodePrintJSON(ConstHandle2ConstComputerCode This);
+ComputerCodePrintJSON(ConstHandle2ConstComputerCode self);
 
 
 // -----------------------------------------------------------------------------
@@ -154,16 +154,16 @@ ComputerCodePrintJSON(ConstHandle2ConstComputerCode This);
 
 // +++ Has
 extern_c int
-ComputerCodeLabelHas(ConstHandle2ConstComputerCode This);
+ComputerCodeLabelHas(ConstHandle2ConstComputerCode self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ComputerCodeLabelGet(ConstHandle2ConstComputerCode This);
+ComputerCodeLabelGet(ConstHandle2ConstComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeLabelSet(ConstHandle2ComputerCode This, const XMLName label);
+ComputerCodeLabelSet(ConstHandle2ComputerCode self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -172,16 +172,16 @@ ComputerCodeLabelSet(ConstHandle2ComputerCode This, const XMLName label);
 
 // +++ Has
 extern_c int
-ComputerCodeNameHas(ConstHandle2ConstComputerCode This);
+ComputerCodeNameHas(ConstHandle2ConstComputerCode self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-ComputerCodeNameGet(ConstHandle2ConstComputerCode This);
+ComputerCodeNameGet(ConstHandle2ConstComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeNameSet(ConstHandle2ComputerCode This, const UTF8Text name);
+ComputerCodeNameSet(ConstHandle2ComputerCode self, const UTF8Text name);
 
 
 // -----------------------------------------------------------------------------
@@ -190,16 +190,16 @@ ComputerCodeNameSet(ConstHandle2ComputerCode This, const UTF8Text name);
 
 // +++ Has
 extern_c int
-ComputerCodeVersionHas(ConstHandle2ConstComputerCode This);
+ComputerCodeVersionHas(ConstHandle2ConstComputerCode self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ComputerCodeVersionGet(ConstHandle2ConstComputerCode This);
+ComputerCodeVersionGet(ConstHandle2ConstComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeVersionSet(ConstHandle2ComputerCode This, const XMLName version);
+ComputerCodeVersionSet(ConstHandle2ComputerCode self, const XMLName version);
 
 
 // -----------------------------------------------------------------------------
@@ -208,19 +208,19 @@ ComputerCodeVersionSet(ConstHandle2ComputerCode This, const XMLName version);
 
 // +++ Has
 extern_c int
-ComputerCodeExecutionArgumentsHas(ConstHandle2ConstComputerCode This);
+ComputerCodeExecutionArgumentsHas(ConstHandle2ConstComputerCode self);
 
 // --- Get, const
 extern_c Handle2ConstExecutionArguments
-ComputerCodeExecutionArgumentsGetConst(ConstHandle2ConstComputerCode This);
+ComputerCodeExecutionArgumentsGetConst(ConstHandle2ConstComputerCode self);
 
 // +++ Get, non-const
 extern_c Handle2ExecutionArguments
-ComputerCodeExecutionArgumentsGet(ConstHandle2ComputerCode This);
+ComputerCodeExecutionArgumentsGet(ConstHandle2ComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode This, ConstHandle2ConstExecutionArguments executionArguments);
+ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode self, ConstHandle2ConstExecutionArguments executionArguments);
 
 
 // -----------------------------------------------------------------------------
@@ -229,19 +229,19 @@ ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-ComputerCodeCodeRepoHas(ConstHandle2ConstComputerCode This);
+ComputerCodeCodeRepoHas(ConstHandle2ConstComputerCode self);
 
 // --- Get, const
 extern_c Handle2ConstCodeRepo
-ComputerCodeCodeRepoGetConst(ConstHandle2ConstComputerCode This);
+ComputerCodeCodeRepoGetConst(ConstHandle2ConstComputerCode self);
 
 // +++ Get, non-const
 extern_c Handle2CodeRepo
-ComputerCodeCodeRepoGet(ConstHandle2ComputerCode This);
+ComputerCodeCodeRepoGet(ConstHandle2ComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeCodeRepoSet(ConstHandle2ComputerCode This, ConstHandle2ConstCodeRepo codeRepo);
+ComputerCodeCodeRepoSet(ConstHandle2ComputerCode self, ConstHandle2ConstCodeRepo codeRepo);
 
 
 // -----------------------------------------------------------------------------
@@ -250,19 +250,19 @@ ComputerCodeCodeRepoSet(ConstHandle2ComputerCode This, ConstHandle2ConstCodeRepo
 
 // +++ Has
 extern_c int
-ComputerCodeNoteHas(ConstHandle2ConstComputerCode This);
+ComputerCodeNoteHas(ConstHandle2ConstComputerCode self);
 
 // --- Get, const
 extern_c Handle2ConstNote
-ComputerCodeNoteGetConst(ConstHandle2ConstComputerCode This);
+ComputerCodeNoteGetConst(ConstHandle2ConstComputerCode self);
 
 // +++ Get, non-const
 extern_c Handle2Note
-ComputerCodeNoteGet(ConstHandle2ComputerCode This);
+ComputerCodeNoteGet(ConstHandle2ComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeNoteSet(ConstHandle2ComputerCode This, ConstHandle2ConstNote note);
+ComputerCodeNoteSet(ConstHandle2ComputerCode self, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------
@@ -271,19 +271,19 @@ ComputerCodeNoteSet(ConstHandle2ComputerCode This, ConstHandle2ConstNote note);
 
 // +++ Has
 extern_c int
-ComputerCodeInputDecksHas(ConstHandle2ConstComputerCode This);
+ComputerCodeInputDecksHas(ConstHandle2ConstComputerCode self);
 
 // --- Get, const
 extern_c Handle2ConstInputDecks
-ComputerCodeInputDecksGetConst(ConstHandle2ConstComputerCode This);
+ComputerCodeInputDecksGetConst(ConstHandle2ConstComputerCode self);
 
 // +++ Get, non-const
 extern_c Handle2InputDecks
-ComputerCodeInputDecksGet(ConstHandle2ComputerCode This);
+ComputerCodeInputDecksGet(ConstHandle2ComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeInputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstInputDecks inputDecks);
+ComputerCodeInputDecksSet(ConstHandle2ComputerCode self, ConstHandle2ConstInputDecks inputDecks);
 
 
 // -----------------------------------------------------------------------------
@@ -292,19 +292,19 @@ ComputerCodeInputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstInputD
 
 // +++ Has
 extern_c int
-ComputerCodeOutputDecksHas(ConstHandle2ConstComputerCode This);
+ComputerCodeOutputDecksHas(ConstHandle2ConstComputerCode self);
 
 // --- Get, const
 extern_c Handle2ConstOutputDecks
-ComputerCodeOutputDecksGetConst(ConstHandle2ConstComputerCode This);
+ComputerCodeOutputDecksGetConst(ConstHandle2ConstComputerCode self);
 
 // +++ Get, non-const
 extern_c Handle2OutputDecks
-ComputerCodeOutputDecksGet(ConstHandle2ComputerCode This);
+ComputerCodeOutputDecksGet(ConstHandle2ComputerCode self);
 
 // +++ Set
 extern_c void
-ComputerCodeOutputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstOutputDecks outputDecks);
+ComputerCodeOutputDecksSet(ConstHandle2ComputerCode self, ConstHandle2ConstOutputDecks outputDecks);
 
 
 // -----------------------------------------------------------------------------

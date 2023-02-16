@@ -77,20 +77,20 @@ TitleCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TitleAssign(ConstHandle2Title This, ConstHandle2ConstTitle from)
+TitleAssign(ConstHandle2Title self, ConstHandle2ConstTitle from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TitleDelete(ConstHandle2ConstTitle This)
+TitleDelete(ConstHandle2ConstTitle self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ TitleDelete(ConstHandle2ConstTitle This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TitleRead(ConstHandle2Title This, const char *const filename)
+TitleRead(ConstHandle2Title self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TitleWrite(ConstHandle2ConstTitle This, const char *const filename)
+TitleWrite(ConstHandle2ConstTitle self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TitlePrint(ConstHandle2ConstTitle This)
+TitlePrint(ConstHandle2ConstTitle self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TitlePrintXML(ConstHandle2ConstTitle This)
+TitlePrintXML(ConstHandle2ConstTitle self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TitlePrintJSON(ConstHandle2ConstTitle This)
+TitlePrintJSON(ConstHandle2ConstTitle self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,60 +155,60 @@ TitlePrintJSON(ConstHandle2ConstTitle This)
 
 // Clear
 void
-TitleIntsClear(ConstHandle2Title This)
+TitleIntsClear(ConstHandle2Title self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-TitleIntsSize(ConstHandle2ConstTitle This)
+TitleIntsSize(ConstHandle2ConstTitle self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-TitleIntsGet(ConstHandle2ConstTitle This, const size_t index)
+TitleIntsGet(ConstHandle2ConstTitle self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-TitleIntsSet(ConstHandle2Title This, const size_t index, const int value)
+TitleIntsSet(ConstHandle2Title self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-TitleIntsGetArrayConst(ConstHandle2ConstTitle This)
+TitleIntsGetArrayConst(ConstHandle2ConstTitle self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-TitleIntsGetArray(ConstHandle2Title This)
+TitleIntsGetArray(ConstHandle2Title self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-TitleIntsSetArray(ConstHandle2Title This, const int *const values, const size_t size)
+TitleIntsSetArray(ConstHandle2Title self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -217,60 +217,60 @@ TitleIntsSetArray(ConstHandle2Title This, const int *const values, const size_t 
 
 // Clear
 void
-TitleUnsignedsClear(ConstHandle2Title This)
+TitleUnsignedsClear(ConstHandle2Title self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-TitleUnsignedsSize(ConstHandle2ConstTitle This)
+TitleUnsignedsSize(ConstHandle2ConstTitle self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-TitleUnsignedsGet(ConstHandle2ConstTitle This, const size_t index)
+TitleUnsignedsGet(ConstHandle2ConstTitle self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-TitleUnsignedsSet(ConstHandle2Title This, const size_t index, const unsigned value)
+TitleUnsignedsSet(ConstHandle2Title self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-TitleUnsignedsGetArrayConst(ConstHandle2ConstTitle This)
+TitleUnsignedsGetArrayConst(ConstHandle2ConstTitle self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-TitleUnsignedsGetArray(ConstHandle2Title This)
+TitleUnsignedsGetArray(ConstHandle2Title self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-TitleUnsignedsSetArray(ConstHandle2Title This, const unsigned *const values, const size_t size)
+TitleUnsignedsSetArray(ConstHandle2Title self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -279,60 +279,60 @@ TitleUnsignedsSetArray(ConstHandle2Title This, const unsigned *const values, con
 
 // Clear
 void
-TitleFloatsClear(ConstHandle2Title This)
+TitleFloatsClear(ConstHandle2Title self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-TitleFloatsSize(ConstHandle2ConstTitle This)
+TitleFloatsSize(ConstHandle2ConstTitle self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-TitleFloatsGet(ConstHandle2ConstTitle This, const size_t index)
+TitleFloatsGet(ConstHandle2ConstTitle self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-TitleFloatsSet(ConstHandle2Title This, const size_t index, const float value)
+TitleFloatsSet(ConstHandle2Title self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-TitleFloatsGetArrayConst(ConstHandle2ConstTitle This)
+TitleFloatsGetArrayConst(ConstHandle2ConstTitle self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-TitleFloatsGetArray(ConstHandle2Title This)
+TitleFloatsGetArray(ConstHandle2Title self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-TitleFloatsSetArray(ConstHandle2Title This, const float *const values, const size_t size)
+TitleFloatsSetArray(ConstHandle2Title self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -341,60 +341,60 @@ TitleFloatsSetArray(ConstHandle2Title This, const float *const values, const siz
 
 // Clear
 void
-TitleDoublesClear(ConstHandle2Title This)
+TitleDoublesClear(ConstHandle2Title self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-TitleDoublesSize(ConstHandle2ConstTitle This)
+TitleDoublesSize(ConstHandle2ConstTitle self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-TitleDoublesGet(ConstHandle2ConstTitle This, const size_t index)
+TitleDoublesGet(ConstHandle2ConstTitle self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-TitleDoublesSet(ConstHandle2Title This, const size_t index, const double value)
+TitleDoublesSet(ConstHandle2Title self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-TitleDoublesGetArrayConst(ConstHandle2ConstTitle This)
+TitleDoublesGetArrayConst(ConstHandle2ConstTitle self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-TitleDoublesGetArray(ConstHandle2Title This)
+TitleDoublesGetArray(ConstHandle2Title self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-TitleDoublesSetArray(ConstHandle2Title This, const double *const values, const size_t size)
+TitleDoublesSetArray(ConstHandle2Title self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -404,27 +404,27 @@ TitleDoublesSetArray(ConstHandle2Title This, const double *const values, const s
 
 // Has
 int
-TitleEncodingHas(ConstHandle2ConstTitle This)
+TitleEncodingHas(ConstHandle2ConstTitle self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-TitleEncodingGet(ConstHandle2ConstTitle This)
+TitleEncodingGet(ConstHandle2ConstTitle self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-TitleEncodingSet(ConstHandle2Title This, const XMLName encoding)
+TitleEncodingSet(ConstHandle2Title self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -434,27 +434,27 @@ TitleEncodingSet(ConstHandle2Title This, const XMLName encoding)
 
 // Has
 int
-TitleMarkupHas(ConstHandle2ConstTitle This)
+TitleMarkupHas(ConstHandle2ConstTitle self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-TitleMarkupGet(ConstHandle2ConstTitle This)
+TitleMarkupGet(ConstHandle2ConstTitle self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-TitleMarkupSet(ConstHandle2Title This, const char *const markup)
+TitleMarkupSet(ConstHandle2Title self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -464,27 +464,27 @@ TitleMarkupSet(ConstHandle2Title This, const char *const markup)
 
 // Has
 int
-TitleLabelHas(ConstHandle2ConstTitle This)
+TitleLabelHas(ConstHandle2ConstTitle self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-TitleLabelGet(ConstHandle2ConstTitle This)
+TitleLabelGet(ConstHandle2ConstTitle self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-TitleLabelSet(ConstHandle2Title This, const XMLName label)
+TitleLabelSet(ConstHandle2Title self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

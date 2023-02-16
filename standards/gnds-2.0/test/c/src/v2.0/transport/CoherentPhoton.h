@@ -85,13 +85,13 @@ CoherentPhotonCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CoherentPhotonAssign(ConstHandle2CoherentPhoton This, ConstHandle2ConstCoherentPhoton from);
+CoherentPhotonAssign(ConstHandle2CoherentPhoton self, ConstHandle2ConstCoherentPhoton from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton This);
+CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CoherentPhotonRead(ConstHandle2CoherentPhoton This, const char *const filename);
+CoherentPhotonRead(ConstHandle2CoherentPhoton self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CoherentPhotonWrite(ConstHandle2ConstCoherentPhoton This, const char *const filename);
+CoherentPhotonWrite(ConstHandle2ConstCoherentPhoton self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CoherentPhotonPrint(ConstHandle2ConstCoherentPhoton This);
+CoherentPhotonPrint(ConstHandle2ConstCoherentPhoton self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CoherentPhotonPrintXML(ConstHandle2ConstCoherentPhoton This);
+CoherentPhotonPrintXML(ConstHandle2ConstCoherentPhoton self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CoherentPhotonPrintJSON(ConstHandle2ConstCoherentPhoton This);
+CoherentPhotonPrintJSON(ConstHandle2ConstCoherentPhoton self);
 
 
 // -----------------------------------------------------------------------------

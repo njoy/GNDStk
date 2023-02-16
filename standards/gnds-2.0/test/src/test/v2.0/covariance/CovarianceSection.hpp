@@ -35,12 +35,12 @@ class CovarianceSection :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceSection"; }
-   static auto FIELD() { return "covarianceSection"; }
+   static auto NODENAME() { return "covarianceSection"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -54,14 +54,51 @@ class CovarianceSection :
             / Meta<>("label") |
 
          // children
-         --Child<covariance::RowData>("rowData") |
-         --Child<std::optional<covariance::ColumnData>>("columnData") |
+         --Child<covariance::RowData>
+            ("rowData") |
+         --Child<std::optional<covariance::ColumnData>>
+            ("columnData") |
          _t{}
             / --(Child<>("covarianceMatrix") || Child<>("sum") || Child<>("mixed"))
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "crossTerm",
+         "label",
+         "rowData",
+         "columnData",
+         "_covarianceMatrixsummixed"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "cross_term",
+         "label",
+         "row_data",
+         "column_data",
+         "_covariance_matrixsummixed"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -69,19 +106,28 @@ public:
       static inline const bool crossTerm = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Defaulted<bool>> crossTerm{this,defaults.crossTerm};
-   Field<std::optional<XMLName>> label{this};
+   Field<Defaulted<bool>>
+      crossTerm{this,defaults.crossTerm};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<covariance::RowData> rowData{this};
-   Field<std::optional<covariance::ColumnData>> columnData{this};
+   Field<covariance::RowData>
+      rowData{this};
+   Field<std::optional<covariance::ColumnData>>
+      columnData{this};
 
    // children - variant
-   Field<_t> _covarianceMatrixsummixed{this};
+   Field<_t>
+      _covarianceMatrixsummixed{this};
    FieldPart<decltype(_covarianceMatrixsummixed),covariance::CovarianceMatrix> covarianceMatrix{_covarianceMatrixsummixed};
    FieldPart<decltype(_covarianceMatrixsummixed),covariance::Sum> sum{_covarianceMatrixsummixed};
    FieldPart<decltype(_covarianceMatrixsummixed),covariance::Mixed> mixed{_covarianceMatrixsummixed};
@@ -90,13 +136,16 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->crossTerm, \
       this->label, \
       this->rowData, \
       this->columnData, \
-      this->_covarianceMatrixsummixed)
+      this->_covarianceMatrixsummixed \
+   )
 
    // default
    CovarianceSection() :
@@ -108,11 +157,16 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit CovarianceSection(
-      const wrapper<std::optional<bool>> &crossTerm,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<covariance::RowData> &rowData = {},
-      const wrapper<std::optional<covariance::ColumnData>> &columnData = {},
-      const wrapper<_t> &_covarianceMatrixsummixed = {}
+      const wrapper<std::optional<bool>>
+         &crossTerm,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<covariance::RowData>
+         &rowData = {},
+      const wrapper<std::optional<covariance::ColumnData>>
+         &columnData = {},
+      const wrapper<_t>
+         &_covarianceMatrixsummixed = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       crossTerm(this,defaults.crossTerm,crossTerm),
@@ -161,8 +215,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceSection &operator=(const CovarianceSection &) = default;
-   CovarianceSection &operator=(CovarianceSection &&) = default;
+   // copy
+   CovarianceSection &operator=(const CovarianceSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         crossTerm = other.crossTerm;
+         label = other.label;
+         rowData = other.rowData;
+         columnData = other.columnData;
+         _covarianceMatrixsummixed = other._covarianceMatrixsummixed;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceSection &operator=(CovarianceSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         crossTerm = std::move(other.crossTerm);
+         label = std::move(other.label);
+         rowData = std::move(other.rowData);
+         columnData = std::move(other.columnData);
+         _covarianceMatrixsummixed = std::move(other._covarianceMatrixsummixed);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

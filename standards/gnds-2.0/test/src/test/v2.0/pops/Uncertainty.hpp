@@ -28,12 +28,12 @@ class Uncertainty :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Uncertainty"; }
-   static auto FIELD() { return "uncertainty"; }
+   static auto NODENAME() { return "uncertainty"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -41,35 +41,83 @@ class Uncertainty :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<pops::Standard>>("standard") |
-         --Child<std::optional<pops::LogNormal>>("logNormal") |
-         --Child<std::optional<pops::ConfidenceIntervals>>("confidenceIntervals") |
-         --Child<std::optional<pops::Pdf>>("pdf")
+         --Child<std::optional<pops::Standard>>
+            ("standard") |
+         --Child<std::optional<pops::LogNormal>>
+            ("logNormal") |
+         --Child<std::optional<pops::ConfidenceIntervals>>
+            ("confidenceIntervals") |
+         --Child<std::optional<pops::Pdf>>
+            ("pdf")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "standard",
+         "logNormal",
+         "confidenceIntervals",
+         "pdf"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "standard",
+         "log_normal",
+         "confidence_intervals",
+         "pdf"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<pops::Standard>> standard{this};
-   Field<std::optional<pops::LogNormal>> logNormal{this};
-   Field<std::optional<pops::ConfidenceIntervals>> confidenceIntervals{this};
-   Field<std::optional<pops::Pdf>> pdf{this};
+   Field<std::optional<pops::Standard>>
+      standard{this};
+   Field<std::optional<pops::LogNormal>>
+      logNormal{this};
+   Field<std::optional<pops::ConfidenceIntervals>>
+      confidenceIntervals{this};
+   Field<std::optional<pops::Pdf>>
+      pdf{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->standard, \
       this->logNormal, \
       this->confidenceIntervals, \
-      this->pdf)
+      this->pdf \
+   )
 
    // default
    Uncertainty() :
@@ -80,10 +128,14 @@ public:
 
    // from fields, comment excluded
    explicit Uncertainty(
-      const wrapper<std::optional<pops::Standard>> &standard,
-      const wrapper<std::optional<pops::LogNormal>> &logNormal = {},
-      const wrapper<std::optional<pops::ConfidenceIntervals>> &confidenceIntervals = {},
-      const wrapper<std::optional<pops::Pdf>> &pdf = {}
+      const wrapper<std::optional<pops::Standard>>
+         &standard,
+      const wrapper<std::optional<pops::LogNormal>>
+         &logNormal = {},
+      const wrapper<std::optional<pops::ConfidenceIntervals>>
+         &confidenceIntervals = {},
+      const wrapper<std::optional<pops::Pdf>>
+         &pdf = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       standard(this,standard),
@@ -129,8 +181,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Uncertainty &operator=(const Uncertainty &) = default;
-   Uncertainty &operator=(Uncertainty &&) = default;
+   // copy
+   Uncertainty &operator=(const Uncertainty &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         standard = other.standard;
+         logNormal = other.logNormal;
+         confidenceIntervals = other.confidenceIntervals;
+         pdf = other.pdf;
+      }
+      return *this;
+   }
+
+   // move
+   Uncertainty &operator=(Uncertainty &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         standard = std::move(other.standard);
+         logNormal = std::move(other.logNormal);
+         confidenceIntervals = std::move(other.confidenceIntervals);
+         pdf = std::move(other.pdf);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

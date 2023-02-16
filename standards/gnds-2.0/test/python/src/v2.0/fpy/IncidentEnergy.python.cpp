@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// IncidentEnergy wrapper
-void wrapIncidentEnergy(python::module &module)
+// wrapper for fpy::IncidentEnergy
+void wrapIncidentEnergy(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::IncidentEnergy;
+   using cppCLASS = fpy::IncidentEnergy;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "IncidentEnergy",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "IncidentEnergy",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const fpy::Energy &,
-            const fpy::Yields &
-         >(),
-         python::arg("label"),
-         python::arg("energy"),
-         python::arg("yields"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "energy",
-         [](const Component &self) { return self.energy(); },
-         Component::documentation("energy").data()
-      )
-      .def_property_readonly(
-         "yields",
-         [](const Component &self) { return self.yields(); },
-         Component::documentation("yields").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const fpy::Energy &,
+         const fpy::Yields &
+      >(),
+      py::arg("label"),
+      py::arg("energy"),
+      py::arg("yields"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set energy
+   object.def_property(
+      "energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energy();
+      },
+      [](cppCLASS &self, const fpy::Energy &value)
+      {
+         self.energy() = value;
+      },
+      cppCLASS::component_t::documentation("energy").data()
+   );
+
+   // get/set yields
+   object.def_property(
+      "yields",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.yields();
+      },
+      [](cppCLASS &self, const fpy::Yields &value)
+      {
+         self.yields() = value;
+      },
+      cppCLASS::component_t::documentation("yields").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

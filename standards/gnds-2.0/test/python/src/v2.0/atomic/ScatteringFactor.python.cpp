@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_atomic {
 
-// ScatteringFactor wrapper
-void wrapScatteringFactor(python::module &module)
+// wrapper for atomic::ScatteringFactor
+void wrapScatteringFactor(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = atomic::ScatteringFactor;
+   using cppCLASS = atomic::ScatteringFactor;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ScatteringFactor",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ScatteringFactor",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::XYs1d> &,
-            const std::optional<containers::Regions1d> &
-         >(),
-         python::arg("xys1d") = std::nullopt,
-         python::arg("regions1d") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self) { return self.regions1d(); },
-         Component::documentation("regions1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::XYs1d> &,
+         const std::optional<containers::Regions1d> &
+      >(),
+      py::arg("xys1d") = std::nullopt,
+      py::arg("regions1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Regions1d> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_atomic

@@ -89,20 +89,20 @@ Regions1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Regions1dAssign(ConstHandle2Regions1d This, ConstHandle2ConstRegions1d from)
+Regions1dAssign(ConstHandle2Regions1d self, ConstHandle2ConstRegions1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Regions1dDelete(ConstHandle2ConstRegions1d This)
+Regions1dDelete(ConstHandle2ConstRegions1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ Regions1dDelete(ConstHandle2ConstRegions1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Regions1dRead(ConstHandle2Regions1d This, const char *const filename)
+Regions1dRead(ConstHandle2Regions1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Regions1dWrite(ConstHandle2ConstRegions1d This, const char *const filename)
+Regions1dWrite(ConstHandle2ConstRegions1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Regions1dPrint(ConstHandle2ConstRegions1d This)
+Regions1dPrint(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Regions1dPrintXML(ConstHandle2ConstRegions1d This)
+Regions1dPrintXML(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Regions1dPrintJSON(ConstHandle2ConstRegions1d This)
+Regions1dPrintJSON(ConstHandle2ConstRegions1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ Regions1dPrintJSON(ConstHandle2ConstRegions1d This)
 
 // Has
 int
-Regions1dLabelHas(ConstHandle2ConstRegions1d This)
+Regions1dLabelHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-Regions1dLabelGet(ConstHandle2ConstRegions1d This)
+Regions1dLabelGet(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label)
+Regions1dLabelSet(ConstHandle2Regions1d self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -193,27 +193,27 @@ Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label)
 
 // Has
 int
-Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d This)
+Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 double
-Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d This)
+Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomainValue)
+Regions1dOuterDomainValueSet(ConstHandle2Regions1d self, const double outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -223,34 +223,34 @@ Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomai
 
 // Has
 int
-Regions1dAxesHas(ConstHandle2ConstRegions1d This)
+Regions1dAxesHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Regions1dAxesGetConst(ConstHandle2ConstRegions1d This)
+Regions1dAxesGetConst(ConstHandle2ConstRegions1d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Regions1dAxesGet(ConstHandle2Regions1d This)
+Regions1dAxesGet(ConstHandle2Regions1d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes)
+Regions1dAxesSet(ConstHandle2Regions1d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -260,241 +260,241 @@ Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Regions1dXYs1dHas(ConstHandle2ConstRegions1d This)
+Regions1dXYs1dHas(ConstHandle2ConstRegions1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Clear
 void
-Regions1dXYs1dClear(ConstHandle2Regions1d This)
+Regions1dXYs1dClear(ConstHandle2Regions1d self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dClear", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dClear", self, extract::XYs1d);
 }
 
 // Size
 size_t
-Regions1dXYs1dSize(ConstHandle2ConstRegions1d This)
+Regions1dXYs1dSize(ConstHandle2ConstRegions1d self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dSize", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSize", self, extract::XYs1d);
 }
 
 // Add
 void
-Regions1dXYs1dAdd(ConstHandle2Regions1d This, ConstHandle2ConstXYs1d XYs1d)
+Regions1dXYs1dAdd(ConstHandle2Regions1d self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::addToContainer<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dAdd", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dAdd", self, extract::XYs1d, XYs1d);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstXYs1d
-Regions1dXYs1dGetConst(ConstHandle2ConstRegions1d This, const size_t index_)
+Regions1dXYs1dGetConst(ConstHandle2ConstRegions1d self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d, index_);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2XYs1d
-Regions1dXYs1dGet(ConstHandle2Regions1d This, const size_t index_)
+Regions1dXYs1dGet(ConstHandle2Regions1d self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d, index_);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d, index_);
 }
 
 // Set, by index \in [0,size)
 void
 Regions1dXYs1dSet(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const size_t index_,
    ConstHandle2ConstXYs1d XYs1d
 ) {
    detail::setByIndex<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, index_, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, index_, XYs1d);
 }
 
 // Has, by index
 int
 Regions1dXYs1dHasByIndex(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const int index
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs1dHasByIndex",
-       This, extract::XYs1d, meta::index, index);
+       self, extract::XYs1d, meta::index, index);
 }
 
 // Get, by index, const
 Handle2ConstXYs1d
 Regions1dXYs1dGetByIndexConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByIndexConst",
-       This, extract::XYs1d, meta::index, index);
+       self, extract::XYs1d, meta::index, index);
 }
 
 // Get, by index, non-const
 Handle2XYs1d
 Regions1dXYs1dGetByIndex(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const int index
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByIndex",
-       This, extract::XYs1d, meta::index, index);
+       self, extract::XYs1d, meta::index, index);
 }
 
 // Set, by index
 void
 Regions1dXYs1dSetByIndex(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const int index,
    ConstHandle2ConstXYs1d XYs1d
 ) {
    detail::setByMetadatum<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSetByIndex",
-       This, extract::XYs1d, meta::index, index, XYs1d);
+       self, extract::XYs1d, meta::index, index, XYs1d);
 }
 
 // Has, by interpolation
 int
 Regions1dXYs1dHasByInterpolation(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const enums::Interpolation interpolation
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs1dHasByInterpolation",
-       This, extract::XYs1d, meta::interpolation, interpolation);
+       self, extract::XYs1d, meta::interpolation, interpolation);
 }
 
 // Get, by interpolation, const
 Handle2ConstXYs1d
 Regions1dXYs1dGetByInterpolationConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const enums::Interpolation interpolation
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByInterpolationConst",
-       This, extract::XYs1d, meta::interpolation, interpolation);
+       self, extract::XYs1d, meta::interpolation, interpolation);
 }
 
 // Get, by interpolation, non-const
 Handle2XYs1d
 Regions1dXYs1dGetByInterpolation(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const enums::Interpolation interpolation
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByInterpolation",
-       This, extract::XYs1d, meta::interpolation, interpolation);
+       self, extract::XYs1d, meta::interpolation, interpolation);
 }
 
 // Set, by interpolation
 void
 Regions1dXYs1dSetByInterpolation(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const enums::Interpolation interpolation,
    ConstHandle2ConstXYs1d XYs1d
 ) {
    detail::setByMetadatum<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSetByInterpolation",
-       This, extract::XYs1d, meta::interpolation, interpolation, XYs1d);
+       self, extract::XYs1d, meta::interpolation, interpolation, XYs1d);
 }
 
 // Has, by label
 int
 Regions1dXYs1dHasByLabel(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const char *const label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs1dHasByLabel",
-       This, extract::XYs1d, meta::label, label);
+       self, extract::XYs1d, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstXYs1d
 Regions1dXYs1dGetByLabelConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByLabelConst",
-       This, extract::XYs1d, meta::label, label);
+       self, extract::XYs1d, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2XYs1d
 Regions1dXYs1dGetByLabel(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const char *const label
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByLabel",
-       This, extract::XYs1d, meta::label, label);
+       self, extract::XYs1d, meta::label, label);
 }
 
 // Set, by label
 void
 Regions1dXYs1dSetByLabel(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const char *const label,
    ConstHandle2ConstXYs1d XYs1d
 ) {
    detail::setByMetadatum<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSetByLabel",
-       This, extract::XYs1d, meta::label, label, XYs1d);
+       self, extract::XYs1d, meta::label, label, XYs1d);
 }
 
 // Has, by outerDomainValue
 int
 Regions1dXYs1dHasByOuterDomainValue(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const double outerDomainValue
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"XYs1dHasByOuterDomainValue",
-       This, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Get, by outerDomainValue, const
 Handle2ConstXYs1d
 Regions1dXYs1dGetByOuterDomainValueConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const double outerDomainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByOuterDomainValueConst",
-       This, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Get, by outerDomainValue, non-const
 Handle2XYs1d
 Regions1dXYs1dGetByOuterDomainValue(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const double outerDomainValue
 ) {
    return detail::getByMetadatum<CPP,Handle2XYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dGetByOuterDomainValue",
-       This, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
+       self, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
 }
 
 // Set, by outerDomainValue
 void
 Regions1dXYs1dSetByOuterDomainValue(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const double outerDomainValue,
    ConstHandle2ConstXYs1d XYs1d
 ) {
    detail::setByMetadatum<CPP,CPPXYs1d>
       (CLASSNAME, CLASSNAME+"XYs1dSetByOuterDomainValue",
-       This, extract::XYs1d, meta::outerDomainValue, outerDomainValue, XYs1d);
+       self, extract::XYs1d, meta::outerDomainValue, outerDomainValue, XYs1d);
 }
 
 

@@ -91,20 +91,20 @@ XYs3dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-XYs3dAssign(ConstHandle2XYs3d This, ConstHandle2ConstXYs3d from)
+XYs3dAssign(ConstHandle2XYs3d self, ConstHandle2ConstXYs3d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-XYs3dDelete(ConstHandle2ConstXYs3d This)
+XYs3dDelete(ConstHandle2ConstXYs3d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -118,44 +118,44 @@ XYs3dDelete(ConstHandle2ConstXYs3d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-XYs3dRead(ConstHandle2XYs3d This, const char *const filename)
+XYs3dRead(ConstHandle2XYs3d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-XYs3dWrite(ConstHandle2ConstXYs3d This, const char *const filename)
+XYs3dWrite(ConstHandle2ConstXYs3d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-XYs3dPrint(ConstHandle2ConstXYs3d This)
+XYs3dPrint(ConstHandle2ConstXYs3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-XYs3dPrintXML(ConstHandle2ConstXYs3d This)
+XYs3dPrintXML(ConstHandle2ConstXYs3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-XYs3dPrintJSON(ConstHandle2ConstXYs3d This)
+XYs3dPrintJSON(ConstHandle2ConstXYs3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -165,27 +165,27 @@ XYs3dPrintJSON(ConstHandle2ConstXYs3d This)
 
 // Has
 int
-XYs3dInterpolationHas(ConstHandle2ConstXYs3d This)
+XYs3dInterpolationHas(ConstHandle2ConstXYs3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationHas", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationHas", self, extract::interpolation);
 }
 
 // Get
 // Returns by value
 enums::Interpolation
-XYs3dInterpolationGet(ConstHandle2ConstXYs3d This)
+XYs3dInterpolationGet(ConstHandle2ConstXYs3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationGet", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationGet", self, extract::interpolation);
 }
 
 // Set
 void
-XYs3dInterpolationSet(ConstHandle2XYs3d This, const enums::Interpolation interpolation)
+XYs3dInterpolationSet(ConstHandle2XYs3d self, const enums::Interpolation interpolation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationSet", This, extract::interpolation, interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationSet", self, extract::interpolation, interpolation);
 }
 
 
@@ -195,27 +195,27 @@ XYs3dInterpolationSet(ConstHandle2XYs3d This, const enums::Interpolation interpo
 
 // Has
 int
-XYs3dInterpolationQualifierHas(ConstHandle2ConstXYs3d This)
+XYs3dInterpolationQualifierHas(ConstHandle2ConstXYs3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationQualifierHas", This, extract::interpolationQualifier);
+      (CLASSNAME, CLASSNAME+"InterpolationQualifierHas", self, extract::interpolationQualifier);
 }
 
 // Get
 // Returns by value
 XMLName
-XYs3dInterpolationQualifierGet(ConstHandle2ConstXYs3d This)
+XYs3dInterpolationQualifierGet(ConstHandle2ConstXYs3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationQualifierGet", This, extract::interpolationQualifier);
+      (CLASSNAME, CLASSNAME+"InterpolationQualifierGet", self, extract::interpolationQualifier);
 }
 
 // Set
 void
-XYs3dInterpolationQualifierSet(ConstHandle2XYs3d This, const XMLName interpolationQualifier)
+XYs3dInterpolationQualifierSet(ConstHandle2XYs3d self, const XMLName interpolationQualifier)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationQualifierSet", This, extract::interpolationQualifier, interpolationQualifier);
+      (CLASSNAME, CLASSNAME+"InterpolationQualifierSet", self, extract::interpolationQualifier, interpolationQualifier);
 }
 
 
@@ -225,34 +225,34 @@ XYs3dInterpolationQualifierSet(ConstHandle2XYs3d This, const XMLName interpolati
 
 // Has
 int
-XYs3dAxesHas(ConstHandle2ConstXYs3d This)
+XYs3dAxesHas(ConstHandle2ConstXYs3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-XYs3dAxesGetConst(ConstHandle2ConstXYs3d This)
+XYs3dAxesGetConst(ConstHandle2ConstXYs3d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-XYs3dAxesGet(ConstHandle2XYs3d This)
+XYs3dAxesGet(ConstHandle2XYs3d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-XYs3dAxesSet(ConstHandle2XYs3d This, ConstHandle2ConstAxes axes)
+XYs3dAxesSet(ConstHandle2XYs3d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -262,34 +262,34 @@ XYs3dAxesSet(ConstHandle2XYs3d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-XYs3dFunction2dsHas(ConstHandle2ConstXYs3d This)
+XYs3dFunction2dsHas(ConstHandle2ConstXYs3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Function2dsHas", This, extract::function2ds);
+      (CLASSNAME, CLASSNAME+"Function2dsHas", self, extract::function2ds);
 }
 
 // Get, const
 Handle2ConstFunction2ds
-XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d This)
+XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d self)
 {
    return detail::getField<CPP,Handle2ConstFunction2ds>
-      (CLASSNAME, CLASSNAME+"Function2dsGetConst", This, extract::function2ds);
+      (CLASSNAME, CLASSNAME+"Function2dsGetConst", self, extract::function2ds);
 }
 
 // Get, non-const
 Handle2Function2ds
-XYs3dFunction2dsGet(ConstHandle2XYs3d This)
+XYs3dFunction2dsGet(ConstHandle2XYs3d self)
 {
    return detail::getField<CPP,Handle2Function2ds>
-      (CLASSNAME, CLASSNAME+"Function2dsGet", This, extract::function2ds);
+      (CLASSNAME, CLASSNAME+"Function2dsGet", self, extract::function2ds);
 }
 
 // Set
 void
-XYs3dFunction2dsSet(ConstHandle2XYs3d This, ConstHandle2ConstFunction2ds function2ds)
+XYs3dFunction2dsSet(ConstHandle2XYs3d self, ConstHandle2ConstFunction2ds function2ds)
 {
    detail::setField<CPP,CPPFunction2ds>
-      (CLASSNAME, CLASSNAME+"Function2dsSet", This, extract::function2ds, function2ds);
+      (CLASSNAME, CLASSNAME+"Function2dsSet", self, extract::function2ds, function2ds);
 }
 
 
@@ -299,34 +299,34 @@ XYs3dFunction2dsSet(ConstHandle2XYs3d This, ConstHandle2ConstFunction2ds functio
 
 // Has
 int
-XYs3dUncertaintyHas(ConstHandle2ConstXYs3d This)
+XYs3dUncertaintyHas(ConstHandle2ConstXYs3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-XYs3dUncertaintyGetConst(ConstHandle2ConstXYs3d This)
+XYs3dUncertaintyGetConst(ConstHandle2ConstXYs3d self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-XYs3dUncertaintyGet(ConstHandle2XYs3d This)
+XYs3dUncertaintyGet(ConstHandle2XYs3d self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-XYs3dUncertaintySet(ConstHandle2XYs3d This, ConstHandle2ConstUncertainty uncertainty)
+XYs3dUncertaintySet(ConstHandle2XYs3d self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

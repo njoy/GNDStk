@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// S_table wrapper
-void wrapS_table(python::module &module)
+// wrapper for tsl::S_table
+void wrapS_table(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::S_table;
+   using cppCLASS = tsl::S_table;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "S_table",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "S_table",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const containers::Gridded2d &
-         >(),
-         python::arg("gridded2d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "gridded2d",
-         [](const Component &self) { return self.gridded2d(); },
-         Component::documentation("gridded2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const containers::Gridded2d &
+      >(),
+      py::arg("gridded2d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set gridded2d
+   object.def_property(
+      "gridded2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded2d();
+      },
+      [](cppCLASS &self, const containers::Gridded2d &value)
+      {
+         self.gridded2d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

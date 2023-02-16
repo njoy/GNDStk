@@ -96,13 +96,13 @@ MonteCarlo_cdfCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MonteCarlo_cdfAssign(ConstHandle2MonteCarlo_cdf This, ConstHandle2ConstMonteCarlo_cdf from);
+MonteCarlo_cdfAssign(ConstHandle2MonteCarlo_cdf self, ConstHandle2ConstMonteCarlo_cdf from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MonteCarlo_cdfRead(ConstHandle2MonteCarlo_cdf This, const char *const filename);
+MonteCarlo_cdfRead(ConstHandle2MonteCarlo_cdf self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MonteCarlo_cdfWrite(ConstHandle2ConstMonteCarlo_cdf This, const char *const filename);
+MonteCarlo_cdfWrite(ConstHandle2ConstMonteCarlo_cdf self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MonteCarlo_cdfPrint(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfPrint(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MonteCarlo_cdfPrintXML(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfPrintXML(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf This);
 
 // +++ Has
 extern_c int
-MonteCarlo_cdfDateHas(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDateHas(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-MonteCarlo_cdfDateGet(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDateGet(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Set
 extern_c void
-MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf This, const char *const date);
+MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf This, const char *const date);
 
 // +++ Has
 extern_c int
-MonteCarlo_cdfDerivedFromHas(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDerivedFromHas(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MonteCarlo_cdfDerivedFromGet(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDerivedFromGet(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Set
 extern_c void
-MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf This, const XMLName derivedFrom);
+MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf This, const XMLName deri
 
 // +++ Has
 extern_c int
-MonteCarlo_cdfLabelHas(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfLabelHas(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MonteCarlo_cdfLabelGet(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfLabelGet(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Set
 extern_c void
-MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf This, const XMLName label);
+MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf This, const XMLName label);
 
 // +++ Has
 extern_c int
-MonteCarlo_cdfDocumentationHas(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDocumentationHas(ConstHandle2ConstMonteCarlo_cdf self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-MonteCarlo_cdfDocumentationGetConst(ConstHandle2ConstMonteCarlo_cdf This);
+MonteCarlo_cdfDocumentationGetConst(ConstHandle2ConstMonteCarlo_cdf self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-MonteCarlo_cdfDocumentationGet(ConstHandle2MonteCarlo_cdf This);
+MonteCarlo_cdfDocumentationGet(ConstHandle2MonteCarlo_cdf self);
 
 // +++ Set
 extern_c void
-MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf This, ConstHandle2ConstDocumentation documentation);
+MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

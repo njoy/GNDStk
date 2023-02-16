@@ -11,81 +11,120 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// Nuclides wrapper
-void wrapNuclides(python::module &module)
+// wrapper for fpy::Nuclides
+void wrapNuclides(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::Nuclides;
+   using cppCLASS = fpy::Nuclides;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Nuclides",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Nuclides",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &
-         >(),
-         python::arg("href") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<int> &
-         >(),
-         python::arg("ints"),
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<double> &
-         >(),
-         python::arg("doubles"),
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<std::string> &
-         >(),
-         python::arg("strings"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-      .def_property_readonly(
-         "ints",
-         [] (const Component &self) { return self.ints(); },
-         Component::documentation("ints").data()
-      )
-      .def_property_readonly(
-         "doubles",
-         [] (const Component &self) { return self.doubles(); },
-         Component::documentation("doubles").data()
-      )
-      .def_property_readonly(
-         "strings",
-         [] (const Component &self) { return self.strings(); },
-         Component::documentation("strings").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &
+      >(),
+      py::arg("href") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<int> &
+      >(),
+      py::arg("ints"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<double> &
+      >(),
+      py::arg("doubles"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<std::string> &
+      >(),
+      py::arg("strings"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set vector<int>
+   object.def_property(
+      "ints",
+      [](const cppCLASS &self) -> const std::vector<int> &
+      {
+         return self.ints();
+      },
+      [](cppCLASS &self, const std::vector<int> &value)
+      {
+         self.ints() = value;
+      },
+      cppCLASS::component_t::documentation("ints").data()
+   );
+
+   // get/set vector<double>
+   object.def_property(
+      "doubles",
+      [](const cppCLASS &self) -> const std::vector<double> &
+      {
+         return self.doubles();
+      },
+      [](cppCLASS &self, const std::vector<double> &value)
+      {
+         self.doubles() = value;
+      },
+      cppCLASS::component_t::documentation("doubles").data()
+   );
+
+   // get/set vector<std::string>
+   object.def_property(
+      "strings",
+      [](const cppCLASS &self) -> const std::vector<std::string> &
+      {
+         return self.strings();
+      },
+      [](cppCLASS &self, const std::vector<std::string> &value)
+      {
+         self.strings() = value;
+      },
+      cppCLASS::component_t::documentation("strings").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

@@ -11,101 +11,179 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Nucleus wrapper
-void wrapNucleus(python::module &module)
+// wrapper for pops::Nucleus
+void wrapNucleus(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Nucleus;
+   using cppCLASS = pops::Nucleus;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Nucleus",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Nucleus",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const Integer32 &,
-            const std::optional<pops::Charge> &,
-            const std::optional<pops::Energy> &,
-            const std::optional<pops::Halflife> &,
-            const std::optional<pops::Spin> &,
-            const std::optional<pops::Parity> &,
-            const std::optional<pops::DecayData> &,
-            const std::optional<fissionFragmentData::FissionFragmentData> &
-         >(),
-         python::arg("id"),
-         python::arg("index"),
-         python::arg("charge") = std::nullopt,
-         python::arg("energy") = std::nullopt,
-         python::arg("halflife") = std::nullopt,
-         python::arg("spin") = std::nullopt,
-         python::arg("parity") = std::nullopt,
-         python::arg("decay_data") = std::nullopt,
-         python::arg("fission_fragment_data") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self) { return self.id(); },
-         Component::documentation("id").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self) { return self.index(); },
-         Component::documentation("index").data()
-      )
-      .def_property_readonly(
-         "charge",
-         [](const Component &self) { return self.charge(); },
-         Component::documentation("charge").data()
-      )
-      .def_property_readonly(
-         "energy",
-         [](const Component &self) { return self.energy(); },
-         Component::documentation("energy").data()
-      )
-      .def_property_readonly(
-         "halflife",
-         [](const Component &self) { return self.halflife(); },
-         Component::documentation("halflife").data()
-      )
-      .def_property_readonly(
-         "spin",
-         [](const Component &self) { return self.spin(); },
-         Component::documentation("spin").data()
-      )
-      .def_property_readonly(
-         "parity",
-         [](const Component &self) { return self.parity(); },
-         Component::documentation("parity").data()
-      )
-      .def_property_readonly(
-         "decay_data",
-         [](const Component &self) { return self.decayData(); },
-         Component::documentation("decay_data").data()
-      )
-      .def_property_readonly(
-         "fission_fragment_data",
-         [](const Component &self) { return self.fissionFragmentData(); },
-         Component::documentation("fission_fragment_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const Integer32 &,
+         const std::optional<pops::Charge> &,
+         const std::optional<pops::Energy> &,
+         const std::optional<pops::Halflife> &,
+         const std::optional<pops::Spin> &,
+         const std::optional<pops::Parity> &,
+         const std::optional<pops::DecayData> &,
+         const std::optional<fissionFragmentData::FissionFragmentData> &
+      >(),
+      py::arg("id"),
+      py::arg("index"),
+      py::arg("charge") = std::nullopt,
+      py::arg("energy") = std::nullopt,
+      py::arg("halflife") = std::nullopt,
+      py::arg("spin") = std::nullopt,
+      py::arg("parity") = std::nullopt,
+      py::arg("decay_data") = std::nullopt,
+      py::arg("fission_fragment_data") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set charge
+   object.def_property(
+      "charge",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.charge();
+      },
+      [](cppCLASS &self, const std::optional<pops::Charge> &value)
+      {
+         self.charge() = value;
+      },
+      cppCLASS::component_t::documentation("charge").data()
+   );
+
+   // get/set energy
+   object.def_property(
+      "energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energy();
+      },
+      [](cppCLASS &self, const std::optional<pops::Energy> &value)
+      {
+         self.energy() = value;
+      },
+      cppCLASS::component_t::documentation("energy").data()
+   );
+
+   // get/set halflife
+   object.def_property(
+      "halflife",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.halflife();
+      },
+      [](cppCLASS &self, const std::optional<pops::Halflife> &value)
+      {
+         self.halflife() = value;
+      },
+      cppCLASS::component_t::documentation("halflife").data()
+   );
+
+   // get/set spin
+   object.def_property(
+      "spin",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.spin();
+      },
+      [](cppCLASS &self, const std::optional<pops::Spin> &value)
+      {
+         self.spin() = value;
+      },
+      cppCLASS::component_t::documentation("spin").data()
+   );
+
+   // get/set parity
+   object.def_property(
+      "parity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parity();
+      },
+      [](cppCLASS &self, const std::optional<pops::Parity> &value)
+      {
+         self.parity() = value;
+      },
+      cppCLASS::component_t::documentation("parity").data()
+   );
+
+   // get/set decayData
+   object.def_property(
+      "decay_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decayData();
+      },
+      [](cppCLASS &self, const std::optional<pops::DecayData> &value)
+      {
+         self.decayData() = value;
+      },
+      cppCLASS::component_t::documentation("decay_data").data()
+   );
+
+   // get/set fissionFragmentData
+   object.def_property(
+      "fission_fragment_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fissionFragmentData();
+      },
+      [](cppCLASS &self, const std::optional<fissionFragmentData::FissionFragmentData> &value)
+      {
+         self.fissionFragmentData() = value;
+      },
+      cppCLASS::component_t::documentation("fission_fragment_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

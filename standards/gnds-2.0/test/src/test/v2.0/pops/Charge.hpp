@@ -33,12 +33,12 @@ class Charge :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Charge"; }
-   static auto FIELD() { return "charge"; }
+   static auto NODENAME() { return "charge"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -54,30 +54,79 @@ class Charge :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<documentation::Documentation>>("documentation") |
-         --Child<std::optional<pops::Uncertainty>>("uncertainty") |
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation") |
+         --Child<std::optional<pops::Uncertainty>>
+            ("uncertainty") |
          _t{}
             / --(Child<>("integer") || Child<>("fraction"))
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty",
+         "_integerfraction"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty",
+         "_integerfraction"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> unit{this};
-   Field<std::optional<XMLName>> value{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      unit{this};
+   Field<std::optional<XMLName>>
+      value{this};
 
    // children
-   Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
+   Field<std::optional<pops::Uncertainty>>
+      uncertainty{this};
 
    // children - variant
-   Field<_t> _integerfraction{this};
+   Field<_t>
+      _integerfraction{this};
    FieldPart<decltype(_integerfraction),containers::Integer> integer{_integerfraction};
    FieldPart<decltype(_integerfraction),containers::Fraction> fraction{_integerfraction};
 
@@ -85,14 +134,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->unit, \
       this->value, \
       this->documentation, \
       this->uncertainty, \
-      this->_integerfraction)
+      this->_integerfraction \
+   )
 
    // default
    Charge() :
@@ -103,12 +155,18 @@ public:
 
    // from fields, comment excluded
    explicit Charge(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<std::optional<XMLName>> &value = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
-      const wrapper<_t> &_integerfraction = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<XMLName>>
+         &unit = {},
+      const wrapper<std::optional<XMLName>>
+         &value = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {},
+      const wrapper<std::optional<pops::Uncertainty>>
+         &uncertainty = {},
+      const wrapper<_t>
+         &_integerfraction = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -160,8 +218,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Charge &operator=(const Charge &) = default;
-   Charge &operator=(Charge &&) = default;
+   // copy
+   Charge &operator=(const Charge &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         unit = other.unit;
+         value = other.value;
+         documentation = other.documentation;
+         uncertainty = other.uncertainty;
+         _integerfraction = other._integerfraction;
+      }
+      return *this;
+   }
+
+   // move
+   Charge &operator=(Charge &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+         value = std::move(other.value);
+         documentation = std::move(other.documentation);
+         uncertainty = std::move(other.uncertainty);
+         _integerfraction = std::move(other._integerfraction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

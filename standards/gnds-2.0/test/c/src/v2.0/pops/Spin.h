@@ -102,13 +102,13 @@ SpinCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SpinAssign(ConstHandle2Spin This, ConstHandle2ConstSpin from);
+SpinAssign(ConstHandle2Spin self, ConstHandle2ConstSpin from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SpinDelete(ConstHandle2ConstSpin This);
+SpinDelete(ConstHandle2ConstSpin self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ SpinDelete(ConstHandle2ConstSpin This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SpinRead(ConstHandle2Spin This, const char *const filename);
+SpinRead(ConstHandle2Spin self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SpinWrite(ConstHandle2ConstSpin This, const char *const filename);
+SpinWrite(ConstHandle2ConstSpin self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SpinPrint(ConstHandle2ConstSpin This);
+SpinPrint(ConstHandle2ConstSpin self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SpinPrintXML(ConstHandle2ConstSpin This);
+SpinPrintXML(ConstHandle2ConstSpin self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SpinPrintJSON(ConstHandle2ConstSpin This);
+SpinPrintJSON(ConstHandle2ConstSpin self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ SpinPrintJSON(ConstHandle2ConstSpin This);
 
 // +++ Has
 extern_c int
-SpinLabelHas(ConstHandle2ConstSpin This);
+SpinLabelHas(ConstHandle2ConstSpin self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SpinLabelGet(ConstHandle2ConstSpin This);
+SpinLabelGet(ConstHandle2ConstSpin self);
 
 // +++ Set
 extern_c void
-SpinLabelSet(ConstHandle2Spin This, const XMLName label);
+SpinLabelSet(ConstHandle2Spin self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ SpinLabelSet(ConstHandle2Spin This, const XMLName label);
 
 // +++ Has
 extern_c int
-SpinUnitHas(ConstHandle2ConstSpin This);
+SpinUnitHas(ConstHandle2ConstSpin self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SpinUnitGet(ConstHandle2ConstSpin This);
+SpinUnitGet(ConstHandle2ConstSpin self);
 
 // +++ Set
 extern_c void
-SpinUnitSet(ConstHandle2Spin This, const XMLName unit);
+SpinUnitSet(ConstHandle2Spin self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ SpinUnitSet(ConstHandle2Spin This, const XMLName unit);
 
 // +++ Has
 extern_c int
-SpinValueHas(ConstHandle2ConstSpin This);
+SpinValueHas(ConstHandle2ConstSpin self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SpinValueGet(ConstHandle2ConstSpin This);
+SpinValueGet(ConstHandle2ConstSpin self);
 
 // +++ Set
 extern_c void
-SpinValueSet(ConstHandle2Spin This, const XMLName value);
+SpinValueSet(ConstHandle2Spin self, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ SpinValueSet(ConstHandle2Spin This, const XMLName value);
 
 // +++ Has
 extern_c int
-SpinDocumentationHas(ConstHandle2ConstSpin This);
+SpinDocumentationHas(ConstHandle2ConstSpin self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-SpinDocumentationGetConst(ConstHandle2ConstSpin This);
+SpinDocumentationGetConst(ConstHandle2ConstSpin self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-SpinDocumentationGet(ConstHandle2Spin This);
+SpinDocumentationGet(ConstHandle2Spin self);
 
 // +++ Set
 extern_c void
-SpinDocumentationSet(ConstHandle2Spin This, ConstHandle2ConstDocumentation documentation);
+SpinDocumentationSet(ConstHandle2Spin self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ SpinDocumentationSet(ConstHandle2Spin This, ConstHandle2ConstDocumentation docum
 
 // +++ Has
 extern_c int
-SpinUncertaintyHas(ConstHandle2ConstSpin This);
+SpinUncertaintyHas(ConstHandle2ConstSpin self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-SpinUncertaintyGetConst(ConstHandle2ConstSpin This);
+SpinUncertaintyGetConst(ConstHandle2ConstSpin self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-SpinUncertaintyGet(ConstHandle2Spin This);
+SpinUncertaintyGet(ConstHandle2Spin self);
 
 // +++ Set
 extern_c void
-SpinUncertaintySet(ConstHandle2Spin This, ConstHandle2ConstUncertainty uncertainty);
+SpinUncertaintySet(ConstHandle2Spin self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -244,32 +244,32 @@ SpinUncertaintySet(ConstHandle2Spin This, ConstHandle2ConstUncertainty uncertain
 
 // +++ Has
 extern_c int
-SpinFractionHas(ConstHandle2ConstSpin This);
+SpinFractionHas(ConstHandle2ConstSpin self);
 
 // +++ Clear
 extern_c void
-SpinFractionClear(ConstHandle2Spin This);
+SpinFractionClear(ConstHandle2Spin self);
 
 // +++ Size
 extern_c size_t
-SpinFractionSize(ConstHandle2ConstSpin This);
+SpinFractionSize(ConstHandle2ConstSpin self);
 
 // +++ Add
 extern_c void
-SpinFractionAdd(ConstHandle2Spin This, ConstHandle2ConstFraction fraction);
+SpinFractionAdd(ConstHandle2Spin self, ConstHandle2ConstFraction fraction);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstFraction
-SpinFractionGetConst(ConstHandle2ConstSpin This, const size_t index_);
+SpinFractionGetConst(ConstHandle2ConstSpin self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Fraction
-SpinFractionGet(ConstHandle2Spin This, const size_t index_);
+SpinFractionGet(ConstHandle2Spin self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 SpinFractionSet(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const size_t index_,
    ConstHandle2ConstFraction fraction
 );
@@ -277,28 +277,28 @@ SpinFractionSet(
 // +++ Has, by label
 extern_c int
 SpinFractionHasByLabel(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstFraction
 SpinFractionGetByLabelConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Fraction
 SpinFractionGetByLabel(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 SpinFractionSetByLabel(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName label,
    ConstHandle2ConstFraction fraction
 );
@@ -306,28 +306,28 @@ SpinFractionSetByLabel(
 // +++ Has, by unit
 extern_c int
 SpinFractionHasByUnit(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstFraction
 SpinFractionGetByUnitConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Fraction
 SpinFractionGetByUnit(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 SpinFractionSetByUnit(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName unit,
    ConstHandle2ConstFraction fraction
 );
@@ -335,28 +335,28 @@ SpinFractionSetByUnit(
 // +++ Has, by value
 extern_c int
 SpinFractionHasByValue(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const Fraction32 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstFraction
 SpinFractionGetByValueConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const Fraction32 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Fraction
 SpinFractionGetByValue(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const Fraction32 value
 );
 
 // +++ Set, by value
 extern_c void
 SpinFractionSetByValue(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const Fraction32 value,
    ConstHandle2ConstFraction fraction
 );

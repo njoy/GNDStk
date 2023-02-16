@@ -94,13 +94,13 @@ ConfigurationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ConfigurationAssign(ConstHandle2Configuration This, ConstHandle2ConstConfiguration from);
+ConfigurationAssign(ConstHandle2Configuration self, ConstHandle2ConstConfiguration from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ConfigurationDelete(ConstHandle2ConstConfiguration This);
+ConfigurationDelete(ConstHandle2ConstConfiguration self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ ConfigurationDelete(ConstHandle2ConstConfiguration This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ConfigurationRead(ConstHandle2Configuration This, const char *const filename);
+ConfigurationRead(ConstHandle2Configuration self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ConfigurationWrite(ConstHandle2ConstConfiguration This, const char *const filename);
+ConfigurationWrite(ConstHandle2ConstConfiguration self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ConfigurationPrint(ConstHandle2ConstConfiguration This);
+ConfigurationPrint(ConstHandle2ConstConfiguration self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ConfigurationPrintXML(ConstHandle2ConstConfiguration This);
+ConfigurationPrintXML(ConstHandle2ConstConfiguration self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ConfigurationPrintJSON(ConstHandle2ConstConfiguration This);
+ConfigurationPrintJSON(ConstHandle2ConstConfiguration self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ ConfigurationPrintJSON(ConstHandle2ConstConfiguration This);
 
 // +++ Has
 extern_c int
-ConfigurationSubshellHas(ConstHandle2ConstConfiguration This);
+ConfigurationSubshellHas(ConstHandle2ConstConfiguration self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ConfigurationSubshellGet(ConstHandle2ConstConfiguration This);
+ConfigurationSubshellGet(ConstHandle2ConstConfiguration self);
 
 // +++ Set
 extern_c void
-ConfigurationSubshellSet(ConstHandle2Configuration This, const char *const subshell);
+ConfigurationSubshellSet(ConstHandle2Configuration self, const char *const subshell);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ ConfigurationSubshellSet(ConstHandle2Configuration This, const char *const subsh
 
 // +++ Has
 extern_c int
-ConfigurationElectronNumberHas(ConstHandle2ConstConfiguration This);
+ConfigurationElectronNumberHas(ConstHandle2ConstConfiguration self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ConfigurationElectronNumberGet(ConstHandle2ConstConfiguration This);
+ConfigurationElectronNumberGet(ConstHandle2ConstConfiguration self);
 
 // +++ Set
 extern_c void
-ConfigurationElectronNumberSet(ConstHandle2Configuration This, const char *const electronNumber);
+ConfigurationElectronNumberSet(ConstHandle2Configuration self, const char *const electronNumber);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ ConfigurationElectronNumberSet(ConstHandle2Configuration This, const char *const
 
 // +++ Has
 extern_c int
-ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration This);
+ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration self);
 
 // --- Get, const
 extern_c Handle2ConstBindingEnergy
-ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration This);
+ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self);
 
 // +++ Get, non-const
 extern_c Handle2BindingEnergy
-ConfigurationBindingEnergyGet(ConstHandle2Configuration This);
+ConfigurationBindingEnergyGet(ConstHandle2Configuration self);
 
 // +++ Set
 extern_c void
-ConfigurationBindingEnergySet(ConstHandle2Configuration This, ConstHandle2ConstBindingEnergy bindingEnergy);
+ConfigurationBindingEnergySet(ConstHandle2Configuration self, ConstHandle2ConstBindingEnergy bindingEnergy);
 
 
 // -----------------------------------------------------------------------------

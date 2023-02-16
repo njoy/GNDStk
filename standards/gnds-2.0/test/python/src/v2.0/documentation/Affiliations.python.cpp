@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Affiliations wrapper
-void wrapAffiliations(python::module &module)
+// wrapper for documentation::Affiliations
+void wrapAffiliations(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Affiliations;
+   using cppCLASS = documentation::Affiliations;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Affiliations",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Affiliations",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::Affiliation> &
-         >(),
-         python::arg("affiliation"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "affiliation",
-         [](const Component &self) { return self.affiliation(); },
-         Component::documentation("affiliation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::Affiliation> &
+      >(),
+      py::arg("affiliation"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set affiliation
+   object.def_property(
+      "affiliation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.affiliation();
+      },
+      [](cppCLASS &self, const std::vector<documentation::Affiliation> &value)
+      {
+         self.affiliation() = value;
+      },
+      cppCLASS::component_t::documentation("affiliation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

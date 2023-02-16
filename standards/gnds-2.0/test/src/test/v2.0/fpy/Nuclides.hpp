@@ -25,12 +25,12 @@ class Nuclides :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Nuclides"; }
-   static auto FIELD() { return "nuclides"; }
+   static auto NODENAME() { return "nuclides"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,23 +43,58 @@ class Nuclides :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
    using BlockData::operator=;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->href)
+      this->href \
+   )
 
    // default
    Nuclides() :
@@ -70,7 +105,8 @@ public:
 
    // from fields, comment excluded
    explicit Nuclides(
-      const wrapper<std::optional<std::string>> &href
+      const wrapper<std::optional<std::string>>
+         &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -87,7 +123,7 @@ public:
 
    // from vector
    template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
-   Nuclides(const std::vector<T> &vector) :
+   explicit Nuclides(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(vector);
@@ -115,8 +151,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nuclides &operator=(const Nuclides &) = default;
-   Nuclides &operator=(Nuclides &&) = default;
+   // copy
+   Nuclides &operator=(const Nuclides &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Nuclides &operator=(Nuclides &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

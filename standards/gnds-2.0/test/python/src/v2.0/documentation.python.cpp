@@ -5,59 +5,59 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // documentation declarations
 namespace python_documentation {
-   void wrapAffiliation(python::module &);
-   void wrapAffiliations(python::module &);
-   void wrapNote(python::module &);
-   void wrapAuthor(python::module &);
-   void wrapAuthors(python::module &);
-   void wrapContributors(python::module &);
-   void wrapCollaboration(python::module &);
-   void wrapCollaborations(python::module &);
-   void wrapDate(python::module &);
-   void wrapDates(python::module &);
-   void wrapCopyright(python::module &);
-   void wrapAcknowledgement(python::module &);
-   void wrapAcknowledgements(python::module &);
-   void wrapKeyword(python::module &);
-   void wrapKeywords(python::module &);
-   void wrapRelatedItem(python::module &);
-   void wrapRelatedItems(python::module &);
-   void wrapTitle(python::module &);
-   void wrapAbstract(python::module &);
-   void wrapBody(python::module &);
-   void wrapExecutionArguments(python::module &);
-   void wrapCodeRepo(python::module &);
-   void wrapInputDeck(python::module &);
-   void wrapInputDecks(python::module &);
-   void wrapOutputDeck(python::module &);
-   void wrapOutputDecks(python::module &);
-   void wrapComputerCode(python::module &);
-   void wrapComputerCodes(python::module &);
-   void wrapCovarianceScript(python::module &);
-   void wrapCorrectionScript(python::module &);
-   void wrapExforDataSet(python::module &);
-   void wrapExforDataSets(python::module &);
-   void wrapExperimentalDataSets(python::module &);
-   void wrapBibitem(python::module &);
-   void wrapBibliography(python::module &);
-   void wrapEndfCompatible(python::module &);
-   void wrapDocumentation(python::module &);
-   void wrapContributor(python::module &);
-   void wrapVersion(python::module &);
+   void wrapAffiliation(py::module &);
+   void wrapAffiliations(py::module &);
+   void wrapNote(py::module &);
+   void wrapAuthor(py::module &);
+   void wrapAuthors(py::module &);
+   void wrapContributors(py::module &);
+   void wrapCollaboration(py::module &);
+   void wrapCollaborations(py::module &);
+   void wrapDate(py::module &);
+   void wrapDates(py::module &);
+   void wrapCopyright(py::module &);
+   void wrapAcknowledgement(py::module &);
+   void wrapAcknowledgements(py::module &);
+   void wrapKeyword(py::module &);
+   void wrapKeywords(py::module &);
+   void wrapRelatedItem(py::module &);
+   void wrapRelatedItems(py::module &);
+   void wrapTitle(py::module &);
+   void wrapAbstract(py::module &);
+   void wrapBody(py::module &);
+   void wrapExecutionArguments(py::module &);
+   void wrapCodeRepo(py::module &);
+   void wrapInputDeck(py::module &);
+   void wrapInputDecks(py::module &);
+   void wrapOutputDeck(py::module &);
+   void wrapOutputDecks(py::module &);
+   void wrapComputerCode(py::module &);
+   void wrapComputerCodes(py::module &);
+   void wrapCovarianceScript(py::module &);
+   void wrapCorrectionScript(py::module &);
+   void wrapExforDataSet(py::module &);
+   void wrapExforDataSets(py::module &);
+   void wrapExperimentalDataSets(py::module &);
+   void wrapBibitem(py::module &);
+   void wrapBibliography(py::module &);
+   void wrapEndfCompatible(py::module &);
+   void wrapDocumentation(py::module &);
+   void wrapContributor(py::module &);
+   void wrapVersion(py::module &);
 } // namespace python_documentation
 
-// documentation wrapper
-void wrapDocumentation(python::module &module)
+// wrapper for documentation
+void wrapDocumentation(py::module &module)
 {
    // create the documentation submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "documentation",
       "test v2.0 documentation"
    );

@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// U wrapper
-void wrapU(python::module &module)
+// wrapper for transport::U
+void wrapU(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::U;
+   using cppCLASS = transport::U;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "U",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "U",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &
-         >(),
-         python::arg("unit") = std::nullopt,
-         python::arg("value") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<Float64> &
+      >(),
+      py::arg("unit") = std::nullopt,
+      py::arg("value") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

@@ -25,12 +25,12 @@ class CrossSectionSums :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "CrossSectionSums"; }
-   static auto FIELD() { return "crossSectionSums"; }
+   static auto NODENAME() { return "crossSectionSums"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class CrossSectionSums :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<transport::CrossSectionSum>>("crossSectionSum")
+         ++Child<std::optional<transport::CrossSectionSum>>
+            ("crossSectionSum")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "crossSectionSum"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "cross_section_sum"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<transport::CrossSectionSum>>> crossSectionSum{this};
+   Field<std::optional<std::vector<transport::CrossSectionSum>>>
+      crossSectionSum{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->crossSectionSum)
+      this->crossSectionSum \
+   )
 
    // default
    CrossSectionSums() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit CrossSectionSums(
-      const wrapper<std::optional<std::vector<transport::CrossSectionSum>>> &crossSectionSum
+      const wrapper<std::optional<std::vector<transport::CrossSectionSum>>>
+         &crossSectionSum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       crossSectionSum(this,crossSectionSum)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSectionSums &operator=(const CrossSectionSums &) = default;
-   CrossSectionSums &operator=(CrossSectionSums &&) = default;
+   // copy
+   CrossSectionSums &operator=(const CrossSectionSums &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         crossSectionSum = other.crossSectionSum;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSectionSums &operator=(CrossSectionSums &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         crossSectionSum = std::move(other.crossSectionSum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

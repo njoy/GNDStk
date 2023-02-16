@@ -94,13 +94,13 @@ TransportableCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TransportableAssign(ConstHandle2Transportable This, ConstHandle2ConstTransportable from);
+TransportableAssign(ConstHandle2Transportable self, ConstHandle2ConstTransportable from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TransportableDelete(ConstHandle2ConstTransportable This);
+TransportableDelete(ConstHandle2ConstTransportable self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ TransportableDelete(ConstHandle2ConstTransportable This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TransportableRead(ConstHandle2Transportable This, const char *const filename);
+TransportableRead(ConstHandle2Transportable self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TransportableWrite(ConstHandle2ConstTransportable This, const char *const filename);
+TransportableWrite(ConstHandle2ConstTransportable self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TransportablePrint(ConstHandle2ConstTransportable This);
+TransportablePrint(ConstHandle2ConstTransportable self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TransportablePrintXML(ConstHandle2ConstTransportable This);
+TransportablePrintXML(ConstHandle2ConstTransportable self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TransportablePrintJSON(ConstHandle2ConstTransportable This);
+TransportablePrintJSON(ConstHandle2ConstTransportable self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ TransportablePrintJSON(ConstHandle2ConstTransportable This);
 
 // +++ Has
 extern_c int
-TransportableConserveHas(ConstHandle2ConstTransportable This);
+TransportableConserveHas(ConstHandle2ConstTransportable self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TransportableConserveGet(ConstHandle2ConstTransportable This);
+TransportableConserveGet(ConstHandle2ConstTransportable self);
 
 // +++ Set
 extern_c void
-TransportableConserveSet(ConstHandle2Transportable This, const XMLName conserve);
+TransportableConserveSet(ConstHandle2Transportable self, const XMLName conserve);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ TransportableConserveSet(ConstHandle2Transportable This, const XMLName conserve)
 
 // +++ Has
 extern_c int
-TransportableLabelHas(ConstHandle2ConstTransportable This);
+TransportableLabelHas(ConstHandle2ConstTransportable self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TransportableLabelGet(ConstHandle2ConstTransportable This);
+TransportableLabelGet(ConstHandle2ConstTransportable self);
 
 // +++ Set
 extern_c void
-TransportableLabelSet(ConstHandle2Transportable This, const XMLName label);
+TransportableLabelSet(ConstHandle2Transportable self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ TransportableLabelSet(ConstHandle2Transportable This, const XMLName label);
 
 // +++ Has
 extern_c int
-TransportableMultiGroupHas(ConstHandle2ConstTransportable This);
+TransportableMultiGroupHas(ConstHandle2ConstTransportable self);
 
 // --- Get, const
 extern_c Handle2ConstMultiGroup
-TransportableMultiGroupGetConst(ConstHandle2ConstTransportable This);
+TransportableMultiGroupGetConst(ConstHandle2ConstTransportable self);
 
 // +++ Get, non-const
 extern_c Handle2MultiGroup
-TransportableMultiGroupGet(ConstHandle2Transportable This);
+TransportableMultiGroupGet(ConstHandle2Transportable self);
 
 // +++ Set
 extern_c void
-TransportableMultiGroupSet(ConstHandle2Transportable This, ConstHandle2ConstMultiGroup multiGroup);
+TransportableMultiGroupSet(ConstHandle2Transportable self, ConstHandle2ConstMultiGroup multiGroup);
 
 
 // -----------------------------------------------------------------------------

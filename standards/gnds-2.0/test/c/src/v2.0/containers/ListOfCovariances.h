@@ -90,13 +90,13 @@ ListOfCovariancesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ListOfCovariancesAssign(ConstHandle2ListOfCovariances This, ConstHandle2ConstListOfCovariances from);
+ListOfCovariancesAssign(ConstHandle2ListOfCovariances self, ConstHandle2ConstListOfCovariances from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ListOfCovariancesDelete(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesDelete(ConstHandle2ConstListOfCovariances self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ListOfCovariancesDelete(ConstHandle2ConstListOfCovariances This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ListOfCovariancesRead(ConstHandle2ListOfCovariances This, const char *const filename);
+ListOfCovariancesRead(ConstHandle2ListOfCovariances self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ListOfCovariancesWrite(ConstHandle2ConstListOfCovariances This, const char *const filename);
+ListOfCovariancesWrite(ConstHandle2ConstListOfCovariances self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ListOfCovariancesPrint(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesPrint(ConstHandle2ConstListOfCovariances self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ListOfCovariancesPrintXML(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesPrintXML(ConstHandle2ConstListOfCovariances self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ListOfCovariancesPrintJSON(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesPrintJSON(ConstHandle2ConstListOfCovariances self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ListOfCovariancesPrintJSON(ConstHandle2ConstListOfCovariances This);
 
 // +++ Has
 extern_c int
-ListOfCovariancesCovarianceHas(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesCovarianceHas(ConstHandle2ConstListOfCovariances self);
 
 // +++ Clear
 extern_c void
-ListOfCovariancesCovarianceClear(ConstHandle2ListOfCovariances This);
+ListOfCovariancesCovarianceClear(ConstHandle2ListOfCovariances self);
 
 // +++ Size
 extern_c size_t
-ListOfCovariancesCovarianceSize(ConstHandle2ConstListOfCovariances This);
+ListOfCovariancesCovarianceSize(ConstHandle2ConstListOfCovariances self);
 
 // +++ Add
 extern_c void
-ListOfCovariancesCovarianceAdd(ConstHandle2ListOfCovariances This, ConstHandle2ConstCovariance covariance);
+ListOfCovariancesCovarianceAdd(ConstHandle2ListOfCovariances self, ConstHandle2ConstCovariance covariance);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCovariance
-ListOfCovariancesCovarianceGetConst(ConstHandle2ConstListOfCovariances This, const size_t index_);
+ListOfCovariancesCovarianceGetConst(ConstHandle2ConstListOfCovariances self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Covariance
-ListOfCovariancesCovarianceGet(ConstHandle2ListOfCovariances This, const size_t index_);
+ListOfCovariancesCovarianceGet(ConstHandle2ListOfCovariances self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ListOfCovariancesCovarianceSet(
-   ConstHandle2ListOfCovariances This,
+   ConstHandle2ListOfCovariances self,
    const size_t index_,
    ConstHandle2ConstCovariance covariance
 );
@@ -169,28 +169,28 @@ ListOfCovariancesCovarianceSet(
 // +++ Has, by label
 extern_c int
 ListOfCovariancesCovarianceHasByLabel(
-   ConstHandle2ConstListOfCovariances This,
+   ConstHandle2ConstListOfCovariances self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstCovariance
 ListOfCovariancesCovarianceGetByLabelConst(
-   ConstHandle2ConstListOfCovariances This,
+   ConstHandle2ConstListOfCovariances self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByLabel(
-   ConstHandle2ListOfCovariances This,
+   ConstHandle2ListOfCovariances self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ListOfCovariancesCovarianceSetByLabel(
-   ConstHandle2ListOfCovariances This,
+   ConstHandle2ListOfCovariances self,
    const XMLName label,
    ConstHandle2ConstCovariance covariance
 );
@@ -198,28 +198,28 @@ ListOfCovariancesCovarianceSetByLabel(
 // +++ Has, by href
 extern_c int
 ListOfCovariancesCovarianceHasByHref(
-   ConstHandle2ConstListOfCovariances This,
+   ConstHandle2ConstListOfCovariances self,
    const char *const href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstCovariance
 ListOfCovariancesCovarianceGetByHrefConst(
-   ConstHandle2ConstListOfCovariances This,
+   ConstHandle2ConstListOfCovariances self,
    const char *const href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByHref(
-   ConstHandle2ListOfCovariances This,
+   ConstHandle2ListOfCovariances self,
    const char *const href
 );
 
 // +++ Set, by href
 extern_c void
 ListOfCovariancesCovarianceSetByHref(
-   ConstHandle2ListOfCovariances This,
+   ConstHandle2ListOfCovariances self,
    const char *const href,
    ConstHandle2ConstCovariance covariance
 );

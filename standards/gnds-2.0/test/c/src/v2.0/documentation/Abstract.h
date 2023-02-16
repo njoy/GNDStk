@@ -93,13 +93,13 @@ AbstractCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AbstractAssign(ConstHandle2Abstract This, ConstHandle2ConstAbstract from);
+AbstractAssign(ConstHandle2Abstract self, ConstHandle2ConstAbstract from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AbstractDelete(ConstHandle2ConstAbstract This);
+AbstractDelete(ConstHandle2ConstAbstract self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AbstractDelete(ConstHandle2ConstAbstract This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AbstractRead(ConstHandle2Abstract This, const char *const filename);
+AbstractRead(ConstHandle2Abstract self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AbstractWrite(ConstHandle2ConstAbstract This, const char *const filename);
+AbstractWrite(ConstHandle2ConstAbstract self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AbstractPrint(ConstHandle2ConstAbstract This);
+AbstractPrint(ConstHandle2ConstAbstract self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AbstractPrintXML(ConstHandle2ConstAbstract This);
+AbstractPrintXML(ConstHandle2ConstAbstract self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AbstractPrintJSON(ConstHandle2ConstAbstract This);
+AbstractPrintJSON(ConstHandle2ConstAbstract self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ AbstractPrintJSON(ConstHandle2ConstAbstract This);
 
 // +++ Clear
 extern_c void
-AbstractIntsClear(ConstHandle2Abstract This);
+AbstractIntsClear(ConstHandle2Abstract self);
 
 // +++ Get size
 extern_c size_t
-AbstractIntsSize(ConstHandle2ConstAbstract This);
+AbstractIntsSize(ConstHandle2ConstAbstract self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-AbstractIntsGet(ConstHandle2ConstAbstract This, const size_t index);
+AbstractIntsGet(ConstHandle2ConstAbstract self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AbstractIntsSet(ConstHandle2Abstract This, const size_t index, const int value);
+AbstractIntsSet(ConstHandle2Abstract self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-AbstractIntsGetArrayConst(ConstHandle2ConstAbstract This);
+AbstractIntsGetArrayConst(ConstHandle2ConstAbstract self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-AbstractIntsGetArray(ConstHandle2Abstract This);
+AbstractIntsGetArray(ConstHandle2Abstract self);
 
 // +++ Set completely new values and size
 extern_c void
-AbstractIntsSetArray(ConstHandle2Abstract This, const int *const values, const size_t size);
+AbstractIntsSetArray(ConstHandle2Abstract self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ AbstractIntsSetArray(ConstHandle2Abstract This, const int *const values, const s
 
 // +++ Clear
 extern_c void
-AbstractUnsignedsClear(ConstHandle2Abstract This);
+AbstractUnsignedsClear(ConstHandle2Abstract self);
 
 // +++ Get size
 extern_c size_t
-AbstractUnsignedsSize(ConstHandle2ConstAbstract This);
+AbstractUnsignedsSize(ConstHandle2ConstAbstract self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-AbstractUnsignedsGet(ConstHandle2ConstAbstract This, const size_t index);
+AbstractUnsignedsGet(ConstHandle2ConstAbstract self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AbstractUnsignedsSet(ConstHandle2Abstract This, const size_t index, const unsigned value);
+AbstractUnsignedsSet(ConstHandle2Abstract self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-AbstractUnsignedsGetArrayConst(ConstHandle2ConstAbstract This);
+AbstractUnsignedsGetArrayConst(ConstHandle2ConstAbstract self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-AbstractUnsignedsGetArray(ConstHandle2Abstract This);
+AbstractUnsignedsGetArray(ConstHandle2Abstract self);
 
 // +++ Set completely new values and size
 extern_c void
-AbstractUnsignedsSetArray(ConstHandle2Abstract This, const unsigned *const values, const size_t size);
+AbstractUnsignedsSetArray(ConstHandle2Abstract self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ AbstractUnsignedsSetArray(ConstHandle2Abstract This, const unsigned *const value
 
 // +++ Clear
 extern_c void
-AbstractFloatsClear(ConstHandle2Abstract This);
+AbstractFloatsClear(ConstHandle2Abstract self);
 
 // +++ Get size
 extern_c size_t
-AbstractFloatsSize(ConstHandle2ConstAbstract This);
+AbstractFloatsSize(ConstHandle2ConstAbstract self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-AbstractFloatsGet(ConstHandle2ConstAbstract This, const size_t index);
+AbstractFloatsGet(ConstHandle2ConstAbstract self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AbstractFloatsSet(ConstHandle2Abstract This, const size_t index, const float value);
+AbstractFloatsSet(ConstHandle2Abstract self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-AbstractFloatsGetArrayConst(ConstHandle2ConstAbstract This);
+AbstractFloatsGetArrayConst(ConstHandle2ConstAbstract self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-AbstractFloatsGetArray(ConstHandle2Abstract This);
+AbstractFloatsGetArray(ConstHandle2Abstract self);
 
 // +++ Set completely new values and size
 extern_c void
-AbstractFloatsSetArray(ConstHandle2Abstract This, const float *const values, const size_t size);
+AbstractFloatsSetArray(ConstHandle2Abstract self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ AbstractFloatsSetArray(ConstHandle2Abstract This, const float *const values, con
 
 // +++ Clear
 extern_c void
-AbstractDoublesClear(ConstHandle2Abstract This);
+AbstractDoublesClear(ConstHandle2Abstract self);
 
 // +++ Get size
 extern_c size_t
-AbstractDoublesSize(ConstHandle2ConstAbstract This);
+AbstractDoublesSize(ConstHandle2ConstAbstract self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-AbstractDoublesGet(ConstHandle2ConstAbstract This, const size_t index);
+AbstractDoublesGet(ConstHandle2ConstAbstract self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AbstractDoublesSet(ConstHandle2Abstract This, const size_t index, const double value);
+AbstractDoublesSet(ConstHandle2Abstract self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-AbstractDoublesGetArrayConst(ConstHandle2ConstAbstract This);
+AbstractDoublesGetArrayConst(ConstHandle2ConstAbstract self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-AbstractDoublesGetArray(ConstHandle2Abstract This);
+AbstractDoublesGetArray(ConstHandle2Abstract self);
 
 // +++ Set completely new values and size
 extern_c void
-AbstractDoublesSetArray(ConstHandle2Abstract This, const double *const values, const size_t size);
+AbstractDoublesSetArray(ConstHandle2Abstract self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ AbstractDoublesSetArray(ConstHandle2Abstract This, const double *const values, c
 
 // +++ Has
 extern_c int
-AbstractEncodingHas(ConstHandle2ConstAbstract This);
+AbstractEncodingHas(ConstHandle2ConstAbstract self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AbstractEncodingGet(ConstHandle2ConstAbstract This);
+AbstractEncodingGet(ConstHandle2ConstAbstract self);
 
 // +++ Set
 extern_c void
-AbstractEncodingSet(ConstHandle2Abstract This, const XMLName encoding);
+AbstractEncodingSet(ConstHandle2Abstract self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ AbstractEncodingSet(ConstHandle2Abstract This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-AbstractMarkupHas(ConstHandle2ConstAbstract This);
+AbstractMarkupHas(ConstHandle2ConstAbstract self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AbstractMarkupGet(ConstHandle2ConstAbstract This);
+AbstractMarkupGet(ConstHandle2ConstAbstract self);
 
 // +++ Set
 extern_c void
-AbstractMarkupSet(ConstHandle2Abstract This, const char *const markup);
+AbstractMarkupSet(ConstHandle2Abstract self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ AbstractMarkupSet(ConstHandle2Abstract This, const char *const markup);
 
 // +++ Has
 extern_c int
-AbstractLabelHas(ConstHandle2ConstAbstract This);
+AbstractLabelHas(ConstHandle2ConstAbstract self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AbstractLabelGet(ConstHandle2ConstAbstract This);
+AbstractLabelGet(ConstHandle2ConstAbstract self);
 
 // +++ Set
 extern_c void
-AbstractLabelSet(ConstHandle2Abstract This, const XMLName label);
+AbstractLabelSet(ConstHandle2Abstract self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

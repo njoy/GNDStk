@@ -25,12 +25,12 @@ class Reactions :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "Reactions"; }
-   static auto FIELD() { return "reactions"; }
+   static auto NODENAME() { return "reactions"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

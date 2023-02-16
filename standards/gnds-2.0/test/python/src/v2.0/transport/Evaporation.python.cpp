@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Evaporation wrapper
-void wrapEvaporation(python::module &module)
+// wrapper for transport::Evaporation
+void wrapEvaporation(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Evaporation;
+   using cppCLASS = transport::Evaporation;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Evaporation",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Evaporation",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<transport::U> &,
-            const std::optional<transport::Theta> &
-         >(),
-         python::arg("u") = std::nullopt,
-         python::arg("theta") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "u",
-         [](const Component &self) { return self.U(); },
-         Component::documentation("u").data()
-      )
-      .def_property_readonly(
-         "theta",
-         [](const Component &self) { return self.theta(); },
-         Component::documentation("theta").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<transport::U> &,
+         const std::optional<transport::Theta> &
+      >(),
+      py::arg("u") = std::nullopt,
+      py::arg("theta") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set U
+   object.def_property(
+      "u",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.U();
+      },
+      [](cppCLASS &self, const std::optional<transport::U> &value)
+      {
+         self.U() = value;
+      },
+      cppCLASS::component_t::documentation("u").data()
+   );
+
+   // get/set theta
+   object.def_property(
+      "theta",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.theta();
+      },
+      [](cppCLASS &self, const std::optional<transport::Theta> &value)
+      {
+         self.theta() = value;
+      },
+      cppCLASS::component_t::documentation("theta").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

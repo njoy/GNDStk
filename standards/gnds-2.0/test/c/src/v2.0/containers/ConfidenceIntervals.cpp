@@ -73,20 +73,20 @@ ConfidenceIntervalsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ConfidenceIntervalsAssign(ConstHandle2ConfidenceIntervals This, ConstHandle2ConstConfidenceIntervals from)
+ConfidenceIntervalsAssign(ConstHandle2ConfidenceIntervals self, ConstHandle2ConstConfidenceIntervals from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ConfidenceIntervalsRead(ConstHandle2ConfidenceIntervals This, const char *const filename)
+ConfidenceIntervalsRead(ConstHandle2ConfidenceIntervals self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ConfidenceIntervalsWrite(ConstHandle2ConstConfidenceIntervals This, const char *const filename)
+ConfidenceIntervalsWrite(ConstHandle2ConstConfidenceIntervals self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ConfidenceIntervalsPrint(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsPrint(ConstHandle2ConstConfidenceIntervals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ConfidenceIntervalsPrintXML(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsPrintXML(ConstHandle2ConstConfidenceIntervals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals This)
 
 // Has
 int
-ConfidenceIntervalsIntervalHas(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsIntervalHas(ConstHandle2ConstConfidenceIntervals self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IntervalHas", This, extract::interval);
+      (CLASSNAME, CLASSNAME+"IntervalHas", self, extract::interval);
 }
 
 // Clear
 void
-ConfidenceIntervalsIntervalClear(ConstHandle2ConfidenceIntervals This)
+ConfidenceIntervalsIntervalClear(ConstHandle2ConfidenceIntervals self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IntervalClear", This, extract::interval);
+      (CLASSNAME, CLASSNAME+"IntervalClear", self, extract::interval);
 }
 
 // Size
 size_t
-ConfidenceIntervalsIntervalSize(ConstHandle2ConstConfidenceIntervals This)
+ConfidenceIntervalsIntervalSize(ConstHandle2ConstConfidenceIntervals self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IntervalSize", This, extract::interval);
+      (CLASSNAME, CLASSNAME+"IntervalSize", self, extract::interval);
 }
 
 // Add
 void
-ConfidenceIntervalsIntervalAdd(ConstHandle2ConfidenceIntervals This, ConstHandle2ConstInterval interval)
+ConfidenceIntervalsIntervalAdd(ConstHandle2ConfidenceIntervals self, ConstHandle2ConstInterval interval)
 {
    detail::addToContainer<CPP,CPPInterval>
-      (CLASSNAME, CLASSNAME+"IntervalAdd", This, extract::interval, interval);
+      (CLASSNAME, CLASSNAME+"IntervalAdd", self, extract::interval, interval);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstInterval
-ConfidenceIntervalsIntervalGetConst(ConstHandle2ConstConfidenceIntervals This, const size_t index_)
+ConfidenceIntervalsIntervalGetConst(ConstHandle2ConstConfidenceIntervals self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstInterval>
-      (CLASSNAME, CLASSNAME+"IntervalGetConst", This, extract::interval, index_);
+      (CLASSNAME, CLASSNAME+"IntervalGetConst", self, extract::interval, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Interval
-ConfidenceIntervalsIntervalGet(ConstHandle2ConfidenceIntervals This, const size_t index_)
+ConfidenceIntervalsIntervalGet(ConstHandle2ConfidenceIntervals self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Interval>
-      (CLASSNAME, CLASSNAME+"IntervalGet", This, extract::interval, index_);
+      (CLASSNAME, CLASSNAME+"IntervalGet", self, extract::interval, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ConfidenceIntervalsIntervalSet(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const size_t index_,
    ConstHandle2ConstInterval interval
 ) {
    detail::setByIndex<CPP,CPPInterval>
-      (CLASSNAME, CLASSNAME+"IntervalSet", This, extract::interval, index_, interval);
+      (CLASSNAME, CLASSNAME+"IntervalSet", self, extract::interval, index_, interval);
 }
 
 // Has, by confidence
 int
 ConfidenceIntervalsIntervalHasByConfidence(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 confidence
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntervalHasByConfidence",
-       This, extract::interval, meta::confidence, confidence);
+       self, extract::interval, meta::confidence, confidence);
 }
 
 // Get, by confidence, const
 Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByConfidenceConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 confidence
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInterval>
       (CLASSNAME, CLASSNAME+"IntervalGetByConfidenceConst",
-       This, extract::interval, meta::confidence, confidence);
+       self, extract::interval, meta::confidence, confidence);
 }
 
 // Get, by confidence, non-const
 Handle2Interval
 ConfidenceIntervalsIntervalGetByConfidence(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 confidence
 ) {
    return detail::getByMetadatum<CPP,Handle2Interval>
       (CLASSNAME, CLASSNAME+"IntervalGetByConfidence",
-       This, extract::interval, meta::confidence, confidence);
+       self, extract::interval, meta::confidence, confidence);
 }
 
 // Set, by confidence
 void
 ConfidenceIntervalsIntervalSetByConfidence(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 confidence,
    ConstHandle2ConstInterval interval
 ) {
    detail::setByMetadatum<CPP,CPPInterval>
       (CLASSNAME, CLASSNAME+"IntervalSetByConfidence",
-       This, extract::interval, meta::confidence, confidence, interval);
+       self, extract::interval, meta::confidence, confidence, interval);
 }
 
 // Has, by lower
 int
 ConfidenceIntervalsIntervalHasByLower(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 lower
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntervalHasByLower",
-       This, extract::interval, meta::lower, lower);
+       self, extract::interval, meta::lower, lower);
 }
 
 // Get, by lower, const
 Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByLowerConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 lower
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInterval>
       (CLASSNAME, CLASSNAME+"IntervalGetByLowerConst",
-       This, extract::interval, meta::lower, lower);
+       self, extract::interval, meta::lower, lower);
 }
 
 // Get, by lower, non-const
 Handle2Interval
 ConfidenceIntervalsIntervalGetByLower(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 lower
 ) {
    return detail::getByMetadatum<CPP,Handle2Interval>
       (CLASSNAME, CLASSNAME+"IntervalGetByLower",
-       This, extract::interval, meta::lower, lower);
+       self, extract::interval, meta::lower, lower);
 }
 
 // Set, by lower
 void
 ConfidenceIntervalsIntervalSetByLower(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 lower,
    ConstHandle2ConstInterval interval
 ) {
    detail::setByMetadatum<CPP,CPPInterval>
       (CLASSNAME, CLASSNAME+"IntervalSetByLower",
-       This, extract::interval, meta::lower, lower, interval);
+       self, extract::interval, meta::lower, lower, interval);
 }
 
 // Has, by upper
 int
 ConfidenceIntervalsIntervalHasByUpper(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 upper
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntervalHasByUpper",
-       This, extract::interval, meta::upper, upper);
+       self, extract::interval, meta::upper, upper);
 }
 
 // Get, by upper, const
 Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByUpperConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 upper
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInterval>
       (CLASSNAME, CLASSNAME+"IntervalGetByUpperConst",
-       This, extract::interval, meta::upper, upper);
+       self, extract::interval, meta::upper, upper);
 }
 
 // Get, by upper, non-const
 Handle2Interval
 ConfidenceIntervalsIntervalGetByUpper(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 upper
 ) {
    return detail::getByMetadatum<CPP,Handle2Interval>
       (CLASSNAME, CLASSNAME+"IntervalGetByUpper",
-       This, extract::interval, meta::upper, upper);
+       self, extract::interval, meta::upper, upper);
 }
 
 // Set, by upper
 void
 ConfidenceIntervalsIntervalSetByUpper(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 upper,
    ConstHandle2ConstInterval interval
 ) {
    detail::setByMetadatum<CPP,CPPInterval>
       (CLASSNAME, CLASSNAME+"IntervalSetByUpper",
-       This, extract::interval, meta::upper, upper, interval);
+       self, extract::interval, meta::upper, upper, interval);
 }
 
 

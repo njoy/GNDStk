@@ -98,13 +98,13 @@ SnElasticUpScatterCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SnElasticUpScatterAssign(ConstHandle2SnElasticUpScatter This, ConstHandle2ConstSnElasticUpScatter from);
+SnElasticUpScatterAssign(ConstHandle2SnElasticUpScatter self, ConstHandle2ConstSnElasticUpScatter from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SnElasticUpScatterDelete(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDelete(ConstHandle2ConstSnElasticUpScatter self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ SnElasticUpScatterDelete(ConstHandle2ConstSnElasticUpScatter This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SnElasticUpScatterRead(ConstHandle2SnElasticUpScatter This, const char *const filename);
+SnElasticUpScatterRead(ConstHandle2SnElasticUpScatter self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SnElasticUpScatterWrite(ConstHandle2ConstSnElasticUpScatter This, const char *const filename);
+SnElasticUpScatterWrite(ConstHandle2ConstSnElasticUpScatter self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SnElasticUpScatterPrint(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterPrint(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SnElasticUpScatterPrintXML(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterPrintXML(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SnElasticUpScatterPrintJSON(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterPrintJSON(ConstHandle2ConstSnElasticUpScatter self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ SnElasticUpScatterPrintJSON(ConstHandle2ConstSnElasticUpScatter This);
 
 // +++ Has
 extern_c int
-SnElasticUpScatterDateHas(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDateHas(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-SnElasticUpScatterDateGet(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDateGet(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Set
 extern_c void
-SnElasticUpScatterDateSet(ConstHandle2SnElasticUpScatter This, const char *const date);
+SnElasticUpScatterDateSet(ConstHandle2SnElasticUpScatter self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ SnElasticUpScatterDateSet(ConstHandle2SnElasticUpScatter This, const char *const
 
 // +++ Has
 extern_c int
-SnElasticUpScatterDerivedFromHas(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDerivedFromHas(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SnElasticUpScatterDerivedFromGet(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDerivedFromGet(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Set
 extern_c void
-SnElasticUpScatterDerivedFromSet(ConstHandle2SnElasticUpScatter This, const XMLName derivedFrom);
+SnElasticUpScatterDerivedFromSet(ConstHandle2SnElasticUpScatter self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ SnElasticUpScatterDerivedFromSet(ConstHandle2SnElasticUpScatter This, const XMLN
 
 // +++ Has
 extern_c int
-SnElasticUpScatterLabelHas(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterLabelHas(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SnElasticUpScatterLabelGet(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterLabelGet(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Set
 extern_c void
-SnElasticUpScatterLabelSet(ConstHandle2SnElasticUpScatter This, const XMLName label);
+SnElasticUpScatterLabelSet(ConstHandle2SnElasticUpScatter self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ SnElasticUpScatterLabelSet(ConstHandle2SnElasticUpScatter This, const XMLName la
 
 // +++ Has
 extern_c int
-SnElasticUpScatterUpperCalculatedGroupHas(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterUpperCalculatedGroupHas(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-SnElasticUpScatterUpperCalculatedGroupGet(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterUpperCalculatedGroupGet(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Set
 extern_c void
-SnElasticUpScatterUpperCalculatedGroupSet(ConstHandle2SnElasticUpScatter This, const Integer32 upperCalculatedGroup);
+SnElasticUpScatterUpperCalculatedGroupSet(ConstHandle2SnElasticUpScatter self, const Integer32 upperCalculatedGroup);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ SnElasticUpScatterUpperCalculatedGroupSet(ConstHandle2SnElasticUpScatter This, c
 
 // +++ Has
 extern_c int
-SnElasticUpScatterDocumentationHas(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDocumentationHas(ConstHandle2ConstSnElasticUpScatter self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-SnElasticUpScatterDocumentationGetConst(ConstHandle2ConstSnElasticUpScatter This);
+SnElasticUpScatterDocumentationGetConst(ConstHandle2ConstSnElasticUpScatter self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-SnElasticUpScatterDocumentationGet(ConstHandle2SnElasticUpScatter This);
+SnElasticUpScatterDocumentationGet(ConstHandle2SnElasticUpScatter self);
 
 // +++ Set
 extern_c void
-SnElasticUpScatterDocumentationSet(ConstHandle2SnElasticUpScatter This, ConstHandle2ConstDocumentation documentation);
+SnElasticUpScatterDocumentationSet(ConstHandle2SnElasticUpScatter self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

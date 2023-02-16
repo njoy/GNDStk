@@ -69,20 +69,20 @@ IncompleteReactionsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IncompleteReactionsAssign(ConstHandle2IncompleteReactions This, ConstHandle2ConstIncompleteReactions from)
+IncompleteReactionsAssign(ConstHandle2IncompleteReactions self, ConstHandle2ConstIncompleteReactions from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IncompleteReactionsRead(ConstHandle2IncompleteReactions This, const char *const filename)
+IncompleteReactionsRead(ConstHandle2IncompleteReactions self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions This, const char *const filename)
+IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This)
 
 // Has
 int
-IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionHas", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionHas", self, extract::reaction);
 }
 
 // Get, const
 Handle2ConstReaction
-IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions This)
+IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self)
 {
    return detail::getField<CPP,Handle2ConstReaction>
-      (CLASSNAME, CLASSNAME+"ReactionGetConst", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionGetConst", self, extract::reaction);
 }
 
 // Get, non-const
 Handle2Reaction
-IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions This)
+IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self)
 {
    return detail::getField<CPP,Handle2Reaction>
-      (CLASSNAME, CLASSNAME+"ReactionGet", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionGet", self, extract::reaction);
 }
 
 // Set
 void
-IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions This, ConstHandle2ConstReaction reaction)
+IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions self, ConstHandle2ConstReaction reaction)
 {
    detail::setField<CPP,CPPReaction>
-      (CLASSNAME, CLASSNAME+"ReactionSet", This, extract::reaction, reaction);
+      (CLASSNAME, CLASSNAME+"ReactionSet", self, extract::reaction, reaction);
 }
 
 

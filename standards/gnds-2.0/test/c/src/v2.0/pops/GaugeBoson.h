@@ -107,13 +107,13 @@ GaugeBosonCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GaugeBosonAssign(ConstHandle2GaugeBoson This, ConstHandle2ConstGaugeBoson from);
+GaugeBosonAssign(ConstHandle2GaugeBoson self, ConstHandle2ConstGaugeBoson from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GaugeBosonDelete(ConstHandle2ConstGaugeBoson This);
+GaugeBosonDelete(ConstHandle2ConstGaugeBoson self);
 
 
 // -----------------------------------------------------------------------------
@@ -126,25 +126,25 @@ GaugeBosonDelete(ConstHandle2ConstGaugeBoson This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GaugeBosonRead(ConstHandle2GaugeBoson This, const char *const filename);
+GaugeBosonRead(ConstHandle2GaugeBoson self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GaugeBosonWrite(ConstHandle2ConstGaugeBoson This, const char *const filename);
+GaugeBosonWrite(ConstHandle2ConstGaugeBoson self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GaugeBosonPrint(ConstHandle2ConstGaugeBoson This);
+GaugeBosonPrint(ConstHandle2ConstGaugeBoson self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GaugeBosonPrintXML(ConstHandle2ConstGaugeBoson This);
+GaugeBosonPrintXML(ConstHandle2ConstGaugeBoson self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson This);
+GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson self);
 
 
 // -----------------------------------------------------------------------------
@@ -153,16 +153,16 @@ GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson This);
 
 // +++ Has
 extern_c int
-GaugeBosonIdHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonIdHas(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-GaugeBosonIdGet(ConstHandle2ConstGaugeBoson This);
+GaugeBosonIdGet(ConstHandle2ConstGaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonIdSet(ConstHandle2GaugeBoson This, const XMLName id);
+GaugeBosonIdSet(ConstHandle2GaugeBoson self, const XMLName id);
 
 
 // -----------------------------------------------------------------------------
@@ -171,19 +171,19 @@ GaugeBosonIdSet(ConstHandle2GaugeBoson This, const XMLName id);
 
 // +++ Has
 extern_c int
-GaugeBosonChargeHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonChargeHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstCharge
-GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2Charge
-GaugeBosonChargeGet(ConstHandle2GaugeBoson This);
+GaugeBosonChargeGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonChargeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstCharge charge);
+GaugeBosonChargeSet(ConstHandle2GaugeBoson self, ConstHandle2ConstCharge charge);
 
 
 // -----------------------------------------------------------------------------
@@ -192,19 +192,19 @@ GaugeBosonChargeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstCharge charge)
 
 // +++ Has
 extern_c int
-GaugeBosonHalflifeHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonHalflifeHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstHalflife
-GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2Halflife
-GaugeBosonHalflifeGet(ConstHandle2GaugeBoson This);
+GaugeBosonHalflifeGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonHalflifeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstHalflife halflife);
+GaugeBosonHalflifeSet(ConstHandle2GaugeBoson self, ConstHandle2ConstHalflife halflife);
 
 
 // -----------------------------------------------------------------------------
@@ -213,19 +213,19 @@ GaugeBosonHalflifeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstHalflife hal
 
 // +++ Has
 extern_c int
-GaugeBosonMassHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonMassHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-GaugeBosonMassGet(ConstHandle2GaugeBoson This);
+GaugeBosonMassGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonMassSet(ConstHandle2GaugeBoson This, ConstHandle2ConstMass mass);
+GaugeBosonMassSet(ConstHandle2GaugeBoson self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
@@ -234,19 +234,19 @@ GaugeBosonMassSet(ConstHandle2GaugeBoson This, ConstHandle2ConstMass mass);
 
 // +++ Has
 extern_c int
-GaugeBosonSpinHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonSpinHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstSpin
-GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2Spin
-GaugeBosonSpinGet(ConstHandle2GaugeBoson This);
+GaugeBosonSpinGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonSpinSet(ConstHandle2GaugeBoson This, ConstHandle2ConstSpin spin);
+GaugeBosonSpinSet(ConstHandle2GaugeBoson self, ConstHandle2ConstSpin spin);
 
 
 // -----------------------------------------------------------------------------
@@ -255,19 +255,19 @@ GaugeBosonSpinSet(ConstHandle2GaugeBoson This, ConstHandle2ConstSpin spin);
 
 // +++ Has
 extern_c int
-GaugeBosonParityHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonParityHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstParity
-GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2Parity
-GaugeBosonParityGet(ConstHandle2GaugeBoson This);
+GaugeBosonParityGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonParitySet(ConstHandle2GaugeBoson This, ConstHandle2ConstParity parity);
+GaugeBosonParitySet(ConstHandle2GaugeBoson self, ConstHandle2ConstParity parity);
 
 
 // -----------------------------------------------------------------------------
@@ -276,19 +276,19 @@ GaugeBosonParitySet(ConstHandle2GaugeBoson This, ConstHandle2ConstParity parity)
 
 // +++ Has
 extern_c int
-GaugeBosonDecayDataHas(ConstHandle2ConstGaugeBoson This);
+GaugeBosonDecayDataHas(ConstHandle2ConstGaugeBoson self);
 
 // --- Get, const
 extern_c Handle2ConstDecayData
-GaugeBosonDecayDataGetConst(ConstHandle2ConstGaugeBoson This);
+GaugeBosonDecayDataGetConst(ConstHandle2ConstGaugeBoson self);
 
 // +++ Get, non-const
 extern_c Handle2DecayData
-GaugeBosonDecayDataGet(ConstHandle2GaugeBoson This);
+GaugeBosonDecayDataGet(ConstHandle2GaugeBoson self);
 
 // +++ Set
 extern_c void
-GaugeBosonDecayDataSet(ConstHandle2GaugeBoson This, ConstHandle2ConstDecayData decayData);
+GaugeBosonDecayDataSet(ConstHandle2GaugeBoson self, ConstHandle2ConstDecayData decayData);
 
 
 // -----------------------------------------------------------------------------

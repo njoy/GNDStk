@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1 {
 namespace python_multigroup {
 
-// Library wrapper
-void wrapLibrary(python::module &module)
+// wrapper for multigroup::Library
+void wrapLibrary(py::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
 
    // type aliases
-   using Component = multigroup::Library;
+   using cppCLASS = multigroup::Library;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Library",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Library",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::vector<multigroup::Element> &
-         >(),
-         python::arg("name"),
-         python::arg("element"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "element",
-         [](const Component &self) { return self.element(); },
-         Component::documentation("element").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::vector<multigroup::Element> &
+      >(),
+      py::arg("name"),
+      py::arg("element"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set element
+   object.def_property(
+      "element",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.element();
+      },
+      [](cppCLASS &self, const std::vector<multigroup::Element> &value)
+      {
+         self.element() = value;
+      },
+      cppCLASS::component_t::documentation("element").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_multigroup

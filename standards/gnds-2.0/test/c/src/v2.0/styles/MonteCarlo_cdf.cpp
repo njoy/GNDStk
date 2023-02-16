@@ -84,20 +84,20 @@ MonteCarlo_cdfCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MonteCarlo_cdfAssign(ConstHandle2MonteCarlo_cdf This, ConstHandle2ConstMonteCarlo_cdf from)
+MonteCarlo_cdfAssign(ConstHandle2MonteCarlo_cdf self, ConstHandle2ConstMonteCarlo_cdf from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ MonteCarlo_cdfDelete(ConstHandle2ConstMonteCarlo_cdf This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MonteCarlo_cdfRead(ConstHandle2MonteCarlo_cdf This, const char *const filename)
+MonteCarlo_cdfRead(ConstHandle2MonteCarlo_cdf self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MonteCarlo_cdfWrite(ConstHandle2ConstMonteCarlo_cdf This, const char *const filename)
+MonteCarlo_cdfWrite(ConstHandle2ConstMonteCarlo_cdf self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MonteCarlo_cdfPrint(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfPrint(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MonteCarlo_cdfPrintXML(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfPrintXML(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ MonteCarlo_cdfPrintJSON(ConstHandle2ConstMonteCarlo_cdf This)
 
 // Has
 int
-MonteCarlo_cdfDateHas(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDateHas(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-MonteCarlo_cdfDateGet(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDateGet(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf This, const char *const date)
+MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -188,27 +188,27 @@ MonteCarlo_cdfDateSet(ConstHandle2MonteCarlo_cdf This, const char *const date)
 
 // Has
 int
-MonteCarlo_cdfDerivedFromHas(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDerivedFromHas(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-MonteCarlo_cdfDerivedFromGet(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDerivedFromGet(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf This, const XMLName derivedFrom)
+MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -218,27 +218,27 @@ MonteCarlo_cdfDerivedFromSet(ConstHandle2MonteCarlo_cdf This, const XMLName deri
 
 // Has
 int
-MonteCarlo_cdfLabelHas(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfLabelHas(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-MonteCarlo_cdfLabelGet(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfLabelGet(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf This, const XMLName label)
+MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -248,34 +248,34 @@ MonteCarlo_cdfLabelSet(ConstHandle2MonteCarlo_cdf This, const XMLName label)
 
 // Has
 int
-MonteCarlo_cdfDocumentationHas(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDocumentationHas(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-MonteCarlo_cdfDocumentationGetConst(ConstHandle2ConstMonteCarlo_cdf This)
+MonteCarlo_cdfDocumentationGetConst(ConstHandle2ConstMonteCarlo_cdf self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-MonteCarlo_cdfDocumentationGet(ConstHandle2MonteCarlo_cdf This)
+MonteCarlo_cdfDocumentationGet(ConstHandle2MonteCarlo_cdf self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf This, ConstHandle2ConstDocumentation documentation)
+MonteCarlo_cdfDocumentationSet(ConstHandle2MonteCarlo_cdf self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

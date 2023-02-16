@@ -25,12 +25,12 @@ class MultiBand :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "MultiBand"; }
-   static auto FIELD() { return "multiBand"; }
+   static auto NODENAME() { return "multiBand"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -48,36 +48,84 @@ class MultiBand :
             / Meta<>("numberOfBands") |
 
          // children
-         --Child<std::optional<documentation::Documentation>>("documentation")
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "derivedFrom",
+         "label",
+         "numberOfBands",
+         "documentation"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "derived_from",
+         "label",
+         "number_of_bands",
+         "documentation"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> date{this};
-   Field<XMLName> derivedFrom{this};
-   Field<XMLName> label{this};
-   Field<Integer32> numberOfBands{this};
+   Field<std::string>
+      date{this};
+   Field<XMLName>
+      derivedFrom{this};
+   Field<XMLName>
+      label{this};
+   Field<Integer32>
+      numberOfBands{this};
 
    // children
-   Field<std::optional<documentation::Documentation>> documentation{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->date, \
       this->derivedFrom, \
       this->label, \
       this->numberOfBands, \
-      this->documentation)
+      this->documentation \
+   )
 
    // default
    MultiBand() :
@@ -88,11 +136,16 @@ public:
 
    // from fields, comment excluded
    explicit MultiBand(
-      const wrapper<std::string> &date,
-      const wrapper<XMLName> &derivedFrom = {},
-      const wrapper<XMLName> &label = {},
-      const wrapper<Integer32> &numberOfBands = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {}
+      const wrapper<std::string>
+         &date,
+      const wrapper<XMLName>
+         &derivedFrom = {},
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<Integer32>
+         &numberOfBands = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date),
@@ -141,8 +194,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   MultiBand &operator=(const MultiBand &) = default;
-   MultiBand &operator=(MultiBand &&) = default;
+   // copy
+   MultiBand &operator=(const MultiBand &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         date = other.date;
+         derivedFrom = other.derivedFrom;
+         label = other.label;
+         numberOfBands = other.numberOfBands;
+         documentation = other.documentation;
+      }
+      return *this;
+   }
+
+   // move
+   MultiBand &operator=(MultiBand &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         date = std::move(other.date);
+         derivedFrom = std::move(other.derivedFrom);
+         label = std::move(other.label);
+         numberOfBands = std::move(other.numberOfBands);
+         documentation = std::move(other.documentation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

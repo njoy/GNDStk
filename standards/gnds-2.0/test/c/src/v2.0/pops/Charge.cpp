@@ -92,20 +92,20 @@ ChargeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChargeAssign(ConstHandle2Charge This, ConstHandle2ConstCharge from)
+ChargeAssign(ConstHandle2Charge self, ConstHandle2ConstCharge from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChargeDelete(ConstHandle2ConstCharge This)
+ChargeDelete(ConstHandle2ConstCharge self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -119,44 +119,44 @@ ChargeDelete(ConstHandle2ConstCharge This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChargeRead(ConstHandle2Charge This, const char *const filename)
+ChargeRead(ConstHandle2Charge self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChargeWrite(ConstHandle2ConstCharge This, const char *const filename)
+ChargeWrite(ConstHandle2ConstCharge self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChargePrint(ConstHandle2ConstCharge This)
+ChargePrint(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChargePrintXML(ConstHandle2ConstCharge This)
+ChargePrintXML(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChargePrintJSON(ConstHandle2ConstCharge This)
+ChargePrintJSON(ConstHandle2ConstCharge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -166,27 +166,27 @@ ChargePrintJSON(ConstHandle2ConstCharge This)
 
 // Has
 int
-ChargeLabelHas(ConstHandle2ConstCharge This)
+ChargeLabelHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ChargeLabelGet(ConstHandle2ConstCharge This)
+ChargeLabelGet(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ChargeLabelSet(ConstHandle2Charge This, const XMLName label)
+ChargeLabelSet(ConstHandle2Charge self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -196,27 +196,27 @@ ChargeLabelSet(ConstHandle2Charge This, const XMLName label)
 
 // Has
 int
-ChargeUnitHas(ConstHandle2ConstCharge This)
+ChargeUnitHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-ChargeUnitGet(ConstHandle2ConstCharge This)
+ChargeUnitGet(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-ChargeUnitSet(ConstHandle2Charge This, const XMLName unit)
+ChargeUnitSet(ConstHandle2Charge self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -226,27 +226,27 @@ ChargeUnitSet(ConstHandle2Charge This, const XMLName unit)
 
 // Has
 int
-ChargeValueHas(ConstHandle2ConstCharge This)
+ChargeValueHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-ChargeValueGet(ConstHandle2ConstCharge This)
+ChargeValueGet(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-ChargeValueSet(ConstHandle2Charge This, const XMLName value)
+ChargeValueSet(ConstHandle2Charge self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -256,34 +256,34 @@ ChargeValueSet(ConstHandle2Charge This, const XMLName value)
 
 // Has
 int
-ChargeDocumentationHas(ConstHandle2ConstCharge This)
+ChargeDocumentationHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-ChargeDocumentationGetConst(ConstHandle2ConstCharge This)
+ChargeDocumentationGetConst(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-ChargeDocumentationGet(ConstHandle2Charge This)
+ChargeDocumentationGet(ConstHandle2Charge self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-ChargeDocumentationSet(ConstHandle2Charge This, ConstHandle2ConstDocumentation documentation)
+ChargeDocumentationSet(ConstHandle2Charge self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -293,34 +293,34 @@ ChargeDocumentationSet(ConstHandle2Charge This, ConstHandle2ConstDocumentation d
 
 // Has
 int
-ChargeUncertaintyHas(ConstHandle2ConstCharge This)
+ChargeUncertaintyHas(ConstHandle2ConstCharge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-ChargeUncertaintyGetConst(ConstHandle2ConstCharge This)
+ChargeUncertaintyGetConst(ConstHandle2ConstCharge self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-ChargeUncertaintyGet(ConstHandle2Charge This)
+ChargeUncertaintyGet(ConstHandle2Charge self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-ChargeUncertaintySet(ConstHandle2Charge This, ConstHandle2ConstUncertainty uncertainty)
+ChargeUncertaintySet(ConstHandle2Charge self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

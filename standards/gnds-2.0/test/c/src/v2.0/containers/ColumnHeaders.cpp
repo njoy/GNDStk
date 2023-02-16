@@ -73,20 +73,20 @@ ColumnHeadersCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ColumnHeadersAssign(ConstHandle2ColumnHeaders This, ConstHandle2ConstColumnHeaders from)
+ColumnHeadersAssign(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumnHeaders from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ColumnHeadersDelete(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersDelete(ConstHandle2ConstColumnHeaders self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ColumnHeadersDelete(ConstHandle2ConstColumnHeaders This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ColumnHeadersRead(ConstHandle2ColumnHeaders This, const char *const filename)
+ColumnHeadersRead(ConstHandle2ColumnHeaders self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ColumnHeadersWrite(ConstHandle2ConstColumnHeaders This, const char *const filename)
+ColumnHeadersWrite(ConstHandle2ConstColumnHeaders self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ColumnHeadersPrint(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersPrint(ConstHandle2ConstColumnHeaders self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ColumnHeadersPrintXML(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersPrintXML(ConstHandle2ConstColumnHeaders self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders This)
 
 // Has
 int
-ColumnHeadersColumnHas(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersColumnHas(ConstHandle2ConstColumnHeaders self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnHas", This, extract::column);
+      (CLASSNAME, CLASSNAME+"ColumnHas", self, extract::column);
 }
 
 // Clear
 void
-ColumnHeadersColumnClear(ConstHandle2ColumnHeaders This)
+ColumnHeadersColumnClear(ConstHandle2ColumnHeaders self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnClear", This, extract::column);
+      (CLASSNAME, CLASSNAME+"ColumnClear", self, extract::column);
 }
 
 // Size
 size_t
-ColumnHeadersColumnSize(ConstHandle2ConstColumnHeaders This)
+ColumnHeadersColumnSize(ConstHandle2ConstColumnHeaders self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnSize", This, extract::column);
+      (CLASSNAME, CLASSNAME+"ColumnSize", self, extract::column);
 }
 
 // Add
 void
-ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders This, ConstHandle2ConstColumn column)
+ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumn column)
 {
    detail::addToContainer<CPP,CPPColumn>
-      (CLASSNAME, CLASSNAME+"ColumnAdd", This, extract::column, column);
+      (CLASSNAME, CLASSNAME+"ColumnAdd", self, extract::column, column);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstColumn
-ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders This, const size_t index_)
+ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstColumn>
-      (CLASSNAME, CLASSNAME+"ColumnGetConst", This, extract::column, index_);
+      (CLASSNAME, CLASSNAME+"ColumnGetConst", self, extract::column, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Column
-ColumnHeadersColumnGet(ConstHandle2ColumnHeaders This, const size_t index_)
+ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Column>
-      (CLASSNAME, CLASSNAME+"ColumnGet", This, extract::column, index_);
+      (CLASSNAME, CLASSNAME+"ColumnGet", self, extract::column, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ColumnHeadersColumnSet(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const size_t index_,
    ConstHandle2ConstColumn column
 ) {
    detail::setByIndex<CPP,CPPColumn>
-      (CLASSNAME, CLASSNAME+"ColumnSet", This, extract::column, index_, column);
+      (CLASSNAME, CLASSNAME+"ColumnSet", self, extract::column, index_, column);
 }
 
 // Has, by index
 int
 ColumnHeadersColumnHasByIndex(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const Integer32 index
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ColumnHasByIndex",
-       This, extract::column, meta::index, index);
+       self, extract::column, meta::index, index);
 }
 
 // Get, by index, const
 Handle2ConstColumn
 ColumnHeadersColumnGetByIndexConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const Integer32 index
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstColumn>
       (CLASSNAME, CLASSNAME+"ColumnGetByIndexConst",
-       This, extract::column, meta::index, index);
+       self, extract::column, meta::index, index);
 }
 
 // Get, by index, non-const
 Handle2Column
 ColumnHeadersColumnGetByIndex(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const Integer32 index
 ) {
    return detail::getByMetadatum<CPP,Handle2Column>
       (CLASSNAME, CLASSNAME+"ColumnGetByIndex",
-       This, extract::column, meta::index, index);
+       self, extract::column, meta::index, index);
 }
 
 // Set, by index
 void
 ColumnHeadersColumnSetByIndex(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const Integer32 index,
    ConstHandle2ConstColumn column
 ) {
    detail::setByMetadatum<CPP,CPPColumn>
       (CLASSNAME, CLASSNAME+"ColumnSetByIndex",
-       This, extract::column, meta::index, index, column);
+       self, extract::column, meta::index, index, column);
 }
 
 // Has, by name
 int
 ColumnHeadersColumnHasByName(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ColumnHasByName",
-       This, extract::column, meta::name, name);
+       self, extract::column, meta::name, name);
 }
 
 // Get, by name, const
 Handle2ConstColumn
 ColumnHeadersColumnGetByNameConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstColumn>
       (CLASSNAME, CLASSNAME+"ColumnGetByNameConst",
-       This, extract::column, meta::name, name);
+       self, extract::column, meta::name, name);
 }
 
 // Get, by name, non-const
 Handle2Column
 ColumnHeadersColumnGetByName(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName name
 ) {
    return detail::getByMetadatum<CPP,Handle2Column>
       (CLASSNAME, CLASSNAME+"ColumnGetByName",
-       This, extract::column, meta::name, name);
+       self, extract::column, meta::name, name);
 }
 
 // Set, by name
 void
 ColumnHeadersColumnSetByName(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName name,
    ConstHandle2ConstColumn column
 ) {
    detail::setByMetadatum<CPP,CPPColumn>
       (CLASSNAME, CLASSNAME+"ColumnSetByName",
-       This, extract::column, meta::name, name, column);
+       self, extract::column, meta::name, name, column);
 }
 
 // Has, by unit
 int
 ColumnHeadersColumnHasByUnit(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ColumnHasByUnit",
-       This, extract::column, meta::unit, unit);
+       self, extract::column, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstColumn
 ColumnHeadersColumnGetByUnitConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstColumn>
       (CLASSNAME, CLASSNAME+"ColumnGetByUnitConst",
-       This, extract::column, meta::unit, unit);
+       self, extract::column, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Column
 ColumnHeadersColumnGetByUnit(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Column>
       (CLASSNAME, CLASSNAME+"ColumnGetByUnit",
-       This, extract::column, meta::unit, unit);
+       self, extract::column, meta::unit, unit);
 }
 
 // Set, by unit
 void
 ColumnHeadersColumnSetByUnit(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName unit,
    ConstHandle2ConstColumn column
 ) {
    detail::setByMetadatum<CPP,CPPColumn>
       (CLASSNAME, CLASSNAME+"ColumnSetByUnit",
-       This, extract::column, meta::unit, unit, column);
+       self, extract::column, meta::unit, unit, column);
 }
 
 // Has, by types
 int
 ColumnHeadersColumnHasByTypes(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName types
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ColumnHasByTypes",
-       This, extract::column, meta::types, types);
+       self, extract::column, meta::types, types);
 }
 
 // Get, by types, const
 Handle2ConstColumn
 ColumnHeadersColumnGetByTypesConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName types
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstColumn>
       (CLASSNAME, CLASSNAME+"ColumnGetByTypesConst",
-       This, extract::column, meta::types, types);
+       self, extract::column, meta::types, types);
 }
 
 // Get, by types, non-const
 Handle2Column
 ColumnHeadersColumnGetByTypes(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName types
 ) {
    return detail::getByMetadatum<CPP,Handle2Column>
       (CLASSNAME, CLASSNAME+"ColumnGetByTypes",
-       This, extract::column, meta::types, types);
+       self, extract::column, meta::types, types);
 }
 
 // Set, by types
 void
 ColumnHeadersColumnSetByTypes(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName types,
    ConstHandle2ConstColumn column
 ) {
    detail::setByMetadatum<CPP,CPPColumn>
       (CLASSNAME, CLASSNAME+"ColumnSetByTypes",
-       This, extract::column, meta::types, types, column);
+       self, extract::column, meta::types, types, column);
 }
 
 

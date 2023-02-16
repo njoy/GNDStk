@@ -77,20 +77,20 @@ VersionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-VersionAssign(ConstHandle2Version This, ConstHandle2ConstVersion from)
+VersionAssign(ConstHandle2Version self, ConstHandle2ConstVersion from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-VersionDelete(ConstHandle2ConstVersion This)
+VersionDelete(ConstHandle2ConstVersion self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ VersionDelete(ConstHandle2ConstVersion This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-VersionRead(ConstHandle2Version This, const char *const filename)
+VersionRead(ConstHandle2Version self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-VersionWrite(ConstHandle2ConstVersion This, const char *const filename)
+VersionWrite(ConstHandle2ConstVersion self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-VersionPrint(ConstHandle2ConstVersion This)
+VersionPrint(ConstHandle2ConstVersion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-VersionPrintXML(ConstHandle2ConstVersion This)
+VersionPrintXML(ConstHandle2ConstVersion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-VersionPrintJSON(ConstHandle2ConstVersion This)
+VersionPrintJSON(ConstHandle2ConstVersion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,60 +155,60 @@ VersionPrintJSON(ConstHandle2ConstVersion This)
 
 // Clear
 void
-VersionIntsClear(ConstHandle2Version This)
+VersionIntsClear(ConstHandle2Version self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-VersionIntsSize(ConstHandle2ConstVersion This)
+VersionIntsSize(ConstHandle2ConstVersion self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-VersionIntsGet(ConstHandle2ConstVersion This, const size_t index)
+VersionIntsGet(ConstHandle2ConstVersion self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-VersionIntsSet(ConstHandle2Version This, const size_t index, const int value)
+VersionIntsSet(ConstHandle2Version self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-VersionIntsGetArrayConst(ConstHandle2ConstVersion This)
+VersionIntsGetArrayConst(ConstHandle2ConstVersion self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-VersionIntsGetArray(ConstHandle2Version This)
+VersionIntsGetArray(ConstHandle2Version self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-VersionIntsSetArray(ConstHandle2Version This, const int *const values, const size_t size)
+VersionIntsSetArray(ConstHandle2Version self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -217,60 +217,60 @@ VersionIntsSetArray(ConstHandle2Version This, const int *const values, const siz
 
 // Clear
 void
-VersionUnsignedsClear(ConstHandle2Version This)
+VersionUnsignedsClear(ConstHandle2Version self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-VersionUnsignedsSize(ConstHandle2ConstVersion This)
+VersionUnsignedsSize(ConstHandle2ConstVersion self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-VersionUnsignedsGet(ConstHandle2ConstVersion This, const size_t index)
+VersionUnsignedsGet(ConstHandle2ConstVersion self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-VersionUnsignedsSet(ConstHandle2Version This, const size_t index, const unsigned value)
+VersionUnsignedsSet(ConstHandle2Version self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-VersionUnsignedsGetArrayConst(ConstHandle2ConstVersion This)
+VersionUnsignedsGetArrayConst(ConstHandle2ConstVersion self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-VersionUnsignedsGetArray(ConstHandle2Version This)
+VersionUnsignedsGetArray(ConstHandle2Version self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-VersionUnsignedsSetArray(ConstHandle2Version This, const unsigned *const values, const size_t size)
+VersionUnsignedsSetArray(ConstHandle2Version self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -279,60 +279,60 @@ VersionUnsignedsSetArray(ConstHandle2Version This, const unsigned *const values,
 
 // Clear
 void
-VersionFloatsClear(ConstHandle2Version This)
+VersionFloatsClear(ConstHandle2Version self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-VersionFloatsSize(ConstHandle2ConstVersion This)
+VersionFloatsSize(ConstHandle2ConstVersion self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-VersionFloatsGet(ConstHandle2ConstVersion This, const size_t index)
+VersionFloatsGet(ConstHandle2ConstVersion self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-VersionFloatsSet(ConstHandle2Version This, const size_t index, const float value)
+VersionFloatsSet(ConstHandle2Version self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-VersionFloatsGetArrayConst(ConstHandle2ConstVersion This)
+VersionFloatsGetArrayConst(ConstHandle2ConstVersion self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-VersionFloatsGetArray(ConstHandle2Version This)
+VersionFloatsGetArray(ConstHandle2Version self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-VersionFloatsSetArray(ConstHandle2Version This, const float *const values, const size_t size)
+VersionFloatsSetArray(ConstHandle2Version self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -341,60 +341,60 @@ VersionFloatsSetArray(ConstHandle2Version This, const float *const values, const
 
 // Clear
 void
-VersionDoublesClear(ConstHandle2Version This)
+VersionDoublesClear(ConstHandle2Version self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-VersionDoublesSize(ConstHandle2ConstVersion This)
+VersionDoublesSize(ConstHandle2ConstVersion self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-VersionDoublesGet(ConstHandle2ConstVersion This, const size_t index)
+VersionDoublesGet(ConstHandle2ConstVersion self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-VersionDoublesSet(ConstHandle2Version This, const size_t index, const double value)
+VersionDoublesSet(ConstHandle2Version self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-VersionDoublesGetArrayConst(ConstHandle2ConstVersion This)
+VersionDoublesGetArrayConst(ConstHandle2ConstVersion self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-VersionDoublesGetArray(ConstHandle2Version This)
+VersionDoublesGetArray(ConstHandle2Version self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-VersionDoublesSetArray(ConstHandle2Version This, const double *const values, const size_t size)
+VersionDoublesSetArray(ConstHandle2Version self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -404,27 +404,27 @@ VersionDoublesSetArray(ConstHandle2Version This, const double *const values, con
 
 // Has
 int
-VersionEncodingHas(ConstHandle2ConstVersion This)
+VersionEncodingHas(ConstHandle2ConstVersion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-VersionEncodingGet(ConstHandle2ConstVersion This)
+VersionEncodingGet(ConstHandle2ConstVersion self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-VersionEncodingSet(ConstHandle2Version This, const XMLName encoding)
+VersionEncodingSet(ConstHandle2Version self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -434,27 +434,27 @@ VersionEncodingSet(ConstHandle2Version This, const XMLName encoding)
 
 // Has
 int
-VersionMarkupHas(ConstHandle2ConstVersion This)
+VersionMarkupHas(ConstHandle2ConstVersion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-VersionMarkupGet(ConstHandle2ConstVersion This)
+VersionMarkupGet(ConstHandle2ConstVersion self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-VersionMarkupSet(ConstHandle2Version This, const char *const markup)
+VersionMarkupSet(ConstHandle2Version self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -464,27 +464,27 @@ VersionMarkupSet(ConstHandle2Version This, const char *const markup)
 
 // Has
 int
-VersionLabelHas(ConstHandle2ConstVersion This)
+VersionLabelHas(ConstHandle2ConstVersion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-VersionLabelGet(ConstHandle2ConstVersion This)
+VersionLabelGet(ConstHandle2ConstVersion self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-VersionLabelSet(ConstHandle2Version This, const XMLName label)
+VersionLabelSet(ConstHandle2Version self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

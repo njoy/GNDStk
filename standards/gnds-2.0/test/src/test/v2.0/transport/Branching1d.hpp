@@ -25,12 +25,12 @@ class Branching1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Branching1d"; }
-   static auto FIELD() { return "branching1d"; }
+   static auto NODENAME() { return "branching1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,22 +43,57 @@ class Branching1d :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->label)
+      this->label \
+   )
 
    // default
    Branching1d() :
@@ -69,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Branching1d(
-      const wrapper<XMLName> &label
+      const wrapper<XMLName>
+         &label
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label)
@@ -106,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Branching1d &operator=(const Branching1d &) = default;
-   Branching1d &operator=(Branching1d &&) = default;
+   // copy
+   Branching1d &operator=(const Branching1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+      }
+      return *this;
+   }
+
+   // move
+   Branching1d &operator=(Branching1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

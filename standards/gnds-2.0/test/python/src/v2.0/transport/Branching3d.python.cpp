@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Branching3d wrapper
-void wrapBranching3d(python::module &module)
+// wrapper for transport::Branching3d
+void wrapBranching3d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Branching3d;
+   using cppCLASS = transport::Branching3d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Branching3d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Branching3d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

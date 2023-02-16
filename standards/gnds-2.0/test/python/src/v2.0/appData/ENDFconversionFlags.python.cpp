@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_appData {
 
-// ENDFconversionFlags wrapper
-void wrapENDFconversionFlags(python::module &module)
+// wrapper for appData::ENDFconversionFlags
+void wrapENDFconversionFlags(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = appData::ENDFconversionFlags;
+   using cppCLASS = appData::ENDFconversionFlags;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ENDFconversionFlags",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ENDFconversionFlags",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<appData::Conversion> &
-         >(),
-         python::arg("conversion") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "conversion",
-         [](const Component &self) { return self.conversion(); },
-         Component::documentation("conversion").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<appData::Conversion> &
+      >(),
+      py::arg("conversion") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set conversion
+   object.def_property(
+      "conversion",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.conversion();
+      },
+      [](cppCLASS &self, const std::optional<appData::Conversion> &value)
+      {
+         self.conversion() = value;
+      },
+      cppCLASS::component_t::documentation("conversion").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_appData

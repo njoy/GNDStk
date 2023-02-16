@@ -114,13 +114,13 @@ DoubleDifferentialCrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DoubleDifferentialCrossSectionAssign(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstDoubleDifferentialCrossSection from);
+DoubleDifferentialCrossSectionAssign(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstDoubleDifferentialCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -133,25 +133,25 @@ DoubleDifferentialCrossSectionDelete(ConstHandle2ConstDoubleDifferentialCrossSec
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DoubleDifferentialCrossSectionRead(ConstHandle2DoubleDifferentialCrossSection This, const char *const filename);
+DoubleDifferentialCrossSectionRead(ConstHandle2DoubleDifferentialCrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DoubleDifferentialCrossSectionWrite(ConstHandle2ConstDoubleDifferentialCrossSection This, const char *const filename);
+DoubleDifferentialCrossSectionWrite(ConstHandle2ConstDoubleDifferentialCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DoubleDifferentialCrossSectionPrint(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionPrint(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DoubleDifferentialCrossSectionPrintXML(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionPrintXML(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ DoubleDifferentialCrossSectionPrintJSON(ConstHandle2ConstDoubleDifferentialCross
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionRegions3dHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionRegions3dHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstRegions3d
-DoubleDifferentialCrossSectionRegions3dGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionRegions3dGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Regions3d
-DoubleDifferentialCrossSectionRegions3dGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionRegions3dGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionRegions3dSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstRegions3d regions3d);
+DoubleDifferentialCrossSectionRegions3dSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstRegions3d regions3d);
 
 
 // -----------------------------------------------------------------------------
@@ -181,19 +181,19 @@ DoubleDifferentialCrossSectionRegions3dSet(ConstHandle2DoubleDifferentialCrossSe
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionXYs3dHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionXYs3dHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstXYs3d
-DoubleDifferentialCrossSectionXYs3dGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionXYs3dGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2XYs3d
-DoubleDifferentialCrossSectionXYs3dGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionXYs3dGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionXYs3dSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstXYs3d XYs3d);
+DoubleDifferentialCrossSectionXYs3dSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstXYs3d XYs3d);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ DoubleDifferentialCrossSectionXYs3dSet(ConstHandle2DoubleDifferentialCrossSectio
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstCoulombPlusNuclearElastic
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2CoulombPlusNuclearElastic
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic);
+DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(ConstHandle2DoubleDif
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionReferenceHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionReferenceHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstReference
-DoubleDifferentialCrossSectionReferenceGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionReferenceGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Reference
-DoubleDifferentialCrossSectionReferenceGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionReferenceGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionReferenceSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstReference reference);
+DoubleDifferentialCrossSectionReferenceSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstReference reference);
 
 
 // -----------------------------------------------------------------------------
@@ -244,19 +244,19 @@ DoubleDifferentialCrossSectionReferenceSet(ConstHandle2DoubleDifferentialCrossSe
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionCoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstCoherentPhotonScattering
-DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2CoherentPhotonScattering
-DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering);
+DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstCoherentPhotonScattering coherentPhotonScattering);
 
 
 // -----------------------------------------------------------------------------
@@ -265,19 +265,19 @@ DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(ConstHandle2DoubleDiff
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstIncoherentPhotonScattering
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2IncoherentPhotonScattering
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering);
+DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering);
 
 
 // -----------------------------------------------------------------------------
@@ -286,19 +286,19 @@ DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(ConstHandle2DoubleDi
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstThermalNeutronScatteringLaw_coherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_coherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic thermalNeutronScatteringLaw_coherentElastic);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic thermalNeutronScatteringLaw_coherentElastic);
 
 
 // -----------------------------------------------------------------------------
@@ -307,19 +307,19 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet(Con
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstThermalNeutronScatteringLaw_incoherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentElastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic thermalNeutronScatteringLaw_incoherentElastic);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic thermalNeutronScatteringLaw_incoherentElastic);
 
 
 // -----------------------------------------------------------------------------
@@ -328,19 +328,19 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet(C
 
 // +++ Has
 extern_c int
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticHas(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticHas(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstThermalNeutronScatteringLaw_incoherentInelastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst(ConstHandle2ConstDoubleDifferentialCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentInelastic
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(ConstHandle2DoubleDifferentialCrossSection This);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(ConstHandle2DoubleDifferentialCrossSection self);
 
 // +++ Set
 extern_c void
-DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet(ConstHandle2DoubleDifferentialCrossSection This, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic thermalNeutronScatteringLaw_incoherentInelastic);
+DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet(ConstHandle2DoubleDifferentialCrossSection self, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic thermalNeutronScatteringLaw_incoherentInelastic);
 
 
 // -----------------------------------------------------------------------------

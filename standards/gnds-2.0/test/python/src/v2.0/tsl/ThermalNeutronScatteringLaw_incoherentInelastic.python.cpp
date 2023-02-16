@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// ThermalNeutronScatteringLaw_incoherentInelastic wrapper
-void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &module)
+// wrapper for tsl::ThermalNeutronScatteringLaw_incoherentInelastic
+void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::ThermalNeutronScatteringLaw_incoherentInelastic;
+   using cppCLASS = tsl::ThermalNeutronScatteringLaw_incoherentInelastic;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ThermalNeutronScatteringLaw_incoherentInelastic",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ThermalNeutronScatteringLaw_incoherentInelastic",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const std::optional<enums::Frame> &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const XMLName &,
-            const tsl::ScatteringAtoms &
-         >(),
-         python::arg("label"),
-         python::arg("pid") = std::nullopt,
-         python::arg("product_frame") = std::nullopt,
-         python::arg("calculated_at_thermal") = std::nullopt,
-         python::arg("incoherent_approximation") = std::nullopt,
-         python::arg("primary_scatterer"),
-         python::arg("scattering_atoms"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self) { return self.pid().value(); },
-         Component::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame().value(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "calculated_at_thermal",
-         [](const Component &self) { return self.calculatedAtThermal().value(); },
-         Component::documentation("calculated_at_thermal").data()
-      )
-      .def_property_readonly(
-         "incoherent_approximation",
-         [](const Component &self) { return self.incoherentApproximation().value(); },
-         Component::documentation("incoherent_approximation").data()
-      )
-      .def_property_readonly(
-         "primary_scatterer",
-         [](const Component &self) { return self.primaryScatterer(); },
-         Component::documentation("primary_scatterer").data()
-      )
-      .def_property_readonly(
-         "scattering_atoms",
-         [](const Component &self) { return self.scatteringAtoms(); },
-         Component::documentation("scattering_atoms").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const std::optional<enums::Frame> &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const XMLName &,
+         const tsl::ScatteringAtoms &
+      >(),
+      py::arg("label"),
+      py::arg("pid") = std::nullopt,
+      py::arg("product_frame") = std::nullopt,
+      py::arg("calculated_at_thermal") = std::nullopt,
+      py::arg("incoherent_approximation") = std::nullopt,
+      py::arg("primary_scatterer"),
+      py::arg("scattering_atoms"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pid().value();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame().value();
+      },
+      [](cppCLASS &self, const enums::Frame &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set calculatedAtThermal
+   object.def_property(
+      "calculated_at_thermal",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.calculatedAtThermal().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.calculatedAtThermal() = value;
+      },
+      cppCLASS::component_t::documentation("calculated_at_thermal").data()
+   );
+
+   // get/set incoherentApproximation
+   object.def_property(
+      "incoherent_approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.incoherentApproximation().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.incoherentApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("incoherent_approximation").data()
+   );
+
+   // get/set primaryScatterer
+   object.def_property(
+      "primary_scatterer",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.primaryScatterer();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.primaryScatterer() = value;
+      },
+      cppCLASS::component_t::documentation("primary_scatterer").data()
+   );
+
+   // get/set scatteringAtoms
+   object.def_property(
+      "scattering_atoms",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringAtoms();
+      },
+      [](cppCLASS &self, const tsl::ScatteringAtoms &value)
+      {
+         self.scatteringAtoms() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_atoms").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

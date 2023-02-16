@@ -91,20 +91,20 @@ ExforDataSetCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ExforDataSetAssign(ConstHandle2ExforDataSet This, ConstHandle2ConstExforDataSet from)
+ExforDataSetAssign(ConstHandle2ExforDataSet self, ConstHandle2ConstExforDataSet from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ExforDataSetDelete(ConstHandle2ConstExforDataSet This)
+ExforDataSetDelete(ConstHandle2ConstExforDataSet self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -118,44 +118,44 @@ ExforDataSetDelete(ConstHandle2ConstExforDataSet This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ExforDataSetRead(ConstHandle2ExforDataSet This, const char *const filename)
+ExforDataSetRead(ConstHandle2ExforDataSet self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ExforDataSetWrite(ConstHandle2ConstExforDataSet This, const char *const filename)
+ExforDataSetWrite(ConstHandle2ConstExforDataSet self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ExforDataSetPrint(ConstHandle2ConstExforDataSet This)
+ExforDataSetPrint(ConstHandle2ConstExforDataSet self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ExforDataSetPrintXML(ConstHandle2ConstExforDataSet This)
+ExforDataSetPrintXML(ConstHandle2ConstExforDataSet self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet This)
+ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -165,27 +165,27 @@ ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet This)
 
 // Has
 int
-ExforDataSetSubentryHas(ConstHandle2ConstExforDataSet This)
+ExforDataSetSubentryHas(ConstHandle2ConstExforDataSet self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SubentryHas", This, extract::subentry);
+      (CLASSNAME, CLASSNAME+"SubentryHas", self, extract::subentry);
 }
 
 // Get
 // Returns by value
 XMLName
-ExforDataSetSubentryGet(ConstHandle2ConstExforDataSet This)
+ExforDataSetSubentryGet(ConstHandle2ConstExforDataSet self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SubentryGet", This, extract::subentry);
+      (CLASSNAME, CLASSNAME+"SubentryGet", self, extract::subentry);
 }
 
 // Set
 void
-ExforDataSetSubentrySet(ConstHandle2ExforDataSet This, const XMLName subentry)
+ExforDataSetSubentrySet(ConstHandle2ExforDataSet self, const XMLName subentry)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SubentrySet", This, extract::subentry, subentry);
+      (CLASSNAME, CLASSNAME+"SubentrySet", self, extract::subentry, subentry);
 }
 
 
@@ -195,27 +195,27 @@ ExforDataSetSubentrySet(ConstHandle2ExforDataSet This, const XMLName subentry)
 
 // Has
 int
-ExforDataSetRetrievalDateHas(ConstHandle2ConstExforDataSet This)
+ExforDataSetRetrievalDateHas(ConstHandle2ConstExforDataSet self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RetrievalDateHas", This, extract::retrievalDate);
+      (CLASSNAME, CLASSNAME+"RetrievalDateHas", self, extract::retrievalDate);
 }
 
 // Get
 // Returns by value
 const char *
-ExforDataSetRetrievalDateGet(ConstHandle2ConstExforDataSet This)
+ExforDataSetRetrievalDateGet(ConstHandle2ConstExforDataSet self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"RetrievalDateGet", This, extract::retrievalDate);
+      (CLASSNAME, CLASSNAME+"RetrievalDateGet", self, extract::retrievalDate);
 }
 
 // Set
 void
-ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet This, const char *const retrievalDate)
+ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet self, const char *const retrievalDate)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"RetrievalDateSet", This, extract::retrievalDate, retrievalDate);
+      (CLASSNAME, CLASSNAME+"RetrievalDateSet", self, extract::retrievalDate, retrievalDate);
 }
 
 
@@ -225,34 +225,34 @@ ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet This, const char *const re
 
 // Has
 int
-ExforDataSetCovarianceScriptHas(ConstHandle2ConstExforDataSet This)
+ExforDataSetCovarianceScriptHas(ConstHandle2ConstExforDataSet self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceScriptHas", This, extract::covarianceScript);
+      (CLASSNAME, CLASSNAME+"CovarianceScriptHas", self, extract::covarianceScript);
 }
 
 // Get, const
 Handle2ConstCovarianceScript
-ExforDataSetCovarianceScriptGetConst(ConstHandle2ConstExforDataSet This)
+ExforDataSetCovarianceScriptGetConst(ConstHandle2ConstExforDataSet self)
 {
    return detail::getField<CPP,Handle2ConstCovarianceScript>
-      (CLASSNAME, CLASSNAME+"CovarianceScriptGetConst", This, extract::covarianceScript);
+      (CLASSNAME, CLASSNAME+"CovarianceScriptGetConst", self, extract::covarianceScript);
 }
 
 // Get, non-const
 Handle2CovarianceScript
-ExforDataSetCovarianceScriptGet(ConstHandle2ExforDataSet This)
+ExforDataSetCovarianceScriptGet(ConstHandle2ExforDataSet self)
 {
    return detail::getField<CPP,Handle2CovarianceScript>
-      (CLASSNAME, CLASSNAME+"CovarianceScriptGet", This, extract::covarianceScript);
+      (CLASSNAME, CLASSNAME+"CovarianceScriptGet", self, extract::covarianceScript);
 }
 
 // Set
 void
-ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet This, ConstHandle2ConstCovarianceScript covarianceScript)
+ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet self, ConstHandle2ConstCovarianceScript covarianceScript)
 {
    detail::setField<CPP,CPPCovarianceScript>
-      (CLASSNAME, CLASSNAME+"CovarianceScriptSet", This, extract::covarianceScript, covarianceScript);
+      (CLASSNAME, CLASSNAME+"CovarianceScriptSet", self, extract::covarianceScript, covarianceScript);
 }
 
 
@@ -262,34 +262,34 @@ ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet This, ConstHandle2Const
 
 // Has
 int
-ExforDataSetCorrectionScriptHas(ConstHandle2ConstExforDataSet This)
+ExforDataSetCorrectionScriptHas(ConstHandle2ConstExforDataSet self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CorrectionScriptHas", This, extract::correctionScript);
+      (CLASSNAME, CLASSNAME+"CorrectionScriptHas", self, extract::correctionScript);
 }
 
 // Get, const
 Handle2ConstCorrectionScript
-ExforDataSetCorrectionScriptGetConst(ConstHandle2ConstExforDataSet This)
+ExforDataSetCorrectionScriptGetConst(ConstHandle2ConstExforDataSet self)
 {
    return detail::getField<CPP,Handle2ConstCorrectionScript>
-      (CLASSNAME, CLASSNAME+"CorrectionScriptGetConst", This, extract::correctionScript);
+      (CLASSNAME, CLASSNAME+"CorrectionScriptGetConst", self, extract::correctionScript);
 }
 
 // Get, non-const
 Handle2CorrectionScript
-ExforDataSetCorrectionScriptGet(ConstHandle2ExforDataSet This)
+ExforDataSetCorrectionScriptGet(ConstHandle2ExforDataSet self)
 {
    return detail::getField<CPP,Handle2CorrectionScript>
-      (CLASSNAME, CLASSNAME+"CorrectionScriptGet", This, extract::correctionScript);
+      (CLASSNAME, CLASSNAME+"CorrectionScriptGet", self, extract::correctionScript);
 }
 
 // Set
 void
-ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet This, ConstHandle2ConstCorrectionScript correctionScript)
+ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet self, ConstHandle2ConstCorrectionScript correctionScript)
 {
    detail::setField<CPP,CPPCorrectionScript>
-      (CLASSNAME, CLASSNAME+"CorrectionScriptSet", This, extract::correctionScript, correctionScript);
+      (CLASSNAME, CLASSNAME+"CorrectionScriptSet", self, extract::correctionScript, correctionScript);
 }
 
 
@@ -299,34 +299,34 @@ ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet This, ConstHandle2Const
 
 // Has
 int
-ExforDataSetNoteHas(ConstHandle2ConstExforDataSet This)
+ExforDataSetNoteHas(ConstHandle2ConstExforDataSet self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NoteHas", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteHas", self, extract::note);
 }
 
 // Get, const
 Handle2ConstNote
-ExforDataSetNoteGetConst(ConstHandle2ConstExforDataSet This)
+ExforDataSetNoteGetConst(ConstHandle2ConstExforDataSet self)
 {
    return detail::getField<CPP,Handle2ConstNote>
-      (CLASSNAME, CLASSNAME+"NoteGetConst", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGetConst", self, extract::note);
 }
 
 // Get, non-const
 Handle2Note
-ExforDataSetNoteGet(ConstHandle2ExforDataSet This)
+ExforDataSetNoteGet(ConstHandle2ExforDataSet self)
 {
    return detail::getField<CPP,Handle2Note>
-      (CLASSNAME, CLASSNAME+"NoteGet", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGet", self, extract::note);
 }
 
 // Set
 void
-ExforDataSetNoteSet(ConstHandle2ExforDataSet This, ConstHandle2ConstNote note)
+ExforDataSetNoteSet(ConstHandle2ExforDataSet self, ConstHandle2ConstNote note)
 {
    detail::setField<CPP,CPPNote>
-      (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
+      (CLASSNAME, CLASSNAME+"NoteSet", self, extract::note, note);
 }
 
 

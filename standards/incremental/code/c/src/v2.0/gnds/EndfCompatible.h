@@ -85,13 +85,13 @@ EndfCompatibleCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EndfCompatibleAssign(ConstHandle2EndfCompatible This, ConstHandle2ConstEndfCompatible from);
+EndfCompatibleAssign(ConstHandle2EndfCompatible self, ConstHandle2ConstEndfCompatible from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleDelete(ConstHandle2ConstEndfCompatible self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ EndfCompatibleDelete(ConstHandle2ConstEndfCompatible This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EndfCompatibleRead(ConstHandle2EndfCompatible This, const char *const filename);
+EndfCompatibleRead(ConstHandle2EndfCompatible self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EndfCompatibleWrite(ConstHandle2ConstEndfCompatible This, const char *const filename);
+EndfCompatibleWrite(ConstHandle2ConstEndfCompatible self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EndfCompatiblePrint(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrint(ConstHandle2ConstEndfCompatible self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrintXML(ConstHandle2ConstEndfCompatible self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible This);
+EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,33 +135,33 @@ EndfCompatiblePrintJSON(ConstHandle2ConstEndfCompatible This);
 
 // +++ Clear
 extern_c void
-EndfCompatibleIntsClear(ConstHandle2EndfCompatible This);
+EndfCompatibleIntsClear(ConstHandle2EndfCompatible self);
 
 // +++ Get size
 extern_c size_t
-EndfCompatibleIntsSize(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleIntsSize(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-EndfCompatibleIntsGet(ConstHandle2ConstEndfCompatible This, const size_t index);
+EndfCompatibleIntsGet(ConstHandle2ConstEndfCompatible self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-EndfCompatibleIntsSet(ConstHandle2EndfCompatible This, const size_t index, const int value);
+EndfCompatibleIntsSet(ConstHandle2EndfCompatible self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-EndfCompatibleIntsGetArrayConst(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleIntsGetArrayConst(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-EndfCompatibleIntsGetArray(ConstHandle2EndfCompatible This);
+EndfCompatibleIntsGetArray(ConstHandle2EndfCompatible self);
 
 // +++ Set completely new values and size
 extern_c void
-EndfCompatibleIntsSetArray(ConstHandle2EndfCompatible This, const int *const values, const size_t size);
+EndfCompatibleIntsSetArray(ConstHandle2EndfCompatible self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -169,33 +169,33 @@ EndfCompatibleIntsSetArray(ConstHandle2EndfCompatible This, const int *const val
 
 // +++ Clear
 extern_c void
-EndfCompatibleUnsignedsClear(ConstHandle2EndfCompatible This);
+EndfCompatibleUnsignedsClear(ConstHandle2EndfCompatible self);
 
 // +++ Get size
 extern_c size_t
-EndfCompatibleUnsignedsSize(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleUnsignedsSize(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-EndfCompatibleUnsignedsGet(ConstHandle2ConstEndfCompatible This, const size_t index);
+EndfCompatibleUnsignedsGet(ConstHandle2ConstEndfCompatible self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-EndfCompatibleUnsignedsSet(ConstHandle2EndfCompatible This, const size_t index, const unsigned value);
+EndfCompatibleUnsignedsSet(ConstHandle2EndfCompatible self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-EndfCompatibleUnsignedsGetArrayConst(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleUnsignedsGetArrayConst(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-EndfCompatibleUnsignedsGetArray(ConstHandle2EndfCompatible This);
+EndfCompatibleUnsignedsGetArray(ConstHandle2EndfCompatible self);
 
 // +++ Set completely new values and size
 extern_c void
-EndfCompatibleUnsignedsSetArray(ConstHandle2EndfCompatible This, const unsigned *const values, const size_t size);
+EndfCompatibleUnsignedsSetArray(ConstHandle2EndfCompatible self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -203,33 +203,33 @@ EndfCompatibleUnsignedsSetArray(ConstHandle2EndfCompatible This, const unsigned 
 
 // +++ Clear
 extern_c void
-EndfCompatibleFloatsClear(ConstHandle2EndfCompatible This);
+EndfCompatibleFloatsClear(ConstHandle2EndfCompatible self);
 
 // +++ Get size
 extern_c size_t
-EndfCompatibleFloatsSize(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleFloatsSize(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-EndfCompatibleFloatsGet(ConstHandle2ConstEndfCompatible This, const size_t index);
+EndfCompatibleFloatsGet(ConstHandle2ConstEndfCompatible self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-EndfCompatibleFloatsSet(ConstHandle2EndfCompatible This, const size_t index, const float value);
+EndfCompatibleFloatsSet(ConstHandle2EndfCompatible self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-EndfCompatibleFloatsGetArrayConst(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleFloatsGetArrayConst(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-EndfCompatibleFloatsGetArray(ConstHandle2EndfCompatible This);
+EndfCompatibleFloatsGetArray(ConstHandle2EndfCompatible self);
 
 // +++ Set completely new values and size
 extern_c void
-EndfCompatibleFloatsSetArray(ConstHandle2EndfCompatible This, const float *const values, const size_t size);
+EndfCompatibleFloatsSetArray(ConstHandle2EndfCompatible self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -237,33 +237,33 @@ EndfCompatibleFloatsSetArray(ConstHandle2EndfCompatible This, const float *const
 
 // +++ Clear
 extern_c void
-EndfCompatibleDoublesClear(ConstHandle2EndfCompatible This);
+EndfCompatibleDoublesClear(ConstHandle2EndfCompatible self);
 
 // +++ Get size
 extern_c size_t
-EndfCompatibleDoublesSize(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleDoublesSize(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-EndfCompatibleDoublesGet(ConstHandle2ConstEndfCompatible This, const size_t index);
+EndfCompatibleDoublesGet(ConstHandle2ConstEndfCompatible self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-EndfCompatibleDoublesSet(ConstHandle2EndfCompatible This, const size_t index, const double value);
+EndfCompatibleDoublesSet(ConstHandle2EndfCompatible self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-EndfCompatibleDoublesGetArrayConst(ConstHandle2ConstEndfCompatible This);
+EndfCompatibleDoublesGetArrayConst(ConstHandle2ConstEndfCompatible self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-EndfCompatibleDoublesGetArray(ConstHandle2EndfCompatible This);
+EndfCompatibleDoublesGetArray(ConstHandle2EndfCompatible self);
 
 // +++ Set completely new values and size
 extern_c void
-EndfCompatibleDoublesSetArray(ConstHandle2EndfCompatible This, const double *const values, const size_t size);
+EndfCompatibleDoublesSetArray(ConstHandle2EndfCompatible self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------

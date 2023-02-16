@@ -25,12 +25,12 @@ class Summands :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "Summands"; }
-   static auto FIELD() { return "summands"; }
+   static auto NODENAME() { return "summands"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

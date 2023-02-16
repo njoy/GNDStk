@@ -117,13 +117,13 @@ PoPs_databaseCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PoPs_databaseAssign(ConstHandle2PoPs_database This, ConstHandle2ConstPoPs_database from);
+PoPs_databaseAssign(ConstHandle2PoPs_database self, ConstHandle2ConstPoPs_database from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PoPs_databaseDelete(ConstHandle2ConstPoPs_database This);
+PoPs_databaseDelete(ConstHandle2ConstPoPs_database self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,25 +136,25 @@ PoPs_databaseDelete(ConstHandle2ConstPoPs_database This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PoPs_databaseRead(ConstHandle2PoPs_database This, const char *const filename);
+PoPs_databaseRead(ConstHandle2PoPs_database self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PoPs_databaseWrite(ConstHandle2ConstPoPs_database This, const char *const filename);
+PoPs_databaseWrite(ConstHandle2ConstPoPs_database self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PoPs_databasePrint(ConstHandle2ConstPoPs_database This);
+PoPs_databasePrint(ConstHandle2ConstPoPs_database self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PoPs_databasePrintXML(ConstHandle2ConstPoPs_database This);
+PoPs_databasePrintXML(ConstHandle2ConstPoPs_database self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PoPs_databasePrintJSON(ConstHandle2ConstPoPs_database This);
+PoPs_databasePrintJSON(ConstHandle2ConstPoPs_database self);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ PoPs_databasePrintJSON(ConstHandle2ConstPoPs_database This);
 
 // +++ Has
 extern_c int
-PoPs_databaseNameHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseNameHas(ConstHandle2ConstPoPs_database self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-PoPs_databaseNameGet(ConstHandle2ConstPoPs_database This);
+PoPs_databaseNameGet(ConstHandle2ConstPoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseNameSet(ConstHandle2PoPs_database This, const XMLName name);
+PoPs_databaseNameSet(ConstHandle2PoPs_database self, const XMLName name);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ PoPs_databaseNameSet(ConstHandle2PoPs_database This, const XMLName name);
 
 // +++ Has
 extern_c int
-PoPs_databaseVersionHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseVersionHas(ConstHandle2ConstPoPs_database self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-PoPs_databaseVersionGet(ConstHandle2ConstPoPs_database This);
+PoPs_databaseVersionGet(ConstHandle2ConstPoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseVersionSet(ConstHandle2PoPs_database This, const XMLName version);
+PoPs_databaseVersionSet(ConstHandle2PoPs_database self, const XMLName version);
 
 
 // -----------------------------------------------------------------------------
@@ -199,16 +199,16 @@ PoPs_databaseVersionSet(ConstHandle2PoPs_database This, const XMLName version);
 
 // +++ Has
 extern_c int
-PoPs_databaseFormatHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseFormatHas(ConstHandle2ConstPoPs_database self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-PoPs_databaseFormatGet(ConstHandle2ConstPoPs_database This);
+PoPs_databaseFormatGet(ConstHandle2ConstPoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseFormatSet(ConstHandle2PoPs_database This, const XMLName format);
+PoPs_databaseFormatSet(ConstHandle2PoPs_database self, const XMLName format);
 
 
 // -----------------------------------------------------------------------------
@@ -217,19 +217,19 @@ PoPs_databaseFormatSet(ConstHandle2PoPs_database This, const XMLName format);
 
 // +++ Has
 extern_c int
-PoPs_databaseStylesHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseStylesHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstStyles
-PoPs_databaseStylesGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseStylesGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Styles
-PoPs_databaseStylesGet(ConstHandle2PoPs_database This);
+PoPs_databaseStylesGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseStylesSet(ConstHandle2PoPs_database This, ConstHandle2ConstStyles styles);
+PoPs_databaseStylesSet(ConstHandle2PoPs_database self, ConstHandle2ConstStyles styles);
 
 
 // -----------------------------------------------------------------------------
@@ -238,19 +238,19 @@ PoPs_databaseStylesSet(ConstHandle2PoPs_database This, ConstHandle2ConstStyles s
 
 // +++ Has
 extern_c int
-PoPs_databaseDocumentationHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseDocumentationHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-PoPs_databaseDocumentationGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseDocumentationGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-PoPs_databaseDocumentationGet(ConstHandle2PoPs_database This);
+PoPs_databaseDocumentationGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseDocumentationSet(ConstHandle2PoPs_database This, ConstHandle2ConstDocumentation documentation);
+PoPs_databaseDocumentationSet(ConstHandle2PoPs_database self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -259,19 +259,19 @@ PoPs_databaseDocumentationSet(ConstHandle2PoPs_database This, ConstHandle2ConstD
 
 // +++ Has
 extern_c int
-PoPs_databaseAliasesHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseAliasesHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstAliases
-PoPs_databaseAliasesGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseAliasesGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Aliases
-PoPs_databaseAliasesGet(ConstHandle2PoPs_database This);
+PoPs_databaseAliasesGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseAliasesSet(ConstHandle2PoPs_database This, ConstHandle2ConstAliases aliases);
+PoPs_databaseAliasesSet(ConstHandle2PoPs_database self, ConstHandle2ConstAliases aliases);
 
 
 // -----------------------------------------------------------------------------
@@ -280,19 +280,19 @@ PoPs_databaseAliasesSet(ConstHandle2PoPs_database This, ConstHandle2ConstAliases
 
 // +++ Has
 extern_c int
-PoPs_databaseGaugeBosonsHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseGaugeBosonsHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstGaugeBosons
-PoPs_databaseGaugeBosonsGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseGaugeBosonsGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2GaugeBosons
-PoPs_databaseGaugeBosonsGet(ConstHandle2PoPs_database This);
+PoPs_databaseGaugeBosonsGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseGaugeBosonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstGaugeBosons gaugeBosons);
+PoPs_databaseGaugeBosonsSet(ConstHandle2PoPs_database self, ConstHandle2ConstGaugeBosons gaugeBosons);
 
 
 // -----------------------------------------------------------------------------
@@ -301,19 +301,19 @@ PoPs_databaseGaugeBosonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstGau
 
 // +++ Has
 extern_c int
-PoPs_databaseLeptonsHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseLeptonsHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstLeptons
-PoPs_databaseLeptonsGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseLeptonsGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Leptons
-PoPs_databaseLeptonsGet(ConstHandle2PoPs_database This);
+PoPs_databaseLeptonsGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseLeptonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstLeptons leptons);
+PoPs_databaseLeptonsSet(ConstHandle2PoPs_database self, ConstHandle2ConstLeptons leptons);
 
 
 // -----------------------------------------------------------------------------
@@ -322,19 +322,19 @@ PoPs_databaseLeptonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstLeptons
 
 // +++ Has
 extern_c int
-PoPs_databaseBaryonsHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseBaryonsHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstBaryons
-PoPs_databaseBaryonsGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseBaryonsGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Baryons
-PoPs_databaseBaryonsGet(ConstHandle2PoPs_database This);
+PoPs_databaseBaryonsGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseBaryonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstBaryons baryons);
+PoPs_databaseBaryonsSet(ConstHandle2PoPs_database self, ConstHandle2ConstBaryons baryons);
 
 
 // -----------------------------------------------------------------------------
@@ -343,19 +343,19 @@ PoPs_databaseBaryonsSet(ConstHandle2PoPs_database This, ConstHandle2ConstBaryons
 
 // +++ Has
 extern_c int
-PoPs_databaseChemicalElementsHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseChemicalElementsHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstChemicalElements
-PoPs_databaseChemicalElementsGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseChemicalElementsGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2ChemicalElements
-PoPs_databaseChemicalElementsGet(ConstHandle2PoPs_database This);
+PoPs_databaseChemicalElementsGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseChemicalElementsSet(ConstHandle2PoPs_database This, ConstHandle2ConstChemicalElements chemicalElements);
+PoPs_databaseChemicalElementsSet(ConstHandle2PoPs_database self, ConstHandle2ConstChemicalElements chemicalElements);
 
 
 // -----------------------------------------------------------------------------
@@ -364,19 +364,19 @@ PoPs_databaseChemicalElementsSet(ConstHandle2PoPs_database This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-PoPs_databaseUnorthodoxesHas(ConstHandle2ConstPoPs_database This);
+PoPs_databaseUnorthodoxesHas(ConstHandle2ConstPoPs_database self);
 
 // --- Get, const
 extern_c Handle2ConstUnorthodoxes
-PoPs_databaseUnorthodoxesGetConst(ConstHandle2ConstPoPs_database This);
+PoPs_databaseUnorthodoxesGetConst(ConstHandle2ConstPoPs_database self);
 
 // +++ Get, non-const
 extern_c Handle2Unorthodoxes
-PoPs_databaseUnorthodoxesGet(ConstHandle2PoPs_database This);
+PoPs_databaseUnorthodoxesGet(ConstHandle2PoPs_database self);
 
 // +++ Set
 extern_c void
-PoPs_databaseUnorthodoxesSet(ConstHandle2PoPs_database This, ConstHandle2ConstUnorthodoxes unorthodoxes);
+PoPs_databaseUnorthodoxesSet(ConstHandle2PoPs_database self, ConstHandle2ConstUnorthodoxes unorthodoxes);
 
 
 // -----------------------------------------------------------------------------

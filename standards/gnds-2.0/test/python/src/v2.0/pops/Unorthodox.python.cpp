@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Unorthodox wrapper
-void wrapUnorthodox(python::module &module)
+// wrapper for pops::Unorthodox
+void wrapUnorthodox(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Unorthodox;
+   using cppCLASS = pops::Unorthodox;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Unorthodox",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Unorthodox",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<pops::Charge> &,
-            const std::optional<pops::Mass> &
-         >(),
-         python::arg("id"),
-         python::arg("charge") = std::nullopt,
-         python::arg("mass") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self) { return self.id(); },
-         Component::documentation("id").data()
-      )
-      .def_property_readonly(
-         "charge",
-         [](const Component &self) { return self.charge(); },
-         Component::documentation("charge").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self) { return self.mass(); },
-         Component::documentation("mass").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<pops::Charge> &,
+         const std::optional<pops::Mass> &
+      >(),
+      py::arg("id"),
+      py::arg("charge") = std::nullopt,
+      py::arg("mass") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set charge
+   object.def_property(
+      "charge",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.charge();
+      },
+      [](cppCLASS &self, const std::optional<pops::Charge> &value)
+      {
+         self.charge() = value;
+      },
+      cppCLASS::component_t::documentation("charge").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const std::optional<pops::Mass> &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

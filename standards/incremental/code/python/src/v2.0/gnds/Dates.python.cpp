@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Dates wrapper
-void wrapDates(python::module &module)
+// wrapper for gnds::Dates
+void wrapDates(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Dates;
+   using cppCLASS = gnds::Dates;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Dates",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Dates",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<gnds::Date> &
-         >(),
-         python::arg("date"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self) { return self.date(); },
-         Component::documentation("date").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<gnds::Date> &
+      >(),
+      py::arg("date"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::vector<gnds::Date> &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

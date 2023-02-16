@@ -11,164 +11,323 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Documentation wrapper
-void wrapDocumentation(python::module &module)
+// wrapper for documentation::Documentation
+void wrapDocumentation(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Documentation;
+   using cppCLASS = documentation::Documentation;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Documentation",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Documentation",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<UTF8Text> &,
-            const std::optional<std::string> &,
-            const std::optional<UTF8Text> &,
-            const documentation::Authors &,
-            const std::optional<documentation::Contributors> &,
-            const std::optional<documentation::Collaborations> &,
-            const documentation::Dates &,
-            const std::optional<documentation::Copyright> &,
-            const std::optional<documentation::Acknowledgements> &,
-            const std::optional<documentation::Keywords> &,
-            const std::optional<documentation::RelatedItems> &,
-            const documentation::Title &,
-            const std::optional<documentation::Abstract> &,
-            const documentation::Body &,
-            const std::optional<documentation::ComputerCodes> &,
-            const std::optional<documentation::ExperimentalDataSets> &,
-            const std::optional<documentation::Bibliography> &,
-            const std::optional<documentation::EndfCompatible> &
-         >(),
-         python::arg("doi") = std::nullopt,
-         python::arg("publication_date") = std::nullopt,
-         python::arg("version") = std::nullopt,
-         python::arg("authors"),
-         python::arg("contributors") = std::nullopt,
-         python::arg("collaborations") = std::nullopt,
-         python::arg("dates"),
-         python::arg("copyright") = std::nullopt,
-         python::arg("acknowledgements") = std::nullopt,
-         python::arg("keywords") = std::nullopt,
-         python::arg("related_items") = std::nullopt,
-         python::arg("title"),
-         python::arg("abstract") = std::nullopt,
-         python::arg("body"),
-         python::arg("computer_codes") = std::nullopt,
-         python::arg("experimental_data_sets") = std::nullopt,
-         python::arg("bibliography") = std::nullopt,
-         python::arg("endf_compatible") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "doi",
-         [](const Component &self) { return self.doi(); },
-         Component::documentation("doi").data()
-      )
-      .def_property_readonly(
-         "publication_date",
-         [](const Component &self) { return self.publicationDate(); },
-         Component::documentation("publication_date").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
-      )
-      .def_property_readonly(
-         "authors",
-         [](const Component &self) { return self.authors(); },
-         Component::documentation("authors").data()
-      )
-      .def_property_readonly(
-         "contributors",
-         [](const Component &self) { return self.contributors(); },
-         Component::documentation("contributors").data()
-      )
-      .def_property_readonly(
-         "collaborations",
-         [](const Component &self) { return self.collaborations(); },
-         Component::documentation("collaborations").data()
-      )
-      .def_property_readonly(
-         "dates",
-         [](const Component &self) { return self.dates(); },
-         Component::documentation("dates").data()
-      )
-      .def_property_readonly(
-         "copyright",
-         [](const Component &self) { return self.copyright(); },
-         Component::documentation("copyright").data()
-      )
-      .def_property_readonly(
-         "acknowledgements",
-         [](const Component &self) { return self.acknowledgements(); },
-         Component::documentation("acknowledgements").data()
-      )
-      .def_property_readonly(
-         "keywords",
-         [](const Component &self) { return self.keywords(); },
-         Component::documentation("keywords").data()
-      )
-      .def_property_readonly(
-         "related_items",
-         [](const Component &self) { return self.relatedItems(); },
-         Component::documentation("related_items").data()
-      )
-      .def_property_readonly(
-         "title",
-         [](const Component &self) { return self.title(); },
-         Component::documentation("title").data()
-      )
-      .def_property_readonly(
-         "abstract",
-         [](const Component &self) { return self.abstract(); },
-         Component::documentation("abstract").data()
-      )
-      .def_property_readonly(
-         "body",
-         [](const Component &self) { return self.body(); },
-         Component::documentation("body").data()
-      )
-      .def_property_readonly(
-         "computer_codes",
-         [](const Component &self) { return self.computerCodes(); },
-         Component::documentation("computer_codes").data()
-      )
-      .def_property_readonly(
-         "experimental_data_sets",
-         [](const Component &self) { return self.experimentalDataSets(); },
-         Component::documentation("experimental_data_sets").data()
-      )
-      .def_property_readonly(
-         "bibliography",
-         [](const Component &self) { return self.bibliography(); },
-         Component::documentation("bibliography").data()
-      )
-      .def_property_readonly(
-         "endf_compatible",
-         [](const Component &self) { return self.endfCompatible(); },
-         Component::documentation("endf_compatible").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<UTF8Text> &,
+         const std::optional<std::string> &,
+         const std::optional<UTF8Text> &,
+         const documentation::Authors &,
+         const std::optional<documentation::Contributors> &,
+         const std::optional<documentation::Collaborations> &,
+         const documentation::Dates &,
+         const std::optional<documentation::Copyright> &,
+         const std::optional<documentation::Acknowledgements> &,
+         const std::optional<documentation::Keywords> &,
+         const std::optional<documentation::RelatedItems> &,
+         const documentation::Title &,
+         const std::optional<documentation::Abstract> &,
+         const documentation::Body &,
+         const std::optional<documentation::ComputerCodes> &,
+         const std::optional<documentation::ExperimentalDataSets> &,
+         const std::optional<documentation::Bibliography> &,
+         const std::optional<documentation::EndfCompatible> &
+      >(),
+      py::arg("doi") = std::nullopt,
+      py::arg("publication_date") = std::nullopt,
+      py::arg("version") = std::nullopt,
+      py::arg("authors"),
+      py::arg("contributors") = std::nullopt,
+      py::arg("collaborations") = std::nullopt,
+      py::arg("dates"),
+      py::arg("copyright") = std::nullopt,
+      py::arg("acknowledgements") = std::nullopt,
+      py::arg("keywords") = std::nullopt,
+      py::arg("related_items") = std::nullopt,
+      py::arg("title"),
+      py::arg("abstract") = std::nullopt,
+      py::arg("body"),
+      py::arg("computer_codes") = std::nullopt,
+      py::arg("experimental_data_sets") = std::nullopt,
+      py::arg("bibliography") = std::nullopt,
+      py::arg("endf_compatible") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set doi
+   object.def_property(
+      "doi",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.doi();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.doi() = value;
+      },
+      cppCLASS::component_t::documentation("doi").data()
+   );
+
+   // get/set publicationDate
+   object.def_property(
+      "publication_date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.publicationDate();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.publicationDate() = value;
+      },
+      cppCLASS::component_t::documentation("publication_date").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set authors
+   object.def_property(
+      "authors",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.authors();
+      },
+      [](cppCLASS &self, const documentation::Authors &value)
+      {
+         self.authors() = value;
+      },
+      cppCLASS::component_t::documentation("authors").data()
+   );
+
+   // get/set contributors
+   object.def_property(
+      "contributors",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.contributors();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Contributors> &value)
+      {
+         self.contributors() = value;
+      },
+      cppCLASS::component_t::documentation("contributors").data()
+   );
+
+   // get/set collaborations
+   object.def_property(
+      "collaborations",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.collaborations();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Collaborations> &value)
+      {
+         self.collaborations() = value;
+      },
+      cppCLASS::component_t::documentation("collaborations").data()
+   );
+
+   // get/set dates
+   object.def_property(
+      "dates",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.dates();
+      },
+      [](cppCLASS &self, const documentation::Dates &value)
+      {
+         self.dates() = value;
+      },
+      cppCLASS::component_t::documentation("dates").data()
+   );
+
+   // get/set copyright
+   object.def_property(
+      "copyright",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.copyright();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Copyright> &value)
+      {
+         self.copyright() = value;
+      },
+      cppCLASS::component_t::documentation("copyright").data()
+   );
+
+   // get/set acknowledgements
+   object.def_property(
+      "acknowledgements",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.acknowledgements();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Acknowledgements> &value)
+      {
+         self.acknowledgements() = value;
+      },
+      cppCLASS::component_t::documentation("acknowledgements").data()
+   );
+
+   // get/set keywords
+   object.def_property(
+      "keywords",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.keywords();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Keywords> &value)
+      {
+         self.keywords() = value;
+      },
+      cppCLASS::component_t::documentation("keywords").data()
+   );
+
+   // get/set relatedItems
+   object.def_property(
+      "related_items",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.relatedItems();
+      },
+      [](cppCLASS &self, const std::optional<documentation::RelatedItems> &value)
+      {
+         self.relatedItems() = value;
+      },
+      cppCLASS::component_t::documentation("related_items").data()
+   );
+
+   // get/set title
+   object.def_property(
+      "title",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.title();
+      },
+      [](cppCLASS &self, const documentation::Title &value)
+      {
+         self.title() = value;
+      },
+      cppCLASS::component_t::documentation("title").data()
+   );
+
+   // get/set abstract
+   object.def_property(
+      "abstract",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.abstract();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Abstract> &value)
+      {
+         self.abstract() = value;
+      },
+      cppCLASS::component_t::documentation("abstract").data()
+   );
+
+   // get/set body
+   object.def_property(
+      "body",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.body();
+      },
+      [](cppCLASS &self, const documentation::Body &value)
+      {
+         self.body() = value;
+      },
+      cppCLASS::component_t::documentation("body").data()
+   );
+
+   // get/set computerCodes
+   object.def_property(
+      "computer_codes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.computerCodes();
+      },
+      [](cppCLASS &self, const std::optional<documentation::ComputerCodes> &value)
+      {
+         self.computerCodes() = value;
+      },
+      cppCLASS::component_t::documentation("computer_codes").data()
+   );
+
+   // get/set experimentalDataSets
+   object.def_property(
+      "experimental_data_sets",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.experimentalDataSets();
+      },
+      [](cppCLASS &self, const std::optional<documentation::ExperimentalDataSets> &value)
+      {
+         self.experimentalDataSets() = value;
+      },
+      cppCLASS::component_t::documentation("experimental_data_sets").data()
+   );
+
+   // get/set bibliography
+   object.def_property(
+      "bibliography",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.bibliography();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Bibliography> &value)
+      {
+         self.bibliography() = value;
+      },
+      cppCLASS::component_t::documentation("bibliography").data()
+   );
+
+   // get/set endfCompatible
+   object.def_property(
+      "endf_compatible",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.endfCompatible();
+      },
+      [](cppCLASS &self, const std::optional<documentation::EndfCompatible> &value)
+      {
+         self.endfCompatible() = value;
+      },
+      cppCLASS::component_t::documentation("endf_compatible").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

@@ -25,12 +25,12 @@ class Keywords :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Keywords"; }
-   static auto FIELD() { return "keywords"; }
+   static auto NODENAME() { return "keywords"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Keywords :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::Keyword>("keyword")
+         ++Child<documentation::Keyword>
+            ("keyword")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "keyword"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "keyword"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::Keyword>> keyword{this};
+   Field<std::vector<documentation::Keyword>>
+      keyword{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->keyword)
+      this->keyword \
+   )
 
    // default
    Keywords() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Keywords(
-      const wrapper<std::vector<documentation::Keyword>> &keyword
+      const wrapper<std::vector<documentation::Keyword>>
+         &keyword
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       keyword(this,keyword)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Keywords &operator=(const Keywords &) = default;
-   Keywords &operator=(Keywords &&) = default;
+   // copy
+   Keywords &operator=(const Keywords &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         keyword = other.keyword;
+      }
+      return *this;
+   }
+
+   // move
+   Keywords &operator=(Keywords &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         keyword = std::move(other.keyword);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

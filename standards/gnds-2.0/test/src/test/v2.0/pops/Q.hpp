@@ -27,12 +27,12 @@ class Q :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Q"; }
-   static auto FIELD() { return "Q"; }
+   static auto NODENAME() { return "Q"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -48,40 +48,93 @@ class Q :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<documentation::Documentation>>("documentation") |
-         --Child<std::optional<pops::Uncertainty>>("uncertainty") |
-         ++Child<containers::Double>("double")
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation") |
+         --Child<std::optional<pops::Uncertainty>>
+            ("uncertainty") |
+         ++Child<containers::Double>
+            ("double")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty",
+         "Double"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty",
+         "double"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> unit{this};
-   Field<XMLName> value{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      unit{this};
+   Field<XMLName>
+      value{this};
 
    // children
-   Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
-   Field<std::vector<containers::Double>> Double{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
+   Field<std::optional<pops::Uncertainty>>
+      uncertainty{this};
+   Field<std::vector<containers::Double>>
+      Double{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->unit, \
       this->value, \
       this->documentation, \
       this->uncertainty, \
-      this->Double)
+      this->Double \
+   )
 
    // default
    Q() :
@@ -92,12 +145,18 @@ public:
 
    // from fields, comment excluded
    explicit Q(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<XMLName> &value = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {},
-      const wrapper<std::vector<containers::Double>> &Double = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<XMLName>>
+         &unit = {},
+      const wrapper<XMLName>
+         &value = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {},
+      const wrapper<std::optional<pops::Uncertainty>>
+         &uncertainty = {},
+      const wrapper<std::vector<containers::Double>>
+         &Double = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +208,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Q &operator=(const Q &) = default;
-   Q &operator=(Q &&) = default;
+   // copy
+   Q &operator=(const Q &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         unit = other.unit;
+         value = other.value;
+         documentation = other.documentation;
+         uncertainty = other.uncertainty;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Q &operator=(Q &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+         value = std::move(other.value);
+         documentation = std::move(other.documentation);
+         uncertainty = std::move(other.uncertainty);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

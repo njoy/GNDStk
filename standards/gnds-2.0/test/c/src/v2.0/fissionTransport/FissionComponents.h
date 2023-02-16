@@ -90,13 +90,13 @@ FissionComponentsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FissionComponentsAssign(ConstHandle2FissionComponents This, ConstHandle2ConstFissionComponents from);
+FissionComponentsAssign(ConstHandle2FissionComponents self, ConstHandle2ConstFissionComponents from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FissionComponentsDelete(ConstHandle2ConstFissionComponents This);
+FissionComponentsDelete(ConstHandle2ConstFissionComponents self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ FissionComponentsDelete(ConstHandle2ConstFissionComponents This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FissionComponentsRead(ConstHandle2FissionComponents This, const char *const filename);
+FissionComponentsRead(ConstHandle2FissionComponents self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FissionComponentsWrite(ConstHandle2ConstFissionComponents This, const char *const filename);
+FissionComponentsWrite(ConstHandle2ConstFissionComponents self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FissionComponentsPrint(ConstHandle2ConstFissionComponents This);
+FissionComponentsPrint(ConstHandle2ConstFissionComponents self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FissionComponentsPrintXML(ConstHandle2ConstFissionComponents This);
+FissionComponentsPrintXML(ConstHandle2ConstFissionComponents self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents This);
+FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ FissionComponentsPrintJSON(ConstHandle2ConstFissionComponents This);
 
 // +++ Has
 extern_c int
-FissionComponentsFissionComponentHas(ConstHandle2ConstFissionComponents This);
+FissionComponentsFissionComponentHas(ConstHandle2ConstFissionComponents self);
 
 // +++ Clear
 extern_c void
-FissionComponentsFissionComponentClear(ConstHandle2FissionComponents This);
+FissionComponentsFissionComponentClear(ConstHandle2FissionComponents self);
 
 // +++ Size
 extern_c size_t
-FissionComponentsFissionComponentSize(ConstHandle2ConstFissionComponents This);
+FissionComponentsFissionComponentSize(ConstHandle2ConstFissionComponents self);
 
 // +++ Add
 extern_c void
-FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents This, ConstHandle2ConstFissionComponent fissionComponent);
+FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents self, ConstHandle2ConstFissionComponent fissionComponent);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstFissionComponent
-FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents This, const size_t index_);
+FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2FissionComponent
-FissionComponentsFissionComponentGet(ConstHandle2FissionComponents This, const size_t index_);
+FissionComponentsFissionComponentGet(ConstHandle2FissionComponents self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 FissionComponentsFissionComponentSet(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const size_t index_,
    ConstHandle2ConstFissionComponent fissionComponent
 );
@@ -169,28 +169,28 @@ FissionComponentsFissionComponentSet(
 // +++ Has, by ENDF_MT
 extern_c int
 FissionComponentsFissionComponentHasByENDFMT(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const Integer32 ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByENDFMTConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const Integer32 ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByENDFMT(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const Integer32 ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 FissionComponentsFissionComponentSetByENDFMT(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const Integer32 ENDF_MT,
    ConstHandle2ConstFissionComponent fissionComponent
 );
@@ -198,28 +198,28 @@ FissionComponentsFissionComponentSetByENDFMT(
 // +++ Has, by fissionGenre
 extern_c int
 FissionComponentsFissionComponentHasByFissionGenre(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const XMLName fissionGenre
 );
 
 // --- Get, by fissionGenre, const
 extern_c Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByFissionGenreConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const XMLName fissionGenre
 );
 
 // +++ Get, by fissionGenre, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByFissionGenre(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const XMLName fissionGenre
 );
 
 // +++ Set, by fissionGenre
 extern_c void
 FissionComponentsFissionComponentSetByFissionGenre(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const XMLName fissionGenre,
    ConstHandle2ConstFissionComponent fissionComponent
 );
@@ -227,28 +227,28 @@ FissionComponentsFissionComponentSetByFissionGenre(
 // +++ Has, by label
 extern_c int
 FissionComponentsFissionComponentHasByLabel(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetByLabelConst(
-   ConstHandle2ConstFissionComponents This,
+   ConstHandle2ConstFissionComponents self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByLabel(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 FissionComponentsFissionComponentSetByLabel(
-   ConstHandle2FissionComponents This,
+   ConstHandle2FissionComponents self,
    const XMLName label,
    ConstHandle2ConstFissionComponent fissionComponent
 );

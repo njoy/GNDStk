@@ -92,13 +92,13 @@ SigmaZerosCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SigmaZerosAssign(ConstHandle2SigmaZeros This, ConstHandle2ConstSigmaZeros from);
+SigmaZerosAssign(ConstHandle2SigmaZeros self, ConstHandle2ConstSigmaZeros from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SigmaZerosDelete(ConstHandle2ConstSigmaZeros This);
+SigmaZerosDelete(ConstHandle2ConstSigmaZeros self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ SigmaZerosDelete(ConstHandle2ConstSigmaZeros This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SigmaZerosRead(ConstHandle2SigmaZeros This, const char *const filename);
+SigmaZerosRead(ConstHandle2SigmaZeros self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SigmaZerosWrite(ConstHandle2ConstSigmaZeros This, const char *const filename);
+SigmaZerosWrite(ConstHandle2ConstSigmaZeros self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SigmaZerosPrint(ConstHandle2ConstSigmaZeros This);
+SigmaZerosPrint(ConstHandle2ConstSigmaZeros self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SigmaZerosPrintXML(ConstHandle2ConstSigmaZeros This);
+SigmaZerosPrintXML(ConstHandle2ConstSigmaZeros self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros This);
+SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros This);
 
 // +++ Has
 extern_c int
-SigmaZerosLabelHas(ConstHandle2ConstSigmaZeros This);
+SigmaZerosLabelHas(ConstHandle2ConstSigmaZeros self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SigmaZerosLabelGet(ConstHandle2ConstSigmaZeros This);
+SigmaZerosLabelGet(ConstHandle2ConstSigmaZeros self);
 
 // +++ Set
 extern_c void
-SigmaZerosLabelSet(ConstHandle2SigmaZeros This, const XMLName label);
+SigmaZerosLabelSet(ConstHandle2SigmaZeros self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ SigmaZerosLabelSet(ConstHandle2SigmaZeros This, const XMLName label);
 
 // +++ Has
 extern_c int
-SigmaZerosValuesHas(ConstHandle2ConstSigmaZeros This);
+SigmaZerosValuesHas(ConstHandle2ConstSigmaZeros self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-SigmaZerosValuesGetConst(ConstHandle2ConstSigmaZeros This);
+SigmaZerosValuesGetConst(ConstHandle2ConstSigmaZeros self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-SigmaZerosValuesGet(ConstHandle2SigmaZeros This);
+SigmaZerosValuesGet(ConstHandle2SigmaZeros self);
 
 // +++ Set
 extern_c void
-SigmaZerosValuesSet(ConstHandle2SigmaZeros This, ConstHandle2ConstValues values);
+SigmaZerosValuesSet(ConstHandle2SigmaZeros self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------

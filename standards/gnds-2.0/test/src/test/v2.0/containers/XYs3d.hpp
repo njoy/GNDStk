@@ -27,12 +27,12 @@ class XYs3d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs3d"; }
-   static auto FIELD() { return "XYs3d"; }
+   static auto NODENAME() { return "XYs3d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,13 +46,51 @@ class XYs3d :
             / Meta<>("interpolationQualifier") |
 
          // children
-         --Child<std::optional<containers::Axes>>("axes") |
-         --Child<containers::Function2ds>("function2ds") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<std::optional<containers::Axes>>
+            ("axes") |
+         --Child<containers::Function2ds>
+            ("function2ds") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interpolation",
+         "interpolationQualifier",
+         "axes",
+         "function2ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interpolation",
+         "interpolation_qualifier",
+         "axes",
+         "function2ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -60,29 +98,41 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<std::optional<XMLName>> interpolationQualifier{this};
+   Field<Defaulted<enums::Interpolation>>
+      interpolation{this,defaults.interpolation};
+   Field<std::optional<XMLName>>
+      interpolationQualifier{this};
 
    // children
-   Field<std::optional<containers::Axes>> axes{this};
-   Field<containers::Function2ds> function2ds{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<containers::Axes>>
+      axes{this};
+   Field<containers::Function2ds>
+      function2ds{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->interpolation, \
       this->interpolationQualifier, \
       this->axes, \
       this->function2ds, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    XYs3d() :
@@ -94,11 +144,16 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit XYs3d(
-      const wrapper<std::optional<enums::Interpolation>> &interpolation,
-      const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
-      const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Function2ds> &function2ds = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<enums::Interpolation>>
+         &interpolation,
+      const wrapper<std::optional<XMLName>>
+         &interpolationQualifier = {},
+      const wrapper<std::optional<containers::Axes>>
+         &axes = {},
+      const wrapper<containers::Function2ds>
+         &function2ds = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interpolation(this,defaults.interpolation,interpolation),
@@ -147,8 +202,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs3d &operator=(const XYs3d &) = default;
-   XYs3d &operator=(XYs3d &&) = default;
+   // copy
+   XYs3d &operator=(const XYs3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         interpolation = other.interpolation;
+         interpolationQualifier = other.interpolationQualifier;
+         axes = other.axes;
+         function2ds = other.function2ds;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   XYs3d &operator=(XYs3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         interpolation = std::move(other.interpolation);
+         interpolationQualifier = std::move(other.interpolationQualifier);
+         axes = std::move(other.axes);
+         function2ds = std::move(other.function2ds);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

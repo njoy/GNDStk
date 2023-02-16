@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1 {
 namespace python_multigroup {
 
-// Isotope wrapper
-void wrapIsotope(python::module &module)
+// wrapper for multigroup::Isotope
+void wrapIsotope(py::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
 
    // type aliases
-   using Component = multigroup::Isotope;
+   using cppCLASS = multigroup::Isotope;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Isotope",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Isotope",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &
-         >(),
-         python::arg("mass_number"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "mass_number",
-         [](const Component &self) { return self.mass_number(); },
-         Component::documentation("mass_number").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &
+      >(),
+      py::arg("mass_number"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set mass_number
+   object.def_property(
+      "mass_number",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mass_number();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.mass_number() = value;
+      },
+      cppCLASS::component_t::documentation("mass_number").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_multigroup

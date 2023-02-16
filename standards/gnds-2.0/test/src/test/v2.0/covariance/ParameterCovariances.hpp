@@ -26,12 +26,12 @@ class ParameterCovariances :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovariances"; }
-   static auto FIELD() { return "parameterCovariances"; }
+   static auto NODENAME() { return "parameterCovariances"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,29 +39,69 @@ class ParameterCovariances :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<covariance::AverageParameterCovariance>>("averageParameterCovariance") |
-         ++Child<std::optional<covariance::ParameterCovariance>>("parameterCovariance")
+         ++Child<std::optional<covariance::AverageParameterCovariance>>
+            ("averageParameterCovariance") |
+         ++Child<std::optional<covariance::ParameterCovariance>>
+            ("parameterCovariance")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "averageParameterCovariance",
+         "parameterCovariance"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "average_parameter_covariance",
+         "parameter_covariance"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<covariance::AverageParameterCovariance>>> averageParameterCovariance{this};
-   Field<std::optional<std::vector<covariance::ParameterCovariance>>> parameterCovariance{this};
+   Field<std::optional<std::vector<covariance::AverageParameterCovariance>>>
+      averageParameterCovariance{this};
+   Field<std::optional<std::vector<covariance::ParameterCovariance>>>
+      parameterCovariance{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->averageParameterCovariance, \
-      this->parameterCovariance)
+      this->parameterCovariance \
+   )
 
    // default
    ParameterCovariances() :
@@ -72,8 +112,10 @@ public:
 
    // from fields, comment excluded
    explicit ParameterCovariances(
-      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>> &averageParameterCovariance,
-      const wrapper<std::optional<std::vector<covariance::ParameterCovariance>>> &parameterCovariance = {}
+      const wrapper<std::optional<std::vector<covariance::AverageParameterCovariance>>>
+         &averageParameterCovariance,
+      const wrapper<std::optional<std::vector<covariance::ParameterCovariance>>>
+         &parameterCovariance = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       averageParameterCovariance(this,averageParameterCovariance),
@@ -113,8 +155,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterCovariances &operator=(const ParameterCovariances &) = default;
-   ParameterCovariances &operator=(ParameterCovariances &&) = default;
+   // copy
+   ParameterCovariances &operator=(const ParameterCovariances &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         averageParameterCovariance = other.averageParameterCovariance;
+         parameterCovariance = other.parameterCovariance;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterCovariances &operator=(ParameterCovariances &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         averageParameterCovariance = std::move(other.averageParameterCovariance);
+         parameterCovariance = std::move(other.parameterCovariance);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

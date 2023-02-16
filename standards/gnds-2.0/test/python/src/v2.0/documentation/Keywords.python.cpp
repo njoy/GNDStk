@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Keywords wrapper
-void wrapKeywords(python::module &module)
+// wrapper for documentation::Keywords
+void wrapKeywords(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Keywords;
+   using cppCLASS = documentation::Keywords;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Keywords",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Keywords",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::Keyword> &
-         >(),
-         python::arg("keyword"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "keyword",
-         [](const Component &self) { return self.keyword(); },
-         Component::documentation("keyword").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::Keyword> &
+      >(),
+      py::arg("keyword"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set keyword
+   object.def_property(
+      "keyword",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.keyword();
+      },
+      [](cppCLASS &self, const std::vector<documentation::Keyword> &value)
+      {
+         self.keyword() = value;
+      },
+      cppCLASS::component_t::documentation("keyword").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

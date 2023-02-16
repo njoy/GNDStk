@@ -25,12 +25,12 @@ class Slice :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Slice"; }
-   static auto FIELD() { return "slice"; }
+   static auto NODENAME() { return "slice"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -51,30 +51,77 @@ class Slice :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domainMin",
+         "domainMax",
+         "domainValue",
+         "domainUnit",
+         "dimension"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domain_min",
+         "domain_max",
+         "domain_value",
+         "domain_unit",
+         "dimension"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Float64>> domainMin{this};
-   Field<std::optional<Float64>> domainMax{this};
-   Field<std::optional<Float64>> domainValue{this};
-   Field<std::optional<XMLName>> domainUnit{this};
-   Field<Integer32> dimension{this};
+   Field<std::optional<Float64>>
+      domainMin{this};
+   Field<std::optional<Float64>>
+      domainMax{this};
+   Field<std::optional<Float64>>
+      domainValue{this};
+   Field<std::optional<XMLName>>
+      domainUnit{this};
+   Field<Integer32>
+      dimension{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainValue, \
       this->domainUnit, \
-      this->dimension)
+      this->dimension \
+   )
 
    // default
    Slice() :
@@ -85,11 +132,16 @@ public:
 
    // from fields, comment excluded
    explicit Slice(
-      const wrapper<std::optional<Float64>> &domainMin,
-      const wrapper<std::optional<Float64>> &domainMax = {},
-      const wrapper<std::optional<Float64>> &domainValue = {},
-      const wrapper<std::optional<XMLName>> &domainUnit = {},
-      const wrapper<Integer32> &dimension = {}
+      const wrapper<std::optional<Float64>>
+         &domainMin,
+      const wrapper<std::optional<Float64>>
+         &domainMax = {},
+      const wrapper<std::optional<Float64>>
+         &domainValue = {},
+      const wrapper<std::optional<XMLName>>
+         &domainUnit = {},
+      const wrapper<Integer32>
+         &dimension = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -138,8 +190,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Slice &operator=(const Slice &) = default;
-   Slice &operator=(Slice &&) = default;
+   // copy
+   Slice &operator=(const Slice &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainValue = other.domainValue;
+         domainUnit = other.domainUnit;
+         dimension = other.dimension;
+      }
+      return *this;
+   }
+
+   // move
+   Slice &operator=(Slice &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainValue = std::move(other.domainValue);
+         domainUnit = std::move(other.domainUnit);
+         dimension = std::move(other.dimension);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -25,12 +25,12 @@ class MultiGroup3d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "MultiGroup3d"; }
-   static auto FIELD() { return "scatteringMatrix"; }
+   static auto NODENAME() { return "scatteringMatrix"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,32 +44,74 @@ class MultiGroup3d :
             / Meta<>("productFrame") |
 
          // children
-         --Child<containers::Gridded3d>("gridded3d")
+         --Child<containers::Gridded3d>
+            ("gridded3d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "gridded3d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "gridded3d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> productFrame{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // children
-   Field<containers::Gridded3d> gridded3d{this};
+   Field<containers::Gridded3d>
+      gridded3d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
-      this->gridded3d)
+      this->gridded3d \
+   )
 
    // default
    MultiGroup3d() :
@@ -80,9 +122,12 @@ public:
 
    // from fields, comment excluded
    explicit MultiGroup3d(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &productFrame = {},
-      const wrapper<containers::Gridded3d> &gridded3d = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {},
+      const wrapper<containers::Gridded3d>
+         &gridded3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +170,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   MultiGroup3d &operator=(const MultiGroup3d &) = default;
-   MultiGroup3d &operator=(MultiGroup3d &&) = default;
+   // copy
+   MultiGroup3d &operator=(const MultiGroup3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         gridded3d = other.gridded3d;
+      }
+      return *this;
+   }
+
+   // move
+   MultiGroup3d &operator=(MultiGroup3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         gridded3d = std::move(other.gridded3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

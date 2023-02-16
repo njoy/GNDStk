@@ -90,13 +90,13 @@ ProbabilityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProbabilityAssign(ConstHandle2Probability This, ConstHandle2ConstProbability from);
+ProbabilityAssign(ConstHandle2Probability self, ConstHandle2ConstProbability from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProbabilityDelete(ConstHandle2ConstProbability This);
+ProbabilityDelete(ConstHandle2ConstProbability self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ProbabilityDelete(ConstHandle2ConstProbability This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProbabilityRead(ConstHandle2Probability This, const char *const filename);
+ProbabilityRead(ConstHandle2Probability self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProbabilityWrite(ConstHandle2ConstProbability This, const char *const filename);
+ProbabilityWrite(ConstHandle2ConstProbability self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProbabilityPrint(ConstHandle2ConstProbability This);
+ProbabilityPrint(ConstHandle2ConstProbability self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProbabilityPrintXML(ConstHandle2ConstProbability This);
+ProbabilityPrintXML(ConstHandle2ConstProbability self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProbabilityPrintJSON(ConstHandle2ConstProbability This);
+ProbabilityPrintJSON(ConstHandle2ConstProbability self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ProbabilityPrintJSON(ConstHandle2ConstProbability This);
 
 // +++ Has
 extern_c int
-ProbabilityDoubleHas(ConstHandle2ConstProbability This);
+ProbabilityDoubleHas(ConstHandle2ConstProbability self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-ProbabilityDoubleGetConst(ConstHandle2ConstProbability This);
+ProbabilityDoubleGetConst(ConstHandle2ConstProbability self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-ProbabilityDoubleGet(ConstHandle2Probability This);
+ProbabilityDoubleGet(ConstHandle2Probability self);
 
 // +++ Set
 extern_c void
-ProbabilityDoubleSet(ConstHandle2Probability This, ConstHandle2ConstDouble Double);
+ProbabilityDoubleSet(ConstHandle2Probability self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

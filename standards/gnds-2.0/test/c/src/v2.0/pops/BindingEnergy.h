@@ -102,13 +102,13 @@ BindingEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BindingEnergyAssign(ConstHandle2BindingEnergy This, ConstHandle2ConstBindingEnergy from);
+BindingEnergyAssign(ConstHandle2BindingEnergy self, ConstHandle2ConstBindingEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BindingEnergyDelete(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDelete(ConstHandle2ConstBindingEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ BindingEnergyDelete(ConstHandle2ConstBindingEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BindingEnergyRead(ConstHandle2BindingEnergy This, const char *const filename);
+BindingEnergyRead(ConstHandle2BindingEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BindingEnergyWrite(ConstHandle2ConstBindingEnergy This, const char *const filename);
+BindingEnergyWrite(ConstHandle2ConstBindingEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BindingEnergyPrint(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrint(ConstHandle2ConstBindingEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This);
 
 // +++ Has
 extern_c int
-BindingEnergyLabelHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyLabelHas(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BindingEnergyLabelGet(ConstHandle2ConstBindingEnergy This);
+BindingEnergyLabelGet(ConstHandle2ConstBindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyLabelSet(ConstHandle2BindingEnergy This, const XMLName label);
+BindingEnergyLabelSet(ConstHandle2BindingEnergy self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ BindingEnergyLabelSet(ConstHandle2BindingEnergy This, const XMLName label);
 
 // +++ Has
 extern_c int
-BindingEnergyUnitHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyUnitHas(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BindingEnergyUnitGet(ConstHandle2ConstBindingEnergy This);
+BindingEnergyUnitGet(ConstHandle2ConstBindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyUnitSet(ConstHandle2BindingEnergy This, const XMLName unit);
+BindingEnergyUnitSet(ConstHandle2BindingEnergy self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ BindingEnergyUnitSet(ConstHandle2BindingEnergy This, const XMLName unit);
 
 // +++ Has
 extern_c int
-BindingEnergyValueHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyValueHas(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BindingEnergyValueGet(ConstHandle2ConstBindingEnergy This);
+BindingEnergyValueGet(ConstHandle2ConstBindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyValueSet(ConstHandle2BindingEnergy This, const XMLName value);
+BindingEnergyValueSet(ConstHandle2BindingEnergy self, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ BindingEnergyValueSet(ConstHandle2BindingEnergy This, const XMLName value);
 
 // +++ Has
 extern_c int
-BindingEnergyDocumentationHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDocumentationHas(ConstHandle2ConstBindingEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-BindingEnergyDocumentationGetConst(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDocumentationGetConst(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-BindingEnergyDocumentationGet(ConstHandle2BindingEnergy This);
+BindingEnergyDocumentationGet(ConstHandle2BindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyDocumentationSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDocumentation documentation);
+BindingEnergyDocumentationSet(ConstHandle2BindingEnergy self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ BindingEnergyDocumentationSet(ConstHandle2BindingEnergy This, ConstHandle2ConstD
 
 // +++ Has
 extern_c int
-BindingEnergyUncertaintyHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyUncertaintyHas(ConstHandle2ConstBindingEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-BindingEnergyUncertaintyGetConst(ConstHandle2ConstBindingEnergy This);
+BindingEnergyUncertaintyGetConst(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-BindingEnergyUncertaintyGet(ConstHandle2BindingEnergy This);
+BindingEnergyUncertaintyGet(ConstHandle2BindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyUncertaintySet(ConstHandle2BindingEnergy This, ConstHandle2ConstUncertainty uncertainty);
+BindingEnergyUncertaintySet(ConstHandle2BindingEnergy self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -244,32 +244,32 @@ BindingEnergyUncertaintySet(ConstHandle2BindingEnergy This, ConstHandle2ConstUnc
 
 // +++ Has
 extern_c int
-BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self);
 
 // +++ Clear
 extern_c void
-BindingEnergyDoubleClear(ConstHandle2BindingEnergy This);
+BindingEnergyDoubleClear(ConstHandle2BindingEnergy self);
 
 // +++ Size
 extern_c size_t
-BindingEnergyDoubleSize(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDoubleSize(ConstHandle2ConstBindingEnergy self);
 
 // +++ Add
 extern_c void
-BindingEnergyDoubleAdd(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble Double);
+BindingEnergyDoubleAdd(ConstHandle2BindingEnergy self, ConstHandle2ConstDouble Double);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDouble
-BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy This, const size_t index_);
+BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Double
-BindingEnergyDoubleGet(ConstHandle2BindingEnergy This, const size_t index_);
+BindingEnergyDoubleGet(ConstHandle2BindingEnergy self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 BindingEnergyDoubleSet(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 );
@@ -277,28 +277,28 @@ BindingEnergyDoubleSet(
 // +++ Has, by label
 extern_c int
 BindingEnergyDoubleHasByLabel(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDouble
 BindingEnergyDoubleGetByLabelConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Double
 BindingEnergyDoubleGetByLabel(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 BindingEnergyDoubleSetByLabel(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 );
@@ -306,28 +306,28 @@ BindingEnergyDoubleSetByLabel(
 // +++ Has, by unit
 extern_c int
 BindingEnergyDoubleHasByUnit(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstDouble
 BindingEnergyDoubleGetByUnitConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Double
 BindingEnergyDoubleGetByUnit(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 BindingEnergyDoubleSetByUnit(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 );
@@ -335,28 +335,28 @@ BindingEnergyDoubleSetByUnit(
 // +++ Has, by value
 extern_c int
 BindingEnergyDoubleHasByValue(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const Float64 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstDouble
 BindingEnergyDoubleGetByValueConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const Float64 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Double
 BindingEnergyDoubleGetByValue(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const Float64 value
 );
 
 // +++ Set, by value
 extern_c void
 BindingEnergyDoubleSetByValue(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 );

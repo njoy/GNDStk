@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// ProductYields wrapper
-void wrapProductYields(python::module &module)
+// wrapper for fpy::ProductYields
+void wrapProductYields(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::ProductYields;
+   using cppCLASS = fpy::ProductYields;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ProductYields",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ProductYields",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<fpy::ProductYield> &
-         >(),
-         python::arg("product_yield"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "product_yield",
-         [](const Component &self) { return self.productYield(); },
-         Component::documentation("product_yield").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<fpy::ProductYield> &
+      >(),
+      py::arg("product_yield"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set productYield
+   object.def_property(
+      "product_yield",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productYield();
+      },
+      [](cppCLASS &self, const std::vector<fpy::ProductYield> &value)
+      {
+         self.productYield() = value;
+      },
+      cppCLASS::component_t::documentation("product_yield").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

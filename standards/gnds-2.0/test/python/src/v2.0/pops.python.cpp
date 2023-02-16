@@ -5,77 +5,77 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // pops declarations
 namespace python_pops {
-   void wrapStandard(python::module &);
-   void wrapLogNormal(python::module &);
-   void wrapInterval(python::module &);
-   void wrapConfidenceIntervals(python::module &);
-   void wrapPdf(python::module &);
-   void wrapUncertainty(python::module &);
-   void wrapAlias(python::module &);
-   void wrapMetaStable(python::module &);
-   void wrapAliases(python::module &);
-   void wrapCharge(python::module &);
-   void wrapHalflife(python::module &);
-   void wrapMass(python::module &);
-   void wrapSpin(python::module &);
-   void wrapParity(python::module &);
-   void wrapProbability(python::module &);
-   void wrapShell(python::module &);
-   void wrapInternalConversionCoefficients(python::module &);
-   void wrapPhotonEmissionProbabilities(python::module &);
-   void wrapQ(python::module &);
-   void wrapProduct(python::module &);
-   void wrapProducts(python::module &);
-   void wrapDecay(python::module &);
-   void wrapDecayPath(python::module &);
-   void wrapContinuum(python::module &);
-   void wrapDiscreteEnergy(python::module &);
-   void wrapIntensity(python::module &);
-   void wrapInternalPairFormationCoefficient(python::module &);
-   void wrapPositronEmissionIntensity(python::module &);
-   void wrapDiscrete(python::module &);
-   void wrapSpectrum(python::module &);
-   void wrapSpectra(python::module &);
-   void wrapDecayMode(python::module &);
-   void wrapDecayModes(python::module &);
-   void wrapAverageEnergy(python::module &);
-   void wrapAverageEnergies(python::module &);
-   void wrapDecayData(python::module &);
-   void wrapGaugeBoson(python::module &);
-   void wrapGaugeBosons(python::module &);
-   void wrapLepton(python::module &);
-   void wrapLeptons(python::module &);
-   void wrapBaryon(python::module &);
-   void wrapBaryons(python::module &);
-   void wrapBindingEnergy(python::module &);
-   void wrapConfiguration(python::module &);
-   void wrapConfigurations(python::module &);
-   void wrapAtomic(python::module &);
-   void wrapEnergy(python::module &);
-   void wrapNucleus(python::module &);
-   void wrapNuclide(python::module &);
-   void wrapNuclides(python::module &);
-   void wrapIsotope(python::module &);
-   void wrapIsotopes(python::module &);
-   void wrapChemicalElement(python::module &);
-   void wrapChemicalElements(python::module &);
-   void wrapUnorthodoxes(python::module &);
-   void wrapPoPs_database(python::module &);
-   void wrapUnorthodox(python::module &);
+   void wrapStandard(py::module &);
+   void wrapLogNormal(py::module &);
+   void wrapInterval(py::module &);
+   void wrapConfidenceIntervals(py::module &);
+   void wrapPdf(py::module &);
+   void wrapUncertainty(py::module &);
+   void wrapAlias(py::module &);
+   void wrapMetaStable(py::module &);
+   void wrapAliases(py::module &);
+   void wrapCharge(py::module &);
+   void wrapHalflife(py::module &);
+   void wrapMass(py::module &);
+   void wrapSpin(py::module &);
+   void wrapParity(py::module &);
+   void wrapProbability(py::module &);
+   void wrapShell(py::module &);
+   void wrapInternalConversionCoefficients(py::module &);
+   void wrapPhotonEmissionProbabilities(py::module &);
+   void wrapQ(py::module &);
+   void wrapProduct(py::module &);
+   void wrapProducts(py::module &);
+   void wrapDecay(py::module &);
+   void wrapDecayPath(py::module &);
+   void wrapContinuum(py::module &);
+   void wrapDiscreteEnergy(py::module &);
+   void wrapIntensity(py::module &);
+   void wrapInternalPairFormationCoefficient(py::module &);
+   void wrapPositronEmissionIntensity(py::module &);
+   void wrapDiscrete(py::module &);
+   void wrapSpectrum(py::module &);
+   void wrapSpectra(py::module &);
+   void wrapDecayMode(py::module &);
+   void wrapDecayModes(py::module &);
+   void wrapAverageEnergy(py::module &);
+   void wrapAverageEnergies(py::module &);
+   void wrapDecayData(py::module &);
+   void wrapGaugeBoson(py::module &);
+   void wrapGaugeBosons(py::module &);
+   void wrapLepton(py::module &);
+   void wrapLeptons(py::module &);
+   void wrapBaryon(py::module &);
+   void wrapBaryons(py::module &);
+   void wrapBindingEnergy(py::module &);
+   void wrapConfiguration(py::module &);
+   void wrapConfigurations(py::module &);
+   void wrapAtomic(py::module &);
+   void wrapEnergy(py::module &);
+   void wrapNucleus(py::module &);
+   void wrapNuclide(py::module &);
+   void wrapNuclides(py::module &);
+   void wrapIsotope(py::module &);
+   void wrapIsotopes(py::module &);
+   void wrapChemicalElement(py::module &);
+   void wrapChemicalElements(py::module &);
+   void wrapUnorthodoxes(py::module &);
+   void wrapPoPs_database(py::module &);
+   void wrapUnorthodox(py::module &);
 } // namespace python_pops
 
-// pops wrapper
-void wrapPops(python::module &module)
+// wrapper for pops
+void wrapPops(py::module &module)
 {
    // create the pops submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "pops",
       "test v2.0 pops"
    );

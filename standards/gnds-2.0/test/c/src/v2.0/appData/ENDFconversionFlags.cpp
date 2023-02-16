@@ -69,20 +69,20 @@ ENDFconversionFlagsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstENDFconversionFlags from)
+ENDFconversionFlagsAssign(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstENDFconversionFlags from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ENDFconversionFlagsDelete(ConstHandle2ConstENDFconversionFlags This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags This, const char *const filename)
+ENDFconversionFlagsRead(ConstHandle2ENDFconversionFlags self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags This, const char *const filename)
+ENDFconversionFlagsWrite(ConstHandle2ConstENDFconversionFlags self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrint(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrintXML(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ENDFconversionFlagsPrintJSON(ConstHandle2ConstENDFconversionFlags This)
 
 // Has
 int
-ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsConversionHas(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConversionHas", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionHas", self, extract::conversion);
 }
 
 // Get, const
 Handle2ConstConversion
-ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags This)
+ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self)
 {
    return detail::getField<CPP,Handle2ConstConversion>
-      (CLASSNAME, CLASSNAME+"ConversionGetConst", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionGetConst", self, extract::conversion);
 }
 
 // Get, non-const
 Handle2Conversion
-ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags This)
+ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self)
 {
    return detail::getField<CPP,Handle2Conversion>
-      (CLASSNAME, CLASSNAME+"ConversionGet", This, extract::conversion);
+      (CLASSNAME, CLASSNAME+"ConversionGet", self, extract::conversion);
 }
 
 // Set
 void
-ENDFconversionFlagsConversionSet(ConstHandle2ENDFconversionFlags This, ConstHandle2ConstConversion conversion)
+ENDFconversionFlagsConversionSet(ConstHandle2ENDFconversionFlags self, ConstHandle2ConstConversion conversion)
 {
    detail::setField<CPP,CPPConversion>
-      (CLASSNAME, CLASSNAME+"ConversionSet", This, extract::conversion, conversion);
+      (CLASSNAME, CLASSNAME+"ConversionSet", self, extract::conversion, conversion);
 }
 
 

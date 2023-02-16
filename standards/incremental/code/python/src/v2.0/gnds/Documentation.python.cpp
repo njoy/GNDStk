@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Documentation wrapper
-void wrapDocumentation(python::module &module)
+// wrapper for gnds::Documentation
+void wrapDocumentation(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Documentation;
+   using cppCLASS = gnds::Documentation;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Documentation",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Documentation",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const gnds::Authors &,
-            const gnds::Dates &,
-            const gnds::Title &,
-            const gnds::Body &,
-            const gnds::EndfCompatible &
-         >(),
-         python::arg("authors"),
-         python::arg("dates"),
-         python::arg("title"),
-         python::arg("body"),
-         python::arg("endf_compatible"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "authors",
-         [](const Component &self) { return self.authors(); },
-         Component::documentation("authors").data()
-      )
-      .def_property_readonly(
-         "dates",
-         [](const Component &self) { return self.dates(); },
-         Component::documentation("dates").data()
-      )
-      .def_property_readonly(
-         "title",
-         [](const Component &self) { return self.title(); },
-         Component::documentation("title").data()
-      )
-      .def_property_readonly(
-         "body",
-         [](const Component &self) { return self.body(); },
-         Component::documentation("body").data()
-      )
-      .def_property_readonly(
-         "endf_compatible",
-         [](const Component &self) { return self.endfCompatible(); },
-         Component::documentation("endf_compatible").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const gnds::Authors &,
+         const gnds::Dates &,
+         const gnds::Title &,
+         const gnds::Body &,
+         const gnds::EndfCompatible &
+      >(),
+      py::arg("authors"),
+      py::arg("dates"),
+      py::arg("title"),
+      py::arg("body"),
+      py::arg("endf_compatible"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set authors
+   object.def_property(
+      "authors",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.authors();
+      },
+      [](cppCLASS &self, const gnds::Authors &value)
+      {
+         self.authors() = value;
+      },
+      cppCLASS::component_t::documentation("authors").data()
+   );
+
+   // get/set dates
+   object.def_property(
+      "dates",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.dates();
+      },
+      [](cppCLASS &self, const gnds::Dates &value)
+      {
+         self.dates() = value;
+      },
+      cppCLASS::component_t::documentation("dates").data()
+   );
+
+   // get/set title
+   object.def_property(
+      "title",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.title();
+      },
+      [](cppCLASS &self, const gnds::Title &value)
+      {
+         self.title() = value;
+      },
+      cppCLASS::component_t::documentation("title").data()
+   );
+
+   // get/set body
+   object.def_property(
+      "body",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.body();
+      },
+      [](cppCLASS &self, const gnds::Body &value)
+      {
+         self.body() = value;
+      },
+      cppCLASS::component_t::documentation("body").data()
+   );
+
+   // get/set endfCompatible
+   object.def_property(
+      "endf_compatible",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.endfCompatible();
+      },
+      [](cppCLASS &self, const gnds::EndfCompatible &value)
+      {
+         self.endfCompatible() = value;
+      },
+      cppCLASS::component_t::documentation("endf_compatible").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

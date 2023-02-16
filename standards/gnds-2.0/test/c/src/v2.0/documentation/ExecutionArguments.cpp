@@ -77,20 +77,20 @@ ExecutionArgumentsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ExecutionArgumentsAssign(ConstHandle2ExecutionArguments This, ConstHandle2ConstExecutionArguments from)
+ExecutionArgumentsAssign(ConstHandle2ExecutionArguments self, ConstHandle2ConstExecutionArguments from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ExecutionArgumentsRead(ConstHandle2ExecutionArguments This, const char *const filename)
+ExecutionArgumentsRead(ConstHandle2ExecutionArguments self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ExecutionArgumentsWrite(ConstHandle2ConstExecutionArguments This, const char *const filename)
+ExecutionArgumentsWrite(ConstHandle2ConstExecutionArguments self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ExecutionArgumentsPrint(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsPrint(ConstHandle2ConstExecutionArguments self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ExecutionArgumentsPrintXML(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsPrintXML(ConstHandle2ConstExecutionArguments self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,60 +155,60 @@ ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments This)
 
 // Clear
 void
-ExecutionArgumentsIntsClear(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsIntsClear(ConstHandle2ExecutionArguments self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-ExecutionArgumentsIntsSize(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsIntsSize(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-ExecutionArgumentsIntsGet(ConstHandle2ConstExecutionArguments This, const size_t index)
+ExecutionArgumentsIntsGet(ConstHandle2ConstExecutionArguments self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-ExecutionArgumentsIntsSet(ConstHandle2ExecutionArguments This, const size_t index, const int value)
+ExecutionArgumentsIntsSet(ConstHandle2ExecutionArguments self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-ExecutionArgumentsIntsGetArrayConst(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsIntsGetArrayConst(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-ExecutionArgumentsIntsGetArray(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsIntsGetArray(ConstHandle2ExecutionArguments self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments This, const int *const values, const size_t size)
+ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -217,60 +217,60 @@ ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments This, const int *c
 
 // Clear
 void
-ExecutionArgumentsUnsignedsClear(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsUnsignedsClear(ConstHandle2ExecutionArguments self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-ExecutionArgumentsUnsignedsSize(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsUnsignedsSize(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-ExecutionArgumentsUnsignedsGet(ConstHandle2ConstExecutionArguments This, const size_t index)
+ExecutionArgumentsUnsignedsGet(ConstHandle2ConstExecutionArguments self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-ExecutionArgumentsUnsignedsSet(ConstHandle2ExecutionArguments This, const size_t index, const unsigned value)
+ExecutionArgumentsUnsignedsSet(ConstHandle2ExecutionArguments self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-ExecutionArgumentsUnsignedsGetArrayConst(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsUnsignedsGetArrayConst(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-ExecutionArgumentsUnsignedsGetArray(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsUnsignedsGetArray(ConstHandle2ExecutionArguments self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments This, const unsigned *const values, const size_t size)
+ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -279,60 +279,60 @@ ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments This, const u
 
 // Clear
 void
-ExecutionArgumentsFloatsClear(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsFloatsClear(ConstHandle2ExecutionArguments self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-ExecutionArgumentsFloatsSize(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsFloatsSize(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-ExecutionArgumentsFloatsGet(ConstHandle2ConstExecutionArguments This, const size_t index)
+ExecutionArgumentsFloatsGet(ConstHandle2ConstExecutionArguments self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-ExecutionArgumentsFloatsSet(ConstHandle2ExecutionArguments This, const size_t index, const float value)
+ExecutionArgumentsFloatsSet(ConstHandle2ExecutionArguments self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-ExecutionArgumentsFloatsGetArrayConst(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsFloatsGetArrayConst(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-ExecutionArgumentsFloatsGetArray(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsFloatsGetArray(ConstHandle2ExecutionArguments self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments This, const float *const values, const size_t size)
+ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -341,60 +341,60 @@ ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments This, const floa
 
 // Clear
 void
-ExecutionArgumentsDoublesClear(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsDoublesClear(ConstHandle2ExecutionArguments self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-ExecutionArgumentsDoublesSize(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsDoublesSize(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-ExecutionArgumentsDoublesGet(ConstHandle2ConstExecutionArguments This, const size_t index)
+ExecutionArgumentsDoublesGet(ConstHandle2ConstExecutionArguments self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-ExecutionArgumentsDoublesSet(ConstHandle2ExecutionArguments This, const size_t index, const double value)
+ExecutionArgumentsDoublesSet(ConstHandle2ExecutionArguments self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-ExecutionArgumentsDoublesGetArrayConst(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsDoublesGetArrayConst(ConstHandle2ConstExecutionArguments self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-ExecutionArgumentsDoublesGetArray(ConstHandle2ExecutionArguments This)
+ExecutionArgumentsDoublesGetArray(ConstHandle2ExecutionArguments self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments This, const double *const values, const size_t size)
+ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -404,27 +404,27 @@ ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments This, const dou
 
 // Has
 int
-ExecutionArgumentsEncodingHas(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsEncodingHas(ConstHandle2ConstExecutionArguments self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-ExecutionArgumentsEncodingGet(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsEncodingGet(ConstHandle2ConstExecutionArguments self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments This, const XMLName encoding)
+ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -434,27 +434,27 @@ ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments This, const XMLName
 
 // Has
 int
-ExecutionArgumentsMarkupHas(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsMarkupHas(ConstHandle2ConstExecutionArguments self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-ExecutionArgumentsMarkupGet(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsMarkupGet(ConstHandle2ConstExecutionArguments self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments This, const char *const markup)
+ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -464,27 +464,27 @@ ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments This, const char *con
 
 // Has
 int
-ExecutionArgumentsLabelHas(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsLabelHas(ConstHandle2ConstExecutionArguments self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ExecutionArgumentsLabelGet(ConstHandle2ConstExecutionArguments This)
+ExecutionArgumentsLabelGet(ConstHandle2ConstExecutionArguments self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments This, const XMLName label)
+ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

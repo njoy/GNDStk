@@ -91,13 +91,13 @@ Branching3dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Branching3dAssign(ConstHandle2Branching3d This, ConstHandle2ConstBranching3d from);
+Branching3dAssign(ConstHandle2Branching3d self, ConstHandle2ConstBranching3d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Branching3dDelete(ConstHandle2ConstBranching3d This);
+Branching3dDelete(ConstHandle2ConstBranching3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ Branching3dDelete(ConstHandle2ConstBranching3d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Branching3dRead(ConstHandle2Branching3d This, const char *const filename);
+Branching3dRead(ConstHandle2Branching3d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Branching3dWrite(ConstHandle2ConstBranching3d This, const char *const filename);
+Branching3dWrite(ConstHandle2ConstBranching3d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Branching3dPrint(ConstHandle2ConstBranching3d This);
+Branching3dPrint(ConstHandle2ConstBranching3d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Branching3dPrintXML(ConstHandle2ConstBranching3d This);
+Branching3dPrintXML(ConstHandle2ConstBranching3d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Branching3dPrintJSON(ConstHandle2ConstBranching3d This);
+Branching3dPrintJSON(ConstHandle2ConstBranching3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ Branching3dPrintJSON(ConstHandle2ConstBranching3d This);
 
 // +++ Has
 extern_c int
-Branching3dLabelHas(ConstHandle2ConstBranching3d This);
+Branching3dLabelHas(ConstHandle2ConstBranching3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-Branching3dLabelGet(ConstHandle2ConstBranching3d This);
+Branching3dLabelGet(ConstHandle2ConstBranching3d self);
 
 // +++ Set
 extern_c void
-Branching3dLabelSet(ConstHandle2Branching3d This, const XMLName label);
+Branching3dLabelSet(ConstHandle2Branching3d self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ Branching3dLabelSet(ConstHandle2Branching3d This, const XMLName label);
 
 // +++ Has
 extern_c int
-Branching3dProductFrameHas(ConstHandle2ConstBranching3d This);
+Branching3dProductFrameHas(ConstHandle2ConstBranching3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-Branching3dProductFrameGet(ConstHandle2ConstBranching3d This);
+Branching3dProductFrameGet(ConstHandle2ConstBranching3d self);
 
 // +++ Set
 extern_c void
-Branching3dProductFrameSet(ConstHandle2Branching3d This, const XMLName productFrame);
+Branching3dProductFrameSet(ConstHandle2Branching3d self, const XMLName productFrame);
 
 
 // -----------------------------------------------------------------------------

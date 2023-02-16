@@ -93,13 +93,13 @@ SummandCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SummandAssign(ConstHandle2Summand This, ConstHandle2ConstSummand from);
+SummandAssign(ConstHandle2Summand self, ConstHandle2ConstSummand from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SummandDelete(ConstHandle2ConstSummand This);
+SummandDelete(ConstHandle2ConstSummand self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ SummandDelete(ConstHandle2ConstSummand This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SummandRead(ConstHandle2Summand This, const char *const filename);
+SummandRead(ConstHandle2Summand self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SummandWrite(ConstHandle2ConstSummand This, const char *const filename);
+SummandWrite(ConstHandle2ConstSummand self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SummandPrint(ConstHandle2ConstSummand This);
+SummandPrint(ConstHandle2ConstSummand self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SummandPrintXML(ConstHandle2ConstSummand This);
+SummandPrintXML(ConstHandle2ConstSummand self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SummandPrintJSON(ConstHandle2ConstSummand This);
+SummandPrintJSON(ConstHandle2ConstSummand self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ SummandPrintJSON(ConstHandle2ConstSummand This);
 
 // +++ Has
 extern_c int
-SummandENDFMFMTHas(ConstHandle2ConstSummand This);
+SummandENDFMFMTHas(ConstHandle2ConstSummand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SummandENDFMFMTGet(ConstHandle2ConstSummand This);
+SummandENDFMFMTGet(ConstHandle2ConstSummand self);
 
 // +++ Set
 extern_c void
-SummandENDFMFMTSet(ConstHandle2Summand This, const XMLName ENDF_MFMT);
+SummandENDFMFMTSet(ConstHandle2Summand self, const XMLName ENDF_MFMT);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ SummandENDFMFMTSet(ConstHandle2Summand This, const XMLName ENDF_MFMT);
 
 // +++ Has
 extern_c int
-SummandCoefficientHas(ConstHandle2ConstSummand This);
+SummandCoefficientHas(ConstHandle2ConstSummand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SummandCoefficientGet(ConstHandle2ConstSummand This);
+SummandCoefficientGet(ConstHandle2ConstSummand self);
 
 // +++ Set
 extern_c void
-SummandCoefficientSet(ConstHandle2Summand This, const Float64 coefficient);
+SummandCoefficientSet(ConstHandle2Summand self, const Float64 coefficient);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ SummandCoefficientSet(ConstHandle2Summand This, const Float64 coefficient);
 
 // +++ Has
 extern_c int
-SummandHrefHas(ConstHandle2ConstSummand This);
+SummandHrefHas(ConstHandle2ConstSummand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-SummandHrefGet(ConstHandle2ConstSummand This);
+SummandHrefGet(ConstHandle2ConstSummand self);
 
 // +++ Set
 extern_c void
-SummandHrefSet(ConstHandle2Summand This, const char *const href);
+SummandHrefSet(ConstHandle2Summand self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

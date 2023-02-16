@@ -26,12 +26,12 @@ class ImaginaryAnomalousFactor :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "atomic"; }
    static auto CLASS() { return "ImaginaryAnomalousFactor"; }
-   static auto FIELD() { return "imaginaryAnomalousFactor"; }
+   static auto NODENAME() { return "imaginaryAnomalousFactor"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,29 +39,69 @@ class ImaginaryAnomalousFactor :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::XYs1d>>("XYs1d") |
-         --Child<std::optional<containers::Regions1d>>("regions1d")
+         --Child<std::optional<containers::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<containers::Regions1d>>
+            ("regions1d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "XYs1d",
+         "regions1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys1d",
+         "regions1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::XYs1d>> XYs1d{this};
-   Field<std::optional<containers::Regions1d>> regions1d{this};
+   Field<std::optional<containers::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<containers::Regions1d>>
+      regions1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->XYs1d, \
-      this->regions1d)
+      this->regions1d \
+   )
 
    // default
    ImaginaryAnomalousFactor() :
@@ -72,8 +112,10 @@ public:
 
    // from fields, comment excluded
    explicit ImaginaryAnomalousFactor(
-      const wrapper<std::optional<containers::XYs1d>> &XYs1d,
-      const wrapper<std::optional<containers::Regions1d>> &regions1d = {}
+      const wrapper<std::optional<containers::XYs1d>>
+         &XYs1d,
+      const wrapper<std::optional<containers::Regions1d>>
+         &regions1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
@@ -113,8 +155,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   ImaginaryAnomalousFactor &operator=(const ImaginaryAnomalousFactor &) = default;
-   ImaginaryAnomalousFactor &operator=(ImaginaryAnomalousFactor &&) = default;
+   // copy
+   ImaginaryAnomalousFactor &operator=(const ImaginaryAnomalousFactor &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+         regions1d = other.regions1d;
+      }
+      return *this;
+   }
+
+   // move
+   ImaginaryAnomalousFactor &operator=(ImaginaryAnomalousFactor &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+         regions1d = std::move(other.regions1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

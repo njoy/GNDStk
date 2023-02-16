@@ -107,13 +107,13 @@ ResonanceReactionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonanceReactionAssign(ConstHandle2ResonanceReaction This, ConstHandle2ConstResonanceReaction from);
+ResonanceReactionAssign(ConstHandle2ResonanceReaction self, ConstHandle2ConstResonanceReaction from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonanceReactionDelete(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionDelete(ConstHandle2ConstResonanceReaction self);
 
 
 // -----------------------------------------------------------------------------
@@ -126,25 +126,25 @@ ResonanceReactionDelete(ConstHandle2ConstResonanceReaction This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonanceReactionRead(ConstHandle2ResonanceReaction This, const char *const filename);
+ResonanceReactionRead(ConstHandle2ResonanceReaction self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonanceReactionWrite(ConstHandle2ConstResonanceReaction This, const char *const filename);
+ResonanceReactionWrite(ConstHandle2ConstResonanceReaction self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonanceReactionPrint(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionPrint(ConstHandle2ConstResonanceReaction self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonanceReactionPrintXML(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionPrintXML(ConstHandle2ConstResonanceReaction self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction self);
 
 
 // -----------------------------------------------------------------------------
@@ -153,16 +153,16 @@ ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction This);
 
 // +++ Has
 extern_c int
-ResonanceReactionLabelHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionLabelHas(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResonanceReactionLabelGet(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionLabelGet(ConstHandle2ConstResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionLabelSet(ConstHandle2ResonanceReaction This, const XMLName label);
+ResonanceReactionLabelSet(ConstHandle2ResonanceReaction self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -171,16 +171,16 @@ ResonanceReactionLabelSet(ConstHandle2ResonanceReaction This, const XMLName labe
 
 // +++ Has
 extern_c int
-ResonanceReactionEjectileHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionEjectileHas(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResonanceReactionEjectileGet(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionEjectileGet(ConstHandle2ConstResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction This, const XMLName ejectile);
+ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction self, const XMLName ejectile);
 
 
 // -----------------------------------------------------------------------------
@@ -189,16 +189,16 @@ ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction This, const XMLName e
 
 // +++ Has
 extern_c int
-ResonanceReactionBoundaryConditionValueHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionBoundaryConditionValueHas(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-ResonanceReactionBoundaryConditionValueGet(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionBoundaryConditionValueGet(ConstHandle2ConstResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction This, const Float64 boundaryConditionValue);
+ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction self, const Float64 boundaryConditionValue);
 
 
 // -----------------------------------------------------------------------------
@@ -207,16 +207,16 @@ ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction This, c
 
 // +++ Has
 extern_c int
-ResonanceReactionEliminatedHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionEliminatedHas(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-ResonanceReactionEliminatedGet(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionEliminatedGet(ConstHandle2ConstResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction This, const bool eliminated);
+ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction self, const bool eliminated);
 
 
 // -----------------------------------------------------------------------------
@@ -225,19 +225,19 @@ ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction This, const bool el
 
 // +++ Has
 extern_c int
-ResonanceReactionQHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionQHas(ConstHandle2ConstResonanceReaction self);
 
 // --- Get, const
 extern_c Handle2ConstQ
-ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get, non-const
 extern_c Handle2Q
-ResonanceReactionQGet(ConstHandle2ResonanceReaction This);
+ResonanceReactionQGet(ConstHandle2ResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionQSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstQ Q);
+ResonanceReactionQSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstQ Q);
 
 
 // -----------------------------------------------------------------------------
@@ -246,19 +246,19 @@ ResonanceReactionQSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstQ Q);
 
 // +++ Has
 extern_c int
-ResonanceReactionScatteringRadiusHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionScatteringRadiusHas(ConstHandle2ConstResonanceReaction self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringRadius
-ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringRadius
-ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction This);
+ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstScatteringRadius scatteringRadius);
+ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstScatteringRadius scatteringRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -267,19 +267,19 @@ ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction This, ConstHa
 
 // +++ Has
 extern_c int
-ResonanceReactionHardSphereRadiusHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionHardSphereRadiusHas(ConstHandle2ConstResonanceReaction self);
 
 // --- Get, const
 extern_c Handle2ConstHardSphereRadius
-ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get, non-const
 extern_c Handle2HardSphereRadius
-ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction This);
+ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstHardSphereRadius hardSphereRadius);
+ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstHardSphereRadius hardSphereRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -288,19 +288,19 @@ ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction This, ConstHa
 
 // +++ Has
 extern_c int
-ResonanceReactionLinkHas(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionLinkHas(ConstHandle2ConstResonanceReaction self);
 
 // --- Get, const
 extern_c Handle2ConstLink
-ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction This);
+ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction self);
 
 // +++ Get, non-const
 extern_c Handle2Link
-ResonanceReactionLinkGet(ConstHandle2ResonanceReaction This);
+ResonanceReactionLinkGet(ConstHandle2ResonanceReaction self);
 
 // +++ Set
 extern_c void
-ResonanceReactionLinkSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstLink link);
+ResonanceReactionLinkSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstLink link);
 
 
 // -----------------------------------------------------------------------------

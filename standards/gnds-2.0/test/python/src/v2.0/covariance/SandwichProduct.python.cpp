@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// SandwichProduct wrapper
-void wrapSandwichProduct(python::module &module)
+// wrapper for covariance::SandwichProduct
+void wrapSandwichProduct(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::SandwichProduct;
+   using cppCLASS = covariance::SandwichProduct;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "SandwichProduct",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "SandwichProduct",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const containers::Axes &,
-            const covariance::Covariance &,
-            const covariance::RowSensitivity &,
-            const std::optional<covariance::ColumnSensitivity> &
-         >(),
-         python::arg("axes"),
-         python::arg("covariance"),
-         python::arg("row_sensitivity"),
-         python::arg("column_sensitivity") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "covariance",
-         [](const Component &self) { return self.covariance(); },
-         Component::documentation("covariance").data()
-      )
-      .def_property_readonly(
-         "row_sensitivity",
-         [](const Component &self) { return self.rowSensitivity(); },
-         Component::documentation("row_sensitivity").data()
-      )
-      .def_property_readonly(
-         "column_sensitivity",
-         [](const Component &self) { return self.columnSensitivity(); },
-         Component::documentation("column_sensitivity").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const containers::Axes &,
+         const covariance::Covariance &,
+         const covariance::RowSensitivity &,
+         const std::optional<covariance::ColumnSensitivity> &
+      >(),
+      py::arg("axes"),
+      py::arg("covariance"),
+      py::arg("row_sensitivity"),
+      py::arg("column_sensitivity") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const containers::Axes &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set covariance
+   object.def_property(
+      "covariance",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covariance();
+      },
+      [](cppCLASS &self, const covariance::Covariance &value)
+      {
+         self.covariance() = value;
+      },
+      cppCLASS::component_t::documentation("covariance").data()
+   );
+
+   // get/set rowSensitivity
+   object.def_property(
+      "row_sensitivity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.rowSensitivity();
+      },
+      [](cppCLASS &self, const covariance::RowSensitivity &value)
+      {
+         self.rowSensitivity() = value;
+      },
+      cppCLASS::component_t::documentation("row_sensitivity").data()
+   );
+
+   // get/set columnSensitivity
+   object.def_property(
+      "column_sensitivity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnSensitivity();
+      },
+      [](cppCLASS &self, const std::optional<covariance::ColumnSensitivity> &value)
+      {
+         self.columnSensitivity() = value;
+      },
+      cppCLASS::component_t::documentation("column_sensitivity").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

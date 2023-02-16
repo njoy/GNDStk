@@ -90,13 +90,13 @@ WidthsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-WidthsAssign(ConstHandle2Widths This, ConstHandle2ConstWidths from);
+WidthsAssign(ConstHandle2Widths self, ConstHandle2ConstWidths from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-WidthsDelete(ConstHandle2ConstWidths This);
+WidthsDelete(ConstHandle2ConstWidths self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ WidthsDelete(ConstHandle2ConstWidths This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-WidthsRead(ConstHandle2Widths This, const char *const filename);
+WidthsRead(ConstHandle2Widths self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-WidthsWrite(ConstHandle2ConstWidths This, const char *const filename);
+WidthsWrite(ConstHandle2ConstWidths self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-WidthsPrint(ConstHandle2ConstWidths This);
+WidthsPrint(ConstHandle2ConstWidths self);
 
 // +++ Print to standard output, as XML
 extern_c int
-WidthsPrintXML(ConstHandle2ConstWidths This);
+WidthsPrintXML(ConstHandle2ConstWidths self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-WidthsPrintJSON(ConstHandle2ConstWidths This);
+WidthsPrintJSON(ConstHandle2ConstWidths self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ WidthsPrintJSON(ConstHandle2ConstWidths This);
 
 // +++ Has
 extern_c int
-WidthsWidthHas(ConstHandle2ConstWidths This);
+WidthsWidthHas(ConstHandle2ConstWidths self);
 
 // +++ Clear
 extern_c void
-WidthsWidthClear(ConstHandle2Widths This);
+WidthsWidthClear(ConstHandle2Widths self);
 
 // +++ Size
 extern_c size_t
-WidthsWidthSize(ConstHandle2ConstWidths This);
+WidthsWidthSize(ConstHandle2ConstWidths self);
 
 // +++ Add
 extern_c void
-WidthsWidthAdd(ConstHandle2Widths This, ConstHandle2ConstWidth width);
+WidthsWidthAdd(ConstHandle2Widths self, ConstHandle2ConstWidth width);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstWidth
-WidthsWidthGetConst(ConstHandle2ConstWidths This, const size_t index_);
+WidthsWidthGetConst(ConstHandle2ConstWidths self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Width
-WidthsWidthGet(ConstHandle2Widths This, const size_t index_);
+WidthsWidthGet(ConstHandle2Widths self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 WidthsWidthSet(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const size_t index_,
    ConstHandle2ConstWidth width
 );
@@ -169,28 +169,28 @@ WidthsWidthSet(
 // +++ Has, by resonanceReaction
 extern_c int
 WidthsWidthHasByResonanceReaction(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const char *const resonanceReaction
 );
 
 // --- Get, by resonanceReaction, const
 extern_c Handle2ConstWidth
 WidthsWidthGetByResonanceReactionConst(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const char *const resonanceReaction
 );
 
 // +++ Get, by resonanceReaction, non-const
 extern_c Handle2Width
 WidthsWidthGetByResonanceReaction(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const char *const resonanceReaction
 );
 
 // +++ Set, by resonanceReaction
 extern_c void
 WidthsWidthSetByResonanceReaction(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const char *const resonanceReaction,
    ConstHandle2ConstWidth width
 );
@@ -198,28 +198,28 @@ WidthsWidthSetByResonanceReaction(
 // +++ Has, by degreesOfFreedom
 extern_c int
 WidthsWidthHasByDegreesOfFreedom(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const Float64 degreesOfFreedom
 );
 
 // --- Get, by degreesOfFreedom, const
 extern_c Handle2ConstWidth
 WidthsWidthGetByDegreesOfFreedomConst(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const Float64 degreesOfFreedom
 );
 
 // +++ Get, by degreesOfFreedom, non-const
 extern_c Handle2Width
 WidthsWidthGetByDegreesOfFreedom(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const Float64 degreesOfFreedom
 );
 
 // +++ Set, by degreesOfFreedom
 extern_c void
 WidthsWidthSetByDegreesOfFreedom(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const Float64 degreesOfFreedom,
    ConstHandle2ConstWidth width
 );

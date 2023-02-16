@@ -109,13 +109,13 @@ CovarianceSuiteCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceSuiteAssign(ConstHandle2CovarianceSuite This, ConstHandle2ConstCovarianceSuite from);
+CovarianceSuiteAssign(ConstHandle2CovarianceSuite self, ConstHandle2ConstCovarianceSuite from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite self);
 
 
 // -----------------------------------------------------------------------------
@@ -128,25 +128,25 @@ CovarianceSuiteDelete(ConstHandle2ConstCovarianceSuite This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceSuiteRead(ConstHandle2CovarianceSuite This, const char *const filename);
+CovarianceSuiteRead(ConstHandle2CovarianceSuite self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceSuiteWrite(ConstHandle2ConstCovarianceSuite This, const char *const filename);
+CovarianceSuiteWrite(ConstHandle2ConstCovarianceSuite self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovarianceSuitePrint(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuitePrint(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovarianceSuitePrintXML(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuitePrintXML(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite self);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ CovarianceSuitePrintJSON(ConstHandle2ConstCovarianceSuite This);
 
 // +++ Has
 extern_c int
-CovarianceSuiteEvaluationHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteEvaluationHas(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceSuiteEvaluationGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteEvaluationGet(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite This, const XMLName evaluation);
+CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite self, const XMLName evaluation);
 
 
 // -----------------------------------------------------------------------------
@@ -173,16 +173,16 @@ CovarianceSuiteEvaluationSet(ConstHandle2CovarianceSuite This, const XMLName eva
 
 // +++ Has
 extern_c int
-CovarianceSuiteProjectileHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteProjectileHas(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceSuiteProjectileGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteProjectileGet(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite This, const XMLName projectile);
+CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite self, const XMLName projectile);
 
 
 // -----------------------------------------------------------------------------
@@ -191,16 +191,16 @@ CovarianceSuiteProjectileSet(ConstHandle2CovarianceSuite This, const XMLName pro
 
 // +++ Has
 extern_c int
-CovarianceSuiteTargetHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteTargetHas(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceSuiteTargetGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteTargetGet(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite This, const XMLName target);
+CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite self, const XMLName target);
 
 
 // -----------------------------------------------------------------------------
@@ -209,16 +209,16 @@ CovarianceSuiteTargetSet(ConstHandle2CovarianceSuite This, const XMLName target)
 
 // +++ Has
 extern_c int
-CovarianceSuiteInteractionHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteInteractionHas(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Interaction
-CovarianceSuiteInteractionGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteInteractionGet(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const enums::Interaction interaction);
+CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite self, const enums::Interaction interaction);
 
 
 // -----------------------------------------------------------------------------
@@ -227,16 +227,16 @@ CovarianceSuiteInteractionSet(ConstHandle2CovarianceSuite This, const enums::Int
 
 // +++ Has
 extern_c int
-CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteFormatHas(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteFormatGet(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const Float64 format);
+CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite self, const Float64 format);
 
 
 // -----------------------------------------------------------------------------
@@ -245,19 +245,19 @@ CovarianceSuiteFormatSet(ConstHandle2CovarianceSuite This, const Float64 format)
 
 // +++ Has
 extern_c int
-CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite self);
 
 // --- Get, const
 extern_c Handle2ConstExternalFiles
-CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get, non-const
 extern_c Handle2ExternalFiles
-CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite This);
+CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstExternalFiles externalFiles);
+CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstExternalFiles externalFiles);
 
 
 // -----------------------------------------------------------------------------
@@ -266,19 +266,19 @@ CovarianceSuiteExternalFilesSet(ConstHandle2CovarianceSuite This, ConstHandle2Co
 
 // +++ Has
 extern_c int
-CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite self);
 
 // --- Get, const
 extern_c Handle2ConstStyles
-CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Styles
-CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite This);
+CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstStyles styles);
+CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstStyles styles);
 
 
 // -----------------------------------------------------------------------------
@@ -287,19 +287,19 @@ CovarianceSuiteStylesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstStyl
 
 // +++ Has
 extern_c int
-CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite self);
 
 // --- Get, const
 extern_c Handle2ConstCovarianceSections
-CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get, non-const
 extern_c Handle2CovarianceSections
-CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite This);
+CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstCovarianceSections covarianceSections);
+CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstCovarianceSections covarianceSections);
 
 
 // -----------------------------------------------------------------------------
@@ -308,19 +308,19 @@ CovarianceSuiteCovarianceSectionsSet(ConstHandle2CovarianceSuite This, ConstHand
 
 // +++ Has
 extern_c int
-CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite self);
 
 // --- Get, const
 extern_c Handle2ConstParameterCovariances
-CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite This);
+CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite self);
 
 // +++ Get, non-const
 extern_c Handle2ParameterCovariances
-CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite This);
+CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self);
 
 // +++ Set
 extern_c void
-CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite This, ConstHandle2ConstParameterCovariances parameterCovariances);
+CovarianceSuiteParameterCovariancesSet(ConstHandle2CovarianceSuite self, ConstHandle2ConstParameterCovariances parameterCovariances);
 
 
 // -----------------------------------------------------------------------------

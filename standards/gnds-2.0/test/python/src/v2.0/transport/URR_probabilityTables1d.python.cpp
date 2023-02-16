@@ -11,66 +11,96 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// URR_probabilityTables1d wrapper
-void wrapURR_probabilityTables1d(python::module &module)
+// wrapper for transport::URR_probabilityTables1d
+void wrapURR_probabilityTables1d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::URR_probabilityTables1d;
+   using cppCLASS = transport::URR_probabilityTables1d;
    using _t = std::variant<
       containers::XYs2d,
       containers::Regions2d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "URR_probabilityTables1d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "URR_probabilityTables1d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const _t &
-         >(),
-         python::arg("label"),
-         python::arg("_xys2dregions2d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
-         Component::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "regions2d",
-         [](const Component &self) { return self.regions2d(); },
-         Component::documentation("regions2d").data()
-      )
-      .def_property_readonly(
-         "_xys2dregions2d",
-         [](const Component &self) { return self._XYs2dregions2d(); },
-         Component::documentation("_xys2dregions2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const _t &
+      >(),
+      py::arg("label"),
+      py::arg("_xys2dregions2d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const containers::XYs2d &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   object.def_property(
+      "regions2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions2d();
+      },
+      [](cppCLASS &self, const containers::Regions2d &value)
+      {
+         self.regions2d() = value;
+      },
+      cppCLASS::component_t::documentation("regions2d").data()
+   );
+
+   object.def_property(
+      "_xys2dregions2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs2dregions2d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._XYs2dregions2d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys2dregions2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

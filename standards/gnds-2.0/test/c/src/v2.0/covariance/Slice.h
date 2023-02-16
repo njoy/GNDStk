@@ -97,13 +97,13 @@ SliceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SliceAssign(ConstHandle2Slice This, ConstHandle2ConstSlice from);
+SliceAssign(ConstHandle2Slice self, ConstHandle2ConstSlice from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SliceDelete(ConstHandle2ConstSlice This);
+SliceDelete(ConstHandle2ConstSlice self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ SliceDelete(ConstHandle2ConstSlice This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SliceRead(ConstHandle2Slice This, const char *const filename);
+SliceRead(ConstHandle2Slice self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SliceWrite(ConstHandle2ConstSlice This, const char *const filename);
+SliceWrite(ConstHandle2ConstSlice self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SlicePrint(ConstHandle2ConstSlice This);
+SlicePrint(ConstHandle2ConstSlice self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SlicePrintXML(ConstHandle2ConstSlice This);
+SlicePrintXML(ConstHandle2ConstSlice self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SlicePrintJSON(ConstHandle2ConstSlice This);
+SlicePrintJSON(ConstHandle2ConstSlice self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ SlicePrintJSON(ConstHandle2ConstSlice This);
 
 // +++ Has
 extern_c int
-SliceDomainMinHas(ConstHandle2ConstSlice This);
+SliceDomainMinHas(ConstHandle2ConstSlice self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SliceDomainMinGet(ConstHandle2ConstSlice This);
+SliceDomainMinGet(ConstHandle2ConstSlice self);
 
 // +++ Set
 extern_c void
-SliceDomainMinSet(ConstHandle2Slice This, const Float64 domainMin);
+SliceDomainMinSet(ConstHandle2Slice self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ SliceDomainMinSet(ConstHandle2Slice This, const Float64 domainMin);
 
 // +++ Has
 extern_c int
-SliceDomainMaxHas(ConstHandle2ConstSlice This);
+SliceDomainMaxHas(ConstHandle2ConstSlice self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SliceDomainMaxGet(ConstHandle2ConstSlice This);
+SliceDomainMaxGet(ConstHandle2ConstSlice self);
 
 // +++ Set
 extern_c void
-SliceDomainMaxSet(ConstHandle2Slice This, const Float64 domainMax);
+SliceDomainMaxSet(ConstHandle2Slice self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -179,16 +179,16 @@ SliceDomainMaxSet(ConstHandle2Slice This, const Float64 domainMax);
 
 // +++ Has
 extern_c int
-SliceDomainValueHas(ConstHandle2ConstSlice This);
+SliceDomainValueHas(ConstHandle2ConstSlice self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SliceDomainValueGet(ConstHandle2ConstSlice This);
+SliceDomainValueGet(ConstHandle2ConstSlice self);
 
 // +++ Set
 extern_c void
-SliceDomainValueSet(ConstHandle2Slice This, const Float64 domainValue);
+SliceDomainValueSet(ConstHandle2Slice self, const Float64 domainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -197,16 +197,16 @@ SliceDomainValueSet(ConstHandle2Slice This, const Float64 domainValue);
 
 // +++ Has
 extern_c int
-SliceDomainUnitHas(ConstHandle2ConstSlice This);
+SliceDomainUnitHas(ConstHandle2ConstSlice self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SliceDomainUnitGet(ConstHandle2ConstSlice This);
+SliceDomainUnitGet(ConstHandle2ConstSlice self);
 
 // +++ Set
 extern_c void
-SliceDomainUnitSet(ConstHandle2Slice This, const XMLName domainUnit);
+SliceDomainUnitSet(ConstHandle2Slice self, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------
@@ -215,16 +215,16 @@ SliceDomainUnitSet(ConstHandle2Slice This, const XMLName domainUnit);
 
 // +++ Has
 extern_c int
-SliceDimensionHas(ConstHandle2ConstSlice This);
+SliceDimensionHas(ConstHandle2ConstSlice self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-SliceDimensionGet(ConstHandle2ConstSlice This);
+SliceDimensionGet(ConstHandle2ConstSlice self);
 
 // +++ Set
 extern_c void
-SliceDimensionSet(ConstHandle2Slice This, const Integer32 dimension);
+SliceDimensionSet(ConstHandle2Slice self, const Integer32 dimension);
 
 
 // -----------------------------------------------------------------------------

@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// MetaStable wrapper
-void wrapMetaStable(python::module &module)
+// wrapper for pops::MetaStable
+void wrapMetaStable(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::MetaStable;
+   using cppCLASS = pops::MetaStable;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "MetaStable",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "MetaStable",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const Integer32 &,
-            const XMLName &
-         >(),
-         python::arg("id"),
-         python::arg("meta_stable_index"),
-         python::arg("pid"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self) { return self.id(); },
-         Component::documentation("id").data()
-      )
-      .def_property_readonly(
-         "meta_stable_index",
-         [](const Component &self) { return self.metaStableIndex(); },
-         Component::documentation("meta_stable_index").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self) { return self.pid(); },
-         Component::documentation("pid").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const Integer32 &,
+         const XMLName &
+      >(),
+      py::arg("id"),
+      py::arg("meta_stable_index"),
+      py::arg("pid"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set metaStableIndex
+   object.def_property(
+      "meta_stable_index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.metaStableIndex();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.metaStableIndex() = value;
+      },
+      cppCLASS::component_t::documentation("meta_stable_index").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

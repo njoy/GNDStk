@@ -11,73 +11,112 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// ElapsedTime wrapper
-void wrapElapsedTime(python::module &module)
+// wrapper for fpy::ElapsedTime
+void wrapElapsedTime(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::ElapsedTime;
+   using cppCLASS = fpy::ElapsedTime;
    using _t = std::variant<
       fpy::Yields,
       fpy::IncidentEnergies
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ElapsedTime",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ElapsedTime",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const fpy::Time &,
-            const _t &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("time"),
-         python::arg("_yieldsincident_energies"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "time",
-         [](const Component &self) { return self.time(); },
-         Component::documentation("time").data()
-      )
-      .def_property_readonly(
-         "yields",
-         [](const Component &self) { return self.yields(); },
-         Component::documentation("yields").data()
-      )
-      .def_property_readonly(
-         "incident_energies",
-         [](const Component &self) { return self.incidentEnergies(); },
-         Component::documentation("incident_energies").data()
-      )
-      .def_property_readonly(
-         "_yieldsincident_energies",
-         [](const Component &self) { return self._yieldsincidentEnergies(); },
-         Component::documentation("_yieldsincident_energies").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const fpy::Time &,
+         const _t &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("time"),
+      py::arg("_yieldsincident_energies"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set time
+   object.def_property(
+      "time",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.time();
+      },
+      [](cppCLASS &self, const fpy::Time &value)
+      {
+         self.time() = value;
+      },
+      cppCLASS::component_t::documentation("time").data()
+   );
+
+   object.def_property(
+      "yields",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.yields();
+      },
+      [](cppCLASS &self, const fpy::Yields &value)
+      {
+         self.yields() = value;
+      },
+      cppCLASS::component_t::documentation("yields").data()
+   );
+
+   object.def_property(
+      "incident_energies",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.incidentEnergies();
+      },
+      [](cppCLASS &self, const fpy::IncidentEnergies &value)
+      {
+         self.incidentEnergies() = value;
+      },
+      cppCLASS::component_t::documentation("incident_energies").data()
+   );
+
+   object.def_property(
+      "_yieldsincident_energies",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._yieldsincidentEnergies();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._yieldsincidentEnergies() = value;
+      },
+      cppCLASS::component_t::documentation("_yieldsincident_energies").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

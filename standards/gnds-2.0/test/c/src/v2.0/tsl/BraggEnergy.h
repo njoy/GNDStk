@@ -90,13 +90,13 @@ BraggEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BraggEnergyAssign(ConstHandle2BraggEnergy This, ConstHandle2ConstBraggEnergy from);
+BraggEnergyAssign(ConstHandle2BraggEnergy self, ConstHandle2ConstBraggEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BraggEnergyDelete(ConstHandle2ConstBraggEnergy This);
+BraggEnergyDelete(ConstHandle2ConstBraggEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ BraggEnergyDelete(ConstHandle2ConstBraggEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BraggEnergyRead(ConstHandle2BraggEnergy This, const char *const filename);
+BraggEnergyRead(ConstHandle2BraggEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BraggEnergyWrite(ConstHandle2ConstBraggEnergy This, const char *const filename);
+BraggEnergyWrite(ConstHandle2ConstBraggEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BraggEnergyPrint(ConstHandle2ConstBraggEnergy This);
+BraggEnergyPrint(ConstHandle2ConstBraggEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BraggEnergyPrintXML(ConstHandle2ConstBraggEnergy This);
+BraggEnergyPrintXML(ConstHandle2ConstBraggEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BraggEnergyPrintJSON(ConstHandle2ConstBraggEnergy This);
+BraggEnergyPrintJSON(ConstHandle2ConstBraggEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ BraggEnergyPrintJSON(ConstHandle2ConstBraggEnergy This);
 
 // +++ Has
 extern_c int
-BraggEnergyXYs1dHas(ConstHandle2ConstBraggEnergy This);
+BraggEnergyXYs1dHas(ConstHandle2ConstBraggEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-BraggEnergyXYs1dGetConst(ConstHandle2ConstBraggEnergy This);
+BraggEnergyXYs1dGetConst(ConstHandle2ConstBraggEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-BraggEnergyXYs1dGet(ConstHandle2BraggEnergy This);
+BraggEnergyXYs1dGet(ConstHandle2BraggEnergy self);
 
 // +++ Set
 extern_c void
-BraggEnergyXYs1dSet(ConstHandle2BraggEnergy This, ConstHandle2ConstXYs1d XYs1d);
+BraggEnergyXYs1dSet(ConstHandle2BraggEnergy self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

@@ -74,20 +74,20 @@ InverseSpeedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-InverseSpeedAssign(ConstHandle2InverseSpeed This, ConstHandle2ConstInverseSpeed from)
+InverseSpeedAssign(ConstHandle2InverseSpeed self, ConstHandle2ConstInverseSpeed from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-InverseSpeedDelete(ConstHandle2ConstInverseSpeed This)
+InverseSpeedDelete(ConstHandle2ConstInverseSpeed self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ InverseSpeedDelete(ConstHandle2ConstInverseSpeed This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-InverseSpeedRead(ConstHandle2InverseSpeed This, const char *const filename)
+InverseSpeedRead(ConstHandle2InverseSpeed self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-InverseSpeedWrite(ConstHandle2ConstInverseSpeed This, const char *const filename)
+InverseSpeedWrite(ConstHandle2ConstInverseSpeed self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-InverseSpeedPrint(ConstHandle2ConstInverseSpeed This)
+InverseSpeedPrint(ConstHandle2ConstInverseSpeed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-InverseSpeedPrintXML(ConstHandle2ConstInverseSpeed This)
+InverseSpeedPrintXML(ConstHandle2ConstInverseSpeed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed This)
+InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed This)
 
 // Has
 int
-InverseSpeedLabelHas(ConstHandle2ConstInverseSpeed This)
+InverseSpeedLabelHas(ConstHandle2ConstInverseSpeed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-InverseSpeedLabelGet(ConstHandle2ConstInverseSpeed This)
+InverseSpeedLabelGet(ConstHandle2ConstInverseSpeed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-InverseSpeedLabelSet(ConstHandle2InverseSpeed This, const XMLName label)
+InverseSpeedLabelSet(ConstHandle2InverseSpeed self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -178,34 +178,34 @@ InverseSpeedLabelSet(ConstHandle2InverseSpeed This, const XMLName label)
 
 // Has
 int
-InverseSpeedGridded1dHas(ConstHandle2ConstInverseSpeed This)
+InverseSpeedGridded1dHas(ConstHandle2ConstInverseSpeed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded1dHas", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dHas", self, extract::gridded1d);
 }
 
 // Get, const
 Handle2ConstGridded1d
-InverseSpeedGridded1dGetConst(ConstHandle2ConstInverseSpeed This)
+InverseSpeedGridded1dGetConst(ConstHandle2ConstInverseSpeed self)
 {
    return detail::getField<CPP,Handle2ConstGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", self, extract::gridded1d);
 }
 
 // Get, non-const
 Handle2Gridded1d
-InverseSpeedGridded1dGet(ConstHandle2InverseSpeed This)
+InverseSpeedGridded1dGet(ConstHandle2InverseSpeed self)
 {
    return detail::getField<CPP,Handle2Gridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGet", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGet", self, extract::gridded1d);
 }
 
 // Set
 void
-InverseSpeedGridded1dSet(ConstHandle2InverseSpeed This, ConstHandle2ConstGridded1d gridded1d)
+InverseSpeedGridded1dSet(ConstHandle2InverseSpeed self, ConstHandle2ConstGridded1d gridded1d)
 {
    detail::setField<CPP,CPPGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dSet", self, extract::gridded1d, gridded1d);
 }
 
 

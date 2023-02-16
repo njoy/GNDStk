@@ -93,13 +93,13 @@ EvaporationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EvaporationAssign(ConstHandle2Evaporation This, ConstHandle2ConstEvaporation from);
+EvaporationAssign(ConstHandle2Evaporation self, ConstHandle2ConstEvaporation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EvaporationDelete(ConstHandle2ConstEvaporation This);
+EvaporationDelete(ConstHandle2ConstEvaporation self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ EvaporationDelete(ConstHandle2ConstEvaporation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EvaporationRead(ConstHandle2Evaporation This, const char *const filename);
+EvaporationRead(ConstHandle2Evaporation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EvaporationWrite(ConstHandle2ConstEvaporation This, const char *const filename);
+EvaporationWrite(ConstHandle2ConstEvaporation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EvaporationPrint(ConstHandle2ConstEvaporation This);
+EvaporationPrint(ConstHandle2ConstEvaporation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EvaporationPrintXML(ConstHandle2ConstEvaporation This);
+EvaporationPrintXML(ConstHandle2ConstEvaporation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EvaporationPrintJSON(ConstHandle2ConstEvaporation This);
+EvaporationPrintJSON(ConstHandle2ConstEvaporation self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ EvaporationPrintJSON(ConstHandle2ConstEvaporation This);
 
 // +++ Has
 extern_c int
-EvaporationUHas(ConstHandle2ConstEvaporation This);
+EvaporationUHas(ConstHandle2ConstEvaporation self);
 
 // --- Get, const
 extern_c Handle2ConstU
-EvaporationUGetConst(ConstHandle2ConstEvaporation This);
+EvaporationUGetConst(ConstHandle2ConstEvaporation self);
 
 // +++ Get, non-const
 extern_c Handle2U
-EvaporationUGet(ConstHandle2Evaporation This);
+EvaporationUGet(ConstHandle2Evaporation self);
 
 // +++ Set
 extern_c void
-EvaporationUSet(ConstHandle2Evaporation This, ConstHandle2ConstU U);
+EvaporationUSet(ConstHandle2Evaporation self, ConstHandle2ConstU U);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ EvaporationUSet(ConstHandle2Evaporation This, ConstHandle2ConstU U);
 
 // +++ Has
 extern_c int
-EvaporationThetaHas(ConstHandle2ConstEvaporation This);
+EvaporationThetaHas(ConstHandle2ConstEvaporation self);
 
 // --- Get, const
 extern_c Handle2ConstTheta
-EvaporationThetaGetConst(ConstHandle2ConstEvaporation This);
+EvaporationThetaGetConst(ConstHandle2ConstEvaporation self);
 
 // +++ Get, non-const
 extern_c Handle2Theta
-EvaporationThetaGet(ConstHandle2Evaporation This);
+EvaporationThetaGet(ConstHandle2Evaporation self);
 
 // +++ Set
 extern_c void
-EvaporationThetaSet(ConstHandle2Evaporation This, ConstHandle2ConstTheta theta);
+EvaporationThetaSet(ConstHandle2Evaporation self, ConstHandle2ConstTheta theta);
 
 
 // -----------------------------------------------------------------------------

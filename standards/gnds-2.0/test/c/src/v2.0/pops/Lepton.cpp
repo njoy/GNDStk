@@ -109,20 +109,20 @@ LeptonCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LeptonAssign(ConstHandle2Lepton This, ConstHandle2ConstLepton from)
+LeptonAssign(ConstHandle2Lepton self, ConstHandle2ConstLepton from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LeptonDelete(ConstHandle2ConstLepton This)
+LeptonDelete(ConstHandle2ConstLepton self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -136,44 +136,44 @@ LeptonDelete(ConstHandle2ConstLepton This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LeptonRead(ConstHandle2Lepton This, const char *const filename)
+LeptonRead(ConstHandle2Lepton self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LeptonWrite(ConstHandle2ConstLepton This, const char *const filename)
+LeptonWrite(ConstHandle2ConstLepton self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LeptonPrint(ConstHandle2ConstLepton This)
+LeptonPrint(ConstHandle2ConstLepton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LeptonPrintXML(ConstHandle2ConstLepton This)
+LeptonPrintXML(ConstHandle2ConstLepton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LeptonPrintJSON(ConstHandle2ConstLepton This)
+LeptonPrintJSON(ConstHandle2ConstLepton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -183,27 +183,27 @@ LeptonPrintJSON(ConstHandle2ConstLepton This)
 
 // Has
 int
-LeptonGenerationHas(ConstHandle2ConstLepton This)
+LeptonGenerationHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GenerationHas", This, extract::generation);
+      (CLASSNAME, CLASSNAME+"GenerationHas", self, extract::generation);
 }
 
 // Get
 // Returns by value
 XMLName
-LeptonGenerationGet(ConstHandle2ConstLepton This)
+LeptonGenerationGet(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"GenerationGet", This, extract::generation);
+      (CLASSNAME, CLASSNAME+"GenerationGet", self, extract::generation);
 }
 
 // Set
 void
-LeptonGenerationSet(ConstHandle2Lepton This, const XMLName generation)
+LeptonGenerationSet(ConstHandle2Lepton self, const XMLName generation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"GenerationSet", This, extract::generation, generation);
+      (CLASSNAME, CLASSNAME+"GenerationSet", self, extract::generation, generation);
 }
 
 
@@ -213,27 +213,27 @@ LeptonGenerationSet(ConstHandle2Lepton This, const XMLName generation)
 
 // Has
 int
-LeptonIdHas(ConstHandle2ConstLepton This)
+LeptonIdHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 XMLName
-LeptonIdGet(ConstHandle2ConstLepton This)
+LeptonIdGet(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-LeptonIdSet(ConstHandle2Lepton This, const XMLName id)
+LeptonIdSet(ConstHandle2Lepton self, const XMLName id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -243,34 +243,34 @@ LeptonIdSet(ConstHandle2Lepton This, const XMLName id)
 
 // Has
 int
-LeptonChargeHas(ConstHandle2ConstLepton This)
+LeptonChargeHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChargeHas", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeHas", self, extract::charge);
 }
 
 // Get, const
 Handle2ConstCharge
-LeptonChargeGetConst(ConstHandle2ConstLepton This)
+LeptonChargeGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstCharge>
-      (CLASSNAME, CLASSNAME+"ChargeGetConst", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
 // Get, non-const
 Handle2Charge
-LeptonChargeGet(ConstHandle2Lepton This)
+LeptonChargeGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2Charge>
-      (CLASSNAME, CLASSNAME+"ChargeGet", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGet", self, extract::charge);
 }
 
 // Set
 void
-LeptonChargeSet(ConstHandle2Lepton This, ConstHandle2ConstCharge charge)
+LeptonChargeSet(ConstHandle2Lepton self, ConstHandle2ConstCharge charge)
 {
    detail::setField<CPP,CPPCharge>
-      (CLASSNAME, CLASSNAME+"ChargeSet", This, extract::charge, charge);
+      (CLASSNAME, CLASSNAME+"ChargeSet", self, extract::charge, charge);
 }
 
 
@@ -280,34 +280,34 @@ LeptonChargeSet(ConstHandle2Lepton This, ConstHandle2ConstCharge charge)
 
 // Has
 int
-LeptonHalflifeHas(ConstHandle2ConstLepton This)
+LeptonHalflifeHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HalflifeHas", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeHas", self, extract::halflife);
 }
 
 // Get, const
 Handle2ConstHalflife
-LeptonHalflifeGetConst(ConstHandle2ConstLepton This)
+LeptonHalflifeGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGetConst", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
 // Get, non-const
 Handle2Halflife
-LeptonHalflifeGet(ConstHandle2Lepton This)
+LeptonHalflifeGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2Halflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGet", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGet", self, extract::halflife);
 }
 
 // Set
 void
-LeptonHalflifeSet(ConstHandle2Lepton This, ConstHandle2ConstHalflife halflife)
+LeptonHalflifeSet(ConstHandle2Lepton self, ConstHandle2ConstHalflife halflife)
 {
    detail::setField<CPP,CPPHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeSet", This, extract::halflife, halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeSet", self, extract::halflife, halflife);
 }
 
 
@@ -317,34 +317,34 @@ LeptonHalflifeSet(ConstHandle2Lepton This, ConstHandle2ConstHalflife halflife)
 
 // Has
 int
-LeptonMassHas(ConstHandle2ConstLepton This)
+LeptonMassHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-LeptonMassGetConst(ConstHandle2ConstLepton This)
+LeptonMassGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-LeptonMassGet(ConstHandle2Lepton This)
+LeptonMassGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-LeptonMassSet(ConstHandle2Lepton This, ConstHandle2ConstMass mass)
+LeptonMassSet(ConstHandle2Lepton self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 
@@ -354,34 +354,34 @@ LeptonMassSet(ConstHandle2Lepton This, ConstHandle2ConstMass mass)
 
 // Has
 int
-LeptonSpinHas(ConstHandle2ConstLepton This)
+LeptonSpinHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpinHas", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinHas", self, extract::spin);
 }
 
 // Get, const
 Handle2ConstSpin
-LeptonSpinGetConst(ConstHandle2ConstLepton This)
+LeptonSpinGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstSpin>
-      (CLASSNAME, CLASSNAME+"SpinGetConst", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
 // Get, non-const
 Handle2Spin
-LeptonSpinGet(ConstHandle2Lepton This)
+LeptonSpinGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2Spin>
-      (CLASSNAME, CLASSNAME+"SpinGet", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGet", self, extract::spin);
 }
 
 // Set
 void
-LeptonSpinSet(ConstHandle2Lepton This, ConstHandle2ConstSpin spin)
+LeptonSpinSet(ConstHandle2Lepton self, ConstHandle2ConstSpin spin)
 {
    detail::setField<CPP,CPPSpin>
-      (CLASSNAME, CLASSNAME+"SpinSet", This, extract::spin, spin);
+      (CLASSNAME, CLASSNAME+"SpinSet", self, extract::spin, spin);
 }
 
 
@@ -391,34 +391,34 @@ LeptonSpinSet(ConstHandle2Lepton This, ConstHandle2ConstSpin spin)
 
 // Has
 int
-LeptonParityHas(ConstHandle2ConstLepton This)
+LeptonParityHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ParityHas", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityHas", self, extract::parity);
 }
 
 // Get, const
 Handle2ConstParity
-LeptonParityGetConst(ConstHandle2ConstLepton This)
+LeptonParityGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstParity>
-      (CLASSNAME, CLASSNAME+"ParityGetConst", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
 // Get, non-const
 Handle2Parity
-LeptonParityGet(ConstHandle2Lepton This)
+LeptonParityGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2Parity>
-      (CLASSNAME, CLASSNAME+"ParityGet", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGet", self, extract::parity);
 }
 
 // Set
 void
-LeptonParitySet(ConstHandle2Lepton This, ConstHandle2ConstParity parity)
+LeptonParitySet(ConstHandle2Lepton self, ConstHandle2ConstParity parity)
 {
    detail::setField<CPP,CPPParity>
-      (CLASSNAME, CLASSNAME+"ParitySet", This, extract::parity, parity);
+      (CLASSNAME, CLASSNAME+"ParitySet", self, extract::parity, parity);
 }
 
 
@@ -428,34 +428,34 @@ LeptonParitySet(ConstHandle2Lepton This, ConstHandle2ConstParity parity)
 
 // Has
 int
-LeptonDecayDataHas(ConstHandle2ConstLepton This)
+LeptonDecayDataHas(ConstHandle2ConstLepton self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataHas", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataHas", self, extract::decayData);
 }
 
 // Get, const
 Handle2ConstDecayData
-LeptonDecayDataGetConst(ConstHandle2ConstLepton This)
+LeptonDecayDataGetConst(ConstHandle2ConstLepton self)
 {
    return detail::getField<CPP,Handle2ConstDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGetConst", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
 // Get, non-const
 Handle2DecayData
-LeptonDecayDataGet(ConstHandle2Lepton This)
+LeptonDecayDataGet(ConstHandle2Lepton self)
 {
    return detail::getField<CPP,Handle2DecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGet", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGet", self, extract::decayData);
 }
 
 // Set
 void
-LeptonDecayDataSet(ConstHandle2Lepton This, ConstHandle2ConstDecayData decayData)
+LeptonDecayDataSet(ConstHandle2Lepton self, ConstHandle2ConstDecayData decayData)
 {
    detail::setField<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSet", self, extract::decayData, decayData);
 }
 
 

@@ -85,20 +85,20 @@ Ys1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Ys1dAssign(ConstHandle2Ys1d This, ConstHandle2ConstYs1d from)
+Ys1dAssign(ConstHandle2Ys1d self, ConstHandle2ConstYs1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Ys1dDelete(ConstHandle2ConstYs1d This)
+Ys1dDelete(ConstHandle2ConstYs1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ Ys1dDelete(ConstHandle2ConstYs1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Ys1dRead(ConstHandle2Ys1d This, const char *const filename)
+Ys1dRead(ConstHandle2Ys1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Ys1dWrite(ConstHandle2ConstYs1d This, const char *const filename)
+Ys1dWrite(ConstHandle2ConstYs1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Ys1dPrint(ConstHandle2ConstYs1d This)
+Ys1dPrint(ConstHandle2ConstYs1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Ys1dPrintXML(ConstHandle2ConstYs1d This)
+Ys1dPrintXML(ConstHandle2ConstYs1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Ys1dPrintJSON(ConstHandle2ConstYs1d This)
+Ys1dPrintJSON(ConstHandle2ConstYs1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ Ys1dPrintJSON(ConstHandle2ConstYs1d This)
 
 // Has
 int
-Ys1dInterpolationHas(ConstHandle2ConstYs1d This)
+Ys1dInterpolationHas(ConstHandle2ConstYs1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationHas", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationHas", self, extract::interpolation);
 }
 
 // Get
 // Returns by value
 enums::Interpolation
-Ys1dInterpolationGet(ConstHandle2ConstYs1d This)
+Ys1dInterpolationGet(ConstHandle2ConstYs1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationGet", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationGet", self, extract::interpolation);
 }
 
 // Set
 void
-Ys1dInterpolationSet(ConstHandle2Ys1d This, const enums::Interpolation interpolation)
+Ys1dInterpolationSet(ConstHandle2Ys1d self, const enums::Interpolation interpolation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationSet", This, extract::interpolation, interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationSet", self, extract::interpolation, interpolation);
 }
 
 
@@ -189,27 +189,27 @@ Ys1dInterpolationSet(ConstHandle2Ys1d This, const enums::Interpolation interpola
 
 // Has
 int
-Ys1dLabelHas(ConstHandle2ConstYs1d This)
+Ys1dLabelHas(ConstHandle2ConstYs1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-Ys1dLabelGet(ConstHandle2ConstYs1d This)
+Ys1dLabelGet(ConstHandle2ConstYs1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Ys1dLabelSet(ConstHandle2Ys1d This, const XMLName label)
+Ys1dLabelSet(ConstHandle2Ys1d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -219,34 +219,34 @@ Ys1dLabelSet(ConstHandle2Ys1d This, const XMLName label)
 
 // Has
 int
-Ys1dAxesHas(ConstHandle2ConstYs1d This)
+Ys1dAxesHas(ConstHandle2ConstYs1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Ys1dAxesGetConst(ConstHandle2ConstYs1d This)
+Ys1dAxesGetConst(ConstHandle2ConstYs1d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Ys1dAxesGet(ConstHandle2Ys1d This)
+Ys1dAxesGet(ConstHandle2Ys1d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Ys1dAxesSet(ConstHandle2Ys1d This, ConstHandle2ConstAxes axes)
+Ys1dAxesSet(ConstHandle2Ys1d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -256,34 +256,34 @@ Ys1dAxesSet(ConstHandle2Ys1d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Ys1dValuesHas(ConstHandle2ConstYs1d This)
+Ys1dValuesHas(ConstHandle2ConstYs1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-Ys1dValuesGetConst(ConstHandle2ConstYs1d This)
+Ys1dValuesGetConst(ConstHandle2ConstYs1d self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-Ys1dValuesGet(ConstHandle2Ys1d This)
+Ys1dValuesGet(ConstHandle2Ys1d self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-Ys1dValuesSet(ConstHandle2Ys1d This, ConstHandle2ConstValues values)
+Ys1dValuesSet(ConstHandle2Ys1d self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

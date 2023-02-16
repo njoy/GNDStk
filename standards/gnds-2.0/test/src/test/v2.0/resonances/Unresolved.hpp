@@ -29,12 +29,12 @@ class Unresolved :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Unresolved"; }
-   static auto FIELD() { return "unresolved"; }
+   static auto NODENAME() { return "unresolved"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -55,31 +55,75 @@ class Unresolved :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domainMin",
+         "domainMax",
+         "domainUnit",
+         "_tabulatedWidths"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domain_min",
+         "domain_max",
+         "domain_unit",
+         "_tabulated_widths"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Float64> domainMin{this};
-   Field<Float64> domainMax{this};
-   Field<XMLName> domainUnit{this};
+   Field<Float64>
+      domainMin{this};
+   Field<Float64>
+      domainMax{this};
+   Field<XMLName>
+      domainUnit{this};
 
    // children - variant
-   Field<_t> _tabulatedWidths{this};
+   Field<_t>
+      _tabulatedWidths{this};
    FieldPart<decltype(_tabulatedWidths),resonances::TabulatedWidths> tabulatedWidths{_tabulatedWidths};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
-      this->_tabulatedWidths)
+      this->_tabulatedWidths \
+   )
 
    // default
    Unresolved() :
@@ -90,10 +134,14 @@ public:
 
    // from fields, comment excluded
    explicit Unresolved(
-      const wrapper<Float64> &domainMin,
-      const wrapper<Float64> &domainMax = {},
-      const wrapper<XMLName> &domainUnit = {},
-      const wrapper<_t> &_tabulatedWidths = {}
+      const wrapper<Float64>
+         &domainMin,
+      const wrapper<Float64>
+         &domainMax = {},
+      const wrapper<XMLName>
+         &domainUnit = {},
+      const wrapper<_t>
+         &_tabulatedWidths = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -139,8 +187,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unresolved &operator=(const Unresolved &) = default;
-   Unresolved &operator=(Unresolved &&) = default;
+   // copy
+   Unresolved &operator=(const Unresolved &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         _tabulatedWidths = other._tabulatedWidths;
+      }
+      return *this;
+   }
+
+   // move
+   Unresolved &operator=(Unresolved &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         _tabulatedWidths = std::move(other._tabulatedWidths);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

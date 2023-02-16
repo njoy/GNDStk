@@ -35,12 +35,12 @@ class Styles :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Styles"; }
-   static auto FIELD() { return "styles"; }
+   static auto NODENAME() { return "styles"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -48,44 +48,119 @@ class Styles :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<styles::Evaluated>>("evaluated") |
-         ++Child<std::optional<styles::CrossSectionReconstructed>>("crossSectionReconstructed") |
-         ++Child<std::optional<styles::AngularDistributionReconstructed>>("angularDistributionReconstructed") |
-         ++Child<std::optional<styles::CoulombPlusNuclearElasticMuCutoff>>("CoulombPlusNuclearElasticMuCutoff") |
-         ++Child<std::optional<styles::Heated>>("heated") |
-         ++Child<std::optional<styles::AverageProductData>>("averageProductData") |
-         ++Child<std::optional<styles::MonteCarlo_cdf>>("MonteCarlo_cdf") |
-         ++Child<std::optional<styles::GriddedCrossSection>>("griddedCrossSection") |
-         ++Child<std::optional<styles::URR_probabilityTables>>("URR_probabilityTables") |
-         ++Child<std::optional<styles::HeatedMultiGroup>>("heatedMultiGroup") |
-         ++Child<std::optional<styles::SnElasticUpScatter>>("SnElasticUpScatter")
+         ++Child<std::optional<styles::Evaluated>>
+            ("evaluated") |
+         ++Child<std::optional<styles::CrossSectionReconstructed>>
+            ("crossSectionReconstructed") |
+         ++Child<std::optional<styles::AngularDistributionReconstructed>>
+            ("angularDistributionReconstructed") |
+         ++Child<std::optional<styles::CoulombPlusNuclearElasticMuCutoff>>
+            ("CoulombPlusNuclearElasticMuCutoff") |
+         ++Child<std::optional<styles::Heated>>
+            ("heated") |
+         ++Child<std::optional<styles::AverageProductData>>
+            ("averageProductData") |
+         ++Child<std::optional<styles::MonteCarlo_cdf>>
+            ("MonteCarlo_cdf") |
+         ++Child<std::optional<styles::GriddedCrossSection>>
+            ("griddedCrossSection") |
+         ++Child<std::optional<styles::URR_probabilityTables>>
+            ("URR_probabilityTables") |
+         ++Child<std::optional<styles::HeatedMultiGroup>>
+            ("heatedMultiGroup") |
+         ++Child<std::optional<styles::SnElasticUpScatter>>
+            ("SnElasticUpScatter")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluated",
+         "crossSectionReconstructed",
+         "angularDistributionReconstructed",
+         "CoulombPlusNuclearElasticMuCutoff",
+         "heated",
+         "averageProductData",
+         "MonteCarlo_cdf",
+         "griddedCrossSection",
+         "URR_probabilityTables",
+         "heatedMultiGroup",
+         "SnElasticUpScatter"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluated",
+         "cross_section_reconstructed",
+         "angular_distribution_reconstructed",
+         "coulomb_plus_nuclear_elastic_mu_cutoff",
+         "heated",
+         "average_product_data",
+         "monte_carlo_cdf",
+         "gridded_cross_section",
+         "urr_probability_tables",
+         "heated_multi_group",
+         "sn_elastic_up_scatter"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<styles::Evaluated>>> evaluated{this};
-   Field<std::optional<std::vector<styles::CrossSectionReconstructed>>> crossSectionReconstructed{this};
-   Field<std::optional<std::vector<styles::AngularDistributionReconstructed>>> angularDistributionReconstructed{this};
-   Field<std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>>> CoulombPlusNuclearElasticMuCutoff{this};
-   Field<std::optional<std::vector<styles::Heated>>> heated{this};
-   Field<std::optional<std::vector<styles::AverageProductData>>> averageProductData{this};
-   Field<std::optional<std::vector<styles::MonteCarlo_cdf>>> MonteCarlo_cdf{this};
-   Field<std::optional<std::vector<styles::GriddedCrossSection>>> griddedCrossSection{this};
-   Field<std::optional<std::vector<styles::URR_probabilityTables>>> URR_probabilityTables{this};
-   Field<std::optional<std::vector<styles::HeatedMultiGroup>>> heatedMultiGroup{this};
-   Field<std::optional<std::vector<styles::SnElasticUpScatter>>> SnElasticUpScatter{this};
+   Field<std::optional<std::vector<styles::Evaluated>>>
+      evaluated{this};
+   Field<std::optional<std::vector<styles::CrossSectionReconstructed>>>
+      crossSectionReconstructed{this};
+   Field<std::optional<std::vector<styles::AngularDistributionReconstructed>>>
+      angularDistributionReconstructed{this};
+   Field<std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>>>
+      CoulombPlusNuclearElasticMuCutoff{this};
+   Field<std::optional<std::vector<styles::Heated>>>
+      heated{this};
+   Field<std::optional<std::vector<styles::AverageProductData>>>
+      averageProductData{this};
+   Field<std::optional<std::vector<styles::MonteCarlo_cdf>>>
+      MonteCarlo_cdf{this};
+   Field<std::optional<std::vector<styles::GriddedCrossSection>>>
+      griddedCrossSection{this};
+   Field<std::optional<std::vector<styles::URR_probabilityTables>>>
+      URR_probabilityTables{this};
+   Field<std::optional<std::vector<styles::HeatedMultiGroup>>>
+      heatedMultiGroup{this};
+   Field<std::optional<std::vector<styles::SnElasticUpScatter>>>
+      SnElasticUpScatter{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->evaluated, \
       this->crossSectionReconstructed, \
@@ -97,7 +172,8 @@ public:
       this->griddedCrossSection, \
       this->URR_probabilityTables, \
       this->heatedMultiGroup, \
-      this->SnElasticUpScatter)
+      this->SnElasticUpScatter \
+   )
 
    // default
    Styles() :
@@ -108,17 +184,28 @@ public:
 
    // from fields, comment excluded
    explicit Styles(
-      const wrapper<std::optional<std::vector<styles::Evaluated>>> &evaluated,
-      const wrapper<std::optional<std::vector<styles::CrossSectionReconstructed>>> &crossSectionReconstructed = {},
-      const wrapper<std::optional<std::vector<styles::AngularDistributionReconstructed>>> &angularDistributionReconstructed = {},
-      const wrapper<std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>>> &CoulombPlusNuclearElasticMuCutoff = {},
-      const wrapper<std::optional<std::vector<styles::Heated>>> &heated = {},
-      const wrapper<std::optional<std::vector<styles::AverageProductData>>> &averageProductData = {},
-      const wrapper<std::optional<std::vector<styles::MonteCarlo_cdf>>> &MonteCarlo_cdf = {},
-      const wrapper<std::optional<std::vector<styles::GriddedCrossSection>>> &griddedCrossSection = {},
-      const wrapper<std::optional<std::vector<styles::URR_probabilityTables>>> &URR_probabilityTables = {},
-      const wrapper<std::optional<std::vector<styles::HeatedMultiGroup>>> &heatedMultiGroup = {},
-      const wrapper<std::optional<std::vector<styles::SnElasticUpScatter>>> &SnElasticUpScatter = {}
+      const wrapper<std::optional<std::vector<styles::Evaluated>>>
+         &evaluated,
+      const wrapper<std::optional<std::vector<styles::CrossSectionReconstructed>>>
+         &crossSectionReconstructed = {},
+      const wrapper<std::optional<std::vector<styles::AngularDistributionReconstructed>>>
+         &angularDistributionReconstructed = {},
+      const wrapper<std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>>>
+         &CoulombPlusNuclearElasticMuCutoff = {},
+      const wrapper<std::optional<std::vector<styles::Heated>>>
+         &heated = {},
+      const wrapper<std::optional<std::vector<styles::AverageProductData>>>
+         &averageProductData = {},
+      const wrapper<std::optional<std::vector<styles::MonteCarlo_cdf>>>
+         &MonteCarlo_cdf = {},
+      const wrapper<std::optional<std::vector<styles::GriddedCrossSection>>>
+         &griddedCrossSection = {},
+      const wrapper<std::optional<std::vector<styles::URR_probabilityTables>>>
+         &URR_probabilityTables = {},
+      const wrapper<std::optional<std::vector<styles::HeatedMultiGroup>>>
+         &heatedMultiGroup = {},
+      const wrapper<std::optional<std::vector<styles::SnElasticUpScatter>>>
+         &SnElasticUpScatter = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated),
@@ -185,8 +272,47 @@ public:
    // Assignment operators
    // ------------------------
 
-   Styles &operator=(const Styles &) = default;
-   Styles &operator=(Styles &&) = default;
+   // copy
+   Styles &operator=(const Styles &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluated = other.evaluated;
+         crossSectionReconstructed = other.crossSectionReconstructed;
+         angularDistributionReconstructed = other.angularDistributionReconstructed;
+         CoulombPlusNuclearElasticMuCutoff = other.CoulombPlusNuclearElasticMuCutoff;
+         heated = other.heated;
+         averageProductData = other.averageProductData;
+         MonteCarlo_cdf = other.MonteCarlo_cdf;
+         griddedCrossSection = other.griddedCrossSection;
+         URR_probabilityTables = other.URR_probabilityTables;
+         heatedMultiGroup = other.heatedMultiGroup;
+         SnElasticUpScatter = other.SnElasticUpScatter;
+      }
+      return *this;
+   }
+
+   // move
+   Styles &operator=(Styles &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluated = std::move(other.evaluated);
+         crossSectionReconstructed = std::move(other.crossSectionReconstructed);
+         angularDistributionReconstructed = std::move(other.angularDistributionReconstructed);
+         CoulombPlusNuclearElasticMuCutoff = std::move(other.CoulombPlusNuclearElasticMuCutoff);
+         heated = std::move(other.heated);
+         averageProductData = std::move(other.averageProductData);
+         MonteCarlo_cdf = std::move(other.MonteCarlo_cdf);
+         griddedCrossSection = std::move(other.griddedCrossSection);
+         URR_probabilityTables = std::move(other.URR_probabilityTables);
+         heatedMultiGroup = std::move(other.heatedMultiGroup);
+         SnElasticUpScatter = std::move(other.SnElasticUpScatter);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

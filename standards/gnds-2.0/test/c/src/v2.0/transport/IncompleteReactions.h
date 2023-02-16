@@ -90,13 +90,13 @@ IncompleteReactionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IncompleteReactionsAssign(ConstHandle2IncompleteReactions This, ConstHandle2ConstIncompleteReactions from);
+IncompleteReactionsAssign(ConstHandle2IncompleteReactions self, ConstHandle2ConstIncompleteReactions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ IncompleteReactionsDelete(ConstHandle2ConstIncompleteReactions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IncompleteReactionsRead(ConstHandle2IncompleteReactions This, const char *const filename);
+IncompleteReactionsRead(ConstHandle2IncompleteReactions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions This, const char *const filename);
+IncompleteReactionsWrite(ConstHandle2ConstIncompleteReactions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrint(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrintXML(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ IncompleteReactionsPrintJSON(ConstHandle2ConstIncompleteReactions This);
 
 // +++ Has
 extern_c int
-IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsReactionHas(ConstHandle2ConstIncompleteReactions self);
 
 // --- Get, const
 extern_c Handle2ConstReaction
-IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions This);
+IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self);
 
 // +++ Get, non-const
 extern_c Handle2Reaction
-IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions This);
+IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self);
 
 // +++ Set
 extern_c void
-IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions This, ConstHandle2ConstReaction reaction);
+IncompleteReactionsReactionSet(ConstHandle2IncompleteReactions self, ConstHandle2ConstReaction reaction);
 
 
 // -----------------------------------------------------------------------------

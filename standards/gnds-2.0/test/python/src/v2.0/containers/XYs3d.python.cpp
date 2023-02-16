@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// XYs3d wrapper
-void wrapXYs3d(python::module &module)
+// wrapper for containers::XYs3d
+void wrapXYs3d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::XYs3d;
+   using cppCLASS = containers::XYs3d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "XYs3d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "XYs3d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<enums::Interpolation> &,
-            const std::optional<XMLName> &,
-            const std::optional<containers::Axes> &,
-            const containers::Function2ds &,
-            const std::optional<containers::Uncertainty> &
-         >(),
-         python::arg("interpolation") = std::nullopt,
-         python::arg("interpolation_qualifier") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("function2ds"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "interpolation",
-         [](const Component &self) { return self.interpolation().value(); },
-         Component::documentation("interpolation").data()
-      )
-      .def_property_readonly(
-         "interpolation_qualifier",
-         [](const Component &self) { return self.interpolationQualifier(); },
-         Component::documentation("interpolation_qualifier").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "function2ds",
-         [](const Component &self) { return self.function2ds(); },
-         Component::documentation("function2ds").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<enums::Interpolation> &,
+         const std::optional<XMLName> &,
+         const std::optional<containers::Axes> &,
+         const containers::Function2ds &,
+         const std::optional<containers::Uncertainty> &
+      >(),
+      py::arg("interpolation") = std::nullopt,
+      py::arg("interpolation_qualifier") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("function2ds"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set interpolation
+   object.def_property(
+      "interpolation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interpolation().value();
+      },
+      [](cppCLASS &self, const enums::Interpolation &value)
+      {
+         self.interpolation() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation").data()
+   );
+
+   // get/set interpolationQualifier
+   object.def_property(
+      "interpolation_qualifier",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interpolationQualifier();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.interpolationQualifier() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation_qualifier").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<containers::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const containers::Function2ds &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<containers::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

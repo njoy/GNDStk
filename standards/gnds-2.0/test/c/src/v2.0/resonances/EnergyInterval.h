@@ -97,13 +97,13 @@ EnergyIntervalCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyIntervalAssign(ConstHandle2EnergyInterval This, ConstHandle2ConstEnergyInterval from);
+EnergyIntervalAssign(ConstHandle2EnergyInterval self, ConstHandle2ConstEnergyInterval from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyIntervalDelete(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDelete(ConstHandle2ConstEnergyInterval self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ EnergyIntervalDelete(ConstHandle2ConstEnergyInterval This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyIntervalRead(ConstHandle2EnergyInterval This, const char *const filename);
+EnergyIntervalRead(ConstHandle2EnergyInterval self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyIntervalWrite(ConstHandle2ConstEnergyInterval This, const char *const filename);
+EnergyIntervalWrite(ConstHandle2ConstEnergyInterval self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyIntervalPrint(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalPrint(ConstHandle2ConstEnergyInterval self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyIntervalPrintXML(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalPrintXML(ConstHandle2ConstEnergyInterval self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval This);
 
 // +++ Has
 extern_c int
-EnergyIntervalIndexHas(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalIndexHas(ConstHandle2ConstEnergyInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-EnergyIntervalIndexGet(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalIndexGet(ConstHandle2ConstEnergyInterval self);
 
 // +++ Set
 extern_c void
-EnergyIntervalIndexSet(ConstHandle2EnergyInterval This, const Integer32 index);
+EnergyIntervalIndexSet(ConstHandle2EnergyInterval self, const Integer32 index);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ EnergyIntervalIndexSet(ConstHandle2EnergyInterval This, const Integer32 index);
 
 // +++ Has
 extern_c int
-EnergyIntervalDomainMinHas(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainMinHas(ConstHandle2ConstEnergyInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-EnergyIntervalDomainMinGet(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainMinGet(ConstHandle2ConstEnergyInterval self);
 
 // +++ Set
 extern_c void
-EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval This, const Float64 domainMin);
+EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -179,16 +179,16 @@ EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval This, const Float64 domain
 
 // +++ Has
 extern_c int
-EnergyIntervalDomainMaxHas(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainMaxHas(ConstHandle2ConstEnergyInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-EnergyIntervalDomainMaxGet(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainMaxGet(ConstHandle2ConstEnergyInterval self);
 
 // +++ Set
 extern_c void
-EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval This, const Float64 domainMax);
+EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -197,16 +197,16 @@ EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval This, const Float64 domain
 
 // +++ Has
 extern_c int
-EnergyIntervalDomainUnitHas(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainUnitHas(ConstHandle2ConstEnergyInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyIntervalDomainUnitGet(ConstHandle2ConstEnergyInterval This);
+EnergyIntervalDomainUnitGet(ConstHandle2ConstEnergyInterval self);
 
 // +++ Set
 extern_c void
-EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval This, const XMLName domainUnit);
+EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval self, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------

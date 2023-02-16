@@ -72,20 +72,20 @@ DateCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DateAssign(ConstHandle2Date This, ConstHandle2ConstDate from)
+DateAssign(ConstHandle2Date self, ConstHandle2ConstDate from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DateDelete(ConstHandle2ConstDate This)
+DateDelete(ConstHandle2ConstDate self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ DateDelete(ConstHandle2ConstDate This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DateRead(ConstHandle2Date This, const char *const filename)
+DateRead(ConstHandle2Date self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DateWrite(ConstHandle2ConstDate This, const char *const filename)
+DateWrite(ConstHandle2ConstDate self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DatePrint(ConstHandle2ConstDate This)
+DatePrint(ConstHandle2ConstDate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DatePrintXML(ConstHandle2ConstDate This)
+DatePrintXML(ConstHandle2ConstDate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DatePrintJSON(ConstHandle2ConstDate This)
+DatePrintJSON(ConstHandle2ConstDate self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ DatePrintJSON(ConstHandle2ConstDate This)
 
 // Has
 int
-DateDateTypeHas(ConstHandle2ConstDate This)
+DateDateTypeHas(ConstHandle2ConstDate self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateTypeHas", This, extract::dateType);
+      (CLASSNAME, CLASSNAME+"DateTypeHas", self, extract::dateType);
 }
 
 // Get
 // Returns by value
 enums::DateType
-DateDateTypeGet(ConstHandle2ConstDate This)
+DateDateTypeGet(ConstHandle2ConstDate self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateTypeGet", This, extract::dateType);
+      (CLASSNAME, CLASSNAME+"DateTypeGet", self, extract::dateType);
 }
 
 // Set
 void
-DateDateTypeSet(ConstHandle2Date This, const enums::DateType dateType)
+DateDateTypeSet(ConstHandle2Date self, const enums::DateType dateType)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateTypeSet", This, extract::dateType, dateType);
+      (CLASSNAME, CLASSNAME+"DateTypeSet", self, extract::dateType, dateType);
 }
 
 
@@ -176,27 +176,27 @@ DateDateTypeSet(ConstHandle2Date This, const enums::DateType dateType)
 
 // Has
 int
-DateValueHas(ConstHandle2ConstDate This)
+DateValueHas(ConstHandle2ConstDate self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 const char *
-DateValueGet(ConstHandle2ConstDate This)
+DateValueGet(ConstHandle2ConstDate self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-DateValueSet(ConstHandle2Date This, const char *const value)
+DateValueSet(ConstHandle2Date self, const char *const value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

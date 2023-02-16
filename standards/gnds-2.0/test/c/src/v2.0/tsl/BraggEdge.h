@@ -95,13 +95,13 @@ BraggEdgeCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BraggEdgeAssign(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEdge from);
+BraggEdgeAssign(ConstHandle2BraggEdge self, ConstHandle2ConstBraggEdge from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BraggEdgeDelete(ConstHandle2ConstBraggEdge This);
+BraggEdgeDelete(ConstHandle2ConstBraggEdge self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ BraggEdgeDelete(ConstHandle2ConstBraggEdge This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BraggEdgeRead(ConstHandle2BraggEdge This, const char *const filename);
+BraggEdgeRead(ConstHandle2BraggEdge self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BraggEdgeWrite(ConstHandle2ConstBraggEdge This, const char *const filename);
+BraggEdgeWrite(ConstHandle2ConstBraggEdge self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BraggEdgePrint(ConstHandle2ConstBraggEdge This);
+BraggEdgePrint(ConstHandle2ConstBraggEdge self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BraggEdgePrintXML(ConstHandle2ConstBraggEdge This);
+BraggEdgePrintXML(ConstHandle2ConstBraggEdge self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BraggEdgePrintJSON(ConstHandle2ConstBraggEdge This);
+BraggEdgePrintJSON(ConstHandle2ConstBraggEdge self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ BraggEdgePrintJSON(ConstHandle2ConstBraggEdge This);
 
 // +++ Has
 extern_c int
-BraggEdgeLabelHas(ConstHandle2ConstBraggEdge This);
+BraggEdgeLabelHas(ConstHandle2ConstBraggEdge self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BraggEdgeLabelGet(ConstHandle2ConstBraggEdge This);
+BraggEdgeLabelGet(ConstHandle2ConstBraggEdge self);
 
 // +++ Set
 extern_c void
-BraggEdgeLabelSet(ConstHandle2BraggEdge This, const XMLName label);
+BraggEdgeLabelSet(ConstHandle2BraggEdge self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,19 +159,19 @@ BraggEdgeLabelSet(ConstHandle2BraggEdge This, const XMLName label);
 
 // +++ Has
 extern_c int
-BraggEdgeBraggEnergyHas(ConstHandle2ConstBraggEdge This);
+BraggEdgeBraggEnergyHas(ConstHandle2ConstBraggEdge self);
 
 // --- Get, const
 extern_c Handle2ConstBraggEnergy
-BraggEdgeBraggEnergyGetConst(ConstHandle2ConstBraggEdge This);
+BraggEdgeBraggEnergyGetConst(ConstHandle2ConstBraggEdge self);
 
 // +++ Get, non-const
 extern_c Handle2BraggEnergy
-BraggEdgeBraggEnergyGet(ConstHandle2BraggEdge This);
+BraggEdgeBraggEnergyGet(ConstHandle2BraggEdge self);
 
 // +++ Set
 extern_c void
-BraggEdgeBraggEnergySet(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEnergy BraggEnergy);
+BraggEdgeBraggEnergySet(ConstHandle2BraggEdge self, ConstHandle2ConstBraggEnergy BraggEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ BraggEdgeBraggEnergySet(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEnergy
 
 // +++ Has
 extern_c int
-BraggEdgeStructureFactorHas(ConstHandle2ConstBraggEdge This);
+BraggEdgeStructureFactorHas(ConstHandle2ConstBraggEdge self);
 
 // --- Get, const
 extern_c Handle2ConstStructureFactor
-BraggEdgeStructureFactorGetConst(ConstHandle2ConstBraggEdge This);
+BraggEdgeStructureFactorGetConst(ConstHandle2ConstBraggEdge self);
 
 // +++ Get, non-const
 extern_c Handle2StructureFactor
-BraggEdgeStructureFactorGet(ConstHandle2BraggEdge This);
+BraggEdgeStructureFactorGet(ConstHandle2BraggEdge self);
 
 // +++ Set
 extern_c void
-BraggEdgeStructureFactorSet(ConstHandle2BraggEdge This, ConstHandle2ConstStructureFactor structureFactor);
+BraggEdgeStructureFactorSet(ConstHandle2BraggEdge self, ConstHandle2ConstStructureFactor structureFactor);
 
 
 // -----------------------------------------------------------------------------

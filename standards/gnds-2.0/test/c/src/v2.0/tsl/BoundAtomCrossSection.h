@@ -91,13 +91,13 @@ BoundAtomCrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BoundAtomCrossSectionAssign(ConstHandle2BoundAtomCrossSection This, ConstHandle2ConstBoundAtomCrossSection from);
+BoundAtomCrossSectionAssign(ConstHandle2BoundAtomCrossSection self, ConstHandle2ConstBoundAtomCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BoundAtomCrossSectionRead(ConstHandle2BoundAtomCrossSection This, const char *const filename);
+BoundAtomCrossSectionRead(ConstHandle2BoundAtomCrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BoundAtomCrossSectionWrite(ConstHandle2ConstBoundAtomCrossSection This, const char *const filename);
+BoundAtomCrossSectionWrite(ConstHandle2ConstBoundAtomCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BoundAtomCrossSectionPrint(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionPrint(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BoundAtomCrossSectionPrintXML(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionPrintXML(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection This);
 
 // +++ Has
 extern_c int
-BoundAtomCrossSectionUnitHas(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionUnitHas(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BoundAtomCrossSectionUnitGet(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionUnitGet(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Set
 extern_c void
-BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection This, const XMLName unit);
+BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection This, const XMLNa
 
 // +++ Has
 extern_c int
-BoundAtomCrossSectionValueHas(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionValueHas(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-BoundAtomCrossSectionValueGet(ConstHandle2ConstBoundAtomCrossSection This);
+BoundAtomCrossSectionValueGet(ConstHandle2ConstBoundAtomCrossSection self);
 
 // +++ Set
 extern_c void
-BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection This, const Float64 value);
+BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

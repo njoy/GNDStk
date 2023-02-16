@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// ResonancesLink wrapper
-void wrapResonancesLink(python::module &module)
+// wrapper for transport::ResonancesLink
+void wrapResonancesLink(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::ResonancesLink;
+   using cppCLASS = transport::ResonancesLink;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ResonancesLink",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ResonancesLink",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::string &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("href"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::string &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("href"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

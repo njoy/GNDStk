@@ -96,13 +96,13 @@ ShortRangeSelfScalingVarianceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ShortRangeSelfScalingVarianceAssign(ConstHandle2ShortRangeSelfScalingVariance This, ConstHandle2ConstShortRangeSelfScalingVariance from);
+ShortRangeSelfScalingVarianceAssign(ConstHandle2ShortRangeSelfScalingVariance self, ConstHandle2ConstShortRangeSelfScalingVariance from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ ShortRangeSelfScalingVarianceDelete(ConstHandle2ConstShortRangeSelfScalingVarian
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ShortRangeSelfScalingVarianceRead(ConstHandle2ShortRangeSelfScalingVariance This, const char *const filename);
+ShortRangeSelfScalingVarianceRead(ConstHandle2ShortRangeSelfScalingVariance self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ShortRangeSelfScalingVarianceWrite(ConstHandle2ConstShortRangeSelfScalingVariance This, const char *const filename);
+ShortRangeSelfScalingVarianceWrite(ConstHandle2ConstShortRangeSelfScalingVariance self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ShortRangeSelfScalingVariancePrint(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVariancePrint(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ShortRangeSelfScalingVariancePrintXML(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVariancePrintXML(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ ShortRangeSelfScalingVariancePrintJSON(ConstHandle2ConstShortRangeSelfScalingVar
 
 // +++ Has
 extern_c int
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Set
 extern_c void
-ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2ShortRangeSelfScalingVariance This, const XMLName dependenceOnProcessedGroupWidth);
+ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2ShortRangeSelfScalingVariance self, const XMLName dependenceOnProcessedGroupWidth);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet(ConstHandle2Shor
 
 // +++ Has
 extern_c int
-ShortRangeSelfScalingVarianceLabelHas(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceLabelHas(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ShortRangeSelfScalingVarianceLabelGet(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceLabelGet(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Set
 extern_c void
-ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance This, const XMLName label);
+ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ShortRangeSelfScalingVarianceLabelSet(ConstHandle2ShortRangeSelfScalingVariance 
 
 // +++ Has
 extern_c int
-ShortRangeSelfScalingVarianceTypeHas(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceTypeHas(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ShortRangeSelfScalingVarianceTypeGet(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceTypeGet(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Set
 extern_c void
-ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance This, const XMLName type);
+ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ ShortRangeSelfScalingVarianceTypeSet(ConstHandle2ShortRangeSelfScalingVariance T
 
 // +++ Has
 extern_c int
-ShortRangeSelfScalingVarianceGridded2dHas(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceGridded2dHas(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // --- Get, const
 extern_c Handle2ConstGridded2d
-ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded2d
-ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance This);
+ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance self);
 
 // +++ Set
 extern_c void
-ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVariance This, ConstHandle2ConstGridded2d gridded2d);
+ShortRangeSelfScalingVarianceGridded2dSet(ConstHandle2ShortRangeSelfScalingVariance self, ConstHandle2ConstGridded2d gridded2d);
 
 
 // -----------------------------------------------------------------------------

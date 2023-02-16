@@ -101,13 +101,13 @@ ProtareCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProtareAssign(ConstHandle2Protare This, ConstHandle2ConstProtare from);
+ProtareAssign(ConstHandle2Protare self, ConstHandle2ConstProtare from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProtareDelete(ConstHandle2ConstProtare This);
+ProtareDelete(ConstHandle2ConstProtare self);
 
 
 // -----------------------------------------------------------------------------
@@ -120,25 +120,25 @@ ProtareDelete(ConstHandle2ConstProtare This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProtareRead(ConstHandle2Protare This, const char *const filename);
+ProtareRead(ConstHandle2Protare self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProtareWrite(ConstHandle2ConstProtare This, const char *const filename);
+ProtareWrite(ConstHandle2ConstProtare self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProtarePrint(ConstHandle2ConstProtare This);
+ProtarePrint(ConstHandle2ConstProtare self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProtarePrintXML(ConstHandle2ConstProtare This);
+ProtarePrintXML(ConstHandle2ConstProtare self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProtarePrintJSON(ConstHandle2ConstProtare This);
+ProtarePrintJSON(ConstHandle2ConstProtare self);
 
 
 // -----------------------------------------------------------------------------
@@ -147,16 +147,16 @@ ProtarePrintJSON(ConstHandle2ConstProtare This);
 
 // +++ Has
 extern_c int
-ProtareProjectileHas(ConstHandle2ConstProtare This);
+ProtareProjectileHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ProtareProjectileGet(ConstHandle2ConstProtare This);
+ProtareProjectileGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareProjectileSet(ConstHandle2Protare This, const XMLName projectile);
+ProtareProjectileSet(ConstHandle2Protare self, const XMLName projectile);
 
 
 // -----------------------------------------------------------------------------
@@ -165,16 +165,16 @@ ProtareProjectileSet(ConstHandle2Protare This, const XMLName projectile);
 
 // +++ Has
 extern_c int
-ProtareTargetHas(ConstHandle2ConstProtare This);
+ProtareTargetHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ProtareTargetGet(ConstHandle2ConstProtare This);
+ProtareTargetGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareTargetSet(ConstHandle2Protare This, const XMLName target);
+ProtareTargetSet(ConstHandle2Protare self, const XMLName target);
 
 
 // -----------------------------------------------------------------------------
@@ -183,16 +183,16 @@ ProtareTargetSet(ConstHandle2Protare This, const XMLName target);
 
 // +++ Has
 extern_c int
-ProtareEvaluationHas(ConstHandle2ConstProtare This);
+ProtareEvaluationHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ProtareEvaluationGet(ConstHandle2ConstProtare This);
+ProtareEvaluationGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareEvaluationSet(ConstHandle2Protare This, const XMLName evaluation);
+ProtareEvaluationSet(ConstHandle2Protare self, const XMLName evaluation);
 
 
 // -----------------------------------------------------------------------------
@@ -201,16 +201,16 @@ ProtareEvaluationSet(ConstHandle2Protare This, const XMLName evaluation);
 
 // +++ Has
 extern_c int
-ProtarePathHas(ConstHandle2ConstProtare This);
+ProtarePathHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ProtarePathGet(ConstHandle2ConstProtare This);
+ProtarePathGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtarePathSet(ConstHandle2Protare This, const XMLName path);
+ProtarePathSet(ConstHandle2Protare self, const XMLName path);
 
 
 // -----------------------------------------------------------------------------
@@ -219,16 +219,16 @@ ProtarePathSet(ConstHandle2Protare This, const XMLName path);
 
 // +++ Has
 extern_c int
-ProtareInteractionHas(ConstHandle2ConstProtare This);
+ProtareInteractionHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ProtareInteractionGet(ConstHandle2ConstProtare This);
+ProtareInteractionGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareInteractionSet(ConstHandle2Protare This, const XMLName interaction);
+ProtareInteractionSet(ConstHandle2Protare self, const XMLName interaction);
 
 
 // -----------------------------------------------------------------------------
@@ -237,16 +237,16 @@ ProtareInteractionSet(ConstHandle2Protare This, const XMLName interaction);
 
 // +++ Has
 extern_c int
-ProtareChecksumHas(ConstHandle2ConstProtare This);
+ProtareChecksumHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ProtareChecksumGet(ConstHandle2ConstProtare This);
+ProtareChecksumGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum);
+ProtareChecksumSet(ConstHandle2Protare self, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -255,16 +255,16 @@ ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum);
 
 // +++ Has
 extern_c int
-ProtareAlgorithmHas(ConstHandle2ConstProtare This);
+ProtareAlgorithmHas(ConstHandle2ConstProtare self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::HashAlgorithm
-ProtareAlgorithmGet(ConstHandle2ConstProtare This);
+ProtareAlgorithmGet(ConstHandle2ConstProtare self);
 
 // +++ Set
 extern_c void
-ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorithm);
+ProtareAlgorithmSet(ConstHandle2Protare self, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

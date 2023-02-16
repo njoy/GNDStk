@@ -72,20 +72,20 @@ BoundAtomCrossSectionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BoundAtomCrossSectionAssign(ConstHandle2BoundAtomCrossSection This, ConstHandle2ConstBoundAtomCrossSection from)
+BoundAtomCrossSectionAssign(ConstHandle2BoundAtomCrossSection self, ConstHandle2ConstBoundAtomCrossSection from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ BoundAtomCrossSectionDelete(ConstHandle2ConstBoundAtomCrossSection This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BoundAtomCrossSectionRead(ConstHandle2BoundAtomCrossSection This, const char *const filename)
+BoundAtomCrossSectionRead(ConstHandle2BoundAtomCrossSection self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BoundAtomCrossSectionWrite(ConstHandle2ConstBoundAtomCrossSection This, const char *const filename)
+BoundAtomCrossSectionWrite(ConstHandle2ConstBoundAtomCrossSection self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BoundAtomCrossSectionPrint(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionPrint(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BoundAtomCrossSectionPrintXML(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionPrintXML(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ BoundAtomCrossSectionPrintJSON(ConstHandle2ConstBoundAtomCrossSection This)
 
 // Has
 int
-BoundAtomCrossSectionUnitHas(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionUnitHas(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-BoundAtomCrossSectionUnitGet(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionUnitGet(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection This, const XMLName unit)
+BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -176,27 +176,27 @@ BoundAtomCrossSectionUnitSet(ConstHandle2BoundAtomCrossSection This, const XMLNa
 
 // Has
 int
-BoundAtomCrossSectionValueHas(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionValueHas(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-BoundAtomCrossSectionValueGet(ConstHandle2ConstBoundAtomCrossSection This)
+BoundAtomCrossSectionValueGet(ConstHandle2ConstBoundAtomCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection This, const Float64 value)
+BoundAtomCrossSectionValueSet(ConstHandle2BoundAtomCrossSection self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

@@ -72,20 +72,20 @@ CoherentAtomCrossSectionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CoherentAtomCrossSectionAssign(ConstHandle2CoherentAtomCrossSection This, ConstHandle2ConstCoherentAtomCrossSection from)
+CoherentAtomCrossSectionAssign(ConstHandle2CoherentAtomCrossSection self, ConstHandle2ConstCoherentAtomCrossSection from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CoherentAtomCrossSectionRead(ConstHandle2CoherentAtomCrossSection This, const char *const filename)
+CoherentAtomCrossSectionRead(ConstHandle2CoherentAtomCrossSection self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CoherentAtomCrossSectionWrite(ConstHandle2ConstCoherentAtomCrossSection This, const char *const filename)
+CoherentAtomCrossSectionWrite(ConstHandle2ConstCoherentAtomCrossSection self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CoherentAtomCrossSectionPrint(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionPrint(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CoherentAtomCrossSectionPrintXML(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionPrintXML(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection This
 
 // Has
 int
-CoherentAtomCrossSectionUnitHas(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionUnitHas(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-CoherentAtomCrossSectionUnitGet(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionUnitGet(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection This, const XMLName unit)
+CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -176,27 +176,27 @@ CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection This, const
 
 // Has
 int
-CoherentAtomCrossSectionValueHas(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionValueHas(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-CoherentAtomCrossSectionValueGet(ConstHandle2ConstCoherentAtomCrossSection This)
+CoherentAtomCrossSectionValueGet(ConstHandle2ConstCoherentAtomCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection This, const Float64 value)
+CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

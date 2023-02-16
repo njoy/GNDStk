@@ -25,12 +25,12 @@ class Configuration :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Configuration"; }
-   static auto FIELD() { return "configuration"; }
+   static auto NODENAME() { return "configuration"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,32 +44,74 @@ class Configuration :
             / Meta<>("electronNumber") |
 
          // children
-         --Child<gnds::BindingEnergy>("bindingEnergy")
+         --Child<gnds::BindingEnergy>
+            ("bindingEnergy")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "subshell",
+         "electronNumber",
+         "bindingEnergy"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "subshell",
+         "electron_number",
+         "binding_energy"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> subshell{this};
-   Field<std::string> electronNumber{this};
+   Field<std::string>
+      subshell{this};
+   Field<std::string>
+      electronNumber{this};
 
    // children
-   Field<gnds::BindingEnergy> bindingEnergy{this};
+   Field<gnds::BindingEnergy>
+      bindingEnergy{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->subshell, \
       this->electronNumber, \
-      this->bindingEnergy)
+      this->bindingEnergy \
+   )
 
    // default
    Configuration() :
@@ -80,9 +122,12 @@ public:
 
    // from fields, comment excluded
    explicit Configuration(
-      const wrapper<std::string> &subshell,
-      const wrapper<std::string> &electronNumber = {},
-      const wrapper<gnds::BindingEnergy> &bindingEnergy = {}
+      const wrapper<std::string>
+         &subshell,
+      const wrapper<std::string>
+         &electronNumber = {},
+      const wrapper<gnds::BindingEnergy>
+         &bindingEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       subshell(this,subshell),
@@ -125,8 +170,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configuration &operator=(const Configuration &) = default;
-   Configuration &operator=(Configuration &&) = default;
+   // copy
+   Configuration &operator=(const Configuration &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         subshell = other.subshell;
+         electronNumber = other.electronNumber;
+         bindingEnergy = other.bindingEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   Configuration &operator=(Configuration &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         subshell = std::move(other.subshell);
+         electronNumber = std::move(other.electronNumber);
+         bindingEnergy = std::move(other.bindingEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

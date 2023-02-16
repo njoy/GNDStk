@@ -81,20 +81,20 @@ MadlandNixCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MadlandNixAssign(ConstHandle2MadlandNix This, ConstHandle2ConstMadlandNix from)
+MadlandNixAssign(ConstHandle2MadlandNix self, ConstHandle2ConstMadlandNix from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MadlandNixDelete(ConstHandle2ConstMadlandNix This)
+MadlandNixDelete(ConstHandle2ConstMadlandNix self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ MadlandNixDelete(ConstHandle2ConstMadlandNix This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MadlandNixRead(ConstHandle2MadlandNix This, const char *const filename)
+MadlandNixRead(ConstHandle2MadlandNix self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MadlandNixWrite(ConstHandle2ConstMadlandNix This, const char *const filename)
+MadlandNixWrite(ConstHandle2ConstMadlandNix self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MadlandNixPrint(ConstHandle2ConstMadlandNix This)
+MadlandNixPrint(ConstHandle2ConstMadlandNix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MadlandNixPrintXML(ConstHandle2ConstMadlandNix This)
+MadlandNixPrintXML(ConstHandle2ConstMadlandNix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MadlandNixPrintJSON(ConstHandle2ConstMadlandNix This)
+MadlandNixPrintJSON(ConstHandle2ConstMadlandNix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ MadlandNixPrintJSON(ConstHandle2ConstMadlandNix This)
 
 // Has
 int
-MadlandNixEFHHas(ConstHandle2ConstMadlandNix This)
+MadlandNixEFHHas(ConstHandle2ConstMadlandNix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EFHHas", This, extract::EFH);
+      (CLASSNAME, CLASSNAME+"EFHHas", self, extract::EFH);
 }
 
 // Get, const
 Handle2ConstEFH
-MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix This)
+MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix self)
 {
    return detail::getField<CPP,Handle2ConstEFH>
-      (CLASSNAME, CLASSNAME+"EFHGetConst", This, extract::EFH);
+      (CLASSNAME, CLASSNAME+"EFHGetConst", self, extract::EFH);
 }
 
 // Get, non-const
 Handle2EFH
-MadlandNixEFHGet(ConstHandle2MadlandNix This)
+MadlandNixEFHGet(ConstHandle2MadlandNix self)
 {
    return detail::getField<CPP,Handle2EFH>
-      (CLASSNAME, CLASSNAME+"EFHGet", This, extract::EFH);
+      (CLASSNAME, CLASSNAME+"EFHGet", self, extract::EFH);
 }
 
 // Set
 void
-MadlandNixEFHSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFH EFH)
+MadlandNixEFHSet(ConstHandle2MadlandNix self, ConstHandle2ConstEFH EFH)
 {
    detail::setField<CPP,CPPEFH>
-      (CLASSNAME, CLASSNAME+"EFHSet", This, extract::EFH, EFH);
+      (CLASSNAME, CLASSNAME+"EFHSet", self, extract::EFH, EFH);
 }
 
 
@@ -192,34 +192,34 @@ MadlandNixEFHSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFH EFH)
 
 // Has
 int
-MadlandNixEFLHas(ConstHandle2ConstMadlandNix This)
+MadlandNixEFLHas(ConstHandle2ConstMadlandNix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EFLHas", This, extract::EFL);
+      (CLASSNAME, CLASSNAME+"EFLHas", self, extract::EFL);
 }
 
 // Get, const
 Handle2ConstEFL
-MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix This)
+MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix self)
 {
    return detail::getField<CPP,Handle2ConstEFL>
-      (CLASSNAME, CLASSNAME+"EFLGetConst", This, extract::EFL);
+      (CLASSNAME, CLASSNAME+"EFLGetConst", self, extract::EFL);
 }
 
 // Get, non-const
 Handle2EFL
-MadlandNixEFLGet(ConstHandle2MadlandNix This)
+MadlandNixEFLGet(ConstHandle2MadlandNix self)
 {
    return detail::getField<CPP,Handle2EFL>
-      (CLASSNAME, CLASSNAME+"EFLGet", This, extract::EFL);
+      (CLASSNAME, CLASSNAME+"EFLGet", self, extract::EFL);
 }
 
 // Set
 void
-MadlandNixEFLSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFL EFL)
+MadlandNixEFLSet(ConstHandle2MadlandNix self, ConstHandle2ConstEFL EFL)
 {
    detail::setField<CPP,CPPEFL>
-      (CLASSNAME, CLASSNAME+"EFLSet", This, extract::EFL, EFL);
+      (CLASSNAME, CLASSNAME+"EFLSet", self, extract::EFL, EFL);
 }
 
 
@@ -229,34 +229,34 @@ MadlandNixEFLSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFL EFL)
 
 // Has
 int
-MadlandNixT_MHas(ConstHandle2ConstMadlandNix This)
+MadlandNixT_MHas(ConstHandle2ConstMadlandNix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"T_MHas", This, extract::T_M);
+      (CLASSNAME, CLASSNAME+"T_MHas", self, extract::T_M);
 }
 
 // Get, const
 Handle2ConstT_M
-MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix This)
+MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix self)
 {
    return detail::getField<CPP,Handle2ConstT_M>
-      (CLASSNAME, CLASSNAME+"T_MGetConst", This, extract::T_M);
+      (CLASSNAME, CLASSNAME+"T_MGetConst", self, extract::T_M);
 }
 
 // Get, non-const
 Handle2T_M
-MadlandNixT_MGet(ConstHandle2MadlandNix This)
+MadlandNixT_MGet(ConstHandle2MadlandNix self)
 {
    return detail::getField<CPP,Handle2T_M>
-      (CLASSNAME, CLASSNAME+"T_MGet", This, extract::T_M);
+      (CLASSNAME, CLASSNAME+"T_MGet", self, extract::T_M);
 }
 
 // Set
 void
-MadlandNixT_MSet(ConstHandle2MadlandNix This, ConstHandle2ConstT_M T_M)
+MadlandNixT_MSet(ConstHandle2MadlandNix self, ConstHandle2ConstT_M T_M)
 {
    detail::setField<CPP,CPPT_M>
-      (CLASSNAME, CLASSNAME+"T_MSet", This, extract::T_M, T_M);
+      (CLASSNAME, CLASSNAME+"T_MSet", self, extract::T_M, T_M);
 }
 
 

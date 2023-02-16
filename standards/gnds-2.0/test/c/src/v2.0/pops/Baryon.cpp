@@ -104,20 +104,20 @@ BaryonCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BaryonAssign(ConstHandle2Baryon This, ConstHandle2ConstBaryon from)
+BaryonAssign(ConstHandle2Baryon self, ConstHandle2ConstBaryon from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BaryonDelete(ConstHandle2ConstBaryon This)
+BaryonDelete(ConstHandle2ConstBaryon self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -131,44 +131,44 @@ BaryonDelete(ConstHandle2ConstBaryon This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BaryonRead(ConstHandle2Baryon This, const char *const filename)
+BaryonRead(ConstHandle2Baryon self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BaryonWrite(ConstHandle2ConstBaryon This, const char *const filename)
+BaryonWrite(ConstHandle2ConstBaryon self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BaryonPrint(ConstHandle2ConstBaryon This)
+BaryonPrint(ConstHandle2ConstBaryon self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BaryonPrintXML(ConstHandle2ConstBaryon This)
+BaryonPrintXML(ConstHandle2ConstBaryon self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BaryonPrintJSON(ConstHandle2ConstBaryon This)
+BaryonPrintJSON(ConstHandle2ConstBaryon self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -178,27 +178,27 @@ BaryonPrintJSON(ConstHandle2ConstBaryon This)
 
 // Has
 int
-BaryonIdHas(ConstHandle2ConstBaryon This)
+BaryonIdHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 XMLName
-BaryonIdGet(ConstHandle2ConstBaryon This)
+BaryonIdGet(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-BaryonIdSet(ConstHandle2Baryon This, const XMLName id)
+BaryonIdSet(ConstHandle2Baryon self, const XMLName id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -208,34 +208,34 @@ BaryonIdSet(ConstHandle2Baryon This, const XMLName id)
 
 // Has
 int
-BaryonChargeHas(ConstHandle2ConstBaryon This)
+BaryonChargeHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChargeHas", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeHas", self, extract::charge);
 }
 
 // Get, const
 Handle2ConstCharge
-BaryonChargeGetConst(ConstHandle2ConstBaryon This)
+BaryonChargeGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstCharge>
-      (CLASSNAME, CLASSNAME+"ChargeGetConst", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
 // Get, non-const
 Handle2Charge
-BaryonChargeGet(ConstHandle2Baryon This)
+BaryonChargeGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2Charge>
-      (CLASSNAME, CLASSNAME+"ChargeGet", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGet", self, extract::charge);
 }
 
 // Set
 void
-BaryonChargeSet(ConstHandle2Baryon This, ConstHandle2ConstCharge charge)
+BaryonChargeSet(ConstHandle2Baryon self, ConstHandle2ConstCharge charge)
 {
    detail::setField<CPP,CPPCharge>
-      (CLASSNAME, CLASSNAME+"ChargeSet", This, extract::charge, charge);
+      (CLASSNAME, CLASSNAME+"ChargeSet", self, extract::charge, charge);
 }
 
 
@@ -245,34 +245,34 @@ BaryonChargeSet(ConstHandle2Baryon This, ConstHandle2ConstCharge charge)
 
 // Has
 int
-BaryonHalflifeHas(ConstHandle2ConstBaryon This)
+BaryonHalflifeHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HalflifeHas", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeHas", self, extract::halflife);
 }
 
 // Get, const
 Handle2ConstHalflife
-BaryonHalflifeGetConst(ConstHandle2ConstBaryon This)
+BaryonHalflifeGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGetConst", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
 // Get, non-const
 Handle2Halflife
-BaryonHalflifeGet(ConstHandle2Baryon This)
+BaryonHalflifeGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2Halflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGet", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGet", self, extract::halflife);
 }
 
 // Set
 void
-BaryonHalflifeSet(ConstHandle2Baryon This, ConstHandle2ConstHalflife halflife)
+BaryonHalflifeSet(ConstHandle2Baryon self, ConstHandle2ConstHalflife halflife)
 {
    detail::setField<CPP,CPPHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeSet", This, extract::halflife, halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeSet", self, extract::halflife, halflife);
 }
 
 
@@ -282,34 +282,34 @@ BaryonHalflifeSet(ConstHandle2Baryon This, ConstHandle2ConstHalflife halflife)
 
 // Has
 int
-BaryonMassHas(ConstHandle2ConstBaryon This)
+BaryonMassHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-BaryonMassGetConst(ConstHandle2ConstBaryon This)
+BaryonMassGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-BaryonMassGet(ConstHandle2Baryon This)
+BaryonMassGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-BaryonMassSet(ConstHandle2Baryon This, ConstHandle2ConstMass mass)
+BaryonMassSet(ConstHandle2Baryon self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 
@@ -319,34 +319,34 @@ BaryonMassSet(ConstHandle2Baryon This, ConstHandle2ConstMass mass)
 
 // Has
 int
-BaryonSpinHas(ConstHandle2ConstBaryon This)
+BaryonSpinHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpinHas", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinHas", self, extract::spin);
 }
 
 // Get, const
 Handle2ConstSpin
-BaryonSpinGetConst(ConstHandle2ConstBaryon This)
+BaryonSpinGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstSpin>
-      (CLASSNAME, CLASSNAME+"SpinGetConst", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
 // Get, non-const
 Handle2Spin
-BaryonSpinGet(ConstHandle2Baryon This)
+BaryonSpinGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2Spin>
-      (CLASSNAME, CLASSNAME+"SpinGet", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGet", self, extract::spin);
 }
 
 // Set
 void
-BaryonSpinSet(ConstHandle2Baryon This, ConstHandle2ConstSpin spin)
+BaryonSpinSet(ConstHandle2Baryon self, ConstHandle2ConstSpin spin)
 {
    detail::setField<CPP,CPPSpin>
-      (CLASSNAME, CLASSNAME+"SpinSet", This, extract::spin, spin);
+      (CLASSNAME, CLASSNAME+"SpinSet", self, extract::spin, spin);
 }
 
 
@@ -356,34 +356,34 @@ BaryonSpinSet(ConstHandle2Baryon This, ConstHandle2ConstSpin spin)
 
 // Has
 int
-BaryonParityHas(ConstHandle2ConstBaryon This)
+BaryonParityHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ParityHas", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityHas", self, extract::parity);
 }
 
 // Get, const
 Handle2ConstParity
-BaryonParityGetConst(ConstHandle2ConstBaryon This)
+BaryonParityGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstParity>
-      (CLASSNAME, CLASSNAME+"ParityGetConst", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
 // Get, non-const
 Handle2Parity
-BaryonParityGet(ConstHandle2Baryon This)
+BaryonParityGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2Parity>
-      (CLASSNAME, CLASSNAME+"ParityGet", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGet", self, extract::parity);
 }
 
 // Set
 void
-BaryonParitySet(ConstHandle2Baryon This, ConstHandle2ConstParity parity)
+BaryonParitySet(ConstHandle2Baryon self, ConstHandle2ConstParity parity)
 {
    detail::setField<CPP,CPPParity>
-      (CLASSNAME, CLASSNAME+"ParitySet", This, extract::parity, parity);
+      (CLASSNAME, CLASSNAME+"ParitySet", self, extract::parity, parity);
 }
 
 
@@ -393,34 +393,34 @@ BaryonParitySet(ConstHandle2Baryon This, ConstHandle2ConstParity parity)
 
 // Has
 int
-BaryonDecayDataHas(ConstHandle2ConstBaryon This)
+BaryonDecayDataHas(ConstHandle2ConstBaryon self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataHas", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataHas", self, extract::decayData);
 }
 
 // Get, const
 Handle2ConstDecayData
-BaryonDecayDataGetConst(ConstHandle2ConstBaryon This)
+BaryonDecayDataGetConst(ConstHandle2ConstBaryon self)
 {
    return detail::getField<CPP,Handle2ConstDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGetConst", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
 // Get, non-const
 Handle2DecayData
-BaryonDecayDataGet(ConstHandle2Baryon This)
+BaryonDecayDataGet(ConstHandle2Baryon self)
 {
    return detail::getField<CPP,Handle2DecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGet", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGet", self, extract::decayData);
 }
 
 // Set
 void
-BaryonDecayDataSet(ConstHandle2Baryon This, ConstHandle2ConstDecayData decayData)
+BaryonDecayDataSet(ConstHandle2Baryon self, ConstHandle2ConstDecayData decayData)
 {
    detail::setField<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSet", self, extract::decayData, decayData);
 }
 
 

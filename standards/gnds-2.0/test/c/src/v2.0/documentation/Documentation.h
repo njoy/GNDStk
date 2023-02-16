@@ -138,13 +138,13 @@ DocumentationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DocumentationAssign(ConstHandle2Documentation This, ConstHandle2ConstDocumentation from);
+DocumentationAssign(ConstHandle2Documentation self, ConstHandle2ConstDocumentation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DocumentationDelete(ConstHandle2ConstDocumentation This);
+DocumentationDelete(ConstHandle2ConstDocumentation self);
 
 
 // -----------------------------------------------------------------------------
@@ -157,25 +157,25 @@ DocumentationDelete(ConstHandle2ConstDocumentation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DocumentationRead(ConstHandle2Documentation This, const char *const filename);
+DocumentationRead(ConstHandle2Documentation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DocumentationWrite(ConstHandle2ConstDocumentation This, const char *const filename);
+DocumentationWrite(ConstHandle2ConstDocumentation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DocumentationPrint(ConstHandle2ConstDocumentation This);
+DocumentationPrint(ConstHandle2ConstDocumentation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DocumentationPrintXML(ConstHandle2ConstDocumentation This);
+DocumentationPrintXML(ConstHandle2ConstDocumentation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DocumentationPrintJSON(ConstHandle2ConstDocumentation This);
+DocumentationPrintJSON(ConstHandle2ConstDocumentation self);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ DocumentationPrintJSON(ConstHandle2ConstDocumentation This);
 
 // +++ Has
 extern_c int
-DocumentationDoiHas(ConstHandle2ConstDocumentation This);
+DocumentationDoiHas(ConstHandle2ConstDocumentation self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-DocumentationDoiGet(ConstHandle2ConstDocumentation This);
+DocumentationDoiGet(ConstHandle2ConstDocumentation self);
 
 // +++ Set
 extern_c void
-DocumentationDoiSet(ConstHandle2Documentation This, const UTF8Text doi);
+DocumentationDoiSet(ConstHandle2Documentation self, const UTF8Text doi);
 
 
 // -----------------------------------------------------------------------------
@@ -202,16 +202,16 @@ DocumentationDoiSet(ConstHandle2Documentation This, const UTF8Text doi);
 
 // +++ Has
 extern_c int
-DocumentationPublicationDateHas(ConstHandle2ConstDocumentation This);
+DocumentationPublicationDateHas(ConstHandle2ConstDocumentation self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-DocumentationPublicationDateGet(ConstHandle2ConstDocumentation This);
+DocumentationPublicationDateGet(ConstHandle2ConstDocumentation self);
 
 // +++ Set
 extern_c void
-DocumentationPublicationDateSet(ConstHandle2Documentation This, const char *const publicationDate);
+DocumentationPublicationDateSet(ConstHandle2Documentation self, const char *const publicationDate);
 
 
 // -----------------------------------------------------------------------------
@@ -220,16 +220,16 @@ DocumentationPublicationDateSet(ConstHandle2Documentation This, const char *cons
 
 // +++ Has
 extern_c int
-DocumentationVersionHas(ConstHandle2ConstDocumentation This);
+DocumentationVersionHas(ConstHandle2ConstDocumentation self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-DocumentationVersionGet(ConstHandle2ConstDocumentation This);
+DocumentationVersionGet(ConstHandle2ConstDocumentation self);
 
 // +++ Set
 extern_c void
-DocumentationVersionSet(ConstHandle2Documentation This, const UTF8Text version);
+DocumentationVersionSet(ConstHandle2Documentation self, const UTF8Text version);
 
 
 // -----------------------------------------------------------------------------
@@ -238,19 +238,19 @@ DocumentationVersionSet(ConstHandle2Documentation This, const UTF8Text version);
 
 // +++ Has
 extern_c int
-DocumentationAuthorsHas(ConstHandle2ConstDocumentation This);
+DocumentationAuthorsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstAuthors
-DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Authors
-DocumentationAuthorsGet(ConstHandle2Documentation This);
+DocumentationAuthorsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationAuthorsSet(ConstHandle2Documentation This, ConstHandle2ConstAuthors authors);
+DocumentationAuthorsSet(ConstHandle2Documentation self, ConstHandle2ConstAuthors authors);
 
 
 // -----------------------------------------------------------------------------
@@ -259,19 +259,19 @@ DocumentationAuthorsSet(ConstHandle2Documentation This, ConstHandle2ConstAuthors
 
 // +++ Has
 extern_c int
-DocumentationContributorsHas(ConstHandle2ConstDocumentation This);
+DocumentationContributorsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstContributors
-DocumentationContributorsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationContributorsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Contributors
-DocumentationContributorsGet(ConstHandle2Documentation This);
+DocumentationContributorsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationContributorsSet(ConstHandle2Documentation This, ConstHandle2ConstContributors contributors);
+DocumentationContributorsSet(ConstHandle2Documentation self, ConstHandle2ConstContributors contributors);
 
 
 // -----------------------------------------------------------------------------
@@ -280,19 +280,19 @@ DocumentationContributorsSet(ConstHandle2Documentation This, ConstHandle2ConstCo
 
 // +++ Has
 extern_c int
-DocumentationCollaborationsHas(ConstHandle2ConstDocumentation This);
+DocumentationCollaborationsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstCollaborations
-DocumentationCollaborationsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationCollaborationsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Collaborations
-DocumentationCollaborationsGet(ConstHandle2Documentation This);
+DocumentationCollaborationsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationCollaborationsSet(ConstHandle2Documentation This, ConstHandle2ConstCollaborations collaborations);
+DocumentationCollaborationsSet(ConstHandle2Documentation self, ConstHandle2ConstCollaborations collaborations);
 
 
 // -----------------------------------------------------------------------------
@@ -301,19 +301,19 @@ DocumentationCollaborationsSet(ConstHandle2Documentation This, ConstHandle2Const
 
 // +++ Has
 extern_c int
-DocumentationDatesHas(ConstHandle2ConstDocumentation This);
+DocumentationDatesHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstDates
-DocumentationDatesGetConst(ConstHandle2ConstDocumentation This);
+DocumentationDatesGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Dates
-DocumentationDatesGet(ConstHandle2Documentation This);
+DocumentationDatesGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationDatesSet(ConstHandle2Documentation This, ConstHandle2ConstDates dates);
+DocumentationDatesSet(ConstHandle2Documentation self, ConstHandle2ConstDates dates);
 
 
 // -----------------------------------------------------------------------------
@@ -322,19 +322,19 @@ DocumentationDatesSet(ConstHandle2Documentation This, ConstHandle2ConstDates dat
 
 // +++ Has
 extern_c int
-DocumentationCopyrightHas(ConstHandle2ConstDocumentation This);
+DocumentationCopyrightHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstCopyright
-DocumentationCopyrightGetConst(ConstHandle2ConstDocumentation This);
+DocumentationCopyrightGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Copyright
-DocumentationCopyrightGet(ConstHandle2Documentation This);
+DocumentationCopyrightGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationCopyrightSet(ConstHandle2Documentation This, ConstHandle2ConstCopyright copyright);
+DocumentationCopyrightSet(ConstHandle2Documentation self, ConstHandle2ConstCopyright copyright);
 
 
 // -----------------------------------------------------------------------------
@@ -343,19 +343,19 @@ DocumentationCopyrightSet(ConstHandle2Documentation This, ConstHandle2ConstCopyr
 
 // +++ Has
 extern_c int
-DocumentationAcknowledgementsHas(ConstHandle2ConstDocumentation This);
+DocumentationAcknowledgementsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstAcknowledgements
-DocumentationAcknowledgementsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationAcknowledgementsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Acknowledgements
-DocumentationAcknowledgementsGet(ConstHandle2Documentation This);
+DocumentationAcknowledgementsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationAcknowledgementsSet(ConstHandle2Documentation This, ConstHandle2ConstAcknowledgements acknowledgements);
+DocumentationAcknowledgementsSet(ConstHandle2Documentation self, ConstHandle2ConstAcknowledgements acknowledgements);
 
 
 // -----------------------------------------------------------------------------
@@ -364,19 +364,19 @@ DocumentationAcknowledgementsSet(ConstHandle2Documentation This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-DocumentationKeywordsHas(ConstHandle2ConstDocumentation This);
+DocumentationKeywordsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstKeywords
-DocumentationKeywordsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationKeywordsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Keywords
-DocumentationKeywordsGet(ConstHandle2Documentation This);
+DocumentationKeywordsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationKeywordsSet(ConstHandle2Documentation This, ConstHandle2ConstKeywords keywords);
+DocumentationKeywordsSet(ConstHandle2Documentation self, ConstHandle2ConstKeywords keywords);
 
 
 // -----------------------------------------------------------------------------
@@ -385,19 +385,19 @@ DocumentationKeywordsSet(ConstHandle2Documentation This, ConstHandle2ConstKeywor
 
 // +++ Has
 extern_c int
-DocumentationRelatedItemsHas(ConstHandle2ConstDocumentation This);
+DocumentationRelatedItemsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstRelatedItems
-DocumentationRelatedItemsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationRelatedItemsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2RelatedItems
-DocumentationRelatedItemsGet(ConstHandle2Documentation This);
+DocumentationRelatedItemsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationRelatedItemsSet(ConstHandle2Documentation This, ConstHandle2ConstRelatedItems relatedItems);
+DocumentationRelatedItemsSet(ConstHandle2Documentation self, ConstHandle2ConstRelatedItems relatedItems);
 
 
 // -----------------------------------------------------------------------------
@@ -406,19 +406,19 @@ DocumentationRelatedItemsSet(ConstHandle2Documentation This, ConstHandle2ConstRe
 
 // +++ Has
 extern_c int
-DocumentationTitleHas(ConstHandle2ConstDocumentation This);
+DocumentationTitleHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstTitle
-DocumentationTitleGetConst(ConstHandle2ConstDocumentation This);
+DocumentationTitleGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Title
-DocumentationTitleGet(ConstHandle2Documentation This);
+DocumentationTitleGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationTitleSet(ConstHandle2Documentation This, ConstHandle2ConstTitle title);
+DocumentationTitleSet(ConstHandle2Documentation self, ConstHandle2ConstTitle title);
 
 
 // -----------------------------------------------------------------------------
@@ -427,19 +427,19 @@ DocumentationTitleSet(ConstHandle2Documentation This, ConstHandle2ConstTitle tit
 
 // +++ Has
 extern_c int
-DocumentationAbstractHas(ConstHandle2ConstDocumentation This);
+DocumentationAbstractHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstAbstract
-DocumentationAbstractGetConst(ConstHandle2ConstDocumentation This);
+DocumentationAbstractGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Abstract
-DocumentationAbstractGet(ConstHandle2Documentation This);
+DocumentationAbstractGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationAbstractSet(ConstHandle2Documentation This, ConstHandle2ConstAbstract abstract);
+DocumentationAbstractSet(ConstHandle2Documentation self, ConstHandle2ConstAbstract abstract);
 
 
 // -----------------------------------------------------------------------------
@@ -448,19 +448,19 @@ DocumentationAbstractSet(ConstHandle2Documentation This, ConstHandle2ConstAbstra
 
 // +++ Has
 extern_c int
-DocumentationBodyHas(ConstHandle2ConstDocumentation This);
+DocumentationBodyHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstBody
-DocumentationBodyGetConst(ConstHandle2ConstDocumentation This);
+DocumentationBodyGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Body
-DocumentationBodyGet(ConstHandle2Documentation This);
+DocumentationBodyGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationBodySet(ConstHandle2Documentation This, ConstHandle2ConstBody body);
+DocumentationBodySet(ConstHandle2Documentation self, ConstHandle2ConstBody body);
 
 
 // -----------------------------------------------------------------------------
@@ -469,19 +469,19 @@ DocumentationBodySet(ConstHandle2Documentation This, ConstHandle2ConstBody body)
 
 // +++ Has
 extern_c int
-DocumentationComputerCodesHas(ConstHandle2ConstDocumentation This);
+DocumentationComputerCodesHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstComputerCodes
-DocumentationComputerCodesGetConst(ConstHandle2ConstDocumentation This);
+DocumentationComputerCodesGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2ComputerCodes
-DocumentationComputerCodesGet(ConstHandle2Documentation This);
+DocumentationComputerCodesGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationComputerCodesSet(ConstHandle2Documentation This, ConstHandle2ConstComputerCodes computerCodes);
+DocumentationComputerCodesSet(ConstHandle2Documentation self, ConstHandle2ConstComputerCodes computerCodes);
 
 
 // -----------------------------------------------------------------------------
@@ -490,19 +490,19 @@ DocumentationComputerCodesSet(ConstHandle2Documentation This, ConstHandle2ConstC
 
 // +++ Has
 extern_c int
-DocumentationExperimentalDataSetsHas(ConstHandle2ConstDocumentation This);
+DocumentationExperimentalDataSetsHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstExperimentalDataSets
-DocumentationExperimentalDataSetsGetConst(ConstHandle2ConstDocumentation This);
+DocumentationExperimentalDataSetsGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2ExperimentalDataSets
-DocumentationExperimentalDataSetsGet(ConstHandle2Documentation This);
+DocumentationExperimentalDataSetsGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationExperimentalDataSetsSet(ConstHandle2Documentation This, ConstHandle2ConstExperimentalDataSets experimentalDataSets);
+DocumentationExperimentalDataSetsSet(ConstHandle2Documentation self, ConstHandle2ConstExperimentalDataSets experimentalDataSets);
 
 
 // -----------------------------------------------------------------------------
@@ -511,19 +511,19 @@ DocumentationExperimentalDataSetsSet(ConstHandle2Documentation This, ConstHandle
 
 // +++ Has
 extern_c int
-DocumentationBibliographyHas(ConstHandle2ConstDocumentation This);
+DocumentationBibliographyHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstBibliography
-DocumentationBibliographyGetConst(ConstHandle2ConstDocumentation This);
+DocumentationBibliographyGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2Bibliography
-DocumentationBibliographyGet(ConstHandle2Documentation This);
+DocumentationBibliographyGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationBibliographySet(ConstHandle2Documentation This, ConstHandle2ConstBibliography bibliography);
+DocumentationBibliographySet(ConstHandle2Documentation self, ConstHandle2ConstBibliography bibliography);
 
 
 // -----------------------------------------------------------------------------
@@ -532,19 +532,19 @@ DocumentationBibliographySet(ConstHandle2Documentation This, ConstHandle2ConstBi
 
 // +++ Has
 extern_c int
-DocumentationEndfCompatibleHas(ConstHandle2ConstDocumentation This);
+DocumentationEndfCompatibleHas(ConstHandle2ConstDocumentation self);
 
 // --- Get, const
 extern_c Handle2ConstEndfCompatible
-DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation This);
+DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation self);
 
 // +++ Get, non-const
 extern_c Handle2EndfCompatible
-DocumentationEndfCompatibleGet(ConstHandle2Documentation This);
+DocumentationEndfCompatibleGet(ConstHandle2Documentation self);
 
 // +++ Set
 extern_c void
-DocumentationEndfCompatibleSet(ConstHandle2Documentation This, ConstHandle2ConstEndfCompatible endfCompatible);
+DocumentationEndfCompatibleSet(ConstHandle2Documentation self, ConstHandle2ConstEndfCompatible endfCompatible);
 
 
 // -----------------------------------------------------------------------------

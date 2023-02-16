@@ -11,115 +11,211 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// ScatteringAtom wrapper
-void wrapScatteringAtom(python::module &module)
+// wrapper for tsl::ScatteringAtom
+void wrapScatteringAtom(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::ScatteringAtom;
+   using cppCLASS = tsl::ScatteringAtom;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ScatteringAtom",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ScatteringAtom",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const bool &,
-            const Integer32 &,
-            const tsl::Mass &,
-            const std::optional<tsl::E_critical> &,
-            const tsl::E_max &,
-            const tsl::BoundAtomCrossSection &,
-            const std::optional<tsl::CoherentAtomCrossSection> &,
-            const std::optional<tsl::DistinctScatteringKernel> &,
-            const tsl::SelfScatteringKernel &,
-            const std::optional<tsl::T_effective> &
-         >(),
-         python::arg("pid"),
-         python::arg("primary_scatterer"),
-         python::arg("number_per_molecule"),
-         python::arg("mass"),
-         python::arg("e_critical") = std::nullopt,
-         python::arg("e_max"),
-         python::arg("bound_atom_cross_section"),
-         python::arg("coherent_atom_cross_section") = std::nullopt,
-         python::arg("distinct_scattering_kernel") = std::nullopt,
-         python::arg("self_scattering_kernel"),
-         python::arg("t_effective") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self) { return self.pid(); },
-         Component::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "primary_scatterer",
-         [](const Component &self) { return self.primaryScatterer(); },
-         Component::documentation("primary_scatterer").data()
-      )
-      .def_property_readonly(
-         "number_per_molecule",
-         [](const Component &self) { return self.numberPerMolecule(); },
-         Component::documentation("number_per_molecule").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self) { return self.mass(); },
-         Component::documentation("mass").data()
-      )
-      .def_property_readonly(
-         "e_critical",
-         [](const Component &self) { return self.e_critical(); },
-         Component::documentation("e_critical").data()
-      )
-      .def_property_readonly(
-         "e_max",
-         [](const Component &self) { return self.e_max(); },
-         Component::documentation("e_max").data()
-      )
-      .def_property_readonly(
-         "bound_atom_cross_section",
-         [](const Component &self) { return self.boundAtomCrossSection(); },
-         Component::documentation("bound_atom_cross_section").data()
-      )
-      .def_property_readonly(
-         "coherent_atom_cross_section",
-         [](const Component &self) { return self.coherentAtomCrossSection(); },
-         Component::documentation("coherent_atom_cross_section").data()
-      )
-      .def_property_readonly(
-         "distinct_scattering_kernel",
-         [](const Component &self) { return self.distinctScatteringKernel(); },
-         Component::documentation("distinct_scattering_kernel").data()
-      )
-      .def_property_readonly(
-         "self_scattering_kernel",
-         [](const Component &self) { return self.selfScatteringKernel(); },
-         Component::documentation("self_scattering_kernel").data()
-      )
-      .def_property_readonly(
-         "t_effective",
-         [](const Component &self) { return self.T_effective(); },
-         Component::documentation("t_effective").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const bool &,
+         const Integer32 &,
+         const tsl::Mass &,
+         const std::optional<tsl::E_critical> &,
+         const tsl::E_max &,
+         const tsl::BoundAtomCrossSection &,
+         const std::optional<tsl::CoherentAtomCrossSection> &,
+         const std::optional<tsl::DistinctScatteringKernel> &,
+         const tsl::SelfScatteringKernel &,
+         const std::optional<tsl::T_effective> &
+      >(),
+      py::arg("pid"),
+      py::arg("primary_scatterer"),
+      py::arg("number_per_molecule"),
+      py::arg("mass"),
+      py::arg("e_critical") = std::nullopt,
+      py::arg("e_max"),
+      py::arg("bound_atom_cross_section"),
+      py::arg("coherent_atom_cross_section") = std::nullopt,
+      py::arg("distinct_scattering_kernel") = std::nullopt,
+      py::arg("self_scattering_kernel"),
+      py::arg("t_effective") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set primaryScatterer
+   object.def_property(
+      "primary_scatterer",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.primaryScatterer();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.primaryScatterer() = value;
+      },
+      cppCLASS::component_t::documentation("primary_scatterer").data()
+   );
+
+   // get/set numberPerMolecule
+   object.def_property(
+      "number_per_molecule",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.numberPerMolecule();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.numberPerMolecule() = value;
+      },
+      cppCLASS::component_t::documentation("number_per_molecule").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const tsl::Mass &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // get/set e_critical
+   object.def_property(
+      "e_critical",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.e_critical();
+      },
+      [](cppCLASS &self, const std::optional<tsl::E_critical> &value)
+      {
+         self.e_critical() = value;
+      },
+      cppCLASS::component_t::documentation("e_critical").data()
+   );
+
+   // get/set e_max
+   object.def_property(
+      "e_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.e_max();
+      },
+      [](cppCLASS &self, const tsl::E_max &value)
+      {
+         self.e_max() = value;
+      },
+      cppCLASS::component_t::documentation("e_max").data()
+   );
+
+   // get/set boundAtomCrossSection
+   object.def_property(
+      "bound_atom_cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.boundAtomCrossSection();
+      },
+      [](cppCLASS &self, const tsl::BoundAtomCrossSection &value)
+      {
+         self.boundAtomCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("bound_atom_cross_section").data()
+   );
+
+   // get/set coherentAtomCrossSection
+   object.def_property(
+      "coherent_atom_cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.coherentAtomCrossSection();
+      },
+      [](cppCLASS &self, const std::optional<tsl::CoherentAtomCrossSection> &value)
+      {
+         self.coherentAtomCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("coherent_atom_cross_section").data()
+   );
+
+   // get/set distinctScatteringKernel
+   object.def_property(
+      "distinct_scattering_kernel",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.distinctScatteringKernel();
+      },
+      [](cppCLASS &self, const std::optional<tsl::DistinctScatteringKernel> &value)
+      {
+         self.distinctScatteringKernel() = value;
+      },
+      cppCLASS::component_t::documentation("distinct_scattering_kernel").data()
+   );
+
+   // get/set selfScatteringKernel
+   object.def_property(
+      "self_scattering_kernel",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.selfScatteringKernel();
+      },
+      [](cppCLASS &self, const tsl::SelfScatteringKernel &value)
+      {
+         self.selfScatteringKernel() = value;
+      },
+      cppCLASS::component_t::documentation("self_scattering_kernel").data()
+   );
+
+   // get/set T_effective
+   object.def_property(
+      "t_effective",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.T_effective();
+      },
+      [](cppCLASS &self, const std::optional<tsl::T_effective> &value)
+      {
+         self.T_effective() = value;
+      },
+      cppCLASS::component_t::documentation("t_effective").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

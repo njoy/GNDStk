@@ -29,12 +29,12 @@ class ComputerCode :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ComputerCode"; }
-   static auto FIELD() { return "computerCode"; }
+   static auto NODENAME() { return "computerCode"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,37 +50,97 @@ class ComputerCode :
             / Meta<>("version") |
 
          // children
-         --Child<std::optional<documentation::ExecutionArguments>>("executionArguments") |
-         --Child<std::optional<documentation::CodeRepo>>("codeRepo") |
-         --Child<std::optional<documentation::Note>>("note") |
-         --Child<std::optional<documentation::InputDecks>>("inputDecks") |
-         --Child<std::optional<documentation::OutputDecks>>("outputDecks")
+         --Child<std::optional<documentation::ExecutionArguments>>
+            ("executionArguments") |
+         --Child<std::optional<documentation::CodeRepo>>
+            ("codeRepo") |
+         --Child<std::optional<documentation::Note>>
+            ("note") |
+         --Child<std::optional<documentation::InputDecks>>
+            ("inputDecks") |
+         --Child<std::optional<documentation::OutputDecks>>
+            ("outputDecks")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "name",
+         "version",
+         "executionArguments",
+         "codeRepo",
+         "note",
+         "inputDecks",
+         "outputDecks"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "name",
+         "version",
+         "execution_arguments",
+         "code_repo",
+         "note",
+         "input_decks",
+         "output_decks"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<UTF8Text> name{this};
-   Field<XMLName> version{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<UTF8Text>
+      name{this};
+   Field<XMLName>
+      version{this};
 
    // children
-   Field<std::optional<documentation::ExecutionArguments>> executionArguments{this};
-   Field<std::optional<documentation::CodeRepo>> codeRepo{this};
-   Field<std::optional<documentation::Note>> note{this};
-   Field<std::optional<documentation::InputDecks>> inputDecks{this};
-   Field<std::optional<documentation::OutputDecks>> outputDecks{this};
+   Field<std::optional<documentation::ExecutionArguments>>
+      executionArguments{this};
+   Field<std::optional<documentation::CodeRepo>>
+      codeRepo{this};
+   Field<std::optional<documentation::Note>>
+      note{this};
+   Field<std::optional<documentation::InputDecks>>
+      inputDecks{this};
+   Field<std::optional<documentation::OutputDecks>>
+      outputDecks{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->name, \
@@ -89,7 +149,8 @@ public:
       this->codeRepo, \
       this->note, \
       this->inputDecks, \
-      this->outputDecks)
+      this->outputDecks \
+   )
 
    // default
    ComputerCode() :
@@ -100,14 +161,22 @@ public:
 
    // from fields, comment excluded
    explicit ComputerCode(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<UTF8Text> &name = {},
-      const wrapper<XMLName> &version = {},
-      const wrapper<std::optional<documentation::ExecutionArguments>> &executionArguments = {},
-      const wrapper<std::optional<documentation::CodeRepo>> &codeRepo = {},
-      const wrapper<std::optional<documentation::Note>> &note = {},
-      const wrapper<std::optional<documentation::InputDecks>> &inputDecks = {},
-      const wrapper<std::optional<documentation::OutputDecks>> &outputDecks = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<UTF8Text>
+         &name = {},
+      const wrapper<XMLName>
+         &version = {},
+      const wrapper<std::optional<documentation::ExecutionArguments>>
+         &executionArguments = {},
+      const wrapper<std::optional<documentation::CodeRepo>>
+         &codeRepo = {},
+      const wrapper<std::optional<documentation::Note>>
+         &note = {},
+      const wrapper<std::optional<documentation::InputDecks>>
+         &inputDecks = {},
+      const wrapper<std::optional<documentation::OutputDecks>>
+         &outputDecks = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -165,8 +234,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   ComputerCode &operator=(const ComputerCode &) = default;
-   ComputerCode &operator=(ComputerCode &&) = default;
+   // copy
+   ComputerCode &operator=(const ComputerCode &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         name = other.name;
+         version = other.version;
+         executionArguments = other.executionArguments;
+         codeRepo = other.codeRepo;
+         note = other.note;
+         inputDecks = other.inputDecks;
+         outputDecks = other.outputDecks;
+      }
+      return *this;
+   }
+
+   // move
+   ComputerCode &operator=(ComputerCode &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         name = std::move(other.name);
+         version = std::move(other.version);
+         executionArguments = std::move(other.executionArguments);
+         codeRepo = std::move(other.codeRepo);
+         note = std::move(other.note);
+         inputDecks = std::move(other.inputDecks);
+         outputDecks = std::move(other.outputDecks);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

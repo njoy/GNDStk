@@ -90,13 +90,13 @@ RowSensitivityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RowSensitivityAssign(ConstHandle2RowSensitivity This, ConstHandle2ConstRowSensitivity from);
+RowSensitivityAssign(ConstHandle2RowSensitivity self, ConstHandle2ConstRowSensitivity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RowSensitivityDelete(ConstHandle2ConstRowSensitivity This);
+RowSensitivityDelete(ConstHandle2ConstRowSensitivity self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ RowSensitivityDelete(ConstHandle2ConstRowSensitivity This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RowSensitivityRead(ConstHandle2RowSensitivity This, const char *const filename);
+RowSensitivityRead(ConstHandle2RowSensitivity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RowSensitivityWrite(ConstHandle2ConstRowSensitivity This, const char *const filename);
+RowSensitivityWrite(ConstHandle2ConstRowSensitivity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RowSensitivityPrint(ConstHandle2ConstRowSensitivity This);
+RowSensitivityPrint(ConstHandle2ConstRowSensitivity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RowSensitivityPrintXML(ConstHandle2ConstRowSensitivity This);
+RowSensitivityPrintXML(ConstHandle2ConstRowSensitivity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RowSensitivityPrintJSON(ConstHandle2ConstRowSensitivity This);
+RowSensitivityPrintJSON(ConstHandle2ConstRowSensitivity self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ RowSensitivityPrintJSON(ConstHandle2ConstRowSensitivity This);
 
 // +++ Has
 extern_c int
-RowSensitivityArrayHas(ConstHandle2ConstRowSensitivity This);
+RowSensitivityArrayHas(ConstHandle2ConstRowSensitivity self);
 
 // --- Get, const
 extern_c Handle2ConstArray
-RowSensitivityArrayGetConst(ConstHandle2ConstRowSensitivity This);
+RowSensitivityArrayGetConst(ConstHandle2ConstRowSensitivity self);
 
 // +++ Get, non-const
 extern_c Handle2Array
-RowSensitivityArrayGet(ConstHandle2RowSensitivity This);
+RowSensitivityArrayGet(ConstHandle2RowSensitivity self);
 
 // +++ Set
 extern_c void
-RowSensitivityArraySet(ConstHandle2RowSensitivity This, ConstHandle2ConstArray array);
+RowSensitivityArraySet(ConstHandle2RowSensitivity self, ConstHandle2ConstArray array);
 
 
 // -----------------------------------------------------------------------------

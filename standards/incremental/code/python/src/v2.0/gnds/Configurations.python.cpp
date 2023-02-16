@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Configurations wrapper
-void wrapConfigurations(python::module &module)
+// wrapper for gnds::Configurations
+void wrapConfigurations(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Configurations;
+   using cppCLASS = gnds::Configurations;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Configurations",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Configurations",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<gnds::Configuration> &
-         >(),
-         python::arg("configuration"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "configuration",
-         [](const Component &self) { return self.configuration(); },
-         Component::documentation("configuration").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<gnds::Configuration> &
+      >(),
+      py::arg("configuration"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set configuration
+   object.def_property(
+      "configuration",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.configuration();
+      },
+      [](cppCLASS &self, const std::vector<gnds::Configuration> &value)
+      {
+         self.configuration() = value;
+      },
+      cppCLASS::component_t::documentation("configuration").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

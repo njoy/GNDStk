@@ -72,20 +72,20 @@ ResonancesLinkCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResonancesLinkAssign(ConstHandle2ResonancesLink This, ConstHandle2ConstResonancesLink from)
+ResonancesLinkAssign(ConstHandle2ResonancesLink self, ConstHandle2ConstResonancesLink from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResonancesLinkDelete(ConstHandle2ConstResonancesLink This)
+ResonancesLinkDelete(ConstHandle2ConstResonancesLink self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ ResonancesLinkDelete(ConstHandle2ConstResonancesLink This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResonancesLinkRead(ConstHandle2ResonancesLink This, const char *const filename)
+ResonancesLinkRead(ConstHandle2ResonancesLink self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResonancesLinkWrite(ConstHandle2ConstResonancesLink This, const char *const filename)
+ResonancesLinkWrite(ConstHandle2ConstResonancesLink self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResonancesLinkPrint(ConstHandle2ConstResonancesLink This)
+ResonancesLinkPrint(ConstHandle2ConstResonancesLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResonancesLinkPrintXML(ConstHandle2ConstResonancesLink This)
+ResonancesLinkPrintXML(ConstHandle2ConstResonancesLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink This)
+ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink This)
 
 // Has
 int
-ResonancesLinkLabelHas(ConstHandle2ConstResonancesLink This)
+ResonancesLinkLabelHas(ConstHandle2ConstResonancesLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ResonancesLinkLabelGet(ConstHandle2ConstResonancesLink This)
+ResonancesLinkLabelGet(ConstHandle2ConstResonancesLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ResonancesLinkLabelSet(ConstHandle2ResonancesLink This, const XMLName label)
+ResonancesLinkLabelSet(ConstHandle2ResonancesLink self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -176,27 +176,27 @@ ResonancesLinkLabelSet(ConstHandle2ResonancesLink This, const XMLName label)
 
 // Has
 int
-ResonancesLinkHrefHas(ConstHandle2ConstResonancesLink This)
+ResonancesLinkHrefHas(ConstHandle2ConstResonancesLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-ResonancesLinkHrefGet(ConstHandle2ConstResonancesLink This)
+ResonancesLinkHrefGet(ConstHandle2ConstResonancesLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ResonancesLinkHrefSet(ConstHandle2ResonancesLink This, const char *const href)
+ResonancesLinkHrefSet(ConstHandle2ResonancesLink self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

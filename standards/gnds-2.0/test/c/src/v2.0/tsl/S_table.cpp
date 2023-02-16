@@ -69,20 +69,20 @@ S_tableCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-S_tableAssign(ConstHandle2S_table This, ConstHandle2ConstS_table from)
+S_tableAssign(ConstHandle2S_table self, ConstHandle2ConstS_table from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-S_tableDelete(ConstHandle2ConstS_table This)
+S_tableDelete(ConstHandle2ConstS_table self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ S_tableDelete(ConstHandle2ConstS_table This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-S_tableRead(ConstHandle2S_table This, const char *const filename)
+S_tableRead(ConstHandle2S_table self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-S_tableWrite(ConstHandle2ConstS_table This, const char *const filename)
+S_tableWrite(ConstHandle2ConstS_table self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-S_tablePrint(ConstHandle2ConstS_table This)
+S_tablePrint(ConstHandle2ConstS_table self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-S_tablePrintXML(ConstHandle2ConstS_table This)
+S_tablePrintXML(ConstHandle2ConstS_table self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-S_tablePrintJSON(ConstHandle2ConstS_table This)
+S_tablePrintJSON(ConstHandle2ConstS_table self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ S_tablePrintJSON(ConstHandle2ConstS_table This)
 
 // Has
 int
-S_tableGridded2dHas(ConstHandle2ConstS_table This)
+S_tableGridded2dHas(ConstHandle2ConstS_table self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded2dHas", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dHas", self, extract::gridded2d);
 }
 
 // Get, const
 Handle2ConstGridded2d
-S_tableGridded2dGetConst(ConstHandle2ConstS_table This)
+S_tableGridded2dGetConst(ConstHandle2ConstS_table self)
 {
    return detail::getField<CPP,Handle2ConstGridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dGetConst", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
 // Get, non-const
 Handle2Gridded2d
-S_tableGridded2dGet(ConstHandle2S_table This)
+S_tableGridded2dGet(ConstHandle2S_table self)
 {
    return detail::getField<CPP,Handle2Gridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dGet", This, extract::gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dGet", self, extract::gridded2d);
 }
 
 // Set
 void
-S_tableGridded2dSet(ConstHandle2S_table This, ConstHandle2ConstGridded2d gridded2d)
+S_tableGridded2dSet(ConstHandle2S_table self, ConstHandle2ConstGridded2d gridded2d)
 {
    detail::setField<CPP,CPPGridded2d>
-      (CLASSNAME, CLASSNAME+"Gridded2dSet", This, extract::gridded2d, gridded2d);
+      (CLASSNAME, CLASSNAME+"Gridded2dSet", self, extract::gridded2d, gridded2d);
 }
 
 

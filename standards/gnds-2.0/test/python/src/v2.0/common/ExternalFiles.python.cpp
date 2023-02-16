@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_common {
 
-// ExternalFiles wrapper
-void wrapExternalFiles(python::module &module)
+// wrapper for common::ExternalFiles
+void wrapExternalFiles(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = common::ExternalFiles;
+   using cppCLASS = common::ExternalFiles;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ExternalFiles",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ExternalFiles",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<common::ExternalFile> &
-         >(),
-         python::arg("external_file"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "external_file",
-         [](const Component &self) { return self.externalFile(); },
-         Component::documentation("external_file").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<common::ExternalFile> &
+      >(),
+      py::arg("external_file"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set externalFile
+   object.def_property(
+      "external_file",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.externalFile();
+      },
+      [](cppCLASS &self, const std::vector<common::ExternalFile> &value)
+      {
+         self.externalFile() = value;
+      },
+      cppCLASS::component_t::documentation("external_file").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_common

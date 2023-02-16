@@ -27,12 +27,12 @@ class XYs2d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs2d"; }
-   static auto FIELD() { return "XYs2d"; }
+   static auto NODENAME() { return "XYs2d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,13 +50,55 @@ class XYs2d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<containers::Axes>>("axes") |
-         --Child<containers::Function1ds>("function1ds") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<std::optional<containers::Axes>>
+            ("axes") |
+         --Child<containers::Function1ds>
+            ("function1ds") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "interpolationQualifier",
+         "outerDomainValue",
+         "axes",
+         "function1ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "interpolation_qualifier",
+         "outer_domain_value",
+         "axes",
+         "function1ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -64,25 +106,38 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Integer32>> index{this};
-   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<std::optional<XMLName>> interpolationQualifier{this};
-   Field<std::optional<Float64>> outerDomainValue{this};
+   Field<std::optional<Integer32>>
+      index{this};
+   Field<Defaulted<enums::Interpolation>>
+      interpolation{this,defaults.interpolation};
+   Field<std::optional<XMLName>>
+      interpolationQualifier{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
 
    // children
-   Field<std::optional<containers::Axes>> axes{this};
-   Field<containers::Function1ds> function1ds{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<containers::Axes>>
+      axes{this};
+   Field<containers::Function1ds>
+      function1ds{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->interpolation, \
@@ -90,7 +145,8 @@ public:
       this->outerDomainValue, \
       this->axes, \
       this->function1ds, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    XYs2d() :
@@ -102,13 +158,20 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit XYs2d(
-      const wrapper<std::optional<Integer32>> &index,
-      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
-      const wrapper<std::optional<XMLName>> &interpolationQualifier = {},
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Function1ds> &function1ds = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<Integer32>>
+         &index,
+      const wrapper<std::optional<enums::Interpolation>>
+         &interpolation = {},
+      const wrapper<std::optional<XMLName>>
+         &interpolationQualifier = {},
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>>
+         &axes = {},
+      const wrapper<containers::Function1ds>
+         &function1ds = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -163,8 +226,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs2d &operator=(const XYs2d &) = default;
-   XYs2d &operator=(XYs2d &&) = default;
+   // copy
+   XYs2d &operator=(const XYs2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         interpolation = other.interpolation;
+         interpolationQualifier = other.interpolationQualifier;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         function1ds = other.function1ds;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   XYs2d &operator=(XYs2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         interpolation = std::move(other.interpolation);
+         interpolationQualifier = std::move(other.interpolationQualifier);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         function1ds = std::move(other.function1ds);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

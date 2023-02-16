@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Styles wrapper
-void wrapStyles(python::module &module)
+// wrapper for gnds::Styles
+void wrapStyles(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Styles;
+   using cppCLASS = gnds::Styles;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Styles",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Styles",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const gnds::Evaluated &
-         >(),
-         python::arg("evaluated"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "evaluated",
-         [](const Component &self) { return self.evaluated(); },
-         Component::documentation("evaluated").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const gnds::Evaluated &
+      >(),
+      py::arg("evaluated"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set evaluated
+   object.def_property(
+      "evaluated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluated();
+      },
+      [](cppCLASS &self, const gnds::Evaluated &value)
+      {
+         self.evaluated() = value;
+      },
+      cppCLASS::component_t::documentation("evaluated").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

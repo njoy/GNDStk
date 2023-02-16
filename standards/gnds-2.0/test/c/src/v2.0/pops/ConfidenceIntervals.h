@@ -90,13 +90,13 @@ ConfidenceIntervalsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ConfidenceIntervalsAssign(ConstHandle2ConfidenceIntervals This, ConstHandle2ConstConfidenceIntervals from);
+ConfidenceIntervalsAssign(ConstHandle2ConfidenceIntervals self, ConstHandle2ConstConfidenceIntervals from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ConfidenceIntervalsDelete(ConstHandle2ConstConfidenceIntervals This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ConfidenceIntervalsRead(ConstHandle2ConfidenceIntervals This, const char *const filename);
+ConfidenceIntervalsRead(ConstHandle2ConfidenceIntervals self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ConfidenceIntervalsWrite(ConstHandle2ConstConfidenceIntervals This, const char *const filename);
+ConfidenceIntervalsWrite(ConstHandle2ConstConfidenceIntervals self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ConfidenceIntervalsPrint(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsPrint(ConstHandle2ConstConfidenceIntervals self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ConfidenceIntervalsPrintXML(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsPrintXML(ConstHandle2ConstConfidenceIntervals self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ConfidenceIntervalsPrintJSON(ConstHandle2ConstConfidenceIntervals This);
 
 // +++ Has
 extern_c int
-ConfidenceIntervalsIntervalHas(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsIntervalHas(ConstHandle2ConstConfidenceIntervals self);
 
 // +++ Clear
 extern_c void
-ConfidenceIntervalsIntervalClear(ConstHandle2ConfidenceIntervals This);
+ConfidenceIntervalsIntervalClear(ConstHandle2ConfidenceIntervals self);
 
 // +++ Size
 extern_c size_t
-ConfidenceIntervalsIntervalSize(ConstHandle2ConstConfidenceIntervals This);
+ConfidenceIntervalsIntervalSize(ConstHandle2ConstConfidenceIntervals self);
 
 // +++ Add
 extern_c void
-ConfidenceIntervalsIntervalAdd(ConstHandle2ConfidenceIntervals This, ConstHandle2ConstInterval interval);
+ConfidenceIntervalsIntervalAdd(ConstHandle2ConfidenceIntervals self, ConstHandle2ConstInterval interval);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstInterval
-ConfidenceIntervalsIntervalGetConst(ConstHandle2ConstConfidenceIntervals This, const size_t index_);
+ConfidenceIntervalsIntervalGetConst(ConstHandle2ConstConfidenceIntervals self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Interval
-ConfidenceIntervalsIntervalGet(ConstHandle2ConfidenceIntervals This, const size_t index_);
+ConfidenceIntervalsIntervalGet(ConstHandle2ConfidenceIntervals self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ConfidenceIntervalsIntervalSet(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const size_t index_,
    ConstHandle2ConstInterval interval
 );
@@ -169,28 +169,28 @@ ConfidenceIntervalsIntervalSet(
 // +++ Has, by confidence
 extern_c int
 ConfidenceIntervalsIntervalHasByConfidence(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 confidence
 );
 
 // --- Get, by confidence, const
 extern_c Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByConfidenceConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 confidence
 );
 
 // +++ Get, by confidence, non-const
 extern_c Handle2Interval
 ConfidenceIntervalsIntervalGetByConfidence(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 confidence
 );
 
 // +++ Set, by confidence
 extern_c void
 ConfidenceIntervalsIntervalSetByConfidence(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 confidence,
    ConstHandle2ConstInterval interval
 );
@@ -198,28 +198,28 @@ ConfidenceIntervalsIntervalSetByConfidence(
 // +++ Has, by lower
 extern_c int
 ConfidenceIntervalsIntervalHasByLower(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 lower
 );
 
 // --- Get, by lower, const
 extern_c Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByLowerConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 lower
 );
 
 // +++ Get, by lower, non-const
 extern_c Handle2Interval
 ConfidenceIntervalsIntervalGetByLower(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 lower
 );
 
 // +++ Set, by lower
 extern_c void
 ConfidenceIntervalsIntervalSetByLower(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 lower,
    ConstHandle2ConstInterval interval
 );
@@ -227,28 +227,28 @@ ConfidenceIntervalsIntervalSetByLower(
 // +++ Has, by upper
 extern_c int
 ConfidenceIntervalsIntervalHasByUpper(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 upper
 );
 
 // --- Get, by upper, const
 extern_c Handle2ConstInterval
 ConfidenceIntervalsIntervalGetByUpperConst(
-   ConstHandle2ConstConfidenceIntervals This,
+   ConstHandle2ConstConfidenceIntervals self,
    const Float64 upper
 );
 
 // +++ Get, by upper, non-const
 extern_c Handle2Interval
 ConfidenceIntervalsIntervalGetByUpper(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 upper
 );
 
 // +++ Set, by upper
 extern_c void
 ConfidenceIntervalsIntervalSetByUpper(
-   ConstHandle2ConfidenceIntervals This,
+   ConstHandle2ConfidenceIntervals self,
    const Float64 upper,
    ConstHandle2ConstInterval interval
 );

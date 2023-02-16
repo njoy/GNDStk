@@ -25,12 +25,12 @@ class Leptons :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "Leptons"; }
-   static auto FIELD() { return "leptons"; }
+   static auto NODENAME() { return "leptons"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

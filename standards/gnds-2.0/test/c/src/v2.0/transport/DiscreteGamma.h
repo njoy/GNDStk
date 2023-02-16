@@ -96,13 +96,13 @@ DiscreteGammaCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DiscreteGammaAssign(ConstHandle2DiscreteGamma This, ConstHandle2ConstDiscreteGamma from);
+DiscreteGammaAssign(ConstHandle2DiscreteGamma self, ConstHandle2ConstDiscreteGamma from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ DiscreteGammaDelete(ConstHandle2ConstDiscreteGamma This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DiscreteGammaRead(ConstHandle2DiscreteGamma This, const char *const filename);
+DiscreteGammaRead(ConstHandle2DiscreteGamma self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DiscreteGammaWrite(ConstHandle2ConstDiscreteGamma This, const char *const filename);
+DiscreteGammaWrite(ConstHandle2ConstDiscreteGamma self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DiscreteGammaPrint(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaPrint(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DiscreteGammaPrintXML(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaPrintXML(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ DiscreteGammaPrintJSON(ConstHandle2ConstDiscreteGamma This);
 
 // +++ Has
 extern_c int
-DiscreteGammaDomainMaxHas(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaDomainMaxHas(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-DiscreteGammaDomainMaxGet(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaDomainMaxGet(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Set
 extern_c void
-DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma This, const Float64 domainMax);
+DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ DiscreteGammaDomainMaxSet(ConstHandle2DiscreteGamma This, const Float64 domainMa
 
 // +++ Has
 extern_c int
-DiscreteGammaDomainMinHas(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaDomainMinHas(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-DiscreteGammaDomainMinGet(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaDomainMinGet(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Set
 extern_c void
-DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma This, const Float64 domainMin);
+DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ DiscreteGammaDomainMinSet(ConstHandle2DiscreteGamma This, const Float64 domainMi
 
 // +++ Has
 extern_c int
-DiscreteGammaValueHas(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaValueHas(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-DiscreteGammaValueGet(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaValueGet(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Set
 extern_c void
-DiscreteGammaValueSet(ConstHandle2DiscreteGamma This, const Float64 value);
+DiscreteGammaValueSet(ConstHandle2DiscreteGamma self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ DiscreteGammaValueSet(ConstHandle2DiscreteGamma This, const Float64 value);
 
 // +++ Has
 extern_c int
-DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma This);
+DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-DiscreteGammaAxesGet(ConstHandle2DiscreteGamma This);
+DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self);
 
 // +++ Set
 extern_c void
-DiscreteGammaAxesSet(ConstHandle2DiscreteGamma This, ConstHandle2ConstAxes axes);
+DiscreteGammaAxesSet(ConstHandle2DiscreteGamma self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------

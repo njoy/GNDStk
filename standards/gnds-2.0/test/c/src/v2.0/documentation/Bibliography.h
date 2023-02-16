@@ -90,13 +90,13 @@ BibliographyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BibliographyAssign(ConstHandle2Bibliography This, ConstHandle2ConstBibliography from);
+BibliographyAssign(ConstHandle2Bibliography self, ConstHandle2ConstBibliography from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BibliographyDelete(ConstHandle2ConstBibliography This);
+BibliographyDelete(ConstHandle2ConstBibliography self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ BibliographyDelete(ConstHandle2ConstBibliography This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BibliographyRead(ConstHandle2Bibliography This, const char *const filename);
+BibliographyRead(ConstHandle2Bibliography self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BibliographyWrite(ConstHandle2ConstBibliography This, const char *const filename);
+BibliographyWrite(ConstHandle2ConstBibliography self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BibliographyPrint(ConstHandle2ConstBibliography This);
+BibliographyPrint(ConstHandle2ConstBibliography self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BibliographyPrintXML(ConstHandle2ConstBibliography This);
+BibliographyPrintXML(ConstHandle2ConstBibliography self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BibliographyPrintJSON(ConstHandle2ConstBibliography This);
+BibliographyPrintJSON(ConstHandle2ConstBibliography self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ BibliographyPrintJSON(ConstHandle2ConstBibliography This);
 
 // +++ Has
 extern_c int
-BibliographyBibitemHas(ConstHandle2ConstBibliography This);
+BibliographyBibitemHas(ConstHandle2ConstBibliography self);
 
 // +++ Clear
 extern_c void
-BibliographyBibitemClear(ConstHandle2Bibliography This);
+BibliographyBibitemClear(ConstHandle2Bibliography self);
 
 // +++ Size
 extern_c size_t
-BibliographyBibitemSize(ConstHandle2ConstBibliography This);
+BibliographyBibitemSize(ConstHandle2ConstBibliography self);
 
 // +++ Add
 extern_c void
-BibliographyBibitemAdd(ConstHandle2Bibliography This, ConstHandle2ConstBibitem bibitem);
+BibliographyBibitemAdd(ConstHandle2Bibliography self, ConstHandle2ConstBibitem bibitem);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstBibitem
-BibliographyBibitemGetConst(ConstHandle2ConstBibliography This, const size_t index_);
+BibliographyBibitemGetConst(ConstHandle2ConstBibliography self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Bibitem
-BibliographyBibitemGet(ConstHandle2Bibliography This, const size_t index_);
+BibliographyBibitemGet(ConstHandle2Bibliography self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 BibliographyBibitemSet(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const size_t index_,
    ConstHandle2ConstBibitem bibitem
 );
@@ -169,28 +169,28 @@ BibliographyBibitemSet(
 // +++ Has, by encoding
 extern_c int
 BibliographyBibitemHasByEncoding(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName encoding
 );
 
 // --- Get, by encoding, const
 extern_c Handle2ConstBibitem
 BibliographyBibitemGetByEncodingConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName encoding
 );
 
 // +++ Get, by encoding, non-const
 extern_c Handle2Bibitem
 BibliographyBibitemGetByEncoding(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName encoding
 );
 
 // +++ Set, by encoding
 extern_c void
 BibliographyBibitemSetByEncoding(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName encoding,
    ConstHandle2ConstBibitem bibitem
 );
@@ -198,28 +198,28 @@ BibliographyBibitemSetByEncoding(
 // +++ Has, by markup
 extern_c int
 BibliographyBibitemHasByMarkup(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const char *const markup
 );
 
 // --- Get, by markup, const
 extern_c Handle2ConstBibitem
 BibliographyBibitemGetByMarkupConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const char *const markup
 );
 
 // +++ Get, by markup, non-const
 extern_c Handle2Bibitem
 BibliographyBibitemGetByMarkup(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const char *const markup
 );
 
 // +++ Set, by markup
 extern_c void
 BibliographyBibitemSetByMarkup(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const char *const markup,
    ConstHandle2ConstBibitem bibitem
 );
@@ -227,28 +227,28 @@ BibliographyBibitemSetByMarkup(
 // +++ Has, by label
 extern_c int
 BibliographyBibitemHasByLabel(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstBibitem
 BibliographyBibitemGetByLabelConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Bibitem
 BibliographyBibitemGetByLabel(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 BibliographyBibitemSetByLabel(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName label,
    ConstHandle2ConstBibitem bibitem
 );
@@ -256,28 +256,28 @@ BibliographyBibitemSetByLabel(
 // +++ Has, by xref
 extern_c int
 BibliographyBibitemHasByXref(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName xref
 );
 
 // --- Get, by xref, const
 extern_c Handle2ConstBibitem
 BibliographyBibitemGetByXrefConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName xref
 );
 
 // +++ Get, by xref, non-const
 extern_c Handle2Bibitem
 BibliographyBibitemGetByXref(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName xref
 );
 
 // +++ Set, by xref
 extern_c void
 BibliographyBibitemSetByXref(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName xref,
    ConstHandle2ConstBibitem bibitem
 );

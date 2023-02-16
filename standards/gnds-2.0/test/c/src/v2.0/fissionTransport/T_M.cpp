@@ -69,20 +69,20 @@ T_MCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-T_MAssign(ConstHandle2T_M This, ConstHandle2ConstT_M from)
+T_MAssign(ConstHandle2T_M self, ConstHandle2ConstT_M from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-T_MDelete(ConstHandle2ConstT_M This)
+T_MDelete(ConstHandle2ConstT_M self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ T_MDelete(ConstHandle2ConstT_M This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-T_MRead(ConstHandle2T_M This, const char *const filename)
+T_MRead(ConstHandle2T_M self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-T_MWrite(ConstHandle2ConstT_M This, const char *const filename)
+T_MWrite(ConstHandle2ConstT_M self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-T_MPrint(ConstHandle2ConstT_M This)
+T_MPrint(ConstHandle2ConstT_M self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-T_MPrintXML(ConstHandle2ConstT_M This)
+T_MPrintXML(ConstHandle2ConstT_M self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-T_MPrintJSON(ConstHandle2ConstT_M This)
+T_MPrintJSON(ConstHandle2ConstT_M self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ T_MPrintJSON(ConstHandle2ConstT_M This)
 
 // Has
 int
-T_MXYs1dHas(ConstHandle2ConstT_M This)
+T_MXYs1dHas(ConstHandle2ConstT_M self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-T_MXYs1dGetConst(ConstHandle2ConstT_M This)
+T_MXYs1dGetConst(ConstHandle2ConstT_M self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-T_MXYs1dGet(ConstHandle2T_M This)
+T_MXYs1dGet(ConstHandle2T_M self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-T_MXYs1dSet(ConstHandle2T_M This, ConstHandle2ConstXYs1d XYs1d)
+T_MXYs1dSet(ConstHandle2T_M self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

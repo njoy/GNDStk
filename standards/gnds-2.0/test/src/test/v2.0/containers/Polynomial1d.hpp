@@ -27,12 +27,12 @@ class Polynomial1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Polynomial1d"; }
-   static auto FIELD() { return "polynomial1d"; }
+   static auto NODENAME() { return "polynomial1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -52,13 +52,57 @@ class Polynomial1d :
             / Meta<>("domainMax") |
 
          // children
-         --Child<containers::Axes>("axes") |
-         --Child<std::optional<extra::Uncertainty>>("uncertainty") |
-         --Child<containers::Values>("values")
+         --Child<containers::Axes>
+            ("axes") |
+         --Child<std::optional<extra::Uncertainty>>
+            ("uncertainty") |
+         --Child<containers::Values>
+            ("values")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outerDomainValue",
+         "lowerIndex",
+         "domainMin",
+         "domainMax",
+         "axes",
+         "uncertainty",
+         "values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outer_domain_value",
+         "lower_index",
+         "domain_min",
+         "domain_max",
+         "axes",
+         "uncertainty",
+         "values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -66,26 +110,40 @@ public:
       static inline const Integer32 lowerIndex = 0;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<Float64>> outerDomainValue{this};
-   Field<Defaulted<Integer32>> lowerIndex{this,defaults.lowerIndex};
-   Field<Float64> domainMin{this};
-   Field<Float64> domainMax{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
+   Field<Defaulted<Integer32>>
+      lowerIndex{this,defaults.lowerIndex};
+   Field<Float64>
+      domainMin{this};
+   Field<Float64>
+      domainMax{this};
 
    // children
-   Field<containers::Axes> axes{this};
-   Field<std::optional<extra::Uncertainty>> uncertainty{this};
-   Field<containers::Values> values{this};
+   Field<containers::Axes>
+      axes{this};
+   Field<std::optional<extra::Uncertainty>>
+      uncertainty{this};
+   Field<containers::Values>
+      values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->outerDomainValue, \
@@ -94,7 +152,8 @@ public:
       this->domainMax, \
       this->axes, \
       this->uncertainty, \
-      this->values)
+      this->values \
+   )
 
    // default
    Polynomial1d() :
@@ -106,14 +165,22 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Polynomial1d(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<std::optional<Integer32>> &lowerIndex = {},
-      const wrapper<Float64> &domainMin = {},
-      const wrapper<Float64> &domainMax = {},
-      const wrapper<containers::Axes> &axes = {},
-      const wrapper<std::optional<extra::Uncertainty>> &uncertainty = {},
-      const wrapper<containers::Values> &values = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<Integer32>>
+         &lowerIndex = {},
+      const wrapper<Float64>
+         &domainMin = {},
+      const wrapper<Float64>
+         &domainMax = {},
+      const wrapper<containers::Axes>
+         &axes = {},
+      const wrapper<std::optional<extra::Uncertainty>>
+         &uncertainty = {},
+      const wrapper<containers::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -171,8 +238,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Polynomial1d &operator=(const Polynomial1d &) = default;
-   Polynomial1d &operator=(Polynomial1d &&) = default;
+   // copy
+   Polynomial1d &operator=(const Polynomial1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         lowerIndex = other.lowerIndex;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+         uncertainty = other.uncertainty;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Polynomial1d &operator=(Polynomial1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         lowerIndex = std::move(other.lowerIndex);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+         uncertainty = std::move(other.uncertainty);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

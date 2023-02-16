@@ -73,20 +73,20 @@ PhotonEmissionProbabilitiesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PhotonEmissionProbabilitiesAssign(ConstHandle2PhotonEmissionProbabilities This, ConstHandle2ConstPhotonEmissionProbabilities from)
+PhotonEmissionProbabilitiesAssign(ConstHandle2PhotonEmissionProbabilities self, ConstHandle2ConstPhotonEmissionProbabilities from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities T
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PhotonEmissionProbabilitiesRead(ConstHandle2PhotonEmissionProbabilities This, const char *const filename)
+PhotonEmissionProbabilitiesRead(ConstHandle2PhotonEmissionProbabilities self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PhotonEmissionProbabilitiesWrite(ConstHandle2ConstPhotonEmissionProbabilities This, const char *const filename)
+PhotonEmissionProbabilitiesWrite(ConstHandle2ConstPhotonEmissionProbabilities self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PhotonEmissionProbabilitiesPrint(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesPrint(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PhotonEmissionProbabilitiesPrintXML(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesPrintXML(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilitie
 
 // Has
 int
-PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ShellHas", This, extract::shell);
+      (CLASSNAME, CLASSNAME+"ShellHas", self, extract::shell);
 }
 
 // Clear
 void
-PhotonEmissionProbabilitiesShellClear(ConstHandle2PhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesShellClear(ConstHandle2PhotonEmissionProbabilities self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ShellClear", This, extract::shell);
+      (CLASSNAME, CLASSNAME+"ShellClear", self, extract::shell);
 }
 
 // Size
 size_t
-PhotonEmissionProbabilitiesShellSize(ConstHandle2ConstPhotonEmissionProbabilities This)
+PhotonEmissionProbabilitiesShellSize(ConstHandle2ConstPhotonEmissionProbabilities self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ShellSize", This, extract::shell);
+      (CLASSNAME, CLASSNAME+"ShellSize", self, extract::shell);
 }
 
 // Add
 void
-PhotonEmissionProbabilitiesShellAdd(ConstHandle2PhotonEmissionProbabilities This, ConstHandle2ConstShell shell)
+PhotonEmissionProbabilitiesShellAdd(ConstHandle2PhotonEmissionProbabilities self, ConstHandle2ConstShell shell)
 {
    detail::addToContainer<CPP,CPPShell>
-      (CLASSNAME, CLASSNAME+"ShellAdd", This, extract::shell, shell);
+      (CLASSNAME, CLASSNAME+"ShellAdd", self, extract::shell, shell);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstShell
-PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities This, const size_t index_)
+PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstShell>
-      (CLASSNAME, CLASSNAME+"ShellGetConst", This, extract::shell, index_);
+      (CLASSNAME, CLASSNAME+"ShellGetConst", self, extract::shell, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Shell
-PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities This, const size_t index_)
+PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Shell>
-      (CLASSNAME, CLASSNAME+"ShellGet", This, extract::shell, index_);
+      (CLASSNAME, CLASSNAME+"ShellGet", self, extract::shell, index_);
 }
 
 // Set, by index \in [0,size)
 void
 PhotonEmissionProbabilitiesShellSet(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const size_t index_,
    ConstHandle2ConstShell shell
 ) {
    detail::setByIndex<CPP,CPPShell>
-      (CLASSNAME, CLASSNAME+"ShellSet", This, extract::shell, index_, shell);
+      (CLASSNAME, CLASSNAME+"ShellSet", self, extract::shell, index_, shell);
 }
 
 // Has, by label
 int
 PhotonEmissionProbabilitiesShellHasByLabel(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ShellHasByLabel",
-       This, extract::shell, meta::label, label);
+       self, extract::shell, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByLabelConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstShell>
       (CLASSNAME, CLASSNAME+"ShellGetByLabelConst",
-       This, extract::shell, meta::label, label);
+       self, extract::shell, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Shell
 PhotonEmissionProbabilitiesShellGetByLabel(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Shell>
       (CLASSNAME, CLASSNAME+"ShellGetByLabel",
-       This, extract::shell, meta::label, label);
+       self, extract::shell, meta::label, label);
 }
 
 // Set, by label
 void
 PhotonEmissionProbabilitiesShellSetByLabel(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName label,
    ConstHandle2ConstShell shell
 ) {
    detail::setByMetadatum<CPP,CPPShell>
       (CLASSNAME, CLASSNAME+"ShellSetByLabel",
-       This, extract::shell, meta::label, label, shell);
+       self, extract::shell, meta::label, label, shell);
 }
 
 // Has, by value
 int
 PhotonEmissionProbabilitiesShellHasByValue(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const Float64 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ShellHasByValue",
-       This, extract::shell, meta::value, value);
+       self, extract::shell, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByValueConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstShell>
       (CLASSNAME, CLASSNAME+"ShellGetByValueConst",
-       This, extract::shell, meta::value, value);
+       self, extract::shell, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Shell
 PhotonEmissionProbabilitiesShellGetByValue(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Shell>
       (CLASSNAME, CLASSNAME+"ShellGetByValue",
-       This, extract::shell, meta::value, value);
+       self, extract::shell, meta::value, value);
 }
 
 // Set, by value
 void
 PhotonEmissionProbabilitiesShellSetByValue(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const Float64 value,
    ConstHandle2ConstShell shell
 ) {
    detail::setByMetadatum<CPP,CPPShell>
       (CLASSNAME, CLASSNAME+"ShellSetByValue",
-       This, extract::shell, meta::value, value, shell);
+       self, extract::shell, meta::value, value, shell);
 }
 
 // Has, by unit
 int
 PhotonEmissionProbabilitiesShellHasByUnit(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ShellHasByUnit",
-       This, extract::shell, meta::unit, unit);
+       self, extract::shell, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByUnitConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstShell>
       (CLASSNAME, CLASSNAME+"ShellGetByUnitConst",
-       This, extract::shell, meta::unit, unit);
+       self, extract::shell, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Shell
 PhotonEmissionProbabilitiesShellGetByUnit(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Shell>
       (CLASSNAME, CLASSNAME+"ShellGetByUnit",
-       This, extract::shell, meta::unit, unit);
+       self, extract::shell, meta::unit, unit);
 }
 
 // Set, by unit
 void
 PhotonEmissionProbabilitiesShellSetByUnit(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName unit,
    ConstHandle2ConstShell shell
 ) {
    detail::setByMetadatum<CPP,CPPShell>
       (CLASSNAME, CLASSNAME+"ShellSetByUnit",
-       This, extract::shell, meta::unit, unit, shell);
+       self, extract::shell, meta::unit, unit, shell);
 }
 
 

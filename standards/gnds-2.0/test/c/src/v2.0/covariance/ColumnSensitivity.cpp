@@ -69,20 +69,20 @@ ColumnSensitivityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ColumnSensitivityAssign(ConstHandle2ColumnSensitivity This, ConstHandle2ConstColumnSensitivity from)
+ColumnSensitivityAssign(ConstHandle2ColumnSensitivity self, ConstHandle2ConstColumnSensitivity from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ColumnSensitivityRead(ConstHandle2ColumnSensitivity This, const char *const filename)
+ColumnSensitivityRead(ConstHandle2ColumnSensitivity self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ColumnSensitivityWrite(ConstHandle2ConstColumnSensitivity This, const char *const filename)
+ColumnSensitivityWrite(ConstHandle2ConstColumnSensitivity self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ColumnSensitivityPrint(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityPrint(ConstHandle2ConstColumnSensitivity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ColumnSensitivityPrintXML(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityPrintXML(ConstHandle2ConstColumnSensitivity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity This)
 
 // Has
 int
-ColumnSensitivityArrayHas(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityArrayHas(ConstHandle2ConstColumnSensitivity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ArrayHas", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayHas", self, extract::array);
 }
 
 // Get, const
 Handle2ConstArray
-ColumnSensitivityArrayGetConst(ConstHandle2ConstColumnSensitivity This)
+ColumnSensitivityArrayGetConst(ConstHandle2ConstColumnSensitivity self)
 {
    return detail::getField<CPP,Handle2ConstArray>
-      (CLASSNAME, CLASSNAME+"ArrayGetConst", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
 // Get, non-const
 Handle2Array
-ColumnSensitivityArrayGet(ConstHandle2ColumnSensitivity This)
+ColumnSensitivityArrayGet(ConstHandle2ColumnSensitivity self)
 {
    return detail::getField<CPP,Handle2Array>
-      (CLASSNAME, CLASSNAME+"ArrayGet", This, extract::array);
+      (CLASSNAME, CLASSNAME+"ArrayGet", self, extract::array);
 }
 
 // Set
 void
-ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity This, ConstHandle2ConstArray array)
+ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity self, ConstHandle2ConstArray array)
 {
    detail::setField<CPP,CPPArray>
-      (CLASSNAME, CLASSNAME+"ArraySet", This, extract::array, array);
+      (CLASSNAME, CLASSNAME+"ArraySet", self, extract::array, array);
 }
 
 

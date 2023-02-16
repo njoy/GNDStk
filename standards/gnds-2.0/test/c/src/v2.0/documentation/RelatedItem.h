@@ -93,13 +93,13 @@ RelatedItemCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RelatedItemAssign(ConstHandle2RelatedItem This, ConstHandle2ConstRelatedItem from);
+RelatedItemAssign(ConstHandle2RelatedItem self, ConstHandle2ConstRelatedItem from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RelatedItemDelete(ConstHandle2ConstRelatedItem This);
+RelatedItemDelete(ConstHandle2ConstRelatedItem self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ RelatedItemDelete(ConstHandle2ConstRelatedItem This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RelatedItemRead(ConstHandle2RelatedItem This, const char *const filename);
+RelatedItemRead(ConstHandle2RelatedItem self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RelatedItemWrite(ConstHandle2ConstRelatedItem This, const char *const filename);
+RelatedItemWrite(ConstHandle2ConstRelatedItem self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RelatedItemPrint(ConstHandle2ConstRelatedItem This);
+RelatedItemPrint(ConstHandle2ConstRelatedItem self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RelatedItemPrintXML(ConstHandle2ConstRelatedItem This);
+RelatedItemPrintXML(ConstHandle2ConstRelatedItem self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RelatedItemPrintJSON(ConstHandle2ConstRelatedItem This);
+RelatedItemPrintJSON(ConstHandle2ConstRelatedItem self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ RelatedItemPrintJSON(ConstHandle2ConstRelatedItem This);
 
 // +++ Has
 extern_c int
-RelatedItemNameHas(ConstHandle2ConstRelatedItem This);
+RelatedItemNameHas(ConstHandle2ConstRelatedItem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-RelatedItemNameGet(ConstHandle2ConstRelatedItem This);
+RelatedItemNameGet(ConstHandle2ConstRelatedItem self);
 
 // +++ Set
 extern_c void
-RelatedItemNameSet(ConstHandle2RelatedItem This, const UTF8Text name);
+RelatedItemNameSet(ConstHandle2RelatedItem self, const UTF8Text name);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ RelatedItemNameSet(ConstHandle2RelatedItem This, const UTF8Text name);
 
 // +++ Has
 extern_c int
-RelatedItemHrefHas(ConstHandle2ConstRelatedItem This);
+RelatedItemHrefHas(ConstHandle2ConstRelatedItem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-RelatedItemHrefGet(ConstHandle2ConstRelatedItem This);
+RelatedItemHrefGet(ConstHandle2ConstRelatedItem self);
 
 // +++ Set
 extern_c void
-RelatedItemHrefSet(ConstHandle2RelatedItem This, const UTF8Text href);
+RelatedItemHrefSet(ConstHandle2RelatedItem self, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ RelatedItemHrefSet(ConstHandle2RelatedItem This, const UTF8Text href);
 
 // +++ Has
 extern_c int
-RelatedItemRelationTypeHas(ConstHandle2ConstRelatedItem This);
+RelatedItemRelationTypeHas(ConstHandle2ConstRelatedItem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::RelationType
-RelatedItemRelationTypeGet(ConstHandle2ConstRelatedItem This);
+RelatedItemRelationTypeGet(ConstHandle2ConstRelatedItem self);
 
 // +++ Set
 extern_c void
-RelatedItemRelationTypeSet(ConstHandle2RelatedItem This, const enums::RelationType relationType);
+RelatedItemRelationTypeSet(ConstHandle2RelatedItem self, const enums::RelationType relationType);
 
 
 // -----------------------------------------------------------------------------

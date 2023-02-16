@@ -93,13 +93,13 @@ PromptProductKECreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PromptProductKEAssign(ConstHandle2PromptProductKE This, ConstHandle2ConstPromptProductKE from);
+PromptProductKEAssign(ConstHandle2PromptProductKE self, ConstHandle2ConstPromptProductKE from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PromptProductKEDelete(ConstHandle2ConstPromptProductKE This);
+PromptProductKEDelete(ConstHandle2ConstPromptProductKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ PromptProductKEDelete(ConstHandle2ConstPromptProductKE This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PromptProductKERead(ConstHandle2PromptProductKE This, const char *const filename);
+PromptProductKERead(ConstHandle2PromptProductKE self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PromptProductKEWrite(ConstHandle2ConstPromptProductKE This, const char *const filename);
+PromptProductKEWrite(ConstHandle2ConstPromptProductKE self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PromptProductKEPrint(ConstHandle2ConstPromptProductKE This);
+PromptProductKEPrint(ConstHandle2ConstPromptProductKE self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PromptProductKEPrintXML(ConstHandle2ConstPromptProductKE This);
+PromptProductKEPrintXML(ConstHandle2ConstPromptProductKE self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PromptProductKEPrintJSON(ConstHandle2ConstPromptProductKE This);
+PromptProductKEPrintJSON(ConstHandle2ConstPromptProductKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ PromptProductKEPrintJSON(ConstHandle2ConstPromptProductKE This);
 
 // +++ Has
 extern_c int
-PromptProductKEXYs1dHas(ConstHandle2ConstPromptProductKE This);
+PromptProductKEXYs1dHas(ConstHandle2ConstPromptProductKE self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE This);
+PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-PromptProductKEXYs1dGet(ConstHandle2PromptProductKE This);
+PromptProductKEXYs1dGet(ConstHandle2PromptProductKE self);
 
 // +++ Set
 extern_c void
-PromptProductKEXYs1dSet(ConstHandle2PromptProductKE This, ConstHandle2ConstXYs1d XYs1d);
+PromptProductKEXYs1dSet(ConstHandle2PromptProductKE self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ PromptProductKEXYs1dSet(ConstHandle2PromptProductKE This, ConstHandle2ConstXYs1d
 
 // +++ Has
 extern_c int
-PromptProductKEPolynomial1dHas(ConstHandle2ConstPromptProductKE This);
+PromptProductKEPolynomial1dHas(ConstHandle2ConstPromptProductKE self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE This);
+PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE This);
+PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE self);
 
 // +++ Set
 extern_c void
-PromptProductKEPolynomial1dSet(ConstHandle2PromptProductKE This, ConstHandle2ConstPolynomial1d polynomial1d);
+PromptProductKEPolynomial1dSet(ConstHandle2PromptProductKE self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

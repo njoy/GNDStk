@@ -80,20 +80,20 @@ CovarianceMatrixCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CovarianceMatrixAssign(ConstHandle2CovarianceMatrix This, ConstHandle2ConstCovarianceMatrix from)
+CovarianceMatrixAssign(ConstHandle2CovarianceMatrix self, ConstHandle2ConstCovarianceMatrix from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -107,44 +107,44 @@ CovarianceMatrixDelete(ConstHandle2ConstCovarianceMatrix This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CovarianceMatrixRead(ConstHandle2CovarianceMatrix This, const char *const filename)
+CovarianceMatrixRead(ConstHandle2CovarianceMatrix self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CovarianceMatrixWrite(ConstHandle2ConstCovarianceMatrix This, const char *const filename)
+CovarianceMatrixWrite(ConstHandle2ConstCovarianceMatrix self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CovarianceMatrixPrint(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixPrint(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CovarianceMatrixPrintXML(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixPrintXML(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -154,27 +154,27 @@ CovarianceMatrixPrintJSON(ConstHandle2ConstCovarianceMatrix This)
 
 // Has
 int
-CovarianceMatrixLabelHas(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixLabelHas(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CovarianceMatrixLabelGet(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixLabelGet(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix This, const XMLName label)
+CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -184,27 +184,27 @@ CovarianceMatrixLabelSet(ConstHandle2CovarianceMatrix This, const XMLName label)
 
 // Has
 int
-CovarianceMatrixProductFrameHas(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixProductFrameHas(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-CovarianceMatrixProductFrameGet(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixProductFrameGet(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix This, const enums::Frame productFrame)
+CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix self, const enums::Frame productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -214,27 +214,27 @@ CovarianceMatrixProductFrameSet(ConstHandle2CovarianceMatrix This, const enums::
 
 // Has
 int
-CovarianceMatrixTypeHas(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixTypeHas(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeHas", self, extract::type);
 }
 
 // Get
 // Returns by value
 XMLName
-CovarianceMatrixTypeGet(ConstHandle2ConstCovarianceMatrix This)
+CovarianceMatrixTypeGet(ConstHandle2ConstCovarianceMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeGet", self, extract::type);
 }
 
 // Set
 void
-CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix This, const XMLName type)
+CovarianceMatrixTypeSet(ConstHandle2CovarianceMatrix self, const XMLName type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
+      (CLASSNAME, CLASSNAME+"TypeSet", self, extract::type, type);
 }
 
 

@@ -37,12 +37,12 @@ class Function1ds :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Function1ds"; }
-   static auto FIELD() { return "function1ds"; }
+   static auto NODENAME() { return "function1ds"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -55,14 +55,46 @@ class Function1ds :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_XYs1dconstant1dpolynomial1dLegendregridded1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_xys1dconstant1dpolynomial1d_legendregridded1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children - variant
-   Field<std::vector<_t>> _XYs1dconstant1dpolynomial1dLegendregridded1d{this};
+   Field<std::vector<_t>>
+      _XYs1dconstant1dpolynomial1dLegendregridded1d{this};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dLegendregridded1d),containers::XYs1d> XYs1d{_XYs1dconstant1dpolynomial1dLegendregridded1d};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dLegendregridded1d),containers::Constant1d> constant1d{_XYs1dconstant1dpolynomial1dLegendregridded1d};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dLegendregridded1d),containers::Polynomial1d> polynomial1d{_XYs1dconstant1dpolynomial1dLegendregridded1d};
@@ -73,9 +105,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->_XYs1dconstant1dpolynomial1dLegendregridded1d)
+      this->_XYs1dconstant1dpolynomial1dLegendregridded1d \
+   )
 
    // default
    Function1ds() :
@@ -86,7 +121,8 @@ public:
 
    // from fields, comment excluded
    explicit Function1ds(
-      const wrapper<std::vector<_t>> &_XYs1dconstant1dpolynomial1dLegendregridded1d
+      const wrapper<std::vector<_t>>
+         &_XYs1dconstant1dpolynomial1dLegendregridded1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs1dconstant1dpolynomial1dLegendregridded1d(this,_XYs1dconstant1dpolynomial1dLegendregridded1d)
@@ -123,8 +159,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Function1ds &operator=(const Function1ds &) = default;
-   Function1ds &operator=(Function1ds &&) = default;
+   // copy
+   Function1ds &operator=(const Function1ds &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         _XYs1dconstant1dpolynomial1dLegendregridded1d = other._XYs1dconstant1dpolynomial1dLegendregridded1d;
+      }
+      return *this;
+   }
+
+   // move
+   Function1ds &operator=(Function1ds &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         _XYs1dconstant1dpolynomial1dLegendregridded1d = std::move(other._XYs1dconstant1dpolynomial1dLegendregridded1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

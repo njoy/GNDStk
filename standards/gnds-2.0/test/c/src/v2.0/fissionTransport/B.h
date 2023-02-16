@@ -85,13 +85,13 @@ BCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BAssign(ConstHandle2B This, ConstHandle2ConstB from);
+BAssign(ConstHandle2B self, ConstHandle2ConstB from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BDelete(ConstHandle2ConstB This);
+BDelete(ConstHandle2ConstB self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ BDelete(ConstHandle2ConstB This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BRead(ConstHandle2B This, const char *const filename);
+BRead(ConstHandle2B self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BWrite(ConstHandle2ConstB This, const char *const filename);
+BWrite(ConstHandle2ConstB self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BPrint(ConstHandle2ConstB This);
+BPrint(ConstHandle2ConstB self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BPrintXML(ConstHandle2ConstB This);
+BPrintXML(ConstHandle2ConstB self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BPrintJSON(ConstHandle2ConstB This);
+BPrintJSON(ConstHandle2ConstB self);
 
 
 // -----------------------------------------------------------------------------

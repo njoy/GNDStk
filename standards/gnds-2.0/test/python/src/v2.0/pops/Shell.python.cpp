@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Shell wrapper
-void wrapShell(python::module &module)
+// wrapper for pops::Shell
+void wrapShell(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Shell;
+   using cppCLASS = pops::Shell;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Shell",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Shell",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const Float64 &,
-            const std::optional<XMLName> &
-         >(),
-         python::arg("label"),
-         python::arg("value"),
-         python::arg("unit") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const Float64 &,
+         const std::optional<XMLName> &
+      >(),
+      py::arg("label"),
+      py::arg("value"),
+      py::arg("unit") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

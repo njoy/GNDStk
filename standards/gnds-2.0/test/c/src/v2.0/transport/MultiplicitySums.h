@@ -90,13 +90,13 @@ MultiplicitySumsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MultiplicitySumsAssign(ConstHandle2MultiplicitySums This, ConstHandle2ConstMultiplicitySums from);
+MultiplicitySumsAssign(ConstHandle2MultiplicitySums self, ConstHandle2ConstMultiplicitySums from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ MultiplicitySumsDelete(ConstHandle2ConstMultiplicitySums This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MultiplicitySumsRead(ConstHandle2MultiplicitySums This, const char *const filename);
+MultiplicitySumsRead(ConstHandle2MultiplicitySums self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MultiplicitySumsWrite(ConstHandle2ConstMultiplicitySums This, const char *const filename);
+MultiplicitySumsWrite(ConstHandle2ConstMultiplicitySums self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MultiplicitySumsPrint(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsPrint(ConstHandle2ConstMultiplicitySums self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MultiplicitySumsPrintXML(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsPrintXML(ConstHandle2ConstMultiplicitySums self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ MultiplicitySumsPrintJSON(ConstHandle2ConstMultiplicitySums This);
 
 // +++ Has
 extern_c int
-MultiplicitySumsMultiplicitySumHas(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsMultiplicitySumHas(ConstHandle2ConstMultiplicitySums self);
 
 // +++ Clear
 extern_c void
-MultiplicitySumsMultiplicitySumClear(ConstHandle2MultiplicitySums This);
+MultiplicitySumsMultiplicitySumClear(ConstHandle2MultiplicitySums self);
 
 // +++ Size
 extern_c size_t
-MultiplicitySumsMultiplicitySumSize(ConstHandle2ConstMultiplicitySums This);
+MultiplicitySumsMultiplicitySumSize(ConstHandle2ConstMultiplicitySums self);
 
 // +++ Add
 extern_c void
-MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums This, ConstHandle2ConstMultiplicitySum multiplicitySum);
+MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums self, ConstHandle2ConstMultiplicitySum multiplicitySum);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstMultiplicitySum
-MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums This, const size_t index_);
+MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2MultiplicitySum
-MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums This, const size_t index_);
+MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 MultiplicitySumsMultiplicitySumSet(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const size_t index_,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 );
@@ -169,28 +169,28 @@ MultiplicitySumsMultiplicitySumSet(
 // +++ Has, by ENDF_MT
 extern_c int
 MultiplicitySumsMultiplicitySumHasByENDFMT(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const Integer32 ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMTConst(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const Integer32 ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMT(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const Integer32 ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 MultiplicitySumsMultiplicitySumSetByENDFMT(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const Integer32 ENDF_MT,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 );
@@ -198,28 +198,28 @@ MultiplicitySumsMultiplicitySumSetByENDFMT(
 // +++ Has, by label
 extern_c int
 MultiplicitySumsMultiplicitySumHasByLabel(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabelConst(
-   ConstHandle2ConstMultiplicitySums This,
+   ConstHandle2ConstMultiplicitySums self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabel(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 MultiplicitySumsMultiplicitySumSetByLabel(
-   ConstHandle2MultiplicitySums This,
+   ConstHandle2MultiplicitySums self,
    const XMLName label,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 );

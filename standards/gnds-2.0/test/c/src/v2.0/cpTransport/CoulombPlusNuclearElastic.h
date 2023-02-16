@@ -103,13 +103,13 @@ CoulombPlusNuclearElasticCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CoulombPlusNuclearElasticAssign(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstCoulombPlusNuclearElastic from);
+CoulombPlusNuclearElasticAssign(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstCoulombPlusNuclearElastic from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 
 // -----------------------------------------------------------------------------
@@ -122,25 +122,25 @@ CoulombPlusNuclearElasticDelete(ConstHandle2ConstCoulombPlusNuclearElastic This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CoulombPlusNuclearElasticRead(ConstHandle2CoulombPlusNuclearElastic This, const char *const filename);
+CoulombPlusNuclearElasticRead(ConstHandle2CoulombPlusNuclearElastic self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CoulombPlusNuclearElasticWrite(ConstHandle2ConstCoulombPlusNuclearElastic This, const char *const filename);
+CoulombPlusNuclearElasticWrite(ConstHandle2ConstCoulombPlusNuclearElastic self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CoulombPlusNuclearElasticPrint(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticPrint(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CoulombPlusNuclearElasticPrintXML(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticPrintXML(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 
 // -----------------------------------------------------------------------------
@@ -149,16 +149,16 @@ CoulombPlusNuclearElasticPrintJSON(ConstHandle2ConstCoulombPlusNuclearElastic Th
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticHrefHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticHrefHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoulombPlusNuclearElasticHrefGet(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticHrefGet(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic This, const XMLName href);
+CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic self, const XMLName href);
 
 
 // -----------------------------------------------------------------------------
@@ -167,16 +167,16 @@ CoulombPlusNuclearElasticHrefSet(ConstHandle2CoulombPlusNuclearElastic This, con
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticIdenticalParticlesHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticIdenticalParticlesHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-CoulombPlusNuclearElasticIdenticalParticlesGet(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticIdenticalParticlesGet(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearElastic This, const bool identicalParticles);
+CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearElastic self, const bool identicalParticles);
 
 
 // -----------------------------------------------------------------------------
@@ -185,16 +185,16 @@ CoulombPlusNuclearElasticIdenticalParticlesSet(ConstHandle2CoulombPlusNuclearEla
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticLabelHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticLabelHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoulombPlusNuclearElasticLabelGet(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticLabelGet(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic This, const XMLName label);
+CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -203,16 +203,16 @@ CoulombPlusNuclearElasticLabelSet(ConstHandle2CoulombPlusNuclearElastic This, co
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticPidHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticPidHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoulombPlusNuclearElasticPidGet(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticPidGet(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic This, const XMLName pid);
+CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic self, const XMLName pid);
 
 
 // -----------------------------------------------------------------------------
@@ -221,16 +221,16 @@ CoulombPlusNuclearElasticPidSet(ConstHandle2CoulombPlusNuclearElastic This, cons
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticProductFrameHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticProductFrameHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Frame
-CoulombPlusNuclearElasticProductFrameGet(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticProductFrameGet(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic This, const enums::Frame productFrame);
+CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic self, const enums::Frame productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -239,19 +239,19 @@ CoulombPlusNuclearElasticProductFrameSet(ConstHandle2CoulombPlusNuclearElastic T
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticRutherfordScatteringHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticRutherfordScatteringHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // --- Get, const
 extern_c Handle2ConstRutherfordScattering
-CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get, non-const
 extern_c Handle2RutherfordScattering
-CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstRutherfordScattering RutherfordScattering);
+CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstRutherfordScattering RutherfordScattering);
 
 
 // -----------------------------------------------------------------------------
@@ -260,19 +260,19 @@ CoulombPlusNuclearElasticRutherfordScatteringSet(ConstHandle2CoulombPlusNuclearE
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // --- Get, const
 extern_c Handle2ConstNuclearAmplitudeExpansion
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
 // +++ Get, non-const
 extern_c Handle2NuclearAmplitudeExpansion
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic This);
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuclearElastic This, ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion);
+CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(ConstHandle2CoulombPlusNuclearElastic self, ConstHandle2ConstNuclearAmplitudeExpansion nuclearAmplitudeExpansion);
 
 
 // -----------------------------------------------------------------------------

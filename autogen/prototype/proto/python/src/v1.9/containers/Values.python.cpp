@@ -11,95 +11,152 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_containers {
 
-// Values wrapper
-void wrapValues(python::module &module)
+// wrapper for containers::Values
+void wrapValues(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = containers::Values;
+   using cppCLASS = containers::Values;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Values",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Values",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<int> &,
-            const std::optional<int> &
-         >(),
-         python::arg("value_type") = std::nullopt,
-         python::arg("start") = std::nullopt,
-         python::arg("length") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<int> &
-         >(),
-         python::arg("ints"),
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<double> &
-         >(),
-         python::arg("doubles"),
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<std::string> &
-         >(),
-         python::arg("strings"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "value_type",
-         [](const Component &self) { return self.valueType().value(); },
-         Component::documentation("value_type").data()
-      )
-      .def_property_readonly(
-         "start",
-         [](const Component &self) { return self.start().value(); },
-         Component::documentation("start").data()
-      )
-      .def_property_readonly(
-         "length",
-         [](const Component &self) { return self.length(); },
-         Component::documentation("length").data()
-      )
-      .def_property_readonly(
-         "ints",
-         [] (const Component &self) { return self.ints(); },
-         Component::documentation("ints").data()
-      )
-      .def_property_readonly(
-         "doubles",
-         [] (const Component &self) { return self.doubles(); },
-         Component::documentation("doubles").data()
-      )
-      .def_property_readonly(
-         "strings",
-         [] (const Component &self) { return self.strings(); },
-         Component::documentation("strings").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<int> &,
+         const std::optional<int> &
+      >(),
+      py::arg("value_type") = std::nullopt,
+      py::arg("start") = std::nullopt,
+      py::arg("length") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<int> &
+      >(),
+      py::arg("ints"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<double> &
+      >(),
+      py::arg("doubles"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<std::string> &
+      >(),
+      py::arg("strings"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // get/set valueType
+   object.def_property(
+      "value_type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.valueType().value();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.valueType() = value;
+      },
+      cppCLASS::component_t::documentation("value_type").data()
+   );
+
+   // get/set start
+   object.def_property(
+      "start",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.start().value();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.start() = value;
+      },
+      cppCLASS::component_t::documentation("start").data()
+   );
+
+   // get/set length
+   object.def_property(
+      "length",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.length();
+      },
+      [](cppCLASS &self, const std::optional<int> &value)
+      {
+         self.length() = value;
+      },
+      cppCLASS::component_t::documentation("length").data()
+   );
+
+   // get/set vector<int>
+   object.def_property(
+      "ints",
+      [](const cppCLASS &self) -> const std::vector<int> &
+      {
+         return self.ints();
+      },
+      [](cppCLASS &self, const std::vector<int> &value)
+      {
+         self.ints() = value;
+      },
+      cppCLASS::component_t::documentation("ints").data()
+   );
+
+   // get/set vector<double>
+   object.def_property(
+      "doubles",
+      [](const cppCLASS &self) -> const std::vector<double> &
+      {
+         return self.doubles();
+      },
+      [](cppCLASS &self, const std::vector<double> &value)
+      {
+         self.doubles() = value;
+      },
+      cppCLASS::component_t::documentation("doubles").data()
+   );
+
+   // get/set vector<std::string>
+   object.def_property(
+      "strings",
+      [](const cppCLASS &self) -> const std::vector<std::string> &
+      {
+         return self.strings();
+      },
+      [](cppCLASS &self, const std::vector<std::string> &value)
+      {
+         self.strings() = value;
+      },
+      cppCLASS::component_t::documentation("strings").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

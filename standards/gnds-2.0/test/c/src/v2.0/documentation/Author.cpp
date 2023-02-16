@@ -90,20 +90,20 @@ AuthorCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AuthorAssign(ConstHandle2Author This, ConstHandle2ConstAuthor from)
+AuthorAssign(ConstHandle2Author self, ConstHandle2ConstAuthor from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AuthorDelete(ConstHandle2ConstAuthor This)
+AuthorDelete(ConstHandle2ConstAuthor self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ AuthorDelete(ConstHandle2ConstAuthor This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AuthorRead(ConstHandle2Author This, const char *const filename)
+AuthorRead(ConstHandle2Author self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AuthorWrite(ConstHandle2ConstAuthor This, const char *const filename)
+AuthorWrite(ConstHandle2ConstAuthor self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AuthorPrint(ConstHandle2ConstAuthor This)
+AuthorPrint(ConstHandle2ConstAuthor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AuthorPrintXML(ConstHandle2ConstAuthor This)
+AuthorPrintXML(ConstHandle2ConstAuthor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AuthorPrintJSON(ConstHandle2ConstAuthor This)
+AuthorPrintJSON(ConstHandle2ConstAuthor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ AuthorPrintJSON(ConstHandle2ConstAuthor This)
 
 // Has
 int
-AuthorNameHas(ConstHandle2ConstAuthor This)
+AuthorNameHas(ConstHandle2ConstAuthor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 UTF8Text
-AuthorNameGet(ConstHandle2ConstAuthor This)
+AuthorNameGet(ConstHandle2ConstAuthor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-AuthorNameSet(ConstHandle2Author This, const UTF8Text name)
+AuthorNameSet(ConstHandle2Author self, const UTF8Text name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -194,27 +194,27 @@ AuthorNameSet(ConstHandle2Author This, const UTF8Text name)
 
 // Has
 int
-AuthorOrcidHas(ConstHandle2ConstAuthor This)
+AuthorOrcidHas(ConstHandle2ConstAuthor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidHas", This, extract::orcid);
+      (CLASSNAME, CLASSNAME+"OrcidHas", self, extract::orcid);
 }
 
 // Get
 // Returns by value
 UTF8Text
-AuthorOrcidGet(ConstHandle2ConstAuthor This)
+AuthorOrcidGet(ConstHandle2ConstAuthor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidGet", This, extract::orcid);
+      (CLASSNAME, CLASSNAME+"OrcidGet", self, extract::orcid);
 }
 
 // Set
 void
-AuthorOrcidSet(ConstHandle2Author This, const UTF8Text orcid)
+AuthorOrcidSet(ConstHandle2Author self, const UTF8Text orcid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidSet", This, extract::orcid, orcid);
+      (CLASSNAME, CLASSNAME+"OrcidSet", self, extract::orcid, orcid);
 }
 
 
@@ -224,27 +224,27 @@ AuthorOrcidSet(ConstHandle2Author This, const UTF8Text orcid)
 
 // Has
 int
-AuthorEmailHas(ConstHandle2ConstAuthor This)
+AuthorEmailHas(ConstHandle2ConstAuthor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailHas", This, extract::email);
+      (CLASSNAME, CLASSNAME+"EmailHas", self, extract::email);
 }
 
 // Get
 // Returns by value
 UTF8Text
-AuthorEmailGet(ConstHandle2ConstAuthor This)
+AuthorEmailGet(ConstHandle2ConstAuthor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailGet", This, extract::email);
+      (CLASSNAME, CLASSNAME+"EmailGet", self, extract::email);
 }
 
 // Set
 void
-AuthorEmailSet(ConstHandle2Author This, const UTF8Text email)
+AuthorEmailSet(ConstHandle2Author self, const UTF8Text email)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailSet", This, extract::email, email);
+      (CLASSNAME, CLASSNAME+"EmailSet", self, extract::email, email);
 }
 
 
@@ -254,34 +254,34 @@ AuthorEmailSet(ConstHandle2Author This, const UTF8Text email)
 
 // Has
 int
-AuthorAffiliationsHas(ConstHandle2ConstAuthor This)
+AuthorAffiliationsHas(ConstHandle2ConstAuthor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AffiliationsHas", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsHas", self, extract::affiliations);
 }
 
 // Get, const
 Handle2ConstAffiliations
-AuthorAffiliationsGetConst(ConstHandle2ConstAuthor This)
+AuthorAffiliationsGetConst(ConstHandle2ConstAuthor self)
 {
    return detail::getField<CPP,Handle2ConstAffiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsGetConst", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsGetConst", self, extract::affiliations);
 }
 
 // Get, non-const
 Handle2Affiliations
-AuthorAffiliationsGet(ConstHandle2Author This)
+AuthorAffiliationsGet(ConstHandle2Author self)
 {
    return detail::getField<CPP,Handle2Affiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsGet", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsGet", self, extract::affiliations);
 }
 
 // Set
 void
-AuthorAffiliationsSet(ConstHandle2Author This, ConstHandle2ConstAffiliations affiliations)
+AuthorAffiliationsSet(ConstHandle2Author self, ConstHandle2ConstAffiliations affiliations)
 {
    detail::setField<CPP,CPPAffiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsSet", This, extract::affiliations, affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsSet", self, extract::affiliations, affiliations);
 }
 
 
@@ -291,34 +291,34 @@ AuthorAffiliationsSet(ConstHandle2Author This, ConstHandle2ConstAffiliations aff
 
 // Has
 int
-AuthorNoteHas(ConstHandle2ConstAuthor This)
+AuthorNoteHas(ConstHandle2ConstAuthor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NoteHas", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteHas", self, extract::note);
 }
 
 // Get, const
 Handle2ConstNote
-AuthorNoteGetConst(ConstHandle2ConstAuthor This)
+AuthorNoteGetConst(ConstHandle2ConstAuthor self)
 {
    return detail::getField<CPP,Handle2ConstNote>
-      (CLASSNAME, CLASSNAME+"NoteGetConst", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGetConst", self, extract::note);
 }
 
 // Get, non-const
 Handle2Note
-AuthorNoteGet(ConstHandle2Author This)
+AuthorNoteGet(ConstHandle2Author self)
 {
    return detail::getField<CPP,Handle2Note>
-      (CLASSNAME, CLASSNAME+"NoteGet", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGet", self, extract::note);
 }
 
 // Set
 void
-AuthorNoteSet(ConstHandle2Author This, ConstHandle2ConstNote note)
+AuthorNoteSet(ConstHandle2Author self, ConstHandle2ConstNote note)
 {
    detail::setField<CPP,CPPNote>
-      (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
+      (CLASSNAME, CLASSNAME+"NoteSet", self, extract::note, note);
 }
 
 

@@ -90,13 +90,13 @@ AuthorsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AuthorsAssign(ConstHandle2Authors This, ConstHandle2ConstAuthors from);
+AuthorsAssign(ConstHandle2Authors self, ConstHandle2ConstAuthors from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AuthorsDelete(ConstHandle2ConstAuthors This);
+AuthorsDelete(ConstHandle2ConstAuthors self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AuthorsDelete(ConstHandle2ConstAuthors This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AuthorsRead(ConstHandle2Authors This, const char *const filename);
+AuthorsRead(ConstHandle2Authors self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AuthorsWrite(ConstHandle2ConstAuthors This, const char *const filename);
+AuthorsWrite(ConstHandle2ConstAuthors self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AuthorsPrint(ConstHandle2ConstAuthors This);
+AuthorsPrint(ConstHandle2ConstAuthors self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AuthorsPrintXML(ConstHandle2ConstAuthors This);
+AuthorsPrintXML(ConstHandle2ConstAuthors self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AuthorsPrintJSON(ConstHandle2ConstAuthors This);
+AuthorsPrintJSON(ConstHandle2ConstAuthors self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ AuthorsPrintJSON(ConstHandle2ConstAuthors This);
 
 // +++ Has
 extern_c int
-AuthorsAuthorHas(ConstHandle2ConstAuthors This);
+AuthorsAuthorHas(ConstHandle2ConstAuthors self);
 
 // +++ Clear
 extern_c void
-AuthorsAuthorClear(ConstHandle2Authors This);
+AuthorsAuthorClear(ConstHandle2Authors self);
 
 // +++ Size
 extern_c size_t
-AuthorsAuthorSize(ConstHandle2ConstAuthors This);
+AuthorsAuthorSize(ConstHandle2ConstAuthors self);
 
 // +++ Add
 extern_c void
-AuthorsAuthorAdd(ConstHandle2Authors This, ConstHandle2ConstAuthor author);
+AuthorsAuthorAdd(ConstHandle2Authors self, ConstHandle2ConstAuthor author);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAuthor
-AuthorsAuthorGetConst(ConstHandle2ConstAuthors This, const size_t index_);
+AuthorsAuthorGetConst(ConstHandle2ConstAuthors self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Author
-AuthorsAuthorGet(ConstHandle2Authors This, const size_t index_);
+AuthorsAuthorGet(ConstHandle2Authors self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AuthorsAuthorSet(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const size_t index_,
    ConstHandle2ConstAuthor author
 );
@@ -169,28 +169,28 @@ AuthorsAuthorSet(
 // +++ Has, by name
 extern_c int
 AuthorsAuthorHasByName(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstAuthor
 AuthorsAuthorGetByNameConst(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Author
 AuthorsAuthorGetByName(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text name
 );
 
 // +++ Set, by name
 extern_c void
 AuthorsAuthorSetByName(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text name,
    ConstHandle2ConstAuthor author
 );
@@ -198,28 +198,28 @@ AuthorsAuthorSetByName(
 // +++ Has, by orcid
 extern_c int
 AuthorsAuthorHasByOrcid(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text orcid
 );
 
 // --- Get, by orcid, const
 extern_c Handle2ConstAuthor
 AuthorsAuthorGetByOrcidConst(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text orcid
 );
 
 // +++ Get, by orcid, non-const
 extern_c Handle2Author
 AuthorsAuthorGetByOrcid(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text orcid
 );
 
 // +++ Set, by orcid
 extern_c void
 AuthorsAuthorSetByOrcid(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text orcid,
    ConstHandle2ConstAuthor author
 );
@@ -227,28 +227,28 @@ AuthorsAuthorSetByOrcid(
 // +++ Has, by email
 extern_c int
 AuthorsAuthorHasByEmail(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text email
 );
 
 // --- Get, by email, const
 extern_c Handle2ConstAuthor
 AuthorsAuthorGetByEmailConst(
-   ConstHandle2ConstAuthors This,
+   ConstHandle2ConstAuthors self,
    const UTF8Text email
 );
 
 // +++ Get, by email, non-const
 extern_c Handle2Author
 AuthorsAuthorGetByEmail(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text email
 );
 
 // +++ Set, by email
 extern_c void
 AuthorsAuthorSetByEmail(
-   ConstHandle2Authors This,
+   ConstHandle2Authors self,
    const UTF8Text email,
    ConstHandle2ConstAuthor author
 );

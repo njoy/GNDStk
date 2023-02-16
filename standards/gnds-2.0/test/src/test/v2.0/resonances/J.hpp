@@ -26,12 +26,12 @@ class J :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "J"; }
-   static auto FIELD() { return "J"; }
+   static auto NODENAME() { return "J"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class J :
             / Meta<>("value") |
 
          // children
-         --Child<resonances::LevelSpacing>("levelSpacing") |
-         --Child<resonances::Widths>("widths")
+         --Child<resonances::LevelSpacing>
+            ("levelSpacing") |
+         --Child<resonances::Widths>
+            ("widths")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "levelSpacing",
+         "widths"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "level_spacing",
+         "widths"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<Fraction32> value{this};
+   Field<XMLName>
+      label{this};
+   Field<Fraction32>
+      value{this};
 
    // children
-   Field<resonances::LevelSpacing> levelSpacing{this};
-   Field<resonances::Widths> widths{this};
+   Field<resonances::LevelSpacing>
+      levelSpacing{this};
+   Field<resonances::Widths>
+      widths{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->value, \
       this->levelSpacing, \
-      this->widths)
+      this->widths \
+   )
 
    // default
    J() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit J(
-      const wrapper<XMLName> &label,
-      const wrapper<Fraction32> &value = {},
-      const wrapper<resonances::LevelSpacing> &levelSpacing = {},
-      const wrapper<resonances::Widths> &widths = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<Fraction32>
+         &value = {},
+      const wrapper<resonances::LevelSpacing>
+         &levelSpacing = {},
+      const wrapper<resonances::Widths>
+         &widths = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   J &operator=(const J &) = default;
-   J &operator=(J &&) = default;
+   // copy
+   J &operator=(const J &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         levelSpacing = other.levelSpacing;
+         widths = other.widths;
+      }
+      return *this;
+   }
+
+   // move
+   J &operator=(J &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         levelSpacing = std::move(other.levelSpacing);
+         widths = std::move(other.widths);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

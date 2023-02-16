@@ -95,13 +95,13 @@ InputDeckCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InputDeckAssign(ConstHandle2InputDeck This, ConstHandle2ConstInputDeck from);
+InputDeckAssign(ConstHandle2InputDeck self, ConstHandle2ConstInputDeck from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InputDeckDelete(ConstHandle2ConstInputDeck This);
+InputDeckDelete(ConstHandle2ConstInputDeck self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ InputDeckDelete(ConstHandle2ConstInputDeck This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InputDeckRead(ConstHandle2InputDeck This, const char *const filename);
+InputDeckRead(ConstHandle2InputDeck self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InputDeckWrite(ConstHandle2ConstInputDeck This, const char *const filename);
+InputDeckWrite(ConstHandle2ConstInputDeck self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InputDeckPrint(ConstHandle2ConstInputDeck This);
+InputDeckPrint(ConstHandle2ConstInputDeck self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InputDeckPrintXML(ConstHandle2ConstInputDeck This);
+InputDeckPrintXML(ConstHandle2ConstInputDeck self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InputDeckPrintJSON(ConstHandle2ConstInputDeck This);
+InputDeckPrintJSON(ConstHandle2ConstInputDeck self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ InputDeckPrintJSON(ConstHandle2ConstInputDeck This);
 
 // +++ Clear
 extern_c void
-InputDeckIntsClear(ConstHandle2InputDeck This);
+InputDeckIntsClear(ConstHandle2InputDeck self);
 
 // +++ Get size
 extern_c size_t
-InputDeckIntsSize(ConstHandle2ConstInputDeck This);
+InputDeckIntsSize(ConstHandle2ConstInputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-InputDeckIntsGet(ConstHandle2ConstInputDeck This, const size_t index);
+InputDeckIntsGet(ConstHandle2ConstInputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-InputDeckIntsSet(ConstHandle2InputDeck This, const size_t index, const int value);
+InputDeckIntsSet(ConstHandle2InputDeck self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-InputDeckIntsGetArrayConst(ConstHandle2ConstInputDeck This);
+InputDeckIntsGetArrayConst(ConstHandle2ConstInputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-InputDeckIntsGetArray(ConstHandle2InputDeck This);
+InputDeckIntsGetArray(ConstHandle2InputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-InputDeckIntsSetArray(ConstHandle2InputDeck This, const int *const values, const size_t size);
+InputDeckIntsSetArray(ConstHandle2InputDeck self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ InputDeckIntsSetArray(ConstHandle2InputDeck This, const int *const values, const
 
 // +++ Clear
 extern_c void
-InputDeckUnsignedsClear(ConstHandle2InputDeck This);
+InputDeckUnsignedsClear(ConstHandle2InputDeck self);
 
 // +++ Get size
 extern_c size_t
-InputDeckUnsignedsSize(ConstHandle2ConstInputDeck This);
+InputDeckUnsignedsSize(ConstHandle2ConstInputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-InputDeckUnsignedsGet(ConstHandle2ConstInputDeck This, const size_t index);
+InputDeckUnsignedsGet(ConstHandle2ConstInputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-InputDeckUnsignedsSet(ConstHandle2InputDeck This, const size_t index, const unsigned value);
+InputDeckUnsignedsSet(ConstHandle2InputDeck self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-InputDeckUnsignedsGetArrayConst(ConstHandle2ConstInputDeck This);
+InputDeckUnsignedsGetArrayConst(ConstHandle2ConstInputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-InputDeckUnsignedsGetArray(ConstHandle2InputDeck This);
+InputDeckUnsignedsGetArray(ConstHandle2InputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-InputDeckUnsignedsSetArray(ConstHandle2InputDeck This, const unsigned *const values, const size_t size);
+InputDeckUnsignedsSetArray(ConstHandle2InputDeck self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ InputDeckUnsignedsSetArray(ConstHandle2InputDeck This, const unsigned *const val
 
 // +++ Clear
 extern_c void
-InputDeckFloatsClear(ConstHandle2InputDeck This);
+InputDeckFloatsClear(ConstHandle2InputDeck self);
 
 // +++ Get size
 extern_c size_t
-InputDeckFloatsSize(ConstHandle2ConstInputDeck This);
+InputDeckFloatsSize(ConstHandle2ConstInputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-InputDeckFloatsGet(ConstHandle2ConstInputDeck This, const size_t index);
+InputDeckFloatsGet(ConstHandle2ConstInputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-InputDeckFloatsSet(ConstHandle2InputDeck This, const size_t index, const float value);
+InputDeckFloatsSet(ConstHandle2InputDeck self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-InputDeckFloatsGetArrayConst(ConstHandle2ConstInputDeck This);
+InputDeckFloatsGetArrayConst(ConstHandle2ConstInputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-InputDeckFloatsGetArray(ConstHandle2InputDeck This);
+InputDeckFloatsGetArray(ConstHandle2InputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-InputDeckFloatsSetArray(ConstHandle2InputDeck This, const float *const values, const size_t size);
+InputDeckFloatsSetArray(ConstHandle2InputDeck self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ InputDeckFloatsSetArray(ConstHandle2InputDeck This, const float *const values, c
 
 // +++ Clear
 extern_c void
-InputDeckDoublesClear(ConstHandle2InputDeck This);
+InputDeckDoublesClear(ConstHandle2InputDeck self);
 
 // +++ Get size
 extern_c size_t
-InputDeckDoublesSize(ConstHandle2ConstInputDeck This);
+InputDeckDoublesSize(ConstHandle2ConstInputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-InputDeckDoublesGet(ConstHandle2ConstInputDeck This, const size_t index);
+InputDeckDoublesGet(ConstHandle2ConstInputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-InputDeckDoublesSet(ConstHandle2InputDeck This, const size_t index, const double value);
+InputDeckDoublesSet(ConstHandle2InputDeck self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-InputDeckDoublesGetArrayConst(ConstHandle2ConstInputDeck This);
+InputDeckDoublesGetArrayConst(ConstHandle2ConstInputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-InputDeckDoublesGetArray(ConstHandle2InputDeck This);
+InputDeckDoublesGetArray(ConstHandle2InputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-InputDeckDoublesSetArray(ConstHandle2InputDeck This, const double *const values, const size_t size);
+InputDeckDoublesSetArray(ConstHandle2InputDeck self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ InputDeckDoublesSetArray(ConstHandle2InputDeck This, const double *const values,
 
 // +++ Has
 extern_c int
-InputDeckEncodingHas(ConstHandle2ConstInputDeck This);
+InputDeckEncodingHas(ConstHandle2ConstInputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InputDeckEncodingGet(ConstHandle2ConstInputDeck This);
+InputDeckEncodingGet(ConstHandle2ConstInputDeck self);
 
 // +++ Set
 extern_c void
-InputDeckEncodingSet(ConstHandle2InputDeck This, const XMLName encoding);
+InputDeckEncodingSet(ConstHandle2InputDeck self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ InputDeckEncodingSet(ConstHandle2InputDeck This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-InputDeckMarkupHas(ConstHandle2ConstInputDeck This);
+InputDeckMarkupHas(ConstHandle2ConstInputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-InputDeckMarkupGet(ConstHandle2ConstInputDeck This);
+InputDeckMarkupGet(ConstHandle2ConstInputDeck self);
 
 // +++ Set
 extern_c void
-InputDeckMarkupSet(ConstHandle2InputDeck This, const char *const markup);
+InputDeckMarkupSet(ConstHandle2InputDeck self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ InputDeckMarkupSet(ConstHandle2InputDeck This, const char *const markup);
 
 // +++ Has
 extern_c int
-InputDeckLabelHas(ConstHandle2ConstInputDeck This);
+InputDeckLabelHas(ConstHandle2ConstInputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InputDeckLabelGet(ConstHandle2ConstInputDeck This);
+InputDeckLabelGet(ConstHandle2ConstInputDeck self);
 
 // +++ Set
 extern_c void
-InputDeckLabelSet(ConstHandle2InputDeck This, const XMLName label);
+InputDeckLabelSet(ConstHandle2InputDeck self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ InputDeckLabelSet(ConstHandle2InputDeck This, const XMLName label);
 
 // +++ Has
 extern_c int
-InputDeckFilenameHas(ConstHandle2ConstInputDeck This);
+InputDeckFilenameHas(ConstHandle2ConstInputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InputDeckFilenameGet(ConstHandle2ConstInputDeck This);
+InputDeckFilenameGet(ConstHandle2ConstInputDeck self);
 
 // +++ Set
 extern_c void
-InputDeckFilenameSet(ConstHandle2InputDeck This, const XMLName filename);
+InputDeckFilenameSet(ConstHandle2InputDeck self, const XMLName filename);
 
 
 // -----------------------------------------------------------------------------

@@ -25,12 +25,12 @@ class ShortRangeSelfScalingVariance :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ShortRangeSelfScalingVariance"; }
-   static auto FIELD() { return "shortRangeSelfScalingVariance"; }
+   static auto NODENAME() { return "shortRangeSelfScalingVariance"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,34 +46,79 @@ class ShortRangeSelfScalingVariance :
             / Meta<>("type") |
 
          // children
-         --Child<std::optional<containers::Gridded2d>>("gridded2d")
+         --Child<std::optional<containers::Gridded2d>>
+            ("gridded2d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "dependenceOnProcessedGroupWidth",
+         "label",
+         "type",
+         "gridded2d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "dependence_on_processed_group_width",
+         "label",
+         "type",
+         "gridded2d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> dependenceOnProcessedGroupWidth{this};
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> type{this};
+   Field<std::optional<XMLName>>
+      dependenceOnProcessedGroupWidth{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      type{this};
 
    // children
-   Field<std::optional<containers::Gridded2d>> gridded2d{this};
+   Field<std::optional<containers::Gridded2d>>
+      gridded2d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->dependenceOnProcessedGroupWidth, \
       this->label, \
       this->type, \
-      this->gridded2d)
+      this->gridded2d \
+   )
 
    // default
    ShortRangeSelfScalingVariance() :
@@ -84,10 +129,14 @@ public:
 
    // from fields, comment excluded
    explicit ShortRangeSelfScalingVariance(
-      const wrapper<std::optional<XMLName>> &dependenceOnProcessedGroupWidth,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<XMLName>> &type = {},
-      const wrapper<std::optional<containers::Gridded2d>> &gridded2d = {}
+      const wrapper<std::optional<XMLName>>
+         &dependenceOnProcessedGroupWidth,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &type = {},
+      const wrapper<std::optional<containers::Gridded2d>>
+         &gridded2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       dependenceOnProcessedGroupWidth(this,dependenceOnProcessedGroupWidth),
@@ -133,8 +182,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ShortRangeSelfScalingVariance &operator=(const ShortRangeSelfScalingVariance &) = default;
-   ShortRangeSelfScalingVariance &operator=(ShortRangeSelfScalingVariance &&) = default;
+   // copy
+   ShortRangeSelfScalingVariance &operator=(const ShortRangeSelfScalingVariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         dependenceOnProcessedGroupWidth = other.dependenceOnProcessedGroupWidth;
+         label = other.label;
+         type = other.type;
+         gridded2d = other.gridded2d;
+      }
+      return *this;
+   }
+
+   // move
+   ShortRangeSelfScalingVariance &operator=(ShortRangeSelfScalingVariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         dependenceOnProcessedGroupWidth = std::move(other.dependenceOnProcessedGroupWidth);
+         label = std::move(other.label);
+         type = std::move(other.type);
+         gridded2d = std::move(other.gridded2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

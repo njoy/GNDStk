@@ -93,13 +93,13 @@ SumsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SumsAssign(ConstHandle2Sums This, ConstHandle2ConstSums from);
+SumsAssign(ConstHandle2Sums self, ConstHandle2ConstSums from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SumsDelete(ConstHandle2ConstSums This);
+SumsDelete(ConstHandle2ConstSums self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ SumsDelete(ConstHandle2ConstSums This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SumsRead(ConstHandle2Sums This, const char *const filename);
+SumsRead(ConstHandle2Sums self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SumsWrite(ConstHandle2ConstSums This, const char *const filename);
+SumsWrite(ConstHandle2ConstSums self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SumsPrint(ConstHandle2ConstSums This);
+SumsPrint(ConstHandle2ConstSums self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SumsPrintXML(ConstHandle2ConstSums This);
+SumsPrintXML(ConstHandle2ConstSums self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SumsPrintJSON(ConstHandle2ConstSums This);
+SumsPrintJSON(ConstHandle2ConstSums self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ SumsPrintJSON(ConstHandle2ConstSums This);
 
 // +++ Has
 extern_c int
-SumsCrossSectionSumsHas(ConstHandle2ConstSums This);
+SumsCrossSectionSumsHas(ConstHandle2ConstSums self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSectionSums
-SumsCrossSectionSumsGetConst(ConstHandle2ConstSums This);
+SumsCrossSectionSumsGetConst(ConstHandle2ConstSums self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSectionSums
-SumsCrossSectionSumsGet(ConstHandle2Sums This);
+SumsCrossSectionSumsGet(ConstHandle2Sums self);
 
 // +++ Set
 extern_c void
-SumsCrossSectionSumsSet(ConstHandle2Sums This, ConstHandle2ConstCrossSectionSums crossSectionSums);
+SumsCrossSectionSumsSet(ConstHandle2Sums self, ConstHandle2ConstCrossSectionSums crossSectionSums);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ SumsCrossSectionSumsSet(ConstHandle2Sums This, ConstHandle2ConstCrossSectionSums
 
 // +++ Has
 extern_c int
-SumsMultiplicitySumsHas(ConstHandle2ConstSums This);
+SumsMultiplicitySumsHas(ConstHandle2ConstSums self);
 
 // --- Get, const
 extern_c Handle2ConstMultiplicitySums
-SumsMultiplicitySumsGetConst(ConstHandle2ConstSums This);
+SumsMultiplicitySumsGetConst(ConstHandle2ConstSums self);
 
 // +++ Get, non-const
 extern_c Handle2MultiplicitySums
-SumsMultiplicitySumsGet(ConstHandle2Sums This);
+SumsMultiplicitySumsGet(ConstHandle2Sums self);
 
 // +++ Set
 extern_c void
-SumsMultiplicitySumsSet(ConstHandle2Sums This, ConstHandle2ConstMultiplicitySums multiplicitySums);
+SumsMultiplicitySumsSet(ConstHandle2Sums self, ConstHandle2ConstMultiplicitySums multiplicitySums);
 
 
 // -----------------------------------------------------------------------------

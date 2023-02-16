@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// DecayPath wrapper
-void wrapDecayPath(python::module &module)
+// wrapper for pops::DecayPath
+void wrapDecayPath(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::DecayPath;
+   using cppCLASS = pops::DecayPath;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DecayPath",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DecayPath",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Decay> &
-         >(),
-         python::arg("decay"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "decay",
-         [](const Component &self) { return self.decay(); },
-         Component::documentation("decay").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Decay> &
+      >(),
+      py::arg("decay"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set decay
+   object.def_property(
+      "decay",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decay();
+      },
+      [](cppCLASS &self, const std::vector<pops::Decay> &value)
+      {
+         self.decay() = value;
+      },
+      cppCLASS::component_t::documentation("decay").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

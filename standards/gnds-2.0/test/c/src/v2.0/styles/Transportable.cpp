@@ -79,20 +79,20 @@ TransportableCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TransportableAssign(ConstHandle2Transportable This, ConstHandle2ConstTransportable from)
+TransportableAssign(ConstHandle2Transportable self, ConstHandle2ConstTransportable from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TransportableDelete(ConstHandle2ConstTransportable This)
+TransportableDelete(ConstHandle2ConstTransportable self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ TransportableDelete(ConstHandle2ConstTransportable This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TransportableRead(ConstHandle2Transportable This, const char *const filename)
+TransportableRead(ConstHandle2Transportable self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TransportableWrite(ConstHandle2ConstTransportable This, const char *const filename)
+TransportableWrite(ConstHandle2ConstTransportable self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TransportablePrint(ConstHandle2ConstTransportable This)
+TransportablePrint(ConstHandle2ConstTransportable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TransportablePrintXML(ConstHandle2ConstTransportable This)
+TransportablePrintXML(ConstHandle2ConstTransportable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TransportablePrintJSON(ConstHandle2ConstTransportable This)
+TransportablePrintJSON(ConstHandle2ConstTransportable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ TransportablePrintJSON(ConstHandle2ConstTransportable This)
 
 // Has
 int
-TransportableConserveHas(ConstHandle2ConstTransportable This)
+TransportableConserveHas(ConstHandle2ConstTransportable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConserveHas", This, extract::conserve);
+      (CLASSNAME, CLASSNAME+"ConserveHas", self, extract::conserve);
 }
 
 // Get
 // Returns by value
 XMLName
-TransportableConserveGet(ConstHandle2ConstTransportable This)
+TransportableConserveGet(ConstHandle2ConstTransportable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ConserveGet", This, extract::conserve);
+      (CLASSNAME, CLASSNAME+"ConserveGet", self, extract::conserve);
 }
 
 // Set
 void
-TransportableConserveSet(ConstHandle2Transportable This, const XMLName conserve)
+TransportableConserveSet(ConstHandle2Transportable self, const XMLName conserve)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ConserveSet", This, extract::conserve, conserve);
+      (CLASSNAME, CLASSNAME+"ConserveSet", self, extract::conserve, conserve);
 }
 
 
@@ -183,27 +183,27 @@ TransportableConserveSet(ConstHandle2Transportable This, const XMLName conserve)
 
 // Has
 int
-TransportableLabelHas(ConstHandle2ConstTransportable This)
+TransportableLabelHas(ConstHandle2ConstTransportable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-TransportableLabelGet(ConstHandle2ConstTransportable This)
+TransportableLabelGet(ConstHandle2ConstTransportable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-TransportableLabelSet(ConstHandle2Transportable This, const XMLName label)
+TransportableLabelSet(ConstHandle2Transportable self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -213,34 +213,34 @@ TransportableLabelSet(ConstHandle2Transportable This, const XMLName label)
 
 // Has
 int
-TransportableMultiGroupHas(ConstHandle2ConstTransportable This)
+TransportableMultiGroupHas(ConstHandle2ConstTransportable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MultiGroupHas", This, extract::multiGroup);
+      (CLASSNAME, CLASSNAME+"MultiGroupHas", self, extract::multiGroup);
 }
 
 // Get, const
 Handle2ConstMultiGroup
-TransportableMultiGroupGetConst(ConstHandle2ConstTransportable This)
+TransportableMultiGroupGetConst(ConstHandle2ConstTransportable self)
 {
    return detail::getField<CPP,Handle2ConstMultiGroup>
-      (CLASSNAME, CLASSNAME+"MultiGroupGetConst", This, extract::multiGroup);
+      (CLASSNAME, CLASSNAME+"MultiGroupGetConst", self, extract::multiGroup);
 }
 
 // Get, non-const
 Handle2MultiGroup
-TransportableMultiGroupGet(ConstHandle2Transportable This)
+TransportableMultiGroupGet(ConstHandle2Transportable self)
 {
    return detail::getField<CPP,Handle2MultiGroup>
-      (CLASSNAME, CLASSNAME+"MultiGroupGet", This, extract::multiGroup);
+      (CLASSNAME, CLASSNAME+"MultiGroupGet", self, extract::multiGroup);
 }
 
 // Set
 void
-TransportableMultiGroupSet(ConstHandle2Transportable This, ConstHandle2ConstMultiGroup multiGroup)
+TransportableMultiGroupSet(ConstHandle2Transportable self, ConstHandle2ConstMultiGroup multiGroup)
 {
    detail::setField<CPP,CPPMultiGroup>
-      (CLASSNAME, CLASSNAME+"MultiGroupSet", This, extract::multiGroup, multiGroup);
+      (CLASSNAME, CLASSNAME+"MultiGroupSet", self, extract::multiGroup, multiGroup);
 }
 
 

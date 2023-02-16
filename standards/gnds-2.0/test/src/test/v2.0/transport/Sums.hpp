@@ -26,12 +26,12 @@ class Sums :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Sums"; }
-   static auto FIELD() { return "sums"; }
+   static auto NODENAME() { return "sums"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,29 +39,69 @@ class Sums :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<transport::CrossSectionSums>("crossSectionSums") |
-         --Child<std::optional<transport::MultiplicitySums>>("multiplicitySums")
+         --Child<transport::CrossSectionSums>
+            ("crossSectionSums") |
+         --Child<std::optional<transport::MultiplicitySums>>
+            ("multiplicitySums")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "crossSectionSums",
+         "multiplicitySums"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "cross_section_sums",
+         "multiplicity_sums"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<transport::CrossSectionSums> crossSectionSums{this};
-   Field<std::optional<transport::MultiplicitySums>> multiplicitySums{this};
+   Field<transport::CrossSectionSums>
+      crossSectionSums{this};
+   Field<std::optional<transport::MultiplicitySums>>
+      multiplicitySums{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->crossSectionSums, \
-      this->multiplicitySums)
+      this->multiplicitySums \
+   )
 
    // default
    Sums() :
@@ -72,8 +112,10 @@ public:
 
    // from fields, comment excluded
    explicit Sums(
-      const wrapper<transport::CrossSectionSums> &crossSectionSums,
-      const wrapper<std::optional<transport::MultiplicitySums>> &multiplicitySums = {}
+      const wrapper<transport::CrossSectionSums>
+         &crossSectionSums,
+      const wrapper<std::optional<transport::MultiplicitySums>>
+         &multiplicitySums = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       crossSectionSums(this,crossSectionSums),
@@ -113,8 +155,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Sums &operator=(const Sums &) = default;
-   Sums &operator=(Sums &&) = default;
+   // copy
+   Sums &operator=(const Sums &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         crossSectionSums = other.crossSectionSums;
+         multiplicitySums = other.multiplicitySums;
+      }
+      return *this;
+   }
+
+   // move
+   Sums &operator=(Sums &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         crossSectionSums = std::move(other.crossSectionSums);
+         multiplicitySums = std::move(other.multiplicitySums);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

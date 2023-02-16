@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Isotope wrapper
-void wrapIsotope(python::module &module)
+// wrapper for pops::Isotope
+void wrapIsotope(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Isotope;
+   using cppCLASS = pops::Isotope;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Isotope",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Isotope",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Integer32 &,
-            const XMLName &,
-            const std::optional<pops::Nuclides> &
-         >(),
-         python::arg("a"),
-         python::arg("symbol"),
-         python::arg("nuclides") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "a",
-         [](const Component &self) { return self.A(); },
-         Component::documentation("a").data()
-      )
-      .def_property_readonly(
-         "symbol",
-         [](const Component &self) { return self.symbol(); },
-         Component::documentation("symbol").data()
-      )
-      .def_property_readonly(
-         "nuclides",
-         [](const Component &self) { return self.nuclides(); },
-         Component::documentation("nuclides").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Integer32 &,
+         const XMLName &,
+         const std::optional<pops::Nuclides> &
+      >(),
+      py::arg("a"),
+      py::arg("symbol"),
+      py::arg("nuclides") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set A
+   object.def_property(
+      "a",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.A();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.A() = value;
+      },
+      cppCLASS::component_t::documentation("a").data()
+   );
+
+   // get/set symbol
+   object.def_property(
+      "symbol",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.symbol();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.symbol() = value;
+      },
+      cppCLASS::component_t::documentation("symbol").data()
+   );
+
+   // get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const std::optional<pops::Nuclides> &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

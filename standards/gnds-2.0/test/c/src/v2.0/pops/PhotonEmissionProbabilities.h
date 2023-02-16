@@ -90,13 +90,13 @@ PhotonEmissionProbabilitiesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PhotonEmissionProbabilitiesAssign(ConstHandle2PhotonEmissionProbabilities This, ConstHandle2ConstPhotonEmissionProbabilities from);
+PhotonEmissionProbabilitiesAssign(ConstHandle2PhotonEmissionProbabilities self, ConstHandle2ConstPhotonEmissionProbabilities from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ PhotonEmissionProbabilitiesDelete(ConstHandle2ConstPhotonEmissionProbabilities T
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PhotonEmissionProbabilitiesRead(ConstHandle2PhotonEmissionProbabilities This, const char *const filename);
+PhotonEmissionProbabilitiesRead(ConstHandle2PhotonEmissionProbabilities self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PhotonEmissionProbabilitiesWrite(ConstHandle2ConstPhotonEmissionProbabilities This, const char *const filename);
+PhotonEmissionProbabilitiesWrite(ConstHandle2ConstPhotonEmissionProbabilities self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PhotonEmissionProbabilitiesPrint(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesPrint(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PhotonEmissionProbabilitiesPrintXML(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesPrintXML(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ PhotonEmissionProbabilitiesPrintJSON(ConstHandle2ConstPhotonEmissionProbabilitie
 
 // +++ Has
 extern_c int
-PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 // +++ Clear
 extern_c void
-PhotonEmissionProbabilitiesShellClear(ConstHandle2PhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesShellClear(ConstHandle2PhotonEmissionProbabilities self);
 
 // +++ Size
 extern_c size_t
-PhotonEmissionProbabilitiesShellSize(ConstHandle2ConstPhotonEmissionProbabilities This);
+PhotonEmissionProbabilitiesShellSize(ConstHandle2ConstPhotonEmissionProbabilities self);
 
 // +++ Add
 extern_c void
-PhotonEmissionProbabilitiesShellAdd(ConstHandle2PhotonEmissionProbabilities This, ConstHandle2ConstShell shell);
+PhotonEmissionProbabilitiesShellAdd(ConstHandle2PhotonEmissionProbabilities self, ConstHandle2ConstShell shell);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstShell
-PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities This, const size_t index_);
+PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Shell
-PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities This, const size_t index_);
+PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 PhotonEmissionProbabilitiesShellSet(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const size_t index_,
    ConstHandle2ConstShell shell
 );
@@ -169,28 +169,28 @@ PhotonEmissionProbabilitiesShellSet(
 // +++ Has, by label
 extern_c int
 PhotonEmissionProbabilitiesShellHasByLabel(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByLabelConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Shell
 PhotonEmissionProbabilitiesShellGetByLabel(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 PhotonEmissionProbabilitiesShellSetByLabel(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName label,
    ConstHandle2ConstShell shell
 );
@@ -198,28 +198,28 @@ PhotonEmissionProbabilitiesShellSetByLabel(
 // +++ Has, by value
 extern_c int
 PhotonEmissionProbabilitiesShellHasByValue(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const Float64 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByValueConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const Float64 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Shell
 PhotonEmissionProbabilitiesShellGetByValue(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const Float64 value
 );
 
 // +++ Set, by value
 extern_c void
 PhotonEmissionProbabilitiesShellSetByValue(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const Float64 value,
    ConstHandle2ConstShell shell
 );
@@ -227,28 +227,28 @@ PhotonEmissionProbabilitiesShellSetByValue(
 // +++ Has, by unit
 extern_c int
 PhotonEmissionProbabilitiesShellHasByUnit(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetByUnitConst(
-   ConstHandle2ConstPhotonEmissionProbabilities This,
+   ConstHandle2ConstPhotonEmissionProbabilities self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Shell
 PhotonEmissionProbabilitiesShellGetByUnit(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 PhotonEmissionProbabilitiesShellSetByUnit(
-   ConstHandle2PhotonEmissionProbabilities This,
+   ConstHandle2PhotonEmissionProbabilities self,
    const XMLName unit,
    ConstHandle2ConstShell shell
 );

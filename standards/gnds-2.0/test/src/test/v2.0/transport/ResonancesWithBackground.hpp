@@ -27,12 +27,12 @@ class ResonancesWithBackground :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ResonancesWithBackground"; }
-   static auto FIELD() { return "resonancesWithBackground"; }
+   static auto NODENAME() { return "resonancesWithBackground"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,36 +44,83 @@ class ResonancesWithBackground :
             / Meta<>("label") |
 
          // children
-         --Child<transport::ResonancesLink>("resonances") |
-         --Child<transport::Background>("background") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<transport::ResonancesLink>
+            ("resonances") |
+         --Child<transport::Background>
+            ("background") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "resonancesLink",
+         "background",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "resonances_link",
+         "background",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<transport::ResonancesLink> resonancesLink{this};
-   Field<transport::Background> background{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<transport::ResonancesLink>
+      resonancesLink{this};
+   Field<transport::Background>
+      background{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->resonancesLink, \
       this->background, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    ResonancesWithBackground() :
@@ -84,10 +131,14 @@ public:
 
    // from fields, comment excluded
    explicit ResonancesWithBackground(
-      const wrapper<XMLName> &label,
-      const wrapper<transport::ResonancesLink> &resonancesLink = {},
-      const wrapper<transport::Background> &background = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<transport::ResonancesLink>
+         &resonancesLink = {},
+      const wrapper<transport::Background>
+         &background = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +184,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonancesWithBackground &operator=(const ResonancesWithBackground &) = default;
-   ResonancesWithBackground &operator=(ResonancesWithBackground &&) = default;
+   // copy
+   ResonancesWithBackground &operator=(const ResonancesWithBackground &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         resonancesLink = other.resonancesLink;
+         background = other.background;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   ResonancesWithBackground &operator=(ResonancesWithBackground &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         resonancesLink = std::move(other.resonancesLink);
+         background = std::move(other.background);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

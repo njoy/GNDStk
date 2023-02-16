@@ -108,13 +108,13 @@ TabulatedWidthsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TabulatedWidthsAssign(ConstHandle2TabulatedWidths This, ConstHandle2ConstTabulatedWidths from);
+TabulatedWidthsAssign(ConstHandle2TabulatedWidths self, ConstHandle2ConstTabulatedWidths from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TabulatedWidthsDelete(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsDelete(ConstHandle2ConstTabulatedWidths self);
 
 
 // -----------------------------------------------------------------------------
@@ -127,25 +127,25 @@ TabulatedWidthsDelete(ConstHandle2ConstTabulatedWidths This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TabulatedWidthsRead(ConstHandle2TabulatedWidths This, const char *const filename);
+TabulatedWidthsRead(ConstHandle2TabulatedWidths self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TabulatedWidthsWrite(ConstHandle2ConstTabulatedWidths This, const char *const filename);
+TabulatedWidthsWrite(ConstHandle2ConstTabulatedWidths self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TabulatedWidthsPrint(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPrint(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TabulatedWidthsPrintXML(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPrintXML(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TabulatedWidthsPrintJSON(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPrintJSON(ConstHandle2ConstTabulatedWidths self);
 
 
 // -----------------------------------------------------------------------------
@@ -154,16 +154,16 @@ TabulatedWidthsPrintJSON(ConstHandle2ConstTabulatedWidths This);
 
 // +++ Has
 extern_c int
-TabulatedWidthsLabelHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsLabelHas(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TabulatedWidthsLabelGet(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsLabelGet(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsLabelSet(ConstHandle2TabulatedWidths This, const XMLName label);
+TabulatedWidthsLabelSet(ConstHandle2TabulatedWidths self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -172,16 +172,16 @@ TabulatedWidthsLabelSet(ConstHandle2TabulatedWidths This, const XMLName label);
 
 // +++ Has
 extern_c int
-TabulatedWidthsApproximationHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsApproximationHas(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TabulatedWidthsApproximationGet(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsApproximationGet(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsApproximationSet(ConstHandle2TabulatedWidths This, const XMLName approximation);
+TabulatedWidthsApproximationSet(ConstHandle2TabulatedWidths self, const XMLName approximation);
 
 
 // -----------------------------------------------------------------------------
@@ -190,16 +190,16 @@ TabulatedWidthsApproximationSet(ConstHandle2TabulatedWidths This, const XMLName 
 
 // +++ Has
 extern_c int
-TabulatedWidthsUseForSelfShieldingOnlyHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsUseForSelfShieldingOnlyHas(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-TabulatedWidthsUseForSelfShieldingOnlyGet(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsUseForSelfShieldingOnlyGet(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, const bool useForSelfShieldingOnly);
+TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths self, const bool useForSelfShieldingOnly);
 
 
 // -----------------------------------------------------------------------------
@@ -208,19 +208,19 @@ TabulatedWidthsUseForSelfShieldingOnlySet(ConstHandle2TabulatedWidths This, cons
 
 // +++ Has
 extern_c int
-TabulatedWidthsPoPs_databaseHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPoPs_databaseHas(ConstHandle2ConstTabulatedWidths self);
 
 // --- Get, const
 extern_c Handle2ConstPoPs_database
-TabulatedWidthsPoPs_databaseGetConst(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsPoPs_databaseGetConst(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get, non-const
 extern_c Handle2PoPs_database
-TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths This);
+TabulatedWidthsPoPs_databaseGet(ConstHandle2TabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstPoPs_database PoPs_database);
+TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths self, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -229,19 +229,19 @@ TabulatedWidthsPoPs_databaseSet(ConstHandle2TabulatedWidths This, ConstHandle2Co
 
 // +++ Has
 extern_c int
-TabulatedWidthsScatteringRadiusHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsScatteringRadiusHas(ConstHandle2ConstTabulatedWidths self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringRadius
-TabulatedWidthsScatteringRadiusGetConst(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsScatteringRadiusGetConst(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringRadius
-TabulatedWidthsScatteringRadiusGet(ConstHandle2TabulatedWidths This);
+TabulatedWidthsScatteringRadiusGet(ConstHandle2TabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsScatteringRadiusSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstScatteringRadius scatteringRadius);
+TabulatedWidthsScatteringRadiusSet(ConstHandle2TabulatedWidths self, ConstHandle2ConstScatteringRadius scatteringRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -250,19 +250,19 @@ TabulatedWidthsScatteringRadiusSet(ConstHandle2TabulatedWidths This, ConstHandle
 
 // +++ Has
 extern_c int
-TabulatedWidthsHardSphereRadiusHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsHardSphereRadiusHas(ConstHandle2ConstTabulatedWidths self);
 
 // --- Get, const
 extern_c Handle2ConstHardSphereRadius
-TabulatedWidthsHardSphereRadiusGetConst(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsHardSphereRadiusGetConst(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get, non-const
 extern_c Handle2HardSphereRadius
-TabulatedWidthsHardSphereRadiusGet(ConstHandle2TabulatedWidths This);
+TabulatedWidthsHardSphereRadiusGet(ConstHandle2TabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsHardSphereRadiusSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstHardSphereRadius hardSphereRadius);
+TabulatedWidthsHardSphereRadiusSet(ConstHandle2TabulatedWidths self, ConstHandle2ConstHardSphereRadius hardSphereRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -271,19 +271,19 @@ TabulatedWidthsHardSphereRadiusSet(ConstHandle2TabulatedWidths This, ConstHandle
 
 // +++ Has
 extern_c int
-TabulatedWidthsResonanceReactionsHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsResonanceReactionsHas(ConstHandle2ConstTabulatedWidths self);
 
 // --- Get, const
 extern_c Handle2ConstResonanceReactions
-TabulatedWidthsResonanceReactionsGetConst(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsResonanceReactionsGetConst(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get, non-const
 extern_c Handle2ResonanceReactions
-TabulatedWidthsResonanceReactionsGet(ConstHandle2TabulatedWidths This);
+TabulatedWidthsResonanceReactionsGet(ConstHandle2TabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsResonanceReactionsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstResonanceReactions resonanceReactions);
+TabulatedWidthsResonanceReactionsSet(ConstHandle2TabulatedWidths self, ConstHandle2ConstResonanceReactions resonanceReactions);
 
 
 // -----------------------------------------------------------------------------
@@ -292,19 +292,19 @@ TabulatedWidthsResonanceReactionsSet(ConstHandle2TabulatedWidths This, ConstHand
 
 // +++ Has
 extern_c int
-TabulatedWidthsLsHas(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsLsHas(ConstHandle2ConstTabulatedWidths self);
 
 // --- Get, const
 extern_c Handle2ConstLs
-TabulatedWidthsLsGetConst(ConstHandle2ConstTabulatedWidths This);
+TabulatedWidthsLsGetConst(ConstHandle2ConstTabulatedWidths self);
 
 // +++ Get, non-const
 extern_c Handle2Ls
-TabulatedWidthsLsGet(ConstHandle2TabulatedWidths This);
+TabulatedWidthsLsGet(ConstHandle2TabulatedWidths self);
 
 // +++ Set
 extern_c void
-TabulatedWidthsLsSet(ConstHandle2TabulatedWidths This, ConstHandle2ConstLs Ls);
+TabulatedWidthsLsSet(ConstHandle2TabulatedWidths self, ConstHandle2ConstLs Ls);
 
 
 // -----------------------------------------------------------------------------

@@ -107,20 +107,20 @@ BreitWignerCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BreitWignerAssign(ConstHandle2BreitWigner This, ConstHandle2ConstBreitWigner from)
+BreitWignerAssign(ConstHandle2BreitWigner self, ConstHandle2ConstBreitWigner from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BreitWignerDelete(ConstHandle2ConstBreitWigner This)
+BreitWignerDelete(ConstHandle2ConstBreitWigner self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -134,44 +134,44 @@ BreitWignerDelete(ConstHandle2ConstBreitWigner This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BreitWignerRead(ConstHandle2BreitWigner This, const char *const filename)
+BreitWignerRead(ConstHandle2BreitWigner self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BreitWignerWrite(ConstHandle2ConstBreitWigner This, const char *const filename)
+BreitWignerWrite(ConstHandle2ConstBreitWigner self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BreitWignerPrint(ConstHandle2ConstBreitWigner This)
+BreitWignerPrint(ConstHandle2ConstBreitWigner self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BreitWignerPrintXML(ConstHandle2ConstBreitWigner This)
+BreitWignerPrintXML(ConstHandle2ConstBreitWigner self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BreitWignerPrintJSON(ConstHandle2ConstBreitWigner This)
+BreitWignerPrintJSON(ConstHandle2ConstBreitWigner self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -181,27 +181,27 @@ BreitWignerPrintJSON(ConstHandle2ConstBreitWigner This)
 
 // Has
 int
-BreitWignerLabelHas(ConstHandle2ConstBreitWigner This)
+BreitWignerLabelHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-BreitWignerLabelGet(ConstHandle2ConstBreitWigner This)
+BreitWignerLabelGet(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-BreitWignerLabelSet(ConstHandle2BreitWigner This, const XMLName label)
+BreitWignerLabelSet(ConstHandle2BreitWigner self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -211,27 +211,27 @@ BreitWignerLabelSet(ConstHandle2BreitWigner This, const XMLName label)
 
 // Has
 int
-BreitWignerApproximationHas(ConstHandle2ConstBreitWigner This)
+BreitWignerApproximationHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationHas", This, extract::approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationHas", self, extract::approximation);
 }
 
 // Get
 // Returns by value
 XMLName
-BreitWignerApproximationGet(ConstHandle2ConstBreitWigner This)
+BreitWignerApproximationGet(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationGet", This, extract::approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationGet", self, extract::approximation);
 }
 
 // Set
 void
-BreitWignerApproximationSet(ConstHandle2BreitWigner This, const XMLName approximation)
+BreitWignerApproximationSet(ConstHandle2BreitWigner self, const XMLName approximation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationSet", This, extract::approximation, approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationSet", self, extract::approximation, approximation);
 }
 
 
@@ -241,27 +241,27 @@ BreitWignerApproximationSet(ConstHandle2BreitWigner This, const XMLName approxim
 
 // Has
 int
-BreitWignerCalculateChannelRadiusHas(ConstHandle2ConstBreitWigner This)
+BreitWignerCalculateChannelRadiusHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusHas", This, extract::calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusHas", self, extract::calculateChannelRadius);
 }
 
 // Get
 // Returns by value
 bool
-BreitWignerCalculateChannelRadiusGet(ConstHandle2ConstBreitWigner This)
+BreitWignerCalculateChannelRadiusGet(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusGet", This, extract::calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusGet", self, extract::calculateChannelRadius);
 }
 
 // Set
 void
-BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner This, const bool calculateChannelRadius)
+BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner self, const bool calculateChannelRadius)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusSet", This, extract::calculateChannelRadius, calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusSet", self, extract::calculateChannelRadius, calculateChannelRadius);
 }
 
 
@@ -271,27 +271,27 @@ BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner This, const bool ca
 
 // Has
 int
-BreitWignerUseForSelfShieldingOnlyHas(ConstHandle2ConstBreitWigner This)
+BreitWignerUseForSelfShieldingOnlyHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyHas", This, extract::useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyHas", self, extract::useForSelfShieldingOnly);
 }
 
 // Get
 // Returns by value
 bool
-BreitWignerUseForSelfShieldingOnlyGet(ConstHandle2ConstBreitWigner This)
+BreitWignerUseForSelfShieldingOnlyGet(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyGet", This, extract::useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyGet", self, extract::useForSelfShieldingOnly);
 }
 
 // Set
 void
-BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool useForSelfShieldingOnly)
+BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner self, const bool useForSelfShieldingOnly)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlySet", This, extract::useForSelfShieldingOnly, useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlySet", self, extract::useForSelfShieldingOnly, useForSelfShieldingOnly);
 }
 
 
@@ -301,34 +301,34 @@ BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool u
 
 // Has
 int
-BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner This)
+BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", self, extract::PoPs_database);
 }
 
 // Get, const
 Handle2ConstPoPs_database
-BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner This)
+BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", self, extract::PoPs_database);
 }
 
 // Get, non-const
 Handle2PoPs_database
-BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner This)
+BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner self)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", self, extract::PoPs_database);
 }
 
 // Set
 void
-BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs_database)
+BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner self, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", self, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -338,34 +338,34 @@ BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_
 
 // Has
 int
-BreitWignerScatteringRadiusHas(ConstHandle2ConstBreitWigner This)
+BreitWignerScatteringRadiusHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", self, extract::scatteringRadius);
 }
 
 // Get, const
 Handle2ConstScatteringRadius
-BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner This)
+BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP,Handle2ConstScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
 // Get, non-const
 Handle2ScatteringRadius
-BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner This)
+BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner self)
 {
    return detail::getField<CPP,Handle2ScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", self, extract::scatteringRadius);
 }
 
 // Set
 void
-BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstScatteringRadius scatteringRadius)
+BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner self, ConstHandle2ConstScatteringRadius scatteringRadius)
 {
    detail::setField<CPP,CPPScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", This, extract::scatteringRadius, scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", self, extract::scatteringRadius, scatteringRadius);
 }
 
 
@@ -375,34 +375,34 @@ BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstSc
 
 // Has
 int
-BreitWignerHardSphereRadiusHas(ConstHandle2ConstBreitWigner This)
+BreitWignerHardSphereRadiusHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", self, extract::hardSphereRadius);
 }
 
 // Get, const
 Handle2ConstHardSphereRadius
-BreitWignerHardSphereRadiusGetConst(ConstHandle2ConstBreitWigner This)
+BreitWignerHardSphereRadiusGetConst(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP,Handle2ConstHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
 // Get, non-const
 Handle2HardSphereRadius
-BreitWignerHardSphereRadiusGet(ConstHandle2BreitWigner This)
+BreitWignerHardSphereRadiusGet(ConstHandle2BreitWigner self)
 {
    return detail::getField<CPP,Handle2HardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", self, extract::hardSphereRadius);
 }
 
 // Set
 void
-BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstHardSphereRadius hardSphereRadius)
+BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner self, ConstHandle2ConstHardSphereRadius hardSphereRadius)
 {
    detail::setField<CPP,CPPHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", This, extract::hardSphereRadius, hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", self, extract::hardSphereRadius, hardSphereRadius);
 }
 
 
@@ -412,34 +412,34 @@ BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstHa
 
 // Has
 int
-BreitWignerResonanceParametersHas(ConstHandle2ConstBreitWigner This)
+BreitWignerResonanceParametersHas(ConstHandle2ConstBreitWigner self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceParametersHas", This, extract::resonanceParameters);
+      (CLASSNAME, CLASSNAME+"ResonanceParametersHas", self, extract::resonanceParameters);
 }
 
 // Get, const
 Handle2ConstResonanceParameters
-BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner This)
+BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner self)
 {
    return detail::getField<CPP,Handle2ConstResonanceParameters>
-      (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", This, extract::resonanceParameters);
+      (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", self, extract::resonanceParameters);
 }
 
 // Get, non-const
 Handle2ResonanceParameters
-BreitWignerResonanceParametersGet(ConstHandle2BreitWigner This)
+BreitWignerResonanceParametersGet(ConstHandle2BreitWigner self)
 {
    return detail::getField<CPP,Handle2ResonanceParameters>
-      (CLASSNAME, CLASSNAME+"ResonanceParametersGet", This, extract::resonanceParameters);
+      (CLASSNAME, CLASSNAME+"ResonanceParametersGet", self, extract::resonanceParameters);
 }
 
 // Set
 void
-BreitWignerResonanceParametersSet(ConstHandle2BreitWigner This, ConstHandle2ConstResonanceParameters resonanceParameters)
+BreitWignerResonanceParametersSet(ConstHandle2BreitWigner self, ConstHandle2ConstResonanceParameters resonanceParameters)
 {
    detail::setField<CPP,CPPResonanceParameters>
-      (CLASSNAME, CLASSNAME+"ResonanceParametersSet", This, extract::resonanceParameters, resonanceParameters);
+      (CLASSNAME, CLASSNAME+"ResonanceParametersSet", self, extract::resonanceParameters, resonanceParameters);
 }
 
 

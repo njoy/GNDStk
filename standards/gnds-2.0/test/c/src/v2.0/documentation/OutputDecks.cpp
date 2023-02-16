@@ -73,20 +73,20 @@ OutputDecksCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-OutputDecksAssign(ConstHandle2OutputDecks This, ConstHandle2ConstOutputDecks from)
+OutputDecksAssign(ConstHandle2OutputDecks self, ConstHandle2ConstOutputDecks from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-OutputDecksDelete(ConstHandle2ConstOutputDecks This)
+OutputDecksDelete(ConstHandle2ConstOutputDecks self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ OutputDecksDelete(ConstHandle2ConstOutputDecks This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-OutputDecksRead(ConstHandle2OutputDecks This, const char *const filename)
+OutputDecksRead(ConstHandle2OutputDecks self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-OutputDecksWrite(ConstHandle2ConstOutputDecks This, const char *const filename)
+OutputDecksWrite(ConstHandle2ConstOutputDecks self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-OutputDecksPrint(ConstHandle2ConstOutputDecks This)
+OutputDecksPrint(ConstHandle2ConstOutputDecks self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-OutputDecksPrintXML(ConstHandle2ConstOutputDecks This)
+OutputDecksPrintXML(ConstHandle2ConstOutputDecks self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-OutputDecksPrintJSON(ConstHandle2ConstOutputDecks This)
+OutputDecksPrintJSON(ConstHandle2ConstOutputDecks self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ OutputDecksPrintJSON(ConstHandle2ConstOutputDecks This)
 
 // Has
 int
-OutputDecksOutputDeckHas(ConstHandle2ConstOutputDecks This)
+OutputDecksOutputDeckHas(ConstHandle2ConstOutputDecks self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputDeckHas", This, extract::outputDeck);
+      (CLASSNAME, CLASSNAME+"OutputDeckHas", self, extract::outputDeck);
 }
 
 // Clear
 void
-OutputDecksOutputDeckClear(ConstHandle2OutputDecks This)
+OutputDecksOutputDeckClear(ConstHandle2OutputDecks self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"OutputDeckClear", This, extract::outputDeck);
+      (CLASSNAME, CLASSNAME+"OutputDeckClear", self, extract::outputDeck);
 }
 
 // Size
 size_t
-OutputDecksOutputDeckSize(ConstHandle2ConstOutputDecks This)
+OutputDecksOutputDeckSize(ConstHandle2ConstOutputDecks self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"OutputDeckSize", This, extract::outputDeck);
+      (CLASSNAME, CLASSNAME+"OutputDeckSize", self, extract::outputDeck);
 }
 
 // Add
 void
-OutputDecksOutputDeckAdd(ConstHandle2OutputDecks This, ConstHandle2ConstOutputDeck outputDeck)
+OutputDecksOutputDeckAdd(ConstHandle2OutputDecks self, ConstHandle2ConstOutputDeck outputDeck)
 {
    detail::addToContainer<CPP,CPPOutputDeck>
-      (CLASSNAME, CLASSNAME+"OutputDeckAdd", This, extract::outputDeck, outputDeck);
+      (CLASSNAME, CLASSNAME+"OutputDeckAdd", self, extract::outputDeck, outputDeck);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstOutputDeck
-OutputDecksOutputDeckGetConst(ConstHandle2ConstOutputDecks This, const size_t index_)
+OutputDecksOutputDeckGetConst(ConstHandle2ConstOutputDecks self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstOutputDeck>
-      (CLASSNAME, CLASSNAME+"OutputDeckGetConst", This, extract::outputDeck, index_);
+      (CLASSNAME, CLASSNAME+"OutputDeckGetConst", self, extract::outputDeck, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2OutputDeck
-OutputDecksOutputDeckGet(ConstHandle2OutputDecks This, const size_t index_)
+OutputDecksOutputDeckGet(ConstHandle2OutputDecks self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2OutputDeck>
-      (CLASSNAME, CLASSNAME+"OutputDeckGet", This, extract::outputDeck, index_);
+      (CLASSNAME, CLASSNAME+"OutputDeckGet", self, extract::outputDeck, index_);
 }
 
 // Set, by index \in [0,size)
 void
 OutputDecksOutputDeckSet(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const size_t index_,
    ConstHandle2ConstOutputDeck outputDeck
 ) {
    detail::setByIndex<CPP,CPPOutputDeck>
-      (CLASSNAME, CLASSNAME+"OutputDeckSet", This, extract::outputDeck, index_, outputDeck);
+      (CLASSNAME, CLASSNAME+"OutputDeckSet", self, extract::outputDeck, index_, outputDeck);
 }
 
 // Has, by encoding
 int
 OutputDecksOutputDeckHasByEncoding(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName encoding
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OutputDeckHasByEncoding",
-       This, extract::outputDeck, meta::encoding, encoding);
+       self, extract::outputDeck, meta::encoding, encoding);
 }
 
 // Get, by encoding, const
 Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByEncodingConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByEncodingConst",
-       This, extract::outputDeck, meta::encoding, encoding);
+       self, extract::outputDeck, meta::encoding, encoding);
 }
 
 // Get, by encoding, non-const
 Handle2OutputDeck
 OutputDecksOutputDeckGetByEncoding(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2OutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByEncoding",
-       This, extract::outputDeck, meta::encoding, encoding);
+       self, extract::outputDeck, meta::encoding, encoding);
 }
 
 // Set, by encoding
 void
 OutputDecksOutputDeckSetByEncoding(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName encoding,
    ConstHandle2ConstOutputDeck outputDeck
 ) {
    detail::setByMetadatum<CPP,CPPOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckSetByEncoding",
-       This, extract::outputDeck, meta::encoding, encoding, outputDeck);
+       self, extract::outputDeck, meta::encoding, encoding, outputDeck);
 }
 
 // Has, by markup
 int
 OutputDecksOutputDeckHasByMarkup(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const char *const markup
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OutputDeckHasByMarkup",
-       This, extract::outputDeck, meta::markup, markup);
+       self, extract::outputDeck, meta::markup, markup);
 }
 
 // Get, by markup, const
 Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByMarkupConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByMarkupConst",
-       This, extract::outputDeck, meta::markup, markup);
+       self, extract::outputDeck, meta::markup, markup);
 }
 
 // Get, by markup, non-const
 Handle2OutputDeck
 OutputDecksOutputDeckGetByMarkup(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2OutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByMarkup",
-       This, extract::outputDeck, meta::markup, markup);
+       self, extract::outputDeck, meta::markup, markup);
 }
 
 // Set, by markup
 void
 OutputDecksOutputDeckSetByMarkup(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const char *const markup,
    ConstHandle2ConstOutputDeck outputDeck
 ) {
    detail::setByMetadatum<CPP,CPPOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckSetByMarkup",
-       This, extract::outputDeck, meta::markup, markup, outputDeck);
+       self, extract::outputDeck, meta::markup, markup, outputDeck);
 }
 
 // Has, by label
 int
 OutputDecksOutputDeckHasByLabel(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OutputDeckHasByLabel",
-       This, extract::outputDeck, meta::label, label);
+       self, extract::outputDeck, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByLabelConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByLabelConst",
-       This, extract::outputDeck, meta::label, label);
+       self, extract::outputDeck, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2OutputDeck
 OutputDecksOutputDeckGetByLabel(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2OutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByLabel",
-       This, extract::outputDeck, meta::label, label);
+       self, extract::outputDeck, meta::label, label);
 }
 
 // Set, by label
 void
 OutputDecksOutputDeckSetByLabel(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName label,
    ConstHandle2ConstOutputDeck outputDeck
 ) {
    detail::setByMetadatum<CPP,CPPOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckSetByLabel",
-       This, extract::outputDeck, meta::label, label, outputDeck);
+       self, extract::outputDeck, meta::label, label, outputDeck);
 }
 
 // Has, by filename
 int
 OutputDecksOutputDeckHasByFilename(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName filename
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"OutputDeckHasByFilename",
-       This, extract::outputDeck, meta::filename, filename);
+       self, extract::outputDeck, meta::filename, filename);
 }
 
 // Get, by filename, const
 Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByFilenameConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName filename
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByFilenameConst",
-       This, extract::outputDeck, meta::filename, filename);
+       self, extract::outputDeck, meta::filename, filename);
 }
 
 // Get, by filename, non-const
 Handle2OutputDeck
 OutputDecksOutputDeckGetByFilename(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName filename
 ) {
    return detail::getByMetadatum<CPP,Handle2OutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckGetByFilename",
-       This, extract::outputDeck, meta::filename, filename);
+       self, extract::outputDeck, meta::filename, filename);
 }
 
 // Set, by filename
 void
 OutputDecksOutputDeckSetByFilename(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName filename,
    ConstHandle2ConstOutputDeck outputDeck
 ) {
    detail::setByMetadatum<CPP,CPPOutputDeck>
       (CLASSNAME, CLASSNAME+"OutputDeckSetByFilename",
-       This, extract::outputDeck, meta::filename, filename, outputDeck);
+       self, extract::outputDeck, meta::filename, filename, outputDeck);
 }
 
 

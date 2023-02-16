@@ -26,12 +26,12 @@ class Spectrum :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Spectrum"; }
-   static auto FIELD() { return "spectrum"; }
+   static auto NODENAME() { return "spectrum"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class Spectrum :
             / Meta<>("pid") |
 
          // children
-         --Child<std::optional<pops::Continuum>>("continuum") |
-         ++Child<std::optional<pops::Discrete>>("discrete")
+         --Child<std::optional<pops::Continuum>>
+            ("continuum") |
+         ++Child<std::optional<pops::Discrete>>
+            ("discrete")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "continuum",
+         "discrete"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "continuum",
+         "discrete"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> pid{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      pid{this};
 
    // children
-   Field<std::optional<pops::Continuum>> continuum{this};
-   Field<std::optional<std::vector<pops::Discrete>>> discrete{this};
+   Field<std::optional<pops::Continuum>>
+      continuum{this};
+   Field<std::optional<std::vector<pops::Discrete>>>
+      discrete{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->pid, \
       this->continuum, \
-      this->discrete)
+      this->discrete \
+   )
 
    // default
    Spectrum() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit Spectrum(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &pid = {},
-      const wrapper<std::optional<pops::Continuum>> &continuum = {},
-      const wrapper<std::optional<std::vector<pops::Discrete>>> &discrete = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &pid = {},
+      const wrapper<std::optional<pops::Continuum>>
+         &continuum = {},
+      const wrapper<std::optional<std::vector<pops::Discrete>>>
+         &discrete = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Spectrum &operator=(const Spectrum &) = default;
-   Spectrum &operator=(Spectrum &&) = default;
+   // copy
+   Spectrum &operator=(const Spectrum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         continuum = other.continuum;
+         discrete = other.discrete;
+      }
+      return *this;
+   }
+
+   // move
+   Spectrum &operator=(Spectrum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         continuum = std::move(other.continuum);
+         discrete = std::move(other.discrete);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

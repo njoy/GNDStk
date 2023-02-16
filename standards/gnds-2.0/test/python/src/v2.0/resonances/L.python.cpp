@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// L wrapper
-void wrapL(python::module &module)
+// wrapper for resonances::L
+void wrapL(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::L;
+   using cppCLASS = resonances::L;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "L",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "L",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const Integer32 &,
-            const resonances::Js &
-         >(),
-         python::arg("label"),
-         python::arg("value"),
-         python::arg("js"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "js",
-         [](const Component &self) { return self.Js(); },
-         Component::documentation("js").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const Integer32 &,
+         const resonances::Js &
+      >(),
+      py::arg("label"),
+      py::arg("value"),
+      py::arg("js"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set Js
+   object.def_property(
+      "js",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Js();
+      },
+      [](cppCLASS &self, const resonances::Js &value)
+      {
+         self.Js() = value;
+      },
+      cppCLASS::component_t::documentation("js").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

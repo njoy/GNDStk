@@ -67,20 +67,20 @@ FoobarCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FoobarAssign(ConstHandle2Foobar This, ConstHandle2ConstFoobar from)
+FoobarAssign(ConstHandle2Foobar self, ConstHandle2ConstFoobar from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FoobarDelete(ConstHandle2ConstFoobar This)
+FoobarDelete(ConstHandle2ConstFoobar self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ FoobarDelete(ConstHandle2ConstFoobar This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FoobarRead(ConstHandle2Foobar This, const char *const filename)
+FoobarRead(ConstHandle2Foobar self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FoobarWrite(ConstHandle2ConstFoobar This, const char *const filename)
+FoobarWrite(ConstHandle2ConstFoobar self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FoobarPrint(ConstHandle2ConstFoobar This)
+FoobarPrint(ConstHandle2ConstFoobar self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FoobarPrintXML(ConstHandle2ConstFoobar This)
+FoobarPrintXML(ConstHandle2ConstFoobar self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FoobarPrintJSON(ConstHandle2ConstFoobar This)
+FoobarPrintJSON(ConstHandle2ConstFoobar self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,60 +141,60 @@ FoobarPrintJSON(ConstHandle2ConstFoobar This)
 
 // Clear
 void
-FoobarDoublesClear(ConstHandle2Foobar This)
+FoobarDoublesClear(ConstHandle2Foobar self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-FoobarDoublesSize(ConstHandle2ConstFoobar This)
+FoobarDoublesSize(ConstHandle2ConstFoobar self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index)
+FoobarDoublesGet(ConstHandle2ConstFoobar self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value)
+FoobarDoublesSet(ConstHandle2Foobar self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This)
+FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-FoobarDoublesGetArray(ConstHandle2Foobar This)
+FoobarDoublesGetArray(ConstHandle2Foobar self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size)
+FoobarDoublesSetArray(ConstHandle2Foobar self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -204,27 +204,27 @@ FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const
 
 // Has
 int
-FoobarValueHas(ConstHandle2ConstFoobar This)
+FoobarValueHas(ConstHandle2ConstFoobar self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 const char *
-FoobarValueGet(ConstHandle2ConstFoobar This)
+FoobarValueGet(ConstHandle2ConstFoobar self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-FoobarValueSet(ConstHandle2Foobar This, const char *const value)
+FoobarValueSet(ConstHandle2Foobar self, const char *const value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

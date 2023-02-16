@@ -25,12 +25,12 @@ class ProjectileEnergyDomain :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "ProjectileEnergyDomain"; }
-   static auto FIELD() { return "projectileEnergyDomain"; }
+   static auto NODENAME() { return "projectileEnergyDomain"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,28 +49,72 @@ class ProjectileEnergyDomain :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "max",
+         "min",
+         "unit"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "max",
+         "min",
+         "unit"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<Float64> max{this};
-   Field<Float64> min{this};
-   Field<XMLName> unit{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<Float64>
+      max{this};
+   Field<Float64>
+      min{this};
+   Field<XMLName>
+      unit{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->max, \
       this->min, \
-      this->unit)
+      this->unit \
+   )
 
    // default
    ProjectileEnergyDomain() :
@@ -81,10 +125,14 @@ public:
 
    // from fields, comment excluded
    explicit ProjectileEnergyDomain(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<Float64> &max = {},
-      const wrapper<Float64> &min = {},
-      const wrapper<XMLName> &unit = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<Float64>
+         &max = {},
+      const wrapper<Float64>
+         &min = {},
+      const wrapper<XMLName>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -130,8 +178,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProjectileEnergyDomain &operator=(const ProjectileEnergyDomain &) = default;
-   ProjectileEnergyDomain &operator=(ProjectileEnergyDomain &&) = default;
+   // copy
+   ProjectileEnergyDomain &operator=(const ProjectileEnergyDomain &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         max = other.max;
+         min = other.min;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   ProjectileEnergyDomain &operator=(ProjectileEnergyDomain &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         max = std::move(other.max);
+         min = std::move(other.min);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

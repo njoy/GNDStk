@@ -96,13 +96,13 @@ ResolvedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResolvedAssign(ConstHandle2Resolved This, ConstHandle2ConstResolved from);
+ResolvedAssign(ConstHandle2Resolved self, ConstHandle2ConstResolved from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResolvedDelete(ConstHandle2ConstResolved This);
+ResolvedDelete(ConstHandle2ConstResolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ ResolvedDelete(ConstHandle2ConstResolved This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResolvedRead(ConstHandle2Resolved This, const char *const filename);
+ResolvedRead(ConstHandle2Resolved self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResolvedWrite(ConstHandle2ConstResolved This, const char *const filename);
+ResolvedWrite(ConstHandle2ConstResolved self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResolvedPrint(ConstHandle2ConstResolved This);
+ResolvedPrint(ConstHandle2ConstResolved self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResolvedPrintXML(ConstHandle2ConstResolved This);
+ResolvedPrintXML(ConstHandle2ConstResolved self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResolvedPrintJSON(ConstHandle2ConstResolved This);
+ResolvedPrintJSON(ConstHandle2ConstResolved self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ ResolvedPrintJSON(ConstHandle2ConstResolved This);
 
 // +++ Has
 extern_c int
-ResolvedDomainMinHas(ConstHandle2ConstResolved This);
+ResolvedDomainMinHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-ResolvedDomainMinGet(ConstHandle2ConstResolved This);
+ResolvedDomainMinGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainMinSet(ConstHandle2Resolved This, const Float64 domainMin);
+ResolvedDomainMinSet(ConstHandle2Resolved self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ ResolvedDomainMinSet(ConstHandle2Resolved This, const Float64 domainMin);
 
 // +++ Has
 extern_c int
-ResolvedDomainMaxHas(ConstHandle2ConstResolved This);
+ResolvedDomainMaxHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-ResolvedDomainMaxGet(ConstHandle2ConstResolved This);
+ResolvedDomainMaxGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainMaxSet(ConstHandle2Resolved This, const Float64 domainMax);
+ResolvedDomainMaxSet(ConstHandle2Resolved self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ResolvedDomainMaxSet(ConstHandle2Resolved This, const Float64 domainMax);
 
 // +++ Has
 extern_c int
-ResolvedDomainUnitHas(ConstHandle2ConstResolved This);
+ResolvedDomainUnitHas(ConstHandle2ConstResolved self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResolvedDomainUnitGet(ConstHandle2ConstResolved This);
+ResolvedDomainUnitGet(ConstHandle2ConstResolved self);
 
 // +++ Set
 extern_c void
-ResolvedDomainUnitSet(ConstHandle2Resolved This, const XMLName domainUnit);
+ResolvedDomainUnitSet(ConstHandle2Resolved self, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------

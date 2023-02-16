@@ -25,12 +25,12 @@ class Isotope :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Isotope"; }
-   static auto FIELD() { return "isotope"; }
+   static auto NODENAME() { return "isotope"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,22 +43,57 @@ class Isotope :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "mass_number"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "mass_number"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<int> mass_number{this};
+   Field<int>
+      mass_number{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->mass_number)
+      this->mass_number \
+   )
 
    // default
    Isotope() :
@@ -69,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Isotope(
-      const wrapper<int> &mass_number
+      const wrapper<int>
+         &mass_number
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       mass_number(this,mass_number)
@@ -106,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotope &operator=(const Isotope &) = default;
-   Isotope &operator=(Isotope &&) = default;
+   // copy
+   Isotope &operator=(const Isotope &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         mass_number = other.mass_number;
+      }
+      return *this;
+   }
+
+   // move
+   Isotope &operator=(Isotope &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         mass_number = std::move(other.mass_number);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

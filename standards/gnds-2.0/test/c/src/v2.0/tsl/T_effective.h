@@ -90,13 +90,13 @@ T_effectiveCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-T_effectiveAssign(ConstHandle2T_effective This, ConstHandle2ConstT_effective from);
+T_effectiveAssign(ConstHandle2T_effective self, ConstHandle2ConstT_effective from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-T_effectiveDelete(ConstHandle2ConstT_effective This);
+T_effectiveDelete(ConstHandle2ConstT_effective self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ T_effectiveDelete(ConstHandle2ConstT_effective This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-T_effectiveRead(ConstHandle2T_effective This, const char *const filename);
+T_effectiveRead(ConstHandle2T_effective self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-T_effectiveWrite(ConstHandle2ConstT_effective This, const char *const filename);
+T_effectiveWrite(ConstHandle2ConstT_effective self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-T_effectivePrint(ConstHandle2ConstT_effective This);
+T_effectivePrint(ConstHandle2ConstT_effective self);
 
 // +++ Print to standard output, as XML
 extern_c int
-T_effectivePrintXML(ConstHandle2ConstT_effective This);
+T_effectivePrintXML(ConstHandle2ConstT_effective self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-T_effectivePrintJSON(ConstHandle2ConstT_effective This);
+T_effectivePrintJSON(ConstHandle2ConstT_effective self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ T_effectivePrintJSON(ConstHandle2ConstT_effective This);
 
 // +++ Has
 extern_c int
-T_effectiveXYs1dHas(ConstHandle2ConstT_effective This);
+T_effectiveXYs1dHas(ConstHandle2ConstT_effective self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-T_effectiveXYs1dGetConst(ConstHandle2ConstT_effective This);
+T_effectiveXYs1dGetConst(ConstHandle2ConstT_effective self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-T_effectiveXYs1dGet(ConstHandle2T_effective This);
+T_effectiveXYs1dGet(ConstHandle2T_effective self);
 
 // +++ Set
 extern_c void
-T_effectiveXYs1dSet(ConstHandle2T_effective This, ConstHandle2ConstXYs1d XYs1d);
+T_effectiveXYs1dSet(ConstHandle2T_effective self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

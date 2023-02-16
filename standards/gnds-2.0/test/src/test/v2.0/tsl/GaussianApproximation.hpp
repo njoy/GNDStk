@@ -25,12 +25,12 @@ class GaussianApproximation :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "GaussianApproximation"; }
-   static auto FIELD() { return "GaussianApproximation"; }
+   static auto NODENAME() { return "GaussianApproximation"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class GaussianApproximation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<tsl::PhononSpectrum>>("phononSpectrum")
+         --Child<std::optional<tsl::PhononSpectrum>>
+            ("phononSpectrum")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "phononSpectrum"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "phonon_spectrum"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<tsl::PhononSpectrum>> phononSpectrum{this};
+   Field<std::optional<tsl::PhononSpectrum>>
+      phononSpectrum{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->phononSpectrum)
+      this->phononSpectrum \
+   )
 
    // default
    GaussianApproximation() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit GaussianApproximation(
-      const wrapper<std::optional<tsl::PhononSpectrum>> &phononSpectrum
+      const wrapper<std::optional<tsl::PhononSpectrum>>
+         &phononSpectrum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       phononSpectrum(this,phononSpectrum)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   GaussianApproximation &operator=(const GaussianApproximation &) = default;
-   GaussianApproximation &operator=(GaussianApproximation &&) = default;
+   // copy
+   GaussianApproximation &operator=(const GaussianApproximation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         phononSpectrum = other.phononSpectrum;
+      }
+      return *this;
+   }
+
+   // move
+   GaussianApproximation &operator=(GaussianApproximation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         phononSpectrum = std::move(other.phononSpectrum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -97,13 +97,13 @@ ElementCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ElementAssign(ConstHandle2Element This, ConstHandle2ConstElement from);
+ElementAssign(ConstHandle2Element self, ConstHandle2ConstElement from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ElementDelete(ConstHandle2ConstElement This);
+ElementDelete(ConstHandle2ConstElement self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ ElementDelete(ConstHandle2ConstElement This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ElementRead(ConstHandle2Element This, const char *const filename);
+ElementRead(ConstHandle2Element self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ElementWrite(ConstHandle2ConstElement This, const char *const filename);
+ElementWrite(ConstHandle2ConstElement self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ElementPrint(ConstHandle2ConstElement This);
+ElementPrint(ConstHandle2ConstElement self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ElementPrintXML(ConstHandle2ConstElement This);
+ElementPrintXML(ConstHandle2ConstElement self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ElementPrintJSON(ConstHandle2ConstElement This);
+ElementPrintJSON(ConstHandle2ConstElement self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ ElementPrintJSON(ConstHandle2ConstElement This);
 
 // +++ Has
 extern_c int
-ElementSymbolHas(ConstHandle2ConstElement This);
+ElementSymbolHas(ConstHandle2ConstElement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ElementSymbolGet(ConstHandle2ConstElement This);
+ElementSymbolGet(ConstHandle2ConstElement self);
 
 // +++ Set
 extern_c void
-ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
+ElementSymbolSet(ConstHandle2Element self, const char *const symbol);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ ElementSymbolSet(ConstHandle2Element This, const char *const symbol);
 
 // +++ Has
 extern_c int
-ElementAtomicNumberHas(ConstHandle2ConstElement This);
+ElementAtomicNumberHas(ConstHandle2ConstElement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ElementAtomicNumberGet(ConstHandle2ConstElement This);
+ElementAtomicNumberGet(ConstHandle2ConstElement self);
 
 // +++ Set
 extern_c void
-ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
+ElementAtomicNumberSet(ConstHandle2Element self, const int atomic_number);
 
 
 // -----------------------------------------------------------------------------
@@ -179,32 +179,32 @@ ElementAtomicNumberSet(ConstHandle2Element This, const int atomic_number);
 
 // +++ Has
 extern_c int
-ElementIsotopeHas(ConstHandle2ConstElement This);
+ElementIsotopeHas(ConstHandle2ConstElement self);
 
 // +++ Clear
 extern_c void
-ElementIsotopeClear(ConstHandle2Element This);
+ElementIsotopeClear(ConstHandle2Element self);
 
 // +++ Size
 extern_c size_t
-ElementIsotopeSize(ConstHandle2ConstElement This);
+ElementIsotopeSize(ConstHandle2ConstElement self);
 
 // +++ Add
 extern_c void
-ElementIsotopeAdd(ConstHandle2Element This, ConstHandle2ConstIsotope isotope);
+ElementIsotopeAdd(ConstHandle2Element self, ConstHandle2ConstIsotope isotope);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstIsotope
-ElementIsotopeGetConst(ConstHandle2ConstElement This, const size_t index_);
+ElementIsotopeGetConst(ConstHandle2ConstElement self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Isotope
-ElementIsotopeGet(ConstHandle2Element This, const size_t index_);
+ElementIsotopeGet(ConstHandle2Element self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ElementIsotopeSet(
-   ConstHandle2Element This,
+   ConstHandle2Element self,
    const size_t index_,
    ConstHandle2ConstIsotope isotope
 );
@@ -212,28 +212,28 @@ ElementIsotopeSet(
 // +++ Has, by mass_number
 extern_c int
 ElementIsotopeHasByMassNumber(
-   ConstHandle2ConstElement This,
+   ConstHandle2ConstElement self,
    const int mass_number
 );
 
 // --- Get, by mass_number, const
 extern_c Handle2ConstIsotope
 ElementIsotopeGetByMassNumberConst(
-   ConstHandle2ConstElement This,
+   ConstHandle2ConstElement self,
    const int mass_number
 );
 
 // +++ Get, by mass_number, non-const
 extern_c Handle2Isotope
 ElementIsotopeGetByMassNumber(
-   ConstHandle2Element This,
+   ConstHandle2Element self,
    const int mass_number
 );
 
 // +++ Set, by mass_number
 extern_c void
 ElementIsotopeSetByMassNumber(
-   ConstHandle2Element This,
+   ConstHandle2Element self,
    const int mass_number,
    ConstHandle2ConstIsotope isotope
 );
@@ -245,19 +245,19 @@ ElementIsotopeSetByMassNumber(
 
 // +++ Has
 extern_c int
-ElementFoobarHas(ConstHandle2ConstElement This);
+ElementFoobarHas(ConstHandle2ConstElement self);
 
 // --- Get, const
 extern_c Handle2ConstFoobar
-ElementFoobarGetConst(ConstHandle2ConstElement This);
+ElementFoobarGetConst(ConstHandle2ConstElement self);
 
 // +++ Get, non-const
 extern_c Handle2Foobar
-ElementFoobarGet(ConstHandle2Element This);
+ElementFoobarGet(ConstHandle2Element self);
 
 // +++ Set
 extern_c void
-ElementFoobarSet(ConstHandle2Element This, ConstHandle2ConstFoobar foobar);
+ElementFoobarSet(ConstHandle2Element self, ConstHandle2ConstFoobar foobar);
 
 
 // -----------------------------------------------------------------------------

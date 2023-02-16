@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionFragmentData {
 
-// Rate wrapper
-void wrapRate(python::module &module)
+// wrapper for fissionFragmentData::Rate
+void wrapRate(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionFragmentData::Rate;
+   using cppCLASS = fissionFragmentData::Rate;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Rate",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Rate",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const containers::Double &
-         >(),
-         python::arg("double"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self) { return self.Double(); },
-         Component::documentation("double").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const containers::Double &
+      >(),
+      py::arg("double"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const containers::Double &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionFragmentData

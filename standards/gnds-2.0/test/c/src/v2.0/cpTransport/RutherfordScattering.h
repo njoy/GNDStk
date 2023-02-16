@@ -85,13 +85,13 @@ RutherfordScatteringCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RutherfordScatteringAssign(ConstHandle2RutherfordScattering This, ConstHandle2ConstRutherfordScattering from);
+RutherfordScatteringAssign(ConstHandle2RutherfordScattering self, ConstHandle2ConstRutherfordScattering from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering This);
+RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RutherfordScatteringRead(ConstHandle2RutherfordScattering This, const char *const filename);
+RutherfordScatteringRead(ConstHandle2RutherfordScattering self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RutherfordScatteringWrite(ConstHandle2ConstRutherfordScattering This, const char *const filename);
+RutherfordScatteringWrite(ConstHandle2ConstRutherfordScattering self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RutherfordScatteringPrint(ConstHandle2ConstRutherfordScattering This);
+RutherfordScatteringPrint(ConstHandle2ConstRutherfordScattering self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RutherfordScatteringPrintXML(ConstHandle2ConstRutherfordScattering This);
+RutherfordScatteringPrintXML(ConstHandle2ConstRutherfordScattering self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RutherfordScatteringPrintJSON(ConstHandle2ConstRutherfordScattering This);
+RutherfordScatteringPrintJSON(ConstHandle2ConstRutherfordScattering self);
 
 
 // -----------------------------------------------------------------------------

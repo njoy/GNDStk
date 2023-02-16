@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// Mixed wrapper
-void wrapMixed(python::module &module)
+// wrapper for covariance::Mixed
+void wrapMixed(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::Mixed;
+   using cppCLASS = covariance::Mixed;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Mixed",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Mixed",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<std::vector<covariance::CovarianceMatrix>> &,
-            const std::optional<std::vector<covariance::ShortRangeSelfScalingVariance>> &,
-            const std::optional<std::vector<covariance::Sum>> &
-         >(),
-         python::arg("label"),
-         python::arg("covariance_matrix") = std::nullopt,
-         python::arg("short_range_self_scaling_variance") = std::nullopt,
-         python::arg("sum") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "covariance_matrix",
-         [](const Component &self) { return self.covarianceMatrix(); },
-         Component::documentation("covariance_matrix").data()
-      )
-      .def_property_readonly(
-         "short_range_self_scaling_variance",
-         [](const Component &self) { return self.shortRangeSelfScalingVariance(); },
-         Component::documentation("short_range_self_scaling_variance").data()
-      )
-      .def_property_readonly(
-         "sum",
-         [](const Component &self) { return self.sum(); },
-         Component::documentation("sum").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<std::vector<covariance::CovarianceMatrix>> &,
+         const std::optional<std::vector<covariance::ShortRangeSelfScalingVariance>> &,
+         const std::optional<std::vector<covariance::Sum>> &
+      >(),
+      py::arg("label"),
+      py::arg("covariance_matrix") = std::nullopt,
+      py::arg("short_range_self_scaling_variance") = std::nullopt,
+      py::arg("sum") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set covarianceMatrix
+   object.def_property(
+      "covariance_matrix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covarianceMatrix();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<covariance::CovarianceMatrix>> &value)
+      {
+         self.covarianceMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_matrix").data()
+   );
+
+   // get/set shortRangeSelfScalingVariance
+   object.def_property(
+      "short_range_self_scaling_variance",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.shortRangeSelfScalingVariance();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<covariance::ShortRangeSelfScalingVariance>> &value)
+      {
+         self.shortRangeSelfScalingVariance() = value;
+      },
+      cppCLASS::component_t::documentation("short_range_self_scaling_variance").data()
+   );
+
+   // get/set sum
+   object.def_property(
+      "sum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.sum();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<covariance::Sum>> &value)
+      {
+         self.sum() = value;
+      },
+      cppCLASS::component_t::documentation("sum").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

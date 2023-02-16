@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Distribution wrapper
-void wrapDistribution(python::module &module)
+// wrapper for transport::Distribution
+void wrapDistribution(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Distribution;
+   using cppCLASS = transport::Distribution;
    using _t = std::variant<
       transport::AngularTwoBody,
       transport::Uncorrelated,
@@ -43,111 +43,244 @@ void wrapDistribution(python::module &module)
       containers::XYs2d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Distribution",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Distribution",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const _t &
-         >(),
-         python::arg("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "angular_two_body",
-         [](const Component &self) { return self.angularTwoBody(); },
-         Component::documentation("angular_two_body").data()
-      )
-      .def_property_readonly(
-         "uncorrelated",
-         [](const Component &self) { return self.uncorrelated(); },
-         Component::documentation("uncorrelated").data()
-      )
-      .def_property_readonly(
-         "angular_energy",
-         [](const Component &self) { return self.angularEnergy(); },
-         Component::documentation("angular_energy").data()
-      )
-      .def_property_readonly(
-         "energy_angular",
-         [](const Component &self) { return self.energyAngular(); },
-         Component::documentation("energy_angular").data()
-      )
-      .def_property_readonly(
-         "kalbach_mann",
-         [](const Component &self) { return self.KalbachMann(); },
-         Component::documentation("kalbach_mann").data()
-      )
-      .def_property_readonly(
-         "reference",
-         [](const Component &self) { return self.reference(); },
-         Component::documentation("reference").data()
-      )
-      .def_property_readonly(
-         "branching3d",
-         [](const Component &self) { return self.branching3d(); },
-         Component::documentation("branching3d").data()
-      )
-      .def_property_readonly(
-         "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
-         Component::documentation("coulomb_plus_nuclear_elastic").data()
-      )
-      .def_property_readonly(
-         "thermal_neutron_scattering_law",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw(); },
-         Component::documentation("thermal_neutron_scattering_law").data()
-      )
-      .def_property_readonly(
-         "coherent_photon_scattering",
-         [](const Component &self) { return self.coherentPhotonScattering(); },
-         Component::documentation("coherent_photon_scattering").data()
-      )
-      .def_property_readonly(
-         "incoherent_photon_scattering",
-         [](const Component &self) { return self.incoherentPhotonScattering(); },
-         Component::documentation("incoherent_photon_scattering").data()
-      )
-      .def_property_readonly(
-         "unspecified",
-         [](const Component &self) { return self.unspecified(); },
-         Component::documentation("unspecified").data()
-      )
-      .def_property_readonly(
-         "multi_group3d",
-         [](const Component &self) { return self.multiGroup3d(); },
-         Component::documentation("multi_group3d").data()
-      )
-      .def_property_readonly(
-         "angular_energy_mc",
-         [](const Component &self) { return self.angularEnergyMC(); },
-         Component::documentation("angular_energy_mc").data()
-      )
-      .def_property_readonly(
-         "energy_angular_mc",
-         [](const Component &self) { return self.energyAngularMC(); },
-         Component::documentation("energy_angular_mc").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
-         Component::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d",
-         [](const Component &self) { return self._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d(); },
-         Component::documentation("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const _t &
+      >(),
+      py::arg("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "angular_two_body",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angularTwoBody();
+      },
+      [](cppCLASS &self, const transport::AngularTwoBody &value)
+      {
+         self.angularTwoBody() = value;
+      },
+      cppCLASS::component_t::documentation("angular_two_body").data()
+   );
+
+   object.def_property(
+      "uncorrelated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncorrelated();
+      },
+      [](cppCLASS &self, const transport::Uncorrelated &value)
+      {
+         self.uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("uncorrelated").data()
+   );
+
+   object.def_property(
+      "angular_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angularEnergy();
+      },
+      [](cppCLASS &self, const transport::AngularEnergy &value)
+      {
+         self.angularEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("angular_energy").data()
+   );
+
+   object.def_property(
+      "energy_angular",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energyAngular();
+      },
+      [](cppCLASS &self, const transport::EnergyAngular &value)
+      {
+         self.energyAngular() = value;
+      },
+      cppCLASS::component_t::documentation("energy_angular").data()
+   );
+
+   object.def_property(
+      "kalbach_mann",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.KalbachMann();
+      },
+      [](cppCLASS &self, const transport::KalbachMann &value)
+      {
+         self.KalbachMann() = value;
+      },
+      cppCLASS::component_t::documentation("kalbach_mann").data()
+   );
+
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const transport::Reference &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   object.def_property(
+      "branching3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.branching3d();
+      },
+      [](cppCLASS &self, const transport::Branching3d &value)
+      {
+         self.branching3d() = value;
+      },
+      cppCLASS::component_t::documentation("branching3d").data()
+   );
+
+   object.def_property(
+      "coulomb_plus_nuclear_elastic",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.CoulombPlusNuclearElastic();
+      },
+      [](cppCLASS &self, const cpTransport::CoulombPlusNuclearElastic &value)
+      {
+         self.CoulombPlusNuclearElastic() = value;
+      },
+      cppCLASS::component_t::documentation("coulomb_plus_nuclear_elastic").data()
+   );
+
+   object.def_property(
+      "thermal_neutron_scattering_law",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.thermalNeutronScatteringLaw();
+      },
+      [](cppCLASS &self, const tsl::ThermalNeutronScatteringLaw &value)
+      {
+         self.thermalNeutronScatteringLaw() = value;
+      },
+      cppCLASS::component_t::documentation("thermal_neutron_scattering_law").data()
+   );
+
+   object.def_property(
+      "coherent_photon_scattering",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.coherentPhotonScattering();
+      },
+      [](cppCLASS &self, const atomic::CoherentPhotonScattering &value)
+      {
+         self.coherentPhotonScattering() = value;
+      },
+      cppCLASS::component_t::documentation("coherent_photon_scattering").data()
+   );
+
+   object.def_property(
+      "incoherent_photon_scattering",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.incoherentPhotonScattering();
+      },
+      [](cppCLASS &self, const atomic::IncoherentPhotonScattering &value)
+      {
+         self.incoherentPhotonScattering() = value;
+      },
+      cppCLASS::component_t::documentation("incoherent_photon_scattering").data()
+   );
+
+   object.def_property(
+      "unspecified",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unspecified();
+      },
+      [](cppCLASS &self, const transport::Unspecified &value)
+      {
+         self.unspecified() = value;
+      },
+      cppCLASS::component_t::documentation("unspecified").data()
+   );
+
+   object.def_property(
+      "multi_group3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.multiGroup3d();
+      },
+      [](cppCLASS &self, const transport::MultiGroup3d &value)
+      {
+         self.multiGroup3d() = value;
+      },
+      cppCLASS::component_t::documentation("multi_group3d").data()
+   );
+
+   object.def_property(
+      "angular_energy_mc",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angularEnergyMC();
+      },
+      [](cppCLASS &self, const processed::AngularEnergyMC &value)
+      {
+         self.angularEnergyMC() = value;
+      },
+      cppCLASS::component_t::documentation("angular_energy_mc").data()
+   );
+
+   object.def_property(
+      "energy_angular_mc",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energyAngularMC();
+      },
+      [](cppCLASS &self, const processed::EnergyAngularMC &value)
+      {
+         self.energyAngularMC() = value;
+      },
+      cppCLASS::component_t::documentation("energy_angular_mc").data()
+   );
+
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const containers::XYs2d &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   object.def_property(
+      "_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._angularTwoBodyuncorrelatedangularEnergyenergyAngularKalbachMannreferencebranching3dCoulombPlusNuclearElasticthermalNeutronScatteringLawcoherentPhotonScatteringincoherentPhotonScatteringunspecifiedmultiGroup3dangularEnergyMCenergyAngularMCXYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("_angular_two_bodyuncorrelatedangular_energyenergy_angular_kalbach_mannreferencebranching3d_coulomb_plus_nuclear_elasticthermal_neutron_scattering_lawcoherent_photon_scatteringincoherent_photon_scatteringunspecifiedmulti_group3dangular_energy_mcenergy_angular_mcxys2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

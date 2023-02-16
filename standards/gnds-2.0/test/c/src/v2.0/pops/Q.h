@@ -102,13 +102,13 @@ QCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-QAssign(ConstHandle2Q This, ConstHandle2ConstQ from);
+QAssign(ConstHandle2Q self, ConstHandle2ConstQ from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-QDelete(ConstHandle2ConstQ This);
+QDelete(ConstHandle2ConstQ self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ QDelete(ConstHandle2ConstQ This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-QRead(ConstHandle2Q This, const char *const filename);
+QRead(ConstHandle2Q self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-QWrite(ConstHandle2ConstQ This, const char *const filename);
+QWrite(ConstHandle2ConstQ self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-QPrint(ConstHandle2ConstQ This);
+QPrint(ConstHandle2ConstQ self);
 
 // +++ Print to standard output, as XML
 extern_c int
-QPrintXML(ConstHandle2ConstQ This);
+QPrintXML(ConstHandle2ConstQ self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-QPrintJSON(ConstHandle2ConstQ This);
+QPrintJSON(ConstHandle2ConstQ self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ QPrintJSON(ConstHandle2ConstQ This);
 
 // +++ Has
 extern_c int
-QLabelHas(ConstHandle2ConstQ This);
+QLabelHas(ConstHandle2ConstQ self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-QLabelGet(ConstHandle2ConstQ This);
+QLabelGet(ConstHandle2ConstQ self);
 
 // +++ Set
 extern_c void
-QLabelSet(ConstHandle2Q This, const XMLName label);
+QLabelSet(ConstHandle2Q self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ QLabelSet(ConstHandle2Q This, const XMLName label);
 
 // +++ Has
 extern_c int
-QUnitHas(ConstHandle2ConstQ This);
+QUnitHas(ConstHandle2ConstQ self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-QUnitGet(ConstHandle2ConstQ This);
+QUnitGet(ConstHandle2ConstQ self);
 
 // +++ Set
 extern_c void
-QUnitSet(ConstHandle2Q This, const XMLName unit);
+QUnitSet(ConstHandle2Q self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ QUnitSet(ConstHandle2Q This, const XMLName unit);
 
 // +++ Has
 extern_c int
-QValueHas(ConstHandle2ConstQ This);
+QValueHas(ConstHandle2ConstQ self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-QValueGet(ConstHandle2ConstQ This);
+QValueGet(ConstHandle2ConstQ self);
 
 // +++ Set
 extern_c void
-QValueSet(ConstHandle2Q This, const XMLName value);
+QValueSet(ConstHandle2Q self, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ QValueSet(ConstHandle2Q This, const XMLName value);
 
 // +++ Has
 extern_c int
-QDocumentationHas(ConstHandle2ConstQ This);
+QDocumentationHas(ConstHandle2ConstQ self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-QDocumentationGetConst(ConstHandle2ConstQ This);
+QDocumentationGetConst(ConstHandle2ConstQ self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-QDocumentationGet(ConstHandle2Q This);
+QDocumentationGet(ConstHandle2Q self);
 
 // +++ Set
 extern_c void
-QDocumentationSet(ConstHandle2Q This, ConstHandle2ConstDocumentation documentation);
+QDocumentationSet(ConstHandle2Q self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ QDocumentationSet(ConstHandle2Q This, ConstHandle2ConstDocumentation documentati
 
 // +++ Has
 extern_c int
-QUncertaintyHas(ConstHandle2ConstQ This);
+QUncertaintyHas(ConstHandle2ConstQ self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-QUncertaintyGetConst(ConstHandle2ConstQ This);
+QUncertaintyGetConst(ConstHandle2ConstQ self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-QUncertaintyGet(ConstHandle2Q This);
+QUncertaintyGet(ConstHandle2Q self);
 
 // +++ Set
 extern_c void
-QUncertaintySet(ConstHandle2Q This, ConstHandle2ConstUncertainty uncertainty);
+QUncertaintySet(ConstHandle2Q self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -244,32 +244,32 @@ QUncertaintySet(ConstHandle2Q This, ConstHandle2ConstUncertainty uncertainty);
 
 // +++ Has
 extern_c int
-QDoubleHas(ConstHandle2ConstQ This);
+QDoubleHas(ConstHandle2ConstQ self);
 
 // +++ Clear
 extern_c void
-QDoubleClear(ConstHandle2Q This);
+QDoubleClear(ConstHandle2Q self);
 
 // +++ Size
 extern_c size_t
-QDoubleSize(ConstHandle2ConstQ This);
+QDoubleSize(ConstHandle2ConstQ self);
 
 // +++ Add
 extern_c void
-QDoubleAdd(ConstHandle2Q This, ConstHandle2ConstDouble Double);
+QDoubleAdd(ConstHandle2Q self, ConstHandle2ConstDouble Double);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDouble
-QDoubleGetConst(ConstHandle2ConstQ This, const size_t index_);
+QDoubleGetConst(ConstHandle2ConstQ self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Double
-QDoubleGet(ConstHandle2Q This, const size_t index_);
+QDoubleGet(ConstHandle2Q self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 QDoubleSet(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 );
@@ -277,28 +277,28 @@ QDoubleSet(
 // +++ Has, by label
 extern_c int
 QDoubleHasByLabel(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDouble
 QDoubleGetByLabelConst(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Double
 QDoubleGetByLabel(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 QDoubleSetByLabel(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 );
@@ -306,28 +306,28 @@ QDoubleSetByLabel(
 // +++ Has, by unit
 extern_c int
 QDoubleHasByUnit(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstDouble
 QDoubleGetByUnitConst(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Double
 QDoubleGetByUnit(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 QDoubleSetByUnit(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 );
@@ -335,28 +335,28 @@ QDoubleSetByUnit(
 // +++ Has, by value
 extern_c int
 QDoubleHasByValue(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const Float64 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstDouble
 QDoubleGetByValueConst(
-   ConstHandle2ConstQ This,
+   ConstHandle2ConstQ self,
    const Float64 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Double
 QDoubleGetByValue(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const Float64 value
 );
 
 // +++ Set, by value
 extern_c void
 QDoubleSetByValue(
-   ConstHandle2Q This,
+   ConstHandle2Q self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 );

@@ -41,12 +41,12 @@ class Multiplicity :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Multiplicity"; }
-   static auto FIELD() { return "multiplicity"; }
+   static auto NODENAME() { return "multiplicity"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -59,14 +59,46 @@ class Multiplicity :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children - variant
-   Field<_t> _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d{this};
+   Field<_t>
+      _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d{this};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d),containers::XYs1d> XYs1d{_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d),containers::Constant1d> constant1d{_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d};
    FieldPart<decltype(_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d),containers::Polynomial1d> polynomial1d{_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d};
@@ -79,9 +111,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d)
+      this->_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d \
+   )
 
    // default
    Multiplicity() :
@@ -92,7 +127,8 @@ public:
 
    // from fields, comment excluded
    explicit Multiplicity(
-      const wrapper<_t> &_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d
+      const wrapper<_t>
+         &_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d(this,_XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d)
@@ -129,8 +165,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Multiplicity &operator=(const Multiplicity &) = default;
-   Multiplicity &operator=(Multiplicity &&) = default;
+   // copy
+   Multiplicity &operator=(const Multiplicity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d = other._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d;
+      }
+      return *this;
+   }
+
+   // move
+   Multiplicity &operator=(Multiplicity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         _XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d = std::move(other._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

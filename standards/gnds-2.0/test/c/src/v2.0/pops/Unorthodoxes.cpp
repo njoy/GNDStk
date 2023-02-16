@@ -73,20 +73,20 @@ UnorthodoxesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UnorthodoxesAssign(ConstHandle2Unorthodoxes This, ConstHandle2ConstUnorthodoxes from)
+UnorthodoxesAssign(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorthodoxes from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ UnorthodoxesDelete(ConstHandle2ConstUnorthodoxes This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UnorthodoxesRead(ConstHandle2Unorthodoxes This, const char *const filename)
+UnorthodoxesRead(ConstHandle2Unorthodoxes self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes This, const char *const filename)
+UnorthodoxesWrite(ConstHandle2ConstUnorthodoxes self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrint(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrintXML(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,106 +147,106 @@ UnorthodoxesPrintJSON(ConstHandle2ConstUnorthodoxes This)
 
 // Has
 int
-UnorthodoxesNuclideHas(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesNuclideHas(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideHas", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideHas", self, extract::nuclide);
 }
 
 // Clear
 void
-UnorthodoxesNuclideClear(ConstHandle2Unorthodoxes This)
+UnorthodoxesNuclideClear(ConstHandle2Unorthodoxes self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideClear", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideClear", self, extract::nuclide);
 }
 
 // Size
 size_t
-UnorthodoxesNuclideSize(ConstHandle2ConstUnorthodoxes This)
+UnorthodoxesNuclideSize(ConstHandle2ConstUnorthodoxes self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"NuclideSize", This, extract::nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideSize", self, extract::nuclide);
 }
 
 // Add
 void
-UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes This, ConstHandle2ConstNuclide nuclide)
+UnorthodoxesNuclideAdd(ConstHandle2Unorthodoxes self, ConstHandle2ConstNuclide nuclide)
 {
    detail::addToContainer<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideAdd", This, extract::nuclide, nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideAdd", self, extract::nuclide, nuclide);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstNuclide
-UnorthodoxesNuclideGetConst(ConstHandle2ConstUnorthodoxes This, const size_t index_)
+UnorthodoxesNuclideGetConst(ConstHandle2ConstUnorthodoxes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGetConst", This, extract::nuclide, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGetConst", self, extract::nuclide, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Nuclide
-UnorthodoxesNuclideGet(ConstHandle2Unorthodoxes This, const size_t index_)
+UnorthodoxesNuclideGet(ConstHandle2Unorthodoxes self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Nuclide>
-      (CLASSNAME, CLASSNAME+"NuclideGet", This, extract::nuclide, index_);
+      (CLASSNAME, CLASSNAME+"NuclideGet", self, extract::nuclide, index_);
 }
 
 // Set, by index \in [0,size)
 void
 UnorthodoxesNuclideSet(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const size_t index_,
    ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByIndex<CPP,CPPNuclide>
-      (CLASSNAME, CLASSNAME+"NuclideSet", This, extract::nuclide, index_, nuclide);
+      (CLASSNAME, CLASSNAME+"NuclideSet", self, extract::nuclide, index_, nuclide);
 }
 
 // Has, by id
 int
 UnorthodoxesNuclideHasById(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const XMLName id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"NuclideHasById",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstNuclide
 UnorthodoxesNuclideGetByIdConst(
-   ConstHandle2ConstUnorthodoxes This,
+   ConstHandle2ConstUnorthodoxes self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstNuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetByIdConst",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Nuclide
 UnorthodoxesNuclideGetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2Nuclide>
       (CLASSNAME, CLASSNAME+"NuclideGetById",
-       This, extract::nuclide, meta::id, id);
+       self, extract::nuclide, meta::id, id);
 }
 
 // Set, by id
 void
 UnorthodoxesNuclideSetById(
-   ConstHandle2Unorthodoxes This,
+   ConstHandle2Unorthodoxes self,
    const XMLName id,
    ConstHandle2ConstNuclide nuclide
 ) {
    detail::setByMetadatum<CPP,CPPNuclide>
       (CLASSNAME, CLASSNAME+"NuclideSetById",
-       This, extract::nuclide, meta::id, id, nuclide);
+       self, extract::nuclide, meta::id, id, nuclide);
 }
 
 

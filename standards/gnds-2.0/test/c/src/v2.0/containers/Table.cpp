@@ -90,20 +90,20 @@ TableCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TableAssign(ConstHandle2Table This, ConstHandle2ConstTable from)
+TableAssign(ConstHandle2Table self, ConstHandle2ConstTable from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TableDelete(ConstHandle2ConstTable This)
+TableDelete(ConstHandle2ConstTable self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ TableDelete(ConstHandle2ConstTable This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TableRead(ConstHandle2Table This, const char *const filename)
+TableRead(ConstHandle2Table self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TableWrite(ConstHandle2ConstTable This, const char *const filename)
+TableWrite(ConstHandle2ConstTable self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TablePrint(ConstHandle2ConstTable This)
+TablePrint(ConstHandle2ConstTable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TablePrintXML(ConstHandle2ConstTable This)
+TablePrintXML(ConstHandle2ConstTable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TablePrintJSON(ConstHandle2ConstTable This)
+TablePrintJSON(ConstHandle2ConstTable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ TablePrintJSON(ConstHandle2ConstTable This)
 
 // Has
 int
-TableColumnsHas(ConstHandle2ConstTable This)
+TableColumnsHas(ConstHandle2ConstTable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnsHas", This, extract::columns);
+      (CLASSNAME, CLASSNAME+"ColumnsHas", self, extract::columns);
 }
 
 // Get
 // Returns by value
 Integer32
-TableColumnsGet(ConstHandle2ConstTable This)
+TableColumnsGet(ConstHandle2ConstTable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnsGet", This, extract::columns);
+      (CLASSNAME, CLASSNAME+"ColumnsGet", self, extract::columns);
 }
 
 // Set
 void
-TableColumnsSet(ConstHandle2Table This, const Integer32 columns)
+TableColumnsSet(ConstHandle2Table self, const Integer32 columns)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnsSet", This, extract::columns, columns);
+      (CLASSNAME, CLASSNAME+"ColumnsSet", self, extract::columns, columns);
 }
 
 
@@ -194,27 +194,27 @@ TableColumnsSet(ConstHandle2Table This, const Integer32 columns)
 
 // Has
 int
-TableRowsHas(ConstHandle2ConstTable This)
+TableRowsHas(ConstHandle2ConstTable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RowsHas", This, extract::rows);
+      (CLASSNAME, CLASSNAME+"RowsHas", self, extract::rows);
 }
 
 // Get
 // Returns by value
 Integer32
-TableRowsGet(ConstHandle2ConstTable This)
+TableRowsGet(ConstHandle2ConstTable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"RowsGet", This, extract::rows);
+      (CLASSNAME, CLASSNAME+"RowsGet", self, extract::rows);
 }
 
 // Set
 void
-TableRowsSet(ConstHandle2Table This, const Integer32 rows)
+TableRowsSet(ConstHandle2Table self, const Integer32 rows)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"RowsSet", This, extract::rows, rows);
+      (CLASSNAME, CLASSNAME+"RowsSet", self, extract::rows, rows);
 }
 
 
@@ -224,27 +224,27 @@ TableRowsSet(ConstHandle2Table This, const Integer32 rows)
 
 // Has
 int
-TableStorageOrderHas(ConstHandle2ConstTable This)
+TableStorageOrderHas(ConstHandle2ConstTable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StorageOrderHas", This, extract::storageOrder);
+      (CLASSNAME, CLASSNAME+"StorageOrderHas", self, extract::storageOrder);
 }
 
 // Get
 // Returns by value
 XMLName
-TableStorageOrderGet(ConstHandle2ConstTable This)
+TableStorageOrderGet(ConstHandle2ConstTable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"StorageOrderGet", This, extract::storageOrder);
+      (CLASSNAME, CLASSNAME+"StorageOrderGet", self, extract::storageOrder);
 }
 
 // Set
 void
-TableStorageOrderSet(ConstHandle2Table This, const XMLName storageOrder)
+TableStorageOrderSet(ConstHandle2Table self, const XMLName storageOrder)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"StorageOrderSet", This, extract::storageOrder, storageOrder);
+      (CLASSNAME, CLASSNAME+"StorageOrderSet", self, extract::storageOrder, storageOrder);
 }
 
 
@@ -254,34 +254,34 @@ TableStorageOrderSet(ConstHandle2Table This, const XMLName storageOrder)
 
 // Has
 int
-TableColumnHeadersHas(ConstHandle2ConstTable This)
+TableColumnHeadersHas(ConstHandle2ConstTable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnHeadersHas", This, extract::columnHeaders);
+      (CLASSNAME, CLASSNAME+"ColumnHeadersHas", self, extract::columnHeaders);
 }
 
 // Get, const
 Handle2ConstColumnHeaders
-TableColumnHeadersGetConst(ConstHandle2ConstTable This)
+TableColumnHeadersGetConst(ConstHandle2ConstTable self)
 {
    return detail::getField<CPP,Handle2ConstColumnHeaders>
-      (CLASSNAME, CLASSNAME+"ColumnHeadersGetConst", This, extract::columnHeaders);
+      (CLASSNAME, CLASSNAME+"ColumnHeadersGetConst", self, extract::columnHeaders);
 }
 
 // Get, non-const
 Handle2ColumnHeaders
-TableColumnHeadersGet(ConstHandle2Table This)
+TableColumnHeadersGet(ConstHandle2Table self)
 {
    return detail::getField<CPP,Handle2ColumnHeaders>
-      (CLASSNAME, CLASSNAME+"ColumnHeadersGet", This, extract::columnHeaders);
+      (CLASSNAME, CLASSNAME+"ColumnHeadersGet", self, extract::columnHeaders);
 }
 
 // Set
 void
-TableColumnHeadersSet(ConstHandle2Table This, ConstHandle2ConstColumnHeaders columnHeaders)
+TableColumnHeadersSet(ConstHandle2Table self, ConstHandle2ConstColumnHeaders columnHeaders)
 {
    detail::setField<CPP,CPPColumnHeaders>
-      (CLASSNAME, CLASSNAME+"ColumnHeadersSet", This, extract::columnHeaders, columnHeaders);
+      (CLASSNAME, CLASSNAME+"ColumnHeadersSet", self, extract::columnHeaders, columnHeaders);
 }
 
 
@@ -291,34 +291,34 @@ TableColumnHeadersSet(ConstHandle2Table This, ConstHandle2ConstColumnHeaders col
 
 // Has
 int
-TableDataHas(ConstHandle2ConstTable This)
+TableDataHas(ConstHandle2ConstTable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DataHas", This, extract::data);
+      (CLASSNAME, CLASSNAME+"DataHas", self, extract::data);
 }
 
 // Get, const
 Handle2ConstData
-TableDataGetConst(ConstHandle2ConstTable This)
+TableDataGetConst(ConstHandle2ConstTable self)
 {
    return detail::getField<CPP,Handle2ConstData>
-      (CLASSNAME, CLASSNAME+"DataGetConst", This, extract::data);
+      (CLASSNAME, CLASSNAME+"DataGetConst", self, extract::data);
 }
 
 // Get, non-const
 Handle2Data
-TableDataGet(ConstHandle2Table This)
+TableDataGet(ConstHandle2Table self)
 {
    return detail::getField<CPP,Handle2Data>
-      (CLASSNAME, CLASSNAME+"DataGet", This, extract::data);
+      (CLASSNAME, CLASSNAME+"DataGet", self, extract::data);
 }
 
 // Set
 void
-TableDataSet(ConstHandle2Table This, ConstHandle2ConstData data)
+TableDataSet(ConstHandle2Table self, ConstHandle2ConstData data)
 {
    detail::setField<CPP,CPPData>
-      (CLASSNAME, CLASSNAME+"DataSet", This, extract::data, data);
+      (CLASSNAME, CLASSNAME+"DataSet", self, extract::data, data);
 }
 
 

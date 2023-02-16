@@ -26,12 +26,12 @@ class Temperature :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "Temperature"; }
-   static auto FIELD() { return "temperature"; }
+   static auto NODENAME() { return "temperature"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,37 +47,86 @@ class Temperature :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<documentation::Documentation>>("documentation") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value",
+         "documentation",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> unit{this};
-   Field<std::optional<Float64>> value{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      unit{this};
+   Field<std::optional<Float64>>
+      value{this};
 
    // children
-   Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->unit, \
       this->value, \
       this->documentation, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    Temperature() :
@@ -88,11 +137,16 @@ public:
 
    // from fields, comment excluded
    explicit Temperature(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<std::optional<Float64>> &value = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<XMLName>>
+         &unit = {},
+      const wrapper<std::optional<Float64>>
+         &value = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +195,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Temperature &operator=(const Temperature &) = default;
-   Temperature &operator=(Temperature &&) = default;
+   // copy
+   Temperature &operator=(const Temperature &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         unit = other.unit;
+         value = other.value;
+         documentation = other.documentation;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Temperature &operator=(Temperature &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+         value = std::move(other.value);
+         documentation = std::move(other.documentation);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

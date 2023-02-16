@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// ParameterLink wrapper
-void wrapParameterLink(python::module &module)
+// wrapper for covariance::ParameterLink
+void wrapParameterLink(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::ParameterLink;
+   using cppCLASS = covariance::ParameterLink;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ParameterLink",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ParameterLink",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<Integer32> &,
-            const std::optional<Integer32> &
-         >(),
-         python::arg("href") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("matrix_start_index") = std::nullopt,
-         python::arg("n_parameters") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "matrix_start_index",
-         [](const Component &self) { return self.matrixStartIndex().value(); },
-         Component::documentation("matrix_start_index").data()
-      )
-      .def_property_readonly(
-         "n_parameters",
-         [](const Component &self) { return self.nParameters().value(); },
-         Component::documentation("n_parameters").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<Integer32> &,
+         const std::optional<Integer32> &
+      >(),
+      py::arg("href") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("matrix_start_index") = std::nullopt,
+      py::arg("n_parameters") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set matrixStartIndex
+   object.def_property(
+      "matrix_start_index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.matrixStartIndex().value();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.matrixStartIndex() = value;
+      },
+      cppCLASS::component_t::documentation("matrix_start_index").data()
+   );
+
+   // get/set nParameters
+   object.def_property(
+      "n_parameters",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nParameters().value();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.nParameters() = value;
+      },
+      cppCLASS::component_t::documentation("n_parameters").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

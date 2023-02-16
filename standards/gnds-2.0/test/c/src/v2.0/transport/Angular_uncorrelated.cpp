@@ -81,20 +81,20 @@ Angular_uncorrelatedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Angular_uncorrelatedAssign(ConstHandle2Angular_uncorrelated This, ConstHandle2ConstAngular_uncorrelated from)
+Angular_uncorrelatedAssign(ConstHandle2Angular_uncorrelated self, ConstHandle2ConstAngular_uncorrelated from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Angular_uncorrelatedDelete(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedDelete(ConstHandle2ConstAngular_uncorrelated self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ Angular_uncorrelatedDelete(ConstHandle2ConstAngular_uncorrelated This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Angular_uncorrelatedRead(ConstHandle2Angular_uncorrelated This, const char *const filename)
+Angular_uncorrelatedRead(ConstHandle2Angular_uncorrelated self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Angular_uncorrelatedWrite(ConstHandle2ConstAngular_uncorrelated This, const char *const filename)
+Angular_uncorrelatedWrite(ConstHandle2ConstAngular_uncorrelated self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Angular_uncorrelatedPrint(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedPrint(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Angular_uncorrelatedPrintXML(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedPrintXML(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Angular_uncorrelatedPrintJSON(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedPrintJSON(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ Angular_uncorrelatedPrintJSON(ConstHandle2ConstAngular_uncorrelated This)
 
 // Has
 int
-Angular_uncorrelatedXYs2dHas(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedXYs2dHas(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-Angular_uncorrelatedXYs2dGetConst(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedXYs2dGetConst(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-Angular_uncorrelatedXYs2dGet(ConstHandle2Angular_uncorrelated This)
+Angular_uncorrelatedXYs2dGet(ConstHandle2Angular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-Angular_uncorrelatedXYs2dSet(ConstHandle2Angular_uncorrelated This, ConstHandle2ConstXYs2d XYs2d)
+Angular_uncorrelatedXYs2dSet(ConstHandle2Angular_uncorrelated self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 
@@ -192,34 +192,34 @@ Angular_uncorrelatedXYs2dSet(ConstHandle2Angular_uncorrelated This, ConstHandle2
 
 // Has
 int
-Angular_uncorrelatedIsotropic2dHas(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedIsotropic2dHas(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Isotropic2dHas", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dHas", self, extract::isotropic2d);
 }
 
 // Get, const
 Handle2ConstIsotropic2d
-Angular_uncorrelatedIsotropic2dGetConst(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedIsotropic2dGetConst(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstIsotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", self, extract::isotropic2d);
 }
 
 // Get, non-const
 Handle2Isotropic2d
-Angular_uncorrelatedIsotropic2dGet(ConstHandle2Angular_uncorrelated This)
+Angular_uncorrelatedIsotropic2dGet(ConstHandle2Angular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2Isotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dGet", This, extract::isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dGet", self, extract::isotropic2d);
 }
 
 // Set
 void
-Angular_uncorrelatedIsotropic2dSet(ConstHandle2Angular_uncorrelated This, ConstHandle2ConstIsotropic2d isotropic2d)
+Angular_uncorrelatedIsotropic2dSet(ConstHandle2Angular_uncorrelated self, ConstHandle2ConstIsotropic2d isotropic2d)
 {
    detail::setField<CPP,CPPIsotropic2d>
-      (CLASSNAME, CLASSNAME+"Isotropic2dSet", This, extract::isotropic2d, isotropic2d);
+      (CLASSNAME, CLASSNAME+"Isotropic2dSet", self, extract::isotropic2d, isotropic2d);
 }
 
 
@@ -229,34 +229,34 @@ Angular_uncorrelatedIsotropic2dSet(ConstHandle2Angular_uncorrelated This, ConstH
 
 // Has
 int
-Angular_uncorrelatedForwardHas(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedForwardHas(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ForwardHas", This, extract::forward);
+      (CLASSNAME, CLASSNAME+"ForwardHas", self, extract::forward);
 }
 
 // Get, const
 Handle2ConstForward
-Angular_uncorrelatedForwardGetConst(ConstHandle2ConstAngular_uncorrelated This)
+Angular_uncorrelatedForwardGetConst(ConstHandle2ConstAngular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstForward>
-      (CLASSNAME, CLASSNAME+"ForwardGetConst", This, extract::forward);
+      (CLASSNAME, CLASSNAME+"ForwardGetConst", self, extract::forward);
 }
 
 // Get, non-const
 Handle2Forward
-Angular_uncorrelatedForwardGet(ConstHandle2Angular_uncorrelated This)
+Angular_uncorrelatedForwardGet(ConstHandle2Angular_uncorrelated self)
 {
    return detail::getField<CPP,Handle2Forward>
-      (CLASSNAME, CLASSNAME+"ForwardGet", This, extract::forward);
+      (CLASSNAME, CLASSNAME+"ForwardGet", self, extract::forward);
 }
 
 // Set
 void
-Angular_uncorrelatedForwardSet(ConstHandle2Angular_uncorrelated This, ConstHandle2ConstForward forward)
+Angular_uncorrelatedForwardSet(ConstHandle2Angular_uncorrelated self, ConstHandle2ConstForward forward)
 {
    detail::setField<CPP,CPPForward>
-      (CLASSNAME, CLASSNAME+"ForwardSet", This, extract::forward, forward);
+      (CLASSNAME, CLASSNAME+"ForwardSet", self, extract::forward, forward);
 }
 
 

@@ -25,12 +25,12 @@ class PositronEmissionIntensity :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "PositronEmissionIntensity"; }
-   static auto FIELD() { return "positronEmissionIntensity"; }
+   static auto NODENAME() { return "positronEmissionIntensity"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,30 +42,69 @@ class PositronEmissionIntensity :
             / Meta<>("value") |
 
          // children
-         --Child<std::optional<pops::Uncertainty>>("uncertainty")
+         --Child<std::optional<pops::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Float64> value{this};
+   Field<Float64>
+      value{this};
 
    // children
-   Field<std::optional<pops::Uncertainty>> uncertainty{this};
+   Field<std::optional<pops::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->value, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    PositronEmissionIntensity() :
@@ -76,8 +115,10 @@ public:
 
    // from fields, comment excluded
    explicit PositronEmissionIntensity(
-      const wrapper<Float64> &value,
-      const wrapper<std::optional<pops::Uncertainty>> &uncertainty = {}
+      const wrapper<Float64>
+         &value,
+      const wrapper<std::optional<pops::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -117,8 +158,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   PositronEmissionIntensity &operator=(const PositronEmissionIntensity &) = default;
-   PositronEmissionIntensity &operator=(PositronEmissionIntensity &&) = default;
+   // copy
+   PositronEmissionIntensity &operator=(const PositronEmissionIntensity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   PositronEmissionIntensity &operator=(PositronEmissionIntensity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

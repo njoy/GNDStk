@@ -90,20 +90,20 @@ GridCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GridAssign(ConstHandle2Grid This, ConstHandle2ConstGrid from)
+GridAssign(ConstHandle2Grid self, ConstHandle2ConstGrid from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GridDelete(ConstHandle2ConstGrid This)
+GridDelete(ConstHandle2ConstGrid self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ GridDelete(ConstHandle2ConstGrid This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GridRead(ConstHandle2Grid This, const char *const filename)
+GridRead(ConstHandle2Grid self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GridWrite(ConstHandle2ConstGrid This, const char *const filename)
+GridWrite(ConstHandle2ConstGrid self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GridPrint(ConstHandle2ConstGrid This)
+GridPrint(ConstHandle2ConstGrid self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GridPrintXML(ConstHandle2ConstGrid This)
+GridPrintXML(ConstHandle2ConstGrid self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GridPrintJSON(ConstHandle2ConstGrid This)
+GridPrintJSON(ConstHandle2ConstGrid self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ GridPrintJSON(ConstHandle2ConstGrid This)
 
 // Has
 int
-GridIndexHas(ConstHandle2ConstGrid This)
+GridIndexHas(ConstHandle2ConstGrid self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexHas", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexHas", self, extract::index);
 }
 
 // Get
 // Returns by value
 Integer32
-GridIndexGet(ConstHandle2ConstGrid This)
+GridIndexGet(ConstHandle2ConstGrid self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexGet", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexGet", self, extract::index);
 }
 
 // Set
 void
-GridIndexSet(ConstHandle2Grid This, const Integer32 index)
+GridIndexSet(ConstHandle2Grid self, const Integer32 index)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexSet", This, extract::index, index);
+      (CLASSNAME, CLASSNAME+"IndexSet", self, extract::index, index);
 }
 
 
@@ -194,27 +194,27 @@ GridIndexSet(ConstHandle2Grid This, const Integer32 index)
 
 // Has
 int
-GridInterpolationHas(ConstHandle2ConstGrid This)
+GridInterpolationHas(ConstHandle2ConstGrid self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationHas", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationHas", self, extract::interpolation);
 }
 
 // Get
 // Returns by value
 enums::Interpolation
-GridInterpolationGet(ConstHandle2ConstGrid This)
+GridInterpolationGet(ConstHandle2ConstGrid self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationGet", This, extract::interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationGet", self, extract::interpolation);
 }
 
 // Set
 void
-GridInterpolationSet(ConstHandle2Grid This, const enums::Interpolation interpolation)
+GridInterpolationSet(ConstHandle2Grid self, const enums::Interpolation interpolation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InterpolationSet", This, extract::interpolation, interpolation);
+      (CLASSNAME, CLASSNAME+"InterpolationSet", self, extract::interpolation, interpolation);
 }
 
 
@@ -224,27 +224,27 @@ GridInterpolationSet(ConstHandle2Grid This, const enums::Interpolation interpola
 
 // Has
 int
-GridLabelHas(ConstHandle2ConstGrid This)
+GridLabelHas(ConstHandle2ConstGrid self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-GridLabelGet(ConstHandle2ConstGrid This)
+GridLabelGet(ConstHandle2ConstGrid self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-GridLabelSet(ConstHandle2Grid This, const XMLName label)
+GridLabelSet(ConstHandle2Grid self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -254,27 +254,27 @@ GridLabelSet(ConstHandle2Grid This, const XMLName label)
 
 // Has
 int
-GridStyleHas(ConstHandle2ConstGrid This)
+GridStyleHas(ConstHandle2ConstGrid self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StyleHas", This, extract::style);
+      (CLASSNAME, CLASSNAME+"StyleHas", self, extract::style);
 }
 
 // Get
 // Returns by value
 UTF8Text
-GridStyleGet(ConstHandle2ConstGrid This)
+GridStyleGet(ConstHandle2ConstGrid self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"StyleGet", This, extract::style);
+      (CLASSNAME, CLASSNAME+"StyleGet", self, extract::style);
 }
 
 // Set
 void
-GridStyleSet(ConstHandle2Grid This, const UTF8Text style)
+GridStyleSet(ConstHandle2Grid self, const UTF8Text style)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"StyleSet", This, extract::style, style);
+      (CLASSNAME, CLASSNAME+"StyleSet", self, extract::style, style);
 }
 
 
@@ -284,27 +284,27 @@ GridStyleSet(ConstHandle2Grid This, const UTF8Text style)
 
 // Has
 int
-GridUnitHas(ConstHandle2ConstGrid This)
+GridUnitHas(ConstHandle2ConstGrid self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-GridUnitGet(ConstHandle2ConstGrid This)
+GridUnitGet(ConstHandle2ConstGrid self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-GridUnitSet(ConstHandle2Grid This, const XMLName unit)
+GridUnitSet(ConstHandle2Grid self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

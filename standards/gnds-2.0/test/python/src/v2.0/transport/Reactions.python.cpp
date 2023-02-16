@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Reactions wrapper
-void wrapReactions(python::module &module)
+// wrapper for transport::Reactions
+void wrapReactions(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Reactions;
+   using cppCLASS = transport::Reactions;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Reactions",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Reactions",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<transport::Reaction> &
-         >(),
-         python::arg("reaction"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "reaction",
-         [](const Component &self) { return self.reaction(); },
-         Component::documentation("reaction").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<transport::Reaction> &
+      >(),
+      py::arg("reaction"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set reaction
+   object.def_property(
+      "reaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reaction();
+      },
+      [](cppCLASS &self, const std::vector<transport::Reaction> &value)
+      {
+         self.reaction() = value;
+      },
+      cppCLASS::component_t::documentation("reaction").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

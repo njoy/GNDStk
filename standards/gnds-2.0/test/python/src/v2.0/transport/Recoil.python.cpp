@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Recoil wrapper
-void wrapRecoil(python::module &module)
+// wrapper for transport::Recoil
+void wrapRecoil(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Recoil;
+   using cppCLASS = transport::Recoil;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Recoil",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Recoil",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &
-         >(),
-         python::arg("href"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &
+      >(),
+      py::arg("href"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

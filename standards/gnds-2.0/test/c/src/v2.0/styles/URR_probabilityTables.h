@@ -96,13 +96,13 @@ URR_probabilityTablesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-URR_probabilityTablesAssign(ConstHandle2URR_probabilityTables This, ConstHandle2ConstURR_probabilityTables from);
+URR_probabilityTablesAssign(ConstHandle2URR_probabilityTables self, ConstHandle2ConstURR_probabilityTables from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-URR_probabilityTablesDelete(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDelete(ConstHandle2ConstURR_probabilityTables self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ URR_probabilityTablesDelete(ConstHandle2ConstURR_probabilityTables This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-URR_probabilityTablesRead(ConstHandle2URR_probabilityTables This, const char *const filename);
+URR_probabilityTablesRead(ConstHandle2URR_probabilityTables self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-URR_probabilityTablesWrite(ConstHandle2ConstURR_probabilityTables This, const char *const filename);
+URR_probabilityTablesWrite(ConstHandle2ConstURR_probabilityTables self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-URR_probabilityTablesPrint(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesPrint(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Print to standard output, as XML
 extern_c int
-URR_probabilityTablesPrintXML(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesPrintXML(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-URR_probabilityTablesPrintJSON(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesPrintJSON(ConstHandle2ConstURR_probabilityTables self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ URR_probabilityTablesPrintJSON(ConstHandle2ConstURR_probabilityTables This);
 
 // +++ Has
 extern_c int
-URR_probabilityTablesDateHas(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDateHas(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-URR_probabilityTablesDateGet(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDateGet(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Set
 extern_c void
-URR_probabilityTablesDateSet(ConstHandle2URR_probabilityTables This, const char *const date);
+URR_probabilityTablesDateSet(ConstHandle2URR_probabilityTables self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ URR_probabilityTablesDateSet(ConstHandle2URR_probabilityTables This, const char 
 
 // +++ Has
 extern_c int
-URR_probabilityTablesDerivedFromHas(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDerivedFromHas(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-URR_probabilityTablesDerivedFromGet(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDerivedFromGet(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Set
 extern_c void
-URR_probabilityTablesDerivedFromSet(ConstHandle2URR_probabilityTables This, const XMLName derivedFrom);
+URR_probabilityTablesDerivedFromSet(ConstHandle2URR_probabilityTables self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ URR_probabilityTablesDerivedFromSet(ConstHandle2URR_probabilityTables This, cons
 
 // +++ Has
 extern_c int
-URR_probabilityTablesLabelHas(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesLabelHas(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-URR_probabilityTablesLabelGet(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesLabelGet(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Set
 extern_c void
-URR_probabilityTablesLabelSet(ConstHandle2URR_probabilityTables This, const XMLName label);
+URR_probabilityTablesLabelSet(ConstHandle2URR_probabilityTables self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ URR_probabilityTablesLabelSet(ConstHandle2URR_probabilityTables This, const XMLN
 
 // +++ Has
 extern_c int
-URR_probabilityTablesDocumentationHas(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDocumentationHas(ConstHandle2ConstURR_probabilityTables self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-URR_probabilityTablesDocumentationGetConst(ConstHandle2ConstURR_probabilityTables This);
+URR_probabilityTablesDocumentationGetConst(ConstHandle2ConstURR_probabilityTables self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-URR_probabilityTablesDocumentationGet(ConstHandle2URR_probabilityTables This);
+URR_probabilityTablesDocumentationGet(ConstHandle2URR_probabilityTables self);
 
 // +++ Set
 extern_c void
-URR_probabilityTablesDocumentationSet(ConstHandle2URR_probabilityTables This, ConstHandle2ConstDocumentation documentation);
+URR_probabilityTablesDocumentationSet(ConstHandle2URR_probabilityTables self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

@@ -95,13 +95,13 @@ BibitemCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BibitemAssign(ConstHandle2Bibitem This, ConstHandle2ConstBibitem from);
+BibitemAssign(ConstHandle2Bibitem self, ConstHandle2ConstBibitem from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BibitemDelete(ConstHandle2ConstBibitem This);
+BibitemDelete(ConstHandle2ConstBibitem self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ BibitemDelete(ConstHandle2ConstBibitem This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BibitemRead(ConstHandle2Bibitem This, const char *const filename);
+BibitemRead(ConstHandle2Bibitem self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BibitemWrite(ConstHandle2ConstBibitem This, const char *const filename);
+BibitemWrite(ConstHandle2ConstBibitem self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BibitemPrint(ConstHandle2ConstBibitem This);
+BibitemPrint(ConstHandle2ConstBibitem self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BibitemPrintXML(ConstHandle2ConstBibitem This);
+BibitemPrintXML(ConstHandle2ConstBibitem self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BibitemPrintJSON(ConstHandle2ConstBibitem This);
+BibitemPrintJSON(ConstHandle2ConstBibitem self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ BibitemPrintJSON(ConstHandle2ConstBibitem This);
 
 // +++ Clear
 extern_c void
-BibitemIntsClear(ConstHandle2Bibitem This);
+BibitemIntsClear(ConstHandle2Bibitem self);
 
 // +++ Get size
 extern_c size_t
-BibitemIntsSize(ConstHandle2ConstBibitem This);
+BibitemIntsSize(ConstHandle2ConstBibitem self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-BibitemIntsGet(ConstHandle2ConstBibitem This, const size_t index);
+BibitemIntsGet(ConstHandle2ConstBibitem self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BibitemIntsSet(ConstHandle2Bibitem This, const size_t index, const int value);
+BibitemIntsSet(ConstHandle2Bibitem self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-BibitemIntsGetArrayConst(ConstHandle2ConstBibitem This);
+BibitemIntsGetArrayConst(ConstHandle2ConstBibitem self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-BibitemIntsGetArray(ConstHandle2Bibitem This);
+BibitemIntsGetArray(ConstHandle2Bibitem self);
 
 // +++ Set completely new values and size
 extern_c void
-BibitemIntsSetArray(ConstHandle2Bibitem This, const int *const values, const size_t size);
+BibitemIntsSetArray(ConstHandle2Bibitem self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ BibitemIntsSetArray(ConstHandle2Bibitem This, const int *const values, const siz
 
 // +++ Clear
 extern_c void
-BibitemUnsignedsClear(ConstHandle2Bibitem This);
+BibitemUnsignedsClear(ConstHandle2Bibitem self);
 
 // +++ Get size
 extern_c size_t
-BibitemUnsignedsSize(ConstHandle2ConstBibitem This);
+BibitemUnsignedsSize(ConstHandle2ConstBibitem self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-BibitemUnsignedsGet(ConstHandle2ConstBibitem This, const size_t index);
+BibitemUnsignedsGet(ConstHandle2ConstBibitem self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BibitemUnsignedsSet(ConstHandle2Bibitem This, const size_t index, const unsigned value);
+BibitemUnsignedsSet(ConstHandle2Bibitem self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-BibitemUnsignedsGetArrayConst(ConstHandle2ConstBibitem This);
+BibitemUnsignedsGetArrayConst(ConstHandle2ConstBibitem self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-BibitemUnsignedsGetArray(ConstHandle2Bibitem This);
+BibitemUnsignedsGetArray(ConstHandle2Bibitem self);
 
 // +++ Set completely new values and size
 extern_c void
-BibitemUnsignedsSetArray(ConstHandle2Bibitem This, const unsigned *const values, const size_t size);
+BibitemUnsignedsSetArray(ConstHandle2Bibitem self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ BibitemUnsignedsSetArray(ConstHandle2Bibitem This, const unsigned *const values,
 
 // +++ Clear
 extern_c void
-BibitemFloatsClear(ConstHandle2Bibitem This);
+BibitemFloatsClear(ConstHandle2Bibitem self);
 
 // +++ Get size
 extern_c size_t
-BibitemFloatsSize(ConstHandle2ConstBibitem This);
+BibitemFloatsSize(ConstHandle2ConstBibitem self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-BibitemFloatsGet(ConstHandle2ConstBibitem This, const size_t index);
+BibitemFloatsGet(ConstHandle2ConstBibitem self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BibitemFloatsSet(ConstHandle2Bibitem This, const size_t index, const float value);
+BibitemFloatsSet(ConstHandle2Bibitem self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-BibitemFloatsGetArrayConst(ConstHandle2ConstBibitem This);
+BibitemFloatsGetArrayConst(ConstHandle2ConstBibitem self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-BibitemFloatsGetArray(ConstHandle2Bibitem This);
+BibitemFloatsGetArray(ConstHandle2Bibitem self);
 
 // +++ Set completely new values and size
 extern_c void
-BibitemFloatsSetArray(ConstHandle2Bibitem This, const float *const values, const size_t size);
+BibitemFloatsSetArray(ConstHandle2Bibitem self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ BibitemFloatsSetArray(ConstHandle2Bibitem This, const float *const values, const
 
 // +++ Clear
 extern_c void
-BibitemDoublesClear(ConstHandle2Bibitem This);
+BibitemDoublesClear(ConstHandle2Bibitem self);
 
 // +++ Get size
 extern_c size_t
-BibitemDoublesSize(ConstHandle2ConstBibitem This);
+BibitemDoublesSize(ConstHandle2ConstBibitem self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-BibitemDoublesGet(ConstHandle2ConstBibitem This, const size_t index);
+BibitemDoublesGet(ConstHandle2ConstBibitem self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BibitemDoublesSet(ConstHandle2Bibitem This, const size_t index, const double value);
+BibitemDoublesSet(ConstHandle2Bibitem self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-BibitemDoublesGetArrayConst(ConstHandle2ConstBibitem This);
+BibitemDoublesGetArrayConst(ConstHandle2ConstBibitem self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-BibitemDoublesGetArray(ConstHandle2Bibitem This);
+BibitemDoublesGetArray(ConstHandle2Bibitem self);
 
 // +++ Set completely new values and size
 extern_c void
-BibitemDoublesSetArray(ConstHandle2Bibitem This, const double *const values, const size_t size);
+BibitemDoublesSetArray(ConstHandle2Bibitem self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ BibitemDoublesSetArray(ConstHandle2Bibitem This, const double *const values, con
 
 // +++ Has
 extern_c int
-BibitemEncodingHas(ConstHandle2ConstBibitem This);
+BibitemEncodingHas(ConstHandle2ConstBibitem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BibitemEncodingGet(ConstHandle2ConstBibitem This);
+BibitemEncodingGet(ConstHandle2ConstBibitem self);
 
 // +++ Set
 extern_c void
-BibitemEncodingSet(ConstHandle2Bibitem This, const XMLName encoding);
+BibitemEncodingSet(ConstHandle2Bibitem self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ BibitemEncodingSet(ConstHandle2Bibitem This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-BibitemMarkupHas(ConstHandle2ConstBibitem This);
+BibitemMarkupHas(ConstHandle2ConstBibitem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-BibitemMarkupGet(ConstHandle2ConstBibitem This);
+BibitemMarkupGet(ConstHandle2ConstBibitem self);
 
 // +++ Set
 extern_c void
-BibitemMarkupSet(ConstHandle2Bibitem This, const char *const markup);
+BibitemMarkupSet(ConstHandle2Bibitem self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ BibitemMarkupSet(ConstHandle2Bibitem This, const char *const markup);
 
 // +++ Has
 extern_c int
-BibitemLabelHas(ConstHandle2ConstBibitem This);
+BibitemLabelHas(ConstHandle2ConstBibitem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BibitemLabelGet(ConstHandle2ConstBibitem This);
+BibitemLabelGet(ConstHandle2ConstBibitem self);
 
 // +++ Set
 extern_c void
-BibitemLabelSet(ConstHandle2Bibitem This, const XMLName label);
+BibitemLabelSet(ConstHandle2Bibitem self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ BibitemLabelSet(ConstHandle2Bibitem This, const XMLName label);
 
 // +++ Has
 extern_c int
-BibitemXrefHas(ConstHandle2ConstBibitem This);
+BibitemXrefHas(ConstHandle2ConstBibitem self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BibitemXrefGet(ConstHandle2ConstBibitem This);
+BibitemXrefGet(ConstHandle2ConstBibitem self);
 
 // +++ Set
 extern_c void
-BibitemXrefSet(ConstHandle2Bibitem This, const XMLName xref);
+BibitemXrefSet(ConstHandle2Bibitem self, const XMLName xref);
 
 
 // -----------------------------------------------------------------------------

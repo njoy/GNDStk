@@ -72,20 +72,20 @@ AliasCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AliasAssign(ConstHandle2Alias This, ConstHandle2ConstAlias from)
+AliasAssign(ConstHandle2Alias self, ConstHandle2ConstAlias from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AliasDelete(ConstHandle2ConstAlias This)
+AliasDelete(ConstHandle2ConstAlias self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ AliasDelete(ConstHandle2ConstAlias This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AliasRead(ConstHandle2Alias This, const char *const filename)
+AliasRead(ConstHandle2Alias self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AliasWrite(ConstHandle2ConstAlias This, const char *const filename)
+AliasWrite(ConstHandle2ConstAlias self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AliasPrint(ConstHandle2ConstAlias This)
+AliasPrint(ConstHandle2ConstAlias self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AliasPrintXML(ConstHandle2ConstAlias This)
+AliasPrintXML(ConstHandle2ConstAlias self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AliasPrintJSON(ConstHandle2ConstAlias This)
+AliasPrintJSON(ConstHandle2ConstAlias self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ AliasPrintJSON(ConstHandle2ConstAlias This)
 
 // Has
 int
-AliasIdHas(ConstHandle2ConstAlias This)
+AliasIdHas(ConstHandle2ConstAlias self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 XMLName
-AliasIdGet(ConstHandle2ConstAlias This)
+AliasIdGet(ConstHandle2ConstAlias self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-AliasIdSet(ConstHandle2Alias This, const XMLName id)
+AliasIdSet(ConstHandle2Alias self, const XMLName id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -176,27 +176,27 @@ AliasIdSet(ConstHandle2Alias This, const XMLName id)
 
 // Has
 int
-AliasPidHas(ConstHandle2ConstAlias This)
+AliasPidHas(ConstHandle2ConstAlias self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-AliasPidGet(ConstHandle2ConstAlias This)
+AliasPidGet(ConstHandle2ConstAlias self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-AliasPidSet(ConstHandle2Alias This, const XMLName pid)
+AliasPidSet(ConstHandle2Alias self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 

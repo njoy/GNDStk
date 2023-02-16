@@ -99,13 +99,13 @@ InternalPairFormationCoefficientCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InternalPairFormationCoefficientAssign(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstInternalPairFormationCoefficient from);
+InternalPairFormationCoefficientAssign(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstInternalPairFormationCoefficient from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoe
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InternalPairFormationCoefficientRead(ConstHandle2InternalPairFormationCoefficient This, const char *const filename);
+InternalPairFormationCoefficientRead(ConstHandle2InternalPairFormationCoefficient self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InternalPairFormationCoefficientWrite(ConstHandle2ConstInternalPairFormationCoefficient This, const char *const filename);
+InternalPairFormationCoefficientWrite(ConstHandle2ConstInternalPairFormationCoefficient self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InternalPairFormationCoefficientPrint(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientPrint(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InternalPairFormationCoefficientPrintXML(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientPrintXML(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormation
 
 // +++ Has
 extern_c int
-InternalPairFormationCoefficientLabelHas(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientLabelHas(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InternalPairFormationCoefficientLabelGet(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientLabelGet(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Set
 extern_c void
-InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoefficient This, const XMLName label);
+InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoefficient self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoeffi
 
 // +++ Has
 extern_c int
-InternalPairFormationCoefficientValueHas(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientValueHas(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-InternalPairFormationCoefficientValueGet(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientValueGet(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Set
 extern_c void
-InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoefficient This, const Float64 value);
+InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoefficient self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoeffi
 
 // +++ Has
 extern_c int
-InternalPairFormationCoefficientUnitHas(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientUnitHas(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InternalPairFormationCoefficientUnitGet(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientUnitGet(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Set
 extern_c void
-InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoefficient This, const XMLName unit);
+InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoefficient self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoeffic
 
 // +++ Has
 extern_c int
-InternalPairFormationCoefficientDocumentationHas(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientDocumentationHas(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-InternalPairFormationCoefficientDocumentationGetConst(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientDocumentationGetConst(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-InternalPairFormationCoefficientDocumentationGet(ConstHandle2InternalPairFormationCoefficient This);
+InternalPairFormationCoefficientDocumentationGet(ConstHandle2InternalPairFormationCoefficient self);
 
 // +++ Set
 extern_c void
-InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstDocumentation documentation);
+InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormati
 
 // +++ Has
 extern_c int
-InternalPairFormationCoefficientUncertaintyHas(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientUncertaintyHas(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-InternalPairFormationCoefficientUncertaintyGetConst(ConstHandle2ConstInternalPairFormationCoefficient This);
+InternalPairFormationCoefficientUncertaintyGetConst(ConstHandle2ConstInternalPairFormationCoefficient self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-InternalPairFormationCoefficientUncertaintyGet(ConstHandle2InternalPairFormationCoefficient This);
+InternalPairFormationCoefficientUncertaintyGet(ConstHandle2InternalPairFormationCoefficient self);
 
 // +++ Set
 extern_c void
-InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstUncertainty uncertainty);
+InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

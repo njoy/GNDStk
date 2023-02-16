@@ -96,13 +96,13 @@ ReactionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ReactionAssign(ConstHandle2Reaction This, ConstHandle2ConstReaction from);
+ReactionAssign(ConstHandle2Reaction self, ConstHandle2ConstReaction from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ReactionDelete(ConstHandle2ConstReaction This);
+ReactionDelete(ConstHandle2ConstReaction self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ ReactionDelete(ConstHandle2ConstReaction This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ReactionRead(ConstHandle2Reaction This, const char *const filename);
+ReactionRead(ConstHandle2Reaction self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ReactionWrite(ConstHandle2ConstReaction This, const char *const filename);
+ReactionWrite(ConstHandle2ConstReaction self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ReactionPrint(ConstHandle2ConstReaction This);
+ReactionPrint(ConstHandle2ConstReaction self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ReactionPrintXML(ConstHandle2ConstReaction This);
+ReactionPrintXML(ConstHandle2ConstReaction self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ReactionPrintJSON(ConstHandle2ConstReaction This);
+ReactionPrintJSON(ConstHandle2ConstReaction self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ ReactionPrintJSON(ConstHandle2ConstReaction This);
 
 // +++ Has
 extern_c int
-ReactionENDFMTHas(ConstHandle2ConstReaction This);
+ReactionENDFMTHas(ConstHandle2ConstReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ReactionENDFMTGet(ConstHandle2ConstReaction This);
+ReactionENDFMTGet(ConstHandle2ConstReaction self);
 
 // +++ Set
 extern_c void
-ReactionENDFMTSet(ConstHandle2Reaction This, const int ENDF_MT);
+ReactionENDFMTSet(ConstHandle2Reaction self, const int ENDF_MT);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ ReactionENDFMTSet(ConstHandle2Reaction This, const int ENDF_MT);
 
 // +++ Has
 extern_c int
-ReactionFissionGenreHas(ConstHandle2ConstReaction This);
+ReactionFissionGenreHas(ConstHandle2ConstReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ReactionFissionGenreGet(ConstHandle2ConstReaction This);
+ReactionFissionGenreGet(ConstHandle2ConstReaction self);
 
 // +++ Set
 extern_c void
-ReactionFissionGenreSet(ConstHandle2Reaction This, const char *const fissionGenre);
+ReactionFissionGenreSet(ConstHandle2Reaction self, const char *const fissionGenre);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ReactionFissionGenreSet(ConstHandle2Reaction This, const char *const fissionGenr
 
 // +++ Has
 extern_c int
-ReactionLabelHas(ConstHandle2ConstReaction This);
+ReactionLabelHas(ConstHandle2ConstReaction self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ReactionLabelGet(ConstHandle2ConstReaction This);
+ReactionLabelGet(ConstHandle2ConstReaction self);
 
 // +++ Set
 extern_c void
-ReactionLabelSet(ConstHandle2Reaction This, const char *const label);
+ReactionLabelSet(ConstHandle2Reaction self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ ReactionLabelSet(ConstHandle2Reaction This, const char *const label);
 
 // +++ Has
 extern_c int
-ReactionCrossSectionHas(ConstHandle2ConstReaction This);
+ReactionCrossSectionHas(ConstHandle2ConstReaction self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-ReactionCrossSectionGetConst(ConstHandle2ConstReaction This);
+ReactionCrossSectionGetConst(ConstHandle2ConstReaction self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-ReactionCrossSectionGet(ConstHandle2Reaction This);
+ReactionCrossSectionGet(ConstHandle2Reaction self);
 
 // +++ Set
 extern_c void
-ReactionCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstCrossSection crossSection);
+ReactionCrossSectionSet(ConstHandle2Reaction self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------

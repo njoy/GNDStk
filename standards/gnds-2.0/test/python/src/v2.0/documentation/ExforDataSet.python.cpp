@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// ExforDataSet wrapper
-void wrapExforDataSet(python::module &module)
+// wrapper for documentation::ExforDataSet
+void wrapExforDataSet(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::ExforDataSet;
+   using cppCLASS = documentation::ExforDataSet;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ExforDataSet",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ExforDataSet",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::string &,
-            const std::optional<documentation::CovarianceScript> &,
-            const std::optional<documentation::CorrectionScript> &,
-            const std::optional<documentation::Note> &
-         >(),
-         python::arg("subentry"),
-         python::arg("retrieval_date"),
-         python::arg("covariance_script") = std::nullopt,
-         python::arg("correction_script") = std::nullopt,
-         python::arg("note") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "subentry",
-         [](const Component &self) { return self.subentry(); },
-         Component::documentation("subentry").data()
-      )
-      .def_property_readonly(
-         "retrieval_date",
-         [](const Component &self) { return self.retrievalDate(); },
-         Component::documentation("retrieval_date").data()
-      )
-      .def_property_readonly(
-         "covariance_script",
-         [](const Component &self) { return self.covarianceScript(); },
-         Component::documentation("covariance_script").data()
-      )
-      .def_property_readonly(
-         "correction_script",
-         [](const Component &self) { return self.correctionScript(); },
-         Component::documentation("correction_script").data()
-      )
-      .def_property_readonly(
-         "note",
-         [](const Component &self) { return self.note(); },
-         Component::documentation("note").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::string &,
+         const std::optional<documentation::CovarianceScript> &,
+         const std::optional<documentation::CorrectionScript> &,
+         const std::optional<documentation::Note> &
+      >(),
+      py::arg("subentry"),
+      py::arg("retrieval_date"),
+      py::arg("covariance_script") = std::nullopt,
+      py::arg("correction_script") = std::nullopt,
+      py::arg("note") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set subentry
+   object.def_property(
+      "subentry",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.subentry();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.subentry() = value;
+      },
+      cppCLASS::component_t::documentation("subentry").data()
+   );
+
+   // get/set retrievalDate
+   object.def_property(
+      "retrieval_date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.retrievalDate();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.retrievalDate() = value;
+      },
+      cppCLASS::component_t::documentation("retrieval_date").data()
+   );
+
+   // get/set covarianceScript
+   object.def_property(
+      "covariance_script",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covarianceScript();
+      },
+      [](cppCLASS &self, const std::optional<documentation::CovarianceScript> &value)
+      {
+         self.covarianceScript() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_script").data()
+   );
+
+   // get/set correctionScript
+   object.def_property(
+      "correction_script",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.correctionScript();
+      },
+      [](cppCLASS &self, const std::optional<documentation::CorrectionScript> &value)
+      {
+         self.correctionScript() = value;
+      },
+      cppCLASS::component_t::documentation("correction_script").data()
+   );
+
+   // get/set note
+   object.def_property(
+      "note",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.note();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Note> &value)
+      {
+         self.note() = value;
+      },
+      cppCLASS::component_t::documentation("note").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

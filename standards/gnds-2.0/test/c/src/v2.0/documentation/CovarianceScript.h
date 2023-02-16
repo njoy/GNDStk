@@ -93,13 +93,13 @@ CovarianceScriptCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceScriptAssign(ConstHandle2CovarianceScript This, ConstHandle2ConstCovarianceScript from);
+CovarianceScriptAssign(ConstHandle2CovarianceScript self, ConstHandle2ConstCovarianceScript from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceScriptDelete(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptDelete(ConstHandle2ConstCovarianceScript self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ CovarianceScriptDelete(ConstHandle2ConstCovarianceScript This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceScriptRead(ConstHandle2CovarianceScript This, const char *const filename);
+CovarianceScriptRead(ConstHandle2CovarianceScript self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceScriptWrite(ConstHandle2ConstCovarianceScript This, const char *const filename);
+CovarianceScriptWrite(ConstHandle2ConstCovarianceScript self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovarianceScriptPrint(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptPrint(ConstHandle2ConstCovarianceScript self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovarianceScriptPrintXML(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptPrintXML(ConstHandle2ConstCovarianceScript self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovarianceScriptPrintJSON(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptPrintJSON(ConstHandle2ConstCovarianceScript self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ CovarianceScriptPrintJSON(ConstHandle2ConstCovarianceScript This);
 
 // +++ Clear
 extern_c void
-CovarianceScriptIntsClear(ConstHandle2CovarianceScript This);
+CovarianceScriptIntsClear(ConstHandle2CovarianceScript self);
 
 // +++ Get size
 extern_c size_t
-CovarianceScriptIntsSize(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptIntsSize(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-CovarianceScriptIntsGet(ConstHandle2ConstCovarianceScript This, const size_t index);
+CovarianceScriptIntsGet(ConstHandle2ConstCovarianceScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CovarianceScriptIntsSet(ConstHandle2CovarianceScript This, const size_t index, const int value);
+CovarianceScriptIntsSet(ConstHandle2CovarianceScript self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-CovarianceScriptIntsGetArrayConst(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptIntsGetArrayConst(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-CovarianceScriptIntsGetArray(ConstHandle2CovarianceScript This);
+CovarianceScriptIntsGetArray(ConstHandle2CovarianceScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CovarianceScriptIntsSetArray(ConstHandle2CovarianceScript This, const int *const values, const size_t size);
+CovarianceScriptIntsSetArray(ConstHandle2CovarianceScript self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ CovarianceScriptIntsSetArray(ConstHandle2CovarianceScript This, const int *const
 
 // +++ Clear
 extern_c void
-CovarianceScriptUnsignedsClear(ConstHandle2CovarianceScript This);
+CovarianceScriptUnsignedsClear(ConstHandle2CovarianceScript self);
 
 // +++ Get size
 extern_c size_t
-CovarianceScriptUnsignedsSize(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptUnsignedsSize(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-CovarianceScriptUnsignedsGet(ConstHandle2ConstCovarianceScript This, const size_t index);
+CovarianceScriptUnsignedsGet(ConstHandle2ConstCovarianceScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CovarianceScriptUnsignedsSet(ConstHandle2CovarianceScript This, const size_t index, const unsigned value);
+CovarianceScriptUnsignedsSet(ConstHandle2CovarianceScript self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-CovarianceScriptUnsignedsGetArrayConst(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptUnsignedsGetArrayConst(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-CovarianceScriptUnsignedsGetArray(ConstHandle2CovarianceScript This);
+CovarianceScriptUnsignedsGetArray(ConstHandle2CovarianceScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CovarianceScriptUnsignedsSetArray(ConstHandle2CovarianceScript This, const unsigned *const values, const size_t size);
+CovarianceScriptUnsignedsSetArray(ConstHandle2CovarianceScript self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ CovarianceScriptUnsignedsSetArray(ConstHandle2CovarianceScript This, const unsig
 
 // +++ Clear
 extern_c void
-CovarianceScriptFloatsClear(ConstHandle2CovarianceScript This);
+CovarianceScriptFloatsClear(ConstHandle2CovarianceScript self);
 
 // +++ Get size
 extern_c size_t
-CovarianceScriptFloatsSize(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptFloatsSize(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-CovarianceScriptFloatsGet(ConstHandle2ConstCovarianceScript This, const size_t index);
+CovarianceScriptFloatsGet(ConstHandle2ConstCovarianceScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CovarianceScriptFloatsSet(ConstHandle2CovarianceScript This, const size_t index, const float value);
+CovarianceScriptFloatsSet(ConstHandle2CovarianceScript self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-CovarianceScriptFloatsGetArrayConst(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptFloatsGetArrayConst(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-CovarianceScriptFloatsGetArray(ConstHandle2CovarianceScript This);
+CovarianceScriptFloatsGetArray(ConstHandle2CovarianceScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CovarianceScriptFloatsSetArray(ConstHandle2CovarianceScript This, const float *const values, const size_t size);
+CovarianceScriptFloatsSetArray(ConstHandle2CovarianceScript self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ CovarianceScriptFloatsSetArray(ConstHandle2CovarianceScript This, const float *c
 
 // +++ Clear
 extern_c void
-CovarianceScriptDoublesClear(ConstHandle2CovarianceScript This);
+CovarianceScriptDoublesClear(ConstHandle2CovarianceScript self);
 
 // +++ Get size
 extern_c size_t
-CovarianceScriptDoublesSize(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptDoublesSize(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-CovarianceScriptDoublesGet(ConstHandle2ConstCovarianceScript This, const size_t index);
+CovarianceScriptDoublesGet(ConstHandle2ConstCovarianceScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CovarianceScriptDoublesSet(ConstHandle2CovarianceScript This, const size_t index, const double value);
+CovarianceScriptDoublesSet(ConstHandle2CovarianceScript self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-CovarianceScriptDoublesGetArrayConst(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptDoublesGetArrayConst(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-CovarianceScriptDoublesGetArray(ConstHandle2CovarianceScript This);
+CovarianceScriptDoublesGetArray(ConstHandle2CovarianceScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CovarianceScriptDoublesSetArray(ConstHandle2CovarianceScript This, const double *const values, const size_t size);
+CovarianceScriptDoublesSetArray(ConstHandle2CovarianceScript self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ CovarianceScriptDoublesSetArray(ConstHandle2CovarianceScript This, const double 
 
 // +++ Has
 extern_c int
-CovarianceScriptEncodingHas(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptEncodingHas(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceScriptEncodingGet(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptEncodingGet(ConstHandle2ConstCovarianceScript self);
 
 // +++ Set
 extern_c void
-CovarianceScriptEncodingSet(ConstHandle2CovarianceScript This, const XMLName encoding);
+CovarianceScriptEncodingSet(ConstHandle2CovarianceScript self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ CovarianceScriptEncodingSet(ConstHandle2CovarianceScript This, const XMLName enc
 
 // +++ Has
 extern_c int
-CovarianceScriptMarkupHas(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptMarkupHas(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceScriptMarkupGet(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptMarkupGet(ConstHandle2ConstCovarianceScript self);
 
 // +++ Set
 extern_c void
-CovarianceScriptMarkupSet(ConstHandle2CovarianceScript This, const char *const markup);
+CovarianceScriptMarkupSet(ConstHandle2CovarianceScript self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ CovarianceScriptMarkupSet(ConstHandle2CovarianceScript This, const char *const m
 
 // +++ Has
 extern_c int
-CovarianceScriptLabelHas(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptLabelHas(ConstHandle2ConstCovarianceScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceScriptLabelGet(ConstHandle2ConstCovarianceScript This);
+CovarianceScriptLabelGet(ConstHandle2ConstCovarianceScript self);
 
 // +++ Set
 extern_c void
-CovarianceScriptLabelSet(ConstHandle2CovarianceScript This, const XMLName label);
+CovarianceScriptLabelSet(ConstHandle2CovarianceScript self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

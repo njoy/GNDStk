@@ -86,20 +86,20 @@ AverageParameterCovarianceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AverageParameterCovarianceAssign(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstAverageParameterCovariance from)
+AverageParameterCovarianceAssign(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstAverageParameterCovariance from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -113,44 +113,44 @@ AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance Thi
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AverageParameterCovarianceRead(ConstHandle2AverageParameterCovariance This, const char *const filename)
+AverageParameterCovarianceRead(ConstHandle2AverageParameterCovariance self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AverageParameterCovarianceWrite(ConstHandle2ConstAverageParameterCovariance This, const char *const filename)
+AverageParameterCovarianceWrite(ConstHandle2ConstAverageParameterCovariance self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AverageParameterCovariancePrint(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovariancePrint(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AverageParameterCovariancePrintXML(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovariancePrintXML(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,27 +160,27 @@ AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance 
 
 // Has
 int
-AverageParameterCovarianceCrossTermHas(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceCrossTermHas(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossTermHas", This, extract::crossTerm);
+      (CLASSNAME, CLASSNAME+"CrossTermHas", self, extract::crossTerm);
 }
 
 // Get
 // Returns by value
 bool
-AverageParameterCovarianceCrossTermGet(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceCrossTermGet(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossTermGet", This, extract::crossTerm);
+      (CLASSNAME, CLASSNAME+"CrossTermGet", self, extract::crossTerm);
 }
 
 // Set
 void
-AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance This, const bool crossTerm)
+AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance self, const bool crossTerm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossTermSet", This, extract::crossTerm, crossTerm);
+      (CLASSNAME, CLASSNAME+"CrossTermSet", self, extract::crossTerm, crossTerm);
 }
 
 
@@ -190,27 +190,27 @@ AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance Th
 
 // Has
 int
-AverageParameterCovarianceLabelHas(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceLabelHas(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-AverageParameterCovarianceLabelGet(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceLabelGet(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance This, const XMLName label)
+AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -220,34 +220,34 @@ AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance This, 
 
 // Has
 int
-AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnDataHas", This, extract::columnData);
+      (CLASSNAME, CLASSNAME+"ColumnDataHas", self, extract::columnData);
 }
 
 // Get, const
 Handle2ConstColumnData
-AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::getField<CPP,Handle2ConstColumnData>
-      (CLASSNAME, CLASSNAME+"ColumnDataGetConst", This, extract::columnData);
+      (CLASSNAME, CLASSNAME+"ColumnDataGetConst", self, extract::columnData);
 }
 
 // Get, non-const
 Handle2ColumnData
-AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance This)
+AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance self)
 {
    return detail::getField<CPP,Handle2ColumnData>
-      (CLASSNAME, CLASSNAME+"ColumnDataGet", This, extract::columnData);
+      (CLASSNAME, CLASSNAME+"ColumnDataGet", self, extract::columnData);
 }
 
 // Set
 void
-AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstColumnData columnData)
+AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstColumnData columnData)
 {
    detail::setField<CPP,CPPColumnData>
-      (CLASSNAME, CLASSNAME+"ColumnDataSet", This, extract::columnData, columnData);
+      (CLASSNAME, CLASSNAME+"ColumnDataSet", self, extract::columnData, columnData);
 }
 
 
@@ -257,34 +257,34 @@ AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance T
 
 // Has
 int
-AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RowDataHas", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataHas", self, extract::rowData);
 }
 
 // Get, const
 Handle2ConstRowData
-AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance This)
+AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance self)
 {
    return detail::getField<CPP,Handle2ConstRowData>
-      (CLASSNAME, CLASSNAME+"RowDataGetConst", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataGetConst", self, extract::rowData);
 }
 
 // Get, non-const
 Handle2RowData
-AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance This)
+AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance self)
 {
    return detail::getField<CPP,Handle2RowData>
-      (CLASSNAME, CLASSNAME+"RowDataGet", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataGet", self, extract::rowData);
 }
 
 // Set
 void
-AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstRowData rowData)
+AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstRowData rowData)
 {
    detail::setField<CPP,CPPRowData>
-      (CLASSNAME, CLASSNAME+"RowDataSet", This, extract::rowData, rowData);
+      (CLASSNAME, CLASSNAME+"RowDataSet", self, extract::rowData, rowData);
 }
 
 

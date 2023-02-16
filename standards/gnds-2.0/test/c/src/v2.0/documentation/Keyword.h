@@ -95,13 +95,13 @@ KeywordCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-KeywordAssign(ConstHandle2Keyword This, ConstHandle2ConstKeyword from);
+KeywordAssign(ConstHandle2Keyword self, ConstHandle2ConstKeyword from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-KeywordDelete(ConstHandle2ConstKeyword This);
+KeywordDelete(ConstHandle2ConstKeyword self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ KeywordDelete(ConstHandle2ConstKeyword This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-KeywordRead(ConstHandle2Keyword This, const char *const filename);
+KeywordRead(ConstHandle2Keyword self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-KeywordWrite(ConstHandle2ConstKeyword This, const char *const filename);
+KeywordWrite(ConstHandle2ConstKeyword self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-KeywordPrint(ConstHandle2ConstKeyword This);
+KeywordPrint(ConstHandle2ConstKeyword self);
 
 // +++ Print to standard output, as XML
 extern_c int
-KeywordPrintXML(ConstHandle2ConstKeyword This);
+KeywordPrintXML(ConstHandle2ConstKeyword self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-KeywordPrintJSON(ConstHandle2ConstKeyword This);
+KeywordPrintJSON(ConstHandle2ConstKeyword self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ KeywordPrintJSON(ConstHandle2ConstKeyword This);
 
 // +++ Clear
 extern_c void
-KeywordIntsClear(ConstHandle2Keyword This);
+KeywordIntsClear(ConstHandle2Keyword self);
 
 // +++ Get size
 extern_c size_t
-KeywordIntsSize(ConstHandle2ConstKeyword This);
+KeywordIntsSize(ConstHandle2ConstKeyword self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-KeywordIntsGet(ConstHandle2ConstKeyword This, const size_t index);
+KeywordIntsGet(ConstHandle2ConstKeyword self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-KeywordIntsSet(ConstHandle2Keyword This, const size_t index, const int value);
+KeywordIntsSet(ConstHandle2Keyword self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-KeywordIntsGetArrayConst(ConstHandle2ConstKeyword This);
+KeywordIntsGetArrayConst(ConstHandle2ConstKeyword self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-KeywordIntsGetArray(ConstHandle2Keyword This);
+KeywordIntsGetArray(ConstHandle2Keyword self);
 
 // +++ Set completely new values and size
 extern_c void
-KeywordIntsSetArray(ConstHandle2Keyword This, const int *const values, const size_t size);
+KeywordIntsSetArray(ConstHandle2Keyword self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ KeywordIntsSetArray(ConstHandle2Keyword This, const int *const values, const siz
 
 // +++ Clear
 extern_c void
-KeywordUnsignedsClear(ConstHandle2Keyword This);
+KeywordUnsignedsClear(ConstHandle2Keyword self);
 
 // +++ Get size
 extern_c size_t
-KeywordUnsignedsSize(ConstHandle2ConstKeyword This);
+KeywordUnsignedsSize(ConstHandle2ConstKeyword self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-KeywordUnsignedsGet(ConstHandle2ConstKeyword This, const size_t index);
+KeywordUnsignedsGet(ConstHandle2ConstKeyword self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-KeywordUnsignedsSet(ConstHandle2Keyword This, const size_t index, const unsigned value);
+KeywordUnsignedsSet(ConstHandle2Keyword self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-KeywordUnsignedsGetArrayConst(ConstHandle2ConstKeyword This);
+KeywordUnsignedsGetArrayConst(ConstHandle2ConstKeyword self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-KeywordUnsignedsGetArray(ConstHandle2Keyword This);
+KeywordUnsignedsGetArray(ConstHandle2Keyword self);
 
 // +++ Set completely new values and size
 extern_c void
-KeywordUnsignedsSetArray(ConstHandle2Keyword This, const unsigned *const values, const size_t size);
+KeywordUnsignedsSetArray(ConstHandle2Keyword self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ KeywordUnsignedsSetArray(ConstHandle2Keyword This, const unsigned *const values,
 
 // +++ Clear
 extern_c void
-KeywordFloatsClear(ConstHandle2Keyword This);
+KeywordFloatsClear(ConstHandle2Keyword self);
 
 // +++ Get size
 extern_c size_t
-KeywordFloatsSize(ConstHandle2ConstKeyword This);
+KeywordFloatsSize(ConstHandle2ConstKeyword self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-KeywordFloatsGet(ConstHandle2ConstKeyword This, const size_t index);
+KeywordFloatsGet(ConstHandle2ConstKeyword self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-KeywordFloatsSet(ConstHandle2Keyword This, const size_t index, const float value);
+KeywordFloatsSet(ConstHandle2Keyword self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-KeywordFloatsGetArrayConst(ConstHandle2ConstKeyword This);
+KeywordFloatsGetArrayConst(ConstHandle2ConstKeyword self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-KeywordFloatsGetArray(ConstHandle2Keyword This);
+KeywordFloatsGetArray(ConstHandle2Keyword self);
 
 // +++ Set completely new values and size
 extern_c void
-KeywordFloatsSetArray(ConstHandle2Keyword This, const float *const values, const size_t size);
+KeywordFloatsSetArray(ConstHandle2Keyword self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ KeywordFloatsSetArray(ConstHandle2Keyword This, const float *const values, const
 
 // +++ Clear
 extern_c void
-KeywordDoublesClear(ConstHandle2Keyword This);
+KeywordDoublesClear(ConstHandle2Keyword self);
 
 // +++ Get size
 extern_c size_t
-KeywordDoublesSize(ConstHandle2ConstKeyword This);
+KeywordDoublesSize(ConstHandle2ConstKeyword self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-KeywordDoublesGet(ConstHandle2ConstKeyword This, const size_t index);
+KeywordDoublesGet(ConstHandle2ConstKeyword self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-KeywordDoublesSet(ConstHandle2Keyword This, const size_t index, const double value);
+KeywordDoublesSet(ConstHandle2Keyword self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-KeywordDoublesGetArrayConst(ConstHandle2ConstKeyword This);
+KeywordDoublesGetArrayConst(ConstHandle2ConstKeyword self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-KeywordDoublesGetArray(ConstHandle2Keyword This);
+KeywordDoublesGetArray(ConstHandle2Keyword self);
 
 // +++ Set completely new values and size
 extern_c void
-KeywordDoublesSetArray(ConstHandle2Keyword This, const double *const values, const size_t size);
+KeywordDoublesSetArray(ConstHandle2Keyword self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ KeywordDoublesSetArray(ConstHandle2Keyword This, const double *const values, con
 
 // +++ Has
 extern_c int
-KeywordEncodingHas(ConstHandle2ConstKeyword This);
+KeywordEncodingHas(ConstHandle2ConstKeyword self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-KeywordEncodingGet(ConstHandle2ConstKeyword This);
+KeywordEncodingGet(ConstHandle2ConstKeyword self);
 
 // +++ Set
 extern_c void
-KeywordEncodingSet(ConstHandle2Keyword This, const XMLName encoding);
+KeywordEncodingSet(ConstHandle2Keyword self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ KeywordEncodingSet(ConstHandle2Keyword This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-KeywordMarkupHas(ConstHandle2ConstKeyword This);
+KeywordMarkupHas(ConstHandle2ConstKeyword self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-KeywordMarkupGet(ConstHandle2ConstKeyword This);
+KeywordMarkupGet(ConstHandle2ConstKeyword self);
 
 // +++ Set
 extern_c void
-KeywordMarkupSet(ConstHandle2Keyword This, const char *const markup);
+KeywordMarkupSet(ConstHandle2Keyword self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ KeywordMarkupSet(ConstHandle2Keyword This, const char *const markup);
 
 // +++ Has
 extern_c int
-KeywordLabelHas(ConstHandle2ConstKeyword This);
+KeywordLabelHas(ConstHandle2ConstKeyword self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-KeywordLabelGet(ConstHandle2ConstKeyword This);
+KeywordLabelGet(ConstHandle2ConstKeyword self);
 
 // +++ Set
 extern_c void
-KeywordLabelSet(ConstHandle2Keyword This, const XMLName label);
+KeywordLabelSet(ConstHandle2Keyword self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ KeywordLabelSet(ConstHandle2Keyword This, const XMLName label);
 
 // +++ Has
 extern_c int
-KeywordTypeHas(ConstHandle2ConstKeyword This);
+KeywordTypeHas(ConstHandle2ConstKeyword self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-KeywordTypeGet(ConstHandle2ConstKeyword This);
+KeywordTypeGet(ConstHandle2ConstKeyword self);
 
 // +++ Set
 extern_c void
-KeywordTypeSet(ConstHandle2Keyword This, const XMLName type);
+KeywordTypeSet(ConstHandle2Keyword self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------

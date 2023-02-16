@@ -11,80 +11,128 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// CovarianceMatrix wrapper
-void wrapCovarianceMatrix(python::module &module)
+// wrapper for covariance::CovarianceMatrix
+void wrapCovarianceMatrix(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::CovarianceMatrix;
+   using cppCLASS = covariance::CovarianceMatrix;
    using _t = std::variant<
       containers::Gridded2d,
       covariance::SandwichProduct
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CovarianceMatrix",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CovarianceMatrix",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<enums::Frame> &,
-            const XMLName &,
-            const _t &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("product_frame") = std::nullopt,
-         python::arg("type"),
-         python::arg("_gridded2dsandwich_product"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self) { return self.type(); },
-         Component::documentation("type").data()
-      )
-      .def_property_readonly(
-         "gridded2d",
-         [](const Component &self) { return self.gridded2d(); },
-         Component::documentation("gridded2d").data()
-      )
-      .def_property_readonly(
-         "sandwich_product",
-         [](const Component &self) { return self.sandwichProduct(); },
-         Component::documentation("sandwich_product").data()
-      )
-      .def_property_readonly(
-         "_gridded2dsandwich_product",
-         [](const Component &self) { return self._gridded2dsandwichProduct(); },
-         Component::documentation("_gridded2dsandwich_product").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<enums::Frame> &,
+         const XMLName &,
+         const _t &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("product_frame") = std::nullopt,
+      py::arg("type"),
+      py::arg("_gridded2dsandwich_product"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const std::optional<enums::Frame> &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   object.def_property(
+      "gridded2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded2d();
+      },
+      [](cppCLASS &self, const containers::Gridded2d &value)
+      {
+         self.gridded2d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded2d").data()
+   );
+
+   object.def_property(
+      "sandwich_product",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.sandwichProduct();
+      },
+      [](cppCLASS &self, const covariance::SandwichProduct &value)
+      {
+         self.sandwichProduct() = value;
+      },
+      cppCLASS::component_t::documentation("sandwich_product").data()
+   );
+
+   object.def_property(
+      "_gridded2dsandwich_product",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._gridded2dsandwichProduct();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._gridded2dsandwichProduct() = value;
+      },
+      cppCLASS::component_t::documentation("_gridded2dsandwich_product").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

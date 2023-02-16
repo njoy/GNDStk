@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// InverseSpeed wrapper
-void wrapInverseSpeed(python::module &module)
+// wrapper for styles::InverseSpeed
+void wrapInverseSpeed(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::InverseSpeed;
+   using cppCLASS = styles::InverseSpeed;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "InverseSpeed",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "InverseSpeed",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const containers::Gridded1d &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("gridded1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "gridded1d",
-         [](const Component &self) { return self.gridded1d(); },
-         Component::documentation("gridded1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const containers::Gridded1d &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("gridded1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set gridded1d
+   object.def_property(
+      "gridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded1d();
+      },
+      [](cppCLASS &self, const containers::Gridded1d &value)
+      {
+         self.gridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

@@ -27,12 +27,12 @@ class Yields :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Yields"; }
-   static auto FIELD() { return "yields"; }
+   static auto NODENAME() { return "yields"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class Yields :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<fpy::Nuclides>("nuclides") |
-         --Child<containers::Values>("values") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<fpy::Nuclides>
+            ("nuclides") |
+         --Child<containers::Values>
+            ("values") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclides",
+         "values",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclides",
+         "values",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<fpy::Nuclides> nuclides{this};
-   Field<containers::Values> values{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<fpy::Nuclides>
+      nuclides{this};
+   Field<containers::Values>
+      values{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->nuclides, \
       this->values, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    Yields() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit Yields(
-      const wrapper<fpy::Nuclides> &nuclides,
-      const wrapper<containers::Values> &values = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<fpy::Nuclides>
+         &nuclides,
+      const wrapper<containers::Values>
+         &values = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclides(this,nuclides),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Yields &operator=(const Yields &) = default;
-   Yields &operator=(Yields &&) = default;
+   // copy
+   Yields &operator=(const Yields &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclides = other.nuclides;
+         values = other.values;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Yields &operator=(Yields &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclides = std::move(other.nuclides);
+         values = std::move(other.values);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// Widths wrapper
-void wrapWidths(python::module &module)
+// wrapper for resonances::Widths
+void wrapWidths(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::Widths;
+   using cppCLASS = resonances::Widths;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Widths",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Widths",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<resonances::Width> &
-         >(),
-         python::arg("width"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "width",
-         [](const Component &self) { return self.width(); },
-         Component::documentation("width").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<resonances::Width> &
+      >(),
+      py::arg("width"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set width
+   object.def_property(
+      "width",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.width();
+      },
+      [](cppCLASS &self, const std::vector<resonances::Width> &value)
+      {
+         self.width() = value;
+      },
+      cppCLASS::component_t::documentation("width").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

@@ -67,20 +67,20 @@ Branching1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Branching1dAssign(ConstHandle2Branching1d This, ConstHandle2ConstBranching1d from)
+Branching1dAssign(ConstHandle2Branching1d self, ConstHandle2ConstBranching1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Branching1dDelete(ConstHandle2ConstBranching1d This)
+Branching1dDelete(ConstHandle2ConstBranching1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ Branching1dDelete(ConstHandle2ConstBranching1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Branching1dRead(ConstHandle2Branching1d This, const char *const filename)
+Branching1dRead(ConstHandle2Branching1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Branching1dWrite(ConstHandle2ConstBranching1d This, const char *const filename)
+Branching1dWrite(ConstHandle2ConstBranching1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Branching1dPrint(ConstHandle2ConstBranching1d This)
+Branching1dPrint(ConstHandle2ConstBranching1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Branching1dPrintXML(ConstHandle2ConstBranching1d This)
+Branching1dPrintXML(ConstHandle2ConstBranching1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Branching1dPrintJSON(ConstHandle2ConstBranching1d This)
+Branching1dPrintJSON(ConstHandle2ConstBranching1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,27 +141,27 @@ Branching1dPrintJSON(ConstHandle2ConstBranching1d This)
 
 // Has
 int
-Branching1dLabelHas(ConstHandle2ConstBranching1d This)
+Branching1dLabelHas(ConstHandle2ConstBranching1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-Branching1dLabelGet(ConstHandle2ConstBranching1d This)
+Branching1dLabelGet(ConstHandle2ConstBranching1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Branching1dLabelSet(ConstHandle2Branching1d This, const XMLName label)
+Branching1dLabelSet(ConstHandle2Branching1d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

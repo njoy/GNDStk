@@ -96,13 +96,13 @@ LevelSpacingCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LevelSpacingAssign(ConstHandle2LevelSpacing This, ConstHandle2ConstLevelSpacing from);
+LevelSpacingAssign(ConstHandle2LevelSpacing self, ConstHandle2ConstLevelSpacing from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LevelSpacingDelete(ConstHandle2ConstLevelSpacing This);
+LevelSpacingDelete(ConstHandle2ConstLevelSpacing self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ LevelSpacingDelete(ConstHandle2ConstLevelSpacing This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LevelSpacingRead(ConstHandle2LevelSpacing This, const char *const filename);
+LevelSpacingRead(ConstHandle2LevelSpacing self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LevelSpacingWrite(ConstHandle2ConstLevelSpacing This, const char *const filename);
+LevelSpacingWrite(ConstHandle2ConstLevelSpacing self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LevelSpacingPrint(ConstHandle2ConstLevelSpacing This);
+LevelSpacingPrint(ConstHandle2ConstLevelSpacing self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LevelSpacingPrintXML(ConstHandle2ConstLevelSpacing This);
+LevelSpacingPrintXML(ConstHandle2ConstLevelSpacing self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LevelSpacingPrintJSON(ConstHandle2ConstLevelSpacing This);
+LevelSpacingPrintJSON(ConstHandle2ConstLevelSpacing self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ LevelSpacingPrintJSON(ConstHandle2ConstLevelSpacing This);
 
 // +++ Has
 extern_c int
-LevelSpacingConstant1dHas(ConstHandle2ConstLevelSpacing This);
+LevelSpacingConstant1dHas(ConstHandle2ConstLevelSpacing self);
 
 // --- Get, const
 extern_c Handle2ConstConstant1d
-LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing This);
+LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing self);
 
 // +++ Get, non-const
 extern_c Handle2Constant1d
-LevelSpacingConstant1dGet(ConstHandle2LevelSpacing This);
+LevelSpacingConstant1dGet(ConstHandle2LevelSpacing self);
 
 // +++ Set
 extern_c void
-LevelSpacingConstant1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstConstant1d constant1d);
+LevelSpacingConstant1dSet(ConstHandle2LevelSpacing self, ConstHandle2ConstConstant1d constant1d);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ LevelSpacingConstant1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstConsta
 
 // +++ Has
 extern_c int
-LevelSpacingXYs1dHas(ConstHandle2ConstLevelSpacing This);
+LevelSpacingXYs1dHas(ConstHandle2ConstLevelSpacing self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing This);
+LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-LevelSpacingXYs1dGet(ConstHandle2LevelSpacing This);
+LevelSpacingXYs1dGet(ConstHandle2LevelSpacing self);
 
 // +++ Set
 extern_c void
-LevelSpacingXYs1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstXYs1d XYs1d);
+LevelSpacingXYs1dSet(ConstHandle2LevelSpacing self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ LevelSpacingXYs1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstXYs1d XYs1d
 
 // +++ Has
 extern_c int
-LevelSpacingRegions1dHas(ConstHandle2ConstLevelSpacing This);
+LevelSpacingRegions1dHas(ConstHandle2ConstLevelSpacing self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-LevelSpacingRegions1dGetConst(ConstHandle2ConstLevelSpacing This);
+LevelSpacingRegions1dGetConst(ConstHandle2ConstLevelSpacing self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-LevelSpacingRegions1dGet(ConstHandle2LevelSpacing This);
+LevelSpacingRegions1dGet(ConstHandle2LevelSpacing self);
 
 // +++ Set
 extern_c void
-LevelSpacingRegions1dSet(ConstHandle2LevelSpacing This, ConstHandle2ConstRegions1d regions1d);
+LevelSpacingRegions1dSet(ConstHandle2LevelSpacing self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

@@ -121,20 +121,20 @@ RMatrixCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RMatrixAssign(ConstHandle2RMatrix This, ConstHandle2ConstRMatrix from)
+RMatrixAssign(ConstHandle2RMatrix self, ConstHandle2ConstRMatrix from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RMatrixDelete(ConstHandle2ConstRMatrix This)
+RMatrixDelete(ConstHandle2ConstRMatrix self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -148,44 +148,44 @@ RMatrixDelete(ConstHandle2ConstRMatrix This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RMatrixRead(ConstHandle2RMatrix This, const char *const filename)
+RMatrixRead(ConstHandle2RMatrix self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RMatrixWrite(ConstHandle2ConstRMatrix This, const char *const filename)
+RMatrixWrite(ConstHandle2ConstRMatrix self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RMatrixPrint(ConstHandle2ConstRMatrix This)
+RMatrixPrint(ConstHandle2ConstRMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RMatrixPrintXML(ConstHandle2ConstRMatrix This)
+RMatrixPrintXML(ConstHandle2ConstRMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RMatrixPrintJSON(ConstHandle2ConstRMatrix This)
+RMatrixPrintJSON(ConstHandle2ConstRMatrix self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -195,27 +195,27 @@ RMatrixPrintJSON(ConstHandle2ConstRMatrix This)
 
 // Has
 int
-RMatrixLabelHas(ConstHandle2ConstRMatrix This)
+RMatrixLabelHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-RMatrixLabelGet(ConstHandle2ConstRMatrix This)
+RMatrixLabelGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-RMatrixLabelSet(ConstHandle2RMatrix This, const XMLName label)
+RMatrixLabelSet(ConstHandle2RMatrix self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -225,27 +225,27 @@ RMatrixLabelSet(ConstHandle2RMatrix This, const XMLName label)
 
 // Has
 int
-RMatrixApproximationHas(ConstHandle2ConstRMatrix This)
+RMatrixApproximationHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationHas", This, extract::approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationHas", self, extract::approximation);
 }
 
 // Get
 // Returns by value
 XMLName
-RMatrixApproximationGet(ConstHandle2ConstRMatrix This)
+RMatrixApproximationGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationGet", This, extract::approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationGet", self, extract::approximation);
 }
 
 // Set
 void
-RMatrixApproximationSet(ConstHandle2RMatrix This, const XMLName approximation)
+RMatrixApproximationSet(ConstHandle2RMatrix self, const XMLName approximation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ApproximationSet", This, extract::approximation, approximation);
+      (CLASSNAME, CLASSNAME+"ApproximationSet", self, extract::approximation, approximation);
 }
 
 
@@ -255,27 +255,27 @@ RMatrixApproximationSet(ConstHandle2RMatrix This, const XMLName approximation)
 
 // Has
 int
-RMatrixBoundaryConditionHas(ConstHandle2ConstRMatrix This)
+RMatrixBoundaryConditionHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionHas", This, extract::boundaryCondition);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionHas", self, extract::boundaryCondition);
 }
 
 // Get
 // Returns by value
 enums::BoundaryCondition
-RMatrixBoundaryConditionGet(ConstHandle2ConstRMatrix This)
+RMatrixBoundaryConditionGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionGet", This, extract::boundaryCondition);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionGet", self, extract::boundaryCondition);
 }
 
 // Set
 void
-RMatrixBoundaryConditionSet(ConstHandle2RMatrix This, const enums::BoundaryCondition boundaryCondition)
+RMatrixBoundaryConditionSet(ConstHandle2RMatrix self, const enums::BoundaryCondition boundaryCondition)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionSet", This, extract::boundaryCondition, boundaryCondition);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionSet", self, extract::boundaryCondition, boundaryCondition);
 }
 
 
@@ -285,27 +285,27 @@ RMatrixBoundaryConditionSet(ConstHandle2RMatrix This, const enums::BoundaryCondi
 
 // Has
 int
-RMatrixBoundaryConditionValueHas(ConstHandle2ConstRMatrix This)
+RMatrixBoundaryConditionValueHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", self, extract::boundaryConditionValue);
 }
 
 // Get
 // Returns by value
 Float64
-RMatrixBoundaryConditionValueGet(ConstHandle2ConstRMatrix This)
+RMatrixBoundaryConditionValueGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", self, extract::boundaryConditionValue);
 }
 
 // Set
 void
-RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix This, const Float64 boundaryConditionValue)
+RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix self, const Float64 boundaryConditionValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", This, extract::boundaryConditionValue, boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", self, extract::boundaryConditionValue, boundaryConditionValue);
 }
 
 
@@ -315,27 +315,27 @@ RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix This, const Float64 boundar
 
 // Has
 int
-RMatrixCalculateChannelRadiusHas(ConstHandle2ConstRMatrix This)
+RMatrixCalculateChannelRadiusHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusHas", This, extract::calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusHas", self, extract::calculateChannelRadius);
 }
 
 // Get
 // Returns by value
 bool
-RMatrixCalculateChannelRadiusGet(ConstHandle2ConstRMatrix This)
+RMatrixCalculateChannelRadiusGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusGet", This, extract::calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusGet", self, extract::calculateChannelRadius);
 }
 
 // Set
 void
-RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix This, const bool calculateChannelRadius)
+RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix self, const bool calculateChannelRadius)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusSet", This, extract::calculateChannelRadius, calculateChannelRadius);
+      (CLASSNAME, CLASSNAME+"CalculateChannelRadiusSet", self, extract::calculateChannelRadius, calculateChannelRadius);
 }
 
 
@@ -345,27 +345,27 @@ RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix This, const bool calculateC
 
 // Has
 int
-RMatrixCalculatePenetrabilityHas(ConstHandle2ConstRMatrix This)
+RMatrixCalculatePenetrabilityHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatePenetrabilityHas", This, extract::calculatePenetrability);
+      (CLASSNAME, CLASSNAME+"CalculatePenetrabilityHas", self, extract::calculatePenetrability);
 }
 
 // Get
 // Returns by value
 bool
-RMatrixCalculatePenetrabilityGet(ConstHandle2ConstRMatrix This)
+RMatrixCalculatePenetrabilityGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatePenetrabilityGet", This, extract::calculatePenetrability);
+      (CLASSNAME, CLASSNAME+"CalculatePenetrabilityGet", self, extract::calculatePenetrability);
 }
 
 // Set
 void
-RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix This, const bool calculatePenetrability)
+RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix self, const bool calculatePenetrability)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatePenetrabilitySet", This, extract::calculatePenetrability, calculatePenetrability);
+      (CLASSNAME, CLASSNAME+"CalculatePenetrabilitySet", self, extract::calculatePenetrability, calculatePenetrability);
 }
 
 
@@ -375,27 +375,27 @@ RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix This, const bool calculateP
 
 // Has
 int
-RMatrixUseForSelfShieldingOnlyHas(ConstHandle2ConstRMatrix This)
+RMatrixUseForSelfShieldingOnlyHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyHas", This, extract::useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyHas", self, extract::useForSelfShieldingOnly);
 }
 
 // Get
 // Returns by value
 bool
-RMatrixUseForSelfShieldingOnlyGet(ConstHandle2ConstRMatrix This)
+RMatrixUseForSelfShieldingOnlyGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyGet", This, extract::useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlyGet", self, extract::useForSelfShieldingOnly);
 }
 
 // Set
 void
-RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix This, const bool useForSelfShieldingOnly)
+RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix self, const bool useForSelfShieldingOnly)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlySet", This, extract::useForSelfShieldingOnly, useForSelfShieldingOnly);
+      (CLASSNAME, CLASSNAME+"UseForSelfShieldingOnlySet", self, extract::useForSelfShieldingOnly, useForSelfShieldingOnly);
 }
 
 
@@ -405,27 +405,27 @@ RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix This, const bool useForSel
 
 // Has
 int
-RMatrixSupportsAngularReconstructionHas(ConstHandle2ConstRMatrix This)
+RMatrixSupportsAngularReconstructionHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionHas", This, extract::supportsAngularReconstruction);
+      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionHas", self, extract::supportsAngularReconstruction);
 }
 
 // Get
 // Returns by value
 bool
-RMatrixSupportsAngularReconstructionGet(ConstHandle2ConstRMatrix This)
+RMatrixSupportsAngularReconstructionGet(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionGet", This, extract::supportsAngularReconstruction);
+      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionGet", self, extract::supportsAngularReconstruction);
 }
 
 // Set
 void
-RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool supportsAngularReconstruction)
+RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix self, const bool supportsAngularReconstruction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionSet", This, extract::supportsAngularReconstruction, supportsAngularReconstruction);
+      (CLASSNAME, CLASSNAME+"SupportsAngularReconstructionSet", self, extract::supportsAngularReconstruction, supportsAngularReconstruction);
 }
 
 
@@ -435,34 +435,34 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 // Has
 int
-RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix This)
+RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", self, extract::PoPs_database);
 }
 
 // Get, const
 Handle2ConstPoPs_database
-RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix This)
+RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", self, extract::PoPs_database);
 }
 
 // Get, non-const
 Handle2PoPs_database
-RMatrixPoPs_databaseGet(ConstHandle2RMatrix This)
+RMatrixPoPs_databaseGet(ConstHandle2RMatrix self)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", self, extract::PoPs_database);
 }
 
 // Set
 void
-RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs_database)
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix self, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", self, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -472,34 +472,34 @@ RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database
 
 // Has
 int
-RMatrixResonanceReactionsHas(ConstHandle2ConstRMatrix This)
+RMatrixResonanceReactionsHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionsHas", This, extract::resonanceReactions);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionsHas", self, extract::resonanceReactions);
 }
 
 // Get, const
 Handle2ConstResonanceReactions
-RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix This)
+RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP,Handle2ConstResonanceReactions>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionsGetConst", This, extract::resonanceReactions);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionsGetConst", self, extract::resonanceReactions);
 }
 
 // Get, non-const
 Handle2ResonanceReactions
-RMatrixResonanceReactionsGet(ConstHandle2RMatrix This)
+RMatrixResonanceReactionsGet(ConstHandle2RMatrix self)
 {
    return detail::getField<CPP,Handle2ResonanceReactions>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionsGet", This, extract::resonanceReactions);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionsGet", self, extract::resonanceReactions);
 }
 
 // Set
 void
-RMatrixResonanceReactionsSet(ConstHandle2RMatrix This, ConstHandle2ConstResonanceReactions resonanceReactions)
+RMatrixResonanceReactionsSet(ConstHandle2RMatrix self, ConstHandle2ConstResonanceReactions resonanceReactions)
 {
    detail::setField<CPP,CPPResonanceReactions>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionsSet", This, extract::resonanceReactions, resonanceReactions);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionsSet", self, extract::resonanceReactions, resonanceReactions);
 }
 
 
@@ -509,34 +509,34 @@ RMatrixResonanceReactionsSet(ConstHandle2RMatrix This, ConstHandle2ConstResonanc
 
 // Has
 int
-RMatrixSpinGroupsHas(ConstHandle2ConstRMatrix This)
+RMatrixSpinGroupsHas(ConstHandle2ConstRMatrix self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpinGroupsHas", This, extract::spinGroups);
+      (CLASSNAME, CLASSNAME+"SpinGroupsHas", self, extract::spinGroups);
 }
 
 // Get, const
 Handle2ConstSpinGroups
-RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix This)
+RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix self)
 {
    return detail::getField<CPP,Handle2ConstSpinGroups>
-      (CLASSNAME, CLASSNAME+"SpinGroupsGetConst", This, extract::spinGroups);
+      (CLASSNAME, CLASSNAME+"SpinGroupsGetConst", self, extract::spinGroups);
 }
 
 // Get, non-const
 Handle2SpinGroups
-RMatrixSpinGroupsGet(ConstHandle2RMatrix This)
+RMatrixSpinGroupsGet(ConstHandle2RMatrix self)
 {
    return detail::getField<CPP,Handle2SpinGroups>
-      (CLASSNAME, CLASSNAME+"SpinGroupsGet", This, extract::spinGroups);
+      (CLASSNAME, CLASSNAME+"SpinGroupsGet", self, extract::spinGroups);
 }
 
 // Set
 void
-RMatrixSpinGroupsSet(ConstHandle2RMatrix This, ConstHandle2ConstSpinGroups spinGroups)
+RMatrixSpinGroupsSet(ConstHandle2RMatrix self, ConstHandle2ConstSpinGroups spinGroups)
 {
    detail::setField<CPP,CPPSpinGroups>
-      (CLASSNAME, CLASSNAME+"SpinGroupsSet", This, extract::spinGroups, spinGroups);
+      (CLASSNAME, CLASSNAME+"SpinGroupsSet", self, extract::spinGroups, spinGroups);
 }
 
 

@@ -90,13 +90,13 @@ StructureFactorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StructureFactorAssign(ConstHandle2StructureFactor This, ConstHandle2ConstStructureFactor from);
+StructureFactorAssign(ConstHandle2StructureFactor self, ConstHandle2ConstStructureFactor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StructureFactorDelete(ConstHandle2ConstStructureFactor This);
+StructureFactorDelete(ConstHandle2ConstStructureFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ StructureFactorDelete(ConstHandle2ConstStructureFactor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StructureFactorRead(ConstHandle2StructureFactor This, const char *const filename);
+StructureFactorRead(ConstHandle2StructureFactor self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StructureFactorWrite(ConstHandle2ConstStructureFactor This, const char *const filename);
+StructureFactorWrite(ConstHandle2ConstStructureFactor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StructureFactorPrint(ConstHandle2ConstStructureFactor This);
+StructureFactorPrint(ConstHandle2ConstStructureFactor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StructureFactorPrintXML(ConstHandle2ConstStructureFactor This);
+StructureFactorPrintXML(ConstHandle2ConstStructureFactor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StructureFactorPrintJSON(ConstHandle2ConstStructureFactor This);
+StructureFactorPrintJSON(ConstHandle2ConstStructureFactor self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ StructureFactorPrintJSON(ConstHandle2ConstStructureFactor This);
 
 // +++ Has
 extern_c int
-StructureFactorXYs1dHas(ConstHandle2ConstStructureFactor This);
+StructureFactorXYs1dHas(ConstHandle2ConstStructureFactor self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-StructureFactorXYs1dGetConst(ConstHandle2ConstStructureFactor This);
+StructureFactorXYs1dGetConst(ConstHandle2ConstStructureFactor self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-StructureFactorXYs1dGet(ConstHandle2StructureFactor This);
+StructureFactorXYs1dGet(ConstHandle2StructureFactor self);
 
 // +++ Set
 extern_c void
-StructureFactorXYs1dSet(ConstHandle2StructureFactor This, ConstHandle2ConstXYs1d XYs1d);
+StructureFactorXYs1dSet(ConstHandle2StructureFactor self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

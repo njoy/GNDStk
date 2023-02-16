@@ -93,13 +93,13 @@ VersionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-VersionAssign(ConstHandle2Version This, ConstHandle2ConstVersion from);
+VersionAssign(ConstHandle2Version self, ConstHandle2ConstVersion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-VersionDelete(ConstHandle2ConstVersion This);
+VersionDelete(ConstHandle2ConstVersion self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ VersionDelete(ConstHandle2ConstVersion This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-VersionRead(ConstHandle2Version This, const char *const filename);
+VersionRead(ConstHandle2Version self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-VersionWrite(ConstHandle2ConstVersion This, const char *const filename);
+VersionWrite(ConstHandle2ConstVersion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-VersionPrint(ConstHandle2ConstVersion This);
+VersionPrint(ConstHandle2ConstVersion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-VersionPrintXML(ConstHandle2ConstVersion This);
+VersionPrintXML(ConstHandle2ConstVersion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-VersionPrintJSON(ConstHandle2ConstVersion This);
+VersionPrintJSON(ConstHandle2ConstVersion self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ VersionPrintJSON(ConstHandle2ConstVersion This);
 
 // +++ Clear
 extern_c void
-VersionIntsClear(ConstHandle2Version This);
+VersionIntsClear(ConstHandle2Version self);
 
 // +++ Get size
 extern_c size_t
-VersionIntsSize(ConstHandle2ConstVersion This);
+VersionIntsSize(ConstHandle2ConstVersion self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-VersionIntsGet(ConstHandle2ConstVersion This, const size_t index);
+VersionIntsGet(ConstHandle2ConstVersion self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-VersionIntsSet(ConstHandle2Version This, const size_t index, const int value);
+VersionIntsSet(ConstHandle2Version self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-VersionIntsGetArrayConst(ConstHandle2ConstVersion This);
+VersionIntsGetArrayConst(ConstHandle2ConstVersion self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-VersionIntsGetArray(ConstHandle2Version This);
+VersionIntsGetArray(ConstHandle2Version self);
 
 // +++ Set completely new values and size
 extern_c void
-VersionIntsSetArray(ConstHandle2Version This, const int *const values, const size_t size);
+VersionIntsSetArray(ConstHandle2Version self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ VersionIntsSetArray(ConstHandle2Version This, const int *const values, const siz
 
 // +++ Clear
 extern_c void
-VersionUnsignedsClear(ConstHandle2Version This);
+VersionUnsignedsClear(ConstHandle2Version self);
 
 // +++ Get size
 extern_c size_t
-VersionUnsignedsSize(ConstHandle2ConstVersion This);
+VersionUnsignedsSize(ConstHandle2ConstVersion self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-VersionUnsignedsGet(ConstHandle2ConstVersion This, const size_t index);
+VersionUnsignedsGet(ConstHandle2ConstVersion self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-VersionUnsignedsSet(ConstHandle2Version This, const size_t index, const unsigned value);
+VersionUnsignedsSet(ConstHandle2Version self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-VersionUnsignedsGetArrayConst(ConstHandle2ConstVersion This);
+VersionUnsignedsGetArrayConst(ConstHandle2ConstVersion self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-VersionUnsignedsGetArray(ConstHandle2Version This);
+VersionUnsignedsGetArray(ConstHandle2Version self);
 
 // +++ Set completely new values and size
 extern_c void
-VersionUnsignedsSetArray(ConstHandle2Version This, const unsigned *const values, const size_t size);
+VersionUnsignedsSetArray(ConstHandle2Version self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ VersionUnsignedsSetArray(ConstHandle2Version This, const unsigned *const values,
 
 // +++ Clear
 extern_c void
-VersionFloatsClear(ConstHandle2Version This);
+VersionFloatsClear(ConstHandle2Version self);
 
 // +++ Get size
 extern_c size_t
-VersionFloatsSize(ConstHandle2ConstVersion This);
+VersionFloatsSize(ConstHandle2ConstVersion self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-VersionFloatsGet(ConstHandle2ConstVersion This, const size_t index);
+VersionFloatsGet(ConstHandle2ConstVersion self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-VersionFloatsSet(ConstHandle2Version This, const size_t index, const float value);
+VersionFloatsSet(ConstHandle2Version self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-VersionFloatsGetArrayConst(ConstHandle2ConstVersion This);
+VersionFloatsGetArrayConst(ConstHandle2ConstVersion self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-VersionFloatsGetArray(ConstHandle2Version This);
+VersionFloatsGetArray(ConstHandle2Version self);
 
 // +++ Set completely new values and size
 extern_c void
-VersionFloatsSetArray(ConstHandle2Version This, const float *const values, const size_t size);
+VersionFloatsSetArray(ConstHandle2Version self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ VersionFloatsSetArray(ConstHandle2Version This, const float *const values, const
 
 // +++ Clear
 extern_c void
-VersionDoublesClear(ConstHandle2Version This);
+VersionDoublesClear(ConstHandle2Version self);
 
 // +++ Get size
 extern_c size_t
-VersionDoublesSize(ConstHandle2ConstVersion This);
+VersionDoublesSize(ConstHandle2ConstVersion self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-VersionDoublesGet(ConstHandle2ConstVersion This, const size_t index);
+VersionDoublesGet(ConstHandle2ConstVersion self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-VersionDoublesSet(ConstHandle2Version This, const size_t index, const double value);
+VersionDoublesSet(ConstHandle2Version self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-VersionDoublesGetArrayConst(ConstHandle2ConstVersion This);
+VersionDoublesGetArrayConst(ConstHandle2ConstVersion self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-VersionDoublesGetArray(ConstHandle2Version This);
+VersionDoublesGetArray(ConstHandle2Version self);
 
 // +++ Set completely new values and size
 extern_c void
-VersionDoublesSetArray(ConstHandle2Version This, const double *const values, const size_t size);
+VersionDoublesSetArray(ConstHandle2Version self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ VersionDoublesSetArray(ConstHandle2Version This, const double *const values, con
 
 // +++ Has
 extern_c int
-VersionEncodingHas(ConstHandle2ConstVersion This);
+VersionEncodingHas(ConstHandle2ConstVersion self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-VersionEncodingGet(ConstHandle2ConstVersion This);
+VersionEncodingGet(ConstHandle2ConstVersion self);
 
 // +++ Set
 extern_c void
-VersionEncodingSet(ConstHandle2Version This, const XMLName encoding);
+VersionEncodingSet(ConstHandle2Version self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ VersionEncodingSet(ConstHandle2Version This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-VersionMarkupHas(ConstHandle2ConstVersion This);
+VersionMarkupHas(ConstHandle2ConstVersion self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-VersionMarkupGet(ConstHandle2ConstVersion This);
+VersionMarkupGet(ConstHandle2ConstVersion self);
 
 // +++ Set
 extern_c void
-VersionMarkupSet(ConstHandle2Version This, const char *const markup);
+VersionMarkupSet(ConstHandle2Version self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ VersionMarkupSet(ConstHandle2Version This, const char *const markup);
 
 // +++ Has
 extern_c int
-VersionLabelHas(ConstHandle2ConstVersion This);
+VersionLabelHas(ConstHandle2ConstVersion self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-VersionLabelGet(ConstHandle2ConstVersion This);
+VersionLabelGet(ConstHandle2ConstVersion self);
 
 // +++ Set
 extern_c void
-VersionLabelSet(ConstHandle2Version This, const XMLName label);
+VersionLabelSet(ConstHandle2Version self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

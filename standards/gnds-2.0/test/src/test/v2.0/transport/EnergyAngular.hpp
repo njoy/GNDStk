@@ -25,12 +25,12 @@ class EnergyAngular :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "EnergyAngular"; }
-   static auto FIELD() { return "energyAngular"; }
+   static auto NODENAME() { return "energyAngular"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,32 +44,74 @@ class EnergyAngular :
             / Meta<>("productFrame") |
 
          // children
-         --Child<containers::XYs3d>("XYs3d")
+         --Child<containers::XYs3d>
+            ("XYs3d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "XYs3d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "xys3d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<XMLName> productFrame{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // children
-   Field<containers::XYs3d> XYs3d{this};
+   Field<containers::XYs3d>
+      XYs3d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
-      this->XYs3d)
+      this->XYs3d \
+   )
 
    // default
    EnergyAngular() :
@@ -80,9 +122,12 @@ public:
 
    // from fields, comment excluded
    explicit EnergyAngular(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<XMLName> &productFrame = {},
-      const wrapper<containers::XYs3d> &XYs3d = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {},
+      const wrapper<containers::XYs3d>
+         &XYs3d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +170,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   EnergyAngular &operator=(const EnergyAngular &) = default;
-   EnergyAngular &operator=(EnergyAngular &&) = default;
+   // copy
+   EnergyAngular &operator=(const EnergyAngular &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         XYs3d = other.XYs3d;
+      }
+      return *this;
+   }
+
+   // move
+   EnergyAngular &operator=(EnergyAngular &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         XYs3d = std::move(other.XYs3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

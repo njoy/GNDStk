@@ -91,13 +91,13 @@ E_criticalCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-E_criticalAssign(ConstHandle2E_critical This, ConstHandle2ConstE_critical from);
+E_criticalAssign(ConstHandle2E_critical self, ConstHandle2ConstE_critical from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-E_criticalDelete(ConstHandle2ConstE_critical This);
+E_criticalDelete(ConstHandle2ConstE_critical self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ E_criticalDelete(ConstHandle2ConstE_critical This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-E_criticalRead(ConstHandle2E_critical This, const char *const filename);
+E_criticalRead(ConstHandle2E_critical self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-E_criticalWrite(ConstHandle2ConstE_critical This, const char *const filename);
+E_criticalWrite(ConstHandle2ConstE_critical self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-E_criticalPrint(ConstHandle2ConstE_critical This);
+E_criticalPrint(ConstHandle2ConstE_critical self);
 
 // +++ Print to standard output, as XML
 extern_c int
-E_criticalPrintXML(ConstHandle2ConstE_critical This);
+E_criticalPrintXML(ConstHandle2ConstE_critical self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-E_criticalPrintJSON(ConstHandle2ConstE_critical This);
+E_criticalPrintJSON(ConstHandle2ConstE_critical self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ E_criticalPrintJSON(ConstHandle2ConstE_critical This);
 
 // +++ Has
 extern_c int
-E_criticalUnitHas(ConstHandle2ConstE_critical This);
+E_criticalUnitHas(ConstHandle2ConstE_critical self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-E_criticalUnitGet(ConstHandle2ConstE_critical This);
+E_criticalUnitGet(ConstHandle2ConstE_critical self);
 
 // +++ Set
 extern_c void
-E_criticalUnitSet(ConstHandle2E_critical This, const XMLName unit);
+E_criticalUnitSet(ConstHandle2E_critical self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ E_criticalUnitSet(ConstHandle2E_critical This, const XMLName unit);
 
 // +++ Has
 extern_c int
-E_criticalValueHas(ConstHandle2ConstE_critical This);
+E_criticalValueHas(ConstHandle2ConstE_critical self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-E_criticalValueGet(ConstHandle2ConstE_critical This);
+E_criticalValueGet(ConstHandle2ConstE_critical self);
 
 // +++ Set
 extern_c void
-E_criticalValueSet(ConstHandle2E_critical This, const Float64 value);
+E_criticalValueSet(ConstHandle2E_critical self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

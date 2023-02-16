@@ -102,20 +102,20 @@ HeatedMultiGroupCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-HeatedMultiGroupAssign(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstHeatedMultiGroup from)
+HeatedMultiGroupAssign(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstHeatedMultiGroup from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -129,44 +129,44 @@ HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-HeatedMultiGroupRead(ConstHandle2HeatedMultiGroup This, const char *const filename)
+HeatedMultiGroupRead(ConstHandle2HeatedMultiGroup self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-HeatedMultiGroupWrite(ConstHandle2ConstHeatedMultiGroup This, const char *const filename)
+HeatedMultiGroupWrite(ConstHandle2ConstHeatedMultiGroup self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-HeatedMultiGroupPrint(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupPrint(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-HeatedMultiGroupPrintXML(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupPrintXML(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -176,27 +176,27 @@ HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup This)
 
 // Has
 int
-HeatedMultiGroupDateHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDateHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-HeatedMultiGroupDateGet(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDateGet(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup This, const char *const date)
+HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -206,27 +206,27 @@ HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup This, const char *const dat
 
 // Has
 int
-HeatedMultiGroupDerivedFromHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDerivedFromHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-HeatedMultiGroupDerivedFromGet(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDerivedFromGet(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup This, const XMLName derivedFrom)
+HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -236,27 +236,27 @@ HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup This, const XMLName 
 
 // Has
 int
-HeatedMultiGroupLabelHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupLabelHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-HeatedMultiGroupLabelGet(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupLabelGet(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup This, const XMLName label)
+HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -266,34 +266,34 @@ HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup This, const XMLName label)
 
 // Has
 int
-HeatedMultiGroupTransportablesHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupTransportablesHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TransportablesHas", This, extract::transportables);
+      (CLASSNAME, CLASSNAME+"TransportablesHas", self, extract::transportables);
 }
 
 // Get, const
 Handle2ConstTransportables
-HeatedMultiGroupTransportablesGetConst(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupTransportablesGetConst(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2ConstTransportables>
-      (CLASSNAME, CLASSNAME+"TransportablesGetConst", This, extract::transportables);
+      (CLASSNAME, CLASSNAME+"TransportablesGetConst", self, extract::transportables);
 }
 
 // Get, non-const
 Handle2Transportables
-HeatedMultiGroupTransportablesGet(ConstHandle2HeatedMultiGroup This)
+HeatedMultiGroupTransportablesGet(ConstHandle2HeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2Transportables>
-      (CLASSNAME, CLASSNAME+"TransportablesGet", This, extract::transportables);
+      (CLASSNAME, CLASSNAME+"TransportablesGet", self, extract::transportables);
 }
 
 // Set
 void
-HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstTransportables transportables)
+HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstTransportables transportables)
 {
    detail::setField<CPP,CPPTransportables>
-      (CLASSNAME, CLASSNAME+"TransportablesSet", This, extract::transportables, transportables);
+      (CLASSNAME, CLASSNAME+"TransportablesSet", self, extract::transportables, transportables);
 }
 
 
@@ -303,34 +303,34 @@ HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup This, ConstHandle
 
 // Has
 int
-HeatedMultiGroupFluxHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupFluxHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FluxHas", This, extract::flux);
+      (CLASSNAME, CLASSNAME+"FluxHas", self, extract::flux);
 }
 
 // Get, const
 Handle2ConstFlux
-HeatedMultiGroupFluxGetConst(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupFluxGetConst(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2ConstFlux>
-      (CLASSNAME, CLASSNAME+"FluxGetConst", This, extract::flux);
+      (CLASSNAME, CLASSNAME+"FluxGetConst", self, extract::flux);
 }
 
 // Get, non-const
 Handle2Flux
-HeatedMultiGroupFluxGet(ConstHandle2HeatedMultiGroup This)
+HeatedMultiGroupFluxGet(ConstHandle2HeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2Flux>
-      (CLASSNAME, CLASSNAME+"FluxGet", This, extract::flux);
+      (CLASSNAME, CLASSNAME+"FluxGet", self, extract::flux);
 }
 
 // Set
 void
-HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstFlux flux)
+HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstFlux flux)
 {
    detail::setField<CPP,CPPFlux>
-      (CLASSNAME, CLASSNAME+"FluxSet", This, extract::flux, flux);
+      (CLASSNAME, CLASSNAME+"FluxSet", self, extract::flux, flux);
 }
 
 
@@ -340,34 +340,34 @@ HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstFlux
 
 // Has
 int
-HeatedMultiGroupInverseSpeedHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupInverseSpeedHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InverseSpeedHas", This, extract::inverseSpeed);
+      (CLASSNAME, CLASSNAME+"InverseSpeedHas", self, extract::inverseSpeed);
 }
 
 // Get, const
 Handle2ConstInverseSpeed
-HeatedMultiGroupInverseSpeedGetConst(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupInverseSpeedGetConst(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2ConstInverseSpeed>
-      (CLASSNAME, CLASSNAME+"InverseSpeedGetConst", This, extract::inverseSpeed);
+      (CLASSNAME, CLASSNAME+"InverseSpeedGetConst", self, extract::inverseSpeed);
 }
 
 // Get, non-const
 Handle2InverseSpeed
-HeatedMultiGroupInverseSpeedGet(ConstHandle2HeatedMultiGroup This)
+HeatedMultiGroupInverseSpeedGet(ConstHandle2HeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2InverseSpeed>
-      (CLASSNAME, CLASSNAME+"InverseSpeedGet", This, extract::inverseSpeed);
+      (CLASSNAME, CLASSNAME+"InverseSpeedGet", self, extract::inverseSpeed);
 }
 
 // Set
 void
-HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstInverseSpeed inverseSpeed)
+HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstInverseSpeed inverseSpeed)
 {
    detail::setField<CPP,CPPInverseSpeed>
-      (CLASSNAME, CLASSNAME+"InverseSpeedSet", This, extract::inverseSpeed, inverseSpeed);
+      (CLASSNAME, CLASSNAME+"InverseSpeedSet", self, extract::inverseSpeed, inverseSpeed);
 }
 
 
@@ -377,34 +377,34 @@ HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup This, ConstHandle2C
 
 // Has
 int
-HeatedMultiGroupDocumentationHas(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDocumentationHas(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-HeatedMultiGroupDocumentationGetConst(ConstHandle2ConstHeatedMultiGroup This)
+HeatedMultiGroupDocumentationGetConst(ConstHandle2ConstHeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-HeatedMultiGroupDocumentationGet(ConstHandle2HeatedMultiGroup This)
+HeatedMultiGroupDocumentationGet(ConstHandle2HeatedMultiGroup self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstDocumentation documentation)
+HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

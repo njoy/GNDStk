@@ -129,20 +129,20 @@ Energy_uncorrelatedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Energy_uncorrelatedAssign(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstEnergy_uncorrelated from)
+Energy_uncorrelatedAssign(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstEnergy_uncorrelated from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -156,44 +156,44 @@ Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Energy_uncorrelatedRead(ConstHandle2Energy_uncorrelated This, const char *const filename)
+Energy_uncorrelatedRead(ConstHandle2Energy_uncorrelated self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Energy_uncorrelatedWrite(ConstHandle2ConstEnergy_uncorrelated This, const char *const filename)
+Energy_uncorrelatedWrite(ConstHandle2ConstEnergy_uncorrelated self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Energy_uncorrelatedPrint(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedPrint(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Energy_uncorrelatedPrintXML(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedPrintXML(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -203,34 +203,34 @@ Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated This)
 
 // Has
 int
-Energy_uncorrelatedXYs2dHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedXYs2dHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-Energy_uncorrelatedXYs2dGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedXYs2dGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-Energy_uncorrelatedXYs2dGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedXYs2dGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstXYs2d XYs2d)
+Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 
@@ -240,34 +240,34 @@ Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2Co
 
 // Has
 int
-Energy_uncorrelatedRegions2dHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedRegions2dHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions2dHas", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dHas", self, extract::regions2d);
 }
 
 // Get, const
 Handle2ConstRegions2d
-Energy_uncorrelatedRegions2dGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedRegions2dGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGetConst", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
 // Get, non-const
 Handle2Regions2d
-Energy_uncorrelatedRegions2dGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedRegions2dGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2Regions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGet", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGet", self, extract::regions2d);
 }
 
 // Set
 void
-Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstRegions2d regions2d)
+Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstRegions2d regions2d)
 {
    detail::setField<CPP,CPPRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dSet", self, extract::regions2d, regions2d);
 }
 
 
@@ -277,34 +277,34 @@ Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated This, ConstHandl
 
 // Has
 int
-Energy_uncorrelatedGeneralEvaporationHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedGeneralEvaporationHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GeneralEvaporationHas", This, extract::generalEvaporation);
+      (CLASSNAME, CLASSNAME+"GeneralEvaporationHas", self, extract::generalEvaporation);
 }
 
 // Get, const
 Handle2ConstGeneralEvaporation
-Energy_uncorrelatedGeneralEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedGeneralEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstGeneralEvaporation>
-      (CLASSNAME, CLASSNAME+"GeneralEvaporationGetConst", This, extract::generalEvaporation);
+      (CLASSNAME, CLASSNAME+"GeneralEvaporationGetConst", self, extract::generalEvaporation);
 }
 
 // Get, non-const
 Handle2GeneralEvaporation
-Energy_uncorrelatedGeneralEvaporationGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedGeneralEvaporationGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2GeneralEvaporation>
-      (CLASSNAME, CLASSNAME+"GeneralEvaporationGet", This, extract::generalEvaporation);
+      (CLASSNAME, CLASSNAME+"GeneralEvaporationGet", self, extract::generalEvaporation);
 }
 
 // Set
 void
-Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstGeneralEvaporation generalEvaporation)
+Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstGeneralEvaporation generalEvaporation)
 {
    detail::setField<CPP,CPPGeneralEvaporation>
-      (CLASSNAME, CLASSNAME+"GeneralEvaporationSet", This, extract::generalEvaporation, generalEvaporation);
+      (CLASSNAME, CLASSNAME+"GeneralEvaporationSet", self, extract::generalEvaporation, generalEvaporation);
 }
 
 
@@ -314,34 +314,34 @@ Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated This, C
 
 // Has
 int
-Energy_uncorrelatedDiscreteGammaHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedDiscreteGammaHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DiscreteGammaHas", This, extract::discreteGamma);
+      (CLASSNAME, CLASSNAME+"DiscreteGammaHas", self, extract::discreteGamma);
 }
 
 // Get, const
 Handle2ConstDiscreteGamma
-Energy_uncorrelatedDiscreteGammaGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedDiscreteGammaGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstDiscreteGamma>
-      (CLASSNAME, CLASSNAME+"DiscreteGammaGetConst", This, extract::discreteGamma);
+      (CLASSNAME, CLASSNAME+"DiscreteGammaGetConst", self, extract::discreteGamma);
 }
 
 // Get, non-const
 Handle2DiscreteGamma
-Energy_uncorrelatedDiscreteGammaGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedDiscreteGammaGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2DiscreteGamma>
-      (CLASSNAME, CLASSNAME+"DiscreteGammaGet", This, extract::discreteGamma);
+      (CLASSNAME, CLASSNAME+"DiscreteGammaGet", self, extract::discreteGamma);
 }
 
 // Set
 void
-Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstDiscreteGamma discreteGamma)
+Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstDiscreteGamma discreteGamma)
 {
    detail::setField<CPP,CPPDiscreteGamma>
-      (CLASSNAME, CLASSNAME+"DiscreteGammaSet", This, extract::discreteGamma, discreteGamma);
+      (CLASSNAME, CLASSNAME+"DiscreteGammaSet", self, extract::discreteGamma, discreteGamma);
 }
 
 
@@ -351,34 +351,34 @@ Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated This, ConstH
 
 // Has
 int
-Energy_uncorrelatedPrimaryGammaHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedPrimaryGammaHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryGammaHas", This, extract::primaryGamma);
+      (CLASSNAME, CLASSNAME+"PrimaryGammaHas", self, extract::primaryGamma);
 }
 
 // Get, const
 Handle2ConstPrimaryGamma
-Energy_uncorrelatedPrimaryGammaGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedPrimaryGammaGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstPrimaryGamma>
-      (CLASSNAME, CLASSNAME+"PrimaryGammaGetConst", This, extract::primaryGamma);
+      (CLASSNAME, CLASSNAME+"PrimaryGammaGetConst", self, extract::primaryGamma);
 }
 
 // Get, non-const
 Handle2PrimaryGamma
-Energy_uncorrelatedPrimaryGammaGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedPrimaryGammaGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2PrimaryGamma>
-      (CLASSNAME, CLASSNAME+"PrimaryGammaGet", This, extract::primaryGamma);
+      (CLASSNAME, CLASSNAME+"PrimaryGammaGet", self, extract::primaryGamma);
 }
 
 // Set
 void
-Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstPrimaryGamma primaryGamma)
+Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstPrimaryGamma primaryGamma)
 {
    detail::setField<CPP,CPPPrimaryGamma>
-      (CLASSNAME, CLASSNAME+"PrimaryGammaSet", This, extract::primaryGamma, primaryGamma);
+      (CLASSNAME, CLASSNAME+"PrimaryGammaSet", self, extract::primaryGamma, primaryGamma);
 }
 
 
@@ -388,34 +388,34 @@ Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated This, ConstHa
 
 // Has
 int
-Energy_uncorrelatedNBodyPhaseSpaceHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedNBodyPhaseSpaceHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceHas", This, extract::NBodyPhaseSpace);
+      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceHas", self, extract::NBodyPhaseSpace);
 }
 
 // Get, const
 Handle2ConstNBodyPhaseSpace
-Energy_uncorrelatedNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstNBodyPhaseSpace>
-      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceGetConst", This, extract::NBodyPhaseSpace);
+      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceGetConst", self, extract::NBodyPhaseSpace);
 }
 
 // Get, non-const
 Handle2NBodyPhaseSpace
-Energy_uncorrelatedNBodyPhaseSpaceGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedNBodyPhaseSpaceGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2NBodyPhaseSpace>
-      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceGet", This, extract::NBodyPhaseSpace);
+      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceGet", self, extract::NBodyPhaseSpace);
 }
 
 // Set
 void
-Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace)
+Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace)
 {
    detail::setField<CPP,CPPNBodyPhaseSpace>
-      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceSet", This, extract::NBodyPhaseSpace, NBodyPhaseSpace);
+      (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceSet", self, extract::NBodyPhaseSpace, NBodyPhaseSpace);
 }
 
 
@@ -425,34 +425,34 @@ Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated This, Cons
 
 // Has
 int
-Energy_uncorrelatedEvaporationHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedEvaporationHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaporationHas", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationHas", self, extract::evaporation);
 }
 
 // Get, const
 Handle2ConstEvaporation
-Energy_uncorrelatedEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstEvaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationGetConst", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationGetConst", self, extract::evaporation);
 }
 
 // Get, non-const
 Handle2Evaporation
-Energy_uncorrelatedEvaporationGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedEvaporationGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2Evaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationGet", This, extract::evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationGet", self, extract::evaporation);
 }
 
 // Set
 void
-Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstEvaporation evaporation)
+Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstEvaporation evaporation)
 {
    detail::setField<CPP,CPPEvaporation>
-      (CLASSNAME, CLASSNAME+"EvaporationSet", This, extract::evaporation, evaporation);
+      (CLASSNAME, CLASSNAME+"EvaporationSet", self, extract::evaporation, evaporation);
 }
 
 
@@ -462,34 +462,34 @@ Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHan
 
 // Has
 int
-Energy_uncorrelatedWeightedFunctionalsHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedWeightedFunctionalsHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"WeightedFunctionalsHas", This, extract::weightedFunctionals);
+      (CLASSNAME, CLASSNAME+"WeightedFunctionalsHas", self, extract::weightedFunctionals);
 }
 
 // Get, const
 Handle2ConstWeightedFunctionals
-Energy_uncorrelatedWeightedFunctionalsGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedWeightedFunctionalsGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstWeightedFunctionals>
-      (CLASSNAME, CLASSNAME+"WeightedFunctionalsGetConst", This, extract::weightedFunctionals);
+      (CLASSNAME, CLASSNAME+"WeightedFunctionalsGetConst", self, extract::weightedFunctionals);
 }
 
 // Get, non-const
 Handle2WeightedFunctionals
-Energy_uncorrelatedWeightedFunctionalsGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedWeightedFunctionalsGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2WeightedFunctionals>
-      (CLASSNAME, CLASSNAME+"WeightedFunctionalsGet", This, extract::weightedFunctionals);
+      (CLASSNAME, CLASSNAME+"WeightedFunctionalsGet", self, extract::weightedFunctionals);
 }
 
 // Set
 void
-Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstWeightedFunctionals weightedFunctionals)
+Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstWeightedFunctionals weightedFunctionals)
 {
    detail::setField<CPP,CPPWeightedFunctionals>
-      (CLASSNAME, CLASSNAME+"WeightedFunctionalsSet", This, extract::weightedFunctionals, weightedFunctionals);
+      (CLASSNAME, CLASSNAME+"WeightedFunctionalsSet", self, extract::weightedFunctionals, weightedFunctionals);
 }
 
 
@@ -499,34 +499,34 @@ Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated This, 
 
 // Has
 int
-Energy_uncorrelatedSimpleMaxwellianFissionHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedSimpleMaxwellianFissionHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionHas", This, extract::simpleMaxwellianFission);
+      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionHas", self, extract::simpleMaxwellianFission);
 }
 
 // Get, const
 Handle2ConstSimpleMaxwellianFission
-Energy_uncorrelatedSimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedSimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstSimpleMaxwellianFission>
-      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionGetConst", This, extract::simpleMaxwellianFission);
+      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionGetConst", self, extract::simpleMaxwellianFission);
 }
 
 // Get, non-const
 Handle2SimpleMaxwellianFission
-Energy_uncorrelatedSimpleMaxwellianFissionGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedSimpleMaxwellianFissionGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2SimpleMaxwellianFission>
-      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionGet", This, extract::simpleMaxwellianFission);
+      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionGet", self, extract::simpleMaxwellianFission);
 }
 
 // Set
 void
-Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission)
+Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission)
 {
    detail::setField<CPP,CPPSimpleMaxwellianFission>
-      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionSet", This, extract::simpleMaxwellianFission, simpleMaxwellianFission);
+      (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionSet", self, extract::simpleMaxwellianFission, simpleMaxwellianFission);
 }
 
 
@@ -536,34 +536,34 @@ Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated Th
 
 // Has
 int
-Energy_uncorrelatedWattHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedWattHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"WattHas", This, extract::Watt);
+      (CLASSNAME, CLASSNAME+"WattHas", self, extract::Watt);
 }
 
 // Get, const
 Handle2ConstWatt
-Energy_uncorrelatedWattGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedWattGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstWatt>
-      (CLASSNAME, CLASSNAME+"WattGetConst", This, extract::Watt);
+      (CLASSNAME, CLASSNAME+"WattGetConst", self, extract::Watt);
 }
 
 // Get, non-const
 Handle2Watt
-Energy_uncorrelatedWattGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedWattGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2Watt>
-      (CLASSNAME, CLASSNAME+"WattGet", This, extract::Watt);
+      (CLASSNAME, CLASSNAME+"WattGet", self, extract::Watt);
 }
 
 // Set
 void
-Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstWatt Watt)
+Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstWatt Watt)
 {
    detail::setField<CPP,CPPWatt>
-      (CLASSNAME, CLASSNAME+"WattSet", This, extract::Watt, Watt);
+      (CLASSNAME, CLASSNAME+"WattSet", self, extract::Watt, Watt);
 }
 
 
@@ -573,34 +573,34 @@ Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated This, ConstHandle2Con
 
 // Has
 int
-Energy_uncorrelatedMadlandNixHas(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedMadlandNixHas(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MadlandNixHas", This, extract::MadlandNix);
+      (CLASSNAME, CLASSNAME+"MadlandNixHas", self, extract::MadlandNix);
 }
 
 // Get, const
 Handle2ConstMadlandNix
-Energy_uncorrelatedMadlandNixGetConst(ConstHandle2ConstEnergy_uncorrelated This)
+Energy_uncorrelatedMadlandNixGetConst(ConstHandle2ConstEnergy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstMadlandNix>
-      (CLASSNAME, CLASSNAME+"MadlandNixGetConst", This, extract::MadlandNix);
+      (CLASSNAME, CLASSNAME+"MadlandNixGetConst", self, extract::MadlandNix);
 }
 
 // Get, non-const
 Handle2MadlandNix
-Energy_uncorrelatedMadlandNixGet(ConstHandle2Energy_uncorrelated This)
+Energy_uncorrelatedMadlandNixGet(ConstHandle2Energy_uncorrelated self)
 {
    return detail::getField<CPP,Handle2MadlandNix>
-      (CLASSNAME, CLASSNAME+"MadlandNixGet", This, extract::MadlandNix);
+      (CLASSNAME, CLASSNAME+"MadlandNixGet", self, extract::MadlandNix);
 }
 
 // Set
 void
-Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstMadlandNix MadlandNix)
+Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstMadlandNix MadlandNix)
 {
    detail::setField<CPP,CPPMadlandNix>
-      (CLASSNAME, CLASSNAME+"MadlandNixSet", This, extract::MadlandNix, MadlandNix);
+      (CLASSNAME, CLASSNAME+"MadlandNixSet", self, extract::MadlandNix, MadlandNix);
 }
 
 

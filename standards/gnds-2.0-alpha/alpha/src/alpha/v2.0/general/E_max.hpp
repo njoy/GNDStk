@@ -25,12 +25,12 @@ class E_max :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "E_max"; }
-   static auto FIELD() { return "e_max"; }
+   static auto NODENAME() { return "e_max"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

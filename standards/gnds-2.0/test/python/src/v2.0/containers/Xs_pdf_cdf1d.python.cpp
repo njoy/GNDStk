@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Xs_pdf_cdf1d wrapper
-void wrapXs_pdf_cdf1d(python::module &module)
+// wrapper for containers::Xs_pdf_cdf1d
+void wrapXs_pdf_cdf1d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Xs_pdf_cdf1d;
+   using cppCLASS = containers::Xs_pdf_cdf1d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Xs_pdf_cdf1d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Xs_pdf_cdf1d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Float64> &,
-            const containers::Xs_in_xs_pdf_cdf1d &,
-            const containers::Pdf &,
-            const containers::Cdf_in_xs_pdf_cdf1d &
-         >(),
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("xs_in_xs_pdf_cdf1d"),
-         python::arg("pdf"),
-         python::arg("cdf_in_xs_pdf_cdf1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
-         Component::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "xs_in_xs_pdf_cdf1d",
-         [](const Component &self) { return self.xs_in_xs_pdf_cdf1d(); },
-         Component::documentation("xs_in_xs_pdf_cdf1d").data()
-      )
-      .def_property_readonly(
-         "pdf",
-         [](const Component &self) { return self.pdf(); },
-         Component::documentation("pdf").data()
-      )
-      .def_property_readonly(
-         "cdf_in_xs_pdf_cdf1d",
-         [](const Component &self) { return self.cdf_in_xs_pdf_cdf1d(); },
-         Component::documentation("cdf_in_xs_pdf_cdf1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Float64> &,
+         const containers::Xs_in_xs_pdf_cdf1d &,
+         const containers::Pdf &,
+         const containers::Cdf_in_xs_pdf_cdf1d &
+      >(),
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("xs_in_xs_pdf_cdf1d"),
+      py::arg("pdf"),
+      py::arg("cdf_in_xs_pdf_cdf1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set xs_in_xs_pdf_cdf1d
+   object.def_property(
+      "xs_in_xs_pdf_cdf1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.xs_in_xs_pdf_cdf1d();
+      },
+      [](cppCLASS &self, const containers::Xs_in_xs_pdf_cdf1d &value)
+      {
+         self.xs_in_xs_pdf_cdf1d() = value;
+      },
+      cppCLASS::component_t::documentation("xs_in_xs_pdf_cdf1d").data()
+   );
+
+   // get/set pdf
+   object.def_property(
+      "pdf",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pdf();
+      },
+      [](cppCLASS &self, const containers::Pdf &value)
+      {
+         self.pdf() = value;
+      },
+      cppCLASS::component_t::documentation("pdf").data()
+   );
+
+   // get/set cdf_in_xs_pdf_cdf1d
+   object.def_property(
+      "cdf_in_xs_pdf_cdf1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.cdf_in_xs_pdf_cdf1d();
+      },
+      [](cppCLASS &self, const containers::Cdf_in_xs_pdf_cdf1d &value)
+      {
+         self.cdf_in_xs_pdf_cdf1d() = value;
+      },
+      cppCLASS::component_t::documentation("cdf_in_xs_pdf_cdf1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

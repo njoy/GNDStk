@@ -5,29 +5,29 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // common declarations
 namespace python_common {
-   void wrapQ(python::module &);
-   void wrapEnergy(python::module &);
-   void wrapProduct(python::module &);
-   void wrapProducts(python::module &);
-   void wrapMass(python::module &);
-   void wrapProbability(python::module &);
-   void wrapTemperature(python::module &);
-   void wrapExternalFile(python::module &);
-   void wrapExternalFiles(python::module &);
+   void wrapQ(py::module &);
+   void wrapEnergy(py::module &);
+   void wrapProduct(py::module &);
+   void wrapProducts(py::module &);
+   void wrapMass(py::module &);
+   void wrapProbability(py::module &);
+   void wrapTemperature(py::module &);
+   void wrapExternalFile(py::module &);
+   void wrapExternalFiles(py::module &);
 } // namespace python_common
 
-// common wrapper
-void wrapCommon(python::module &module)
+// wrapper for common
+void wrapCommon(py::module &module)
 {
    // create the common submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "common",
       "test v2.0 common"
    );

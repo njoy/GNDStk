@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Evaluated wrapper
-void wrapEvaluated(python::module &module)
+// wrapper for gnds::Evaluated
+void wrapEvaluated(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Evaluated;
+   using cppCLASS = gnds::Evaluated;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Evaluated",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Evaluated",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const gnds::Documentation &
-         >(),
-         python::arg("label"),
-         python::arg("date"),
-         python::arg("library"),
-         python::arg("version"),
-         python::arg("documentation"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self) { return self.date(); },
-         Component::documentation("date").data()
-      )
-      .def_property_readonly(
-         "library",
-         [](const Component &self) { return self.library(); },
-         Component::documentation("library").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const gnds::Documentation &
+      >(),
+      py::arg("label"),
+      py::arg("date"),
+      py::arg("library"),
+      py::arg("version"),
+      py::arg("documentation"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // get/set library
+   object.def_property(
+      "library",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.library();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.library() = value;
+      },
+      cppCLASS::component_t::documentation("library").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const gnds::Documentation &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

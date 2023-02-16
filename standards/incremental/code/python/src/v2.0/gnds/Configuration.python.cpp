@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Configuration wrapper
-void wrapConfiguration(python::module &module)
+// wrapper for gnds::Configuration
+void wrapConfiguration(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Configuration;
+   using cppCLASS = gnds::Configuration;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Configuration",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Configuration",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const gnds::BindingEnergy &
-         >(),
-         python::arg("subshell"),
-         python::arg("electron_number"),
-         python::arg("binding_energy"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "subshell",
-         [](const Component &self) { return self.subshell(); },
-         Component::documentation("subshell").data()
-      )
-      .def_property_readonly(
-         "electron_number",
-         [](const Component &self) { return self.electronNumber(); },
-         Component::documentation("electron_number").data()
-      )
-      .def_property_readonly(
-         "binding_energy",
-         [](const Component &self) { return self.bindingEnergy(); },
-         Component::documentation("binding_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const gnds::BindingEnergy &
+      >(),
+      py::arg("subshell"),
+      py::arg("electron_number"),
+      py::arg("binding_energy"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set subshell
+   object.def_property(
+      "subshell",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.subshell();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.subshell() = value;
+      },
+      cppCLASS::component_t::documentation("subshell").data()
+   );
+
+   // get/set electronNumber
+   object.def_property(
+      "electron_number",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.electronNumber();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.electronNumber() = value;
+      },
+      cppCLASS::component_t::documentation("electron_number").data()
+   );
+
+   // get/set bindingEnergy
+   object.def_property(
+      "binding_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.bindingEnergy();
+      },
+      [](cppCLASS &self, const gnds::BindingEnergy &value)
+      {
+         self.bindingEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("binding_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

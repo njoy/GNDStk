@@ -91,13 +91,13 @@ UCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UAssign(ConstHandle2U This, ConstHandle2ConstU from);
+UAssign(ConstHandle2U self, ConstHandle2ConstU from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UDelete(ConstHandle2ConstU This);
+UDelete(ConstHandle2ConstU self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ UDelete(ConstHandle2ConstU This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-URead(ConstHandle2U This, const char *const filename);
+URead(ConstHandle2U self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UWrite(ConstHandle2ConstU This, const char *const filename);
+UWrite(ConstHandle2ConstU self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UPrint(ConstHandle2ConstU This);
+UPrint(ConstHandle2ConstU self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UPrintXML(ConstHandle2ConstU This);
+UPrintXML(ConstHandle2ConstU self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UPrintJSON(ConstHandle2ConstU This);
+UPrintJSON(ConstHandle2ConstU self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ UPrintJSON(ConstHandle2ConstU This);
 
 // +++ Has
 extern_c int
-UUnitHas(ConstHandle2ConstU This);
+UUnitHas(ConstHandle2ConstU self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-UUnitGet(ConstHandle2ConstU This);
+UUnitGet(ConstHandle2ConstU self);
 
 // +++ Set
 extern_c void
-UUnitSet(ConstHandle2U This, const XMLName unit);
+UUnitSet(ConstHandle2U self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ UUnitSet(ConstHandle2U This, const XMLName unit);
 
 // +++ Has
 extern_c int
-UValueHas(ConstHandle2ConstU This);
+UValueHas(ConstHandle2ConstU self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-UValueGet(ConstHandle2ConstU This);
+UValueGet(ConstHandle2ConstU self);
 
 // +++ Set
 extern_c void
-UValueSet(ConstHandle2U This, const Float64 value);
+UValueSet(ConstHandle2U self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

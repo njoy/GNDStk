@@ -25,12 +25,12 @@ class Transportable :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Transportable"; }
-   static auto FIELD() { return "transportable"; }
+   static auto NODENAME() { return "transportable"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,11 +44,43 @@ class Transportable :
             / Meta<>("label") |
 
          // children
-         --Child<styles::MultiGroup>("multiGroup")
+         --Child<styles::MultiGroup>
+            ("multiGroup")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "conserve",
+         "label",
+         "multiGroup"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "conserve",
+         "label",
+         "multi_group"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -56,25 +88,35 @@ public:
       static inline const XMLName conserve = "number";
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Defaulted<XMLName>> conserve{this,defaults.conserve};
-   Field<XMLName> label{this};
+   Field<Defaulted<XMLName>>
+      conserve{this,defaults.conserve};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<styles::MultiGroup> multiGroup{this};
+   Field<styles::MultiGroup>
+      multiGroup{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->conserve, \
       this->label, \
-      this->multiGroup)
+      this->multiGroup \
+   )
 
    // default
    Transportable() :
@@ -86,9 +128,12 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Transportable(
-      const wrapper<std::optional<XMLName>> &conserve,
-      const wrapper<XMLName> &label = {},
-      const wrapper<styles::MultiGroup> &multiGroup = {}
+      const wrapper<std::optional<XMLName>>
+         &conserve,
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<styles::MultiGroup>
+         &multiGroup = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       conserve(this,defaults.conserve,conserve),
@@ -131,8 +176,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Transportable &operator=(const Transportable &) = default;
-   Transportable &operator=(Transportable &&) = default;
+   // copy
+   Transportable &operator=(const Transportable &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         conserve = other.conserve;
+         label = other.label;
+         multiGroup = other.multiGroup;
+      }
+      return *this;
+   }
+
+   // move
+   Transportable &operator=(Transportable &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         conserve = std::move(other.conserve);
+         label = std::move(other.label);
+         multiGroup = std::move(other.multiGroup);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// RelatedItem wrapper
-void wrapRelatedItem(python::module &module)
+// wrapper for documentation::RelatedItem
+void wrapRelatedItem(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::RelatedItem;
+   using cppCLASS = documentation::RelatedItem;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "RelatedItem",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "RelatedItem",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const UTF8Text &,
-            const std::optional<UTF8Text> &,
-            const std::optional<enums::RelationType> &
-         >(),
-         python::arg("name"),
-         python::arg("href") = std::nullopt,
-         python::arg("relation_type") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-      .def_property_readonly(
-         "relation_type",
-         [](const Component &self) { return self.relationType(); },
-         Component::documentation("relation_type").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const UTF8Text &,
+         const std::optional<UTF8Text> &,
+         const std::optional<enums::RelationType> &
+      >(),
+      py::arg("name"),
+      py::arg("href") = std::nullopt,
+      py::arg("relation_type") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const UTF8Text &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set relationType
+   object.def_property(
+      "relation_type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.relationType();
+      },
+      [](cppCLASS &self, const std::optional<enums::RelationType> &value)
+      {
+         self.relationType() = value;
+      },
+      cppCLASS::component_t::documentation("relation_type").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

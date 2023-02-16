@@ -132,13 +132,13 @@ ReactionSuiteCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ReactionSuiteAssign(ConstHandle2ReactionSuite This, ConstHandle2ConstReactionSuite from);
+ReactionSuiteAssign(ConstHandle2ReactionSuite self, ConstHandle2ConstReactionSuite from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ReactionSuiteDelete(ConstHandle2ConstReactionSuite This);
+ReactionSuiteDelete(ConstHandle2ConstReactionSuite self);
 
 
 // -----------------------------------------------------------------------------
@@ -151,25 +151,25 @@ ReactionSuiteDelete(ConstHandle2ConstReactionSuite This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ReactionSuiteRead(ConstHandle2ReactionSuite This, const char *const filename);
+ReactionSuiteRead(ConstHandle2ReactionSuite self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ReactionSuiteWrite(ConstHandle2ConstReactionSuite This, const char *const filename);
+ReactionSuiteWrite(ConstHandle2ConstReactionSuite self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ReactionSuitePrint(ConstHandle2ConstReactionSuite This);
+ReactionSuitePrint(ConstHandle2ConstReactionSuite self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ReactionSuitePrintXML(ConstHandle2ConstReactionSuite This);
+ReactionSuitePrintXML(ConstHandle2ConstReactionSuite self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This);
+ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite self);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This);
 
 // +++ Has
 extern_c int
-ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const XMLName evaluation);
+ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite self, const XMLName evaluation);
 
 
 // -----------------------------------------------------------------------------
@@ -196,16 +196,16 @@ ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const XMLName evaluat
 
 // +++ Has
 extern_c int
-ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const XMLName format);
+ReactionSuiteFormatSet(ConstHandle2ReactionSuite self, const XMLName format);
 
 
 // -----------------------------------------------------------------------------
@@ -214,16 +214,16 @@ ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const XMLName format);
 
 // +++ Has
 extern_c int
-ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const XMLName projectile);
+ReactionSuiteProjectileSet(ConstHandle2ReactionSuite self, const XMLName projectile);
 
 
 // -----------------------------------------------------------------------------
@@ -232,16 +232,16 @@ ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const XMLName project
 
 // +++ Has
 extern_c int
-ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Frame
-ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Frame projectileFrame);
+ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite self, const enums::Frame projectileFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -250,16 +250,16 @@ ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Fra
 
 // +++ Has
 extern_c int
-ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const XMLName target);
+ReactionSuiteTargetSet(ConstHandle2ReactionSuite self, const XMLName target);
 
 
 // -----------------------------------------------------------------------------
@@ -268,16 +268,16 @@ ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const XMLName target);
 
 // +++ Has
 extern_c int
-ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Interaction
-ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite This);
+ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interaction interaction);
+ReactionSuiteInteractionSet(ConstHandle2ReactionSuite self, const enums::Interaction interaction);
 
 
 // -----------------------------------------------------------------------------
@@ -286,19 +286,19 @@ ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interac
 
 // +++ Has
 extern_c int
-ReactionSuiteExternalFilesHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteExternalFilesHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstExternalFiles
-ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2ExternalFiles
-ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite This);
+ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstExternalFiles externalFiles);
+ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstExternalFiles externalFiles);
 
 
 // -----------------------------------------------------------------------------
@@ -307,19 +307,19 @@ ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstE
 
 // +++ Has
 extern_c int
-ReactionSuiteStylesHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteStylesHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstStyles
-ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Styles
-ReactionSuiteStylesGet(ConstHandle2ReactionSuite This);
+ReactionSuiteStylesGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles styles);
+ReactionSuiteStylesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstStyles styles);
 
 
 // -----------------------------------------------------------------------------
@@ -328,19 +328,19 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 // +++ Has
 extern_c int
-ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite This);
+ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstPoPs_database
-ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2PoPs_database
-ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This);
+ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs_database);
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite self, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -349,19 +349,19 @@ ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstP
 
 // +++ Has
 extern_c int
-ReactionSuiteResonancesHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteResonancesHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstResonances
-ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Resonances
-ReactionSuiteResonancesGet(ConstHandle2ReactionSuite This);
+ReactionSuiteResonancesGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteResonancesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstResonances resonances);
+ReactionSuiteResonancesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstResonances resonances);
 
 
 // -----------------------------------------------------------------------------
@@ -370,19 +370,19 @@ ReactionSuiteResonancesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReso
 
 // +++ Has
 extern_c int
-ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstReactions
-ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Reactions
-ReactionSuiteReactionsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteReactionsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReactions reactions);
+ReactionSuiteReactionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstReactions reactions);
 
 
 // -----------------------------------------------------------------------------
@@ -391,19 +391,19 @@ ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReact
 
 // +++ Has
 extern_c int
-ReactionSuiteOrphanProductsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteOrphanProductsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstOrphanProducts
-ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2OrphanProducts
-ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstOrphanProducts orphanProducts);
+ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstOrphanProducts orphanProducts);
 
 
 // -----------------------------------------------------------------------------
@@ -412,19 +412,19 @@ ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite This, ConstHandle2Const
 
 // +++ Has
 extern_c int
-ReactionSuiteSumsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteSumsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstSums
-ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Sums
-ReactionSuiteSumsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteSumsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteSumsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstSums sums);
+ReactionSuiteSumsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstSums sums);
 
 
 // -----------------------------------------------------------------------------
@@ -433,19 +433,19 @@ ReactionSuiteSumsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstSums sums)
 
 // +++ Has
 extern_c int
-ReactionSuiteFissionComponentsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteFissionComponentsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstFissionComponents
-ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2FissionComponents
-ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstFissionComponents fissionComponents);
+ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstFissionComponents fissionComponents);
 
 
 // -----------------------------------------------------------------------------
@@ -454,19 +454,19 @@ ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite This, ConstHandle2Co
 
 // +++ Has
 extern_c int
-ReactionSuiteProductionsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProductionsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstProductions
-ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2Productions
-ReactionSuiteProductionsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteProductionsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteProductionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstProductions productions);
+ReactionSuiteProductionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstProductions productions);
 
 
 // -----------------------------------------------------------------------------
@@ -475,19 +475,19 @@ ReactionSuiteProductionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPro
 
 // +++ Has
 extern_c int
-ReactionSuiteIncompleteReactionsHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteIncompleteReactionsHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstIncompleteReactions
-ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2IncompleteReactions
-ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite This);
+ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstIncompleteReactions incompleteReactions);
+ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstIncompleteReactions incompleteReactions);
 
 
 // -----------------------------------------------------------------------------
@@ -496,19 +496,19 @@ ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2
 
 // +++ Has
 extern_c int
-ReactionSuiteApplicationDataHas(ConstHandle2ConstReactionSuite This);
+ReactionSuiteApplicationDataHas(ConstHandle2ConstReactionSuite self);
 
 // --- Get, const
 extern_c Handle2ConstApplicationData
-ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite This);
+ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite self);
 
 // +++ Get, non-const
 extern_c Handle2ApplicationData
-ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite This);
+ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite self);
 
 // +++ Set
 extern_c void
-ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite This, ConstHandle2ConstApplicationData applicationData);
+ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite self, ConstHandle2ConstApplicationData applicationData);
 
 
 // -----------------------------------------------------------------------------

@@ -75,20 +75,20 @@ RealAnomalousFactorCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RealAnomalousFactorAssign(ConstHandle2RealAnomalousFactor This, ConstHandle2ConstRealAnomalousFactor from)
+RealAnomalousFactorAssign(ConstHandle2RealAnomalousFactor self, ConstHandle2ConstRealAnomalousFactor from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ RealAnomalousFactorDelete(ConstHandle2ConstRealAnomalousFactor This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RealAnomalousFactorRead(ConstHandle2RealAnomalousFactor This, const char *const filename)
+RealAnomalousFactorRead(ConstHandle2RealAnomalousFactor self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RealAnomalousFactorWrite(ConstHandle2ConstRealAnomalousFactor This, const char *const filename)
+RealAnomalousFactorWrite(ConstHandle2ConstRealAnomalousFactor self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RealAnomalousFactorPrint(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorPrint(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RealAnomalousFactorPrintXML(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorPrintXML(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ RealAnomalousFactorPrintJSON(ConstHandle2ConstRealAnomalousFactor This)
 
 // Has
 int
-RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor This)
+RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-RealAnomalousFactorXYs1dSet(ConstHandle2RealAnomalousFactor This, ConstHandle2ConstXYs1d XYs1d)
+RealAnomalousFactorXYs1dSet(ConstHandle2RealAnomalousFactor self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ RealAnomalousFactorXYs1dSet(ConstHandle2RealAnomalousFactor This, ConstHandle2Co
 
 // Has
 int
-RealAnomalousFactorRegions1dHas(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorRegions1dHas(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-RealAnomalousFactorRegions1dGetConst(ConstHandle2ConstRealAnomalousFactor This)
+RealAnomalousFactorRegions1dGetConst(ConstHandle2ConstRealAnomalousFactor self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-RealAnomalousFactorRegions1dGet(ConstHandle2RealAnomalousFactor This)
+RealAnomalousFactorRegions1dGet(ConstHandle2RealAnomalousFactor self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-RealAnomalousFactorRegions1dSet(ConstHandle2RealAnomalousFactor This, ConstHandle2ConstRegions1d regions1d)
+RealAnomalousFactorRegions1dSet(ConstHandle2RealAnomalousFactor self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

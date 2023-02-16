@@ -97,13 +97,13 @@ Regions1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Regions1dAssign(ConstHandle2Regions1d This, ConstHandle2ConstRegions1d from);
+Regions1dAssign(ConstHandle2Regions1d self, ConstHandle2ConstRegions1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Regions1dDelete(ConstHandle2ConstRegions1d This);
+Regions1dDelete(ConstHandle2ConstRegions1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ Regions1dDelete(ConstHandle2ConstRegions1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Regions1dRead(ConstHandle2Regions1d This, const char *const filename);
+Regions1dRead(ConstHandle2Regions1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Regions1dWrite(ConstHandle2ConstRegions1d This, const char *const filename);
+Regions1dWrite(ConstHandle2ConstRegions1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Regions1dPrint(ConstHandle2ConstRegions1d This);
+Regions1dPrint(ConstHandle2ConstRegions1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Regions1dPrintXML(ConstHandle2ConstRegions1d This);
+Regions1dPrintXML(ConstHandle2ConstRegions1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Regions1dPrintJSON(ConstHandle2ConstRegions1d This);
+Regions1dPrintJSON(ConstHandle2ConstRegions1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ Regions1dPrintJSON(ConstHandle2ConstRegions1d This);
 
 // +++ Has
 extern_c int
-Regions1dLabelHas(ConstHandle2ConstRegions1d This);
+Regions1dLabelHas(ConstHandle2ConstRegions1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-Regions1dLabelGet(ConstHandle2ConstRegions1d This);
+Regions1dLabelGet(ConstHandle2ConstRegions1d self);
 
 // +++ Set
 extern_c void
-Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label);
+Regions1dLabelSet(ConstHandle2Regions1d self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ Regions1dLabelSet(ConstHandle2Regions1d This, const char *const label);
 
 // +++ Has
 extern_c int
-Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d This);
+Regions1dOuterDomainValueHas(ConstHandle2ConstRegions1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c double
-Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d This);
+Regions1dOuterDomainValueGet(ConstHandle2ConstRegions1d self);
 
 // +++ Set
 extern_c void
-Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomainValue);
+Regions1dOuterDomainValueSet(ConstHandle2Regions1d self, const double outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ Regions1dOuterDomainValueSet(ConstHandle2Regions1d This, const double outerDomai
 
 // +++ Has
 extern_c int
-Regions1dAxesHas(ConstHandle2ConstRegions1d This);
+Regions1dAxesHas(ConstHandle2ConstRegions1d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Regions1dAxesGetConst(ConstHandle2ConstRegions1d This);
+Regions1dAxesGetConst(ConstHandle2ConstRegions1d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Regions1dAxesGet(ConstHandle2Regions1d This);
+Regions1dAxesGet(ConstHandle2Regions1d self);
 
 // +++ Set
 extern_c void
-Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes);
+Regions1dAxesSet(ConstHandle2Regions1d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -200,32 +200,32 @@ Regions1dAxesSet(ConstHandle2Regions1d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-Regions1dXYs1dHas(ConstHandle2ConstRegions1d This);
+Regions1dXYs1dHas(ConstHandle2ConstRegions1d self);
 
 // +++ Clear
 extern_c void
-Regions1dXYs1dClear(ConstHandle2Regions1d This);
+Regions1dXYs1dClear(ConstHandle2Regions1d self);
 
 // +++ Size
 extern_c size_t
-Regions1dXYs1dSize(ConstHandle2ConstRegions1d This);
+Regions1dXYs1dSize(ConstHandle2ConstRegions1d self);
 
 // +++ Add
 extern_c void
-Regions1dXYs1dAdd(ConstHandle2Regions1d This, ConstHandle2ConstXYs1d XYs1d);
+Regions1dXYs1dAdd(ConstHandle2Regions1d self, ConstHandle2ConstXYs1d XYs1d);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstXYs1d
-Regions1dXYs1dGetConst(ConstHandle2ConstRegions1d This, const size_t index_);
+Regions1dXYs1dGetConst(ConstHandle2ConstRegions1d self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2XYs1d
-Regions1dXYs1dGet(ConstHandle2Regions1d This, const size_t index_);
+Regions1dXYs1dGet(ConstHandle2Regions1d self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 Regions1dXYs1dSet(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const size_t index_,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -233,28 +233,28 @@ Regions1dXYs1dSet(
 // +++ Has, by index
 extern_c int
 Regions1dXYs1dHasByIndex(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const int index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstXYs1d
 Regions1dXYs1dGetByIndexConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const int index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2XYs1d
 Regions1dXYs1dGetByIndex(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const int index
 );
 
 // +++ Set, by index
 extern_c void
 Regions1dXYs1dSetByIndex(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const int index,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -262,28 +262,28 @@ Regions1dXYs1dSetByIndex(
 // +++ Has, by interpolation
 extern_c int
 Regions1dXYs1dHasByInterpolation(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const enums::Interpolation interpolation
 );
 
 // --- Get, by interpolation, const
 extern_c Handle2ConstXYs1d
 Regions1dXYs1dGetByInterpolationConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const enums::Interpolation interpolation
 );
 
 // +++ Get, by interpolation, non-const
 extern_c Handle2XYs1d
 Regions1dXYs1dGetByInterpolation(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const enums::Interpolation interpolation
 );
 
 // +++ Set, by interpolation
 extern_c void
 Regions1dXYs1dSetByInterpolation(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const enums::Interpolation interpolation,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -291,28 +291,28 @@ Regions1dXYs1dSetByInterpolation(
 // +++ Has, by label
 extern_c int
 Regions1dXYs1dHasByLabel(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const char *const label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstXYs1d
 Regions1dXYs1dGetByLabelConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const char *const label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2XYs1d
 Regions1dXYs1dGetByLabel(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const char *const label
 );
 
 // +++ Set, by label
 extern_c void
 Regions1dXYs1dSetByLabel(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const char *const label,
    ConstHandle2ConstXYs1d XYs1d
 );
@@ -320,28 +320,28 @@ Regions1dXYs1dSetByLabel(
 // +++ Has, by outerDomainValue
 extern_c int
 Regions1dXYs1dHasByOuterDomainValue(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const double outerDomainValue
 );
 
 // --- Get, by outerDomainValue, const
 extern_c Handle2ConstXYs1d
 Regions1dXYs1dGetByOuterDomainValueConst(
-   ConstHandle2ConstRegions1d This,
+   ConstHandle2ConstRegions1d self,
    const double outerDomainValue
 );
 
 // +++ Get, by outerDomainValue, non-const
 extern_c Handle2XYs1d
 Regions1dXYs1dGetByOuterDomainValue(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const double outerDomainValue
 );
 
 // +++ Set, by outerDomainValue
 extern_c void
 Regions1dXYs1dSetByOuterDomainValue(
-   ConstHandle2Regions1d This,
+   ConstHandle2Regions1d self,
    const double outerDomainValue,
    ConstHandle2ConstXYs1d XYs1d
 );

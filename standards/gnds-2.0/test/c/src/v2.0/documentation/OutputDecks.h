@@ -90,13 +90,13 @@ OutputDecksCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-OutputDecksAssign(ConstHandle2OutputDecks This, ConstHandle2ConstOutputDecks from);
+OutputDecksAssign(ConstHandle2OutputDecks self, ConstHandle2ConstOutputDecks from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-OutputDecksDelete(ConstHandle2ConstOutputDecks This);
+OutputDecksDelete(ConstHandle2ConstOutputDecks self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ OutputDecksDelete(ConstHandle2ConstOutputDecks This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-OutputDecksRead(ConstHandle2OutputDecks This, const char *const filename);
+OutputDecksRead(ConstHandle2OutputDecks self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-OutputDecksWrite(ConstHandle2ConstOutputDecks This, const char *const filename);
+OutputDecksWrite(ConstHandle2ConstOutputDecks self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-OutputDecksPrint(ConstHandle2ConstOutputDecks This);
+OutputDecksPrint(ConstHandle2ConstOutputDecks self);
 
 // +++ Print to standard output, as XML
 extern_c int
-OutputDecksPrintXML(ConstHandle2ConstOutputDecks This);
+OutputDecksPrintXML(ConstHandle2ConstOutputDecks self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-OutputDecksPrintJSON(ConstHandle2ConstOutputDecks This);
+OutputDecksPrintJSON(ConstHandle2ConstOutputDecks self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ OutputDecksPrintJSON(ConstHandle2ConstOutputDecks This);
 
 // +++ Has
 extern_c int
-OutputDecksOutputDeckHas(ConstHandle2ConstOutputDecks This);
+OutputDecksOutputDeckHas(ConstHandle2ConstOutputDecks self);
 
 // +++ Clear
 extern_c void
-OutputDecksOutputDeckClear(ConstHandle2OutputDecks This);
+OutputDecksOutputDeckClear(ConstHandle2OutputDecks self);
 
 // +++ Size
 extern_c size_t
-OutputDecksOutputDeckSize(ConstHandle2ConstOutputDecks This);
+OutputDecksOutputDeckSize(ConstHandle2ConstOutputDecks self);
 
 // +++ Add
 extern_c void
-OutputDecksOutputDeckAdd(ConstHandle2OutputDecks This, ConstHandle2ConstOutputDeck outputDeck);
+OutputDecksOutputDeckAdd(ConstHandle2OutputDecks self, ConstHandle2ConstOutputDeck outputDeck);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstOutputDeck
-OutputDecksOutputDeckGetConst(ConstHandle2ConstOutputDecks This, const size_t index_);
+OutputDecksOutputDeckGetConst(ConstHandle2ConstOutputDecks self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2OutputDeck
-OutputDecksOutputDeckGet(ConstHandle2OutputDecks This, const size_t index_);
+OutputDecksOutputDeckGet(ConstHandle2OutputDecks self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 OutputDecksOutputDeckSet(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const size_t index_,
    ConstHandle2ConstOutputDeck outputDeck
 );
@@ -169,28 +169,28 @@ OutputDecksOutputDeckSet(
 // +++ Has, by encoding
 extern_c int
 OutputDecksOutputDeckHasByEncoding(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName encoding
 );
 
 // --- Get, by encoding, const
 extern_c Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByEncodingConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName encoding
 );
 
 // +++ Get, by encoding, non-const
 extern_c Handle2OutputDeck
 OutputDecksOutputDeckGetByEncoding(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName encoding
 );
 
 // +++ Set, by encoding
 extern_c void
 OutputDecksOutputDeckSetByEncoding(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName encoding,
    ConstHandle2ConstOutputDeck outputDeck
 );
@@ -198,28 +198,28 @@ OutputDecksOutputDeckSetByEncoding(
 // +++ Has, by markup
 extern_c int
 OutputDecksOutputDeckHasByMarkup(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const char *const markup
 );
 
 // --- Get, by markup, const
 extern_c Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByMarkupConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const char *const markup
 );
 
 // +++ Get, by markup, non-const
 extern_c Handle2OutputDeck
 OutputDecksOutputDeckGetByMarkup(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const char *const markup
 );
 
 // +++ Set, by markup
 extern_c void
 OutputDecksOutputDeckSetByMarkup(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const char *const markup,
    ConstHandle2ConstOutputDeck outputDeck
 );
@@ -227,28 +227,28 @@ OutputDecksOutputDeckSetByMarkup(
 // +++ Has, by label
 extern_c int
 OutputDecksOutputDeckHasByLabel(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByLabelConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2OutputDeck
 OutputDecksOutputDeckGetByLabel(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 OutputDecksOutputDeckSetByLabel(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName label,
    ConstHandle2ConstOutputDeck outputDeck
 );
@@ -256,28 +256,28 @@ OutputDecksOutputDeckSetByLabel(
 // +++ Has, by filename
 extern_c int
 OutputDecksOutputDeckHasByFilename(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName filename
 );
 
 // --- Get, by filename, const
 extern_c Handle2ConstOutputDeck
 OutputDecksOutputDeckGetByFilenameConst(
-   ConstHandle2ConstOutputDecks This,
+   ConstHandle2ConstOutputDecks self,
    const XMLName filename
 );
 
 // +++ Get, by filename, non-const
 extern_c Handle2OutputDeck
 OutputDecksOutputDeckGetByFilename(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName filename
 );
 
 // +++ Set, by filename
 extern_c void
 OutputDecksOutputDeckSetByFilename(
-   ConstHandle2OutputDecks This,
+   ConstHandle2OutputDecks self,
    const XMLName filename,
    ConstHandle2ConstOutputDeck outputDeck
 );

@@ -84,20 +84,20 @@ ParameterCovarianceCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ParameterCovarianceAssign(ConstHandle2ParameterCovariance This, ConstHandle2ConstParameterCovariance from)
+ParameterCovarianceAssign(ConstHandle2ParameterCovariance self, ConstHandle2ConstParameterCovariance from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ParameterCovarianceDelete(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceDelete(ConstHandle2ConstParameterCovariance self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ ParameterCovarianceDelete(ConstHandle2ConstParameterCovariance This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ParameterCovarianceRead(ConstHandle2ParameterCovariance This, const char *const filename)
+ParameterCovarianceRead(ConstHandle2ParameterCovariance self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ParameterCovarianceWrite(ConstHandle2ConstParameterCovariance This, const char *const filename)
+ParameterCovarianceWrite(ConstHandle2ConstParameterCovariance self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ParameterCovariancePrint(ConstHandle2ConstParameterCovariance This)
+ParameterCovariancePrint(ConstHandle2ConstParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ParameterCovariancePrintXML(ConstHandle2ConstParameterCovariance This)
+ParameterCovariancePrintXML(ConstHandle2ConstParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ParameterCovariancePrintJSON(ConstHandle2ConstParameterCovariance This)
+ParameterCovariancePrintJSON(ConstHandle2ConstParameterCovariance self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ ParameterCovariancePrintJSON(ConstHandle2ConstParameterCovariance This)
 
 // Has
 int
-ParameterCovarianceLabelHas(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceLabelHas(ConstHandle2ConstParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ParameterCovarianceLabelGet(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceLabelGet(ConstHandle2ConstParameterCovariance self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ParameterCovarianceLabelSet(ConstHandle2ParameterCovariance This, const XMLName label)
+ParameterCovarianceLabelSet(ConstHandle2ParameterCovariance self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -188,34 +188,34 @@ ParameterCovarianceLabelSet(ConstHandle2ParameterCovariance This, const XMLName 
 
 // Has
 int
-ParameterCovarianceRowDataHas(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceRowDataHas(ConstHandle2ConstParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RowDataHas", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataHas", self, extract::rowData);
 }
 
 // Get, const
 Handle2ConstRowData
-ParameterCovarianceRowDataGetConst(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceRowDataGetConst(ConstHandle2ConstParameterCovariance self)
 {
    return detail::getField<CPP,Handle2ConstRowData>
-      (CLASSNAME, CLASSNAME+"RowDataGetConst", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataGetConst", self, extract::rowData);
 }
 
 // Get, non-const
 Handle2RowData
-ParameterCovarianceRowDataGet(ConstHandle2ParameterCovariance This)
+ParameterCovarianceRowDataGet(ConstHandle2ParameterCovariance self)
 {
    return detail::getField<CPP,Handle2RowData>
-      (CLASSNAME, CLASSNAME+"RowDataGet", This, extract::rowData);
+      (CLASSNAME, CLASSNAME+"RowDataGet", self, extract::rowData);
 }
 
 // Set
 void
-ParameterCovarianceRowDataSet(ConstHandle2ParameterCovariance This, ConstHandle2ConstRowData rowData)
+ParameterCovarianceRowDataSet(ConstHandle2ParameterCovariance self, ConstHandle2ConstRowData rowData)
 {
    detail::setField<CPP,CPPRowData>
-      (CLASSNAME, CLASSNAME+"RowDataSet", This, extract::rowData, rowData);
+      (CLASSNAME, CLASSNAME+"RowDataSet", self, extract::rowData, rowData);
 }
 
 
@@ -225,151 +225,151 @@ ParameterCovarianceRowDataSet(ConstHandle2ParameterCovariance This, ConstHandle2
 
 // Has
 int
-ParameterCovarianceParameterCovarianceMatrixHas(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceParameterCovarianceMatrixHas(ConstHandle2ConstParameterCovariance self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixHas", This, extract::parameterCovarianceMatrix);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixHas", self, extract::parameterCovarianceMatrix);
 }
 
 // Clear
 void
-ParameterCovarianceParameterCovarianceMatrixClear(ConstHandle2ParameterCovariance This)
+ParameterCovarianceParameterCovarianceMatrixClear(ConstHandle2ParameterCovariance self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixClear", This, extract::parameterCovarianceMatrix);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixClear", self, extract::parameterCovarianceMatrix);
 }
 
 // Size
 size_t
-ParameterCovarianceParameterCovarianceMatrixSize(ConstHandle2ConstParameterCovariance This)
+ParameterCovarianceParameterCovarianceMatrixSize(ConstHandle2ConstParameterCovariance self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSize", This, extract::parameterCovarianceMatrix);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSize", self, extract::parameterCovarianceMatrix);
 }
 
 // Add
 void
-ParameterCovarianceParameterCovarianceMatrixAdd(ConstHandle2ParameterCovariance This, ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix)
+ParameterCovarianceParameterCovarianceMatrixAdd(ConstHandle2ParameterCovariance self, ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix)
 {
    detail::addToContainer<CPP,CPPParameterCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixAdd", This, extract::parameterCovarianceMatrix, parameterCovarianceMatrix);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixAdd", self, extract::parameterCovarianceMatrix, parameterCovarianceMatrix);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstParameterCovarianceMatrix
-ParameterCovarianceParameterCovarianceMatrixGetConst(ConstHandle2ConstParameterCovariance This, const size_t index_)
+ParameterCovarianceParameterCovarianceMatrixGetConst(ConstHandle2ConstParameterCovariance self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstParameterCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetConst", This, extract::parameterCovarianceMatrix, index_);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetConst", self, extract::parameterCovarianceMatrix, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2ParameterCovarianceMatrix
-ParameterCovarianceParameterCovarianceMatrixGet(ConstHandle2ParameterCovariance This, const size_t index_)
+ParameterCovarianceParameterCovarianceMatrixGet(ConstHandle2ParameterCovariance self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ParameterCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGet", This, extract::parameterCovarianceMatrix, index_);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGet", self, extract::parameterCovarianceMatrix, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ParameterCovarianceParameterCovarianceMatrixSet(
-   ConstHandle2ParameterCovariance This,
+   ConstHandle2ParameterCovariance self,
    const size_t index_,
    ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix
 ) {
    detail::setByIndex<CPP,CPPParameterCovarianceMatrix>
-      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSet", This, extract::parameterCovarianceMatrix, index_, parameterCovarianceMatrix);
+      (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSet", self, extract::parameterCovarianceMatrix, index_, parameterCovarianceMatrix);
 }
 
 // Has, by label
 int
 ParameterCovarianceParameterCovarianceMatrixHasByLabel(
-   ConstHandle2ConstParameterCovariance This,
+   ConstHandle2ConstParameterCovariance self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixHasByLabel",
-       This, extract::parameterCovarianceMatrix, meta::label, label);
+       self, extract::parameterCovarianceMatrix, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetByLabelConst(
-   ConstHandle2ConstParameterCovariance This,
+   ConstHandle2ConstParameterCovariance self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetByLabelConst",
-       This, extract::parameterCovarianceMatrix, meta::label, label);
+       self, extract::parameterCovarianceMatrix, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2ParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetByLabel(
-   ConstHandle2ParameterCovariance This,
+   ConstHandle2ParameterCovariance self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetByLabel",
-       This, extract::parameterCovarianceMatrix, meta::label, label);
+       self, extract::parameterCovarianceMatrix, meta::label, label);
 }
 
 // Set, by label
 void
 ParameterCovarianceParameterCovarianceMatrixSetByLabel(
-   ConstHandle2ParameterCovariance This,
+   ConstHandle2ParameterCovariance self,
    const XMLName label,
    ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix
 ) {
    detail::setByMetadatum<CPP,CPPParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSetByLabel",
-       This, extract::parameterCovarianceMatrix, meta::label, label, parameterCovarianceMatrix);
+       self, extract::parameterCovarianceMatrix, meta::label, label, parameterCovarianceMatrix);
 }
 
 // Has, by type
 int
 ParameterCovarianceParameterCovarianceMatrixHasByType(
-   ConstHandle2ConstParameterCovariance This,
+   ConstHandle2ConstParameterCovariance self,
    const XMLName type
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixHasByType",
-       This, extract::parameterCovarianceMatrix, meta::type, type);
+       self, extract::parameterCovarianceMatrix, meta::type, type);
 }
 
 // Get, by type, const
 Handle2ConstParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetByTypeConst(
-   ConstHandle2ConstParameterCovariance This,
+   ConstHandle2ConstParameterCovariance self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetByTypeConst",
-       This, extract::parameterCovarianceMatrix, meta::type, type);
+       self, extract::parameterCovarianceMatrix, meta::type, type);
 }
 
 // Get, by type, non-const
 Handle2ParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetByType(
-   ConstHandle2ParameterCovariance This,
+   ConstHandle2ParameterCovariance self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2ParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixGetByType",
-       This, extract::parameterCovarianceMatrix, meta::type, type);
+       self, extract::parameterCovarianceMatrix, meta::type, type);
 }
 
 // Set, by type
 void
 ParameterCovarianceParameterCovarianceMatrixSetByType(
-   ConstHandle2ParameterCovariance This,
+   ConstHandle2ParameterCovariance self,
    const XMLName type,
    ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix
 ) {
    detail::setByMetadatum<CPP,CPPParameterCovarianceMatrix>
       (CLASSNAME, CLASSNAME+"ParameterCovarianceMatrixSetByType",
-       This, extract::parameterCovarianceMatrix, meta::type, type, parameterCovarianceMatrix);
+       self, extract::parameterCovarianceMatrix, meta::type, type, parameterCovarianceMatrix);
 }
 
 

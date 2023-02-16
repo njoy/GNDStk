@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// Bondarenko wrapper
-void wrapBondarenko(python::module &module)
+// wrapper for styles::Bondarenko
+void wrapBondarenko(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::Bondarenko;
+   using cppCLASS = styles::Bondarenko;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Bondarenko",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Bondarenko",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const XMLName &,
-            const XMLName &,
-            const styles::SigmaZeros &,
-            const std::optional<documentation::Documentation> &
-         >(),
-         python::arg("date"),
-         python::arg("derived_from"),
-         python::arg("label"),
-         python::arg("sigma_zeros"),
-         python::arg("documentation") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self) { return self.date(); },
-         Component::documentation("date").data()
-      )
-      .def_property_readonly(
-         "derived_from",
-         [](const Component &self) { return self.derivedFrom(); },
-         Component::documentation("derived_from").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "sigma_zeros",
-         [](const Component &self) { return self.sigmaZeros(); },
-         Component::documentation("sigma_zeros").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const XMLName &,
+         const XMLName &,
+         const styles::SigmaZeros &,
+         const std::optional<documentation::Documentation> &
+      >(),
+      py::arg("date"),
+      py::arg("derived_from"),
+      py::arg("label"),
+      py::arg("sigma_zeros"),
+      py::arg("documentation") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // get/set derivedFrom
+   object.def_property(
+      "derived_from",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.derivedFrom();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.derivedFrom() = value;
+      },
+      cppCLASS::component_t::documentation("derived_from").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set sigmaZeros
+   object.def_property(
+      "sigma_zeros",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.sigmaZeros();
+      },
+      [](cppCLASS &self, const styles::SigmaZeros &value)
+      {
+         self.sigmaZeros() = value;
+      },
+      cppCLASS::component_t::documentation("sigma_zeros").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Documentation> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

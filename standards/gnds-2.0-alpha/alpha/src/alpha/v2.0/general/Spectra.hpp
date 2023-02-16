@@ -25,12 +25,12 @@ class Spectra :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "Spectra"; }
-   static auto FIELD() { return "spectra"; }
+   static auto NODENAME() { return "spectra"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

@@ -95,13 +95,13 @@ CodeRepoCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CodeRepoAssign(ConstHandle2CodeRepo This, ConstHandle2ConstCodeRepo from);
+CodeRepoAssign(ConstHandle2CodeRepo self, ConstHandle2ConstCodeRepo from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CodeRepoDelete(ConstHandle2ConstCodeRepo This);
+CodeRepoDelete(ConstHandle2ConstCodeRepo self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ CodeRepoDelete(ConstHandle2ConstCodeRepo This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CodeRepoRead(ConstHandle2CodeRepo This, const char *const filename);
+CodeRepoRead(ConstHandle2CodeRepo self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CodeRepoWrite(ConstHandle2ConstCodeRepo This, const char *const filename);
+CodeRepoWrite(ConstHandle2ConstCodeRepo self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CodeRepoPrint(ConstHandle2ConstCodeRepo This);
+CodeRepoPrint(ConstHandle2ConstCodeRepo self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CodeRepoPrintXML(ConstHandle2ConstCodeRepo This);
+CodeRepoPrintXML(ConstHandle2ConstCodeRepo self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CodeRepoPrintJSON(ConstHandle2ConstCodeRepo This);
+CodeRepoPrintJSON(ConstHandle2ConstCodeRepo self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ CodeRepoPrintJSON(ConstHandle2ConstCodeRepo This);
 
 // +++ Has
 extern_c int
-CodeRepoLabelHas(ConstHandle2ConstCodeRepo This);
+CodeRepoLabelHas(ConstHandle2ConstCodeRepo self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CodeRepoLabelGet(ConstHandle2ConstCodeRepo This);
+CodeRepoLabelGet(ConstHandle2ConstCodeRepo self);
 
 // +++ Set
 extern_c void
-CodeRepoLabelSet(ConstHandle2CodeRepo This, const XMLName label);
+CodeRepoLabelSet(ConstHandle2CodeRepo self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,16 +159,16 @@ CodeRepoLabelSet(ConstHandle2CodeRepo This, const XMLName label);
 
 // +++ Has
 extern_c int
-CodeRepoRevisionSystemHas(ConstHandle2ConstCodeRepo This);
+CodeRepoRevisionSystemHas(ConstHandle2ConstCodeRepo self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CodeRepoRevisionSystemGet(ConstHandle2ConstCodeRepo This);
+CodeRepoRevisionSystemGet(ConstHandle2ConstCodeRepo self);
 
 // +++ Set
 extern_c void
-CodeRepoRevisionSystemSet(ConstHandle2CodeRepo This, const XMLName revisionSystem);
+CodeRepoRevisionSystemSet(ConstHandle2CodeRepo self, const XMLName revisionSystem);
 
 
 // -----------------------------------------------------------------------------
@@ -177,16 +177,16 @@ CodeRepoRevisionSystemSet(ConstHandle2CodeRepo This, const XMLName revisionSyste
 
 // +++ Has
 extern_c int
-CodeRepoHrefHas(ConstHandle2ConstCodeRepo This);
+CodeRepoHrefHas(ConstHandle2ConstCodeRepo self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CodeRepoHrefGet(ConstHandle2ConstCodeRepo This);
+CodeRepoHrefGet(ConstHandle2ConstCodeRepo self);
 
 // +++ Set
 extern_c void
-CodeRepoHrefSet(ConstHandle2CodeRepo This, const XMLName href);
+CodeRepoHrefSet(ConstHandle2CodeRepo self, const XMLName href);
 
 
 // -----------------------------------------------------------------------------
@@ -195,16 +195,16 @@ CodeRepoHrefSet(ConstHandle2CodeRepo This, const XMLName href);
 
 // +++ Has
 extern_c int
-CodeRepoRevisionIDHas(ConstHandle2ConstCodeRepo This);
+CodeRepoRevisionIDHas(ConstHandle2ConstCodeRepo self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CodeRepoRevisionIDGet(ConstHandle2ConstCodeRepo This);
+CodeRepoRevisionIDGet(ConstHandle2ConstCodeRepo self);
 
 // +++ Set
 extern_c void
-CodeRepoRevisionIDSet(ConstHandle2CodeRepo This, const XMLName revisionID);
+CodeRepoRevisionIDSet(ConstHandle2CodeRepo self, const XMLName revisionID);
 
 
 // -----------------------------------------------------------------------------

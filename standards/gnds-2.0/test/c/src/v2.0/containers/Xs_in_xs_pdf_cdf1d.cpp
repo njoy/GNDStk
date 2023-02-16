@@ -69,20 +69,20 @@ Xs_in_xs_pdf_cdf1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Xs_in_xs_pdf_cdf1dAssign(ConstHandle2Xs_in_xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d from)
+Xs_in_xs_pdf_cdf1dAssign(ConstHandle2Xs_in_xs_pdf_cdf1d self, ConstHandle2ConstXs_in_xs_pdf_cdf1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Xs_in_xs_pdf_cdf1dDelete(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dDelete(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ Xs_in_xs_pdf_cdf1dDelete(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Xs_in_xs_pdf_cdf1dRead(ConstHandle2Xs_in_xs_pdf_cdf1d This, const char *const filename)
+Xs_in_xs_pdf_cdf1dRead(ConstHandle2Xs_in_xs_pdf_cdf1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Xs_in_xs_pdf_cdf1dWrite(ConstHandle2ConstXs_in_xs_pdf_cdf1d This, const char *const filename)
+Xs_in_xs_pdf_cdf1dWrite(ConstHandle2ConstXs_in_xs_pdf_cdf1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Xs_in_xs_pdf_cdf1dPrint(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dPrint(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Xs_in_xs_pdf_cdf1dPrintXML(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dPrintXML(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Xs_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ Xs_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
 
 // Has
 int
-Xs_in_xs_pdf_cdf1dValuesHas(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dValuesHas(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-Xs_in_xs_pdf_cdf1dValuesGetConst(ConstHandle2ConstXs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dValuesGetConst(ConstHandle2ConstXs_in_xs_pdf_cdf1d self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-Xs_in_xs_pdf_cdf1dValuesGet(ConstHandle2Xs_in_xs_pdf_cdf1d This)
+Xs_in_xs_pdf_cdf1dValuesGet(ConstHandle2Xs_in_xs_pdf_cdf1d self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-Xs_in_xs_pdf_cdf1dValuesSet(ConstHandle2Xs_in_xs_pdf_cdf1d This, ConstHandle2ConstValues values)
+Xs_in_xs_pdf_cdf1dValuesSet(ConstHandle2Xs_in_xs_pdf_cdf1d self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

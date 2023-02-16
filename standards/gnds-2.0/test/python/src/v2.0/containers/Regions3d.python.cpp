@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Regions3d wrapper
-void wrapRegions3d(python::module &module)
+// wrapper for containers::Regions3d
+void wrapRegions3d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Regions3d;
+   using cppCLASS = containers::Regions3d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Regions3d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Regions3d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &,
-            const std::optional<containers::Axes> &,
-            const containers::Function3ds &,
-            const std::optional<containers::Uncertainty> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("function3ds"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
-         Component::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "function3ds",
-         [](const Component &self) { return self.function3ds(); },
-         Component::documentation("function3ds").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<Float64> &,
+         const std::optional<containers::Axes> &,
+         const containers::Function3ds &,
+         const std::optional<containers::Uncertainty> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("function3ds"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<containers::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set function3ds
+   object.def_property(
+      "function3ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function3ds();
+      },
+      [](cppCLASS &self, const containers::Function3ds &value)
+      {
+         self.function3ds() = value;
+      },
+      cppCLASS::component_t::documentation("function3ds").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<containers::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

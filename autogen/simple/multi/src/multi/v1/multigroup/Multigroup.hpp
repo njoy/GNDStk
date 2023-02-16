@@ -25,12 +25,12 @@ class Multigroup :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Multigroup"; }
-   static auto FIELD() { return "multigroup"; }
+   static auto NODENAME() { return "multigroup"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,30 +42,69 @@ class Multigroup :
             / Meta<>("projectile") |
 
          // children
-         ++Child<multigroup::Library>("library")
+         ++Child<multigroup::Library>
+            ("library")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "library"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "library"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> projectile{this};
+   Field<std::string>
+      projectile{this};
 
    // children
-   Field<std::vector<multigroup::Library>> library{this};
+   Field<std::vector<multigroup::Library>>
+      library{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->projectile, \
-      this->library)
+      this->library \
+   )
 
    // default
    Multigroup() :
@@ -76,8 +115,10 @@ public:
 
    // from fields, comment excluded
    explicit Multigroup(
-      const wrapper<std::string> &projectile,
-      const wrapper<std::vector<multigroup::Library>> &library = {}
+      const wrapper<std::string>
+         &projectile,
+      const wrapper<std::vector<multigroup::Library>>
+         &library = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
@@ -117,8 +158,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Multigroup &operator=(const Multigroup &) = default;
-   Multigroup &operator=(Multigroup &&) = default;
+   // copy
+   Multigroup &operator=(const Multigroup &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         projectile = other.projectile;
+         library = other.library;
+      }
+      return *this;
+   }
+
+   // move
+   Multigroup &operator=(Multigroup &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         projectile = std::move(other.projectile);
+         library = std::move(other.library);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

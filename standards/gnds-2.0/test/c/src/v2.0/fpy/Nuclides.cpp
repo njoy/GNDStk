@@ -67,20 +67,20 @@ NuclidesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from)
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclidesDelete(ConstHandle2ConstNuclides This)
+NuclidesDelete(ConstHandle2ConstNuclides self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ NuclidesDelete(ConstHandle2ConstNuclides This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename)
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename)
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclidesPrint(ConstHandle2ConstNuclides This)
+NuclidesPrint(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclidesPrintXML(ConstHandle2ConstNuclides This)
+NuclidesPrintXML(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This)
+NuclidesPrintJSON(ConstHandle2ConstNuclides self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -145,60 +145,60 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This)
 
 // Clear
 void
-NuclidesIntsClear(ConstHandle2Nuclides This)
+NuclidesIntsClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-NuclidesIntsSize(ConstHandle2ConstNuclides This)
+NuclidesIntsSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-NuclidesIntsGet(ConstHandle2ConstNuclides This, const size_t index)
+NuclidesIntsGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesIntsSet(ConstHandle2Nuclides This, const size_t index, const int value)
+NuclidesIntsSet(ConstHandle2Nuclides self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-NuclidesIntsGetArrayConst(ConstHandle2ConstNuclides This)
+NuclidesIntsGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-NuclidesIntsGetArray(ConstHandle2Nuclides This)
+NuclidesIntsGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesIntsSetArray(ConstHandle2Nuclides This, const int *const values, const size_t size)
+NuclidesIntsSetArray(ConstHandle2Nuclides self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -207,60 +207,60 @@ NuclidesIntsSetArray(ConstHandle2Nuclides This, const int *const values, const s
 
 // Clear
 void
-NuclidesUnsignedsClear(ConstHandle2Nuclides This)
+NuclidesUnsignedsClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-NuclidesUnsignedsSize(ConstHandle2ConstNuclides This)
+NuclidesUnsignedsSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-NuclidesUnsignedsGet(ConstHandle2ConstNuclides This, const size_t index)
+NuclidesUnsignedsGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesUnsignedsSet(ConstHandle2Nuclides This, const size_t index, const unsigned value)
+NuclidesUnsignedsSet(ConstHandle2Nuclides self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-NuclidesUnsignedsGetArrayConst(ConstHandle2ConstNuclides This)
+NuclidesUnsignedsGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-NuclidesUnsignedsGetArray(ConstHandle2Nuclides This)
+NuclidesUnsignedsGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesUnsignedsSetArray(ConstHandle2Nuclides This, const unsigned *const values, const size_t size)
+NuclidesUnsignedsSetArray(ConstHandle2Nuclides self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -269,60 +269,60 @@ NuclidesUnsignedsSetArray(ConstHandle2Nuclides This, const unsigned *const value
 
 // Clear
 void
-NuclidesFloatsClear(ConstHandle2Nuclides This)
+NuclidesFloatsClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-NuclidesFloatsSize(ConstHandle2ConstNuclides This)
+NuclidesFloatsSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-NuclidesFloatsGet(ConstHandle2ConstNuclides This, const size_t index)
+NuclidesFloatsGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesFloatsSet(ConstHandle2Nuclides This, const size_t index, const float value)
+NuclidesFloatsSet(ConstHandle2Nuclides self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-NuclidesFloatsGetArrayConst(ConstHandle2ConstNuclides This)
+NuclidesFloatsGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-NuclidesFloatsGetArray(ConstHandle2Nuclides This)
+NuclidesFloatsGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesFloatsSetArray(ConstHandle2Nuclides This, const float *const values, const size_t size)
+NuclidesFloatsSetArray(ConstHandle2Nuclides self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -331,60 +331,60 @@ NuclidesFloatsSetArray(ConstHandle2Nuclides This, const float *const values, con
 
 // Clear
 void
-NuclidesDoublesClear(ConstHandle2Nuclides This)
+NuclidesDoublesClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-NuclidesDoublesSize(ConstHandle2ConstNuclides This)
+NuclidesDoublesSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-NuclidesDoublesGet(ConstHandle2ConstNuclides This, const size_t index)
+NuclidesDoublesGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesDoublesSet(ConstHandle2Nuclides This, const size_t index, const double value)
+NuclidesDoublesSet(ConstHandle2Nuclides self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-NuclidesDoublesGetArrayConst(ConstHandle2ConstNuclides This)
+NuclidesDoublesGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-NuclidesDoublesGetArray(ConstHandle2Nuclides This)
+NuclidesDoublesGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesDoublesSetArray(ConstHandle2Nuclides This, const double *const values, const size_t size)
+NuclidesDoublesSetArray(ConstHandle2Nuclides self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -394,27 +394,27 @@ NuclidesDoublesSetArray(ConstHandle2Nuclides This, const double *const values, c
 
 // Has
 int
-NuclidesHrefHas(ConstHandle2ConstNuclides This)
+NuclidesHrefHas(ConstHandle2ConstNuclides self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-NuclidesHrefGet(ConstHandle2ConstNuclides This)
+NuclidesHrefGet(ConstHandle2ConstNuclides self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-NuclidesHrefSet(ConstHandle2Nuclides This, const char *const href)
+NuclidesHrefSet(ConstHandle2Nuclides self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

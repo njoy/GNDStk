@@ -90,13 +90,13 @@ HardSphereRadiusCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-HardSphereRadiusAssign(ConstHandle2HardSphereRadius This, ConstHandle2ConstHardSphereRadius from);
+HardSphereRadiusAssign(ConstHandle2HardSphereRadius self, ConstHandle2ConstHardSphereRadius from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ HardSphereRadiusDelete(ConstHandle2ConstHardSphereRadius This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-HardSphereRadiusRead(ConstHandle2HardSphereRadius This, const char *const filename);
+HardSphereRadiusRead(ConstHandle2HardSphereRadius self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-HardSphereRadiusWrite(ConstHandle2ConstHardSphereRadius This, const char *const filename);
+HardSphereRadiusWrite(ConstHandle2ConstHardSphereRadius self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-HardSphereRadiusPrint(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusPrint(ConstHandle2ConstHardSphereRadius self);
 
 // +++ Print to standard output, as XML
 extern_c int
-HardSphereRadiusPrintXML(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusPrintXML(ConstHandle2ConstHardSphereRadius self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ HardSphereRadiusPrintJSON(ConstHandle2ConstHardSphereRadius This);
 
 // +++ Has
 extern_c int
-HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius self);
 
 // --- Get, const
 extern_c Handle2ConstConstant1d
-HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius This);
+HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self);
 
 // +++ Get, non-const
 extern_c Handle2Constant1d
-HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius This);
+HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self);
 
 // +++ Set
 extern_c void
-HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius This, ConstHandle2ConstConstant1d constant1d);
+HardSphereRadiusConstant1dSet(ConstHandle2HardSphereRadius self, ConstHandle2ConstConstant1d constant1d);
 
 
 // -----------------------------------------------------------------------------

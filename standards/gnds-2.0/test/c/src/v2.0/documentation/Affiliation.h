@@ -91,13 +91,13 @@ AffiliationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AffiliationAssign(ConstHandle2Affiliation This, ConstHandle2ConstAffiliation from);
+AffiliationAssign(ConstHandle2Affiliation self, ConstHandle2ConstAffiliation from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AffiliationDelete(ConstHandle2ConstAffiliation This);
+AffiliationDelete(ConstHandle2ConstAffiliation self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ AffiliationDelete(ConstHandle2ConstAffiliation This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AffiliationRead(ConstHandle2Affiliation This, const char *const filename);
+AffiliationRead(ConstHandle2Affiliation self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AffiliationWrite(ConstHandle2ConstAffiliation This, const char *const filename);
+AffiliationWrite(ConstHandle2ConstAffiliation self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AffiliationPrint(ConstHandle2ConstAffiliation This);
+AffiliationPrint(ConstHandle2ConstAffiliation self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AffiliationPrintXML(ConstHandle2ConstAffiliation This);
+AffiliationPrintXML(ConstHandle2ConstAffiliation self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AffiliationPrintJSON(ConstHandle2ConstAffiliation This);
+AffiliationPrintJSON(ConstHandle2ConstAffiliation self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ AffiliationPrintJSON(ConstHandle2ConstAffiliation This);
 
 // +++ Has
 extern_c int
-AffiliationNameHas(ConstHandle2ConstAffiliation This);
+AffiliationNameHas(ConstHandle2ConstAffiliation self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-AffiliationNameGet(ConstHandle2ConstAffiliation This);
+AffiliationNameGet(ConstHandle2ConstAffiliation self);
 
 // +++ Set
 extern_c void
-AffiliationNameSet(ConstHandle2Affiliation This, const UTF8Text name);
+AffiliationNameSet(ConstHandle2Affiliation self, const UTF8Text name);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ AffiliationNameSet(ConstHandle2Affiliation This, const UTF8Text name);
 
 // +++ Has
 extern_c int
-AffiliationHrefHas(ConstHandle2ConstAffiliation This);
+AffiliationHrefHas(ConstHandle2ConstAffiliation self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-AffiliationHrefGet(ConstHandle2ConstAffiliation This);
+AffiliationHrefGet(ConstHandle2ConstAffiliation self);
 
 // +++ Set
 extern_c void
-AffiliationHrefSet(ConstHandle2Affiliation This, const UTF8Text href);
+AffiliationHrefSet(ConstHandle2Affiliation self, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------

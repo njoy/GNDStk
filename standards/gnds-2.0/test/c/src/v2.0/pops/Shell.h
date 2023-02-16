@@ -93,13 +93,13 @@ ShellCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ShellAssign(ConstHandle2Shell This, ConstHandle2ConstShell from);
+ShellAssign(ConstHandle2Shell self, ConstHandle2ConstShell from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ShellDelete(ConstHandle2ConstShell This);
+ShellDelete(ConstHandle2ConstShell self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ShellDelete(ConstHandle2ConstShell This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ShellRead(ConstHandle2Shell This, const char *const filename);
+ShellRead(ConstHandle2Shell self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ShellWrite(ConstHandle2ConstShell This, const char *const filename);
+ShellWrite(ConstHandle2ConstShell self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ShellPrint(ConstHandle2ConstShell This);
+ShellPrint(ConstHandle2ConstShell self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ShellPrintXML(ConstHandle2ConstShell This);
+ShellPrintXML(ConstHandle2ConstShell self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ShellPrintJSON(ConstHandle2ConstShell This);
+ShellPrintJSON(ConstHandle2ConstShell self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ ShellPrintJSON(ConstHandle2ConstShell This);
 
 // +++ Has
 extern_c int
-ShellLabelHas(ConstHandle2ConstShell This);
+ShellLabelHas(ConstHandle2ConstShell self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ShellLabelGet(ConstHandle2ConstShell This);
+ShellLabelGet(ConstHandle2ConstShell self);
 
 // +++ Set
 extern_c void
-ShellLabelSet(ConstHandle2Shell This, const XMLName label);
+ShellLabelSet(ConstHandle2Shell self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ ShellLabelSet(ConstHandle2Shell This, const XMLName label);
 
 // +++ Has
 extern_c int
-ShellValueHas(ConstHandle2ConstShell This);
+ShellValueHas(ConstHandle2ConstShell self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-ShellValueGet(ConstHandle2ConstShell This);
+ShellValueGet(ConstHandle2ConstShell self);
 
 // +++ Set
 extern_c void
-ShellValueSet(ConstHandle2Shell This, const Float64 value);
+ShellValueSet(ConstHandle2Shell self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ ShellValueSet(ConstHandle2Shell This, const Float64 value);
 
 // +++ Has
 extern_c int
-ShellUnitHas(ConstHandle2ConstShell This);
+ShellUnitHas(ConstHandle2ConstShell self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ShellUnitGet(ConstHandle2ConstShell This);
+ShellUnitGet(ConstHandle2ConstShell self);
 
 // +++ Set
 extern_c void
-ShellUnitSet(ConstHandle2Shell This, const XMLName unit);
+ShellUnitSet(ConstHandle2Shell self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------

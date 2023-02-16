@@ -27,12 +27,12 @@ class Angular_uncorrelated :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Angular_uncorrelated"; }
-   static auto FIELD() { return "angular"; }
+   static auto NODENAME() { return "angular"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class Angular_uncorrelated :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::XYs2d>>("XYs2d") |
-         --Child<std::optional<transport::Isotropic2d>>("isotropic2d") |
-         --Child<std::optional<transport::Forward>>("forward")
+         --Child<std::optional<containers::XYs2d>>
+            ("XYs2d") |
+         --Child<std::optional<transport::Isotropic2d>>
+            ("isotropic2d") |
+         --Child<std::optional<transport::Forward>>
+            ("forward")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "XYs2d",
+         "isotropic2d",
+         "forward"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys2d",
+         "isotropic2d",
+         "forward"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::XYs2d>> XYs2d{this};
-   Field<std::optional<transport::Isotropic2d>> isotropic2d{this};
-   Field<std::optional<transport::Forward>> forward{this};
+   Field<std::optional<containers::XYs2d>>
+      XYs2d{this};
+   Field<std::optional<transport::Isotropic2d>>
+      isotropic2d{this};
+   Field<std::optional<transport::Forward>>
+      forward{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->XYs2d, \
       this->isotropic2d, \
-      this->forward)
+      this->forward \
+   )
 
    // default
    Angular_uncorrelated() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit Angular_uncorrelated(
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d,
-      const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
-      const wrapper<std::optional<transport::Forward>> &forward = {}
+      const wrapper<std::optional<containers::XYs2d>>
+         &XYs2d,
+      const wrapper<std::optional<transport::Isotropic2d>>
+         &isotropic2d = {},
+      const wrapper<std::optional<transport::Forward>>
+         &forward = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Angular_uncorrelated &operator=(const Angular_uncorrelated &) = default;
-   Angular_uncorrelated &operator=(Angular_uncorrelated &&) = default;
+   // copy
+   Angular_uncorrelated &operator=(const Angular_uncorrelated &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs2d = other.XYs2d;
+         isotropic2d = other.isotropic2d;
+         forward = other.forward;
+      }
+      return *this;
+   }
+
+   // move
+   Angular_uncorrelated &operator=(Angular_uncorrelated &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs2d = std::move(other.XYs2d);
+         isotropic2d = std::move(other.isotropic2d);
+         forward = std::move(other.forward);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

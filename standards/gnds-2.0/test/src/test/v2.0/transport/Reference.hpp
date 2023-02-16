@@ -25,12 +25,12 @@ class Reference :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Reference"; }
-   static auto FIELD() { return "reference"; }
+   static auto NODENAME() { return "reference"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,24 +45,62 @@ class Reference :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<std::string>>
+      href{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
-      this->label)
+      this->label \
+   )
 
    // default
    Reference() :
@@ -73,8 +111,10 @@ public:
 
    // from fields, comment excluded
    explicit Reference(
-      const wrapper<std::optional<std::string>> &href,
-      const wrapper<std::optional<XMLName>> &label = {}
+      const wrapper<std::optional<std::string>>
+         &href,
+      const wrapper<std::optional<XMLName>>
+         &label = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -114,8 +154,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Reference &operator=(const Reference &) = default;
-   Reference &operator=(Reference &&) = default;
+   // copy
+   Reference &operator=(const Reference &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         label = other.label;
+      }
+      return *this;
+   }
+
+   // move
+   Reference &operator=(Reference &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         label = std::move(other.label);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

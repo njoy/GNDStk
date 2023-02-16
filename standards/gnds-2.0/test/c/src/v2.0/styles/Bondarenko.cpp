@@ -90,20 +90,20 @@ BondarenkoCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BondarenkoAssign(ConstHandle2Bondarenko This, ConstHandle2ConstBondarenko from)
+BondarenkoAssign(ConstHandle2Bondarenko self, ConstHandle2ConstBondarenko from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BondarenkoDelete(ConstHandle2ConstBondarenko This)
+BondarenkoDelete(ConstHandle2ConstBondarenko self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ BondarenkoDelete(ConstHandle2ConstBondarenko This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BondarenkoRead(ConstHandle2Bondarenko This, const char *const filename)
+BondarenkoRead(ConstHandle2Bondarenko self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BondarenkoWrite(ConstHandle2ConstBondarenko This, const char *const filename)
+BondarenkoWrite(ConstHandle2ConstBondarenko self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BondarenkoPrint(ConstHandle2ConstBondarenko This)
+BondarenkoPrint(ConstHandle2ConstBondarenko self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BondarenkoPrintXML(ConstHandle2ConstBondarenko This)
+BondarenkoPrintXML(ConstHandle2ConstBondarenko self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BondarenkoPrintJSON(ConstHandle2ConstBondarenko This)
+BondarenkoPrintJSON(ConstHandle2ConstBondarenko self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ BondarenkoPrintJSON(ConstHandle2ConstBondarenko This)
 
 // Has
 int
-BondarenkoDateHas(ConstHandle2ConstBondarenko This)
+BondarenkoDateHas(ConstHandle2ConstBondarenko self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-BondarenkoDateGet(ConstHandle2ConstBondarenko This)
+BondarenkoDateGet(ConstHandle2ConstBondarenko self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-BondarenkoDateSet(ConstHandle2Bondarenko This, const char *const date)
+BondarenkoDateSet(ConstHandle2Bondarenko self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ BondarenkoDateSet(ConstHandle2Bondarenko This, const char *const date)
 
 // Has
 int
-BondarenkoDerivedFromHas(ConstHandle2ConstBondarenko This)
+BondarenkoDerivedFromHas(ConstHandle2ConstBondarenko self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-BondarenkoDerivedFromGet(ConstHandle2ConstBondarenko This)
+BondarenkoDerivedFromGet(ConstHandle2ConstBondarenko self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-BondarenkoDerivedFromSet(ConstHandle2Bondarenko This, const XMLName derivedFrom)
+BondarenkoDerivedFromSet(ConstHandle2Bondarenko self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -224,27 +224,27 @@ BondarenkoDerivedFromSet(ConstHandle2Bondarenko This, const XMLName derivedFrom)
 
 // Has
 int
-BondarenkoLabelHas(ConstHandle2ConstBondarenko This)
+BondarenkoLabelHas(ConstHandle2ConstBondarenko self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-BondarenkoLabelGet(ConstHandle2ConstBondarenko This)
+BondarenkoLabelGet(ConstHandle2ConstBondarenko self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-BondarenkoLabelSet(ConstHandle2Bondarenko This, const XMLName label)
+BondarenkoLabelSet(ConstHandle2Bondarenko self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -254,34 +254,34 @@ BondarenkoLabelSet(ConstHandle2Bondarenko This, const XMLName label)
 
 // Has
 int
-BondarenkoSigmaZerosHas(ConstHandle2ConstBondarenko This)
+BondarenkoSigmaZerosHas(ConstHandle2ConstBondarenko self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SigmaZerosHas", This, extract::sigmaZeros);
+      (CLASSNAME, CLASSNAME+"SigmaZerosHas", self, extract::sigmaZeros);
 }
 
 // Get, const
 Handle2ConstSigmaZeros
-BondarenkoSigmaZerosGetConst(ConstHandle2ConstBondarenko This)
+BondarenkoSigmaZerosGetConst(ConstHandle2ConstBondarenko self)
 {
    return detail::getField<CPP,Handle2ConstSigmaZeros>
-      (CLASSNAME, CLASSNAME+"SigmaZerosGetConst", This, extract::sigmaZeros);
+      (CLASSNAME, CLASSNAME+"SigmaZerosGetConst", self, extract::sigmaZeros);
 }
 
 // Get, non-const
 Handle2SigmaZeros
-BondarenkoSigmaZerosGet(ConstHandle2Bondarenko This)
+BondarenkoSigmaZerosGet(ConstHandle2Bondarenko self)
 {
    return detail::getField<CPP,Handle2SigmaZeros>
-      (CLASSNAME, CLASSNAME+"SigmaZerosGet", This, extract::sigmaZeros);
+      (CLASSNAME, CLASSNAME+"SigmaZerosGet", self, extract::sigmaZeros);
 }
 
 // Set
 void
-BondarenkoSigmaZerosSet(ConstHandle2Bondarenko This, ConstHandle2ConstSigmaZeros sigmaZeros)
+BondarenkoSigmaZerosSet(ConstHandle2Bondarenko self, ConstHandle2ConstSigmaZeros sigmaZeros)
 {
    detail::setField<CPP,CPPSigmaZeros>
-      (CLASSNAME, CLASSNAME+"SigmaZerosSet", This, extract::sigmaZeros, sigmaZeros);
+      (CLASSNAME, CLASSNAME+"SigmaZerosSet", self, extract::sigmaZeros, sigmaZeros);
 }
 
 
@@ -291,34 +291,34 @@ BondarenkoSigmaZerosSet(ConstHandle2Bondarenko This, ConstHandle2ConstSigmaZeros
 
 // Has
 int
-BondarenkoDocumentationHas(ConstHandle2ConstBondarenko This)
+BondarenkoDocumentationHas(ConstHandle2ConstBondarenko self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-BondarenkoDocumentationGetConst(ConstHandle2ConstBondarenko This)
+BondarenkoDocumentationGetConst(ConstHandle2ConstBondarenko self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-BondarenkoDocumentationGet(ConstHandle2Bondarenko This)
+BondarenkoDocumentationGet(ConstHandle2Bondarenko self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-BondarenkoDocumentationSet(ConstHandle2Bondarenko This, ConstHandle2ConstDocumentation documentation)
+BondarenkoDocumentationSet(ConstHandle2Bondarenko self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

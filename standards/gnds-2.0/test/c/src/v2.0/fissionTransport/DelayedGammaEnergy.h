@@ -90,13 +90,13 @@ DelayedGammaEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DelayedGammaEnergyAssign(ConstHandle2DelayedGammaEnergy This, ConstHandle2ConstDelayedGammaEnergy from);
+DelayedGammaEnergyAssign(ConstHandle2DelayedGammaEnergy self, ConstHandle2ConstDelayedGammaEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DelayedGammaEnergyDelete(ConstHandle2ConstDelayedGammaEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DelayedGammaEnergyRead(ConstHandle2DelayedGammaEnergy This, const char *const filename);
+DelayedGammaEnergyRead(ConstHandle2DelayedGammaEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DelayedGammaEnergyWrite(ConstHandle2ConstDelayedGammaEnergy This, const char *const filename);
+DelayedGammaEnergyWrite(ConstHandle2ConstDelayedGammaEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DelayedGammaEnergyPrint(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyPrint(ConstHandle2ConstDelayedGammaEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DelayedGammaEnergyPrintXML(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyPrintXML(ConstHandle2ConstDelayedGammaEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ DelayedGammaEnergyPrintJSON(ConstHandle2ConstDelayedGammaEnergy This);
 
 // +++ Has
 extern_c int
-DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy This);
+DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy This);
+DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self);
 
 // +++ Set
 extern_c void
-DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy This, ConstHandle2ConstPolynomial1d polynomial1d);
+DelayedGammaEnergyPolynomial1dSet(ConstHandle2DelayedGammaEnergy self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

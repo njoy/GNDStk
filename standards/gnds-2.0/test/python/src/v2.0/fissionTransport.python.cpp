@@ -5,40 +5,40 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // fissionTransport declarations
 namespace python_fissionTransport {
-   void wrapSimpleMaxwellianFission(python::module &);
-   void wrapA(python::module &);
-   void wrapB(python::module &);
-   void wrapWatt(python::module &);
-   void wrapEFH(python::module &);
-   void wrapEFL(python::module &);
-   void wrapT_M(python::module &);
-   void wrapMadlandNix(python::module &);
-   void wrapDelayedBetaEnergy(python::module &);
-   void wrapDelayedGammaEnergy(python::module &);
-   void wrapDelayedNeutronKE(python::module &);
-   void wrapNeutrinoEnergy(python::module &);
-   void wrapNonNeutrinoEnergy(python::module &);
-   void wrapPromptGammaEnergy(python::module &);
-   void wrapPromptNeutronKE(python::module &);
-   void wrapPromptProductKE(python::module &);
-   void wrapTotalEnergy(python::module &);
-   void wrapFissionEnergyReleased(python::module &);
-   void wrapFissionComponent(python::module &);
-   void wrapFissionComponents(python::module &);
+   void wrapSimpleMaxwellianFission(py::module &);
+   void wrapA(py::module &);
+   void wrapB(py::module &);
+   void wrapWatt(py::module &);
+   void wrapEFH(py::module &);
+   void wrapEFL(py::module &);
+   void wrapT_M(py::module &);
+   void wrapMadlandNix(py::module &);
+   void wrapDelayedBetaEnergy(py::module &);
+   void wrapDelayedGammaEnergy(py::module &);
+   void wrapDelayedNeutronKE(py::module &);
+   void wrapNeutrinoEnergy(py::module &);
+   void wrapNonNeutrinoEnergy(py::module &);
+   void wrapPromptGammaEnergy(py::module &);
+   void wrapPromptNeutronKE(py::module &);
+   void wrapPromptProductKE(py::module &);
+   void wrapTotalEnergy(py::module &);
+   void wrapFissionEnergyReleased(py::module &);
+   void wrapFissionComponent(py::module &);
+   void wrapFissionComponents(py::module &);
 } // namespace python_fissionTransport
 
-// fissionTransport wrapper
-void wrapFissionTransport(python::module &module)
+// wrapper for fissionTransport
+void wrapFissionTransport(py::module &module)
 {
    // create the fissionTransport submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "fissionTransport",
       "test v2.0 fissionTransport"
    );

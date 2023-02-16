@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// ResonanceReaction wrapper
-void wrapResonanceReaction(python::module &module)
+// wrapper for resonances::ResonanceReaction
+void wrapResonanceReaction(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::ResonanceReaction;
+   using cppCLASS = resonances::ResonanceReaction;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ResonanceReaction",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ResonanceReaction",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<Float64> &,
-            const std::optional<bool> &,
-            const std::optional<common::Q> &,
-            const std::optional<resonances::ScatteringRadius> &,
-            const std::optional<resonances::HardSphereRadius> &,
-            const containers::Link &
-         >(),
-         python::arg("label"),
-         python::arg("ejectile"),
-         python::arg("boundary_condition_value") = std::nullopt,
-         python::arg("eliminated") = std::nullopt,
-         python::arg("q") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         python::arg("hard_sphere_radius") = std::nullopt,
-         python::arg("link"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "ejectile",
-         [](const Component &self) { return self.ejectile(); },
-         Component::documentation("ejectile").data()
-      )
-      .def_property_readonly(
-         "boundary_condition_value",
-         [](const Component &self) { return self.boundaryConditionValue(); },
-         Component::documentation("boundary_condition_value").data()
-      )
-      .def_property_readonly(
-         "eliminated",
-         [](const Component &self) { return self.eliminated().value(); },
-         Component::documentation("eliminated").data()
-      )
-      .def_property_readonly(
-         "q",
-         [](const Component &self) { return self.Q(); },
-         Component::documentation("q").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
-         Component::documentation("scattering_radius").data()
-      )
-      .def_property_readonly(
-         "hard_sphere_radius",
-         [](const Component &self) { return self.hardSphereRadius(); },
-         Component::documentation("hard_sphere_radius").data()
-      )
-      .def_property_readonly(
-         "link",
-         [](const Component &self) { return self.link(); },
-         Component::documentation("link").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<Float64> &,
+         const std::optional<bool> &,
+         const std::optional<common::Q> &,
+         const std::optional<resonances::ScatteringRadius> &,
+         const std::optional<resonances::HardSphereRadius> &,
+         const containers::Link &
+      >(),
+      py::arg("label"),
+      py::arg("ejectile"),
+      py::arg("boundary_condition_value") = std::nullopt,
+      py::arg("eliminated") = std::nullopt,
+      py::arg("q") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      py::arg("hard_sphere_radius") = std::nullopt,
+      py::arg("link"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set ejectile
+   object.def_property(
+      "ejectile",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ejectile();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.ejectile() = value;
+      },
+      cppCLASS::component_t::documentation("ejectile").data()
+   );
+
+   // get/set boundaryConditionValue
+   object.def_property(
+      "boundary_condition_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.boundaryConditionValue();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.boundaryConditionValue() = value;
+      },
+      cppCLASS::component_t::documentation("boundary_condition_value").data()
+   );
+
+   // get/set eliminated
+   object.def_property(
+      "eliminated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.eliminated().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.eliminated() = value;
+      },
+      cppCLASS::component_t::documentation("eliminated").data()
+   );
+
+   // get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const std::optional<common::Q> &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // get/set hardSphereRadius
+   object.def_property(
+      "hard_sphere_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.hardSphereRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::HardSphereRadius> &value)
+      {
+         self.hardSphereRadius() = value;
+      },
+      cppCLASS::component_t::documentation("hard_sphere_radius").data()
+   );
+
+   // get/set link
+   object.def_property(
+      "link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.link();
+      },
+      [](cppCLASS &self, const containers::Link &value)
+      {
+         self.link() = value;
+      },
+      cppCLASS::component_t::documentation("link").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

@@ -90,13 +90,13 @@ DelayedNeutronsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DelayedNeutronsAssign(ConstHandle2DelayedNeutrons This, ConstHandle2ConstDelayedNeutrons from);
+DelayedNeutronsAssign(ConstHandle2DelayedNeutrons self, ConstHandle2ConstDelayedNeutrons from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DelayedNeutronsDelete(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsDelete(ConstHandle2ConstDelayedNeutrons self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DelayedNeutronsDelete(ConstHandle2ConstDelayedNeutrons This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DelayedNeutronsRead(ConstHandle2DelayedNeutrons This, const char *const filename);
+DelayedNeutronsRead(ConstHandle2DelayedNeutrons self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DelayedNeutronsWrite(ConstHandle2ConstDelayedNeutrons This, const char *const filename);
+DelayedNeutronsWrite(ConstHandle2ConstDelayedNeutrons self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DelayedNeutronsPrint(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsPrint(ConstHandle2ConstDelayedNeutrons self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DelayedNeutronsPrintXML(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsPrintXML(ConstHandle2ConstDelayedNeutrons self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DelayedNeutronsPrintJSON(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsPrintJSON(ConstHandle2ConstDelayedNeutrons self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ DelayedNeutronsPrintJSON(ConstHandle2ConstDelayedNeutrons This);
 
 // +++ Has
 extern_c int
-DelayedNeutronsDelayedNeutronHas(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsDelayedNeutronHas(ConstHandle2ConstDelayedNeutrons self);
 
 // +++ Clear
 extern_c void
-DelayedNeutronsDelayedNeutronClear(ConstHandle2DelayedNeutrons This);
+DelayedNeutronsDelayedNeutronClear(ConstHandle2DelayedNeutrons self);
 
 // +++ Size
 extern_c size_t
-DelayedNeutronsDelayedNeutronSize(ConstHandle2ConstDelayedNeutrons This);
+DelayedNeutronsDelayedNeutronSize(ConstHandle2ConstDelayedNeutrons self);
 
 // +++ Add
 extern_c void
-DelayedNeutronsDelayedNeutronAdd(ConstHandle2DelayedNeutrons This, ConstHandle2ConstDelayedNeutron delayedNeutron);
+DelayedNeutronsDelayedNeutronAdd(ConstHandle2DelayedNeutrons self, ConstHandle2ConstDelayedNeutron delayedNeutron);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDelayedNeutron
-DelayedNeutronsDelayedNeutronGetConst(ConstHandle2ConstDelayedNeutrons This, const size_t index_);
+DelayedNeutronsDelayedNeutronGetConst(ConstHandle2ConstDelayedNeutrons self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2DelayedNeutron
-DelayedNeutronsDelayedNeutronGet(ConstHandle2DelayedNeutrons This, const size_t index_);
+DelayedNeutronsDelayedNeutronGet(ConstHandle2DelayedNeutrons self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 DelayedNeutronsDelayedNeutronSet(
-   ConstHandle2DelayedNeutrons This,
+   ConstHandle2DelayedNeutrons self,
    const size_t index_,
    ConstHandle2ConstDelayedNeutron delayedNeutron
 );
@@ -169,28 +169,28 @@ DelayedNeutronsDelayedNeutronSet(
 // +++ Has, by label
 extern_c int
 DelayedNeutronsDelayedNeutronHasByLabel(
-   ConstHandle2ConstDelayedNeutrons This,
+   ConstHandle2ConstDelayedNeutrons self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDelayedNeutron
 DelayedNeutronsDelayedNeutronGetByLabelConst(
-   ConstHandle2ConstDelayedNeutrons This,
+   ConstHandle2ConstDelayedNeutrons self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGetByLabel(
-   ConstHandle2DelayedNeutrons This,
+   ConstHandle2DelayedNeutrons self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 DelayedNeutronsDelayedNeutronSetByLabel(
-   ConstHandle2DelayedNeutrons This,
+   ConstHandle2DelayedNeutrons self,
    const XMLName label,
    ConstHandle2ConstDelayedNeutron delayedNeutron
 );

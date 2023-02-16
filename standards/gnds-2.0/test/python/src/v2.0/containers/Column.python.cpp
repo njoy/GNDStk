@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Column wrapper
-void wrapColumn(python::module &module)
+// wrapper for containers::Column
+void wrapColumn(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Column;
+   using cppCLASS = containers::Column;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Column",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Column",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Integer32 &,
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &
-         >(),
-         python::arg("index"),
-         python::arg("name"),
-         python::arg("unit") = std::nullopt,
-         python::arg("types") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self) { return self.index(); },
-         Component::documentation("index").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "types",
-         [](const Component &self) { return self.types(); },
-         Component::documentation("types").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Integer32 &,
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &
+      >(),
+      py::arg("index"),
+      py::arg("name"),
+      py::arg("unit") = std::nullopt,
+      py::arg("types") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set types
+   object.def_property(
+      "types",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.types();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.types() = value;
+      },
+      cppCLASS::component_t::documentation("types").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

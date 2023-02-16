@@ -25,12 +25,12 @@ class HardSphereRadius :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "HardSphereRadius"; }
-   static auto FIELD() { return "hardSphereRadius"; }
+   static auto NODENAME() { return "hardSphereRadius"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

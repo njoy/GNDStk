@@ -95,13 +95,13 @@ CopyrightCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CopyrightAssign(ConstHandle2Copyright This, ConstHandle2ConstCopyright from);
+CopyrightAssign(ConstHandle2Copyright self, ConstHandle2ConstCopyright from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CopyrightDelete(ConstHandle2ConstCopyright This);
+CopyrightDelete(ConstHandle2ConstCopyright self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ CopyrightDelete(ConstHandle2ConstCopyright This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CopyrightRead(ConstHandle2Copyright This, const char *const filename);
+CopyrightRead(ConstHandle2Copyright self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CopyrightWrite(ConstHandle2ConstCopyright This, const char *const filename);
+CopyrightWrite(ConstHandle2ConstCopyright self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CopyrightPrint(ConstHandle2ConstCopyright This);
+CopyrightPrint(ConstHandle2ConstCopyright self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CopyrightPrintXML(ConstHandle2ConstCopyright This);
+CopyrightPrintXML(ConstHandle2ConstCopyright self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CopyrightPrintJSON(ConstHandle2ConstCopyright This);
+CopyrightPrintJSON(ConstHandle2ConstCopyright self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ CopyrightPrintJSON(ConstHandle2ConstCopyright This);
 
 // +++ Clear
 extern_c void
-CopyrightIntsClear(ConstHandle2Copyright This);
+CopyrightIntsClear(ConstHandle2Copyright self);
 
 // +++ Get size
 extern_c size_t
-CopyrightIntsSize(ConstHandle2ConstCopyright This);
+CopyrightIntsSize(ConstHandle2ConstCopyright self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-CopyrightIntsGet(ConstHandle2ConstCopyright This, const size_t index);
+CopyrightIntsGet(ConstHandle2ConstCopyright self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CopyrightIntsSet(ConstHandle2Copyright This, const size_t index, const int value);
+CopyrightIntsSet(ConstHandle2Copyright self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-CopyrightIntsGetArrayConst(ConstHandle2ConstCopyright This);
+CopyrightIntsGetArrayConst(ConstHandle2ConstCopyright self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-CopyrightIntsGetArray(ConstHandle2Copyright This);
+CopyrightIntsGetArray(ConstHandle2Copyright self);
 
 // +++ Set completely new values and size
 extern_c void
-CopyrightIntsSetArray(ConstHandle2Copyright This, const int *const values, const size_t size);
+CopyrightIntsSetArray(ConstHandle2Copyright self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ CopyrightIntsSetArray(ConstHandle2Copyright This, const int *const values, const
 
 // +++ Clear
 extern_c void
-CopyrightUnsignedsClear(ConstHandle2Copyright This);
+CopyrightUnsignedsClear(ConstHandle2Copyright self);
 
 // +++ Get size
 extern_c size_t
-CopyrightUnsignedsSize(ConstHandle2ConstCopyright This);
+CopyrightUnsignedsSize(ConstHandle2ConstCopyright self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-CopyrightUnsignedsGet(ConstHandle2ConstCopyright This, const size_t index);
+CopyrightUnsignedsGet(ConstHandle2ConstCopyright self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CopyrightUnsignedsSet(ConstHandle2Copyright This, const size_t index, const unsigned value);
+CopyrightUnsignedsSet(ConstHandle2Copyright self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-CopyrightUnsignedsGetArrayConst(ConstHandle2ConstCopyright This);
+CopyrightUnsignedsGetArrayConst(ConstHandle2ConstCopyright self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-CopyrightUnsignedsGetArray(ConstHandle2Copyright This);
+CopyrightUnsignedsGetArray(ConstHandle2Copyright self);
 
 // +++ Set completely new values and size
 extern_c void
-CopyrightUnsignedsSetArray(ConstHandle2Copyright This, const unsigned *const values, const size_t size);
+CopyrightUnsignedsSetArray(ConstHandle2Copyright self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ CopyrightUnsignedsSetArray(ConstHandle2Copyright This, const unsigned *const val
 
 // +++ Clear
 extern_c void
-CopyrightFloatsClear(ConstHandle2Copyright This);
+CopyrightFloatsClear(ConstHandle2Copyright self);
 
 // +++ Get size
 extern_c size_t
-CopyrightFloatsSize(ConstHandle2ConstCopyright This);
+CopyrightFloatsSize(ConstHandle2ConstCopyright self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-CopyrightFloatsGet(ConstHandle2ConstCopyright This, const size_t index);
+CopyrightFloatsGet(ConstHandle2ConstCopyright self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CopyrightFloatsSet(ConstHandle2Copyright This, const size_t index, const float value);
+CopyrightFloatsSet(ConstHandle2Copyright self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-CopyrightFloatsGetArrayConst(ConstHandle2ConstCopyright This);
+CopyrightFloatsGetArrayConst(ConstHandle2ConstCopyright self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-CopyrightFloatsGetArray(ConstHandle2Copyright This);
+CopyrightFloatsGetArray(ConstHandle2Copyright self);
 
 // +++ Set completely new values and size
 extern_c void
-CopyrightFloatsSetArray(ConstHandle2Copyright This, const float *const values, const size_t size);
+CopyrightFloatsSetArray(ConstHandle2Copyright self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ CopyrightFloatsSetArray(ConstHandle2Copyright This, const float *const values, c
 
 // +++ Clear
 extern_c void
-CopyrightDoublesClear(ConstHandle2Copyright This);
+CopyrightDoublesClear(ConstHandle2Copyright self);
 
 // +++ Get size
 extern_c size_t
-CopyrightDoublesSize(ConstHandle2ConstCopyright This);
+CopyrightDoublesSize(ConstHandle2ConstCopyright self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-CopyrightDoublesGet(ConstHandle2ConstCopyright This, const size_t index);
+CopyrightDoublesGet(ConstHandle2ConstCopyright self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CopyrightDoublesSet(ConstHandle2Copyright This, const size_t index, const double value);
+CopyrightDoublesSet(ConstHandle2Copyright self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-CopyrightDoublesGetArrayConst(ConstHandle2ConstCopyright This);
+CopyrightDoublesGetArrayConst(ConstHandle2ConstCopyright self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-CopyrightDoublesGetArray(ConstHandle2Copyright This);
+CopyrightDoublesGetArray(ConstHandle2Copyright self);
 
 // +++ Set completely new values and size
 extern_c void
-CopyrightDoublesSetArray(ConstHandle2Copyright This, const double *const values, const size_t size);
+CopyrightDoublesSetArray(ConstHandle2Copyright self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ CopyrightDoublesSetArray(ConstHandle2Copyright This, const double *const values,
 
 // +++ Has
 extern_c int
-CopyrightEncodingHas(ConstHandle2ConstCopyright This);
+CopyrightEncodingHas(ConstHandle2ConstCopyright self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CopyrightEncodingGet(ConstHandle2ConstCopyright This);
+CopyrightEncodingGet(ConstHandle2ConstCopyright self);
 
 // +++ Set
 extern_c void
-CopyrightEncodingSet(ConstHandle2Copyright This, const XMLName encoding);
+CopyrightEncodingSet(ConstHandle2Copyright self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ CopyrightEncodingSet(ConstHandle2Copyright This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-CopyrightMarkupHas(ConstHandle2ConstCopyright This);
+CopyrightMarkupHas(ConstHandle2ConstCopyright self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CopyrightMarkupGet(ConstHandle2ConstCopyright This);
+CopyrightMarkupGet(ConstHandle2ConstCopyright self);
 
 // +++ Set
 extern_c void
-CopyrightMarkupSet(ConstHandle2Copyright This, const char *const markup);
+CopyrightMarkupSet(ConstHandle2Copyright self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ CopyrightMarkupSet(ConstHandle2Copyright This, const char *const markup);
 
 // +++ Has
 extern_c int
-CopyrightLabelHas(ConstHandle2ConstCopyright This);
+CopyrightLabelHas(ConstHandle2ConstCopyright self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CopyrightLabelGet(ConstHandle2ConstCopyright This);
+CopyrightLabelGet(ConstHandle2ConstCopyright self);
 
 // +++ Set
 extern_c void
-CopyrightLabelSet(ConstHandle2Copyright This, const XMLName label);
+CopyrightLabelSet(ConstHandle2Copyright self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ CopyrightLabelSet(ConstHandle2Copyright This, const XMLName label);
 
 // +++ Has
 extern_c int
-CopyrightHrefHas(ConstHandle2ConstCopyright This);
+CopyrightHrefHas(ConstHandle2ConstCopyright self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-CopyrightHrefGet(ConstHandle2ConstCopyright This);
+CopyrightHrefGet(ConstHandle2ConstCopyright self);
 
 // +++ Set
 extern_c void
-CopyrightHrefSet(ConstHandle2Copyright This, const UTF8Text href);
+CopyrightHrefSet(ConstHandle2Copyright self, const UTF8Text href);
 
 
 // -----------------------------------------------------------------------------

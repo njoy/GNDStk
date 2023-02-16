@@ -25,12 +25,12 @@ class T_M :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "T_M"; }
-   static auto FIELD() { return "T_M"; }
+   static auto NODENAME() { return "T_M"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class T_M :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<containers::XYs1d>("XYs1d")
+         --Child<containers::XYs1d>
+            ("XYs1d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "XYs1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<containers::XYs1d> XYs1d{this};
+   Field<containers::XYs1d>
+      XYs1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->XYs1d)
+      this->XYs1d \
+   )
 
    // default
    T_M() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit T_M(
-      const wrapper<containers::XYs1d> &XYs1d
+      const wrapper<containers::XYs1d>
+         &XYs1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   T_M &operator=(const T_M &) = default;
-   T_M &operator=(T_M &&) = default;
+   // copy
+   T_M &operator=(const T_M &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d = other.XYs1d;
+      }
+      return *this;
+   }
+
+   // move
+   T_M &operator=(T_M &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d = std::move(other.XYs1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -90,13 +90,13 @@ LeptonsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LeptonsAssign(ConstHandle2Leptons This, ConstHandle2ConstLeptons from);
+LeptonsAssign(ConstHandle2Leptons self, ConstHandle2ConstLeptons from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LeptonsDelete(ConstHandle2ConstLeptons This);
+LeptonsDelete(ConstHandle2ConstLeptons self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ LeptonsDelete(ConstHandle2ConstLeptons This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LeptonsRead(ConstHandle2Leptons This, const char *const filename);
+LeptonsRead(ConstHandle2Leptons self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LeptonsWrite(ConstHandle2ConstLeptons This, const char *const filename);
+LeptonsWrite(ConstHandle2ConstLeptons self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LeptonsPrint(ConstHandle2ConstLeptons This);
+LeptonsPrint(ConstHandle2ConstLeptons self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LeptonsPrintXML(ConstHandle2ConstLeptons This);
+LeptonsPrintXML(ConstHandle2ConstLeptons self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LeptonsPrintJSON(ConstHandle2ConstLeptons This);
+LeptonsPrintJSON(ConstHandle2ConstLeptons self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ LeptonsPrintJSON(ConstHandle2ConstLeptons This);
 
 // +++ Has
 extern_c int
-LeptonsLeptonHas(ConstHandle2ConstLeptons This);
+LeptonsLeptonHas(ConstHandle2ConstLeptons self);
 
 // +++ Clear
 extern_c void
-LeptonsLeptonClear(ConstHandle2Leptons This);
+LeptonsLeptonClear(ConstHandle2Leptons self);
 
 // +++ Size
 extern_c size_t
-LeptonsLeptonSize(ConstHandle2ConstLeptons This);
+LeptonsLeptonSize(ConstHandle2ConstLeptons self);
 
 // +++ Add
 extern_c void
-LeptonsLeptonAdd(ConstHandle2Leptons This, ConstHandle2ConstLepton lepton);
+LeptonsLeptonAdd(ConstHandle2Leptons self, ConstHandle2ConstLepton lepton);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstLepton
-LeptonsLeptonGetConst(ConstHandle2ConstLeptons This, const size_t index_);
+LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Lepton
-LeptonsLeptonGet(ConstHandle2Leptons This, const size_t index_);
+LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 LeptonsLeptonSet(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const size_t index_,
    ConstHandle2ConstLepton lepton
 );
@@ -169,28 +169,28 @@ LeptonsLeptonSet(
 // +++ Has, by generation
 extern_c int
 LeptonsLeptonHasByGeneration(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const XMLName generation
 );
 
 // --- Get, by generation, const
 extern_c Handle2ConstLepton
 LeptonsLeptonGetByGenerationConst(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const XMLName generation
 );
 
 // +++ Get, by generation, non-const
 extern_c Handle2Lepton
 LeptonsLeptonGetByGeneration(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const XMLName generation
 );
 
 // +++ Set, by generation
 extern_c void
 LeptonsLeptonSetByGeneration(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const XMLName generation,
    ConstHandle2ConstLepton lepton
 );
@@ -198,28 +198,28 @@ LeptonsLeptonSetByGeneration(
 // +++ Has, by id
 extern_c int
 LeptonsLeptonHasById(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const XMLName id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstLepton
 LeptonsLeptonGetByIdConst(
-   ConstHandle2ConstLeptons This,
+   ConstHandle2ConstLeptons self,
    const XMLName id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2Lepton
 LeptonsLeptonGetById(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const XMLName id
 );
 
 // +++ Set, by id
 extern_c void
 LeptonsLeptonSetById(
-   ConstHandle2Leptons This,
+   ConstHandle2Leptons self,
    const XMLName id,
    ConstHandle2ConstLepton lepton
 );

@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// SelfScatteringKernel wrapper
-void wrapSelfScatteringKernel(python::module &module)
+// wrapper for tsl::SelfScatteringKernel
+void wrapSelfScatteringKernel(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::SelfScatteringKernel;
+   using cppCLASS = tsl::SelfScatteringKernel;
    using _t = std::variant<
       containers::Gridded3d,
       tsl::GaussianApproximation,
@@ -31,58 +31,104 @@ void wrapSelfScatteringKernel(python::module &module)
       tsl::FreeGasApproximation
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "SelfScatteringKernel",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "SelfScatteringKernel",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<bool> &,
-            const _t &
-         >(),
-         python::arg("symmetric") = std::nullopt,
-         python::arg("_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "symmetric",
-         [](const Component &self) { return self.symmetric(); },
-         Component::documentation("symmetric").data()
-      )
-      .def_property_readonly(
-         "gridded3d",
-         [](const Component &self) { return self.gridded3d(); },
-         Component::documentation("gridded3d").data()
-      )
-      .def_property_readonly(
-         "gaussian_approximation",
-         [](const Component &self) { return self.GaussianApproximation(); },
-         Component::documentation("gaussian_approximation").data()
-      )
-      .def_property_readonly(
-         "sctapproximation",
-         [](const Component &self) { return self.SCTApproximation(); },
-         Component::documentation("sctapproximation").data()
-      )
-      .def_property_readonly(
-         "free_gas_approximation",
-         [](const Component &self) { return self.freeGasApproximation(); },
-         Component::documentation("free_gas_approximation").data()
-      )
-      .def_property_readonly(
-         "_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation",
-         [](const Component &self) { return self._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation(); },
-         Component::documentation("_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<bool> &,
+         const _t &
+      >(),
+      py::arg("symmetric") = std::nullopt,
+      py::arg("_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set symmetric
+   object.def_property(
+      "symmetric",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.symmetric();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.symmetric() = value;
+      },
+      cppCLASS::component_t::documentation("symmetric").data()
+   );
+
+   object.def_property(
+      "gridded3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded3d();
+      },
+      [](cppCLASS &self, const containers::Gridded3d &value)
+      {
+         self.gridded3d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded3d").data()
+   );
+
+   object.def_property(
+      "gaussian_approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.GaussianApproximation();
+      },
+      [](cppCLASS &self, const tsl::GaussianApproximation &value)
+      {
+         self.GaussianApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("gaussian_approximation").data()
+   );
+
+   object.def_property(
+      "sctapproximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.SCTApproximation();
+      },
+      [](cppCLASS &self, const tsl::SCTApproximation &value)
+      {
+         self.SCTApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("sctapproximation").data()
+   );
+
+   object.def_property(
+      "free_gas_approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.freeGasApproximation();
+      },
+      [](cppCLASS &self, const tsl::FreeGasApproximation &value)
+      {
+         self.freeGasApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("free_gas_approximation").data()
+   );
+
+   object.def_property(
+      "_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._gridded3dGaussianApproximationSCTApproximationfreeGasApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("_gridded3d_gaussian_approximation_sctapproximationfree_gas_approximation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

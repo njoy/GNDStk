@@ -29,12 +29,12 @@ class TabulatedWidths :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "TabulatedWidths"; }
-   static auto FIELD() { return "tabulatedWidths"; }
+   static auto NODENAME() { return "tabulatedWidths"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,15 +50,61 @@ class TabulatedWidths :
             / Meta<>("useForSelfShieldingOnly") |
 
          // children
-         --Child<std::optional<pops::PoPs_database>>("PoPs") |
-         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
-         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
-         --Child<resonances::ResonanceReactions>("resonanceReactions") |
-         --Child<resonances::Ls>("Ls")
+         --Child<std::optional<pops::PoPs_database>>
+            ("PoPs") |
+         --Child<std::optional<resonances::ScatteringRadius>>
+            ("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>
+            ("hardSphereRadius") |
+         --Child<resonances::ResonanceReactions>
+            ("resonanceReactions") |
+         --Child<resonances::Ls>
+            ("Ls")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "useForSelfShieldingOnly",
+         "PoPs_database",
+         "scatteringRadius",
+         "hardSphereRadius",
+         "resonanceReactions",
+         "Ls"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "use_for_self_shielding_only",
+         "po_ps_database",
+         "scattering_radius",
+         "hard_sphere_radius",
+         "resonance_reactions",
+         "ls"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -66,26 +112,40 @@ public:
       static inline const bool useForSelfShieldingOnly = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> approximation{this};
-   Field<Defaulted<bool>> useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      approximation{this};
+   Field<Defaulted<bool>>
+      useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
 
    // children
-   Field<std::optional<pops::PoPs_database>> PoPs_database{this};
-   Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
-   Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
-   Field<resonances::ResonanceReactions> resonanceReactions{this};
-   Field<resonances::Ls> Ls{this};
+   Field<std::optional<pops::PoPs_database>>
+      PoPs_database{this};
+   Field<std::optional<resonances::ScatteringRadius>>
+      scatteringRadius{this};
+   Field<std::optional<resonances::HardSphereRadius>>
+      hardSphereRadius{this};
+   Field<resonances::ResonanceReactions>
+      resonanceReactions{this};
+   Field<resonances::Ls>
+      Ls{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->approximation, \
@@ -94,7 +154,8 @@ public:
       this->scatteringRadius, \
       this->hardSphereRadius, \
       this->resonanceReactions, \
-      this->Ls)
+      this->Ls \
+   )
 
    // default
    TabulatedWidths() :
@@ -106,14 +167,22 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit TabulatedWidths(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &approximation = {},
-      const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
-      const wrapper<std::optional<pops::PoPs_database>> &PoPs_database = {},
-      const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
-      const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
-      const wrapper<resonances::ResonanceReactions> &resonanceReactions = {},
-      const wrapper<resonances::Ls> &Ls = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &approximation = {},
+      const wrapper<std::optional<bool>>
+         &useForSelfShieldingOnly = {},
+      const wrapper<std::optional<pops::PoPs_database>>
+         &PoPs_database = {},
+      const wrapper<std::optional<resonances::ScatteringRadius>>
+         &scatteringRadius = {},
+      const wrapper<std::optional<resonances::HardSphereRadius>>
+         &hardSphereRadius = {},
+      const wrapper<resonances::ResonanceReactions>
+         &resonanceReactions = {},
+      const wrapper<resonances::Ls>
+         &Ls = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -171,8 +240,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   TabulatedWidths &operator=(const TabulatedWidths &) = default;
-   TabulatedWidths &operator=(TabulatedWidths &&) = default;
+   // copy
+   TabulatedWidths &operator=(const TabulatedWidths &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         approximation = other.approximation;
+         useForSelfShieldingOnly = other.useForSelfShieldingOnly;
+         PoPs_database = other.PoPs_database;
+         scatteringRadius = other.scatteringRadius;
+         hardSphereRadius = other.hardSphereRadius;
+         resonanceReactions = other.resonanceReactions;
+         Ls = other.Ls;
+      }
+      return *this;
+   }
+
+   // move
+   TabulatedWidths &operator=(TabulatedWidths &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         approximation = std::move(other.approximation);
+         useForSelfShieldingOnly = std::move(other.useForSelfShieldingOnly);
+         PoPs_database = std::move(other.PoPs_database);
+         scatteringRadius = std::move(other.scatteringRadius);
+         hardSphereRadius = std::move(other.hardSphereRadius);
+         resonanceReactions = std::move(other.resonanceReactions);
+         Ls = std::move(other.Ls);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

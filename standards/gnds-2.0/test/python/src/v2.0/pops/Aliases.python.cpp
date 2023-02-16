@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Aliases wrapper
-void wrapAliases(python::module &module)
+// wrapper for pops::Aliases
+void wrapAliases(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Aliases;
+   using cppCLASS = pops::Aliases;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Aliases",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Aliases",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<pops::Alias>> &,
-            const std::optional<std::vector<pops::MetaStable>> &
-         >(),
-         python::arg("alias") = std::nullopt,
-         python::arg("meta_stable") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "alias",
-         [](const Component &self) { return self.alias(); },
-         Component::documentation("alias").data()
-      )
-      .def_property_readonly(
-         "meta_stable",
-         [](const Component &self) { return self.metaStable(); },
-         Component::documentation("meta_stable").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<pops::Alias>> &,
+         const std::optional<std::vector<pops::MetaStable>> &
+      >(),
+      py::arg("alias") = std::nullopt,
+      py::arg("meta_stable") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set alias
+   object.def_property(
+      "alias",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.alias();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<pops::Alias>> &value)
+      {
+         self.alias() = value;
+      },
+      cppCLASS::component_t::documentation("alias").data()
+   );
+
+   // get/set metaStable
+   object.def_property(
+      "meta_stable",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.metaStable();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<pops::MetaStable>> &value)
+      {
+         self.metaStable() = value;
+      },
+      cppCLASS::component_t::documentation("meta_stable").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

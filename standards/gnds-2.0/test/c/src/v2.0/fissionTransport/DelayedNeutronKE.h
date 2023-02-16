@@ -93,13 +93,13 @@ DelayedNeutronKECreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DelayedNeutronKEAssign(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstDelayedNeutronKE from);
+DelayedNeutronKEAssign(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstDelayedNeutronKE from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ DelayedNeutronKEDelete(ConstHandle2ConstDelayedNeutronKE This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DelayedNeutronKERead(ConstHandle2DelayedNeutronKE This, const char *const filename);
+DelayedNeutronKERead(ConstHandle2DelayedNeutronKE self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DelayedNeutronKEWrite(ConstHandle2ConstDelayedNeutronKE This, const char *const filename);
+DelayedNeutronKEWrite(ConstHandle2ConstDelayedNeutronKE self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DelayedNeutronKEPrint(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEPrint(ConstHandle2ConstDelayedNeutronKE self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DelayedNeutronKEPrintXML(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEPrintXML(ConstHandle2ConstDelayedNeutronKE self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ DelayedNeutronKEPrintJSON(ConstHandle2ConstDelayedNeutronKE This);
 
 // +++ Has
 extern_c int
-DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE This);
+DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE self);
 
 // +++ Set
 extern_c void
-DelayedNeutronKEXYs1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstXYs1d XYs1d);
+DelayedNeutronKEXYs1dSet(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ DelayedNeutronKEXYs1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstXYs
 
 // +++ Has
 extern_c int
-DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE This);
+DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE This);
+DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE self);
 
 // +++ Set
 extern_c void
-DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE This, ConstHandle2ConstPolynomial1d polynomial1d);
+DelayedNeutronKEPolynomial1dSet(ConstHandle2DelayedNeutronKE self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

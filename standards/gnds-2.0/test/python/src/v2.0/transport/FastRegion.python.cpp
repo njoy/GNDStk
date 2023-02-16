@@ -11,59 +11,80 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// FastRegion wrapper
-void wrapFastRegion(python::module &module)
+// wrapper for transport::FastRegion
+void wrapFastRegion(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::FastRegion;
+   using cppCLASS = transport::FastRegion;
    using _t = std::variant<
       containers::XYs1d,
       containers::Regions1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "FastRegion",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "FastRegion",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const _t &
-         >(),
-         python::arg("_xys1dregions1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self) { return self.regions1d(); },
-         Component::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "_xys1dregions1d",
-         [](const Component &self) { return self._XYs1dregions1d(); },
-         Component::documentation("_xys1dregions1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const _t &
+      >(),
+      py::arg("_xys1dregions1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const containers::XYs1d &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const containers::Regions1d &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   object.def_property(
+      "_xys1dregions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs1dregions1d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._XYs1dregions1d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys1dregions1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

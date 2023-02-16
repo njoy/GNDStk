@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Gridded2d wrapper
-void wrapGridded2d(python::module &module)
+// wrapper for containers::Gridded2d
+void wrapGridded2d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Gridded2d;
+   using cppCLASS = containers::Gridded2d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Gridded2d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Gridded2d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const containers::Array &,
-            const containers::Axes &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("array"),
-         python::arg("axes"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self) { return self.array(); },
-         Component::documentation("array").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const containers::Array &,
+         const containers::Axes &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("array"),
+      py::arg("axes"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const containers::Array &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const containers::Axes &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

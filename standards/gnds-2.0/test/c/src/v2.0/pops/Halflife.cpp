@@ -92,20 +92,20 @@ HalflifeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-HalflifeAssign(ConstHandle2Halflife This, ConstHandle2ConstHalflife from)
+HalflifeAssign(ConstHandle2Halflife self, ConstHandle2ConstHalflife from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-HalflifeDelete(ConstHandle2ConstHalflife This)
+HalflifeDelete(ConstHandle2ConstHalflife self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -119,44 +119,44 @@ HalflifeDelete(ConstHandle2ConstHalflife This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-HalflifeRead(ConstHandle2Halflife This, const char *const filename)
+HalflifeRead(ConstHandle2Halflife self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-HalflifeWrite(ConstHandle2ConstHalflife This, const char *const filename)
+HalflifeWrite(ConstHandle2ConstHalflife self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-HalflifePrint(ConstHandle2ConstHalflife This)
+HalflifePrint(ConstHandle2ConstHalflife self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-HalflifePrintXML(ConstHandle2ConstHalflife This)
+HalflifePrintXML(ConstHandle2ConstHalflife self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-HalflifePrintJSON(ConstHandle2ConstHalflife This)
+HalflifePrintJSON(ConstHandle2ConstHalflife self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -166,27 +166,27 @@ HalflifePrintJSON(ConstHandle2ConstHalflife This)
 
 // Has
 int
-HalflifeLabelHas(ConstHandle2ConstHalflife This)
+HalflifeLabelHas(ConstHandle2ConstHalflife self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-HalflifeLabelGet(ConstHandle2ConstHalflife This)
+HalflifeLabelGet(ConstHandle2ConstHalflife self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-HalflifeLabelSet(ConstHandle2Halflife This, const XMLName label)
+HalflifeLabelSet(ConstHandle2Halflife self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -196,27 +196,27 @@ HalflifeLabelSet(ConstHandle2Halflife This, const XMLName label)
 
 // Has
 int
-HalflifeUnitHas(ConstHandle2ConstHalflife This)
+HalflifeUnitHas(ConstHandle2ConstHalflife self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-HalflifeUnitGet(ConstHandle2ConstHalflife This)
+HalflifeUnitGet(ConstHandle2ConstHalflife self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-HalflifeUnitSet(ConstHandle2Halflife This, const XMLName unit)
+HalflifeUnitSet(ConstHandle2Halflife self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -226,27 +226,27 @@ HalflifeUnitSet(ConstHandle2Halflife This, const XMLName unit)
 
 // Has
 int
-HalflifeValueHas(ConstHandle2ConstHalflife This)
+HalflifeValueHas(ConstHandle2ConstHalflife self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-HalflifeValueGet(ConstHandle2ConstHalflife This)
+HalflifeValueGet(ConstHandle2ConstHalflife self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-HalflifeValueSet(ConstHandle2Halflife This, const XMLName value)
+HalflifeValueSet(ConstHandle2Halflife self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -256,34 +256,34 @@ HalflifeValueSet(ConstHandle2Halflife This, const XMLName value)
 
 // Has
 int
-HalflifeDocumentationHas(ConstHandle2ConstHalflife This)
+HalflifeDocumentationHas(ConstHandle2ConstHalflife self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-HalflifeDocumentationGetConst(ConstHandle2ConstHalflife This)
+HalflifeDocumentationGetConst(ConstHandle2ConstHalflife self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-HalflifeDocumentationGet(ConstHandle2Halflife This)
+HalflifeDocumentationGet(ConstHandle2Halflife self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-HalflifeDocumentationSet(ConstHandle2Halflife This, ConstHandle2ConstDocumentation documentation)
+HalflifeDocumentationSet(ConstHandle2Halflife self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -293,34 +293,34 @@ HalflifeDocumentationSet(ConstHandle2Halflife This, ConstHandle2ConstDocumentati
 
 // Has
 int
-HalflifeUncertaintyHas(ConstHandle2ConstHalflife This)
+HalflifeUncertaintyHas(ConstHandle2ConstHalflife self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-HalflifeUncertaintyGetConst(ConstHandle2ConstHalflife This)
+HalflifeUncertaintyGetConst(ConstHandle2ConstHalflife self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-HalflifeUncertaintyGet(ConstHandle2Halflife This)
+HalflifeUncertaintyGet(ConstHandle2Halflife self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-HalflifeUncertaintySet(ConstHandle2Halflife This, ConstHandle2ConstUncertainty uncertainty)
+HalflifeUncertaintySet(ConstHandle2Halflife self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

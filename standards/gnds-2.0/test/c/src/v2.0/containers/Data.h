@@ -89,13 +89,13 @@ DataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DataAssign(ConstHandle2Data This, ConstHandle2ConstData from);
+DataAssign(ConstHandle2Data self, ConstHandle2ConstData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DataDelete(ConstHandle2ConstData This);
+DataDelete(ConstHandle2ConstData self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ DataDelete(ConstHandle2ConstData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DataRead(ConstHandle2Data This, const char *const filename);
+DataRead(ConstHandle2Data self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DataWrite(ConstHandle2ConstData This, const char *const filename);
+DataWrite(ConstHandle2ConstData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DataPrint(ConstHandle2ConstData This);
+DataPrint(ConstHandle2ConstData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DataPrintXML(ConstHandle2ConstData This);
+DataPrintXML(ConstHandle2ConstData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DataPrintJSON(ConstHandle2ConstData This);
+DataPrintJSON(ConstHandle2ConstData self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,33 +139,33 @@ DataPrintJSON(ConstHandle2ConstData This);
 
 // +++ Clear
 extern_c void
-DataIntsClear(ConstHandle2Data This);
+DataIntsClear(ConstHandle2Data self);
 
 // +++ Get size
 extern_c size_t
-DataIntsSize(ConstHandle2ConstData This);
+DataIntsSize(ConstHandle2ConstData self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-DataIntsGet(ConstHandle2ConstData This, const size_t index);
+DataIntsGet(ConstHandle2ConstData self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-DataIntsSet(ConstHandle2Data This, const size_t index, const int value);
+DataIntsSet(ConstHandle2Data self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-DataIntsGetArrayConst(ConstHandle2ConstData This);
+DataIntsGetArrayConst(ConstHandle2ConstData self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-DataIntsGetArray(ConstHandle2Data This);
+DataIntsGetArray(ConstHandle2Data self);
 
 // +++ Set completely new values and size
 extern_c void
-DataIntsSetArray(ConstHandle2Data This, const int *const values, const size_t size);
+DataIntsSetArray(ConstHandle2Data self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -173,33 +173,33 @@ DataIntsSetArray(ConstHandle2Data This, const int *const values, const size_t si
 
 // +++ Clear
 extern_c void
-DataUnsignedsClear(ConstHandle2Data This);
+DataUnsignedsClear(ConstHandle2Data self);
 
 // +++ Get size
 extern_c size_t
-DataUnsignedsSize(ConstHandle2ConstData This);
+DataUnsignedsSize(ConstHandle2ConstData self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-DataUnsignedsGet(ConstHandle2ConstData This, const size_t index);
+DataUnsignedsGet(ConstHandle2ConstData self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-DataUnsignedsSet(ConstHandle2Data This, const size_t index, const unsigned value);
+DataUnsignedsSet(ConstHandle2Data self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-DataUnsignedsGetArrayConst(ConstHandle2ConstData This);
+DataUnsignedsGetArrayConst(ConstHandle2ConstData self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-DataUnsignedsGetArray(ConstHandle2Data This);
+DataUnsignedsGetArray(ConstHandle2Data self);
 
 // +++ Set completely new values and size
 extern_c void
-DataUnsignedsSetArray(ConstHandle2Data This, const unsigned *const values, const size_t size);
+DataUnsignedsSetArray(ConstHandle2Data self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -207,33 +207,33 @@ DataUnsignedsSetArray(ConstHandle2Data This, const unsigned *const values, const
 
 // +++ Clear
 extern_c void
-DataFloatsClear(ConstHandle2Data This);
+DataFloatsClear(ConstHandle2Data self);
 
 // +++ Get size
 extern_c size_t
-DataFloatsSize(ConstHandle2ConstData This);
+DataFloatsSize(ConstHandle2ConstData self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-DataFloatsGet(ConstHandle2ConstData This, const size_t index);
+DataFloatsGet(ConstHandle2ConstData self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-DataFloatsSet(ConstHandle2Data This, const size_t index, const float value);
+DataFloatsSet(ConstHandle2Data self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-DataFloatsGetArrayConst(ConstHandle2ConstData This);
+DataFloatsGetArrayConst(ConstHandle2ConstData self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-DataFloatsGetArray(ConstHandle2Data This);
+DataFloatsGetArray(ConstHandle2Data self);
 
 // +++ Set completely new values and size
 extern_c void
-DataFloatsSetArray(ConstHandle2Data This, const float *const values, const size_t size);
+DataFloatsSetArray(ConstHandle2Data self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -241,33 +241,33 @@ DataFloatsSetArray(ConstHandle2Data This, const float *const values, const size_
 
 // +++ Clear
 extern_c void
-DataDoublesClear(ConstHandle2Data This);
+DataDoublesClear(ConstHandle2Data self);
 
 // +++ Get size
 extern_c size_t
-DataDoublesSize(ConstHandle2ConstData This);
+DataDoublesSize(ConstHandle2ConstData self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-DataDoublesGet(ConstHandle2ConstData This, const size_t index);
+DataDoublesGet(ConstHandle2ConstData self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-DataDoublesSet(ConstHandle2Data This, const size_t index, const double value);
+DataDoublesSet(ConstHandle2Data self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-DataDoublesGetArrayConst(ConstHandle2ConstData This);
+DataDoublesGetArrayConst(ConstHandle2ConstData self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-DataDoublesGetArray(ConstHandle2Data This);
+DataDoublesGetArray(ConstHandle2Data self);
 
 // +++ Set completely new values and size
 extern_c void
-DataDoublesSetArray(ConstHandle2Data This, const double *const values, const size_t size);
+DataDoublesSetArray(ConstHandle2Data self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -276,16 +276,16 @@ DataDoublesSetArray(ConstHandle2Data This, const double *const values, const siz
 
 // +++ Has
 extern_c int
-DataSepHas(ConstHandle2ConstData This);
+DataSepHas(ConstHandle2ConstData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-DataSepGet(ConstHandle2ConstData This);
+DataSepGet(ConstHandle2ConstData self);
 
 // +++ Set
 extern_c void
-DataSepSet(ConstHandle2Data This, const UTF8Text sep);
+DataSepSet(ConstHandle2Data self, const UTF8Text sep);
 
 
 // -----------------------------------------------------------------------------

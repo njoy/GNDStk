@@ -69,20 +69,20 @@ ApplicationDataCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ApplicationDataAssign(ConstHandle2ApplicationData This, ConstHandle2ConstApplicationData from)
+ApplicationDataAssign(ConstHandle2ApplicationData self, ConstHandle2ConstApplicationData from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ApplicationDataDelete(ConstHandle2ConstApplicationData This)
+ApplicationDataDelete(ConstHandle2ConstApplicationData self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ApplicationDataDelete(ConstHandle2ConstApplicationData This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ApplicationDataRead(ConstHandle2ApplicationData This, const char *const filename)
+ApplicationDataRead(ConstHandle2ApplicationData self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ApplicationDataWrite(ConstHandle2ConstApplicationData This, const char *const filename)
+ApplicationDataWrite(ConstHandle2ConstApplicationData self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ApplicationDataPrint(ConstHandle2ConstApplicationData This)
+ApplicationDataPrint(ConstHandle2ConstApplicationData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ApplicationDataPrintXML(ConstHandle2ConstApplicationData This)
+ApplicationDataPrintXML(ConstHandle2ConstApplicationData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ApplicationDataPrintJSON(ConstHandle2ConstApplicationData This)
+ApplicationDataPrintJSON(ConstHandle2ConstApplicationData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ApplicationDataPrintJSON(ConstHandle2ConstApplicationData This)
 
 // Has
 int
-ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData This)
+ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InstitutionHas", This, extract::institution);
+      (CLASSNAME, CLASSNAME+"InstitutionHas", self, extract::institution);
 }
 
 // Get, const
 Handle2ConstInstitution
-ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData This)
+ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self)
 {
    return detail::getField<CPP,Handle2ConstInstitution>
-      (CLASSNAME, CLASSNAME+"InstitutionGetConst", This, extract::institution);
+      (CLASSNAME, CLASSNAME+"InstitutionGetConst", self, extract::institution);
 }
 
 // Get, non-const
 Handle2Institution
-ApplicationDataInstitutionGet(ConstHandle2ApplicationData This)
+ApplicationDataInstitutionGet(ConstHandle2ApplicationData self)
 {
    return detail::getField<CPP,Handle2Institution>
-      (CLASSNAME, CLASSNAME+"InstitutionGet", This, extract::institution);
+      (CLASSNAME, CLASSNAME+"InstitutionGet", self, extract::institution);
 }
 
 // Set
 void
-ApplicationDataInstitutionSet(ConstHandle2ApplicationData This, ConstHandle2ConstInstitution institution)
+ApplicationDataInstitutionSet(ConstHandle2ApplicationData self, ConstHandle2ConstInstitution institution)
 {
    detail::setField<CPP,CPPInstitution>
-      (CLASSNAME, CLASSNAME+"InstitutionSet", This, extract::institution, institution);
+      (CLASSNAME, CLASSNAME+"InstitutionSet", self, extract::institution, institution);
 }
 
 

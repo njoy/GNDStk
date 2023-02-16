@@ -93,13 +93,13 @@ AliasesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AliasesAssign(ConstHandle2Aliases This, ConstHandle2ConstAliases from);
+AliasesAssign(ConstHandle2Aliases self, ConstHandle2ConstAliases from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AliasesDelete(ConstHandle2ConstAliases This);
+AliasesDelete(ConstHandle2ConstAliases self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AliasesDelete(ConstHandle2ConstAliases This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AliasesRead(ConstHandle2Aliases This, const char *const filename);
+AliasesRead(ConstHandle2Aliases self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AliasesWrite(ConstHandle2ConstAliases This, const char *const filename);
+AliasesWrite(ConstHandle2ConstAliases self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AliasesPrint(ConstHandle2ConstAliases This);
+AliasesPrint(ConstHandle2ConstAliases self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AliasesPrintXML(ConstHandle2ConstAliases This);
+AliasesPrintXML(ConstHandle2ConstAliases self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AliasesPrintJSON(ConstHandle2ConstAliases This);
+AliasesPrintJSON(ConstHandle2ConstAliases self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,32 +139,32 @@ AliasesPrintJSON(ConstHandle2ConstAliases This);
 
 // +++ Has
 extern_c int
-AliasesAliasHas(ConstHandle2ConstAliases This);
+AliasesAliasHas(ConstHandle2ConstAliases self);
 
 // +++ Clear
 extern_c void
-AliasesAliasClear(ConstHandle2Aliases This);
+AliasesAliasClear(ConstHandle2Aliases self);
 
 // +++ Size
 extern_c size_t
-AliasesAliasSize(ConstHandle2ConstAliases This);
+AliasesAliasSize(ConstHandle2ConstAliases self);
 
 // +++ Add
 extern_c void
-AliasesAliasAdd(ConstHandle2Aliases This, ConstHandle2ConstAlias alias);
+AliasesAliasAdd(ConstHandle2Aliases self, ConstHandle2ConstAlias alias);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAlias
-AliasesAliasGetConst(ConstHandle2ConstAliases This, const size_t index_);
+AliasesAliasGetConst(ConstHandle2ConstAliases self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Alias
-AliasesAliasGet(ConstHandle2Aliases This, const size_t index_);
+AliasesAliasGet(ConstHandle2Aliases self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AliasesAliasSet(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const size_t index_,
    ConstHandle2ConstAlias alias
 );
@@ -172,28 +172,28 @@ AliasesAliasSet(
 // +++ Has, by id
 extern_c int
 AliasesAliasHasById(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstAlias
 AliasesAliasGetByIdConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2Alias
 AliasesAliasGetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id
 );
 
 // +++ Set, by id
 extern_c void
 AliasesAliasSetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id,
    ConstHandle2ConstAlias alias
 );
@@ -201,28 +201,28 @@ AliasesAliasSetById(
 // +++ Has, by pid
 extern_c int
 AliasesAliasHasByPid(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 );
 
 // --- Get, by pid, const
 extern_c Handle2ConstAlias
 AliasesAliasGetByPidConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 );
 
 // +++ Get, by pid, non-const
 extern_c Handle2Alias
 AliasesAliasGetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid
 );
 
 // +++ Set, by pid
 extern_c void
 AliasesAliasSetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid,
    ConstHandle2ConstAlias alias
 );
@@ -234,32 +234,32 @@ AliasesAliasSetByPid(
 
 // +++ Has
 extern_c int
-AliasesMetaStableHas(ConstHandle2ConstAliases This);
+AliasesMetaStableHas(ConstHandle2ConstAliases self);
 
 // +++ Clear
 extern_c void
-AliasesMetaStableClear(ConstHandle2Aliases This);
+AliasesMetaStableClear(ConstHandle2Aliases self);
 
 // +++ Size
 extern_c size_t
-AliasesMetaStableSize(ConstHandle2ConstAliases This);
+AliasesMetaStableSize(ConstHandle2ConstAliases self);
 
 // +++ Add
 extern_c void
-AliasesMetaStableAdd(ConstHandle2Aliases This, ConstHandle2ConstMetaStable metaStable);
+AliasesMetaStableAdd(ConstHandle2Aliases self, ConstHandle2ConstMetaStable metaStable);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstMetaStable
-AliasesMetaStableGetConst(ConstHandle2ConstAliases This, const size_t index_);
+AliasesMetaStableGetConst(ConstHandle2ConstAliases self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2MetaStable
-AliasesMetaStableGet(ConstHandle2Aliases This, const size_t index_);
+AliasesMetaStableGet(ConstHandle2Aliases self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AliasesMetaStableSet(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const size_t index_,
    ConstHandle2ConstMetaStable metaStable
 );
@@ -267,28 +267,28 @@ AliasesMetaStableSet(
 // +++ Has, by id
 extern_c int
 AliasesMetaStableHasById(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstMetaStable
 AliasesMetaStableGetByIdConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id
 );
 
 // +++ Set, by id
 extern_c void
 AliasesMetaStableSetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id,
    ConstHandle2ConstMetaStable metaStable
 );
@@ -296,28 +296,28 @@ AliasesMetaStableSetById(
 // +++ Has, by metaStableIndex
 extern_c int
 AliasesMetaStableHasByMetaStableIndex(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const Integer32 metaStableIndex
 );
 
 // --- Get, by metaStableIndex, const
 extern_c Handle2ConstMetaStable
 AliasesMetaStableGetByMetaStableIndexConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const Integer32 metaStableIndex
 );
 
 // +++ Get, by metaStableIndex, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetByMetaStableIndex(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const Integer32 metaStableIndex
 );
 
 // +++ Set, by metaStableIndex
 extern_c void
 AliasesMetaStableSetByMetaStableIndex(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const Integer32 metaStableIndex,
    ConstHandle2ConstMetaStable metaStable
 );
@@ -325,28 +325,28 @@ AliasesMetaStableSetByMetaStableIndex(
 // +++ Has, by pid
 extern_c int
 AliasesMetaStableHasByPid(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 );
 
 // --- Get, by pid, const
 extern_c Handle2ConstMetaStable
 AliasesMetaStableGetByPidConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 );
 
 // +++ Get, by pid, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid
 );
 
 // +++ Set, by pid
 extern_c void
 AliasesMetaStableSetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid,
    ConstHandle2ConstMetaStable metaStable
 );

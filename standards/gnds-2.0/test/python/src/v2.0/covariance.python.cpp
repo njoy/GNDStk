@@ -5,42 +5,42 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // covariance declarations
 namespace python_covariance {
-   void wrapSlice(python::module &);
-   void wrapSlices(python::module &);
-   void wrapRowData(python::module &);
-   void wrapColumnData(python::module &);
-   void wrapCovariance(python::module &);
-   void wrapRowSensitivity(python::module &);
-   void wrapColumnSensitivity(python::module &);
-   void wrapSandwichProduct(python::module &);
-   void wrapCovarianceMatrix(python::module &);
-   void wrapSummand(python::module &);
-   void wrapSum(python::module &);
-   void wrapShortRangeSelfScalingVariance(python::module &);
-   void wrapMixed(python::module &);
-   void wrapCovarianceSection(python::module &);
-   void wrapCovarianceSections(python::module &);
-   void wrapAverageParameterCovariance(python::module &);
-   void wrapParameterLink(python::module &);
-   void wrapParameters(python::module &);
-   void wrapParameterCovarianceMatrix(python::module &);
-   void wrapParameterCovariance(python::module &);
-   void wrapParameterCovariances(python::module &);
-   void wrapCovarianceSuite(python::module &);
+   void wrapSlice(py::module &);
+   void wrapSlices(py::module &);
+   void wrapRowData(py::module &);
+   void wrapColumnData(py::module &);
+   void wrapCovariance(py::module &);
+   void wrapRowSensitivity(py::module &);
+   void wrapColumnSensitivity(py::module &);
+   void wrapSandwichProduct(py::module &);
+   void wrapCovarianceMatrix(py::module &);
+   void wrapSummand(py::module &);
+   void wrapSum(py::module &);
+   void wrapShortRangeSelfScalingVariance(py::module &);
+   void wrapMixed(py::module &);
+   void wrapCovarianceSection(py::module &);
+   void wrapCovarianceSections(py::module &);
+   void wrapAverageParameterCovariance(py::module &);
+   void wrapParameterLink(py::module &);
+   void wrapParameters(py::module &);
+   void wrapParameterCovarianceMatrix(py::module &);
+   void wrapParameterCovariance(py::module &);
+   void wrapParameterCovariances(py::module &);
+   void wrapCovarianceSuite(py::module &);
 } // namespace python_covariance
 
-// covariance wrapper
-void wrapCovariance(python::module &module)
+// wrapper for covariance
+void wrapCovariance(py::module &module)
 {
    // create the covariance submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "covariance",
       "test v2.0 covariance"
    );

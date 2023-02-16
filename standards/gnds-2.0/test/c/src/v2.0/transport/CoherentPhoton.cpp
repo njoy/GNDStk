@@ -59,20 +59,20 @@ CoherentPhotonCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CoherentPhotonAssign(ConstHandle2CoherentPhoton This, ConstHandle2ConstCoherentPhoton from)
+CoherentPhotonAssign(ConstHandle2CoherentPhoton self, ConstHandle2ConstCoherentPhoton from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton This)
+CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ CoherentPhotonDelete(ConstHandle2ConstCoherentPhoton This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CoherentPhotonRead(ConstHandle2CoherentPhoton This, const char *const filename)
+CoherentPhotonRead(ConstHandle2CoherentPhoton self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CoherentPhotonWrite(ConstHandle2ConstCoherentPhoton This, const char *const filename)
+CoherentPhotonWrite(ConstHandle2ConstCoherentPhoton self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CoherentPhotonPrint(ConstHandle2ConstCoherentPhoton This)
+CoherentPhotonPrint(ConstHandle2ConstCoherentPhoton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CoherentPhotonPrintXML(ConstHandle2ConstCoherentPhoton This)
+CoherentPhotonPrintXML(ConstHandle2ConstCoherentPhoton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CoherentPhotonPrintJSON(ConstHandle2ConstCoherentPhoton This)
+CoherentPhotonPrintJSON(ConstHandle2ConstCoherentPhoton self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

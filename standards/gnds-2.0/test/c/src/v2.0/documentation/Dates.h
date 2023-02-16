@@ -90,13 +90,13 @@ DatesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DatesAssign(ConstHandle2Dates This, ConstHandle2ConstDates from);
+DatesAssign(ConstHandle2Dates self, ConstHandle2ConstDates from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DatesDelete(ConstHandle2ConstDates This);
+DatesDelete(ConstHandle2ConstDates self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DatesDelete(ConstHandle2ConstDates This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DatesRead(ConstHandle2Dates This, const char *const filename);
+DatesRead(ConstHandle2Dates self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DatesWrite(ConstHandle2ConstDates This, const char *const filename);
+DatesWrite(ConstHandle2ConstDates self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DatesPrint(ConstHandle2ConstDates This);
+DatesPrint(ConstHandle2ConstDates self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DatesPrintXML(ConstHandle2ConstDates This);
+DatesPrintXML(ConstHandle2ConstDates self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DatesPrintJSON(ConstHandle2ConstDates This);
+DatesPrintJSON(ConstHandle2ConstDates self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ DatesPrintJSON(ConstHandle2ConstDates This);
 
 // +++ Has
 extern_c int
-DatesDateHas(ConstHandle2ConstDates This);
+DatesDateHas(ConstHandle2ConstDates self);
 
 // +++ Clear
 extern_c void
-DatesDateClear(ConstHandle2Dates This);
+DatesDateClear(ConstHandle2Dates self);
 
 // +++ Size
 extern_c size_t
-DatesDateSize(ConstHandle2ConstDates This);
+DatesDateSize(ConstHandle2ConstDates self);
 
 // +++ Add
 extern_c void
-DatesDateAdd(ConstHandle2Dates This, ConstHandle2ConstDate date);
+DatesDateAdd(ConstHandle2Dates self, ConstHandle2ConstDate date);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDate
-DatesDateGetConst(ConstHandle2ConstDates This, const size_t index_);
+DatesDateGetConst(ConstHandle2ConstDates self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Date
-DatesDateGet(ConstHandle2Dates This, const size_t index_);
+DatesDateGet(ConstHandle2Dates self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 DatesDateSet(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const size_t index_,
    ConstHandle2ConstDate date
 );
@@ -169,28 +169,28 @@ DatesDateSet(
 // +++ Has, by dateType
 extern_c int
 DatesDateHasByDateType(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const enums::DateType dateType
 );
 
 // --- Get, by dateType, const
 extern_c Handle2ConstDate
 DatesDateGetByDateTypeConst(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const enums::DateType dateType
 );
 
 // +++ Get, by dateType, non-const
 extern_c Handle2Date
 DatesDateGetByDateType(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const enums::DateType dateType
 );
 
 // +++ Set, by dateType
 extern_c void
 DatesDateSetByDateType(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const enums::DateType dateType,
    ConstHandle2ConstDate date
 );
@@ -198,28 +198,28 @@ DatesDateSetByDateType(
 // +++ Has, by value
 extern_c int
 DatesDateHasByValue(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const char *const value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstDate
 DatesDateGetByValueConst(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const char *const value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Date
 DatesDateGetByValue(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const char *const value
 );
 
 // +++ Set, by value
 extern_c void
 DatesDateSetByValue(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const char *const value,
    ConstHandle2ConstDate date
 );

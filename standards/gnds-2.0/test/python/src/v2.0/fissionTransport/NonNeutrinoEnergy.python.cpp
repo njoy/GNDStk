@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionTransport {
 
-// NonNeutrinoEnergy wrapper
-void wrapNonNeutrinoEnergy(python::module &module)
+// wrapper for fissionTransport::NonNeutrinoEnergy
+void wrapNonNeutrinoEnergy(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionTransport::NonNeutrinoEnergy;
+   using cppCLASS = fissionTransport::NonNeutrinoEnergy;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "NonNeutrinoEnergy",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "NonNeutrinoEnergy",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::Polynomial1d> &
-         >(),
-         python::arg("polynomial1d") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
-         Component::documentation("polynomial1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::Polynomial1d> &
+      >(),
+      py::arg("polynomial1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Polynomial1d> &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionTransport

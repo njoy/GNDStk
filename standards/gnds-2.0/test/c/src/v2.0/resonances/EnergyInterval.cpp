@@ -85,20 +85,20 @@ EnergyIntervalCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EnergyIntervalAssign(ConstHandle2EnergyInterval This, ConstHandle2ConstEnergyInterval from)
+EnergyIntervalAssign(ConstHandle2EnergyInterval self, ConstHandle2ConstEnergyInterval from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EnergyIntervalDelete(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDelete(ConstHandle2ConstEnergyInterval self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ EnergyIntervalDelete(ConstHandle2ConstEnergyInterval This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EnergyIntervalRead(ConstHandle2EnergyInterval This, const char *const filename)
+EnergyIntervalRead(ConstHandle2EnergyInterval self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EnergyIntervalWrite(ConstHandle2ConstEnergyInterval This, const char *const filename)
+EnergyIntervalWrite(ConstHandle2ConstEnergyInterval self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EnergyIntervalPrint(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalPrint(ConstHandle2ConstEnergyInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EnergyIntervalPrintXML(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalPrintXML(ConstHandle2ConstEnergyInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ EnergyIntervalPrintJSON(ConstHandle2ConstEnergyInterval This)
 
 // Has
 int
-EnergyIntervalIndexHas(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalIndexHas(ConstHandle2ConstEnergyInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexHas", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexHas", self, extract::index);
 }
 
 // Get
 // Returns by value
 Integer32
-EnergyIntervalIndexGet(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalIndexGet(ConstHandle2ConstEnergyInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexGet", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexGet", self, extract::index);
 }
 
 // Set
 void
-EnergyIntervalIndexSet(ConstHandle2EnergyInterval This, const Integer32 index)
+EnergyIntervalIndexSet(ConstHandle2EnergyInterval self, const Integer32 index)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexSet", This, extract::index, index);
+      (CLASSNAME, CLASSNAME+"IndexSet", self, extract::index, index);
 }
 
 
@@ -189,27 +189,27 @@ EnergyIntervalIndexSet(ConstHandle2EnergyInterval This, const Integer32 index)
 
 // Has
 int
-EnergyIntervalDomainMinHas(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainMinHas(ConstHandle2ConstEnergyInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 Float64
-EnergyIntervalDomainMinGet(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainMinGet(ConstHandle2ConstEnergyInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval This, const Float64 domainMin)
+EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval self, const Float64 domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -219,27 +219,27 @@ EnergyIntervalDomainMinSet(ConstHandle2EnergyInterval This, const Float64 domain
 
 // Has
 int
-EnergyIntervalDomainMaxHas(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainMaxHas(ConstHandle2ConstEnergyInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 Float64
-EnergyIntervalDomainMaxGet(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainMaxGet(ConstHandle2ConstEnergyInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval This, const Float64 domainMax)
+EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval self, const Float64 domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -249,27 +249,27 @@ EnergyIntervalDomainMaxSet(ConstHandle2EnergyInterval This, const Float64 domain
 
 // Has
 int
-EnergyIntervalDomainUnitHas(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainUnitHas(ConstHandle2ConstEnergyInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitHas", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitHas", self, extract::domainUnit);
 }
 
 // Get
 // Returns by value
 XMLName
-EnergyIntervalDomainUnitGet(ConstHandle2ConstEnergyInterval This)
+EnergyIntervalDomainUnitGet(ConstHandle2ConstEnergyInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitGet", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitGet", self, extract::domainUnit);
 }
 
 // Set
 void
-EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval This, const XMLName domainUnit)
+EnergyIntervalDomainUnitSet(ConstHandle2EnergyInterval self, const XMLName domainUnit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitSet", self, extract::domainUnit, domainUnit);
 }
 
 

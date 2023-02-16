@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// ComputerCode wrapper
-void wrapComputerCode(python::module &module)
+// wrapper for documentation::ComputerCode
+void wrapComputerCode(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::ComputerCode;
+   using cppCLASS = documentation::ComputerCode;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ComputerCode",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ComputerCode",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const UTF8Text &,
-            const XMLName &,
-            const std::optional<documentation::ExecutionArguments> &,
-            const std::optional<documentation::CodeRepo> &,
-            const std::optional<documentation::Note> &,
-            const std::optional<documentation::InputDecks> &,
-            const std::optional<documentation::OutputDecks> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("name"),
-         python::arg("version"),
-         python::arg("execution_arguments") = std::nullopt,
-         python::arg("code_repo") = std::nullopt,
-         python::arg("note") = std::nullopt,
-         python::arg("input_decks") = std::nullopt,
-         python::arg("output_decks") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
-      )
-      .def_property_readonly(
-         "execution_arguments",
-         [](const Component &self) { return self.executionArguments(); },
-         Component::documentation("execution_arguments").data()
-      )
-      .def_property_readonly(
-         "code_repo",
-         [](const Component &self) { return self.codeRepo(); },
-         Component::documentation("code_repo").data()
-      )
-      .def_property_readonly(
-         "note",
-         [](const Component &self) { return self.note(); },
-         Component::documentation("note").data()
-      )
-      .def_property_readonly(
-         "input_decks",
-         [](const Component &self) { return self.inputDecks(); },
-         Component::documentation("input_decks").data()
-      )
-      .def_property_readonly(
-         "output_decks",
-         [](const Component &self) { return self.outputDecks(); },
-         Component::documentation("output_decks").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const UTF8Text &,
+         const XMLName &,
+         const std::optional<documentation::ExecutionArguments> &,
+         const std::optional<documentation::CodeRepo> &,
+         const std::optional<documentation::Note> &,
+         const std::optional<documentation::InputDecks> &,
+         const std::optional<documentation::OutputDecks> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("name"),
+      py::arg("version"),
+      py::arg("execution_arguments") = std::nullopt,
+      py::arg("code_repo") = std::nullopt,
+      py::arg("note") = std::nullopt,
+      py::arg("input_decks") = std::nullopt,
+      py::arg("output_decks") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const UTF8Text &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set executionArguments
+   object.def_property(
+      "execution_arguments",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.executionArguments();
+      },
+      [](cppCLASS &self, const std::optional<documentation::ExecutionArguments> &value)
+      {
+         self.executionArguments() = value;
+      },
+      cppCLASS::component_t::documentation("execution_arguments").data()
+   );
+
+   // get/set codeRepo
+   object.def_property(
+      "code_repo",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.codeRepo();
+      },
+      [](cppCLASS &self, const std::optional<documentation::CodeRepo> &value)
+      {
+         self.codeRepo() = value;
+      },
+      cppCLASS::component_t::documentation("code_repo").data()
+   );
+
+   // get/set note
+   object.def_property(
+      "note",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.note();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Note> &value)
+      {
+         self.note() = value;
+      },
+      cppCLASS::component_t::documentation("note").data()
+   );
+
+   // get/set inputDecks
+   object.def_property(
+      "input_decks",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.inputDecks();
+      },
+      [](cppCLASS &self, const std::optional<documentation::InputDecks> &value)
+      {
+         self.inputDecks() = value;
+      },
+      cppCLASS::component_t::documentation("input_decks").data()
+   );
+
+   // get/set outputDecks
+   object.def_property(
+      "output_decks",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outputDecks();
+      },
+      [](cppCLASS &self, const std::optional<documentation::OutputDecks> &value)
+      {
+         self.outputDecks() = value;
+      },
+      cppCLASS::component_t::documentation("output_decks").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

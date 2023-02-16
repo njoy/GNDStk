@@ -97,13 +97,13 @@ UncorrelatedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-UncorrelatedAssign(ConstHandle2Uncorrelated This, ConstHandle2ConstUncorrelated from);
+UncorrelatedAssign(ConstHandle2Uncorrelated self, ConstHandle2ConstUncorrelated from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-UncorrelatedDelete(ConstHandle2ConstUncorrelated This);
+UncorrelatedDelete(ConstHandle2ConstUncorrelated self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ UncorrelatedDelete(ConstHandle2ConstUncorrelated This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-UncorrelatedRead(ConstHandle2Uncorrelated This, const char *const filename);
+UncorrelatedRead(ConstHandle2Uncorrelated self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-UncorrelatedWrite(ConstHandle2ConstUncorrelated This, const char *const filename);
+UncorrelatedWrite(ConstHandle2ConstUncorrelated self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-UncorrelatedPrint(ConstHandle2ConstUncorrelated This);
+UncorrelatedPrint(ConstHandle2ConstUncorrelated self);
 
 // +++ Print to standard output, as XML
 extern_c int
-UncorrelatedPrintXML(ConstHandle2ConstUncorrelated This);
+UncorrelatedPrintXML(ConstHandle2ConstUncorrelated self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated This);
+UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated This);
 
 // +++ Has
 extern_c int
-UncorrelatedLabelHas(ConstHandle2ConstUncorrelated This);
+UncorrelatedLabelHas(ConstHandle2ConstUncorrelated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-UncorrelatedLabelGet(ConstHandle2ConstUncorrelated This);
+UncorrelatedLabelGet(ConstHandle2ConstUncorrelated self);
 
 // +++ Set
 extern_c void
-UncorrelatedLabelSet(ConstHandle2Uncorrelated This, const XMLName label);
+UncorrelatedLabelSet(ConstHandle2Uncorrelated self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ UncorrelatedLabelSet(ConstHandle2Uncorrelated This, const XMLName label);
 
 // +++ Has
 extern_c int
-UncorrelatedProductFrameHas(ConstHandle2ConstUncorrelated This);
+UncorrelatedProductFrameHas(ConstHandle2ConstUncorrelated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-UncorrelatedProductFrameGet(ConstHandle2ConstUncorrelated This);
+UncorrelatedProductFrameGet(ConstHandle2ConstUncorrelated self);
 
 // +++ Set
 extern_c void
-UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName productFrame);
+UncorrelatedProductFrameSet(ConstHandle2Uncorrelated self, const XMLName productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName product
 
 // +++ Has
 extern_c int
-UncorrelatedAngular_uncorrelatedHas(ConstHandle2ConstUncorrelated This);
+UncorrelatedAngular_uncorrelatedHas(ConstHandle2ConstUncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstAngular_uncorrelated
-UncorrelatedAngular_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This);
+UncorrelatedAngular_uncorrelatedGetConst(ConstHandle2ConstUncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2Angular_uncorrelated
-UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated This);
+UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated self);
 
 // +++ Set
 extern_c void
-UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
+UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated self, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2C
 
 // +++ Has
 extern_c int
-UncorrelatedEnergy_uncorrelatedHas(ConstHandle2ConstUncorrelated This);
+UncorrelatedEnergy_uncorrelatedHas(ConstHandle2ConstUncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstEnergy_uncorrelated
-UncorrelatedEnergy_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This);
+UncorrelatedEnergy_uncorrelatedGetConst(ConstHandle2ConstUncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2Energy_uncorrelated
-UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated This);
+UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated self);
 
 // +++ Set
 extern_c void
-UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated);
+UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated self, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated);
 
 
 // -----------------------------------------------------------------------------

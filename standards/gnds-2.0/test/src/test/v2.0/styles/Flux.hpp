@@ -25,12 +25,12 @@ class Flux :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Flux"; }
-   static auto FIELD() { return "flux"; }
+   static auto NODENAME() { return "flux"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,30 +42,69 @@ class Flux :
             / Meta<>("label") |
 
          // children
-         --Child<containers::XYs2d>("XYs2d")
+         --Child<containers::XYs2d>
+            ("XYs2d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "XYs2d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "xys2d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<containers::XYs2d> XYs2d{this};
+   Field<containers::XYs2d>
+      XYs2d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->XYs2d)
+      this->XYs2d \
+   )
 
    // default
    Flux() :
@@ -76,8 +115,10 @@ public:
 
    // from fields, comment excluded
    explicit Flux(
-      const wrapper<XMLName> &label,
-      const wrapper<containers::XYs2d> &XYs2d = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<containers::XYs2d>
+         &XYs2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -117,8 +158,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Flux &operator=(const Flux &) = default;
-   Flux &operator=(Flux &&) = default;
+   // copy
+   Flux &operator=(const Flux &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         XYs2d = other.XYs2d;
+      }
+      return *this;
+   }
+
+   // move
+   Flux &operator=(Flux &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         XYs2d = std::move(other.XYs2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

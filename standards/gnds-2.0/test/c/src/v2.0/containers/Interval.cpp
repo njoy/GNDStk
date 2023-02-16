@@ -77,20 +77,20 @@ IntervalCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IntervalAssign(ConstHandle2Interval This, ConstHandle2ConstInterval from)
+IntervalAssign(ConstHandle2Interval self, ConstHandle2ConstInterval from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IntervalDelete(ConstHandle2ConstInterval This)
+IntervalDelete(ConstHandle2ConstInterval self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ IntervalDelete(ConstHandle2ConstInterval This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IntervalRead(ConstHandle2Interval This, const char *const filename)
+IntervalRead(ConstHandle2Interval self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IntervalWrite(ConstHandle2ConstInterval This, const char *const filename)
+IntervalWrite(ConstHandle2ConstInterval self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IntervalPrint(ConstHandle2ConstInterval This)
+IntervalPrint(ConstHandle2ConstInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IntervalPrintXML(ConstHandle2ConstInterval This)
+IntervalPrintXML(ConstHandle2ConstInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IntervalPrintJSON(ConstHandle2ConstInterval This)
+IntervalPrintJSON(ConstHandle2ConstInterval self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ IntervalPrintJSON(ConstHandle2ConstInterval This)
 
 // Has
 int
-IntervalConfidenceHas(ConstHandle2ConstInterval This)
+IntervalConfidenceHas(ConstHandle2ConstInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConfidenceHas", This, extract::confidence);
+      (CLASSNAME, CLASSNAME+"ConfidenceHas", self, extract::confidence);
 }
 
 // Get
 // Returns by value
 Float64
-IntervalConfidenceGet(ConstHandle2ConstInterval This)
+IntervalConfidenceGet(ConstHandle2ConstInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ConfidenceGet", This, extract::confidence);
+      (CLASSNAME, CLASSNAME+"ConfidenceGet", self, extract::confidence);
 }
 
 // Set
 void
-IntervalConfidenceSet(ConstHandle2Interval This, const Float64 confidence)
+IntervalConfidenceSet(ConstHandle2Interval self, const Float64 confidence)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ConfidenceSet", This, extract::confidence, confidence);
+      (CLASSNAME, CLASSNAME+"ConfidenceSet", self, extract::confidence, confidence);
 }
 
 
@@ -181,27 +181,27 @@ IntervalConfidenceSet(ConstHandle2Interval This, const Float64 confidence)
 
 // Has
 int
-IntervalLowerHas(ConstHandle2ConstInterval This)
+IntervalLowerHas(ConstHandle2ConstInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerHas", This, extract::lower);
+      (CLASSNAME, CLASSNAME+"LowerHas", self, extract::lower);
 }
 
 // Get
 // Returns by value
 Float64
-IntervalLowerGet(ConstHandle2ConstInterval This)
+IntervalLowerGet(ConstHandle2ConstInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerGet", This, extract::lower);
+      (CLASSNAME, CLASSNAME+"LowerGet", self, extract::lower);
 }
 
 // Set
 void
-IntervalLowerSet(ConstHandle2Interval This, const Float64 lower)
+IntervalLowerSet(ConstHandle2Interval self, const Float64 lower)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerSet", This, extract::lower, lower);
+      (CLASSNAME, CLASSNAME+"LowerSet", self, extract::lower, lower);
 }
 
 
@@ -211,27 +211,27 @@ IntervalLowerSet(ConstHandle2Interval This, const Float64 lower)
 
 // Has
 int
-IntervalUpperHas(ConstHandle2ConstInterval This)
+IntervalUpperHas(ConstHandle2ConstInterval self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UpperHas", This, extract::upper);
+      (CLASSNAME, CLASSNAME+"UpperHas", self, extract::upper);
 }
 
 // Get
 // Returns by value
 Float64
-IntervalUpperGet(ConstHandle2ConstInterval This)
+IntervalUpperGet(ConstHandle2ConstInterval self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UpperGet", This, extract::upper);
+      (CLASSNAME, CLASSNAME+"UpperGet", self, extract::upper);
 }
 
 // Set
 void
-IntervalUpperSet(ConstHandle2Interval This, const Float64 upper)
+IntervalUpperSet(ConstHandle2Interval self, const Float64 upper)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UpperSet", This, extract::upper, upper);
+      (CLASSNAME, CLASSNAME+"UpperSet", self, extract::upper, upper);
 }
 
 

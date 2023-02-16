@@ -35,12 +35,12 @@ class ReactionSuite :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
-   static auto FIELD() { return "reactionSuite"; }
+   static auto NODENAME() { return "reactionSuite"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -62,52 +62,145 @@ class ReactionSuite :
             / Meta<>("interaction") |
 
          // children
-         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
-         --Child<styles::Styles>("styles") |
-         --Child<pops::PoPs_database>("PoPs") |
-         --Child<std::optional<resonances::Resonances>>("resonances") |
-         --Child<std::optional<transport::Reactions>>("reactions") |
-         --Child<std::optional<transport::OrphanProducts>>("orphanProducts") |
-         --Child<std::optional<transport::Sums>>("sums") |
-         --Child<std::optional<fissionTransport::FissionComponents>>("fissionComponents") |
-         --Child<std::optional<transport::Productions>>("productions") |
-         --Child<std::optional<transport::IncompleteReactions>>("incompleteReactions") |
-         --Child<std::optional<appData::ApplicationData>>("applicationData")
+         --Child<std::optional<common::ExternalFiles>>
+            ("externalFiles") |
+         --Child<styles::Styles>
+            ("styles") |
+         --Child<pops::PoPs_database>
+            ("PoPs") |
+         --Child<std::optional<resonances::Resonances>>
+            ("resonances") |
+         --Child<std::optional<transport::Reactions>>
+            ("reactions") |
+         --Child<std::optional<transport::OrphanProducts>>
+            ("orphanProducts") |
+         --Child<std::optional<transport::Sums>>
+            ("sums") |
+         --Child<std::optional<fissionTransport::FissionComponents>>
+            ("fissionComponents") |
+         --Child<std::optional<transport::Productions>>
+            ("productions") |
+         --Child<std::optional<transport::IncompleteReactions>>
+            ("incompleteReactions") |
+         --Child<std::optional<appData::ApplicationData>>
+            ("applicationData")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "format",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "interaction",
+         "externalFiles",
+         "styles",
+         "PoPs_database",
+         "resonances",
+         "reactions",
+         "orphanProducts",
+         "sums",
+         "fissionComponents",
+         "productions",
+         "incompleteReactions",
+         "applicationData"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "format",
+         "projectile",
+         "projectile_frame",
+         "target",
+         "interaction",
+         "external_files",
+         "styles",
+         "po_ps_database",
+         "resonances",
+         "reactions",
+         "orphan_products",
+         "sums",
+         "fission_components",
+         "productions",
+         "incomplete_reactions",
+         "application_data"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> evaluation{this};
-   Field<XMLName> format{this};
-   Field<XMLName> projectile{this};
-   Field<enums::Frame> projectileFrame{this};
-   Field<XMLName> target{this};
-   Field<enums::Interaction> interaction{this};
+   Field<XMLName>
+      evaluation{this};
+   Field<XMLName>
+      format{this};
+   Field<XMLName>
+      projectile{this};
+   Field<enums::Frame>
+      projectileFrame{this};
+   Field<XMLName>
+      target{this};
+   Field<enums::Interaction>
+      interaction{this};
 
    // children
-   Field<std::optional<common::ExternalFiles>> externalFiles{this};
-   Field<styles::Styles> styles{this};
-   Field<pops::PoPs_database> PoPs_database{this};
-   Field<std::optional<resonances::Resonances>> resonances{this};
-   Field<std::optional<transport::Reactions>> reactions{this};
-   Field<std::optional<transport::OrphanProducts>> orphanProducts{this};
-   Field<std::optional<transport::Sums>> sums{this};
-   Field<std::optional<fissionTransport::FissionComponents>> fissionComponents{this};
-   Field<std::optional<transport::Productions>> productions{this};
-   Field<std::optional<transport::IncompleteReactions>> incompleteReactions{this};
-   Field<std::optional<appData::ApplicationData>> applicationData{this};
+   Field<std::optional<common::ExternalFiles>>
+      externalFiles{this};
+   Field<styles::Styles>
+      styles{this};
+   Field<pops::PoPs_database>
+      PoPs_database{this};
+   Field<std::optional<resonances::Resonances>>
+      resonances{this};
+   Field<std::optional<transport::Reactions>>
+      reactions{this};
+   Field<std::optional<transport::OrphanProducts>>
+      orphanProducts{this};
+   Field<std::optional<transport::Sums>>
+      sums{this};
+   Field<std::optional<fissionTransport::FissionComponents>>
+      fissionComponents{this};
+   Field<std::optional<transport::Productions>>
+      productions{this};
+   Field<std::optional<transport::IncompleteReactions>>
+      incompleteReactions{this};
+   Field<std::optional<appData::ApplicationData>>
+      applicationData{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->evaluation, \
       this->format, \
@@ -125,7 +218,8 @@ public:
       this->fissionComponents, \
       this->productions, \
       this->incompleteReactions, \
-      this->applicationData)
+      this->applicationData \
+   )
 
    // default
    ReactionSuite() :
@@ -136,23 +230,40 @@ public:
 
    // from fields, comment excluded
    explicit ReactionSuite(
-      const wrapper<XMLName> &evaluation,
-      const wrapper<XMLName> &format = {},
-      const wrapper<XMLName> &projectile = {},
-      const wrapper<enums::Frame> &projectileFrame = {},
-      const wrapper<XMLName> &target = {},
-      const wrapper<enums::Interaction> &interaction = {},
-      const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
-      const wrapper<styles::Styles> &styles = {},
-      const wrapper<pops::PoPs_database> &PoPs_database = {},
-      const wrapper<std::optional<resonances::Resonances>> &resonances = {},
-      const wrapper<std::optional<transport::Reactions>> &reactions = {},
-      const wrapper<std::optional<transport::OrphanProducts>> &orphanProducts = {},
-      const wrapper<std::optional<transport::Sums>> &sums = {},
-      const wrapper<std::optional<fissionTransport::FissionComponents>> &fissionComponents = {},
-      const wrapper<std::optional<transport::Productions>> &productions = {},
-      const wrapper<std::optional<transport::IncompleteReactions>> &incompleteReactions = {},
-      const wrapper<std::optional<appData::ApplicationData>> &applicationData = {}
+      const wrapper<XMLName>
+         &evaluation,
+      const wrapper<XMLName>
+         &format = {},
+      const wrapper<XMLName>
+         &projectile = {},
+      const wrapper<enums::Frame>
+         &projectileFrame = {},
+      const wrapper<XMLName>
+         &target = {},
+      const wrapper<enums::Interaction>
+         &interaction = {},
+      const wrapper<std::optional<common::ExternalFiles>>
+         &externalFiles = {},
+      const wrapper<styles::Styles>
+         &styles = {},
+      const wrapper<pops::PoPs_database>
+         &PoPs_database = {},
+      const wrapper<std::optional<resonances::Resonances>>
+         &resonances = {},
+      const wrapper<std::optional<transport::Reactions>>
+         &reactions = {},
+      const wrapper<std::optional<transport::OrphanProducts>>
+         &orphanProducts = {},
+      const wrapper<std::optional<transport::Sums>>
+         &sums = {},
+      const wrapper<std::optional<fissionTransport::FissionComponents>>
+         &fissionComponents = {},
+      const wrapper<std::optional<transport::Productions>>
+         &productions = {},
+      const wrapper<std::optional<transport::IncompleteReactions>>
+         &incompleteReactions = {},
+      const wrapper<std::optional<appData::ApplicationData>>
+         &applicationData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluation(this,evaluation),
@@ -237,8 +348,59 @@ public:
    // Assignment operators
    // ------------------------
 
-   ReactionSuite &operator=(const ReactionSuite &) = default;
-   ReactionSuite &operator=(ReactionSuite &&) = default;
+   // copy
+   ReactionSuite &operator=(const ReactionSuite &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluation = other.evaluation;
+         format = other.format;
+         projectile = other.projectile;
+         projectileFrame = other.projectileFrame;
+         target = other.target;
+         interaction = other.interaction;
+         externalFiles = other.externalFiles;
+         styles = other.styles;
+         PoPs_database = other.PoPs_database;
+         resonances = other.resonances;
+         reactions = other.reactions;
+         orphanProducts = other.orphanProducts;
+         sums = other.sums;
+         fissionComponents = other.fissionComponents;
+         productions = other.productions;
+         incompleteReactions = other.incompleteReactions;
+         applicationData = other.applicationData;
+      }
+      return *this;
+   }
+
+   // move
+   ReactionSuite &operator=(ReactionSuite &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluation = std::move(other.evaluation);
+         format = std::move(other.format);
+         projectile = std::move(other.projectile);
+         projectileFrame = std::move(other.projectileFrame);
+         target = std::move(other.target);
+         interaction = std::move(other.interaction);
+         externalFiles = std::move(other.externalFiles);
+         styles = std::move(other.styles);
+         PoPs_database = std::move(other.PoPs_database);
+         resonances = std::move(other.resonances);
+         reactions = std::move(other.reactions);
+         orphanProducts = std::move(other.orphanProducts);
+         sums = std::move(other.sums);
+         fissionComponents = std::move(other.fissionComponents);
+         productions = std::move(other.productions);
+         incompleteReactions = std::move(other.incompleteReactions);
+         applicationData = std::move(other.applicationData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -25,12 +25,12 @@ class Authors :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Authors"; }
-   static auto FIELD() { return "authors"; }
+   static auto NODENAME() { return "authors"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Authors :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<gnds::Author>("author")
+         ++Child<gnds::Author>
+            ("author")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "author"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "author"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<gnds::Author>> author{this};
+   Field<std::vector<gnds::Author>>
+      author{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->author)
+      this->author \
+   )
 
    // default
    Authors() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Authors(
-      const wrapper<std::vector<gnds::Author>> &author
+      const wrapper<std::vector<gnds::Author>>
+         &author
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       author(this,author)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Authors &operator=(const Authors &) = default;
-   Authors &operator=(Authors &&) = default;
+   // copy
+   Authors &operator=(const Authors &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         author = other.author;
+      }
+      return *this;
+   }
+
+   // move
+   Authors &operator=(Authors &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         author = std::move(other.author);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// ThermalNeutronScatteringLaw_incoherentElastic wrapper
-void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &module)
+// wrapper for tsl::ThermalNeutronScatteringLaw_incoherentElastic
+void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::ThermalNeutronScatteringLaw_incoherentElastic;
+   using cppCLASS = tsl::ThermalNeutronScatteringLaw_incoherentElastic;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ThermalNeutronScatteringLaw_incoherentElastic",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ThermalNeutronScatteringLaw_incoherentElastic",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const enums::Frame &,
-            const tsl::BoundAtomCrossSection &,
-            const tsl::DebyeWallerIntegral &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("product_frame"),
-         python::arg("bound_atom_cross_section"),
-         python::arg("debye_waller_integral"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self) { return self.pid(); },
-         Component::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "bound_atom_cross_section",
-         [](const Component &self) { return self.boundAtomCrossSection(); },
-         Component::documentation("bound_atom_cross_section").data()
-      )
-      .def_property_readonly(
-         "debye_waller_integral",
-         [](const Component &self) { return self.DebyeWallerIntegral(); },
-         Component::documentation("debye_waller_integral").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const enums::Frame &,
+         const tsl::BoundAtomCrossSection &,
+         const tsl::DebyeWallerIntegral &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("product_frame"),
+      py::arg("bound_atom_cross_section"),
+      py::arg("debye_waller_integral"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const enums::Frame &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set boundAtomCrossSection
+   object.def_property(
+      "bound_atom_cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.boundAtomCrossSection();
+      },
+      [](cppCLASS &self, const tsl::BoundAtomCrossSection &value)
+      {
+         self.boundAtomCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("bound_atom_cross_section").data()
+   );
+
+   // get/set DebyeWallerIntegral
+   object.def_property(
+      "debye_waller_integral",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.DebyeWallerIntegral();
+      },
+      [](cppCLASS &self, const tsl::DebyeWallerIntegral &value)
+      {
+         self.DebyeWallerIntegral() = value;
+      },
+      cppCLASS::component_t::documentation("debye_waller_integral").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

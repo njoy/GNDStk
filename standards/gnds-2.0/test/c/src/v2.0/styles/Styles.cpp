@@ -173,20 +173,20 @@ StylesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-StylesAssign(ConstHandle2Styles This, ConstHandle2ConstStyles from)
+StylesAssign(ConstHandle2Styles self, ConstHandle2ConstStyles from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-StylesDelete(ConstHandle2ConstStyles This)
+StylesDelete(ConstHandle2ConstStyles self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -200,44 +200,44 @@ StylesDelete(ConstHandle2ConstStyles This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-StylesRead(ConstHandle2Styles This, const char *const filename)
+StylesRead(ConstHandle2Styles self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-StylesWrite(ConstHandle2ConstStyles This, const char *const filename)
+StylesWrite(ConstHandle2ConstStyles self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-StylesPrint(ConstHandle2ConstStyles This)
+StylesPrint(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-StylesPrintXML(ConstHandle2ConstStyles This)
+StylesPrintXML(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-StylesPrintJSON(ConstHandle2ConstStyles This)
+StylesPrintJSON(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -247,286 +247,286 @@ StylesPrintJSON(ConstHandle2ConstStyles This)
 
 // Has
 int
-StylesEvaluatedHas(ConstHandle2ConstStyles This)
+StylesEvaluatedHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluatedHas", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedHas", self, extract::evaluated);
 }
 
 // Clear
 void
-StylesEvaluatedClear(ConstHandle2Styles This)
+StylesEvaluatedClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluatedClear", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedClear", self, extract::evaluated);
 }
 
 // Size
 size_t
-StylesEvaluatedSize(ConstHandle2ConstStyles This)
+StylesEvaluatedSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluatedSize", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedSize", self, extract::evaluated);
 }
 
 // Add
 void
-StylesEvaluatedAdd(ConstHandle2Styles This, ConstHandle2ConstEvaluated evaluated)
+StylesEvaluatedAdd(ConstHandle2Styles self, ConstHandle2ConstEvaluated evaluated)
 {
    detail::addToContainer<CPP,CPPEvaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedAdd", This, extract::evaluated, evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedAdd", self, extract::evaluated, evaluated);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstEvaluated
-StylesEvaluatedGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesEvaluatedGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstEvaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedGetConst", This, extract::evaluated, index_);
+      (CLASSNAME, CLASSNAME+"EvaluatedGetConst", self, extract::evaluated, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Evaluated
-StylesEvaluatedGet(ConstHandle2Styles This, const size_t index_)
+StylesEvaluatedGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Evaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedGet", This, extract::evaluated, index_);
+      (CLASSNAME, CLASSNAME+"EvaluatedGet", self, extract::evaluated, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesEvaluatedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByIndex<CPP,CPPEvaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedSet", This, extract::evaluated, index_, evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedSet", self, extract::evaluated, index_, evaluated);
 }
 
 // Has, by date
 int
 StylesEvaluatedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"EvaluatedHasByDate",
-       This, extract::evaluated, meta::date, date);
+       self, extract::evaluated, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstEvaluated
 StylesEvaluatedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByDateConst",
-       This, extract::evaluated, meta::date, date);
+       self, extract::evaluated, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2Evaluated
 StylesEvaluatedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2Evaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByDate",
-       This, extract::evaluated, meta::date, date);
+       self, extract::evaluated, meta::date, date);
 }
 
 // Set, by date
 void
 StylesEvaluatedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByMetadatum<CPP,CPPEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedSetByDate",
-       This, extract::evaluated, meta::date, date, evaluated);
+       self, extract::evaluated, meta::date, date, evaluated);
 }
 
 // Has, by label
 int
 StylesEvaluatedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"EvaluatedHasByLabel",
-       This, extract::evaluated, meta::label, label);
+       self, extract::evaluated, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstEvaluated
 StylesEvaluatedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByLabelConst",
-       This, extract::evaluated, meta::label, label);
+       self, extract::evaluated, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Evaluated
 StylesEvaluatedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Evaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByLabel",
-       This, extract::evaluated, meta::label, label);
+       self, extract::evaluated, meta::label, label);
 }
 
 // Set, by label
 void
 StylesEvaluatedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByMetadatum<CPP,CPPEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedSetByLabel",
-       This, extract::evaluated, meta::label, label, evaluated);
+       self, extract::evaluated, meta::label, label, evaluated);
 }
 
 // Has, by derivedFrom
 int
 StylesEvaluatedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"EvaluatedHasByDerivedFrom",
-       This, extract::evaluated, meta::derivedFrom, derivedFrom);
+       self, extract::evaluated, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstEvaluated
 StylesEvaluatedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByDerivedFromConst",
-       This, extract::evaluated, meta::derivedFrom, derivedFrom);
+       self, extract::evaluated, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2Evaluated
 StylesEvaluatedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2Evaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByDerivedFrom",
-       This, extract::evaluated, meta::derivedFrom, derivedFrom);
+       self, extract::evaluated, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesEvaluatedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByMetadatum<CPP,CPPEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedSetByDerivedFrom",
-       This, extract::evaluated, meta::derivedFrom, derivedFrom, evaluated);
+       self, extract::evaluated, meta::derivedFrom, derivedFrom, evaluated);
 }
 
 // Has, by library
 int
 StylesEvaluatedHasByLibrary(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName library
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"EvaluatedHasByLibrary",
-       This, extract::evaluated, meta::library, library);
+       self, extract::evaluated, meta::library, library);
 }
 
 // Get, by library, const
 Handle2ConstEvaluated
 StylesEvaluatedGetByLibraryConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName library
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByLibraryConst",
-       This, extract::evaluated, meta::library, library);
+       self, extract::evaluated, meta::library, library);
 }
 
 // Get, by library, non-const
 Handle2Evaluated
 StylesEvaluatedGetByLibrary(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName library
 ) {
    return detail::getByMetadatum<CPP,Handle2Evaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByLibrary",
-       This, extract::evaluated, meta::library, library);
+       self, extract::evaluated, meta::library, library);
 }
 
 // Set, by library
 void
 StylesEvaluatedSetByLibrary(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName library,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByMetadatum<CPP,CPPEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedSetByLibrary",
-       This, extract::evaluated, meta::library, library, evaluated);
+       self, extract::evaluated, meta::library, library, evaluated);
 }
 
 // Has, by version
 int
 StylesEvaluatedHasByVersion(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName version
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"EvaluatedHasByVersion",
-       This, extract::evaluated, meta::version, version);
+       self, extract::evaluated, meta::version, version);
 }
 
 // Get, by version, const
 Handle2ConstEvaluated
 StylesEvaluatedGetByVersionConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName version
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByVersionConst",
-       This, extract::evaluated, meta::version, version);
+       self, extract::evaluated, meta::version, version);
 }
 
 // Get, by version, non-const
 Handle2Evaluated
 StylesEvaluatedGetByVersion(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName version
 ) {
    return detail::getByMetadatum<CPP,Handle2Evaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedGetByVersion",
-       This, extract::evaluated, meta::version, version);
+       self, extract::evaluated, meta::version, version);
 }
 
 // Set, by version
 void
 StylesEvaluatedSetByVersion(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName version,
    ConstHandle2ConstEvaluated evaluated
 ) {
    detail::setByMetadatum<CPP,CPPEvaluated>
       (CLASSNAME, CLASSNAME+"EvaluatedSetByVersion",
-       This, extract::evaluated, meta::version, version, evaluated);
+       self, extract::evaluated, meta::version, version, evaluated);
 }
 
 
@@ -536,196 +536,196 @@ StylesEvaluatedSetByVersion(
 
 // Has
 int
-StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles This)
+StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedHas", This, extract::crossSectionReconstructed);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedHas", self, extract::crossSectionReconstructed);
 }
 
 // Clear
 void
-StylesCrossSectionReconstructedClear(ConstHandle2Styles This)
+StylesCrossSectionReconstructedClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedClear", This, extract::crossSectionReconstructed);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedClear", self, extract::crossSectionReconstructed);
 }
 
 // Size
 size_t
-StylesCrossSectionReconstructedSize(ConstHandle2ConstStyles This)
+StylesCrossSectionReconstructedSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSize", This, extract::crossSectionReconstructed);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSize", self, extract::crossSectionReconstructed);
 }
 
 // Add
 void
-StylesCrossSectionReconstructedAdd(ConstHandle2Styles This, ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed)
+StylesCrossSectionReconstructedAdd(ConstHandle2Styles self, ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed)
 {
    detail::addToContainer<CPP,CPPCrossSectionReconstructed>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedAdd", This, extract::crossSectionReconstructed, crossSectionReconstructed);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedAdd", self, extract::crossSectionReconstructed, crossSectionReconstructed);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstCrossSectionReconstructed
-StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstCrossSectionReconstructed>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetConst", This, extract::crossSectionReconstructed, index_);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetConst", self, extract::crossSectionReconstructed, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2CrossSectionReconstructed
-StylesCrossSectionReconstructedGet(ConstHandle2Styles This, const size_t index_)
+StylesCrossSectionReconstructedGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2CrossSectionReconstructed>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGet", This, extract::crossSectionReconstructed, index_);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGet", self, extract::crossSectionReconstructed, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesCrossSectionReconstructedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 ) {
    detail::setByIndex<CPP,CPPCrossSectionReconstructed>
-      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSet", This, extract::crossSectionReconstructed, index_, crossSectionReconstructed);
+      (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSet", self, extract::crossSectionReconstructed, index_, crossSectionReconstructed);
 }
 
 // Has, by date
 int
 StylesCrossSectionReconstructedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedHasByDate",
-       This, extract::crossSectionReconstructed, meta::date, date);
+       self, extract::crossSectionReconstructed, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByDateConst",
-       This, extract::crossSectionReconstructed, meta::date, date);
+       self, extract::crossSectionReconstructed, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2CrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByDate",
-       This, extract::crossSectionReconstructed, meta::date, date);
+       self, extract::crossSectionReconstructed, meta::date, date);
 }
 
 // Set, by date
 void
 StylesCrossSectionReconstructedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSetByDate",
-       This, extract::crossSectionReconstructed, meta::date, date, crossSectionReconstructed);
+       self, extract::crossSectionReconstructed, meta::date, date, crossSectionReconstructed);
 }
 
 // Has, by label
 int
 StylesCrossSectionReconstructedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedHasByLabel",
-       This, extract::crossSectionReconstructed, meta::label, label);
+       self, extract::crossSectionReconstructed, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByLabelConst",
-       This, extract::crossSectionReconstructed, meta::label, label);
+       self, extract::crossSectionReconstructed, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2CrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByLabel",
-       This, extract::crossSectionReconstructed, meta::label, label);
+       self, extract::crossSectionReconstructed, meta::label, label);
 }
 
 // Set, by label
 void
 StylesCrossSectionReconstructedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSetByLabel",
-       This, extract::crossSectionReconstructed, meta::label, label, crossSectionReconstructed);
+       self, extract::crossSectionReconstructed, meta::label, label, crossSectionReconstructed);
 }
 
 // Has, by derivedFrom
 int
 StylesCrossSectionReconstructedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedHasByDerivedFrom",
-       This, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByDerivedFromConst",
-       This, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2CrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetByDerivedFrom",
-       This, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesCrossSectionReconstructedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPCrossSectionReconstructed>
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedSetByDerivedFrom",
-       This, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom, crossSectionReconstructed);
+       self, extract::crossSectionReconstructed, meta::derivedFrom, derivedFrom, crossSectionReconstructed);
 }
 
 
@@ -735,196 +735,196 @@ StylesCrossSectionReconstructedSetByDerivedFrom(
 
 // Has
 int
-StylesAngularDistributionReconstructedHas(ConstHandle2ConstStyles This)
+StylesAngularDistributionReconstructedHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedHas", This, extract::angularDistributionReconstructed);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedHas", self, extract::angularDistributionReconstructed);
 }
 
 // Clear
 void
-StylesAngularDistributionReconstructedClear(ConstHandle2Styles This)
+StylesAngularDistributionReconstructedClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedClear", This, extract::angularDistributionReconstructed);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedClear", self, extract::angularDistributionReconstructed);
 }
 
 // Size
 size_t
-StylesAngularDistributionReconstructedSize(ConstHandle2ConstStyles This)
+StylesAngularDistributionReconstructedSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSize", This, extract::angularDistributionReconstructed);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSize", self, extract::angularDistributionReconstructed);
 }
 
 // Add
 void
-StylesAngularDistributionReconstructedAdd(ConstHandle2Styles This, ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed)
+StylesAngularDistributionReconstructedAdd(ConstHandle2Styles self, ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed)
 {
    detail::addToContainer<CPP,CPPAngularDistributionReconstructed>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedAdd", This, extract::angularDistributionReconstructed, angularDistributionReconstructed);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedAdd", self, extract::angularDistributionReconstructed, angularDistributionReconstructed);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAngularDistributionReconstructed
-StylesAngularDistributionReconstructedGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesAngularDistributionReconstructedGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAngularDistributionReconstructed>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetConst", This, extract::angularDistributionReconstructed, index_);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetConst", self, extract::angularDistributionReconstructed, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2AngularDistributionReconstructed
-StylesAngularDistributionReconstructedGet(ConstHandle2Styles This, const size_t index_)
+StylesAngularDistributionReconstructedGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2AngularDistributionReconstructed>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGet", This, extract::angularDistributionReconstructed, index_);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGet", self, extract::angularDistributionReconstructed, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesAngularDistributionReconstructedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 ) {
    detail::setByIndex<CPP,CPPAngularDistributionReconstructed>
-      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSet", This, extract::angularDistributionReconstructed, index_, angularDistributionReconstructed);
+      (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSet", self, extract::angularDistributionReconstructed, index_, angularDistributionReconstructed);
 }
 
 // Has, by date
 int
 StylesAngularDistributionReconstructedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedHasByDate",
-       This, extract::angularDistributionReconstructed, meta::date, date);
+       self, extract::angularDistributionReconstructed, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByDateConst",
-       This, extract::angularDistributionReconstructed, meta::date, date);
+       self, extract::angularDistributionReconstructed, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2AngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByDate",
-       This, extract::angularDistributionReconstructed, meta::date, date);
+       self, extract::angularDistributionReconstructed, meta::date, date);
 }
 
 // Set, by date
 void
 StylesAngularDistributionReconstructedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSetByDate",
-       This, extract::angularDistributionReconstructed, meta::date, date, angularDistributionReconstructed);
+       self, extract::angularDistributionReconstructed, meta::date, date, angularDistributionReconstructed);
 }
 
 // Has, by label
 int
 StylesAngularDistributionReconstructedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedHasByLabel",
-       This, extract::angularDistributionReconstructed, meta::label, label);
+       self, extract::angularDistributionReconstructed, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByLabelConst",
-       This, extract::angularDistributionReconstructed, meta::label, label);
+       self, extract::angularDistributionReconstructed, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2AngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByLabel",
-       This, extract::angularDistributionReconstructed, meta::label, label);
+       self, extract::angularDistributionReconstructed, meta::label, label);
 }
 
 // Set, by label
 void
 StylesAngularDistributionReconstructedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSetByLabel",
-       This, extract::angularDistributionReconstructed, meta::label, label, angularDistributionReconstructed);
+       self, extract::angularDistributionReconstructed, meta::label, label, angularDistributionReconstructed);
 }
 
 // Has, by derivedFrom
 int
 StylesAngularDistributionReconstructedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedHasByDerivedFrom",
-       This, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByDerivedFromConst",
-       This, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2AngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedGetByDerivedFrom",
-       This, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
+       self, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesAngularDistributionReconstructedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 ) {
    detail::setByMetadatum<CPP,CPPAngularDistributionReconstructed>
       (CLASSNAME, CLASSNAME+"AngularDistributionReconstructedSetByDerivedFrom",
-       This, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom, angularDistributionReconstructed);
+       self, extract::angularDistributionReconstructed, meta::derivedFrom, derivedFrom, angularDistributionReconstructed);
 }
 
 
@@ -934,241 +934,241 @@ StylesAngularDistributionReconstructedSetByDerivedFrom(
 
 // Has
 int
-StylesCoulombPlusNuclearElasticMuCutoffHas(ConstHandle2ConstStyles This)
+StylesCoulombPlusNuclearElasticMuCutoffHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHas", This, extract::CoulombPlusNuclearElasticMuCutoff);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHas", self, extract::CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Clear
 void
-StylesCoulombPlusNuclearElasticMuCutoffClear(ConstHandle2Styles This)
+StylesCoulombPlusNuclearElasticMuCutoffClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffClear", This, extract::CoulombPlusNuclearElasticMuCutoff);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffClear", self, extract::CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Size
 size_t
-StylesCoulombPlusNuclearElasticMuCutoffSize(ConstHandle2ConstStyles This)
+StylesCoulombPlusNuclearElasticMuCutoffSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSize", This, extract::CoulombPlusNuclearElasticMuCutoff);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSize", self, extract::CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Add
 void
-StylesCoulombPlusNuclearElasticMuCutoffAdd(ConstHandle2Styles This, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff)
+StylesCoulombPlusNuclearElasticMuCutoffAdd(ConstHandle2Styles self, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff)
 {
    detail::addToContainer<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffAdd", This, extract::CoulombPlusNuclearElasticMuCutoff, CoulombPlusNuclearElasticMuCutoff);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffAdd", self, extract::CoulombPlusNuclearElasticMuCutoff, CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstCoulombPlusNuclearElasticMuCutoff
-StylesCoulombPlusNuclearElasticMuCutoffGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesCoulombPlusNuclearElasticMuCutoffGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstCoulombPlusNuclearElasticMuCutoff>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetConst", This, extract::CoulombPlusNuclearElasticMuCutoff, index_);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetConst", self, extract::CoulombPlusNuclearElasticMuCutoff, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2CoulombPlusNuclearElasticMuCutoff
-StylesCoulombPlusNuclearElasticMuCutoffGet(ConstHandle2Styles This, const size_t index_)
+StylesCoulombPlusNuclearElasticMuCutoffGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2CoulombPlusNuclearElasticMuCutoff>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGet", This, extract::CoulombPlusNuclearElasticMuCutoff, index_);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGet", self, extract::CoulombPlusNuclearElasticMuCutoff, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesCoulombPlusNuclearElasticMuCutoffSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 ) {
    detail::setByIndex<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
-      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSet", This, extract::CoulombPlusNuclearElasticMuCutoff, index_, CoulombPlusNuclearElasticMuCutoff);
+      (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSet", self, extract::CoulombPlusNuclearElasticMuCutoff, index_, CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Has, by date
 int
 StylesCoulombPlusNuclearElasticMuCutoffHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHasByDate",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByDateConst",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2CoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByDate",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date);
 }
 
 // Set, by date
 void
 StylesCoulombPlusNuclearElasticMuCutoffSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 ) {
    detail::setByMetadatum<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSetByDate",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date, CoulombPlusNuclearElasticMuCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::date, date, CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Has, by derivedFrom
 int
 StylesCoulombPlusNuclearElasticMuCutoffHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHasByDerivedFrom",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByDerivedFromConst",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2CoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByDerivedFrom",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesCoulombPlusNuclearElasticMuCutoffSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 ) {
    detail::setByMetadatum<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSetByDerivedFrom",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom, CoulombPlusNuclearElasticMuCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::derivedFrom, derivedFrom, CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Has, by label
 int
 StylesCoulombPlusNuclearElasticMuCutoffHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHasByLabel",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByLabelConst",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2CoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByLabel",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label);
 }
 
 // Set, by label
 void
 StylesCoulombPlusNuclearElasticMuCutoffSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 ) {
    detail::setByMetadatum<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSetByLabel",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label, CoulombPlusNuclearElasticMuCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::label, label, CoulombPlusNuclearElasticMuCutoff);
 }
 
 // Has, by muCutoff
 int
 StylesCoulombPlusNuclearElasticMuCutoffHasByMuCutoff(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Float64 muCutoff
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffHasByMuCutoff",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
 }
 
 // Get, by muCutoff, const
 Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByMuCutoffConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Float64 muCutoff
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByMuCutoffConst",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
 }
 
 // Get, by muCutoff, non-const
 Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByMuCutoff(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Float64 muCutoff
 ) {
    return detail::getByMetadatum<CPP,Handle2CoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffGetByMuCutoff",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff);
 }
 
 // Set, by muCutoff
 void
 StylesCoulombPlusNuclearElasticMuCutoffSetByMuCutoff(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Float64 muCutoff,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 ) {
    detail::setByMetadatum<CPP,CPPCoulombPlusNuclearElasticMuCutoff>
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticMuCutoffSetByMuCutoff",
-       This, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff, CoulombPlusNuclearElasticMuCutoff);
+       self, extract::CoulombPlusNuclearElasticMuCutoff, meta::muCutoff, muCutoff, CoulombPlusNuclearElasticMuCutoff);
 }
 
 
@@ -1178,196 +1178,196 @@ StylesCoulombPlusNuclearElasticMuCutoffSetByMuCutoff(
 
 // Has
 int
-StylesHeatedHas(ConstHandle2ConstStyles This)
+StylesHeatedHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedHas", This, extract::heated);
+      (CLASSNAME, CLASSNAME+"HeatedHas", self, extract::heated);
 }
 
 // Clear
 void
-StylesHeatedClear(ConstHandle2Styles This)
+StylesHeatedClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedClear", This, extract::heated);
+      (CLASSNAME, CLASSNAME+"HeatedClear", self, extract::heated);
 }
 
 // Size
 size_t
-StylesHeatedSize(ConstHandle2ConstStyles This)
+StylesHeatedSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedSize", This, extract::heated);
+      (CLASSNAME, CLASSNAME+"HeatedSize", self, extract::heated);
 }
 
 // Add
 void
-StylesHeatedAdd(ConstHandle2Styles This, ConstHandle2ConstHeated heated)
+StylesHeatedAdd(ConstHandle2Styles self, ConstHandle2ConstHeated heated)
 {
    detail::addToContainer<CPP,CPPHeated>
-      (CLASSNAME, CLASSNAME+"HeatedAdd", This, extract::heated, heated);
+      (CLASSNAME, CLASSNAME+"HeatedAdd", self, extract::heated, heated);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstHeated
-StylesHeatedGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesHeatedGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstHeated>
-      (CLASSNAME, CLASSNAME+"HeatedGetConst", This, extract::heated, index_);
+      (CLASSNAME, CLASSNAME+"HeatedGetConst", self, extract::heated, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Heated
-StylesHeatedGet(ConstHandle2Styles This, const size_t index_)
+StylesHeatedGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Heated>
-      (CLASSNAME, CLASSNAME+"HeatedGet", This, extract::heated, index_);
+      (CLASSNAME, CLASSNAME+"HeatedGet", self, extract::heated, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesHeatedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstHeated heated
 ) {
    detail::setByIndex<CPP,CPPHeated>
-      (CLASSNAME, CLASSNAME+"HeatedSet", This, extract::heated, index_, heated);
+      (CLASSNAME, CLASSNAME+"HeatedSet", self, extract::heated, index_, heated);
 }
 
 // Has, by date
 int
 StylesHeatedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedHasByDate",
-       This, extract::heated, meta::date, date);
+       self, extract::heated, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstHeated
 StylesHeatedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeated>
       (CLASSNAME, CLASSNAME+"HeatedGetByDateConst",
-       This, extract::heated, meta::date, date);
+       self, extract::heated, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2Heated
 StylesHeatedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2Heated>
       (CLASSNAME, CLASSNAME+"HeatedGetByDate",
-       This, extract::heated, meta::date, date);
+       self, extract::heated, meta::date, date);
 }
 
 // Set, by date
 void
 StylesHeatedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstHeated heated
 ) {
    detail::setByMetadatum<CPP,CPPHeated>
       (CLASSNAME, CLASSNAME+"HeatedSetByDate",
-       This, extract::heated, meta::date, date, heated);
+       self, extract::heated, meta::date, date, heated);
 }
 
 // Has, by derivedFrom
 int
 StylesHeatedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedHasByDerivedFrom",
-       This, extract::heated, meta::derivedFrom, derivedFrom);
+       self, extract::heated, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstHeated
 StylesHeatedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeated>
       (CLASSNAME, CLASSNAME+"HeatedGetByDerivedFromConst",
-       This, extract::heated, meta::derivedFrom, derivedFrom);
+       self, extract::heated, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2Heated
 StylesHeatedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2Heated>
       (CLASSNAME, CLASSNAME+"HeatedGetByDerivedFrom",
-       This, extract::heated, meta::derivedFrom, derivedFrom);
+       self, extract::heated, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesHeatedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstHeated heated
 ) {
    detail::setByMetadatum<CPP,CPPHeated>
       (CLASSNAME, CLASSNAME+"HeatedSetByDerivedFrom",
-       This, extract::heated, meta::derivedFrom, derivedFrom, heated);
+       self, extract::heated, meta::derivedFrom, derivedFrom, heated);
 }
 
 // Has, by label
 int
 StylesHeatedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedHasByLabel",
-       This, extract::heated, meta::label, label);
+       self, extract::heated, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstHeated
 StylesHeatedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeated>
       (CLASSNAME, CLASSNAME+"HeatedGetByLabelConst",
-       This, extract::heated, meta::label, label);
+       self, extract::heated, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Heated
 StylesHeatedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Heated>
       (CLASSNAME, CLASSNAME+"HeatedGetByLabel",
-       This, extract::heated, meta::label, label);
+       self, extract::heated, meta::label, label);
 }
 
 // Set, by label
 void
 StylesHeatedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstHeated heated
 ) {
    detail::setByMetadatum<CPP,CPPHeated>
       (CLASSNAME, CLASSNAME+"HeatedSetByLabel",
-       This, extract::heated, meta::label, label, heated);
+       self, extract::heated, meta::label, label, heated);
 }
 
 
@@ -1377,196 +1377,196 @@ StylesHeatedSetByLabel(
 
 // Has
 int
-StylesAverageProductDataHas(ConstHandle2ConstStyles This)
+StylesAverageProductDataHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AverageProductDataHas", This, extract::averageProductData);
+      (CLASSNAME, CLASSNAME+"AverageProductDataHas", self, extract::averageProductData);
 }
 
 // Clear
 void
-StylesAverageProductDataClear(ConstHandle2Styles This)
+StylesAverageProductDataClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AverageProductDataClear", This, extract::averageProductData);
+      (CLASSNAME, CLASSNAME+"AverageProductDataClear", self, extract::averageProductData);
 }
 
 // Size
 size_t
-StylesAverageProductDataSize(ConstHandle2ConstStyles This)
+StylesAverageProductDataSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AverageProductDataSize", This, extract::averageProductData);
+      (CLASSNAME, CLASSNAME+"AverageProductDataSize", self, extract::averageProductData);
 }
 
 // Add
 void
-StylesAverageProductDataAdd(ConstHandle2Styles This, ConstHandle2ConstAverageProductData averageProductData)
+StylesAverageProductDataAdd(ConstHandle2Styles self, ConstHandle2ConstAverageProductData averageProductData)
 {
    detail::addToContainer<CPP,CPPAverageProductData>
-      (CLASSNAME, CLASSNAME+"AverageProductDataAdd", This, extract::averageProductData, averageProductData);
+      (CLASSNAME, CLASSNAME+"AverageProductDataAdd", self, extract::averageProductData, averageProductData);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAverageProductData
-StylesAverageProductDataGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesAverageProductDataGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAverageProductData>
-      (CLASSNAME, CLASSNAME+"AverageProductDataGetConst", This, extract::averageProductData, index_);
+      (CLASSNAME, CLASSNAME+"AverageProductDataGetConst", self, extract::averageProductData, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2AverageProductData
-StylesAverageProductDataGet(ConstHandle2Styles This, const size_t index_)
+StylesAverageProductDataGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2AverageProductData>
-      (CLASSNAME, CLASSNAME+"AverageProductDataGet", This, extract::averageProductData, index_);
+      (CLASSNAME, CLASSNAME+"AverageProductDataGet", self, extract::averageProductData, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesAverageProductDataSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstAverageProductData averageProductData
 ) {
    detail::setByIndex<CPP,CPPAverageProductData>
-      (CLASSNAME, CLASSNAME+"AverageProductDataSet", This, extract::averageProductData, index_, averageProductData);
+      (CLASSNAME, CLASSNAME+"AverageProductDataSet", self, extract::averageProductData, index_, averageProductData);
 }
 
 // Has, by date
 int
 StylesAverageProductDataHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AverageProductDataHasByDate",
-       This, extract::averageProductData, meta::date, date);
+       self, extract::averageProductData, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstAverageProductData
 StylesAverageProductDataGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByDateConst",
-       This, extract::averageProductData, meta::date, date);
+       self, extract::averageProductData, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2AverageProductData
 StylesAverageProductDataGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2AverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByDate",
-       This, extract::averageProductData, meta::date, date);
+       self, extract::averageProductData, meta::date, date);
 }
 
 // Set, by date
 void
 StylesAverageProductDataSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstAverageProductData averageProductData
 ) {
    detail::setByMetadatum<CPP,CPPAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataSetByDate",
-       This, extract::averageProductData, meta::date, date, averageProductData);
+       self, extract::averageProductData, meta::date, date, averageProductData);
 }
 
 // Has, by label
 int
 StylesAverageProductDataHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AverageProductDataHasByLabel",
-       This, extract::averageProductData, meta::label, label);
+       self, extract::averageProductData, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstAverageProductData
 StylesAverageProductDataGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByLabelConst",
-       This, extract::averageProductData, meta::label, label);
+       self, extract::averageProductData, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2AverageProductData
 StylesAverageProductDataGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2AverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByLabel",
-       This, extract::averageProductData, meta::label, label);
+       self, extract::averageProductData, meta::label, label);
 }
 
 // Set, by label
 void
 StylesAverageProductDataSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstAverageProductData averageProductData
 ) {
    detail::setByMetadatum<CPP,CPPAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataSetByLabel",
-       This, extract::averageProductData, meta::label, label, averageProductData);
+       self, extract::averageProductData, meta::label, label, averageProductData);
 }
 
 // Has, by derivedFrom
 int
 StylesAverageProductDataHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AverageProductDataHasByDerivedFrom",
-       This, extract::averageProductData, meta::derivedFrom, derivedFrom);
+       self, extract::averageProductData, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstAverageProductData
 StylesAverageProductDataGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByDerivedFromConst",
-       This, extract::averageProductData, meta::derivedFrom, derivedFrom);
+       self, extract::averageProductData, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2AverageProductData
 StylesAverageProductDataGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2AverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataGetByDerivedFrom",
-       This, extract::averageProductData, meta::derivedFrom, derivedFrom);
+       self, extract::averageProductData, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesAverageProductDataSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstAverageProductData averageProductData
 ) {
    detail::setByMetadatum<CPP,CPPAverageProductData>
       (CLASSNAME, CLASSNAME+"AverageProductDataSetByDerivedFrom",
-       This, extract::averageProductData, meta::derivedFrom, derivedFrom, averageProductData);
+       self, extract::averageProductData, meta::derivedFrom, derivedFrom, averageProductData);
 }
 
 
@@ -1576,196 +1576,196 @@ StylesAverageProductDataSetByDerivedFrom(
 
 // Has
 int
-StylesMonteCarlo_cdfHas(ConstHandle2ConstStyles This)
+StylesMonteCarlo_cdfHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfHas", This, extract::MonteCarlo_cdf);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfHas", self, extract::MonteCarlo_cdf);
 }
 
 // Clear
 void
-StylesMonteCarlo_cdfClear(ConstHandle2Styles This)
+StylesMonteCarlo_cdfClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfClear", This, extract::MonteCarlo_cdf);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfClear", self, extract::MonteCarlo_cdf);
 }
 
 // Size
 size_t
-StylesMonteCarlo_cdfSize(ConstHandle2ConstStyles This)
+StylesMonteCarlo_cdfSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSize", This, extract::MonteCarlo_cdf);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSize", self, extract::MonteCarlo_cdf);
 }
 
 // Add
 void
-StylesMonteCarlo_cdfAdd(ConstHandle2Styles This, ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf)
+StylesMonteCarlo_cdfAdd(ConstHandle2Styles self, ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf)
 {
    detail::addToContainer<CPP,CPPMonteCarlo_cdf>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfAdd", This, extract::MonteCarlo_cdf, MonteCarlo_cdf);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfAdd", self, extract::MonteCarlo_cdf, MonteCarlo_cdf);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstMonteCarlo_cdf
-StylesMonteCarlo_cdfGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesMonteCarlo_cdfGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstMonteCarlo_cdf>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetConst", This, extract::MonteCarlo_cdf, index_);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetConst", self, extract::MonteCarlo_cdf, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2MonteCarlo_cdf
-StylesMonteCarlo_cdfGet(ConstHandle2Styles This, const size_t index_)
+StylesMonteCarlo_cdfGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2MonteCarlo_cdf>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGet", This, extract::MonteCarlo_cdf, index_);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGet", self, extract::MonteCarlo_cdf, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesMonteCarlo_cdfSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 ) {
    detail::setByIndex<CPP,CPPMonteCarlo_cdf>
-      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSet", This, extract::MonteCarlo_cdf, index_, MonteCarlo_cdf);
+      (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSet", self, extract::MonteCarlo_cdf, index_, MonteCarlo_cdf);
 }
 
 // Has, by date
 int
 StylesMonteCarlo_cdfHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfHasByDate",
-       This, extract::MonteCarlo_cdf, meta::date, date);
+       self, extract::MonteCarlo_cdf, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByDateConst",
-       This, extract::MonteCarlo_cdf, meta::date, date);
+       self, extract::MonteCarlo_cdf, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2MonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByDate",
-       This, extract::MonteCarlo_cdf, meta::date, date);
+       self, extract::MonteCarlo_cdf, meta::date, date);
 }
 
 // Set, by date
 void
 StylesMonteCarlo_cdfSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 ) {
    detail::setByMetadatum<CPP,CPPMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSetByDate",
-       This, extract::MonteCarlo_cdf, meta::date, date, MonteCarlo_cdf);
+       self, extract::MonteCarlo_cdf, meta::date, date, MonteCarlo_cdf);
 }
 
 // Has, by derivedFrom
 int
 StylesMonteCarlo_cdfHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfHasByDerivedFrom",
-       This, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
+       self, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByDerivedFromConst",
-       This, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
+       self, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2MonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByDerivedFrom",
-       This, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
+       self, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesMonteCarlo_cdfSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 ) {
    detail::setByMetadatum<CPP,CPPMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSetByDerivedFrom",
-       This, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom, MonteCarlo_cdf);
+       self, extract::MonteCarlo_cdf, meta::derivedFrom, derivedFrom, MonteCarlo_cdf);
 }
 
 // Has, by label
 int
 StylesMonteCarlo_cdfHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfHasByLabel",
-       This, extract::MonteCarlo_cdf, meta::label, label);
+       self, extract::MonteCarlo_cdf, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByLabelConst",
-       This, extract::MonteCarlo_cdf, meta::label, label);
+       self, extract::MonteCarlo_cdf, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2MonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfGetByLabel",
-       This, extract::MonteCarlo_cdf, meta::label, label);
+       self, extract::MonteCarlo_cdf, meta::label, label);
 }
 
 // Set, by label
 void
 StylesMonteCarlo_cdfSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 ) {
    detail::setByMetadatum<CPP,CPPMonteCarlo_cdf>
       (CLASSNAME, CLASSNAME+"MonteCarlo_cdfSetByLabel",
-       This, extract::MonteCarlo_cdf, meta::label, label, MonteCarlo_cdf);
+       self, extract::MonteCarlo_cdf, meta::label, label, MonteCarlo_cdf);
 }
 
 
@@ -1775,196 +1775,196 @@ StylesMonteCarlo_cdfSetByLabel(
 
 // Has
 int
-StylesGriddedCrossSectionHas(ConstHandle2ConstStyles This)
+StylesGriddedCrossSectionHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionHas", This, extract::griddedCrossSection);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionHas", self, extract::griddedCrossSection);
 }
 
 // Clear
 void
-StylesGriddedCrossSectionClear(ConstHandle2Styles This)
+StylesGriddedCrossSectionClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionClear", This, extract::griddedCrossSection);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionClear", self, extract::griddedCrossSection);
 }
 
 // Size
 size_t
-StylesGriddedCrossSectionSize(ConstHandle2ConstStyles This)
+StylesGriddedCrossSectionSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionSize", This, extract::griddedCrossSection);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionSize", self, extract::griddedCrossSection);
 }
 
 // Add
 void
-StylesGriddedCrossSectionAdd(ConstHandle2Styles This, ConstHandle2ConstGriddedCrossSection griddedCrossSection)
+StylesGriddedCrossSectionAdd(ConstHandle2Styles self, ConstHandle2ConstGriddedCrossSection griddedCrossSection)
 {
    detail::addToContainer<CPP,CPPGriddedCrossSection>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionAdd", This, extract::griddedCrossSection, griddedCrossSection);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionAdd", self, extract::griddedCrossSection, griddedCrossSection);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstGriddedCrossSection
-StylesGriddedCrossSectionGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesGriddedCrossSectionGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstGriddedCrossSection>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetConst", This, extract::griddedCrossSection, index_);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetConst", self, extract::griddedCrossSection, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2GriddedCrossSection
-StylesGriddedCrossSectionGet(ConstHandle2Styles This, const size_t index_)
+StylesGriddedCrossSectionGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2GriddedCrossSection>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionGet", This, extract::griddedCrossSection, index_);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionGet", self, extract::griddedCrossSection, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesGriddedCrossSectionSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 ) {
    detail::setByIndex<CPP,CPPGriddedCrossSection>
-      (CLASSNAME, CLASSNAME+"GriddedCrossSectionSet", This, extract::griddedCrossSection, index_, griddedCrossSection);
+      (CLASSNAME, CLASSNAME+"GriddedCrossSectionSet", self, extract::griddedCrossSection, index_, griddedCrossSection);
 }
 
 // Has, by date
 int
 StylesGriddedCrossSectionHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionHasByDate",
-       This, extract::griddedCrossSection, meta::date, date);
+       self, extract::griddedCrossSection, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByDateConst",
-       This, extract::griddedCrossSection, meta::date, date);
+       self, extract::griddedCrossSection, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2GriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByDate",
-       This, extract::griddedCrossSection, meta::date, date);
+       self, extract::griddedCrossSection, meta::date, date);
 }
 
 // Set, by date
 void
 StylesGriddedCrossSectionSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 ) {
    detail::setByMetadatum<CPP,CPPGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionSetByDate",
-       This, extract::griddedCrossSection, meta::date, date, griddedCrossSection);
+       self, extract::griddedCrossSection, meta::date, date, griddedCrossSection);
 }
 
 // Has, by derivedFrom
 int
 StylesGriddedCrossSectionHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionHasByDerivedFrom",
-       This, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
+       self, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByDerivedFromConst",
-       This, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
+       self, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2GriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByDerivedFrom",
-       This, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
+       self, extract::griddedCrossSection, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesGriddedCrossSectionSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 ) {
    detail::setByMetadatum<CPP,CPPGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionSetByDerivedFrom",
-       This, extract::griddedCrossSection, meta::derivedFrom, derivedFrom, griddedCrossSection);
+       self, extract::griddedCrossSection, meta::derivedFrom, derivedFrom, griddedCrossSection);
 }
 
 // Has, by label
 int
 StylesGriddedCrossSectionHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionHasByLabel",
-       This, extract::griddedCrossSection, meta::label, label);
+       self, extract::griddedCrossSection, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByLabelConst",
-       This, extract::griddedCrossSection, meta::label, label);
+       self, extract::griddedCrossSection, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2GriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionGetByLabel",
-       This, extract::griddedCrossSection, meta::label, label);
+       self, extract::griddedCrossSection, meta::label, label);
 }
 
 // Set, by label
 void
 StylesGriddedCrossSectionSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 ) {
    detail::setByMetadatum<CPP,CPPGriddedCrossSection>
       (CLASSNAME, CLASSNAME+"GriddedCrossSectionSetByLabel",
-       This, extract::griddedCrossSection, meta::label, label, griddedCrossSection);
+       self, extract::griddedCrossSection, meta::label, label, griddedCrossSection);
 }
 
 
@@ -1974,196 +1974,196 @@ StylesGriddedCrossSectionSetByLabel(
 
 // Has
 int
-StylesURR_probabilityTablesHas(ConstHandle2ConstStyles This)
+StylesURR_probabilityTablesHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesHas", This, extract::URR_probabilityTables);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesHas", self, extract::URR_probabilityTables);
 }
 
 // Clear
 void
-StylesURR_probabilityTablesClear(ConstHandle2Styles This)
+StylesURR_probabilityTablesClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesClear", This, extract::URR_probabilityTables);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesClear", self, extract::URR_probabilityTables);
 }
 
 // Size
 size_t
-StylesURR_probabilityTablesSize(ConstHandle2ConstStyles This)
+StylesURR_probabilityTablesSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesSize", This, extract::URR_probabilityTables);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesSize", self, extract::URR_probabilityTables);
 }
 
 // Add
 void
-StylesURR_probabilityTablesAdd(ConstHandle2Styles This, ConstHandle2ConstURR_probabilityTables URR_probabilityTables)
+StylesURR_probabilityTablesAdd(ConstHandle2Styles self, ConstHandle2ConstURR_probabilityTables URR_probabilityTables)
 {
    detail::addToContainer<CPP,CPPURR_probabilityTables>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesAdd", This, extract::URR_probabilityTables, URR_probabilityTables);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesAdd", self, extract::URR_probabilityTables, URR_probabilityTables);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstURR_probabilityTables
-StylesURR_probabilityTablesGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesURR_probabilityTablesGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstURR_probabilityTables>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetConst", This, extract::URR_probabilityTables, index_);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetConst", self, extract::URR_probabilityTables, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2URR_probabilityTables
-StylesURR_probabilityTablesGet(ConstHandle2Styles This, const size_t index_)
+StylesURR_probabilityTablesGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2URR_probabilityTables>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesGet", This, extract::URR_probabilityTables, index_);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesGet", self, extract::URR_probabilityTables, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesURR_probabilityTablesSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 ) {
    detail::setByIndex<CPP,CPPURR_probabilityTables>
-      (CLASSNAME, CLASSNAME+"URR_probabilityTablesSet", This, extract::URR_probabilityTables, index_, URR_probabilityTables);
+      (CLASSNAME, CLASSNAME+"URR_probabilityTablesSet", self, extract::URR_probabilityTables, index_, URR_probabilityTables);
 }
 
 // Has, by date
 int
 StylesURR_probabilityTablesHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesHasByDate",
-       This, extract::URR_probabilityTables, meta::date, date);
+       self, extract::URR_probabilityTables, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByDateConst",
-       This, extract::URR_probabilityTables, meta::date, date);
+       self, extract::URR_probabilityTables, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2URR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByDate",
-       This, extract::URR_probabilityTables, meta::date, date);
+       self, extract::URR_probabilityTables, meta::date, date);
 }
 
 // Set, by date
 void
 StylesURR_probabilityTablesSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 ) {
    detail::setByMetadatum<CPP,CPPURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesSetByDate",
-       This, extract::URR_probabilityTables, meta::date, date, URR_probabilityTables);
+       self, extract::URR_probabilityTables, meta::date, date, URR_probabilityTables);
 }
 
 // Has, by derivedFrom
 int
 StylesURR_probabilityTablesHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesHasByDerivedFrom",
-       This, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
+       self, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByDerivedFromConst",
-       This, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
+       self, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2URR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByDerivedFrom",
-       This, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
+       self, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesURR_probabilityTablesSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 ) {
    detail::setByMetadatum<CPP,CPPURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesSetByDerivedFrom",
-       This, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom, URR_probabilityTables);
+       self, extract::URR_probabilityTables, meta::derivedFrom, derivedFrom, URR_probabilityTables);
 }
 
 // Has, by label
 int
 StylesURR_probabilityTablesHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesHasByLabel",
-       This, extract::URR_probabilityTables, meta::label, label);
+       self, extract::URR_probabilityTables, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByLabelConst",
-       This, extract::URR_probabilityTables, meta::label, label);
+       self, extract::URR_probabilityTables, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2URR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesGetByLabel",
-       This, extract::URR_probabilityTables, meta::label, label);
+       self, extract::URR_probabilityTables, meta::label, label);
 }
 
 // Set, by label
 void
 StylesURR_probabilityTablesSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 ) {
    detail::setByMetadatum<CPP,CPPURR_probabilityTables>
       (CLASSNAME, CLASSNAME+"URR_probabilityTablesSetByLabel",
-       This, extract::URR_probabilityTables, meta::label, label, URR_probabilityTables);
+       self, extract::URR_probabilityTables, meta::label, label, URR_probabilityTables);
 }
 
 
@@ -2173,196 +2173,196 @@ StylesURR_probabilityTablesSetByLabel(
 
 // Has
 int
-StylesHeatedMultiGroupHas(ConstHandle2ConstStyles This)
+StylesHeatedMultiGroupHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupHas", This, extract::heatedMultiGroup);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupHas", self, extract::heatedMultiGroup);
 }
 
 // Clear
 void
-StylesHeatedMultiGroupClear(ConstHandle2Styles This)
+StylesHeatedMultiGroupClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupClear", This, extract::heatedMultiGroup);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupClear", self, extract::heatedMultiGroup);
 }
 
 // Size
 size_t
-StylesHeatedMultiGroupSize(ConstHandle2ConstStyles This)
+StylesHeatedMultiGroupSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupSize", This, extract::heatedMultiGroup);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupSize", self, extract::heatedMultiGroup);
 }
 
 // Add
 void
-StylesHeatedMultiGroupAdd(ConstHandle2Styles This, ConstHandle2ConstHeatedMultiGroup heatedMultiGroup)
+StylesHeatedMultiGroupAdd(ConstHandle2Styles self, ConstHandle2ConstHeatedMultiGroup heatedMultiGroup)
 {
    detail::addToContainer<CPP,CPPHeatedMultiGroup>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupAdd", This, extract::heatedMultiGroup, heatedMultiGroup);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupAdd", self, extract::heatedMultiGroup, heatedMultiGroup);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstHeatedMultiGroup
-StylesHeatedMultiGroupGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesHeatedMultiGroupGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstHeatedMultiGroup>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetConst", This, extract::heatedMultiGroup, index_);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetConst", self, extract::heatedMultiGroup, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2HeatedMultiGroup
-StylesHeatedMultiGroupGet(ConstHandle2Styles This, const size_t index_)
+StylesHeatedMultiGroupGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2HeatedMultiGroup>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupGet", This, extract::heatedMultiGroup, index_);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupGet", self, extract::heatedMultiGroup, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesHeatedMultiGroupSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 ) {
    detail::setByIndex<CPP,CPPHeatedMultiGroup>
-      (CLASSNAME, CLASSNAME+"HeatedMultiGroupSet", This, extract::heatedMultiGroup, index_, heatedMultiGroup);
+      (CLASSNAME, CLASSNAME+"HeatedMultiGroupSet", self, extract::heatedMultiGroup, index_, heatedMultiGroup);
 }
 
 // Has, by date
 int
 StylesHeatedMultiGroupHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupHasByDate",
-       This, extract::heatedMultiGroup, meta::date, date);
+       self, extract::heatedMultiGroup, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByDateConst",
-       This, extract::heatedMultiGroup, meta::date, date);
+       self, extract::heatedMultiGroup, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2HeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByDate",
-       This, extract::heatedMultiGroup, meta::date, date);
+       self, extract::heatedMultiGroup, meta::date, date);
 }
 
 // Set, by date
 void
 StylesHeatedMultiGroupSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 ) {
    detail::setByMetadatum<CPP,CPPHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupSetByDate",
-       This, extract::heatedMultiGroup, meta::date, date, heatedMultiGroup);
+       self, extract::heatedMultiGroup, meta::date, date, heatedMultiGroup);
 }
 
 // Has, by derivedFrom
 int
 StylesHeatedMultiGroupHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupHasByDerivedFrom",
-       This, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
+       self, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByDerivedFromConst",
-       This, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
+       self, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2HeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByDerivedFrom",
-       This, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
+       self, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesHeatedMultiGroupSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 ) {
    detail::setByMetadatum<CPP,CPPHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupSetByDerivedFrom",
-       This, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom, heatedMultiGroup);
+       self, extract::heatedMultiGroup, meta::derivedFrom, derivedFrom, heatedMultiGroup);
 }
 
 // Has, by label
 int
 StylesHeatedMultiGroupHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupHasByLabel",
-       This, extract::heatedMultiGroup, meta::label, label);
+       self, extract::heatedMultiGroup, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByLabelConst",
-       This, extract::heatedMultiGroup, meta::label, label);
+       self, extract::heatedMultiGroup, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2HeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupGetByLabel",
-       This, extract::heatedMultiGroup, meta::label, label);
+       self, extract::heatedMultiGroup, meta::label, label);
 }
 
 // Set, by label
 void
 StylesHeatedMultiGroupSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 ) {
    detail::setByMetadatum<CPP,CPPHeatedMultiGroup>
       (CLASSNAME, CLASSNAME+"HeatedMultiGroupSetByLabel",
-       This, extract::heatedMultiGroup, meta::label, label, heatedMultiGroup);
+       self, extract::heatedMultiGroup, meta::label, label, heatedMultiGroup);
 }
 
 
@@ -2372,241 +2372,241 @@ StylesHeatedMultiGroupSetByLabel(
 
 // Has
 int
-StylesSnElasticUpScatterHas(ConstHandle2ConstStyles This)
+StylesSnElasticUpScatterHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterHas", This, extract::SnElasticUpScatter);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterHas", self, extract::SnElasticUpScatter);
 }
 
 // Clear
 void
-StylesSnElasticUpScatterClear(ConstHandle2Styles This)
+StylesSnElasticUpScatterClear(ConstHandle2Styles self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterClear", This, extract::SnElasticUpScatter);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterClear", self, extract::SnElasticUpScatter);
 }
 
 // Size
 size_t
-StylesSnElasticUpScatterSize(ConstHandle2ConstStyles This)
+StylesSnElasticUpScatterSize(ConstHandle2ConstStyles self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterSize", This, extract::SnElasticUpScatter);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterSize", self, extract::SnElasticUpScatter);
 }
 
 // Add
 void
-StylesSnElasticUpScatterAdd(ConstHandle2Styles This, ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter)
+StylesSnElasticUpScatterAdd(ConstHandle2Styles self, ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter)
 {
    detail::addToContainer<CPP,CPPSnElasticUpScatter>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterAdd", This, extract::SnElasticUpScatter, SnElasticUpScatter);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterAdd", self, extract::SnElasticUpScatter, SnElasticUpScatter);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSnElasticUpScatter
-StylesSnElasticUpScatterGetConst(ConstHandle2ConstStyles This, const size_t index_)
+StylesSnElasticUpScatterGetConst(ConstHandle2ConstStyles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSnElasticUpScatter>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetConst", This, extract::SnElasticUpScatter, index_);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetConst", self, extract::SnElasticUpScatter, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2SnElasticUpScatter
-StylesSnElasticUpScatterGet(ConstHandle2Styles This, const size_t index_)
+StylesSnElasticUpScatterGet(ConstHandle2Styles self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2SnElasticUpScatter>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterGet", This, extract::SnElasticUpScatter, index_);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterGet", self, extract::SnElasticUpScatter, index_);
 }
 
 // Set, by index \in [0,size)
 void
 StylesSnElasticUpScatterSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 ) {
    detail::setByIndex<CPP,CPPSnElasticUpScatter>
-      (CLASSNAME, CLASSNAME+"SnElasticUpScatterSet", This, extract::SnElasticUpScatter, index_, SnElasticUpScatter);
+      (CLASSNAME, CLASSNAME+"SnElasticUpScatterSet", self, extract::SnElasticUpScatter, index_, SnElasticUpScatter);
 }
 
 // Has, by date
 int
 StylesSnElasticUpScatterHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterHasByDate",
-       This, extract::SnElasticUpScatter, meta::date, date);
+       self, extract::SnElasticUpScatter, meta::date, date);
 }
 
 // Get, by date, const
 Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByDateConst",
-       This, extract::SnElasticUpScatter, meta::date, date);
+       self, extract::SnElasticUpScatter, meta::date, date);
 }
 
 // Get, by date, non-const
 Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 ) {
    return detail::getByMetadatum<CPP,Handle2SnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByDate",
-       This, extract::SnElasticUpScatter, meta::date, date);
+       self, extract::SnElasticUpScatter, meta::date, date);
 }
 
 // Set, by date
 void
 StylesSnElasticUpScatterSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 ) {
    detail::setByMetadatum<CPP,CPPSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterSetByDate",
-       This, extract::SnElasticUpScatter, meta::date, date, SnElasticUpScatter);
+       self, extract::SnElasticUpScatter, meta::date, date, SnElasticUpScatter);
 }
 
 // Has, by derivedFrom
 int
 StylesSnElasticUpScatterHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterHasByDerivedFrom",
-       This, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
+       self, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, const
 Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByDerivedFromConst",
-       This, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
+       self, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
 }
 
 // Get, by derivedFrom, non-const
 Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 ) {
    return detail::getByMetadatum<CPP,Handle2SnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByDerivedFrom",
-       This, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
+       self, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom);
 }
 
 // Set, by derivedFrom
 void
 StylesSnElasticUpScatterSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 ) {
    detail::setByMetadatum<CPP,CPPSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterSetByDerivedFrom",
-       This, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom, SnElasticUpScatter);
+       self, extract::SnElasticUpScatter, meta::derivedFrom, derivedFrom, SnElasticUpScatter);
 }
 
 // Has, by label
 int
 StylesSnElasticUpScatterHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterHasByLabel",
-       This, extract::SnElasticUpScatter, meta::label, label);
+       self, extract::SnElasticUpScatter, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByLabelConst",
-       This, extract::SnElasticUpScatter, meta::label, label);
+       self, extract::SnElasticUpScatter, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2SnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByLabel",
-       This, extract::SnElasticUpScatter, meta::label, label);
+       self, extract::SnElasticUpScatter, meta::label, label);
 }
 
 // Set, by label
 void
 StylesSnElasticUpScatterSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 ) {
    detail::setByMetadatum<CPP,CPPSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterSetByLabel",
-       This, extract::SnElasticUpScatter, meta::label, label, SnElasticUpScatter);
+       self, extract::SnElasticUpScatter, meta::label, label, SnElasticUpScatter);
 }
 
 // Has, by upperCalculatedGroup
 int
 StylesSnElasticUpScatterHasByUpperCalculatedGroup(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Integer32 upperCalculatedGroup
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterHasByUpperCalculatedGroup",
-       This, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
+       self, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
 }
 
 // Get, by upperCalculatedGroup, const
 Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByUpperCalculatedGroupConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Integer32 upperCalculatedGroup
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByUpperCalculatedGroupConst",
-       This, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
+       self, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
 }
 
 // Get, by upperCalculatedGroup, non-const
 Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByUpperCalculatedGroup(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Integer32 upperCalculatedGroup
 ) {
    return detail::getByMetadatum<CPP,Handle2SnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterGetByUpperCalculatedGroup",
-       This, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
+       self, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup);
 }
 
 // Set, by upperCalculatedGroup
 void
 StylesSnElasticUpScatterSetByUpperCalculatedGroup(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Integer32 upperCalculatedGroup,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 ) {
    detail::setByMetadatum<CPP,CPPSnElasticUpScatter>
       (CLASSNAME, CLASSNAME+"SnElasticUpScatterSetByUpperCalculatedGroup",
-       This, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup, SnElasticUpScatter);
+       self, extract::SnElasticUpScatter, meta::upperCalculatedGroup, upperCalculatedGroup, SnElasticUpScatter);
 }
 
 

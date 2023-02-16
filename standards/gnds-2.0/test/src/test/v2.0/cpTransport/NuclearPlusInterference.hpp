@@ -26,12 +26,12 @@ class NuclearPlusInterference :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearPlusInterference"; }
-   static auto FIELD() { return "nuclearPlusInterference"; }
+   static auto NODENAME() { return "nuclearPlusInterference"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class NuclearPlusInterference :
             / Meta<>("muCutoff") |
 
          // children
-         --Child<transport::CrossSection>("crossSection") |
-         --Child<transport::Distribution>("distribution")
+         --Child<transport::CrossSection>
+            ("crossSection") |
+         --Child<transport::Distribution>
+            ("distribution")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "muCutoff",
+         "crossSection",
+         "distribution"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "mu_cutoff",
+         "cross_section",
+         "distribution"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Float64> muCutoff{this};
+   Field<Float64>
+      muCutoff{this};
 
    // children
-   Field<transport::CrossSection> crossSection{this};
-   Field<transport::Distribution> distribution{this};
+   Field<transport::CrossSection>
+      crossSection{this};
+   Field<transport::Distribution>
+      distribution{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->muCutoff, \
       this->crossSection, \
-      this->distribution)
+      this->distribution \
+   )
 
    // default
    NuclearPlusInterference() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit NuclearPlusInterference(
-      const wrapper<Float64> &muCutoff,
-      const wrapper<transport::CrossSection> &crossSection = {},
-      const wrapper<transport::Distribution> &distribution = {}
+      const wrapper<Float64>
+         &muCutoff,
+      const wrapper<transport::CrossSection>
+         &crossSection = {},
+      const wrapper<transport::Distribution>
+         &distribution = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       muCutoff(this,muCutoff),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   NuclearPlusInterference &operator=(const NuclearPlusInterference &) = default;
-   NuclearPlusInterference &operator=(NuclearPlusInterference &&) = default;
+   // copy
+   NuclearPlusInterference &operator=(const NuclearPlusInterference &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         muCutoff = other.muCutoff;
+         crossSection = other.crossSection;
+         distribution = other.distribution;
+      }
+      return *this;
+   }
+
+   // move
+   NuclearPlusInterference &operator=(NuclearPlusInterference &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         muCutoff = std::move(other.muCutoff);
+         crossSection = std::move(other.crossSection);
+         distribution = std::move(other.distribution);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

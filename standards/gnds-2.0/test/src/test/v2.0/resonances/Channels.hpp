@@ -25,12 +25,12 @@ class Channels :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Channels"; }
-   static auto FIELD() { return "channels"; }
+   static auto NODENAME() { return "channels"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Channels :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<resonances::Channel>("channel")
+         ++Child<resonances::Channel>
+            ("channel")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "channel"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "channel"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<resonances::Channel>> channel{this};
+   Field<std::vector<resonances::Channel>>
+      channel{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->channel)
+      this->channel \
+   )
 
    // default
    Channels() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Channels(
-      const wrapper<std::vector<resonances::Channel>> &channel
+      const wrapper<std::vector<resonances::Channel>>
+         &channel
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       channel(this,channel)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Channels &operator=(const Channels &) = default;
-   Channels &operator=(Channels &&) = default;
+   // copy
+   Channels &operator=(const Channels &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         channel = other.channel;
+      }
+      return *this;
+   }
+
+   // move
+   Channels &operator=(Channels &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         channel = std::move(other.channel);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

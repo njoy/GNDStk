@@ -107,13 +107,13 @@ BreitWignerCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BreitWignerAssign(ConstHandle2BreitWigner This, ConstHandle2ConstBreitWigner from);
+BreitWignerAssign(ConstHandle2BreitWigner self, ConstHandle2ConstBreitWigner from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BreitWignerDelete(ConstHandle2ConstBreitWigner This);
+BreitWignerDelete(ConstHandle2ConstBreitWigner self);
 
 
 // -----------------------------------------------------------------------------
@@ -126,25 +126,25 @@ BreitWignerDelete(ConstHandle2ConstBreitWigner This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BreitWignerRead(ConstHandle2BreitWigner This, const char *const filename);
+BreitWignerRead(ConstHandle2BreitWigner self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BreitWignerWrite(ConstHandle2ConstBreitWigner This, const char *const filename);
+BreitWignerWrite(ConstHandle2ConstBreitWigner self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BreitWignerPrint(ConstHandle2ConstBreitWigner This);
+BreitWignerPrint(ConstHandle2ConstBreitWigner self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BreitWignerPrintXML(ConstHandle2ConstBreitWigner This);
+BreitWignerPrintXML(ConstHandle2ConstBreitWigner self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BreitWignerPrintJSON(ConstHandle2ConstBreitWigner This);
+BreitWignerPrintJSON(ConstHandle2ConstBreitWigner self);
 
 
 // -----------------------------------------------------------------------------
@@ -153,16 +153,16 @@ BreitWignerPrintJSON(ConstHandle2ConstBreitWigner This);
 
 // +++ Has
 extern_c int
-BreitWignerLabelHas(ConstHandle2ConstBreitWigner This);
+BreitWignerLabelHas(ConstHandle2ConstBreitWigner self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BreitWignerLabelGet(ConstHandle2ConstBreitWigner This);
+BreitWignerLabelGet(ConstHandle2ConstBreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerLabelSet(ConstHandle2BreitWigner This, const XMLName label);
+BreitWignerLabelSet(ConstHandle2BreitWigner self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -171,16 +171,16 @@ BreitWignerLabelSet(ConstHandle2BreitWigner This, const XMLName label);
 
 // +++ Has
 extern_c int
-BreitWignerApproximationHas(ConstHandle2ConstBreitWigner This);
+BreitWignerApproximationHas(ConstHandle2ConstBreitWigner self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BreitWignerApproximationGet(ConstHandle2ConstBreitWigner This);
+BreitWignerApproximationGet(ConstHandle2ConstBreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerApproximationSet(ConstHandle2BreitWigner This, const XMLName approximation);
+BreitWignerApproximationSet(ConstHandle2BreitWigner self, const XMLName approximation);
 
 
 // -----------------------------------------------------------------------------
@@ -189,16 +189,16 @@ BreitWignerApproximationSet(ConstHandle2BreitWigner This, const XMLName approxim
 
 // +++ Has
 extern_c int
-BreitWignerCalculateChannelRadiusHas(ConstHandle2ConstBreitWigner This);
+BreitWignerCalculateChannelRadiusHas(ConstHandle2ConstBreitWigner self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-BreitWignerCalculateChannelRadiusGet(ConstHandle2ConstBreitWigner This);
+BreitWignerCalculateChannelRadiusGet(ConstHandle2ConstBreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner This, const bool calculateChannelRadius);
+BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner self, const bool calculateChannelRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -207,16 +207,16 @@ BreitWignerCalculateChannelRadiusSet(ConstHandle2BreitWigner This, const bool ca
 
 // +++ Has
 extern_c int
-BreitWignerUseForSelfShieldingOnlyHas(ConstHandle2ConstBreitWigner This);
+BreitWignerUseForSelfShieldingOnlyHas(ConstHandle2ConstBreitWigner self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-BreitWignerUseForSelfShieldingOnlyGet(ConstHandle2ConstBreitWigner This);
+BreitWignerUseForSelfShieldingOnlyGet(ConstHandle2ConstBreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool useForSelfShieldingOnly);
+BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner self, const bool useForSelfShieldingOnly);
 
 
 // -----------------------------------------------------------------------------
@@ -225,19 +225,19 @@ BreitWignerUseForSelfShieldingOnlySet(ConstHandle2BreitWigner This, const bool u
 
 // +++ Has
 extern_c int
-BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner This);
+BreitWignerPoPs_databaseHas(ConstHandle2ConstBreitWigner self);
 
 // --- Get, const
 extern_c Handle2ConstPoPs_database
-BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner This);
+BreitWignerPoPs_databaseGetConst(ConstHandle2ConstBreitWigner self);
 
 // +++ Get, non-const
 extern_c Handle2PoPs_database
-BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner This);
+BreitWignerPoPs_databaseGet(ConstHandle2BreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_database PoPs_database);
+BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner self, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -246,19 +246,19 @@ BreitWignerPoPs_databaseSet(ConstHandle2BreitWigner This, ConstHandle2ConstPoPs_
 
 // +++ Has
 extern_c int
-BreitWignerScatteringRadiusHas(ConstHandle2ConstBreitWigner This);
+BreitWignerScatteringRadiusHas(ConstHandle2ConstBreitWigner self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringRadius
-BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner This);
+BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringRadius
-BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner This);
+BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstScatteringRadius scatteringRadius);
+BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner self, ConstHandle2ConstScatteringRadius scatteringRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -267,19 +267,19 @@ BreitWignerScatteringRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstSc
 
 // +++ Has
 extern_c int
-BreitWignerHardSphereRadiusHas(ConstHandle2ConstBreitWigner This);
+BreitWignerHardSphereRadiusHas(ConstHandle2ConstBreitWigner self);
 
 // --- Get, const
 extern_c Handle2ConstHardSphereRadius
-BreitWignerHardSphereRadiusGetConst(ConstHandle2ConstBreitWigner This);
+BreitWignerHardSphereRadiusGetConst(ConstHandle2ConstBreitWigner self);
 
 // +++ Get, non-const
 extern_c Handle2HardSphereRadius
-BreitWignerHardSphereRadiusGet(ConstHandle2BreitWigner This);
+BreitWignerHardSphereRadiusGet(ConstHandle2BreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstHardSphereRadius hardSphereRadius);
+BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner self, ConstHandle2ConstHardSphereRadius hardSphereRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -288,19 +288,19 @@ BreitWignerHardSphereRadiusSet(ConstHandle2BreitWigner This, ConstHandle2ConstHa
 
 // +++ Has
 extern_c int
-BreitWignerResonanceParametersHas(ConstHandle2ConstBreitWigner This);
+BreitWignerResonanceParametersHas(ConstHandle2ConstBreitWigner self);
 
 // --- Get, const
 extern_c Handle2ConstResonanceParameters
-BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner This);
+BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner self);
 
 // +++ Get, non-const
 extern_c Handle2ResonanceParameters
-BreitWignerResonanceParametersGet(ConstHandle2BreitWigner This);
+BreitWignerResonanceParametersGet(ConstHandle2BreitWigner self);
 
 // +++ Set
 extern_c void
-BreitWignerResonanceParametersSet(ConstHandle2BreitWigner This, ConstHandle2ConstResonanceParameters resonanceParameters);
+BreitWignerResonanceParametersSet(ConstHandle2BreitWigner self, ConstHandle2ConstResonanceParameters resonanceParameters);
 
 
 // -----------------------------------------------------------------------------

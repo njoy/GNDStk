@@ -90,20 +90,20 @@ GriddedCrossSectionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GriddedCrossSectionAssign(ConstHandle2GriddedCrossSection This, ConstHandle2ConstGriddedCrossSection from)
+GriddedCrossSectionAssign(ConstHandle2GriddedCrossSection self, ConstHandle2ConstGriddedCrossSection from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GriddedCrossSectionRead(ConstHandle2GriddedCrossSection This, const char *const filename)
+GriddedCrossSectionRead(ConstHandle2GriddedCrossSection self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GriddedCrossSectionWrite(ConstHandle2ConstGriddedCrossSection This, const char *const filename)
+GriddedCrossSectionWrite(ConstHandle2ConstGriddedCrossSection self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GriddedCrossSectionPrint(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionPrint(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GriddedCrossSectionPrintXML(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionPrintXML(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection This)
 
 // Has
 int
-GriddedCrossSectionDateHas(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDateHas(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-GriddedCrossSectionDateGet(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDateGet(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection This, const char *const date)
+GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection This, const char *con
 
 // Has
 int
-GriddedCrossSectionDerivedFromHas(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDerivedFromHas(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-GriddedCrossSectionDerivedFromGet(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDerivedFromGet(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection This, const XMLName derivedFrom)
+GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -224,27 +224,27 @@ GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection This, const XM
 
 // Has
 int
-GriddedCrossSectionLabelHas(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionLabelHas(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-GriddedCrossSectionLabelGet(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionLabelGet(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection This, const XMLName label)
+GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -254,34 +254,34 @@ GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection This, const XMLName 
 
 // Has
 int
-GriddedCrossSectionGridHas(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionGridHas(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GridHas", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridHas", self, extract::grid);
 }
 
 // Get, const
 Handle2ConstGrid
-GriddedCrossSectionGridGetConst(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionGridGetConst(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstGrid>
-      (CLASSNAME, CLASSNAME+"GridGetConst", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridGetConst", self, extract::grid);
 }
 
 // Get, non-const
 Handle2Grid
-GriddedCrossSectionGridGet(ConstHandle2GriddedCrossSection This)
+GriddedCrossSectionGridGet(ConstHandle2GriddedCrossSection self)
 {
    return detail::getField<CPP,Handle2Grid>
-      (CLASSNAME, CLASSNAME+"GridGet", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridGet", self, extract::grid);
 }
 
 // Set
 void
-GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection This, ConstHandle2ConstGrid grid)
+GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection self, ConstHandle2ConstGrid grid)
 {
    detail::setField<CPP,CPPGrid>
-      (CLASSNAME, CLASSNAME+"GridSet", This, extract::grid, grid);
+      (CLASSNAME, CLASSNAME+"GridSet", self, extract::grid, grid);
 }
 
 
@@ -291,34 +291,34 @@ GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection This, ConstHandle2Con
 
 // Has
 int
-GriddedCrossSectionDocumentationHas(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDocumentationHas(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-GriddedCrossSectionDocumentationGetConst(ConstHandle2ConstGriddedCrossSection This)
+GriddedCrossSectionDocumentationGetConst(ConstHandle2ConstGriddedCrossSection self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-GriddedCrossSectionDocumentationGet(ConstHandle2GriddedCrossSection This)
+GriddedCrossSectionDocumentationGet(ConstHandle2GriddedCrossSection self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection This, ConstHandle2ConstDocumentation documentation)
+GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

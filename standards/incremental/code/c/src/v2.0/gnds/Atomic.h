@@ -90,13 +90,13 @@ AtomicCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AtomicAssign(ConstHandle2Atomic This, ConstHandle2ConstAtomic from);
+AtomicAssign(ConstHandle2Atomic self, ConstHandle2ConstAtomic from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AtomicDelete(ConstHandle2ConstAtomic This);
+AtomicDelete(ConstHandle2ConstAtomic self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AtomicDelete(ConstHandle2ConstAtomic This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AtomicRead(ConstHandle2Atomic This, const char *const filename);
+AtomicRead(ConstHandle2Atomic self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AtomicWrite(ConstHandle2ConstAtomic This, const char *const filename);
+AtomicWrite(ConstHandle2ConstAtomic self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AtomicPrint(ConstHandle2ConstAtomic This);
+AtomicPrint(ConstHandle2ConstAtomic self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AtomicPrintXML(ConstHandle2ConstAtomic This);
+AtomicPrintXML(ConstHandle2ConstAtomic self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AtomicPrintJSON(ConstHandle2ConstAtomic This);
+AtomicPrintJSON(ConstHandle2ConstAtomic self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ AtomicPrintJSON(ConstHandle2ConstAtomic This);
 
 // +++ Has
 extern_c int
-AtomicConfigurationsHas(ConstHandle2ConstAtomic This);
+AtomicConfigurationsHas(ConstHandle2ConstAtomic self);
 
 // --- Get, const
 extern_c Handle2ConstConfigurations
-AtomicConfigurationsGetConst(ConstHandle2ConstAtomic This);
+AtomicConfigurationsGetConst(ConstHandle2ConstAtomic self);
 
 // +++ Get, non-const
 extern_c Handle2Configurations
-AtomicConfigurationsGet(ConstHandle2Atomic This);
+AtomicConfigurationsGet(ConstHandle2Atomic self);
 
 // +++ Set
 extern_c void
-AtomicConfigurationsSet(ConstHandle2Atomic This, ConstHandle2ConstConfigurations configurations);
+AtomicConfigurationsSet(ConstHandle2Atomic self, ConstHandle2ConstConfigurations configurations);
 
 
 // -----------------------------------------------------------------------------

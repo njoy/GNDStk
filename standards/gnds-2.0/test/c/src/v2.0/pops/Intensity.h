@@ -99,13 +99,13 @@ IntensityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IntensityAssign(ConstHandle2Intensity This, ConstHandle2ConstIntensity from);
+IntensityAssign(ConstHandle2Intensity self, ConstHandle2ConstIntensity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IntensityDelete(ConstHandle2ConstIntensity This);
+IntensityDelete(ConstHandle2ConstIntensity self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ IntensityDelete(ConstHandle2ConstIntensity This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IntensityRead(ConstHandle2Intensity This, const char *const filename);
+IntensityRead(ConstHandle2Intensity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IntensityWrite(ConstHandle2ConstIntensity This, const char *const filename);
+IntensityWrite(ConstHandle2ConstIntensity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IntensityPrint(ConstHandle2ConstIntensity This);
+IntensityPrint(ConstHandle2ConstIntensity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IntensityPrintXML(ConstHandle2ConstIntensity This);
+IntensityPrintXML(ConstHandle2ConstIntensity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IntensityPrintJSON(ConstHandle2ConstIntensity This);
+IntensityPrintJSON(ConstHandle2ConstIntensity self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ IntensityPrintJSON(ConstHandle2ConstIntensity This);
 
 // +++ Has
 extern_c int
-IntensityLabelHas(ConstHandle2ConstIntensity This);
+IntensityLabelHas(ConstHandle2ConstIntensity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IntensityLabelGet(ConstHandle2ConstIntensity This);
+IntensityLabelGet(ConstHandle2ConstIntensity self);
 
 // +++ Set
 extern_c void
-IntensityLabelSet(ConstHandle2Intensity This, const XMLName label);
+IntensityLabelSet(ConstHandle2Intensity self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ IntensityLabelSet(ConstHandle2Intensity This, const XMLName label);
 
 // +++ Has
 extern_c int
-IntensityUnitHas(ConstHandle2ConstIntensity This);
+IntensityUnitHas(ConstHandle2ConstIntensity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IntensityUnitGet(ConstHandle2ConstIntensity This);
+IntensityUnitGet(ConstHandle2ConstIntensity self);
 
 // +++ Set
 extern_c void
-IntensityUnitSet(ConstHandle2Intensity This, const XMLName unit);
+IntensityUnitSet(ConstHandle2Intensity self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ IntensityUnitSet(ConstHandle2Intensity This, const XMLName unit);
 
 // +++ Has
 extern_c int
-IntensityValueHas(ConstHandle2ConstIntensity This);
+IntensityValueHas(ConstHandle2ConstIntensity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-IntensityValueGet(ConstHandle2ConstIntensity This);
+IntensityValueGet(ConstHandle2ConstIntensity self);
 
 // +++ Set
 extern_c void
-IntensityValueSet(ConstHandle2Intensity This, const Float64 value);
+IntensityValueSet(ConstHandle2Intensity self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ IntensityValueSet(ConstHandle2Intensity This, const Float64 value);
 
 // +++ Has
 extern_c int
-IntensityDocumentationHas(ConstHandle2ConstIntensity This);
+IntensityDocumentationHas(ConstHandle2ConstIntensity self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-IntensityDocumentationGetConst(ConstHandle2ConstIntensity This);
+IntensityDocumentationGetConst(ConstHandle2ConstIntensity self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-IntensityDocumentationGet(ConstHandle2Intensity This);
+IntensityDocumentationGet(ConstHandle2Intensity self);
 
 // +++ Set
 extern_c void
-IntensityDocumentationSet(ConstHandle2Intensity This, ConstHandle2ConstDocumentation documentation);
+IntensityDocumentationSet(ConstHandle2Intensity self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ IntensityDocumentationSet(ConstHandle2Intensity This, ConstHandle2ConstDocumenta
 
 // +++ Has
 extern_c int
-IntensityUncertaintyHas(ConstHandle2ConstIntensity This);
+IntensityUncertaintyHas(ConstHandle2ConstIntensity self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-IntensityUncertaintyGetConst(ConstHandle2ConstIntensity This);
+IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-IntensityUncertaintyGet(ConstHandle2Intensity This);
+IntensityUncertaintyGet(ConstHandle2Intensity self);
 
 // +++ Set
 extern_c void
-IntensityUncertaintySet(ConstHandle2Intensity This, ConstHandle2ConstUncertainty uncertainty);
+IntensityUncertaintySet(ConstHandle2Intensity self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

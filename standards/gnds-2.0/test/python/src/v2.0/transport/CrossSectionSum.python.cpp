@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// CrossSectionSum wrapper
-void wrapCrossSectionSum(python::module &module)
+// wrapper for transport::CrossSectionSum
+void wrapCrossSectionSum(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::CrossSectionSum;
+   using cppCLASS = transport::CrossSectionSum;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CrossSectionSum",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CrossSectionSum",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Integer32> &,
-            const XMLName &,
-            const common::Q &,
-            const transport::CrossSection &,
-            const transport::Summands &
-         >(),
-         python::arg("endf_mt") = std::nullopt,
-         python::arg("label"),
-         python::arg("q"),
-         python::arg("cross_section"),
-         python::arg("summands"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
-         Component::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "q",
-         [](const Component &self) { return self.Q(); },
-         Component::documentation("q").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self) { return self.crossSection(); },
-         Component::documentation("cross_section").data()
-      )
-      .def_property_readonly(
-         "summands",
-         [](const Component &self) { return self.summands(); },
-         Component::documentation("summands").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Integer32> &,
+         const XMLName &,
+         const common::Q &,
+         const transport::CrossSection &,
+         const transport::Summands &
+      >(),
+      py::arg("endf_mt") = std::nullopt,
+      py::arg("label"),
+      py::arg("q"),
+      py::arg("cross_section"),
+      py::arg("summands"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const std::optional<Integer32> &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const common::Q &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const transport::CrossSection &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // get/set summands
+   object.def_property(
+      "summands",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.summands();
+      },
+      [](cppCLASS &self, const transport::Summands &value)
+      {
+         self.summands() = value;
+      },
+      cppCLASS::component_t::documentation("summands").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

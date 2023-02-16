@@ -25,12 +25,12 @@ class ReactionSuite :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "ReactionSuite"; }
-   static auto FIELD() { return "reactionSuite"; }
+   static auto NODENAME() { return "reactionSuite"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -52,32 +52,85 @@ class ReactionSuite :
             / Meta<>("interaction") |
 
          // children
-         --Child<std::optional<transport::Reactions>>("reactions")
+         --Child<std::optional<transport::Reactions>>
+            ("reactions")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "format",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "interaction",
+         "reactions"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "format",
+         "projectile",
+         "projectile_frame",
+         "target",
+         "interaction",
+         "reactions"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> evaluation{this};
-   Field<std::string> format{this};
-   Field<std::string> projectile{this};
-   Field<enums::Frame> projectileFrame{this};
-   Field<std::string> target{this};
-   Field<std::optional<enums::Interaction>> interaction{this};
+   Field<std::string>
+      evaluation{this};
+   Field<std::string>
+      format{this};
+   Field<std::string>
+      projectile{this};
+   Field<enums::Frame>
+      projectileFrame{this};
+   Field<std::string>
+      target{this};
+   Field<std::optional<enums::Interaction>>
+      interaction{this};
 
    // children
-   Field<std::optional<transport::Reactions>> reactions{this};
+   Field<std::optional<transport::Reactions>>
+      reactions{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->evaluation, \
       this->format, \
@@ -85,7 +138,8 @@ public:
       this->projectileFrame, \
       this->target, \
       this->interaction, \
-      this->reactions)
+      this->reactions \
+   )
 
    // default
    ReactionSuite() :
@@ -96,13 +150,20 @@ public:
 
    // from fields, comment excluded
    explicit ReactionSuite(
-      const wrapper<std::string> &evaluation,
-      const wrapper<std::string> &format = {},
-      const wrapper<std::string> &projectile = {},
-      const wrapper<enums::Frame> &projectileFrame = {},
-      const wrapper<std::string> &target = {},
-      const wrapper<std::optional<enums::Interaction>> &interaction = {},
-      const wrapper<std::optional<transport::Reactions>> &reactions = {}
+      const wrapper<std::string>
+         &evaluation,
+      const wrapper<std::string>
+         &format = {},
+      const wrapper<std::string>
+         &projectile = {},
+      const wrapper<enums::Frame>
+         &projectileFrame = {},
+      const wrapper<std::string>
+         &target = {},
+      const wrapper<std::optional<enums::Interaction>>
+         &interaction = {},
+      const wrapper<std::optional<transport::Reactions>>
+         &reactions = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluation(this,evaluation),
@@ -157,8 +218,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   ReactionSuite &operator=(const ReactionSuite &) = default;
-   ReactionSuite &operator=(ReactionSuite &&) = default;
+   // copy
+   ReactionSuite &operator=(const ReactionSuite &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluation = other.evaluation;
+         format = other.format;
+         projectile = other.projectile;
+         projectileFrame = other.projectileFrame;
+         target = other.target;
+         interaction = other.interaction;
+         reactions = other.reactions;
+      }
+      return *this;
+   }
+
+   // move
+   ReactionSuite &operator=(ReactionSuite &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluation = std::move(other.evaluation);
+         format = std::move(other.format);
+         projectile = std::move(other.projectile);
+         projectileFrame = std::move(other.projectileFrame);
+         target = std::move(other.target);
+         interaction = std::move(other.interaction);
+         reactions = std::move(other.reactions);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

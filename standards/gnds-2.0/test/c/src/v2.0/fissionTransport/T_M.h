@@ -90,13 +90,13 @@ T_MCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-T_MAssign(ConstHandle2T_M This, ConstHandle2ConstT_M from);
+T_MAssign(ConstHandle2T_M self, ConstHandle2ConstT_M from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-T_MDelete(ConstHandle2ConstT_M This);
+T_MDelete(ConstHandle2ConstT_M self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ T_MDelete(ConstHandle2ConstT_M This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-T_MRead(ConstHandle2T_M This, const char *const filename);
+T_MRead(ConstHandle2T_M self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-T_MWrite(ConstHandle2ConstT_M This, const char *const filename);
+T_MWrite(ConstHandle2ConstT_M self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-T_MPrint(ConstHandle2ConstT_M This);
+T_MPrint(ConstHandle2ConstT_M self);
 
 // +++ Print to standard output, as XML
 extern_c int
-T_MPrintXML(ConstHandle2ConstT_M This);
+T_MPrintXML(ConstHandle2ConstT_M self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-T_MPrintJSON(ConstHandle2ConstT_M This);
+T_MPrintJSON(ConstHandle2ConstT_M self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ T_MPrintJSON(ConstHandle2ConstT_M This);
 
 // +++ Has
 extern_c int
-T_MXYs1dHas(ConstHandle2ConstT_M This);
+T_MXYs1dHas(ConstHandle2ConstT_M self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-T_MXYs1dGetConst(ConstHandle2ConstT_M This);
+T_MXYs1dGetConst(ConstHandle2ConstT_M self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-T_MXYs1dGet(ConstHandle2T_M This);
+T_MXYs1dGet(ConstHandle2T_M self);
 
 // +++ Set
 extern_c void
-T_MXYs1dSet(ConstHandle2T_M This, ConstHandle2ConstXYs1d XYs1d);
+T_MXYs1dSet(ConstHandle2T_M self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

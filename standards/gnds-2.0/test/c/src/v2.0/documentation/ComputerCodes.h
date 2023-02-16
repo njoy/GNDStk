@@ -90,13 +90,13 @@ ComputerCodesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ComputerCodesAssign(ConstHandle2ComputerCodes This, ConstHandle2ConstComputerCodes from);
+ComputerCodesAssign(ConstHandle2ComputerCodes self, ConstHandle2ConstComputerCodes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ComputerCodesDelete(ConstHandle2ConstComputerCodes This);
+ComputerCodesDelete(ConstHandle2ConstComputerCodes self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ComputerCodesDelete(ConstHandle2ConstComputerCodes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ComputerCodesRead(ConstHandle2ComputerCodes This, const char *const filename);
+ComputerCodesRead(ConstHandle2ComputerCodes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ComputerCodesWrite(ConstHandle2ConstComputerCodes This, const char *const filename);
+ComputerCodesWrite(ConstHandle2ConstComputerCodes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ComputerCodesPrint(ConstHandle2ConstComputerCodes This);
+ComputerCodesPrint(ConstHandle2ConstComputerCodes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ComputerCodesPrintXML(ConstHandle2ConstComputerCodes This);
+ComputerCodesPrintXML(ConstHandle2ConstComputerCodes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ComputerCodesPrintJSON(ConstHandle2ConstComputerCodes This);
+ComputerCodesPrintJSON(ConstHandle2ConstComputerCodes self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ComputerCodesPrintJSON(ConstHandle2ConstComputerCodes This);
 
 // +++ Has
 extern_c int
-ComputerCodesComputerCodeHas(ConstHandle2ConstComputerCodes This);
+ComputerCodesComputerCodeHas(ConstHandle2ConstComputerCodes self);
 
 // +++ Clear
 extern_c void
-ComputerCodesComputerCodeClear(ConstHandle2ComputerCodes This);
+ComputerCodesComputerCodeClear(ConstHandle2ComputerCodes self);
 
 // +++ Size
 extern_c size_t
-ComputerCodesComputerCodeSize(ConstHandle2ConstComputerCodes This);
+ComputerCodesComputerCodeSize(ConstHandle2ConstComputerCodes self);
 
 // +++ Add
 extern_c void
-ComputerCodesComputerCodeAdd(ConstHandle2ComputerCodes This, ConstHandle2ConstComputerCode computerCode);
+ComputerCodesComputerCodeAdd(ConstHandle2ComputerCodes self, ConstHandle2ConstComputerCode computerCode);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstComputerCode
-ComputerCodesComputerCodeGetConst(ConstHandle2ConstComputerCodes This, const size_t index_);
+ComputerCodesComputerCodeGetConst(ConstHandle2ConstComputerCodes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ComputerCode
-ComputerCodesComputerCodeGet(ConstHandle2ComputerCodes This, const size_t index_);
+ComputerCodesComputerCodeGet(ConstHandle2ComputerCodes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ComputerCodesComputerCodeSet(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const size_t index_,
    ConstHandle2ConstComputerCode computerCode
 );
@@ -169,28 +169,28 @@ ComputerCodesComputerCodeSet(
 // +++ Has, by label
 extern_c int
 ComputerCodesComputerCodeHasByLabel(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstComputerCode
 ComputerCodesComputerCodeGetByLabelConst(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ComputerCode
 ComputerCodesComputerCodeGetByLabel(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ComputerCodesComputerCodeSetByLabel(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const XMLName label,
    ConstHandle2ConstComputerCode computerCode
 );
@@ -198,28 +198,28 @@ ComputerCodesComputerCodeSetByLabel(
 // +++ Has, by name
 extern_c int
 ComputerCodesComputerCodeHasByName(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const UTF8Text name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstComputerCode
 ComputerCodesComputerCodeGetByNameConst(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const UTF8Text name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2ComputerCode
 ComputerCodesComputerCodeGetByName(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const UTF8Text name
 );
 
 // +++ Set, by name
 extern_c void
 ComputerCodesComputerCodeSetByName(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const UTF8Text name,
    ConstHandle2ConstComputerCode computerCode
 );
@@ -227,28 +227,28 @@ ComputerCodesComputerCodeSetByName(
 // +++ Has, by version
 extern_c int
 ComputerCodesComputerCodeHasByVersion(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const XMLName version
 );
 
 // --- Get, by version, const
 extern_c Handle2ConstComputerCode
 ComputerCodesComputerCodeGetByVersionConst(
-   ConstHandle2ConstComputerCodes This,
+   ConstHandle2ConstComputerCodes self,
    const XMLName version
 );
 
 // +++ Get, by version, non-const
 extern_c Handle2ComputerCode
 ComputerCodesComputerCodeGetByVersion(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const XMLName version
 );
 
 // +++ Set, by version
 extern_c void
 ComputerCodesComputerCodeSetByVersion(
-   ConstHandle2ComputerCodes This,
+   ConstHandle2ComputerCodes self,
    const XMLName version,
    ConstHandle2ConstComputerCode computerCode
 );

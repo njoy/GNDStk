@@ -79,20 +79,20 @@ MultiGroup3dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MultiGroup3dAssign(ConstHandle2MultiGroup3d This, ConstHandle2ConstMultiGroup3d from)
+MultiGroup3dAssign(ConstHandle2MultiGroup3d self, ConstHandle2ConstMultiGroup3d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MultiGroup3dRead(ConstHandle2MultiGroup3d This, const char *const filename)
+MultiGroup3dRead(ConstHandle2MultiGroup3d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MultiGroup3dWrite(ConstHandle2ConstMultiGroup3d This, const char *const filename)
+MultiGroup3dWrite(ConstHandle2ConstMultiGroup3d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MultiGroup3dPrint(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dPrint(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MultiGroup3dPrintXML(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dPrintXML(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d This)
 
 // Has
 int
-MultiGroup3dLabelHas(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dLabelHas(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-MultiGroup3dLabelGet(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dLabelGet(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MultiGroup3dLabelSet(ConstHandle2MultiGroup3d This, const XMLName label)
+MultiGroup3dLabelSet(ConstHandle2MultiGroup3d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -183,27 +183,27 @@ MultiGroup3dLabelSet(ConstHandle2MultiGroup3d This, const XMLName label)
 
 // Has
 int
-MultiGroup3dProductFrameHas(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dProductFrameHas(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 XMLName
-MultiGroup3dProductFrameGet(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dProductFrameGet(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d This, const XMLName productFrame)
+MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d self, const XMLName productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -213,34 +213,34 @@ MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d This, const XMLName product
 
 // Has
 int
-MultiGroup3dGridded3dHas(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dGridded3dHas(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded3dHas", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dHas", self, extract::gridded3d);
 }
 
 // Get, const
 Handle2ConstGridded3d
-MultiGroup3dGridded3dGetConst(ConstHandle2ConstMultiGroup3d This)
+MultiGroup3dGridded3dGetConst(ConstHandle2ConstMultiGroup3d self)
 {
    return detail::getField<CPP,Handle2ConstGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", self, extract::gridded3d);
 }
 
 // Get, non-const
 Handle2Gridded3d
-MultiGroup3dGridded3dGet(ConstHandle2MultiGroup3d This)
+MultiGroup3dGridded3dGet(ConstHandle2MultiGroup3d self)
 {
    return detail::getField<CPP,Handle2Gridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGet", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGet", self, extract::gridded3d);
 }
 
 // Set
 void
-MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d This, ConstHandle2ConstGridded3d gridded3d)
+MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d self, ConstHandle2ConstGridded3d gridded3d)
 {
    detail::setField<CPP,CPPGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dSet", This, extract::gridded3d, gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dSet", self, extract::gridded3d, gridded3d);
 }
 
 

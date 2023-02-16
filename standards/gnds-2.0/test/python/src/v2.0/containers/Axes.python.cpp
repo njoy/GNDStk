@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Axes wrapper
-void wrapAxes(python::module &module)
+// wrapper for containers::Axes
+void wrapAxes(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Axes;
+   using cppCLASS = containers::Axes;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Axes",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Axes",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<UTF8Text> &,
-            const std::optional<std::vector<containers::Axis>> &,
-            const std::optional<std::vector<containers::Grid>> &
-         >(),
-         python::arg("href") = std::nullopt,
-         python::arg("axis") = std::nullopt,
-         python::arg("grid") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-      .def_property_readonly(
-         "axis",
-         [](const Component &self) { return self.axis(); },
-         Component::documentation("axis").data()
-      )
-      .def_property_readonly(
-         "grid",
-         [](const Component &self) { return self.grid(); },
-         Component::documentation("grid").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<UTF8Text> &,
+         const std::optional<std::vector<containers::Axis>> &,
+         const std::optional<std::vector<containers::Grid>> &
+      >(),
+      py::arg("href") = std::nullopt,
+      py::arg("axis") = std::nullopt,
+      py::arg("grid") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set axis
+   object.def_property(
+      "axis",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axis();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<containers::Axis>> &value)
+      {
+         self.axis() = value;
+      },
+      cppCLASS::component_t::documentation("axis").data()
+   );
+
+   // get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<containers::Grid>> &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

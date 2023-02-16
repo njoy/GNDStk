@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// MultiGroup wrapper
-void wrapMultiGroup(python::module &module)
+// wrapper for styles::MultiGroup
+void wrapMultiGroup(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::MultiGroup;
+   using cppCLASS = styles::MultiGroup;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "MultiGroup",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "MultiGroup",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const containers::Grid &
-         >(),
-         python::arg("label"),
-         python::arg("grid"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "grid",
-         [](const Component &self) { return self.grid(); },
-         Component::documentation("grid").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const containers::Grid &
+      >(),
+      py::arg("label"),
+      py::arg("grid"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const containers::Grid &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

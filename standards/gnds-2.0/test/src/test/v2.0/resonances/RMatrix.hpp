@@ -27,12 +27,12 @@ class RMatrix :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "RMatrix"; }
-   static auto FIELD() { return "RMatrix"; }
+   static auto NODENAME() { return "RMatrix"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -58,13 +58,63 @@ class RMatrix :
             / Meta<>("supportsAngularReconstruction") |
 
          // children
-         --Child<std::optional<pops::PoPs_database>>("PoPs") |
-         --Child<resonances::ResonanceReactions>("resonanceReactions") |
-         --Child<resonances::SpinGroups>("spinGroups")
+         --Child<std::optional<pops::PoPs_database>>
+            ("PoPs") |
+         --Child<resonances::ResonanceReactions>
+            ("resonanceReactions") |
+         --Child<resonances::SpinGroups>
+            ("spinGroups")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "boundaryCondition",
+         "boundaryConditionValue",
+         "calculateChannelRadius",
+         "calculatePenetrability",
+         "useForSelfShieldingOnly",
+         "supportsAngularReconstruction",
+         "PoPs_database",
+         "resonanceReactions",
+         "spinGroups"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "boundary_condition",
+         "boundary_condition_value",
+         "calculate_channel_radius",
+         "calculate_penetrability",
+         "use_for_self_shielding_only",
+         "supports_angular_reconstruction",
+         "po_ps_database",
+         "resonance_reactions",
+         "spin_groups"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -76,29 +126,46 @@ public:
       static inline const bool supportsAngularReconstruction = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> approximation{this};
-   Field<Defaulted<enums::BoundaryCondition>> boundaryCondition{this,defaults.boundaryCondition};
-   Field<std::optional<Float64>> boundaryConditionValue{this};
-   Field<Defaulted<bool>> calculateChannelRadius{this,defaults.calculateChannelRadius};
-   Field<Defaulted<bool>> calculatePenetrability{this,defaults.calculatePenetrability};
-   Field<Defaulted<bool>> useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
-   Field<Defaulted<bool>> supportsAngularReconstruction{this,defaults.supportsAngularReconstruction};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      approximation{this};
+   Field<Defaulted<enums::BoundaryCondition>>
+      boundaryCondition{this,defaults.boundaryCondition};
+   Field<std::optional<Float64>>
+      boundaryConditionValue{this};
+   Field<Defaulted<bool>>
+      calculateChannelRadius{this,defaults.calculateChannelRadius};
+   Field<Defaulted<bool>>
+      calculatePenetrability{this,defaults.calculatePenetrability};
+   Field<Defaulted<bool>>
+      useForSelfShieldingOnly{this,defaults.useForSelfShieldingOnly};
+   Field<Defaulted<bool>>
+      supportsAngularReconstruction{this,defaults.supportsAngularReconstruction};
 
    // children
-   Field<std::optional<pops::PoPs_database>> PoPs_database{this};
-   Field<resonances::ResonanceReactions> resonanceReactions{this};
-   Field<resonances::SpinGroups> spinGroups{this};
+   Field<std::optional<pops::PoPs_database>>
+      PoPs_database{this};
+   Field<resonances::ResonanceReactions>
+      resonanceReactions{this};
+   Field<resonances::SpinGroups>
+      spinGroups{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->approximation, \
@@ -110,7 +177,8 @@ public:
       this->supportsAngularReconstruction, \
       this->PoPs_database, \
       this->resonanceReactions, \
-      this->spinGroups)
+      this->spinGroups \
+   )
 
    // default
    RMatrix() :
@@ -122,17 +190,28 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit RMatrix(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &approximation = {},
-      const wrapper<std::optional<enums::BoundaryCondition>> &boundaryCondition = {},
-      const wrapper<std::optional<Float64>> &boundaryConditionValue = {},
-      const wrapper<std::optional<bool>> &calculateChannelRadius = {},
-      const wrapper<std::optional<bool>> &calculatePenetrability = {},
-      const wrapper<std::optional<bool>> &useForSelfShieldingOnly = {},
-      const wrapper<std::optional<bool>> &supportsAngularReconstruction = {},
-      const wrapper<std::optional<pops::PoPs_database>> &PoPs_database = {},
-      const wrapper<resonances::ResonanceReactions> &resonanceReactions = {},
-      const wrapper<resonances::SpinGroups> &spinGroups = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &approximation = {},
+      const wrapper<std::optional<enums::BoundaryCondition>>
+         &boundaryCondition = {},
+      const wrapper<std::optional<Float64>>
+         &boundaryConditionValue = {},
+      const wrapper<std::optional<bool>>
+         &calculateChannelRadius = {},
+      const wrapper<std::optional<bool>>
+         &calculatePenetrability = {},
+      const wrapper<std::optional<bool>>
+         &useForSelfShieldingOnly = {},
+      const wrapper<std::optional<bool>>
+         &supportsAngularReconstruction = {},
+      const wrapper<std::optional<pops::PoPs_database>>
+         &PoPs_database = {},
+      const wrapper<resonances::ResonanceReactions>
+         &resonanceReactions = {},
+      const wrapper<resonances::SpinGroups>
+         &spinGroups = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -199,8 +278,47 @@ public:
    // Assignment operators
    // ------------------------
 
-   RMatrix &operator=(const RMatrix &) = default;
-   RMatrix &operator=(RMatrix &&) = default;
+   // copy
+   RMatrix &operator=(const RMatrix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         approximation = other.approximation;
+         boundaryCondition = other.boundaryCondition;
+         boundaryConditionValue = other.boundaryConditionValue;
+         calculateChannelRadius = other.calculateChannelRadius;
+         calculatePenetrability = other.calculatePenetrability;
+         useForSelfShieldingOnly = other.useForSelfShieldingOnly;
+         supportsAngularReconstruction = other.supportsAngularReconstruction;
+         PoPs_database = other.PoPs_database;
+         resonanceReactions = other.resonanceReactions;
+         spinGroups = other.spinGroups;
+      }
+      return *this;
+   }
+
+   // move
+   RMatrix &operator=(RMatrix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         approximation = std::move(other.approximation);
+         boundaryCondition = std::move(other.boundaryCondition);
+         boundaryConditionValue = std::move(other.boundaryConditionValue);
+         calculateChannelRadius = std::move(other.calculateChannelRadius);
+         calculatePenetrability = std::move(other.calculatePenetrability);
+         useForSelfShieldingOnly = std::move(other.useForSelfShieldingOnly);
+         supportsAngularReconstruction = std::move(other.supportsAngularReconstruction);
+         PoPs_database = std::move(other.PoPs_database);
+         resonanceReactions = std::move(other.resonanceReactions);
+         spinGroups = std::move(other.spinGroups);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

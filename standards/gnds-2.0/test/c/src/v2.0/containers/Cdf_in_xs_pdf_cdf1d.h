@@ -90,13 +90,13 @@ Cdf_in_xs_pdf_cdf1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Cdf_in_xs_pdf_cdf1dAssign(ConstHandle2Cdf_in_xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d from);
+Cdf_in_xs_pdf_cdf1dAssign(ConstHandle2Cdf_in_xs_pdf_cdf1d self, ConstHandle2ConstCdf_in_xs_pdf_cdf1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Cdf_in_xs_pdf_cdf1dDelete(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dDelete(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ Cdf_in_xs_pdf_cdf1dDelete(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Cdf_in_xs_pdf_cdf1dRead(ConstHandle2Cdf_in_xs_pdf_cdf1d This, const char *const filename);
+Cdf_in_xs_pdf_cdf1dRead(ConstHandle2Cdf_in_xs_pdf_cdf1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Cdf_in_xs_pdf_cdf1dWrite(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This, const char *const filename);
+Cdf_in_xs_pdf_cdf1dWrite(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Cdf_in_xs_pdf_cdf1dPrint(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dPrint(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Cdf_in_xs_pdf_cdf1dPrintXML(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dPrintXML(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Cdf_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ Cdf_in_xs_pdf_cdf1dPrintJSON(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
 
 // +++ Has
 extern_c int
-Cdf_in_xs_pdf_cdf1dValuesHas(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dValuesHas(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 // --- Get, const
 extern_c Handle2ConstValues
-Cdf_in_xs_pdf_cdf1dValuesGetConst(ConstHandle2ConstCdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dValuesGetConst(ConstHandle2ConstCdf_in_xs_pdf_cdf1d self);
 
 // +++ Get, non-const
 extern_c Handle2Values
-Cdf_in_xs_pdf_cdf1dValuesGet(ConstHandle2Cdf_in_xs_pdf_cdf1d This);
+Cdf_in_xs_pdf_cdf1dValuesGet(ConstHandle2Cdf_in_xs_pdf_cdf1d self);
 
 // +++ Set
 extern_c void
-Cdf_in_xs_pdf_cdf1dValuesSet(ConstHandle2Cdf_in_xs_pdf_cdf1d This, ConstHandle2ConstValues values);
+Cdf_in_xs_pdf_cdf1dValuesSet(ConstHandle2Cdf_in_xs_pdf_cdf1d self, ConstHandle2ConstValues values);
 
 
 // -----------------------------------------------------------------------------

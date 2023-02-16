@@ -26,12 +26,12 @@ class BraggEdge :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "BraggEdge"; }
-   static auto FIELD() { return "BraggEdge"; }
+   static auto NODENAME() { return "BraggEdge"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class BraggEdge :
             / Meta<>("label") |
 
          // children
-         --Child<tsl::BraggEnergy>("BraggEnergy") |
-         --Child<tsl::StructureFactor>("structureFactor")
+         --Child<tsl::BraggEnergy>
+            ("BraggEnergy") |
+         --Child<tsl::StructureFactor>
+            ("structureFactor")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "BraggEnergy",
+         "structureFactor"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "bragg_energy",
+         "structure_factor"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<tsl::BraggEnergy> BraggEnergy{this};
-   Field<tsl::StructureFactor> structureFactor{this};
+   Field<tsl::BraggEnergy>
+      BraggEnergy{this};
+   Field<tsl::StructureFactor>
+      structureFactor{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->BraggEnergy, \
-      this->structureFactor)
+      this->structureFactor \
+   )
 
    // default
    BraggEdge() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit BraggEdge(
-      const wrapper<XMLName> &label,
-      const wrapper<tsl::BraggEnergy> &BraggEnergy = {},
-      const wrapper<tsl::StructureFactor> &structureFactor = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<tsl::BraggEnergy>
+         &BraggEnergy = {},
+      const wrapper<tsl::StructureFactor>
+         &structureFactor = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   BraggEdge &operator=(const BraggEdge &) = default;
-   BraggEdge &operator=(BraggEdge &&) = default;
+   // copy
+   BraggEdge &operator=(const BraggEdge &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         BraggEnergy = other.BraggEnergy;
+         structureFactor = other.structureFactor;
+      }
+      return *this;
+   }
+
+   // move
+   BraggEdge &operator=(BraggEdge &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         BraggEnergy = std::move(other.BraggEnergy);
+         structureFactor = std::move(other.structureFactor);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

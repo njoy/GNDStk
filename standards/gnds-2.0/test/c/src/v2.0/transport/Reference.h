@@ -91,13 +91,13 @@ ReferenceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ReferenceAssign(ConstHandle2Reference This, ConstHandle2ConstReference from);
+ReferenceAssign(ConstHandle2Reference self, ConstHandle2ConstReference from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ReferenceDelete(ConstHandle2ConstReference This);
+ReferenceDelete(ConstHandle2ConstReference self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ ReferenceDelete(ConstHandle2ConstReference This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ReferenceRead(ConstHandle2Reference This, const char *const filename);
+ReferenceRead(ConstHandle2Reference self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ReferenceWrite(ConstHandle2ConstReference This, const char *const filename);
+ReferenceWrite(ConstHandle2ConstReference self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ReferencePrint(ConstHandle2ConstReference This);
+ReferencePrint(ConstHandle2ConstReference self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ReferencePrintXML(ConstHandle2ConstReference This);
+ReferencePrintXML(ConstHandle2ConstReference self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ReferencePrintJSON(ConstHandle2ConstReference This);
+ReferencePrintJSON(ConstHandle2ConstReference self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ ReferencePrintJSON(ConstHandle2ConstReference This);
 
 // +++ Has
 extern_c int
-ReferenceHrefHas(ConstHandle2ConstReference This);
+ReferenceHrefHas(ConstHandle2ConstReference self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ReferenceHrefGet(ConstHandle2ConstReference This);
+ReferenceHrefGet(ConstHandle2ConstReference self);
 
 // +++ Set
 extern_c void
-ReferenceHrefSet(ConstHandle2Reference This, const char *const href);
+ReferenceHrefSet(ConstHandle2Reference self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ ReferenceHrefSet(ConstHandle2Reference This, const char *const href);
 
 // +++ Has
 extern_c int
-ReferenceLabelHas(ConstHandle2ConstReference This);
+ReferenceLabelHas(ConstHandle2ConstReference self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ReferenceLabelGet(ConstHandle2ConstReference This);
+ReferenceLabelGet(ConstHandle2ConstReference self);
 
 // +++ Set
 extern_c void
-ReferenceLabelSet(ConstHandle2Reference This, const XMLName label);
+ReferenceLabelSet(ConstHandle2Reference self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

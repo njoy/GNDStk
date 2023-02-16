@@ -99,13 +99,13 @@ SandwichProductCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SandwichProductAssign(ConstHandle2SandwichProduct This, ConstHandle2ConstSandwichProduct from);
+SandwichProductAssign(ConstHandle2SandwichProduct self, ConstHandle2ConstSandwichProduct from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SandwichProductDelete(ConstHandle2ConstSandwichProduct This);
+SandwichProductDelete(ConstHandle2ConstSandwichProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ SandwichProductDelete(ConstHandle2ConstSandwichProduct This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SandwichProductRead(ConstHandle2SandwichProduct This, const char *const filename);
+SandwichProductRead(ConstHandle2SandwichProduct self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SandwichProductWrite(ConstHandle2ConstSandwichProduct This, const char *const filename);
+SandwichProductWrite(ConstHandle2ConstSandwichProduct self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SandwichProductPrint(ConstHandle2ConstSandwichProduct This);
+SandwichProductPrint(ConstHandle2ConstSandwichProduct self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SandwichProductPrintXML(ConstHandle2ConstSandwichProduct This);
+SandwichProductPrintXML(ConstHandle2ConstSandwichProduct self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct This);
+SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,19 +145,19 @@ SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct This);
 
 // +++ Has
 extern_c int
-SandwichProductAxesHas(ConstHandle2ConstSandwichProduct This);
+SandwichProductAxesHas(ConstHandle2ConstSandwichProduct self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-SandwichProductAxesGetConst(ConstHandle2ConstSandwichProduct This);
+SandwichProductAxesGetConst(ConstHandle2ConstSandwichProduct self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-SandwichProductAxesGet(ConstHandle2SandwichProduct This);
+SandwichProductAxesGet(ConstHandle2SandwichProduct self);
 
 // +++ Set
 extern_c void
-SandwichProductAxesSet(ConstHandle2SandwichProduct This, ConstHandle2ConstAxes axes);
+SandwichProductAxesSet(ConstHandle2SandwichProduct self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -166,19 +166,19 @@ SandwichProductAxesSet(ConstHandle2SandwichProduct This, ConstHandle2ConstAxes a
 
 // +++ Has
 extern_c int
-SandwichProductCovarianceHas(ConstHandle2ConstSandwichProduct This);
+SandwichProductCovarianceHas(ConstHandle2ConstSandwichProduct self);
 
 // --- Get, const
 extern_c Handle2ConstCovariance
-SandwichProductCovarianceGetConst(ConstHandle2ConstSandwichProduct This);
+SandwichProductCovarianceGetConst(ConstHandle2ConstSandwichProduct self);
 
 // +++ Get, non-const
 extern_c Handle2Covariance
-SandwichProductCovarianceGet(ConstHandle2SandwichProduct This);
+SandwichProductCovarianceGet(ConstHandle2SandwichProduct self);
 
 // +++ Set
 extern_c void
-SandwichProductCovarianceSet(ConstHandle2SandwichProduct This, ConstHandle2ConstCovariance covariance);
+SandwichProductCovarianceSet(ConstHandle2SandwichProduct self, ConstHandle2ConstCovariance covariance);
 
 
 // -----------------------------------------------------------------------------
@@ -187,19 +187,19 @@ SandwichProductCovarianceSet(ConstHandle2SandwichProduct This, ConstHandle2Const
 
 // +++ Has
 extern_c int
-SandwichProductRowSensitivityHas(ConstHandle2ConstSandwichProduct This);
+SandwichProductRowSensitivityHas(ConstHandle2ConstSandwichProduct self);
 
 // --- Get, const
 extern_c Handle2ConstRowSensitivity
-SandwichProductRowSensitivityGetConst(ConstHandle2ConstSandwichProduct This);
+SandwichProductRowSensitivityGetConst(ConstHandle2ConstSandwichProduct self);
 
 // +++ Get, non-const
 extern_c Handle2RowSensitivity
-SandwichProductRowSensitivityGet(ConstHandle2SandwichProduct This);
+SandwichProductRowSensitivityGet(ConstHandle2SandwichProduct self);
 
 // +++ Set
 extern_c void
-SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2ConstRowSensitivity rowSensitivity);
+SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct self, ConstHandle2ConstRowSensitivity rowSensitivity);
 
 
 // -----------------------------------------------------------------------------
@@ -208,19 +208,19 @@ SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2C
 
 // +++ Has
 extern_c int
-SandwichProductColumnSensitivityHas(ConstHandle2ConstSandwichProduct This);
+SandwichProductColumnSensitivityHas(ConstHandle2ConstSandwichProduct self);
 
 // --- Get, const
 extern_c Handle2ConstColumnSensitivity
-SandwichProductColumnSensitivityGetConst(ConstHandle2ConstSandwichProduct This);
+SandwichProductColumnSensitivityGetConst(ConstHandle2ConstSandwichProduct self);
 
 // +++ Get, non-const
 extern_c Handle2ColumnSensitivity
-SandwichProductColumnSensitivityGet(ConstHandle2SandwichProduct This);
+SandwichProductColumnSensitivityGet(ConstHandle2SandwichProduct self);
 
 // +++ Set
 extern_c void
-SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2ConstColumnSensitivity columnSensitivity);
+SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct self, ConstHandle2ConstColumnSensitivity columnSensitivity);
 
 
 // -----------------------------------------------------------------------------

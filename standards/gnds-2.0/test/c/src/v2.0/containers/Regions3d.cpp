@@ -91,20 +91,20 @@ Regions3dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Regions3dAssign(ConstHandle2Regions3d This, ConstHandle2ConstRegions3d from)
+Regions3dAssign(ConstHandle2Regions3d self, ConstHandle2ConstRegions3d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Regions3dDelete(ConstHandle2ConstRegions3d This)
+Regions3dDelete(ConstHandle2ConstRegions3d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -118,44 +118,44 @@ Regions3dDelete(ConstHandle2ConstRegions3d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Regions3dRead(ConstHandle2Regions3d This, const char *const filename)
+Regions3dRead(ConstHandle2Regions3d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Regions3dWrite(ConstHandle2ConstRegions3d This, const char *const filename)
+Regions3dWrite(ConstHandle2ConstRegions3d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Regions3dPrint(ConstHandle2ConstRegions3d This)
+Regions3dPrint(ConstHandle2ConstRegions3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Regions3dPrintXML(ConstHandle2ConstRegions3d This)
+Regions3dPrintXML(ConstHandle2ConstRegions3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Regions3dPrintJSON(ConstHandle2ConstRegions3d This)
+Regions3dPrintJSON(ConstHandle2ConstRegions3d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -165,27 +165,27 @@ Regions3dPrintJSON(ConstHandle2ConstRegions3d This)
 
 // Has
 int
-Regions3dLabelHas(ConstHandle2ConstRegions3d This)
+Regions3dLabelHas(ConstHandle2ConstRegions3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-Regions3dLabelGet(ConstHandle2ConstRegions3d This)
+Regions3dLabelGet(ConstHandle2ConstRegions3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Regions3dLabelSet(ConstHandle2Regions3d This, const XMLName label)
+Regions3dLabelSet(ConstHandle2Regions3d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -195,27 +195,27 @@ Regions3dLabelSet(ConstHandle2Regions3d This, const XMLName label)
 
 // Has
 int
-Regions3dOuterDomainValueHas(ConstHandle2ConstRegions3d This)
+Regions3dOuterDomainValueHas(ConstHandle2ConstRegions3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 Float64
-Regions3dOuterDomainValueGet(ConstHandle2ConstRegions3d This)
+Regions3dOuterDomainValueGet(ConstHandle2ConstRegions3d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-Regions3dOuterDomainValueSet(ConstHandle2Regions3d This, const Float64 outerDomainValue)
+Regions3dOuterDomainValueSet(ConstHandle2Regions3d self, const Float64 outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -225,34 +225,34 @@ Regions3dOuterDomainValueSet(ConstHandle2Regions3d This, const Float64 outerDoma
 
 // Has
 int
-Regions3dAxesHas(ConstHandle2ConstRegions3d This)
+Regions3dAxesHas(ConstHandle2ConstRegions3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Regions3dAxesGetConst(ConstHandle2ConstRegions3d This)
+Regions3dAxesGetConst(ConstHandle2ConstRegions3d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Regions3dAxesGet(ConstHandle2Regions3d This)
+Regions3dAxesGet(ConstHandle2Regions3d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Regions3dAxesSet(ConstHandle2Regions3d This, ConstHandle2ConstAxes axes)
+Regions3dAxesSet(ConstHandle2Regions3d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -262,34 +262,34 @@ Regions3dAxesSet(ConstHandle2Regions3d This, ConstHandle2ConstAxes axes)
 
 // Has
 int
-Regions3dFunction3dsHas(ConstHandle2ConstRegions3d This)
+Regions3dFunction3dsHas(ConstHandle2ConstRegions3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Function3dsHas", This, extract::function3ds);
+      (CLASSNAME, CLASSNAME+"Function3dsHas", self, extract::function3ds);
 }
 
 // Get, const
 Handle2ConstFunction3ds
-Regions3dFunction3dsGetConst(ConstHandle2ConstRegions3d This)
+Regions3dFunction3dsGetConst(ConstHandle2ConstRegions3d self)
 {
    return detail::getField<CPP,Handle2ConstFunction3ds>
-      (CLASSNAME, CLASSNAME+"Function3dsGetConst", This, extract::function3ds);
+      (CLASSNAME, CLASSNAME+"Function3dsGetConst", self, extract::function3ds);
 }
 
 // Get, non-const
 Handle2Function3ds
-Regions3dFunction3dsGet(ConstHandle2Regions3d This)
+Regions3dFunction3dsGet(ConstHandle2Regions3d self)
 {
    return detail::getField<CPP,Handle2Function3ds>
-      (CLASSNAME, CLASSNAME+"Function3dsGet", This, extract::function3ds);
+      (CLASSNAME, CLASSNAME+"Function3dsGet", self, extract::function3ds);
 }
 
 // Set
 void
-Regions3dFunction3dsSet(ConstHandle2Regions3d This, ConstHandle2ConstFunction3ds function3ds)
+Regions3dFunction3dsSet(ConstHandle2Regions3d self, ConstHandle2ConstFunction3ds function3ds)
 {
    detail::setField<CPP,CPPFunction3ds>
-      (CLASSNAME, CLASSNAME+"Function3dsSet", This, extract::function3ds, function3ds);
+      (CLASSNAME, CLASSNAME+"Function3dsSet", self, extract::function3ds, function3ds);
 }
 
 
@@ -299,34 +299,34 @@ Regions3dFunction3dsSet(ConstHandle2Regions3d This, ConstHandle2ConstFunction3ds
 
 // Has
 int
-Regions3dUncertaintyHas(ConstHandle2ConstRegions3d This)
+Regions3dUncertaintyHas(ConstHandle2ConstRegions3d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-Regions3dUncertaintyGetConst(ConstHandle2ConstRegions3d This)
+Regions3dUncertaintyGetConst(ConstHandle2ConstRegions3d self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-Regions3dUncertaintyGet(ConstHandle2Regions3d This)
+Regions3dUncertaintyGet(ConstHandle2Regions3d self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-Regions3dUncertaintySet(ConstHandle2Regions3d This, ConstHandle2ConstUncertainty uncertainty)
+Regions3dUncertaintySet(ConstHandle2Regions3d self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

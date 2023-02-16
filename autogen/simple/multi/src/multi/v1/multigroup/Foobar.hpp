@@ -26,12 +26,12 @@ class Foobar :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Foobar"; }
-   static auto FIELD() { return "foobar"; }
+   static auto NODENAME() { return "foobar"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,24 +47,64 @@ class Foobar :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "doubles"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "doubles"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
    using DataNode::operator=;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> value{this};
+   Field<std::string>
+      value{this};
+
+   // data
+   std::vector<double> &doubles = *this;
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->value, \
-      static_cast<DataNode &>(*this))
+      static_cast<DataNode &>(*this) \
+   )
 
    // default
    Foobar() :
@@ -75,7 +115,8 @@ public:
 
    // from fields, comment excluded
    explicit Foobar(
-      const wrapper<std::string> &value
+      const wrapper<std::string>
+         &value
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value)
@@ -91,7 +132,7 @@ public:
    }
 
    // from vector<double>
-   Foobar(const std::vector<double> &vector) :
+   explicit Foobar(const std::vector<double> &vector) :
       GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {
@@ -122,8 +163,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Foobar &operator=(const Foobar &) = default;
-   Foobar &operator=(Foobar &&) = default;
+   // copy
+   Foobar &operator=(const Foobar &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         DataNode::operator=(other);
+         comment = other.comment;
+         value = other.value;
+      }
+      return *this;
+   }
+
+   // move
+   Foobar &operator=(Foobar &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         DataNode::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

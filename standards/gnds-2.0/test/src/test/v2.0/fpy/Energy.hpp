@@ -25,12 +25,12 @@ class Energy :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "Energy"; }
-   static auto FIELD() { return "energy"; }
+   static auto NODENAME() { return "energy"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Energy :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<containers::Double>("double")
+         --Child<containers::Double>
+            ("double")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "Double"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "double"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<containers::Double> Double{this};
+   Field<containers::Double>
+      Double{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->Double)
+      this->Double \
+   )
 
    // default
    Energy() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Energy(
-      const wrapper<containers::Double> &Double
+      const wrapper<containers::Double>
+         &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Energy &operator=(const Energy &) = default;
-   Energy &operator=(Energy &&) = default;
+   // copy
+   Energy &operator=(const Energy &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Energy &operator=(Energy &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

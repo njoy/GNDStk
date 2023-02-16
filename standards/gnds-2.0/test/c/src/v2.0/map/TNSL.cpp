@@ -107,20 +107,20 @@ TNSLCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TNSLAssign(ConstHandle2TNSL This, ConstHandle2ConstTNSL from)
+TNSLAssign(ConstHandle2TNSL self, ConstHandle2ConstTNSL from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TNSLDelete(ConstHandle2ConstTNSL This)
+TNSLDelete(ConstHandle2ConstTNSL self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -134,44 +134,44 @@ TNSLDelete(ConstHandle2ConstTNSL This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TNSLRead(ConstHandle2TNSL This, const char *const filename)
+TNSLRead(ConstHandle2TNSL self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TNSLWrite(ConstHandle2ConstTNSL This, const char *const filename)
+TNSLWrite(ConstHandle2ConstTNSL self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TNSLPrint(ConstHandle2ConstTNSL This)
+TNSLPrint(ConstHandle2ConstTNSL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TNSLPrintXML(ConstHandle2ConstTNSL This)
+TNSLPrintXML(ConstHandle2ConstTNSL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TNSLPrintJSON(ConstHandle2ConstTNSL This)
+TNSLPrintJSON(ConstHandle2ConstTNSL self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -181,27 +181,27 @@ TNSLPrintJSON(ConstHandle2ConstTNSL This)
 
 // Has
 int
-TNSLProjectileHas(ConstHandle2ConstTNSL This)
+TNSLProjectileHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileHas", self, extract::projectile);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLProjectileGet(ConstHandle2ConstTNSL This)
+TNSLProjectileGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileGet", self, extract::projectile);
 }
 
 // Set
 void
-TNSLProjectileSet(ConstHandle2TNSL This, const XMLName projectile)
+TNSLProjectileSet(ConstHandle2TNSL self, const XMLName projectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileSet", self, extract::projectile, projectile);
 }
 
 
@@ -211,27 +211,27 @@ TNSLProjectileSet(ConstHandle2TNSL This, const XMLName projectile)
 
 // Has
 int
-TNSLTargetHas(ConstHandle2ConstTNSL This)
+TNSLTargetHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetHas", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetHas", self, extract::target);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLTargetGet(ConstHandle2ConstTNSL This)
+TNSLTargetGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetGet", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetGet", self, extract::target);
 }
 
 // Set
 void
-TNSLTargetSet(ConstHandle2TNSL This, const XMLName target)
+TNSLTargetSet(ConstHandle2TNSL self, const XMLName target)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetSet", This, extract::target, target);
+      (CLASSNAME, CLASSNAME+"TargetSet", self, extract::target, target);
 }
 
 
@@ -241,27 +241,27 @@ TNSLTargetSet(ConstHandle2TNSL This, const XMLName target)
 
 // Has
 int
-TNSLEvaluationHas(ConstHandle2ConstTNSL This)
+TNSLEvaluationHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationHas", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationHas", self, extract::evaluation);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLEvaluationGet(ConstHandle2ConstTNSL This)
+TNSLEvaluationGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationGet", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationGet", self, extract::evaluation);
 }
 
 // Set
 void
-TNSLEvaluationSet(ConstHandle2TNSL This, const XMLName evaluation)
+TNSLEvaluationSet(ConstHandle2TNSL self, const XMLName evaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationSet", This, extract::evaluation, evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationSet", self, extract::evaluation, evaluation);
 }
 
 
@@ -271,27 +271,27 @@ TNSLEvaluationSet(ConstHandle2TNSL This, const XMLName evaluation)
 
 // Has
 int
-TNSLPathHas(ConstHandle2ConstTNSL This)
+TNSLPathHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PathHas", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathHas", self, extract::path);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLPathGet(ConstHandle2ConstTNSL This)
+TNSLPathGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PathGet", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathGet", self, extract::path);
 }
 
 // Set
 void
-TNSLPathSet(ConstHandle2TNSL This, const XMLName path)
+TNSLPathSet(ConstHandle2TNSL self, const XMLName path)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PathSet", This, extract::path, path);
+      (CLASSNAME, CLASSNAME+"PathSet", self, extract::path, path);
 }
 
 
@@ -301,27 +301,27 @@ TNSLPathSet(ConstHandle2TNSL This, const XMLName path)
 
 // Has
 int
-TNSLInteractionHas(ConstHandle2ConstTNSL This)
+TNSLInteractionHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionHas", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionHas", self, extract::interaction);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLInteractionGet(ConstHandle2ConstTNSL This)
+TNSLInteractionGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionGet", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionGet", self, extract::interaction);
 }
 
 // Set
 void
-TNSLInteractionSet(ConstHandle2TNSL This, const XMLName interaction)
+TNSLInteractionSet(ConstHandle2TNSL self, const XMLName interaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionSet", This, extract::interaction, interaction);
+      (CLASSNAME, CLASSNAME+"InteractionSet", self, extract::interaction, interaction);
 }
 
 
@@ -331,27 +331,27 @@ TNSLInteractionSet(ConstHandle2TNSL This, const XMLName interaction)
 
 // Has
 int
-TNSLChecksumHas(ConstHandle2ConstTNSL This)
+TNSLChecksumHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumHas", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumHas", self, extract::checksum);
 }
 
 // Get
 // Returns by value
 const char *
-TNSLChecksumGet(ConstHandle2ConstTNSL This)
+TNSLChecksumGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumGet", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumGet", self, extract::checksum);
 }
 
 // Set
 void
-TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum)
+TNSLChecksumSet(ConstHandle2TNSL self, const char *const checksum)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumSet", self, extract::checksum, checksum);
 }
 
 
@@ -361,27 +361,27 @@ TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum)
 
 // Has
 int
-TNSLAlgorithmHas(ConstHandle2ConstTNSL This)
+TNSLAlgorithmHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmHas", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmHas", self, extract::algorithm);
 }
 
 // Get
 // Returns by value
 enums::HashAlgorithm
-TNSLAlgorithmGet(ConstHandle2ConstTNSL This)
+TNSLAlgorithmGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmGet", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmGet", self, extract::algorithm);
 }
 
 // Set
 void
-TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm)
+TNSLAlgorithmSet(ConstHandle2TNSL self, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmSet", self, extract::algorithm, algorithm);
 }
 
 
@@ -391,27 +391,27 @@ TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm)
 
 // Has
 int
-TNSLStandardTargetHas(ConstHandle2ConstTNSL This)
+TNSLStandardTargetHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardTargetHas", This, extract::standardTarget);
+      (CLASSNAME, CLASSNAME+"StandardTargetHas", self, extract::standardTarget);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLStandardTargetGet(ConstHandle2ConstTNSL This)
+TNSLStandardTargetGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardTargetGet", This, extract::standardTarget);
+      (CLASSNAME, CLASSNAME+"StandardTargetGet", self, extract::standardTarget);
 }
 
 // Set
 void
-TNSLStandardTargetSet(ConstHandle2TNSL This, const XMLName standardTarget)
+TNSLStandardTargetSet(ConstHandle2TNSL self, const XMLName standardTarget)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardTargetSet", This, extract::standardTarget, standardTarget);
+      (CLASSNAME, CLASSNAME+"StandardTargetSet", self, extract::standardTarget, standardTarget);
 }
 
 
@@ -421,27 +421,27 @@ TNSLStandardTargetSet(ConstHandle2TNSL This, const XMLName standardTarget)
 
 // Has
 int
-TNSLStandardEvaluationHas(ConstHandle2ConstTNSL This)
+TNSLStandardEvaluationHas(ConstHandle2ConstTNSL self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardEvaluationHas", This, extract::standardEvaluation);
+      (CLASSNAME, CLASSNAME+"StandardEvaluationHas", self, extract::standardEvaluation);
 }
 
 // Get
 // Returns by value
 XMLName
-TNSLStandardEvaluationGet(ConstHandle2ConstTNSL This)
+TNSLStandardEvaluationGet(ConstHandle2ConstTNSL self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardEvaluationGet", This, extract::standardEvaluation);
+      (CLASSNAME, CLASSNAME+"StandardEvaluationGet", self, extract::standardEvaluation);
 }
 
 // Set
 void
-TNSLStandardEvaluationSet(ConstHandle2TNSL This, const XMLName standardEvaluation)
+TNSLStandardEvaluationSet(ConstHandle2TNSL self, const XMLName standardEvaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardEvaluationSet", This, extract::standardEvaluation, standardEvaluation);
+      (CLASSNAME, CLASSNAME+"StandardEvaluationSet", self, extract::standardEvaluation, standardEvaluation);
 }
 
 

@@ -74,20 +74,20 @@ FluxCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FluxAssign(ConstHandle2Flux This, ConstHandle2ConstFlux from)
+FluxAssign(ConstHandle2Flux self, ConstHandle2ConstFlux from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FluxDelete(ConstHandle2ConstFlux This)
+FluxDelete(ConstHandle2ConstFlux self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ FluxDelete(ConstHandle2ConstFlux This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FluxRead(ConstHandle2Flux This, const char *const filename)
+FluxRead(ConstHandle2Flux self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FluxWrite(ConstHandle2ConstFlux This, const char *const filename)
+FluxWrite(ConstHandle2ConstFlux self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FluxPrint(ConstHandle2ConstFlux This)
+FluxPrint(ConstHandle2ConstFlux self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FluxPrintXML(ConstHandle2ConstFlux This)
+FluxPrintXML(ConstHandle2ConstFlux self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FluxPrintJSON(ConstHandle2ConstFlux This)
+FluxPrintJSON(ConstHandle2ConstFlux self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ FluxPrintJSON(ConstHandle2ConstFlux This)
 
 // Has
 int
-FluxLabelHas(ConstHandle2ConstFlux This)
+FluxLabelHas(ConstHandle2ConstFlux self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-FluxLabelGet(ConstHandle2ConstFlux This)
+FluxLabelGet(ConstHandle2ConstFlux self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-FluxLabelSet(ConstHandle2Flux This, const XMLName label)
+FluxLabelSet(ConstHandle2Flux self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -178,34 +178,34 @@ FluxLabelSet(ConstHandle2Flux This, const XMLName label)
 
 // Has
 int
-FluxXYs2dHas(ConstHandle2ConstFlux This)
+FluxXYs2dHas(ConstHandle2ConstFlux self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-FluxXYs2dGetConst(ConstHandle2ConstFlux This)
+FluxXYs2dGetConst(ConstHandle2ConstFlux self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-FluxXYs2dGet(ConstHandle2Flux This)
+FluxXYs2dGet(ConstHandle2Flux self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-FluxXYs2dSet(ConstHandle2Flux This, ConstHandle2ConstXYs2d XYs2d)
+FluxXYs2dSet(ConstHandle2Flux self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 

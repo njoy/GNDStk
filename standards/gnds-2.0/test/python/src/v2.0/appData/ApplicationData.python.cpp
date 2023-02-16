@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_appData {
 
-// ApplicationData wrapper
-void wrapApplicationData(python::module &module)
+// wrapper for appData::ApplicationData
+void wrapApplicationData(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = appData::ApplicationData;
+   using cppCLASS = appData::ApplicationData;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ApplicationData",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ApplicationData",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<appData::Institution> &
-         >(),
-         python::arg("institution") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "institution",
-         [](const Component &self) { return self.institution(); },
-         Component::documentation("institution").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<appData::Institution> &
+      >(),
+      py::arg("institution") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set institution
+   object.def_property(
+      "institution",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.institution();
+      },
+      [](cppCLASS &self, const std::optional<appData::Institution> &value)
+      {
+         self.institution() = value;
+      },
+      cppCLASS::component_t::documentation("institution").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_appData

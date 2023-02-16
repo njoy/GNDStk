@@ -11,38 +11,35 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_cpTransport {
 
-// RutherfordScattering wrapper
-void wrapRutherfordScattering(python::module &module)
+// wrapper for cpTransport::RutherfordScattering
+void wrapRutherfordScattering(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = cpTransport::RutherfordScattering;
+   using cppCLASS = cpTransport::RutherfordScattering;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "RutherfordScattering",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "RutherfordScattering",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-         >(),
-         Component::documentation("constructor").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+      >(),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_cpTransport

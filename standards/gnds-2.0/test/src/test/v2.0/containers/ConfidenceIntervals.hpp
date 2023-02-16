@@ -25,12 +25,12 @@ class ConfidenceIntervals :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "ConfidenceIntervals"; }
-   static auto FIELD() { return "confidenceIntervals"; }
+   static auto NODENAME() { return "confidenceIntervals"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ConfidenceIntervals :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<containers::Interval>("interval")
+         ++Child<containers::Interval>
+            ("interval")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interval"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interval"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<containers::Interval>> interval{this};
+   Field<std::vector<containers::Interval>>
+      interval{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->interval)
+      this->interval \
+   )
 
    // default
    ConfidenceIntervals() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ConfidenceIntervals(
-      const wrapper<std::vector<containers::Interval>> &interval
+      const wrapper<std::vector<containers::Interval>>
+         &interval
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interval(this,interval)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ConfidenceIntervals &operator=(const ConfidenceIntervals &) = default;
-   ConfidenceIntervals &operator=(ConfidenceIntervals &&) = default;
+   // copy
+   ConfidenceIntervals &operator=(const ConfidenceIntervals &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         interval = other.interval;
+      }
+      return *this;
+   }
+
+   // move
+   ConfidenceIntervals &operator=(ConfidenceIntervals &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         interval = std::move(other.interval);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

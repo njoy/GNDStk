@@ -81,20 +81,20 @@ AverageProductEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AverageProductEnergyAssign(ConstHandle2AverageProductEnergy This, ConstHandle2ConstAverageProductEnergy from)
+AverageProductEnergyAssign(ConstHandle2AverageProductEnergy self, ConstHandle2ConstAverageProductEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ AverageProductEnergyDelete(ConstHandle2ConstAverageProductEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AverageProductEnergyRead(ConstHandle2AverageProductEnergy This, const char *const filename)
+AverageProductEnergyRead(ConstHandle2AverageProductEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy This, const char *const filename)
+AverageProductEnergyWrite(ConstHandle2ConstAverageProductEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrint(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrintXML(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ AverageProductEnergyPrintJSON(ConstHandle2ConstAverageProductEnergy This)
 
 // Has
 int
-AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy This)
+AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2ConstXYs1d XYs1d)
+AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -192,34 +192,34 @@ AverageProductEnergyXYs1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2
 
 // Has
 int
-AverageProductEnergyGridded1dHas(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyGridded1dHas(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded1dHas", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dHas", self, extract::gridded1d);
 }
 
 // Get, const
 Handle2ConstGridded1d
-AverageProductEnergyGridded1dGetConst(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyGridded1dGetConst(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2ConstGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", self, extract::gridded1d);
 }
 
 // Get, non-const
 Handle2Gridded1d
-AverageProductEnergyGridded1dGet(ConstHandle2AverageProductEnergy This)
+AverageProductEnergyGridded1dGet(ConstHandle2AverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2Gridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGet", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGet", self, extract::gridded1d);
 }
 
 // Set
 void
-AverageProductEnergyGridded1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2ConstGridded1d gridded1d)
+AverageProductEnergyGridded1dSet(ConstHandle2AverageProductEnergy self, ConstHandle2ConstGridded1d gridded1d)
 {
    detail::setField<CPP,CPPGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dSet", self, extract::gridded1d, gridded1d);
 }
 
 
@@ -229,34 +229,34 @@ AverageProductEnergyGridded1dSet(ConstHandle2AverageProductEnergy This, ConstHan
 
 // Has
 int
-AverageProductEnergyRegions1dHas(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyRegions1dHas(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-AverageProductEnergyRegions1dGetConst(ConstHandle2ConstAverageProductEnergy This)
+AverageProductEnergyRegions1dGetConst(ConstHandle2ConstAverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-AverageProductEnergyRegions1dGet(ConstHandle2AverageProductEnergy This)
+AverageProductEnergyRegions1dGet(ConstHandle2AverageProductEnergy self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-AverageProductEnergyRegions1dSet(ConstHandle2AverageProductEnergy This, ConstHandle2ConstRegions1d regions1d)
+AverageProductEnergyRegions1dSet(ConstHandle2AverageProductEnergy self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

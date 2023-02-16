@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// BraggEdges wrapper
-void wrapBraggEdges(python::module &module)
+// wrapper for tsl::BraggEdges
+void wrapBraggEdges(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::BraggEdges;
+   using cppCLASS = tsl::BraggEdges;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "BraggEdges",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "BraggEdges",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<tsl::BraggEdge> &
-         >(),
-         python::arg("bragg_edge"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "bragg_edge",
-         [](const Component &self) { return self.BraggEdge(); },
-         Component::documentation("bragg_edge").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<tsl::BraggEdge> &
+      >(),
+      py::arg("bragg_edge"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set BraggEdge
+   object.def_property(
+      "bragg_edge",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.BraggEdge();
+      },
+      [](cppCLASS &self, const std::vector<tsl::BraggEdge> &value)
+      {
+         self.BraggEdge() = value;
+      },
+      cppCLASS::component_t::documentation("bragg_edge").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

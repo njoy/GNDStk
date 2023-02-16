@@ -93,13 +93,13 @@ AvailableMomentumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AvailableMomentumAssign(ConstHandle2AvailableMomentum This, ConstHandle2ConstAvailableMomentum from);
+AvailableMomentumAssign(ConstHandle2AvailableMomentum self, ConstHandle2ConstAvailableMomentum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AvailableMomentumRead(ConstHandle2AvailableMomentum This, const char *const filename);
+AvailableMomentumRead(ConstHandle2AvailableMomentum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AvailableMomentumWrite(ConstHandle2ConstAvailableMomentum This, const char *const filename);
+AvailableMomentumWrite(ConstHandle2ConstAvailableMomentum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AvailableMomentumPrint(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumPrint(ConstHandle2ConstAvailableMomentum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AvailableMomentumPrintXML(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumPrintXML(ConstHandle2ConstAvailableMomentum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum This);
 
 // +++ Has
 extern_c int
-AvailableMomentumXYs1dHas(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumXYs1dHas(ConstHandle2ConstAvailableMomentum self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-AvailableMomentumXYs1dGetConst(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumXYs1dGetConst(ConstHandle2ConstAvailableMomentum self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-AvailableMomentumXYs1dGet(ConstHandle2AvailableMomentum This);
+AvailableMomentumXYs1dGet(ConstHandle2AvailableMomentum self);
 
 // +++ Set
 extern_c void
-AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstXYs1d XYs1d);
+AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstX
 
 // +++ Has
 extern_c int
-AvailableMomentumGridded1dHas(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumGridded1dHas(ConstHandle2ConstAvailableMomentum self);
 
 // --- Get, const
 extern_c Handle2ConstGridded1d
-AvailableMomentumGridded1dGetConst(ConstHandle2ConstAvailableMomentum This);
+AvailableMomentumGridded1dGetConst(ConstHandle2ConstAvailableMomentum self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded1d
-AvailableMomentumGridded1dGet(ConstHandle2AvailableMomentum This);
+AvailableMomentumGridded1dGet(ConstHandle2AvailableMomentum self);
 
 // +++ Set
 extern_c void
-AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstGridded1d gridded1d);
+AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum self, ConstHandle2ConstGridded1d gridded1d);
 
 
 // -----------------------------------------------------------------------------

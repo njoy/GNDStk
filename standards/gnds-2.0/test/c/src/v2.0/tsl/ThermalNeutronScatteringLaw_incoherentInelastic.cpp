@@ -99,20 +99,20 @@ ThermalNeutronScatteringLaw_incoherentInelasticCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ThermalNeutronScatteringLaw_incoherentInelasticAssign(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic from)
+ThermalNeutronScatteringLaw_incoherentInelasticAssign(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ThermalNeutronScatteringLaw_incoherentInelasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -126,44 +126,44 @@ ThermalNeutronScatteringLaw_incoherentInelasticDelete(ConstHandle2ConstThermalNe
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ThermalNeutronScatteringLaw_incoherentInelasticRead(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const char *const filename)
+ThermalNeutronScatteringLaw_incoherentInelasticRead(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ThermalNeutronScatteringLaw_incoherentInelasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This, const char *const filename)
+ThermalNeutronScatteringLaw_incoherentInelasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ThermalNeutronScatteringLaw_incoherentInelasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ThermalNeutronScatteringLaw_incoherentInelasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ThermalNeutronScatteringLaw_incoherentInelasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -173,27 +173,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticPrintJSON(ConstHandle2ConstTherma
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ThermalNeutronScatteringLaw_incoherentInelasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const XMLName label)
+ThermalNeutronScatteringLaw_incoherentInelasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -203,27 +203,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticLabelSet(ConstHandle2ThermalNeutr
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-ThermalNeutronScatteringLaw_incoherentInelasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const XMLName pid)
+ThermalNeutronScatteringLaw_incoherentInelasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -233,27 +233,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticPidSet(ConstHandle2ThermalNeutron
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-ThermalNeutronScatteringLaw_incoherentInelasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const enums::Frame productFrame)
+ThermalNeutronScatteringLaw_incoherentInelasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const enums::Frame productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -263,27 +263,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticProductFrameSet(ConstHandle2Therm
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatedAtThermalHas", This, extract::calculatedAtThermal);
+      (CLASSNAME, CLASSNAME+"CalculatedAtThermalHas", self, extract::calculatedAtThermal);
 }
 
 // Get
 // Returns by value
 bool
-ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatedAtThermalGet", This, extract::calculatedAtThermal);
+      (CLASSNAME, CLASSNAME+"CalculatedAtThermalGet", self, extract::calculatedAtThermal);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const bool calculatedAtThermal)
+ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const bool calculatedAtThermal)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CalculatedAtThermalSet", This, extract::calculatedAtThermal, calculatedAtThermal);
+      (CLASSNAME, CLASSNAME+"CalculatedAtThermalSet", self, extract::calculatedAtThermal, calculatedAtThermal);
 }
 
 
@@ -293,27 +293,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet(ConstHandl
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IncoherentApproximationHas", This, extract::incoherentApproximation);
+      (CLASSNAME, CLASSNAME+"IncoherentApproximationHas", self, extract::incoherentApproximation);
 }
 
 // Get
 // Returns by value
 bool
-ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IncoherentApproximationGet", This, extract::incoherentApproximation);
+      (CLASSNAME, CLASSNAME+"IncoherentApproximationGet", self, extract::incoherentApproximation);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const bool incoherentApproximation)
+ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const bool incoherentApproximation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IncoherentApproximationSet", This, extract::incoherentApproximation, incoherentApproximation);
+      (CLASSNAME, CLASSNAME+"IncoherentApproximationSet", self, extract::incoherentApproximation, incoherentApproximation);
 }
 
 
@@ -323,27 +323,27 @@ ThermalNeutronScatteringLaw_incoherentInelasticIncoherentApproximationSet(ConstH
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererHas", This, extract::primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererHas", self, extract::primaryScatterer);
 }
 
 // Get
 // Returns by value
 XMLName
-ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererGet(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererGet", This, extract::primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererGet", self, extract::primaryScatterer);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, const XMLName primaryScatterer)
+ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, const XMLName primaryScatterer)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PrimaryScattererSet", This, extract::primaryScatterer, primaryScatterer);
+      (CLASSNAME, CLASSNAME+"PrimaryScattererSet", self, extract::primaryScatterer, primaryScatterer);
 }
 
 
@@ -353,34 +353,34 @@ ThermalNeutronScatteringLaw_incoherentInelasticPrimaryScattererSet(ConstHandle2T
 
 // Has
 int
-ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsHas(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomsHas", This, extract::scatteringAtoms);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomsHas", self, extract::scatteringAtoms);
 }
 
 // Get, const
 Handle2ConstScatteringAtoms
-ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP,Handle2ConstScatteringAtoms>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomsGetConst", This, extract::scatteringAtoms);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomsGetConst", self, extract::scatteringAtoms);
 }
 
 // Get, non-const
 Handle2ScatteringAtoms
-ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This)
+ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self)
 {
    return detail::getField<CPP,Handle2ScatteringAtoms>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomsGet", This, extract::scatteringAtoms);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomsGet", self, extract::scatteringAtoms);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic This, ConstHandle2ConstScatteringAtoms scatteringAtoms)
+ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self, ConstHandle2ConstScatteringAtoms scatteringAtoms)
 {
    detail::setField<CPP,CPPScatteringAtoms>
-      (CLASSNAME, CLASSNAME+"ScatteringAtomsSet", This, extract::scatteringAtoms, scatteringAtoms);
+      (CLASSNAME, CLASSNAME+"ScatteringAtomsSet", self, extract::scatteringAtoms, scatteringAtoms);
 }
 
 

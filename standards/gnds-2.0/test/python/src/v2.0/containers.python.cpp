@@ -5,62 +5,62 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // containers declarations
 namespace python_containers {
-   void wrapStandard(python::module &);
-   void wrapLogNormal(python::module &);
-   void wrapInterval(python::module &);
-   void wrapConfidenceIntervals(python::module &);
-   void wrapCovariance(python::module &);
-   void wrapListOfCovariances(python::module &);
-   void wrapAxis(python::module &);
-   void wrapValues(python::module &);
-   void wrapLink(python::module &);
-   void wrapGrid(python::module &);
-   void wrapAxes(python::module &);
-   void wrapXYs1d(python::module &);
-   void wrapConstant1d(python::module &);
-   void wrapPolynomial1d(python::module &);
-   void wrapLegendre(python::module &);
-   void wrapArray(python::module &);
-   void wrapGridded1d(python::module &);
-   void wrapFunction1ds(python::module &);
-   void wrapRegions1d(python::module &);
-   void wrapPdf(python::module &);
-   void wrapUncertainty(python::module &);
-   void wrapXYs2d(python::module &);
-   void wrapGridded2d(python::module &);
-   void wrapFunction2ds(python::module &);
-   void wrapRegions2d(python::module &);
-   void wrapXYs3d(python::module &);
-   void wrapGridded3d(python::module &);
-   void wrapDouble(python::module &);
-   void wrapYs1d(python::module &);
-   void wrapString(python::module &);
-   void wrapInteger(python::module &);
-   void wrapFraction(python::module &);
-   void wrapColumn(python::module &);
-   void wrapColumnHeaders(python::module &);
-   void wrapData(python::module &);
-   void wrapTable(python::module &);
-   void wrapXs_in_xs_pdf_cdf1d(python::module &);
-   void wrapCdf_in_xs_pdf_cdf1d(python::module &);
-   void wrapXs_pdf_cdf1d(python::module &);
-   void wrapPdf_in_xs_pdf_cdf1d(python::module &);
-   void wrapFunction3ds(python::module &);
-   void wrapRegions3d(python::module &);
+   void wrapStandard(py::module &);
+   void wrapLogNormal(py::module &);
+   void wrapInterval(py::module &);
+   void wrapConfidenceIntervals(py::module &);
+   void wrapCovariance(py::module &);
+   void wrapListOfCovariances(py::module &);
+   void wrapAxis(py::module &);
+   void wrapValues(py::module &);
+   void wrapLink(py::module &);
+   void wrapGrid(py::module &);
+   void wrapAxes(py::module &);
+   void wrapXYs1d(py::module &);
+   void wrapConstant1d(py::module &);
+   void wrapPolynomial1d(py::module &);
+   void wrapLegendre(py::module &);
+   void wrapArray(py::module &);
+   void wrapGridded1d(py::module &);
+   void wrapFunction1ds(py::module &);
+   void wrapRegions1d(py::module &);
+   void wrapPdf(py::module &);
+   void wrapUncertainty(py::module &);
+   void wrapXYs2d(py::module &);
+   void wrapGridded2d(py::module &);
+   void wrapFunction2ds(py::module &);
+   void wrapRegions2d(py::module &);
+   void wrapXYs3d(py::module &);
+   void wrapGridded3d(py::module &);
+   void wrapDouble(py::module &);
+   void wrapYs1d(py::module &);
+   void wrapString(py::module &);
+   void wrapInteger(py::module &);
+   void wrapFraction(py::module &);
+   void wrapColumn(py::module &);
+   void wrapColumnHeaders(py::module &);
+   void wrapData(py::module &);
+   void wrapTable(py::module &);
+   void wrapXs_in_xs_pdf_cdf1d(py::module &);
+   void wrapCdf_in_xs_pdf_cdf1d(py::module &);
+   void wrapXs_pdf_cdf1d(py::module &);
+   void wrapPdf_in_xs_pdf_cdf1d(py::module &);
+   void wrapFunction3ds(py::module &);
+   void wrapRegions3d(py::module &);
 } // namespace python_containers
 
-// containers wrapper
-void wrapContainers(python::module &module)
+// wrapper for containers
+void wrapContainers(py::module &module)
 {
    // create the containers submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "containers",
       "test v2.0 containers"
    );

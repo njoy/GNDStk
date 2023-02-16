@@ -112,13 +112,13 @@ RMatrixCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RMatrixAssign(ConstHandle2RMatrix This, ConstHandle2ConstRMatrix from);
+RMatrixAssign(ConstHandle2RMatrix self, ConstHandle2ConstRMatrix from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RMatrixDelete(ConstHandle2ConstRMatrix This);
+RMatrixDelete(ConstHandle2ConstRMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -131,25 +131,25 @@ RMatrixDelete(ConstHandle2ConstRMatrix This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RMatrixRead(ConstHandle2RMatrix This, const char *const filename);
+RMatrixRead(ConstHandle2RMatrix self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RMatrixWrite(ConstHandle2ConstRMatrix This, const char *const filename);
+RMatrixWrite(ConstHandle2ConstRMatrix self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RMatrixPrint(ConstHandle2ConstRMatrix This);
+RMatrixPrint(ConstHandle2ConstRMatrix self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RMatrixPrintXML(ConstHandle2ConstRMatrix This);
+RMatrixPrintXML(ConstHandle2ConstRMatrix self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RMatrixPrintJSON(ConstHandle2ConstRMatrix This);
+RMatrixPrintJSON(ConstHandle2ConstRMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ RMatrixPrintJSON(ConstHandle2ConstRMatrix This);
 
 // +++ Has
 extern_c int
-RMatrixLabelHas(ConstHandle2ConstRMatrix This);
+RMatrixLabelHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-RMatrixLabelGet(ConstHandle2ConstRMatrix This);
+RMatrixLabelGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixLabelSet(ConstHandle2RMatrix This, const XMLName label);
+RMatrixLabelSet(ConstHandle2RMatrix self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -176,16 +176,16 @@ RMatrixLabelSet(ConstHandle2RMatrix This, const XMLName label);
 
 // +++ Has
 extern_c int
-RMatrixApproximationHas(ConstHandle2ConstRMatrix This);
+RMatrixApproximationHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-RMatrixApproximationGet(ConstHandle2ConstRMatrix This);
+RMatrixApproximationGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixApproximationSet(ConstHandle2RMatrix This, const XMLName approximation);
+RMatrixApproximationSet(ConstHandle2RMatrix self, const XMLName approximation);
 
 
 // -----------------------------------------------------------------------------
@@ -194,16 +194,16 @@ RMatrixApproximationSet(ConstHandle2RMatrix This, const XMLName approximation);
 
 // +++ Has
 extern_c int
-RMatrixBoundaryConditionHas(ConstHandle2ConstRMatrix This);
+RMatrixBoundaryConditionHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::BoundaryCondition
-RMatrixBoundaryConditionGet(ConstHandle2ConstRMatrix This);
+RMatrixBoundaryConditionGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixBoundaryConditionSet(ConstHandle2RMatrix This, const enums::BoundaryCondition boundaryCondition);
+RMatrixBoundaryConditionSet(ConstHandle2RMatrix self, const enums::BoundaryCondition boundaryCondition);
 
 
 // -----------------------------------------------------------------------------
@@ -212,16 +212,16 @@ RMatrixBoundaryConditionSet(ConstHandle2RMatrix This, const enums::BoundaryCondi
 
 // +++ Has
 extern_c int
-RMatrixBoundaryConditionValueHas(ConstHandle2ConstRMatrix This);
+RMatrixBoundaryConditionValueHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-RMatrixBoundaryConditionValueGet(ConstHandle2ConstRMatrix This);
+RMatrixBoundaryConditionValueGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix This, const Float64 boundaryConditionValue);
+RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix self, const Float64 boundaryConditionValue);
 
 
 // -----------------------------------------------------------------------------
@@ -230,16 +230,16 @@ RMatrixBoundaryConditionValueSet(ConstHandle2RMatrix This, const Float64 boundar
 
 // +++ Has
 extern_c int
-RMatrixCalculateChannelRadiusHas(ConstHandle2ConstRMatrix This);
+RMatrixCalculateChannelRadiusHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-RMatrixCalculateChannelRadiusGet(ConstHandle2ConstRMatrix This);
+RMatrixCalculateChannelRadiusGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix This, const bool calculateChannelRadius);
+RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix self, const bool calculateChannelRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -248,16 +248,16 @@ RMatrixCalculateChannelRadiusSet(ConstHandle2RMatrix This, const bool calculateC
 
 // +++ Has
 extern_c int
-RMatrixCalculatePenetrabilityHas(ConstHandle2ConstRMatrix This);
+RMatrixCalculatePenetrabilityHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-RMatrixCalculatePenetrabilityGet(ConstHandle2ConstRMatrix This);
+RMatrixCalculatePenetrabilityGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix This, const bool calculatePenetrability);
+RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix self, const bool calculatePenetrability);
 
 
 // -----------------------------------------------------------------------------
@@ -266,16 +266,16 @@ RMatrixCalculatePenetrabilitySet(ConstHandle2RMatrix This, const bool calculateP
 
 // +++ Has
 extern_c int
-RMatrixUseForSelfShieldingOnlyHas(ConstHandle2ConstRMatrix This);
+RMatrixUseForSelfShieldingOnlyHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-RMatrixUseForSelfShieldingOnlyGet(ConstHandle2ConstRMatrix This);
+RMatrixUseForSelfShieldingOnlyGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix This, const bool useForSelfShieldingOnly);
+RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix self, const bool useForSelfShieldingOnly);
 
 
 // -----------------------------------------------------------------------------
@@ -284,16 +284,16 @@ RMatrixUseForSelfShieldingOnlySet(ConstHandle2RMatrix This, const bool useForSel
 
 // +++ Has
 extern_c int
-RMatrixSupportsAngularReconstructionHas(ConstHandle2ConstRMatrix This);
+RMatrixSupportsAngularReconstructionHas(ConstHandle2ConstRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-RMatrixSupportsAngularReconstructionGet(ConstHandle2ConstRMatrix This);
+RMatrixSupportsAngularReconstructionGet(ConstHandle2ConstRMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool supportsAngularReconstruction);
+RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix self, const bool supportsAngularReconstruction);
 
 
 // -----------------------------------------------------------------------------
@@ -302,19 +302,19 @@ RMatrixSupportsAngularReconstructionSet(ConstHandle2RMatrix This, const bool sup
 
 // +++ Has
 extern_c int
-RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix This);
+RMatrixPoPs_databaseHas(ConstHandle2ConstRMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstPoPs_database
-RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix This);
+RMatrixPoPs_databaseGetConst(ConstHandle2ConstRMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2PoPs_database
-RMatrixPoPs_databaseGet(ConstHandle2RMatrix This);
+RMatrixPoPs_databaseGet(ConstHandle2RMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database PoPs_database);
+RMatrixPoPs_databaseSet(ConstHandle2RMatrix self, ConstHandle2ConstPoPs_database PoPs_database);
 
 
 // -----------------------------------------------------------------------------
@@ -323,19 +323,19 @@ RMatrixPoPs_databaseSet(ConstHandle2RMatrix This, ConstHandle2ConstPoPs_database
 
 // +++ Has
 extern_c int
-RMatrixResonanceReactionsHas(ConstHandle2ConstRMatrix This);
+RMatrixResonanceReactionsHas(ConstHandle2ConstRMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstResonanceReactions
-RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix This);
+RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2ResonanceReactions
-RMatrixResonanceReactionsGet(ConstHandle2RMatrix This);
+RMatrixResonanceReactionsGet(ConstHandle2RMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixResonanceReactionsSet(ConstHandle2RMatrix This, ConstHandle2ConstResonanceReactions resonanceReactions);
+RMatrixResonanceReactionsSet(ConstHandle2RMatrix self, ConstHandle2ConstResonanceReactions resonanceReactions);
 
 
 // -----------------------------------------------------------------------------
@@ -344,19 +344,19 @@ RMatrixResonanceReactionsSet(ConstHandle2RMatrix This, ConstHandle2ConstResonanc
 
 // +++ Has
 extern_c int
-RMatrixSpinGroupsHas(ConstHandle2ConstRMatrix This);
+RMatrixSpinGroupsHas(ConstHandle2ConstRMatrix self);
 
 // --- Get, const
 extern_c Handle2ConstSpinGroups
-RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix This);
+RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix self);
 
 // +++ Get, non-const
 extern_c Handle2SpinGroups
-RMatrixSpinGroupsGet(ConstHandle2RMatrix This);
+RMatrixSpinGroupsGet(ConstHandle2RMatrix self);
 
 // +++ Set
 extern_c void
-RMatrixSpinGroupsSet(ConstHandle2RMatrix This, ConstHandle2ConstSpinGroups spinGroups);
+RMatrixSpinGroupsSet(ConstHandle2RMatrix self, ConstHandle2ConstSpinGroups spinGroups);
 
 
 // -----------------------------------------------------------------------------

@@ -11,101 +11,179 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_map {
 
-// TNSL wrapper
-void wrapTNSL(python::module &module)
+// wrapper for map::TNSL
+void wrapTNSL(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = map::TNSL;
+   using cppCLASS = map::TNSL;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "TNSL",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "TNSL",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const XMLName &,
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const std::string &,
-            const std::optional<enums::HashAlgorithm> &,
-            const XMLName &,
-            const XMLName &
-         >(),
-         python::arg("projectile"),
-         python::arg("target"),
-         python::arg("evaluation"),
-         python::arg("path"),
-         python::arg("interaction") = std::nullopt,
-         python::arg("checksum"),
-         python::arg("algorithm") = std::nullopt,
-         python::arg("standard_target"),
-         python::arg("standard_evaluation"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self) { return self.projectile(); },
-         Component::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "target",
-         [](const Component &self) { return self.target(); },
-         Component::documentation("target").data()
-      )
-      .def_property_readonly(
-         "evaluation",
-         [](const Component &self) { return self.evaluation(); },
-         Component::documentation("evaluation").data()
-      )
-      .def_property_readonly(
-         "path",
-         [](const Component &self) { return self.path(); },
-         Component::documentation("path").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         [](const Component &self) { return self.interaction(); },
-         Component::documentation("interaction").data()
-      )
-      .def_property_readonly(
-         "checksum",
-         [](const Component &self) { return self.checksum(); },
-         Component::documentation("checksum").data()
-      )
-      .def_property_readonly(
-         "algorithm",
-         [](const Component &self) { return self.algorithm(); },
-         Component::documentation("algorithm").data()
-      )
-      .def_property_readonly(
-         "standard_target",
-         [](const Component &self) { return self.standardTarget(); },
-         Component::documentation("standard_target").data()
-      )
-      .def_property_readonly(
-         "standard_evaluation",
-         [](const Component &self) { return self.standardEvaluation(); },
-         Component::documentation("standard_evaluation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const XMLName &,
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const std::string &,
+         const std::optional<enums::HashAlgorithm> &,
+         const XMLName &,
+         const XMLName &
+      >(),
+      py::arg("projectile"),
+      py::arg("target"),
+      py::arg("evaluation"),
+      py::arg("path"),
+      py::arg("interaction") = std::nullopt,
+      py::arg("checksum"),
+      py::arg("algorithm") = std::nullopt,
+      py::arg("standard_target"),
+      py::arg("standard_evaluation"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set projectile
+   object.def_property(
+      "projectile",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectile();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.projectile() = value;
+      },
+      cppCLASS::component_t::documentation("projectile").data()
+   );
+
+   // get/set target
+   object.def_property(
+      "target",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.target();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.target() = value;
+      },
+      cppCLASS::component_t::documentation("target").data()
+   );
+
+   // get/set evaluation
+   object.def_property(
+      "evaluation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluation();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.evaluation() = value;
+      },
+      cppCLASS::component_t::documentation("evaluation").data()
+   );
+
+   // get/set path
+   object.def_property(
+      "path",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.path();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.path() = value;
+      },
+      cppCLASS::component_t::documentation("path").data()
+   );
+
+   // get/set interaction
+   object.def_property(
+      "interaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interaction();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.interaction() = value;
+      },
+      cppCLASS::component_t::documentation("interaction").data()
+   );
+
+   // get/set checksum
+   object.def_property(
+      "checksum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.checksum();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.checksum() = value;
+      },
+      cppCLASS::component_t::documentation("checksum").data()
+   );
+
+   // get/set algorithm
+   object.def_property(
+      "algorithm",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.algorithm();
+      },
+      [](cppCLASS &self, const std::optional<enums::HashAlgorithm> &value)
+      {
+         self.algorithm() = value;
+      },
+      cppCLASS::component_t::documentation("algorithm").data()
+   );
+
+   // get/set standardTarget
+   object.def_property(
+      "standard_target",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.standardTarget();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.standardTarget() = value;
+      },
+      cppCLASS::component_t::documentation("standard_target").data()
+   );
+
+   // get/set standardEvaluation
+   object.def_property(
+      "standard_evaluation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.standardEvaluation();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.standardEvaluation() = value;
+      },
+      cppCLASS::component_t::documentation("standard_evaluation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_map

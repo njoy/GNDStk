@@ -107,13 +107,13 @@ BaryonCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BaryonAssign(ConstHandle2Baryon This, ConstHandle2ConstBaryon from);
+BaryonAssign(ConstHandle2Baryon self, ConstHandle2ConstBaryon from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BaryonDelete(ConstHandle2ConstBaryon This);
+BaryonDelete(ConstHandle2ConstBaryon self);
 
 
 // -----------------------------------------------------------------------------
@@ -126,25 +126,25 @@ BaryonDelete(ConstHandle2ConstBaryon This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BaryonRead(ConstHandle2Baryon This, const char *const filename);
+BaryonRead(ConstHandle2Baryon self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BaryonWrite(ConstHandle2ConstBaryon This, const char *const filename);
+BaryonWrite(ConstHandle2ConstBaryon self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BaryonPrint(ConstHandle2ConstBaryon This);
+BaryonPrint(ConstHandle2ConstBaryon self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BaryonPrintXML(ConstHandle2ConstBaryon This);
+BaryonPrintXML(ConstHandle2ConstBaryon self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BaryonPrintJSON(ConstHandle2ConstBaryon This);
+BaryonPrintJSON(ConstHandle2ConstBaryon self);
 
 
 // -----------------------------------------------------------------------------
@@ -153,16 +153,16 @@ BaryonPrintJSON(ConstHandle2ConstBaryon This);
 
 // +++ Has
 extern_c int
-BaryonIdHas(ConstHandle2ConstBaryon This);
+BaryonIdHas(ConstHandle2ConstBaryon self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BaryonIdGet(ConstHandle2ConstBaryon This);
+BaryonIdGet(ConstHandle2ConstBaryon self);
 
 // +++ Set
 extern_c void
-BaryonIdSet(ConstHandle2Baryon This, const XMLName id);
+BaryonIdSet(ConstHandle2Baryon self, const XMLName id);
 
 
 // -----------------------------------------------------------------------------
@@ -171,19 +171,19 @@ BaryonIdSet(ConstHandle2Baryon This, const XMLName id);
 
 // +++ Has
 extern_c int
-BaryonChargeHas(ConstHandle2ConstBaryon This);
+BaryonChargeHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstCharge
-BaryonChargeGetConst(ConstHandle2ConstBaryon This);
+BaryonChargeGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2Charge
-BaryonChargeGet(ConstHandle2Baryon This);
+BaryonChargeGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonChargeSet(ConstHandle2Baryon This, ConstHandle2ConstCharge charge);
+BaryonChargeSet(ConstHandle2Baryon self, ConstHandle2ConstCharge charge);
 
 
 // -----------------------------------------------------------------------------
@@ -192,19 +192,19 @@ BaryonChargeSet(ConstHandle2Baryon This, ConstHandle2ConstCharge charge);
 
 // +++ Has
 extern_c int
-BaryonHalflifeHas(ConstHandle2ConstBaryon This);
+BaryonHalflifeHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstHalflife
-BaryonHalflifeGetConst(ConstHandle2ConstBaryon This);
+BaryonHalflifeGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2Halflife
-BaryonHalflifeGet(ConstHandle2Baryon This);
+BaryonHalflifeGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonHalflifeSet(ConstHandle2Baryon This, ConstHandle2ConstHalflife halflife);
+BaryonHalflifeSet(ConstHandle2Baryon self, ConstHandle2ConstHalflife halflife);
 
 
 // -----------------------------------------------------------------------------
@@ -213,19 +213,19 @@ BaryonHalflifeSet(ConstHandle2Baryon This, ConstHandle2ConstHalflife halflife);
 
 // +++ Has
 extern_c int
-BaryonMassHas(ConstHandle2ConstBaryon This);
+BaryonMassHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-BaryonMassGetConst(ConstHandle2ConstBaryon This);
+BaryonMassGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-BaryonMassGet(ConstHandle2Baryon This);
+BaryonMassGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonMassSet(ConstHandle2Baryon This, ConstHandle2ConstMass mass);
+BaryonMassSet(ConstHandle2Baryon self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
@@ -234,19 +234,19 @@ BaryonMassSet(ConstHandle2Baryon This, ConstHandle2ConstMass mass);
 
 // +++ Has
 extern_c int
-BaryonSpinHas(ConstHandle2ConstBaryon This);
+BaryonSpinHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstSpin
-BaryonSpinGetConst(ConstHandle2ConstBaryon This);
+BaryonSpinGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2Spin
-BaryonSpinGet(ConstHandle2Baryon This);
+BaryonSpinGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonSpinSet(ConstHandle2Baryon This, ConstHandle2ConstSpin spin);
+BaryonSpinSet(ConstHandle2Baryon self, ConstHandle2ConstSpin spin);
 
 
 // -----------------------------------------------------------------------------
@@ -255,19 +255,19 @@ BaryonSpinSet(ConstHandle2Baryon This, ConstHandle2ConstSpin spin);
 
 // +++ Has
 extern_c int
-BaryonParityHas(ConstHandle2ConstBaryon This);
+BaryonParityHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstParity
-BaryonParityGetConst(ConstHandle2ConstBaryon This);
+BaryonParityGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2Parity
-BaryonParityGet(ConstHandle2Baryon This);
+BaryonParityGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonParitySet(ConstHandle2Baryon This, ConstHandle2ConstParity parity);
+BaryonParitySet(ConstHandle2Baryon self, ConstHandle2ConstParity parity);
 
 
 // -----------------------------------------------------------------------------
@@ -276,19 +276,19 @@ BaryonParitySet(ConstHandle2Baryon This, ConstHandle2ConstParity parity);
 
 // +++ Has
 extern_c int
-BaryonDecayDataHas(ConstHandle2ConstBaryon This);
+BaryonDecayDataHas(ConstHandle2ConstBaryon self);
 
 // --- Get, const
 extern_c Handle2ConstDecayData
-BaryonDecayDataGetConst(ConstHandle2ConstBaryon This);
+BaryonDecayDataGetConst(ConstHandle2ConstBaryon self);
 
 // +++ Get, non-const
 extern_c Handle2DecayData
-BaryonDecayDataGet(ConstHandle2Baryon This);
+BaryonDecayDataGet(ConstHandle2Baryon self);
 
 // +++ Set
 extern_c void
-BaryonDecayDataSet(ConstHandle2Baryon This, ConstHandle2ConstDecayData decayData);
+BaryonDecayDataSet(ConstHandle2Baryon self, ConstHandle2ConstDecayData decayData);
 
 
 // -----------------------------------------------------------------------------

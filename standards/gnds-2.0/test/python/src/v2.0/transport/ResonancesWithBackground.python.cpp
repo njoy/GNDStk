@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// ResonancesWithBackground wrapper
-void wrapResonancesWithBackground(python::module &module)
+// wrapper for transport::ResonancesWithBackground
+void wrapResonancesWithBackground(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::ResonancesWithBackground;
+   using cppCLASS = transport::ResonancesWithBackground;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ResonancesWithBackground",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ResonancesWithBackground",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const transport::ResonancesLink &,
-            const transport::Background &,
-            const std::optional<containers::Uncertainty> &
-         >(),
-         python::arg("label"),
-         python::arg("resonances_link"),
-         python::arg("background"),
-         python::arg("uncertainty") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "resonances_link",
-         [](const Component &self) { return self.resonancesLink(); },
-         Component::documentation("resonances_link").data()
-      )
-      .def_property_readonly(
-         "background",
-         [](const Component &self) { return self.background(); },
-         Component::documentation("background").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const transport::ResonancesLink &,
+         const transport::Background &,
+         const std::optional<containers::Uncertainty> &
+      >(),
+      py::arg("label"),
+      py::arg("resonances_link"),
+      py::arg("background"),
+      py::arg("uncertainty") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set resonancesLink
+   object.def_property(
+      "resonances_link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonancesLink();
+      },
+      [](cppCLASS &self, const transport::ResonancesLink &value)
+      {
+         self.resonancesLink() = value;
+      },
+      cppCLASS::component_t::documentation("resonances_link").data()
+   );
+
+   // get/set background
+   object.def_property(
+      "background",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.background();
+      },
+      [](cppCLASS &self, const transport::Background &value)
+      {
+         self.background() = value;
+      },
+      cppCLASS::component_t::documentation("background").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<containers::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

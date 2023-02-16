@@ -33,12 +33,12 @@ class FissionEnergyReleased :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "FissionEnergyReleased"; }
-   static auto FIELD() { return "fissionEnergyReleased"; }
+   static auto NODENAME() { return "fissionEnergyReleased"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,43 +50,113 @@ class FissionEnergyReleased :
             / Meta<>("label") |
 
          // children
-         --Child<std::optional<fissionTransport::DelayedBetaEnergy>>("delayedBetaEnergy") |
-         --Child<std::optional<fissionTransport::DelayedGammaEnergy>>("delayedGammaEnergy") |
-         --Child<std::optional<fissionTransport::DelayedNeutronKE>>("delayedNeutronKE") |
-         --Child<std::optional<fissionTransport::NeutrinoEnergy>>("neutrinoEnergy") |
-         --Child<std::optional<fissionTransport::NonNeutrinoEnergy>>("nonNeutrinoEnergy") |
-         --Child<std::optional<fissionTransport::PromptGammaEnergy>>("promptGammaEnergy") |
-         --Child<std::optional<fissionTransport::PromptNeutronKE>>("promptNeutronKE") |
-         --Child<std::optional<fissionTransport::PromptProductKE>>("promptProductKE") |
-         --Child<std::optional<fissionTransport::TotalEnergy>>("totalEnergy")
+         --Child<std::optional<fissionTransport::DelayedBetaEnergy>>
+            ("delayedBetaEnergy") |
+         --Child<std::optional<fissionTransport::DelayedGammaEnergy>>
+            ("delayedGammaEnergy") |
+         --Child<std::optional<fissionTransport::DelayedNeutronKE>>
+            ("delayedNeutronKE") |
+         --Child<std::optional<fissionTransport::NeutrinoEnergy>>
+            ("neutrinoEnergy") |
+         --Child<std::optional<fissionTransport::NonNeutrinoEnergy>>
+            ("nonNeutrinoEnergy") |
+         --Child<std::optional<fissionTransport::PromptGammaEnergy>>
+            ("promptGammaEnergy") |
+         --Child<std::optional<fissionTransport::PromptNeutronKE>>
+            ("promptNeutronKE") |
+         --Child<std::optional<fissionTransport::PromptProductKE>>
+            ("promptProductKE") |
+         --Child<std::optional<fissionTransport::TotalEnergy>>
+            ("totalEnergy")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "delayedBetaEnergy",
+         "delayedGammaEnergy",
+         "delayedNeutronKE",
+         "neutrinoEnergy",
+         "nonNeutrinoEnergy",
+         "promptGammaEnergy",
+         "promptNeutronKE",
+         "promptProductKE",
+         "totalEnergy"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "delayed_beta_energy",
+         "delayed_gamma_energy",
+         "delayed_neutron_ke",
+         "neutrino_energy",
+         "non_neutrino_energy",
+         "prompt_gamma_energy",
+         "prompt_neutron_ke",
+         "prompt_product_ke",
+         "total_energy"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<std::optional<fissionTransport::DelayedBetaEnergy>> delayedBetaEnergy{this};
-   Field<std::optional<fissionTransport::DelayedGammaEnergy>> delayedGammaEnergy{this};
-   Field<std::optional<fissionTransport::DelayedNeutronKE>> delayedNeutronKE{this};
-   Field<std::optional<fissionTransport::NeutrinoEnergy>> neutrinoEnergy{this};
-   Field<std::optional<fissionTransport::NonNeutrinoEnergy>> nonNeutrinoEnergy{this};
-   Field<std::optional<fissionTransport::PromptGammaEnergy>> promptGammaEnergy{this};
-   Field<std::optional<fissionTransport::PromptNeutronKE>> promptNeutronKE{this};
-   Field<std::optional<fissionTransport::PromptProductKE>> promptProductKE{this};
-   Field<std::optional<fissionTransport::TotalEnergy>> totalEnergy{this};
+   Field<std::optional<fissionTransport::DelayedBetaEnergy>>
+      delayedBetaEnergy{this};
+   Field<std::optional<fissionTransport::DelayedGammaEnergy>>
+      delayedGammaEnergy{this};
+   Field<std::optional<fissionTransport::DelayedNeutronKE>>
+      delayedNeutronKE{this};
+   Field<std::optional<fissionTransport::NeutrinoEnergy>>
+      neutrinoEnergy{this};
+   Field<std::optional<fissionTransport::NonNeutrinoEnergy>>
+      nonNeutrinoEnergy{this};
+   Field<std::optional<fissionTransport::PromptGammaEnergy>>
+      promptGammaEnergy{this};
+   Field<std::optional<fissionTransport::PromptNeutronKE>>
+      promptNeutronKE{this};
+   Field<std::optional<fissionTransport::PromptProductKE>>
+      promptProductKE{this};
+   Field<std::optional<fissionTransport::TotalEnergy>>
+      totalEnergy{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->delayedBetaEnergy, \
@@ -97,7 +167,8 @@ public:
       this->promptGammaEnergy, \
       this->promptNeutronKE, \
       this->promptProductKE, \
-      this->totalEnergy)
+      this->totalEnergy \
+   )
 
    // default
    FissionEnergyReleased() :
@@ -108,16 +179,26 @@ public:
 
    // from fields, comment excluded
    explicit FissionEnergyReleased(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<fissionTransport::DelayedBetaEnergy>> &delayedBetaEnergy = {},
-      const wrapper<std::optional<fissionTransport::DelayedGammaEnergy>> &delayedGammaEnergy = {},
-      const wrapper<std::optional<fissionTransport::DelayedNeutronKE>> &delayedNeutronKE = {},
-      const wrapper<std::optional<fissionTransport::NeutrinoEnergy>> &neutrinoEnergy = {},
-      const wrapper<std::optional<fissionTransport::NonNeutrinoEnergy>> &nonNeutrinoEnergy = {},
-      const wrapper<std::optional<fissionTransport::PromptGammaEnergy>> &promptGammaEnergy = {},
-      const wrapper<std::optional<fissionTransport::PromptNeutronKE>> &promptNeutronKE = {},
-      const wrapper<std::optional<fissionTransport::PromptProductKE>> &promptProductKE = {},
-      const wrapper<std::optional<fissionTransport::TotalEnergy>> &totalEnergy = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<fissionTransport::DelayedBetaEnergy>>
+         &delayedBetaEnergy = {},
+      const wrapper<std::optional<fissionTransport::DelayedGammaEnergy>>
+         &delayedGammaEnergy = {},
+      const wrapper<std::optional<fissionTransport::DelayedNeutronKE>>
+         &delayedNeutronKE = {},
+      const wrapper<std::optional<fissionTransport::NeutrinoEnergy>>
+         &neutrinoEnergy = {},
+      const wrapper<std::optional<fissionTransport::NonNeutrinoEnergy>>
+         &nonNeutrinoEnergy = {},
+      const wrapper<std::optional<fissionTransport::PromptGammaEnergy>>
+         &promptGammaEnergy = {},
+      const wrapper<std::optional<fissionTransport::PromptNeutronKE>>
+         &promptNeutronKE = {},
+      const wrapper<std::optional<fissionTransport::PromptProductKE>>
+         &promptProductKE = {},
+      const wrapper<std::optional<fissionTransport::TotalEnergy>>
+         &totalEnergy = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -181,8 +262,45 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionEnergyReleased &operator=(const FissionEnergyReleased &) = default;
-   FissionEnergyReleased &operator=(FissionEnergyReleased &&) = default;
+   // copy
+   FissionEnergyReleased &operator=(const FissionEnergyReleased &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         delayedBetaEnergy = other.delayedBetaEnergy;
+         delayedGammaEnergy = other.delayedGammaEnergy;
+         delayedNeutronKE = other.delayedNeutronKE;
+         neutrinoEnergy = other.neutrinoEnergy;
+         nonNeutrinoEnergy = other.nonNeutrinoEnergy;
+         promptGammaEnergy = other.promptGammaEnergy;
+         promptNeutronKE = other.promptNeutronKE;
+         promptProductKE = other.promptProductKE;
+         totalEnergy = other.totalEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   FissionEnergyReleased &operator=(FissionEnergyReleased &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         delayedBetaEnergy = std::move(other.delayedBetaEnergy);
+         delayedGammaEnergy = std::move(other.delayedGammaEnergy);
+         delayedNeutronKE = std::move(other.delayedNeutronKE);
+         neutrinoEnergy = std::move(other.neutrinoEnergy);
+         nonNeutrinoEnergy = std::move(other.nonNeutrinoEnergy);
+         promptGammaEnergy = std::move(other.promptGammaEnergy);
+         promptNeutronKE = std::move(other.promptNeutronKE);
+         promptProductKE = std::move(other.promptProductKE);
+         totalEnergy = std::move(other.totalEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

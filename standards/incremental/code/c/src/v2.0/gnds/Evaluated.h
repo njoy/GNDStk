@@ -98,13 +98,13 @@ EvaluatedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EvaluatedAssign(ConstHandle2Evaluated This, ConstHandle2ConstEvaluated from);
+EvaluatedAssign(ConstHandle2Evaluated self, ConstHandle2ConstEvaluated from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EvaluatedDelete(ConstHandle2ConstEvaluated This);
+EvaluatedDelete(ConstHandle2ConstEvaluated self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ EvaluatedDelete(ConstHandle2ConstEvaluated This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EvaluatedRead(ConstHandle2Evaluated This, const char *const filename);
+EvaluatedRead(ConstHandle2Evaluated self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EvaluatedWrite(ConstHandle2ConstEvaluated This, const char *const filename);
+EvaluatedWrite(ConstHandle2ConstEvaluated self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EvaluatedPrint(ConstHandle2ConstEvaluated This);
+EvaluatedPrint(ConstHandle2ConstEvaluated self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EvaluatedPrintXML(ConstHandle2ConstEvaluated This);
+EvaluatedPrintXML(ConstHandle2ConstEvaluated self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EvaluatedPrintJSON(ConstHandle2ConstEvaluated This);
+EvaluatedPrintJSON(ConstHandle2ConstEvaluated self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ EvaluatedPrintJSON(ConstHandle2ConstEvaluated This);
 
 // +++ Has
 extern_c int
-EvaluatedLabelHas(ConstHandle2ConstEvaluated This);
+EvaluatedLabelHas(ConstHandle2ConstEvaluated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EvaluatedLabelGet(ConstHandle2ConstEvaluated This);
+EvaluatedLabelGet(ConstHandle2ConstEvaluated self);
 
 // +++ Set
 extern_c void
-EvaluatedLabelSet(ConstHandle2Evaluated This, const char *const label);
+EvaluatedLabelSet(ConstHandle2Evaluated self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ EvaluatedLabelSet(ConstHandle2Evaluated This, const char *const label);
 
 // +++ Has
 extern_c int
-EvaluatedDateHas(ConstHandle2ConstEvaluated This);
+EvaluatedDateHas(ConstHandle2ConstEvaluated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EvaluatedDateGet(ConstHandle2ConstEvaluated This);
+EvaluatedDateGet(ConstHandle2ConstEvaluated self);
 
 // +++ Set
 extern_c void
-EvaluatedDateSet(ConstHandle2Evaluated This, const char *const date);
+EvaluatedDateSet(ConstHandle2Evaluated self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ EvaluatedDateSet(ConstHandle2Evaluated This, const char *const date);
 
 // +++ Has
 extern_c int
-EvaluatedLibraryHas(ConstHandle2ConstEvaluated This);
+EvaluatedLibraryHas(ConstHandle2ConstEvaluated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EvaluatedLibraryGet(ConstHandle2ConstEvaluated This);
+EvaluatedLibraryGet(ConstHandle2ConstEvaluated self);
 
 // +++ Set
 extern_c void
-EvaluatedLibrarySet(ConstHandle2Evaluated This, const char *const library);
+EvaluatedLibrarySet(ConstHandle2Evaluated self, const char *const library);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ EvaluatedLibrarySet(ConstHandle2Evaluated This, const char *const library);
 
 // +++ Has
 extern_c int
-EvaluatedVersionHas(ConstHandle2ConstEvaluated This);
+EvaluatedVersionHas(ConstHandle2ConstEvaluated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EvaluatedVersionGet(ConstHandle2ConstEvaluated This);
+EvaluatedVersionGet(ConstHandle2ConstEvaluated self);
 
 // +++ Set
 extern_c void
-EvaluatedVersionSet(ConstHandle2Evaluated This, const char *const version);
+EvaluatedVersionSet(ConstHandle2Evaluated self, const char *const version);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ EvaluatedVersionSet(ConstHandle2Evaluated This, const char *const version);
 
 // +++ Has
 extern_c int
-EvaluatedDocumentationHas(ConstHandle2ConstEvaluated This);
+EvaluatedDocumentationHas(ConstHandle2ConstEvaluated self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated This);
+EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-EvaluatedDocumentationGet(ConstHandle2Evaluated This);
+EvaluatedDocumentationGet(ConstHandle2Evaluated self);
 
 // +++ Set
 extern_c void
-EvaluatedDocumentationSet(ConstHandle2Evaluated This, ConstHandle2ConstDocumentation documentation);
+EvaluatedDocumentationSet(ConstHandle2Evaluated self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

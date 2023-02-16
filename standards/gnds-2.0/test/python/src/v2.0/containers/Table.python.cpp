@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Table wrapper
-void wrapTable(python::module &module)
+// wrapper for containers::Table
+void wrapTable(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Table;
+   using cppCLASS = containers::Table;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Table",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Table",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Integer32 &,
-            const Integer32 &,
-            const std::optional<XMLName> &,
-            const containers::ColumnHeaders &,
-            const containers::Data &
-         >(),
-         python::arg("columns"),
-         python::arg("rows"),
-         python::arg("storage_order") = std::nullopt,
-         python::arg("column_headers"),
-         python::arg("data"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "columns",
-         [](const Component &self) { return self.columns(); },
-         Component::documentation("columns").data()
-      )
-      .def_property_readonly(
-         "rows",
-         [](const Component &self) { return self.rows(); },
-         Component::documentation("rows").data()
-      )
-      .def_property_readonly(
-         "storage_order",
-         [](const Component &self) { return self.storageOrder().value(); },
-         Component::documentation("storage_order").data()
-      )
-      .def_property_readonly(
-         "column_headers",
-         [](const Component &self) { return self.columnHeaders(); },
-         Component::documentation("column_headers").data()
-      )
-      .def_property_readonly(
-         "data",
-         [](const Component &self) { return self.data(); },
-         Component::documentation("data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Integer32 &,
+         const Integer32 &,
+         const std::optional<XMLName> &,
+         const containers::ColumnHeaders &,
+         const containers::Data &
+      >(),
+      py::arg("columns"),
+      py::arg("rows"),
+      py::arg("storage_order") = std::nullopt,
+      py::arg("column_headers"),
+      py::arg("data"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set columns
+   object.def_property(
+      "columns",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columns();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.columns() = value;
+      },
+      cppCLASS::component_t::documentation("columns").data()
+   );
+
+   // get/set rows
+   object.def_property(
+      "rows",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.rows();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.rows() = value;
+      },
+      cppCLASS::component_t::documentation("rows").data()
+   );
+
+   // get/set storageOrder
+   object.def_property(
+      "storage_order",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.storageOrder().value();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.storageOrder() = value;
+      },
+      cppCLASS::component_t::documentation("storage_order").data()
+   );
+
+   // get/set columnHeaders
+   object.def_property(
+      "column_headers",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnHeaders();
+      },
+      [](cppCLASS &self, const containers::ColumnHeaders &value)
+      {
+         self.columnHeaders() = value;
+      },
+      cppCLASS::component_t::documentation("column_headers").data()
+   );
+
+   // get/set data
+   object.def_property(
+      "data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.data();
+      },
+      [](cppCLASS &self, const containers::Data &value)
+      {
+         self.data() = value;
+      },
+      cppCLASS::component_t::documentation("data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

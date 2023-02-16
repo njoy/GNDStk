@@ -99,13 +99,13 @@ BondarenkoCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BondarenkoAssign(ConstHandle2Bondarenko This, ConstHandle2ConstBondarenko from);
+BondarenkoAssign(ConstHandle2Bondarenko self, ConstHandle2ConstBondarenko from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BondarenkoDelete(ConstHandle2ConstBondarenko This);
+BondarenkoDelete(ConstHandle2ConstBondarenko self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ BondarenkoDelete(ConstHandle2ConstBondarenko This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BondarenkoRead(ConstHandle2Bondarenko This, const char *const filename);
+BondarenkoRead(ConstHandle2Bondarenko self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BondarenkoWrite(ConstHandle2ConstBondarenko This, const char *const filename);
+BondarenkoWrite(ConstHandle2ConstBondarenko self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BondarenkoPrint(ConstHandle2ConstBondarenko This);
+BondarenkoPrint(ConstHandle2ConstBondarenko self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BondarenkoPrintXML(ConstHandle2ConstBondarenko This);
+BondarenkoPrintXML(ConstHandle2ConstBondarenko self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BondarenkoPrintJSON(ConstHandle2ConstBondarenko This);
+BondarenkoPrintJSON(ConstHandle2ConstBondarenko self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ BondarenkoPrintJSON(ConstHandle2ConstBondarenko This);
 
 // +++ Has
 extern_c int
-BondarenkoDateHas(ConstHandle2ConstBondarenko This);
+BondarenkoDateHas(ConstHandle2ConstBondarenko self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-BondarenkoDateGet(ConstHandle2ConstBondarenko This);
+BondarenkoDateGet(ConstHandle2ConstBondarenko self);
 
 // +++ Set
 extern_c void
-BondarenkoDateSet(ConstHandle2Bondarenko This, const char *const date);
+BondarenkoDateSet(ConstHandle2Bondarenko self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ BondarenkoDateSet(ConstHandle2Bondarenko This, const char *const date);
 
 // +++ Has
 extern_c int
-BondarenkoDerivedFromHas(ConstHandle2ConstBondarenko This);
+BondarenkoDerivedFromHas(ConstHandle2ConstBondarenko self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BondarenkoDerivedFromGet(ConstHandle2ConstBondarenko This);
+BondarenkoDerivedFromGet(ConstHandle2ConstBondarenko self);
 
 // +++ Set
 extern_c void
-BondarenkoDerivedFromSet(ConstHandle2Bondarenko This, const XMLName derivedFrom);
+BondarenkoDerivedFromSet(ConstHandle2Bondarenko self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ BondarenkoDerivedFromSet(ConstHandle2Bondarenko This, const XMLName derivedFrom)
 
 // +++ Has
 extern_c int
-BondarenkoLabelHas(ConstHandle2ConstBondarenko This);
+BondarenkoLabelHas(ConstHandle2ConstBondarenko self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-BondarenkoLabelGet(ConstHandle2ConstBondarenko This);
+BondarenkoLabelGet(ConstHandle2ConstBondarenko self);
 
 // +++ Set
 extern_c void
-BondarenkoLabelSet(ConstHandle2Bondarenko This, const XMLName label);
+BondarenkoLabelSet(ConstHandle2Bondarenko self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ BondarenkoLabelSet(ConstHandle2Bondarenko This, const XMLName label);
 
 // +++ Has
 extern_c int
-BondarenkoSigmaZerosHas(ConstHandle2ConstBondarenko This);
+BondarenkoSigmaZerosHas(ConstHandle2ConstBondarenko self);
 
 // --- Get, const
 extern_c Handle2ConstSigmaZeros
-BondarenkoSigmaZerosGetConst(ConstHandle2ConstBondarenko This);
+BondarenkoSigmaZerosGetConst(ConstHandle2ConstBondarenko self);
 
 // +++ Get, non-const
 extern_c Handle2SigmaZeros
-BondarenkoSigmaZerosGet(ConstHandle2Bondarenko This);
+BondarenkoSigmaZerosGet(ConstHandle2Bondarenko self);
 
 // +++ Set
 extern_c void
-BondarenkoSigmaZerosSet(ConstHandle2Bondarenko This, ConstHandle2ConstSigmaZeros sigmaZeros);
+BondarenkoSigmaZerosSet(ConstHandle2Bondarenko self, ConstHandle2ConstSigmaZeros sigmaZeros);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ BondarenkoSigmaZerosSet(ConstHandle2Bondarenko This, ConstHandle2ConstSigmaZeros
 
 // +++ Has
 extern_c int
-BondarenkoDocumentationHas(ConstHandle2ConstBondarenko This);
+BondarenkoDocumentationHas(ConstHandle2ConstBondarenko self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-BondarenkoDocumentationGetConst(ConstHandle2ConstBondarenko This);
+BondarenkoDocumentationGetConst(ConstHandle2ConstBondarenko self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-BondarenkoDocumentationGet(ConstHandle2Bondarenko This);
+BondarenkoDocumentationGet(ConstHandle2Bondarenko self);
 
 // +++ Set
 extern_c void
-BondarenkoDocumentationSet(ConstHandle2Bondarenko This, ConstHandle2ConstDocumentation documentation);
+BondarenkoDocumentationSet(ConstHandle2Bondarenko self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

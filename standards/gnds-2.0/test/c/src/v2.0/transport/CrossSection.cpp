@@ -77,20 +77,20 @@ CrossSectionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CrossSectionAssign(ConstHandle2CrossSection This, ConstHandle2ConstCrossSection from)
+CrossSectionAssign(ConstHandle2CrossSection self, ConstHandle2ConstCrossSection from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CrossSectionDelete(ConstHandle2ConstCrossSection This)
+CrossSectionDelete(ConstHandle2ConstCrossSection self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ CrossSectionDelete(ConstHandle2ConstCrossSection This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CrossSectionRead(ConstHandle2CrossSection This, const char *const filename)
+CrossSectionRead(ConstHandle2CrossSection self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CrossSectionWrite(ConstHandle2ConstCrossSection This, const char *const filename)
+CrossSectionWrite(ConstHandle2ConstCrossSection self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CrossSectionPrint(ConstHandle2ConstCrossSection This)
+CrossSectionPrint(ConstHandle2ConstCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CrossSectionPrintXML(ConstHandle2ConstCrossSection This)
+CrossSectionPrintXML(ConstHandle2ConstCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CrossSectionPrintJSON(ConstHandle2ConstCrossSection This)
+CrossSectionPrintJSON(ConstHandle2ConstCrossSection self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ CrossSectionPrintJSON(ConstHandle2ConstCrossSection This)
 
 // Has
 int
-CrossSectionLabelHas(ConstHandle2ConstCrossSection This)
+CrossSectionLabelHas(ConstHandle2ConstCrossSection self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CrossSectionLabelGet(ConstHandle2ConstCrossSection This)
+CrossSectionLabelGet(ConstHandle2ConstCrossSection self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CrossSectionLabelSet(ConstHandle2CrossSection This, const XMLName label)
+CrossSectionLabelSet(ConstHandle2CrossSection self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

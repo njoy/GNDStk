@@ -25,12 +25,12 @@ class Isotope :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Isotope"; }
-   static auto FIELD() { return "isotope"; }
+   static auto NODENAME() { return "isotope"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,32 +44,74 @@ class Isotope :
             / Meta<>("symbol") |
 
          // children
-         --Child<std::optional<pops::Nuclides>>("nuclides")
+         --Child<std::optional<pops::Nuclides>>
+            ("nuclides")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "A",
+         "symbol",
+         "nuclides"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "a",
+         "symbol",
+         "nuclides"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Integer32> A{this};
-   Field<XMLName> symbol{this};
+   Field<Integer32>
+      A{this};
+   Field<XMLName>
+      symbol{this};
 
    // children
-   Field<std::optional<pops::Nuclides>> nuclides{this};
+   Field<std::optional<pops::Nuclides>>
+      nuclides{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->A, \
       this->symbol, \
-      this->nuclides)
+      this->nuclides \
+   )
 
    // default
    Isotope() :
@@ -80,9 +122,12 @@ public:
 
    // from fields, comment excluded
    explicit Isotope(
-      const wrapper<Integer32> &A,
-      const wrapper<XMLName> &symbol = {},
-      const wrapper<std::optional<pops::Nuclides>> &nuclides = {}
+      const wrapper<Integer32>
+         &A,
+      const wrapper<XMLName>
+         &symbol = {},
+      const wrapper<std::optional<pops::Nuclides>>
+         &nuclides = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       A(this,A),
@@ -125,8 +170,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotope &operator=(const Isotope &) = default;
-   Isotope &operator=(Isotope &&) = default;
+   // copy
+   Isotope &operator=(const Isotope &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         A = other.A;
+         symbol = other.symbol;
+         nuclides = other.nuclides;
+      }
+      return *this;
+   }
+
+   // move
+   Isotope &operator=(Isotope &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         A = std::move(other.A);
+         symbol = std::move(other.symbol);
+         nuclides = std::move(other.nuclides);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_appData {
 
-// Institution wrapper
-void wrapInstitution(python::module &module)
+// wrapper for appData::Institution
+void wrapInstitution(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = appData::Institution;
+   using cppCLASS = appData::Institution;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Institution",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Institution",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<appData::ENDFconversionFlags> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("endfconversion_flags") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "endfconversion_flags",
-         [](const Component &self) { return self.ENDFconversionFlags(); },
-         Component::documentation("endfconversion_flags").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<appData::ENDFconversionFlags> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("endfconversion_flags") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set ENDFconversionFlags
+   object.def_property(
+      "endfconversion_flags",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDFconversionFlags();
+      },
+      [](cppCLASS &self, const std::optional<appData::ENDFconversionFlags> &value)
+      {
+         self.ENDFconversionFlags() = value;
+      },
+      cppCLASS::component_t::documentation("endfconversion_flags").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_appData

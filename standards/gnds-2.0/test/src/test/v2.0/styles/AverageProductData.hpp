@@ -26,12 +26,12 @@ class AverageProductData :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "AverageProductData"; }
-   static auto FIELD() { return "averageProductData"; }
+   static auto NODENAME() { return "averageProductData"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,37 +47,86 @@ class AverageProductData :
             / Meta<>("derivedFrom") |
 
          // children
-         --Child<styles::Temperature>("temperature") |
-         --Child<std::optional<documentation::Documentation>>("documentation")
+         --Child<styles::Temperature>
+            ("temperature") |
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "label",
+         "derivedFrom",
+         "temperature",
+         "documentation"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "label",
+         "derived_from",
+         "temperature",
+         "documentation"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> date{this};
-   Field<XMLName> label{this};
-   Field<std::optional<XMLName>> derivedFrom{this};
+   Field<std::string>
+      date{this};
+   Field<XMLName>
+      label{this};
+   Field<std::optional<XMLName>>
+      derivedFrom{this};
 
    // children
-   Field<styles::Temperature> temperature{this};
-   Field<std::optional<documentation::Documentation>> documentation{this};
+   Field<styles::Temperature>
+      temperature{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->date, \
       this->label, \
       this->derivedFrom, \
       this->temperature, \
-      this->documentation)
+      this->documentation \
+   )
 
    // default
    AverageProductData() :
@@ -88,11 +137,16 @@ public:
 
    // from fields, comment excluded
    explicit AverageProductData(
-      const wrapper<std::string> &date,
-      const wrapper<XMLName> &label = {},
-      const wrapper<std::optional<XMLName>> &derivedFrom = {},
-      const wrapper<styles::Temperature> &temperature = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {}
+      const wrapper<std::string>
+         &date,
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &derivedFrom = {},
+      const wrapper<styles::Temperature>
+         &temperature = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date),
@@ -141,8 +195,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   AverageProductData &operator=(const AverageProductData &) = default;
-   AverageProductData &operator=(AverageProductData &&) = default;
+   // copy
+   AverageProductData &operator=(const AverageProductData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         date = other.date;
+         label = other.label;
+         derivedFrom = other.derivedFrom;
+         temperature = other.temperature;
+         documentation = other.documentation;
+      }
+      return *this;
+   }
+
+   // move
+   AverageProductData &operator=(AverageProductData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         date = std::move(other.date);
+         label = std::move(other.label);
+         derivedFrom = std::move(other.derivedFrom);
+         temperature = std::move(other.temperature);
+         documentation = std::move(other.documentation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

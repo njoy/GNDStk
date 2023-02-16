@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_map {
 
-// Map wrapper
-void wrapMap(python::module &module)
+// wrapper for map::Map
+void wrapMap(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = map::Map;
+   using cppCLASS = map::Map;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Map",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Map",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::string &,
-            const enums::HashAlgorithm &,
-            const std::optional<std::vector<map::Import>> &,
-            const std::optional<std::vector<map::Protare>> &,
-            const std::optional<std::vector<map::TNSL>> &
-         >(),
-         python::arg("library"),
-         python::arg("format"),
-         python::arg("checksum"),
-         python::arg("algorithm"),
-         python::arg("import") = std::nullopt,
-         python::arg("protare") = std::nullopt,
-         python::arg("tnsl") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "library",
-         [](const Component &self) { return self.library(); },
-         Component::documentation("library").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self) { return self.format(); },
-         Component::documentation("format").data()
-      )
-      .def_property_readonly(
-         "checksum",
-         [](const Component &self) { return self.checksum(); },
-         Component::documentation("checksum").data()
-      )
-      .def_property_readonly(
-         "algorithm",
-         [](const Component &self) { return self.algorithm(); },
-         Component::documentation("algorithm").data()
-      )
-      .def_property_readonly(
-         "import",
-         [](const Component &self) { return self.import(); },
-         Component::documentation("import").data()
-      )
-      .def_property_readonly(
-         "protare",
-         [](const Component &self) { return self.protare(); },
-         Component::documentation("protare").data()
-      )
-      .def_property_readonly(
-         "tnsl",
-         [](const Component &self) { return self.TNSL(); },
-         Component::documentation("tnsl").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::string &,
+         const enums::HashAlgorithm &,
+         const std::optional<std::vector<map::Import>> &,
+         const std::optional<std::vector<map::Protare>> &,
+         const std::optional<std::vector<map::TNSL>> &
+      >(),
+      py::arg("library"),
+      py::arg("format"),
+      py::arg("checksum"),
+      py::arg("algorithm"),
+      py::arg("import") = std::nullopt,
+      py::arg("protare") = std::nullopt,
+      py::arg("tnsl") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set library
+   object.def_property(
+      "library",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.library();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.library() = value;
+      },
+      cppCLASS::component_t::documentation("library").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set checksum
+   object.def_property(
+      "checksum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.checksum();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.checksum() = value;
+      },
+      cppCLASS::component_t::documentation("checksum").data()
+   );
+
+   // get/set algorithm
+   object.def_property(
+      "algorithm",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.algorithm();
+      },
+      [](cppCLASS &self, const enums::HashAlgorithm &value)
+      {
+         self.algorithm() = value;
+      },
+      cppCLASS::component_t::documentation("algorithm").data()
+   );
+
+   // get/set import
+   object.def_property(
+      "import",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.import();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<map::Import>> &value)
+      {
+         self.import() = value;
+      },
+      cppCLASS::component_t::documentation("import").data()
+   );
+
+   // get/set protare
+   object.def_property(
+      "protare",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.protare();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<map::Protare>> &value)
+      {
+         self.protare() = value;
+      },
+      cppCLASS::component_t::documentation("protare").data()
+   );
+
+   // get/set TNSL
+   object.def_property(
+      "tnsl",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.TNSL();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<map::TNSL>> &value)
+      {
+         self.TNSL() = value;
+      },
+      cppCLASS::component_t::documentation("tnsl").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_map

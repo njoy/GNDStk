@@ -25,12 +25,12 @@ class BraggEdges :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "BraggEdges"; }
-   static auto FIELD() { return "BraggEdges"; }
+   static auto NODENAME() { return "BraggEdges"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class BraggEdges :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<tsl::BraggEdge>("BraggEdge")
+         ++Child<tsl::BraggEdge>
+            ("BraggEdge")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "BraggEdge"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "bragg_edge"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<tsl::BraggEdge>> BraggEdge{this};
+   Field<std::vector<tsl::BraggEdge>>
+      BraggEdge{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->BraggEdge)
+      this->BraggEdge \
+   )
 
    // default
    BraggEdges() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit BraggEdges(
-      const wrapper<std::vector<tsl::BraggEdge>> &BraggEdge
+      const wrapper<std::vector<tsl::BraggEdge>>
+         &BraggEdge
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       BraggEdge(this,BraggEdge)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   BraggEdges &operator=(const BraggEdges &) = default;
-   BraggEdges &operator=(BraggEdges &&) = default;
+   // copy
+   BraggEdges &operator=(const BraggEdges &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         BraggEdge = other.BraggEdge;
+      }
+      return *this;
+   }
+
+   // move
+   BraggEdges &operator=(BraggEdges &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         BraggEdge = std::move(other.BraggEdge);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

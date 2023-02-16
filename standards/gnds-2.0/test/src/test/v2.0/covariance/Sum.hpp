@@ -25,12 +25,12 @@ class Sum :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Sum"; }
-   static auto FIELD() { return "sum"; }
+   static auto NODENAME() { return "sum"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -48,36 +48,84 @@ class Sum :
             / Meta<>("label") |
 
          // children
-         ++Child<std::optional<covariance::Summand>>("summand")
+         ++Child<std::optional<covariance::Summand>>
+            ("summand")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domainMin",
+         "domainMax",
+         "domainUnit",
+         "label",
+         "summand"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domain_min",
+         "domain_max",
+         "domain_unit",
+         "label",
+         "summand"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Float64> domainMin{this};
-   Field<Float64> domainMax{this};
-   Field<XMLName> domainUnit{this};
-   Field<std::optional<XMLName>> label{this};
+   Field<Float64>
+      domainMin{this};
+   Field<Float64>
+      domainMax{this};
+   Field<XMLName>
+      domainUnit{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<std::optional<std::vector<covariance::Summand>>> summand{this};
+   Field<std::optional<std::vector<covariance::Summand>>>
+      summand{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
       this->label, \
-      this->summand)
+      this->summand \
+   )
 
    // default
    Sum() :
@@ -88,11 +136,16 @@ public:
 
    // from fields, comment excluded
    explicit Sum(
-      const wrapper<Float64> &domainMin,
-      const wrapper<Float64> &domainMax = {},
-      const wrapper<XMLName> &domainUnit = {},
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<std::vector<covariance::Summand>>> &summand = {}
+      const wrapper<Float64>
+         &domainMin,
+      const wrapper<Float64>
+         &domainMax = {},
+      const wrapper<XMLName>
+         &domainUnit = {},
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<std::vector<covariance::Summand>>>
+         &summand = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -141,8 +194,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Sum &operator=(const Sum &) = default;
-   Sum &operator=(Sum &&) = default;
+   // copy
+   Sum &operator=(const Sum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         label = other.label;
+         summand = other.summand;
+      }
+      return *this;
+   }
+
+   // move
+   Sum &operator=(Sum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         label = std::move(other.label);
+         summand = std::move(other.summand);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

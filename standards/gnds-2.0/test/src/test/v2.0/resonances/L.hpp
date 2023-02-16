@@ -25,12 +25,12 @@ class L :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "L"; }
-   static auto FIELD() { return "L"; }
+   static auto NODENAME() { return "L"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,32 +44,74 @@ class L :
             / Meta<>("value") |
 
          // children
-         --Child<resonances::Js>("Js")
+         --Child<resonances::Js>
+            ("Js")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "Js"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "js"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<Integer32> value{this};
+   Field<XMLName>
+      label{this};
+   Field<Integer32>
+      value{this};
 
    // children
-   Field<resonances::Js> Js{this};
+   Field<resonances::Js>
+      Js{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->value, \
-      this->Js)
+      this->Js \
+   )
 
    // default
    L() :
@@ -80,9 +122,12 @@ public:
 
    // from fields, comment excluded
    explicit L(
-      const wrapper<XMLName> &label,
-      const wrapper<Integer32> &value = {},
-      const wrapper<resonances::Js> &Js = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<Integer32>
+         &value = {},
+      const wrapper<resonances::Js>
+         &Js = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +170,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   L &operator=(const L &) = default;
-   L &operator=(L &&) = default;
+   // copy
+   L &operator=(const L &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         Js = other.Js;
+      }
+      return *this;
+   }
+
+   // move
+   L &operator=(L &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         Js = std::move(other.Js);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

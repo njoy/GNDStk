@@ -89,20 +89,20 @@ EvaluatedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EvaluatedAssign(ConstHandle2Evaluated This, ConstHandle2ConstEvaluated from)
+EvaluatedAssign(ConstHandle2Evaluated self, ConstHandle2ConstEvaluated from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EvaluatedDelete(ConstHandle2ConstEvaluated This)
+EvaluatedDelete(ConstHandle2ConstEvaluated self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ EvaluatedDelete(ConstHandle2ConstEvaluated This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EvaluatedRead(ConstHandle2Evaluated This, const char *const filename)
+EvaluatedRead(ConstHandle2Evaluated self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EvaluatedWrite(ConstHandle2ConstEvaluated This, const char *const filename)
+EvaluatedWrite(ConstHandle2ConstEvaluated self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EvaluatedPrint(ConstHandle2ConstEvaluated This)
+EvaluatedPrint(ConstHandle2ConstEvaluated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EvaluatedPrintXML(ConstHandle2ConstEvaluated This)
+EvaluatedPrintXML(ConstHandle2ConstEvaluated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EvaluatedPrintJSON(ConstHandle2ConstEvaluated This)
+EvaluatedPrintJSON(ConstHandle2ConstEvaluated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ EvaluatedPrintJSON(ConstHandle2ConstEvaluated This)
 
 // Has
 int
-EvaluatedLabelHas(ConstHandle2ConstEvaluated This)
+EvaluatedLabelHas(ConstHandle2ConstEvaluated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 const char *
-EvaluatedLabelGet(ConstHandle2ConstEvaluated This)
+EvaluatedLabelGet(ConstHandle2ConstEvaluated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-EvaluatedLabelSet(ConstHandle2Evaluated This, const char *const label)
+EvaluatedLabelSet(ConstHandle2Evaluated self, const char *const label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -193,27 +193,27 @@ EvaluatedLabelSet(ConstHandle2Evaluated This, const char *const label)
 
 // Has
 int
-EvaluatedDateHas(ConstHandle2ConstEvaluated This)
+EvaluatedDateHas(ConstHandle2ConstEvaluated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-EvaluatedDateGet(ConstHandle2ConstEvaluated This)
+EvaluatedDateGet(ConstHandle2ConstEvaluated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-EvaluatedDateSet(ConstHandle2Evaluated This, const char *const date)
+EvaluatedDateSet(ConstHandle2Evaluated self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -223,27 +223,27 @@ EvaluatedDateSet(ConstHandle2Evaluated This, const char *const date)
 
 // Has
 int
-EvaluatedLibraryHas(ConstHandle2ConstEvaluated This)
+EvaluatedLibraryHas(ConstHandle2ConstEvaluated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LibraryHas", This, extract::library);
+      (CLASSNAME, CLASSNAME+"LibraryHas", self, extract::library);
 }
 
 // Get
 // Returns by value
 const char *
-EvaluatedLibraryGet(ConstHandle2ConstEvaluated This)
+EvaluatedLibraryGet(ConstHandle2ConstEvaluated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LibraryGet", This, extract::library);
+      (CLASSNAME, CLASSNAME+"LibraryGet", self, extract::library);
 }
 
 // Set
 void
-EvaluatedLibrarySet(ConstHandle2Evaluated This, const char *const library)
+EvaluatedLibrarySet(ConstHandle2Evaluated self, const char *const library)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LibrarySet", This, extract::library, library);
+      (CLASSNAME, CLASSNAME+"LibrarySet", self, extract::library, library);
 }
 
 
@@ -253,27 +253,27 @@ EvaluatedLibrarySet(ConstHandle2Evaluated This, const char *const library)
 
 // Has
 int
-EvaluatedVersionHas(ConstHandle2ConstEvaluated This)
+EvaluatedVersionHas(ConstHandle2ConstEvaluated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionHas", self, extract::version);
 }
 
 // Get
 // Returns by value
 const char *
-EvaluatedVersionGet(ConstHandle2ConstEvaluated This)
+EvaluatedVersionGet(ConstHandle2ConstEvaluated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionGet", self, extract::version);
 }
 
 // Set
 void
-EvaluatedVersionSet(ConstHandle2Evaluated This, const char *const version)
+EvaluatedVersionSet(ConstHandle2Evaluated self, const char *const version)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"VersionSet", self, extract::version, version);
 }
 
 
@@ -283,34 +283,34 @@ EvaluatedVersionSet(ConstHandle2Evaluated This, const char *const version)
 
 // Has
 int
-EvaluatedDocumentationHas(ConstHandle2ConstEvaluated This)
+EvaluatedDocumentationHas(ConstHandle2ConstEvaluated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated This)
+EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-EvaluatedDocumentationGet(ConstHandle2Evaluated This)
+EvaluatedDocumentationGet(ConstHandle2Evaluated self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-EvaluatedDocumentationSet(ConstHandle2Evaluated This, ConstHandle2ConstDocumentation documentation)
+EvaluatedDocumentationSet(ConstHandle2Evaluated self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_transport {
 
-// Reaction wrapper
-void wrapReaction(python::module &module)
+// wrapper for transport::Reaction
+void wrapReaction(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = transport::Reaction;
+   using cppCLASS = transport::Reaction;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Reaction",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Reaction",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const int &,
-            const std::optional<std::string> &,
-            const std::string &,
-            const transport::CrossSection &
-         >(),
-         python::arg("endf_mt"),
-         python::arg("fission_genre") = std::nullopt,
-         python::arg("label"),
-         python::arg("cross_section"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
-         Component::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "fission_genre",
-         [](const Component &self) { return self.fissionGenre(); },
-         Component::documentation("fission_genre").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self) { return self.crossSection(); },
-         Component::documentation("cross_section").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const int &,
+         const std::optional<std::string> &,
+         const std::string &,
+         const transport::CrossSection &
+      >(),
+      py::arg("endf_mt"),
+      py::arg("fission_genre") = std::nullopt,
+      py::arg("label"),
+      py::arg("cross_section"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set fissionGenre
+   object.def_property(
+      "fission_genre",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fissionGenre();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.fissionGenre() = value;
+      },
+      cppCLASS::component_t::documentation("fission_genre").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const transport::CrossSection &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

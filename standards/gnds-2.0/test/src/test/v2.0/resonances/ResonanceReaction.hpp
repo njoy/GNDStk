@@ -28,12 +28,12 @@ class ResonanceReaction :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ResonanceReaction"; }
-   static auto FIELD() { return "resonanceReaction"; }
+   static auto NODENAME() { return "resonanceReaction"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -51,14 +51,59 @@ class ResonanceReaction :
             / Meta<>("eliminated") |
 
          // children
-         --Child<std::optional<common::Q>>("Q") |
-         --Child<std::optional<resonances::ScatteringRadius>>("scatteringRadius") |
-         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
-         --Child<containers::Link>("link")
+         --Child<std::optional<common::Q>>
+            ("Q") |
+         --Child<std::optional<resonances::ScatteringRadius>>
+            ("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>
+            ("hardSphereRadius") |
+         --Child<containers::Link>
+            ("link")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "ejectile",
+         "boundaryConditionValue",
+         "eliminated",
+         "Q",
+         "scatteringRadius",
+         "hardSphereRadius",
+         "link"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "ejectile",
+         "boundary_condition_value",
+         "eliminated",
+         "q",
+         "scattering_radius",
+         "hard_sphere_radius",
+         "link"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -66,26 +111,40 @@ public:
       static inline const bool eliminated = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> ejectile{this};
-   Field<std::optional<Float64>> boundaryConditionValue{this};
-   Field<Defaulted<bool>> eliminated{this,defaults.eliminated};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      ejectile{this};
+   Field<std::optional<Float64>>
+      boundaryConditionValue{this};
+   Field<Defaulted<bool>>
+      eliminated{this,defaults.eliminated};
 
    // children
-   Field<std::optional<common::Q>> Q{this};
-   Field<std::optional<resonances::ScatteringRadius>> scatteringRadius{this};
-   Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
-   Field<containers::Link> link{this};
+   Field<std::optional<common::Q>>
+      Q{this};
+   Field<std::optional<resonances::ScatteringRadius>>
+      scatteringRadius{this};
+   Field<std::optional<resonances::HardSphereRadius>>
+      hardSphereRadius{this};
+   Field<containers::Link>
+      link{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->ejectile, \
@@ -94,7 +153,8 @@ public:
       this->Q, \
       this->scatteringRadius, \
       this->hardSphereRadius, \
-      this->link)
+      this->link \
+   )
 
    // default
    ResonanceReaction() :
@@ -106,14 +166,22 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit ResonanceReaction(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &ejectile = {},
-      const wrapper<std::optional<Float64>> &boundaryConditionValue = {},
-      const wrapper<std::optional<bool>> &eliminated = {},
-      const wrapper<std::optional<common::Q>> &Q = {},
-      const wrapper<std::optional<resonances::ScatteringRadius>> &scatteringRadius = {},
-      const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
-      const wrapper<containers::Link> &link = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &ejectile = {},
+      const wrapper<std::optional<Float64>>
+         &boundaryConditionValue = {},
+      const wrapper<std::optional<bool>>
+         &eliminated = {},
+      const wrapper<std::optional<common::Q>>
+         &Q = {},
+      const wrapper<std::optional<resonances::ScatteringRadius>>
+         &scatteringRadius = {},
+      const wrapper<std::optional<resonances::HardSphereRadius>>
+         &hardSphereRadius = {},
+      const wrapper<containers::Link>
+         &link = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -171,8 +239,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonanceReaction &operator=(const ResonanceReaction &) = default;
-   ResonanceReaction &operator=(ResonanceReaction &&) = default;
+   // copy
+   ResonanceReaction &operator=(const ResonanceReaction &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         ejectile = other.ejectile;
+         boundaryConditionValue = other.boundaryConditionValue;
+         eliminated = other.eliminated;
+         Q = other.Q;
+         scatteringRadius = other.scatteringRadius;
+         hardSphereRadius = other.hardSphereRadius;
+         link = other.link;
+      }
+      return *this;
+   }
+
+   // move
+   ResonanceReaction &operator=(ResonanceReaction &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         ejectile = std::move(other.ejectile);
+         boundaryConditionValue = std::move(other.boundaryConditionValue);
+         eliminated = std::move(other.eliminated);
+         Q = std::move(other.Q);
+         scatteringRadius = std::move(other.scatteringRadius);
+         hardSphereRadius = std::move(other.hardSphereRadius);
+         link = std::move(other.link);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -90,20 +90,20 @@ CrossSectionReconstructedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CrossSectionReconstructedAssign(ConstHandle2CrossSectionReconstructed This, ConstHandle2ConstCrossSectionReconstructed from)
+CrossSectionReconstructedAssign(ConstHandle2CrossSectionReconstructed self, ConstHandle2ConstCrossSectionReconstructed from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ CrossSectionReconstructedDelete(ConstHandle2ConstCrossSectionReconstructed This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CrossSectionReconstructedRead(ConstHandle2CrossSectionReconstructed This, const char *const filename)
+CrossSectionReconstructedRead(ConstHandle2CrossSectionReconstructed self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CrossSectionReconstructedWrite(ConstHandle2ConstCrossSectionReconstructed This, const char *const filename)
+CrossSectionReconstructedWrite(ConstHandle2ConstCrossSectionReconstructed self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CrossSectionReconstructedPrint(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedPrint(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CrossSectionReconstructedPrintXML(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedPrintXML(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ CrossSectionReconstructedPrintJSON(ConstHandle2ConstCrossSectionReconstructed Th
 
 // Has
 int
-CrossSectionReconstructedDateHas(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDateHas(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-CrossSectionReconstructedDateGet(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDateGet(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-CrossSectionReconstructedDateSet(ConstHandle2CrossSectionReconstructed This, const char *const date)
+CrossSectionReconstructedDateSet(ConstHandle2CrossSectionReconstructed self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ CrossSectionReconstructedDateSet(ConstHandle2CrossSectionReconstructed This, con
 
 // Has
 int
-CrossSectionReconstructedLabelHas(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedLabelHas(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CrossSectionReconstructedLabelGet(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedLabelGet(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed This, const XMLName label)
+CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -224,27 +224,27 @@ CrossSectionReconstructedLabelSet(ConstHandle2CrossSectionReconstructed This, co
 
 // Has
 int
-CrossSectionReconstructedDerivedFromHas(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDerivedFromHas(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-CrossSectionReconstructedDerivedFromGet(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDerivedFromGet(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed This, const XMLName derivedFrom)
+CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -254,34 +254,34 @@ CrossSectionReconstructedDerivedFromSet(ConstHandle2CrossSectionReconstructed Th
 
 // Has
 int
-CrossSectionReconstructedTemperatureHas(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedTemperatureHas(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TemperatureHas", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureHas", self, extract::temperature);
 }
 
 // Get, const
 Handle2ConstTemperature
-CrossSectionReconstructedTemperatureGetConst(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedTemperatureGetConst(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::getField<CPP,Handle2ConstTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGetConst", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
 // Get, non-const
 Handle2Temperature
-CrossSectionReconstructedTemperatureGet(ConstHandle2CrossSectionReconstructed This)
+CrossSectionReconstructedTemperatureGet(ConstHandle2CrossSectionReconstructed self)
 {
    return detail::getField<CPP,Handle2Temperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGet", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGet", self, extract::temperature);
 }
 
 // Set
 void
-CrossSectionReconstructedTemperatureSet(ConstHandle2CrossSectionReconstructed This, ConstHandle2ConstTemperature temperature)
+CrossSectionReconstructedTemperatureSet(ConstHandle2CrossSectionReconstructed self, ConstHandle2ConstTemperature temperature)
 {
    detail::setField<CPP,CPPTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureSet", This, extract::temperature, temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureSet", self, extract::temperature, temperature);
 }
 
 
@@ -291,34 +291,34 @@ CrossSectionReconstructedTemperatureSet(ConstHandle2CrossSectionReconstructed Th
 
 // Has
 int
-CrossSectionReconstructedDocumentationHas(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDocumentationHas(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-CrossSectionReconstructedDocumentationGetConst(ConstHandle2ConstCrossSectionReconstructed This)
+CrossSectionReconstructedDocumentationGetConst(ConstHandle2ConstCrossSectionReconstructed self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-CrossSectionReconstructedDocumentationGet(ConstHandle2CrossSectionReconstructed This)
+CrossSectionReconstructedDocumentationGet(ConstHandle2CrossSectionReconstructed self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-CrossSectionReconstructedDocumentationSet(ConstHandle2CrossSectionReconstructed This, ConstHandle2ConstDocumentation documentation)
+CrossSectionReconstructedDocumentationSet(ConstHandle2CrossSectionReconstructed self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

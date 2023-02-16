@@ -90,20 +90,20 @@ TemperatureCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TemperatureAssign(ConstHandle2Temperature This, ConstHandle2ConstTemperature from)
+TemperatureAssign(ConstHandle2Temperature self, ConstHandle2ConstTemperature from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TemperatureDelete(ConstHandle2ConstTemperature This)
+TemperatureDelete(ConstHandle2ConstTemperature self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ TemperatureDelete(ConstHandle2ConstTemperature This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TemperatureRead(ConstHandle2Temperature This, const char *const filename)
+TemperatureRead(ConstHandle2Temperature self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TemperatureWrite(ConstHandle2ConstTemperature This, const char *const filename)
+TemperatureWrite(ConstHandle2ConstTemperature self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TemperaturePrint(ConstHandle2ConstTemperature This)
+TemperaturePrint(ConstHandle2ConstTemperature self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TemperaturePrintXML(ConstHandle2ConstTemperature This)
+TemperaturePrintXML(ConstHandle2ConstTemperature self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TemperaturePrintJSON(ConstHandle2ConstTemperature This)
+TemperaturePrintJSON(ConstHandle2ConstTemperature self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ TemperaturePrintJSON(ConstHandle2ConstTemperature This)
 
 // Has
 int
-TemperatureLabelHas(ConstHandle2ConstTemperature This)
+TemperatureLabelHas(ConstHandle2ConstTemperature self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-TemperatureLabelGet(ConstHandle2ConstTemperature This)
+TemperatureLabelGet(ConstHandle2ConstTemperature self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-TemperatureLabelSet(ConstHandle2Temperature This, const XMLName label)
+TemperatureLabelSet(ConstHandle2Temperature self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -194,27 +194,27 @@ TemperatureLabelSet(ConstHandle2Temperature This, const XMLName label)
 
 // Has
 int
-TemperatureUnitHas(ConstHandle2ConstTemperature This)
+TemperatureUnitHas(ConstHandle2ConstTemperature self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-TemperatureUnitGet(ConstHandle2ConstTemperature This)
+TemperatureUnitGet(ConstHandle2ConstTemperature self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-TemperatureUnitSet(ConstHandle2Temperature This, const XMLName unit)
+TemperatureUnitSet(ConstHandle2Temperature self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -224,27 +224,27 @@ TemperatureUnitSet(ConstHandle2Temperature This, const XMLName unit)
 
 // Has
 int
-TemperatureValueHas(ConstHandle2ConstTemperature This)
+TemperatureValueHas(ConstHandle2ConstTemperature self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-TemperatureValueGet(ConstHandle2ConstTemperature This)
+TemperatureValueGet(ConstHandle2ConstTemperature self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-TemperatureValueSet(ConstHandle2Temperature This, const Float64 value)
+TemperatureValueSet(ConstHandle2Temperature self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -254,34 +254,34 @@ TemperatureValueSet(ConstHandle2Temperature This, const Float64 value)
 
 // Has
 int
-TemperatureDocumentationHas(ConstHandle2ConstTemperature This)
+TemperatureDocumentationHas(ConstHandle2ConstTemperature self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-TemperatureDocumentationGetConst(ConstHandle2ConstTemperature This)
+TemperatureDocumentationGetConst(ConstHandle2ConstTemperature self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-TemperatureDocumentationGet(ConstHandle2Temperature This)
+TemperatureDocumentationGet(ConstHandle2Temperature self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-TemperatureDocumentationSet(ConstHandle2Temperature This, ConstHandle2ConstDocumentation documentation)
+TemperatureDocumentationSet(ConstHandle2Temperature self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -291,34 +291,34 @@ TemperatureDocumentationSet(ConstHandle2Temperature This, ConstHandle2ConstDocum
 
 // Has
 int
-TemperatureUncertaintyHas(ConstHandle2ConstTemperature This)
+TemperatureUncertaintyHas(ConstHandle2ConstTemperature self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-TemperatureUncertaintyGetConst(ConstHandle2ConstTemperature This)
+TemperatureUncertaintyGetConst(ConstHandle2ConstTemperature self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-TemperatureUncertaintyGet(ConstHandle2Temperature This)
+TemperatureUncertaintyGet(ConstHandle2Temperature self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-TemperatureUncertaintySet(ConstHandle2Temperature This, ConstHandle2ConstUncertainty uncertainty)
+TemperatureUncertaintySet(ConstHandle2Temperature self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

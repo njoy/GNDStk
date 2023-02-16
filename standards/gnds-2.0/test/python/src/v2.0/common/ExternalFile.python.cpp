@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_common {
 
-// ExternalFile wrapper
-void wrapExternalFile(python::module &module)
+// wrapper for common::ExternalFile
+void wrapExternalFile(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = common::ExternalFile;
+   using cppCLASS = common::ExternalFile;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ExternalFile",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ExternalFile",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<std::string> &,
-            const std::optional<enums::HashAlgorithm> &
-         >(),
-         python::arg("label"),
-         python::arg("path"),
-         python::arg("checksum") = std::nullopt,
-         python::arg("algorithm") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "path",
-         [](const Component &self) { return self.path(); },
-         Component::documentation("path").data()
-      )
-      .def_property_readonly(
-         "checksum",
-         [](const Component &self) { return self.checksum(); },
-         Component::documentation("checksum").data()
-      )
-      .def_property_readonly(
-         "algorithm",
-         [](const Component &self) { return self.algorithm(); },
-         Component::documentation("algorithm").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<std::string> &,
+         const std::optional<enums::HashAlgorithm> &
+      >(),
+      py::arg("label"),
+      py::arg("path"),
+      py::arg("checksum") = std::nullopt,
+      py::arg("algorithm") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set path
+   object.def_property(
+      "path",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.path();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.path() = value;
+      },
+      cppCLASS::component_t::documentation("path").data()
+   );
+
+   // get/set checksum
+   object.def_property(
+      "checksum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.checksum();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.checksum() = value;
+      },
+      cppCLASS::component_t::documentation("checksum").data()
+   );
+
+   // get/set algorithm
+   object.def_property(
+      "algorithm",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.algorithm();
+      },
+      [](cppCLASS &self, const std::optional<enums::HashAlgorithm> &value)
+      {
+         self.algorithm() = value;
+      },
+      cppCLASS::component_t::documentation("algorithm").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_common

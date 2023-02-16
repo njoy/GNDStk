@@ -93,13 +93,13 @@ ImaginaryInterferenceTermCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ImaginaryInterferenceTermAssign(ConstHandle2ImaginaryInterferenceTerm This, ConstHandle2ConstImaginaryInterferenceTerm from);
+ImaginaryInterferenceTermAssign(ConstHandle2ImaginaryInterferenceTerm self, ConstHandle2ConstImaginaryInterferenceTerm from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ImaginaryInterferenceTermDelete(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermDelete(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ImaginaryInterferenceTermDelete(ConstHandle2ConstImaginaryInterferenceTerm This)
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ImaginaryInterferenceTermRead(ConstHandle2ImaginaryInterferenceTerm This, const char *const filename);
+ImaginaryInterferenceTermRead(ConstHandle2ImaginaryInterferenceTerm self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ImaginaryInterferenceTermWrite(ConstHandle2ConstImaginaryInterferenceTerm This, const char *const filename);
+ImaginaryInterferenceTermWrite(ConstHandle2ConstImaginaryInterferenceTerm self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ImaginaryInterferenceTermPrint(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermPrint(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ImaginaryInterferenceTermPrintXML(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermPrintXML(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ImaginaryInterferenceTermPrintJSON(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermPrintJSON(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ ImaginaryInterferenceTermPrintJSON(ConstHandle2ConstImaginaryInterferenceTerm Th
 
 // +++ Has
 extern_c int
-ImaginaryInterferenceTermXYs2dHas(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermXYs2dHas(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 
 // +++ Set
 extern_c void
-ImaginaryInterferenceTermXYs2dSet(ConstHandle2ImaginaryInterferenceTerm This, ConstHandle2ConstXYs2d XYs2d);
+ImaginaryInterferenceTermXYs2dSet(ConstHandle2ImaginaryInterferenceTerm self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ ImaginaryInterferenceTermXYs2dSet(ConstHandle2ImaginaryInterferenceTerm This, Co
 
 // +++ Has
 extern_c int
-ImaginaryInterferenceTermRegions2dHas(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermRegions2dHas(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // --- Get, const
 extern_c Handle2ConstRegions2d
-ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
 // +++ Get, non-const
 extern_c Handle2Regions2d
-ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm This);
+ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 
 // +++ Set
 extern_c void
-ImaginaryInterferenceTermRegions2dSet(ConstHandle2ImaginaryInterferenceTerm This, ConstHandle2ConstRegions2d regions2d);
+ImaginaryInterferenceTermRegions2dSet(ConstHandle2ImaginaryInterferenceTerm self, ConstHandle2ConstRegions2d regions2d);
 
 
 // -----------------------------------------------------------------------------

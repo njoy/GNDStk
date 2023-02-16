@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// ResonanceParameters wrapper
-void wrapResonanceParameters(python::module &module)
+// wrapper for resonances::ResonanceParameters
+void wrapResonanceParameters(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::ResonanceParameters;
+   using cppCLASS = resonances::ResonanceParameters;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ResonanceParameters",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ResonanceParameters",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const containers::Table &
-         >(),
-         python::arg("table"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "table",
-         [](const Component &self) { return self.table(); },
-         Component::documentation("table").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const containers::Table &
+      >(),
+      py::arg("table"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set table
+   object.def_property(
+      "table",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.table();
+      },
+      [](cppCLASS &self, const containers::Table &value)
+      {
+         self.table() = value;
+      },
+      cppCLASS::component_t::documentation("table").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

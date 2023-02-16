@@ -25,12 +25,12 @@ class Product :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Product"; }
-   static auto FIELD() { return "product"; }
+   static auto NODENAME() { return "product"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,24 +45,62 @@ class Product :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> pid{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      pid{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->pid)
+      this->pid \
+   )
 
    // default
    Product() :
@@ -73,8 +111,10 @@ public:
 
    // from fields, comment excluded
    explicit Product(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &pid = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &pid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -114,8 +154,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Product &operator=(const Product &) = default;
-   Product &operator=(Product &&) = default;
+   // copy
+   Product &operator=(const Product &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+      }
+      return *this;
+   }
+
+   // move
+   Product &operator=(Product &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// Slices wrapper
-void wrapSlices(python::module &module)
+// wrapper for covariance::Slices
+void wrapSlices(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::Slices;
+   using cppCLASS = covariance::Slices;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Slices",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Slices",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<covariance::Slice> &
-         >(),
-         python::arg("slice"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "slice",
-         [](const Component &self) { return self.slice(); },
-         Component::documentation("slice").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<covariance::Slice> &
+      >(),
+      py::arg("slice"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set slice
+   object.def_property(
+      "slice",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.slice();
+      },
+      [](cppCLASS &self, const std::vector<covariance::Slice> &value)
+      {
+         self.slice() = value;
+      },
+      cppCLASS::component_t::documentation("slice").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

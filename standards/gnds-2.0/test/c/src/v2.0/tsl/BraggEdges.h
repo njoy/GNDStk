@@ -90,13 +90,13 @@ BraggEdgesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BraggEdgesAssign(ConstHandle2BraggEdges This, ConstHandle2ConstBraggEdges from);
+BraggEdgesAssign(ConstHandle2BraggEdges self, ConstHandle2ConstBraggEdges from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BraggEdgesDelete(ConstHandle2ConstBraggEdges This);
+BraggEdgesDelete(ConstHandle2ConstBraggEdges self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ BraggEdgesDelete(ConstHandle2ConstBraggEdges This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BraggEdgesRead(ConstHandle2BraggEdges This, const char *const filename);
+BraggEdgesRead(ConstHandle2BraggEdges self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BraggEdgesWrite(ConstHandle2ConstBraggEdges This, const char *const filename);
+BraggEdgesWrite(ConstHandle2ConstBraggEdges self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BraggEdgesPrint(ConstHandle2ConstBraggEdges This);
+BraggEdgesPrint(ConstHandle2ConstBraggEdges self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BraggEdgesPrintXML(ConstHandle2ConstBraggEdges This);
+BraggEdgesPrintXML(ConstHandle2ConstBraggEdges self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BraggEdgesPrintJSON(ConstHandle2ConstBraggEdges This);
+BraggEdgesPrintJSON(ConstHandle2ConstBraggEdges self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ BraggEdgesPrintJSON(ConstHandle2ConstBraggEdges This);
 
 // +++ Has
 extern_c int
-BraggEdgesBraggEdgeHas(ConstHandle2ConstBraggEdges This);
+BraggEdgesBraggEdgeHas(ConstHandle2ConstBraggEdges self);
 
 // +++ Clear
 extern_c void
-BraggEdgesBraggEdgeClear(ConstHandle2BraggEdges This);
+BraggEdgesBraggEdgeClear(ConstHandle2BraggEdges self);
 
 // +++ Size
 extern_c size_t
-BraggEdgesBraggEdgeSize(ConstHandle2ConstBraggEdges This);
+BraggEdgesBraggEdgeSize(ConstHandle2ConstBraggEdges self);
 
 // +++ Add
 extern_c void
-BraggEdgesBraggEdgeAdd(ConstHandle2BraggEdges This, ConstHandle2ConstBraggEdge BraggEdge);
+BraggEdgesBraggEdgeAdd(ConstHandle2BraggEdges self, ConstHandle2ConstBraggEdge BraggEdge);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstBraggEdge
-BraggEdgesBraggEdgeGetConst(ConstHandle2ConstBraggEdges This, const size_t index_);
+BraggEdgesBraggEdgeGetConst(ConstHandle2ConstBraggEdges self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2BraggEdge
-BraggEdgesBraggEdgeGet(ConstHandle2BraggEdges This, const size_t index_);
+BraggEdgesBraggEdgeGet(ConstHandle2BraggEdges self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 BraggEdgesBraggEdgeSet(
-   ConstHandle2BraggEdges This,
+   ConstHandle2BraggEdges self,
    const size_t index_,
    ConstHandle2ConstBraggEdge BraggEdge
 );
@@ -169,28 +169,28 @@ BraggEdgesBraggEdgeSet(
 // +++ Has, by label
 extern_c int
 BraggEdgesBraggEdgeHasByLabel(
-   ConstHandle2ConstBraggEdges This,
+   ConstHandle2ConstBraggEdges self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstBraggEdge
 BraggEdgesBraggEdgeGetByLabelConst(
-   ConstHandle2ConstBraggEdges This,
+   ConstHandle2ConstBraggEdges self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2BraggEdge
 BraggEdgesBraggEdgeGetByLabel(
-   ConstHandle2BraggEdges This,
+   ConstHandle2BraggEdges self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 BraggEdgesBraggEdgeSetByLabel(
-   ConstHandle2BraggEdges This,
+   ConstHandle2BraggEdges self,
    const XMLName label,
    ConstHandle2ConstBraggEdge BraggEdge
 );

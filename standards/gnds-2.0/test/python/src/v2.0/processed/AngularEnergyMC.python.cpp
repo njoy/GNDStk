@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_processed {
 
-// AngularEnergyMC wrapper
-void wrapAngularEnergyMC(python::module &module)
+// wrapper for processed::AngularEnergyMC
+void wrapAngularEnergyMC(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = processed::AngularEnergyMC;
+   using cppCLASS = processed::AngularEnergyMC;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "AngularEnergyMC",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "AngularEnergyMC",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const transport::Angular_uncorrelated &,
-            const transport::AngularEnergy &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         python::arg("angular_uncorrelated"),
-         python::arg("angular_energy"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "angular_uncorrelated",
-         [](const Component &self) { return self.angular_uncorrelated(); },
-         Component::documentation("angular_uncorrelated").data()
-      )
-      .def_property_readonly(
-         "angular_energy",
-         [](const Component &self) { return self.angularEnergy(); },
-         Component::documentation("angular_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const transport::Angular_uncorrelated &,
+         const transport::AngularEnergy &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      py::arg("angular_uncorrelated"),
+      py::arg("angular_energy"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set angular_uncorrelated
+   object.def_property(
+      "angular_uncorrelated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angular_uncorrelated();
+      },
+      [](cppCLASS &self, const transport::Angular_uncorrelated &value)
+      {
+         self.angular_uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("angular_uncorrelated").data()
+   );
+
+   // get/set angularEnergy
+   object.def_property(
+      "angular_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angularEnergy();
+      },
+      [](cppCLASS &self, const transport::AngularEnergy &value)
+      {
+         self.angularEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("angular_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_processed

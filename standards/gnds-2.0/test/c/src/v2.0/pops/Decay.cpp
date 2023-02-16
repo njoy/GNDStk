@@ -84,20 +84,20 @@ DecayCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DecayAssign(ConstHandle2Decay This, ConstHandle2ConstDecay from)
+DecayAssign(ConstHandle2Decay self, ConstHandle2ConstDecay from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DecayDelete(ConstHandle2ConstDecay This)
+DecayDelete(ConstHandle2ConstDecay self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ DecayDelete(ConstHandle2ConstDecay This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DecayRead(ConstHandle2Decay This, const char *const filename)
+DecayRead(ConstHandle2Decay self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DecayWrite(ConstHandle2ConstDecay This, const char *const filename)
+DecayWrite(ConstHandle2ConstDecay self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DecayPrint(ConstHandle2ConstDecay This)
+DecayPrint(ConstHandle2ConstDecay self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DecayPrintXML(ConstHandle2ConstDecay This)
+DecayPrintXML(ConstHandle2ConstDecay self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DecayPrintJSON(ConstHandle2ConstDecay This)
+DecayPrintJSON(ConstHandle2ConstDecay self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ DecayPrintJSON(ConstHandle2ConstDecay This)
 
 // Has
 int
-DecayIndexHas(ConstHandle2ConstDecay This)
+DecayIndexHas(ConstHandle2ConstDecay self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexHas", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexHas", self, extract::index);
 }
 
 // Get
 // Returns by value
 Integer32
-DecayIndexGet(ConstHandle2ConstDecay This)
+DecayIndexGet(ConstHandle2ConstDecay self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexGet", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexGet", self, extract::index);
 }
 
 // Set
 void
-DecayIndexSet(ConstHandle2Decay This, const Integer32 index)
+DecayIndexSet(ConstHandle2Decay self, const Integer32 index)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexSet", This, extract::index, index);
+      (CLASSNAME, CLASSNAME+"IndexSet", self, extract::index, index);
 }
 
 
@@ -188,27 +188,27 @@ DecayIndexSet(ConstHandle2Decay This, const Integer32 index)
 
 // Has
 int
-DecayModeHas(ConstHandle2ConstDecay This)
+DecayModeHas(ConstHandle2ConstDecay self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ModeHas", This, extract::mode);
+      (CLASSNAME, CLASSNAME+"ModeHas", self, extract::mode);
 }
 
 // Get
 // Returns by value
 enums::DecayType
-DecayModeGet(ConstHandle2ConstDecay This)
+DecayModeGet(ConstHandle2ConstDecay self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ModeGet", This, extract::mode);
+      (CLASSNAME, CLASSNAME+"ModeGet", self, extract::mode);
 }
 
 // Set
 void
-DecayModeSet(ConstHandle2Decay This, const enums::DecayType mode)
+DecayModeSet(ConstHandle2Decay self, const enums::DecayType mode)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ModeSet", This, extract::mode, mode);
+      (CLASSNAME, CLASSNAME+"ModeSet", self, extract::mode, mode);
 }
 
 
@@ -218,27 +218,27 @@ DecayModeSet(ConstHandle2Decay This, const enums::DecayType mode)
 
 // Has
 int
-DecayCompleteHas(ConstHandle2ConstDecay This)
+DecayCompleteHas(ConstHandle2ConstDecay self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CompleteHas", This, extract::complete);
+      (CLASSNAME, CLASSNAME+"CompleteHas", self, extract::complete);
 }
 
 // Get
 // Returns by value
 bool
-DecayCompleteGet(ConstHandle2ConstDecay This)
+DecayCompleteGet(ConstHandle2ConstDecay self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"CompleteGet", This, extract::complete);
+      (CLASSNAME, CLASSNAME+"CompleteGet", self, extract::complete);
 }
 
 // Set
 void
-DecayCompleteSet(ConstHandle2Decay This, const bool complete)
+DecayCompleteSet(ConstHandle2Decay self, const bool complete)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"CompleteSet", This, extract::complete, complete);
+      (CLASSNAME, CLASSNAME+"CompleteSet", self, extract::complete, complete);
 }
 
 
@@ -248,34 +248,34 @@ DecayCompleteSet(ConstHandle2Decay This, const bool complete)
 
 // Has
 int
-DecayProductsHas(ConstHandle2ConstDecay This)
+DecayProductsHas(ConstHandle2ConstDecay self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductsHas", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsHas", self, extract::products);
 }
 
 // Get, const
 Handle2ConstProducts
-DecayProductsGetConst(ConstHandle2ConstDecay This)
+DecayProductsGetConst(ConstHandle2ConstDecay self)
 {
    return detail::getField<CPP,Handle2ConstProducts>
-      (CLASSNAME, CLASSNAME+"ProductsGetConst", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
 // Get, non-const
 Handle2Products
-DecayProductsGet(ConstHandle2Decay This)
+DecayProductsGet(ConstHandle2Decay self)
 {
    return detail::getField<CPP,Handle2Products>
-      (CLASSNAME, CLASSNAME+"ProductsGet", This, extract::products);
+      (CLASSNAME, CLASSNAME+"ProductsGet", self, extract::products);
 }
 
 // Set
 void
-DecayProductsSet(ConstHandle2Decay This, ConstHandle2ConstProducts products)
+DecayProductsSet(ConstHandle2Decay self, ConstHandle2ConstProducts products)
 {
    detail::setField<CPP,CPPProducts>
-      (CLASSNAME, CLASSNAME+"ProductsSet", This, extract::products, products);
+      (CLASSNAME, CLASSNAME+"ProductsSet", self, extract::products, products);
 }
 
 

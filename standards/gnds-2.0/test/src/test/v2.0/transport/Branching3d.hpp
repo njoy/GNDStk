@@ -25,12 +25,12 @@ class Branching3d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Branching3d"; }
-   static auto FIELD() { return "branching3d"; }
+   static auto NODENAME() { return "branching3d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,24 +45,62 @@ class Branching3d :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> productFrame{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->productFrame)
+      this->productFrame \
+   )
 
    // default
    Branching3d() :
@@ -73,8 +111,10 @@ public:
 
    // from fields, comment excluded
    explicit Branching3d(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &productFrame = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -114,8 +154,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Branching3d &operator=(const Branching3d &) = default;
-   Branching3d &operator=(Branching3d &&) = default;
+   // copy
+   Branching3d &operator=(const Branching3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+      }
+      return *this;
+   }
+
+   // move
+   Branching3d &operator=(Branching3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

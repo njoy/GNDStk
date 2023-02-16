@@ -25,12 +25,12 @@ class Isotopes :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Isotopes"; }
-   static auto FIELD() { return "isotopes"; }
+   static auto NODENAME() { return "isotopes"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Isotopes :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<pops::Isotope>("isotope")
+         ++Child<pops::Isotope>
+            ("isotope")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "isotope"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "isotope"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<pops::Isotope>> isotope{this};
+   Field<std::vector<pops::Isotope>>
+      isotope{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->isotope)
+      this->isotope \
+   )
 
    // default
    Isotopes() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Isotopes(
-      const wrapper<std::vector<pops::Isotope>> &isotope
+      const wrapper<std::vector<pops::Isotope>>
+         &isotope
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       isotope(this,isotope)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Isotopes &operator=(const Isotopes &) = default;
-   Isotopes &operator=(Isotopes &&) = default;
+   // copy
+   Isotopes &operator=(const Isotopes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         isotope = other.isotope;
+      }
+      return *this;
+   }
+
+   // move
+   Isotopes &operator=(Isotopes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         isotope = std::move(other.isotope);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

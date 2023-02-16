@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Angular_uncorrelated wrapper
-void wrapAngular_uncorrelated(python::module &module)
+// wrapper for transport::Angular_uncorrelated
+void wrapAngular_uncorrelated(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Angular_uncorrelated;
+   using cppCLASS = transport::Angular_uncorrelated;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Angular_uncorrelated",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Angular_uncorrelated",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::XYs2d> &,
-            const std::optional<transport::Isotropic2d> &,
-            const std::optional<transport::Forward> &
-         >(),
-         python::arg("xys2d") = std::nullopt,
-         python::arg("isotropic2d") = std::nullopt,
-         python::arg("forward") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
-         Component::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "isotropic2d",
-         [](const Component &self) { return self.isotropic2d(); },
-         Component::documentation("isotropic2d").data()
-      )
-      .def_property_readonly(
-         "forward",
-         [](const Component &self) { return self.forward(); },
-         Component::documentation("forward").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::XYs2d> &,
+         const std::optional<transport::Isotropic2d> &,
+         const std::optional<transport::Forward> &
+      >(),
+      py::arg("xys2d") = std::nullopt,
+      py::arg("isotropic2d") = std::nullopt,
+      py::arg("forward") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set isotropic2d
+   object.def_property(
+      "isotropic2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotropic2d();
+      },
+      [](cppCLASS &self, const std::optional<transport::Isotropic2d> &value)
+      {
+         self.isotropic2d() = value;
+      },
+      cppCLASS::component_t::documentation("isotropic2d").data()
+   );
+
+   // get/set forward
+   object.def_property(
+      "forward",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.forward();
+      },
+      [](cppCLASS &self, const std::optional<transport::Forward> &value)
+      {
+         self.forward() = value;
+      },
+      cppCLASS::component_t::documentation("forward").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

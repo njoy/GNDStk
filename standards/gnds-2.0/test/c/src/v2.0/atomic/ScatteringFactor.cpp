@@ -75,20 +75,20 @@ ScatteringFactorCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ScatteringFactorAssign(ConstHandle2ScatteringFactor This, ConstHandle2ConstScatteringFactor from)
+ScatteringFactorAssign(ConstHandle2ScatteringFactor self, ConstHandle2ConstScatteringFactor from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ScatteringFactorDelete(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorDelete(ConstHandle2ConstScatteringFactor self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ ScatteringFactorDelete(ConstHandle2ConstScatteringFactor This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ScatteringFactorRead(ConstHandle2ScatteringFactor This, const char *const filename)
+ScatteringFactorRead(ConstHandle2ScatteringFactor self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ScatteringFactorWrite(ConstHandle2ConstScatteringFactor This, const char *const filename)
+ScatteringFactorWrite(ConstHandle2ConstScatteringFactor self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ScatteringFactorPrint(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorPrint(ConstHandle2ConstScatteringFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ScatteringFactorPrintXML(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorPrintXML(ConstHandle2ConstScatteringFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ ScatteringFactorPrintJSON(ConstHandle2ConstScatteringFactor This)
 
 // Has
 int
-ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor This)
+ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-ScatteringFactorXYs1dSet(ConstHandle2ScatteringFactor This, ConstHandle2ConstXYs1d XYs1d)
+ScatteringFactorXYs1dSet(ConstHandle2ScatteringFactor self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ ScatteringFactorXYs1dSet(ConstHandle2ScatteringFactor This, ConstHandle2ConstXYs
 
 // Has
 int
-ScatteringFactorRegions1dHas(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorRegions1dHas(ConstHandle2ConstScatteringFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-ScatteringFactorRegions1dGetConst(ConstHandle2ConstScatteringFactor This)
+ScatteringFactorRegions1dGetConst(ConstHandle2ConstScatteringFactor self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-ScatteringFactorRegions1dGet(ConstHandle2ScatteringFactor This)
+ScatteringFactorRegions1dGet(ConstHandle2ScatteringFactor self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-ScatteringFactorRegions1dSet(ConstHandle2ScatteringFactor This, ConstHandle2ConstRegions1d regions1d)
+ScatteringFactorRegions1dSet(ConstHandle2ScatteringFactor self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

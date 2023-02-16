@@ -93,13 +93,13 @@ CorrectionScriptCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CorrectionScriptAssign(ConstHandle2CorrectionScript This, ConstHandle2ConstCorrectionScript from);
+CorrectionScriptAssign(ConstHandle2CorrectionScript self, ConstHandle2ConstCorrectionScript from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CorrectionScriptDelete(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptDelete(ConstHandle2ConstCorrectionScript self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ CorrectionScriptDelete(ConstHandle2ConstCorrectionScript This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CorrectionScriptRead(ConstHandle2CorrectionScript This, const char *const filename);
+CorrectionScriptRead(ConstHandle2CorrectionScript self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CorrectionScriptWrite(ConstHandle2ConstCorrectionScript This, const char *const filename);
+CorrectionScriptWrite(ConstHandle2ConstCorrectionScript self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CorrectionScriptPrint(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptPrint(ConstHandle2ConstCorrectionScript self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CorrectionScriptPrintXML(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptPrintXML(ConstHandle2ConstCorrectionScript self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript This);
 
 // +++ Clear
 extern_c void
-CorrectionScriptIntsClear(ConstHandle2CorrectionScript This);
+CorrectionScriptIntsClear(ConstHandle2CorrectionScript self);
 
 // +++ Get size
 extern_c size_t
-CorrectionScriptIntsSize(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptIntsSize(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-CorrectionScriptIntsGet(ConstHandle2ConstCorrectionScript This, const size_t index);
+CorrectionScriptIntsGet(ConstHandle2ConstCorrectionScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CorrectionScriptIntsSet(ConstHandle2CorrectionScript This, const size_t index, const int value);
+CorrectionScriptIntsSet(ConstHandle2CorrectionScript self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-CorrectionScriptIntsGetArrayConst(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptIntsGetArrayConst(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-CorrectionScriptIntsGetArray(ConstHandle2CorrectionScript This);
+CorrectionScriptIntsGetArray(ConstHandle2CorrectionScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript This, const int *const values, const size_t size);
+CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript This, const int *const
 
 // +++ Clear
 extern_c void
-CorrectionScriptUnsignedsClear(ConstHandle2CorrectionScript This);
+CorrectionScriptUnsignedsClear(ConstHandle2CorrectionScript self);
 
 // +++ Get size
 extern_c size_t
-CorrectionScriptUnsignedsSize(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptUnsignedsSize(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-CorrectionScriptUnsignedsGet(ConstHandle2ConstCorrectionScript This, const size_t index);
+CorrectionScriptUnsignedsGet(ConstHandle2ConstCorrectionScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CorrectionScriptUnsignedsSet(ConstHandle2CorrectionScript This, const size_t index, const unsigned value);
+CorrectionScriptUnsignedsSet(ConstHandle2CorrectionScript self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-CorrectionScriptUnsignedsGetArrayConst(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptUnsignedsGetArrayConst(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-CorrectionScriptUnsignedsGetArray(ConstHandle2CorrectionScript This);
+CorrectionScriptUnsignedsGetArray(ConstHandle2CorrectionScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript This, const unsigned *const values, const size_t size);
+CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript This, const unsig
 
 // +++ Clear
 extern_c void
-CorrectionScriptFloatsClear(ConstHandle2CorrectionScript This);
+CorrectionScriptFloatsClear(ConstHandle2CorrectionScript self);
 
 // +++ Get size
 extern_c size_t
-CorrectionScriptFloatsSize(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptFloatsSize(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-CorrectionScriptFloatsGet(ConstHandle2ConstCorrectionScript This, const size_t index);
+CorrectionScriptFloatsGet(ConstHandle2ConstCorrectionScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CorrectionScriptFloatsSet(ConstHandle2CorrectionScript This, const size_t index, const float value);
+CorrectionScriptFloatsSet(ConstHandle2CorrectionScript self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-CorrectionScriptFloatsGetArrayConst(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptFloatsGetArrayConst(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-CorrectionScriptFloatsGetArray(ConstHandle2CorrectionScript This);
+CorrectionScriptFloatsGetArray(ConstHandle2CorrectionScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript This, const float *const values, const size_t size);
+CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript This, const float *c
 
 // +++ Clear
 extern_c void
-CorrectionScriptDoublesClear(ConstHandle2CorrectionScript This);
+CorrectionScriptDoublesClear(ConstHandle2CorrectionScript self);
 
 // +++ Get size
 extern_c size_t
-CorrectionScriptDoublesSize(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptDoublesSize(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-CorrectionScriptDoublesGet(ConstHandle2ConstCorrectionScript This, const size_t index);
+CorrectionScriptDoublesGet(ConstHandle2ConstCorrectionScript self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-CorrectionScriptDoublesSet(ConstHandle2CorrectionScript This, const size_t index, const double value);
+CorrectionScriptDoublesSet(ConstHandle2CorrectionScript self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-CorrectionScriptDoublesGetArrayConst(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptDoublesGetArrayConst(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-CorrectionScriptDoublesGetArray(ConstHandle2CorrectionScript This);
+CorrectionScriptDoublesGetArray(ConstHandle2CorrectionScript self);
 
 // +++ Set completely new values and size
 extern_c void
-CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript This, const double *const values, const size_t size);
+CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript This, const double 
 
 // +++ Has
 extern_c int
-CorrectionScriptEncodingHas(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptEncodingHas(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CorrectionScriptEncodingGet(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptEncodingGet(ConstHandle2ConstCorrectionScript self);
 
 // +++ Set
 extern_c void
-CorrectionScriptEncodingSet(ConstHandle2CorrectionScript This, const XMLName encoding);
+CorrectionScriptEncodingSet(ConstHandle2CorrectionScript self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ CorrectionScriptEncodingSet(ConstHandle2CorrectionScript This, const XMLName enc
 
 // +++ Has
 extern_c int
-CorrectionScriptMarkupHas(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptMarkupHas(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CorrectionScriptMarkupGet(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptMarkupGet(ConstHandle2ConstCorrectionScript self);
 
 // +++ Set
 extern_c void
-CorrectionScriptMarkupSet(ConstHandle2CorrectionScript This, const char *const markup);
+CorrectionScriptMarkupSet(ConstHandle2CorrectionScript self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ CorrectionScriptMarkupSet(ConstHandle2CorrectionScript This, const char *const m
 
 // +++ Has
 extern_c int
-CorrectionScriptLabelHas(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptLabelHas(ConstHandle2ConstCorrectionScript self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CorrectionScriptLabelGet(ConstHandle2ConstCorrectionScript This);
+CorrectionScriptLabelGet(ConstHandle2ConstCorrectionScript self);
 
 // +++ Set
 extern_c void
-CorrectionScriptLabelSet(ConstHandle2CorrectionScript This, const XMLName label);
+CorrectionScriptLabelSet(ConstHandle2CorrectionScript self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

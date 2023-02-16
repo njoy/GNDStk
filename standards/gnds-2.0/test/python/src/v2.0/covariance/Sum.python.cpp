@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// Sum wrapper
-void wrapSum(python::module &module)
+// wrapper for covariance::Sum
+void wrapSum(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::Sum;
+   using cppCLASS = covariance::Sum;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Sum",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Sum",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Float64 &,
-            const Float64 &,
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const std::optional<std::vector<covariance::Summand>> &
-         >(),
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("domain_unit"),
-         python::arg("label") = std::nullopt,
-         python::arg("summand") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self) { return self.domainMin(); },
-         Component::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self) { return self.domainMax(); },
-         Component::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
-         Component::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "summand",
-         [](const Component &self) { return self.summand(); },
-         Component::documentation("summand").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Float64 &,
+         const Float64 &,
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const std::optional<std::vector<covariance::Summand>> &
+      >(),
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("domain_unit"),
+      py::arg("label") = std::nullopt,
+      py::arg("summand") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set summand
+   object.def_property(
+      "summand",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.summand();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<covariance::Summand>> &value)
+      {
+         self.summand() = value;
+      },
+      cppCLASS::component_t::documentation("summand").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

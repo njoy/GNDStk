@@ -5,45 +5,45 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // tsl declarations
 namespace python_tsl {
-   void wrapMass(python::module &);
-   void wrapThermalNeutronScatteringLaw(python::module &);
-   void wrapThermalNeutronScatteringLaw1d(python::module &);
-   void wrapS_table(python::module &);
-   void wrapBraggEnergy(python::module &);
-   void wrapStructureFactor(python::module &);
-   void wrapBraggEdge(python::module &);
-   void wrapBraggEdges(python::module &);
-   void wrapThermalNeutronScatteringLaw_coherentElastic(python::module &);
-   void wrapBoundAtomCrossSection(python::module &);
-   void wrapDebyeWallerIntegral(python::module &);
-   void wrapThermalNeutronScatteringLaw_incoherentElastic(python::module &);
-   void wrapE_critical(python::module &);
-   void wrapE_max(python::module &);
-   void wrapCoherentAtomCrossSection(python::module &);
-   void wrapDistinctScatteringKernel(python::module &);
-   void wrapPhononSpectrum(python::module &);
-   void wrapGaussianApproximation(python::module &);
-   void wrapSCTApproximation(python::module &);
-   void wrapFreeGasApproximation(python::module &);
-   void wrapSelfScatteringKernel(python::module &);
-   void wrapT_effective(python::module &);
-   void wrapScatteringAtom(python::module &);
-   void wrapScatteringAtoms(python::module &);
-   void wrapThermalNeutronScatteringLaw_incoherentInelastic(python::module &);
+   void wrapMass(py::module &);
+   void wrapThermalNeutronScatteringLaw(py::module &);
+   void wrapThermalNeutronScatteringLaw1d(py::module &);
+   void wrapS_table(py::module &);
+   void wrapBraggEnergy(py::module &);
+   void wrapStructureFactor(py::module &);
+   void wrapBraggEdge(py::module &);
+   void wrapBraggEdges(py::module &);
+   void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &);
+   void wrapBoundAtomCrossSection(py::module &);
+   void wrapDebyeWallerIntegral(py::module &);
+   void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &);
+   void wrapE_critical(py::module &);
+   void wrapE_max(py::module &);
+   void wrapCoherentAtomCrossSection(py::module &);
+   void wrapDistinctScatteringKernel(py::module &);
+   void wrapPhononSpectrum(py::module &);
+   void wrapGaussianApproximation(py::module &);
+   void wrapSCTApproximation(py::module &);
+   void wrapFreeGasApproximation(py::module &);
+   void wrapSelfScatteringKernel(py::module &);
+   void wrapT_effective(py::module &);
+   void wrapScatteringAtom(py::module &);
+   void wrapScatteringAtoms(py::module &);
+   void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &);
 } // namespace python_tsl
 
-// tsl wrapper
-void wrapTsl(python::module &module)
+// wrapper for tsl
+void wrapTsl(py::module &module)
 {
    // create the tsl submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "tsl",
       "test v2.0 tsl"
    );

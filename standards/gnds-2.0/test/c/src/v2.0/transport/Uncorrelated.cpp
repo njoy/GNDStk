@@ -85,20 +85,20 @@ UncorrelatedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UncorrelatedAssign(ConstHandle2Uncorrelated This, ConstHandle2ConstUncorrelated from)
+UncorrelatedAssign(ConstHandle2Uncorrelated self, ConstHandle2ConstUncorrelated from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UncorrelatedDelete(ConstHandle2ConstUncorrelated This)
+UncorrelatedDelete(ConstHandle2ConstUncorrelated self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ UncorrelatedDelete(ConstHandle2ConstUncorrelated This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UncorrelatedRead(ConstHandle2Uncorrelated This, const char *const filename)
+UncorrelatedRead(ConstHandle2Uncorrelated self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UncorrelatedWrite(ConstHandle2ConstUncorrelated This, const char *const filename)
+UncorrelatedWrite(ConstHandle2ConstUncorrelated self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UncorrelatedPrint(ConstHandle2ConstUncorrelated This)
+UncorrelatedPrint(ConstHandle2ConstUncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UncorrelatedPrintXML(ConstHandle2ConstUncorrelated This)
+UncorrelatedPrintXML(ConstHandle2ConstUncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated This)
+UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ UncorrelatedPrintJSON(ConstHandle2ConstUncorrelated This)
 
 // Has
 int
-UncorrelatedLabelHas(ConstHandle2ConstUncorrelated This)
+UncorrelatedLabelHas(ConstHandle2ConstUncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-UncorrelatedLabelGet(ConstHandle2ConstUncorrelated This)
+UncorrelatedLabelGet(ConstHandle2ConstUncorrelated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-UncorrelatedLabelSet(ConstHandle2Uncorrelated This, const XMLName label)
+UncorrelatedLabelSet(ConstHandle2Uncorrelated self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -189,27 +189,27 @@ UncorrelatedLabelSet(ConstHandle2Uncorrelated This, const XMLName label)
 
 // Has
 int
-UncorrelatedProductFrameHas(ConstHandle2ConstUncorrelated This)
+UncorrelatedProductFrameHas(ConstHandle2ConstUncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 XMLName
-UncorrelatedProductFrameGet(ConstHandle2ConstUncorrelated This)
+UncorrelatedProductFrameGet(ConstHandle2ConstUncorrelated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName productFrame)
+UncorrelatedProductFrameSet(ConstHandle2Uncorrelated self, const XMLName productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -219,34 +219,34 @@ UncorrelatedProductFrameSet(ConstHandle2Uncorrelated This, const XMLName product
 
 // Has
 int
-UncorrelatedAngular_uncorrelatedHas(ConstHandle2ConstUncorrelated This)
+UncorrelatedAngular_uncorrelatedHas(ConstHandle2ConstUncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", This, extract::angular_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedHas", self, extract::angular_uncorrelated);
 }
 
 // Get, const
 Handle2ConstAngular_uncorrelated
-UncorrelatedAngular_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This)
+UncorrelatedAngular_uncorrelatedGetConst(ConstHandle2ConstUncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", This, extract::angular_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGetConst", self, extract::angular_uncorrelated);
 }
 
 // Get, non-const
 Handle2Angular_uncorrelated
-UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated This)
+UncorrelatedAngular_uncorrelatedGet(ConstHandle2Uncorrelated self)
 {
    return detail::getField<CPP,Handle2Angular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", This, extract::angular_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedGet", self, extract::angular_uncorrelated);
 }
 
 // Set
 void
-UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated)
+UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated self, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated)
 {
    detail::setField<CPP,CPPAngular_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", This, extract::angular_uncorrelated, angular_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Angular_uncorrelatedSet", self, extract::angular_uncorrelated, angular_uncorrelated);
 }
 
 
@@ -256,34 +256,34 @@ UncorrelatedAngular_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2C
 
 // Has
 int
-UncorrelatedEnergy_uncorrelatedHas(ConstHandle2ConstUncorrelated This)
+UncorrelatedEnergy_uncorrelatedHas(ConstHandle2ConstUncorrelated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedHas", This, extract::energy_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedHas", self, extract::energy_uncorrelated);
 }
 
 // Get, const
 Handle2ConstEnergy_uncorrelated
-UncorrelatedEnergy_uncorrelatedGetConst(ConstHandle2ConstUncorrelated This)
+UncorrelatedEnergy_uncorrelatedGetConst(ConstHandle2ConstUncorrelated self)
 {
    return detail::getField<CPP,Handle2ConstEnergy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGetConst", This, extract::energy_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGetConst", self, extract::energy_uncorrelated);
 }
 
 // Get, non-const
 Handle2Energy_uncorrelated
-UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated This)
+UncorrelatedEnergy_uncorrelatedGet(ConstHandle2Uncorrelated self)
 {
    return detail::getField<CPP,Handle2Energy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGet", This, extract::energy_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedGet", self, extract::energy_uncorrelated);
 }
 
 // Set
 void
-UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated This, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated)
+UncorrelatedEnergy_uncorrelatedSet(ConstHandle2Uncorrelated self, ConstHandle2ConstEnergy_uncorrelated energy_uncorrelated)
 {
    detail::setField<CPP,CPPEnergy_uncorrelated>
-      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedSet", This, extract::energy_uncorrelated, energy_uncorrelated);
+      (CLASSNAME, CLASSNAME+"Energy_uncorrelatedSet", self, extract::energy_uncorrelated, energy_uncorrelated);
 }
 
 

@@ -31,12 +31,12 @@ class URR_probabilityTables1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "URR_probabilityTables1d"; }
-   static auto FIELD() { return "URR_probabilityTables1d"; }
+   static auto NODENAME() { return "URR_probabilityTables1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -53,17 +53,52 @@ class URR_probabilityTables1d :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "_XYs2dregions2d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "_xys2dregions2d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children - variant
-   Field<_t> _XYs2dregions2d{this};
+   Field<_t>
+      _XYs2dregions2d{this};
    FieldPart<decltype(_XYs2dregions2d),containers::XYs2d> XYs2d{_XYs2dregions2d};
    FieldPart<decltype(_XYs2dregions2d),containers::Regions2d> regions2d{_XYs2dregions2d};
 
@@ -71,10 +106,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->_XYs2dregions2d)
+      this->_XYs2dregions2d \
+   )
 
    // default
    URR_probabilityTables1d() :
@@ -85,8 +123,10 @@ public:
 
    // from fields, comment excluded
    explicit URR_probabilityTables1d(
-      const wrapper<XMLName> &label,
-      const wrapper<_t> &_XYs2dregions2d = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<_t>
+         &_XYs2dregions2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -126,8 +166,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   URR_probabilityTables1d &operator=(const URR_probabilityTables1d &) = default;
-   URR_probabilityTables1d &operator=(URR_probabilityTables1d &&) = default;
+   // copy
+   URR_probabilityTables1d &operator=(const URR_probabilityTables1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         _XYs2dregions2d = other._XYs2dregions2d;
+      }
+      return *this;
+   }
+
+   // move
+   URR_probabilityTables1d &operator=(URR_probabilityTables1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         _XYs2dregions2d = std::move(other._XYs2dregions2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -30,12 +30,12 @@ class DecayMode :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "DecayMode"; }
-   static auto FIELD() { return "decayMode"; }
+   static auto NODENAME() { return "decayMode"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,38 +49,99 @@ class DecayMode :
             / Meta<>("mode") |
 
          // children
-         --Child<pops::Probability>("probability") |
-         --Child<std::optional<pops::InternalConversionCoefficients>>("internalConversionCoefficients") |
-         --Child<std::optional<pops::PhotonEmissionProbabilities>>("photonEmissionProbabilities") |
-         --Child<std::optional<pops::Q>>("Q") |
-         --Child<std::optional<pops::DecayPath>>("decayPath") |
-         --Child<std::optional<pops::Spectra>>("spectra")
+         --Child<pops::Probability>
+            ("probability") |
+         --Child<std::optional<pops::InternalConversionCoefficients>>
+            ("internalConversionCoefficients") |
+         --Child<std::optional<pops::PhotonEmissionProbabilities>>
+            ("photonEmissionProbabilities") |
+         --Child<std::optional<pops::Q>>
+            ("Q") |
+         --Child<std::optional<pops::DecayPath>>
+            ("decayPath") |
+         --Child<std::optional<pops::Spectra>>
+            ("spectra")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "mode",
+         "probability",
+         "internalConversionCoefficients",
+         "photonEmissionProbabilities",
+         "Q",
+         "decayPath",
+         "spectra"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "mode",
+         "probability",
+         "internal_conversion_coefficients",
+         "photon_emission_probabilities",
+         "q",
+         "decay_path",
+         "spectra"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<enums::DecayType> mode{this};
+   Field<XMLName>
+      label{this};
+   Field<enums::DecayType>
+      mode{this};
 
    // children
-   Field<pops::Probability> probability{this};
-   Field<std::optional<pops::InternalConversionCoefficients>> internalConversionCoefficients{this};
-   Field<std::optional<pops::PhotonEmissionProbabilities>> photonEmissionProbabilities{this};
-   Field<std::optional<pops::Q>> Q{this};
-   Field<std::optional<pops::DecayPath>> decayPath{this};
-   Field<std::optional<pops::Spectra>> spectra{this};
+   Field<pops::Probability>
+      probability{this};
+   Field<std::optional<pops::InternalConversionCoefficients>>
+      internalConversionCoefficients{this};
+   Field<std::optional<pops::PhotonEmissionProbabilities>>
+      photonEmissionProbabilities{this};
+   Field<std::optional<pops::Q>>
+      Q{this};
+   Field<std::optional<pops::DecayPath>>
+      decayPath{this};
+   Field<std::optional<pops::Spectra>>
+      spectra{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->mode, \
@@ -89,7 +150,8 @@ public:
       this->photonEmissionProbabilities, \
       this->Q, \
       this->decayPath, \
-      this->spectra)
+      this->spectra \
+   )
 
    // default
    DecayMode() :
@@ -100,14 +162,22 @@ public:
 
    // from fields, comment excluded
    explicit DecayMode(
-      const wrapper<XMLName> &label,
-      const wrapper<enums::DecayType> &mode = {},
-      const wrapper<pops::Probability> &probability = {},
-      const wrapper<std::optional<pops::InternalConversionCoefficients>> &internalConversionCoefficients = {},
-      const wrapper<std::optional<pops::PhotonEmissionProbabilities>> &photonEmissionProbabilities = {},
-      const wrapper<std::optional<pops::Q>> &Q = {},
-      const wrapper<std::optional<pops::DecayPath>> &decayPath = {},
-      const wrapper<std::optional<pops::Spectra>> &spectra = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<enums::DecayType>
+         &mode = {},
+      const wrapper<pops::Probability>
+         &probability = {},
+      const wrapper<std::optional<pops::InternalConversionCoefficients>>
+         &internalConversionCoefficients = {},
+      const wrapper<std::optional<pops::PhotonEmissionProbabilities>>
+         &photonEmissionProbabilities = {},
+      const wrapper<std::optional<pops::Q>>
+         &Q = {},
+      const wrapper<std::optional<pops::DecayPath>>
+         &decayPath = {},
+      const wrapper<std::optional<pops::Spectra>>
+         &spectra = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -165,8 +235,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayMode &operator=(const DecayMode &) = default;
-   DecayMode &operator=(DecayMode &&) = default;
+   // copy
+   DecayMode &operator=(const DecayMode &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         mode = other.mode;
+         probability = other.probability;
+         internalConversionCoefficients = other.internalConversionCoefficients;
+         photonEmissionProbabilities = other.photonEmissionProbabilities;
+         Q = other.Q;
+         decayPath = other.decayPath;
+         spectra = other.spectra;
+      }
+      return *this;
+   }
+
+   // move
+   DecayMode &operator=(DecayMode &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         mode = std::move(other.mode);
+         probability = std::move(other.probability);
+         internalConversionCoefficients = std::move(other.internalConversionCoefficients);
+         photonEmissionProbabilities = std::move(other.photonEmissionProbabilities);
+         Q = std::move(other.Q);
+         decayPath = std::move(other.decayPath);
+         spectra = std::move(other.spectra);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

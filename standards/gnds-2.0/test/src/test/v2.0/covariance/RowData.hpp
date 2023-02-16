@@ -25,12 +25,12 @@ class RowData :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "RowData"; }
-   static auto FIELD() { return "rowData"; }
+   static auto NODENAME() { return "rowData"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,34 +46,79 @@ class RowData :
             / Meta<>("dimension") |
 
          // children
-         --Child<std::optional<covariance::Slices>>("slices")
+         --Child<std::optional<covariance::Slices>>
+            ("slices")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "ENDF_MFMT",
+         "href",
+         "dimension",
+         "slices"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "endf_mfmt",
+         "href",
+         "dimension",
+         "slices"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> ENDF_MFMT{this};
-   Field<std::optional<XMLName>> href{this};
-   Field<std::optional<Integer32>> dimension{this};
+   Field<std::optional<XMLName>>
+      ENDF_MFMT{this};
+   Field<std::optional<XMLName>>
+      href{this};
+   Field<std::optional<Integer32>>
+      dimension{this};
 
    // children
-   Field<std::optional<covariance::Slices>> slices{this};
+   Field<std::optional<covariance::Slices>>
+      slices{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MFMT, \
       this->href, \
       this->dimension, \
-      this->slices)
+      this->slices \
+   )
 
    // default
    RowData() :
@@ -84,10 +129,14 @@ public:
 
    // from fields, comment excluded
    explicit RowData(
-      const wrapper<std::optional<XMLName>> &ENDF_MFMT,
-      const wrapper<std::optional<XMLName>> &href = {},
-      const wrapper<std::optional<Integer32>> &dimension = {},
-      const wrapper<std::optional<covariance::Slices>> &slices = {}
+      const wrapper<std::optional<XMLName>>
+         &ENDF_MFMT,
+      const wrapper<std::optional<XMLName>>
+         &href = {},
+      const wrapper<std::optional<Integer32>>
+         &dimension = {},
+      const wrapper<std::optional<covariance::Slices>>
+         &slices = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
@@ -133,8 +182,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   RowData &operator=(const RowData &) = default;
-   RowData &operator=(RowData &&) = default;
+   // copy
+   RowData &operator=(const RowData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MFMT = other.ENDF_MFMT;
+         href = other.href;
+         dimension = other.dimension;
+         slices = other.slices;
+      }
+      return *this;
+   }
+
+   // move
+   RowData &operator=(RowData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MFMT = std::move(other.ENDF_MFMT);
+         href = std::move(other.href);
+         dimension = std::move(other.dimension);
+         slices = std::move(other.slices);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

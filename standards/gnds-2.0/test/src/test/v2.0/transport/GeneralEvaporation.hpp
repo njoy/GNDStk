@@ -27,12 +27,12 @@ class GeneralEvaporation :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "GeneralEvaporation"; }
-   static auto FIELD() { return "generalEvaporation"; }
+   static auto NODENAME() { return "generalEvaporation"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class GeneralEvaporation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<transport::U>>("U") |
-         --Child<std::optional<transport::G>>("g") |
-         --Child<std::optional<transport::Theta>>("theta")
+         --Child<std::optional<transport::U>>
+            ("U") |
+         --Child<std::optional<transport::G>>
+            ("g") |
+         --Child<std::optional<transport::Theta>>
+            ("theta")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "U",
+         "g",
+         "theta"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "u",
+         "g",
+         "theta"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<transport::U>> U{this};
-   Field<std::optional<transport::G>> g{this};
-   Field<std::optional<transport::Theta>> theta{this};
+   Field<std::optional<transport::U>>
+      U{this};
+   Field<std::optional<transport::G>>
+      g{this};
+   Field<std::optional<transport::Theta>>
+      theta{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->U, \
       this->g, \
-      this->theta)
+      this->theta \
+   )
 
    // default
    GeneralEvaporation() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit GeneralEvaporation(
-      const wrapper<std::optional<transport::U>> &U,
-      const wrapper<std::optional<transport::G>> &g = {},
-      const wrapper<std::optional<transport::Theta>> &theta = {}
+      const wrapper<std::optional<transport::U>>
+         &U,
+      const wrapper<std::optional<transport::G>>
+         &g = {},
+      const wrapper<std::optional<transport::Theta>>
+         &theta = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       U(this,U),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   GeneralEvaporation &operator=(const GeneralEvaporation &) = default;
-   GeneralEvaporation &operator=(GeneralEvaporation &&) = default;
+   // copy
+   GeneralEvaporation &operator=(const GeneralEvaporation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         U = other.U;
+         g = other.g;
+         theta = other.theta;
+      }
+      return *this;
+   }
+
+   // move
+   GeneralEvaporation &operator=(GeneralEvaporation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         U = std::move(other.U);
+         g = std::move(other.g);
+         theta = std::move(other.theta);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

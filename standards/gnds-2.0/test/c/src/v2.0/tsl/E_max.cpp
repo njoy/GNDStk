@@ -72,20 +72,20 @@ E_maxCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-E_maxAssign(ConstHandle2E_max This, ConstHandle2ConstE_max from)
+E_maxAssign(ConstHandle2E_max self, ConstHandle2ConstE_max from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-E_maxDelete(ConstHandle2ConstE_max This)
+E_maxDelete(ConstHandle2ConstE_max self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ E_maxDelete(ConstHandle2ConstE_max This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-E_maxRead(ConstHandle2E_max This, const char *const filename)
+E_maxRead(ConstHandle2E_max self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-E_maxWrite(ConstHandle2ConstE_max This, const char *const filename)
+E_maxWrite(ConstHandle2ConstE_max self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-E_maxPrint(ConstHandle2ConstE_max This)
+E_maxPrint(ConstHandle2ConstE_max self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-E_maxPrintXML(ConstHandle2ConstE_max This)
+E_maxPrintXML(ConstHandle2ConstE_max self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-E_maxPrintJSON(ConstHandle2ConstE_max This)
+E_maxPrintJSON(ConstHandle2ConstE_max self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ E_maxPrintJSON(ConstHandle2ConstE_max This)
 
 // Has
 int
-E_maxUnitHas(ConstHandle2ConstE_max This)
+E_maxUnitHas(ConstHandle2ConstE_max self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-E_maxUnitGet(ConstHandle2ConstE_max This)
+E_maxUnitGet(ConstHandle2ConstE_max self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-E_maxUnitSet(ConstHandle2E_max This, const XMLName unit)
+E_maxUnitSet(ConstHandle2E_max self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -176,27 +176,27 @@ E_maxUnitSet(ConstHandle2E_max This, const XMLName unit)
 
 // Has
 int
-E_maxValueHas(ConstHandle2ConstE_max This)
+E_maxValueHas(ConstHandle2ConstE_max self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-E_maxValueGet(ConstHandle2ConstE_max This)
+E_maxValueGet(ConstHandle2ConstE_max self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-E_maxValueSet(ConstHandle2E_max This, const Float64 value)
+E_maxValueSet(ConstHandle2E_max self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

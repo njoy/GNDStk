@@ -25,12 +25,12 @@ class Collaborations :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Collaborations"; }
-   static auto FIELD() { return "collaborations"; }
+   static auto NODENAME() { return "collaborations"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Collaborations :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::Collaboration>("collaboration")
+         ++Child<documentation::Collaboration>
+            ("collaboration")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "collaboration"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "collaboration"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::Collaboration>> collaboration{this};
+   Field<std::vector<documentation::Collaboration>>
+      collaboration{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->collaboration)
+      this->collaboration \
+   )
 
    // default
    Collaborations() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Collaborations(
-      const wrapper<std::vector<documentation::Collaboration>> &collaboration
+      const wrapper<std::vector<documentation::Collaboration>>
+         &collaboration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       collaboration(this,collaboration)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Collaborations &operator=(const Collaborations &) = default;
-   Collaborations &operator=(Collaborations &&) = default;
+   // copy
+   Collaborations &operator=(const Collaborations &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         collaboration = other.collaboration;
+      }
+      return *this;
+   }
+
+   // move
+   Collaborations &operator=(Collaborations &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         collaboration = std::move(other.collaboration);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

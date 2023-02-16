@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Interval wrapper
-void wrapInterval(python::module &module)
+// wrapper for containers::Interval
+void wrapInterval(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Interval;
+   using cppCLASS = containers::Interval;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Interval",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Interval",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Float64 &,
-            const Float64 &,
-            const Float64 &
-         >(),
-         python::arg("confidence"),
-         python::arg("lower"),
-         python::arg("upper"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "confidence",
-         [](const Component &self) { return self.confidence(); },
-         Component::documentation("confidence").data()
-      )
-      .def_property_readonly(
-         "lower",
-         [](const Component &self) { return self.lower(); },
-         Component::documentation("lower").data()
-      )
-      .def_property_readonly(
-         "upper",
-         [](const Component &self) { return self.upper(); },
-         Component::documentation("upper").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Float64 &,
+         const Float64 &,
+         const Float64 &
+      >(),
+      py::arg("confidence"),
+      py::arg("lower"),
+      py::arg("upper"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set confidence
+   object.def_property(
+      "confidence",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.confidence();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.confidence() = value;
+      },
+      cppCLASS::component_t::documentation("confidence").data()
+   );
+
+   // get/set lower
+   object.def_property(
+      "lower",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.lower();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.lower() = value;
+      },
+      cppCLASS::component_t::documentation("lower").data()
+   );
+
+   // get/set upper
+   object.def_property(
+      "upper",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.upper();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.upper() = value;
+      },
+      cppCLASS::component_t::documentation("upper").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

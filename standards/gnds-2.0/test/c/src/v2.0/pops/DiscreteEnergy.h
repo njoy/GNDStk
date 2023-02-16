@@ -99,13 +99,13 @@ DiscreteEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DiscreteEnergyAssign(ConstHandle2DiscreteEnergy This, ConstHandle2ConstDiscreteEnergy from);
+DiscreteEnergyAssign(ConstHandle2DiscreteEnergy self, ConstHandle2ConstDiscreteEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DiscreteEnergyRead(ConstHandle2DiscreteEnergy This, const char *const filename);
+DiscreteEnergyRead(ConstHandle2DiscreteEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DiscreteEnergyWrite(ConstHandle2ConstDiscreteEnergy This, const char *const filename);
+DiscreteEnergyWrite(ConstHandle2ConstDiscreteEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DiscreteEnergyPrint(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyPrint(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DiscreteEnergyPrintXML(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyPrintXML(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy This);
 
 // +++ Has
 extern_c int
-DiscreteEnergyLabelHas(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyLabelHas(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-DiscreteEnergyLabelGet(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyLabelGet(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Set
 extern_c void
-DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy This, const XMLName label);
+DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy This, const XMLName label);
 
 // +++ Has
 extern_c int
-DiscreteEnergyValueHas(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyValueHas(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-DiscreteEnergyValueGet(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyValueGet(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Set
 extern_c void
-DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy This, const Float64 value);
+DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy This, const Float64 value);
 
 // +++ Has
 extern_c int
-DiscreteEnergyUnitHas(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyUnitHas(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-DiscreteEnergyUnitGet(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyUnitGet(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Set
 extern_c void
-DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy This, const XMLName unit);
+DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy This, const XMLName unit);
 
 // +++ Has
 extern_c int
-DiscreteEnergyDocumentationHas(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyDocumentationHas(ConstHandle2ConstDiscreteEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-DiscreteEnergyDocumentationGetConst(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyDocumentationGetConst(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-DiscreteEnergyDocumentationGet(ConstHandle2DiscreteEnergy This);
+DiscreteEnergyDocumentationGet(ConstHandle2DiscreteEnergy self);
 
 // +++ Set
 extern_c void
-DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy This, ConstHandle2ConstDocumentation documentation);
+DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy This, ConstHandle2Cons
 
 // +++ Has
 extern_c int
-DiscreteEnergyUncertaintyHas(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyUncertaintyHas(ConstHandle2ConstDiscreteEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-DiscreteEnergyUncertaintyGetConst(ConstHandle2ConstDiscreteEnergy This);
+DiscreteEnergyUncertaintyGetConst(ConstHandle2ConstDiscreteEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-DiscreteEnergyUncertaintyGet(ConstHandle2DiscreteEnergy This);
+DiscreteEnergyUncertaintyGet(ConstHandle2DiscreteEnergy self);
 
 // +++ Set
 extern_c void
-DiscreteEnergyUncertaintySet(ConstHandle2DiscreteEnergy This, ConstHandle2ConstUncertainty uncertainty);
+DiscreteEnergyUncertaintySet(ConstHandle2DiscreteEnergy self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

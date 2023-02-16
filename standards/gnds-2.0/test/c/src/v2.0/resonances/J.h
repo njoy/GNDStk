@@ -97,13 +97,13 @@ JCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-JAssign(ConstHandle2J This, ConstHandle2ConstJ from);
+JAssign(ConstHandle2J self, ConstHandle2ConstJ from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-JDelete(ConstHandle2ConstJ This);
+JDelete(ConstHandle2ConstJ self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ JDelete(ConstHandle2ConstJ This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-JRead(ConstHandle2J This, const char *const filename);
+JRead(ConstHandle2J self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-JWrite(ConstHandle2ConstJ This, const char *const filename);
+JWrite(ConstHandle2ConstJ self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-JPrint(ConstHandle2ConstJ This);
+JPrint(ConstHandle2ConstJ self);
 
 // +++ Print to standard output, as XML
 extern_c int
-JPrintXML(ConstHandle2ConstJ This);
+JPrintXML(ConstHandle2ConstJ self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-JPrintJSON(ConstHandle2ConstJ This);
+JPrintJSON(ConstHandle2ConstJ self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ JPrintJSON(ConstHandle2ConstJ This);
 
 // +++ Has
 extern_c int
-JLabelHas(ConstHandle2ConstJ This);
+JLabelHas(ConstHandle2ConstJ self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-JLabelGet(ConstHandle2ConstJ This);
+JLabelGet(ConstHandle2ConstJ self);
 
 // +++ Set
 extern_c void
-JLabelSet(ConstHandle2J This, const XMLName label);
+JLabelSet(ConstHandle2J self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ JLabelSet(ConstHandle2J This, const XMLName label);
 
 // +++ Has
 extern_c int
-JValueHas(ConstHandle2ConstJ This);
+JValueHas(ConstHandle2ConstJ self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Fraction32
-JValueGet(ConstHandle2ConstJ This);
+JValueGet(ConstHandle2ConstJ self);
 
 // +++ Set
 extern_c void
-JValueSet(ConstHandle2J This, const Fraction32 value);
+JValueSet(ConstHandle2J self, const Fraction32 value);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ JValueSet(ConstHandle2J This, const Fraction32 value);
 
 // +++ Has
 extern_c int
-JLevelSpacingHas(ConstHandle2ConstJ This);
+JLevelSpacingHas(ConstHandle2ConstJ self);
 
 // --- Get, const
 extern_c Handle2ConstLevelSpacing
-JLevelSpacingGetConst(ConstHandle2ConstJ This);
+JLevelSpacingGetConst(ConstHandle2ConstJ self);
 
 // +++ Get, non-const
 extern_c Handle2LevelSpacing
-JLevelSpacingGet(ConstHandle2J This);
+JLevelSpacingGet(ConstHandle2J self);
 
 // +++ Set
 extern_c void
-JLevelSpacingSet(ConstHandle2J This, ConstHandle2ConstLevelSpacing levelSpacing);
+JLevelSpacingSet(ConstHandle2J self, ConstHandle2ConstLevelSpacing levelSpacing);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ JLevelSpacingSet(ConstHandle2J This, ConstHandle2ConstLevelSpacing levelSpacing)
 
 // +++ Has
 extern_c int
-JWidthsHas(ConstHandle2ConstJ This);
+JWidthsHas(ConstHandle2ConstJ self);
 
 // --- Get, const
 extern_c Handle2ConstWidths
-JWidthsGetConst(ConstHandle2ConstJ This);
+JWidthsGetConst(ConstHandle2ConstJ self);
 
 // +++ Get, non-const
 extern_c Handle2Widths
-JWidthsGet(ConstHandle2J This);
+JWidthsGet(ConstHandle2J self);
 
 // +++ Set
 extern_c void
-JWidthsSet(ConstHandle2J This, ConstHandle2ConstWidths widths);
+JWidthsSet(ConstHandle2J self, ConstHandle2ConstWidths widths);
 
 
 // -----------------------------------------------------------------------------

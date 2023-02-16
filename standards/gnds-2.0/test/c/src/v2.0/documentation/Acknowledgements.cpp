@@ -73,20 +73,20 @@ AcknowledgementsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AcknowledgementsAssign(ConstHandle2Acknowledgements This, ConstHandle2ConstAcknowledgements from)
+AcknowledgementsAssign(ConstHandle2Acknowledgements self, ConstHandle2ConstAcknowledgements from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AcknowledgementsDelete(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsDelete(ConstHandle2ConstAcknowledgements self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ AcknowledgementsDelete(ConstHandle2ConstAcknowledgements This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AcknowledgementsRead(ConstHandle2Acknowledgements This, const char *const filename)
+AcknowledgementsRead(ConstHandle2Acknowledgements self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AcknowledgementsWrite(ConstHandle2ConstAcknowledgements This, const char *const filename)
+AcknowledgementsWrite(ConstHandle2ConstAcknowledgements self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AcknowledgementsPrint(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsPrint(ConstHandle2ConstAcknowledgements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AcknowledgementsPrintXML(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsPrintXML(ConstHandle2ConstAcknowledgements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements This)
 
 // Has
 int
-AcknowledgementsAcknowledgementHas(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsAcknowledgementHas(ConstHandle2ConstAcknowledgements self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AcknowledgementHas", This, extract::acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementHas", self, extract::acknowledgement);
 }
 
 // Clear
 void
-AcknowledgementsAcknowledgementClear(ConstHandle2Acknowledgements This)
+AcknowledgementsAcknowledgementClear(ConstHandle2Acknowledgements self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AcknowledgementClear", This, extract::acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementClear", self, extract::acknowledgement);
 }
 
 // Size
 size_t
-AcknowledgementsAcknowledgementSize(ConstHandle2ConstAcknowledgements This)
+AcknowledgementsAcknowledgementSize(ConstHandle2ConstAcknowledgements self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AcknowledgementSize", This, extract::acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementSize", self, extract::acknowledgement);
 }
 
 // Add
 void
-AcknowledgementsAcknowledgementAdd(ConstHandle2Acknowledgements This, ConstHandle2ConstAcknowledgement acknowledgement)
+AcknowledgementsAcknowledgementAdd(ConstHandle2Acknowledgements self, ConstHandle2ConstAcknowledgement acknowledgement)
 {
    detail::addToContainer<CPP,CPPAcknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementAdd", This, extract::acknowledgement, acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementAdd", self, extract::acknowledgement, acknowledgement);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAcknowledgement
-AcknowledgementsAcknowledgementGetConst(ConstHandle2ConstAcknowledgements This, const size_t index_)
+AcknowledgementsAcknowledgementGetConst(ConstHandle2ConstAcknowledgements self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAcknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementGetConst", This, extract::acknowledgement, index_);
+      (CLASSNAME, CLASSNAME+"AcknowledgementGetConst", self, extract::acknowledgement, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Acknowledgement
-AcknowledgementsAcknowledgementGet(ConstHandle2Acknowledgements This, const size_t index_)
+AcknowledgementsAcknowledgementGet(ConstHandle2Acknowledgements self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Acknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementGet", This, extract::acknowledgement, index_);
+      (CLASSNAME, CLASSNAME+"AcknowledgementGet", self, extract::acknowledgement, index_);
 }
 
 // Set, by index \in [0,size)
 void
 AcknowledgementsAcknowledgementSet(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const size_t index_,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByIndex<CPP,CPPAcknowledgement>
-      (CLASSNAME, CLASSNAME+"AcknowledgementSet", This, extract::acknowledgement, index_, acknowledgement);
+      (CLASSNAME, CLASSNAME+"AcknowledgementSet", self, extract::acknowledgement, index_, acknowledgement);
 }
 
 // Has, by encoding
 int
 AcknowledgementsAcknowledgementHasByEncoding(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName encoding
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AcknowledgementHasByEncoding",
-       This, extract::acknowledgement, meta::encoding, encoding);
+       self, extract::acknowledgement, meta::encoding, encoding);
 }
 
 // Get, by encoding, const
 Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByEncodingConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByEncodingConst",
-       This, extract::acknowledgement, meta::encoding, encoding);
+       self, extract::acknowledgement, meta::encoding, encoding);
 }
 
 // Get, by encoding, non-const
 Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByEncoding(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2Acknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByEncoding",
-       This, extract::acknowledgement, meta::encoding, encoding);
+       self, extract::acknowledgement, meta::encoding, encoding);
 }
 
 // Set, by encoding
 void
 AcknowledgementsAcknowledgementSetByEncoding(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName encoding,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByMetadatum<CPP,CPPAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementSetByEncoding",
-       This, extract::acknowledgement, meta::encoding, encoding, acknowledgement);
+       self, extract::acknowledgement, meta::encoding, encoding, acknowledgement);
 }
 
 // Has, by markup
 int
 AcknowledgementsAcknowledgementHasByMarkup(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const char *const markup
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AcknowledgementHasByMarkup",
-       This, extract::acknowledgement, meta::markup, markup);
+       self, extract::acknowledgement, meta::markup, markup);
 }
 
 // Get, by markup, const
 Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByMarkupConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByMarkupConst",
-       This, extract::acknowledgement, meta::markup, markup);
+       self, extract::acknowledgement, meta::markup, markup);
 }
 
 // Get, by markup, non-const
 Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByMarkup(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2Acknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByMarkup",
-       This, extract::acknowledgement, meta::markup, markup);
+       self, extract::acknowledgement, meta::markup, markup);
 }
 
 // Set, by markup
 void
 AcknowledgementsAcknowledgementSetByMarkup(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const char *const markup,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByMetadatum<CPP,CPPAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementSetByMarkup",
-       This, extract::acknowledgement, meta::markup, markup, acknowledgement);
+       self, extract::acknowledgement, meta::markup, markup, acknowledgement);
 }
 
 // Has, by label
 int
 AcknowledgementsAcknowledgementHasByLabel(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AcknowledgementHasByLabel",
-       This, extract::acknowledgement, meta::label, label);
+       self, extract::acknowledgement, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByLabelConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByLabelConst",
-       This, extract::acknowledgement, meta::label, label);
+       self, extract::acknowledgement, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByLabel(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Acknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByLabel",
-       This, extract::acknowledgement, meta::label, label);
+       self, extract::acknowledgement, meta::label, label);
 }
 
 // Set, by label
 void
 AcknowledgementsAcknowledgementSetByLabel(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName label,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByMetadatum<CPP,CPPAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementSetByLabel",
-       This, extract::acknowledgement, meta::label, label, acknowledgement);
+       self, extract::acknowledgement, meta::label, label, acknowledgement);
 }
 
 // Has, by type
 int
 AcknowledgementsAcknowledgementHasByType(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName type
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AcknowledgementHasByType",
-       This, extract::acknowledgement, meta::type, type);
+       self, extract::acknowledgement, meta::type, type);
 }
 
 // Get, by type, const
 Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByTypeConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByTypeConst",
-       This, extract::acknowledgement, meta::type, type);
+       self, extract::acknowledgement, meta::type, type);
 }
 
 // Get, by type, non-const
 Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByType(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2Acknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementGetByType",
-       This, extract::acknowledgement, meta::type, type);
+       self, extract::acknowledgement, meta::type, type);
 }
 
 // Set, by type
 void
 AcknowledgementsAcknowledgementSetByType(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName type,
    ConstHandle2ConstAcknowledgement acknowledgement
 ) {
    detail::setByMetadatum<CPP,CPPAcknowledgement>
       (CLASSNAME, CLASSNAME+"AcknowledgementSetByType",
-       This, extract::acknowledgement, meta::type, type, acknowledgement);
+       self, extract::acknowledgement, meta::type, type, acknowledgement);
 }
 
 

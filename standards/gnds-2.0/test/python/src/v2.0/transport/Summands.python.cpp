@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Summands wrapper
-void wrapSummands(python::module &module)
+// wrapper for transport::Summands
+void wrapSummands(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Summands;
+   using cppCLASS = transport::Summands;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Summands",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Summands",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<transport::Add>> &
-         >(),
-         python::arg("add") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "add",
-         [](const Component &self) { return self.add(); },
-         Component::documentation("add").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<transport::Add>> &
+      >(),
+      py::arg("add") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set add
+   object.def_property(
+      "add",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.add();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<transport::Add>> &value)
+      {
+         self.add() = value;
+      },
+      cppCLASS::component_t::documentation("add").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

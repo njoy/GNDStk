@@ -26,12 +26,12 @@ class Aliases :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Aliases"; }
-   static auto FIELD() { return "aliases"; }
+   static auto NODENAME() { return "aliases"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,29 +39,69 @@ class Aliases :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<pops::Alias>>("alias") |
-         ++Child<std::optional<pops::MetaStable>>("metaStable")
+         ++Child<std::optional<pops::Alias>>
+            ("alias") |
+         ++Child<std::optional<pops::MetaStable>>
+            ("metaStable")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "alias",
+         "metaStable"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "alias",
+         "meta_stable"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<pops::Alias>>> alias{this};
-   Field<std::optional<std::vector<pops::MetaStable>>> metaStable{this};
+   Field<std::optional<std::vector<pops::Alias>>>
+      alias{this};
+   Field<std::optional<std::vector<pops::MetaStable>>>
+      metaStable{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->alias, \
-      this->metaStable)
+      this->metaStable \
+   )
 
    // default
    Aliases() :
@@ -72,8 +112,10 @@ public:
 
    // from fields, comment excluded
    explicit Aliases(
-      const wrapper<std::optional<std::vector<pops::Alias>>> &alias,
-      const wrapper<std::optional<std::vector<pops::MetaStable>>> &metaStable = {}
+      const wrapper<std::optional<std::vector<pops::Alias>>>
+         &alias,
+      const wrapper<std::optional<std::vector<pops::MetaStable>>>
+         &metaStable = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       alias(this,alias),
@@ -113,8 +155,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Aliases &operator=(const Aliases &) = default;
-   Aliases &operator=(Aliases &&) = default;
+   // copy
+   Aliases &operator=(const Aliases &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         alias = other.alias;
+         metaStable = other.metaStable;
+      }
+      return *this;
+   }
+
+   // move
+   Aliases &operator=(Aliases &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         alias = std::move(other.alias);
+         metaStable = std::move(other.metaStable);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

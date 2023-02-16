@@ -75,20 +75,20 @@ PromptGammaEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PromptGammaEnergyAssign(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstPromptGammaEnergy from)
+PromptGammaEnergyAssign(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstPromptGammaEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PromptGammaEnergyRead(ConstHandle2PromptGammaEnergy This, const char *const filename)
+PromptGammaEnergyRead(ConstHandle2PromptGammaEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PromptGammaEnergyWrite(ConstHandle2ConstPromptGammaEnergy This, const char *const filename)
+PromptGammaEnergyWrite(ConstHandle2ConstPromptGammaEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PromptGammaEnergyPrint(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyPrint(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PromptGammaEnergyPrintXML(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyPrintXML(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy This)
 
 // Has
 int
-PromptGammaEnergyXYs1dHas(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyXYs1dHas(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy This)
+PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstXYs1d XYs1d)
+PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstX
 
 // Has
 int
-PromptGammaEnergyPolynomial1dHas(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyPolynomial1dHas(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy This)
+PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy This)
+PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstPolynomial1d polynomial1d)
+PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 

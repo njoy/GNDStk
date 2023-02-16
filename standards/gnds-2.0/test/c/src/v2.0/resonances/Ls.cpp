@@ -73,20 +73,20 @@ LsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LsAssign(ConstHandle2Ls This, ConstHandle2ConstLs from)
+LsAssign(ConstHandle2Ls self, ConstHandle2ConstLs from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LsDelete(ConstHandle2ConstLs This)
+LsDelete(ConstHandle2ConstLs self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ LsDelete(ConstHandle2ConstLs This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LsRead(ConstHandle2Ls This, const char *const filename)
+LsRead(ConstHandle2Ls self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LsWrite(ConstHandle2ConstLs This, const char *const filename)
+LsWrite(ConstHandle2ConstLs self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LsPrint(ConstHandle2ConstLs This)
+LsPrint(ConstHandle2ConstLs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LsPrintXML(ConstHandle2ConstLs This)
+LsPrintXML(ConstHandle2ConstLs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LsPrintJSON(ConstHandle2ConstLs This)
+LsPrintJSON(ConstHandle2ConstLs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ LsPrintJSON(ConstHandle2ConstLs This)
 
 // Has
 int
-LsLHas(ConstHandle2ConstLs This)
+LsLHas(ConstHandle2ConstLs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LHas", This, extract::L);
+      (CLASSNAME, CLASSNAME+"LHas", self, extract::L);
 }
 
 // Clear
 void
-LsLClear(ConstHandle2Ls This)
+LsLClear(ConstHandle2Ls self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"LClear", This, extract::L);
+      (CLASSNAME, CLASSNAME+"LClear", self, extract::L);
 }
 
 // Size
 size_t
-LsLSize(ConstHandle2ConstLs This)
+LsLSize(ConstHandle2ConstLs self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"LSize", This, extract::L);
+      (CLASSNAME, CLASSNAME+"LSize", self, extract::L);
 }
 
 // Add
 void
-LsLAdd(ConstHandle2Ls This, ConstHandle2ConstL L)
+LsLAdd(ConstHandle2Ls self, ConstHandle2ConstL L)
 {
    detail::addToContainer<CPP,CPPL>
-      (CLASSNAME, CLASSNAME+"LAdd", This, extract::L, L);
+      (CLASSNAME, CLASSNAME+"LAdd", self, extract::L, L);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstL
-LsLGetConst(ConstHandle2ConstLs This, const size_t index_)
+LsLGetConst(ConstHandle2ConstLs self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstL>
-      (CLASSNAME, CLASSNAME+"LGetConst", This, extract::L, index_);
+      (CLASSNAME, CLASSNAME+"LGetConst", self, extract::L, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2L
-LsLGet(ConstHandle2Ls This, const size_t index_)
+LsLGet(ConstHandle2Ls self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2L>
-      (CLASSNAME, CLASSNAME+"LGet", This, extract::L, index_);
+      (CLASSNAME, CLASSNAME+"LGet", self, extract::L, index_);
 }
 
 // Set, by index \in [0,size)
 void
 LsLSet(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const size_t index_,
    ConstHandle2ConstL L
 ) {
    detail::setByIndex<CPP,CPPL>
-      (CLASSNAME, CLASSNAME+"LSet", This, extract::L, index_, L);
+      (CLASSNAME, CLASSNAME+"LSet", self, extract::L, index_, L);
 }
 
 // Has, by label
 int
 LsLHasByLabel(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"LHasByLabel",
-       This, extract::L, meta::label, label);
+       self, extract::L, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstL
 LsLGetByLabelConst(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstL>
       (CLASSNAME, CLASSNAME+"LGetByLabelConst",
-       This, extract::L, meta::label, label);
+       self, extract::L, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2L
 LsLGetByLabel(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2L>
       (CLASSNAME, CLASSNAME+"LGetByLabel",
-       This, extract::L, meta::label, label);
+       self, extract::L, meta::label, label);
 }
 
 // Set, by label
 void
 LsLSetByLabel(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const XMLName label,
    ConstHandle2ConstL L
 ) {
    detail::setByMetadatum<CPP,CPPL>
       (CLASSNAME, CLASSNAME+"LSetByLabel",
-       This, extract::L, meta::label, label, L);
+       self, extract::L, meta::label, label, L);
 }
 
 // Has, by value
 int
 LsLHasByValue(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const Integer32 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"LHasByValue",
-       This, extract::L, meta::value, value);
+       self, extract::L, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstL
 LsLGetByValueConst(
-   ConstHandle2ConstLs This,
+   ConstHandle2ConstLs self,
    const Integer32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstL>
       (CLASSNAME, CLASSNAME+"LGetByValueConst",
-       This, extract::L, meta::value, value);
+       self, extract::L, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2L
 LsLGetByValue(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const Integer32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2L>
       (CLASSNAME, CLASSNAME+"LGetByValue",
-       This, extract::L, meta::value, value);
+       self, extract::L, meta::value, value);
 }
 
 // Set, by value
 void
 LsLSetByValue(
-   ConstHandle2Ls This,
+   ConstHandle2Ls self,
    const Integer32 value,
    ConstHandle2ConstL L
 ) {
    detail::setByMetadatum<CPP,CPPL>
       (CLASSNAME, CLASSNAME+"LSetByValue",
-       This, extract::L, meta::value, value, L);
+       self, extract::L, meta::value, value, L);
 }
 
 

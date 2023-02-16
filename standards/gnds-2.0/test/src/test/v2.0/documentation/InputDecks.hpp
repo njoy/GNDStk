@@ -25,12 +25,12 @@ class InputDecks :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "InputDecks"; }
-   static auto FIELD() { return "inputDecks"; }
+   static auto NODENAME() { return "inputDecks"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class InputDecks :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::InputDeck>("inputDeck")
+         ++Child<documentation::InputDeck>
+            ("inputDeck")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "inputDeck"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "input_deck"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::InputDeck>> inputDeck{this};
+   Field<std::vector<documentation::InputDeck>>
+      inputDeck{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->inputDeck)
+      this->inputDeck \
+   )
 
    // default
    InputDecks() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit InputDecks(
-      const wrapper<std::vector<documentation::InputDeck>> &inputDeck
+      const wrapper<std::vector<documentation::InputDeck>>
+         &inputDeck
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       inputDeck(this,inputDeck)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   InputDecks &operator=(const InputDecks &) = default;
-   InputDecks &operator=(InputDecks &&) = default;
+   // copy
+   InputDecks &operator=(const InputDecks &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         inputDeck = other.inputDeck;
+      }
+      return *this;
+   }
+
+   // move
+   InputDecks &operator=(InputDecks &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         inputDeck = std::move(other.inputDeck);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

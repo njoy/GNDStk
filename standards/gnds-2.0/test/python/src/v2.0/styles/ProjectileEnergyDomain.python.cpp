@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// ProjectileEnergyDomain wrapper
-void wrapProjectileEnergyDomain(python::module &module)
+// wrapper for styles::ProjectileEnergyDomain
+void wrapProjectileEnergyDomain(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::ProjectileEnergyDomain;
+   using cppCLASS = styles::ProjectileEnergyDomain;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ProjectileEnergyDomain",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ProjectileEnergyDomain",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const Float64 &,
-            const Float64 &,
-            const XMLName &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("max"),
-         python::arg("min"),
-         python::arg("unit"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "max",
-         [](const Component &self) { return self.max(); },
-         Component::documentation("max").data()
-      )
-      .def_property_readonly(
-         "min",
-         [](const Component &self) { return self.min(); },
-         Component::documentation("min").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const Float64 &,
+         const Float64 &,
+         const XMLName &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("max"),
+      py::arg("min"),
+      py::arg("unit"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set max
+   object.def_property(
+      "max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.max();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.max() = value;
+      },
+      cppCLASS::component_t::documentation("max").data()
+   );
+
+   // get/set min
+   object.def_property(
+      "min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.min();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.min() = value;
+      },
+      cppCLASS::component_t::documentation("min").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

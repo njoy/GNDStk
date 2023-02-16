@@ -91,13 +91,13 @@ ResonancesLinkCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonancesLinkAssign(ConstHandle2ResonancesLink This, ConstHandle2ConstResonancesLink from);
+ResonancesLinkAssign(ConstHandle2ResonancesLink self, ConstHandle2ConstResonancesLink from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonancesLinkDelete(ConstHandle2ConstResonancesLink This);
+ResonancesLinkDelete(ConstHandle2ConstResonancesLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ ResonancesLinkDelete(ConstHandle2ConstResonancesLink This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonancesLinkRead(ConstHandle2ResonancesLink This, const char *const filename);
+ResonancesLinkRead(ConstHandle2ResonancesLink self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonancesLinkWrite(ConstHandle2ConstResonancesLink This, const char *const filename);
+ResonancesLinkWrite(ConstHandle2ConstResonancesLink self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonancesLinkPrint(ConstHandle2ConstResonancesLink This);
+ResonancesLinkPrint(ConstHandle2ConstResonancesLink self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonancesLinkPrintXML(ConstHandle2ConstResonancesLink This);
+ResonancesLinkPrintXML(ConstHandle2ConstResonancesLink self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink This);
+ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ ResonancesLinkPrintJSON(ConstHandle2ConstResonancesLink This);
 
 // +++ Has
 extern_c int
-ResonancesLinkLabelHas(ConstHandle2ConstResonancesLink This);
+ResonancesLinkLabelHas(ConstHandle2ConstResonancesLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResonancesLinkLabelGet(ConstHandle2ConstResonancesLink This);
+ResonancesLinkLabelGet(ConstHandle2ConstResonancesLink self);
 
 // +++ Set
 extern_c void
-ResonancesLinkLabelSet(ConstHandle2ResonancesLink This, const XMLName label);
+ResonancesLinkLabelSet(ConstHandle2ResonancesLink self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ ResonancesLinkLabelSet(ConstHandle2ResonancesLink This, const XMLName label);
 
 // +++ Has
 extern_c int
-ResonancesLinkHrefHas(ConstHandle2ConstResonancesLink This);
+ResonancesLinkHrefHas(ConstHandle2ConstResonancesLink self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ResonancesLinkHrefGet(ConstHandle2ConstResonancesLink This);
+ResonancesLinkHrefGet(ConstHandle2ConstResonancesLink self);
 
 // +++ Set
 extern_c void
-ResonancesLinkHrefSet(ConstHandle2ResonancesLink This, const char *const href);
+ResonancesLinkHrefSet(ConstHandle2ResonancesLink self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

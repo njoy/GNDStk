@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// ListOfCovariances wrapper
-void wrapListOfCovariances(python::module &module)
+// wrapper for containers::ListOfCovariances
+void wrapListOfCovariances(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::ListOfCovariances;
+   using cppCLASS = containers::ListOfCovariances;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ListOfCovariances",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ListOfCovariances",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<containers::Covariance> &
-         >(),
-         python::arg("covariance"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "covariance",
-         [](const Component &self) { return self.covariance(); },
-         Component::documentation("covariance").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<containers::Covariance> &
+      >(),
+      py::arg("covariance"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set covariance
+   object.def_property(
+      "covariance",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covariance();
+      },
+      [](cppCLASS &self, const std::vector<containers::Covariance> &value)
+      {
+         self.covariance() = value;
+      },
+      cppCLASS::component_t::documentation("covariance").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

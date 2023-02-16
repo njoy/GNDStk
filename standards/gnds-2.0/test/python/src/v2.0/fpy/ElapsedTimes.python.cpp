@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// ElapsedTimes wrapper
-void wrapElapsedTimes(python::module &module)
+// wrapper for fpy::ElapsedTimes
+void wrapElapsedTimes(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::ElapsedTimes;
+   using cppCLASS = fpy::ElapsedTimes;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ElapsedTimes",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ElapsedTimes",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<fpy::ElapsedTime> &
-         >(),
-         python::arg("elapsed_time"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "elapsed_time",
-         [](const Component &self) { return self.elapsedTime(); },
-         Component::documentation("elapsed_time").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<fpy::ElapsedTime> &
+      >(),
+      py::arg("elapsed_time"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set elapsedTime
+   object.def_property(
+      "elapsed_time",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.elapsedTime();
+      },
+      [](cppCLASS &self, const std::vector<fpy::ElapsedTime> &value)
+      {
+         self.elapsedTime() = value;
+      },
+      cppCLASS::component_t::documentation("elapsed_time").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

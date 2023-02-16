@@ -93,13 +93,13 @@ IntegerCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IntegerAssign(ConstHandle2Integer This, ConstHandle2ConstInteger from);
+IntegerAssign(ConstHandle2Integer self, ConstHandle2ConstInteger from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IntegerDelete(ConstHandle2ConstInteger This);
+IntegerDelete(ConstHandle2ConstInteger self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ IntegerDelete(ConstHandle2ConstInteger This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IntegerRead(ConstHandle2Integer This, const char *const filename);
+IntegerRead(ConstHandle2Integer self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IntegerWrite(ConstHandle2ConstInteger This, const char *const filename);
+IntegerWrite(ConstHandle2ConstInteger self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IntegerPrint(ConstHandle2ConstInteger This);
+IntegerPrint(ConstHandle2ConstInteger self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IntegerPrintXML(ConstHandle2ConstInteger This);
+IntegerPrintXML(ConstHandle2ConstInteger self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IntegerPrintJSON(ConstHandle2ConstInteger This);
+IntegerPrintJSON(ConstHandle2ConstInteger self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ IntegerPrintJSON(ConstHandle2ConstInteger This);
 
 // +++ Has
 extern_c int
-IntegerLabelHas(ConstHandle2ConstInteger This);
+IntegerLabelHas(ConstHandle2ConstInteger self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IntegerLabelGet(ConstHandle2ConstInteger This);
+IntegerLabelGet(ConstHandle2ConstInteger self);
 
 // +++ Set
 extern_c void
-IntegerLabelSet(ConstHandle2Integer This, const XMLName label);
+IntegerLabelSet(ConstHandle2Integer self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ IntegerLabelSet(ConstHandle2Integer This, const XMLName label);
 
 // +++ Has
 extern_c int
-IntegerUnitHas(ConstHandle2ConstInteger This);
+IntegerUnitHas(ConstHandle2ConstInteger self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IntegerUnitGet(ConstHandle2ConstInteger This);
+IntegerUnitGet(ConstHandle2ConstInteger self);
 
 // +++ Set
 extern_c void
-IntegerUnitSet(ConstHandle2Integer This, const XMLName unit);
+IntegerUnitSet(ConstHandle2Integer self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ IntegerUnitSet(ConstHandle2Integer This, const XMLName unit);
 
 // +++ Has
 extern_c int
-IntegerValueHas(ConstHandle2ConstInteger This);
+IntegerValueHas(ConstHandle2ConstInteger self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-IntegerValueGet(ConstHandle2ConstInteger This);
+IntegerValueGet(ConstHandle2ConstInteger self);
 
 // +++ Set
 extern_c void
-IntegerValueSet(ConstHandle2Integer This, const Integer32 value);
+IntegerValueSet(ConstHandle2Integer self, const Integer32 value);
 
 
 // -----------------------------------------------------------------------------

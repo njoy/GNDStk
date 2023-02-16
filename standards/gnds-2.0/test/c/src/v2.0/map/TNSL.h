@@ -105,13 +105,13 @@ TNSLCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TNSLAssign(ConstHandle2TNSL This, ConstHandle2ConstTNSL from);
+TNSLAssign(ConstHandle2TNSL self, ConstHandle2ConstTNSL from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TNSLDelete(ConstHandle2ConstTNSL This);
+TNSLDelete(ConstHandle2ConstTNSL self);
 
 
 // -----------------------------------------------------------------------------
@@ -124,25 +124,25 @@ TNSLDelete(ConstHandle2ConstTNSL This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TNSLRead(ConstHandle2TNSL This, const char *const filename);
+TNSLRead(ConstHandle2TNSL self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TNSLWrite(ConstHandle2ConstTNSL This, const char *const filename);
+TNSLWrite(ConstHandle2ConstTNSL self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TNSLPrint(ConstHandle2ConstTNSL This);
+TNSLPrint(ConstHandle2ConstTNSL self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TNSLPrintXML(ConstHandle2ConstTNSL This);
+TNSLPrintXML(ConstHandle2ConstTNSL self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TNSLPrintJSON(ConstHandle2ConstTNSL This);
+TNSLPrintJSON(ConstHandle2ConstTNSL self);
 
 
 // -----------------------------------------------------------------------------
@@ -151,16 +151,16 @@ TNSLPrintJSON(ConstHandle2ConstTNSL This);
 
 // +++ Has
 extern_c int
-TNSLProjectileHas(ConstHandle2ConstTNSL This);
+TNSLProjectileHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLProjectileGet(ConstHandle2ConstTNSL This);
+TNSLProjectileGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLProjectileSet(ConstHandle2TNSL This, const XMLName projectile);
+TNSLProjectileSet(ConstHandle2TNSL self, const XMLName projectile);
 
 
 // -----------------------------------------------------------------------------
@@ -169,16 +169,16 @@ TNSLProjectileSet(ConstHandle2TNSL This, const XMLName projectile);
 
 // +++ Has
 extern_c int
-TNSLTargetHas(ConstHandle2ConstTNSL This);
+TNSLTargetHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLTargetGet(ConstHandle2ConstTNSL This);
+TNSLTargetGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLTargetSet(ConstHandle2TNSL This, const XMLName target);
+TNSLTargetSet(ConstHandle2TNSL self, const XMLName target);
 
 
 // -----------------------------------------------------------------------------
@@ -187,16 +187,16 @@ TNSLTargetSet(ConstHandle2TNSL This, const XMLName target);
 
 // +++ Has
 extern_c int
-TNSLEvaluationHas(ConstHandle2ConstTNSL This);
+TNSLEvaluationHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLEvaluationGet(ConstHandle2ConstTNSL This);
+TNSLEvaluationGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLEvaluationSet(ConstHandle2TNSL This, const XMLName evaluation);
+TNSLEvaluationSet(ConstHandle2TNSL self, const XMLName evaluation);
 
 
 // -----------------------------------------------------------------------------
@@ -205,16 +205,16 @@ TNSLEvaluationSet(ConstHandle2TNSL This, const XMLName evaluation);
 
 // +++ Has
 extern_c int
-TNSLPathHas(ConstHandle2ConstTNSL This);
+TNSLPathHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLPathGet(ConstHandle2ConstTNSL This);
+TNSLPathGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLPathSet(ConstHandle2TNSL This, const XMLName path);
+TNSLPathSet(ConstHandle2TNSL self, const XMLName path);
 
 
 // -----------------------------------------------------------------------------
@@ -223,16 +223,16 @@ TNSLPathSet(ConstHandle2TNSL This, const XMLName path);
 
 // +++ Has
 extern_c int
-TNSLInteractionHas(ConstHandle2ConstTNSL This);
+TNSLInteractionHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLInteractionGet(ConstHandle2ConstTNSL This);
+TNSLInteractionGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLInteractionSet(ConstHandle2TNSL This, const XMLName interaction);
+TNSLInteractionSet(ConstHandle2TNSL self, const XMLName interaction);
 
 
 // -----------------------------------------------------------------------------
@@ -241,16 +241,16 @@ TNSLInteractionSet(ConstHandle2TNSL This, const XMLName interaction);
 
 // +++ Has
 extern_c int
-TNSLChecksumHas(ConstHandle2ConstTNSL This);
+TNSLChecksumHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-TNSLChecksumGet(ConstHandle2ConstTNSL This);
+TNSLChecksumGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum);
+TNSLChecksumSet(ConstHandle2TNSL self, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -259,16 +259,16 @@ TNSLChecksumSet(ConstHandle2TNSL This, const char *const checksum);
 
 // +++ Has
 extern_c int
-TNSLAlgorithmHas(ConstHandle2ConstTNSL This);
+TNSLAlgorithmHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::HashAlgorithm
-TNSLAlgorithmGet(ConstHandle2ConstTNSL This);
+TNSLAlgorithmGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm);
+TNSLAlgorithmSet(ConstHandle2TNSL self, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------
@@ -277,16 +277,16 @@ TNSLAlgorithmSet(ConstHandle2TNSL This, const enums::HashAlgorithm algorithm);
 
 // +++ Has
 extern_c int
-TNSLStandardTargetHas(ConstHandle2ConstTNSL This);
+TNSLStandardTargetHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLStandardTargetGet(ConstHandle2ConstTNSL This);
+TNSLStandardTargetGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLStandardTargetSet(ConstHandle2TNSL This, const XMLName standardTarget);
+TNSLStandardTargetSet(ConstHandle2TNSL self, const XMLName standardTarget);
 
 
 // -----------------------------------------------------------------------------
@@ -295,16 +295,16 @@ TNSLStandardTargetSet(ConstHandle2TNSL This, const XMLName standardTarget);
 
 // +++ Has
 extern_c int
-TNSLStandardEvaluationHas(ConstHandle2ConstTNSL This);
+TNSLStandardEvaluationHas(ConstHandle2ConstTNSL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TNSLStandardEvaluationGet(ConstHandle2ConstTNSL This);
+TNSLStandardEvaluationGet(ConstHandle2ConstTNSL self);
 
 // +++ Set
 extern_c void
-TNSLStandardEvaluationSet(ConstHandle2TNSL This, const XMLName standardEvaluation);
+TNSLStandardEvaluationSet(ConstHandle2TNSL self, const XMLName standardEvaluation);
 
 
 // -----------------------------------------------------------------------------

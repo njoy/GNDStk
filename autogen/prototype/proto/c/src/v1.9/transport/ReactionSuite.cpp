@@ -99,20 +99,20 @@ ReactionSuiteCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ReactionSuiteAssign(ConstHandle2ReactionSuite This, ConstHandle2ConstReactionSuite from)
+ReactionSuiteAssign(ConstHandle2ReactionSuite self, ConstHandle2ConstReactionSuite from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ReactionSuiteDelete(ConstHandle2ConstReactionSuite This)
+ReactionSuiteDelete(ConstHandle2ConstReactionSuite self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -126,44 +126,44 @@ ReactionSuiteDelete(ConstHandle2ConstReactionSuite This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ReactionSuiteRead(ConstHandle2ReactionSuite This, const char *const filename)
+ReactionSuiteRead(ConstHandle2ReactionSuite self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ReactionSuiteWrite(ConstHandle2ConstReactionSuite This, const char *const filename)
+ReactionSuiteWrite(ConstHandle2ConstReactionSuite self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ReactionSuitePrint(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrint(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ReactionSuitePrintXML(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrintXML(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -173,27 +173,27 @@ ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This)
 
 // Has
 int
-ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationHas", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationHas", self, extract::evaluation);
 }
 
 // Get
 // Returns by value
 const char *
-ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationGet", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationGet", self, extract::evaluation);
 }
 
 // Set
 void
-ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const char *const evaluation)
+ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite self, const char *const evaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationSet", This, extract::evaluation, evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationSet", self, extract::evaluation, evaluation);
 }
 
 
@@ -203,27 +203,27 @@ ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const char *const eva
 
 // Has
 int
-ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 const char *
-ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const char *const format)
+ReactionSuiteFormatSet(ConstHandle2ReactionSuite self, const char *const format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -233,27 +233,27 @@ ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const char *const format)
 
 // Has
 int
-ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileHas", self, extract::projectile);
 }
 
 // Get
 // Returns by value
 const char *
-ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileGet", self, extract::projectile);
 }
 
 // Set
 void
-ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const char *const projectile)
+ReactionSuiteProjectileSet(ConstHandle2ReactionSuite self, const char *const projectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileSet", self, extract::projectile, projectile);
 }
 
 
@@ -263,27 +263,27 @@ ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const char *const pro
 
 // Has
 int
-ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameHas", This, extract::projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameHas", self, extract::projectileFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameGet", This, extract::projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameGet", self, extract::projectileFrame);
 }
 
 // Set
 void
-ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Frame projectileFrame)
+ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite self, const enums::Frame projectileFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameSet", This, extract::projectileFrame, projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameSet", self, extract::projectileFrame, projectileFrame);
 }
 
 
@@ -293,27 +293,27 @@ ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Fra
 
 // Has
 int
-ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetHas", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetHas", self, extract::target);
 }
 
 // Get
 // Returns by value
 const char *
-ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetGet", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetGet", self, extract::target);
 }
 
 // Set
 void
-ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const char *const target)
+ReactionSuiteTargetSet(ConstHandle2ReactionSuite self, const char *const target)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetSet", This, extract::target, target);
+      (CLASSNAME, CLASSNAME+"TargetSet", self, extract::target, target);
 }
 
 
@@ -323,27 +323,27 @@ ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const char *const target)
 
 // Has
 int
-ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionHas", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionHas", self, extract::interaction);
 }
 
 // Get
 // Returns by value
 enums::Interaction
-ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionGet", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionGet", self, extract::interaction);
 }
 
 // Set
 void
-ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interaction interaction)
+ReactionSuiteInteractionSet(ConstHandle2ReactionSuite self, const enums::Interaction interaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionSet", This, extract::interaction, interaction);
+      (CLASSNAME, CLASSNAME+"InteractionSet", self, extract::interaction, interaction);
 }
 
 
@@ -353,34 +353,34 @@ ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interac
 
 // Has
 int
-ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionsHas", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsHas", self, extract::reactions);
 }
 
 // Get, const
 Handle2ConstReactions
-ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstReactions>
-      (CLASSNAME, CLASSNAME+"ReactionsGetConst", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsGetConst", self, extract::reactions);
 }
 
 // Get, non-const
 Handle2Reactions
-ReactionSuiteReactionsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteReactionsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Reactions>
-      (CLASSNAME, CLASSNAME+"ReactionsGet", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsGet", self, extract::reactions);
 }
 
 // Set
 void
-ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReactions reactions)
+ReactionSuiteReactionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstReactions reactions)
 {
    detail::setField<CPP,CPPReactions>
-      (CLASSNAME, CLASSNAME+"ReactionsSet", This, extract::reactions, reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsSet", self, extract::reactions, reactions);
 }
 
 

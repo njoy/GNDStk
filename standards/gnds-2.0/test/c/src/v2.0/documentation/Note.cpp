@@ -77,20 +77,20 @@ NoteCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NoteAssign(ConstHandle2Note This, ConstHandle2ConstNote from)
+NoteAssign(ConstHandle2Note self, ConstHandle2ConstNote from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NoteDelete(ConstHandle2ConstNote This)
+NoteDelete(ConstHandle2ConstNote self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ NoteDelete(ConstHandle2ConstNote This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NoteRead(ConstHandle2Note This, const char *const filename)
+NoteRead(ConstHandle2Note self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NoteWrite(ConstHandle2ConstNote This, const char *const filename)
+NoteWrite(ConstHandle2ConstNote self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NotePrint(ConstHandle2ConstNote This)
+NotePrint(ConstHandle2ConstNote self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NotePrintXML(ConstHandle2ConstNote This)
+NotePrintXML(ConstHandle2ConstNote self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NotePrintJSON(ConstHandle2ConstNote This)
+NotePrintJSON(ConstHandle2ConstNote self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,60 +155,60 @@ NotePrintJSON(ConstHandle2ConstNote This)
 
 // Clear
 void
-NoteIntsClear(ConstHandle2Note This)
+NoteIntsClear(ConstHandle2Note self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-NoteIntsSize(ConstHandle2ConstNote This)
+NoteIntsSize(ConstHandle2ConstNote self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-NoteIntsGet(ConstHandle2ConstNote This, const size_t index)
+NoteIntsGet(ConstHandle2ConstNote self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NoteIntsSet(ConstHandle2Note This, const size_t index, const int value)
+NoteIntsSet(ConstHandle2Note self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-NoteIntsGetArrayConst(ConstHandle2ConstNote This)
+NoteIntsGetArrayConst(ConstHandle2ConstNote self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-NoteIntsGetArray(ConstHandle2Note This)
+NoteIntsGetArray(ConstHandle2Note self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NoteIntsSetArray(ConstHandle2Note This, const int *const values, const size_t size)
+NoteIntsSetArray(ConstHandle2Note self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -217,60 +217,60 @@ NoteIntsSetArray(ConstHandle2Note This, const int *const values, const size_t si
 
 // Clear
 void
-NoteUnsignedsClear(ConstHandle2Note This)
+NoteUnsignedsClear(ConstHandle2Note self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-NoteUnsignedsSize(ConstHandle2ConstNote This)
+NoteUnsignedsSize(ConstHandle2ConstNote self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-NoteUnsignedsGet(ConstHandle2ConstNote This, const size_t index)
+NoteUnsignedsGet(ConstHandle2ConstNote self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NoteUnsignedsSet(ConstHandle2Note This, const size_t index, const unsigned value)
+NoteUnsignedsSet(ConstHandle2Note self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-NoteUnsignedsGetArrayConst(ConstHandle2ConstNote This)
+NoteUnsignedsGetArrayConst(ConstHandle2ConstNote self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-NoteUnsignedsGetArray(ConstHandle2Note This)
+NoteUnsignedsGetArray(ConstHandle2Note self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NoteUnsignedsSetArray(ConstHandle2Note This, const unsigned *const values, const size_t size)
+NoteUnsignedsSetArray(ConstHandle2Note self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -279,60 +279,60 @@ NoteUnsignedsSetArray(ConstHandle2Note This, const unsigned *const values, const
 
 // Clear
 void
-NoteFloatsClear(ConstHandle2Note This)
+NoteFloatsClear(ConstHandle2Note self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-NoteFloatsSize(ConstHandle2ConstNote This)
+NoteFloatsSize(ConstHandle2ConstNote self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-NoteFloatsGet(ConstHandle2ConstNote This, const size_t index)
+NoteFloatsGet(ConstHandle2ConstNote self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NoteFloatsSet(ConstHandle2Note This, const size_t index, const float value)
+NoteFloatsSet(ConstHandle2Note self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-NoteFloatsGetArrayConst(ConstHandle2ConstNote This)
+NoteFloatsGetArrayConst(ConstHandle2ConstNote self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-NoteFloatsGetArray(ConstHandle2Note This)
+NoteFloatsGetArray(ConstHandle2Note self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NoteFloatsSetArray(ConstHandle2Note This, const float *const values, const size_t size)
+NoteFloatsSetArray(ConstHandle2Note self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -341,60 +341,60 @@ NoteFloatsSetArray(ConstHandle2Note This, const float *const values, const size_
 
 // Clear
 void
-NoteDoublesClear(ConstHandle2Note This)
+NoteDoublesClear(ConstHandle2Note self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-NoteDoublesSize(ConstHandle2ConstNote This)
+NoteDoublesSize(ConstHandle2ConstNote self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-NoteDoublesGet(ConstHandle2ConstNote This, const size_t index)
+NoteDoublesGet(ConstHandle2ConstNote self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NoteDoublesSet(ConstHandle2Note This, const size_t index, const double value)
+NoteDoublesSet(ConstHandle2Note self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-NoteDoublesGetArrayConst(ConstHandle2ConstNote This)
+NoteDoublesGetArrayConst(ConstHandle2ConstNote self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-NoteDoublesGetArray(ConstHandle2Note This)
+NoteDoublesGetArray(ConstHandle2Note self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-NoteDoublesSetArray(ConstHandle2Note This, const double *const values, const size_t size)
+NoteDoublesSetArray(ConstHandle2Note self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -404,27 +404,27 @@ NoteDoublesSetArray(ConstHandle2Note This, const double *const values, const siz
 
 // Has
 int
-NoteEncodingHas(ConstHandle2ConstNote This)
+NoteEncodingHas(ConstHandle2ConstNote self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-NoteEncodingGet(ConstHandle2ConstNote This)
+NoteEncodingGet(ConstHandle2ConstNote self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-NoteEncodingSet(ConstHandle2Note This, const XMLName encoding)
+NoteEncodingSet(ConstHandle2Note self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -434,27 +434,27 @@ NoteEncodingSet(ConstHandle2Note This, const XMLName encoding)
 
 // Has
 int
-NoteMarkupHas(ConstHandle2ConstNote This)
+NoteMarkupHas(ConstHandle2ConstNote self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-NoteMarkupGet(ConstHandle2ConstNote This)
+NoteMarkupGet(ConstHandle2ConstNote self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-NoteMarkupSet(ConstHandle2Note This, const char *const markup)
+NoteMarkupSet(ConstHandle2Note self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -464,27 +464,27 @@ NoteMarkupSet(ConstHandle2Note This, const char *const markup)
 
 // Has
 int
-NoteLabelHas(ConstHandle2ConstNote This)
+NoteLabelHas(ConstHandle2ConstNote self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-NoteLabelGet(ConstHandle2ConstNote This)
+NoteLabelGet(ConstHandle2ConstNote self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-NoteLabelSet(ConstHandle2Note This, const XMLName label)
+NoteLabelSet(ConstHandle2Note self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

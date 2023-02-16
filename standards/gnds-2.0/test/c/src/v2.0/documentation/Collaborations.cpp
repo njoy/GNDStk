@@ -73,20 +73,20 @@ CollaborationsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CollaborationsAssign(ConstHandle2Collaborations This, ConstHandle2ConstCollaborations from)
+CollaborationsAssign(ConstHandle2Collaborations self, ConstHandle2ConstCollaborations from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CollaborationsDelete(ConstHandle2ConstCollaborations This)
+CollaborationsDelete(ConstHandle2ConstCollaborations self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ CollaborationsDelete(ConstHandle2ConstCollaborations This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CollaborationsRead(ConstHandle2Collaborations This, const char *const filename)
+CollaborationsRead(ConstHandle2Collaborations self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CollaborationsWrite(ConstHandle2ConstCollaborations This, const char *const filename)
+CollaborationsWrite(ConstHandle2ConstCollaborations self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CollaborationsPrint(ConstHandle2ConstCollaborations This)
+CollaborationsPrint(ConstHandle2ConstCollaborations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CollaborationsPrintXML(ConstHandle2ConstCollaborations This)
+CollaborationsPrintXML(ConstHandle2ConstCollaborations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CollaborationsPrintJSON(ConstHandle2ConstCollaborations This)
+CollaborationsPrintJSON(ConstHandle2ConstCollaborations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ CollaborationsPrintJSON(ConstHandle2ConstCollaborations This)
 
 // Has
 int
-CollaborationsCollaborationHas(ConstHandle2ConstCollaborations This)
+CollaborationsCollaborationHas(ConstHandle2ConstCollaborations self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CollaborationHas", This, extract::collaboration);
+      (CLASSNAME, CLASSNAME+"CollaborationHas", self, extract::collaboration);
 }
 
 // Clear
 void
-CollaborationsCollaborationClear(ConstHandle2Collaborations This)
+CollaborationsCollaborationClear(ConstHandle2Collaborations self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CollaborationClear", This, extract::collaboration);
+      (CLASSNAME, CLASSNAME+"CollaborationClear", self, extract::collaboration);
 }
 
 // Size
 size_t
-CollaborationsCollaborationSize(ConstHandle2ConstCollaborations This)
+CollaborationsCollaborationSize(ConstHandle2ConstCollaborations self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CollaborationSize", This, extract::collaboration);
+      (CLASSNAME, CLASSNAME+"CollaborationSize", self, extract::collaboration);
 }
 
 // Add
 void
-CollaborationsCollaborationAdd(ConstHandle2Collaborations This, ConstHandle2ConstCollaboration collaboration)
+CollaborationsCollaborationAdd(ConstHandle2Collaborations self, ConstHandle2ConstCollaboration collaboration)
 {
    detail::addToContainer<CPP,CPPCollaboration>
-      (CLASSNAME, CLASSNAME+"CollaborationAdd", This, extract::collaboration, collaboration);
+      (CLASSNAME, CLASSNAME+"CollaborationAdd", self, extract::collaboration, collaboration);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstCollaboration
-CollaborationsCollaborationGetConst(ConstHandle2ConstCollaborations This, const size_t index_)
+CollaborationsCollaborationGetConst(ConstHandle2ConstCollaborations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstCollaboration>
-      (CLASSNAME, CLASSNAME+"CollaborationGetConst", This, extract::collaboration, index_);
+      (CLASSNAME, CLASSNAME+"CollaborationGetConst", self, extract::collaboration, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Collaboration
-CollaborationsCollaborationGet(ConstHandle2Collaborations This, const size_t index_)
+CollaborationsCollaborationGet(ConstHandle2Collaborations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Collaboration>
-      (CLASSNAME, CLASSNAME+"CollaborationGet", This, extract::collaboration, index_);
+      (CLASSNAME, CLASSNAME+"CollaborationGet", self, extract::collaboration, index_);
 }
 
 // Set, by index \in [0,size)
 void
 CollaborationsCollaborationSet(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const size_t index_,
    ConstHandle2ConstCollaboration collaboration
 ) {
    detail::setByIndex<CPP,CPPCollaboration>
-      (CLASSNAME, CLASSNAME+"CollaborationSet", This, extract::collaboration, index_, collaboration);
+      (CLASSNAME, CLASSNAME+"CollaborationSet", self, extract::collaboration, index_, collaboration);
 }
 
 // Has, by name
 int
 CollaborationsCollaborationHasByName(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CollaborationHasByName",
-       This, extract::collaboration, meta::name, name);
+       self, extract::collaboration, meta::name, name);
 }
 
 // Get, by name, const
 Handle2ConstCollaboration
 CollaborationsCollaborationGetByNameConst(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCollaboration>
       (CLASSNAME, CLASSNAME+"CollaborationGetByNameConst",
-       This, extract::collaboration, meta::name, name);
+       self, extract::collaboration, meta::name, name);
 }
 
 // Get, by name, non-const
 Handle2Collaboration
 CollaborationsCollaborationGetByName(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2Collaboration>
       (CLASSNAME, CLASSNAME+"CollaborationGetByName",
-       This, extract::collaboration, meta::name, name);
+       self, extract::collaboration, meta::name, name);
 }
 
 // Set, by name
 void
 CollaborationsCollaborationSetByName(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text name,
    ConstHandle2ConstCollaboration collaboration
 ) {
    detail::setByMetadatum<CPP,CPPCollaboration>
       (CLASSNAME, CLASSNAME+"CollaborationSetByName",
-       This, extract::collaboration, meta::name, name, collaboration);
+       self, extract::collaboration, meta::name, name, collaboration);
 }
 
 // Has, by href
 int
 CollaborationsCollaborationHasByHref(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CollaborationHasByHref",
-       This, extract::collaboration, meta::href, href);
+       self, extract::collaboration, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstCollaboration
 CollaborationsCollaborationGetByHrefConst(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCollaboration>
       (CLASSNAME, CLASSNAME+"CollaborationGetByHrefConst",
-       This, extract::collaboration, meta::href, href);
+       self, extract::collaboration, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2Collaboration
 CollaborationsCollaborationGetByHref(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2Collaboration>
       (CLASSNAME, CLASSNAME+"CollaborationGetByHref",
-       This, extract::collaboration, meta::href, href);
+       self, extract::collaboration, meta::href, href);
 }
 
 // Set, by href
 void
 CollaborationsCollaborationSetByHref(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text href,
    ConstHandle2ConstCollaboration collaboration
 ) {
    detail::setByMetadatum<CPP,CPPCollaboration>
       (CLASSNAME, CLASSNAME+"CollaborationSetByHref",
-       This, extract::collaboration, meta::href, href, collaboration);
+       self, extract::collaboration, meta::href, href, collaboration);
 }
 
 

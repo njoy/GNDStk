@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Products wrapper
-void wrapProducts(python::module &module)
+// wrapper for pops::Products
+void wrapProducts(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Products;
+   using cppCLASS = pops::Products;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Products",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Products",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Product> &
-         >(),
-         python::arg("product"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "product",
-         [](const Component &self) { return self.product(); },
-         Component::documentation("product").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Product> &
+      >(),
+      py::arg("product"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set product
+   object.def_property(
+      "product",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.product();
+      },
+      [](cppCLASS &self, const std::vector<pops::Product> &value)
+      {
+         self.product() = value;
+      },
+      cppCLASS::component_t::documentation("product").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

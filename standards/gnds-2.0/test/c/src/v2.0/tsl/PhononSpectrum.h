@@ -90,13 +90,13 @@ PhononSpectrumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PhononSpectrumAssign(ConstHandle2PhononSpectrum This, ConstHandle2ConstPhononSpectrum from);
+PhononSpectrumAssign(ConstHandle2PhononSpectrum self, ConstHandle2ConstPhononSpectrum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PhononSpectrumRead(ConstHandle2PhononSpectrum This, const char *const filename);
+PhononSpectrumRead(ConstHandle2PhononSpectrum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PhononSpectrumWrite(ConstHandle2ConstPhononSpectrum This, const char *const filename);
+PhononSpectrumWrite(ConstHandle2ConstPhononSpectrum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PhononSpectrumPrint(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumPrint(ConstHandle2ConstPhononSpectrum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PhononSpectrumPrintXML(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumPrintXML(ConstHandle2ConstPhononSpectrum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum This);
 
 // +++ Has
 extern_c int
-PhononSpectrumXYs1dHas(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumXYs1dHas(ConstHandle2ConstPhononSpectrum self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-PhononSpectrumXYs1dGetConst(ConstHandle2ConstPhononSpectrum This);
+PhononSpectrumXYs1dGetConst(ConstHandle2ConstPhononSpectrum self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-PhononSpectrumXYs1dGet(ConstHandle2PhononSpectrum This);
+PhononSpectrumXYs1dGet(ConstHandle2PhononSpectrum self);
 
 // +++ Set
 extern_c void
-PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum This, ConstHandle2ConstXYs1d XYs1d);
+PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// DiscreteGamma wrapper
-void wrapDiscreteGamma(python::module &module)
+// wrapper for transport::DiscreteGamma
+void wrapDiscreteGamma(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::DiscreteGamma;
+   using cppCLASS = transport::DiscreteGamma;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DiscreteGamma",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DiscreteGamma",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Float64> &,
-            const std::optional<Float64> &,
-            const std::optional<Float64> &,
-            const std::optional<containers::Axes> &
-         >(),
-         python::arg("domain_max") = std::nullopt,
-         python::arg("domain_min") = std::nullopt,
-         python::arg("value") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self) { return self.domainMax(); },
-         Component::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self) { return self.domainMin(); },
-         Component::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Float64> &,
+         const std::optional<Float64> &,
+         const std::optional<Float64> &,
+         const std::optional<containers::Axes> &
+      >(),
+      py::arg("domain_max") = std::nullopt,
+      py::arg("domain_min") = std::nullopt,
+      py::arg("value") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<containers::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

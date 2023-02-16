@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// Summand wrapper
-void wrapSummand(python::module &module)
+// wrapper for covariance::Summand
+void wrapSummand(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::Summand;
+   using cppCLASS = covariance::Summand;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Summand",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Summand",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &,
-            const std::optional<std::string> &
-         >(),
-         python::arg("endf_mfmt") = std::nullopt,
-         python::arg("coefficient") = std::nullopt,
-         python::arg("href") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mfmt",
-         [](const Component &self) { return self.ENDF_MFMT(); },
-         Component::documentation("endf_mfmt").data()
-      )
-      .def_property_readonly(
-         "coefficient",
-         [](const Component &self) { return self.coefficient(); },
-         Component::documentation("coefficient").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<Float64> &,
+         const std::optional<std::string> &
+      >(),
+      py::arg("endf_mfmt") = std::nullopt,
+      py::arg("coefficient") = std::nullopt,
+      py::arg("href") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set ENDF_MFMT
+   object.def_property(
+      "endf_mfmt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDF_MFMT();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.ENDF_MFMT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mfmt").data()
+   );
+
+   // get/set coefficient
+   object.def_property(
+      "coefficient",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.coefficient();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.coefficient() = value;
+      },
+      cppCLASS::component_t::documentation("coefficient").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

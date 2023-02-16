@@ -25,12 +25,12 @@ class Leptons :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Leptons"; }
-   static auto FIELD() { return "leptons"; }
+   static auto NODENAME() { return "leptons"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Leptons :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<pops::Lepton>("lepton")
+         ++Child<pops::Lepton>
+            ("lepton")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "lepton"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "lepton"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<pops::Lepton>> lepton{this};
+   Field<std::vector<pops::Lepton>>
+      lepton{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->lepton)
+      this->lepton \
+   )
 
    // default
    Leptons() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Leptons(
-      const wrapper<std::vector<pops::Lepton>> &lepton
+      const wrapper<std::vector<pops::Lepton>>
+         &lepton
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       lepton(this,lepton)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Leptons &operator=(const Leptons &) = default;
-   Leptons &operator=(Leptons &&) = default;
+   // copy
+   Leptons &operator=(const Leptons &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         lepton = other.lepton;
+      }
+      return *this;
+   }
+
+   // move
+   Leptons &operator=(Leptons &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         lepton = std::move(other.lepton);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

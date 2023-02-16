@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// IncidentEnergies wrapper
-void wrapIncidentEnergies(python::module &module)
+// wrapper for fpy::IncidentEnergies
+void wrapIncidentEnergies(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::IncidentEnergies;
+   using cppCLASS = fpy::IncidentEnergies;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "IncidentEnergies",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "IncidentEnergies",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<fpy::IncidentEnergy> &
-         >(),
-         python::arg("incident_energy"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "incident_energy",
-         [](const Component &self) { return self.incidentEnergy(); },
-         Component::documentation("incident_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<fpy::IncidentEnergy> &
+      >(),
+      py::arg("incident_energy"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set incidentEnergy
+   object.def_property(
+      "incident_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.incidentEnergy();
+      },
+      [](cppCLASS &self, const std::vector<fpy::IncidentEnergy> &value)
+      {
+         self.incidentEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("incident_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

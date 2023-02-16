@@ -31,12 +31,12 @@ class CovarianceMatrix :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceMatrix"; }
-   static auto FIELD() { return "covarianceMatrix"; }
+   static auto NODENAME() { return "covarianceMatrix"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -57,19 +57,60 @@ class CovarianceMatrix :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "type",
+         "_gridded2dsandwichProduct"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "type",
+         "_gridded2dsandwich_product"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<enums::Frame>> productFrame{this};
-   Field<XMLName> type{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<enums::Frame>>
+      productFrame{this};
+   Field<XMLName>
+      type{this};
 
    // children - variant
-   Field<_t> _gridded2dsandwichProduct{this};
+   Field<_t>
+      _gridded2dsandwichProduct{this};
    FieldPart<decltype(_gridded2dsandwichProduct),containers::Gridded2d> gridded2d{_gridded2dsandwichProduct};
    FieldPart<decltype(_gridded2dsandwichProduct),covariance::SandwichProduct> sandwichProduct{_gridded2dsandwichProduct};
 
@@ -77,12 +118,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
       this->type, \
-      this->_gridded2dsandwichProduct)
+      this->_gridded2dsandwichProduct \
+   )
 
    // default
    CovarianceMatrix() :
@@ -93,10 +137,14 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceMatrix(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<enums::Frame>> &productFrame = {},
-      const wrapper<XMLName> &type = {},
-      const wrapper<_t> &_gridded2dsandwichProduct = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<enums::Frame>>
+         &productFrame = {},
+      const wrapper<XMLName>
+         &type = {},
+      const wrapper<_t>
+         &_gridded2dsandwichProduct = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -142,8 +190,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceMatrix &operator=(const CovarianceMatrix &) = default;
-   CovarianceMatrix &operator=(CovarianceMatrix &&) = default;
+   // copy
+   CovarianceMatrix &operator=(const CovarianceMatrix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         type = other.type;
+         _gridded2dsandwichProduct = other._gridded2dsandwichProduct;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceMatrix &operator=(CovarianceMatrix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         type = std::move(other.type);
+         _gridded2dsandwichProduct = std::move(other._gridded2dsandwichProduct);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

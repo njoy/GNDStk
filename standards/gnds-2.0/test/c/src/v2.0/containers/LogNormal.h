@@ -90,13 +90,13 @@ LogNormalCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LogNormalAssign(ConstHandle2LogNormal This, ConstHandle2ConstLogNormal from);
+LogNormalAssign(ConstHandle2LogNormal self, ConstHandle2ConstLogNormal from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LogNormalDelete(ConstHandle2ConstLogNormal This);
+LogNormalDelete(ConstHandle2ConstLogNormal self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ LogNormalDelete(ConstHandle2ConstLogNormal This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LogNormalRead(ConstHandle2LogNormal This, const char *const filename);
+LogNormalRead(ConstHandle2LogNormal self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LogNormalWrite(ConstHandle2ConstLogNormal This, const char *const filename);
+LogNormalWrite(ConstHandle2ConstLogNormal self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LogNormalPrint(ConstHandle2ConstLogNormal This);
+LogNormalPrint(ConstHandle2ConstLogNormal self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LogNormalPrintXML(ConstHandle2ConstLogNormal This);
+LogNormalPrintXML(ConstHandle2ConstLogNormal self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LogNormalPrintJSON(ConstHandle2ConstLogNormal This);
+LogNormalPrintJSON(ConstHandle2ConstLogNormal self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ LogNormalPrintJSON(ConstHandle2ConstLogNormal This);
 
 // +++ Has
 extern_c int
-LogNormalDoubleHas(ConstHandle2ConstLogNormal This);
+LogNormalDoubleHas(ConstHandle2ConstLogNormal self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-LogNormalDoubleGetConst(ConstHandle2ConstLogNormal This);
+LogNormalDoubleGetConst(ConstHandle2ConstLogNormal self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-LogNormalDoubleGet(ConstHandle2LogNormal This);
+LogNormalDoubleGet(ConstHandle2LogNormal self);
 
 // +++ Set
 extern_c void
-LogNormalDoubleSet(ConstHandle2LogNormal This, ConstHandle2ConstDouble Double);
+LogNormalDoubleSet(ConstHandle2LogNormal self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

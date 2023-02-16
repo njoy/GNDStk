@@ -90,20 +90,20 @@ AngularDistributionReconstructedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AngularDistributionReconstructedAssign(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstAngularDistributionReconstructed from)
+AngularDistributionReconstructedAssign(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstAngularDistributionReconstructed from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionRecon
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AngularDistributionReconstructedRead(ConstHandle2AngularDistributionReconstructed This, const char *const filename)
+AngularDistributionReconstructedRead(ConstHandle2AngularDistributionReconstructed self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AngularDistributionReconstructedWrite(ConstHandle2ConstAngularDistributionReconstructed This, const char *const filename)
+AngularDistributionReconstructedWrite(ConstHandle2ConstAngularDistributionReconstructed self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AngularDistributionReconstructedPrint(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedPrint(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AngularDistributionReconstructedPrintXML(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedPrintXML(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionRe
 
 // Has
 int
-AngularDistributionReconstructedDateHas(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDateHas(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-AngularDistributionReconstructedDateGet(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDateGet(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstructed This, const char *const date)
+AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstructed self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstru
 
 // Has
 int
-AngularDistributionReconstructedLabelHas(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedLabelHas(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-AngularDistributionReconstructedLabelGet(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedLabelGet(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstructed This, const XMLName label)
+AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstructed self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -224,27 +224,27 @@ AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstr
 
 // Has
 int
-AngularDistributionReconstructedDerivedFromHas(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDerivedFromHas(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-AngularDistributionReconstructedDerivedFromGet(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDerivedFromGet(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionReconstructed This, const XMLName derivedFrom)
+AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionReconstructed self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -254,34 +254,34 @@ AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionRe
 
 // Has
 int
-AngularDistributionReconstructedTemperatureHas(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedTemperatureHas(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TemperatureHas", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureHas", self, extract::temperature);
 }
 
 // Get, const
 Handle2ConstTemperature
-AngularDistributionReconstructedTemperatureGetConst(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedTemperatureGetConst(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::getField<CPP,Handle2ConstTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGetConst", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
 // Get, non-const
 Handle2Temperature
-AngularDistributionReconstructedTemperatureGet(ConstHandle2AngularDistributionReconstructed This)
+AngularDistributionReconstructedTemperatureGet(ConstHandle2AngularDistributionReconstructed self)
 {
    return detail::getField<CPP,Handle2Temperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGet", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGet", self, extract::temperature);
 }
 
 // Set
 void
-AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstTemperature temperature)
+AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstTemperature temperature)
 {
    detail::setField<CPP,CPPTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureSet", This, extract::temperature, temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureSet", self, extract::temperature, temperature);
 }
 
 
@@ -291,34 +291,34 @@ AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionRe
 
 // Has
 int
-AngularDistributionReconstructedDocumentationHas(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDocumentationHas(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-AngularDistributionReconstructedDocumentationGetConst(ConstHandle2ConstAngularDistributionReconstructed This)
+AngularDistributionReconstructedDocumentationGetConst(ConstHandle2ConstAngularDistributionReconstructed self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-AngularDistributionReconstructedDocumentationGet(ConstHandle2AngularDistributionReconstructed This)
+AngularDistributionReconstructedDocumentationGet(ConstHandle2AngularDistributionReconstructed self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-AngularDistributionReconstructedDocumentationSet(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstDocumentation documentation)
+AngularDistributionReconstructedDocumentationSet(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

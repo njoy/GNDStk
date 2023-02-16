@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Baryon wrapper
-void wrapBaryon(python::module &module)
+// wrapper for pops::Baryon
+void wrapBaryon(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Baryon;
+   using cppCLASS = pops::Baryon;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Baryon",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Baryon",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<pops::Charge> &,
-            const std::optional<pops::Halflife> &,
-            const std::optional<pops::Mass> &,
-            const std::optional<pops::Spin> &,
-            const std::optional<pops::Parity> &,
-            const std::optional<pops::DecayData> &
-         >(),
-         python::arg("id"),
-         python::arg("charge") = std::nullopt,
-         python::arg("halflife") = std::nullopt,
-         python::arg("mass") = std::nullopt,
-         python::arg("spin") = std::nullopt,
-         python::arg("parity") = std::nullopt,
-         python::arg("decay_data") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "id",
-         [](const Component &self) { return self.id(); },
-         Component::documentation("id").data()
-      )
-      .def_property_readonly(
-         "charge",
-         [](const Component &self) { return self.charge(); },
-         Component::documentation("charge").data()
-      )
-      .def_property_readonly(
-         "halflife",
-         [](const Component &self) { return self.halflife(); },
-         Component::documentation("halflife").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self) { return self.mass(); },
-         Component::documentation("mass").data()
-      )
-      .def_property_readonly(
-         "spin",
-         [](const Component &self) { return self.spin(); },
-         Component::documentation("spin").data()
-      )
-      .def_property_readonly(
-         "parity",
-         [](const Component &self) { return self.parity(); },
-         Component::documentation("parity").data()
-      )
-      .def_property_readonly(
-         "decay_data",
-         [](const Component &self) { return self.decayData(); },
-         Component::documentation("decay_data").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<pops::Charge> &,
+         const std::optional<pops::Halflife> &,
+         const std::optional<pops::Mass> &,
+         const std::optional<pops::Spin> &,
+         const std::optional<pops::Parity> &,
+         const std::optional<pops::DecayData> &
+      >(),
+      py::arg("id"),
+      py::arg("charge") = std::nullopt,
+      py::arg("halflife") = std::nullopt,
+      py::arg("mass") = std::nullopt,
+      py::arg("spin") = std::nullopt,
+      py::arg("parity") = std::nullopt,
+      py::arg("decay_data") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set id
+   object.def_property(
+      "id",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.id();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.id() = value;
+      },
+      cppCLASS::component_t::documentation("id").data()
+   );
+
+   // get/set charge
+   object.def_property(
+      "charge",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.charge();
+      },
+      [](cppCLASS &self, const std::optional<pops::Charge> &value)
+      {
+         self.charge() = value;
+      },
+      cppCLASS::component_t::documentation("charge").data()
+   );
+
+   // get/set halflife
+   object.def_property(
+      "halflife",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.halflife();
+      },
+      [](cppCLASS &self, const std::optional<pops::Halflife> &value)
+      {
+         self.halflife() = value;
+      },
+      cppCLASS::component_t::documentation("halflife").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const std::optional<pops::Mass> &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // get/set spin
+   object.def_property(
+      "spin",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.spin();
+      },
+      [](cppCLASS &self, const std::optional<pops::Spin> &value)
+      {
+         self.spin() = value;
+      },
+      cppCLASS::component_t::documentation("spin").data()
+   );
+
+   // get/set parity
+   object.def_property(
+      "parity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parity();
+      },
+      [](cppCLASS &self, const std::optional<pops::Parity> &value)
+      {
+         self.parity() = value;
+      },
+      cppCLASS::component_t::documentation("parity").data()
+   );
+
+   // get/set decayData
+   object.def_property(
+      "decay_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decayData();
+      },
+      [](cppCLASS &self, const std::optional<pops::DecayData> &value)
+      {
+         self.decayData() = value;
+      },
+      cppCLASS::component_t::documentation("decay_data").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

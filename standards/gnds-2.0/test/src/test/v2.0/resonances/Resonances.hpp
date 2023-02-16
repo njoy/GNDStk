@@ -28,12 +28,12 @@ class Resonances :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Resonances"; }
-   static auto FIELD() { return "resonances"; }
+   static auto NODENAME() { return "resonances"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,39 +45,90 @@ class Resonances :
             / Meta<>("href") |
 
          // children
-         --Child<resonances::ScatteringRadius>("scatteringRadius") |
-         --Child<std::optional<resonances::HardSphereRadius>>("hardSphereRadius") |
-         ++Child<std::optional<resonances::Resolved>>("resolved") |
-         ++Child<std::optional<resonances::Unresolved>>("unresolved")
+         --Child<resonances::ScatteringRadius>
+            ("scatteringRadius") |
+         --Child<std::optional<resonances::HardSphereRadius>>
+            ("hardSphereRadius") |
+         ++Child<std::optional<resonances::Resolved>>
+            ("resolved") |
+         ++Child<std::optional<resonances::Unresolved>>
+            ("unresolved")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "scatteringRadius",
+         "hardSphereRadius",
+         "resolved",
+         "unresolved"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "scattering_radius",
+         "hard_sphere_radius",
+         "resolved",
+         "unresolved"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> href{this};
+   Field<std::optional<XMLName>>
+      href{this};
 
    // children
-   Field<resonances::ScatteringRadius> scatteringRadius{this};
-   Field<std::optional<resonances::HardSphereRadius>> hardSphereRadius{this};
-   Field<std::optional<std::vector<resonances::Resolved>>> resolved{this};
-   Field<std::optional<std::vector<resonances::Unresolved>>> unresolved{this};
+   Field<resonances::ScatteringRadius>
+      scatteringRadius{this};
+   Field<std::optional<resonances::HardSphereRadius>>
+      hardSphereRadius{this};
+   Field<std::optional<std::vector<resonances::Resolved>>>
+      resolved{this};
+   Field<std::optional<std::vector<resonances::Unresolved>>>
+      unresolved{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->scatteringRadius, \
       this->hardSphereRadius, \
       this->resolved, \
-      this->unresolved)
+      this->unresolved \
+   )
 
    // default
    Resonances() :
@@ -88,11 +139,16 @@ public:
 
    // from fields, comment excluded
    explicit Resonances(
-      const wrapper<std::optional<XMLName>> &href,
-      const wrapper<resonances::ScatteringRadius> &scatteringRadius = {},
-      const wrapper<std::optional<resonances::HardSphereRadius>> &hardSphereRadius = {},
-      const wrapper<std::optional<std::vector<resonances::Resolved>>> &resolved = {},
-      const wrapper<std::optional<std::vector<resonances::Unresolved>>> &unresolved = {}
+      const wrapper<std::optional<XMLName>>
+         &href,
+      const wrapper<resonances::ScatteringRadius>
+         &scatteringRadius = {},
+      const wrapper<std::optional<resonances::HardSphereRadius>>
+         &hardSphereRadius = {},
+      const wrapper<std::optional<std::vector<resonances::Resolved>>>
+         &resolved = {},
+      const wrapper<std::optional<std::vector<resonances::Unresolved>>>
+         &unresolved = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -141,8 +197,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Resonances &operator=(const Resonances &) = default;
-   Resonances &operator=(Resonances &&) = default;
+   // copy
+   Resonances &operator=(const Resonances &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         scatteringRadius = other.scatteringRadius;
+         hardSphereRadius = other.hardSphereRadius;
+         resolved = other.resolved;
+         unresolved = other.unresolved;
+      }
+      return *this;
+   }
+
+   // move
+   Resonances &operator=(Resonances &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         scatteringRadius = std::move(other.scatteringRadius);
+         hardSphereRadius = std::move(other.hardSphereRadius);
+         resolved = std::move(other.resolved);
+         unresolved = std::move(other.unresolved);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

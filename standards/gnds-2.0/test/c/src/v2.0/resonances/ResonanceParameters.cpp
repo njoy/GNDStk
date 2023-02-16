@@ -69,20 +69,20 @@ ResonanceParametersCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResonanceParametersAssign(ConstHandle2ResonanceParameters This, ConstHandle2ConstResonanceParameters from)
+ResonanceParametersAssign(ConstHandle2ResonanceParameters self, ConstHandle2ConstResonanceParameters from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResonanceParametersDelete(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersDelete(ConstHandle2ConstResonanceParameters self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ResonanceParametersDelete(ConstHandle2ConstResonanceParameters This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResonanceParametersRead(ConstHandle2ResonanceParameters This, const char *const filename)
+ResonanceParametersRead(ConstHandle2ResonanceParameters self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResonanceParametersWrite(ConstHandle2ConstResonanceParameters This, const char *const filename)
+ResonanceParametersWrite(ConstHandle2ConstResonanceParameters self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResonanceParametersPrint(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersPrint(ConstHandle2ConstResonanceParameters self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResonanceParametersPrintXML(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersPrintXML(ConstHandle2ConstResonanceParameters self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters This)
 
 // Has
 int
-ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TableHas", This, extract::table);
+      (CLASSNAME, CLASSNAME+"TableHas", self, extract::table);
 }
 
 // Get, const
 Handle2ConstTable
-ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters This)
+ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self)
 {
    return detail::getField<CPP,Handle2ConstTable>
-      (CLASSNAME, CLASSNAME+"TableGetConst", This, extract::table);
+      (CLASSNAME, CLASSNAME+"TableGetConst", self, extract::table);
 }
 
 // Get, non-const
 Handle2Table
-ResonanceParametersTableGet(ConstHandle2ResonanceParameters This)
+ResonanceParametersTableGet(ConstHandle2ResonanceParameters self)
 {
    return detail::getField<CPP,Handle2Table>
-      (CLASSNAME, CLASSNAME+"TableGet", This, extract::table);
+      (CLASSNAME, CLASSNAME+"TableGet", self, extract::table);
 }
 
 // Set
 void
-ResonanceParametersTableSet(ConstHandle2ResonanceParameters This, ConstHandle2ConstTable table)
+ResonanceParametersTableSet(ConstHandle2ResonanceParameters self, ConstHandle2ConstTable table)
 {
    detail::setField<CPP,CPPTable>
-      (CLASSNAME, CLASSNAME+"TableSet", This, extract::table, table);
+      (CLASSNAME, CLASSNAME+"TableSet", self, extract::table, table);
 }
 
 

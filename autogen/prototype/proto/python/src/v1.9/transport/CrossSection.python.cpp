@@ -11,49 +11,54 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_transport {
 
-// CrossSection wrapper
-void wrapCrossSection(python::module &module)
+// wrapper for transport::CrossSection
+void wrapCrossSection(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = transport::CrossSection;
+   using cppCLASS = transport::CrossSection;
    using XYs1d_regions1d_t = std::variant<
       containers::XYs1d,
       containers::Regions1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CrossSection",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CrossSection",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<XYs1d_regions1d_t> &
-         >(),
-         python::arg("xys1d_regions1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d_regions1d",
-         [](const Component &self) { return self.XYs1d_regions1d(); },
-         Component::documentation("xys1d_regions1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<XYs1d_regions1d_t> &
+      >(),
+      py::arg("xys1d_regions1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "xys1d_regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d_regions1d();
+      },
+      [](cppCLASS &self, const std::vector<XYs1d_regions1d_t> &value)
+      {
+         self.XYs1d_regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d_regions1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

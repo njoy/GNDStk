@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// MultiplicitySum wrapper
-void wrapMultiplicitySum(python::module &module)
+// wrapper for transport::MultiplicitySum
+void wrapMultiplicitySum(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::MultiplicitySum;
+   using cppCLASS = transport::MultiplicitySum;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "MultiplicitySum",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "MultiplicitySum",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Integer32> &,
-            const XMLName &,
-            const transport::Multiplicity &,
-            const transport::Summands &
-         >(),
-         python::arg("endf_mt") = std::nullopt,
-         python::arg("label"),
-         python::arg("multiplicity"),
-         python::arg("summands"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
-         Component::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "multiplicity",
-         [](const Component &self) { return self.multiplicity(); },
-         Component::documentation("multiplicity").data()
-      )
-      .def_property_readonly(
-         "summands",
-         [](const Component &self) { return self.summands(); },
-         Component::documentation("summands").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Integer32> &,
+         const XMLName &,
+         const transport::Multiplicity &,
+         const transport::Summands &
+      >(),
+      py::arg("endf_mt") = std::nullopt,
+      py::arg("label"),
+      py::arg("multiplicity"),
+      py::arg("summands"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const std::optional<Integer32> &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set multiplicity
+   object.def_property(
+      "multiplicity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.multiplicity();
+      },
+      [](cppCLASS &self, const transport::Multiplicity &value)
+      {
+         self.multiplicity() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity").data()
+   );
+
+   // get/set summands
+   object.def_property(
+      "summands",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.summands();
+      },
+      [](cppCLASS &self, const transport::Summands &value)
+      {
+         self.summands() = value;
+      },
+      cppCLASS::component_t::documentation("summands").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

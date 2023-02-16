@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Author wrapper
-void wrapAuthor(python::module &module)
+// wrapper for documentation::Author
+void wrapAuthor(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Author;
+   using cppCLASS = documentation::Author;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Author",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Author",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const UTF8Text &,
-            const std::optional<UTF8Text> &,
-            const std::optional<UTF8Text> &,
-            const std::optional<documentation::Affiliations> &,
-            const std::optional<documentation::Note> &
-         >(),
-         python::arg("name"),
-         python::arg("orcid") = std::nullopt,
-         python::arg("email") = std::nullopt,
-         python::arg("affiliations") = std::nullopt,
-         python::arg("note") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "orcid",
-         [](const Component &self) { return self.orcid(); },
-         Component::documentation("orcid").data()
-      )
-      .def_property_readonly(
-         "email",
-         [](const Component &self) { return self.email(); },
-         Component::documentation("email").data()
-      )
-      .def_property_readonly(
-         "affiliations",
-         [](const Component &self) { return self.affiliations(); },
-         Component::documentation("affiliations").data()
-      )
-      .def_property_readonly(
-         "note",
-         [](const Component &self) { return self.note(); },
-         Component::documentation("note").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const UTF8Text &,
+         const std::optional<UTF8Text> &,
+         const std::optional<UTF8Text> &,
+         const std::optional<documentation::Affiliations> &,
+         const std::optional<documentation::Note> &
+      >(),
+      py::arg("name"),
+      py::arg("orcid") = std::nullopt,
+      py::arg("email") = std::nullopt,
+      py::arg("affiliations") = std::nullopt,
+      py::arg("note") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const UTF8Text &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set orcid
+   object.def_property(
+      "orcid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.orcid();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.orcid() = value;
+      },
+      cppCLASS::component_t::documentation("orcid").data()
+   );
+
+   // get/set email
+   object.def_property(
+      "email",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.email();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.email() = value;
+      },
+      cppCLASS::component_t::documentation("email").data()
+   );
+
+   // get/set affiliations
+   object.def_property(
+      "affiliations",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.affiliations();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Affiliations> &value)
+      {
+         self.affiliations() = value;
+      },
+      cppCLASS::component_t::documentation("affiliations").data()
+   );
+
+   // get/set note
+   object.def_property(
+      "note",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.note();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Note> &value)
+      {
+         self.note() = value;
+      },
+      cppCLASS::component_t::documentation("note").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

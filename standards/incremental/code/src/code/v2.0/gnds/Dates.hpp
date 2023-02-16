@@ -25,12 +25,12 @@ class Dates :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Dates"; }
-   static auto FIELD() { return "dates"; }
+   static auto NODENAME() { return "dates"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Dates :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<gnds::Date>("date")
+         ++Child<gnds::Date>
+            ("date")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<gnds::Date>> date{this};
+   Field<std::vector<gnds::Date>>
+      date{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->date)
+      this->date \
+   )
 
    // default
    Dates() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Dates(
-      const wrapper<std::vector<gnds::Date>> &date
+      const wrapper<std::vector<gnds::Date>>
+         &date
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Dates &operator=(const Dates &) = default;
-   Dates &operator=(Dates &&) = default;
+   // copy
+   Dates &operator=(const Dates &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         date = other.date;
+      }
+      return *this;
+   }
+
+   // move
+   Dates &operator=(Dates &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         date = std::move(other.date);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

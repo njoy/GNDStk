@@ -90,20 +90,20 @@ PoPsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PoPsAssign(ConstHandle2PoPs This, ConstHandle2ConstPoPs from)
+PoPsAssign(ConstHandle2PoPs self, ConstHandle2ConstPoPs from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PoPsDelete(ConstHandle2ConstPoPs This)
+PoPsDelete(ConstHandle2ConstPoPs self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ PoPsDelete(ConstHandle2ConstPoPs This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PoPsRead(ConstHandle2PoPs This, const char *const filename)
+PoPsRead(ConstHandle2PoPs self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PoPsWrite(ConstHandle2ConstPoPs This, const char *const filename)
+PoPsWrite(ConstHandle2ConstPoPs self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PoPsPrint(ConstHandle2ConstPoPs This)
+PoPsPrint(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PoPsPrintXML(ConstHandle2ConstPoPs This)
+PoPsPrintXML(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PoPsPrintJSON(ConstHandle2ConstPoPs This)
+PoPsPrintJSON(ConstHandle2ConstPoPs self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ PoPsPrintJSON(ConstHandle2ConstPoPs This)
 
 // Has
 int
-PoPsNameHas(ConstHandle2ConstPoPs This)
+PoPsNameHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsNameGet(ConstHandle2ConstPoPs This)
+PoPsNameGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-PoPsNameSet(ConstHandle2PoPs This, const char *const name)
+PoPsNameSet(ConstHandle2PoPs self, const char *const name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -194,27 +194,27 @@ PoPsNameSet(ConstHandle2PoPs This, const char *const name)
 
 // Has
 int
-PoPsVersionHas(ConstHandle2ConstPoPs This)
+PoPsVersionHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionHas", self, extract::version);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsVersionGet(ConstHandle2ConstPoPs This)
+PoPsVersionGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionGet", self, extract::version);
 }
 
 // Set
 void
-PoPsVersionSet(ConstHandle2PoPs This, const char *const version)
+PoPsVersionSet(ConstHandle2PoPs self, const char *const version)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"VersionSet", self, extract::version, version);
 }
 
 
@@ -224,27 +224,27 @@ PoPsVersionSet(ConstHandle2PoPs This, const char *const version)
 
 // Has
 int
-PoPsFormatHas(ConstHandle2ConstPoPs This)
+PoPsFormatHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 const char *
-PoPsFormatGet(ConstHandle2ConstPoPs This)
+PoPsFormatGet(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-PoPsFormatSet(ConstHandle2PoPs This, const char *const format)
+PoPsFormatSet(ConstHandle2PoPs self, const char *const format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -254,34 +254,34 @@ PoPsFormatSet(ConstHandle2PoPs This, const char *const format)
 
 // Has
 int
-PoPsStylesHas(ConstHandle2ConstPoPs This)
+PoPsStylesHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesHas", self, extract::styles);
 }
 
 // Get, const
 Handle2ConstStyles
-PoPsStylesGetConst(ConstHandle2ConstPoPs This)
+PoPsStylesGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstStyles>
-      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
 // Get, non-const
 Handle2Styles
-PoPsStylesGet(ConstHandle2PoPs This)
+PoPsStylesGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2Styles>
-      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGet", self, extract::styles);
 }
 
 // Set
 void
-PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
+PoPsStylesSet(ConstHandle2PoPs self, ConstHandle2ConstStyles styles)
 {
    detail::setField<CPP,CPPStyles>
-      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
+      (CLASSNAME, CLASSNAME+"StylesSet", self, extract::styles, styles);
 }
 
 
@@ -291,34 +291,34 @@ PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles)
 
 // Has
 int
-PoPsChemicalElementsHas(ConstHandle2ConstPoPs This)
+PoPsChemicalElementsHas(ConstHandle2ConstPoPs self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsHas", self, extract::chemicalElements);
 }
 
 // Get, const
 Handle2ConstChemicalElements
-PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This)
+PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs self)
 {
    return detail::getField<CPP,Handle2ConstChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", self, extract::chemicalElements);
 }
 
 // Get, non-const
 Handle2ChemicalElements
-PoPsChemicalElementsGet(ConstHandle2PoPs This)
+PoPsChemicalElementsGet(ConstHandle2PoPs self)
 {
    return detail::getField<CPP,Handle2ChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", This, extract::chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsGet", self, extract::chemicalElements);
 }
 
 // Set
 void
-PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements)
+PoPsChemicalElementsSet(ConstHandle2PoPs self, ConstHandle2ConstChemicalElements chemicalElements)
 {
    detail::setField<CPP,CPPChemicalElements>
-      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", This, extract::chemicalElements, chemicalElements);
+      (CLASSNAME, CLASSNAME+"ChemicalElementsSet", self, extract::chemicalElements, chemicalElements);
 }
 
 

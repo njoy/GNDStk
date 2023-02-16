@@ -85,13 +85,13 @@ IncoherentPhotonCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IncoherentPhotonAssign(ConstHandle2IncoherentPhoton This, ConstHandle2ConstIncoherentPhoton from);
+IncoherentPhotonAssign(ConstHandle2IncoherentPhoton self, ConstHandle2ConstIncoherentPhoton from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IncoherentPhotonDelete(ConstHandle2ConstIncoherentPhoton This);
+IncoherentPhotonDelete(ConstHandle2ConstIncoherentPhoton self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ IncoherentPhotonDelete(ConstHandle2ConstIncoherentPhoton This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IncoherentPhotonRead(ConstHandle2IncoherentPhoton This, const char *const filename);
+IncoherentPhotonRead(ConstHandle2IncoherentPhoton self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IncoherentPhotonWrite(ConstHandle2ConstIncoherentPhoton This, const char *const filename);
+IncoherentPhotonWrite(ConstHandle2ConstIncoherentPhoton self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IncoherentPhotonPrint(ConstHandle2ConstIncoherentPhoton This);
+IncoherentPhotonPrint(ConstHandle2ConstIncoherentPhoton self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IncoherentPhotonPrintXML(ConstHandle2ConstIncoherentPhoton This);
+IncoherentPhotonPrintXML(ConstHandle2ConstIncoherentPhoton self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IncoherentPhotonPrintJSON(ConstHandle2ConstIncoherentPhoton This);
+IncoherentPhotonPrintJSON(ConstHandle2ConstIncoherentPhoton self);
 
 
 // -----------------------------------------------------------------------------

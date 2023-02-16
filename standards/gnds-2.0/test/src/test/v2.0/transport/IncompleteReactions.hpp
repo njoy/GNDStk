@@ -25,12 +25,12 @@ class IncompleteReactions :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "IncompleteReactions"; }
-   static auto FIELD() { return "incompleteReactions"; }
+   static auto NODENAME() { return "incompleteReactions"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class IncompleteReactions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<transport::Reaction>>("reaction")
+         --Child<std::optional<transport::Reaction>>
+            ("reaction")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "reaction"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "reaction"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<transport::Reaction>> reaction{this};
+   Field<std::optional<transport::Reaction>>
+      reaction{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->reaction)
+      this->reaction \
+   )
 
    // default
    IncompleteReactions() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit IncompleteReactions(
-      const wrapper<std::optional<transport::Reaction>> &reaction
+      const wrapper<std::optional<transport::Reaction>>
+         &reaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       reaction(this,reaction)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncompleteReactions &operator=(const IncompleteReactions &) = default;
-   IncompleteReactions &operator=(IncompleteReactions &&) = default;
+   // copy
+   IncompleteReactions &operator=(const IncompleteReactions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         reaction = other.reaction;
+      }
+      return *this;
+   }
+
+   // move
+   IncompleteReactions &operator=(IncompleteReactions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         reaction = std::move(other.reaction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

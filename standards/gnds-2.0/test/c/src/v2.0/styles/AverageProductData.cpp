@@ -90,20 +90,20 @@ AverageProductDataCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AverageProductDataAssign(ConstHandle2AverageProductData This, ConstHandle2ConstAverageProductData from)
+AverageProductDataAssign(ConstHandle2AverageProductData self, ConstHandle2ConstAverageProductData from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AverageProductDataDelete(ConstHandle2ConstAverageProductData This)
+AverageProductDataDelete(ConstHandle2ConstAverageProductData self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ AverageProductDataDelete(ConstHandle2ConstAverageProductData This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AverageProductDataRead(ConstHandle2AverageProductData This, const char *const filename)
+AverageProductDataRead(ConstHandle2AverageProductData self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AverageProductDataWrite(ConstHandle2ConstAverageProductData This, const char *const filename)
+AverageProductDataWrite(ConstHandle2ConstAverageProductData self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AverageProductDataPrint(ConstHandle2ConstAverageProductData This)
+AverageProductDataPrint(ConstHandle2ConstAverageProductData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AverageProductDataPrintXML(ConstHandle2ConstAverageProductData This)
+AverageProductDataPrintXML(ConstHandle2ConstAverageProductData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData This)
+AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData This)
 
 // Has
 int
-AverageProductDataDateHas(ConstHandle2ConstAverageProductData This)
+AverageProductDataDateHas(ConstHandle2ConstAverageProductData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-AverageProductDataDateGet(ConstHandle2ConstAverageProductData This)
+AverageProductDataDateGet(ConstHandle2ConstAverageProductData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-AverageProductDataDateSet(ConstHandle2AverageProductData This, const char *const date)
+AverageProductDataDateSet(ConstHandle2AverageProductData self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ AverageProductDataDateSet(ConstHandle2AverageProductData This, const char *const
 
 // Has
 int
-AverageProductDataLabelHas(ConstHandle2ConstAverageProductData This)
+AverageProductDataLabelHas(ConstHandle2ConstAverageProductData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-AverageProductDataLabelGet(ConstHandle2ConstAverageProductData This)
+AverageProductDataLabelGet(ConstHandle2ConstAverageProductData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-AverageProductDataLabelSet(ConstHandle2AverageProductData This, const XMLName label)
+AverageProductDataLabelSet(ConstHandle2AverageProductData self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -224,27 +224,27 @@ AverageProductDataLabelSet(ConstHandle2AverageProductData This, const XMLName la
 
 // Has
 int
-AverageProductDataDerivedFromHas(ConstHandle2ConstAverageProductData This)
+AverageProductDataDerivedFromHas(ConstHandle2ConstAverageProductData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-AverageProductDataDerivedFromGet(ConstHandle2ConstAverageProductData This)
+AverageProductDataDerivedFromGet(ConstHandle2ConstAverageProductData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-AverageProductDataDerivedFromSet(ConstHandle2AverageProductData This, const XMLName derivedFrom)
+AverageProductDataDerivedFromSet(ConstHandle2AverageProductData self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -254,34 +254,34 @@ AverageProductDataDerivedFromSet(ConstHandle2AverageProductData This, const XMLN
 
 // Has
 int
-AverageProductDataTemperatureHas(ConstHandle2ConstAverageProductData This)
+AverageProductDataTemperatureHas(ConstHandle2ConstAverageProductData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TemperatureHas", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureHas", self, extract::temperature);
 }
 
 // Get, const
 Handle2ConstTemperature
-AverageProductDataTemperatureGetConst(ConstHandle2ConstAverageProductData This)
+AverageProductDataTemperatureGetConst(ConstHandle2ConstAverageProductData self)
 {
    return detail::getField<CPP,Handle2ConstTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGetConst", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
 // Get, non-const
 Handle2Temperature
-AverageProductDataTemperatureGet(ConstHandle2AverageProductData This)
+AverageProductDataTemperatureGet(ConstHandle2AverageProductData self)
 {
    return detail::getField<CPP,Handle2Temperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGet", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGet", self, extract::temperature);
 }
 
 // Set
 void
-AverageProductDataTemperatureSet(ConstHandle2AverageProductData This, ConstHandle2ConstTemperature temperature)
+AverageProductDataTemperatureSet(ConstHandle2AverageProductData self, ConstHandle2ConstTemperature temperature)
 {
    detail::setField<CPP,CPPTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureSet", This, extract::temperature, temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureSet", self, extract::temperature, temperature);
 }
 
 
@@ -291,34 +291,34 @@ AverageProductDataTemperatureSet(ConstHandle2AverageProductData This, ConstHandl
 
 // Has
 int
-AverageProductDataDocumentationHas(ConstHandle2ConstAverageProductData This)
+AverageProductDataDocumentationHas(ConstHandle2ConstAverageProductData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-AverageProductDataDocumentationGetConst(ConstHandle2ConstAverageProductData This)
+AverageProductDataDocumentationGetConst(ConstHandle2ConstAverageProductData self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-AverageProductDataDocumentationGet(ConstHandle2AverageProductData This)
+AverageProductDataDocumentationGet(ConstHandle2AverageProductData self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-AverageProductDataDocumentationSet(ConstHandle2AverageProductData This, ConstHandle2ConstDocumentation documentation)
+AverageProductDataDocumentationSet(ConstHandle2AverageProductData self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

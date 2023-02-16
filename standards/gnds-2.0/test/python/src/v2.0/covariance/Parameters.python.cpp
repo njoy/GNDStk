@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// Parameters wrapper
-void wrapParameters(python::module &module)
+// wrapper for covariance::Parameters
+void wrapParameters(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::Parameters;
+   using cppCLASS = covariance::Parameters;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Parameters",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Parameters",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<covariance::ParameterLink>> &
-         >(),
-         python::arg("parameter_link") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "parameter_link",
-         [](const Component &self) { return self.parameterLink(); },
-         Component::documentation("parameter_link").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<covariance::ParameterLink>> &
+      >(),
+      py::arg("parameter_link") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set parameterLink
+   object.def_property(
+      "parameter_link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameterLink();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<covariance::ParameterLink>> &value)
+      {
+         self.parameterLink() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_link").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

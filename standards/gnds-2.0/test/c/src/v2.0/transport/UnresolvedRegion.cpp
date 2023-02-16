@@ -65,20 +65,20 @@ UnresolvedRegionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UnresolvedRegionAssign(ConstHandle2UnresolvedRegion This, ConstHandle2ConstUnresolvedRegion from)
+UnresolvedRegionAssign(ConstHandle2UnresolvedRegion self, ConstHandle2ConstUnresolvedRegion from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion This)
+UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -92,44 +92,44 @@ UnresolvedRegionDelete(ConstHandle2ConstUnresolvedRegion This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UnresolvedRegionRead(ConstHandle2UnresolvedRegion This, const char *const filename)
+UnresolvedRegionRead(ConstHandle2UnresolvedRegion self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UnresolvedRegionWrite(ConstHandle2ConstUnresolvedRegion This, const char *const filename)
+UnresolvedRegionWrite(ConstHandle2ConstUnresolvedRegion self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UnresolvedRegionPrint(ConstHandle2ConstUnresolvedRegion This)
+UnresolvedRegionPrint(ConstHandle2ConstUnresolvedRegion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UnresolvedRegionPrintXML(ConstHandle2ConstUnresolvedRegion This)
+UnresolvedRegionPrintXML(ConstHandle2ConstUnresolvedRegion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion This)
+UnresolvedRegionPrintJSON(ConstHandle2ConstUnresolvedRegion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

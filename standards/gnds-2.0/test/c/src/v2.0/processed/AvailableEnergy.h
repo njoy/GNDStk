@@ -93,13 +93,13 @@ AvailableEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AvailableEnergyAssign(ConstHandle2AvailableEnergy This, ConstHandle2ConstAvailableEnergy from);
+AvailableEnergyAssign(ConstHandle2AvailableEnergy self, ConstHandle2ConstAvailableEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AvailableEnergyRead(ConstHandle2AvailableEnergy This, const char *const filename);
+AvailableEnergyRead(ConstHandle2AvailableEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AvailableEnergyWrite(ConstHandle2ConstAvailableEnergy This, const char *const filename);
+AvailableEnergyWrite(ConstHandle2ConstAvailableEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AvailableEnergyPrint(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyPrint(ConstHandle2ConstAvailableEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AvailableEnergyPrintXML(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyPrintXML(ConstHandle2ConstAvailableEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy This);
 
 // +++ Has
 extern_c int
-AvailableEnergyXYs1dHas(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyXYs1dHas(ConstHandle2ConstAvailableEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-AvailableEnergyXYs1dGetConst(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyXYs1dGetConst(ConstHandle2ConstAvailableEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-AvailableEnergyXYs1dGet(ConstHandle2AvailableEnergy This);
+AvailableEnergyXYs1dGet(ConstHandle2AvailableEnergy self);
 
 // +++ Set
 extern_c void
-AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstXYs1d XYs1d);
+AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstXYs1d
 
 // +++ Has
 extern_c int
-AvailableEnergyGridded1dHas(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyGridded1dHas(ConstHandle2ConstAvailableEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstGridded1d
-AvailableEnergyGridded1dGetConst(ConstHandle2ConstAvailableEnergy This);
+AvailableEnergyGridded1dGetConst(ConstHandle2ConstAvailableEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded1d
-AvailableEnergyGridded1dGet(ConstHandle2AvailableEnergy This);
+AvailableEnergyGridded1dGet(ConstHandle2AvailableEnergy self);
 
 // +++ Set
 extern_c void
-AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstGridded1d gridded1d);
+AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy self, ConstHandle2ConstGridded1d gridded1d);
 
 
 // -----------------------------------------------------------------------------

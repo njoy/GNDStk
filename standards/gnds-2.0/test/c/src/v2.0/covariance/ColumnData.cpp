@@ -84,20 +84,20 @@ ColumnDataCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ColumnDataAssign(ConstHandle2ColumnData This, ConstHandle2ConstColumnData from)
+ColumnDataAssign(ConstHandle2ColumnData self, ConstHandle2ConstColumnData from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ColumnDataDelete(ConstHandle2ConstColumnData This)
+ColumnDataDelete(ConstHandle2ConstColumnData self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -111,44 +111,44 @@ ColumnDataDelete(ConstHandle2ConstColumnData This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ColumnDataRead(ConstHandle2ColumnData This, const char *const filename)
+ColumnDataRead(ConstHandle2ColumnData self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ColumnDataWrite(ConstHandle2ConstColumnData This, const char *const filename)
+ColumnDataWrite(ConstHandle2ConstColumnData self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ColumnDataPrint(ConstHandle2ConstColumnData This)
+ColumnDataPrint(ConstHandle2ConstColumnData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ColumnDataPrintXML(ConstHandle2ConstColumnData This)
+ColumnDataPrintXML(ConstHandle2ConstColumnData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ColumnDataPrintJSON(ConstHandle2ConstColumnData This)
+ColumnDataPrintJSON(ConstHandle2ConstColumnData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -158,27 +158,27 @@ ColumnDataPrintJSON(ConstHandle2ConstColumnData This)
 
 // Has
 int
-ColumnDataENDFMFMTHas(ConstHandle2ConstColumnData This)
+ColumnDataENDFMFMTHas(ConstHandle2ConstColumnData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTHas", This, extract::ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTHas", self, extract::ENDF_MFMT);
 }
 
 // Get
 // Returns by value
 XMLName
-ColumnDataENDFMFMTGet(ConstHandle2ConstColumnData This)
+ColumnDataENDFMFMTGet(ConstHandle2ConstColumnData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTGet", This, extract::ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTGet", self, extract::ENDF_MFMT);
 }
 
 // Set
 void
-ColumnDataENDFMFMTSet(ConstHandle2ColumnData This, const XMLName ENDF_MFMT)
+ColumnDataENDFMFMTSet(ConstHandle2ColumnData self, const XMLName ENDF_MFMT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMFMTSet", This, extract::ENDF_MFMT, ENDF_MFMT);
+      (CLASSNAME, CLASSNAME+"ENDFMFMTSet", self, extract::ENDF_MFMT, ENDF_MFMT);
 }
 
 
@@ -188,27 +188,27 @@ ColumnDataENDFMFMTSet(ConstHandle2ColumnData This, const XMLName ENDF_MFMT)
 
 // Has
 int
-ColumnDataHrefHas(ConstHandle2ConstColumnData This)
+ColumnDataHrefHas(ConstHandle2ConstColumnData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 XMLName
-ColumnDataHrefGet(ConstHandle2ConstColumnData This)
+ColumnDataHrefGet(ConstHandle2ConstColumnData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ColumnDataHrefSet(ConstHandle2ColumnData This, const XMLName href)
+ColumnDataHrefSet(ConstHandle2ColumnData self, const XMLName href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -218,27 +218,27 @@ ColumnDataHrefSet(ConstHandle2ColumnData This, const XMLName href)
 
 // Has
 int
-ColumnDataDimensionHas(ConstHandle2ConstColumnData This)
+ColumnDataDimensionHas(ConstHandle2ConstColumnData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionHas", This, extract::dimension);
+      (CLASSNAME, CLASSNAME+"DimensionHas", self, extract::dimension);
 }
 
 // Get
 // Returns by value
 Integer32
-ColumnDataDimensionGet(ConstHandle2ConstColumnData This)
+ColumnDataDimensionGet(ConstHandle2ConstColumnData self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionGet", This, extract::dimension);
+      (CLASSNAME, CLASSNAME+"DimensionGet", self, extract::dimension);
 }
 
 // Set
 void
-ColumnDataDimensionSet(ConstHandle2ColumnData This, const Integer32 dimension)
+ColumnDataDimensionSet(ConstHandle2ColumnData self, const Integer32 dimension)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DimensionSet", This, extract::dimension, dimension);
+      (CLASSNAME, CLASSNAME+"DimensionSet", self, extract::dimension, dimension);
 }
 
 
@@ -248,34 +248,34 @@ ColumnDataDimensionSet(ConstHandle2ColumnData This, const Integer32 dimension)
 
 // Has
 int
-ColumnDataSlicesHas(ConstHandle2ConstColumnData This)
+ColumnDataSlicesHas(ConstHandle2ConstColumnData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SlicesHas", This, extract::slices);
+      (CLASSNAME, CLASSNAME+"SlicesHas", self, extract::slices);
 }
 
 // Get, const
 Handle2ConstSlices
-ColumnDataSlicesGetConst(ConstHandle2ConstColumnData This)
+ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self)
 {
    return detail::getField<CPP,Handle2ConstSlices>
-      (CLASSNAME, CLASSNAME+"SlicesGetConst", This, extract::slices);
+      (CLASSNAME, CLASSNAME+"SlicesGetConst", self, extract::slices);
 }
 
 // Get, non-const
 Handle2Slices
-ColumnDataSlicesGet(ConstHandle2ColumnData This)
+ColumnDataSlicesGet(ConstHandle2ColumnData self)
 {
    return detail::getField<CPP,Handle2Slices>
-      (CLASSNAME, CLASSNAME+"SlicesGet", This, extract::slices);
+      (CLASSNAME, CLASSNAME+"SlicesGet", self, extract::slices);
 }
 
 // Set
 void
-ColumnDataSlicesSet(ConstHandle2ColumnData This, ConstHandle2ConstSlices slices)
+ColumnDataSlicesSet(ConstHandle2ColumnData self, ConstHandle2ConstSlices slices)
 {
    detail::setField<CPP,CPPSlices>
-      (CLASSNAME, CLASSNAME+"SlicesSet", This, extract::slices, slices);
+      (CLASSNAME, CLASSNAME+"SlicesSet", self, extract::slices, slices);
 }
 
 

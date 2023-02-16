@@ -11,38 +11,35 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionTransport {
 
-// B wrapper
-void wrapB(python::module &module)
+// wrapper for fissionTransport::B
+void wrapB(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionTransport::B;
+   using cppCLASS = fissionTransport::B;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "B",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "B",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-         >(),
-         Component::documentation("constructor").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+      >(),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionTransport

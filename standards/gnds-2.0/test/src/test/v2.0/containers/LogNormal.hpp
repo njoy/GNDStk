@@ -25,12 +25,12 @@ class LogNormal :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "LogNormal"; }
-   static auto FIELD() { return "logNormal"; }
+   static auto NODENAME() { return "logNormal"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class LogNormal :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<extra::Double>("double")
+         --Child<extra::Double>
+            ("double")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "Double"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "double"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<extra::Double> Double{this};
+   Field<extra::Double>
+      Double{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->Double)
+      this->Double \
+   )
 
    // default
    LogNormal() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit LogNormal(
-      const wrapper<extra::Double> &Double
+      const wrapper<extra::Double>
+         &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   LogNormal &operator=(const LogNormal &) = default;
-   LogNormal &operator=(LogNormal &&) = default;
+   // copy
+   LogNormal &operator=(const LogNormal &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   LogNormal &operator=(LogNormal &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

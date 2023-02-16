@@ -99,13 +99,13 @@ AuthorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AuthorAssign(ConstHandle2Author This, ConstHandle2ConstAuthor from);
+AuthorAssign(ConstHandle2Author self, ConstHandle2ConstAuthor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AuthorDelete(ConstHandle2ConstAuthor This);
+AuthorDelete(ConstHandle2ConstAuthor self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ AuthorDelete(ConstHandle2ConstAuthor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AuthorRead(ConstHandle2Author This, const char *const filename);
+AuthorRead(ConstHandle2Author self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AuthorWrite(ConstHandle2ConstAuthor This, const char *const filename);
+AuthorWrite(ConstHandle2ConstAuthor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AuthorPrint(ConstHandle2ConstAuthor This);
+AuthorPrint(ConstHandle2ConstAuthor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AuthorPrintXML(ConstHandle2ConstAuthor This);
+AuthorPrintXML(ConstHandle2ConstAuthor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AuthorPrintJSON(ConstHandle2ConstAuthor This);
+AuthorPrintJSON(ConstHandle2ConstAuthor self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ AuthorPrintJSON(ConstHandle2ConstAuthor This);
 
 // +++ Has
 extern_c int
-AuthorNameHas(ConstHandle2ConstAuthor This);
+AuthorNameHas(ConstHandle2ConstAuthor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-AuthorNameGet(ConstHandle2ConstAuthor This);
+AuthorNameGet(ConstHandle2ConstAuthor self);
 
 // +++ Set
 extern_c void
-AuthorNameSet(ConstHandle2Author This, const UTF8Text name);
+AuthorNameSet(ConstHandle2Author self, const UTF8Text name);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ AuthorNameSet(ConstHandle2Author This, const UTF8Text name);
 
 // +++ Has
 extern_c int
-AuthorOrcidHas(ConstHandle2ConstAuthor This);
+AuthorOrcidHas(ConstHandle2ConstAuthor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-AuthorOrcidGet(ConstHandle2ConstAuthor This);
+AuthorOrcidGet(ConstHandle2ConstAuthor self);
 
 // +++ Set
 extern_c void
-AuthorOrcidSet(ConstHandle2Author This, const UTF8Text orcid);
+AuthorOrcidSet(ConstHandle2Author self, const UTF8Text orcid);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ AuthorOrcidSet(ConstHandle2Author This, const UTF8Text orcid);
 
 // +++ Has
 extern_c int
-AuthorEmailHas(ConstHandle2ConstAuthor This);
+AuthorEmailHas(ConstHandle2ConstAuthor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-AuthorEmailGet(ConstHandle2ConstAuthor This);
+AuthorEmailGet(ConstHandle2ConstAuthor self);
 
 // +++ Set
 extern_c void
-AuthorEmailSet(ConstHandle2Author This, const UTF8Text email);
+AuthorEmailSet(ConstHandle2Author self, const UTF8Text email);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ AuthorEmailSet(ConstHandle2Author This, const UTF8Text email);
 
 // +++ Has
 extern_c int
-AuthorAffiliationsHas(ConstHandle2ConstAuthor This);
+AuthorAffiliationsHas(ConstHandle2ConstAuthor self);
 
 // --- Get, const
 extern_c Handle2ConstAffiliations
-AuthorAffiliationsGetConst(ConstHandle2ConstAuthor This);
+AuthorAffiliationsGetConst(ConstHandle2ConstAuthor self);
 
 // +++ Get, non-const
 extern_c Handle2Affiliations
-AuthorAffiliationsGet(ConstHandle2Author This);
+AuthorAffiliationsGet(ConstHandle2Author self);
 
 // +++ Set
 extern_c void
-AuthorAffiliationsSet(ConstHandle2Author This, ConstHandle2ConstAffiliations affiliations);
+AuthorAffiliationsSet(ConstHandle2Author self, ConstHandle2ConstAffiliations affiliations);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ AuthorAffiliationsSet(ConstHandle2Author This, ConstHandle2ConstAffiliations aff
 
 // +++ Has
 extern_c int
-AuthorNoteHas(ConstHandle2ConstAuthor This);
+AuthorNoteHas(ConstHandle2ConstAuthor self);
 
 // --- Get, const
 extern_c Handle2ConstNote
-AuthorNoteGetConst(ConstHandle2ConstAuthor This);
+AuthorNoteGetConst(ConstHandle2ConstAuthor self);
 
 // +++ Get, non-const
 extern_c Handle2Note
-AuthorNoteGet(ConstHandle2Author This);
+AuthorNoteGet(ConstHandle2Author self);
 
 // +++ Set
 extern_c void
-AuthorNoteSet(ConstHandle2Author This, ConstHandle2ConstNote note);
+AuthorNoteSet(ConstHandle2Author self, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------

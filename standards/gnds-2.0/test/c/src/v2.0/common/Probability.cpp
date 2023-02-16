@@ -69,20 +69,20 @@ ProbabilityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProbabilityAssign(ConstHandle2Probability This, ConstHandle2ConstProbability from)
+ProbabilityAssign(ConstHandle2Probability self, ConstHandle2ConstProbability from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProbabilityDelete(ConstHandle2ConstProbability This)
+ProbabilityDelete(ConstHandle2ConstProbability self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ProbabilityDelete(ConstHandle2ConstProbability This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProbabilityRead(ConstHandle2Probability This, const char *const filename)
+ProbabilityRead(ConstHandle2Probability self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProbabilityWrite(ConstHandle2ConstProbability This, const char *const filename)
+ProbabilityWrite(ConstHandle2ConstProbability self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProbabilityPrint(ConstHandle2ConstProbability This)
+ProbabilityPrint(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProbabilityPrintXML(ConstHandle2ConstProbability This)
+ProbabilityPrintXML(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProbabilityPrintJSON(ConstHandle2ConstProbability This)
+ProbabilityPrintJSON(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ProbabilityPrintJSON(ConstHandle2ConstProbability This)
 
 // Has
 int
-ProbabilityDoubleHas(ConstHandle2ConstProbability This)
+ProbabilityDoubleHas(ConstHandle2ConstProbability self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-ProbabilityDoubleGetConst(ConstHandle2ConstProbability This)
+ProbabilityDoubleGetConst(ConstHandle2ConstProbability self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-ProbabilityDoubleGet(ConstHandle2Probability This)
+ProbabilityDoubleGet(ConstHandle2Probability self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-ProbabilityDoubleSet(ConstHandle2Probability This, ConstHandle2ConstDouble Double)
+ProbabilityDoubleSet(ConstHandle2Probability self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 

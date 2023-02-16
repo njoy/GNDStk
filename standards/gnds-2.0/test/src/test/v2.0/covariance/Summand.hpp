@@ -25,12 +25,12 @@ class Summand :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "Summand"; }
-   static auto FIELD() { return "summand"; }
+   static auto NODENAME() { return "summand"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class Summand :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "ENDF_MFMT",
+         "coefficient",
+         "href"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "endf_mfmt",
+         "coefficient",
+         "href"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> ENDF_MFMT{this};
-   Field<std::optional<Float64>> coefficient{this};
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<XMLName>>
+      ENDF_MFMT{this};
+   Field<std::optional<Float64>>
+      coefficient{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MFMT, \
       this->coefficient, \
-      this->href)
+      this->href \
+   )
 
    // default
    Summand() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit Summand(
-      const wrapper<std::optional<XMLName>> &ENDF_MFMT,
-      const wrapper<std::optional<Float64>> &coefficient = {},
-      const wrapper<std::optional<std::string>> &href = {}
+      const wrapper<std::optional<XMLName>>
+         &ENDF_MFMT,
+      const wrapper<std::optional<Float64>>
+         &coefficient = {},
+      const wrapper<std::optional<std::string>>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Summand &operator=(const Summand &) = default;
-   Summand &operator=(Summand &&) = default;
+   // copy
+   Summand &operator=(const Summand &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MFMT = other.ENDF_MFMT;
+         coefficient = other.coefficient;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Summand &operator=(Summand &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MFMT = std::move(other.ENDF_MFMT);
+         coefficient = std::move(other.coefficient);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

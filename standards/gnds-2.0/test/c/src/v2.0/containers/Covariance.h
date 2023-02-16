@@ -91,13 +91,13 @@ CovarianceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CovarianceAssign(ConstHandle2Covariance This, ConstHandle2ConstCovariance from);
+CovarianceAssign(ConstHandle2Covariance self, ConstHandle2ConstCovariance from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CovarianceDelete(ConstHandle2ConstCovariance This);
+CovarianceDelete(ConstHandle2ConstCovariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ CovarianceDelete(ConstHandle2ConstCovariance This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CovarianceRead(ConstHandle2Covariance This, const char *const filename);
+CovarianceRead(ConstHandle2Covariance self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CovarianceWrite(ConstHandle2ConstCovariance This, const char *const filename);
+CovarianceWrite(ConstHandle2ConstCovariance self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CovariancePrint(ConstHandle2ConstCovariance This);
+CovariancePrint(ConstHandle2ConstCovariance self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CovariancePrintXML(ConstHandle2ConstCovariance This);
+CovariancePrintXML(ConstHandle2ConstCovariance self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CovariancePrintJSON(ConstHandle2ConstCovariance This);
+CovariancePrintJSON(ConstHandle2ConstCovariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ CovariancePrintJSON(ConstHandle2ConstCovariance This);
 
 // +++ Has
 extern_c int
-CovarianceLabelHas(ConstHandle2ConstCovariance This);
+CovarianceLabelHas(ConstHandle2ConstCovariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CovarianceLabelGet(ConstHandle2ConstCovariance This);
+CovarianceLabelGet(ConstHandle2ConstCovariance self);
 
 // +++ Set
 extern_c void
-CovarianceLabelSet(ConstHandle2Covariance This, const XMLName label);
+CovarianceLabelSet(ConstHandle2Covariance self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ CovarianceLabelSet(ConstHandle2Covariance This, const XMLName label);
 
 // +++ Has
 extern_c int
-CovarianceHrefHas(ConstHandle2ConstCovariance This);
+CovarianceHrefHas(ConstHandle2ConstCovariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CovarianceHrefGet(ConstHandle2ConstCovariance This);
+CovarianceHrefGet(ConstHandle2ConstCovariance self);
 
 // +++ Set
 extern_c void
-CovarianceHrefSet(ConstHandle2Covariance This, const char *const href);
+CovarianceHrefSet(ConstHandle2Covariance self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

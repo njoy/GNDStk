@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Production wrapper
-void wrapProduction(python::module &module)
+// wrapper for transport::Production
+void wrapProduction(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Production;
+   using cppCLASS = transport::Production;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Production",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Production",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Integer32> &,
-            const std::optional<XMLName> &,
-            const std::optional<transport::CrossSection> &,
-            const std::optional<transport::OutputChannel> &
-         >(),
-         python::arg("endf_mt") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("cross_section") = std::nullopt,
-         python::arg("output_channel") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "endf_mt",
-         [](const Component &self) { return self.ENDF_MT(); },
-         Component::documentation("endf_mt").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "cross_section",
-         [](const Component &self) { return self.crossSection(); },
-         Component::documentation("cross_section").data()
-      )
-      .def_property_readonly(
-         "output_channel",
-         [](const Component &self) { return self.outputChannel(); },
-         Component::documentation("output_channel").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Integer32> &,
+         const std::optional<XMLName> &,
+         const std::optional<transport::CrossSection> &,
+         const std::optional<transport::OutputChannel> &
+      >(),
+      py::arg("endf_mt") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("cross_section") = std::nullopt,
+      py::arg("output_channel") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set ENDF_MT
+   object.def_property(
+      "endf_mt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDF_MT();
+      },
+      [](cppCLASS &self, const std::optional<Integer32> &value)
+      {
+         self.ENDF_MT() = value;
+      },
+      cppCLASS::component_t::documentation("endf_mt").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set crossSection
+   object.def_property(
+      "cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSection();
+      },
+      [](cppCLASS &self, const std::optional<transport::CrossSection> &value)
+      {
+         self.crossSection() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section").data()
+   );
+
+   // get/set outputChannel
+   object.def_property(
+      "output_channel",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outputChannel();
+      },
+      [](cppCLASS &self, const std::optional<transport::OutputChannel> &value)
+      {
+         self.outputChannel() = value;
+      },
+      cppCLASS::component_t::documentation("output_channel").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

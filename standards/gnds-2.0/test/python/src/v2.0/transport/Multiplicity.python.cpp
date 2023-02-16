@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Multiplicity wrapper
-void wrapMultiplicity(python::module &module)
+// wrapper for transport::Multiplicity
+void wrapMultiplicity(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Multiplicity;
+   using cppCLASS = transport::Multiplicity;
    using _t = std::variant<
       containers::XYs1d,
       containers::Constant1d,
@@ -34,66 +34,127 @@ void wrapMultiplicity(python::module &module)
       containers::Regions1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Multiplicity",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Multiplicity",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const _t &
-         >(),
-         python::arg("_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "constant1d",
-         [](const Component &self) { return self.constant1d(); },
-         Component::documentation("constant1d").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
-         Component::documentation("polynomial1d").data()
-      )
-      .def_property_readonly(
-         "branching1d",
-         [](const Component &self) { return self.branching1d(); },
-         Component::documentation("branching1d").data()
-      )
-      .def_property_readonly(
-         "reference",
-         [](const Component &self) { return self.reference(); },
-         Component::documentation("reference").data()
-      )
-      .def_property_readonly(
-         "gridded1d",
-         [](const Component &self) { return self.gridded1d(); },
-         Component::documentation("gridded1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self) { return self.regions1d(); },
-         Component::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d",
-         [](const Component &self) { return self._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d(); },
-         Component::documentation("_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const _t &
+      >(),
+      py::arg("_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const containers::XYs1d &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const containers::Constant1d &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const containers::Polynomial1d &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   object.def_property(
+      "branching1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.branching1d();
+      },
+      [](cppCLASS &self, const transport::Branching1d &value)
+      {
+         self.branching1d() = value;
+      },
+      cppCLASS::component_t::documentation("branching1d").data()
+   );
+
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const transport::Reference &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   object.def_property(
+      "gridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded1d();
+      },
+      [](cppCLASS &self, const containers::Gridded1d &value)
+      {
+         self.gridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded1d").data()
+   );
+
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const containers::Regions1d &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   object.def_property(
+      "_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._XYs1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys1dconstant1dpolynomial1dbranching1dreferencegridded1dregions1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

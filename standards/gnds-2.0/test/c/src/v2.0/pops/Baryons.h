@@ -90,13 +90,13 @@ BaryonsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BaryonsAssign(ConstHandle2Baryons This, ConstHandle2ConstBaryons from);
+BaryonsAssign(ConstHandle2Baryons self, ConstHandle2ConstBaryons from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BaryonsDelete(ConstHandle2ConstBaryons This);
+BaryonsDelete(ConstHandle2ConstBaryons self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ BaryonsDelete(ConstHandle2ConstBaryons This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BaryonsRead(ConstHandle2Baryons This, const char *const filename);
+BaryonsRead(ConstHandle2Baryons self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BaryonsWrite(ConstHandle2ConstBaryons This, const char *const filename);
+BaryonsWrite(ConstHandle2ConstBaryons self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BaryonsPrint(ConstHandle2ConstBaryons This);
+BaryonsPrint(ConstHandle2ConstBaryons self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BaryonsPrintXML(ConstHandle2ConstBaryons This);
+BaryonsPrintXML(ConstHandle2ConstBaryons self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BaryonsPrintJSON(ConstHandle2ConstBaryons This);
+BaryonsPrintJSON(ConstHandle2ConstBaryons self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ BaryonsPrintJSON(ConstHandle2ConstBaryons This);
 
 // +++ Has
 extern_c int
-BaryonsBaryonHas(ConstHandle2ConstBaryons This);
+BaryonsBaryonHas(ConstHandle2ConstBaryons self);
 
 // +++ Clear
 extern_c void
-BaryonsBaryonClear(ConstHandle2Baryons This);
+BaryonsBaryonClear(ConstHandle2Baryons self);
 
 // +++ Size
 extern_c size_t
-BaryonsBaryonSize(ConstHandle2ConstBaryons This);
+BaryonsBaryonSize(ConstHandle2ConstBaryons self);
 
 // +++ Add
 extern_c void
-BaryonsBaryonAdd(ConstHandle2Baryons This, ConstHandle2ConstBaryon baryon);
+BaryonsBaryonAdd(ConstHandle2Baryons self, ConstHandle2ConstBaryon baryon);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstBaryon
-BaryonsBaryonGetConst(ConstHandle2ConstBaryons This, const size_t index_);
+BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Baryon
-BaryonsBaryonGet(ConstHandle2Baryons This, const size_t index_);
+BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 BaryonsBaryonSet(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const size_t index_,
    ConstHandle2ConstBaryon baryon
 );
@@ -169,28 +169,28 @@ BaryonsBaryonSet(
 // +++ Has, by id
 extern_c int
 BaryonsBaryonHasById(
-   ConstHandle2ConstBaryons This,
+   ConstHandle2ConstBaryons self,
    const XMLName id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstBaryon
 BaryonsBaryonGetByIdConst(
-   ConstHandle2ConstBaryons This,
+   ConstHandle2ConstBaryons self,
    const XMLName id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2Baryon
 BaryonsBaryonGetById(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const XMLName id
 );
 
 // +++ Set, by id
 extern_c void
 BaryonsBaryonSetById(
-   ConstHandle2Baryons This,
+   ConstHandle2Baryons self,
    const XMLName id,
    ConstHandle2ConstBaryon baryon
 );

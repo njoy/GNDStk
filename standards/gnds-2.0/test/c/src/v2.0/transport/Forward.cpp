@@ -59,20 +59,20 @@ ForwardCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ForwardAssign(ConstHandle2Forward This, ConstHandle2ConstForward from)
+ForwardAssign(ConstHandle2Forward self, ConstHandle2ConstForward from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ForwardDelete(ConstHandle2ConstForward This)
+ForwardDelete(ConstHandle2ConstForward self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ ForwardDelete(ConstHandle2ConstForward This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ForwardRead(ConstHandle2Forward This, const char *const filename)
+ForwardRead(ConstHandle2Forward self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ForwardWrite(ConstHandle2ConstForward This, const char *const filename)
+ForwardWrite(ConstHandle2ConstForward self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ForwardPrint(ConstHandle2ConstForward This)
+ForwardPrint(ConstHandle2ConstForward self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ForwardPrintXML(ConstHandle2ConstForward This)
+ForwardPrintXML(ConstHandle2ConstForward self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ForwardPrintJSON(ConstHandle2ConstForward This)
+ForwardPrintJSON(ConstHandle2ConstForward self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

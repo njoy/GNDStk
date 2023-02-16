@@ -25,12 +25,12 @@ class Bibliography :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Bibliography"; }
-   static auto FIELD() { return "bibliography"; }
+   static auto NODENAME() { return "bibliography"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Bibliography :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::Bibitem>("bibitem")
+         ++Child<documentation::Bibitem>
+            ("bibitem")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "bibitem"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "bibitem"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::Bibitem>> bibitem{this};
+   Field<std::vector<documentation::Bibitem>>
+      bibitem{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->bibitem)
+      this->bibitem \
+   )
 
    // default
    Bibliography() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Bibliography(
-      const wrapper<std::vector<documentation::Bibitem>> &bibitem
+      const wrapper<std::vector<documentation::Bibitem>>
+         &bibitem
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       bibitem(this,bibitem)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Bibliography &operator=(const Bibliography &) = default;
-   Bibliography &operator=(Bibliography &&) = default;
+   // copy
+   Bibliography &operator=(const Bibliography &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         bibitem = other.bibitem;
+      }
+      return *this;
+   }
+
+   // move
+   Bibliography &operator=(Bibliography &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         bibitem = std::move(other.bibitem);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

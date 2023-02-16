@@ -73,20 +73,20 @@ ReactionsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ReactionsAssign(ConstHandle2Reactions This, ConstHandle2ConstReactions from)
+ReactionsAssign(ConstHandle2Reactions self, ConstHandle2ConstReactions from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ReactionsDelete(ConstHandle2ConstReactions This)
+ReactionsDelete(ConstHandle2ConstReactions self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ReactionsDelete(ConstHandle2ConstReactions This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ReactionsRead(ConstHandle2Reactions This, const char *const filename)
+ReactionsRead(ConstHandle2Reactions self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ReactionsWrite(ConstHandle2ConstReactions This, const char *const filename)
+ReactionsWrite(ConstHandle2ConstReactions self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ReactionsPrint(ConstHandle2ConstReactions This)
+ReactionsPrint(ConstHandle2ConstReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ReactionsPrintXML(ConstHandle2ConstReactions This)
+ReactionsPrintXML(ConstHandle2ConstReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ReactionsPrintJSON(ConstHandle2ConstReactions This)
+ReactionsPrintJSON(ConstHandle2ConstReactions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ ReactionsPrintJSON(ConstHandle2ConstReactions This)
 
 // Has
 int
-ReactionsReactionHas(ConstHandle2ConstReactions This)
+ReactionsReactionHas(ConstHandle2ConstReactions self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionHas", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionHas", self, extract::reaction);
 }
 
 // Clear
 void
-ReactionsReactionClear(ConstHandle2Reactions This)
+ReactionsReactionClear(ConstHandle2Reactions self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionClear", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionClear", self, extract::reaction);
 }
 
 // Size
 size_t
-ReactionsReactionSize(ConstHandle2ConstReactions This)
+ReactionsReactionSize(ConstHandle2ConstReactions self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionSize", This, extract::reaction);
+      (CLASSNAME, CLASSNAME+"ReactionSize", self, extract::reaction);
 }
 
 // Add
 void
-ReactionsReactionAdd(ConstHandle2Reactions This, ConstHandle2ConstReaction reaction)
+ReactionsReactionAdd(ConstHandle2Reactions self, ConstHandle2ConstReaction reaction)
 {
    detail::addToContainer<CPP,CPPReaction>
-      (CLASSNAME, CLASSNAME+"ReactionAdd", This, extract::reaction, reaction);
+      (CLASSNAME, CLASSNAME+"ReactionAdd", self, extract::reaction, reaction);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstReaction
-ReactionsReactionGetConst(ConstHandle2ConstReactions This, const size_t index_)
+ReactionsReactionGetConst(ConstHandle2ConstReactions self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstReaction>
-      (CLASSNAME, CLASSNAME+"ReactionGetConst", This, extract::reaction, index_);
+      (CLASSNAME, CLASSNAME+"ReactionGetConst", self, extract::reaction, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Reaction
-ReactionsReactionGet(ConstHandle2Reactions This, const size_t index_)
+ReactionsReactionGet(ConstHandle2Reactions self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Reaction>
-      (CLASSNAME, CLASSNAME+"ReactionGet", This, extract::reaction, index_);
+      (CLASSNAME, CLASSNAME+"ReactionGet", self, extract::reaction, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ReactionsReactionSet(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const size_t index_,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByIndex<CPP,CPPReaction>
-      (CLASSNAME, CLASSNAME+"ReactionSet", This, extract::reaction, index_, reaction);
+      (CLASSNAME, CLASSNAME+"ReactionSet", self, extract::reaction, index_, reaction);
 }
 
 // Has, by ENDF_MT
 int
 ReactionsReactionHasByENDFMT(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const Integer32 ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstReaction
 ReactionsReactionGetByENDFMTConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const Integer32 ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByENDFMTConst",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2Reaction
 ReactionsReactionGetByENDFMT(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const Integer32 ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 ReactionsReactionSetByENDFMT(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const Integer32 ENDF_MT,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByENDFMT",
-       This, extract::reaction, meta::ENDF_MT, ENDF_MT, reaction);
+       self, extract::reaction, meta::ENDF_MT, ENDF_MT, reaction);
 }
 
 // Has, by fissionGenre
 int
 ReactionsReactionHasByFissionGenre(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName fissionGenre
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, const
 Handle2ConstReaction
 ReactionsReactionGetByFissionGenreConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByFissionGenreConst",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Get, by fissionGenre, non-const
 Handle2Reaction
 ReactionsReactionGetByFissionGenre(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName fissionGenre
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre);
+       self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
 // Set, by fissionGenre
 void
 ReactionsReactionSetByFissionGenre(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName fissionGenre,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByFissionGenre",
-       This, extract::reaction, meta::fissionGenre, fissionGenre, reaction);
+       self, extract::reaction, meta::fissionGenre, fissionGenre, reaction);
 }
 
 // Has, by label
 int
 ReactionsReactionHasByLabel(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ReactionHasByLabel",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstReaction
 ReactionsReactionGetByLabelConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstReaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByLabelConst",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Reaction
 ReactionsReactionGetByLabel(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Reaction>
       (CLASSNAME, CLASSNAME+"ReactionGetByLabel",
-       This, extract::reaction, meta::label, label);
+       self, extract::reaction, meta::label, label);
 }
 
 // Set, by label
 void
 ReactionsReactionSetByLabel(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName label,
    ConstHandle2ConstReaction reaction
 ) {
    detail::setByMetadatum<CPP,CPPReaction>
       (CLASSNAME, CLASSNAME+"ReactionSetByLabel",
-       This, extract::reaction, meta::label, label, reaction);
+       self, extract::reaction, meta::label, label, reaction);
 }
 
 

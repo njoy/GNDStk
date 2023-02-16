@@ -98,13 +98,13 @@ Xs_pdf_cdf1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Xs_pdf_cdf1dAssign(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_pdf_cdf1d from);
+Xs_pdf_cdf1dAssign(ConstHandle2Xs_pdf_cdf1d self, ConstHandle2ConstXs_pdf_cdf1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Xs_pdf_cdf1dDelete(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dDelete(ConstHandle2ConstXs_pdf_cdf1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ Xs_pdf_cdf1dDelete(ConstHandle2ConstXs_pdf_cdf1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Xs_pdf_cdf1dRead(ConstHandle2Xs_pdf_cdf1d This, const char *const filename);
+Xs_pdf_cdf1dRead(ConstHandle2Xs_pdf_cdf1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Xs_pdf_cdf1dWrite(ConstHandle2ConstXs_pdf_cdf1d This, const char *const filename);
+Xs_pdf_cdf1dWrite(ConstHandle2ConstXs_pdf_cdf1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Xs_pdf_cdf1dPrint(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dPrint(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Xs_pdf_cdf1dPrintXML(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dPrintXML(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_pdf_cdf1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ Xs_pdf_cdf1dPrintJSON(ConstHandle2ConstXs_pdf_cdf1d This);
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dOuterDomainValueHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dOuterDomainValueHas(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Xs_pdf_cdf1dOuterDomainValueGet(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dOuterDomainValueGet(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 outerDomainValue);
+Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d self, const Float64 outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -162,19 +162,19 @@ Xs_pdf_cdf1dOuterDomainValueSet(ConstHandle2Xs_pdf_cdf1d This, const Float64 out
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // --- Get, const
 extern_c Handle2ConstXs_in_xs_pdf_cdf1d
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Get, non-const
 extern_c Handle2Xs_in_xs_pdf_cdf1d
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d self);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d);
+Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d self, ConstHandle2ConstXs_in_xs_pdf_cdf1d xs_in_xs_pdf_cdf1d);
 
 
 // -----------------------------------------------------------------------------
@@ -183,19 +183,19 @@ Xs_pdf_cdf1dXs_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dPdfHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dPdfHas(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // --- Get, const
 extern_c Handle2ConstPdf
-Xs_pdf_cdf1dPdfGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dPdfGetConst(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Get, non-const
 extern_c Handle2Pdf
-Xs_pdf_cdf1dPdfGet(ConstHandle2Xs_pdf_cdf1d This);
+Xs_pdf_cdf1dPdfGet(ConstHandle2Xs_pdf_cdf1d self);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf);
+Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d self, ConstHandle2ConstPdf pdf);
 
 
 // -----------------------------------------------------------------------------
@@ -204,19 +204,19 @@ Xs_pdf_cdf1dPdfSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstPdf pdf);
 
 // +++ Has
 extern_c int
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dHas(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // --- Get, const
 extern_c Handle2ConstCdf_in_xs_pdf_cdf1d
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d This);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGetConst(ConstHandle2ConstXs_pdf_cdf1d self);
 
 // +++ Get, non-const
 extern_c Handle2Cdf_in_xs_pdf_cdf1d
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d This);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dGet(ConstHandle2Xs_pdf_cdf1d self);
 
 // +++ Set
 extern_c void
-Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d This, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d);
+Xs_pdf_cdf1dCdf_in_xs_pdf_cdf1dSet(ConstHandle2Xs_pdf_cdf1d self, ConstHandle2ConstCdf_in_xs_pdf_cdf1d cdf_in_xs_pdf_cdf1d);
 
 
 // -----------------------------------------------------------------------------

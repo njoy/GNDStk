@@ -99,13 +99,13 @@ FissionComponentCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FissionComponentAssign(ConstHandle2FissionComponent This, ConstHandle2ConstFissionComponent from);
+FissionComponentAssign(ConstHandle2FissionComponent self, ConstHandle2ConstFissionComponent from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FissionComponentDelete(ConstHandle2ConstFissionComponent This);
+FissionComponentDelete(ConstHandle2ConstFissionComponent self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ FissionComponentDelete(ConstHandle2ConstFissionComponent This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FissionComponentRead(ConstHandle2FissionComponent This, const char *const filename);
+FissionComponentRead(ConstHandle2FissionComponent self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FissionComponentWrite(ConstHandle2ConstFissionComponent This, const char *const filename);
+FissionComponentWrite(ConstHandle2ConstFissionComponent self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FissionComponentPrint(ConstHandle2ConstFissionComponent This);
+FissionComponentPrint(ConstHandle2ConstFissionComponent self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FissionComponentPrintXML(ConstHandle2ConstFissionComponent This);
+FissionComponentPrintXML(ConstHandle2ConstFissionComponent self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FissionComponentPrintJSON(ConstHandle2ConstFissionComponent This);
+FissionComponentPrintJSON(ConstHandle2ConstFissionComponent self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ FissionComponentPrintJSON(ConstHandle2ConstFissionComponent This);
 
 // +++ Has
 extern_c int
-FissionComponentENDFMTHas(ConstHandle2ConstFissionComponent This);
+FissionComponentENDFMTHas(ConstHandle2ConstFissionComponent self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-FissionComponentENDFMTGet(ConstHandle2ConstFissionComponent This);
+FissionComponentENDFMTGet(ConstHandle2ConstFissionComponent self);
 
 // +++ Set
 extern_c void
-FissionComponentENDFMTSet(ConstHandle2FissionComponent This, const Integer32 ENDF_MT);
+FissionComponentENDFMTSet(ConstHandle2FissionComponent self, const Integer32 ENDF_MT);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ FissionComponentENDFMTSet(ConstHandle2FissionComponent This, const Integer32 END
 
 // +++ Has
 extern_c int
-FissionComponentFissionGenreHas(ConstHandle2ConstFissionComponent This);
+FissionComponentFissionGenreHas(ConstHandle2ConstFissionComponent self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-FissionComponentFissionGenreGet(ConstHandle2ConstFissionComponent This);
+FissionComponentFissionGenreGet(ConstHandle2ConstFissionComponent self);
 
 // +++ Set
 extern_c void
-FissionComponentFissionGenreSet(ConstHandle2FissionComponent This, const XMLName fissionGenre);
+FissionComponentFissionGenreSet(ConstHandle2FissionComponent self, const XMLName fissionGenre);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ FissionComponentFissionGenreSet(ConstHandle2FissionComponent This, const XMLName
 
 // +++ Has
 extern_c int
-FissionComponentLabelHas(ConstHandle2ConstFissionComponent This);
+FissionComponentLabelHas(ConstHandle2ConstFissionComponent self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-FissionComponentLabelGet(ConstHandle2ConstFissionComponent This);
+FissionComponentLabelGet(ConstHandle2ConstFissionComponent self);
 
 // +++ Set
 extern_c void
-FissionComponentLabelSet(ConstHandle2FissionComponent This, const XMLName label);
+FissionComponentLabelSet(ConstHandle2FissionComponent self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ FissionComponentLabelSet(ConstHandle2FissionComponent This, const XMLName label)
 
 // +++ Has
 extern_c int
-FissionComponentCrossSectionHas(ConstHandle2ConstFissionComponent This);
+FissionComponentCrossSectionHas(ConstHandle2ConstFissionComponent self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent This);
+FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-FissionComponentCrossSectionGet(ConstHandle2FissionComponent This);
+FissionComponentCrossSectionGet(ConstHandle2FissionComponent self);
 
 // +++ Set
 extern_c void
-FissionComponentCrossSectionSet(ConstHandle2FissionComponent This, ConstHandle2ConstCrossSection crossSection);
+FissionComponentCrossSectionSet(ConstHandle2FissionComponent self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ FissionComponentCrossSectionSet(ConstHandle2FissionComponent This, ConstHandle2C
 
 // +++ Has
 extern_c int
-FissionComponentOutputChannelHas(ConstHandle2ConstFissionComponent This);
+FissionComponentOutputChannelHas(ConstHandle2ConstFissionComponent self);
 
 // --- Get, const
 extern_c Handle2ConstOutputChannel
-FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent This);
+FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent self);
 
 // +++ Get, non-const
 extern_c Handle2OutputChannel
-FissionComponentOutputChannelGet(ConstHandle2FissionComponent This);
+FissionComponentOutputChannelGet(ConstHandle2FissionComponent self);
 
 // +++ Set
 extern_c void
-FissionComponentOutputChannelSet(ConstHandle2FissionComponent This, ConstHandle2ConstOutputChannel outputChannel);
+FissionComponentOutputChannelSet(ConstHandle2FissionComponent self, ConstHandle2ConstOutputChannel outputChannel);
 
 
 // -----------------------------------------------------------------------------

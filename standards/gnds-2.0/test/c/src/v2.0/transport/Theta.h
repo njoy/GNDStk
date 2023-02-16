@@ -93,13 +93,13 @@ ThetaCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ThetaAssign(ConstHandle2Theta This, ConstHandle2ConstTheta from);
+ThetaAssign(ConstHandle2Theta self, ConstHandle2ConstTheta from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ThetaDelete(ConstHandle2ConstTheta This);
+ThetaDelete(ConstHandle2ConstTheta self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ThetaDelete(ConstHandle2ConstTheta This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ThetaRead(ConstHandle2Theta This, const char *const filename);
+ThetaRead(ConstHandle2Theta self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ThetaWrite(ConstHandle2ConstTheta This, const char *const filename);
+ThetaWrite(ConstHandle2ConstTheta self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ThetaPrint(ConstHandle2ConstTheta This);
+ThetaPrint(ConstHandle2ConstTheta self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ThetaPrintXML(ConstHandle2ConstTheta This);
+ThetaPrintXML(ConstHandle2ConstTheta self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ThetaPrintJSON(ConstHandle2ConstTheta This);
+ThetaPrintJSON(ConstHandle2ConstTheta self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ ThetaPrintJSON(ConstHandle2ConstTheta This);
 
 // +++ Has
 extern_c int
-ThetaXYs1dHas(ConstHandle2ConstTheta This);
+ThetaXYs1dHas(ConstHandle2ConstTheta self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-ThetaXYs1dGetConst(ConstHandle2ConstTheta This);
+ThetaXYs1dGetConst(ConstHandle2ConstTheta self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-ThetaXYs1dGet(ConstHandle2Theta This);
+ThetaXYs1dGet(ConstHandle2Theta self);
 
 // +++ Set
 extern_c void
-ThetaXYs1dSet(ConstHandle2Theta This, ConstHandle2ConstXYs1d XYs1d);
+ThetaXYs1dSet(ConstHandle2Theta self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ ThetaXYs1dSet(ConstHandle2Theta This, ConstHandle2ConstXYs1d XYs1d);
 
 // +++ Has
 extern_c int
-ThetaRegions1dHas(ConstHandle2ConstTheta This);
+ThetaRegions1dHas(ConstHandle2ConstTheta self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-ThetaRegions1dGetConst(ConstHandle2ConstTheta This);
+ThetaRegions1dGetConst(ConstHandle2ConstTheta self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-ThetaRegions1dGet(ConstHandle2Theta This);
+ThetaRegions1dGet(ConstHandle2Theta self);
 
 // +++ Set
 extern_c void
-ThetaRegions1dSet(ConstHandle2Theta This, ConstHandle2ConstRegions1d regions1d);
+ThetaRegions1dSet(ConstHandle2Theta self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

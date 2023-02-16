@@ -80,20 +80,20 @@ BraggEdgeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BraggEdgeAssign(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEdge from)
+BraggEdgeAssign(ConstHandle2BraggEdge self, ConstHandle2ConstBraggEdge from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BraggEdgeDelete(ConstHandle2ConstBraggEdge This)
+BraggEdgeDelete(ConstHandle2ConstBraggEdge self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -107,44 +107,44 @@ BraggEdgeDelete(ConstHandle2ConstBraggEdge This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BraggEdgeRead(ConstHandle2BraggEdge This, const char *const filename)
+BraggEdgeRead(ConstHandle2BraggEdge self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BraggEdgeWrite(ConstHandle2ConstBraggEdge This, const char *const filename)
+BraggEdgeWrite(ConstHandle2ConstBraggEdge self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BraggEdgePrint(ConstHandle2ConstBraggEdge This)
+BraggEdgePrint(ConstHandle2ConstBraggEdge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BraggEdgePrintXML(ConstHandle2ConstBraggEdge This)
+BraggEdgePrintXML(ConstHandle2ConstBraggEdge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BraggEdgePrintJSON(ConstHandle2ConstBraggEdge This)
+BraggEdgePrintJSON(ConstHandle2ConstBraggEdge self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -154,27 +154,27 @@ BraggEdgePrintJSON(ConstHandle2ConstBraggEdge This)
 
 // Has
 int
-BraggEdgeLabelHas(ConstHandle2ConstBraggEdge This)
+BraggEdgeLabelHas(ConstHandle2ConstBraggEdge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-BraggEdgeLabelGet(ConstHandle2ConstBraggEdge This)
+BraggEdgeLabelGet(ConstHandle2ConstBraggEdge self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-BraggEdgeLabelSet(ConstHandle2BraggEdge This, const XMLName label)
+BraggEdgeLabelSet(ConstHandle2BraggEdge self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -184,34 +184,34 @@ BraggEdgeLabelSet(ConstHandle2BraggEdge This, const XMLName label)
 
 // Has
 int
-BraggEdgeBraggEnergyHas(ConstHandle2ConstBraggEdge This)
+BraggEdgeBraggEnergyHas(ConstHandle2ConstBraggEdge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BraggEnergyHas", This, extract::BraggEnergy);
+      (CLASSNAME, CLASSNAME+"BraggEnergyHas", self, extract::BraggEnergy);
 }
 
 // Get, const
 Handle2ConstBraggEnergy
-BraggEdgeBraggEnergyGetConst(ConstHandle2ConstBraggEdge This)
+BraggEdgeBraggEnergyGetConst(ConstHandle2ConstBraggEdge self)
 {
    return detail::getField<CPP,Handle2ConstBraggEnergy>
-      (CLASSNAME, CLASSNAME+"BraggEnergyGetConst", This, extract::BraggEnergy);
+      (CLASSNAME, CLASSNAME+"BraggEnergyGetConst", self, extract::BraggEnergy);
 }
 
 // Get, non-const
 Handle2BraggEnergy
-BraggEdgeBraggEnergyGet(ConstHandle2BraggEdge This)
+BraggEdgeBraggEnergyGet(ConstHandle2BraggEdge self)
 {
    return detail::getField<CPP,Handle2BraggEnergy>
-      (CLASSNAME, CLASSNAME+"BraggEnergyGet", This, extract::BraggEnergy);
+      (CLASSNAME, CLASSNAME+"BraggEnergyGet", self, extract::BraggEnergy);
 }
 
 // Set
 void
-BraggEdgeBraggEnergySet(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEnergy BraggEnergy)
+BraggEdgeBraggEnergySet(ConstHandle2BraggEdge self, ConstHandle2ConstBraggEnergy BraggEnergy)
 {
    detail::setField<CPP,CPPBraggEnergy>
-      (CLASSNAME, CLASSNAME+"BraggEnergySet", This, extract::BraggEnergy, BraggEnergy);
+      (CLASSNAME, CLASSNAME+"BraggEnergySet", self, extract::BraggEnergy, BraggEnergy);
 }
 
 
@@ -221,34 +221,34 @@ BraggEdgeBraggEnergySet(ConstHandle2BraggEdge This, ConstHandle2ConstBraggEnergy
 
 // Has
 int
-BraggEdgeStructureFactorHas(ConstHandle2ConstBraggEdge This)
+BraggEdgeStructureFactorHas(ConstHandle2ConstBraggEdge self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StructureFactorHas", This, extract::structureFactor);
+      (CLASSNAME, CLASSNAME+"StructureFactorHas", self, extract::structureFactor);
 }
 
 // Get, const
 Handle2ConstStructureFactor
-BraggEdgeStructureFactorGetConst(ConstHandle2ConstBraggEdge This)
+BraggEdgeStructureFactorGetConst(ConstHandle2ConstBraggEdge self)
 {
    return detail::getField<CPP,Handle2ConstStructureFactor>
-      (CLASSNAME, CLASSNAME+"StructureFactorGetConst", This, extract::structureFactor);
+      (CLASSNAME, CLASSNAME+"StructureFactorGetConst", self, extract::structureFactor);
 }
 
 // Get, non-const
 Handle2StructureFactor
-BraggEdgeStructureFactorGet(ConstHandle2BraggEdge This)
+BraggEdgeStructureFactorGet(ConstHandle2BraggEdge self)
 {
    return detail::getField<CPP,Handle2StructureFactor>
-      (CLASSNAME, CLASSNAME+"StructureFactorGet", This, extract::structureFactor);
+      (CLASSNAME, CLASSNAME+"StructureFactorGet", self, extract::structureFactor);
 }
 
 // Set
 void
-BraggEdgeStructureFactorSet(ConstHandle2BraggEdge This, ConstHandle2ConstStructureFactor structureFactor)
+BraggEdgeStructureFactorSet(ConstHandle2BraggEdge self, ConstHandle2ConstStructureFactor structureFactor)
 {
    detail::setField<CPP,CPPStructureFactor>
-      (CLASSNAME, CLASSNAME+"StructureFactorSet", This, extract::structureFactor, structureFactor);
+      (CLASSNAME, CLASSNAME+"StructureFactorSet", self, extract::structureFactor, structureFactor);
 }
 
 

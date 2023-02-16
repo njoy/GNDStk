@@ -90,13 +90,13 @@ ColumnHeadersCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ColumnHeadersAssign(ConstHandle2ColumnHeaders This, ConstHandle2ConstColumnHeaders from);
+ColumnHeadersAssign(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumnHeaders from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ColumnHeadersDelete(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersDelete(ConstHandle2ConstColumnHeaders self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ColumnHeadersDelete(ConstHandle2ConstColumnHeaders This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ColumnHeadersRead(ConstHandle2ColumnHeaders This, const char *const filename);
+ColumnHeadersRead(ConstHandle2ColumnHeaders self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ColumnHeadersWrite(ConstHandle2ConstColumnHeaders This, const char *const filename);
+ColumnHeadersWrite(ConstHandle2ConstColumnHeaders self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ColumnHeadersPrint(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersPrint(ConstHandle2ConstColumnHeaders self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ColumnHeadersPrintXML(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersPrintXML(ConstHandle2ConstColumnHeaders self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ColumnHeadersPrintJSON(ConstHandle2ConstColumnHeaders This);
 
 // +++ Has
 extern_c int
-ColumnHeadersColumnHas(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersColumnHas(ConstHandle2ConstColumnHeaders self);
 
 // +++ Clear
 extern_c void
-ColumnHeadersColumnClear(ConstHandle2ColumnHeaders This);
+ColumnHeadersColumnClear(ConstHandle2ColumnHeaders self);
 
 // +++ Size
 extern_c size_t
-ColumnHeadersColumnSize(ConstHandle2ConstColumnHeaders This);
+ColumnHeadersColumnSize(ConstHandle2ConstColumnHeaders self);
 
 // +++ Add
 extern_c void
-ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders This, ConstHandle2ConstColumn column);
+ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumn column);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstColumn
-ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders This, const size_t index_);
+ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Column
-ColumnHeadersColumnGet(ConstHandle2ColumnHeaders This, const size_t index_);
+ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ColumnHeadersColumnSet(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const size_t index_,
    ConstHandle2ConstColumn column
 );
@@ -169,28 +169,28 @@ ColumnHeadersColumnSet(
 // +++ Has, by index
 extern_c int
 ColumnHeadersColumnHasByIndex(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const Integer32 index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetByIndexConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const Integer32 index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByIndex(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const Integer32 index
 );
 
 // +++ Set, by index
 extern_c void
 ColumnHeadersColumnSetByIndex(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const Integer32 index,
    ConstHandle2ConstColumn column
 );
@@ -198,28 +198,28 @@ ColumnHeadersColumnSetByIndex(
 // +++ Has, by name
 extern_c int
 ColumnHeadersColumnHasByName(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetByNameConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByName(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName name
 );
 
 // +++ Set, by name
 extern_c void
 ColumnHeadersColumnSetByName(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName name,
    ConstHandle2ConstColumn column
 );
@@ -227,28 +227,28 @@ ColumnHeadersColumnSetByName(
 // +++ Has, by unit
 extern_c int
 ColumnHeadersColumnHasByUnit(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetByUnitConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByUnit(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 ColumnHeadersColumnSetByUnit(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName unit,
    ConstHandle2ConstColumn column
 );
@@ -256,28 +256,28 @@ ColumnHeadersColumnSetByUnit(
 // +++ Has, by types
 extern_c int
 ColumnHeadersColumnHasByTypes(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName types
 );
 
 // --- Get, by types, const
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetByTypesConst(
-   ConstHandle2ConstColumnHeaders This,
+   ConstHandle2ConstColumnHeaders self,
    const XMLName types
 );
 
 // +++ Get, by types, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByTypes(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName types
 );
 
 // +++ Set, by types
 extern_c void
 ColumnHeadersColumnSetByTypes(
-   ConstHandle2ColumnHeaders This,
+   ConstHandle2ColumnHeaders self,
    const XMLName types,
    ConstHandle2ConstColumn column
 );

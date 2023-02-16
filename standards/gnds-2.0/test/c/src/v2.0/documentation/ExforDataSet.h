@@ -100,13 +100,13 @@ ExforDataSetCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExforDataSetAssign(ConstHandle2ExforDataSet This, ConstHandle2ConstExforDataSet from);
+ExforDataSetAssign(ConstHandle2ExforDataSet self, ConstHandle2ConstExforDataSet from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExforDataSetDelete(ConstHandle2ConstExforDataSet This);
+ExforDataSetDelete(ConstHandle2ConstExforDataSet self);
 
 
 // -----------------------------------------------------------------------------
@@ -119,25 +119,25 @@ ExforDataSetDelete(ConstHandle2ConstExforDataSet This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExforDataSetRead(ConstHandle2ExforDataSet This, const char *const filename);
+ExforDataSetRead(ConstHandle2ExforDataSet self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExforDataSetWrite(ConstHandle2ConstExforDataSet This, const char *const filename);
+ExforDataSetWrite(ConstHandle2ConstExforDataSet self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExforDataSetPrint(ConstHandle2ConstExforDataSet This);
+ExforDataSetPrint(ConstHandle2ConstExforDataSet self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExforDataSetPrintXML(ConstHandle2ConstExforDataSet This);
+ExforDataSetPrintXML(ConstHandle2ConstExforDataSet self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet This);
+ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet self);
 
 
 // -----------------------------------------------------------------------------
@@ -146,16 +146,16 @@ ExforDataSetPrintJSON(ConstHandle2ConstExforDataSet This);
 
 // +++ Has
 extern_c int
-ExforDataSetSubentryHas(ConstHandle2ConstExforDataSet This);
+ExforDataSetSubentryHas(ConstHandle2ConstExforDataSet self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ExforDataSetSubentryGet(ConstHandle2ConstExforDataSet This);
+ExforDataSetSubentryGet(ConstHandle2ConstExforDataSet self);
 
 // +++ Set
 extern_c void
-ExforDataSetSubentrySet(ConstHandle2ExforDataSet This, const XMLName subentry);
+ExforDataSetSubentrySet(ConstHandle2ExforDataSet self, const XMLName subentry);
 
 
 // -----------------------------------------------------------------------------
@@ -164,16 +164,16 @@ ExforDataSetSubentrySet(ConstHandle2ExforDataSet This, const XMLName subentry);
 
 // +++ Has
 extern_c int
-ExforDataSetRetrievalDateHas(ConstHandle2ConstExforDataSet This);
+ExforDataSetRetrievalDateHas(ConstHandle2ConstExforDataSet self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExforDataSetRetrievalDateGet(ConstHandle2ConstExforDataSet This);
+ExforDataSetRetrievalDateGet(ConstHandle2ConstExforDataSet self);
 
 // +++ Set
 extern_c void
-ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet This, const char *const retrievalDate);
+ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet self, const char *const retrievalDate);
 
 
 // -----------------------------------------------------------------------------
@@ -182,19 +182,19 @@ ExforDataSetRetrievalDateSet(ConstHandle2ExforDataSet This, const char *const re
 
 // +++ Has
 extern_c int
-ExforDataSetCovarianceScriptHas(ConstHandle2ConstExforDataSet This);
+ExforDataSetCovarianceScriptHas(ConstHandle2ConstExforDataSet self);
 
 // --- Get, const
 extern_c Handle2ConstCovarianceScript
-ExforDataSetCovarianceScriptGetConst(ConstHandle2ConstExforDataSet This);
+ExforDataSetCovarianceScriptGetConst(ConstHandle2ConstExforDataSet self);
 
 // +++ Get, non-const
 extern_c Handle2CovarianceScript
-ExforDataSetCovarianceScriptGet(ConstHandle2ExforDataSet This);
+ExforDataSetCovarianceScriptGet(ConstHandle2ExforDataSet self);
 
 // +++ Set
 extern_c void
-ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet This, ConstHandle2ConstCovarianceScript covarianceScript);
+ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet self, ConstHandle2ConstCovarianceScript covarianceScript);
 
 
 // -----------------------------------------------------------------------------
@@ -203,19 +203,19 @@ ExforDataSetCovarianceScriptSet(ConstHandle2ExforDataSet This, ConstHandle2Const
 
 // +++ Has
 extern_c int
-ExforDataSetCorrectionScriptHas(ConstHandle2ConstExforDataSet This);
+ExforDataSetCorrectionScriptHas(ConstHandle2ConstExforDataSet self);
 
 // --- Get, const
 extern_c Handle2ConstCorrectionScript
-ExforDataSetCorrectionScriptGetConst(ConstHandle2ConstExforDataSet This);
+ExforDataSetCorrectionScriptGetConst(ConstHandle2ConstExforDataSet self);
 
 // +++ Get, non-const
 extern_c Handle2CorrectionScript
-ExforDataSetCorrectionScriptGet(ConstHandle2ExforDataSet This);
+ExforDataSetCorrectionScriptGet(ConstHandle2ExforDataSet self);
 
 // +++ Set
 extern_c void
-ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet This, ConstHandle2ConstCorrectionScript correctionScript);
+ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet self, ConstHandle2ConstCorrectionScript correctionScript);
 
 
 // -----------------------------------------------------------------------------
@@ -224,19 +224,19 @@ ExforDataSetCorrectionScriptSet(ConstHandle2ExforDataSet This, ConstHandle2Const
 
 // +++ Has
 extern_c int
-ExforDataSetNoteHas(ConstHandle2ConstExforDataSet This);
+ExforDataSetNoteHas(ConstHandle2ConstExforDataSet self);
 
 // --- Get, const
 extern_c Handle2ConstNote
-ExforDataSetNoteGetConst(ConstHandle2ConstExforDataSet This);
+ExforDataSetNoteGetConst(ConstHandle2ConstExforDataSet self);
 
 // +++ Get, non-const
 extern_c Handle2Note
-ExforDataSetNoteGet(ConstHandle2ExforDataSet This);
+ExforDataSetNoteGet(ConstHandle2ExforDataSet self);
 
 // +++ Set
 extern_c void
-ExforDataSetNoteSet(ConstHandle2ExforDataSet This, ConstHandle2ConstNote note);
+ExforDataSetNoteSet(ConstHandle2ExforDataSet self, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------

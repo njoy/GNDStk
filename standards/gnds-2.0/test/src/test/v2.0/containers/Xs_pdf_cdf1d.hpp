@@ -27,12 +27,12 @@ class Xs_pdf_cdf1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Xs_pdf_cdf1d"; }
-   static auto FIELD() { return "xs_pdf_cdf1d"; }
+   static auto NODENAME() { return "xs_pdf_cdf1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -44,36 +44,83 @@ class Xs_pdf_cdf1d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<containers::Xs_in_xs_pdf_cdf1d>("xs") |
-         --Child<containers::Pdf>("pdf") |
-         --Child<containers::Cdf_in_xs_pdf_cdf1d>("cdf")
+         --Child<containers::Xs_in_xs_pdf_cdf1d>
+            ("xs") |
+         --Child<containers::Pdf>
+            ("pdf") |
+         --Child<containers::Cdf_in_xs_pdf_cdf1d>
+            ("cdf")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "outerDomainValue",
+         "xs_in_xs_pdf_cdf1d",
+         "pdf",
+         "cdf_in_xs_pdf_cdf1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "outer_domain_value",
+         "xs_in_xs_pdf_cdf1d",
+         "pdf",
+         "cdf_in_xs_pdf_cdf1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Float64>> outerDomainValue{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
 
    // children
-   Field<containers::Xs_in_xs_pdf_cdf1d> xs_in_xs_pdf_cdf1d{this};
-   Field<containers::Pdf> pdf{this};
-   Field<containers::Cdf_in_xs_pdf_cdf1d> cdf_in_xs_pdf_cdf1d{this};
+   Field<containers::Xs_in_xs_pdf_cdf1d>
+      xs_in_xs_pdf_cdf1d{this};
+   Field<containers::Pdf>
+      pdf{this};
+   Field<containers::Cdf_in_xs_pdf_cdf1d>
+      cdf_in_xs_pdf_cdf1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->outerDomainValue, \
       this->xs_in_xs_pdf_cdf1d, \
       this->pdf, \
-      this->cdf_in_xs_pdf_cdf1d)
+      this->cdf_in_xs_pdf_cdf1d \
+   )
 
    // default
    Xs_pdf_cdf1d() :
@@ -84,10 +131,14 @@ public:
 
    // from fields, comment excluded
    explicit Xs_pdf_cdf1d(
-      const wrapper<std::optional<Float64>> &outerDomainValue,
-      const wrapper<containers::Xs_in_xs_pdf_cdf1d> &xs_in_xs_pdf_cdf1d = {},
-      const wrapper<containers::Pdf> &pdf = {},
-      const wrapper<containers::Cdf_in_xs_pdf_cdf1d> &cdf_in_xs_pdf_cdf1d = {}
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue,
+      const wrapper<containers::Xs_in_xs_pdf_cdf1d>
+         &xs_in_xs_pdf_cdf1d = {},
+      const wrapper<containers::Pdf>
+         &pdf = {},
+      const wrapper<containers::Cdf_in_xs_pdf_cdf1d>
+         &cdf_in_xs_pdf_cdf1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       outerDomainValue(this,outerDomainValue),
@@ -133,8 +184,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Xs_pdf_cdf1d &operator=(const Xs_pdf_cdf1d &) = default;
-   Xs_pdf_cdf1d &operator=(Xs_pdf_cdf1d &&) = default;
+   // copy
+   Xs_pdf_cdf1d &operator=(const Xs_pdf_cdf1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         outerDomainValue = other.outerDomainValue;
+         xs_in_xs_pdf_cdf1d = other.xs_in_xs_pdf_cdf1d;
+         pdf = other.pdf;
+         cdf_in_xs_pdf_cdf1d = other.cdf_in_xs_pdf_cdf1d;
+      }
+      return *this;
+   }
+
+   // move
+   Xs_pdf_cdf1d &operator=(Xs_pdf_cdf1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         outerDomainValue = std::move(other.outerDomainValue);
+         xs_in_xs_pdf_cdf1d = std::move(other.xs_in_xs_pdf_cdf1d);
+         pdf = std::move(other.pdf);
+         cdf_in_xs_pdf_cdf1d = std::move(other.cdf_in_xs_pdf_cdf1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

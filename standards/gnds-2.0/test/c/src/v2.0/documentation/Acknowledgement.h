@@ -95,13 +95,13 @@ AcknowledgementCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AcknowledgementAssign(ConstHandle2Acknowledgement This, ConstHandle2ConstAcknowledgement from);
+AcknowledgementAssign(ConstHandle2Acknowledgement self, ConstHandle2ConstAcknowledgement from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AcknowledgementDelete(ConstHandle2ConstAcknowledgement This);
+AcknowledgementDelete(ConstHandle2ConstAcknowledgement self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ AcknowledgementDelete(ConstHandle2ConstAcknowledgement This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AcknowledgementRead(ConstHandle2Acknowledgement This, const char *const filename);
+AcknowledgementRead(ConstHandle2Acknowledgement self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AcknowledgementWrite(ConstHandle2ConstAcknowledgement This, const char *const filename);
+AcknowledgementWrite(ConstHandle2ConstAcknowledgement self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AcknowledgementPrint(ConstHandle2ConstAcknowledgement This);
+AcknowledgementPrint(ConstHandle2ConstAcknowledgement self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AcknowledgementPrintXML(ConstHandle2ConstAcknowledgement This);
+AcknowledgementPrintXML(ConstHandle2ConstAcknowledgement self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement This);
+AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement This);
 
 // +++ Clear
 extern_c void
-AcknowledgementIntsClear(ConstHandle2Acknowledgement This);
+AcknowledgementIntsClear(ConstHandle2Acknowledgement self);
 
 // +++ Get size
 extern_c size_t
-AcknowledgementIntsSize(ConstHandle2ConstAcknowledgement This);
+AcknowledgementIntsSize(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-AcknowledgementIntsGet(ConstHandle2ConstAcknowledgement This, const size_t index);
+AcknowledgementIntsGet(ConstHandle2ConstAcknowledgement self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AcknowledgementIntsSet(ConstHandle2Acknowledgement This, const size_t index, const int value);
+AcknowledgementIntsSet(ConstHandle2Acknowledgement self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-AcknowledgementIntsGetArrayConst(ConstHandle2ConstAcknowledgement This);
+AcknowledgementIntsGetArrayConst(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-AcknowledgementIntsGetArray(ConstHandle2Acknowledgement This);
+AcknowledgementIntsGetArray(ConstHandle2Acknowledgement self);
 
 // +++ Set completely new values and size
 extern_c void
-AcknowledgementIntsSetArray(ConstHandle2Acknowledgement This, const int *const values, const size_t size);
+AcknowledgementIntsSetArray(ConstHandle2Acknowledgement self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ AcknowledgementIntsSetArray(ConstHandle2Acknowledgement This, const int *const v
 
 // +++ Clear
 extern_c void
-AcknowledgementUnsignedsClear(ConstHandle2Acknowledgement This);
+AcknowledgementUnsignedsClear(ConstHandle2Acknowledgement self);
 
 // +++ Get size
 extern_c size_t
-AcknowledgementUnsignedsSize(ConstHandle2ConstAcknowledgement This);
+AcknowledgementUnsignedsSize(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-AcknowledgementUnsignedsGet(ConstHandle2ConstAcknowledgement This, const size_t index);
+AcknowledgementUnsignedsGet(ConstHandle2ConstAcknowledgement self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AcknowledgementUnsignedsSet(ConstHandle2Acknowledgement This, const size_t index, const unsigned value);
+AcknowledgementUnsignedsSet(ConstHandle2Acknowledgement self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-AcknowledgementUnsignedsGetArrayConst(ConstHandle2ConstAcknowledgement This);
+AcknowledgementUnsignedsGetArrayConst(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-AcknowledgementUnsignedsGetArray(ConstHandle2Acknowledgement This);
+AcknowledgementUnsignedsGetArray(ConstHandle2Acknowledgement self);
 
 // +++ Set completely new values and size
 extern_c void
-AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement This, const unsigned *const values, const size_t size);
+AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement This, const unsigne
 
 // +++ Clear
 extern_c void
-AcknowledgementFloatsClear(ConstHandle2Acknowledgement This);
+AcknowledgementFloatsClear(ConstHandle2Acknowledgement self);
 
 // +++ Get size
 extern_c size_t
-AcknowledgementFloatsSize(ConstHandle2ConstAcknowledgement This);
+AcknowledgementFloatsSize(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-AcknowledgementFloatsGet(ConstHandle2ConstAcknowledgement This, const size_t index);
+AcknowledgementFloatsGet(ConstHandle2ConstAcknowledgement self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AcknowledgementFloatsSet(ConstHandle2Acknowledgement This, const size_t index, const float value);
+AcknowledgementFloatsSet(ConstHandle2Acknowledgement self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-AcknowledgementFloatsGetArrayConst(ConstHandle2ConstAcknowledgement This);
+AcknowledgementFloatsGetArrayConst(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-AcknowledgementFloatsGetArray(ConstHandle2Acknowledgement This);
+AcknowledgementFloatsGetArray(ConstHandle2Acknowledgement self);
 
 // +++ Set completely new values and size
 extern_c void
-AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement This, const float *const values, const size_t size);
+AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement This, const float *con
 
 // +++ Clear
 extern_c void
-AcknowledgementDoublesClear(ConstHandle2Acknowledgement This);
+AcknowledgementDoublesClear(ConstHandle2Acknowledgement self);
 
 // +++ Get size
 extern_c size_t
-AcknowledgementDoublesSize(ConstHandle2ConstAcknowledgement This);
+AcknowledgementDoublesSize(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-AcknowledgementDoublesGet(ConstHandle2ConstAcknowledgement This, const size_t index);
+AcknowledgementDoublesGet(ConstHandle2ConstAcknowledgement self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-AcknowledgementDoublesSet(ConstHandle2Acknowledgement This, const size_t index, const double value);
+AcknowledgementDoublesSet(ConstHandle2Acknowledgement self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-AcknowledgementDoublesGetArrayConst(ConstHandle2ConstAcknowledgement This);
+AcknowledgementDoublesGetArrayConst(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-AcknowledgementDoublesGetArray(ConstHandle2Acknowledgement This);
+AcknowledgementDoublesGetArray(ConstHandle2Acknowledgement self);
 
 // +++ Set completely new values and size
 extern_c void
-AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement This, const double *const values, const size_t size);
+AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement This, const double *c
 
 // +++ Has
 extern_c int
-AcknowledgementEncodingHas(ConstHandle2ConstAcknowledgement This);
+AcknowledgementEncodingHas(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AcknowledgementEncodingGet(ConstHandle2ConstAcknowledgement This);
+AcknowledgementEncodingGet(ConstHandle2ConstAcknowledgement self);
 
 // +++ Set
 extern_c void
-AcknowledgementEncodingSet(ConstHandle2Acknowledgement This, const XMLName encoding);
+AcknowledgementEncodingSet(ConstHandle2Acknowledgement self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ AcknowledgementEncodingSet(ConstHandle2Acknowledgement This, const XMLName encod
 
 // +++ Has
 extern_c int
-AcknowledgementMarkupHas(ConstHandle2ConstAcknowledgement This);
+AcknowledgementMarkupHas(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AcknowledgementMarkupGet(ConstHandle2ConstAcknowledgement This);
+AcknowledgementMarkupGet(ConstHandle2ConstAcknowledgement self);
 
 // +++ Set
 extern_c void
-AcknowledgementMarkupSet(ConstHandle2Acknowledgement This, const char *const markup);
+AcknowledgementMarkupSet(ConstHandle2Acknowledgement self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ AcknowledgementMarkupSet(ConstHandle2Acknowledgement This, const char *const mar
 
 // +++ Has
 extern_c int
-AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement This);
+AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement This);
+AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement self);
 
 // +++ Set
 extern_c void
-AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label);
+AcknowledgementLabelSet(ConstHandle2Acknowledgement self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label);
 
 // +++ Has
 extern_c int
-AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement This);
+AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement This);
+AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement self);
 
 // +++ Set
 extern_c void
-AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type);
+AcknowledgementTypeSet(ConstHandle2Acknowledgement self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------

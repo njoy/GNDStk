@@ -26,12 +26,12 @@ class Element :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "multigroup"; }
    static auto CLASS() { return "Element"; }
-   static auto FIELD() { return "element"; }
+   static auto NODENAME() { return "element"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class Element :
             / Meta<>("atomic_number") |
 
          // children
-         ++Child<multigroup::Isotope>("isotope") |
-         --Child<std::optional<multigroup::Foobar>>("foobar")
+         ++Child<multigroup::Isotope>
+            ("isotope") |
+         --Child<std::optional<multigroup::Foobar>>
+            ("foobar")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "symbol",
+         "atomic_number",
+         "isotope",
+         "foobar"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "symbol",
+         "atomic_number",
+         "isotope",
+         "foobar"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> symbol{this};
-   Field<int> atomic_number{this};
+   Field<std::optional<std::string>>
+      symbol{this};
+   Field<int>
+      atomic_number{this};
 
    // children
-   Field<std::vector<multigroup::Isotope>> isotope{this};
-   Field<std::optional<multigroup::Foobar>> foobar{this};
+   Field<std::vector<multigroup::Isotope>>
+      isotope{this};
+   Field<std::optional<multigroup::Foobar>>
+      foobar{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->symbol, \
       this->atomic_number, \
       this->isotope, \
-      this->foobar)
+      this->foobar \
+   )
 
    // default
    Element() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit Element(
-      const wrapper<std::optional<std::string>> &symbol,
-      const wrapper<int> &atomic_number = {},
-      const wrapper<std::vector<multigroup::Isotope>> &isotope = {},
-      const wrapper<std::optional<multigroup::Foobar>> &foobar = {}
+      const wrapper<std::optional<std::string>>
+         &symbol,
+      const wrapper<int>
+         &atomic_number = {},
+      const wrapper<std::vector<multigroup::Isotope>>
+         &isotope = {},
+      const wrapper<std::optional<multigroup::Foobar>>
+         &foobar = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Element &operator=(const Element &) = default;
-   Element &operator=(Element &&) = default;
+   // copy
+   Element &operator=(const Element &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         symbol = other.symbol;
+         atomic_number = other.atomic_number;
+         isotope = other.isotope;
+         foobar = other.foobar;
+      }
+      return *this;
+   }
+
+   // move
+   Element &operator=(Element &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         symbol = std::move(other.symbol);
+         atomic_number = std::move(other.atomic_number);
+         isotope = std::move(other.isotope);
+         foobar = std::move(other.foobar);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

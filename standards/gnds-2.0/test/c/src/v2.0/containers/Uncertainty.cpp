@@ -111,20 +111,20 @@ UncertaintyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-UncertaintyAssign(ConstHandle2Uncertainty This, ConstHandle2ConstUncertainty from)
+UncertaintyAssign(ConstHandle2Uncertainty self, ConstHandle2ConstUncertainty from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-UncertaintyDelete(ConstHandle2ConstUncertainty This)
+UncertaintyDelete(ConstHandle2ConstUncertainty self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -138,44 +138,44 @@ UncertaintyDelete(ConstHandle2ConstUncertainty This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-UncertaintyRead(ConstHandle2Uncertainty This, const char *const filename)
+UncertaintyRead(ConstHandle2Uncertainty self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-UncertaintyWrite(ConstHandle2ConstUncertainty This, const char *const filename)
+UncertaintyWrite(ConstHandle2ConstUncertainty self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-UncertaintyPrint(ConstHandle2ConstUncertainty This)
+UncertaintyPrint(ConstHandle2ConstUncertainty self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-UncertaintyPrintXML(ConstHandle2ConstUncertainty This)
+UncertaintyPrintXML(ConstHandle2ConstUncertainty self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-UncertaintyPrintJSON(ConstHandle2ConstUncertainty This)
+UncertaintyPrintJSON(ConstHandle2ConstUncertainty self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -185,34 +185,34 @@ UncertaintyPrintJSON(ConstHandle2ConstUncertainty This)
 
 // Has
 int
-UncertaintyStandardHas(ConstHandle2ConstUncertainty This)
+UncertaintyStandardHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StandardHas", This, extract::standard);
+      (CLASSNAME, CLASSNAME+"StandardHas", self, extract::standard);
 }
 
 // Get, const
 Handle2ConstStandard
-UncertaintyStandardGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyStandardGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstStandard>
-      (CLASSNAME, CLASSNAME+"StandardGetConst", This, extract::standard);
+      (CLASSNAME, CLASSNAME+"StandardGetConst", self, extract::standard);
 }
 
 // Get, non-const
 Handle2Standard
-UncertaintyStandardGet(ConstHandle2Uncertainty This)
+UncertaintyStandardGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2Standard>
-      (CLASSNAME, CLASSNAME+"StandardGet", This, extract::standard);
+      (CLASSNAME, CLASSNAME+"StandardGet", self, extract::standard);
 }
 
 // Set
 void
-UncertaintyStandardSet(ConstHandle2Uncertainty This, ConstHandle2ConstStandard standard)
+UncertaintyStandardSet(ConstHandle2Uncertainty self, ConstHandle2ConstStandard standard)
 {
    detail::setField<CPP,CPPStandard>
-      (CLASSNAME, CLASSNAME+"StandardSet", This, extract::standard, standard);
+      (CLASSNAME, CLASSNAME+"StandardSet", self, extract::standard, standard);
 }
 
 
@@ -222,34 +222,34 @@ UncertaintyStandardSet(ConstHandle2Uncertainty This, ConstHandle2ConstStandard s
 
 // Has
 int
-UncertaintyLogNormalHas(ConstHandle2ConstUncertainty This)
+UncertaintyLogNormalHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LogNormalHas", This, extract::logNormal);
+      (CLASSNAME, CLASSNAME+"LogNormalHas", self, extract::logNormal);
 }
 
 // Get, const
 Handle2ConstLogNormal
-UncertaintyLogNormalGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyLogNormalGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstLogNormal>
-      (CLASSNAME, CLASSNAME+"LogNormalGetConst", This, extract::logNormal);
+      (CLASSNAME, CLASSNAME+"LogNormalGetConst", self, extract::logNormal);
 }
 
 // Get, non-const
 Handle2LogNormal
-UncertaintyLogNormalGet(ConstHandle2Uncertainty This)
+UncertaintyLogNormalGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2LogNormal>
-      (CLASSNAME, CLASSNAME+"LogNormalGet", This, extract::logNormal);
+      (CLASSNAME, CLASSNAME+"LogNormalGet", self, extract::logNormal);
 }
 
 // Set
 void
-UncertaintyLogNormalSet(ConstHandle2Uncertainty This, ConstHandle2ConstLogNormal logNormal)
+UncertaintyLogNormalSet(ConstHandle2Uncertainty self, ConstHandle2ConstLogNormal logNormal)
 {
    detail::setField<CPP,CPPLogNormal>
-      (CLASSNAME, CLASSNAME+"LogNormalSet", This, extract::logNormal, logNormal);
+      (CLASSNAME, CLASSNAME+"LogNormalSet", self, extract::logNormal, logNormal);
 }
 
 
@@ -259,34 +259,34 @@ UncertaintyLogNormalSet(ConstHandle2Uncertainty This, ConstHandle2ConstLogNormal
 
 // Has
 int
-UncertaintyConfidenceIntervalsHas(ConstHandle2ConstUncertainty This)
+UncertaintyConfidenceIntervalsHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsHas", This, extract::confidenceIntervals);
+      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsHas", self, extract::confidenceIntervals);
 }
 
 // Get, const
 Handle2ConstConfidenceIntervals
-UncertaintyConfidenceIntervalsGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyConfidenceIntervalsGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstConfidenceIntervals>
-      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsGetConst", This, extract::confidenceIntervals);
+      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsGetConst", self, extract::confidenceIntervals);
 }
 
 // Get, non-const
 Handle2ConfidenceIntervals
-UncertaintyConfidenceIntervalsGet(ConstHandle2Uncertainty This)
+UncertaintyConfidenceIntervalsGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2ConfidenceIntervals>
-      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsGet", This, extract::confidenceIntervals);
+      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsGet", self, extract::confidenceIntervals);
 }
 
 // Set
 void
-UncertaintyConfidenceIntervalsSet(ConstHandle2Uncertainty This, ConstHandle2ConstConfidenceIntervals confidenceIntervals)
+UncertaintyConfidenceIntervalsSet(ConstHandle2Uncertainty self, ConstHandle2ConstConfidenceIntervals confidenceIntervals)
 {
    detail::setField<CPP,CPPConfidenceIntervals>
-      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsSet", This, extract::confidenceIntervals, confidenceIntervals);
+      (CLASSNAME, CLASSNAME+"ConfidenceIntervalsSet", self, extract::confidenceIntervals, confidenceIntervals);
 }
 
 
@@ -296,34 +296,34 @@ UncertaintyConfidenceIntervalsSet(ConstHandle2Uncertainty This, ConstHandle2Cons
 
 // Has
 int
-UncertaintyPdfHas(ConstHandle2ConstUncertainty This)
+UncertaintyPdfHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PdfHas", This, extract::pdf);
+      (CLASSNAME, CLASSNAME+"PdfHas", self, extract::pdf);
 }
 
 // Get, const
 Handle2ConstPdf
-UncertaintyPdfGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyPdfGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstPdf>
-      (CLASSNAME, CLASSNAME+"PdfGetConst", This, extract::pdf);
+      (CLASSNAME, CLASSNAME+"PdfGetConst", self, extract::pdf);
 }
 
 // Get, non-const
 Handle2Pdf
-UncertaintyPdfGet(ConstHandle2Uncertainty This)
+UncertaintyPdfGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2Pdf>
-      (CLASSNAME, CLASSNAME+"PdfGet", This, extract::pdf);
+      (CLASSNAME, CLASSNAME+"PdfGet", self, extract::pdf);
 }
 
 // Set
 void
-UncertaintyPdfSet(ConstHandle2Uncertainty This, ConstHandle2ConstPdf pdf)
+UncertaintyPdfSet(ConstHandle2Uncertainty self, ConstHandle2ConstPdf pdf)
 {
    detail::setField<CPP,CPPPdf>
-      (CLASSNAME, CLASSNAME+"PdfSet", This, extract::pdf, pdf);
+      (CLASSNAME, CLASSNAME+"PdfSet", self, extract::pdf, pdf);
 }
 
 
@@ -333,34 +333,34 @@ UncertaintyPdfSet(ConstHandle2Uncertainty This, ConstHandle2ConstPdf pdf)
 
 // Has
 int
-UncertaintyXYs1dHas(ConstHandle2ConstUncertainty This)
+UncertaintyXYs1dHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-UncertaintyXYs1dGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyXYs1dGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-UncertaintyXYs1dGet(ConstHandle2Uncertainty This)
+UncertaintyXYs1dGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-UncertaintyXYs1dSet(ConstHandle2Uncertainty This, ConstHandle2ConstXYs1d XYs1d)
+UncertaintyXYs1dSet(ConstHandle2Uncertainty self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -370,34 +370,34 @@ UncertaintyXYs1dSet(ConstHandle2Uncertainty This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-UncertaintyPolynomial1dHas(ConstHandle2ConstUncertainty This)
+UncertaintyPolynomial1dHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-UncertaintyPolynomial1dGet(ConstHandle2Uncertainty This)
+UncertaintyPolynomial1dGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-UncertaintyPolynomial1dSet(ConstHandle2Uncertainty This, ConstHandle2ConstPolynomial1d polynomial1d)
+UncertaintyPolynomial1dSet(ConstHandle2Uncertainty self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 
@@ -407,34 +407,34 @@ UncertaintyPolynomial1dSet(ConstHandle2Uncertainty This, ConstHandle2ConstPolyno
 
 // Has
 int
-UncertaintyCovarianceHas(ConstHandle2ConstUncertainty This)
+UncertaintyCovarianceHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceHas", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceHas", self, extract::covariance);
 }
 
 // Get, const
 Handle2ConstCovariance
-UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstCovariance>
-      (CLASSNAME, CLASSNAME+"CovarianceGetConst", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceGetConst", self, extract::covariance);
 }
 
 // Get, non-const
 Handle2Covariance
-UncertaintyCovarianceGet(ConstHandle2Uncertainty This)
+UncertaintyCovarianceGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2Covariance>
-      (CLASSNAME, CLASSNAME+"CovarianceGet", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceGet", self, extract::covariance);
 }
 
 // Set
 void
-UncertaintyCovarianceSet(ConstHandle2Uncertainty This, ConstHandle2ConstCovariance covariance)
+UncertaintyCovarianceSet(ConstHandle2Uncertainty self, ConstHandle2ConstCovariance covariance)
 {
    detail::setField<CPP,CPPCovariance>
-      (CLASSNAME, CLASSNAME+"CovarianceSet", This, extract::covariance, covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceSet", self, extract::covariance, covariance);
 }
 
 
@@ -444,34 +444,34 @@ UncertaintyCovarianceSet(ConstHandle2Uncertainty This, ConstHandle2ConstCovarian
 
 // Has
 int
-UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty This)
+UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ListOfCovariancesHas", This, extract::listOfCovariances);
+      (CLASSNAME, CLASSNAME+"ListOfCovariancesHas", self, extract::listOfCovariances);
 }
 
 // Get, const
 Handle2ConstListOfCovariances
-UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty This)
+UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty self)
 {
    return detail::getField<CPP,Handle2ConstListOfCovariances>
-      (CLASSNAME, CLASSNAME+"ListOfCovariancesGetConst", This, extract::listOfCovariances);
+      (CLASSNAME, CLASSNAME+"ListOfCovariancesGetConst", self, extract::listOfCovariances);
 }
 
 // Get, non-const
 Handle2ListOfCovariances
-UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty This)
+UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty self)
 {
    return detail::getField<CPP,Handle2ListOfCovariances>
-      (CLASSNAME, CLASSNAME+"ListOfCovariancesGet", This, extract::listOfCovariances);
+      (CLASSNAME, CLASSNAME+"ListOfCovariancesGet", self, extract::listOfCovariances);
 }
 
 // Set
 void
-UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty This, ConstHandle2ConstListOfCovariances listOfCovariances)
+UncertaintyListOfCovariancesSet(ConstHandle2Uncertainty self, ConstHandle2ConstListOfCovariances listOfCovariances)
 {
    detail::setField<CPP,CPPListOfCovariances>
-      (CLASSNAME, CLASSNAME+"ListOfCovariancesSet", This, extract::listOfCovariances, listOfCovariances);
+      (CLASSNAME, CLASSNAME+"ListOfCovariancesSet", self, extract::listOfCovariances, listOfCovariances);
 }
 
 

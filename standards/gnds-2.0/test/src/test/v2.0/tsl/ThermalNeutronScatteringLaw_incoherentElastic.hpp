@@ -26,12 +26,12 @@ class ThermalNeutronScatteringLaw_incoherentElastic :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ThermalNeutronScatteringLaw_incoherentElastic"; }
-   static auto FIELD() { return "thermalNeutronScatteringLaw_incoherentElastic"; }
+   static auto NODENAME() { return "thermalNeutronScatteringLaw_incoherentElastic"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,37 +47,86 @@ class ThermalNeutronScatteringLaw_incoherentElastic :
             / Meta<>("productFrame") |
 
          // children
-         --Child<tsl::BoundAtomCrossSection>("boundAtomCrossSection") |
-         --Child<tsl::DebyeWallerIntegral>("DebyeWallerIntegral")
+         --Child<tsl::BoundAtomCrossSection>
+            ("boundAtomCrossSection") |
+         --Child<tsl::DebyeWallerIntegral>
+            ("DebyeWallerIntegral")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "productFrame",
+         "boundAtomCrossSection",
+         "DebyeWallerIntegral"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "product_frame",
+         "bound_atom_cross_section",
+         "debye_waller_integral"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> pid{this};
-   Field<enums::Frame> productFrame{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      pid{this};
+   Field<enums::Frame>
+      productFrame{this};
 
    // children
-   Field<tsl::BoundAtomCrossSection> boundAtomCrossSection{this};
-   Field<tsl::DebyeWallerIntegral> DebyeWallerIntegral{this};
+   Field<tsl::BoundAtomCrossSection>
+      boundAtomCrossSection{this};
+   Field<tsl::DebyeWallerIntegral>
+      DebyeWallerIntegral{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
       this->boundAtomCrossSection, \
-      this->DebyeWallerIntegral)
+      this->DebyeWallerIntegral \
+   )
 
    // default
    ThermalNeutronScatteringLaw_incoherentElastic() :
@@ -88,11 +137,16 @@ public:
 
    // from fields, comment excluded
    explicit ThermalNeutronScatteringLaw_incoherentElastic(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &pid = {},
-      const wrapper<enums::Frame> &productFrame = {},
-      const wrapper<tsl::BoundAtomCrossSection> &boundAtomCrossSection = {},
-      const wrapper<tsl::DebyeWallerIntegral> &DebyeWallerIntegral = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &pid = {},
+      const wrapper<enums::Frame>
+         &productFrame = {},
+      const wrapper<tsl::BoundAtomCrossSection>
+         &boundAtomCrossSection = {},
+      const wrapper<tsl::DebyeWallerIntegral>
+         &DebyeWallerIntegral = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +195,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw_incoherentElastic &operator=(const ThermalNeutronScatteringLaw_incoherentElastic &) = default;
-   ThermalNeutronScatteringLaw_incoherentElastic &operator=(ThermalNeutronScatteringLaw_incoherentElastic &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw_incoherentElastic &operator=(const ThermalNeutronScatteringLaw_incoherentElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         boundAtomCrossSection = other.boundAtomCrossSection;
+         DebyeWallerIntegral = other.DebyeWallerIntegral;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw_incoherentElastic &operator=(ThermalNeutronScatteringLaw_incoherentElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         boundAtomCrossSection = std::move(other.boundAtomCrossSection);
+         DebyeWallerIntegral = std::move(other.DebyeWallerIntegral);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

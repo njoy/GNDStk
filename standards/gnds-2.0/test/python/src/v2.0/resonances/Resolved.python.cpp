@@ -11,86 +11,142 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// Resolved wrapper
-void wrapResolved(python::module &module)
+// wrapper for resonances::Resolved
+void wrapResolved(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::Resolved;
+   using cppCLASS = resonances::Resolved;
    using _t = std::variant<
       resonances::RMatrix,
       resonances::BreitWigner,
       resonances::EnergyIntervals
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Resolved",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Resolved",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Float64 &,
-            const Float64 &,
-            const XMLName &,
-            const _t &
-         >(),
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("domain_unit"),
-         python::arg("_rmatrix_breit_wignerenergy_intervals"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self) { return self.domainMin(); },
-         Component::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self) { return self.domainMax(); },
-         Component::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
-         Component::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "rmatrix",
-         [](const Component &self) { return self.RMatrix(); },
-         Component::documentation("rmatrix").data()
-      )
-      .def_property_readonly(
-         "breit_wigner",
-         [](const Component &self) { return self.BreitWigner(); },
-         Component::documentation("breit_wigner").data()
-      )
-      .def_property_readonly(
-         "energy_intervals",
-         [](const Component &self) { return self.energyIntervals(); },
-         Component::documentation("energy_intervals").data()
-      )
-      .def_property_readonly(
-         "_rmatrix_breit_wignerenergy_intervals",
-         [](const Component &self) { return self._RMatrixBreitWignerenergyIntervals(); },
-         Component::documentation("_rmatrix_breit_wignerenergy_intervals").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Float64 &,
+         const Float64 &,
+         const XMLName &,
+         const _t &
+      >(),
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("domain_unit"),
+      py::arg("_rmatrix_breit_wignerenergy_intervals"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   object.def_property(
+      "rmatrix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.RMatrix();
+      },
+      [](cppCLASS &self, const resonances::RMatrix &value)
+      {
+         self.RMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("rmatrix").data()
+   );
+
+   object.def_property(
+      "breit_wigner",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.BreitWigner();
+      },
+      [](cppCLASS &self, const resonances::BreitWigner &value)
+      {
+         self.BreitWigner() = value;
+      },
+      cppCLASS::component_t::documentation("breit_wigner").data()
+   );
+
+   object.def_property(
+      "energy_intervals",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energyIntervals();
+      },
+      [](cppCLASS &self, const resonances::EnergyIntervals &value)
+      {
+         self.energyIntervals() = value;
+      },
+      cppCLASS::component_t::documentation("energy_intervals").data()
+   );
+
+   object.def_property(
+      "_rmatrix_breit_wignerenergy_intervals",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._RMatrixBreitWignerenergyIntervals();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._RMatrixBreitWignerenergyIntervals() = value;
+      },
+      cppCLASS::component_t::documentation("_rmatrix_breit_wignerenergy_intervals").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

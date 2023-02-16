@@ -32,12 +32,12 @@ class ElapsedTime :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ElapsedTime"; }
-   static auto FIELD() { return "elapsedTime"; }
+   static auto NODENAME() { return "elapsedTime"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,26 +49,65 @@ class ElapsedTime :
             / Meta<>("label") |
 
          // children
-         --Child<fpy::Time>("time") |
+         --Child<fpy::Time>
+            ("time") |
          _t{}
             / --(Child<>("yields") || Child<>("incidentEnergies"))
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "time",
+         "_yieldsincidentEnergies"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "time",
+         "_yieldsincident_energies"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<fpy::Time> time{this};
+   Field<fpy::Time>
+      time{this};
 
    // children - variant
-   Field<_t> _yieldsincidentEnergies{this};
+   Field<_t>
+      _yieldsincidentEnergies{this};
    FieldPart<decltype(_yieldsincidentEnergies),fpy::Yields> yields{_yieldsincidentEnergies};
    FieldPart<decltype(_yieldsincidentEnergies),fpy::IncidentEnergies> incidentEnergies{_yieldsincidentEnergies};
 
@@ -76,11 +115,14 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->time, \
-      this->_yieldsincidentEnergies)
+      this->_yieldsincidentEnergies \
+   )
 
    // default
    ElapsedTime() :
@@ -91,9 +133,12 @@ public:
 
    // from fields, comment excluded
    explicit ElapsedTime(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<fpy::Time> &time = {},
-      const wrapper<_t> &_yieldsincidentEnergies = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<fpy::Time>
+         &time = {},
+      const wrapper<_t>
+         &_yieldsincidentEnergies = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -136,8 +181,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ElapsedTime &operator=(const ElapsedTime &) = default;
-   ElapsedTime &operator=(ElapsedTime &&) = default;
+   // copy
+   ElapsedTime &operator=(const ElapsedTime &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         time = other.time;
+         _yieldsincidentEnergies = other._yieldsincidentEnergies;
+      }
+      return *this;
+   }
+
+   // move
+   ElapsedTime &operator=(ElapsedTime &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         time = std::move(other.time);
+         _yieldsincidentEnergies = std::move(other._yieldsincidentEnergies);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

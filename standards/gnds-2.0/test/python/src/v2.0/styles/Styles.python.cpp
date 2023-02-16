@@ -11,115 +11,211 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// Styles wrapper
-void wrapStyles(python::module &module)
+// wrapper for styles::Styles
+void wrapStyles(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::Styles;
+   using cppCLASS = styles::Styles;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Styles",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Styles",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<styles::Evaluated>> &,
-            const std::optional<std::vector<styles::CrossSectionReconstructed>> &,
-            const std::optional<std::vector<styles::AngularDistributionReconstructed>> &,
-            const std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>> &,
-            const std::optional<std::vector<styles::Heated>> &,
-            const std::optional<std::vector<styles::AverageProductData>> &,
-            const std::optional<std::vector<styles::MonteCarlo_cdf>> &,
-            const std::optional<std::vector<styles::GriddedCrossSection>> &,
-            const std::optional<std::vector<styles::URR_probabilityTables>> &,
-            const std::optional<std::vector<styles::HeatedMultiGroup>> &,
-            const std::optional<std::vector<styles::SnElasticUpScatter>> &
-         >(),
-         python::arg("evaluated") = std::nullopt,
-         python::arg("cross_section_reconstructed") = std::nullopt,
-         python::arg("angular_distribution_reconstructed") = std::nullopt,
-         python::arg("coulomb_plus_nuclear_elastic_mu_cutoff") = std::nullopt,
-         python::arg("heated") = std::nullopt,
-         python::arg("average_product_data") = std::nullopt,
-         python::arg("monte_carlo_cdf") = std::nullopt,
-         python::arg("gridded_cross_section") = std::nullopt,
-         python::arg("urr_probability_tables") = std::nullopt,
-         python::arg("heated_multi_group") = std::nullopt,
-         python::arg("sn_elastic_up_scatter") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "evaluated",
-         [](const Component &self) { return self.evaluated(); },
-         Component::documentation("evaluated").data()
-      )
-      .def_property_readonly(
-         "cross_section_reconstructed",
-         [](const Component &self) { return self.crossSectionReconstructed(); },
-         Component::documentation("cross_section_reconstructed").data()
-      )
-      .def_property_readonly(
-         "angular_distribution_reconstructed",
-         [](const Component &self) { return self.angularDistributionReconstructed(); },
-         Component::documentation("angular_distribution_reconstructed").data()
-      )
-      .def_property_readonly(
-         "coulomb_plus_nuclear_elastic_mu_cutoff",
-         [](const Component &self) { return self.CoulombPlusNuclearElasticMuCutoff(); },
-         Component::documentation("coulomb_plus_nuclear_elastic_mu_cutoff").data()
-      )
-      .def_property_readonly(
-         "heated",
-         [](const Component &self) { return self.heated(); },
-         Component::documentation("heated").data()
-      )
-      .def_property_readonly(
-         "average_product_data",
-         [](const Component &self) { return self.averageProductData(); },
-         Component::documentation("average_product_data").data()
-      )
-      .def_property_readonly(
-         "monte_carlo_cdf",
-         [](const Component &self) { return self.MonteCarlo_cdf(); },
-         Component::documentation("monte_carlo_cdf").data()
-      )
-      .def_property_readonly(
-         "gridded_cross_section",
-         [](const Component &self) { return self.griddedCrossSection(); },
-         Component::documentation("gridded_cross_section").data()
-      )
-      .def_property_readonly(
-         "urr_probability_tables",
-         [](const Component &self) { return self.URR_probabilityTables(); },
-         Component::documentation("urr_probability_tables").data()
-      )
-      .def_property_readonly(
-         "heated_multi_group",
-         [](const Component &self) { return self.heatedMultiGroup(); },
-         Component::documentation("heated_multi_group").data()
-      )
-      .def_property_readonly(
-         "sn_elastic_up_scatter",
-         [](const Component &self) { return self.SnElasticUpScatter(); },
-         Component::documentation("sn_elastic_up_scatter").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<styles::Evaluated>> &,
+         const std::optional<std::vector<styles::CrossSectionReconstructed>> &,
+         const std::optional<std::vector<styles::AngularDistributionReconstructed>> &,
+         const std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>> &,
+         const std::optional<std::vector<styles::Heated>> &,
+         const std::optional<std::vector<styles::AverageProductData>> &,
+         const std::optional<std::vector<styles::MonteCarlo_cdf>> &,
+         const std::optional<std::vector<styles::GriddedCrossSection>> &,
+         const std::optional<std::vector<styles::URR_probabilityTables>> &,
+         const std::optional<std::vector<styles::HeatedMultiGroup>> &,
+         const std::optional<std::vector<styles::SnElasticUpScatter>> &
+      >(),
+      py::arg("evaluated") = std::nullopt,
+      py::arg("cross_section_reconstructed") = std::nullopt,
+      py::arg("angular_distribution_reconstructed") = std::nullopt,
+      py::arg("coulomb_plus_nuclear_elastic_mu_cutoff") = std::nullopt,
+      py::arg("heated") = std::nullopt,
+      py::arg("average_product_data") = std::nullopt,
+      py::arg("monte_carlo_cdf") = std::nullopt,
+      py::arg("gridded_cross_section") = std::nullopt,
+      py::arg("urr_probability_tables") = std::nullopt,
+      py::arg("heated_multi_group") = std::nullopt,
+      py::arg("sn_elastic_up_scatter") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set evaluated
+   object.def_property(
+      "evaluated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluated();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::Evaluated>> &value)
+      {
+         self.evaluated() = value;
+      },
+      cppCLASS::component_t::documentation("evaluated").data()
+   );
+
+   // get/set crossSectionReconstructed
+   object.def_property(
+      "cross_section_reconstructed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSectionReconstructed();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::CrossSectionReconstructed>> &value)
+      {
+         self.crossSectionReconstructed() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_reconstructed").data()
+   );
+
+   // get/set angularDistributionReconstructed
+   object.def_property(
+      "angular_distribution_reconstructed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angularDistributionReconstructed();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::AngularDistributionReconstructed>> &value)
+      {
+         self.angularDistributionReconstructed() = value;
+      },
+      cppCLASS::component_t::documentation("angular_distribution_reconstructed").data()
+   );
+
+   // get/set CoulombPlusNuclearElasticMuCutoff
+   object.def_property(
+      "coulomb_plus_nuclear_elastic_mu_cutoff",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.CoulombPlusNuclearElasticMuCutoff();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::CoulombPlusNuclearElasticMuCutoff>> &value)
+      {
+         self.CoulombPlusNuclearElasticMuCutoff() = value;
+      },
+      cppCLASS::component_t::documentation("coulomb_plus_nuclear_elastic_mu_cutoff").data()
+   );
+
+   // get/set heated
+   object.def_property(
+      "heated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.heated();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::Heated>> &value)
+      {
+         self.heated() = value;
+      },
+      cppCLASS::component_t::documentation("heated").data()
+   );
+
+   // get/set averageProductData
+   object.def_property(
+      "average_product_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.averageProductData();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::AverageProductData>> &value)
+      {
+         self.averageProductData() = value;
+      },
+      cppCLASS::component_t::documentation("average_product_data").data()
+   );
+
+   // get/set MonteCarlo_cdf
+   object.def_property(
+      "monte_carlo_cdf",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.MonteCarlo_cdf();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::MonteCarlo_cdf>> &value)
+      {
+         self.MonteCarlo_cdf() = value;
+      },
+      cppCLASS::component_t::documentation("monte_carlo_cdf").data()
+   );
+
+   // get/set griddedCrossSection
+   object.def_property(
+      "gridded_cross_section",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.griddedCrossSection();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::GriddedCrossSection>> &value)
+      {
+         self.griddedCrossSection() = value;
+      },
+      cppCLASS::component_t::documentation("gridded_cross_section").data()
+   );
+
+   // get/set URR_probabilityTables
+   object.def_property(
+      "urr_probability_tables",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.URR_probabilityTables();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::URR_probabilityTables>> &value)
+      {
+         self.URR_probabilityTables() = value;
+      },
+      cppCLASS::component_t::documentation("urr_probability_tables").data()
+   );
+
+   // get/set heatedMultiGroup
+   object.def_property(
+      "heated_multi_group",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.heatedMultiGroup();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::HeatedMultiGroup>> &value)
+      {
+         self.heatedMultiGroup() = value;
+      },
+      cppCLASS::component_t::documentation("heated_multi_group").data()
+   );
+
+   // get/set SnElasticUpScatter
+   object.def_property(
+      "sn_elastic_up_scatter",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.SnElasticUpScatter();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<styles::SnElasticUpScatter>> &value)
+      {
+         self.SnElasticUpScatter() = value;
+      },
+      cppCLASS::component_t::documentation("sn_elastic_up_scatter").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

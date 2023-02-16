@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_common {
 
-// Q wrapper
-void wrapQ(python::module &module)
+// wrapper for common::Q
+void wrapQ(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = common::Q;
+   using cppCLASS = common::Q;
    using _t = std::variant<
       containers::Constant1d,
       containers::XYs1d,
@@ -32,91 +32,181 @@ void wrapQ(python::module &module)
       containers::Gridded1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Q",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Q",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const std::optional<documentation::Documentation> &,
-            const std::optional<containers::Uncertainty> &,
-            const _t &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         python::arg("value"),
-         python::arg("documentation") = std::nullopt,
-         python::arg("uncertainty") = std::nullopt,
-         python::arg("_constant1d_xys1dregions1dpolynomial1dgridded1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-      .def_property_readonly(
-         "uncertainty",
-         [](const Component &self) { return self.uncertainty(); },
-         Component::documentation("uncertainty").data()
-      )
-      .def_property_readonly(
-         "constant1d",
-         [](const Component &self) { return self.constant1d(); },
-         Component::documentation("constant1d").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self) { return self.regions1d(); },
-         Component::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
-         Component::documentation("polynomial1d").data()
-      )
-      .def_property_readonly(
-         "gridded1d",
-         [](const Component &self) { return self.gridded1d(); },
-         Component::documentation("gridded1d").data()
-      )
-      .def_property_readonly(
-         "_constant1d_xys1dregions1dpolynomial1dgridded1d",
-         [](const Component &self) { return self._constant1dXYs1dregions1dpolynomial1dgridded1d(); },
-         Component::documentation("_constant1d_xys1dregions1dpolynomial1dgridded1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const std::optional<documentation::Documentation> &,
+         const std::optional<containers::Uncertainty> &,
+         const _t &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      py::arg("value"),
+      py::arg("documentation") = std::nullopt,
+      py::arg("uncertainty") = std::nullopt,
+      py::arg("_constant1d_xys1dregions1dpolynomial1dgridded1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::optional<documentation::Documentation> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::optional<containers::Uncertainty> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const containers::Constant1d &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const containers::XYs1d &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const containers::Regions1d &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const containers::Polynomial1d &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   object.def_property(
+      "gridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded1d();
+      },
+      [](cppCLASS &self, const containers::Gridded1d &value)
+      {
+         self.gridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded1d").data()
+   );
+
+   object.def_property(
+      "_constant1d_xys1dregions1dpolynomial1dgridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._constant1dXYs1dregions1dpolynomial1dgridded1d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._constant1dXYs1dregions1dpolynomial1dgridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("_constant1d_xys1dregions1dpolynomial1dgridded1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_common

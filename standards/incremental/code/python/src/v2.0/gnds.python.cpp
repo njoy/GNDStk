@@ -5,38 +5,38 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // gnds declarations
 namespace python_gnds {
-   void wrapAuthor(python::module &);
-   void wrapAuthors(python::module &);
-   void wrapDate(python::module &);
-   void wrapDates(python::module &);
-   void wrapTitle(python::module &);
-   void wrapBody(python::module &);
-   void wrapEndfCompatible(python::module &);
-   void wrapDocumentation(python::module &);
-   void wrapEvaluated(python::module &);
-   void wrapStyles(python::module &);
-   void wrapDouble(python::module &);
-   void wrapBindingEnergy(python::module &);
-   void wrapConfiguration(python::module &);
-   void wrapConfigurations(python::module &);
-   void wrapAtomic(python::module &);
-   void wrapChemicalElement(python::module &);
-   void wrapChemicalElements(python::module &);
-   void wrapPoPs(python::module &);
+   void wrapAuthor(py::module &);
+   void wrapAuthors(py::module &);
+   void wrapDate(py::module &);
+   void wrapDates(py::module &);
+   void wrapTitle(py::module &);
+   void wrapBody(py::module &);
+   void wrapEndfCompatible(py::module &);
+   void wrapDocumentation(py::module &);
+   void wrapEvaluated(py::module &);
+   void wrapStyles(py::module &);
+   void wrapDouble(py::module &);
+   void wrapBindingEnergy(py::module &);
+   void wrapConfiguration(py::module &);
+   void wrapConfigurations(py::module &);
+   void wrapAtomic(py::module &);
+   void wrapChemicalElement(py::module &);
+   void wrapChemicalElements(py::module &);
+   void wrapPoPs(py::module &);
 } // namespace python_gnds
 
-// gnds wrapper
-void wrapGnds(python::module &module)
+// wrapper for gnds
+void wrapGnds(py::module &module)
 {
    // create the gnds submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "gnds",
       "code v2.0 gnds"
    );

@@ -93,13 +93,13 @@ TitleCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TitleAssign(ConstHandle2Title This, ConstHandle2ConstTitle from);
+TitleAssign(ConstHandle2Title self, ConstHandle2ConstTitle from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TitleDelete(ConstHandle2ConstTitle This);
+TitleDelete(ConstHandle2ConstTitle self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ TitleDelete(ConstHandle2ConstTitle This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TitleRead(ConstHandle2Title This, const char *const filename);
+TitleRead(ConstHandle2Title self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TitleWrite(ConstHandle2ConstTitle This, const char *const filename);
+TitleWrite(ConstHandle2ConstTitle self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TitlePrint(ConstHandle2ConstTitle This);
+TitlePrint(ConstHandle2ConstTitle self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TitlePrintXML(ConstHandle2ConstTitle This);
+TitlePrintXML(ConstHandle2ConstTitle self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TitlePrintJSON(ConstHandle2ConstTitle This);
+TitlePrintJSON(ConstHandle2ConstTitle self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ TitlePrintJSON(ConstHandle2ConstTitle This);
 
 // +++ Clear
 extern_c void
-TitleIntsClear(ConstHandle2Title This);
+TitleIntsClear(ConstHandle2Title self);
 
 // +++ Get size
 extern_c size_t
-TitleIntsSize(ConstHandle2ConstTitle This);
+TitleIntsSize(ConstHandle2ConstTitle self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-TitleIntsGet(ConstHandle2ConstTitle This, const size_t index);
+TitleIntsGet(ConstHandle2ConstTitle self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-TitleIntsSet(ConstHandle2Title This, const size_t index, const int value);
+TitleIntsSet(ConstHandle2Title self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-TitleIntsGetArrayConst(ConstHandle2ConstTitle This);
+TitleIntsGetArrayConst(ConstHandle2ConstTitle self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-TitleIntsGetArray(ConstHandle2Title This);
+TitleIntsGetArray(ConstHandle2Title self);
 
 // +++ Set completely new values and size
 extern_c void
-TitleIntsSetArray(ConstHandle2Title This, const int *const values, const size_t size);
+TitleIntsSetArray(ConstHandle2Title self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ TitleIntsSetArray(ConstHandle2Title This, const int *const values, const size_t 
 
 // +++ Clear
 extern_c void
-TitleUnsignedsClear(ConstHandle2Title This);
+TitleUnsignedsClear(ConstHandle2Title self);
 
 // +++ Get size
 extern_c size_t
-TitleUnsignedsSize(ConstHandle2ConstTitle This);
+TitleUnsignedsSize(ConstHandle2ConstTitle self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-TitleUnsignedsGet(ConstHandle2ConstTitle This, const size_t index);
+TitleUnsignedsGet(ConstHandle2ConstTitle self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-TitleUnsignedsSet(ConstHandle2Title This, const size_t index, const unsigned value);
+TitleUnsignedsSet(ConstHandle2Title self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-TitleUnsignedsGetArrayConst(ConstHandle2ConstTitle This);
+TitleUnsignedsGetArrayConst(ConstHandle2ConstTitle self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-TitleUnsignedsGetArray(ConstHandle2Title This);
+TitleUnsignedsGetArray(ConstHandle2Title self);
 
 // +++ Set completely new values and size
 extern_c void
-TitleUnsignedsSetArray(ConstHandle2Title This, const unsigned *const values, const size_t size);
+TitleUnsignedsSetArray(ConstHandle2Title self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ TitleUnsignedsSetArray(ConstHandle2Title This, const unsigned *const values, con
 
 // +++ Clear
 extern_c void
-TitleFloatsClear(ConstHandle2Title This);
+TitleFloatsClear(ConstHandle2Title self);
 
 // +++ Get size
 extern_c size_t
-TitleFloatsSize(ConstHandle2ConstTitle This);
+TitleFloatsSize(ConstHandle2ConstTitle self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-TitleFloatsGet(ConstHandle2ConstTitle This, const size_t index);
+TitleFloatsGet(ConstHandle2ConstTitle self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-TitleFloatsSet(ConstHandle2Title This, const size_t index, const float value);
+TitleFloatsSet(ConstHandle2Title self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-TitleFloatsGetArrayConst(ConstHandle2ConstTitle This);
+TitleFloatsGetArrayConst(ConstHandle2ConstTitle self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-TitleFloatsGetArray(ConstHandle2Title This);
+TitleFloatsGetArray(ConstHandle2Title self);
 
 // +++ Set completely new values and size
 extern_c void
-TitleFloatsSetArray(ConstHandle2Title This, const float *const values, const size_t size);
+TitleFloatsSetArray(ConstHandle2Title self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ TitleFloatsSetArray(ConstHandle2Title This, const float *const values, const siz
 
 // +++ Clear
 extern_c void
-TitleDoublesClear(ConstHandle2Title This);
+TitleDoublesClear(ConstHandle2Title self);
 
 // +++ Get size
 extern_c size_t
-TitleDoublesSize(ConstHandle2ConstTitle This);
+TitleDoublesSize(ConstHandle2ConstTitle self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-TitleDoublesGet(ConstHandle2ConstTitle This, const size_t index);
+TitleDoublesGet(ConstHandle2ConstTitle self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-TitleDoublesSet(ConstHandle2Title This, const size_t index, const double value);
+TitleDoublesSet(ConstHandle2Title self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-TitleDoublesGetArrayConst(ConstHandle2ConstTitle This);
+TitleDoublesGetArrayConst(ConstHandle2ConstTitle self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-TitleDoublesGetArray(ConstHandle2Title This);
+TitleDoublesGetArray(ConstHandle2Title self);
 
 // +++ Set completely new values and size
 extern_c void
-TitleDoublesSetArray(ConstHandle2Title This, const double *const values, const size_t size);
+TitleDoublesSetArray(ConstHandle2Title self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ TitleDoublesSetArray(ConstHandle2Title This, const double *const values, const s
 
 // +++ Has
 extern_c int
-TitleEncodingHas(ConstHandle2ConstTitle This);
+TitleEncodingHas(ConstHandle2ConstTitle self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TitleEncodingGet(ConstHandle2ConstTitle This);
+TitleEncodingGet(ConstHandle2ConstTitle self);
 
 // +++ Set
 extern_c void
-TitleEncodingSet(ConstHandle2Title This, const XMLName encoding);
+TitleEncodingSet(ConstHandle2Title self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ TitleEncodingSet(ConstHandle2Title This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-TitleMarkupHas(ConstHandle2ConstTitle This);
+TitleMarkupHas(ConstHandle2ConstTitle self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-TitleMarkupGet(ConstHandle2ConstTitle This);
+TitleMarkupGet(ConstHandle2ConstTitle self);
 
 // +++ Set
 extern_c void
-TitleMarkupSet(ConstHandle2Title This, const char *const markup);
+TitleMarkupSet(ConstHandle2Title self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ TitleMarkupSet(ConstHandle2Title This, const char *const markup);
 
 // +++ Has
 extern_c int
-TitleLabelHas(ConstHandle2ConstTitle This);
+TitleLabelHas(ConstHandle2ConstTitle self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TitleLabelGet(ConstHandle2ConstTitle This);
+TitleLabelGet(ConstHandle2ConstTitle self);
 
 // +++ Set
 extern_c void
-TitleLabelSet(ConstHandle2Title This, const XMLName label);
+TitleLabelSet(ConstHandle2Title self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

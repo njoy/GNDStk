@@ -92,13 +92,13 @@ InverseSpeedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InverseSpeedAssign(ConstHandle2InverseSpeed This, ConstHandle2ConstInverseSpeed from);
+InverseSpeedAssign(ConstHandle2InverseSpeed self, ConstHandle2ConstInverseSpeed from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InverseSpeedDelete(ConstHandle2ConstInverseSpeed This);
+InverseSpeedDelete(ConstHandle2ConstInverseSpeed self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ InverseSpeedDelete(ConstHandle2ConstInverseSpeed This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InverseSpeedRead(ConstHandle2InverseSpeed This, const char *const filename);
+InverseSpeedRead(ConstHandle2InverseSpeed self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InverseSpeedWrite(ConstHandle2ConstInverseSpeed This, const char *const filename);
+InverseSpeedWrite(ConstHandle2ConstInverseSpeed self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InverseSpeedPrint(ConstHandle2ConstInverseSpeed This);
+InverseSpeedPrint(ConstHandle2ConstInverseSpeed self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InverseSpeedPrintXML(ConstHandle2ConstInverseSpeed This);
+InverseSpeedPrintXML(ConstHandle2ConstInverseSpeed self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed This);
+InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ InverseSpeedPrintJSON(ConstHandle2ConstInverseSpeed This);
 
 // +++ Has
 extern_c int
-InverseSpeedLabelHas(ConstHandle2ConstInverseSpeed This);
+InverseSpeedLabelHas(ConstHandle2ConstInverseSpeed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-InverseSpeedLabelGet(ConstHandle2ConstInverseSpeed This);
+InverseSpeedLabelGet(ConstHandle2ConstInverseSpeed self);
 
 // +++ Set
 extern_c void
-InverseSpeedLabelSet(ConstHandle2InverseSpeed This, const XMLName label);
+InverseSpeedLabelSet(ConstHandle2InverseSpeed self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ InverseSpeedLabelSet(ConstHandle2InverseSpeed This, const XMLName label);
 
 // +++ Has
 extern_c int
-InverseSpeedGridded1dHas(ConstHandle2ConstInverseSpeed This);
+InverseSpeedGridded1dHas(ConstHandle2ConstInverseSpeed self);
 
 // --- Get, const
 extern_c Handle2ConstGridded1d
-InverseSpeedGridded1dGetConst(ConstHandle2ConstInverseSpeed This);
+InverseSpeedGridded1dGetConst(ConstHandle2ConstInverseSpeed self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded1d
-InverseSpeedGridded1dGet(ConstHandle2InverseSpeed This);
+InverseSpeedGridded1dGet(ConstHandle2InverseSpeed self);
 
 // +++ Set
 extern_c void
-InverseSpeedGridded1dSet(ConstHandle2InverseSpeed This, ConstHandle2ConstGridded1d gridded1d);
+InverseSpeedGridded1dSet(ConstHandle2InverseSpeed self, ConstHandle2ConstGridded1d gridded1d);
 
 
 // -----------------------------------------------------------------------------

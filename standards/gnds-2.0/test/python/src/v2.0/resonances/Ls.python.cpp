@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// Ls wrapper
-void wrapLs(python::module &module)
+// wrapper for resonances::Ls
+void wrapLs(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::Ls;
+   using cppCLASS = resonances::Ls;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Ls",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Ls",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<resonances::L> &
-         >(),
-         python::arg("l"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "l",
-         [](const Component &self) { return self.L(); },
-         Component::documentation("l").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<resonances::L> &
+      >(),
+      py::arg("l"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set L
+   object.def_property(
+      "l",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.L();
+      },
+      [](cppCLASS &self, const std::vector<resonances::L> &value)
+      {
+         self.L() = value;
+      },
+      cppCLASS::component_t::documentation("l").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

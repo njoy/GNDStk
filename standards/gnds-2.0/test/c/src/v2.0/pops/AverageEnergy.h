@@ -99,13 +99,13 @@ AverageEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageEnergyAssign(ConstHandle2AverageEnergy This, ConstHandle2ConstAverageEnergy from);
+AverageEnergyAssign(ConstHandle2AverageEnergy self, ConstHandle2ConstAverageEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageEnergyDelete(ConstHandle2ConstAverageEnergy This);
+AverageEnergyDelete(ConstHandle2ConstAverageEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ AverageEnergyDelete(ConstHandle2ConstAverageEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageEnergyRead(ConstHandle2AverageEnergy This, const char *const filename);
+AverageEnergyRead(ConstHandle2AverageEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageEnergyWrite(ConstHandle2ConstAverageEnergy This, const char *const filename);
+AverageEnergyWrite(ConstHandle2ConstAverageEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageEnergyPrint(ConstHandle2ConstAverageEnergy This);
+AverageEnergyPrint(ConstHandle2ConstAverageEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageEnergyPrintXML(ConstHandle2ConstAverageEnergy This);
+AverageEnergyPrintXML(ConstHandle2ConstAverageEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageEnergyPrintJSON(ConstHandle2ConstAverageEnergy This);
+AverageEnergyPrintJSON(ConstHandle2ConstAverageEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ AverageEnergyPrintJSON(ConstHandle2ConstAverageEnergy This);
 
 // +++ Has
 extern_c int
-AverageEnergyLabelHas(ConstHandle2ConstAverageEnergy This);
+AverageEnergyLabelHas(ConstHandle2ConstAverageEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AverageEnergyLabelGet(ConstHandle2ConstAverageEnergy This);
+AverageEnergyLabelGet(ConstHandle2ConstAverageEnergy self);
 
 // +++ Set
 extern_c void
-AverageEnergyLabelSet(ConstHandle2AverageEnergy This, const XMLName label);
+AverageEnergyLabelSet(ConstHandle2AverageEnergy self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ AverageEnergyLabelSet(ConstHandle2AverageEnergy This, const XMLName label);
 
 // +++ Has
 extern_c int
-AverageEnergyValueHas(ConstHandle2ConstAverageEnergy This);
+AverageEnergyValueHas(ConstHandle2ConstAverageEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-AverageEnergyValueGet(ConstHandle2ConstAverageEnergy This);
+AverageEnergyValueGet(ConstHandle2ConstAverageEnergy self);
 
 // +++ Set
 extern_c void
-AverageEnergyValueSet(ConstHandle2AverageEnergy This, const Float64 value);
+AverageEnergyValueSet(ConstHandle2AverageEnergy self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ AverageEnergyValueSet(ConstHandle2AverageEnergy This, const Float64 value);
 
 // +++ Has
 extern_c int
-AverageEnergyUnitHas(ConstHandle2ConstAverageEnergy This);
+AverageEnergyUnitHas(ConstHandle2ConstAverageEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AverageEnergyUnitGet(ConstHandle2ConstAverageEnergy This);
+AverageEnergyUnitGet(ConstHandle2ConstAverageEnergy self);
 
 // +++ Set
 extern_c void
-AverageEnergyUnitSet(ConstHandle2AverageEnergy This, const XMLName unit);
+AverageEnergyUnitSet(ConstHandle2AverageEnergy self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ AverageEnergyUnitSet(ConstHandle2AverageEnergy This, const XMLName unit);
 
 // +++ Has
 extern_c int
-AverageEnergyDocumentationHas(ConstHandle2ConstAverageEnergy This);
+AverageEnergyDocumentationHas(ConstHandle2ConstAverageEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-AverageEnergyDocumentationGetConst(ConstHandle2ConstAverageEnergy This);
+AverageEnergyDocumentationGetConst(ConstHandle2ConstAverageEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-AverageEnergyDocumentationGet(ConstHandle2AverageEnergy This);
+AverageEnergyDocumentationGet(ConstHandle2AverageEnergy self);
 
 // +++ Set
 extern_c void
-AverageEnergyDocumentationSet(ConstHandle2AverageEnergy This, ConstHandle2ConstDocumentation documentation);
+AverageEnergyDocumentationSet(ConstHandle2AverageEnergy self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ AverageEnergyDocumentationSet(ConstHandle2AverageEnergy This, ConstHandle2ConstD
 
 // +++ Has
 extern_c int
-AverageEnergyUncertaintyHas(ConstHandle2ConstAverageEnergy This);
+AverageEnergyUncertaintyHas(ConstHandle2ConstAverageEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy This);
+AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy This);
+AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy self);
 
 // +++ Set
 extern_c void
-AverageEnergyUncertaintySet(ConstHandle2AverageEnergy This, ConstHandle2ConstUncertainty uncertainty);
+AverageEnergyUncertaintySet(ConstHandle2AverageEnergy self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

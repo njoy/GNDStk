@@ -99,13 +99,13 @@ AverageProductDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageProductDataAssign(ConstHandle2AverageProductData This, ConstHandle2ConstAverageProductData from);
+AverageProductDataAssign(ConstHandle2AverageProductData self, ConstHandle2ConstAverageProductData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageProductDataDelete(ConstHandle2ConstAverageProductData This);
+AverageProductDataDelete(ConstHandle2ConstAverageProductData self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ AverageProductDataDelete(ConstHandle2ConstAverageProductData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageProductDataRead(ConstHandle2AverageProductData This, const char *const filename);
+AverageProductDataRead(ConstHandle2AverageProductData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageProductDataWrite(ConstHandle2ConstAverageProductData This, const char *const filename);
+AverageProductDataWrite(ConstHandle2ConstAverageProductData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageProductDataPrint(ConstHandle2ConstAverageProductData This);
+AverageProductDataPrint(ConstHandle2ConstAverageProductData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageProductDataPrintXML(ConstHandle2ConstAverageProductData This);
+AverageProductDataPrintXML(ConstHandle2ConstAverageProductData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData This);
+AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ AverageProductDataPrintJSON(ConstHandle2ConstAverageProductData This);
 
 // +++ Has
 extern_c int
-AverageProductDataDateHas(ConstHandle2ConstAverageProductData This);
+AverageProductDataDateHas(ConstHandle2ConstAverageProductData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AverageProductDataDateGet(ConstHandle2ConstAverageProductData This);
+AverageProductDataDateGet(ConstHandle2ConstAverageProductData self);
 
 // +++ Set
 extern_c void
-AverageProductDataDateSet(ConstHandle2AverageProductData This, const char *const date);
+AverageProductDataDateSet(ConstHandle2AverageProductData self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ AverageProductDataDateSet(ConstHandle2AverageProductData This, const char *const
 
 // +++ Has
 extern_c int
-AverageProductDataLabelHas(ConstHandle2ConstAverageProductData This);
+AverageProductDataLabelHas(ConstHandle2ConstAverageProductData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AverageProductDataLabelGet(ConstHandle2ConstAverageProductData This);
+AverageProductDataLabelGet(ConstHandle2ConstAverageProductData self);
 
 // +++ Set
 extern_c void
-AverageProductDataLabelSet(ConstHandle2AverageProductData This, const XMLName label);
+AverageProductDataLabelSet(ConstHandle2AverageProductData self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ AverageProductDataLabelSet(ConstHandle2AverageProductData This, const XMLName la
 
 // +++ Has
 extern_c int
-AverageProductDataDerivedFromHas(ConstHandle2ConstAverageProductData This);
+AverageProductDataDerivedFromHas(ConstHandle2ConstAverageProductData self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AverageProductDataDerivedFromGet(ConstHandle2ConstAverageProductData This);
+AverageProductDataDerivedFromGet(ConstHandle2ConstAverageProductData self);
 
 // +++ Set
 extern_c void
-AverageProductDataDerivedFromSet(ConstHandle2AverageProductData This, const XMLName derivedFrom);
+AverageProductDataDerivedFromSet(ConstHandle2AverageProductData self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ AverageProductDataDerivedFromSet(ConstHandle2AverageProductData This, const XMLN
 
 // +++ Has
 extern_c int
-AverageProductDataTemperatureHas(ConstHandle2ConstAverageProductData This);
+AverageProductDataTemperatureHas(ConstHandle2ConstAverageProductData self);
 
 // --- Get, const
 extern_c Handle2ConstTemperature
-AverageProductDataTemperatureGetConst(ConstHandle2ConstAverageProductData This);
+AverageProductDataTemperatureGetConst(ConstHandle2ConstAverageProductData self);
 
 // +++ Get, non-const
 extern_c Handle2Temperature
-AverageProductDataTemperatureGet(ConstHandle2AverageProductData This);
+AverageProductDataTemperatureGet(ConstHandle2AverageProductData self);
 
 // +++ Set
 extern_c void
-AverageProductDataTemperatureSet(ConstHandle2AverageProductData This, ConstHandle2ConstTemperature temperature);
+AverageProductDataTemperatureSet(ConstHandle2AverageProductData self, ConstHandle2ConstTemperature temperature);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ AverageProductDataTemperatureSet(ConstHandle2AverageProductData This, ConstHandl
 
 // +++ Has
 extern_c int
-AverageProductDataDocumentationHas(ConstHandle2ConstAverageProductData This);
+AverageProductDataDocumentationHas(ConstHandle2ConstAverageProductData self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-AverageProductDataDocumentationGetConst(ConstHandle2ConstAverageProductData This);
+AverageProductDataDocumentationGetConst(ConstHandle2ConstAverageProductData self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-AverageProductDataDocumentationGet(ConstHandle2AverageProductData This);
+AverageProductDataDocumentationGet(ConstHandle2AverageProductData self);
 
 // +++ Set
 extern_c void
-AverageProductDataDocumentationSet(ConstHandle2AverageProductData This, ConstHandle2ConstDocumentation documentation);
+AverageProductDataDocumentationSet(ConstHandle2AverageProductData self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

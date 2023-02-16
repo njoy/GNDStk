@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// Transportable wrapper
-void wrapTransportable(python::module &module)
+// wrapper for styles::Transportable
+void wrapTransportable(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::Transportable;
+   using cppCLASS = styles::Transportable;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Transportable",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Transportable",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const styles::MultiGroup &
-         >(),
-         python::arg("conserve") = std::nullopt,
-         python::arg("label"),
-         python::arg("multi_group"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "conserve",
-         [](const Component &self) { return self.conserve().value(); },
-         Component::documentation("conserve").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "multi_group",
-         [](const Component &self) { return self.multiGroup(); },
-         Component::documentation("multi_group").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const styles::MultiGroup &
+      >(),
+      py::arg("conserve") = std::nullopt,
+      py::arg("label"),
+      py::arg("multi_group"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set conserve
+   object.def_property(
+      "conserve",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.conserve().value();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.conserve() = value;
+      },
+      cppCLASS::component_t::documentation("conserve").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set multiGroup
+   object.def_property(
+      "multi_group",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.multiGroup();
+      },
+      [](cppCLASS &self, const styles::MultiGroup &value)
+      {
+         self.multiGroup() = value;
+      },
+      cppCLASS::component_t::documentation("multi_group").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

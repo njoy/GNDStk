@@ -5,30 +5,30 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // fpy declarations
 namespace python_fpy {
-   void wrapNuclides(python::module &);
-   void wrapTime(python::module &);
-   void wrapYields(python::module &);
-   void wrapEnergy(python::module &);
-   void wrapIncidentEnergy(python::module &);
-   void wrapIncidentEnergies(python::module &);
-   void wrapElapsedTime(python::module &);
-   void wrapElapsedTimes(python::module &);
-   void wrapProductYield(python::module &);
-   void wrapProductYields(python::module &);
+   void wrapNuclides(py::module &);
+   void wrapTime(py::module &);
+   void wrapYields(py::module &);
+   void wrapEnergy(py::module &);
+   void wrapIncidentEnergy(py::module &);
+   void wrapIncidentEnergies(py::module &);
+   void wrapElapsedTime(py::module &);
+   void wrapElapsedTimes(py::module &);
+   void wrapProductYield(py::module &);
+   void wrapProductYields(py::module &);
 } // namespace python_fpy
 
-// fpy wrapper
-void wrapFpy(python::module &module)
+// wrapper for fpy
+void wrapFpy(py::module &module)
 {
    // create the fpy submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "fpy",
       "test v2.0 fpy"
    );

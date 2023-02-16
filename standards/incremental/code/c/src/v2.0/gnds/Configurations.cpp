@@ -73,20 +73,20 @@ ConfigurationsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ConfigurationsAssign(ConstHandle2Configurations This, ConstHandle2ConstConfigurations from)
+ConfigurationsAssign(ConstHandle2Configurations self, ConstHandle2ConstConfigurations from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ConfigurationsDelete(ConstHandle2ConstConfigurations This)
+ConfigurationsDelete(ConstHandle2ConstConfigurations self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ConfigurationsDelete(ConstHandle2ConstConfigurations This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ConfigurationsRead(ConstHandle2Configurations This, const char *const filename)
+ConfigurationsRead(ConstHandle2Configurations self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ConfigurationsWrite(ConstHandle2ConstConfigurations This, const char *const filename)
+ConfigurationsWrite(ConstHandle2ConstConfigurations self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ConfigurationsPrint(ConstHandle2ConstConfigurations This)
+ConfigurationsPrint(ConstHandle2ConstConfigurations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ConfigurationsPrintXML(ConstHandle2ConstConfigurations This)
+ConfigurationsPrintXML(ConstHandle2ConstConfigurations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ConfigurationsPrintJSON(ConstHandle2ConstConfigurations This)
+ConfigurationsPrintJSON(ConstHandle2ConstConfigurations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ ConfigurationsPrintJSON(ConstHandle2ConstConfigurations This)
 
 // Has
 int
-ConfigurationsConfigurationHas(ConstHandle2ConstConfigurations This)
+ConfigurationsConfigurationHas(ConstHandle2ConstConfigurations self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ConfigurationHas", This, extract::configuration);
+      (CLASSNAME, CLASSNAME+"ConfigurationHas", self, extract::configuration);
 }
 
 // Clear
 void
-ConfigurationsConfigurationClear(ConstHandle2Configurations This)
+ConfigurationsConfigurationClear(ConstHandle2Configurations self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ConfigurationClear", This, extract::configuration);
+      (CLASSNAME, CLASSNAME+"ConfigurationClear", self, extract::configuration);
 }
 
 // Size
 size_t
-ConfigurationsConfigurationSize(ConstHandle2ConstConfigurations This)
+ConfigurationsConfigurationSize(ConstHandle2ConstConfigurations self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ConfigurationSize", This, extract::configuration);
+      (CLASSNAME, CLASSNAME+"ConfigurationSize", self, extract::configuration);
 }
 
 // Add
 void
-ConfigurationsConfigurationAdd(ConstHandle2Configurations This, ConstHandle2ConstConfiguration configuration)
+ConfigurationsConfigurationAdd(ConstHandle2Configurations self, ConstHandle2ConstConfiguration configuration)
 {
    detail::addToContainer<CPP,CPPConfiguration>
-      (CLASSNAME, CLASSNAME+"ConfigurationAdd", This, extract::configuration, configuration);
+      (CLASSNAME, CLASSNAME+"ConfigurationAdd", self, extract::configuration, configuration);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstConfiguration
-ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations This, const size_t index_)
+ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstConfiguration>
-      (CLASSNAME, CLASSNAME+"ConfigurationGetConst", This, extract::configuration, index_);
+      (CLASSNAME, CLASSNAME+"ConfigurationGetConst", self, extract::configuration, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Configuration
-ConfigurationsConfigurationGet(ConstHandle2Configurations This, const size_t index_)
+ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Configuration>
-      (CLASSNAME, CLASSNAME+"ConfigurationGet", This, extract::configuration, index_);
+      (CLASSNAME, CLASSNAME+"ConfigurationGet", self, extract::configuration, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ConfigurationsConfigurationSet(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const size_t index_,
    ConstHandle2ConstConfiguration configuration
 ) {
    detail::setByIndex<CPP,CPPConfiguration>
-      (CLASSNAME, CLASSNAME+"ConfigurationSet", This, extract::configuration, index_, configuration);
+      (CLASSNAME, CLASSNAME+"ConfigurationSet", self, extract::configuration, index_, configuration);
 }
 
 // Has, by subshell
 int
 ConfigurationsConfigurationHasBySubshell(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const subshell
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ConfigurationHasBySubshell",
-       This, extract::configuration, meta::subshell, subshell);
+       self, extract::configuration, meta::subshell, subshell);
 }
 
 // Get, by subshell, const
 Handle2ConstConfiguration
 ConfigurationsConfigurationGetBySubshellConst(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const subshell
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstConfiguration>
       (CLASSNAME, CLASSNAME+"ConfigurationGetBySubshellConst",
-       This, extract::configuration, meta::subshell, subshell);
+       self, extract::configuration, meta::subshell, subshell);
 }
 
 // Get, by subshell, non-const
 Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const subshell
 ) {
    return detail::getByMetadatum<CPP,Handle2Configuration>
       (CLASSNAME, CLASSNAME+"ConfigurationGetBySubshell",
-       This, extract::configuration, meta::subshell, subshell);
+       self, extract::configuration, meta::subshell, subshell);
 }
 
 // Set, by subshell
 void
 ConfigurationsConfigurationSetBySubshell(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const subshell,
    ConstHandle2ConstConfiguration configuration
 ) {
    detail::setByMetadatum<CPP,CPPConfiguration>
       (CLASSNAME, CLASSNAME+"ConfigurationSetBySubshell",
-       This, extract::configuration, meta::subshell, subshell, configuration);
+       self, extract::configuration, meta::subshell, subshell, configuration);
 }
 
 // Has, by electronNumber
 int
 ConfigurationsConfigurationHasByElectronNumber(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const electronNumber
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ConfigurationHasByElectronNumber",
-       This, extract::configuration, meta::electronNumber, electronNumber);
+       self, extract::configuration, meta::electronNumber, electronNumber);
 }
 
 // Get, by electronNumber, const
 Handle2ConstConfiguration
 ConfigurationsConfigurationGetByElectronNumberConst(
-   ConstHandle2ConstConfigurations This,
+   ConstHandle2ConstConfigurations self,
    const char *const electronNumber
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstConfiguration>
       (CLASSNAME, CLASSNAME+"ConfigurationGetByElectronNumberConst",
-       This, extract::configuration, meta::electronNumber, electronNumber);
+       self, extract::configuration, meta::electronNumber, electronNumber);
 }
 
 // Get, by electronNumber, non-const
 Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const electronNumber
 ) {
    return detail::getByMetadatum<CPP,Handle2Configuration>
       (CLASSNAME, CLASSNAME+"ConfigurationGetByElectronNumber",
-       This, extract::configuration, meta::electronNumber, electronNumber);
+       self, extract::configuration, meta::electronNumber, electronNumber);
 }
 
 // Set, by electronNumber
 void
 ConfigurationsConfigurationSetByElectronNumber(
-   ConstHandle2Configurations This,
+   ConstHandle2Configurations self,
    const char *const electronNumber,
    ConstHandle2ConstConfiguration configuration
 ) {
    detail::setByMetadatum<CPP,CPPConfiguration>
       (CLASSNAME, CLASSNAME+"ConfigurationSetByElectronNumber",
-       This, extract::configuration, meta::electronNumber, electronNumber, configuration);
+       self, extract::configuration, meta::electronNumber, electronNumber, configuration);
 }
 
 

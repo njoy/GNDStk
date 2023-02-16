@@ -73,20 +73,20 @@ BibliographyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BibliographyAssign(ConstHandle2Bibliography This, ConstHandle2ConstBibliography from)
+BibliographyAssign(ConstHandle2Bibliography self, ConstHandle2ConstBibliography from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BibliographyDelete(ConstHandle2ConstBibliography This)
+BibliographyDelete(ConstHandle2ConstBibliography self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ BibliographyDelete(ConstHandle2ConstBibliography This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BibliographyRead(ConstHandle2Bibliography This, const char *const filename)
+BibliographyRead(ConstHandle2Bibliography self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BibliographyWrite(ConstHandle2ConstBibliography This, const char *const filename)
+BibliographyWrite(ConstHandle2ConstBibliography self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BibliographyPrint(ConstHandle2ConstBibliography This)
+BibliographyPrint(ConstHandle2ConstBibliography self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BibliographyPrintXML(ConstHandle2ConstBibliography This)
+BibliographyPrintXML(ConstHandle2ConstBibliography self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BibliographyPrintJSON(ConstHandle2ConstBibliography This)
+BibliographyPrintJSON(ConstHandle2ConstBibliography self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ BibliographyPrintJSON(ConstHandle2ConstBibliography This)
 
 // Has
 int
-BibliographyBibitemHas(ConstHandle2ConstBibliography This)
+BibliographyBibitemHas(ConstHandle2ConstBibliography self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BibitemHas", This, extract::bibitem);
+      (CLASSNAME, CLASSNAME+"BibitemHas", self, extract::bibitem);
 }
 
 // Clear
 void
-BibliographyBibitemClear(ConstHandle2Bibliography This)
+BibliographyBibitemClear(ConstHandle2Bibliography self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"BibitemClear", This, extract::bibitem);
+      (CLASSNAME, CLASSNAME+"BibitemClear", self, extract::bibitem);
 }
 
 // Size
 size_t
-BibliographyBibitemSize(ConstHandle2ConstBibliography This)
+BibliographyBibitemSize(ConstHandle2ConstBibliography self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"BibitemSize", This, extract::bibitem);
+      (CLASSNAME, CLASSNAME+"BibitemSize", self, extract::bibitem);
 }
 
 // Add
 void
-BibliographyBibitemAdd(ConstHandle2Bibliography This, ConstHandle2ConstBibitem bibitem)
+BibliographyBibitemAdd(ConstHandle2Bibliography self, ConstHandle2ConstBibitem bibitem)
 {
    detail::addToContainer<CPP,CPPBibitem>
-      (CLASSNAME, CLASSNAME+"BibitemAdd", This, extract::bibitem, bibitem);
+      (CLASSNAME, CLASSNAME+"BibitemAdd", self, extract::bibitem, bibitem);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstBibitem
-BibliographyBibitemGetConst(ConstHandle2ConstBibliography This, const size_t index_)
+BibliographyBibitemGetConst(ConstHandle2ConstBibliography self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstBibitem>
-      (CLASSNAME, CLASSNAME+"BibitemGetConst", This, extract::bibitem, index_);
+      (CLASSNAME, CLASSNAME+"BibitemGetConst", self, extract::bibitem, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Bibitem
-BibliographyBibitemGet(ConstHandle2Bibliography This, const size_t index_)
+BibliographyBibitemGet(ConstHandle2Bibliography self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Bibitem>
-      (CLASSNAME, CLASSNAME+"BibitemGet", This, extract::bibitem, index_);
+      (CLASSNAME, CLASSNAME+"BibitemGet", self, extract::bibitem, index_);
 }
 
 // Set, by index \in [0,size)
 void
 BibliographyBibitemSet(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const size_t index_,
    ConstHandle2ConstBibitem bibitem
 ) {
    detail::setByIndex<CPP,CPPBibitem>
-      (CLASSNAME, CLASSNAME+"BibitemSet", This, extract::bibitem, index_, bibitem);
+      (CLASSNAME, CLASSNAME+"BibitemSet", self, extract::bibitem, index_, bibitem);
 }
 
 // Has, by encoding
 int
 BibliographyBibitemHasByEncoding(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName encoding
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"BibitemHasByEncoding",
-       This, extract::bibitem, meta::encoding, encoding);
+       self, extract::bibitem, meta::encoding, encoding);
 }
 
 // Get, by encoding, const
 Handle2ConstBibitem
 BibliographyBibitemGetByEncodingConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstBibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByEncodingConst",
-       This, extract::bibitem, meta::encoding, encoding);
+       self, extract::bibitem, meta::encoding, encoding);
 }
 
 // Get, by encoding, non-const
 Handle2Bibitem
 BibliographyBibitemGetByEncoding(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2Bibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByEncoding",
-       This, extract::bibitem, meta::encoding, encoding);
+       self, extract::bibitem, meta::encoding, encoding);
 }
 
 // Set, by encoding
 void
 BibliographyBibitemSetByEncoding(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName encoding,
    ConstHandle2ConstBibitem bibitem
 ) {
    detail::setByMetadatum<CPP,CPPBibitem>
       (CLASSNAME, CLASSNAME+"BibitemSetByEncoding",
-       This, extract::bibitem, meta::encoding, encoding, bibitem);
+       self, extract::bibitem, meta::encoding, encoding, bibitem);
 }
 
 // Has, by markup
 int
 BibliographyBibitemHasByMarkup(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const char *const markup
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"BibitemHasByMarkup",
-       This, extract::bibitem, meta::markup, markup);
+       self, extract::bibitem, meta::markup, markup);
 }
 
 // Get, by markup, const
 Handle2ConstBibitem
 BibliographyBibitemGetByMarkupConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstBibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByMarkupConst",
-       This, extract::bibitem, meta::markup, markup);
+       self, extract::bibitem, meta::markup, markup);
 }
 
 // Get, by markup, non-const
 Handle2Bibitem
 BibliographyBibitemGetByMarkup(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2Bibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByMarkup",
-       This, extract::bibitem, meta::markup, markup);
+       self, extract::bibitem, meta::markup, markup);
 }
 
 // Set, by markup
 void
 BibliographyBibitemSetByMarkup(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const char *const markup,
    ConstHandle2ConstBibitem bibitem
 ) {
    detail::setByMetadatum<CPP,CPPBibitem>
       (CLASSNAME, CLASSNAME+"BibitemSetByMarkup",
-       This, extract::bibitem, meta::markup, markup, bibitem);
+       self, extract::bibitem, meta::markup, markup, bibitem);
 }
 
 // Has, by label
 int
 BibliographyBibitemHasByLabel(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"BibitemHasByLabel",
-       This, extract::bibitem, meta::label, label);
+       self, extract::bibitem, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstBibitem
 BibliographyBibitemGetByLabelConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstBibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByLabelConst",
-       This, extract::bibitem, meta::label, label);
+       self, extract::bibitem, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Bibitem
 BibliographyBibitemGetByLabel(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Bibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByLabel",
-       This, extract::bibitem, meta::label, label);
+       self, extract::bibitem, meta::label, label);
 }
 
 // Set, by label
 void
 BibliographyBibitemSetByLabel(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName label,
    ConstHandle2ConstBibitem bibitem
 ) {
    detail::setByMetadatum<CPP,CPPBibitem>
       (CLASSNAME, CLASSNAME+"BibitemSetByLabel",
-       This, extract::bibitem, meta::label, label, bibitem);
+       self, extract::bibitem, meta::label, label, bibitem);
 }
 
 // Has, by xref
 int
 BibliographyBibitemHasByXref(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName xref
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"BibitemHasByXref",
-       This, extract::bibitem, meta::xref, xref);
+       self, extract::bibitem, meta::xref, xref);
 }
 
 // Get, by xref, const
 Handle2ConstBibitem
 BibliographyBibitemGetByXrefConst(
-   ConstHandle2ConstBibliography This,
+   ConstHandle2ConstBibliography self,
    const XMLName xref
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstBibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByXrefConst",
-       This, extract::bibitem, meta::xref, xref);
+       self, extract::bibitem, meta::xref, xref);
 }
 
 // Get, by xref, non-const
 Handle2Bibitem
 BibliographyBibitemGetByXref(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName xref
 ) {
    return detail::getByMetadatum<CPP,Handle2Bibitem>
       (CLASSNAME, CLASSNAME+"BibitemGetByXref",
-       This, extract::bibitem, meta::xref, xref);
+       self, extract::bibitem, meta::xref, xref);
 }
 
 // Set, by xref
 void
 BibliographyBibitemSetByXref(
-   ConstHandle2Bibliography This,
+   ConstHandle2Bibliography self,
    const XMLName xref,
    ConstHandle2ConstBibitem bibitem
 ) {
    detail::setByMetadatum<CPP,CPPBibitem>
       (CLASSNAME, CLASSNAME+"BibitemSetByXref",
-       This, extract::bibitem, meta::xref, xref, bibitem);
+       self, extract::bibitem, meta::xref, xref, bibitem);
 }
 
 

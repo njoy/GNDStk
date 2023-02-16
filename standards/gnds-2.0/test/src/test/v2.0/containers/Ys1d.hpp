@@ -26,12 +26,12 @@ class Ys1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Ys1d"; }
-   static auto FIELD() { return "Ys1d"; }
+   static auto NODENAME() { return "Ys1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,12 +45,47 @@ class Ys1d :
             / Meta<>("label") |
 
          // children
-         --Child<containers::Axes>("axes") |
-         --Child<containers::Values>("values")
+         --Child<containers::Axes>
+            ("axes") |
+         --Child<containers::Values>
+            ("values")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interpolation",
+         "label",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "interpolation",
+         "label",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -58,27 +93,38 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<std::optional<XMLName>> label{this};
+   Field<Defaulted<enums::Interpolation>>
+      interpolation{this,defaults.interpolation};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<containers::Axes> axes{this};
-   Field<containers::Values> values{this};
+   Field<containers::Axes>
+      axes{this};
+   Field<containers::Values>
+      values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->interpolation, \
       this->label, \
       this->axes, \
-      this->values)
+      this->values \
+   )
 
    // default
    Ys1d() :
@@ -90,10 +136,14 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Ys1d(
-      const wrapper<std::optional<enums::Interpolation>> &interpolation,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<containers::Axes> &axes = {},
-      const wrapper<containers::Values> &values = {}
+      const wrapper<std::optional<enums::Interpolation>>
+         &interpolation,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<containers::Axes>
+         &axes = {},
+      const wrapper<containers::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       interpolation(this,defaults.interpolation,interpolation),
@@ -139,8 +189,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Ys1d &operator=(const Ys1d &) = default;
-   Ys1d &operator=(Ys1d &&) = default;
+   // copy
+   Ys1d &operator=(const Ys1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         interpolation = other.interpolation;
+         label = other.label;
+         axes = other.axes;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Ys1d &operator=(Ys1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         interpolation = std::move(other.interpolation);
+         label = std::move(other.label);
+         axes = std::move(other.axes);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

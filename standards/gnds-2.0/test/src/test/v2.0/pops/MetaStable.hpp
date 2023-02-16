@@ -25,12 +25,12 @@ class MetaStable :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "MetaStable"; }
-   static auto FIELD() { return "metaStable"; }
+   static auto NODENAME() { return "metaStable"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class MetaStable :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "metaStableIndex",
+         "pid"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "meta_stable_index",
+         "pid"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> id{this};
-   Field<Integer32> metaStableIndex{this};
-   Field<XMLName> pid{this};
+   Field<XMLName>
+      id{this};
+   Field<Integer32>
+      metaStableIndex{this};
+   Field<XMLName>
+      pid{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->metaStableIndex, \
-      this->pid)
+      this->pid \
+   )
 
    // default
    MetaStable() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit MetaStable(
-      const wrapper<XMLName> &id,
-      const wrapper<Integer32> &metaStableIndex = {},
-      const wrapper<XMLName> &pid = {}
+      const wrapper<XMLName>
+         &id,
+      const wrapper<Integer32>
+         &metaStableIndex = {},
+      const wrapper<XMLName>
+         &pid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   MetaStable &operator=(const MetaStable &) = default;
-   MetaStable &operator=(MetaStable &&) = default;
+   // copy
+   MetaStable &operator=(const MetaStable &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         metaStableIndex = other.metaStableIndex;
+         pid = other.pid;
+      }
+      return *this;
+   }
+
+   // move
+   MetaStable &operator=(MetaStable &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         metaStableIndex = std::move(other.metaStableIndex);
+         pid = std::move(other.pid);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

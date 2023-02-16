@@ -25,12 +25,12 @@ class Widths :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Widths"; }
-   static auto FIELD() { return "widths"; }
+   static auto NODENAME() { return "widths"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Widths :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<resonances::Width>("width")
+         ++Child<resonances::Width>
+            ("width")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "width"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "width"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<resonances::Width>> width{this};
+   Field<std::vector<resonances::Width>>
+      width{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->width)
+      this->width \
+   )
 
    // default
    Widths() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Widths(
-      const wrapper<std::vector<resonances::Width>> &width
+      const wrapper<std::vector<resonances::Width>>
+         &width
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       width(this,width)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Widths &operator=(const Widths &) = default;
-   Widths &operator=(Widths &&) = default;
+   // copy
+   Widths &operator=(const Widths &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         width = other.width;
+      }
+      return *this;
+   }
+
+   // move
+   Widths &operator=(Widths &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         width = std::move(other.width);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

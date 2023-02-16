@@ -25,12 +25,12 @@ class DecayPath :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "DecayPath"; }
-   static auto FIELD() { return "decayPath"; }
+   static auto NODENAME() { return "decayPath"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class DecayPath :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<pops::Decay>("decay")
+         ++Child<pops::Decay>
+            ("decay")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "decay"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "decay"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<pops::Decay>> decay{this};
+   Field<std::vector<pops::Decay>>
+      decay{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->decay)
+      this->decay \
+   )
 
    // default
    DecayPath() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit DecayPath(
-      const wrapper<std::vector<pops::Decay>> &decay
+      const wrapper<std::vector<pops::Decay>>
+         &decay
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       decay(this,decay)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   DecayPath &operator=(const DecayPath &) = default;
-   DecayPath &operator=(DecayPath &&) = default;
+   // copy
+   DecayPath &operator=(const DecayPath &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         decay = other.decay;
+      }
+      return *this;
+   }
+
+   // move
+   DecayPath &operator=(DecayPath &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         decay = std::move(other.decay);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

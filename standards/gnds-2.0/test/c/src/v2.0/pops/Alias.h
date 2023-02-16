@@ -91,13 +91,13 @@ AliasCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AliasAssign(ConstHandle2Alias This, ConstHandle2ConstAlias from);
+AliasAssign(ConstHandle2Alias self, ConstHandle2ConstAlias from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AliasDelete(ConstHandle2ConstAlias This);
+AliasDelete(ConstHandle2ConstAlias self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ AliasDelete(ConstHandle2ConstAlias This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AliasRead(ConstHandle2Alias This, const char *const filename);
+AliasRead(ConstHandle2Alias self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AliasWrite(ConstHandle2ConstAlias This, const char *const filename);
+AliasWrite(ConstHandle2ConstAlias self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AliasPrint(ConstHandle2ConstAlias This);
+AliasPrint(ConstHandle2ConstAlias self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AliasPrintXML(ConstHandle2ConstAlias This);
+AliasPrintXML(ConstHandle2ConstAlias self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AliasPrintJSON(ConstHandle2ConstAlias This);
+AliasPrintJSON(ConstHandle2ConstAlias self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ AliasPrintJSON(ConstHandle2ConstAlias This);
 
 // +++ Has
 extern_c int
-AliasIdHas(ConstHandle2ConstAlias This);
+AliasIdHas(ConstHandle2ConstAlias self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AliasIdGet(ConstHandle2ConstAlias This);
+AliasIdGet(ConstHandle2ConstAlias self);
 
 // +++ Set
 extern_c void
-AliasIdSet(ConstHandle2Alias This, const XMLName id);
+AliasIdSet(ConstHandle2Alias self, const XMLName id);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ AliasIdSet(ConstHandle2Alias This, const XMLName id);
 
 // +++ Has
 extern_c int
-AliasPidHas(ConstHandle2ConstAlias This);
+AliasPidHas(ConstHandle2ConstAlias self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AliasPidGet(ConstHandle2ConstAlias This);
+AliasPidGet(ConstHandle2ConstAlias self);
 
 // +++ Set
 extern_c void
-AliasPidSet(ConstHandle2Alias This, const XMLName pid);
+AliasPidSet(ConstHandle2Alias self, const XMLName pid);
 
 
 // -----------------------------------------------------------------------------

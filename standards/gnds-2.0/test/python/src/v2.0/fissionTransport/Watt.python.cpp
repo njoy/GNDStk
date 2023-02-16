@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionTransport {
 
-// Watt wrapper
-void wrapWatt(python::module &module)
+// wrapper for fissionTransport::Watt
+void wrapWatt(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionTransport::Watt;
+   using cppCLASS = fissionTransport::Watt;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Watt",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Watt",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const transport::U &,
-            const fissionTransport::A &,
-            const fissionTransport::B &
-         >(),
-         python::arg("u"),
-         python::arg("a"),
-         python::arg("b"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "u",
-         [](const Component &self) { return self.U(); },
-         Component::documentation("u").data()
-      )
-      .def_property_readonly(
-         "a",
-         [](const Component &self) { return self.a(); },
-         Component::documentation("a").data()
-      )
-      .def_property_readonly(
-         "b",
-         [](const Component &self) { return self.b(); },
-         Component::documentation("b").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const transport::U &,
+         const fissionTransport::A &,
+         const fissionTransport::B &
+      >(),
+      py::arg("u"),
+      py::arg("a"),
+      py::arg("b"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set U
+   object.def_property(
+      "u",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.U();
+      },
+      [](cppCLASS &self, const transport::U &value)
+      {
+         self.U() = value;
+      },
+      cppCLASS::component_t::documentation("u").data()
+   );
+
+   // get/set a
+   object.def_property(
+      "a",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.a();
+      },
+      [](cppCLASS &self, const fissionTransport::A &value)
+      {
+         self.a() = value;
+      },
+      cppCLASS::component_t::documentation("a").data()
+   );
+
+   // get/set b
+   object.def_property(
+      "b",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.b();
+      },
+      [](cppCLASS &self, const fissionTransport::B &value)
+      {
+         self.b() = value;
+      },
+      cppCLASS::component_t::documentation("b").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionTransport

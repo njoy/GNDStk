@@ -90,13 +90,13 @@ ElapsedTimesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ElapsedTimesAssign(ConstHandle2ElapsedTimes This, ConstHandle2ConstElapsedTimes from);
+ElapsedTimesAssign(ConstHandle2ElapsedTimes self, ConstHandle2ConstElapsedTimes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ElapsedTimesDelete(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesDelete(ConstHandle2ConstElapsedTimes self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ElapsedTimesDelete(ConstHandle2ConstElapsedTimes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ElapsedTimesRead(ConstHandle2ElapsedTimes This, const char *const filename);
+ElapsedTimesRead(ConstHandle2ElapsedTimes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ElapsedTimesWrite(ConstHandle2ConstElapsedTimes This, const char *const filename);
+ElapsedTimesWrite(ConstHandle2ConstElapsedTimes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ElapsedTimesPrint(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesPrint(ConstHandle2ConstElapsedTimes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ElapsedTimesPrintXML(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesPrintXML(ConstHandle2ConstElapsedTimes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ElapsedTimesPrintJSON(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesPrintJSON(ConstHandle2ConstElapsedTimes self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ElapsedTimesPrintJSON(ConstHandle2ConstElapsedTimes This);
 
 // +++ Has
 extern_c int
-ElapsedTimesElapsedTimeHas(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesElapsedTimeHas(ConstHandle2ConstElapsedTimes self);
 
 // +++ Clear
 extern_c void
-ElapsedTimesElapsedTimeClear(ConstHandle2ElapsedTimes This);
+ElapsedTimesElapsedTimeClear(ConstHandle2ElapsedTimes self);
 
 // +++ Size
 extern_c size_t
-ElapsedTimesElapsedTimeSize(ConstHandle2ConstElapsedTimes This);
+ElapsedTimesElapsedTimeSize(ConstHandle2ConstElapsedTimes self);
 
 // +++ Add
 extern_c void
-ElapsedTimesElapsedTimeAdd(ConstHandle2ElapsedTimes This, ConstHandle2ConstElapsedTime elapsedTime);
+ElapsedTimesElapsedTimeAdd(ConstHandle2ElapsedTimes self, ConstHandle2ConstElapsedTime elapsedTime);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstElapsedTime
-ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes This, const size_t index_);
+ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ElapsedTime
-ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes This, const size_t index_);
+ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ElapsedTimesElapsedTimeSet(
-   ConstHandle2ElapsedTimes This,
+   ConstHandle2ElapsedTimes self,
    const size_t index_,
    ConstHandle2ConstElapsedTime elapsedTime
 );
@@ -169,28 +169,28 @@ ElapsedTimesElapsedTimeSet(
 // +++ Has, by label
 extern_c int
 ElapsedTimesElapsedTimeHasByLabel(
-   ConstHandle2ConstElapsedTimes This,
+   ConstHandle2ConstElapsedTimes self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstElapsedTime
 ElapsedTimesElapsedTimeGetByLabelConst(
-   ConstHandle2ConstElapsedTimes This,
+   ConstHandle2ConstElapsedTimes self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ElapsedTime
 ElapsedTimesElapsedTimeGetByLabel(
-   ConstHandle2ElapsedTimes This,
+   ConstHandle2ElapsedTimes self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ElapsedTimesElapsedTimeSetByLabel(
-   ConstHandle2ElapsedTimes This,
+   ConstHandle2ElapsedTimes self,
    const XMLName label,
    ConstHandle2ConstElapsedTime elapsedTime
 );

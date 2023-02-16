@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// Transportables wrapper
-void wrapTransportables(python::module &module)
+// wrapper for styles::Transportables
+void wrapTransportables(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::Transportables;
+   using cppCLASS = styles::Transportables;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Transportables",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Transportables",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::vector<styles::Transportable> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("transportable"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "transportable",
-         [](const Component &self) { return self.transportable(); },
-         Component::documentation("transportable").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::vector<styles::Transportable> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("transportable"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set transportable
+   object.def_property(
+      "transportable",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.transportable();
+      },
+      [](cppCLASS &self, const std::vector<styles::Transportable> &value)
+      {
+         self.transportable() = value;
+      },
+      cppCLASS::component_t::documentation("transportable").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

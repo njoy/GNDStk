@@ -26,12 +26,12 @@ class Unorthodox :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Unorthodox"; }
-   static auto FIELD() { return "unorthodox"; }
+   static auto NODENAME() { return "unorthodox"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class Unorthodox :
             / Meta<>("id") |
 
          // children
-         --Child<std::optional<pops::Charge>>("charge") |
-         --Child<std::optional<pops::Mass>>("mass")
+         --Child<std::optional<pops::Charge>>
+            ("charge") |
+         --Child<std::optional<pops::Mass>>
+            ("mass")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "charge",
+         "mass"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "charge",
+         "mass"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> id{this};
+   Field<XMLName>
+      id{this};
 
    // children
-   Field<std::optional<pops::Charge>> charge{this};
-   Field<std::optional<pops::Mass>> mass{this};
+   Field<std::optional<pops::Charge>>
+      charge{this};
+   Field<std::optional<pops::Mass>>
+      mass{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->charge, \
-      this->mass)
+      this->mass \
+   )
 
    // default
    Unorthodox() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit Unorthodox(
-      const wrapper<XMLName> &id,
-      const wrapper<std::optional<pops::Charge>> &charge = {},
-      const wrapper<std::optional<pops::Mass>> &mass = {}
+      const wrapper<XMLName>
+         &id,
+      const wrapper<std::optional<pops::Charge>>
+         &charge = {},
+      const wrapper<std::optional<pops::Mass>>
+         &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Unorthodox &operator=(const Unorthodox &) = default;
-   Unorthodox &operator=(Unorthodox &&) = default;
+   // copy
+   Unorthodox &operator=(const Unorthodox &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         charge = other.charge;
+         mass = other.mass;
+      }
+      return *this;
+   }
+
+   // move
+   Unorthodox &operator=(Unorthodox &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         charge = std::move(other.charge);
+         mass = std::move(other.mass);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -89,13 +89,13 @@ ResolvedRegionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResolvedRegionAssign(ConstHandle2ResolvedRegion This, ConstHandle2ConstResolvedRegion from);
+ResolvedRegionAssign(ConstHandle2ResolvedRegion self, ConstHandle2ConstResolvedRegion from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResolvedRegionDelete(ConstHandle2ConstResolvedRegion This);
+ResolvedRegionDelete(ConstHandle2ConstResolvedRegion self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ ResolvedRegionDelete(ConstHandle2ConstResolvedRegion This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResolvedRegionRead(ConstHandle2ResolvedRegion This, const char *const filename);
+ResolvedRegionRead(ConstHandle2ResolvedRegion self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResolvedRegionWrite(ConstHandle2ConstResolvedRegion This, const char *const filename);
+ResolvedRegionWrite(ConstHandle2ConstResolvedRegion self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResolvedRegionPrint(ConstHandle2ConstResolvedRegion This);
+ResolvedRegionPrint(ConstHandle2ConstResolvedRegion self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResolvedRegionPrintXML(ConstHandle2ConstResolvedRegion This);
+ResolvedRegionPrintXML(ConstHandle2ConstResolvedRegion self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResolvedRegionPrintJSON(ConstHandle2ConstResolvedRegion This);
+ResolvedRegionPrintJSON(ConstHandle2ConstResolvedRegion self);
 
 
 // -----------------------------------------------------------------------------

@@ -90,13 +90,13 @@ ExforDataSetsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExforDataSetsAssign(ConstHandle2ExforDataSets This, ConstHandle2ConstExforDataSets from);
+ExforDataSetsAssign(ConstHandle2ExforDataSets self, ConstHandle2ConstExforDataSets from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExforDataSetsDelete(ConstHandle2ConstExforDataSets This);
+ExforDataSetsDelete(ConstHandle2ConstExforDataSets self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ExforDataSetsDelete(ConstHandle2ConstExforDataSets This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExforDataSetsRead(ConstHandle2ExforDataSets This, const char *const filename);
+ExforDataSetsRead(ConstHandle2ExforDataSets self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExforDataSetsWrite(ConstHandle2ConstExforDataSets This, const char *const filename);
+ExforDataSetsWrite(ConstHandle2ConstExforDataSets self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExforDataSetsPrint(ConstHandle2ConstExforDataSets This);
+ExforDataSetsPrint(ConstHandle2ConstExforDataSets self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExforDataSetsPrintXML(ConstHandle2ConstExforDataSets This);
+ExforDataSetsPrintXML(ConstHandle2ConstExforDataSets self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets This);
+ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets This);
 
 // +++ Has
 extern_c int
-ExforDataSetsExforDataSetHas(ConstHandle2ConstExforDataSets This);
+ExforDataSetsExforDataSetHas(ConstHandle2ConstExforDataSets self);
 
 // +++ Clear
 extern_c void
-ExforDataSetsExforDataSetClear(ConstHandle2ExforDataSets This);
+ExforDataSetsExforDataSetClear(ConstHandle2ExforDataSets self);
 
 // +++ Size
 extern_c size_t
-ExforDataSetsExforDataSetSize(ConstHandle2ConstExforDataSets This);
+ExforDataSetsExforDataSetSize(ConstHandle2ConstExforDataSets self);
 
 // +++ Add
 extern_c void
-ExforDataSetsExforDataSetAdd(ConstHandle2ExforDataSets This, ConstHandle2ConstExforDataSet exforDataSet);
+ExforDataSetsExforDataSetAdd(ConstHandle2ExforDataSets self, ConstHandle2ConstExforDataSet exforDataSet);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstExforDataSet
-ExforDataSetsExforDataSetGetConst(ConstHandle2ConstExforDataSets This, const size_t index_);
+ExforDataSetsExforDataSetGetConst(ConstHandle2ConstExforDataSets self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ExforDataSet
-ExforDataSetsExforDataSetGet(ConstHandle2ExforDataSets This, const size_t index_);
+ExforDataSetsExforDataSetGet(ConstHandle2ExforDataSets self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ExforDataSetsExforDataSetSet(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const size_t index_,
    ConstHandle2ConstExforDataSet exforDataSet
 );
@@ -169,28 +169,28 @@ ExforDataSetsExforDataSetSet(
 // +++ Has, by subentry
 extern_c int
 ExforDataSetsExforDataSetHasBySubentry(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const XMLName subentry
 );
 
 // --- Get, by subentry, const
 extern_c Handle2ConstExforDataSet
 ExforDataSetsExforDataSetGetBySubentryConst(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const XMLName subentry
 );
 
 // +++ Get, by subentry, non-const
 extern_c Handle2ExforDataSet
 ExforDataSetsExforDataSetGetBySubentry(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const XMLName subentry
 );
 
 // +++ Set, by subentry
 extern_c void
 ExforDataSetsExforDataSetSetBySubentry(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const XMLName subentry,
    ConstHandle2ConstExforDataSet exforDataSet
 );
@@ -198,28 +198,28 @@ ExforDataSetsExforDataSetSetBySubentry(
 // +++ Has, by retrievalDate
 extern_c int
 ExforDataSetsExforDataSetHasByRetrievalDate(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const char *const retrievalDate
 );
 
 // --- Get, by retrievalDate, const
 extern_c Handle2ConstExforDataSet
 ExforDataSetsExforDataSetGetByRetrievalDateConst(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const char *const retrievalDate
 );
 
 // +++ Get, by retrievalDate, non-const
 extern_c Handle2ExforDataSet
 ExforDataSetsExforDataSetGetByRetrievalDate(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const char *const retrievalDate
 );
 
 // +++ Set, by retrievalDate
 extern_c void
 ExforDataSetsExforDataSetSetByRetrievalDate(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const char *const retrievalDate,
    ConstHandle2ConstExforDataSet exforDataSet
 );

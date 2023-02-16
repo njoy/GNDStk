@@ -77,20 +77,20 @@ MetaStableCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MetaStableAssign(ConstHandle2MetaStable This, ConstHandle2ConstMetaStable from)
+MetaStableAssign(ConstHandle2MetaStable self, ConstHandle2ConstMetaStable from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MetaStableDelete(ConstHandle2ConstMetaStable This)
+MetaStableDelete(ConstHandle2ConstMetaStable self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ MetaStableDelete(ConstHandle2ConstMetaStable This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MetaStableRead(ConstHandle2MetaStable This, const char *const filename)
+MetaStableRead(ConstHandle2MetaStable self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MetaStableWrite(ConstHandle2ConstMetaStable This, const char *const filename)
+MetaStableWrite(ConstHandle2ConstMetaStable self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MetaStablePrint(ConstHandle2ConstMetaStable This)
+MetaStablePrint(ConstHandle2ConstMetaStable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MetaStablePrintXML(ConstHandle2ConstMetaStable This)
+MetaStablePrintXML(ConstHandle2ConstMetaStable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MetaStablePrintJSON(ConstHandle2ConstMetaStable This)
+MetaStablePrintJSON(ConstHandle2ConstMetaStable self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ MetaStablePrintJSON(ConstHandle2ConstMetaStable This)
 
 // Has
 int
-MetaStableIdHas(ConstHandle2ConstMetaStable This)
+MetaStableIdHas(ConstHandle2ConstMetaStable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 XMLName
-MetaStableIdGet(ConstHandle2ConstMetaStable This)
+MetaStableIdGet(ConstHandle2ConstMetaStable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-MetaStableIdSet(ConstHandle2MetaStable This, const XMLName id)
+MetaStableIdSet(ConstHandle2MetaStable self, const XMLName id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -181,27 +181,27 @@ MetaStableIdSet(ConstHandle2MetaStable This, const XMLName id)
 
 // Has
 int
-MetaStableMetaStableIndexHas(ConstHandle2ConstMetaStable This)
+MetaStableMetaStableIndexHas(ConstHandle2ConstMetaStable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableIndexHas", This, extract::metaStableIndex);
+      (CLASSNAME, CLASSNAME+"MetaStableIndexHas", self, extract::metaStableIndex);
 }
 
 // Get
 // Returns by value
 Integer32
-MetaStableMetaStableIndexGet(ConstHandle2ConstMetaStable This)
+MetaStableMetaStableIndexGet(ConstHandle2ConstMetaStable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableIndexGet", This, extract::metaStableIndex);
+      (CLASSNAME, CLASSNAME+"MetaStableIndexGet", self, extract::metaStableIndex);
 }
 
 // Set
 void
-MetaStableMetaStableIndexSet(ConstHandle2MetaStable This, const Integer32 metaStableIndex)
+MetaStableMetaStableIndexSet(ConstHandle2MetaStable self, const Integer32 metaStableIndex)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableIndexSet", This, extract::metaStableIndex, metaStableIndex);
+      (CLASSNAME, CLASSNAME+"MetaStableIndexSet", self, extract::metaStableIndex, metaStableIndex);
 }
 
 
@@ -211,27 +211,27 @@ MetaStableMetaStableIndexSet(ConstHandle2MetaStable This, const Integer32 metaSt
 
 // Has
 int
-MetaStablePidHas(ConstHandle2ConstMetaStable This)
+MetaStablePidHas(ConstHandle2ConstMetaStable self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-MetaStablePidGet(ConstHandle2ConstMetaStable This)
+MetaStablePidGet(ConstHandle2ConstMetaStable self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-MetaStablePidSet(ConstHandle2MetaStable This, const XMLName pid)
+MetaStablePidSet(ConstHandle2MetaStable self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 

@@ -39,12 +39,12 @@ class Documentation :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Documentation"; }
-   static auto FIELD() { return "documentation"; }
+   static auto NODENAME() { return "documentation"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -60,57 +60,157 @@ class Documentation :
             / Meta<>("version") |
 
          // children
-         --Child<documentation::Authors>("authors") |
-         --Child<std::optional<documentation::Contributors>>("contributors") |
-         --Child<std::optional<documentation::Collaborations>>("collaborations") |
-         --Child<documentation::Dates>("dates") |
-         --Child<std::optional<documentation::Copyright>>("copyright") |
-         --Child<std::optional<documentation::Acknowledgements>>("acknowledgements") |
-         --Child<std::optional<documentation::Keywords>>("keywords") |
-         --Child<std::optional<documentation::RelatedItems>>("relatedItems") |
-         --Child<documentation::Title>("title") |
-         --Child<std::optional<documentation::Abstract>>("abstract") |
-         --Child<documentation::Body>("body") |
-         --Child<std::optional<documentation::ComputerCodes>>("computerCodes") |
-         --Child<std::optional<documentation::ExperimentalDataSets>>("experimentalDataSets") |
-         --Child<std::optional<documentation::Bibliography>>("bibliography") |
-         --Child<std::optional<documentation::EndfCompatible>>("endfCompatible")
+         --Child<documentation::Authors>
+            ("authors") |
+         --Child<std::optional<documentation::Contributors>>
+            ("contributors") |
+         --Child<std::optional<documentation::Collaborations>>
+            ("collaborations") |
+         --Child<documentation::Dates>
+            ("dates") |
+         --Child<std::optional<documentation::Copyright>>
+            ("copyright") |
+         --Child<std::optional<documentation::Acknowledgements>>
+            ("acknowledgements") |
+         --Child<std::optional<documentation::Keywords>>
+            ("keywords") |
+         --Child<std::optional<documentation::RelatedItems>>
+            ("relatedItems") |
+         --Child<documentation::Title>
+            ("title") |
+         --Child<std::optional<documentation::Abstract>>
+            ("abstract") |
+         --Child<documentation::Body>
+            ("body") |
+         --Child<std::optional<documentation::ComputerCodes>>
+            ("computerCodes") |
+         --Child<std::optional<documentation::ExperimentalDataSets>>
+            ("experimentalDataSets") |
+         --Child<std::optional<documentation::Bibliography>>
+            ("bibliography") |
+         --Child<std::optional<documentation::EndfCompatible>>
+            ("endfCompatible")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "doi",
+         "publicationDate",
+         "version",
+         "authors",
+         "contributors",
+         "collaborations",
+         "dates",
+         "copyright",
+         "acknowledgements",
+         "keywords",
+         "relatedItems",
+         "title",
+         "abstract",
+         "body",
+         "computerCodes",
+         "experimentalDataSets",
+         "bibliography",
+         "endfCompatible"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "doi",
+         "publication_date",
+         "version",
+         "authors",
+         "contributors",
+         "collaborations",
+         "dates",
+         "copyright",
+         "acknowledgements",
+         "keywords",
+         "related_items",
+         "title",
+         "abstract",
+         "body",
+         "computer_codes",
+         "experimental_data_sets",
+         "bibliography",
+         "endf_compatible"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<UTF8Text>> doi{this};
-   Field<std::optional<std::string>> publicationDate{this};
-   Field<std::optional<UTF8Text>> version{this};
+   Field<std::optional<UTF8Text>>
+      doi{this};
+   Field<std::optional<std::string>>
+      publicationDate{this};
+   Field<std::optional<UTF8Text>>
+      version{this};
 
    // children
-   Field<documentation::Authors> authors{this};
-   Field<std::optional<documentation::Contributors>> contributors{this};
-   Field<std::optional<documentation::Collaborations>> collaborations{this};
-   Field<documentation::Dates> dates{this};
-   Field<std::optional<documentation::Copyright>> copyright{this};
-   Field<std::optional<documentation::Acknowledgements>> acknowledgements{this};
-   Field<std::optional<documentation::Keywords>> keywords{this};
-   Field<std::optional<documentation::RelatedItems>> relatedItems{this};
-   Field<documentation::Title> title{this};
-   Field<std::optional<documentation::Abstract>> abstract{this};
-   Field<documentation::Body> body{this};
-   Field<std::optional<documentation::ComputerCodes>> computerCodes{this};
-   Field<std::optional<documentation::ExperimentalDataSets>> experimentalDataSets{this};
-   Field<std::optional<documentation::Bibliography>> bibliography{this};
-   Field<std::optional<documentation::EndfCompatible>> endfCompatible{this};
+   Field<documentation::Authors>
+      authors{this};
+   Field<std::optional<documentation::Contributors>>
+      contributors{this};
+   Field<std::optional<documentation::Collaborations>>
+      collaborations{this};
+   Field<documentation::Dates>
+      dates{this};
+   Field<std::optional<documentation::Copyright>>
+      copyright{this};
+   Field<std::optional<documentation::Acknowledgements>>
+      acknowledgements{this};
+   Field<std::optional<documentation::Keywords>>
+      keywords{this};
+   Field<std::optional<documentation::RelatedItems>>
+      relatedItems{this};
+   Field<documentation::Title>
+      title{this};
+   Field<std::optional<documentation::Abstract>>
+      abstract{this};
+   Field<documentation::Body>
+      body{this};
+   Field<std::optional<documentation::ComputerCodes>>
+      computerCodes{this};
+   Field<std::optional<documentation::ExperimentalDataSets>>
+      experimentalDataSets{this};
+   Field<std::optional<documentation::Bibliography>>
+      bibliography{this};
+   Field<std::optional<documentation::EndfCompatible>>
+      endfCompatible{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->doi, \
       this->publicationDate, \
@@ -129,7 +229,8 @@ public:
       this->computerCodes, \
       this->experimentalDataSets, \
       this->bibliography, \
-      this->endfCompatible)
+      this->endfCompatible \
+   )
 
    // default
    Documentation() :
@@ -140,24 +241,42 @@ public:
 
    // from fields, comment excluded
    explicit Documentation(
-      const wrapper<std::optional<UTF8Text>> &doi,
-      const wrapper<std::optional<std::string>> &publicationDate = {},
-      const wrapper<std::optional<UTF8Text>> &version = {},
-      const wrapper<documentation::Authors> &authors = {},
-      const wrapper<std::optional<documentation::Contributors>> &contributors = {},
-      const wrapper<std::optional<documentation::Collaborations>> &collaborations = {},
-      const wrapper<documentation::Dates> &dates = {},
-      const wrapper<std::optional<documentation::Copyright>> &copyright = {},
-      const wrapper<std::optional<documentation::Acknowledgements>> &acknowledgements = {},
-      const wrapper<std::optional<documentation::Keywords>> &keywords = {},
-      const wrapper<std::optional<documentation::RelatedItems>> &relatedItems = {},
-      const wrapper<documentation::Title> &title = {},
-      const wrapper<std::optional<documentation::Abstract>> &abstract = {},
-      const wrapper<documentation::Body> &body = {},
-      const wrapper<std::optional<documentation::ComputerCodes>> &computerCodes = {},
-      const wrapper<std::optional<documentation::ExperimentalDataSets>> &experimentalDataSets = {},
-      const wrapper<std::optional<documentation::Bibliography>> &bibliography = {},
-      const wrapper<std::optional<documentation::EndfCompatible>> &endfCompatible = {}
+      const wrapper<std::optional<UTF8Text>>
+         &doi,
+      const wrapper<std::optional<std::string>>
+         &publicationDate = {},
+      const wrapper<std::optional<UTF8Text>>
+         &version = {},
+      const wrapper<documentation::Authors>
+         &authors = {},
+      const wrapper<std::optional<documentation::Contributors>>
+         &contributors = {},
+      const wrapper<std::optional<documentation::Collaborations>>
+         &collaborations = {},
+      const wrapper<documentation::Dates>
+         &dates = {},
+      const wrapper<std::optional<documentation::Copyright>>
+         &copyright = {},
+      const wrapper<std::optional<documentation::Acknowledgements>>
+         &acknowledgements = {},
+      const wrapper<std::optional<documentation::Keywords>>
+         &keywords = {},
+      const wrapper<std::optional<documentation::RelatedItems>>
+         &relatedItems = {},
+      const wrapper<documentation::Title>
+         &title = {},
+      const wrapper<std::optional<documentation::Abstract>>
+         &abstract = {},
+      const wrapper<documentation::Body>
+         &body = {},
+      const wrapper<std::optional<documentation::ComputerCodes>>
+         &computerCodes = {},
+      const wrapper<std::optional<documentation::ExperimentalDataSets>>
+         &experimentalDataSets = {},
+      const wrapper<std::optional<documentation::Bibliography>>
+         &bibliography = {},
+      const wrapper<std::optional<documentation::EndfCompatible>>
+         &endfCompatible = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       doi(this,doi),
@@ -245,8 +364,61 @@ public:
    // Assignment operators
    // ------------------------
 
-   Documentation &operator=(const Documentation &) = default;
-   Documentation &operator=(Documentation &&) = default;
+   // copy
+   Documentation &operator=(const Documentation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         doi = other.doi;
+         publicationDate = other.publicationDate;
+         version = other.version;
+         authors = other.authors;
+         contributors = other.contributors;
+         collaborations = other.collaborations;
+         dates = other.dates;
+         copyright = other.copyright;
+         acknowledgements = other.acknowledgements;
+         keywords = other.keywords;
+         relatedItems = other.relatedItems;
+         title = other.title;
+         abstract = other.abstract;
+         body = other.body;
+         computerCodes = other.computerCodes;
+         experimentalDataSets = other.experimentalDataSets;
+         bibliography = other.bibliography;
+         endfCompatible = other.endfCompatible;
+      }
+      return *this;
+   }
+
+   // move
+   Documentation &operator=(Documentation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         doi = std::move(other.doi);
+         publicationDate = std::move(other.publicationDate);
+         version = std::move(other.version);
+         authors = std::move(other.authors);
+         contributors = std::move(other.contributors);
+         collaborations = std::move(other.collaborations);
+         dates = std::move(other.dates);
+         copyright = std::move(other.copyright);
+         acknowledgements = std::move(other.acknowledgements);
+         keywords = std::move(other.keywords);
+         relatedItems = std::move(other.relatedItems);
+         title = std::move(other.title);
+         abstract = std::move(other.abstract);
+         body = std::move(other.body);
+         computerCodes = std::move(other.computerCodes);
+         experimentalDataSets = std::move(other.experimentalDataSets);
+         bibliography = std::move(other.bibliography);
+         endfCompatible = std::move(other.endfCompatible);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

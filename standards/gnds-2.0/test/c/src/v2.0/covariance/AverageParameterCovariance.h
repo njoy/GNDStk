@@ -98,13 +98,13 @@ AverageParameterCovarianceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageParameterCovarianceAssign(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstAverageParameterCovariance from);
+AverageParameterCovarianceAssign(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstAverageParameterCovariance from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ AverageParameterCovarianceDelete(ConstHandle2ConstAverageParameterCovariance Thi
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageParameterCovarianceRead(ConstHandle2AverageParameterCovariance This, const char *const filename);
+AverageParameterCovarianceRead(ConstHandle2AverageParameterCovariance self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageParameterCovarianceWrite(ConstHandle2ConstAverageParameterCovariance This, const char *const filename);
+AverageParameterCovarianceWrite(ConstHandle2ConstAverageParameterCovariance self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageParameterCovariancePrint(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovariancePrint(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageParameterCovariancePrintXML(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovariancePrintXML(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ AverageParameterCovariancePrintJSON(ConstHandle2ConstAverageParameterCovariance 
 
 // +++ Has
 extern_c int
-AverageParameterCovarianceCrossTermHas(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceCrossTermHas(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-AverageParameterCovarianceCrossTermGet(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceCrossTermGet(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Set
 extern_c void
-AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance This, const bool crossTerm);
+AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance self, const bool crossTerm);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ AverageParameterCovarianceCrossTermSet(ConstHandle2AverageParameterCovariance Th
 
 // +++ Has
 extern_c int
-AverageParameterCovarianceLabelHas(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceLabelHas(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AverageParameterCovarianceLabelGet(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceLabelGet(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Set
 extern_c void
-AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance This, const XMLName label);
+AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ AverageParameterCovarianceLabelSet(ConstHandle2AverageParameterCovariance This, 
 
 // +++ Has
 extern_c int
-AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovariance self);
 
 // --- Get, const
 extern_c Handle2ConstColumnData
-AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Get, non-const
 extern_c Handle2ColumnData
-AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance This);
+AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance self);
 
 // +++ Set
 extern_c void
-AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstColumnData columnData);
+AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstColumnData columnData);
 
 
 // -----------------------------------------------------------------------------
@@ -201,19 +201,19 @@ AverageParameterCovarianceColumnDataSet(ConstHandle2AverageParameterCovariance T
 
 // +++ Has
 extern_c int
-AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance self);
 
 // --- Get, const
 extern_c Handle2ConstRowData
-AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance This);
+AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
 // +++ Get, non-const
 extern_c Handle2RowData
-AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance This);
+AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance self);
 
 // +++ Set
 extern_c void
-AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance This, ConstHandle2ConstRowData rowData);
+AverageParameterCovarianceRowDataSet(ConstHandle2AverageParameterCovariance self, ConstHandle2ConstRowData rowData);
 
 
 // -----------------------------------------------------------------------------

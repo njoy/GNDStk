@@ -90,20 +90,20 @@ DiscreteEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DiscreteEnergyAssign(ConstHandle2DiscreteEnergy This, ConstHandle2ConstDiscreteEnergy from)
+DiscreteEnergyAssign(ConstHandle2DiscreteEnergy self, ConstHandle2ConstDiscreteEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ DiscreteEnergyDelete(ConstHandle2ConstDiscreteEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DiscreteEnergyRead(ConstHandle2DiscreteEnergy This, const char *const filename)
+DiscreteEnergyRead(ConstHandle2DiscreteEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DiscreteEnergyWrite(ConstHandle2ConstDiscreteEnergy This, const char *const filename)
+DiscreteEnergyWrite(ConstHandle2ConstDiscreteEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DiscreteEnergyPrint(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyPrint(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DiscreteEnergyPrintXML(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyPrintXML(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ DiscreteEnergyPrintJSON(ConstHandle2ConstDiscreteEnergy This)
 
 // Has
 int
-DiscreteEnergyLabelHas(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyLabelHas(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-DiscreteEnergyLabelGet(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyLabelGet(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy This, const XMLName label)
+DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -194,27 +194,27 @@ DiscreteEnergyLabelSet(ConstHandle2DiscreteEnergy This, const XMLName label)
 
 // Has
 int
-DiscreteEnergyValueHas(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyValueHas(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-DiscreteEnergyValueGet(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyValueGet(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy This, const Float64 value)
+DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -224,27 +224,27 @@ DiscreteEnergyValueSet(ConstHandle2DiscreteEnergy This, const Float64 value)
 
 // Has
 int
-DiscreteEnergyUnitHas(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyUnitHas(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-DiscreteEnergyUnitGet(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyUnitGet(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy This, const XMLName unit)
+DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -254,34 +254,34 @@ DiscreteEnergyUnitSet(ConstHandle2DiscreteEnergy This, const XMLName unit)
 
 // Has
 int
-DiscreteEnergyDocumentationHas(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyDocumentationHas(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-DiscreteEnergyDocumentationGetConst(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyDocumentationGetConst(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-DiscreteEnergyDocumentationGet(ConstHandle2DiscreteEnergy This)
+DiscreteEnergyDocumentationGet(ConstHandle2DiscreteEnergy self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy This, ConstHandle2ConstDocumentation documentation)
+DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -291,34 +291,34 @@ DiscreteEnergyDocumentationSet(ConstHandle2DiscreteEnergy This, ConstHandle2Cons
 
 // Has
 int
-DiscreteEnergyUncertaintyHas(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyUncertaintyHas(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-DiscreteEnergyUncertaintyGetConst(ConstHandle2ConstDiscreteEnergy This)
+DiscreteEnergyUncertaintyGetConst(ConstHandle2ConstDiscreteEnergy self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-DiscreteEnergyUncertaintyGet(ConstHandle2DiscreteEnergy This)
+DiscreteEnergyUncertaintyGet(ConstHandle2DiscreteEnergy self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-DiscreteEnergyUncertaintySet(ConstHandle2DiscreteEnergy This, ConstHandle2ConstUncertainty uncertainty)
+DiscreteEnergyUncertaintySet(ConstHandle2DiscreteEnergy self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

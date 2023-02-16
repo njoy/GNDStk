@@ -90,13 +90,13 @@ ResonanceParametersCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonanceParametersAssign(ConstHandle2ResonanceParameters This, ConstHandle2ConstResonanceParameters from);
+ResonanceParametersAssign(ConstHandle2ResonanceParameters self, ConstHandle2ConstResonanceParameters from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonanceParametersDelete(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersDelete(ConstHandle2ConstResonanceParameters self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ResonanceParametersDelete(ConstHandle2ConstResonanceParameters This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonanceParametersRead(ConstHandle2ResonanceParameters This, const char *const filename);
+ResonanceParametersRead(ConstHandle2ResonanceParameters self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonanceParametersWrite(ConstHandle2ConstResonanceParameters This, const char *const filename);
+ResonanceParametersWrite(ConstHandle2ConstResonanceParameters self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonanceParametersPrint(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersPrint(ConstHandle2ConstResonanceParameters self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonanceParametersPrintXML(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersPrintXML(ConstHandle2ConstResonanceParameters self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ResonanceParametersPrintJSON(ConstHandle2ConstResonanceParameters This);
 
 // +++ Has
 extern_c int
-ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters self);
 
 // --- Get, const
 extern_c Handle2ConstTable
-ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters This);
+ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self);
 
 // +++ Get, non-const
 extern_c Handle2Table
-ResonanceParametersTableGet(ConstHandle2ResonanceParameters This);
+ResonanceParametersTableGet(ConstHandle2ResonanceParameters self);
 
 // +++ Set
 extern_c void
-ResonanceParametersTableSet(ConstHandle2ResonanceParameters This, ConstHandle2ConstTable table);
+ResonanceParametersTableSet(ConstHandle2ResonanceParameters self, ConstHandle2ConstTable table);
 
 
 // -----------------------------------------------------------------------------

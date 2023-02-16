@@ -29,12 +29,12 @@ class Documentation :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Documentation"; }
-   static auto FIELD() { return "documentation"; }
+   static auto NODENAME() { return "documentation"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,38 +42,90 @@ class Documentation :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<gnds::Authors>("authors") |
-         --Child<gnds::Dates>("dates") |
-         --Child<gnds::Title>("title") |
-         --Child<gnds::Body>("body") |
-         --Child<gnds::EndfCompatible>("endfCompatible")
+         --Child<gnds::Authors>
+            ("authors") |
+         --Child<gnds::Dates>
+            ("dates") |
+         --Child<gnds::Title>
+            ("title") |
+         --Child<gnds::Body>
+            ("body") |
+         --Child<gnds::EndfCompatible>
+            ("endfCompatible")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "authors",
+         "dates",
+         "title",
+         "body",
+         "endfCompatible"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "authors",
+         "dates",
+         "title",
+         "body",
+         "endf_compatible"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<gnds::Authors> authors{this};
-   Field<gnds::Dates> dates{this};
-   Field<gnds::Title> title{this};
-   Field<gnds::Body> body{this};
-   Field<gnds::EndfCompatible> endfCompatible{this};
+   Field<gnds::Authors>
+      authors{this};
+   Field<gnds::Dates>
+      dates{this};
+   Field<gnds::Title>
+      title{this};
+   Field<gnds::Body>
+      body{this};
+   Field<gnds::EndfCompatible>
+      endfCompatible{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->authors, \
       this->dates, \
       this->title, \
       this->body, \
-      this->endfCompatible)
+      this->endfCompatible \
+   )
 
    // default
    Documentation() :
@@ -84,11 +136,16 @@ public:
 
    // from fields, comment excluded
    explicit Documentation(
-      const wrapper<gnds::Authors> &authors,
-      const wrapper<gnds::Dates> &dates = {},
-      const wrapper<gnds::Title> &title = {},
-      const wrapper<gnds::Body> &body = {},
-      const wrapper<gnds::EndfCompatible> &endfCompatible = {}
+      const wrapper<gnds::Authors>
+         &authors,
+      const wrapper<gnds::Dates>
+         &dates = {},
+      const wrapper<gnds::Title>
+         &title = {},
+      const wrapper<gnds::Body>
+         &body = {},
+      const wrapper<gnds::EndfCompatible>
+         &endfCompatible = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       authors(this,authors),
@@ -137,8 +194,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Documentation &operator=(const Documentation &) = default;
-   Documentation &operator=(Documentation &&) = default;
+   // copy
+   Documentation &operator=(const Documentation &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         authors = other.authors;
+         dates = other.dates;
+         title = other.title;
+         body = other.body;
+         endfCompatible = other.endfCompatible;
+      }
+      return *this;
+   }
+
+   // move
+   Documentation &operator=(Documentation &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         authors = std::move(other.authors);
+         dates = std::move(other.dates);
+         title = std::move(other.title);
+         body = std::move(other.body);
+         endfCompatible = std::move(other.endfCompatible);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

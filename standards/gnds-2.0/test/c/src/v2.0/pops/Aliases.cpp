@@ -83,20 +83,20 @@ AliasesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AliasesAssign(ConstHandle2Aliases This, ConstHandle2ConstAliases from)
+AliasesAssign(ConstHandle2Aliases self, ConstHandle2ConstAliases from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AliasesDelete(ConstHandle2ConstAliases This)
+AliasesDelete(ConstHandle2ConstAliases self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -110,44 +110,44 @@ AliasesDelete(ConstHandle2ConstAliases This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AliasesRead(ConstHandle2Aliases This, const char *const filename)
+AliasesRead(ConstHandle2Aliases self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AliasesWrite(ConstHandle2ConstAliases This, const char *const filename)
+AliasesWrite(ConstHandle2ConstAliases self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AliasesPrint(ConstHandle2ConstAliases This)
+AliasesPrint(ConstHandle2ConstAliases self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AliasesPrintXML(ConstHandle2ConstAliases This)
+AliasesPrintXML(ConstHandle2ConstAliases self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AliasesPrintJSON(ConstHandle2ConstAliases This)
+AliasesPrintJSON(ConstHandle2ConstAliases self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -157,151 +157,151 @@ AliasesPrintJSON(ConstHandle2ConstAliases This)
 
 // Has
 int
-AliasesAliasHas(ConstHandle2ConstAliases This)
+AliasesAliasHas(ConstHandle2ConstAliases self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AliasHas", This, extract::alias);
+      (CLASSNAME, CLASSNAME+"AliasHas", self, extract::alias);
 }
 
 // Clear
 void
-AliasesAliasClear(ConstHandle2Aliases This)
+AliasesAliasClear(ConstHandle2Aliases self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AliasClear", This, extract::alias);
+      (CLASSNAME, CLASSNAME+"AliasClear", self, extract::alias);
 }
 
 // Size
 size_t
-AliasesAliasSize(ConstHandle2ConstAliases This)
+AliasesAliasSize(ConstHandle2ConstAliases self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AliasSize", This, extract::alias);
+      (CLASSNAME, CLASSNAME+"AliasSize", self, extract::alias);
 }
 
 // Add
 void
-AliasesAliasAdd(ConstHandle2Aliases This, ConstHandle2ConstAlias alias)
+AliasesAliasAdd(ConstHandle2Aliases self, ConstHandle2ConstAlias alias)
 {
    detail::addToContainer<CPP,CPPAlias>
-      (CLASSNAME, CLASSNAME+"AliasAdd", This, extract::alias, alias);
+      (CLASSNAME, CLASSNAME+"AliasAdd", self, extract::alias, alias);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAlias
-AliasesAliasGetConst(ConstHandle2ConstAliases This, const size_t index_)
+AliasesAliasGetConst(ConstHandle2ConstAliases self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAlias>
-      (CLASSNAME, CLASSNAME+"AliasGetConst", This, extract::alias, index_);
+      (CLASSNAME, CLASSNAME+"AliasGetConst", self, extract::alias, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Alias
-AliasesAliasGet(ConstHandle2Aliases This, const size_t index_)
+AliasesAliasGet(ConstHandle2Aliases self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Alias>
-      (CLASSNAME, CLASSNAME+"AliasGet", This, extract::alias, index_);
+      (CLASSNAME, CLASSNAME+"AliasGet", self, extract::alias, index_);
 }
 
 // Set, by index \in [0,size)
 void
 AliasesAliasSet(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const size_t index_,
    ConstHandle2ConstAlias alias
 ) {
    detail::setByIndex<CPP,CPPAlias>
-      (CLASSNAME, CLASSNAME+"AliasSet", This, extract::alias, index_, alias);
+      (CLASSNAME, CLASSNAME+"AliasSet", self, extract::alias, index_, alias);
 }
 
 // Has, by id
 int
 AliasesAliasHasById(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AliasHasById",
-       This, extract::alias, meta::id, id);
+       self, extract::alias, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstAlias
 AliasesAliasGetByIdConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAlias>
       (CLASSNAME, CLASSNAME+"AliasGetByIdConst",
-       This, extract::alias, meta::id, id);
+       self, extract::alias, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2Alias
 AliasesAliasGetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2Alias>
       (CLASSNAME, CLASSNAME+"AliasGetById",
-       This, extract::alias, meta::id, id);
+       self, extract::alias, meta::id, id);
 }
 
 // Set, by id
 void
 AliasesAliasSetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id,
    ConstHandle2ConstAlias alias
 ) {
    detail::setByMetadatum<CPP,CPPAlias>
       (CLASSNAME, CLASSNAME+"AliasSetById",
-       This, extract::alias, meta::id, id, alias);
+       self, extract::alias, meta::id, id, alias);
 }
 
 // Has, by pid
 int
 AliasesAliasHasByPid(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AliasHasByPid",
-       This, extract::alias, meta::pid, pid);
+       self, extract::alias, meta::pid, pid);
 }
 
 // Get, by pid, const
 Handle2ConstAlias
 AliasesAliasGetByPidConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAlias>
       (CLASSNAME, CLASSNAME+"AliasGetByPidConst",
-       This, extract::alias, meta::pid, pid);
+       self, extract::alias, meta::pid, pid);
 }
 
 // Get, by pid, non-const
 Handle2Alias
 AliasesAliasGetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid
 ) {
    return detail::getByMetadatum<CPP,Handle2Alias>
       (CLASSNAME, CLASSNAME+"AliasGetByPid",
-       This, extract::alias, meta::pid, pid);
+       self, extract::alias, meta::pid, pid);
 }
 
 // Set, by pid
 void
 AliasesAliasSetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid,
    ConstHandle2ConstAlias alias
 ) {
    detail::setByMetadatum<CPP,CPPAlias>
       (CLASSNAME, CLASSNAME+"AliasSetByPid",
-       This, extract::alias, meta::pid, pid, alias);
+       self, extract::alias, meta::pid, pid, alias);
 }
 
 
@@ -311,196 +311,196 @@ AliasesAliasSetByPid(
 
 // Has
 int
-AliasesMetaStableHas(ConstHandle2ConstAliases This)
+AliasesMetaStableHas(ConstHandle2ConstAliases self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableHas", This, extract::metaStable);
+      (CLASSNAME, CLASSNAME+"MetaStableHas", self, extract::metaStable);
 }
 
 // Clear
 void
-AliasesMetaStableClear(ConstHandle2Aliases This)
+AliasesMetaStableClear(ConstHandle2Aliases self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableClear", This, extract::metaStable);
+      (CLASSNAME, CLASSNAME+"MetaStableClear", self, extract::metaStable);
 }
 
 // Size
 size_t
-AliasesMetaStableSize(ConstHandle2ConstAliases This)
+AliasesMetaStableSize(ConstHandle2ConstAliases self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"MetaStableSize", This, extract::metaStable);
+      (CLASSNAME, CLASSNAME+"MetaStableSize", self, extract::metaStable);
 }
 
 // Add
 void
-AliasesMetaStableAdd(ConstHandle2Aliases This, ConstHandle2ConstMetaStable metaStable)
+AliasesMetaStableAdd(ConstHandle2Aliases self, ConstHandle2ConstMetaStable metaStable)
 {
    detail::addToContainer<CPP,CPPMetaStable>
-      (CLASSNAME, CLASSNAME+"MetaStableAdd", This, extract::metaStable, metaStable);
+      (CLASSNAME, CLASSNAME+"MetaStableAdd", self, extract::metaStable, metaStable);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstMetaStable
-AliasesMetaStableGetConst(ConstHandle2ConstAliases This, const size_t index_)
+AliasesMetaStableGetConst(ConstHandle2ConstAliases self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstMetaStable>
-      (CLASSNAME, CLASSNAME+"MetaStableGetConst", This, extract::metaStable, index_);
+      (CLASSNAME, CLASSNAME+"MetaStableGetConst", self, extract::metaStable, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2MetaStable
-AliasesMetaStableGet(ConstHandle2Aliases This, const size_t index_)
+AliasesMetaStableGet(ConstHandle2Aliases self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2MetaStable>
-      (CLASSNAME, CLASSNAME+"MetaStableGet", This, extract::metaStable, index_);
+      (CLASSNAME, CLASSNAME+"MetaStableGet", self, extract::metaStable, index_);
 }
 
 // Set, by index \in [0,size)
 void
 AliasesMetaStableSet(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const size_t index_,
    ConstHandle2ConstMetaStable metaStable
 ) {
    detail::setByIndex<CPP,CPPMetaStable>
-      (CLASSNAME, CLASSNAME+"MetaStableSet", This, extract::metaStable, index_, metaStable);
+      (CLASSNAME, CLASSNAME+"MetaStableSet", self, extract::metaStable, index_, metaStable);
 }
 
 // Has, by id
 int
 AliasesMetaStableHasById(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MetaStableHasById",
-       This, extract::metaStable, meta::id, id);
+       self, extract::metaStable, meta::id, id);
 }
 
 // Get, by id, const
 Handle2ConstMetaStable
 AliasesMetaStableGetByIdConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetByIdConst",
-       This, extract::metaStable, meta::id, id);
+       self, extract::metaStable, meta::id, id);
 }
 
 // Get, by id, non-const
 Handle2MetaStable
 AliasesMetaStableGetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id
 ) {
    return detail::getByMetadatum<CPP,Handle2MetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetById",
-       This, extract::metaStable, meta::id, id);
+       self, extract::metaStable, meta::id, id);
 }
 
 // Set, by id
 void
 AliasesMetaStableSetById(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName id,
    ConstHandle2ConstMetaStable metaStable
 ) {
    detail::setByMetadatum<CPP,CPPMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableSetById",
-       This, extract::metaStable, meta::id, id, metaStable);
+       self, extract::metaStable, meta::id, id, metaStable);
 }
 
 // Has, by metaStableIndex
 int
 AliasesMetaStableHasByMetaStableIndex(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const Integer32 metaStableIndex
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MetaStableHasByMetaStableIndex",
-       This, extract::metaStable, meta::metaStableIndex, metaStableIndex);
+       self, extract::metaStable, meta::metaStableIndex, metaStableIndex);
 }
 
 // Get, by metaStableIndex, const
 Handle2ConstMetaStable
 AliasesMetaStableGetByMetaStableIndexConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const Integer32 metaStableIndex
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetByMetaStableIndexConst",
-       This, extract::metaStable, meta::metaStableIndex, metaStableIndex);
+       self, extract::metaStable, meta::metaStableIndex, metaStableIndex);
 }
 
 // Get, by metaStableIndex, non-const
 Handle2MetaStable
 AliasesMetaStableGetByMetaStableIndex(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const Integer32 metaStableIndex
 ) {
    return detail::getByMetadatum<CPP,Handle2MetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetByMetaStableIndex",
-       This, extract::metaStable, meta::metaStableIndex, metaStableIndex);
+       self, extract::metaStable, meta::metaStableIndex, metaStableIndex);
 }
 
 // Set, by metaStableIndex
 void
 AliasesMetaStableSetByMetaStableIndex(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const Integer32 metaStableIndex,
    ConstHandle2ConstMetaStable metaStable
 ) {
    detail::setByMetadatum<CPP,CPPMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableSetByMetaStableIndex",
-       This, extract::metaStable, meta::metaStableIndex, metaStableIndex, metaStable);
+       self, extract::metaStable, meta::metaStableIndex, metaStableIndex, metaStable);
 }
 
 // Has, by pid
 int
 AliasesMetaStableHasByPid(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"MetaStableHasByPid",
-       This, extract::metaStable, meta::pid, pid);
+       self, extract::metaStable, meta::pid, pid);
 }
 
 // Get, by pid, const
 Handle2ConstMetaStable
 AliasesMetaStableGetByPidConst(
-   ConstHandle2ConstAliases This,
+   ConstHandle2ConstAliases self,
    const XMLName pid
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetByPidConst",
-       This, extract::metaStable, meta::pid, pid);
+       self, extract::metaStable, meta::pid, pid);
 }
 
 // Get, by pid, non-const
 Handle2MetaStable
 AliasesMetaStableGetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid
 ) {
    return detail::getByMetadatum<CPP,Handle2MetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableGetByPid",
-       This, extract::metaStable, meta::pid, pid);
+       self, extract::metaStable, meta::pid, pid);
 }
 
 // Set, by pid
 void
 AliasesMetaStableSetByPid(
-   ConstHandle2Aliases This,
+   ConstHandle2Aliases self,
    const XMLName pid,
    ConstHandle2ConstMetaStable metaStable
 ) {
    detail::setByMetadatum<CPP,CPPMetaStable>
       (CLASSNAME, CLASSNAME+"MetaStableSetByPid",
-       This, extract::metaStable, meta::pid, pid, metaStable);
+       self, extract::metaStable, meta::pid, pid, metaStable);
 }
 
 

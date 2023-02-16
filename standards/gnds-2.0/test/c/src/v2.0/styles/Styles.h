@@ -120,13 +120,13 @@ StylesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StylesAssign(ConstHandle2Styles This, ConstHandle2ConstStyles from);
+StylesAssign(ConstHandle2Styles self, ConstHandle2ConstStyles from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StylesDelete(ConstHandle2ConstStyles This);
+StylesDelete(ConstHandle2ConstStyles self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,25 +139,25 @@ StylesDelete(ConstHandle2ConstStyles This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StylesRead(ConstHandle2Styles This, const char *const filename);
+StylesRead(ConstHandle2Styles self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StylesWrite(ConstHandle2ConstStyles This, const char *const filename);
+StylesWrite(ConstHandle2ConstStyles self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StylesPrint(ConstHandle2ConstStyles This);
+StylesPrint(ConstHandle2ConstStyles self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StylesPrintXML(ConstHandle2ConstStyles This);
+StylesPrintXML(ConstHandle2ConstStyles self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StylesPrintJSON(ConstHandle2ConstStyles This);
+StylesPrintJSON(ConstHandle2ConstStyles self);
 
 
 // -----------------------------------------------------------------------------
@@ -166,32 +166,32 @@ StylesPrintJSON(ConstHandle2ConstStyles This);
 
 // +++ Has
 extern_c int
-StylesEvaluatedHas(ConstHandle2ConstStyles This);
+StylesEvaluatedHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesEvaluatedClear(ConstHandle2Styles This);
+StylesEvaluatedClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesEvaluatedSize(ConstHandle2ConstStyles This);
+StylesEvaluatedSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesEvaluatedAdd(ConstHandle2Styles This, ConstHandle2ConstEvaluated evaluated);
+StylesEvaluatedAdd(ConstHandle2Styles self, ConstHandle2ConstEvaluated evaluated);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstEvaluated
-StylesEvaluatedGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesEvaluatedGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Evaluated
-StylesEvaluatedGet(ConstHandle2Styles This, const size_t index_);
+StylesEvaluatedGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesEvaluatedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -199,28 +199,28 @@ StylesEvaluatedSet(
 // +++ Has, by date
 extern_c int
 StylesEvaluatedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesEvaluatedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -228,28 +228,28 @@ StylesEvaluatedSetByDate(
 // +++ Has, by label
 extern_c int
 StylesEvaluatedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesEvaluatedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -257,28 +257,28 @@ StylesEvaluatedSetByLabel(
 // +++ Has, by derivedFrom
 extern_c int
 StylesEvaluatedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesEvaluatedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -286,28 +286,28 @@ StylesEvaluatedSetByDerivedFrom(
 // +++ Has, by library
 extern_c int
 StylesEvaluatedHasByLibrary(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName library
 );
 
 // --- Get, by library, const
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetByLibraryConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName library
 );
 
 // +++ Get, by library, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGetByLibrary(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName library
 );
 
 // +++ Set, by library
 extern_c void
 StylesEvaluatedSetByLibrary(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName library,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -315,28 +315,28 @@ StylesEvaluatedSetByLibrary(
 // +++ Has, by version
 extern_c int
 StylesEvaluatedHasByVersion(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName version
 );
 
 // --- Get, by version, const
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetByVersionConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName version
 );
 
 // +++ Get, by version, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGetByVersion(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName version
 );
 
 // +++ Set, by version
 extern_c void
 StylesEvaluatedSetByVersion(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName version,
    ConstHandle2ConstEvaluated evaluated
 );
@@ -348,32 +348,32 @@ StylesEvaluatedSetByVersion(
 
 // +++ Has
 extern_c int
-StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles This);
+StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesCrossSectionReconstructedClear(ConstHandle2Styles This);
+StylesCrossSectionReconstructedClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesCrossSectionReconstructedSize(ConstHandle2ConstStyles This);
+StylesCrossSectionReconstructedSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesCrossSectionReconstructedAdd(ConstHandle2Styles This, ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed);
+StylesCrossSectionReconstructedAdd(ConstHandle2Styles self, ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCrossSectionReconstructed
-StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2CrossSectionReconstructed
-StylesCrossSectionReconstructedGet(ConstHandle2Styles This, const size_t index_);
+StylesCrossSectionReconstructedGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesCrossSectionReconstructedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 );
@@ -381,28 +381,28 @@ StylesCrossSectionReconstructedSet(
 // +++ Has, by date
 extern_c int
 StylesCrossSectionReconstructedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesCrossSectionReconstructedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 );
@@ -410,28 +410,28 @@ StylesCrossSectionReconstructedSetByDate(
 // +++ Has, by label
 extern_c int
 StylesCrossSectionReconstructedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesCrossSectionReconstructedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 );
@@ -439,28 +439,28 @@ StylesCrossSectionReconstructedSetByLabel(
 // +++ Has, by derivedFrom
 extern_c int
 StylesCrossSectionReconstructedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesCrossSectionReconstructedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 );
@@ -472,32 +472,32 @@ StylesCrossSectionReconstructedSetByDerivedFrom(
 
 // +++ Has
 extern_c int
-StylesAngularDistributionReconstructedHas(ConstHandle2ConstStyles This);
+StylesAngularDistributionReconstructedHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesAngularDistributionReconstructedClear(ConstHandle2Styles This);
+StylesAngularDistributionReconstructedClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesAngularDistributionReconstructedSize(ConstHandle2ConstStyles This);
+StylesAngularDistributionReconstructedSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesAngularDistributionReconstructedAdd(ConstHandle2Styles This, ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed);
+StylesAngularDistributionReconstructedAdd(ConstHandle2Styles self, ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAngularDistributionReconstructed
-StylesAngularDistributionReconstructedGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesAngularDistributionReconstructedGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2AngularDistributionReconstructed
-StylesAngularDistributionReconstructedGet(ConstHandle2Styles This, const size_t index_);
+StylesAngularDistributionReconstructedGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesAngularDistributionReconstructedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 );
@@ -505,28 +505,28 @@ StylesAngularDistributionReconstructedSet(
 // +++ Has, by date
 extern_c int
 StylesAngularDistributionReconstructedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesAngularDistributionReconstructedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 );
@@ -534,28 +534,28 @@ StylesAngularDistributionReconstructedSetByDate(
 // +++ Has, by label
 extern_c int
 StylesAngularDistributionReconstructedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesAngularDistributionReconstructedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 );
@@ -563,28 +563,28 @@ StylesAngularDistributionReconstructedSetByLabel(
 // +++ Has, by derivedFrom
 extern_c int
 StylesAngularDistributionReconstructedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstAngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2AngularDistributionReconstructed
 StylesAngularDistributionReconstructedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesAngularDistributionReconstructedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstAngularDistributionReconstructed angularDistributionReconstructed
 );
@@ -596,32 +596,32 @@ StylesAngularDistributionReconstructedSetByDerivedFrom(
 
 // +++ Has
 extern_c int
-StylesCoulombPlusNuclearElasticMuCutoffHas(ConstHandle2ConstStyles This);
+StylesCoulombPlusNuclearElasticMuCutoffHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesCoulombPlusNuclearElasticMuCutoffClear(ConstHandle2Styles This);
+StylesCoulombPlusNuclearElasticMuCutoffClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesCoulombPlusNuclearElasticMuCutoffSize(ConstHandle2ConstStyles This);
+StylesCoulombPlusNuclearElasticMuCutoffSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesCoulombPlusNuclearElasticMuCutoffAdd(ConstHandle2Styles This, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff);
+StylesCoulombPlusNuclearElasticMuCutoffAdd(ConstHandle2Styles self, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCoulombPlusNuclearElasticMuCutoff
-StylesCoulombPlusNuclearElasticMuCutoffGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesCoulombPlusNuclearElasticMuCutoffGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2CoulombPlusNuclearElasticMuCutoff
-StylesCoulombPlusNuclearElasticMuCutoffGet(ConstHandle2Styles This, const size_t index_);
+StylesCoulombPlusNuclearElasticMuCutoffGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesCoulombPlusNuclearElasticMuCutoffSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 );
@@ -629,28 +629,28 @@ StylesCoulombPlusNuclearElasticMuCutoffSet(
 // +++ Has, by date
 extern_c int
 StylesCoulombPlusNuclearElasticMuCutoffHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesCoulombPlusNuclearElasticMuCutoffSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 );
@@ -658,28 +658,28 @@ StylesCoulombPlusNuclearElasticMuCutoffSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesCoulombPlusNuclearElasticMuCutoffHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesCoulombPlusNuclearElasticMuCutoffSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 );
@@ -687,28 +687,28 @@ StylesCoulombPlusNuclearElasticMuCutoffSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesCoulombPlusNuclearElasticMuCutoffHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesCoulombPlusNuclearElasticMuCutoffSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 );
@@ -716,28 +716,28 @@ StylesCoulombPlusNuclearElasticMuCutoffSetByLabel(
 // +++ Has, by muCutoff
 extern_c int
 StylesCoulombPlusNuclearElasticMuCutoffHasByMuCutoff(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Float64 muCutoff
 );
 
 // --- Get, by muCutoff, const
 extern_c Handle2ConstCoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByMuCutoffConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Float64 muCutoff
 );
 
 // +++ Get, by muCutoff, non-const
 extern_c Handle2CoulombPlusNuclearElasticMuCutoff
 StylesCoulombPlusNuclearElasticMuCutoffGetByMuCutoff(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Float64 muCutoff
 );
 
 // +++ Set, by muCutoff
 extern_c void
 StylesCoulombPlusNuclearElasticMuCutoffSetByMuCutoff(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Float64 muCutoff,
    ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff CoulombPlusNuclearElasticMuCutoff
 );
@@ -749,32 +749,32 @@ StylesCoulombPlusNuclearElasticMuCutoffSetByMuCutoff(
 
 // +++ Has
 extern_c int
-StylesHeatedHas(ConstHandle2ConstStyles This);
+StylesHeatedHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesHeatedClear(ConstHandle2Styles This);
+StylesHeatedClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesHeatedSize(ConstHandle2ConstStyles This);
+StylesHeatedSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesHeatedAdd(ConstHandle2Styles This, ConstHandle2ConstHeated heated);
+StylesHeatedAdd(ConstHandle2Styles self, ConstHandle2ConstHeated heated);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstHeated
-StylesHeatedGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesHeatedGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Heated
-StylesHeatedGet(ConstHandle2Styles This, const size_t index_);
+StylesHeatedGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesHeatedSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstHeated heated
 );
@@ -782,28 +782,28 @@ StylesHeatedSet(
 // +++ Has, by date
 extern_c int
 StylesHeatedHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstHeated
 StylesHeatedGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2Heated
 StylesHeatedGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesHeatedSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstHeated heated
 );
@@ -811,28 +811,28 @@ StylesHeatedSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesHeatedHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstHeated
 StylesHeatedGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2Heated
 StylesHeatedGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesHeatedSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstHeated heated
 );
@@ -840,28 +840,28 @@ StylesHeatedSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesHeatedHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstHeated
 StylesHeatedGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Heated
 StylesHeatedGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesHeatedSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstHeated heated
 );
@@ -873,32 +873,32 @@ StylesHeatedSetByLabel(
 
 // +++ Has
 extern_c int
-StylesAverageProductDataHas(ConstHandle2ConstStyles This);
+StylesAverageProductDataHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesAverageProductDataClear(ConstHandle2Styles This);
+StylesAverageProductDataClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesAverageProductDataSize(ConstHandle2ConstStyles This);
+StylesAverageProductDataSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesAverageProductDataAdd(ConstHandle2Styles This, ConstHandle2ConstAverageProductData averageProductData);
+StylesAverageProductDataAdd(ConstHandle2Styles self, ConstHandle2ConstAverageProductData averageProductData);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAverageProductData
-StylesAverageProductDataGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesAverageProductDataGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2AverageProductData
-StylesAverageProductDataGet(ConstHandle2Styles This, const size_t index_);
+StylesAverageProductDataGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesAverageProductDataSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstAverageProductData averageProductData
 );
@@ -906,28 +906,28 @@ StylesAverageProductDataSet(
 // +++ Has, by date
 extern_c int
 StylesAverageProductDataHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstAverageProductData
 StylesAverageProductDataGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2AverageProductData
 StylesAverageProductDataGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesAverageProductDataSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstAverageProductData averageProductData
 );
@@ -935,28 +935,28 @@ StylesAverageProductDataSetByDate(
 // +++ Has, by label
 extern_c int
 StylesAverageProductDataHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAverageProductData
 StylesAverageProductDataGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2AverageProductData
 StylesAverageProductDataGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesAverageProductDataSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstAverageProductData averageProductData
 );
@@ -964,28 +964,28 @@ StylesAverageProductDataSetByLabel(
 // +++ Has, by derivedFrom
 extern_c int
 StylesAverageProductDataHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstAverageProductData
 StylesAverageProductDataGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2AverageProductData
 StylesAverageProductDataGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesAverageProductDataSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstAverageProductData averageProductData
 );
@@ -997,32 +997,32 @@ StylesAverageProductDataSetByDerivedFrom(
 
 // +++ Has
 extern_c int
-StylesMonteCarlo_cdfHas(ConstHandle2ConstStyles This);
+StylesMonteCarlo_cdfHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesMonteCarlo_cdfClear(ConstHandle2Styles This);
+StylesMonteCarlo_cdfClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesMonteCarlo_cdfSize(ConstHandle2ConstStyles This);
+StylesMonteCarlo_cdfSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesMonteCarlo_cdfAdd(ConstHandle2Styles This, ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf);
+StylesMonteCarlo_cdfAdd(ConstHandle2Styles self, ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstMonteCarlo_cdf
-StylesMonteCarlo_cdfGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesMonteCarlo_cdfGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2MonteCarlo_cdf
-StylesMonteCarlo_cdfGet(ConstHandle2Styles This, const size_t index_);
+StylesMonteCarlo_cdfGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesMonteCarlo_cdfSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 );
@@ -1030,28 +1030,28 @@ StylesMonteCarlo_cdfSet(
 // +++ Has, by date
 extern_c int
 StylesMonteCarlo_cdfHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesMonteCarlo_cdfSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 );
@@ -1059,28 +1059,28 @@ StylesMonteCarlo_cdfSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesMonteCarlo_cdfHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesMonteCarlo_cdfSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 );
@@ -1088,28 +1088,28 @@ StylesMonteCarlo_cdfSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesMonteCarlo_cdfHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstMonteCarlo_cdf
 StylesMonteCarlo_cdfGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2MonteCarlo_cdf
 StylesMonteCarlo_cdfGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesMonteCarlo_cdfSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstMonteCarlo_cdf MonteCarlo_cdf
 );
@@ -1121,32 +1121,32 @@ StylesMonteCarlo_cdfSetByLabel(
 
 // +++ Has
 extern_c int
-StylesGriddedCrossSectionHas(ConstHandle2ConstStyles This);
+StylesGriddedCrossSectionHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesGriddedCrossSectionClear(ConstHandle2Styles This);
+StylesGriddedCrossSectionClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesGriddedCrossSectionSize(ConstHandle2ConstStyles This);
+StylesGriddedCrossSectionSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesGriddedCrossSectionAdd(ConstHandle2Styles This, ConstHandle2ConstGriddedCrossSection griddedCrossSection);
+StylesGriddedCrossSectionAdd(ConstHandle2Styles self, ConstHandle2ConstGriddedCrossSection griddedCrossSection);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstGriddedCrossSection
-StylesGriddedCrossSectionGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesGriddedCrossSectionGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2GriddedCrossSection
-StylesGriddedCrossSectionGet(ConstHandle2Styles This, const size_t index_);
+StylesGriddedCrossSectionGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesGriddedCrossSectionSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 );
@@ -1154,28 +1154,28 @@ StylesGriddedCrossSectionSet(
 // +++ Has, by date
 extern_c int
 StylesGriddedCrossSectionHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesGriddedCrossSectionSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 );
@@ -1183,28 +1183,28 @@ StylesGriddedCrossSectionSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesGriddedCrossSectionHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesGriddedCrossSectionSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 );
@@ -1212,28 +1212,28 @@ StylesGriddedCrossSectionSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesGriddedCrossSectionHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstGriddedCrossSection
 StylesGriddedCrossSectionGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2GriddedCrossSection
 StylesGriddedCrossSectionGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesGriddedCrossSectionSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstGriddedCrossSection griddedCrossSection
 );
@@ -1245,32 +1245,32 @@ StylesGriddedCrossSectionSetByLabel(
 
 // +++ Has
 extern_c int
-StylesURR_probabilityTablesHas(ConstHandle2ConstStyles This);
+StylesURR_probabilityTablesHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesURR_probabilityTablesClear(ConstHandle2Styles This);
+StylesURR_probabilityTablesClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesURR_probabilityTablesSize(ConstHandle2ConstStyles This);
+StylesURR_probabilityTablesSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesURR_probabilityTablesAdd(ConstHandle2Styles This, ConstHandle2ConstURR_probabilityTables URR_probabilityTables);
+StylesURR_probabilityTablesAdd(ConstHandle2Styles self, ConstHandle2ConstURR_probabilityTables URR_probabilityTables);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstURR_probabilityTables
-StylesURR_probabilityTablesGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesURR_probabilityTablesGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2URR_probabilityTables
-StylesURR_probabilityTablesGet(ConstHandle2Styles This, const size_t index_);
+StylesURR_probabilityTablesGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesURR_probabilityTablesSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 );
@@ -1278,28 +1278,28 @@ StylesURR_probabilityTablesSet(
 // +++ Has, by date
 extern_c int
 StylesURR_probabilityTablesHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesURR_probabilityTablesSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 );
@@ -1307,28 +1307,28 @@ StylesURR_probabilityTablesSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesURR_probabilityTablesHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesURR_probabilityTablesSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 );
@@ -1336,28 +1336,28 @@ StylesURR_probabilityTablesSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesURR_probabilityTablesHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstURR_probabilityTables
 StylesURR_probabilityTablesGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2URR_probabilityTables
 StylesURR_probabilityTablesGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesURR_probabilityTablesSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstURR_probabilityTables URR_probabilityTables
 );
@@ -1369,32 +1369,32 @@ StylesURR_probabilityTablesSetByLabel(
 
 // +++ Has
 extern_c int
-StylesHeatedMultiGroupHas(ConstHandle2ConstStyles This);
+StylesHeatedMultiGroupHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesHeatedMultiGroupClear(ConstHandle2Styles This);
+StylesHeatedMultiGroupClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesHeatedMultiGroupSize(ConstHandle2ConstStyles This);
+StylesHeatedMultiGroupSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesHeatedMultiGroupAdd(ConstHandle2Styles This, ConstHandle2ConstHeatedMultiGroup heatedMultiGroup);
+StylesHeatedMultiGroupAdd(ConstHandle2Styles self, ConstHandle2ConstHeatedMultiGroup heatedMultiGroup);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstHeatedMultiGroup
-StylesHeatedMultiGroupGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesHeatedMultiGroupGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2HeatedMultiGroup
-StylesHeatedMultiGroupGet(ConstHandle2Styles This, const size_t index_);
+StylesHeatedMultiGroupGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesHeatedMultiGroupSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 );
@@ -1402,28 +1402,28 @@ StylesHeatedMultiGroupSet(
 // +++ Has, by date
 extern_c int
 StylesHeatedMultiGroupHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesHeatedMultiGroupSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 );
@@ -1431,28 +1431,28 @@ StylesHeatedMultiGroupSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesHeatedMultiGroupHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesHeatedMultiGroupSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 );
@@ -1460,28 +1460,28 @@ StylesHeatedMultiGroupSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesHeatedMultiGroupHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstHeatedMultiGroup
 StylesHeatedMultiGroupGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2HeatedMultiGroup
 StylesHeatedMultiGroupGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesHeatedMultiGroupSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstHeatedMultiGroup heatedMultiGroup
 );
@@ -1493,32 +1493,32 @@ StylesHeatedMultiGroupSetByLabel(
 
 // +++ Has
 extern_c int
-StylesSnElasticUpScatterHas(ConstHandle2ConstStyles This);
+StylesSnElasticUpScatterHas(ConstHandle2ConstStyles self);
 
 // +++ Clear
 extern_c void
-StylesSnElasticUpScatterClear(ConstHandle2Styles This);
+StylesSnElasticUpScatterClear(ConstHandle2Styles self);
 
 // +++ Size
 extern_c size_t
-StylesSnElasticUpScatterSize(ConstHandle2ConstStyles This);
+StylesSnElasticUpScatterSize(ConstHandle2ConstStyles self);
 
 // +++ Add
 extern_c void
-StylesSnElasticUpScatterAdd(ConstHandle2Styles This, ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter);
+StylesSnElasticUpScatterAdd(ConstHandle2Styles self, ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstSnElasticUpScatter
-StylesSnElasticUpScatterGetConst(ConstHandle2ConstStyles This, const size_t index_);
+StylesSnElasticUpScatterGetConst(ConstHandle2ConstStyles self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2SnElasticUpScatter
-StylesSnElasticUpScatterGet(ConstHandle2Styles This, const size_t index_);
+StylesSnElasticUpScatterGet(ConstHandle2Styles self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 StylesSnElasticUpScatterSet(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const size_t index_,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 );
@@ -1526,28 +1526,28 @@ StylesSnElasticUpScatterSet(
 // +++ Has, by date
 extern_c int
 StylesSnElasticUpScatterHasByDate(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // --- Get, by date, const
 extern_c Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByDateConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const char *const date
 );
 
 // +++ Get, by date, non-const
 extern_c Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date
 );
 
 // +++ Set, by date
 extern_c void
 StylesSnElasticUpScatterSetByDate(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const char *const date,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 );
@@ -1555,28 +1555,28 @@ StylesSnElasticUpScatterSetByDate(
 // +++ Has, by derivedFrom
 extern_c int
 StylesSnElasticUpScatterHasByDerivedFrom(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // --- Get, by derivedFrom, const
 extern_c Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByDerivedFromConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName derivedFrom
 );
 
 // +++ Get, by derivedFrom, non-const
 extern_c Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom
 );
 
 // +++ Set, by derivedFrom
 extern_c void
 StylesSnElasticUpScatterSetByDerivedFrom(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName derivedFrom,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 );
@@ -1584,28 +1584,28 @@ StylesSnElasticUpScatterSetByDerivedFrom(
 // +++ Has, by label
 extern_c int
 StylesSnElasticUpScatterHasByLabel(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByLabelConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 StylesSnElasticUpScatterSetByLabel(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const XMLName label,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 );
@@ -1613,28 +1613,28 @@ StylesSnElasticUpScatterSetByLabel(
 // +++ Has, by upperCalculatedGroup
 extern_c int
 StylesSnElasticUpScatterHasByUpperCalculatedGroup(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Integer32 upperCalculatedGroup
 );
 
 // --- Get, by upperCalculatedGroup, const
 extern_c Handle2ConstSnElasticUpScatter
 StylesSnElasticUpScatterGetByUpperCalculatedGroupConst(
-   ConstHandle2ConstStyles This,
+   ConstHandle2ConstStyles self,
    const Integer32 upperCalculatedGroup
 );
 
 // +++ Get, by upperCalculatedGroup, non-const
 extern_c Handle2SnElasticUpScatter
 StylesSnElasticUpScatterGetByUpperCalculatedGroup(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Integer32 upperCalculatedGroup
 );
 
 // +++ Set, by upperCalculatedGroup
 extern_c void
 StylesSnElasticUpScatterSetByUpperCalculatedGroup(
-   ConstHandle2Styles This,
+   ConstHandle2Styles self,
    const Integer32 upperCalculatedGroup,
    ConstHandle2ConstSnElasticUpScatter SnElasticUpScatter
 );

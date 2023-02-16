@@ -67,20 +67,20 @@ LinkCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LinkAssign(ConstHandle2Link This, ConstHandle2ConstLink from)
+LinkAssign(ConstHandle2Link self, ConstHandle2ConstLink from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LinkDelete(ConstHandle2ConstLink This)
+LinkDelete(ConstHandle2ConstLink self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -94,44 +94,44 @@ LinkDelete(ConstHandle2ConstLink This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LinkRead(ConstHandle2Link This, const char *const filename)
+LinkRead(ConstHandle2Link self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LinkWrite(ConstHandle2ConstLink This, const char *const filename)
+LinkWrite(ConstHandle2ConstLink self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LinkPrint(ConstHandle2ConstLink This)
+LinkPrint(ConstHandle2ConstLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LinkPrintXML(ConstHandle2ConstLink This)
+LinkPrintXML(ConstHandle2ConstLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LinkPrintJSON(ConstHandle2ConstLink This)
+LinkPrintJSON(ConstHandle2ConstLink self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -141,27 +141,27 @@ LinkPrintJSON(ConstHandle2ConstLink This)
 
 // Has
 int
-LinkHrefHas(ConstHandle2ConstLink This)
+LinkHrefHas(ConstHandle2ConstLink self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-LinkHrefGet(ConstHandle2ConstLink This)
+LinkHrefGet(ConstHandle2ConstLink self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-LinkHrefSet(ConstHandle2Link This, const char *const href)
+LinkHrefSet(ConstHandle2Link self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

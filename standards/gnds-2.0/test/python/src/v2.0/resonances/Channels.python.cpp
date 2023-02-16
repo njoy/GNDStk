@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// Channels wrapper
-void wrapChannels(python::module &module)
+// wrapper for resonances::Channels
+void wrapChannels(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::Channels;
+   using cppCLASS = resonances::Channels;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Channels",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Channels",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<resonances::Channel> &
-         >(),
-         python::arg("channel"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "channel",
-         [](const Component &self) { return self.channel(); },
-         Component::documentation("channel").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<resonances::Channel> &
+      >(),
+      py::arg("channel"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set channel
+   object.def_property(
+      "channel",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.channel();
+      },
+      [](cppCLASS &self, const std::vector<resonances::Channel> &value)
+      {
+         self.channel() = value;
+      },
+      cppCLASS::component_t::documentation("channel").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

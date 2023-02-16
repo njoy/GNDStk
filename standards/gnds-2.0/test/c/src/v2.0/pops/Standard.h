@@ -90,13 +90,13 @@ StandardCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StandardAssign(ConstHandle2Standard This, ConstHandle2ConstStandard from);
+StandardAssign(ConstHandle2Standard self, ConstHandle2ConstStandard from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StandardDelete(ConstHandle2ConstStandard This);
+StandardDelete(ConstHandle2ConstStandard self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ StandardDelete(ConstHandle2ConstStandard This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StandardRead(ConstHandle2Standard This, const char *const filename);
+StandardRead(ConstHandle2Standard self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StandardWrite(ConstHandle2ConstStandard This, const char *const filename);
+StandardWrite(ConstHandle2ConstStandard self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StandardPrint(ConstHandle2ConstStandard This);
+StandardPrint(ConstHandle2ConstStandard self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StandardPrintXML(ConstHandle2ConstStandard This);
+StandardPrintXML(ConstHandle2ConstStandard self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StandardPrintJSON(ConstHandle2ConstStandard This);
+StandardPrintJSON(ConstHandle2ConstStandard self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ StandardPrintJSON(ConstHandle2ConstStandard This);
 
 // +++ Has
 extern_c int
-StandardDoubleHas(ConstHandle2ConstStandard This);
+StandardDoubleHas(ConstHandle2ConstStandard self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-StandardDoubleGetConst(ConstHandle2ConstStandard This);
+StandardDoubleGetConst(ConstHandle2ConstStandard self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-StandardDoubleGet(ConstHandle2Standard This);
+StandardDoubleGet(ConstHandle2Standard self);
 
 // +++ Set
 extern_c void
-StandardDoubleSet(ConstHandle2Standard This, ConstHandle2ConstDouble Double);
+StandardDoubleSet(ConstHandle2Standard self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

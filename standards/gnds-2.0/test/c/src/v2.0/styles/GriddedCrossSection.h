@@ -99,13 +99,13 @@ GriddedCrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GriddedCrossSectionAssign(ConstHandle2GriddedCrossSection This, ConstHandle2ConstGriddedCrossSection from);
+GriddedCrossSectionAssign(ConstHandle2GriddedCrossSection self, ConstHandle2ConstGriddedCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ GriddedCrossSectionDelete(ConstHandle2ConstGriddedCrossSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GriddedCrossSectionRead(ConstHandle2GriddedCrossSection This, const char *const filename);
+GriddedCrossSectionRead(ConstHandle2GriddedCrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GriddedCrossSectionWrite(ConstHandle2ConstGriddedCrossSection This, const char *const filename);
+GriddedCrossSectionWrite(ConstHandle2ConstGriddedCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GriddedCrossSectionPrint(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionPrint(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GriddedCrossSectionPrintXML(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionPrintXML(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ GriddedCrossSectionPrintJSON(ConstHandle2ConstGriddedCrossSection This);
 
 // +++ Has
 extern_c int
-GriddedCrossSectionDateHas(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDateHas(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-GriddedCrossSectionDateGet(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDateGet(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Set
 extern_c void
-GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection This, const char *const date);
+GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ GriddedCrossSectionDateSet(ConstHandle2GriddedCrossSection This, const char *con
 
 // +++ Has
 extern_c int
-GriddedCrossSectionDerivedFromHas(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDerivedFromHas(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-GriddedCrossSectionDerivedFromGet(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDerivedFromGet(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Set
 extern_c void
-GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection This, const XMLName derivedFrom);
+GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ GriddedCrossSectionDerivedFromSet(ConstHandle2GriddedCrossSection This, const XM
 
 // +++ Has
 extern_c int
-GriddedCrossSectionLabelHas(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionLabelHas(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-GriddedCrossSectionLabelGet(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionLabelGet(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Set
 extern_c void
-GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection This, const XMLName label);
+GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ GriddedCrossSectionLabelSet(ConstHandle2GriddedCrossSection This, const XMLName 
 
 // +++ Has
 extern_c int
-GriddedCrossSectionGridHas(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionGridHas(ConstHandle2ConstGriddedCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstGrid
-GriddedCrossSectionGridGetConst(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionGridGetConst(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Grid
-GriddedCrossSectionGridGet(ConstHandle2GriddedCrossSection This);
+GriddedCrossSectionGridGet(ConstHandle2GriddedCrossSection self);
 
 // +++ Set
 extern_c void
-GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection This, ConstHandle2ConstGrid grid);
+GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection self, ConstHandle2ConstGrid grid);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ GriddedCrossSectionGridSet(ConstHandle2GriddedCrossSection This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-GriddedCrossSectionDocumentationHas(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDocumentationHas(ConstHandle2ConstGriddedCrossSection self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-GriddedCrossSectionDocumentationGetConst(ConstHandle2ConstGriddedCrossSection This);
+GriddedCrossSectionDocumentationGetConst(ConstHandle2ConstGriddedCrossSection self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-GriddedCrossSectionDocumentationGet(ConstHandle2GriddedCrossSection This);
+GriddedCrossSectionDocumentationGet(ConstHandle2GriddedCrossSection self);
 
 // +++ Set
 extern_c void
-GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection This, ConstHandle2ConstDocumentation documentation);
+GriddedCrossSectionDocumentationSet(ConstHandle2GriddedCrossSection self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionTransport {
 
-// PromptGammaEnergy wrapper
-void wrapPromptGammaEnergy(python::module &module)
+// wrapper for fissionTransport::PromptGammaEnergy
+void wrapPromptGammaEnergy(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionTransport::PromptGammaEnergy;
+   using cppCLASS = fissionTransport::PromptGammaEnergy;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "PromptGammaEnergy",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "PromptGammaEnergy",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::XYs1d> &,
-            const std::optional<containers::Polynomial1d> &
-         >(),
-         python::arg("xys1d") = std::nullopt,
-         python::arg("polynomial1d") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
-         Component::documentation("polynomial1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::XYs1d> &,
+         const std::optional<containers::Polynomial1d> &
+      >(),
+      py::arg("xys1d") = std::nullopt,
+      py::arg("polynomial1d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Polynomial1d> &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionTransport

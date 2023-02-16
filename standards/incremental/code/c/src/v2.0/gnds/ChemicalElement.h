@@ -96,13 +96,13 @@ ChemicalElementCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ChemicalElementAssign(ConstHandle2ChemicalElement This, ConstHandle2ConstChemicalElement from);
+ChemicalElementAssign(ConstHandle2ChemicalElement self, ConstHandle2ConstChemicalElement from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ChemicalElementDelete(ConstHandle2ConstChemicalElement This);
+ChemicalElementDelete(ConstHandle2ConstChemicalElement self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ ChemicalElementDelete(ConstHandle2ConstChemicalElement This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ChemicalElementRead(ConstHandle2ChemicalElement This, const char *const filename);
+ChemicalElementRead(ConstHandle2ChemicalElement self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ChemicalElementWrite(ConstHandle2ConstChemicalElement This, const char *const filename);
+ChemicalElementWrite(ConstHandle2ConstChemicalElement self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ChemicalElementPrint(ConstHandle2ConstChemicalElement This);
+ChemicalElementPrint(ConstHandle2ConstChemicalElement self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ChemicalElementPrintXML(ConstHandle2ConstChemicalElement This);
+ChemicalElementPrintXML(ConstHandle2ConstChemicalElement self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement This);
+ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement This);
 
 // +++ Has
 extern_c int
-ChemicalElementSymbolHas(ConstHandle2ConstChemicalElement This);
+ChemicalElementSymbolHas(ConstHandle2ConstChemicalElement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ChemicalElementSymbolGet(ConstHandle2ConstChemicalElement This);
+ChemicalElementSymbolGet(ConstHandle2ConstChemicalElement self);
 
 // +++ Set
 extern_c void
-ChemicalElementSymbolSet(ConstHandle2ChemicalElement This, const char *const symbol);
+ChemicalElementSymbolSet(ConstHandle2ChemicalElement self, const char *const symbol);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ ChemicalElementSymbolSet(ConstHandle2ChemicalElement This, const char *const sym
 
 // +++ Has
 extern_c int
-ChemicalElementZHas(ConstHandle2ConstChemicalElement This);
+ChemicalElementZHas(ConstHandle2ConstChemicalElement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-ChemicalElementZGet(ConstHandle2ConstChemicalElement This);
+ChemicalElementZGet(ConstHandle2ConstChemicalElement self);
 
 // +++ Set
 extern_c void
-ChemicalElementZSet(ConstHandle2ChemicalElement This, const int Z);
+ChemicalElementZSet(ConstHandle2ChemicalElement self, const int Z);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ ChemicalElementZSet(ConstHandle2ChemicalElement This, const int Z);
 
 // +++ Has
 extern_c int
-ChemicalElementNameHas(ConstHandle2ConstChemicalElement This);
+ChemicalElementNameHas(ConstHandle2ConstChemicalElement self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ChemicalElementNameGet(ConstHandle2ConstChemicalElement This);
+ChemicalElementNameGet(ConstHandle2ConstChemicalElement self);
 
 // +++ Set
 extern_c void
-ChemicalElementNameSet(ConstHandle2ChemicalElement This, const char *const name);
+ChemicalElementNameSet(ConstHandle2ChemicalElement self, const char *const name);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ ChemicalElementNameSet(ConstHandle2ChemicalElement This, const char *const name)
 
 // +++ Has
 extern_c int
-ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement This);
+ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement self);
 
 // --- Get, const
 extern_c Handle2ConstAtomic
-ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement This);
+ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self);
 
 // +++ Get, non-const
 extern_c Handle2Atomic
-ChemicalElementAtomicGet(ConstHandle2ChemicalElement This);
+ChemicalElementAtomicGet(ConstHandle2ChemicalElement self);
 
 // +++ Set
 extern_c void
-ChemicalElementAtomicSet(ConstHandle2ChemicalElement This, ConstHandle2ConstAtomic atomic);
+ChemicalElementAtomicSet(ConstHandle2ChemicalElement self, ConstHandle2ConstAtomic atomic);
 
 
 // -----------------------------------------------------------------------------

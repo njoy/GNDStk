@@ -32,12 +32,12 @@ class Uncertainty :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Uncertainty"; }
-   static auto FIELD() { return "uncertainty"; }
+   static auto NODENAME() { return "uncertainty"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,38 +45,101 @@ class Uncertainty :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::Standard>>("standard") |
-         --Child<std::optional<containers::LogNormal>>("logNormal") |
-         --Child<std::optional<containers::ConfidenceIntervals>>("confidenceIntervals") |
-         --Child<std::optional<containers::Pdf>>("pdf") |
-         --Child<std::optional<containers::XYs1d>>("XYs1d") |
-         --Child<std::optional<containers::Polynomial1d>>("polynomial1d") |
-         --Child<std::optional<containers::Covariance>>("covariance") |
-         --Child<std::optional<containers::ListOfCovariances>>("listOfCovariances")
+         --Child<std::optional<containers::Standard>>
+            ("standard") |
+         --Child<std::optional<containers::LogNormal>>
+            ("logNormal") |
+         --Child<std::optional<containers::ConfidenceIntervals>>
+            ("confidenceIntervals") |
+         --Child<std::optional<containers::Pdf>>
+            ("pdf") |
+         --Child<std::optional<containers::XYs1d>>
+            ("XYs1d") |
+         --Child<std::optional<containers::Polynomial1d>>
+            ("polynomial1d") |
+         --Child<std::optional<containers::Covariance>>
+            ("covariance") |
+         --Child<std::optional<containers::ListOfCovariances>>
+            ("listOfCovariances")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "standard",
+         "logNormal",
+         "confidenceIntervals",
+         "pdf",
+         "XYs1d",
+         "polynomial1d",
+         "covariance",
+         "listOfCovariances"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "standard",
+         "log_normal",
+         "confidence_intervals",
+         "pdf",
+         "xys1d",
+         "polynomial1d",
+         "covariance",
+         "list_of_covariances"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::Standard>> standard{this};
-   Field<std::optional<containers::LogNormal>> logNormal{this};
-   Field<std::optional<containers::ConfidenceIntervals>> confidenceIntervals{this};
-   Field<std::optional<containers::Pdf>> pdf{this};
-   Field<std::optional<containers::XYs1d>> XYs1d{this};
-   Field<std::optional<containers::Polynomial1d>> polynomial1d{this};
-   Field<std::optional<containers::Covariance>> covariance{this};
-   Field<std::optional<containers::ListOfCovariances>> listOfCovariances{this};
+   Field<std::optional<containers::Standard>>
+      standard{this};
+   Field<std::optional<containers::LogNormal>>
+      logNormal{this};
+   Field<std::optional<containers::ConfidenceIntervals>>
+      confidenceIntervals{this};
+   Field<std::optional<containers::Pdf>>
+      pdf{this};
+   Field<std::optional<containers::XYs1d>>
+      XYs1d{this};
+   Field<std::optional<containers::Polynomial1d>>
+      polynomial1d{this};
+   Field<std::optional<containers::Covariance>>
+      covariance{this};
+   Field<std::optional<containers::ListOfCovariances>>
+      listOfCovariances{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->standard, \
       this->logNormal, \
@@ -85,7 +148,8 @@ public:
       this->XYs1d, \
       this->polynomial1d, \
       this->covariance, \
-      this->listOfCovariances)
+      this->listOfCovariances \
+   )
 
    // default
    Uncertainty() :
@@ -96,14 +160,22 @@ public:
 
    // from fields, comment excluded
    explicit Uncertainty(
-      const wrapper<std::optional<containers::Standard>> &standard,
-      const wrapper<std::optional<containers::LogNormal>> &logNormal = {},
-      const wrapper<std::optional<containers::ConfidenceIntervals>> &confidenceIntervals = {},
-      const wrapper<std::optional<containers::Pdf>> &pdf = {},
-      const wrapper<std::optional<containers::XYs1d>> &XYs1d = {},
-      const wrapper<std::optional<containers::Polynomial1d>> &polynomial1d = {},
-      const wrapper<std::optional<containers::Covariance>> &covariance = {},
-      const wrapper<std::optional<containers::ListOfCovariances>> &listOfCovariances = {}
+      const wrapper<std::optional<containers::Standard>>
+         &standard,
+      const wrapper<std::optional<containers::LogNormal>>
+         &logNormal = {},
+      const wrapper<std::optional<containers::ConfidenceIntervals>>
+         &confidenceIntervals = {},
+      const wrapper<std::optional<containers::Pdf>>
+         &pdf = {},
+      const wrapper<std::optional<containers::XYs1d>>
+         &XYs1d = {},
+      const wrapper<std::optional<containers::Polynomial1d>>
+         &polynomial1d = {},
+      const wrapper<std::optional<containers::Covariance>>
+         &covariance = {},
+      const wrapper<std::optional<containers::ListOfCovariances>>
+         &listOfCovariances = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       standard(this,standard),
@@ -161,8 +233,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Uncertainty &operator=(const Uncertainty &) = default;
-   Uncertainty &operator=(Uncertainty &&) = default;
+   // copy
+   Uncertainty &operator=(const Uncertainty &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         standard = other.standard;
+         logNormal = other.logNormal;
+         confidenceIntervals = other.confidenceIntervals;
+         pdf = other.pdf;
+         XYs1d = other.XYs1d;
+         polynomial1d = other.polynomial1d;
+         covariance = other.covariance;
+         listOfCovariances = other.listOfCovariances;
+      }
+      return *this;
+   }
+
+   // move
+   Uncertainty &operator=(Uncertainty &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         standard = std::move(other.standard);
+         logNormal = std::move(other.logNormal);
+         confidenceIntervals = std::move(other.confidenceIntervals);
+         pdf = std::move(other.pdf);
+         XYs1d = std::move(other.XYs1d);
+         polynomial1d = std::move(other.polynomial1d);
+         covariance = std::move(other.covariance);
+         listOfCovariances = std::move(other.listOfCovariances);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

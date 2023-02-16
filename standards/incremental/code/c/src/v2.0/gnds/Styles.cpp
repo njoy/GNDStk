@@ -69,20 +69,20 @@ StylesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-StylesAssign(ConstHandle2Styles This, ConstHandle2ConstStyles from)
+StylesAssign(ConstHandle2Styles self, ConstHandle2ConstStyles from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-StylesDelete(ConstHandle2ConstStyles This)
+StylesDelete(ConstHandle2ConstStyles self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ StylesDelete(ConstHandle2ConstStyles This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-StylesRead(ConstHandle2Styles This, const char *const filename)
+StylesRead(ConstHandle2Styles self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-StylesWrite(ConstHandle2ConstStyles This, const char *const filename)
+StylesWrite(ConstHandle2ConstStyles self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-StylesPrint(ConstHandle2ConstStyles This)
+StylesPrint(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-StylesPrintXML(ConstHandle2ConstStyles This)
+StylesPrintXML(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-StylesPrintJSON(ConstHandle2ConstStyles This)
+StylesPrintJSON(ConstHandle2ConstStyles self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ StylesPrintJSON(ConstHandle2ConstStyles This)
 
 // Has
 int
-StylesEvaluatedHas(ConstHandle2ConstStyles This)
+StylesEvaluatedHas(ConstHandle2ConstStyles self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluatedHas", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedHas", self, extract::evaluated);
 }
 
 // Get, const
 Handle2ConstEvaluated
-StylesEvaluatedGetConst(ConstHandle2ConstStyles This)
+StylesEvaluatedGetConst(ConstHandle2ConstStyles self)
 {
    return detail::getField<CPP,Handle2ConstEvaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedGetConst", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedGetConst", self, extract::evaluated);
 }
 
 // Get, non-const
 Handle2Evaluated
-StylesEvaluatedGet(ConstHandle2Styles This)
+StylesEvaluatedGet(ConstHandle2Styles self)
 {
    return detail::getField<CPP,Handle2Evaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedGet", This, extract::evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedGet", self, extract::evaluated);
 }
 
 // Set
 void
-StylesEvaluatedSet(ConstHandle2Styles This, ConstHandle2ConstEvaluated evaluated)
+StylesEvaluatedSet(ConstHandle2Styles self, ConstHandle2ConstEvaluated evaluated)
 {
    detail::setField<CPP,CPPEvaluated>
-      (CLASSNAME, CLASSNAME+"EvaluatedSet", This, extract::evaluated, evaluated);
+      (CLASSNAME, CLASSNAME+"EvaluatedSet", self, extract::evaluated, evaluated);
 }
 
 

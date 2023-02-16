@@ -77,20 +77,20 @@ CorrectionScriptCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CorrectionScriptAssign(ConstHandle2CorrectionScript This, ConstHandle2ConstCorrectionScript from)
+CorrectionScriptAssign(ConstHandle2CorrectionScript self, ConstHandle2ConstCorrectionScript from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CorrectionScriptDelete(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptDelete(ConstHandle2ConstCorrectionScript self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ CorrectionScriptDelete(ConstHandle2ConstCorrectionScript This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CorrectionScriptRead(ConstHandle2CorrectionScript This, const char *const filename)
+CorrectionScriptRead(ConstHandle2CorrectionScript self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CorrectionScriptWrite(ConstHandle2ConstCorrectionScript This, const char *const filename)
+CorrectionScriptWrite(ConstHandle2ConstCorrectionScript self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CorrectionScriptPrint(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptPrint(ConstHandle2ConstCorrectionScript self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CorrectionScriptPrintXML(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptPrintXML(ConstHandle2ConstCorrectionScript self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,60 +155,60 @@ CorrectionScriptPrintJSON(ConstHandle2ConstCorrectionScript This)
 
 // Clear
 void
-CorrectionScriptIntsClear(ConstHandle2CorrectionScript This)
+CorrectionScriptIntsClear(ConstHandle2CorrectionScript self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-CorrectionScriptIntsSize(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptIntsSize(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-CorrectionScriptIntsGet(ConstHandle2ConstCorrectionScript This, const size_t index)
+CorrectionScriptIntsGet(ConstHandle2ConstCorrectionScript self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CorrectionScriptIntsSet(ConstHandle2CorrectionScript This, const size_t index, const int value)
+CorrectionScriptIntsSet(ConstHandle2CorrectionScript self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-CorrectionScriptIntsGetArrayConst(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptIntsGetArrayConst(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-CorrectionScriptIntsGetArray(ConstHandle2CorrectionScript This)
+CorrectionScriptIntsGetArray(ConstHandle2CorrectionScript self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript This, const int *const values, const size_t size)
+CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -217,60 +217,60 @@ CorrectionScriptIntsSetArray(ConstHandle2CorrectionScript This, const int *const
 
 // Clear
 void
-CorrectionScriptUnsignedsClear(ConstHandle2CorrectionScript This)
+CorrectionScriptUnsignedsClear(ConstHandle2CorrectionScript self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-CorrectionScriptUnsignedsSize(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptUnsignedsSize(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-CorrectionScriptUnsignedsGet(ConstHandle2ConstCorrectionScript This, const size_t index)
+CorrectionScriptUnsignedsGet(ConstHandle2ConstCorrectionScript self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CorrectionScriptUnsignedsSet(ConstHandle2CorrectionScript This, const size_t index, const unsigned value)
+CorrectionScriptUnsignedsSet(ConstHandle2CorrectionScript self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-CorrectionScriptUnsignedsGetArrayConst(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptUnsignedsGetArrayConst(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-CorrectionScriptUnsignedsGetArray(ConstHandle2CorrectionScript This)
+CorrectionScriptUnsignedsGetArray(ConstHandle2CorrectionScript self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript This, const unsigned *const values, const size_t size)
+CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -279,60 +279,60 @@ CorrectionScriptUnsignedsSetArray(ConstHandle2CorrectionScript This, const unsig
 
 // Clear
 void
-CorrectionScriptFloatsClear(ConstHandle2CorrectionScript This)
+CorrectionScriptFloatsClear(ConstHandle2CorrectionScript self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-CorrectionScriptFloatsSize(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptFloatsSize(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-CorrectionScriptFloatsGet(ConstHandle2ConstCorrectionScript This, const size_t index)
+CorrectionScriptFloatsGet(ConstHandle2ConstCorrectionScript self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CorrectionScriptFloatsSet(ConstHandle2CorrectionScript This, const size_t index, const float value)
+CorrectionScriptFloatsSet(ConstHandle2CorrectionScript self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-CorrectionScriptFloatsGetArrayConst(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptFloatsGetArrayConst(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-CorrectionScriptFloatsGetArray(ConstHandle2CorrectionScript This)
+CorrectionScriptFloatsGetArray(ConstHandle2CorrectionScript self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript This, const float *const values, const size_t size)
+CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -341,60 +341,60 @@ CorrectionScriptFloatsSetArray(ConstHandle2CorrectionScript This, const float *c
 
 // Clear
 void
-CorrectionScriptDoublesClear(ConstHandle2CorrectionScript This)
+CorrectionScriptDoublesClear(ConstHandle2CorrectionScript self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-CorrectionScriptDoublesSize(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptDoublesSize(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-CorrectionScriptDoublesGet(ConstHandle2ConstCorrectionScript This, const size_t index)
+CorrectionScriptDoublesGet(ConstHandle2ConstCorrectionScript self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CorrectionScriptDoublesSet(ConstHandle2CorrectionScript This, const size_t index, const double value)
+CorrectionScriptDoublesSet(ConstHandle2CorrectionScript self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-CorrectionScriptDoublesGetArrayConst(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptDoublesGetArrayConst(ConstHandle2ConstCorrectionScript self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-CorrectionScriptDoublesGetArray(ConstHandle2CorrectionScript This)
+CorrectionScriptDoublesGetArray(ConstHandle2CorrectionScript self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript This, const double *const values, const size_t size)
+CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -404,27 +404,27 @@ CorrectionScriptDoublesSetArray(ConstHandle2CorrectionScript This, const double 
 
 // Has
 int
-CorrectionScriptEncodingHas(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptEncodingHas(ConstHandle2ConstCorrectionScript self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-CorrectionScriptEncodingGet(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptEncodingGet(ConstHandle2ConstCorrectionScript self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-CorrectionScriptEncodingSet(ConstHandle2CorrectionScript This, const XMLName encoding)
+CorrectionScriptEncodingSet(ConstHandle2CorrectionScript self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -434,27 +434,27 @@ CorrectionScriptEncodingSet(ConstHandle2CorrectionScript This, const XMLName enc
 
 // Has
 int
-CorrectionScriptMarkupHas(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptMarkupHas(ConstHandle2ConstCorrectionScript self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-CorrectionScriptMarkupGet(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptMarkupGet(ConstHandle2ConstCorrectionScript self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-CorrectionScriptMarkupSet(ConstHandle2CorrectionScript This, const char *const markup)
+CorrectionScriptMarkupSet(ConstHandle2CorrectionScript self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -464,27 +464,27 @@ CorrectionScriptMarkupSet(ConstHandle2CorrectionScript This, const char *const m
 
 // Has
 int
-CorrectionScriptLabelHas(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptLabelHas(ConstHandle2ConstCorrectionScript self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CorrectionScriptLabelGet(ConstHandle2ConstCorrectionScript This)
+CorrectionScriptLabelGet(ConstHandle2ConstCorrectionScript self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CorrectionScriptLabelSet(ConstHandle2CorrectionScript This, const XMLName label)
+CorrectionScriptLabelSet(ConstHandle2CorrectionScript self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

@@ -100,13 +100,13 @@ CrossSectionSumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CrossSectionSumAssign(ConstHandle2CrossSectionSum This, ConstHandle2ConstCrossSectionSum from);
+CrossSectionSumAssign(ConstHandle2CrossSectionSum self, ConstHandle2ConstCrossSectionSum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CrossSectionSumDelete(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumDelete(ConstHandle2ConstCrossSectionSum self);
 
 
 // -----------------------------------------------------------------------------
@@ -119,25 +119,25 @@ CrossSectionSumDelete(ConstHandle2ConstCrossSectionSum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CrossSectionSumRead(ConstHandle2CrossSectionSum This, const char *const filename);
+CrossSectionSumRead(ConstHandle2CrossSectionSum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CrossSectionSumWrite(ConstHandle2ConstCrossSectionSum This, const char *const filename);
+CrossSectionSumWrite(ConstHandle2ConstCrossSectionSum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CrossSectionSumPrint(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumPrint(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CrossSectionSumPrintXML(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumPrintXML(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CrossSectionSumPrintJSON(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumPrintJSON(ConstHandle2ConstCrossSectionSum self);
 
 
 // -----------------------------------------------------------------------------
@@ -146,16 +146,16 @@ CrossSectionSumPrintJSON(ConstHandle2ConstCrossSectionSum This);
 
 // +++ Has
 extern_c int
-CrossSectionSumENDFMTHas(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumENDFMTHas(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-CrossSectionSumENDFMTGet(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumENDFMTGet(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Set
 extern_c void
-CrossSectionSumENDFMTSet(ConstHandle2CrossSectionSum This, const Integer32 ENDF_MT);
+CrossSectionSumENDFMTSet(ConstHandle2CrossSectionSum self, const Integer32 ENDF_MT);
 
 
 // -----------------------------------------------------------------------------
@@ -164,16 +164,16 @@ CrossSectionSumENDFMTSet(ConstHandle2CrossSectionSum This, const Integer32 ENDF_
 
 // +++ Has
 extern_c int
-CrossSectionSumLabelHas(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumLabelHas(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CrossSectionSumLabelGet(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumLabelGet(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Set
 extern_c void
-CrossSectionSumLabelSet(ConstHandle2CrossSectionSum This, const XMLName label);
+CrossSectionSumLabelSet(ConstHandle2CrossSectionSum self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -182,19 +182,19 @@ CrossSectionSumLabelSet(ConstHandle2CrossSectionSum This, const XMLName label);
 
 // +++ Has
 extern_c int
-CrossSectionSumQHas(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumQHas(ConstHandle2ConstCrossSectionSum self);
 
 // --- Get, const
 extern_c Handle2ConstQ
-CrossSectionSumQGetConst(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumQGetConst(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Get, non-const
 extern_c Handle2Q
-CrossSectionSumQGet(ConstHandle2CrossSectionSum This);
+CrossSectionSumQGet(ConstHandle2CrossSectionSum self);
 
 // +++ Set
 extern_c void
-CrossSectionSumQSet(ConstHandle2CrossSectionSum This, ConstHandle2ConstQ Q);
+CrossSectionSumQSet(ConstHandle2CrossSectionSum self, ConstHandle2ConstQ Q);
 
 
 // -----------------------------------------------------------------------------
@@ -203,19 +203,19 @@ CrossSectionSumQSet(ConstHandle2CrossSectionSum This, ConstHandle2ConstQ Q);
 
 // +++ Has
 extern_c int
-CrossSectionSumCrossSectionHas(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumCrossSectionHas(ConstHandle2ConstCrossSectionSum self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-CrossSectionSumCrossSectionGetConst(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumCrossSectionGetConst(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-CrossSectionSumCrossSectionGet(ConstHandle2CrossSectionSum This);
+CrossSectionSumCrossSectionGet(ConstHandle2CrossSectionSum self);
 
 // +++ Set
 extern_c void
-CrossSectionSumCrossSectionSet(ConstHandle2CrossSectionSum This, ConstHandle2ConstCrossSection crossSection);
+CrossSectionSumCrossSectionSet(ConstHandle2CrossSectionSum self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------
@@ -224,19 +224,19 @@ CrossSectionSumCrossSectionSet(ConstHandle2CrossSectionSum This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-CrossSectionSumSummandsHas(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumSummandsHas(ConstHandle2ConstCrossSectionSum self);
 
 // --- Get, const
 extern_c Handle2ConstSummands
-CrossSectionSumSummandsGetConst(ConstHandle2ConstCrossSectionSum This);
+CrossSectionSumSummandsGetConst(ConstHandle2ConstCrossSectionSum self);
 
 // +++ Get, non-const
 extern_c Handle2Summands
-CrossSectionSumSummandsGet(ConstHandle2CrossSectionSum This);
+CrossSectionSumSummandsGet(ConstHandle2CrossSectionSum self);
 
 // +++ Set
 extern_c void
-CrossSectionSumSummandsSet(ConstHandle2CrossSectionSum This, ConstHandle2ConstSummands summands);
+CrossSectionSumSummandsSet(ConstHandle2CrossSectionSum self, ConstHandle2ConstSummands summands);
 
 
 // -----------------------------------------------------------------------------

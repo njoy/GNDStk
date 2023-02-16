@@ -82,20 +82,20 @@ ExternalFileCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ExternalFileAssign(ConstHandle2ExternalFile This, ConstHandle2ConstExternalFile from)
+ExternalFileAssign(ConstHandle2ExternalFile self, ConstHandle2ConstExternalFile from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ExternalFileDelete(ConstHandle2ConstExternalFile This)
+ExternalFileDelete(ConstHandle2ConstExternalFile self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ ExternalFileDelete(ConstHandle2ConstExternalFile This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ExternalFileRead(ConstHandle2ExternalFile This, const char *const filename)
+ExternalFileRead(ConstHandle2ExternalFile self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ExternalFileWrite(ConstHandle2ConstExternalFile This, const char *const filename)
+ExternalFileWrite(ConstHandle2ConstExternalFile self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ExternalFilePrint(ConstHandle2ConstExternalFile This)
+ExternalFilePrint(ConstHandle2ConstExternalFile self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ExternalFilePrintXML(ConstHandle2ConstExternalFile This)
+ExternalFilePrintXML(ConstHandle2ConstExternalFile self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ExternalFilePrintJSON(ConstHandle2ConstExternalFile This)
+ExternalFilePrintJSON(ConstHandle2ConstExternalFile self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -156,27 +156,27 @@ ExternalFilePrintJSON(ConstHandle2ConstExternalFile This)
 
 // Has
 int
-ExternalFileLabelHas(ConstHandle2ConstExternalFile This)
+ExternalFileLabelHas(ConstHandle2ConstExternalFile self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ExternalFileLabelGet(ConstHandle2ConstExternalFile This)
+ExternalFileLabelGet(ConstHandle2ConstExternalFile self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ExternalFileLabelSet(ConstHandle2ExternalFile This, const XMLName label)
+ExternalFileLabelSet(ConstHandle2ExternalFile self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -186,27 +186,27 @@ ExternalFileLabelSet(ConstHandle2ExternalFile This, const XMLName label)
 
 // Has
 int
-ExternalFilePathHas(ConstHandle2ConstExternalFile This)
+ExternalFilePathHas(ConstHandle2ConstExternalFile self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PathHas", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathHas", self, extract::path);
 }
 
 // Get
 // Returns by value
 XMLName
-ExternalFilePathGet(ConstHandle2ConstExternalFile This)
+ExternalFilePathGet(ConstHandle2ConstExternalFile self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PathGet", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathGet", self, extract::path);
 }
 
 // Set
 void
-ExternalFilePathSet(ConstHandle2ExternalFile This, const XMLName path)
+ExternalFilePathSet(ConstHandle2ExternalFile self, const XMLName path)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PathSet", This, extract::path, path);
+      (CLASSNAME, CLASSNAME+"PathSet", self, extract::path, path);
 }
 
 
@@ -216,27 +216,27 @@ ExternalFilePathSet(ConstHandle2ExternalFile This, const XMLName path)
 
 // Has
 int
-ExternalFileChecksumHas(ConstHandle2ConstExternalFile This)
+ExternalFileChecksumHas(ConstHandle2ConstExternalFile self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumHas", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumHas", self, extract::checksum);
 }
 
 // Get
 // Returns by value
 const char *
-ExternalFileChecksumGet(ConstHandle2ConstExternalFile This)
+ExternalFileChecksumGet(ConstHandle2ConstExternalFile self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumGet", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumGet", self, extract::checksum);
 }
 
 // Set
 void
-ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksum)
+ExternalFileChecksumSet(ConstHandle2ExternalFile self, const char *const checksum)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumSet", self, extract::checksum, checksum);
 }
 
 
@@ -246,27 +246,27 @@ ExternalFileChecksumSet(ConstHandle2ExternalFile This, const char *const checksu
 
 // Has
 int
-ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile This)
+ExternalFileAlgorithmHas(ConstHandle2ConstExternalFile self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmHas", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmHas", self, extract::algorithm);
 }
 
 // Get
 // Returns by value
 enums::HashAlgorithm
-ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile This)
+ExternalFileAlgorithmGet(ConstHandle2ConstExternalFile self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmGet", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmGet", self, extract::algorithm);
 }
 
 // Set
 void
-ExternalFileAlgorithmSet(ConstHandle2ExternalFile This, const enums::HashAlgorithm algorithm)
+ExternalFileAlgorithmSet(ConstHandle2ExternalFile self, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmSet", self, extract::algorithm, algorithm);
 }
 
 

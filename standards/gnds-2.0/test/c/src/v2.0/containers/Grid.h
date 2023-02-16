@@ -99,13 +99,13 @@ GridCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GridAssign(ConstHandle2Grid This, ConstHandle2ConstGrid from);
+GridAssign(ConstHandle2Grid self, ConstHandle2ConstGrid from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GridDelete(ConstHandle2ConstGrid This);
+GridDelete(ConstHandle2ConstGrid self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ GridDelete(ConstHandle2ConstGrid This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GridRead(ConstHandle2Grid This, const char *const filename);
+GridRead(ConstHandle2Grid self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GridWrite(ConstHandle2ConstGrid This, const char *const filename);
+GridWrite(ConstHandle2ConstGrid self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GridPrint(ConstHandle2ConstGrid This);
+GridPrint(ConstHandle2ConstGrid self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GridPrintXML(ConstHandle2ConstGrid This);
+GridPrintXML(ConstHandle2ConstGrid self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GridPrintJSON(ConstHandle2ConstGrid This);
+GridPrintJSON(ConstHandle2ConstGrid self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ GridPrintJSON(ConstHandle2ConstGrid This);
 
 // +++ Has
 extern_c int
-GridIndexHas(ConstHandle2ConstGrid This);
+GridIndexHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-GridIndexGet(ConstHandle2ConstGrid This);
+GridIndexGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridIndexSet(ConstHandle2Grid This, const Integer32 index);
+GridIndexSet(ConstHandle2Grid self, const Integer32 index);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ GridIndexSet(ConstHandle2Grid This, const Integer32 index);
 
 // +++ Has
 extern_c int
-GridInterpolationHas(ConstHandle2ConstGrid This);
+GridInterpolationHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Interpolation
-GridInterpolationGet(ConstHandle2ConstGrid This);
+GridInterpolationGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridInterpolationSet(ConstHandle2Grid This, const enums::Interpolation interpolation);
+GridInterpolationSet(ConstHandle2Grid self, const enums::Interpolation interpolation);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ GridInterpolationSet(ConstHandle2Grid This, const enums::Interpolation interpola
 
 // +++ Has
 extern_c int
-GridLabelHas(ConstHandle2ConstGrid This);
+GridLabelHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-GridLabelGet(ConstHandle2ConstGrid This);
+GridLabelGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridLabelSet(ConstHandle2Grid This, const XMLName label);
+GridLabelSet(ConstHandle2Grid self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -199,16 +199,16 @@ GridLabelSet(ConstHandle2Grid This, const XMLName label);
 
 // +++ Has
 extern_c int
-GridStyleHas(ConstHandle2ConstGrid This);
+GridStyleHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-GridStyleGet(ConstHandle2ConstGrid This);
+GridStyleGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridStyleSet(ConstHandle2Grid This, const UTF8Text style);
+GridStyleSet(ConstHandle2Grid self, const UTF8Text style);
 
 
 // -----------------------------------------------------------------------------
@@ -217,16 +217,16 @@ GridStyleSet(ConstHandle2Grid This, const UTF8Text style);
 
 // +++ Has
 extern_c int
-GridUnitHas(ConstHandle2ConstGrid This);
+GridUnitHas(ConstHandle2ConstGrid self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-GridUnitGet(ConstHandle2ConstGrid This);
+GridUnitGet(ConstHandle2ConstGrid self);
 
 // +++ Set
 extern_c void
-GridUnitSet(ConstHandle2Grid This, const XMLName unit);
+GridUnitSet(ConstHandle2Grid self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------

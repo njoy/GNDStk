@@ -27,12 +27,12 @@ class MadlandNix :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "MadlandNix"; }
-   static auto FIELD() { return "MadlandNix"; }
+   static auto NODENAME() { return "MadlandNix"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class MadlandNix :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<fissionTransport::EFH>("EFH") |
-         --Child<fissionTransport::EFL>("EFL") |
-         --Child<fissionTransport::T_M>("T_M")
+         --Child<fissionTransport::EFH>
+            ("EFH") |
+         --Child<fissionTransport::EFL>
+            ("EFL") |
+         --Child<fissionTransport::T_M>
+            ("T_M")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "EFH",
+         "EFL",
+         "T_M"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "efh",
+         "efl",
+         "t_m"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<fissionTransport::EFH> EFH{this};
-   Field<fissionTransport::EFL> EFL{this};
-   Field<fissionTransport::T_M> T_M{this};
+   Field<fissionTransport::EFH>
+      EFH{this};
+   Field<fissionTransport::EFL>
+      EFL{this};
+   Field<fissionTransport::T_M>
+      T_M{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->EFH, \
       this->EFL, \
-      this->T_M)
+      this->T_M \
+   )
 
    // default
    MadlandNix() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit MadlandNix(
-      const wrapper<fissionTransport::EFH> &EFH,
-      const wrapper<fissionTransport::EFL> &EFL = {},
-      const wrapper<fissionTransport::T_M> &T_M = {}
+      const wrapper<fissionTransport::EFH>
+         &EFH,
+      const wrapper<fissionTransport::EFL>
+         &EFL = {},
+      const wrapper<fissionTransport::T_M>
+         &T_M = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       EFH(this,EFH),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   MadlandNix &operator=(const MadlandNix &) = default;
-   MadlandNix &operator=(MadlandNix &&) = default;
+   // copy
+   MadlandNix &operator=(const MadlandNix &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         EFH = other.EFH;
+         EFL = other.EFL;
+         T_M = other.T_M;
+      }
+      return *this;
+   }
+
+   // move
+   MadlandNix &operator=(MadlandNix &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         EFH = std::move(other.EFH);
+         EFL = std::move(other.EFL);
+         T_M = std::move(other.T_M);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

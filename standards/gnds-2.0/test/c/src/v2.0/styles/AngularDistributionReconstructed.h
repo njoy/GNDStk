@@ -99,13 +99,13 @@ AngularDistributionReconstructedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AngularDistributionReconstructedAssign(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstAngularDistributionReconstructed from);
+AngularDistributionReconstructedAssign(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstAngularDistributionReconstructed from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionReconstructed self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ AngularDistributionReconstructedDelete(ConstHandle2ConstAngularDistributionRecon
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AngularDistributionReconstructedRead(ConstHandle2AngularDistributionReconstructed This, const char *const filename);
+AngularDistributionReconstructedRead(ConstHandle2AngularDistributionReconstructed self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AngularDistributionReconstructedWrite(ConstHandle2ConstAngularDistributionReconstructed This, const char *const filename);
+AngularDistributionReconstructedWrite(ConstHandle2ConstAngularDistributionReconstructed self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AngularDistributionReconstructedPrint(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedPrint(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AngularDistributionReconstructedPrintXML(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedPrintXML(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionReconstructed self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ AngularDistributionReconstructedPrintJSON(ConstHandle2ConstAngularDistributionRe
 
 // +++ Has
 extern_c int
-AngularDistributionReconstructedDateHas(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDateHas(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AngularDistributionReconstructedDateGet(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDateGet(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Set
 extern_c void
-AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstructed This, const char *const date);
+AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstructed self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ AngularDistributionReconstructedDateSet(ConstHandle2AngularDistributionReconstru
 
 // +++ Has
 extern_c int
-AngularDistributionReconstructedLabelHas(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedLabelHas(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AngularDistributionReconstructedLabelGet(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedLabelGet(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Set
 extern_c void
-AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstructed This, const XMLName label);
+AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstructed self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ AngularDistributionReconstructedLabelSet(ConstHandle2AngularDistributionReconstr
 
 // +++ Has
 extern_c int
-AngularDistributionReconstructedDerivedFromHas(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDerivedFromHas(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AngularDistributionReconstructedDerivedFromGet(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDerivedFromGet(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Set
 extern_c void
-AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionReconstructed This, const XMLName derivedFrom);
+AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionReconstructed self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ AngularDistributionReconstructedDerivedFromSet(ConstHandle2AngularDistributionRe
 
 // +++ Has
 extern_c int
-AngularDistributionReconstructedTemperatureHas(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedTemperatureHas(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // --- Get, const
 extern_c Handle2ConstTemperature
-AngularDistributionReconstructedTemperatureGetConst(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedTemperatureGetConst(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Get, non-const
 extern_c Handle2Temperature
-AngularDistributionReconstructedTemperatureGet(ConstHandle2AngularDistributionReconstructed This);
+AngularDistributionReconstructedTemperatureGet(ConstHandle2AngularDistributionReconstructed self);
 
 // +++ Set
 extern_c void
-AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstTemperature temperature);
+AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstTemperature temperature);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ AngularDistributionReconstructedTemperatureSet(ConstHandle2AngularDistributionRe
 
 // +++ Has
 extern_c int
-AngularDistributionReconstructedDocumentationHas(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDocumentationHas(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-AngularDistributionReconstructedDocumentationGetConst(ConstHandle2ConstAngularDistributionReconstructed This);
+AngularDistributionReconstructedDocumentationGetConst(ConstHandle2ConstAngularDistributionReconstructed self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-AngularDistributionReconstructedDocumentationGet(ConstHandle2AngularDistributionReconstructed This);
+AngularDistributionReconstructedDocumentationGet(ConstHandle2AngularDistributionReconstructed self);
 
 // +++ Set
 extern_c void
-AngularDistributionReconstructedDocumentationSet(ConstHandle2AngularDistributionReconstructed This, ConstHandle2ConstDocumentation documentation);
+AngularDistributionReconstructedDocumentationSet(ConstHandle2AngularDistributionReconstructed self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

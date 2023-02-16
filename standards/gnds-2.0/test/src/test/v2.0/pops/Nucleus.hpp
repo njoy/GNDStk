@@ -31,12 +31,12 @@ class Nucleus :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Nucleus"; }
-   static auto FIELD() { return "nucleus"; }
+   static auto NODENAME() { return "nucleus"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,40 +50,105 @@ class Nucleus :
             / Meta<>("index") |
 
          // children
-         --Child<std::optional<pops::Charge>>("charge") |
-         --Child<std::optional<pops::Energy>>("energy") |
-         --Child<std::optional<pops::Halflife>>("halflife") |
-         --Child<std::optional<pops::Spin>>("spin") |
-         --Child<std::optional<pops::Parity>>("parity") |
-         --Child<std::optional<pops::DecayData>>("decayData") |
-         --Child<std::optional<fissionFragmentData::FissionFragmentData>>("fissionFragmentData")
+         --Child<std::optional<pops::Charge>>
+            ("charge") |
+         --Child<std::optional<pops::Energy>>
+            ("energy") |
+         --Child<std::optional<pops::Halflife>>
+            ("halflife") |
+         --Child<std::optional<pops::Spin>>
+            ("spin") |
+         --Child<std::optional<pops::Parity>>
+            ("parity") |
+         --Child<std::optional<pops::DecayData>>
+            ("decayData") |
+         --Child<std::optional<fissionFragmentData::FissionFragmentData>>
+            ("fissionFragmentData")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "index",
+         "charge",
+         "energy",
+         "halflife",
+         "spin",
+         "parity",
+         "decayData",
+         "fissionFragmentData"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "id",
+         "index",
+         "charge",
+         "energy",
+         "halflife",
+         "spin",
+         "parity",
+         "decay_data",
+         "fission_fragment_data"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> id{this};
-   Field<Integer32> index{this};
+   Field<XMLName>
+      id{this};
+   Field<Integer32>
+      index{this};
 
    // children
-   Field<std::optional<pops::Charge>> charge{this};
-   Field<std::optional<pops::Energy>> energy{this};
-   Field<std::optional<pops::Halflife>> halflife{this};
-   Field<std::optional<pops::Spin>> spin{this};
-   Field<std::optional<pops::Parity>> parity{this};
-   Field<std::optional<pops::DecayData>> decayData{this};
-   Field<std::optional<fissionFragmentData::FissionFragmentData>> fissionFragmentData{this};
+   Field<std::optional<pops::Charge>>
+      charge{this};
+   Field<std::optional<pops::Energy>>
+      energy{this};
+   Field<std::optional<pops::Halflife>>
+      halflife{this};
+   Field<std::optional<pops::Spin>>
+      spin{this};
+   Field<std::optional<pops::Parity>>
+      parity{this};
+   Field<std::optional<pops::DecayData>>
+      decayData{this};
+   Field<std::optional<fissionFragmentData::FissionFragmentData>>
+      fissionFragmentData{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->id, \
       this->index, \
@@ -93,7 +158,8 @@ public:
       this->spin, \
       this->parity, \
       this->decayData, \
-      this->fissionFragmentData)
+      this->fissionFragmentData \
+   )
 
    // default
    Nucleus() :
@@ -104,15 +170,24 @@ public:
 
    // from fields, comment excluded
    explicit Nucleus(
-      const wrapper<XMLName> &id,
-      const wrapper<Integer32> &index = {},
-      const wrapper<std::optional<pops::Charge>> &charge = {},
-      const wrapper<std::optional<pops::Energy>> &energy = {},
-      const wrapper<std::optional<pops::Halflife>> &halflife = {},
-      const wrapper<std::optional<pops::Spin>> &spin = {},
-      const wrapper<std::optional<pops::Parity>> &parity = {},
-      const wrapper<std::optional<pops::DecayData>> &decayData = {},
-      const wrapper<std::optional<fissionFragmentData::FissionFragmentData>> &fissionFragmentData = {}
+      const wrapper<XMLName>
+         &id,
+      const wrapper<Integer32>
+         &index = {},
+      const wrapper<std::optional<pops::Charge>>
+         &charge = {},
+      const wrapper<std::optional<pops::Energy>>
+         &energy = {},
+      const wrapper<std::optional<pops::Halflife>>
+         &halflife = {},
+      const wrapper<std::optional<pops::Spin>>
+         &spin = {},
+      const wrapper<std::optional<pops::Parity>>
+         &parity = {},
+      const wrapper<std::optional<pops::DecayData>>
+         &decayData = {},
+      const wrapper<std::optional<fissionFragmentData::FissionFragmentData>>
+         &fissionFragmentData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
@@ -173,8 +248,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nucleus &operator=(const Nucleus &) = default;
-   Nucleus &operator=(Nucleus &&) = default;
+   // copy
+   Nucleus &operator=(const Nucleus &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         id = other.id;
+         index = other.index;
+         charge = other.charge;
+         energy = other.energy;
+         halflife = other.halflife;
+         spin = other.spin;
+         parity = other.parity;
+         decayData = other.decayData;
+         fissionFragmentData = other.fissionFragmentData;
+      }
+      return *this;
+   }
+
+   // move
+   Nucleus &operator=(Nucleus &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         id = std::move(other.id);
+         index = std::move(other.index);
+         charge = std::move(other.charge);
+         energy = std::move(other.energy);
+         halflife = std::move(other.halflife);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         decayData = std::move(other.decayData);
+         fissionFragmentData = std::move(other.fissionFragmentData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

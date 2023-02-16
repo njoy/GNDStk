@@ -90,13 +90,13 @@ DistinctScatteringKernelCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DistinctScatteringKernelAssign(ConstHandle2DistinctScatteringKernel This, ConstHandle2ConstDistinctScatteringKernel from);
+DistinctScatteringKernelAssign(ConstHandle2DistinctScatteringKernel self, ConstHandle2ConstDistinctScatteringKernel from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DistinctScatteringKernelRead(ConstHandle2DistinctScatteringKernel This, const char *const filename);
+DistinctScatteringKernelRead(ConstHandle2DistinctScatteringKernel self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DistinctScatteringKernelWrite(ConstHandle2ConstDistinctScatteringKernel This, const char *const filename);
+DistinctScatteringKernelWrite(ConstHandle2ConstDistinctScatteringKernel self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DistinctScatteringKernelPrint(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelPrint(ConstHandle2ConstDistinctScatteringKernel self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DistinctScatteringKernelPrintXML(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelPrintXML(ConstHandle2ConstDistinctScatteringKernel self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel This
 
 // +++ Has
 extern_c int
-DistinctScatteringKernelGridded3dHas(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelGridded3dHas(ConstHandle2ConstDistinctScatteringKernel self);
 
 // --- Get, const
 extern_c Handle2ConstGridded3d
-DistinctScatteringKernelGridded3dGetConst(ConstHandle2ConstDistinctScatteringKernel This);
+DistinctScatteringKernelGridded3dGetConst(ConstHandle2ConstDistinctScatteringKernel self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded3d
-DistinctScatteringKernelGridded3dGet(ConstHandle2DistinctScatteringKernel This);
+DistinctScatteringKernelGridded3dGet(ConstHandle2DistinctScatteringKernel self);
 
 // +++ Set
 extern_c void
-DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel This, ConstHandle2ConstGridded3d gridded3d);
+DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel self, ConstHandle2ConstGridded3d gridded3d);
 
 
 // -----------------------------------------------------------------------------

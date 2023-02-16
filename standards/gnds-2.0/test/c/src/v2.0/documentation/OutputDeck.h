@@ -95,13 +95,13 @@ OutputDeckCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-OutputDeckAssign(ConstHandle2OutputDeck This, ConstHandle2ConstOutputDeck from);
+OutputDeckAssign(ConstHandle2OutputDeck self, ConstHandle2ConstOutputDeck from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-OutputDeckDelete(ConstHandle2ConstOutputDeck This);
+OutputDeckDelete(ConstHandle2ConstOutputDeck self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ OutputDeckDelete(ConstHandle2ConstOutputDeck This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-OutputDeckRead(ConstHandle2OutputDeck This, const char *const filename);
+OutputDeckRead(ConstHandle2OutputDeck self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-OutputDeckWrite(ConstHandle2ConstOutputDeck This, const char *const filename);
+OutputDeckWrite(ConstHandle2ConstOutputDeck self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-OutputDeckPrint(ConstHandle2ConstOutputDeck This);
+OutputDeckPrint(ConstHandle2ConstOutputDeck self);
 
 // +++ Print to standard output, as XML
 extern_c int
-OutputDeckPrintXML(ConstHandle2ConstOutputDeck This);
+OutputDeckPrintXML(ConstHandle2ConstOutputDeck self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-OutputDeckPrintJSON(ConstHandle2ConstOutputDeck This);
+OutputDeckPrintJSON(ConstHandle2ConstOutputDeck self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,33 +145,33 @@ OutputDeckPrintJSON(ConstHandle2ConstOutputDeck This);
 
 // +++ Clear
 extern_c void
-OutputDeckIntsClear(ConstHandle2OutputDeck This);
+OutputDeckIntsClear(ConstHandle2OutputDeck self);
 
 // +++ Get size
 extern_c size_t
-OutputDeckIntsSize(ConstHandle2ConstOutputDeck This);
+OutputDeckIntsSize(ConstHandle2ConstOutputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-OutputDeckIntsGet(ConstHandle2ConstOutputDeck This, const size_t index);
+OutputDeckIntsGet(ConstHandle2ConstOutputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-OutputDeckIntsSet(ConstHandle2OutputDeck This, const size_t index, const int value);
+OutputDeckIntsSet(ConstHandle2OutputDeck self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-OutputDeckIntsGetArrayConst(ConstHandle2ConstOutputDeck This);
+OutputDeckIntsGetArrayConst(ConstHandle2ConstOutputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-OutputDeckIntsGetArray(ConstHandle2OutputDeck This);
+OutputDeckIntsGetArray(ConstHandle2OutputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-OutputDeckIntsSetArray(ConstHandle2OutputDeck This, const int *const values, const size_t size);
+OutputDeckIntsSetArray(ConstHandle2OutputDeck self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -179,33 +179,33 @@ OutputDeckIntsSetArray(ConstHandle2OutputDeck This, const int *const values, con
 
 // +++ Clear
 extern_c void
-OutputDeckUnsignedsClear(ConstHandle2OutputDeck This);
+OutputDeckUnsignedsClear(ConstHandle2OutputDeck self);
 
 // +++ Get size
 extern_c size_t
-OutputDeckUnsignedsSize(ConstHandle2ConstOutputDeck This);
+OutputDeckUnsignedsSize(ConstHandle2ConstOutputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-OutputDeckUnsignedsGet(ConstHandle2ConstOutputDeck This, const size_t index);
+OutputDeckUnsignedsGet(ConstHandle2ConstOutputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-OutputDeckUnsignedsSet(ConstHandle2OutputDeck This, const size_t index, const unsigned value);
+OutputDeckUnsignedsSet(ConstHandle2OutputDeck self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-OutputDeckUnsignedsGetArrayConst(ConstHandle2ConstOutputDeck This);
+OutputDeckUnsignedsGetArrayConst(ConstHandle2ConstOutputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-OutputDeckUnsignedsGetArray(ConstHandle2OutputDeck This);
+OutputDeckUnsignedsGetArray(ConstHandle2OutputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck This, const unsigned *const values, const size_t size);
+OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -213,33 +213,33 @@ OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck This, const unsigned *const v
 
 // +++ Clear
 extern_c void
-OutputDeckFloatsClear(ConstHandle2OutputDeck This);
+OutputDeckFloatsClear(ConstHandle2OutputDeck self);
 
 // +++ Get size
 extern_c size_t
-OutputDeckFloatsSize(ConstHandle2ConstOutputDeck This);
+OutputDeckFloatsSize(ConstHandle2ConstOutputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-OutputDeckFloatsGet(ConstHandle2ConstOutputDeck This, const size_t index);
+OutputDeckFloatsGet(ConstHandle2ConstOutputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-OutputDeckFloatsSet(ConstHandle2OutputDeck This, const size_t index, const float value);
+OutputDeckFloatsSet(ConstHandle2OutputDeck self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-OutputDeckFloatsGetArrayConst(ConstHandle2ConstOutputDeck This);
+OutputDeckFloatsGetArrayConst(ConstHandle2ConstOutputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-OutputDeckFloatsGetArray(ConstHandle2OutputDeck This);
+OutputDeckFloatsGetArray(ConstHandle2OutputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-OutputDeckFloatsSetArray(ConstHandle2OutputDeck This, const float *const values, const size_t size);
+OutputDeckFloatsSetArray(ConstHandle2OutputDeck self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -247,33 +247,33 @@ OutputDeckFloatsSetArray(ConstHandle2OutputDeck This, const float *const values,
 
 // +++ Clear
 extern_c void
-OutputDeckDoublesClear(ConstHandle2OutputDeck This);
+OutputDeckDoublesClear(ConstHandle2OutputDeck self);
 
 // +++ Get size
 extern_c size_t
-OutputDeckDoublesSize(ConstHandle2ConstOutputDeck This);
+OutputDeckDoublesSize(ConstHandle2ConstOutputDeck self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-OutputDeckDoublesGet(ConstHandle2ConstOutputDeck This, const size_t index);
+OutputDeckDoublesGet(ConstHandle2ConstOutputDeck self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-OutputDeckDoublesSet(ConstHandle2OutputDeck This, const size_t index, const double value);
+OutputDeckDoublesSet(ConstHandle2OutputDeck self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-OutputDeckDoublesGetArrayConst(ConstHandle2ConstOutputDeck This);
+OutputDeckDoublesGetArrayConst(ConstHandle2ConstOutputDeck self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-OutputDeckDoublesGetArray(ConstHandle2OutputDeck This);
+OutputDeckDoublesGetArray(ConstHandle2OutputDeck self);
 
 // +++ Set completely new values and size
 extern_c void
-OutputDeckDoublesSetArray(ConstHandle2OutputDeck This, const double *const values, const size_t size);
+OutputDeckDoublesSetArray(ConstHandle2OutputDeck self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -282,16 +282,16 @@ OutputDeckDoublesSetArray(ConstHandle2OutputDeck This, const double *const value
 
 // +++ Has
 extern_c int
-OutputDeckEncodingHas(ConstHandle2ConstOutputDeck This);
+OutputDeckEncodingHas(ConstHandle2ConstOutputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-OutputDeckEncodingGet(ConstHandle2ConstOutputDeck This);
+OutputDeckEncodingGet(ConstHandle2ConstOutputDeck self);
 
 // +++ Set
 extern_c void
-OutputDeckEncodingSet(ConstHandle2OutputDeck This, const XMLName encoding);
+OutputDeckEncodingSet(ConstHandle2OutputDeck self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -300,16 +300,16 @@ OutputDeckEncodingSet(ConstHandle2OutputDeck This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-OutputDeckMarkupHas(ConstHandle2ConstOutputDeck This);
+OutputDeckMarkupHas(ConstHandle2ConstOutputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-OutputDeckMarkupGet(ConstHandle2ConstOutputDeck This);
+OutputDeckMarkupGet(ConstHandle2ConstOutputDeck self);
 
 // +++ Set
 extern_c void
-OutputDeckMarkupSet(ConstHandle2OutputDeck This, const char *const markup);
+OutputDeckMarkupSet(ConstHandle2OutputDeck self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -318,16 +318,16 @@ OutputDeckMarkupSet(ConstHandle2OutputDeck This, const char *const markup);
 
 // +++ Has
 extern_c int
-OutputDeckLabelHas(ConstHandle2ConstOutputDeck This);
+OutputDeckLabelHas(ConstHandle2ConstOutputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-OutputDeckLabelGet(ConstHandle2ConstOutputDeck This);
+OutputDeckLabelGet(ConstHandle2ConstOutputDeck self);
 
 // +++ Set
 extern_c void
-OutputDeckLabelSet(ConstHandle2OutputDeck This, const XMLName label);
+OutputDeckLabelSet(ConstHandle2OutputDeck self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -336,16 +336,16 @@ OutputDeckLabelSet(ConstHandle2OutputDeck This, const XMLName label);
 
 // +++ Has
 extern_c int
-OutputDeckFilenameHas(ConstHandle2ConstOutputDeck This);
+OutputDeckFilenameHas(ConstHandle2ConstOutputDeck self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-OutputDeckFilenameGet(ConstHandle2ConstOutputDeck This);
+OutputDeckFilenameGet(ConstHandle2ConstOutputDeck self);
 
 // +++ Set
 extern_c void
-OutputDeckFilenameSet(ConstHandle2OutputDeck This, const XMLName filename);
+OutputDeckFilenameSet(ConstHandle2OutputDeck self, const XMLName filename);
 
 
 // -----------------------------------------------------------------------------

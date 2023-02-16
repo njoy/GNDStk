@@ -5,27 +5,27 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // processed declarations
 namespace python_processed {
-   void wrapAngularEnergyMC(python::module &);
-   void wrapEnergyAngularMC(python::module &);
-   void wrapMultiGroup3d(python::module &);
-   void wrapAverageProductEnergy(python::module &);
-   void wrapAverageProductMomentum(python::module &);
-   void wrapAvailableMomentum(python::module &);
-   void wrapAvailableEnergy(python::module &);
+   void wrapAngularEnergyMC(py::module &);
+   void wrapEnergyAngularMC(py::module &);
+   void wrapMultiGroup3d(py::module &);
+   void wrapAverageProductEnergy(py::module &);
+   void wrapAverageProductMomentum(py::module &);
+   void wrapAvailableMomentum(py::module &);
+   void wrapAvailableEnergy(py::module &);
 } // namespace python_processed
 
-// processed wrapper
-void wrapProcessed(python::module &module)
+// wrapper for processed
+void wrapProcessed(py::module &module)
 {
    // create the processed submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "processed",
       "test v2.0 processed"
    );

@@ -96,13 +96,13 @@ RealizationCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RealizationAssign(ConstHandle2Realization This, ConstHandle2ConstRealization from);
+RealizationAssign(ConstHandle2Realization self, ConstHandle2ConstRealization from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RealizationDelete(ConstHandle2ConstRealization This);
+RealizationDelete(ConstHandle2ConstRealization self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ RealizationDelete(ConstHandle2ConstRealization This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RealizationRead(ConstHandle2Realization This, const char *const filename);
+RealizationRead(ConstHandle2Realization self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RealizationWrite(ConstHandle2ConstRealization This, const char *const filename);
+RealizationWrite(ConstHandle2ConstRealization self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RealizationPrint(ConstHandle2ConstRealization This);
+RealizationPrint(ConstHandle2ConstRealization self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RealizationPrintXML(ConstHandle2ConstRealization This);
+RealizationPrintXML(ConstHandle2ConstRealization self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RealizationPrintJSON(ConstHandle2ConstRealization This);
+RealizationPrintJSON(ConstHandle2ConstRealization self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ RealizationPrintJSON(ConstHandle2ConstRealization This);
 
 // +++ Has
 extern_c int
-RealizationDateHas(ConstHandle2ConstRealization This);
+RealizationDateHas(ConstHandle2ConstRealization self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-RealizationDateGet(ConstHandle2ConstRealization This);
+RealizationDateGet(ConstHandle2ConstRealization self);
 
 // +++ Set
 extern_c void
-RealizationDateSet(ConstHandle2Realization This, const char *const date);
+RealizationDateSet(ConstHandle2Realization self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ RealizationDateSet(ConstHandle2Realization This, const char *const date);
 
 // +++ Has
 extern_c int
-RealizationDerivedFromHas(ConstHandle2ConstRealization This);
+RealizationDerivedFromHas(ConstHandle2ConstRealization self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-RealizationDerivedFromGet(ConstHandle2ConstRealization This);
+RealizationDerivedFromGet(ConstHandle2ConstRealization self);
 
 // +++ Set
 extern_c void
-RealizationDerivedFromSet(ConstHandle2Realization This, const XMLName derivedFrom);
+RealizationDerivedFromSet(ConstHandle2Realization self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ RealizationDerivedFromSet(ConstHandle2Realization This, const XMLName derivedFro
 
 // +++ Has
 extern_c int
-RealizationLabelHas(ConstHandle2ConstRealization This);
+RealizationLabelHas(ConstHandle2ConstRealization self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-RealizationLabelGet(ConstHandle2ConstRealization This);
+RealizationLabelGet(ConstHandle2ConstRealization self);
 
 // +++ Set
 extern_c void
-RealizationLabelSet(ConstHandle2Realization This, const XMLName label);
+RealizationLabelSet(ConstHandle2Realization self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ RealizationLabelSet(ConstHandle2Realization This, const XMLName label);
 
 // +++ Has
 extern_c int
-RealizationDocumentationHas(ConstHandle2ConstRealization This);
+RealizationDocumentationHas(ConstHandle2ConstRealization self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-RealizationDocumentationGetConst(ConstHandle2ConstRealization This);
+RealizationDocumentationGetConst(ConstHandle2ConstRealization self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-RealizationDocumentationGet(ConstHandle2Realization This);
+RealizationDocumentationGet(ConstHandle2Realization self);
 
 // +++ Set
 extern_c void
-RealizationDocumentationSet(ConstHandle2Realization This, ConstHandle2ConstDocumentation documentation);
+RealizationDocumentationSet(ConstHandle2Realization self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

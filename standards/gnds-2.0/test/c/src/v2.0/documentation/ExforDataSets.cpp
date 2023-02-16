@@ -73,20 +73,20 @@ ExforDataSetsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ExforDataSetsAssign(ConstHandle2ExforDataSets This, ConstHandle2ConstExforDataSets from)
+ExforDataSetsAssign(ConstHandle2ExforDataSets self, ConstHandle2ConstExforDataSets from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ExforDataSetsDelete(ConstHandle2ConstExforDataSets This)
+ExforDataSetsDelete(ConstHandle2ConstExforDataSets self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ExforDataSetsDelete(ConstHandle2ConstExforDataSets This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ExforDataSetsRead(ConstHandle2ExforDataSets This, const char *const filename)
+ExforDataSetsRead(ConstHandle2ExforDataSets self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ExforDataSetsWrite(ConstHandle2ConstExforDataSets This, const char *const filename)
+ExforDataSetsWrite(ConstHandle2ConstExforDataSets self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ExforDataSetsPrint(ConstHandle2ConstExforDataSets This)
+ExforDataSetsPrint(ConstHandle2ConstExforDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ExforDataSetsPrintXML(ConstHandle2ConstExforDataSets This)
+ExforDataSetsPrintXML(ConstHandle2ConstExforDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets This)
+ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ ExforDataSetsPrintJSON(ConstHandle2ConstExforDataSets This)
 
 // Has
 int
-ExforDataSetsExforDataSetHas(ConstHandle2ConstExforDataSets This)
+ExforDataSetsExforDataSetHas(ConstHandle2ConstExforDataSets self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExforDataSetHas", This, extract::exforDataSet);
+      (CLASSNAME, CLASSNAME+"ExforDataSetHas", self, extract::exforDataSet);
 }
 
 // Clear
 void
-ExforDataSetsExforDataSetClear(ConstHandle2ExforDataSets This)
+ExforDataSetsExforDataSetClear(ConstHandle2ExforDataSets self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ExforDataSetClear", This, extract::exforDataSet);
+      (CLASSNAME, CLASSNAME+"ExforDataSetClear", self, extract::exforDataSet);
 }
 
 // Size
 size_t
-ExforDataSetsExforDataSetSize(ConstHandle2ConstExforDataSets This)
+ExforDataSetsExforDataSetSize(ConstHandle2ConstExforDataSets self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ExforDataSetSize", This, extract::exforDataSet);
+      (CLASSNAME, CLASSNAME+"ExforDataSetSize", self, extract::exforDataSet);
 }
 
 // Add
 void
-ExforDataSetsExforDataSetAdd(ConstHandle2ExforDataSets This, ConstHandle2ConstExforDataSet exforDataSet)
+ExforDataSetsExforDataSetAdd(ConstHandle2ExforDataSets self, ConstHandle2ConstExforDataSet exforDataSet)
 {
    detail::addToContainer<CPP,CPPExforDataSet>
-      (CLASSNAME, CLASSNAME+"ExforDataSetAdd", This, extract::exforDataSet, exforDataSet);
+      (CLASSNAME, CLASSNAME+"ExforDataSetAdd", self, extract::exforDataSet, exforDataSet);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstExforDataSet
-ExforDataSetsExforDataSetGetConst(ConstHandle2ConstExforDataSets This, const size_t index_)
+ExforDataSetsExforDataSetGetConst(ConstHandle2ConstExforDataSets self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstExforDataSet>
-      (CLASSNAME, CLASSNAME+"ExforDataSetGetConst", This, extract::exforDataSet, index_);
+      (CLASSNAME, CLASSNAME+"ExforDataSetGetConst", self, extract::exforDataSet, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2ExforDataSet
-ExforDataSetsExforDataSetGet(ConstHandle2ExforDataSets This, const size_t index_)
+ExforDataSetsExforDataSetGet(ConstHandle2ExforDataSets self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ExforDataSet>
-      (CLASSNAME, CLASSNAME+"ExforDataSetGet", This, extract::exforDataSet, index_);
+      (CLASSNAME, CLASSNAME+"ExforDataSetGet", self, extract::exforDataSet, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ExforDataSetsExforDataSetSet(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const size_t index_,
    ConstHandle2ConstExforDataSet exforDataSet
 ) {
    detail::setByIndex<CPP,CPPExforDataSet>
-      (CLASSNAME, CLASSNAME+"ExforDataSetSet", This, extract::exforDataSet, index_, exforDataSet);
+      (CLASSNAME, CLASSNAME+"ExforDataSetSet", self, extract::exforDataSet, index_, exforDataSet);
 }
 
 // Has, by subentry
 int
 ExforDataSetsExforDataSetHasBySubentry(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const XMLName subentry
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ExforDataSetHasBySubentry",
-       This, extract::exforDataSet, meta::subentry, subentry);
+       self, extract::exforDataSet, meta::subentry, subentry);
 }
 
 // Get, by subentry, const
 Handle2ConstExforDataSet
 ExforDataSetsExforDataSetGetBySubentryConst(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const XMLName subentry
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetGetBySubentryConst",
-       This, extract::exforDataSet, meta::subentry, subentry);
+       self, extract::exforDataSet, meta::subentry, subentry);
 }
 
 // Get, by subentry, non-const
 Handle2ExforDataSet
 ExforDataSetsExforDataSetGetBySubentry(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const XMLName subentry
 ) {
    return detail::getByMetadatum<CPP,Handle2ExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetGetBySubentry",
-       This, extract::exforDataSet, meta::subentry, subentry);
+       self, extract::exforDataSet, meta::subentry, subentry);
 }
 
 // Set, by subentry
 void
 ExforDataSetsExforDataSetSetBySubentry(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const XMLName subentry,
    ConstHandle2ConstExforDataSet exforDataSet
 ) {
    detail::setByMetadatum<CPP,CPPExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetSetBySubentry",
-       This, extract::exforDataSet, meta::subentry, subentry, exforDataSet);
+       self, extract::exforDataSet, meta::subentry, subentry, exforDataSet);
 }
 
 // Has, by retrievalDate
 int
 ExforDataSetsExforDataSetHasByRetrievalDate(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const char *const retrievalDate
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ExforDataSetHasByRetrievalDate",
-       This, extract::exforDataSet, meta::retrievalDate, retrievalDate);
+       self, extract::exforDataSet, meta::retrievalDate, retrievalDate);
 }
 
 // Get, by retrievalDate, const
 Handle2ConstExforDataSet
 ExforDataSetsExforDataSetGetByRetrievalDateConst(
-   ConstHandle2ConstExforDataSets This,
+   ConstHandle2ConstExforDataSets self,
    const char *const retrievalDate
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetGetByRetrievalDateConst",
-       This, extract::exforDataSet, meta::retrievalDate, retrievalDate);
+       self, extract::exforDataSet, meta::retrievalDate, retrievalDate);
 }
 
 // Get, by retrievalDate, non-const
 Handle2ExforDataSet
 ExforDataSetsExforDataSetGetByRetrievalDate(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const char *const retrievalDate
 ) {
    return detail::getByMetadatum<CPP,Handle2ExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetGetByRetrievalDate",
-       This, extract::exforDataSet, meta::retrievalDate, retrievalDate);
+       self, extract::exforDataSet, meta::retrievalDate, retrievalDate);
 }
 
 // Set, by retrievalDate
 void
 ExforDataSetsExforDataSetSetByRetrievalDate(
-   ConstHandle2ExforDataSets This,
+   ConstHandle2ExforDataSets self,
    const char *const retrievalDate,
    ConstHandle2ConstExforDataSet exforDataSet
 ) {
    detail::setByMetadatum<CPP,CPPExforDataSet>
       (CLASSNAME, CLASSNAME+"ExforDataSetSetByRetrievalDate",
-       This, extract::exforDataSet, meta::retrievalDate, retrievalDate, exforDataSet);
+       self, extract::exforDataSet, meta::retrievalDate, retrievalDate, exforDataSet);
 }
 
 

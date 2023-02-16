@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// GaugeBosons wrapper
-void wrapGaugeBosons(python::module &module)
+// wrapper for pops::GaugeBosons
+void wrapGaugeBosons(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::GaugeBosons;
+   using cppCLASS = pops::GaugeBosons;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "GaugeBosons",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "GaugeBosons",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<pops::GaugeBoson>> &
-         >(),
-         python::arg("gauge_boson") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "gauge_boson",
-         [](const Component &self) { return self.gaugeBoson(); },
-         Component::documentation("gauge_boson").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<pops::GaugeBoson>> &
+      >(),
+      py::arg("gauge_boson") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set gaugeBoson
+   object.def_property(
+      "gauge_boson",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gaugeBoson();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<pops::GaugeBoson>> &value)
+      {
+         self.gaugeBoson() = value;
+      },
+      cppCLASS::component_t::documentation("gauge_boson").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

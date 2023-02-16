@@ -27,12 +27,12 @@ class FissionFragmentData :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionFragmentData"; }
    static auto CLASS() { return "FissionFragmentData"; }
-   static auto FIELD() { return "fissionFragmentData"; }
+   static auto NODENAME() { return "fissionFragmentData"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class FissionFragmentData :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<fissionFragmentData::DelayedNeutrons>>("delayedNeutrons") |
-         --Child<std::optional<fissionTransport::FissionEnergyReleased>>("fissionEnergyReleased") |
-         --Child<std::optional<fpy::ProductYields>>("productYields")
+         --Child<std::optional<fissionFragmentData::DelayedNeutrons>>
+            ("delayedNeutrons") |
+         --Child<std::optional<fissionTransport::FissionEnergyReleased>>
+            ("fissionEnergyReleased") |
+         --Child<std::optional<fpy::ProductYields>>
+            ("productYields")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "delayedNeutrons",
+         "fissionEnergyReleased",
+         "productYields"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "delayed_neutrons",
+         "fission_energy_released",
+         "product_yields"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<fissionFragmentData::DelayedNeutrons>> delayedNeutrons{this};
-   Field<std::optional<fissionTransport::FissionEnergyReleased>> fissionEnergyReleased{this};
-   Field<std::optional<fpy::ProductYields>> productYields{this};
+   Field<std::optional<fissionFragmentData::DelayedNeutrons>>
+      delayedNeutrons{this};
+   Field<std::optional<fissionTransport::FissionEnergyReleased>>
+      fissionEnergyReleased{this};
+   Field<std::optional<fpy::ProductYields>>
+      productYields{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->delayedNeutrons, \
       this->fissionEnergyReleased, \
-      this->productYields)
+      this->productYields \
+   )
 
    // default
    FissionFragmentData() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit FissionFragmentData(
-      const wrapper<std::optional<fissionFragmentData::DelayedNeutrons>> &delayedNeutrons,
-      const wrapper<std::optional<fissionTransport::FissionEnergyReleased>> &fissionEnergyReleased = {},
-      const wrapper<std::optional<fpy::ProductYields>> &productYields = {}
+      const wrapper<std::optional<fissionFragmentData::DelayedNeutrons>>
+         &delayedNeutrons,
+      const wrapper<std::optional<fissionTransport::FissionEnergyReleased>>
+         &fissionEnergyReleased = {},
+      const wrapper<std::optional<fpy::ProductYields>>
+         &productYields = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       delayedNeutrons(this,delayedNeutrons),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   FissionFragmentData &operator=(const FissionFragmentData &) = default;
-   FissionFragmentData &operator=(FissionFragmentData &&) = default;
+   // copy
+   FissionFragmentData &operator=(const FissionFragmentData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         delayedNeutrons = other.delayedNeutrons;
+         fissionEnergyReleased = other.fissionEnergyReleased;
+         productYields = other.productYields;
+      }
+      return *this;
+   }
+
+   // move
+   FissionFragmentData &operator=(FissionFragmentData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         delayedNeutrons = std::move(other.delayedNeutrons);
+         fissionEnergyReleased = std::move(other.fissionEnergyReleased);
+         productYields = std::move(other.productYields);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -93,13 +93,13 @@ SelfScatteringKernelCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSelfScatteringKernel from);
+SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSelfScatteringKernel from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel This, const char *const filename);
+SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel This, const char *const filename);
+SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This);
 
 // +++ Has
 extern_c int
-SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel This);
+SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel self);
 
 // +++ Set
 extern_c void
-SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bool symmetric);
+SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel self, const bool symmetric);
 
 
 // -----------------------------------------------------------------------------

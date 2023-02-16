@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// ScatteringAtoms wrapper
-void wrapScatteringAtoms(python::module &module)
+// wrapper for tsl::ScatteringAtoms
+void wrapScatteringAtoms(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::ScatteringAtoms;
+   using cppCLASS = tsl::ScatteringAtoms;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ScatteringAtoms",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ScatteringAtoms",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<tsl::ScatteringAtom> &
-         >(),
-         python::arg("scattering_atom"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "scattering_atom",
-         [](const Component &self) { return self.scatteringAtom(); },
-         Component::documentation("scattering_atom").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<tsl::ScatteringAtom> &
+      >(),
+      py::arg("scattering_atom"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set scatteringAtom
+   object.def_property(
+      "scattering_atom",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringAtom();
+      },
+      [](cppCLASS &self, const std::vector<tsl::ScatteringAtom> &value)
+      {
+         self.scatteringAtom() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_atom").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

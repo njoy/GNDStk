@@ -59,20 +59,20 @@ RutherfordScatteringCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RutherfordScatteringAssign(ConstHandle2RutherfordScattering This, ConstHandle2ConstRutherfordScattering from)
+RutherfordScatteringAssign(ConstHandle2RutherfordScattering self, ConstHandle2ConstRutherfordScattering from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering This)
+RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ RutherfordScatteringDelete(ConstHandle2ConstRutherfordScattering This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RutherfordScatteringRead(ConstHandle2RutherfordScattering This, const char *const filename)
+RutherfordScatteringRead(ConstHandle2RutherfordScattering self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RutherfordScatteringWrite(ConstHandle2ConstRutherfordScattering This, const char *const filename)
+RutherfordScatteringWrite(ConstHandle2ConstRutherfordScattering self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RutherfordScatteringPrint(ConstHandle2ConstRutherfordScattering This)
+RutherfordScatteringPrint(ConstHandle2ConstRutherfordScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RutherfordScatteringPrintXML(ConstHandle2ConstRutherfordScattering This)
+RutherfordScatteringPrintXML(ConstHandle2ConstRutherfordScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RutherfordScatteringPrintJSON(ConstHandle2ConstRutherfordScattering This)
+RutherfordScatteringPrintJSON(ConstHandle2ConstRutherfordScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 

@@ -82,20 +82,20 @@ OutputDeckCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-OutputDeckAssign(ConstHandle2OutputDeck This, ConstHandle2ConstOutputDeck from)
+OutputDeckAssign(ConstHandle2OutputDeck self, ConstHandle2ConstOutputDeck from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-OutputDeckDelete(ConstHandle2ConstOutputDeck This)
+OutputDeckDelete(ConstHandle2ConstOutputDeck self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ OutputDeckDelete(ConstHandle2ConstOutputDeck This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-OutputDeckRead(ConstHandle2OutputDeck This, const char *const filename)
+OutputDeckRead(ConstHandle2OutputDeck self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-OutputDeckWrite(ConstHandle2ConstOutputDeck This, const char *const filename)
+OutputDeckWrite(ConstHandle2ConstOutputDeck self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-OutputDeckPrint(ConstHandle2ConstOutputDeck This)
+OutputDeckPrint(ConstHandle2ConstOutputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-OutputDeckPrintXML(ConstHandle2ConstOutputDeck This)
+OutputDeckPrintXML(ConstHandle2ConstOutputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-OutputDeckPrintJSON(ConstHandle2ConstOutputDeck This)
+OutputDeckPrintJSON(ConstHandle2ConstOutputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ OutputDeckPrintJSON(ConstHandle2ConstOutputDeck This)
 
 // Clear
 void
-OutputDeckIntsClear(ConstHandle2OutputDeck This)
+OutputDeckIntsClear(ConstHandle2OutputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-OutputDeckIntsSize(ConstHandle2ConstOutputDeck This)
+OutputDeckIntsSize(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-OutputDeckIntsGet(ConstHandle2ConstOutputDeck This, const size_t index)
+OutputDeckIntsGet(ConstHandle2ConstOutputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-OutputDeckIntsSet(ConstHandle2OutputDeck This, const size_t index, const int value)
+OutputDeckIntsSet(ConstHandle2OutputDeck self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-OutputDeckIntsGetArrayConst(ConstHandle2ConstOutputDeck This)
+OutputDeckIntsGetArrayConst(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-OutputDeckIntsGetArray(ConstHandle2OutputDeck This)
+OutputDeckIntsGetArray(ConstHandle2OutputDeck self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-OutputDeckIntsSetArray(ConstHandle2OutputDeck This, const int *const values, const size_t size)
+OutputDeckIntsSetArray(ConstHandle2OutputDeck self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ OutputDeckIntsSetArray(ConstHandle2OutputDeck This, const int *const values, con
 
 // Clear
 void
-OutputDeckUnsignedsClear(ConstHandle2OutputDeck This)
+OutputDeckUnsignedsClear(ConstHandle2OutputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-OutputDeckUnsignedsSize(ConstHandle2ConstOutputDeck This)
+OutputDeckUnsignedsSize(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-OutputDeckUnsignedsGet(ConstHandle2ConstOutputDeck This, const size_t index)
+OutputDeckUnsignedsGet(ConstHandle2ConstOutputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-OutputDeckUnsignedsSet(ConstHandle2OutputDeck This, const size_t index, const unsigned value)
+OutputDeckUnsignedsSet(ConstHandle2OutputDeck self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-OutputDeckUnsignedsGetArrayConst(ConstHandle2ConstOutputDeck This)
+OutputDeckUnsignedsGetArrayConst(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-OutputDeckUnsignedsGetArray(ConstHandle2OutputDeck This)
+OutputDeckUnsignedsGetArray(ConstHandle2OutputDeck self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck This, const unsigned *const values, const size_t size)
+OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ OutputDeckUnsignedsSetArray(ConstHandle2OutputDeck This, const unsigned *const v
 
 // Clear
 void
-OutputDeckFloatsClear(ConstHandle2OutputDeck This)
+OutputDeckFloatsClear(ConstHandle2OutputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-OutputDeckFloatsSize(ConstHandle2ConstOutputDeck This)
+OutputDeckFloatsSize(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-OutputDeckFloatsGet(ConstHandle2ConstOutputDeck This, const size_t index)
+OutputDeckFloatsGet(ConstHandle2ConstOutputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-OutputDeckFloatsSet(ConstHandle2OutputDeck This, const size_t index, const float value)
+OutputDeckFloatsSet(ConstHandle2OutputDeck self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-OutputDeckFloatsGetArrayConst(ConstHandle2ConstOutputDeck This)
+OutputDeckFloatsGetArrayConst(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-OutputDeckFloatsGetArray(ConstHandle2OutputDeck This)
+OutputDeckFloatsGetArray(ConstHandle2OutputDeck self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-OutputDeckFloatsSetArray(ConstHandle2OutputDeck This, const float *const values, const size_t size)
+OutputDeckFloatsSetArray(ConstHandle2OutputDeck self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ OutputDeckFloatsSetArray(ConstHandle2OutputDeck This, const float *const values,
 
 // Clear
 void
-OutputDeckDoublesClear(ConstHandle2OutputDeck This)
+OutputDeckDoublesClear(ConstHandle2OutputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-OutputDeckDoublesSize(ConstHandle2ConstOutputDeck This)
+OutputDeckDoublesSize(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-OutputDeckDoublesGet(ConstHandle2ConstOutputDeck This, const size_t index)
+OutputDeckDoublesGet(ConstHandle2ConstOutputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-OutputDeckDoublesSet(ConstHandle2OutputDeck This, const size_t index, const double value)
+OutputDeckDoublesSet(ConstHandle2OutputDeck self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-OutputDeckDoublesGetArrayConst(ConstHandle2ConstOutputDeck This)
+OutputDeckDoublesGetArrayConst(ConstHandle2ConstOutputDeck self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-OutputDeckDoublesGetArray(ConstHandle2OutputDeck This)
+OutputDeckDoublesGetArray(ConstHandle2OutputDeck self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-OutputDeckDoublesSetArray(ConstHandle2OutputDeck This, const double *const values, const size_t size)
+OutputDeckDoublesSetArray(ConstHandle2OutputDeck self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ OutputDeckDoublesSetArray(ConstHandle2OutputDeck This, const double *const value
 
 // Has
 int
-OutputDeckEncodingHas(ConstHandle2ConstOutputDeck This)
+OutputDeckEncodingHas(ConstHandle2ConstOutputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-OutputDeckEncodingGet(ConstHandle2ConstOutputDeck This)
+OutputDeckEncodingGet(ConstHandle2ConstOutputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-OutputDeckEncodingSet(ConstHandle2OutputDeck This, const XMLName encoding)
+OutputDeckEncodingSet(ConstHandle2OutputDeck self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ OutputDeckEncodingSet(ConstHandle2OutputDeck This, const XMLName encoding)
 
 // Has
 int
-OutputDeckMarkupHas(ConstHandle2ConstOutputDeck This)
+OutputDeckMarkupHas(ConstHandle2ConstOutputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-OutputDeckMarkupGet(ConstHandle2ConstOutputDeck This)
+OutputDeckMarkupGet(ConstHandle2ConstOutputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-OutputDeckMarkupSet(ConstHandle2OutputDeck This, const char *const markup)
+OutputDeckMarkupSet(ConstHandle2OutputDeck self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ OutputDeckMarkupSet(ConstHandle2OutputDeck This, const char *const markup)
 
 // Has
 int
-OutputDeckLabelHas(ConstHandle2ConstOutputDeck This)
+OutputDeckLabelHas(ConstHandle2ConstOutputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-OutputDeckLabelGet(ConstHandle2ConstOutputDeck This)
+OutputDeckLabelGet(ConstHandle2ConstOutputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-OutputDeckLabelSet(ConstHandle2OutputDeck This, const XMLName label)
+OutputDeckLabelSet(ConstHandle2OutputDeck self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ OutputDeckLabelSet(ConstHandle2OutputDeck This, const XMLName label)
 
 // Has
 int
-OutputDeckFilenameHas(ConstHandle2ConstOutputDeck This)
+OutputDeckFilenameHas(ConstHandle2ConstOutputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameHas", This, extract::filename);
+      (CLASSNAME, CLASSNAME+"FilenameHas", self, extract::filename);
 }
 
 // Get
 // Returns by value
 XMLName
-OutputDeckFilenameGet(ConstHandle2ConstOutputDeck This)
+OutputDeckFilenameGet(ConstHandle2ConstOutputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameGet", This, extract::filename);
+      (CLASSNAME, CLASSNAME+"FilenameGet", self, extract::filename);
 }
 
 // Set
 void
-OutputDeckFilenameSet(ConstHandle2OutputDeck This, const XMLName filename)
+OutputDeckFilenameSet(ConstHandle2OutputDeck self, const XMLName filename)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameSet", This, extract::filename, filename);
+      (CLASSNAME, CLASSNAME+"FilenameSet", self, extract::filename, filename);
 }
 
 

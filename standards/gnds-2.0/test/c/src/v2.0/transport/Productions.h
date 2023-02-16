@@ -90,13 +90,13 @@ ProductionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ProductionsAssign(ConstHandle2Productions This, ConstHandle2ConstProductions from);
+ProductionsAssign(ConstHandle2Productions self, ConstHandle2ConstProductions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ProductionsDelete(ConstHandle2ConstProductions This);
+ProductionsDelete(ConstHandle2ConstProductions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ProductionsDelete(ConstHandle2ConstProductions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ProductionsRead(ConstHandle2Productions This, const char *const filename);
+ProductionsRead(ConstHandle2Productions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ProductionsWrite(ConstHandle2ConstProductions This, const char *const filename);
+ProductionsWrite(ConstHandle2ConstProductions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ProductionsPrint(ConstHandle2ConstProductions This);
+ProductionsPrint(ConstHandle2ConstProductions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ProductionsPrintXML(ConstHandle2ConstProductions This);
+ProductionsPrintXML(ConstHandle2ConstProductions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ProductionsPrintJSON(ConstHandle2ConstProductions This);
+ProductionsPrintJSON(ConstHandle2ConstProductions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ProductionsPrintJSON(ConstHandle2ConstProductions This);
 
 // +++ Has
 extern_c int
-ProductionsProductionHas(ConstHandle2ConstProductions This);
+ProductionsProductionHas(ConstHandle2ConstProductions self);
 
 // --- Get, const
 extern_c Handle2ConstProduction
-ProductionsProductionGetConst(ConstHandle2ConstProductions This);
+ProductionsProductionGetConst(ConstHandle2ConstProductions self);
 
 // +++ Get, non-const
 extern_c Handle2Production
-ProductionsProductionGet(ConstHandle2Productions This);
+ProductionsProductionGet(ConstHandle2Productions self);
 
 // +++ Set
 extern_c void
-ProductionsProductionSet(ConstHandle2Productions This, ConstHandle2ConstProduction production);
+ProductionsProductionSet(ConstHandle2Productions self, ConstHandle2ConstProduction production);
 
 
 // -----------------------------------------------------------------------------

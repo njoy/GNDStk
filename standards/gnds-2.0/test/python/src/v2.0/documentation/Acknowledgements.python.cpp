@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Acknowledgements wrapper
-void wrapAcknowledgements(python::module &module)
+// wrapper for documentation::Acknowledgements
+void wrapAcknowledgements(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Acknowledgements;
+   using cppCLASS = documentation::Acknowledgements;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Acknowledgements",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Acknowledgements",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::Acknowledgement> &
-         >(),
-         python::arg("acknowledgement"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "acknowledgement",
-         [](const Component &self) { return self.acknowledgement(); },
-         Component::documentation("acknowledgement").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::Acknowledgement> &
+      >(),
+      py::arg("acknowledgement"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set acknowledgement
+   object.def_property(
+      "acknowledgement",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.acknowledgement();
+      },
+      [](cppCLASS &self, const std::vector<documentation::Acknowledgement> &value)
+      {
+         self.acknowledgement() = value;
+      },
+      cppCLASS::component_t::documentation("acknowledgement").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

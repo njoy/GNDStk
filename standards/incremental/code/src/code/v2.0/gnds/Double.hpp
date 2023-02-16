@@ -25,12 +25,12 @@ class Double :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Double"; }
-   static auto FIELD() { return "double"; }
+   static auto NODENAME() { return "double"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class Double :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "unit"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "unit"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> label{this};
-   Field<double> value{this};
-   Field<std::string> unit{this};
+   Field<std::string>
+      label{this};
+   Field<double>
+      value{this};
+   Field<std::string>
+      unit{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->value, \
-      this->unit)
+      this->unit \
+   )
 
    // default
    Double() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit Double(
-      const wrapper<std::string> &label,
-      const wrapper<double> &value = {},
-      const wrapper<std::string> &unit = {}
+      const wrapper<std::string>
+         &label,
+      const wrapper<double>
+         &value = {},
+      const wrapper<std::string>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Double &operator=(const Double &) = default;
-   Double &operator=(Double &&) = default;
+   // copy
+   Double &operator=(const Double &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Double &operator=(Double &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

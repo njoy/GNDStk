@@ -33,12 +33,12 @@ class Resolved :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Resolved"; }
-   static auto FIELD() { return "resolved"; }
+   static auto NODENAME() { return "resolved"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -59,19 +59,60 @@ class Resolved :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domainMin",
+         "domainMax",
+         "domainUnit",
+         "_RMatrixBreitWignerenergyIntervals"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "domain_min",
+         "domain_max",
+         "domain_unit",
+         "_rmatrix_breit_wignerenergy_intervals"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Float64> domainMin{this};
-   Field<Float64> domainMax{this};
-   Field<XMLName> domainUnit{this};
+   Field<Float64>
+      domainMin{this};
+   Field<Float64>
+      domainMax{this};
+   Field<XMLName>
+      domainUnit{this};
 
    // children - variant
-   Field<_t> _RMatrixBreitWignerenergyIntervals{this};
+   Field<_t>
+      _RMatrixBreitWignerenergyIntervals{this};
    FieldPart<decltype(_RMatrixBreitWignerenergyIntervals),resonances::RMatrix> RMatrix{_RMatrixBreitWignerenergyIntervals};
    FieldPart<decltype(_RMatrixBreitWignerenergyIntervals),resonances::BreitWigner> BreitWigner{_RMatrixBreitWignerenergyIntervals};
    FieldPart<decltype(_RMatrixBreitWignerenergyIntervals),resonances::EnergyIntervals> energyIntervals{_RMatrixBreitWignerenergyIntervals};
@@ -80,12 +121,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->domainMin, \
       this->domainMax, \
       this->domainUnit, \
-      this->_RMatrixBreitWignerenergyIntervals)
+      this->_RMatrixBreitWignerenergyIntervals \
+   )
 
    // default
    Resolved() :
@@ -96,10 +140,14 @@ public:
 
    // from fields, comment excluded
    explicit Resolved(
-      const wrapper<Float64> &domainMin,
-      const wrapper<Float64> &domainMax = {},
-      const wrapper<XMLName> &domainUnit = {},
-      const wrapper<_t> &_RMatrixBreitWignerenergyIntervals = {}
+      const wrapper<Float64>
+         &domainMin,
+      const wrapper<Float64>
+         &domainMax = {},
+      const wrapper<XMLName>
+         &domainUnit = {},
+      const wrapper<_t>
+         &_RMatrixBreitWignerenergyIntervals = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
@@ -145,8 +193,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Resolved &operator=(const Resolved &) = default;
-   Resolved &operator=(Resolved &&) = default;
+   // copy
+   Resolved &operator=(const Resolved &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         domainUnit = other.domainUnit;
+         _RMatrixBreitWignerenergyIntervals = other._RMatrixBreitWignerenergyIntervals;
+      }
+      return *this;
+   }
+
+   // move
+   Resolved &operator=(Resolved &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         domainUnit = std::move(other.domainUnit);
+         _RMatrixBreitWignerenergyIntervals = std::move(other._RMatrixBreitWignerenergyIntervals);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_cpTransport {
 
-// ImaginaryInterferenceTerm wrapper
-void wrapImaginaryInterferenceTerm(python::module &module)
+// wrapper for cpTransport::ImaginaryInterferenceTerm
+void wrapImaginaryInterferenceTerm(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = cpTransport::ImaginaryInterferenceTerm;
+   using cppCLASS = cpTransport::ImaginaryInterferenceTerm;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ImaginaryInterferenceTerm",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ImaginaryInterferenceTerm",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::XYs2d> &,
-            const std::optional<containers::Regions2d> &
-         >(),
-         python::arg("xys2d") = std::nullopt,
-         python::arg("regions2d") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
-         Component::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "regions2d",
-         [](const Component &self) { return self.regions2d(); },
-         Component::documentation("regions2d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::XYs2d> &,
+         const std::optional<containers::Regions2d> &
+      >(),
+      py::arg("xys2d") = std::nullopt,
+      py::arg("regions2d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set regions2d
+   object.def_property(
+      "regions2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions2d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Regions2d> &value)
+      {
+         self.regions2d() = value;
+      },
+      cppCLASS::component_t::documentation("regions2d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_cpTransport

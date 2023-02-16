@@ -90,20 +90,20 @@ HeatedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-HeatedAssign(ConstHandle2Heated This, ConstHandle2ConstHeated from)
+HeatedAssign(ConstHandle2Heated self, ConstHandle2ConstHeated from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-HeatedDelete(ConstHandle2ConstHeated This)
+HeatedDelete(ConstHandle2ConstHeated self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ HeatedDelete(ConstHandle2ConstHeated This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-HeatedRead(ConstHandle2Heated This, const char *const filename)
+HeatedRead(ConstHandle2Heated self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-HeatedWrite(ConstHandle2ConstHeated This, const char *const filename)
+HeatedWrite(ConstHandle2ConstHeated self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-HeatedPrint(ConstHandle2ConstHeated This)
+HeatedPrint(ConstHandle2ConstHeated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-HeatedPrintXML(ConstHandle2ConstHeated This)
+HeatedPrintXML(ConstHandle2ConstHeated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-HeatedPrintJSON(ConstHandle2ConstHeated This)
+HeatedPrintJSON(ConstHandle2ConstHeated self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ HeatedPrintJSON(ConstHandle2ConstHeated This)
 
 // Has
 int
-HeatedDateHas(ConstHandle2ConstHeated This)
+HeatedDateHas(ConstHandle2ConstHeated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-HeatedDateGet(ConstHandle2ConstHeated This)
+HeatedDateGet(ConstHandle2ConstHeated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-HeatedDateSet(ConstHandle2Heated This, const char *const date)
+HeatedDateSet(ConstHandle2Heated self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -194,27 +194,27 @@ HeatedDateSet(ConstHandle2Heated This, const char *const date)
 
 // Has
 int
-HeatedDerivedFromHas(ConstHandle2ConstHeated This)
+HeatedDerivedFromHas(ConstHandle2ConstHeated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-HeatedDerivedFromGet(ConstHandle2ConstHeated This)
+HeatedDerivedFromGet(ConstHandle2ConstHeated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-HeatedDerivedFromSet(ConstHandle2Heated This, const XMLName derivedFrom)
+HeatedDerivedFromSet(ConstHandle2Heated self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -224,27 +224,27 @@ HeatedDerivedFromSet(ConstHandle2Heated This, const XMLName derivedFrom)
 
 // Has
 int
-HeatedLabelHas(ConstHandle2ConstHeated This)
+HeatedLabelHas(ConstHandle2ConstHeated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-HeatedLabelGet(ConstHandle2ConstHeated This)
+HeatedLabelGet(ConstHandle2ConstHeated self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-HeatedLabelSet(ConstHandle2Heated This, const XMLName label)
+HeatedLabelSet(ConstHandle2Heated self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -254,34 +254,34 @@ HeatedLabelSet(ConstHandle2Heated This, const XMLName label)
 
 // Has
 int
-HeatedTemperatureHas(ConstHandle2ConstHeated This)
+HeatedTemperatureHas(ConstHandle2ConstHeated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TemperatureHas", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureHas", self, extract::temperature);
 }
 
 // Get, const
 Handle2ConstTemperature
-HeatedTemperatureGetConst(ConstHandle2ConstHeated This)
+HeatedTemperatureGetConst(ConstHandle2ConstHeated self)
 {
    return detail::getField<CPP,Handle2ConstTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGetConst", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
 // Get, non-const
 Handle2Temperature
-HeatedTemperatureGet(ConstHandle2Heated This)
+HeatedTemperatureGet(ConstHandle2Heated self)
 {
    return detail::getField<CPP,Handle2Temperature>
-      (CLASSNAME, CLASSNAME+"TemperatureGet", This, extract::temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureGet", self, extract::temperature);
 }
 
 // Set
 void
-HeatedTemperatureSet(ConstHandle2Heated This, ConstHandle2ConstTemperature temperature)
+HeatedTemperatureSet(ConstHandle2Heated self, ConstHandle2ConstTemperature temperature)
 {
    detail::setField<CPP,CPPTemperature>
-      (CLASSNAME, CLASSNAME+"TemperatureSet", This, extract::temperature, temperature);
+      (CLASSNAME, CLASSNAME+"TemperatureSet", self, extract::temperature, temperature);
 }
 
 
@@ -291,34 +291,34 @@ HeatedTemperatureSet(ConstHandle2Heated This, ConstHandle2ConstTemperature tempe
 
 // Has
 int
-HeatedDocumentationHas(ConstHandle2ConstHeated This)
+HeatedDocumentationHas(ConstHandle2ConstHeated self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-HeatedDocumentationGetConst(ConstHandle2ConstHeated This)
+HeatedDocumentationGetConst(ConstHandle2ConstHeated self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-HeatedDocumentationGet(ConstHandle2Heated This)
+HeatedDocumentationGet(ConstHandle2Heated self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-HeatedDocumentationSet(ConstHandle2Heated This, ConstHandle2ConstDocumentation documentation)
+HeatedDocumentationSet(ConstHandle2Heated self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

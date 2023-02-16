@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// EnergyIntervals wrapper
-void wrapEnergyIntervals(python::module &module)
+// wrapper for resonances::EnergyIntervals
+void wrapEnergyIntervals(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::EnergyIntervals;
+   using cppCLASS = resonances::EnergyIntervals;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "EnergyIntervals",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "EnergyIntervals",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::vector<resonances::EnergyInterval> &
-         >(),
-         python::arg("label"),
-         python::arg("energy_interval"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "energy_interval",
-         [](const Component &self) { return self.energyInterval(); },
-         Component::documentation("energy_interval").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::vector<resonances::EnergyInterval> &
+      >(),
+      py::arg("label"),
+      py::arg("energy_interval"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set energyInterval
+   object.def_property(
+      "energy_interval",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energyInterval();
+      },
+      [](cppCLASS &self, const std::vector<resonances::EnergyInterval> &value)
+      {
+         self.energyInterval() = value;
+      },
+      cppCLASS::component_t::documentation("energy_interval").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

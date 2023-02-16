@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// PoPs wrapper
-void wrapPoPs(python::module &module)
+// wrapper for gnds::PoPs
+void wrapPoPs(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::PoPs;
+   using cppCLASS = gnds::PoPs;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "PoPs",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "PoPs",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const gnds::Styles &,
-            const gnds::ChemicalElements &
-         >(),
-         python::arg("name"),
-         python::arg("version"),
-         python::arg("format"),
-         python::arg("styles"),
-         python::arg("chemical_elements"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self) { return self.format(); },
-         Component::documentation("format").data()
-      )
-      .def_property_readonly(
-         "styles",
-         [](const Component &self) { return self.styles(); },
-         Component::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "chemical_elements",
-         [](const Component &self) { return self.chemicalElements(); },
-         Component::documentation("chemical_elements").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const gnds::Styles &,
+         const gnds::ChemicalElements &
+      >(),
+      py::arg("name"),
+      py::arg("version"),
+      py::arg("format"),
+      py::arg("styles"),
+      py::arg("chemical_elements"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set styles
+   object.def_property(
+      "styles",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.styles();
+      },
+      [](cppCLASS &self, const gnds::Styles &value)
+      {
+         self.styles() = value;
+      },
+      cppCLASS::component_t::documentation("styles").data()
+   );
+
+   // get/set chemicalElements
+   object.def_property(
+      "chemical_elements",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.chemicalElements();
+      },
+      [](cppCLASS &self, const gnds::ChemicalElements &value)
+      {
+         self.chemicalElements() = value;
+      },
+      cppCLASS::component_t::documentation("chemical_elements").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

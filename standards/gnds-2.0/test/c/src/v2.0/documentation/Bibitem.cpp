@@ -82,20 +82,20 @@ BibitemCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BibitemAssign(ConstHandle2Bibitem This, ConstHandle2ConstBibitem from)
+BibitemAssign(ConstHandle2Bibitem self, ConstHandle2ConstBibitem from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BibitemDelete(ConstHandle2ConstBibitem This)
+BibitemDelete(ConstHandle2ConstBibitem self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ BibitemDelete(ConstHandle2ConstBibitem This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BibitemRead(ConstHandle2Bibitem This, const char *const filename)
+BibitemRead(ConstHandle2Bibitem self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BibitemWrite(ConstHandle2ConstBibitem This, const char *const filename)
+BibitemWrite(ConstHandle2ConstBibitem self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BibitemPrint(ConstHandle2ConstBibitem This)
+BibitemPrint(ConstHandle2ConstBibitem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BibitemPrintXML(ConstHandle2ConstBibitem This)
+BibitemPrintXML(ConstHandle2ConstBibitem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BibitemPrintJSON(ConstHandle2ConstBibitem This)
+BibitemPrintJSON(ConstHandle2ConstBibitem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ BibitemPrintJSON(ConstHandle2ConstBibitem This)
 
 // Clear
 void
-BibitemIntsClear(ConstHandle2Bibitem This)
+BibitemIntsClear(ConstHandle2Bibitem self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-BibitemIntsSize(ConstHandle2ConstBibitem This)
+BibitemIntsSize(ConstHandle2ConstBibitem self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-BibitemIntsGet(ConstHandle2ConstBibitem This, const size_t index)
+BibitemIntsGet(ConstHandle2ConstBibitem self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BibitemIntsSet(ConstHandle2Bibitem This, const size_t index, const int value)
+BibitemIntsSet(ConstHandle2Bibitem self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-BibitemIntsGetArrayConst(ConstHandle2ConstBibitem This)
+BibitemIntsGetArrayConst(ConstHandle2ConstBibitem self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-BibitemIntsGetArray(ConstHandle2Bibitem This)
+BibitemIntsGetArray(ConstHandle2Bibitem self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BibitemIntsSetArray(ConstHandle2Bibitem This, const int *const values, const size_t size)
+BibitemIntsSetArray(ConstHandle2Bibitem self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ BibitemIntsSetArray(ConstHandle2Bibitem This, const int *const values, const siz
 
 // Clear
 void
-BibitemUnsignedsClear(ConstHandle2Bibitem This)
+BibitemUnsignedsClear(ConstHandle2Bibitem self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-BibitemUnsignedsSize(ConstHandle2ConstBibitem This)
+BibitemUnsignedsSize(ConstHandle2ConstBibitem self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-BibitemUnsignedsGet(ConstHandle2ConstBibitem This, const size_t index)
+BibitemUnsignedsGet(ConstHandle2ConstBibitem self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BibitemUnsignedsSet(ConstHandle2Bibitem This, const size_t index, const unsigned value)
+BibitemUnsignedsSet(ConstHandle2Bibitem self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-BibitemUnsignedsGetArrayConst(ConstHandle2ConstBibitem This)
+BibitemUnsignedsGetArrayConst(ConstHandle2ConstBibitem self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-BibitemUnsignedsGetArray(ConstHandle2Bibitem This)
+BibitemUnsignedsGetArray(ConstHandle2Bibitem self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BibitemUnsignedsSetArray(ConstHandle2Bibitem This, const unsigned *const values, const size_t size)
+BibitemUnsignedsSetArray(ConstHandle2Bibitem self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ BibitemUnsignedsSetArray(ConstHandle2Bibitem This, const unsigned *const values,
 
 // Clear
 void
-BibitemFloatsClear(ConstHandle2Bibitem This)
+BibitemFloatsClear(ConstHandle2Bibitem self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-BibitemFloatsSize(ConstHandle2ConstBibitem This)
+BibitemFloatsSize(ConstHandle2ConstBibitem self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-BibitemFloatsGet(ConstHandle2ConstBibitem This, const size_t index)
+BibitemFloatsGet(ConstHandle2ConstBibitem self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BibitemFloatsSet(ConstHandle2Bibitem This, const size_t index, const float value)
+BibitemFloatsSet(ConstHandle2Bibitem self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-BibitemFloatsGetArrayConst(ConstHandle2ConstBibitem This)
+BibitemFloatsGetArrayConst(ConstHandle2ConstBibitem self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-BibitemFloatsGetArray(ConstHandle2Bibitem This)
+BibitemFloatsGetArray(ConstHandle2Bibitem self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BibitemFloatsSetArray(ConstHandle2Bibitem This, const float *const values, const size_t size)
+BibitemFloatsSetArray(ConstHandle2Bibitem self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ BibitemFloatsSetArray(ConstHandle2Bibitem This, const float *const values, const
 
 // Clear
 void
-BibitemDoublesClear(ConstHandle2Bibitem This)
+BibitemDoublesClear(ConstHandle2Bibitem self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-BibitemDoublesSize(ConstHandle2ConstBibitem This)
+BibitemDoublesSize(ConstHandle2ConstBibitem self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-BibitemDoublesGet(ConstHandle2ConstBibitem This, const size_t index)
+BibitemDoublesGet(ConstHandle2ConstBibitem self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BibitemDoublesSet(ConstHandle2Bibitem This, const size_t index, const double value)
+BibitemDoublesSet(ConstHandle2Bibitem self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-BibitemDoublesGetArrayConst(ConstHandle2ConstBibitem This)
+BibitemDoublesGetArrayConst(ConstHandle2ConstBibitem self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-BibitemDoublesGetArray(ConstHandle2Bibitem This)
+BibitemDoublesGetArray(ConstHandle2Bibitem self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-BibitemDoublesSetArray(ConstHandle2Bibitem This, const double *const values, const size_t size)
+BibitemDoublesSetArray(ConstHandle2Bibitem self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ BibitemDoublesSetArray(ConstHandle2Bibitem This, const double *const values, con
 
 // Has
 int
-BibitemEncodingHas(ConstHandle2ConstBibitem This)
+BibitemEncodingHas(ConstHandle2ConstBibitem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-BibitemEncodingGet(ConstHandle2ConstBibitem This)
+BibitemEncodingGet(ConstHandle2ConstBibitem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-BibitemEncodingSet(ConstHandle2Bibitem This, const XMLName encoding)
+BibitemEncodingSet(ConstHandle2Bibitem self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ BibitemEncodingSet(ConstHandle2Bibitem This, const XMLName encoding)
 
 // Has
 int
-BibitemMarkupHas(ConstHandle2ConstBibitem This)
+BibitemMarkupHas(ConstHandle2ConstBibitem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-BibitemMarkupGet(ConstHandle2ConstBibitem This)
+BibitemMarkupGet(ConstHandle2ConstBibitem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-BibitemMarkupSet(ConstHandle2Bibitem This, const char *const markup)
+BibitemMarkupSet(ConstHandle2Bibitem self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ BibitemMarkupSet(ConstHandle2Bibitem This, const char *const markup)
 
 // Has
 int
-BibitemLabelHas(ConstHandle2ConstBibitem This)
+BibitemLabelHas(ConstHandle2ConstBibitem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-BibitemLabelGet(ConstHandle2ConstBibitem This)
+BibitemLabelGet(ConstHandle2ConstBibitem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-BibitemLabelSet(ConstHandle2Bibitem This, const XMLName label)
+BibitemLabelSet(ConstHandle2Bibitem self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ BibitemLabelSet(ConstHandle2Bibitem This, const XMLName label)
 
 // Has
 int
-BibitemXrefHas(ConstHandle2ConstBibitem This)
+BibitemXrefHas(ConstHandle2ConstBibitem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XrefHas", This, extract::xref);
+      (CLASSNAME, CLASSNAME+"XrefHas", self, extract::xref);
 }
 
 // Get
 // Returns by value
 XMLName
-BibitemXrefGet(ConstHandle2ConstBibitem This)
+BibitemXrefGet(ConstHandle2ConstBibitem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"XrefGet", This, extract::xref);
+      (CLASSNAME, CLASSNAME+"XrefGet", self, extract::xref);
 }
 
 // Set
 void
-BibitemXrefSet(ConstHandle2Bibitem This, const XMLName xref)
+BibitemXrefSet(ConstHandle2Bibitem self, const XMLName xref)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"XrefSet", This, extract::xref, xref);
+      (CLASSNAME, CLASSNAME+"XrefSet", self, extract::xref, xref);
 }
 
 

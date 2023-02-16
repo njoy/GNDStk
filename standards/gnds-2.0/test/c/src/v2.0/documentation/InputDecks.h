@@ -90,13 +90,13 @@ InputDecksCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-InputDecksAssign(ConstHandle2InputDecks This, ConstHandle2ConstInputDecks from);
+InputDecksAssign(ConstHandle2InputDecks self, ConstHandle2ConstInputDecks from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-InputDecksDelete(ConstHandle2ConstInputDecks This);
+InputDecksDelete(ConstHandle2ConstInputDecks self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ InputDecksDelete(ConstHandle2ConstInputDecks This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-InputDecksRead(ConstHandle2InputDecks This, const char *const filename);
+InputDecksRead(ConstHandle2InputDecks self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-InputDecksWrite(ConstHandle2ConstInputDecks This, const char *const filename);
+InputDecksWrite(ConstHandle2ConstInputDecks self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-InputDecksPrint(ConstHandle2ConstInputDecks This);
+InputDecksPrint(ConstHandle2ConstInputDecks self);
 
 // +++ Print to standard output, as XML
 extern_c int
-InputDecksPrintXML(ConstHandle2ConstInputDecks This);
+InputDecksPrintXML(ConstHandle2ConstInputDecks self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-InputDecksPrintJSON(ConstHandle2ConstInputDecks This);
+InputDecksPrintJSON(ConstHandle2ConstInputDecks self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ InputDecksPrintJSON(ConstHandle2ConstInputDecks This);
 
 // +++ Has
 extern_c int
-InputDecksInputDeckHas(ConstHandle2ConstInputDecks This);
+InputDecksInputDeckHas(ConstHandle2ConstInputDecks self);
 
 // +++ Clear
 extern_c void
-InputDecksInputDeckClear(ConstHandle2InputDecks This);
+InputDecksInputDeckClear(ConstHandle2InputDecks self);
 
 // +++ Size
 extern_c size_t
-InputDecksInputDeckSize(ConstHandle2ConstInputDecks This);
+InputDecksInputDeckSize(ConstHandle2ConstInputDecks self);
 
 // +++ Add
 extern_c void
-InputDecksInputDeckAdd(ConstHandle2InputDecks This, ConstHandle2ConstInputDeck inputDeck);
+InputDecksInputDeckAdd(ConstHandle2InputDecks self, ConstHandle2ConstInputDeck inputDeck);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstInputDeck
-InputDecksInputDeckGetConst(ConstHandle2ConstInputDecks This, const size_t index_);
+InputDecksInputDeckGetConst(ConstHandle2ConstInputDecks self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2InputDeck
-InputDecksInputDeckGet(ConstHandle2InputDecks This, const size_t index_);
+InputDecksInputDeckGet(ConstHandle2InputDecks self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 InputDecksInputDeckSet(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const size_t index_,
    ConstHandle2ConstInputDeck inputDeck
 );
@@ -169,28 +169,28 @@ InputDecksInputDeckSet(
 // +++ Has, by encoding
 extern_c int
 InputDecksInputDeckHasByEncoding(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName encoding
 );
 
 // --- Get, by encoding, const
 extern_c Handle2ConstInputDeck
 InputDecksInputDeckGetByEncodingConst(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName encoding
 );
 
 // +++ Get, by encoding, non-const
 extern_c Handle2InputDeck
 InputDecksInputDeckGetByEncoding(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName encoding
 );
 
 // +++ Set, by encoding
 extern_c void
 InputDecksInputDeckSetByEncoding(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName encoding,
    ConstHandle2ConstInputDeck inputDeck
 );
@@ -198,28 +198,28 @@ InputDecksInputDeckSetByEncoding(
 // +++ Has, by markup
 extern_c int
 InputDecksInputDeckHasByMarkup(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const char *const markup
 );
 
 // --- Get, by markup, const
 extern_c Handle2ConstInputDeck
 InputDecksInputDeckGetByMarkupConst(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const char *const markup
 );
 
 // +++ Get, by markup, non-const
 extern_c Handle2InputDeck
 InputDecksInputDeckGetByMarkup(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const char *const markup
 );
 
 // +++ Set, by markup
 extern_c void
 InputDecksInputDeckSetByMarkup(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const char *const markup,
    ConstHandle2ConstInputDeck inputDeck
 );
@@ -227,28 +227,28 @@ InputDecksInputDeckSetByMarkup(
 // +++ Has, by label
 extern_c int
 InputDecksInputDeckHasByLabel(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstInputDeck
 InputDecksInputDeckGetByLabelConst(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2InputDeck
 InputDecksInputDeckGetByLabel(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 InputDecksInputDeckSetByLabel(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName label,
    ConstHandle2ConstInputDeck inputDeck
 );
@@ -256,28 +256,28 @@ InputDecksInputDeckSetByLabel(
 // +++ Has, by filename
 extern_c int
 InputDecksInputDeckHasByFilename(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName filename
 );
 
 // --- Get, by filename, const
 extern_c Handle2ConstInputDeck
 InputDecksInputDeckGetByFilenameConst(
-   ConstHandle2ConstInputDecks This,
+   ConstHandle2ConstInputDecks self,
    const XMLName filename
 );
 
 // +++ Get, by filename, non-const
 extern_c Handle2InputDeck
 InputDecksInputDeckGetByFilename(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName filename
 );
 
 // +++ Set, by filename
 extern_c void
 InputDecksInputDeckSetByFilename(
-   ConstHandle2InputDecks This,
+   ConstHandle2InputDecks self,
    const XMLName filename,
    ConstHandle2ConstInputDeck inputDeck
 );

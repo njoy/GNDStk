@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// ProductYield wrapper
-void wrapProductYield(python::module &module)
+// wrapper for fpy::ProductYield
+void wrapProductYield(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::ProductYield;
+   using cppCLASS = fpy::ProductYield;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ProductYield",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ProductYield",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<fpy::Nuclides> &,
-            const fpy::ElapsedTimes &
-         >(),
-         python::arg("label"),
-         python::arg("nuclides") = std::nullopt,
-         python::arg("elapsed_times"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "nuclides",
-         [](const Component &self) { return self.nuclides(); },
-         Component::documentation("nuclides").data()
-      )
-      .def_property_readonly(
-         "elapsed_times",
-         [](const Component &self) { return self.elapsedTimes(); },
-         Component::documentation("elapsed_times").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<fpy::Nuclides> &,
+         const fpy::ElapsedTimes &
+      >(),
+      py::arg("label"),
+      py::arg("nuclides") = std::nullopt,
+      py::arg("elapsed_times"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const std::optional<fpy::Nuclides> &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // get/set elapsedTimes
+   object.def_property(
+      "elapsed_times",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.elapsedTimes();
+      },
+      [](cppCLASS &self, const fpy::ElapsedTimes &value)
+      {
+         self.elapsedTimes() = value;
+      },
+      cppCLASS::component_t::documentation("elapsed_times").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

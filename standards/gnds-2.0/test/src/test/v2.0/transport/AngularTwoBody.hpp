@@ -28,12 +28,12 @@ class AngularTwoBody :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "AngularTwoBody"; }
-   static auto FIELD() { return "angularTwoBody"; }
+   static auto NODENAME() { return "angularTwoBody"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,41 +47,95 @@ class AngularTwoBody :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<containers::XYs2d>>("XYs2d") |
-         --Child<std::optional<containers::Regions2d>>("regions2d") |
-         --Child<std::optional<transport::Isotropic2d>>("isotropic2d") |
-         --Child<std::optional<transport::Recoil>>("recoil")
+         --Child<std::optional<containers::XYs2d>>
+            ("XYs2d") |
+         --Child<std::optional<containers::Regions2d>>
+            ("regions2d") |
+         --Child<std::optional<transport::Isotropic2d>>
+            ("isotropic2d") |
+         --Child<std::optional<transport::Recoil>>
+            ("recoil")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "XYs2d",
+         "regions2d",
+         "isotropic2d",
+         "recoil"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "xys2d",
+         "regions2d",
+         "isotropic2d",
+         "recoil"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<XMLName> productFrame{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // children
-   Field<std::optional<containers::XYs2d>> XYs2d{this};
-   Field<std::optional<containers::Regions2d>> regions2d{this};
-   Field<std::optional<transport::Isotropic2d>> isotropic2d{this};
-   Field<std::optional<transport::Recoil>> recoil{this};
+   Field<std::optional<containers::XYs2d>>
+      XYs2d{this};
+   Field<std::optional<containers::Regions2d>>
+      regions2d{this};
+   Field<std::optional<transport::Isotropic2d>>
+      isotropic2d{this};
+   Field<std::optional<transport::Recoil>>
+      recoil{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
       this->XYs2d, \
       this->regions2d, \
       this->isotropic2d, \
-      this->recoil)
+      this->recoil \
+   )
 
    // default
    AngularTwoBody() :
@@ -92,12 +146,18 @@ public:
 
    // from fields, comment excluded
    explicit AngularTwoBody(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<XMLName> &productFrame = {},
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d = {},
-      const wrapper<std::optional<containers::Regions2d>> &regions2d = {},
-      const wrapper<std::optional<transport::Isotropic2d>> &isotropic2d = {},
-      const wrapper<std::optional<transport::Recoil>> &recoil = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {},
+      const wrapper<std::optional<containers::XYs2d>>
+         &XYs2d = {},
+      const wrapper<std::optional<containers::Regions2d>>
+         &regions2d = {},
+      const wrapper<std::optional<transport::Isotropic2d>>
+         &isotropic2d = {},
+      const wrapper<std::optional<transport::Recoil>>
+         &recoil = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +209,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   AngularTwoBody &operator=(const AngularTwoBody &) = default;
-   AngularTwoBody &operator=(AngularTwoBody &&) = default;
+   // copy
+   AngularTwoBody &operator=(const AngularTwoBody &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         XYs2d = other.XYs2d;
+         regions2d = other.regions2d;
+         isotropic2d = other.isotropic2d;
+         recoil = other.recoil;
+      }
+      return *this;
+   }
+
+   // move
+   AngularTwoBody &operator=(AngularTwoBody &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         XYs2d = std::move(other.XYs2d);
+         regions2d = std::move(other.regions2d);
+         isotropic2d = std::move(other.isotropic2d);
+         recoil = std::move(other.recoil);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

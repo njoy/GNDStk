@@ -11,115 +11,211 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// RMatrix wrapper
-void wrapRMatrix(python::module &module)
+// wrapper for resonances::RMatrix
+void wrapRMatrix(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::RMatrix;
+   using cppCLASS = resonances::RMatrix;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "RMatrix",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "RMatrix",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<enums::BoundaryCondition> &,
-            const std::optional<Float64> &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const std::optional<pops::PoPs_database> &,
-            const resonances::ResonanceReactions &,
-            const resonances::SpinGroups &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("boundary_condition") = std::nullopt,
-         python::arg("boundary_condition_value") = std::nullopt,
-         python::arg("calculate_channel_radius") = std::nullopt,
-         python::arg("calculate_penetrability") = std::nullopt,
-         python::arg("use_for_self_shielding_only") = std::nullopt,
-         python::arg("supports_angular_reconstruction") = std::nullopt,
-         python::arg("po_ps_database") = std::nullopt,
-         python::arg("resonance_reactions"),
-         python::arg("spin_groups"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self) { return self.approximation(); },
-         Component::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "boundary_condition",
-         [](const Component &self) { return self.boundaryCondition().value(); },
-         Component::documentation("boundary_condition").data()
-      )
-      .def_property_readonly(
-         "boundary_condition_value",
-         [](const Component &self) { return self.boundaryConditionValue(); },
-         Component::documentation("boundary_condition_value").data()
-      )
-      .def_property_readonly(
-         "calculate_channel_radius",
-         [](const Component &self) { return self.calculateChannelRadius().value(); },
-         Component::documentation("calculate_channel_radius").data()
-      )
-      .def_property_readonly(
-         "calculate_penetrability",
-         [](const Component &self) { return self.calculatePenetrability().value(); },
-         Component::documentation("calculate_penetrability").data()
-      )
-      .def_property_readonly(
-         "use_for_self_shielding_only",
-         [](const Component &self) { return self.useForSelfShieldingOnly().value(); },
-         Component::documentation("use_for_self_shielding_only").data()
-      )
-      .def_property_readonly(
-         "supports_angular_reconstruction",
-         [](const Component &self) { return self.supportsAngularReconstruction().value(); },
-         Component::documentation("supports_angular_reconstruction").data()
-      )
-      .def_property_readonly(
-         "po_ps_database",
-         [](const Component &self) { return self.PoPs_database(); },
-         Component::documentation("po_ps_database").data()
-      )
-      .def_property_readonly(
-         "resonance_reactions",
-         [](const Component &self) { return self.resonanceReactions(); },
-         Component::documentation("resonance_reactions").data()
-      )
-      .def_property_readonly(
-         "spin_groups",
-         [](const Component &self) { return self.spinGroups(); },
-         Component::documentation("spin_groups").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<enums::BoundaryCondition> &,
+         const std::optional<Float64> &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const std::optional<pops::PoPs_database> &,
+         const resonances::ResonanceReactions &,
+         const resonances::SpinGroups &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("boundary_condition") = std::nullopt,
+      py::arg("boundary_condition_value") = std::nullopt,
+      py::arg("calculate_channel_radius") = std::nullopt,
+      py::arg("calculate_penetrability") = std::nullopt,
+      py::arg("use_for_self_shielding_only") = std::nullopt,
+      py::arg("supports_angular_reconstruction") = std::nullopt,
+      py::arg("po_ps_database") = std::nullopt,
+      py::arg("resonance_reactions"),
+      py::arg("spin_groups"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set boundaryCondition
+   object.def_property(
+      "boundary_condition",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.boundaryCondition().value();
+      },
+      [](cppCLASS &self, const enums::BoundaryCondition &value)
+      {
+         self.boundaryCondition() = value;
+      },
+      cppCLASS::component_t::documentation("boundary_condition").data()
+   );
+
+   // get/set boundaryConditionValue
+   object.def_property(
+      "boundary_condition_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.boundaryConditionValue();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.boundaryConditionValue() = value;
+      },
+      cppCLASS::component_t::documentation("boundary_condition_value").data()
+   );
+
+   // get/set calculateChannelRadius
+   object.def_property(
+      "calculate_channel_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.calculateChannelRadius().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.calculateChannelRadius() = value;
+      },
+      cppCLASS::component_t::documentation("calculate_channel_radius").data()
+   );
+
+   // get/set calculatePenetrability
+   object.def_property(
+      "calculate_penetrability",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.calculatePenetrability().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.calculatePenetrability() = value;
+      },
+      cppCLASS::component_t::documentation("calculate_penetrability").data()
+   );
+
+   // get/set useForSelfShieldingOnly
+   object.def_property(
+      "use_for_self_shielding_only",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.useForSelfShieldingOnly().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.useForSelfShieldingOnly() = value;
+      },
+      cppCLASS::component_t::documentation("use_for_self_shielding_only").data()
+   );
+
+   // get/set supportsAngularReconstruction
+   object.def_property(
+      "supports_angular_reconstruction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.supportsAngularReconstruction().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.supportsAngularReconstruction() = value;
+      },
+      cppCLASS::component_t::documentation("supports_angular_reconstruction").data()
+   );
+
+   // get/set PoPs_database
+   object.def_property(
+      "po_ps_database",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.PoPs_database();
+      },
+      [](cppCLASS &self, const std::optional<pops::PoPs_database> &value)
+      {
+         self.PoPs_database() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps_database").data()
+   );
+
+   // get/set resonanceReactions
+   object.def_property(
+      "resonance_reactions",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReactions();
+      },
+      [](cppCLASS &self, const resonances::ResonanceReactions &value)
+      {
+         self.resonanceReactions() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reactions").data()
+   );
+
+   // get/set spinGroups
+   object.def_property(
+      "spin_groups",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.spinGroups();
+      },
+      [](cppCLASS &self, const resonances::SpinGroups &value)
+      {
+         self.spinGroups() = value;
+      },
+      cppCLASS::component_t::documentation("spin_groups").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

@@ -11,81 +11,130 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// AverageParameterCovariance wrapper
-void wrapAverageParameterCovariance(python::module &module)
+// wrapper for covariance::AverageParameterCovariance
+void wrapAverageParameterCovariance(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::AverageParameterCovariance;
+   using cppCLASS = covariance::AverageParameterCovariance;
    using _t = std::variant<
       covariance::CovarianceMatrix
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "AverageParameterCovariance",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "AverageParameterCovariance",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<bool> &,
-            const std::optional<XMLName> &,
-            const std::optional<covariance::ColumnData> &,
-            const std::optional<covariance::RowData> &,
-            const _t &
-         >(),
-         python::arg("cross_term") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("column_data") = std::nullopt,
-         python::arg("row_data") = std::nullopt,
-         python::arg("_covariance_matrix"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_term",
-         [](const Component &self) { return self.crossTerm(); },
-         Component::documentation("cross_term").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "column_data",
-         [](const Component &self) { return self.columnData(); },
-         Component::documentation("column_data").data()
-      )
-      .def_property_readonly(
-         "row_data",
-         [](const Component &self) { return self.rowData(); },
-         Component::documentation("row_data").data()
-      )
-      .def_property_readonly(
-         "covariance_matrix",
-         [](const Component &self) { return self.covarianceMatrix(); },
-         Component::documentation("covariance_matrix").data()
-      )
-      .def_property_readonly(
-         "_covariance_matrix",
-         [](const Component &self) { return self._covarianceMatrix(); },
-         Component::documentation("_covariance_matrix").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<bool> &,
+         const std::optional<XMLName> &,
+         const std::optional<covariance::ColumnData> &,
+         const std::optional<covariance::RowData> &,
+         const _t &
+      >(),
+      py::arg("cross_term") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("column_data") = std::nullopt,
+      py::arg("row_data") = std::nullopt,
+      py::arg("_covariance_matrix"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set crossTerm
+   object.def_property(
+      "cross_term",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossTerm();
+      },
+      [](cppCLASS &self, const std::optional<bool> &value)
+      {
+         self.crossTerm() = value;
+      },
+      cppCLASS::component_t::documentation("cross_term").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set columnData
+   object.def_property(
+      "column_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnData();
+      },
+      [](cppCLASS &self, const std::optional<covariance::ColumnData> &value)
+      {
+         self.columnData() = value;
+      },
+      cppCLASS::component_t::documentation("column_data").data()
+   );
+
+   // get/set rowData
+   object.def_property(
+      "row_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.rowData();
+      },
+      [](cppCLASS &self, const std::optional<covariance::RowData> &value)
+      {
+         self.rowData() = value;
+      },
+      cppCLASS::component_t::documentation("row_data").data()
+   );
+
+   object.def_property(
+      "covariance_matrix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covarianceMatrix();
+      },
+      [](cppCLASS &self, const covariance::CovarianceMatrix &value)
+      {
+         self.covarianceMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_matrix").data()
+   );
+
+   object.def_property(
+      "_covariance_matrix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._covarianceMatrix();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._covarianceMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("_covariance_matrix").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

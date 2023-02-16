@@ -93,13 +93,13 @@ ParameterCovariancesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ParameterCovariancesAssign(ConstHandle2ParameterCovariances This, ConstHandle2ConstParameterCovariances from);
+ParameterCovariancesAssign(ConstHandle2ParameterCovariances self, ConstHandle2ConstParameterCovariances from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ParameterCovariancesDelete(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesDelete(ConstHandle2ConstParameterCovariances self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ParameterCovariancesDelete(ConstHandle2ConstParameterCovariances This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ParameterCovariancesRead(ConstHandle2ParameterCovariances This, const char *const filename);
+ParameterCovariancesRead(ConstHandle2ParameterCovariances self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ParameterCovariancesWrite(ConstHandle2ConstParameterCovariances This, const char *const filename);
+ParameterCovariancesWrite(ConstHandle2ConstParameterCovariances self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ParameterCovariancesPrint(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesPrint(ConstHandle2ConstParameterCovariances self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ParameterCovariancesPrintXML(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesPrintXML(ConstHandle2ConstParameterCovariances self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ParameterCovariancesPrintJSON(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesPrintJSON(ConstHandle2ConstParameterCovariances self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,32 +139,32 @@ ParameterCovariancesPrintJSON(ConstHandle2ConstParameterCovariances This);
 
 // +++ Has
 extern_c int
-ParameterCovariancesAverageParameterCovarianceHas(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesAverageParameterCovarianceHas(ConstHandle2ConstParameterCovariances self);
 
 // +++ Clear
 extern_c void
-ParameterCovariancesAverageParameterCovarianceClear(ConstHandle2ParameterCovariances This);
+ParameterCovariancesAverageParameterCovarianceClear(ConstHandle2ParameterCovariances self);
 
 // +++ Size
 extern_c size_t
-ParameterCovariancesAverageParameterCovarianceSize(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesAverageParameterCovarianceSize(ConstHandle2ConstParameterCovariances self);
 
 // +++ Add
 extern_c void
-ParameterCovariancesAverageParameterCovarianceAdd(ConstHandle2ParameterCovariances This, ConstHandle2ConstAverageParameterCovariance averageParameterCovariance);
+ParameterCovariancesAverageParameterCovarianceAdd(ConstHandle2ParameterCovariances self, ConstHandle2ConstAverageParameterCovariance averageParameterCovariance);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAverageParameterCovariance
-ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances This, const size_t index_);
+ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2AverageParameterCovariance
-ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances This, const size_t index_);
+ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ParameterCovariancesAverageParameterCovarianceSet(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const size_t index_,
    ConstHandle2ConstAverageParameterCovariance averageParameterCovariance
 );
@@ -172,28 +172,28 @@ ParameterCovariancesAverageParameterCovarianceSet(
 // +++ Has, by crossTerm
 extern_c int
 ParameterCovariancesAverageParameterCovarianceHasByCrossTerm(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const bool crossTerm
 );
 
 // --- Get, by crossTerm, const
 extern_c Handle2ConstAverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const bool crossTerm
 );
 
 // +++ Get, by crossTerm, non-const
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const bool crossTerm
 );
 
 // +++ Set, by crossTerm
 extern_c void
 ParameterCovariancesAverageParameterCovarianceSetByCrossTerm(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const bool crossTerm,
    ConstHandle2ConstAverageParameterCovariance averageParameterCovariance
 );
@@ -201,28 +201,28 @@ ParameterCovariancesAverageParameterCovarianceSetByCrossTerm(
 // +++ Has, by label
 extern_c int
 ParameterCovariancesAverageParameterCovarianceHasByLabel(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabelConst(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabel(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ParameterCovariancesAverageParameterCovarianceSetByLabel(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const XMLName label,
    ConstHandle2ConstAverageParameterCovariance averageParameterCovariance
 );
@@ -234,32 +234,32 @@ ParameterCovariancesAverageParameterCovarianceSetByLabel(
 
 // +++ Has
 extern_c int
-ParameterCovariancesParameterCovarianceHas(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesParameterCovarianceHas(ConstHandle2ConstParameterCovariances self);
 
 // +++ Clear
 extern_c void
-ParameterCovariancesParameterCovarianceClear(ConstHandle2ParameterCovariances This);
+ParameterCovariancesParameterCovarianceClear(ConstHandle2ParameterCovariances self);
 
 // +++ Size
 extern_c size_t
-ParameterCovariancesParameterCovarianceSize(ConstHandle2ConstParameterCovariances This);
+ParameterCovariancesParameterCovarianceSize(ConstHandle2ConstParameterCovariances self);
 
 // +++ Add
 extern_c void
-ParameterCovariancesParameterCovarianceAdd(ConstHandle2ParameterCovariances This, ConstHandle2ConstParameterCovariance parameterCovariance);
+ParameterCovariancesParameterCovarianceAdd(ConstHandle2ParameterCovariances self, ConstHandle2ConstParameterCovariance parameterCovariance);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstParameterCovariance
-ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances This, const size_t index_);
+ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ParameterCovariance
-ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances This, const size_t index_);
+ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ParameterCovariancesParameterCovarianceSet(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const size_t index_,
    ConstHandle2ConstParameterCovariance parameterCovariance
 );
@@ -267,28 +267,28 @@ ParameterCovariancesParameterCovarianceSet(
 // +++ Has, by label
 extern_c int
 ParameterCovariancesParameterCovarianceHasByLabel(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabelConst(
-   ConstHandle2ConstParameterCovariances This,
+   ConstHandle2ConstParameterCovariances self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabel(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ParameterCovariancesParameterCovarianceSetByLabel(
-   ConstHandle2ParameterCovariances This,
+   ConstHandle2ParameterCovariances self,
    const XMLName label,
    ConstHandle2ConstParameterCovariance parameterCovariance
 );

@@ -11,57 +11,74 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1 {
 namespace python_multigroup {
 
-// Foobar wrapper
-void wrapFoobar(python::module &module)
+// wrapper for multigroup::Foobar
+void wrapFoobar(py::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
 
    // type aliases
-   using Component = multigroup::Foobar;
+   using cppCLASS = multigroup::Foobar;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Foobar",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Foobar",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &
-         >(),
-         python::arg("value"),
-         Component::documentation("constructor").data()
-      )
-      .def(
-         python::init<
-            const std::vector<double> &
-         >(),
-         python::arg("doubles"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "doubles",
-         [] (const Component &self) { return self.doubles(); },
-         Component::documentation("doubles").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &
+      >(),
+      py::arg("value"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // constructor: from vector
+   object.def(
+      py::init<
+         const std::vector<double> &
+      >(),
+      py::arg("doubles"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
+
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set vector<double>
+   object.def_property(
+      "doubles",
+      [](const cppCLASS &self) -> const std::vector<double> &
+      {
+         return self;
+      },
+      [](cppCLASS &self, const std::vector<double> &value)
+      {
+         self = value;
+      },
+      cppCLASS::component_t::documentation("doubles").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_multigroup

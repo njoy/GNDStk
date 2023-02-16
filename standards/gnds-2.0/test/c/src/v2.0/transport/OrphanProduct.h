@@ -97,13 +97,13 @@ OrphanProductCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-OrphanProductAssign(ConstHandle2OrphanProduct This, ConstHandle2ConstOrphanProduct from);
+OrphanProductAssign(ConstHandle2OrphanProduct self, ConstHandle2ConstOrphanProduct from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-OrphanProductDelete(ConstHandle2ConstOrphanProduct This);
+OrphanProductDelete(ConstHandle2ConstOrphanProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ OrphanProductDelete(ConstHandle2ConstOrphanProduct This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-OrphanProductRead(ConstHandle2OrphanProduct This, const char *const filename);
+OrphanProductRead(ConstHandle2OrphanProduct self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-OrphanProductWrite(ConstHandle2ConstOrphanProduct This, const char *const filename);
+OrphanProductWrite(ConstHandle2ConstOrphanProduct self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-OrphanProductPrint(ConstHandle2ConstOrphanProduct This);
+OrphanProductPrint(ConstHandle2ConstOrphanProduct self);
 
 // +++ Print to standard output, as XML
 extern_c int
-OrphanProductPrintXML(ConstHandle2ConstOrphanProduct This);
+OrphanProductPrintXML(ConstHandle2ConstOrphanProduct self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct This);
+OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct This);
 
 // +++ Has
 extern_c int
-OrphanProductENDFMTHas(ConstHandle2ConstOrphanProduct This);
+OrphanProductENDFMTHas(ConstHandle2ConstOrphanProduct self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-OrphanProductENDFMTGet(ConstHandle2ConstOrphanProduct This);
+OrphanProductENDFMTGet(ConstHandle2ConstOrphanProduct self);
 
 // +++ Set
 extern_c void
-OrphanProductENDFMTSet(ConstHandle2OrphanProduct This, const Integer32 ENDF_MT);
+OrphanProductENDFMTSet(ConstHandle2OrphanProduct self, const Integer32 ENDF_MT);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ OrphanProductENDFMTSet(ConstHandle2OrphanProduct This, const Integer32 ENDF_MT);
 
 // +++ Has
 extern_c int
-OrphanProductLabelHas(ConstHandle2ConstOrphanProduct This);
+OrphanProductLabelHas(ConstHandle2ConstOrphanProduct self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-OrphanProductLabelGet(ConstHandle2ConstOrphanProduct This);
+OrphanProductLabelGet(ConstHandle2ConstOrphanProduct self);
 
 // +++ Set
 extern_c void
-OrphanProductLabelSet(ConstHandle2OrphanProduct This, const XMLName label);
+OrphanProductLabelSet(ConstHandle2OrphanProduct self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ OrphanProductLabelSet(ConstHandle2OrphanProduct This, const XMLName label);
 
 // +++ Has
 extern_c int
-OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct This);
+OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct This);
+OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-OrphanProductCrossSectionGet(ConstHandle2OrphanProduct This);
+OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self);
 
 // +++ Set
 extern_c void
-OrphanProductCrossSectionSet(ConstHandle2OrphanProduct This, ConstHandle2ConstCrossSection crossSection);
+OrphanProductCrossSectionSet(ConstHandle2OrphanProduct self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ OrphanProductCrossSectionSet(ConstHandle2OrphanProduct This, ConstHandle2ConstCr
 
 // +++ Has
 extern_c int
-OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct This);
+OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct self);
 
 // --- Get, const
 extern_c Handle2ConstOutputChannel
-OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct This);
+OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self);
 
 // +++ Get, non-const
 extern_c Handle2OutputChannel
-OrphanProductOutputChannelGet(ConstHandle2OrphanProduct This);
+OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self);
 
 // +++ Set
 extern_c void
-OrphanProductOutputChannelSet(ConstHandle2OrphanProduct This, ConstHandle2ConstOutputChannel outputChannel);
+OrphanProductOutputChannelSet(ConstHandle2OrphanProduct self, ConstHandle2ConstOutputChannel outputChannel);
 
 
 // -----------------------------------------------------------------------------

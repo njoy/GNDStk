@@ -101,13 +101,13 @@ ResonancesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonancesAssign(ConstHandle2Resonances This, ConstHandle2ConstResonances from);
+ResonancesAssign(ConstHandle2Resonances self, ConstHandle2ConstResonances from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonancesDelete(ConstHandle2ConstResonances This);
+ResonancesDelete(ConstHandle2ConstResonances self);
 
 
 // -----------------------------------------------------------------------------
@@ -120,25 +120,25 @@ ResonancesDelete(ConstHandle2ConstResonances This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonancesRead(ConstHandle2Resonances This, const char *const filename);
+ResonancesRead(ConstHandle2Resonances self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonancesWrite(ConstHandle2ConstResonances This, const char *const filename);
+ResonancesWrite(ConstHandle2ConstResonances self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonancesPrint(ConstHandle2ConstResonances This);
+ResonancesPrint(ConstHandle2ConstResonances self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonancesPrintXML(ConstHandle2ConstResonances This);
+ResonancesPrintXML(ConstHandle2ConstResonances self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonancesPrintJSON(ConstHandle2ConstResonances This);
+ResonancesPrintJSON(ConstHandle2ConstResonances self);
 
 
 // -----------------------------------------------------------------------------
@@ -147,16 +147,16 @@ ResonancesPrintJSON(ConstHandle2ConstResonances This);
 
 // +++ Has
 extern_c int
-ResonancesHrefHas(ConstHandle2ConstResonances This);
+ResonancesHrefHas(ConstHandle2ConstResonances self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResonancesHrefGet(ConstHandle2ConstResonances This);
+ResonancesHrefGet(ConstHandle2ConstResonances self);
 
 // +++ Set
 extern_c void
-ResonancesHrefSet(ConstHandle2Resonances This, const XMLName href);
+ResonancesHrefSet(ConstHandle2Resonances self, const XMLName href);
 
 
 // -----------------------------------------------------------------------------
@@ -165,19 +165,19 @@ ResonancesHrefSet(ConstHandle2Resonances This, const XMLName href);
 
 // +++ Has
 extern_c int
-ResonancesScatteringRadiusHas(ConstHandle2ConstResonances This);
+ResonancesScatteringRadiusHas(ConstHandle2ConstResonances self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringRadius
-ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances This);
+ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringRadius
-ResonancesScatteringRadiusGet(ConstHandle2Resonances This);
+ResonancesScatteringRadiusGet(ConstHandle2Resonances self);
 
 // +++ Set
 extern_c void
-ResonancesScatteringRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstScatteringRadius scatteringRadius);
+ResonancesScatteringRadiusSet(ConstHandle2Resonances self, ConstHandle2ConstScatteringRadius scatteringRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -186,19 +186,19 @@ ResonancesScatteringRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstScat
 
 // +++ Has
 extern_c int
-ResonancesHardSphereRadiusHas(ConstHandle2ConstResonances This);
+ResonancesHardSphereRadiusHas(ConstHandle2ConstResonances self);
 
 // --- Get, const
 extern_c Handle2ConstHardSphereRadius
-ResonancesHardSphereRadiusGetConst(ConstHandle2ConstResonances This);
+ResonancesHardSphereRadiusGetConst(ConstHandle2ConstResonances self);
 
 // +++ Get, non-const
 extern_c Handle2HardSphereRadius
-ResonancesHardSphereRadiusGet(ConstHandle2Resonances This);
+ResonancesHardSphereRadiusGet(ConstHandle2Resonances self);
 
 // +++ Set
 extern_c void
-ResonancesHardSphereRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstHardSphereRadius hardSphereRadius);
+ResonancesHardSphereRadiusSet(ConstHandle2Resonances self, ConstHandle2ConstHardSphereRadius hardSphereRadius);
 
 
 // -----------------------------------------------------------------------------
@@ -207,32 +207,32 @@ ResonancesHardSphereRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstHard
 
 // +++ Has
 extern_c int
-ResonancesResolvedHas(ConstHandle2ConstResonances This);
+ResonancesResolvedHas(ConstHandle2ConstResonances self);
 
 // +++ Clear
 extern_c void
-ResonancesResolvedClear(ConstHandle2Resonances This);
+ResonancesResolvedClear(ConstHandle2Resonances self);
 
 // +++ Size
 extern_c size_t
-ResonancesResolvedSize(ConstHandle2ConstResonances This);
+ResonancesResolvedSize(ConstHandle2ConstResonances self);
 
 // +++ Add
 extern_c void
-ResonancesResolvedAdd(ConstHandle2Resonances This, ConstHandle2ConstResolved resolved);
+ResonancesResolvedAdd(ConstHandle2Resonances self, ConstHandle2ConstResolved resolved);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstResolved
-ResonancesResolvedGetConst(ConstHandle2ConstResonances This, const size_t index_);
+ResonancesResolvedGetConst(ConstHandle2ConstResonances self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Resolved
-ResonancesResolvedGet(ConstHandle2Resonances This, const size_t index_);
+ResonancesResolvedGet(ConstHandle2Resonances self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ResonancesResolvedSet(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const size_t index_,
    ConstHandle2ConstResolved resolved
 );
@@ -240,28 +240,28 @@ ResonancesResolvedSet(
 // +++ Has, by domainMin
 extern_c int
 ResonancesResolvedHasByDomainMin(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 );
 
 // --- Get, by domainMin, const
 extern_c Handle2ConstResolved
 ResonancesResolvedGetByDomainMinConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 );
 
 // +++ Get, by domainMin, non-const
 extern_c Handle2Resolved
 ResonancesResolvedGetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin
 );
 
 // +++ Set, by domainMin
 extern_c void
 ResonancesResolvedSetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin,
    ConstHandle2ConstResolved resolved
 );
@@ -269,28 +269,28 @@ ResonancesResolvedSetByDomainMin(
 // +++ Has, by domainMax
 extern_c int
 ResonancesResolvedHasByDomainMax(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 );
 
 // --- Get, by domainMax, const
 extern_c Handle2ConstResolved
 ResonancesResolvedGetByDomainMaxConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 );
 
 // +++ Get, by domainMax, non-const
 extern_c Handle2Resolved
 ResonancesResolvedGetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax
 );
 
 // +++ Set, by domainMax
 extern_c void
 ResonancesResolvedSetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax,
    ConstHandle2ConstResolved resolved
 );
@@ -298,28 +298,28 @@ ResonancesResolvedSetByDomainMax(
 // +++ Has, by domainUnit
 extern_c int
 ResonancesResolvedHasByDomainUnit(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 );
 
 // --- Get, by domainUnit, const
 extern_c Handle2ConstResolved
 ResonancesResolvedGetByDomainUnitConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 );
 
 // +++ Get, by domainUnit, non-const
 extern_c Handle2Resolved
 ResonancesResolvedGetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit
 );
 
 // +++ Set, by domainUnit
 extern_c void
 ResonancesResolvedSetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit,
    ConstHandle2ConstResolved resolved
 );
@@ -331,32 +331,32 @@ ResonancesResolvedSetByDomainUnit(
 
 // +++ Has
 extern_c int
-ResonancesUnresolvedHas(ConstHandle2ConstResonances This);
+ResonancesUnresolvedHas(ConstHandle2ConstResonances self);
 
 // +++ Clear
 extern_c void
-ResonancesUnresolvedClear(ConstHandle2Resonances This);
+ResonancesUnresolvedClear(ConstHandle2Resonances self);
 
 // +++ Size
 extern_c size_t
-ResonancesUnresolvedSize(ConstHandle2ConstResonances This);
+ResonancesUnresolvedSize(ConstHandle2ConstResonances self);
 
 // +++ Add
 extern_c void
-ResonancesUnresolvedAdd(ConstHandle2Resonances This, ConstHandle2ConstUnresolved unresolved);
+ResonancesUnresolvedAdd(ConstHandle2Resonances self, ConstHandle2ConstUnresolved unresolved);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstUnresolved
-ResonancesUnresolvedGetConst(ConstHandle2ConstResonances This, const size_t index_);
+ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Unresolved
-ResonancesUnresolvedGet(ConstHandle2Resonances This, const size_t index_);
+ResonancesUnresolvedGet(ConstHandle2Resonances self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ResonancesUnresolvedSet(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const size_t index_,
    ConstHandle2ConstUnresolved unresolved
 );
@@ -364,28 +364,28 @@ ResonancesUnresolvedSet(
 // +++ Has, by domainMin
 extern_c int
 ResonancesUnresolvedHasByDomainMin(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 );
 
 // --- Get, by domainMin, const
 extern_c Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainMinConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 );
 
 // +++ Get, by domainMin, non-const
 extern_c Handle2Unresolved
 ResonancesUnresolvedGetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin
 );
 
 // +++ Set, by domainMin
 extern_c void
 ResonancesUnresolvedSetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin,
    ConstHandle2ConstUnresolved unresolved
 );
@@ -393,28 +393,28 @@ ResonancesUnresolvedSetByDomainMin(
 // +++ Has, by domainMax
 extern_c int
 ResonancesUnresolvedHasByDomainMax(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 );
 
 // --- Get, by domainMax, const
 extern_c Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainMaxConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 );
 
 // +++ Get, by domainMax, non-const
 extern_c Handle2Unresolved
 ResonancesUnresolvedGetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax
 );
 
 // +++ Set, by domainMax
 extern_c void
 ResonancesUnresolvedSetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax,
    ConstHandle2ConstUnresolved unresolved
 );
@@ -422,28 +422,28 @@ ResonancesUnresolvedSetByDomainMax(
 // +++ Has, by domainUnit
 extern_c int
 ResonancesUnresolvedHasByDomainUnit(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 );
 
 // --- Get, by domainUnit, const
 extern_c Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainUnitConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 );
 
 // +++ Get, by domainUnit, non-const
 extern_c Handle2Unresolved
 ResonancesUnresolvedGetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit
 );
 
 // +++ Set, by domainUnit
 extern_c void
 ResonancesUnresolvedSetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit,
    ConstHandle2ConstUnresolved unresolved
 );

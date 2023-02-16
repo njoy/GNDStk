@@ -25,12 +25,12 @@ class ProductYields :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ProductYields"; }
-   static auto FIELD() { return "productYields"; }
+   static auto NODENAME() { return "productYields"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ProductYields :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<fpy::ProductYield>("productYield")
+         ++Child<fpy::ProductYield>
+            ("productYield")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "productYield"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "product_yield"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<fpy::ProductYield>> productYield{this};
+   Field<std::vector<fpy::ProductYield>>
+      productYield{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->productYield)
+      this->productYield \
+   )
 
    // default
    ProductYields() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ProductYields(
-      const wrapper<std::vector<fpy::ProductYield>> &productYield
+      const wrapper<std::vector<fpy::ProductYield>>
+         &productYield
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       productYield(this,productYield)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProductYields &operator=(const ProductYields &) = default;
-   ProductYields &operator=(ProductYields &&) = default;
+   // copy
+   ProductYields &operator=(const ProductYields &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         productYield = other.productYield;
+      }
+      return *this;
+   }
+
+   // move
+   ProductYields &operator=(ProductYields &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         productYield = std::move(other.productYield);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

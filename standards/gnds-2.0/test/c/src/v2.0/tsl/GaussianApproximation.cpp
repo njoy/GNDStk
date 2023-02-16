@@ -69,20 +69,20 @@ GaussianApproximationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GaussianApproximationAssign(ConstHandle2GaussianApproximation This, ConstHandle2ConstGaussianApproximation from)
+GaussianApproximationAssign(ConstHandle2GaussianApproximation self, ConstHandle2ConstGaussianApproximation from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GaussianApproximationDelete(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationDelete(ConstHandle2ConstGaussianApproximation self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ GaussianApproximationDelete(ConstHandle2ConstGaussianApproximation This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GaussianApproximationRead(ConstHandle2GaussianApproximation This, const char *const filename)
+GaussianApproximationRead(ConstHandle2GaussianApproximation self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GaussianApproximationWrite(ConstHandle2ConstGaussianApproximation This, const char *const filename)
+GaussianApproximationWrite(ConstHandle2ConstGaussianApproximation self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GaussianApproximationPrint(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationPrint(ConstHandle2ConstGaussianApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GaussianApproximationPrintXML(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationPrintXML(ConstHandle2ConstGaussianApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GaussianApproximationPrintJSON(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationPrintJSON(ConstHandle2ConstGaussianApproximation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ GaussianApproximationPrintJSON(ConstHandle2ConstGaussianApproximation This)
 
 // Has
 int
-GaussianApproximationPhononSpectrumHas(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationPhononSpectrumHas(ConstHandle2ConstGaussianApproximation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PhononSpectrumHas", This, extract::phononSpectrum);
+      (CLASSNAME, CLASSNAME+"PhononSpectrumHas", self, extract::phononSpectrum);
 }
 
 // Get, const
 Handle2ConstPhononSpectrum
-GaussianApproximationPhononSpectrumGetConst(ConstHandle2ConstGaussianApproximation This)
+GaussianApproximationPhononSpectrumGetConst(ConstHandle2ConstGaussianApproximation self)
 {
    return detail::getField<CPP,Handle2ConstPhononSpectrum>
-      (CLASSNAME, CLASSNAME+"PhononSpectrumGetConst", This, extract::phononSpectrum);
+      (CLASSNAME, CLASSNAME+"PhononSpectrumGetConst", self, extract::phononSpectrum);
 }
 
 // Get, non-const
 Handle2PhononSpectrum
-GaussianApproximationPhononSpectrumGet(ConstHandle2GaussianApproximation This)
+GaussianApproximationPhononSpectrumGet(ConstHandle2GaussianApproximation self)
 {
    return detail::getField<CPP,Handle2PhononSpectrum>
-      (CLASSNAME, CLASSNAME+"PhononSpectrumGet", This, extract::phononSpectrum);
+      (CLASSNAME, CLASSNAME+"PhononSpectrumGet", self, extract::phononSpectrum);
 }
 
 // Set
 void
-GaussianApproximationPhononSpectrumSet(ConstHandle2GaussianApproximation This, ConstHandle2ConstPhononSpectrum phononSpectrum)
+GaussianApproximationPhononSpectrumSet(ConstHandle2GaussianApproximation self, ConstHandle2ConstPhononSpectrum phononSpectrum)
 {
    detail::setField<CPP,CPPPhononSpectrum>
-      (CLASSNAME, CLASSNAME+"PhononSpectrumSet", This, extract::phononSpectrum, phononSpectrum);
+      (CLASSNAME, CLASSNAME+"PhononSpectrumSet", self, extract::phononSpectrum, phononSpectrum);
 }
 
 

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// PhotonEmissionProbabilities wrapper
-void wrapPhotonEmissionProbabilities(python::module &module)
+// wrapper for transport::PhotonEmissionProbabilities
+void wrapPhotonEmissionProbabilities(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::PhotonEmissionProbabilities;
+   using cppCLASS = transport::PhotonEmissionProbabilities;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "PhotonEmissionProbabilities",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "PhotonEmissionProbabilities",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<pops::Shell> &
-         >(),
-         python::arg("shell") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "shell",
-         [](const Component &self) { return self.shell(); },
-         Component::documentation("shell").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<pops::Shell> &
+      >(),
+      py::arg("shell") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set shell
+   object.def_property(
+      "shell",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.shell();
+      },
+      [](cppCLASS &self, const std::optional<pops::Shell> &value)
+      {
+         self.shell() = value;
+      },
+      cppCLASS::component_t::documentation("shell").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

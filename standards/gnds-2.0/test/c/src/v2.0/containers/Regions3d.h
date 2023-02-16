@@ -100,13 +100,13 @@ Regions3dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Regions3dAssign(ConstHandle2Regions3d This, ConstHandle2ConstRegions3d from);
+Regions3dAssign(ConstHandle2Regions3d self, ConstHandle2ConstRegions3d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Regions3dDelete(ConstHandle2ConstRegions3d This);
+Regions3dDelete(ConstHandle2ConstRegions3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -119,25 +119,25 @@ Regions3dDelete(ConstHandle2ConstRegions3d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Regions3dRead(ConstHandle2Regions3d This, const char *const filename);
+Regions3dRead(ConstHandle2Regions3d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Regions3dWrite(ConstHandle2ConstRegions3d This, const char *const filename);
+Regions3dWrite(ConstHandle2ConstRegions3d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Regions3dPrint(ConstHandle2ConstRegions3d This);
+Regions3dPrint(ConstHandle2ConstRegions3d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Regions3dPrintXML(ConstHandle2ConstRegions3d This);
+Regions3dPrintXML(ConstHandle2ConstRegions3d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Regions3dPrintJSON(ConstHandle2ConstRegions3d This);
+Regions3dPrintJSON(ConstHandle2ConstRegions3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -146,16 +146,16 @@ Regions3dPrintJSON(ConstHandle2ConstRegions3d This);
 
 // +++ Has
 extern_c int
-Regions3dLabelHas(ConstHandle2ConstRegions3d This);
+Regions3dLabelHas(ConstHandle2ConstRegions3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-Regions3dLabelGet(ConstHandle2ConstRegions3d This);
+Regions3dLabelGet(ConstHandle2ConstRegions3d self);
 
 // +++ Set
 extern_c void
-Regions3dLabelSet(ConstHandle2Regions3d This, const XMLName label);
+Regions3dLabelSet(ConstHandle2Regions3d self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -164,16 +164,16 @@ Regions3dLabelSet(ConstHandle2Regions3d This, const XMLName label);
 
 // +++ Has
 extern_c int
-Regions3dOuterDomainValueHas(ConstHandle2ConstRegions3d This);
+Regions3dOuterDomainValueHas(ConstHandle2ConstRegions3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Regions3dOuterDomainValueGet(ConstHandle2ConstRegions3d This);
+Regions3dOuterDomainValueGet(ConstHandle2ConstRegions3d self);
 
 // +++ Set
 extern_c void
-Regions3dOuterDomainValueSet(ConstHandle2Regions3d This, const Float64 outerDomainValue);
+Regions3dOuterDomainValueSet(ConstHandle2Regions3d self, const Float64 outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -182,19 +182,19 @@ Regions3dOuterDomainValueSet(ConstHandle2Regions3d This, const Float64 outerDoma
 
 // +++ Has
 extern_c int
-Regions3dAxesHas(ConstHandle2ConstRegions3d This);
+Regions3dAxesHas(ConstHandle2ConstRegions3d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Regions3dAxesGetConst(ConstHandle2ConstRegions3d This);
+Regions3dAxesGetConst(ConstHandle2ConstRegions3d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Regions3dAxesGet(ConstHandle2Regions3d This);
+Regions3dAxesGet(ConstHandle2Regions3d self);
 
 // +++ Set
 extern_c void
-Regions3dAxesSet(ConstHandle2Regions3d This, ConstHandle2ConstAxes axes);
+Regions3dAxesSet(ConstHandle2Regions3d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------
@@ -203,19 +203,19 @@ Regions3dAxesSet(ConstHandle2Regions3d This, ConstHandle2ConstAxes axes);
 
 // +++ Has
 extern_c int
-Regions3dFunction3dsHas(ConstHandle2ConstRegions3d This);
+Regions3dFunction3dsHas(ConstHandle2ConstRegions3d self);
 
 // --- Get, const
 extern_c Handle2ConstFunction3ds
-Regions3dFunction3dsGetConst(ConstHandle2ConstRegions3d This);
+Regions3dFunction3dsGetConst(ConstHandle2ConstRegions3d self);
 
 // +++ Get, non-const
 extern_c Handle2Function3ds
-Regions3dFunction3dsGet(ConstHandle2Regions3d This);
+Regions3dFunction3dsGet(ConstHandle2Regions3d self);
 
 // +++ Set
 extern_c void
-Regions3dFunction3dsSet(ConstHandle2Regions3d This, ConstHandle2ConstFunction3ds function3ds);
+Regions3dFunction3dsSet(ConstHandle2Regions3d self, ConstHandle2ConstFunction3ds function3ds);
 
 
 // -----------------------------------------------------------------------------
@@ -224,19 +224,19 @@ Regions3dFunction3dsSet(ConstHandle2Regions3d This, ConstHandle2ConstFunction3ds
 
 // +++ Has
 extern_c int
-Regions3dUncertaintyHas(ConstHandle2ConstRegions3d This);
+Regions3dUncertaintyHas(ConstHandle2ConstRegions3d self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-Regions3dUncertaintyGetConst(ConstHandle2ConstRegions3d This);
+Regions3dUncertaintyGetConst(ConstHandle2ConstRegions3d self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-Regions3dUncertaintyGet(ConstHandle2Regions3d This);
+Regions3dUncertaintyGet(ConstHandle2Regions3d self);
 
 // +++ Set
 extern_c void
-Regions3dUncertaintySet(ConstHandle2Regions3d This, ConstHandle2ConstUncertainty uncertainty);
+Regions3dUncertaintySet(ConstHandle2Regions3d self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

@@ -96,13 +96,13 @@ AverageProductMomentumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AverageProductMomentumAssign(ConstHandle2AverageProductMomentum This, ConstHandle2ConstAverageProductMomentum from);
+AverageProductMomentumAssign(ConstHandle2AverageProductMomentum self, ConstHandle2ConstAverageProductMomentum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AverageProductMomentumDelete(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumDelete(ConstHandle2ConstAverageProductMomentum self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ AverageProductMomentumDelete(ConstHandle2ConstAverageProductMomentum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AverageProductMomentumRead(ConstHandle2AverageProductMomentum This, const char *const filename);
+AverageProductMomentumRead(ConstHandle2AverageProductMomentum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AverageProductMomentumWrite(ConstHandle2ConstAverageProductMomentum This, const char *const filename);
+AverageProductMomentumWrite(ConstHandle2ConstAverageProductMomentum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AverageProductMomentumPrint(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumPrint(ConstHandle2ConstAverageProductMomentum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AverageProductMomentumPrintXML(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumPrintXML(ConstHandle2ConstAverageProductMomentum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AverageProductMomentumPrintJSON(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumPrintJSON(ConstHandle2ConstAverageProductMomentum self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ AverageProductMomentumPrintJSON(ConstHandle2ConstAverageProductMomentum This);
 
 // +++ Has
 extern_c int
-AverageProductMomentumXYs1dHas(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumXYs1dHas(ConstHandle2ConstAverageProductMomentum self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-AverageProductMomentumXYs1dGetConst(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumXYs1dGetConst(ConstHandle2ConstAverageProductMomentum self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-AverageProductMomentumXYs1dGet(ConstHandle2AverageProductMomentum This);
+AverageProductMomentumXYs1dGet(ConstHandle2AverageProductMomentum self);
 
 // +++ Set
 extern_c void
-AverageProductMomentumXYs1dSet(ConstHandle2AverageProductMomentum This, ConstHandle2ConstXYs1d XYs1d);
+AverageProductMomentumXYs1dSet(ConstHandle2AverageProductMomentum self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ AverageProductMomentumXYs1dSet(ConstHandle2AverageProductMomentum This, ConstHan
 
 // +++ Has
 extern_c int
-AverageProductMomentumGridded1dHas(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumGridded1dHas(ConstHandle2ConstAverageProductMomentum self);
 
 // --- Get, const
 extern_c Handle2ConstGridded1d
-AverageProductMomentumGridded1dGetConst(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumGridded1dGetConst(ConstHandle2ConstAverageProductMomentum self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded1d
-AverageProductMomentumGridded1dGet(ConstHandle2AverageProductMomentum This);
+AverageProductMomentumGridded1dGet(ConstHandle2AverageProductMomentum self);
 
 // +++ Set
 extern_c void
-AverageProductMomentumGridded1dSet(ConstHandle2AverageProductMomentum This, ConstHandle2ConstGridded1d gridded1d);
+AverageProductMomentumGridded1dSet(ConstHandle2AverageProductMomentum self, ConstHandle2ConstGridded1d gridded1d);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ AverageProductMomentumGridded1dSet(ConstHandle2AverageProductMomentum This, Cons
 
 // +++ Has
 extern_c int
-AverageProductMomentumRegions1dHas(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumRegions1dHas(ConstHandle2ConstAverageProductMomentum self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-AverageProductMomentumRegions1dGetConst(ConstHandle2ConstAverageProductMomentum This);
+AverageProductMomentumRegions1dGetConst(ConstHandle2ConstAverageProductMomentum self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-AverageProductMomentumRegions1dGet(ConstHandle2AverageProductMomentum This);
+AverageProductMomentumRegions1dGet(ConstHandle2AverageProductMomentum self);
 
 // +++ Set
 extern_c void
-AverageProductMomentumRegions1dSet(ConstHandle2AverageProductMomentum This, ConstHandle2ConstRegions1d regions1d);
+AverageProductMomentumRegions1dSet(ConstHandle2AverageProductMomentum self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

@@ -25,12 +25,12 @@ class ParameterLink :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterLink"; }
-   static auto FIELD() { return "parameterLink"; }
+   static auto NODENAME() { return "parameterLink"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,7 +49,40 @@ class ParameterLink :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "matrixStartIndex",
+         "nParameters"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "matrix_start_index",
+         "n_parameters"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -58,25 +91,36 @@ public:
       static inline const Integer32 nParameters = 1;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> href{this};
-   Field<std::optional<XMLName>> label{this};
-   Field<Defaulted<Integer32>> matrixStartIndex{this,defaults.matrixStartIndex};
-   Field<Defaulted<Integer32>> nParameters{this,defaults.nParameters};
+   Field<std::optional<XMLName>>
+      href{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<Defaulted<Integer32>>
+      matrixStartIndex{this,defaults.matrixStartIndex};
+   Field<Defaulted<Integer32>>
+      nParameters{this,defaults.nParameters};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->label, \
       this->matrixStartIndex, \
-      this->nParameters)
+      this->nParameters \
+   )
 
    // default
    ParameterLink() :
@@ -88,10 +132,14 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit ParameterLink(
-      const wrapper<std::optional<XMLName>> &href,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<Integer32>> &matrixStartIndex = {},
-      const wrapper<std::optional<Integer32>> &nParameters = {}
+      const wrapper<std::optional<XMLName>>
+         &href,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<Integer32>>
+         &matrixStartIndex = {},
+      const wrapper<std::optional<Integer32>>
+         &nParameters = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -137,8 +185,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterLink &operator=(const ParameterLink &) = default;
-   ParameterLink &operator=(ParameterLink &&) = default;
+   // copy
+   ParameterLink &operator=(const ParameterLink &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         label = other.label;
+         matrixStartIndex = other.matrixStartIndex;
+         nParameters = other.nParameters;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterLink &operator=(ParameterLink &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         label = std::move(other.label);
+         matrixStartIndex = std::move(other.matrixStartIndex);
+         nParameters = std::move(other.nParameters);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

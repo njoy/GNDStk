@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Date wrapper
-void wrapDate(python::module &module)
+// wrapper for gnds::Date
+void wrapDate(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Date;
+   using cppCLASS = gnds::Date;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Date",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Date",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const enums::DateType &
-         >(),
-         python::arg("value"),
-         python::arg("date_type"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "value",
-         [](const Component &self) { return self.value(); },
-         Component::documentation("value").data()
-      )
-      .def_property_readonly(
-         "date_type",
-         [](const Component &self) { return self.dateType(); },
-         Component::documentation("date_type").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const enums::DateType &
+      >(),
+      py::arg("value"),
+      py::arg("date_type"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set value
+   object.def_property(
+      "value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.value();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.value() = value;
+      },
+      cppCLASS::component_t::documentation("value").data()
+   );
+
+   // get/set dateType
+   object.def_property(
+      "date_type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.dateType();
+      },
+      [](cppCLASS &self, const enums::DateType &value)
+      {
+         self.dateType() = value;
+      },
+      cppCLASS::component_t::documentation("date_type").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

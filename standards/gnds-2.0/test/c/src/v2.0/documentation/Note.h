@@ -93,13 +93,13 @@ NoteCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NoteAssign(ConstHandle2Note This, ConstHandle2ConstNote from);
+NoteAssign(ConstHandle2Note self, ConstHandle2ConstNote from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NoteDelete(ConstHandle2ConstNote This);
+NoteDelete(ConstHandle2ConstNote self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ NoteDelete(ConstHandle2ConstNote This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NoteRead(ConstHandle2Note This, const char *const filename);
+NoteRead(ConstHandle2Note self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NoteWrite(ConstHandle2ConstNote This, const char *const filename);
+NoteWrite(ConstHandle2ConstNote self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NotePrint(ConstHandle2ConstNote This);
+NotePrint(ConstHandle2ConstNote self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NotePrintXML(ConstHandle2ConstNote This);
+NotePrintXML(ConstHandle2ConstNote self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NotePrintJSON(ConstHandle2ConstNote This);
+NotePrintJSON(ConstHandle2ConstNote self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ NotePrintJSON(ConstHandle2ConstNote This);
 
 // +++ Clear
 extern_c void
-NoteIntsClear(ConstHandle2Note This);
+NoteIntsClear(ConstHandle2Note self);
 
 // +++ Get size
 extern_c size_t
-NoteIntsSize(ConstHandle2ConstNote This);
+NoteIntsSize(ConstHandle2ConstNote self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-NoteIntsGet(ConstHandle2ConstNote This, const size_t index);
+NoteIntsGet(ConstHandle2ConstNote self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NoteIntsSet(ConstHandle2Note This, const size_t index, const int value);
+NoteIntsSet(ConstHandle2Note self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-NoteIntsGetArrayConst(ConstHandle2ConstNote This);
+NoteIntsGetArrayConst(ConstHandle2ConstNote self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-NoteIntsGetArray(ConstHandle2Note This);
+NoteIntsGetArray(ConstHandle2Note self);
 
 // +++ Set completely new values and size
 extern_c void
-NoteIntsSetArray(ConstHandle2Note This, const int *const values, const size_t size);
+NoteIntsSetArray(ConstHandle2Note self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ NoteIntsSetArray(ConstHandle2Note This, const int *const values, const size_t si
 
 // +++ Clear
 extern_c void
-NoteUnsignedsClear(ConstHandle2Note This);
+NoteUnsignedsClear(ConstHandle2Note self);
 
 // +++ Get size
 extern_c size_t
-NoteUnsignedsSize(ConstHandle2ConstNote This);
+NoteUnsignedsSize(ConstHandle2ConstNote self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-NoteUnsignedsGet(ConstHandle2ConstNote This, const size_t index);
+NoteUnsignedsGet(ConstHandle2ConstNote self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NoteUnsignedsSet(ConstHandle2Note This, const size_t index, const unsigned value);
+NoteUnsignedsSet(ConstHandle2Note self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-NoteUnsignedsGetArrayConst(ConstHandle2ConstNote This);
+NoteUnsignedsGetArrayConst(ConstHandle2ConstNote self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-NoteUnsignedsGetArray(ConstHandle2Note This);
+NoteUnsignedsGetArray(ConstHandle2Note self);
 
 // +++ Set completely new values and size
 extern_c void
-NoteUnsignedsSetArray(ConstHandle2Note This, const unsigned *const values, const size_t size);
+NoteUnsignedsSetArray(ConstHandle2Note self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ NoteUnsignedsSetArray(ConstHandle2Note This, const unsigned *const values, const
 
 // +++ Clear
 extern_c void
-NoteFloatsClear(ConstHandle2Note This);
+NoteFloatsClear(ConstHandle2Note self);
 
 // +++ Get size
 extern_c size_t
-NoteFloatsSize(ConstHandle2ConstNote This);
+NoteFloatsSize(ConstHandle2ConstNote self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-NoteFloatsGet(ConstHandle2ConstNote This, const size_t index);
+NoteFloatsGet(ConstHandle2ConstNote self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NoteFloatsSet(ConstHandle2Note This, const size_t index, const float value);
+NoteFloatsSet(ConstHandle2Note self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-NoteFloatsGetArrayConst(ConstHandle2ConstNote This);
+NoteFloatsGetArrayConst(ConstHandle2ConstNote self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-NoteFloatsGetArray(ConstHandle2Note This);
+NoteFloatsGetArray(ConstHandle2Note self);
 
 // +++ Set completely new values and size
 extern_c void
-NoteFloatsSetArray(ConstHandle2Note This, const float *const values, const size_t size);
+NoteFloatsSetArray(ConstHandle2Note self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ NoteFloatsSetArray(ConstHandle2Note This, const float *const values, const size_
 
 // +++ Clear
 extern_c void
-NoteDoublesClear(ConstHandle2Note This);
+NoteDoublesClear(ConstHandle2Note self);
 
 // +++ Get size
 extern_c size_t
-NoteDoublesSize(ConstHandle2ConstNote This);
+NoteDoublesSize(ConstHandle2ConstNote self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-NoteDoublesGet(ConstHandle2ConstNote This, const size_t index);
+NoteDoublesGet(ConstHandle2ConstNote self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NoteDoublesSet(ConstHandle2Note This, const size_t index, const double value);
+NoteDoublesSet(ConstHandle2Note self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-NoteDoublesGetArrayConst(ConstHandle2ConstNote This);
+NoteDoublesGetArrayConst(ConstHandle2ConstNote self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-NoteDoublesGetArray(ConstHandle2Note This);
+NoteDoublesGetArray(ConstHandle2Note self);
 
 // +++ Set completely new values and size
 extern_c void
-NoteDoublesSetArray(ConstHandle2Note This, const double *const values, const size_t size);
+NoteDoublesSetArray(ConstHandle2Note self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ NoteDoublesSetArray(ConstHandle2Note This, const double *const values, const siz
 
 // +++ Has
 extern_c int
-NoteEncodingHas(ConstHandle2ConstNote This);
+NoteEncodingHas(ConstHandle2ConstNote self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-NoteEncodingGet(ConstHandle2ConstNote This);
+NoteEncodingGet(ConstHandle2ConstNote self);
 
 // +++ Set
 extern_c void
-NoteEncodingSet(ConstHandle2Note This, const XMLName encoding);
+NoteEncodingSet(ConstHandle2Note self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ NoteEncodingSet(ConstHandle2Note This, const XMLName encoding);
 
 // +++ Has
 extern_c int
-NoteMarkupHas(ConstHandle2ConstNote This);
+NoteMarkupHas(ConstHandle2ConstNote self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-NoteMarkupGet(ConstHandle2ConstNote This);
+NoteMarkupGet(ConstHandle2ConstNote self);
 
 // +++ Set
 extern_c void
-NoteMarkupSet(ConstHandle2Note This, const char *const markup);
+NoteMarkupSet(ConstHandle2Note self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ NoteMarkupSet(ConstHandle2Note This, const char *const markup);
 
 // +++ Has
 extern_c int
-NoteLabelHas(ConstHandle2ConstNote This);
+NoteLabelHas(ConstHandle2ConstNote self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-NoteLabelGet(ConstHandle2ConstNote This);
+NoteLabelGet(ConstHandle2ConstNote self);
 
 // +++ Set
 extern_c void
-NoteLabelSet(ConstHandle2Note This, const XMLName label);
+NoteLabelSet(ConstHandle2Note self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

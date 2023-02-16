@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// InputDecks wrapper
-void wrapInputDecks(python::module &module)
+// wrapper for documentation::InputDecks
+void wrapInputDecks(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::InputDecks;
+   using cppCLASS = documentation::InputDecks;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "InputDecks",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "InputDecks",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::InputDeck> &
-         >(),
-         python::arg("input_deck"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "input_deck",
-         [](const Component &self) { return self.inputDeck(); },
-         Component::documentation("input_deck").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::InputDeck> &
+      >(),
+      py::arg("input_deck"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set inputDeck
+   object.def_property(
+      "input_deck",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.inputDeck();
+      },
+      [](cppCLASS &self, const std::vector<documentation::InputDeck> &value)
+      {
+         self.inputDeck() = value;
+      },
+      cppCLASS::component_t::documentation("input_deck").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

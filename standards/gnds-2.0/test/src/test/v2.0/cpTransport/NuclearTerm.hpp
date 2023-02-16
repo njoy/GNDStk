@@ -26,12 +26,12 @@ class NuclearTerm :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearTerm"; }
-   static auto FIELD() { return "nuclearTerm"; }
+   static auto NODENAME() { return "nuclearTerm"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,29 +39,69 @@ class NuclearTerm :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::XYs2d>>("XYs2d") |
-         --Child<std::optional<containers::Regions2d>>("regions2d")
+         --Child<std::optional<containers::XYs2d>>
+            ("XYs2d") |
+         --Child<std::optional<containers::Regions2d>>
+            ("regions2d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "XYs2d",
+         "regions2d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys2d",
+         "regions2d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::XYs2d>> XYs2d{this};
-   Field<std::optional<containers::Regions2d>> regions2d{this};
+   Field<std::optional<containers::XYs2d>>
+      XYs2d{this};
+   Field<std::optional<containers::Regions2d>>
+      regions2d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->XYs2d, \
-      this->regions2d)
+      this->regions2d \
+   )
 
    // default
    NuclearTerm() :
@@ -72,8 +112,10 @@ public:
 
    // from fields, comment excluded
    explicit NuclearTerm(
-      const wrapper<std::optional<containers::XYs2d>> &XYs2d,
-      const wrapper<std::optional<containers::Regions2d>> &regions2d = {}
+      const wrapper<std::optional<containers::XYs2d>>
+         &XYs2d,
+      const wrapper<std::optional<containers::Regions2d>>
+         &regions2d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d),
@@ -113,8 +155,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   NuclearTerm &operator=(const NuclearTerm &) = default;
-   NuclearTerm &operator=(NuclearTerm &&) = default;
+   // copy
+   NuclearTerm &operator=(const NuclearTerm &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs2d = other.XYs2d;
+         regions2d = other.regions2d;
+      }
+      return *this;
+   }
+
+   // move
+   NuclearTerm &operator=(NuclearTerm &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs2d = std::move(other.XYs2d);
+         regions2d = std::move(other.regions2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

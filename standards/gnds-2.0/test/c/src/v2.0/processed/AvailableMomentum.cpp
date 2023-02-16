@@ -75,20 +75,20 @@ AvailableMomentumCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AvailableMomentumAssign(ConstHandle2AvailableMomentum This, ConstHandle2ConstAvailableMomentum from)
+AvailableMomentumAssign(ConstHandle2AvailableMomentum self, ConstHandle2ConstAvailableMomentum from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ AvailableMomentumDelete(ConstHandle2ConstAvailableMomentum This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AvailableMomentumRead(ConstHandle2AvailableMomentum This, const char *const filename)
+AvailableMomentumRead(ConstHandle2AvailableMomentum self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AvailableMomentumWrite(ConstHandle2ConstAvailableMomentum This, const char *const filename)
+AvailableMomentumWrite(ConstHandle2ConstAvailableMomentum self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AvailableMomentumPrint(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumPrint(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AvailableMomentumPrintXML(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumPrintXML(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ AvailableMomentumPrintJSON(ConstHandle2ConstAvailableMomentum This)
 
 // Has
 int
-AvailableMomentumXYs1dHas(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumXYs1dHas(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-AvailableMomentumXYs1dGetConst(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumXYs1dGetConst(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-AvailableMomentumXYs1dGet(ConstHandle2AvailableMomentum This)
+AvailableMomentumXYs1dGet(ConstHandle2AvailableMomentum self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstXYs1d XYs1d)
+AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ AvailableMomentumXYs1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstX
 
 // Has
 int
-AvailableMomentumGridded1dHas(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumGridded1dHas(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded1dHas", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dHas", self, extract::gridded1d);
 }
 
 // Get, const
 Handle2ConstGridded1d
-AvailableMomentumGridded1dGetConst(ConstHandle2ConstAvailableMomentum This)
+AvailableMomentumGridded1dGetConst(ConstHandle2ConstAvailableMomentum self)
 {
    return detail::getField<CPP,Handle2ConstGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", self, extract::gridded1d);
 }
 
 // Get, non-const
 Handle2Gridded1d
-AvailableMomentumGridded1dGet(ConstHandle2AvailableMomentum This)
+AvailableMomentumGridded1dGet(ConstHandle2AvailableMomentum self)
 {
    return detail::getField<CPP,Handle2Gridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGet", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGet", self, extract::gridded1d);
 }
 
 // Set
 void
-AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum This, ConstHandle2ConstGridded1d gridded1d)
+AvailableMomentumGridded1dSet(ConstHandle2AvailableMomentum self, ConstHandle2ConstGridded1d gridded1d)
 {
    detail::setField<CPP,CPPGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dSet", self, extract::gridded1d, gridded1d);
 }
 
 

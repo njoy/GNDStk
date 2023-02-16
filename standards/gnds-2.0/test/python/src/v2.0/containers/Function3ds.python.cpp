@@ -11,49 +11,54 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Function3ds wrapper
-void wrapFunction3ds(python::module &module)
+// wrapper for containers::Function3ds
+void wrapFunction3ds(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Function3ds;
+   using cppCLASS = containers::Function3ds;
    using _t = std::variant<
       containers::XYs3d,
       containers::Gridded3d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Function3ds",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Function3ds",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<_t> &
-         >(),
-         python::arg("_xys3dgridded3d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "_xys3dgridded3d",
-         [](const Component &self) { return self._XYs3dgridded3d(); },
-         Component::documentation("_xys3dgridded3d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<_t> &
+      >(),
+      py::arg("_xys3dgridded3d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "_xys3dgridded3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs3dgridded3d();
+      },
+      [](cppCLASS &self, const std::vector<_t> &value)
+      {
+         self._XYs3dgridded3d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys3dgridded3d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

@@ -75,20 +75,20 @@ FormFactorCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FormFactorAssign(ConstHandle2FormFactor This, ConstHandle2ConstFormFactor from)
+FormFactorAssign(ConstHandle2FormFactor self, ConstHandle2ConstFormFactor from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FormFactorDelete(ConstHandle2ConstFormFactor This)
+FormFactorDelete(ConstHandle2ConstFormFactor self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ FormFactorDelete(ConstHandle2ConstFormFactor This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FormFactorRead(ConstHandle2FormFactor This, const char *const filename)
+FormFactorRead(ConstHandle2FormFactor self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FormFactorWrite(ConstHandle2ConstFormFactor This, const char *const filename)
+FormFactorWrite(ConstHandle2ConstFormFactor self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FormFactorPrint(ConstHandle2ConstFormFactor This)
+FormFactorPrint(ConstHandle2ConstFormFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FormFactorPrintXML(ConstHandle2ConstFormFactor This)
+FormFactorPrintXML(ConstHandle2ConstFormFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FormFactorPrintJSON(ConstHandle2ConstFormFactor This)
+FormFactorPrintJSON(ConstHandle2ConstFormFactor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ FormFactorPrintJSON(ConstHandle2ConstFormFactor This)
 
 // Has
 int
-FormFactorXYs1dHas(ConstHandle2ConstFormFactor This)
+FormFactorXYs1dHas(ConstHandle2ConstFormFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor This)
+FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-FormFactorXYs1dGet(ConstHandle2FormFactor This)
+FormFactorXYs1dGet(ConstHandle2FormFactor self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-FormFactorXYs1dSet(ConstHandle2FormFactor This, ConstHandle2ConstXYs1d XYs1d)
+FormFactorXYs1dSet(ConstHandle2FormFactor self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ FormFactorXYs1dSet(ConstHandle2FormFactor This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-FormFactorRegions1dHas(ConstHandle2ConstFormFactor This)
+FormFactorRegions1dHas(ConstHandle2ConstFormFactor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-FormFactorRegions1dGetConst(ConstHandle2ConstFormFactor This)
+FormFactorRegions1dGetConst(ConstHandle2ConstFormFactor self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-FormFactorRegions1dGet(ConstHandle2FormFactor This)
+FormFactorRegions1dGet(ConstHandle2FormFactor self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-FormFactorRegions1dSet(ConstHandle2FormFactor This, ConstHandle2ConstRegions1d regions1d)
+FormFactorRegions1dSet(ConstHandle2FormFactor self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

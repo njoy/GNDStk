@@ -25,12 +25,12 @@ class Atomic :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Atomic"; }
-   static auto FIELD() { return "atomic"; }
+   static auto NODENAME() { return "atomic"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Atomic :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<gnds::Configurations>("configurations")
+         --Child<gnds::Configurations>
+            ("configurations")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "configurations"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "configurations"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<gnds::Configurations> configurations{this};
+   Field<gnds::Configurations>
+      configurations{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->configurations)
+      this->configurations \
+   )
 
    // default
    Atomic() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Atomic(
-      const wrapper<gnds::Configurations> &configurations
+      const wrapper<gnds::Configurations>
+         &configurations
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configurations(this,configurations)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Atomic &operator=(const Atomic &) = default;
-   Atomic &operator=(Atomic &&) = default;
+   // copy
+   Atomic &operator=(const Atomic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         configurations = other.configurations;
+      }
+      return *this;
+   }
+
+   // move
+   Atomic &operator=(Atomic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         configurations = std::move(other.configurations);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

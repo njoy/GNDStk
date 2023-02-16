@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Pdf_in_xs_pdf_cdf1d wrapper
-void wrapPdf_in_xs_pdf_cdf1d(python::module &module)
+// wrapper for containers::Pdf_in_xs_pdf_cdf1d
+void wrapPdf_in_xs_pdf_cdf1d(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Pdf_in_xs_pdf_cdf1d;
+   using cppCLASS = containers::Pdf_in_xs_pdf_cdf1d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Pdf_in_xs_pdf_cdf1d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Pdf_in_xs_pdf_cdf1d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const containers::Values &
-         >(),
-         python::arg("values"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self) { return self.values(); },
-         Component::documentation("values").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const containers::Values &
+      >(),
+      py::arg("values"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const containers::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

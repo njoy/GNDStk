@@ -98,13 +98,13 @@ CoulombPlusNuclearElasticMuCutoffCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CoulombPlusNuclearElasticMuCutoffAssign(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff from);
+CoulombPlusNuclearElasticMuCutoffAssign(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElast
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CoulombPlusNuclearElasticMuCutoffRead(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const char *const filename);
+CoulombPlusNuclearElasticMuCutoffRead(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CoulombPlusNuclearElasticMuCutoffWrite(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This, const char *const filename);
+CoulombPlusNuclearElasticMuCutoffWrite(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CoulombPlusNuclearElasticMuCutoffPrint(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffPrint(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CoulombPlusNuclearElasticMuCutoffPrintXML(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffPrintXML(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearEl
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticMuCutoffDateHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDateHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-CoulombPlusNuclearElasticMuCutoffDateGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDateGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const char *const date);
+CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMu
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticMuCutoffDerivedFromHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDerivedFromHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoulombPlusNuclearElasticMuCutoffDerivedFromGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDerivedFromGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const XMLName derivedFrom);
+CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearEl
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticMuCutoffLabelHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffLabelHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoulombPlusNuclearElasticMuCutoffLabelGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffLabelGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const XMLName label);
+CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticM
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticMuCutoffMuCutoffHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffMuCutoffHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-CoulombPlusNuclearElasticMuCutoffMuCutoffGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffMuCutoffGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const Float64 muCutoff);
+CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const Float64 muCutoff);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElast
 
 // +++ Has
 extern_c int
-CoulombPlusNuclearElasticMuCutoffDocumentationHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDocumentationHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-CoulombPlusNuclearElasticMuCutoffDocumentationGetConst(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDocumentationGetConst(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-CoulombPlusNuclearElasticMuCutoffDocumentationGet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This);
+CoulombPlusNuclearElasticMuCutoffDocumentationGet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self);
 
 // +++ Set
 extern_c void
-CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, ConstHandle2ConstDocumentation documentation);
+CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

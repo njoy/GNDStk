@@ -100,20 +100,20 @@ ResonancesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResonancesAssign(ConstHandle2Resonances This, ConstHandle2ConstResonances from)
+ResonancesAssign(ConstHandle2Resonances self, ConstHandle2ConstResonances from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResonancesDelete(ConstHandle2ConstResonances This)
+ResonancesDelete(ConstHandle2ConstResonances self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -127,44 +127,44 @@ ResonancesDelete(ConstHandle2ConstResonances This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResonancesRead(ConstHandle2Resonances This, const char *const filename)
+ResonancesRead(ConstHandle2Resonances self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResonancesWrite(ConstHandle2ConstResonances This, const char *const filename)
+ResonancesWrite(ConstHandle2ConstResonances self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResonancesPrint(ConstHandle2ConstResonances This)
+ResonancesPrint(ConstHandle2ConstResonances self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResonancesPrintXML(ConstHandle2ConstResonances This)
+ResonancesPrintXML(ConstHandle2ConstResonances self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResonancesPrintJSON(ConstHandle2ConstResonances This)
+ResonancesPrintJSON(ConstHandle2ConstResonances self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -174,27 +174,27 @@ ResonancesPrintJSON(ConstHandle2ConstResonances This)
 
 // Has
 int
-ResonancesHrefHas(ConstHandle2ConstResonances This)
+ResonancesHrefHas(ConstHandle2ConstResonances self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 XMLName
-ResonancesHrefGet(ConstHandle2ConstResonances This)
+ResonancesHrefGet(ConstHandle2ConstResonances self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ResonancesHrefSet(ConstHandle2Resonances This, const XMLName href)
+ResonancesHrefSet(ConstHandle2Resonances self, const XMLName href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -204,34 +204,34 @@ ResonancesHrefSet(ConstHandle2Resonances This, const XMLName href)
 
 // Has
 int
-ResonancesScatteringRadiusHas(ConstHandle2ConstResonances This)
+ResonancesScatteringRadiusHas(ConstHandle2ConstResonances self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", self, extract::scatteringRadius);
 }
 
 // Get, const
 Handle2ConstScatteringRadius
-ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances This)
+ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self)
 {
    return detail::getField<CPP,Handle2ConstScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
 // Get, non-const
 Handle2ScatteringRadius
-ResonancesScatteringRadiusGet(ConstHandle2Resonances This)
+ResonancesScatteringRadiusGet(ConstHandle2Resonances self)
 {
    return detail::getField<CPP,Handle2ScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", self, extract::scatteringRadius);
 }
 
 // Set
 void
-ResonancesScatteringRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstScatteringRadius scatteringRadius)
+ResonancesScatteringRadiusSet(ConstHandle2Resonances self, ConstHandle2ConstScatteringRadius scatteringRadius)
 {
    detail::setField<CPP,CPPScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", This, extract::scatteringRadius, scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", self, extract::scatteringRadius, scatteringRadius);
 }
 
 
@@ -241,34 +241,34 @@ ResonancesScatteringRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstScat
 
 // Has
 int
-ResonancesHardSphereRadiusHas(ConstHandle2ConstResonances This)
+ResonancesHardSphereRadiusHas(ConstHandle2ConstResonances self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", self, extract::hardSphereRadius);
 }
 
 // Get, const
 Handle2ConstHardSphereRadius
-ResonancesHardSphereRadiusGetConst(ConstHandle2ConstResonances This)
+ResonancesHardSphereRadiusGetConst(ConstHandle2ConstResonances self)
 {
    return detail::getField<CPP,Handle2ConstHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
 // Get, non-const
 Handle2HardSphereRadius
-ResonancesHardSphereRadiusGet(ConstHandle2Resonances This)
+ResonancesHardSphereRadiusGet(ConstHandle2Resonances self)
 {
    return detail::getField<CPP,Handle2HardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", self, extract::hardSphereRadius);
 }
 
 // Set
 void
-ResonancesHardSphereRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstHardSphereRadius hardSphereRadius)
+ResonancesHardSphereRadiusSet(ConstHandle2Resonances self, ConstHandle2ConstHardSphereRadius hardSphereRadius)
 {
    detail::setField<CPP,CPPHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", This, extract::hardSphereRadius, hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", self, extract::hardSphereRadius, hardSphereRadius);
 }
 
 
@@ -278,196 +278,196 @@ ResonancesHardSphereRadiusSet(ConstHandle2Resonances This, ConstHandle2ConstHard
 
 // Has
 int
-ResonancesResolvedHas(ConstHandle2ConstResonances This)
+ResonancesResolvedHas(ConstHandle2ConstResonances self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResolvedHas", This, extract::resolved);
+      (CLASSNAME, CLASSNAME+"ResolvedHas", self, extract::resolved);
 }
 
 // Clear
 void
-ResonancesResolvedClear(ConstHandle2Resonances This)
+ResonancesResolvedClear(ConstHandle2Resonances self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ResolvedClear", This, extract::resolved);
+      (CLASSNAME, CLASSNAME+"ResolvedClear", self, extract::resolved);
 }
 
 // Size
 size_t
-ResonancesResolvedSize(ConstHandle2ConstResonances This)
+ResonancesResolvedSize(ConstHandle2ConstResonances self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ResolvedSize", This, extract::resolved);
+      (CLASSNAME, CLASSNAME+"ResolvedSize", self, extract::resolved);
 }
 
 // Add
 void
-ResonancesResolvedAdd(ConstHandle2Resonances This, ConstHandle2ConstResolved resolved)
+ResonancesResolvedAdd(ConstHandle2Resonances self, ConstHandle2ConstResolved resolved)
 {
    detail::addToContainer<CPP,CPPResolved>
-      (CLASSNAME, CLASSNAME+"ResolvedAdd", This, extract::resolved, resolved);
+      (CLASSNAME, CLASSNAME+"ResolvedAdd", self, extract::resolved, resolved);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstResolved
-ResonancesResolvedGetConst(ConstHandle2ConstResonances This, const size_t index_)
+ResonancesResolvedGetConst(ConstHandle2ConstResonances self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstResolved>
-      (CLASSNAME, CLASSNAME+"ResolvedGetConst", This, extract::resolved, index_);
+      (CLASSNAME, CLASSNAME+"ResolvedGetConst", self, extract::resolved, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Resolved
-ResonancesResolvedGet(ConstHandle2Resonances This, const size_t index_)
+ResonancesResolvedGet(ConstHandle2Resonances self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Resolved>
-      (CLASSNAME, CLASSNAME+"ResolvedGet", This, extract::resolved, index_);
+      (CLASSNAME, CLASSNAME+"ResolvedGet", self, extract::resolved, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ResonancesResolvedSet(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const size_t index_,
    ConstHandle2ConstResolved resolved
 ) {
    detail::setByIndex<CPP,CPPResolved>
-      (CLASSNAME, CLASSNAME+"ResolvedSet", This, extract::resolved, index_, resolved);
+      (CLASSNAME, CLASSNAME+"ResolvedSet", self, extract::resolved, index_, resolved);
 }
 
 // Has, by domainMin
 int
 ResonancesResolvedHasByDomainMin(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ResolvedHasByDomainMin",
-       This, extract::resolved, meta::domainMin, domainMin);
+       self, extract::resolved, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, const
 Handle2ConstResolved
 ResonancesResolvedGetByDomainMinConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstResolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainMinConst",
-       This, extract::resolved, meta::domainMin, domainMin);
+       self, extract::resolved, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, non-const
 Handle2Resolved
 ResonancesResolvedGetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2Resolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainMin",
-       This, extract::resolved, meta::domainMin, domainMin);
+       self, extract::resolved, meta::domainMin, domainMin);
 }
 
 // Set, by domainMin
 void
 ResonancesResolvedSetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin,
    ConstHandle2ConstResolved resolved
 ) {
    detail::setByMetadatum<CPP,CPPResolved>
       (CLASSNAME, CLASSNAME+"ResolvedSetByDomainMin",
-       This, extract::resolved, meta::domainMin, domainMin, resolved);
+       self, extract::resolved, meta::domainMin, domainMin, resolved);
 }
 
 // Has, by domainMax
 int
 ResonancesResolvedHasByDomainMax(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ResolvedHasByDomainMax",
-       This, extract::resolved, meta::domainMax, domainMax);
+       self, extract::resolved, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, const
 Handle2ConstResolved
 ResonancesResolvedGetByDomainMaxConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstResolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainMaxConst",
-       This, extract::resolved, meta::domainMax, domainMax);
+       self, extract::resolved, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, non-const
 Handle2Resolved
 ResonancesResolvedGetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2Resolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainMax",
-       This, extract::resolved, meta::domainMax, domainMax);
+       self, extract::resolved, meta::domainMax, domainMax);
 }
 
 // Set, by domainMax
 void
 ResonancesResolvedSetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax,
    ConstHandle2ConstResolved resolved
 ) {
    detail::setByMetadatum<CPP,CPPResolved>
       (CLASSNAME, CLASSNAME+"ResolvedSetByDomainMax",
-       This, extract::resolved, meta::domainMax, domainMax, resolved);
+       self, extract::resolved, meta::domainMax, domainMax, resolved);
 }
 
 // Has, by domainUnit
 int
 ResonancesResolvedHasByDomainUnit(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ResolvedHasByDomainUnit",
-       This, extract::resolved, meta::domainUnit, domainUnit);
+       self, extract::resolved, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, const
 Handle2ConstResolved
 ResonancesResolvedGetByDomainUnitConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstResolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainUnitConst",
-       This, extract::resolved, meta::domainUnit, domainUnit);
+       self, extract::resolved, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, non-const
 Handle2Resolved
 ResonancesResolvedGetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2Resolved>
       (CLASSNAME, CLASSNAME+"ResolvedGetByDomainUnit",
-       This, extract::resolved, meta::domainUnit, domainUnit);
+       self, extract::resolved, meta::domainUnit, domainUnit);
 }
 
 // Set, by domainUnit
 void
 ResonancesResolvedSetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit,
    ConstHandle2ConstResolved resolved
 ) {
    detail::setByMetadatum<CPP,CPPResolved>
       (CLASSNAME, CLASSNAME+"ResolvedSetByDomainUnit",
-       This, extract::resolved, meta::domainUnit, domainUnit, resolved);
+       self, extract::resolved, meta::domainUnit, domainUnit, resolved);
 }
 
 
@@ -477,196 +477,196 @@ ResonancesResolvedSetByDomainUnit(
 
 // Has
 int
-ResonancesUnresolvedHas(ConstHandle2ConstResonances This)
+ResonancesUnresolvedHas(ConstHandle2ConstResonances self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnresolvedHas", This, extract::unresolved);
+      (CLASSNAME, CLASSNAME+"UnresolvedHas", self, extract::unresolved);
 }
 
 // Clear
 void
-ResonancesUnresolvedClear(ConstHandle2Resonances This)
+ResonancesUnresolvedClear(ConstHandle2Resonances self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"UnresolvedClear", This, extract::unresolved);
+      (CLASSNAME, CLASSNAME+"UnresolvedClear", self, extract::unresolved);
 }
 
 // Size
 size_t
-ResonancesUnresolvedSize(ConstHandle2ConstResonances This)
+ResonancesUnresolvedSize(ConstHandle2ConstResonances self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"UnresolvedSize", This, extract::unresolved);
+      (CLASSNAME, CLASSNAME+"UnresolvedSize", self, extract::unresolved);
 }
 
 // Add
 void
-ResonancesUnresolvedAdd(ConstHandle2Resonances This, ConstHandle2ConstUnresolved unresolved)
+ResonancesUnresolvedAdd(ConstHandle2Resonances self, ConstHandle2ConstUnresolved unresolved)
 {
    detail::addToContainer<CPP,CPPUnresolved>
-      (CLASSNAME, CLASSNAME+"UnresolvedAdd", This, extract::unresolved, unresolved);
+      (CLASSNAME, CLASSNAME+"UnresolvedAdd", self, extract::unresolved, unresolved);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstUnresolved
-ResonancesUnresolvedGetConst(ConstHandle2ConstResonances This, const size_t index_)
+ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstUnresolved>
-      (CLASSNAME, CLASSNAME+"UnresolvedGetConst", This, extract::unresolved, index_);
+      (CLASSNAME, CLASSNAME+"UnresolvedGetConst", self, extract::unresolved, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Unresolved
-ResonancesUnresolvedGet(ConstHandle2Resonances This, const size_t index_)
+ResonancesUnresolvedGet(ConstHandle2Resonances self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Unresolved>
-      (CLASSNAME, CLASSNAME+"UnresolvedGet", This, extract::unresolved, index_);
+      (CLASSNAME, CLASSNAME+"UnresolvedGet", self, extract::unresolved, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ResonancesUnresolvedSet(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const size_t index_,
    ConstHandle2ConstUnresolved unresolved
 ) {
    detail::setByIndex<CPP,CPPUnresolved>
-      (CLASSNAME, CLASSNAME+"UnresolvedSet", This, extract::unresolved, index_, unresolved);
+      (CLASSNAME, CLASSNAME+"UnresolvedSet", self, extract::unresolved, index_, unresolved);
 }
 
 // Has, by domainMin
 int
 ResonancesUnresolvedHasByDomainMin(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"UnresolvedHasByDomainMin",
-       This, extract::unresolved, meta::domainMin, domainMin);
+       self, extract::unresolved, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, const
 Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainMinConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainMinConst",
-       This, extract::unresolved, meta::domainMin, domainMin);
+       self, extract::unresolved, meta::domainMin, domainMin);
 }
 
 // Get, by domainMin, non-const
 Handle2Unresolved
 ResonancesUnresolvedGetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin
 ) {
    return detail::getByMetadatum<CPP,Handle2Unresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainMin",
-       This, extract::unresolved, meta::domainMin, domainMin);
+       self, extract::unresolved, meta::domainMin, domainMin);
 }
 
 // Set, by domainMin
 void
 ResonancesUnresolvedSetByDomainMin(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMin,
    ConstHandle2ConstUnresolved unresolved
 ) {
    detail::setByMetadatum<CPP,CPPUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedSetByDomainMin",
-       This, extract::unresolved, meta::domainMin, domainMin, unresolved);
+       self, extract::unresolved, meta::domainMin, domainMin, unresolved);
 }
 
 // Has, by domainMax
 int
 ResonancesUnresolvedHasByDomainMax(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"UnresolvedHasByDomainMax",
-       This, extract::unresolved, meta::domainMax, domainMax);
+       self, extract::unresolved, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, const
 Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainMaxConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const Float64 domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainMaxConst",
-       This, extract::unresolved, meta::domainMax, domainMax);
+       self, extract::unresolved, meta::domainMax, domainMax);
 }
 
 // Get, by domainMax, non-const
 Handle2Unresolved
 ResonancesUnresolvedGetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax
 ) {
    return detail::getByMetadatum<CPP,Handle2Unresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainMax",
-       This, extract::unresolved, meta::domainMax, domainMax);
+       self, extract::unresolved, meta::domainMax, domainMax);
 }
 
 // Set, by domainMax
 void
 ResonancesUnresolvedSetByDomainMax(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const Float64 domainMax,
    ConstHandle2ConstUnresolved unresolved
 ) {
    detail::setByMetadatum<CPP,CPPUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedSetByDomainMax",
-       This, extract::unresolved, meta::domainMax, domainMax, unresolved);
+       self, extract::unresolved, meta::domainMax, domainMax, unresolved);
 }
 
 // Has, by domainUnit
 int
 ResonancesUnresolvedHasByDomainUnit(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"UnresolvedHasByDomainUnit",
-       This, extract::unresolved, meta::domainUnit, domainUnit);
+       self, extract::unresolved, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, const
 Handle2ConstUnresolved
 ResonancesUnresolvedGetByDomainUnitConst(
-   ConstHandle2ConstResonances This,
+   ConstHandle2ConstResonances self,
    const XMLName domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainUnitConst",
-       This, extract::unresolved, meta::domainUnit, domainUnit);
+       self, extract::unresolved, meta::domainUnit, domainUnit);
 }
 
 // Get, by domainUnit, non-const
 Handle2Unresolved
 ResonancesUnresolvedGetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit
 ) {
    return detail::getByMetadatum<CPP,Handle2Unresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedGetByDomainUnit",
-       This, extract::unresolved, meta::domainUnit, domainUnit);
+       self, extract::unresolved, meta::domainUnit, domainUnit);
 }
 
 // Set, by domainUnit
 void
 ResonancesUnresolvedSetByDomainUnit(
-   ConstHandle2Resonances This,
+   ConstHandle2Resonances self,
    const XMLName domainUnit,
    ConstHandle2ConstUnresolved unresolved
 ) {
    detail::setByMetadatum<CPP,CPPUnresolved>
       (CLASSNAME, CLASSNAME+"UnresolvedSetByDomainUnit",
-       This, extract::unresolved, meta::domainUnit, domainUnit, unresolved);
+       self, extract::unresolved, meta::domainUnit, domainUnit, unresolved);
 }
 
 

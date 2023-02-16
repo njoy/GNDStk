@@ -30,12 +30,12 @@ class Discrete :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Discrete"; }
-   static auto FIELD() { return "discrete"; }
+   static auto NODENAME() { return "discrete"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,37 +47,95 @@ class Discrete :
             / Meta<>("type") |
 
          // children
-         --Child<pops::DiscreteEnergy>("energy") |
-         --Child<pops::Intensity>("intensity") |
-         --Child<std::optional<pops::InternalConversionCoefficients>>("internalConversionCoefficients") |
-         --Child<std::optional<pops::InternalPairFormationCoefficient>>("internalPairFormationCoefficient") |
-         --Child<std::optional<pops::PhotonEmissionProbabilities>>("photonEmissionProbabilities") |
-         --Child<std::optional<pops::PositronEmissionIntensity>>("positronEmissionIntensity")
+         --Child<pops::DiscreteEnergy>
+            ("energy") |
+         --Child<pops::Intensity>
+            ("intensity") |
+         --Child<std::optional<pops::InternalConversionCoefficients>>
+            ("internalConversionCoefficients") |
+         --Child<std::optional<pops::InternalPairFormationCoefficient>>
+            ("internalPairFormationCoefficient") |
+         --Child<std::optional<pops::PhotonEmissionProbabilities>>
+            ("photonEmissionProbabilities") |
+         --Child<std::optional<pops::PositronEmissionIntensity>>
+            ("positronEmissionIntensity")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "type",
+         "discreteEnergy",
+         "intensity",
+         "internalConversionCoefficients",
+         "internalPairFormationCoefficient",
+         "photonEmissionProbabilities",
+         "positronEmissionIntensity"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "type",
+         "discrete_energy",
+         "intensity",
+         "internal_conversion_coefficients",
+         "internal_pair_formation_coefficient",
+         "photon_emission_probabilities",
+         "positron_emission_intensity"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> type{this};
+   Field<std::optional<XMLName>>
+      type{this};
 
    // children
-   Field<pops::DiscreteEnergy> discreteEnergy{this};
-   Field<pops::Intensity> intensity{this};
-   Field<std::optional<pops::InternalConversionCoefficients>> internalConversionCoefficients{this};
-   Field<std::optional<pops::InternalPairFormationCoefficient>> internalPairFormationCoefficient{this};
-   Field<std::optional<pops::PhotonEmissionProbabilities>> photonEmissionProbabilities{this};
-   Field<std::optional<pops::PositronEmissionIntensity>> positronEmissionIntensity{this};
+   Field<pops::DiscreteEnergy>
+      discreteEnergy{this};
+   Field<pops::Intensity>
+      intensity{this};
+   Field<std::optional<pops::InternalConversionCoefficients>>
+      internalConversionCoefficients{this};
+   Field<std::optional<pops::InternalPairFormationCoefficient>>
+      internalPairFormationCoefficient{this};
+   Field<std::optional<pops::PhotonEmissionProbabilities>>
+      photonEmissionProbabilities{this};
+   Field<std::optional<pops::PositronEmissionIntensity>>
+      positronEmissionIntensity{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->type, \
       this->discreteEnergy, \
@@ -85,7 +143,8 @@ public:
       this->internalConversionCoefficients, \
       this->internalPairFormationCoefficient, \
       this->photonEmissionProbabilities, \
-      this->positronEmissionIntensity)
+      this->positronEmissionIntensity \
+   )
 
    // default
    Discrete() :
@@ -96,13 +155,20 @@ public:
 
    // from fields, comment excluded
    explicit Discrete(
-      const wrapper<std::optional<XMLName>> &type,
-      const wrapper<pops::DiscreteEnergy> &discreteEnergy = {},
-      const wrapper<pops::Intensity> &intensity = {},
-      const wrapper<std::optional<pops::InternalConversionCoefficients>> &internalConversionCoefficients = {},
-      const wrapper<std::optional<pops::InternalPairFormationCoefficient>> &internalPairFormationCoefficient = {},
-      const wrapper<std::optional<pops::PhotonEmissionProbabilities>> &photonEmissionProbabilities = {},
-      const wrapper<std::optional<pops::PositronEmissionIntensity>> &positronEmissionIntensity = {}
+      const wrapper<std::optional<XMLName>>
+         &type,
+      const wrapper<pops::DiscreteEnergy>
+         &discreteEnergy = {},
+      const wrapper<pops::Intensity>
+         &intensity = {},
+      const wrapper<std::optional<pops::InternalConversionCoefficients>>
+         &internalConversionCoefficients = {},
+      const wrapper<std::optional<pops::InternalPairFormationCoefficient>>
+         &internalPairFormationCoefficient = {},
+      const wrapper<std::optional<pops::PhotonEmissionProbabilities>>
+         &photonEmissionProbabilities = {},
+      const wrapper<std::optional<pops::PositronEmissionIntensity>>
+         &positronEmissionIntensity = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       type(this,type),
@@ -157,8 +223,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Discrete &operator=(const Discrete &) = default;
-   Discrete &operator=(Discrete &&) = default;
+   // copy
+   Discrete &operator=(const Discrete &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         type = other.type;
+         discreteEnergy = other.discreteEnergy;
+         intensity = other.intensity;
+         internalConversionCoefficients = other.internalConversionCoefficients;
+         internalPairFormationCoefficient = other.internalPairFormationCoefficient;
+         photonEmissionProbabilities = other.photonEmissionProbabilities;
+         positronEmissionIntensity = other.positronEmissionIntensity;
+      }
+      return *this;
+   }
+
+   // move
+   Discrete &operator=(Discrete &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         type = std::move(other.type);
+         discreteEnergy = std::move(other.discreteEnergy);
+         intensity = std::move(other.intensity);
+         internalConversionCoefficients = std::move(other.internalConversionCoefficients);
+         internalPairFormationCoefficient = std::move(other.internalPairFormationCoefficient);
+         photonEmissionProbabilities = std::move(other.photonEmissionProbabilities);
+         positronEmissionIntensity = std::move(other.positronEmissionIntensity);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

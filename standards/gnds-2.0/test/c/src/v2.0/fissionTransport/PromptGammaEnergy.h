@@ -93,13 +93,13 @@ PromptGammaEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PromptGammaEnergyAssign(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstPromptGammaEnergy from);
+PromptGammaEnergyAssign(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstPromptGammaEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ PromptGammaEnergyDelete(ConstHandle2ConstPromptGammaEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PromptGammaEnergyRead(ConstHandle2PromptGammaEnergy This, const char *const filename);
+PromptGammaEnergyRead(ConstHandle2PromptGammaEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PromptGammaEnergyWrite(ConstHandle2ConstPromptGammaEnergy This, const char *const filename);
+PromptGammaEnergyWrite(ConstHandle2ConstPromptGammaEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PromptGammaEnergyPrint(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyPrint(ConstHandle2ConstPromptGammaEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PromptGammaEnergyPrintXML(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyPrintXML(ConstHandle2ConstPromptGammaEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ PromptGammaEnergyPrintJSON(ConstHandle2ConstPromptGammaEnergy This);
 
 // +++ Has
 extern_c int
-PromptGammaEnergyXYs1dHas(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyXYs1dHas(ConstHandle2ConstPromptGammaEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy This);
+PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy self);
 
 // +++ Set
 extern_c void
-PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstXYs1d XYs1d);
+PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ PromptGammaEnergyXYs1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstX
 
 // +++ Has
 extern_c int
-PromptGammaEnergyPolynomial1dHas(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyPolynomial1dHas(ConstHandle2ConstPromptGammaEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy This);
+PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy This);
+PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy self);
 
 // +++ Set
 extern_c void
-PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy This, ConstHandle2ConstPolynomial1d polynomial1d);
+PromptGammaEnergyPolynomial1dSet(ConstHandle2PromptGammaEnergy self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

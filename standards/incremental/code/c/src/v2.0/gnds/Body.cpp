@@ -59,20 +59,20 @@ BodyCreate()
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BodyAssign(ConstHandle2Body This, ConstHandle2ConstBody from)
+BodyAssign(ConstHandle2Body self, ConstHandle2ConstBody from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BodyDelete(ConstHandle2ConstBody This)
+BodyDelete(ConstHandle2ConstBody self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -86,44 +86,44 @@ BodyDelete(ConstHandle2ConstBody This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BodyRead(ConstHandle2Body This, const char *const filename)
+BodyRead(ConstHandle2Body self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BodyWrite(ConstHandle2ConstBody This, const char *const filename)
+BodyWrite(ConstHandle2ConstBody self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BodyPrint(ConstHandle2ConstBody This)
+BodyPrint(ConstHandle2ConstBody self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BodyPrintXML(ConstHandle2ConstBody This)
+BodyPrintXML(ConstHandle2ConstBody self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BodyPrintJSON(ConstHandle2ConstBody This)
+BodyPrintJSON(ConstHandle2ConstBody self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -137,60 +137,60 @@ BodyPrintJSON(ConstHandle2ConstBody This)
 
 // Clear
 void
-BodyIntsClear(ConstHandle2Body This)
+BodyIntsClear(ConstHandle2Body self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-BodyIntsSize(ConstHandle2ConstBody This)
+BodyIntsSize(ConstHandle2ConstBody self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-BodyIntsGet(ConstHandle2ConstBody This, const size_t index)
+BodyIntsGet(ConstHandle2ConstBody self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BodyIntsSet(ConstHandle2Body This, const size_t index, const int value)
+BodyIntsSet(ConstHandle2Body self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-BodyIntsGetArrayConst(ConstHandle2ConstBody This)
+BodyIntsGetArrayConst(ConstHandle2ConstBody self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-BodyIntsGetArray(ConstHandle2Body This)
+BodyIntsGetArray(ConstHandle2Body self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BodyIntsSetArray(ConstHandle2Body This, const int *const values, const size_t size)
+BodyIntsSetArray(ConstHandle2Body self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -199,60 +199,60 @@ BodyIntsSetArray(ConstHandle2Body This, const int *const values, const size_t si
 
 // Clear
 void
-BodyUnsignedsClear(ConstHandle2Body This)
+BodyUnsignedsClear(ConstHandle2Body self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-BodyUnsignedsSize(ConstHandle2ConstBody This)
+BodyUnsignedsSize(ConstHandle2ConstBody self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-BodyUnsignedsGet(ConstHandle2ConstBody This, const size_t index)
+BodyUnsignedsGet(ConstHandle2ConstBody self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BodyUnsignedsSet(ConstHandle2Body This, const size_t index, const unsigned value)
+BodyUnsignedsSet(ConstHandle2Body self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-BodyUnsignedsGetArrayConst(ConstHandle2ConstBody This)
+BodyUnsignedsGetArrayConst(ConstHandle2ConstBody self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-BodyUnsignedsGetArray(ConstHandle2Body This)
+BodyUnsignedsGetArray(ConstHandle2Body self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BodyUnsignedsSetArray(ConstHandle2Body This, const unsigned *const values, const size_t size)
+BodyUnsignedsSetArray(ConstHandle2Body self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -261,60 +261,60 @@ BodyUnsignedsSetArray(ConstHandle2Body This, const unsigned *const values, const
 
 // Clear
 void
-BodyFloatsClear(ConstHandle2Body This)
+BodyFloatsClear(ConstHandle2Body self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-BodyFloatsSize(ConstHandle2ConstBody This)
+BodyFloatsSize(ConstHandle2ConstBody self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-BodyFloatsGet(ConstHandle2ConstBody This, const size_t index)
+BodyFloatsGet(ConstHandle2ConstBody self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BodyFloatsSet(ConstHandle2Body This, const size_t index, const float value)
+BodyFloatsSet(ConstHandle2Body self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-BodyFloatsGetArrayConst(ConstHandle2ConstBody This)
+BodyFloatsGetArrayConst(ConstHandle2ConstBody self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-BodyFloatsGetArray(ConstHandle2Body This)
+BodyFloatsGetArray(ConstHandle2Body self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-BodyFloatsSetArray(ConstHandle2Body This, const float *const values, const size_t size)
+BodyFloatsSetArray(ConstHandle2Body self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -323,60 +323,60 @@ BodyFloatsSetArray(ConstHandle2Body This, const float *const values, const size_
 
 // Clear
 void
-BodyDoublesClear(ConstHandle2Body This)
+BodyDoublesClear(ConstHandle2Body self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-BodyDoublesSize(ConstHandle2ConstBody This)
+BodyDoublesSize(ConstHandle2ConstBody self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-BodyDoublesGet(ConstHandle2ConstBody This, const size_t index)
+BodyDoublesGet(ConstHandle2ConstBody self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-BodyDoublesSet(ConstHandle2Body This, const size_t index, const double value)
+BodyDoublesSet(ConstHandle2Body self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-BodyDoublesGetArrayConst(ConstHandle2ConstBody This)
+BodyDoublesGetArrayConst(ConstHandle2ConstBody self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-BodyDoublesGetArray(ConstHandle2Body This)
+BodyDoublesGetArray(ConstHandle2Body self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-BodyDoublesSetArray(ConstHandle2Body This, const double *const values, const size_t size)
+BodyDoublesSetArray(ConstHandle2Body self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 

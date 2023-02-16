@@ -26,12 +26,12 @@ class ParameterCovariance :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "ParameterCovariance"; }
-   static auto FIELD() { return "parameterCovariance"; }
+   static auto NODENAME() { return "parameterCovariance"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class ParameterCovariance :
             / Meta<>("label") |
 
          // children
-         --Child<covariance::RowData>("rowData") |
-         ++Child<covariance::ParameterCovarianceMatrix>("parameterCovarianceMatrix")
+         --Child<covariance::RowData>
+            ("rowData") |
+         ++Child<covariance::ParameterCovarianceMatrix>
+            ("parameterCovarianceMatrix")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "rowData",
+         "parameterCovarianceMatrix"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "row_data",
+         "parameter_covariance_matrix"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<covariance::RowData> rowData{this};
-   Field<std::vector<covariance::ParameterCovarianceMatrix>> parameterCovarianceMatrix{this};
+   Field<covariance::RowData>
+      rowData{this};
+   Field<std::vector<covariance::ParameterCovarianceMatrix>>
+      parameterCovarianceMatrix{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->rowData, \
-      this->parameterCovarianceMatrix)
+      this->parameterCovarianceMatrix \
+   )
 
    // default
    ParameterCovariance() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit ParameterCovariance(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<covariance::RowData> &rowData = {},
-      const wrapper<std::vector<covariance::ParameterCovarianceMatrix>> &parameterCovarianceMatrix = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<covariance::RowData>
+         &rowData = {},
+      const wrapper<std::vector<covariance::ParameterCovarianceMatrix>>
+         &parameterCovarianceMatrix = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ParameterCovariance &operator=(const ParameterCovariance &) = default;
-   ParameterCovariance &operator=(ParameterCovariance &&) = default;
+   // copy
+   ParameterCovariance &operator=(const ParameterCovariance &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         rowData = other.rowData;
+         parameterCovarianceMatrix = other.parameterCovarianceMatrix;
+      }
+      return *this;
+   }
+
+   // move
+   ParameterCovariance &operator=(ParameterCovariance &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         rowData = std::move(other.rowData);
+         parameterCovarianceMatrix = std::move(other.parameterCovarianceMatrix);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -25,12 +25,12 @@ class Configurations :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Configurations"; }
-   static auto FIELD() { return "configurations"; }
+   static auto NODENAME() { return "configurations"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Configurations :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<gnds::Configuration>("configuration")
+         ++Child<gnds::Configuration>
+            ("configuration")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "configuration"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "configuration"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<gnds::Configuration>> configuration{this};
+   Field<std::vector<gnds::Configuration>>
+      configuration{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->configuration)
+      this->configuration \
+   )
 
    // default
    Configurations() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Configurations(
-      const wrapper<std::vector<gnds::Configuration>> &configuration
+      const wrapper<std::vector<gnds::Configuration>>
+         &configuration
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       configuration(this,configuration)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Configurations &operator=(const Configurations &) = default;
-   Configurations &operator=(Configurations &&) = default;
+   // copy
+   Configurations &operator=(const Configurations &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         configuration = other.configuration;
+      }
+      return *this;
+   }
+
+   // move
+   Configurations &operator=(Configurations &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         configuration = std::move(other.configuration);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

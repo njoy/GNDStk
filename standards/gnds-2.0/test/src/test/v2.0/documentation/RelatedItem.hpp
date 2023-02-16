@@ -25,12 +25,12 @@ class RelatedItem :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "RelatedItem"; }
-   static auto FIELD() { return "relatedItem"; }
+   static auto NODENAME() { return "relatedItem"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class RelatedItem :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "href",
+         "relationType"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "href",
+         "relation_type"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<UTF8Text> name{this};
-   Field<std::optional<UTF8Text>> href{this};
-   Field<std::optional<enums::RelationType>> relationType{this};
+   Field<UTF8Text>
+      name{this};
+   Field<std::optional<UTF8Text>>
+      href{this};
+   Field<std::optional<enums::RelationType>>
+      relationType{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->name, \
       this->href, \
-      this->relationType)
+      this->relationType \
+   )
 
    // default
    RelatedItem() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit RelatedItem(
-      const wrapper<UTF8Text> &name,
-      const wrapper<std::optional<UTF8Text>> &href = {},
-      const wrapper<std::optional<enums::RelationType>> &relationType = {}
+      const wrapper<UTF8Text>
+         &name,
+      const wrapper<std::optional<UTF8Text>>
+         &href = {},
+      const wrapper<std::optional<enums::RelationType>>
+         &relationType = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   RelatedItem &operator=(const RelatedItem &) = default;
-   RelatedItem &operator=(RelatedItem &&) = default;
+   // copy
+   RelatedItem &operator=(const RelatedItem &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+         href = other.href;
+         relationType = other.relationType;
+      }
+      return *this;
+   }
+
+   // move
+   RelatedItem &operator=(RelatedItem &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+         href = std::move(other.href);
+         relationType = std::move(other.relationType);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

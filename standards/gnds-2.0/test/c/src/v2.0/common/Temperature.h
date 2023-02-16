@@ -99,13 +99,13 @@ TemperatureCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TemperatureAssign(ConstHandle2Temperature This, ConstHandle2ConstTemperature from);
+TemperatureAssign(ConstHandle2Temperature self, ConstHandle2ConstTemperature from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TemperatureDelete(ConstHandle2ConstTemperature This);
+TemperatureDelete(ConstHandle2ConstTemperature self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ TemperatureDelete(ConstHandle2ConstTemperature This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TemperatureRead(ConstHandle2Temperature This, const char *const filename);
+TemperatureRead(ConstHandle2Temperature self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TemperatureWrite(ConstHandle2ConstTemperature This, const char *const filename);
+TemperatureWrite(ConstHandle2ConstTemperature self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TemperaturePrint(ConstHandle2ConstTemperature This);
+TemperaturePrint(ConstHandle2ConstTemperature self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TemperaturePrintXML(ConstHandle2ConstTemperature This);
+TemperaturePrintXML(ConstHandle2ConstTemperature self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TemperaturePrintJSON(ConstHandle2ConstTemperature This);
+TemperaturePrintJSON(ConstHandle2ConstTemperature self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ TemperaturePrintJSON(ConstHandle2ConstTemperature This);
 
 // +++ Has
 extern_c int
-TemperatureLabelHas(ConstHandle2ConstTemperature This);
+TemperatureLabelHas(ConstHandle2ConstTemperature self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TemperatureLabelGet(ConstHandle2ConstTemperature This);
+TemperatureLabelGet(ConstHandle2ConstTemperature self);
 
 // +++ Set
 extern_c void
-TemperatureLabelSet(ConstHandle2Temperature This, const XMLName label);
+TemperatureLabelSet(ConstHandle2Temperature self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ TemperatureLabelSet(ConstHandle2Temperature This, const XMLName label);
 
 // +++ Has
 extern_c int
-TemperatureUnitHas(ConstHandle2ConstTemperature This);
+TemperatureUnitHas(ConstHandle2ConstTemperature self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TemperatureUnitGet(ConstHandle2ConstTemperature This);
+TemperatureUnitGet(ConstHandle2ConstTemperature self);
 
 // +++ Set
 extern_c void
-TemperatureUnitSet(ConstHandle2Temperature This, const XMLName unit);
+TemperatureUnitSet(ConstHandle2Temperature self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ TemperatureUnitSet(ConstHandle2Temperature This, const XMLName unit);
 
 // +++ Has
 extern_c int
-TemperatureValueHas(ConstHandle2ConstTemperature This);
+TemperatureValueHas(ConstHandle2ConstTemperature self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-TemperatureValueGet(ConstHandle2ConstTemperature This);
+TemperatureValueGet(ConstHandle2ConstTemperature self);
 
 // +++ Set
 extern_c void
-TemperatureValueSet(ConstHandle2Temperature This, const Float64 value);
+TemperatureValueSet(ConstHandle2Temperature self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ TemperatureValueSet(ConstHandle2Temperature This, const Float64 value);
 
 // +++ Has
 extern_c int
-TemperatureDocumentationHas(ConstHandle2ConstTemperature This);
+TemperatureDocumentationHas(ConstHandle2ConstTemperature self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-TemperatureDocumentationGetConst(ConstHandle2ConstTemperature This);
+TemperatureDocumentationGetConst(ConstHandle2ConstTemperature self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-TemperatureDocumentationGet(ConstHandle2Temperature This);
+TemperatureDocumentationGet(ConstHandle2Temperature self);
 
 // +++ Set
 extern_c void
-TemperatureDocumentationSet(ConstHandle2Temperature This, ConstHandle2ConstDocumentation documentation);
+TemperatureDocumentationSet(ConstHandle2Temperature self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ TemperatureDocumentationSet(ConstHandle2Temperature This, ConstHandle2ConstDocum
 
 // +++ Has
 extern_c int
-TemperatureUncertaintyHas(ConstHandle2ConstTemperature This);
+TemperatureUncertaintyHas(ConstHandle2ConstTemperature self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-TemperatureUncertaintyGetConst(ConstHandle2ConstTemperature This);
+TemperatureUncertaintyGetConst(ConstHandle2ConstTemperature self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-TemperatureUncertaintyGet(ConstHandle2Temperature This);
+TemperatureUncertaintyGet(ConstHandle2Temperature self);
 
 // +++ Set
 extern_c void
-TemperatureUncertaintySet(ConstHandle2Temperature This, ConstHandle2ConstUncertainty uncertainty);
+TemperatureUncertaintySet(ConstHandle2Temperature self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_cpTransport {
 
-// NuclearAmplitudeExpansion wrapper
-void wrapNuclearAmplitudeExpansion(python::module &module)
+// wrapper for cpTransport::NuclearAmplitudeExpansion
+void wrapNuclearAmplitudeExpansion(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = cpTransport::NuclearAmplitudeExpansion;
+   using cppCLASS = cpTransport::NuclearAmplitudeExpansion;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "NuclearAmplitudeExpansion",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "NuclearAmplitudeExpansion",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const cpTransport::NuclearTerm &,
-            const cpTransport::RealInterferenceTerm &,
-            const cpTransport::ImaginaryInterferenceTerm &
-         >(),
-         python::arg("nuclear_term"),
-         python::arg("real_interference_term"),
-         python::arg("imaginary_interference_term"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "nuclear_term",
-         [](const Component &self) { return self.nuclearTerm(); },
-         Component::documentation("nuclear_term").data()
-      )
-      .def_property_readonly(
-         "real_interference_term",
-         [](const Component &self) { return self.realInterferenceTerm(); },
-         Component::documentation("real_interference_term").data()
-      )
-      .def_property_readonly(
-         "imaginary_interference_term",
-         [](const Component &self) { return self.imaginaryInterferenceTerm(); },
-         Component::documentation("imaginary_interference_term").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const cpTransport::NuclearTerm &,
+         const cpTransport::RealInterferenceTerm &,
+         const cpTransport::ImaginaryInterferenceTerm &
+      >(),
+      py::arg("nuclear_term"),
+      py::arg("real_interference_term"),
+      py::arg("imaginary_interference_term"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set nuclearTerm
+   object.def_property(
+      "nuclear_term",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclearTerm();
+      },
+      [](cppCLASS &self, const cpTransport::NuclearTerm &value)
+      {
+         self.nuclearTerm() = value;
+      },
+      cppCLASS::component_t::documentation("nuclear_term").data()
+   );
+
+   // get/set realInterferenceTerm
+   object.def_property(
+      "real_interference_term",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.realInterferenceTerm();
+      },
+      [](cppCLASS &self, const cpTransport::RealInterferenceTerm &value)
+      {
+         self.realInterferenceTerm() = value;
+      },
+      cppCLASS::component_t::documentation("real_interference_term").data()
+   );
+
+   // get/set imaginaryInterferenceTerm
+   object.def_property(
+      "imaginary_interference_term",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.imaginaryInterferenceTerm();
+      },
+      [](cppCLASS &self, const cpTransport::ImaginaryInterferenceTerm &value)
+      {
+         self.imaginaryInterferenceTerm() = value;
+      },
+      cppCLASS::component_t::documentation("imaginary_interference_term").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_cpTransport

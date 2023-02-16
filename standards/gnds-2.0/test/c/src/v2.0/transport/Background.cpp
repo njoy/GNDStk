@@ -81,20 +81,20 @@ BackgroundCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BackgroundAssign(ConstHandle2Background This, ConstHandle2ConstBackground from)
+BackgroundAssign(ConstHandle2Background self, ConstHandle2ConstBackground from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BackgroundDelete(ConstHandle2ConstBackground This)
+BackgroundDelete(ConstHandle2ConstBackground self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ BackgroundDelete(ConstHandle2ConstBackground This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BackgroundRead(ConstHandle2Background This, const char *const filename)
+BackgroundRead(ConstHandle2Background self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BackgroundWrite(ConstHandle2ConstBackground This, const char *const filename)
+BackgroundWrite(ConstHandle2ConstBackground self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BackgroundPrint(ConstHandle2ConstBackground This)
+BackgroundPrint(ConstHandle2ConstBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BackgroundPrintXML(ConstHandle2ConstBackground This)
+BackgroundPrintXML(ConstHandle2ConstBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BackgroundPrintJSON(ConstHandle2ConstBackground This)
+BackgroundPrintJSON(ConstHandle2ConstBackground self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ BackgroundPrintJSON(ConstHandle2ConstBackground This)
 
 // Has
 int
-BackgroundResolvedRegionHas(ConstHandle2ConstBackground This)
+BackgroundResolvedRegionHas(ConstHandle2ConstBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResolvedRegionHas", This, extract::resolvedRegion);
+      (CLASSNAME, CLASSNAME+"ResolvedRegionHas", self, extract::resolvedRegion);
 }
 
 // Get, const
 Handle2ConstResolvedRegion
-BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground This)
+BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground self)
 {
    return detail::getField<CPP,Handle2ConstResolvedRegion>
-      (CLASSNAME, CLASSNAME+"ResolvedRegionGetConst", This, extract::resolvedRegion);
+      (CLASSNAME, CLASSNAME+"ResolvedRegionGetConst", self, extract::resolvedRegion);
 }
 
 // Get, non-const
 Handle2ResolvedRegion
-BackgroundResolvedRegionGet(ConstHandle2Background This)
+BackgroundResolvedRegionGet(ConstHandle2Background self)
 {
    return detail::getField<CPP,Handle2ResolvedRegion>
-      (CLASSNAME, CLASSNAME+"ResolvedRegionGet", This, extract::resolvedRegion);
+      (CLASSNAME, CLASSNAME+"ResolvedRegionGet", self, extract::resolvedRegion);
 }
 
 // Set
 void
-BackgroundResolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstResolvedRegion resolvedRegion)
+BackgroundResolvedRegionSet(ConstHandle2Background self, ConstHandle2ConstResolvedRegion resolvedRegion)
 {
    detail::setField<CPP,CPPResolvedRegion>
-      (CLASSNAME, CLASSNAME+"ResolvedRegionSet", This, extract::resolvedRegion, resolvedRegion);
+      (CLASSNAME, CLASSNAME+"ResolvedRegionSet", self, extract::resolvedRegion, resolvedRegion);
 }
 
 
@@ -192,34 +192,34 @@ BackgroundResolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstResolv
 
 // Has
 int
-BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground This)
+BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnresolvedRegionHas", This, extract::unresolvedRegion);
+      (CLASSNAME, CLASSNAME+"UnresolvedRegionHas", self, extract::unresolvedRegion);
 }
 
 // Get, const
 Handle2ConstUnresolvedRegion
-BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground This)
+BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground self)
 {
    return detail::getField<CPP,Handle2ConstUnresolvedRegion>
-      (CLASSNAME, CLASSNAME+"UnresolvedRegionGetConst", This, extract::unresolvedRegion);
+      (CLASSNAME, CLASSNAME+"UnresolvedRegionGetConst", self, extract::unresolvedRegion);
 }
 
 // Get, non-const
 Handle2UnresolvedRegion
-BackgroundUnresolvedRegionGet(ConstHandle2Background This)
+BackgroundUnresolvedRegionGet(ConstHandle2Background self)
 {
    return detail::getField<CPP,Handle2UnresolvedRegion>
-      (CLASSNAME, CLASSNAME+"UnresolvedRegionGet", This, extract::unresolvedRegion);
+      (CLASSNAME, CLASSNAME+"UnresolvedRegionGet", self, extract::unresolvedRegion);
 }
 
 // Set
 void
-BackgroundUnresolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstUnresolvedRegion unresolvedRegion)
+BackgroundUnresolvedRegionSet(ConstHandle2Background self, ConstHandle2ConstUnresolvedRegion unresolvedRegion)
 {
    detail::setField<CPP,CPPUnresolvedRegion>
-      (CLASSNAME, CLASSNAME+"UnresolvedRegionSet", This, extract::unresolvedRegion, unresolvedRegion);
+      (CLASSNAME, CLASSNAME+"UnresolvedRegionSet", self, extract::unresolvedRegion, unresolvedRegion);
 }
 
 
@@ -229,34 +229,34 @@ BackgroundUnresolvedRegionSet(ConstHandle2Background This, ConstHandle2ConstUnre
 
 // Has
 int
-BackgroundFastRegionHas(ConstHandle2ConstBackground This)
+BackgroundFastRegionHas(ConstHandle2ConstBackground self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FastRegionHas", This, extract::fastRegion);
+      (CLASSNAME, CLASSNAME+"FastRegionHas", self, extract::fastRegion);
 }
 
 // Get, const
 Handle2ConstFastRegion
-BackgroundFastRegionGetConst(ConstHandle2ConstBackground This)
+BackgroundFastRegionGetConst(ConstHandle2ConstBackground self)
 {
    return detail::getField<CPP,Handle2ConstFastRegion>
-      (CLASSNAME, CLASSNAME+"FastRegionGetConst", This, extract::fastRegion);
+      (CLASSNAME, CLASSNAME+"FastRegionGetConst", self, extract::fastRegion);
 }
 
 // Get, non-const
 Handle2FastRegion
-BackgroundFastRegionGet(ConstHandle2Background This)
+BackgroundFastRegionGet(ConstHandle2Background self)
 {
    return detail::getField<CPP,Handle2FastRegion>
-      (CLASSNAME, CLASSNAME+"FastRegionGet", This, extract::fastRegion);
+      (CLASSNAME, CLASSNAME+"FastRegionGet", self, extract::fastRegion);
 }
 
 // Set
 void
-BackgroundFastRegionSet(ConstHandle2Background This, ConstHandle2ConstFastRegion fastRegion)
+BackgroundFastRegionSet(ConstHandle2Background self, ConstHandle2ConstFastRegion fastRegion)
 {
    detail::setField<CPP,CPPFastRegion>
-      (CLASSNAME, CLASSNAME+"FastRegionSet", This, extract::fastRegion, fastRegion);
+      (CLASSNAME, CLASSNAME+"FastRegionSet", self, extract::fastRegion, fastRegion);
 }
 
 

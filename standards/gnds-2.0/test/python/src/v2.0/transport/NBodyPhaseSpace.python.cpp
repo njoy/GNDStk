@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// NBodyPhaseSpace wrapper
-void wrapNBodyPhaseSpace(python::module &module)
+// wrapper for transport::NBodyPhaseSpace
+void wrapNBodyPhaseSpace(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::NBodyPhaseSpace;
+   using cppCLASS = transport::NBodyPhaseSpace;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "NBodyPhaseSpace",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "NBodyPhaseSpace",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Integer32> &,
-            const std::optional<tsl::Mass> &
-         >(),
-         python::arg("number_of_products") = std::nullopt,
-         python::arg("mass") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "number_of_products",
-         [](const Component &self) { return self.numberOfProducts(); },
-         Component::documentation("number_of_products").data()
-      )
-      .def_property_readonly(
-         "mass",
-         [](const Component &self) { return self.mass(); },
-         Component::documentation("mass").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Integer32> &,
+         const std::optional<tsl::Mass> &
+      >(),
+      py::arg("number_of_products") = std::nullopt,
+      py::arg("mass") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set numberOfProducts
+   object.def_property(
+      "number_of_products",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.numberOfProducts();
+      },
+      [](cppCLASS &self, const std::optional<Integer32> &value)
+      {
+         self.numberOfProducts() = value;
+      },
+      cppCLASS::component_t::documentation("number_of_products").data()
+   );
+
+   // get/set mass
+   object.def_property(
+      "mass",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mass();
+      },
+      [](cppCLASS &self, const std::optional<tsl::Mass> &value)
+      {
+         self.mass() = value;
+      },
+      cppCLASS::component_t::documentation("mass").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

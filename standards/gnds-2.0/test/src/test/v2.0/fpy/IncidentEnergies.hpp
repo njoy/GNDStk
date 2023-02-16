@@ -25,12 +25,12 @@ class IncidentEnergies :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "IncidentEnergies"; }
-   static auto FIELD() { return "incidentEnergies"; }
+   static auto NODENAME() { return "incidentEnergies"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class IncidentEnergies :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<fpy::IncidentEnergy>("incidentEnergy")
+         ++Child<fpy::IncidentEnergy>
+            ("incidentEnergy")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "incidentEnergy"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "incident_energy"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<fpy::IncidentEnergy>> incidentEnergy{this};
+   Field<std::vector<fpy::IncidentEnergy>>
+      incidentEnergy{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->incidentEnergy)
+      this->incidentEnergy \
+   )
 
    // default
    IncidentEnergies() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit IncidentEnergies(
-      const wrapper<std::vector<fpy::IncidentEnergy>> &incidentEnergy
+      const wrapper<std::vector<fpy::IncidentEnergy>>
+         &incidentEnergy
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       incidentEnergy(this,incidentEnergy)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncidentEnergies &operator=(const IncidentEnergies &) = default;
-   IncidentEnergies &operator=(IncidentEnergies &&) = default;
+   // copy
+   IncidentEnergies &operator=(const IncidentEnergies &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         incidentEnergy = other.incidentEnergy;
+      }
+      return *this;
+   }
+
+   // move
+   IncidentEnergies &operator=(IncidentEnergies &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         incidentEnergy = std::move(other.incidentEnergy);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

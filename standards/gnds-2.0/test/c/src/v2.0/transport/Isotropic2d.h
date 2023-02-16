@@ -85,13 +85,13 @@ Isotropic2dCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Isotropic2dAssign(ConstHandle2Isotropic2d This, ConstHandle2ConstIsotropic2d from);
+Isotropic2dAssign(ConstHandle2Isotropic2d self, ConstHandle2ConstIsotropic2d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Isotropic2dDelete(ConstHandle2ConstIsotropic2d This);
+Isotropic2dDelete(ConstHandle2ConstIsotropic2d self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ Isotropic2dDelete(ConstHandle2ConstIsotropic2d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Isotropic2dRead(ConstHandle2Isotropic2d This, const char *const filename);
+Isotropic2dRead(ConstHandle2Isotropic2d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Isotropic2dWrite(ConstHandle2ConstIsotropic2d This, const char *const filename);
+Isotropic2dWrite(ConstHandle2ConstIsotropic2d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Isotropic2dPrint(ConstHandle2ConstIsotropic2d This);
+Isotropic2dPrint(ConstHandle2ConstIsotropic2d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Isotropic2dPrintXML(ConstHandle2ConstIsotropic2d This);
+Isotropic2dPrintXML(ConstHandle2ConstIsotropic2d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Isotropic2dPrintJSON(ConstHandle2ConstIsotropic2d This);
+Isotropic2dPrintJSON(ConstHandle2ConstIsotropic2d self);
 
 
 // -----------------------------------------------------------------------------

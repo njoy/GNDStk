@@ -89,13 +89,13 @@ NuclidesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclidesAssign(ConstHandle2Nuclides This, ConstHandle2ConstNuclides from);
+NuclidesAssign(ConstHandle2Nuclides self, ConstHandle2ConstNuclides from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclidesDelete(ConstHandle2ConstNuclides This);
+NuclidesDelete(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ NuclidesDelete(ConstHandle2ConstNuclides This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclidesRead(ConstHandle2Nuclides This, const char *const filename);
+NuclidesRead(ConstHandle2Nuclides self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclidesWrite(ConstHandle2ConstNuclides This, const char *const filename);
+NuclidesWrite(ConstHandle2ConstNuclides self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclidesPrint(ConstHandle2ConstNuclides This);
+NuclidesPrint(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclidesPrintXML(ConstHandle2ConstNuclides This);
+NuclidesPrintXML(ConstHandle2ConstNuclides self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclidesPrintJSON(ConstHandle2ConstNuclides This);
+NuclidesPrintJSON(ConstHandle2ConstNuclides self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,33 +139,33 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides This);
 
 // +++ Clear
 extern_c void
-NuclidesIntsClear(ConstHandle2Nuclides This);
+NuclidesIntsClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesIntsSize(ConstHandle2ConstNuclides This);
+NuclidesIntsSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-NuclidesIntsGet(ConstHandle2ConstNuclides This, const size_t index);
+NuclidesIntsGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesIntsSet(ConstHandle2Nuclides This, const size_t index, const int value);
+NuclidesIntsSet(ConstHandle2Nuclides self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-NuclidesIntsGetArrayConst(ConstHandle2ConstNuclides This);
+NuclidesIntsGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-NuclidesIntsGetArray(ConstHandle2Nuclides This);
+NuclidesIntsGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesIntsSetArray(ConstHandle2Nuclides This, const int *const values, const size_t size);
+NuclidesIntsSetArray(ConstHandle2Nuclides self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -173,33 +173,33 @@ NuclidesIntsSetArray(ConstHandle2Nuclides This, const int *const values, const s
 
 // +++ Clear
 extern_c void
-NuclidesUnsignedsClear(ConstHandle2Nuclides This);
+NuclidesUnsignedsClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesUnsignedsSize(ConstHandle2ConstNuclides This);
+NuclidesUnsignedsSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-NuclidesUnsignedsGet(ConstHandle2ConstNuclides This, const size_t index);
+NuclidesUnsignedsGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesUnsignedsSet(ConstHandle2Nuclides This, const size_t index, const unsigned value);
+NuclidesUnsignedsSet(ConstHandle2Nuclides self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-NuclidesUnsignedsGetArrayConst(ConstHandle2ConstNuclides This);
+NuclidesUnsignedsGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-NuclidesUnsignedsGetArray(ConstHandle2Nuclides This);
+NuclidesUnsignedsGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesUnsignedsSetArray(ConstHandle2Nuclides This, const unsigned *const values, const size_t size);
+NuclidesUnsignedsSetArray(ConstHandle2Nuclides self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -207,33 +207,33 @@ NuclidesUnsignedsSetArray(ConstHandle2Nuclides This, const unsigned *const value
 
 // +++ Clear
 extern_c void
-NuclidesFloatsClear(ConstHandle2Nuclides This);
+NuclidesFloatsClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesFloatsSize(ConstHandle2ConstNuclides This);
+NuclidesFloatsSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-NuclidesFloatsGet(ConstHandle2ConstNuclides This, const size_t index);
+NuclidesFloatsGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesFloatsSet(ConstHandle2Nuclides This, const size_t index, const float value);
+NuclidesFloatsSet(ConstHandle2Nuclides self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-NuclidesFloatsGetArrayConst(ConstHandle2ConstNuclides This);
+NuclidesFloatsGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-NuclidesFloatsGetArray(ConstHandle2Nuclides This);
+NuclidesFloatsGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesFloatsSetArray(ConstHandle2Nuclides This, const float *const values, const size_t size);
+NuclidesFloatsSetArray(ConstHandle2Nuclides self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -241,33 +241,33 @@ NuclidesFloatsSetArray(ConstHandle2Nuclides This, const float *const values, con
 
 // +++ Clear
 extern_c void
-NuclidesDoublesClear(ConstHandle2Nuclides This);
+NuclidesDoublesClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesDoublesSize(ConstHandle2ConstNuclides This);
+NuclidesDoublesSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-NuclidesDoublesGet(ConstHandle2ConstNuclides This, const size_t index);
+NuclidesDoublesGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesDoublesSet(ConstHandle2Nuclides This, const size_t index, const double value);
+NuclidesDoublesSet(ConstHandle2Nuclides self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-NuclidesDoublesGetArrayConst(ConstHandle2ConstNuclides This);
+NuclidesDoublesGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-NuclidesDoublesGetArray(ConstHandle2Nuclides This);
+NuclidesDoublesGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesDoublesSetArray(ConstHandle2Nuclides This, const double *const values, const size_t size);
+NuclidesDoublesSetArray(ConstHandle2Nuclides self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -276,16 +276,16 @@ NuclidesDoublesSetArray(ConstHandle2Nuclides This, const double *const values, c
 
 // +++ Has
 extern_c int
-NuclidesHrefHas(ConstHandle2ConstNuclides This);
+NuclidesHrefHas(ConstHandle2ConstNuclides self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-NuclidesHrefGet(ConstHandle2ConstNuclides This);
+NuclidesHrefGet(ConstHandle2ConstNuclides self);
 
 // +++ Set
 extern_c void
-NuclidesHrefSet(ConstHandle2Nuclides This, const char *const href);
+NuclidesHrefSet(ConstHandle2Nuclides self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

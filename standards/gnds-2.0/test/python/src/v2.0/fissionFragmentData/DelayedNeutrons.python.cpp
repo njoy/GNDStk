@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionFragmentData {
 
-// DelayedNeutrons wrapper
-void wrapDelayedNeutrons(python::module &module)
+// wrapper for fissionFragmentData::DelayedNeutrons
+void wrapDelayedNeutrons(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionFragmentData::DelayedNeutrons;
+   using cppCLASS = fissionFragmentData::DelayedNeutrons;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DelayedNeutrons",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DelayedNeutrons",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<fissionFragmentData::DelayedNeutron> &
-         >(),
-         python::arg("delayed_neutron"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "delayed_neutron",
-         [](const Component &self) { return self.delayedNeutron(); },
-         Component::documentation("delayed_neutron").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<fissionFragmentData::DelayedNeutron> &
+      >(),
+      py::arg("delayed_neutron"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set delayedNeutron
+   object.def_property(
+      "delayed_neutron",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.delayedNeutron();
+      },
+      [](cppCLASS &self, const std::vector<fissionFragmentData::DelayedNeutron> &value)
+      {
+         self.delayedNeutron() = value;
+      },
+      cppCLASS::component_t::documentation("delayed_neutron").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionFragmentData

@@ -11,80 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Legendre wrapper
-void wrapLegendre(python::module &module)
+// wrapper for containers::Legendre
+void wrapLegendre(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Legendre;
+   using cppCLASS = containers::Legendre;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Legendre",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Legendre",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<Float64> &,
-            const std::optional<Integer32> &,
-            const std::optional<Float64> &,
-            const std::optional<Float64> &,
-            const containers::Values &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("lower_index") = std::nullopt,
-         python::arg("domain_min") = std::nullopt,
-         python::arg("domain_max") = std::nullopt,
-         python::arg("values"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
-         Component::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "lower_index",
-         [](const Component &self) { return self.lowerIndex().value(); },
-         Component::documentation("lower_index").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self) { return self.domainMin().value(); },
-         Component::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self) { return self.domainMax().value(); },
-         Component::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self) { return self.values(); },
-         Component::documentation("values").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<Float64> &,
+         const std::optional<Integer32> &,
+         const std::optional<Float64> &,
+         const std::optional<Float64> &,
+         const containers::Values &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("lower_index") = std::nullopt,
+      py::arg("domain_min") = std::nullopt,
+      py::arg("domain_max") = std::nullopt,
+      py::arg("values"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set lowerIndex
+   object.def_property(
+      "lower_index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.lowerIndex().value();
+      },
+      [](cppCLASS &self, const Integer32 &value)
+      {
+         self.lowerIndex() = value;
+      },
+      cppCLASS::component_t::documentation("lower_index").data()
+   );
+
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMin().value();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMax().value();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const containers::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

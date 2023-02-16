@@ -82,20 +82,20 @@ AcknowledgementCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AcknowledgementAssign(ConstHandle2Acknowledgement This, ConstHandle2ConstAcknowledgement from)
+AcknowledgementAssign(ConstHandle2Acknowledgement self, ConstHandle2ConstAcknowledgement from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AcknowledgementDelete(ConstHandle2ConstAcknowledgement This)
+AcknowledgementDelete(ConstHandle2ConstAcknowledgement self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ AcknowledgementDelete(ConstHandle2ConstAcknowledgement This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AcknowledgementRead(ConstHandle2Acknowledgement This, const char *const filename)
+AcknowledgementRead(ConstHandle2Acknowledgement self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AcknowledgementWrite(ConstHandle2ConstAcknowledgement This, const char *const filename)
+AcknowledgementWrite(ConstHandle2ConstAcknowledgement self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AcknowledgementPrint(ConstHandle2ConstAcknowledgement This)
+AcknowledgementPrint(ConstHandle2ConstAcknowledgement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AcknowledgementPrintXML(ConstHandle2ConstAcknowledgement This)
+AcknowledgementPrintXML(ConstHandle2ConstAcknowledgement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement This)
+AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ AcknowledgementPrintJSON(ConstHandle2ConstAcknowledgement This)
 
 // Clear
 void
-AcknowledgementIntsClear(ConstHandle2Acknowledgement This)
+AcknowledgementIntsClear(ConstHandle2Acknowledgement self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-AcknowledgementIntsSize(ConstHandle2ConstAcknowledgement This)
+AcknowledgementIntsSize(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-AcknowledgementIntsGet(ConstHandle2ConstAcknowledgement This, const size_t index)
+AcknowledgementIntsGet(ConstHandle2ConstAcknowledgement self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-AcknowledgementIntsSet(ConstHandle2Acknowledgement This, const size_t index, const int value)
+AcknowledgementIntsSet(ConstHandle2Acknowledgement self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-AcknowledgementIntsGetArrayConst(ConstHandle2ConstAcknowledgement This)
+AcknowledgementIntsGetArrayConst(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-AcknowledgementIntsGetArray(ConstHandle2Acknowledgement This)
+AcknowledgementIntsGetArray(ConstHandle2Acknowledgement self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-AcknowledgementIntsSetArray(ConstHandle2Acknowledgement This, const int *const values, const size_t size)
+AcknowledgementIntsSetArray(ConstHandle2Acknowledgement self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ AcknowledgementIntsSetArray(ConstHandle2Acknowledgement This, const int *const v
 
 // Clear
 void
-AcknowledgementUnsignedsClear(ConstHandle2Acknowledgement This)
+AcknowledgementUnsignedsClear(ConstHandle2Acknowledgement self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-AcknowledgementUnsignedsSize(ConstHandle2ConstAcknowledgement This)
+AcknowledgementUnsignedsSize(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-AcknowledgementUnsignedsGet(ConstHandle2ConstAcknowledgement This, const size_t index)
+AcknowledgementUnsignedsGet(ConstHandle2ConstAcknowledgement self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-AcknowledgementUnsignedsSet(ConstHandle2Acknowledgement This, const size_t index, const unsigned value)
+AcknowledgementUnsignedsSet(ConstHandle2Acknowledgement self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-AcknowledgementUnsignedsGetArrayConst(ConstHandle2ConstAcknowledgement This)
+AcknowledgementUnsignedsGetArrayConst(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-AcknowledgementUnsignedsGetArray(ConstHandle2Acknowledgement This)
+AcknowledgementUnsignedsGetArray(ConstHandle2Acknowledgement self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement This, const unsigned *const values, const size_t size)
+AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ AcknowledgementUnsignedsSetArray(ConstHandle2Acknowledgement This, const unsigne
 
 // Clear
 void
-AcknowledgementFloatsClear(ConstHandle2Acknowledgement This)
+AcknowledgementFloatsClear(ConstHandle2Acknowledgement self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-AcknowledgementFloatsSize(ConstHandle2ConstAcknowledgement This)
+AcknowledgementFloatsSize(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-AcknowledgementFloatsGet(ConstHandle2ConstAcknowledgement This, const size_t index)
+AcknowledgementFloatsGet(ConstHandle2ConstAcknowledgement self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-AcknowledgementFloatsSet(ConstHandle2Acknowledgement This, const size_t index, const float value)
+AcknowledgementFloatsSet(ConstHandle2Acknowledgement self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-AcknowledgementFloatsGetArrayConst(ConstHandle2ConstAcknowledgement This)
+AcknowledgementFloatsGetArrayConst(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-AcknowledgementFloatsGetArray(ConstHandle2Acknowledgement This)
+AcknowledgementFloatsGetArray(ConstHandle2Acknowledgement self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement This, const float *const values, const size_t size)
+AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ AcknowledgementFloatsSetArray(ConstHandle2Acknowledgement This, const float *con
 
 // Clear
 void
-AcknowledgementDoublesClear(ConstHandle2Acknowledgement This)
+AcknowledgementDoublesClear(ConstHandle2Acknowledgement self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-AcknowledgementDoublesSize(ConstHandle2ConstAcknowledgement This)
+AcknowledgementDoublesSize(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-AcknowledgementDoublesGet(ConstHandle2ConstAcknowledgement This, const size_t index)
+AcknowledgementDoublesGet(ConstHandle2ConstAcknowledgement self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-AcknowledgementDoublesSet(ConstHandle2Acknowledgement This, const size_t index, const double value)
+AcknowledgementDoublesSet(ConstHandle2Acknowledgement self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-AcknowledgementDoublesGetArrayConst(ConstHandle2ConstAcknowledgement This)
+AcknowledgementDoublesGetArrayConst(ConstHandle2ConstAcknowledgement self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-AcknowledgementDoublesGetArray(ConstHandle2Acknowledgement This)
+AcknowledgementDoublesGetArray(ConstHandle2Acknowledgement self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement This, const double *const values, const size_t size)
+AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ AcknowledgementDoublesSetArray(ConstHandle2Acknowledgement This, const double *c
 
 // Has
 int
-AcknowledgementEncodingHas(ConstHandle2ConstAcknowledgement This)
+AcknowledgementEncodingHas(ConstHandle2ConstAcknowledgement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-AcknowledgementEncodingGet(ConstHandle2ConstAcknowledgement This)
+AcknowledgementEncodingGet(ConstHandle2ConstAcknowledgement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-AcknowledgementEncodingSet(ConstHandle2Acknowledgement This, const XMLName encoding)
+AcknowledgementEncodingSet(ConstHandle2Acknowledgement self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ AcknowledgementEncodingSet(ConstHandle2Acknowledgement This, const XMLName encod
 
 // Has
 int
-AcknowledgementMarkupHas(ConstHandle2ConstAcknowledgement This)
+AcknowledgementMarkupHas(ConstHandle2ConstAcknowledgement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-AcknowledgementMarkupGet(ConstHandle2ConstAcknowledgement This)
+AcknowledgementMarkupGet(ConstHandle2ConstAcknowledgement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-AcknowledgementMarkupSet(ConstHandle2Acknowledgement This, const char *const markup)
+AcknowledgementMarkupSet(ConstHandle2Acknowledgement self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ AcknowledgementMarkupSet(ConstHandle2Acknowledgement This, const char *const mar
 
 // Has
 int
-AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement This)
+AcknowledgementLabelHas(ConstHandle2ConstAcknowledgement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement This)
+AcknowledgementLabelGet(ConstHandle2ConstAcknowledgement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label)
+AcknowledgementLabelSet(ConstHandle2Acknowledgement self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ AcknowledgementLabelSet(ConstHandle2Acknowledgement This, const XMLName label)
 
 // Has
 int
-AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement This)
+AcknowledgementTypeHas(ConstHandle2ConstAcknowledgement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeHas", self, extract::type);
 }
 
 // Get
 // Returns by value
 XMLName
-AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement This)
+AcknowledgementTypeGet(ConstHandle2ConstAcknowledgement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeGet", self, extract::type);
 }
 
 // Set
 void
-AcknowledgementTypeSet(ConstHandle2Acknowledgement This, const XMLName type)
+AcknowledgementTypeSet(ConstHandle2Acknowledgement self, const XMLName type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
+      (CLASSNAME, CLASSNAME+"TypeSet", self, extract::type, type);
 }
 
 

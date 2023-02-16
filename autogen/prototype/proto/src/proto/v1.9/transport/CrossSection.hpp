@@ -31,12 +31,12 @@ class CrossSection :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "CrossSection"; }
-   static auto FIELD() { return "crossSection"; }
+   static auto NODENAME() { return "crossSection"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,14 +49,46 @@ class CrossSection :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "XYs1d_regions1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys1d_regions1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children - variant
-   Field<std::vector<XYs1d_regions1d_t>> XYs1d_regions1d{this};
+   Field<std::vector<XYs1d_regions1d_t>>
+      XYs1d_regions1d{this};
    FieldPart<decltype(XYs1d_regions1d),containers::XYs1d> XYs1d{XYs1d_regions1d};
    FieldPart<decltype(XYs1d_regions1d),containers::Regions1d> regions1d{XYs1d_regions1d};
 
@@ -64,9 +96,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->XYs1d_regions1d)
+      this->XYs1d_regions1d \
+   )
 
    // default
    CrossSection() :
@@ -77,7 +112,8 @@ public:
 
    // from fields, comment excluded
    explicit CrossSection(
-      const wrapper<std::vector<XYs1d_regions1d_t>> &XYs1d_regions1d
+      const wrapper<std::vector<XYs1d_regions1d_t>>
+         &XYs1d_regions1d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       XYs1d_regions1d(this,XYs1d_regions1d)
@@ -114,8 +150,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   CrossSection &operator=(const CrossSection &) = default;
-   CrossSection &operator=(CrossSection &&) = default;
+   // copy
+   CrossSection &operator=(const CrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         XYs1d_regions1d = other.XYs1d_regions1d;
+      }
+      return *this;
+   }
+
+   // move
+   CrossSection &operator=(CrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         XYs1d_regions1d = std::move(other.XYs1d_regions1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

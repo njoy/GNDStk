@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Discrete wrapper
-void wrapDiscrete(python::module &module)
+// wrapper for pops::Discrete
+void wrapDiscrete(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Discrete;
+   using cppCLASS = pops::Discrete;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Discrete",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Discrete",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const pops::DiscreteEnergy &,
-            const pops::Intensity &,
-            const std::optional<pops::InternalConversionCoefficients> &,
-            const std::optional<pops::InternalPairFormationCoefficient> &,
-            const std::optional<pops::PhotonEmissionProbabilities> &,
-            const std::optional<pops::PositronEmissionIntensity> &
-         >(),
-         python::arg("type") = std::nullopt,
-         python::arg("discrete_energy"),
-         python::arg("intensity"),
-         python::arg("internal_conversion_coefficients") = std::nullopt,
-         python::arg("internal_pair_formation_coefficient") = std::nullopt,
-         python::arg("photon_emission_probabilities") = std::nullopt,
-         python::arg("positron_emission_intensity") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self) { return self.type(); },
-         Component::documentation("type").data()
-      )
-      .def_property_readonly(
-         "discrete_energy",
-         [](const Component &self) { return self.discreteEnergy(); },
-         Component::documentation("discrete_energy").data()
-      )
-      .def_property_readonly(
-         "intensity",
-         [](const Component &self) { return self.intensity(); },
-         Component::documentation("intensity").data()
-      )
-      .def_property_readonly(
-         "internal_conversion_coefficients",
-         [](const Component &self) { return self.internalConversionCoefficients(); },
-         Component::documentation("internal_conversion_coefficients").data()
-      )
-      .def_property_readonly(
-         "internal_pair_formation_coefficient",
-         [](const Component &self) { return self.internalPairFormationCoefficient(); },
-         Component::documentation("internal_pair_formation_coefficient").data()
-      )
-      .def_property_readonly(
-         "photon_emission_probabilities",
-         [](const Component &self) { return self.photonEmissionProbabilities(); },
-         Component::documentation("photon_emission_probabilities").data()
-      )
-      .def_property_readonly(
-         "positron_emission_intensity",
-         [](const Component &self) { return self.positronEmissionIntensity(); },
-         Component::documentation("positron_emission_intensity").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const pops::DiscreteEnergy &,
+         const pops::Intensity &,
+         const std::optional<pops::InternalConversionCoefficients> &,
+         const std::optional<pops::InternalPairFormationCoefficient> &,
+         const std::optional<pops::PhotonEmissionProbabilities> &,
+         const std::optional<pops::PositronEmissionIntensity> &
+      >(),
+      py::arg("type") = std::nullopt,
+      py::arg("discrete_energy"),
+      py::arg("intensity"),
+      py::arg("internal_conversion_coefficients") = std::nullopt,
+      py::arg("internal_pair_formation_coefficient") = std::nullopt,
+      py::arg("photon_emission_probabilities") = std::nullopt,
+      py::arg("positron_emission_intensity") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set discreteEnergy
+   object.def_property(
+      "discrete_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.discreteEnergy();
+      },
+      [](cppCLASS &self, const pops::DiscreteEnergy &value)
+      {
+         self.discreteEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("discrete_energy").data()
+   );
+
+   // get/set intensity
+   object.def_property(
+      "intensity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.intensity();
+      },
+      [](cppCLASS &self, const pops::Intensity &value)
+      {
+         self.intensity() = value;
+      },
+      cppCLASS::component_t::documentation("intensity").data()
+   );
+
+   // get/set internalConversionCoefficients
+   object.def_property(
+      "internal_conversion_coefficients",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.internalConversionCoefficients();
+      },
+      [](cppCLASS &self, const std::optional<pops::InternalConversionCoefficients> &value)
+      {
+         self.internalConversionCoefficients() = value;
+      },
+      cppCLASS::component_t::documentation("internal_conversion_coefficients").data()
+   );
+
+   // get/set internalPairFormationCoefficient
+   object.def_property(
+      "internal_pair_formation_coefficient",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.internalPairFormationCoefficient();
+      },
+      [](cppCLASS &self, const std::optional<pops::InternalPairFormationCoefficient> &value)
+      {
+         self.internalPairFormationCoefficient() = value;
+      },
+      cppCLASS::component_t::documentation("internal_pair_formation_coefficient").data()
+   );
+
+   // get/set photonEmissionProbabilities
+   object.def_property(
+      "photon_emission_probabilities",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.photonEmissionProbabilities();
+      },
+      [](cppCLASS &self, const std::optional<pops::PhotonEmissionProbabilities> &value)
+      {
+         self.photonEmissionProbabilities() = value;
+      },
+      cppCLASS::component_t::documentation("photon_emission_probabilities").data()
+   );
+
+   // get/set positronEmissionIntensity
+   object.def_property(
+      "positron_emission_intensity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.positronEmissionIntensity();
+      },
+      [](cppCLASS &self, const std::optional<pops::PositronEmissionIntensity> &value)
+      {
+         self.positronEmissionIntensity() = value;
+      },
+      cppCLASS::component_t::documentation("positron_emission_intensity").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

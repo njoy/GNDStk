@@ -25,12 +25,12 @@ class Array :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Array"; }
-   static auto FIELD() { return "array"; }
+   static auto NODENAME() { return "array"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -52,12 +52,55 @@ class Array :
             / Meta<>("offset") |
 
          // children
-         ++Child<std::optional<containers::Values>>("values") |
-         ++Child<std::optional<containers::Array>>("array")
+         ++Child<std::optional<containers::Values>>
+            ("values") |
+         ++Child<std::optional<containers::Array>>
+            ("array")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "shape",
+         "compression",
+         "symmetry",
+         "permutation",
+         "storageOrder",
+         "offset",
+         "values",
+         "array"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "shape",
+         "compression",
+         "symmetry",
+         "permutation",
+         "storage_order",
+         "offset",
+         "values",
+         "array"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -65,26 +108,40 @@ public:
       static inline const UTF8Text storageOrder = "row-major";
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<IntegerTuple> shape{this};
-   Field<std::optional<UTF8Text>> compression{this};
-   Field<std::optional<UTF8Text>> symmetry{this};
-   Field<std::optional<UTF8Text>> permutation{this};
-   Field<Defaulted<UTF8Text>> storageOrder{this,defaults.storageOrder};
-   Field<std::optional<IntegerTuple>> offset{this};
+   Field<IntegerTuple>
+      shape{this};
+   Field<std::optional<UTF8Text>>
+      compression{this};
+   Field<std::optional<UTF8Text>>
+      symmetry{this};
+   Field<std::optional<UTF8Text>>
+      permutation{this};
+   Field<Defaulted<UTF8Text>>
+      storageOrder{this,defaults.storageOrder};
+   Field<std::optional<IntegerTuple>>
+      offset{this};
 
    // children
-   Field<std::optional<std::vector<containers::Values>>> values{this};
-   Field<std::optional<std::vector<containers::Array>>> array{this};
+   Field<std::optional<std::vector<containers::Values>>>
+      values{this};
+   Field<std::optional<std::vector<containers::Array>>>
+      array{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->shape, \
       this->compression, \
@@ -93,7 +150,8 @@ public:
       this->storageOrder, \
       this->offset, \
       this->values, \
-      this->array)
+      this->array \
+   )
 
    // default
    Array() :
@@ -105,14 +163,22 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Array(
-      const wrapper<IntegerTuple> &shape,
-      const wrapper<std::optional<UTF8Text>> &compression = {},
-      const wrapper<std::optional<UTF8Text>> &symmetry = {},
-      const wrapper<std::optional<UTF8Text>> &permutation = {},
-      const wrapper<std::optional<UTF8Text>> &storageOrder = {},
-      const wrapper<std::optional<IntegerTuple>> &offset = {},
-      const wrapper<std::optional<std::vector<containers::Values>>> &values = {},
-      const wrapper<std::optional<std::vector<containers::Array>>> &array = {}
+      const wrapper<IntegerTuple>
+         &shape,
+      const wrapper<std::optional<UTF8Text>>
+         &compression = {},
+      const wrapper<std::optional<UTF8Text>>
+         &symmetry = {},
+      const wrapper<std::optional<UTF8Text>>
+         &permutation = {},
+      const wrapper<std::optional<UTF8Text>>
+         &storageOrder = {},
+      const wrapper<std::optional<IntegerTuple>>
+         &offset = {},
+      const wrapper<std::optional<std::vector<containers::Values>>>
+         &values = {},
+      const wrapper<std::optional<std::vector<containers::Array>>>
+         &array = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       shape(this,shape),
@@ -170,8 +236,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Array &operator=(const Array &) = default;
-   Array &operator=(Array &&) = default;
+   // copy
+   Array &operator=(const Array &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         shape = other.shape;
+         compression = other.compression;
+         symmetry = other.symmetry;
+         permutation = other.permutation;
+         storageOrder = other.storageOrder;
+         offset = other.offset;
+         values = other.values;
+         array = other.array;
+      }
+      return *this;
+   }
+
+   // move
+   Array &operator=(Array &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         shape = std::move(other.shape);
+         compression = std::move(other.compression);
+         symmetry = std::move(other.symmetry);
+         permutation = std::move(other.permutation);
+         storageOrder = std::move(other.storageOrder);
+         offset = std::move(other.offset);
+         values = std::move(other.values);
+         array = std::move(other.array);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

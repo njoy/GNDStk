@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_processed {
 
-// EnergyAngularMC wrapper
-void wrapEnergyAngularMC(python::module &module)
+// wrapper for processed::EnergyAngularMC
+void wrapEnergyAngularMC(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = processed::EnergyAngularMC;
+   using cppCLASS = processed::EnergyAngularMC;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "EnergyAngularMC",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "EnergyAngularMC",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const common::Energy &,
-            const transport::EnergyAngular &
-         >(),
-         python::arg("label"),
-         python::arg("product_frame"),
-         python::arg("energy"),
-         python::arg("energy_angular"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "energy",
-         [](const Component &self) { return self.energy(); },
-         Component::documentation("energy").data()
-      )
-      .def_property_readonly(
-         "energy_angular",
-         [](const Component &self) { return self.energyAngular(); },
-         Component::documentation("energy_angular").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const common::Energy &,
+         const transport::EnergyAngular &
+      >(),
+      py::arg("label"),
+      py::arg("product_frame"),
+      py::arg("energy"),
+      py::arg("energy_angular"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set energy
+   object.def_property(
+      "energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energy();
+      },
+      [](cppCLASS &self, const common::Energy &value)
+      {
+         self.energy() = value;
+      },
+      cppCLASS::component_t::documentation("energy").data()
+   );
+
+   // get/set energyAngular
+   object.def_property(
+      "energy_angular",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energyAngular();
+      },
+      [](cppCLASS &self, const transport::EnergyAngular &value)
+      {
+         self.energyAngular() = value;
+      },
+      cppCLASS::component_t::documentation("energy_angular").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_processed

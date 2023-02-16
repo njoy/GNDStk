@@ -95,13 +95,13 @@ IncidentEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IncidentEnergyAssign(ConstHandle2IncidentEnergy This, ConstHandle2ConstIncidentEnergy from);
+IncidentEnergyAssign(ConstHandle2IncidentEnergy self, ConstHandle2ConstIncidentEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IncidentEnergyDelete(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyDelete(ConstHandle2ConstIncidentEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ IncidentEnergyDelete(ConstHandle2ConstIncidentEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IncidentEnergyRead(ConstHandle2IncidentEnergy This, const char *const filename);
+IncidentEnergyRead(ConstHandle2IncidentEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IncidentEnergyWrite(ConstHandle2ConstIncidentEnergy This, const char *const filename);
+IncidentEnergyWrite(ConstHandle2ConstIncidentEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IncidentEnergyPrint(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyPrint(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IncidentEnergyPrintXML(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyPrintXML(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IncidentEnergyPrintJSON(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyPrintJSON(ConstHandle2ConstIncidentEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ IncidentEnergyPrintJSON(ConstHandle2ConstIncidentEnergy This);
 
 // +++ Has
 extern_c int
-IncidentEnergyLabelHas(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyLabelHas(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IncidentEnergyLabelGet(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyLabelGet(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Set
 extern_c void
-IncidentEnergyLabelSet(ConstHandle2IncidentEnergy This, const XMLName label);
+IncidentEnergyLabelSet(ConstHandle2IncidentEnergy self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -159,19 +159,19 @@ IncidentEnergyLabelSet(ConstHandle2IncidentEnergy This, const XMLName label);
 
 // +++ Has
 extern_c int
-IncidentEnergyEnergyHas(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyEnergyHas(ConstHandle2ConstIncidentEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstEnergy
-IncidentEnergyEnergyGetConst(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyEnergyGetConst(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Energy
-IncidentEnergyEnergyGet(ConstHandle2IncidentEnergy This);
+IncidentEnergyEnergyGet(ConstHandle2IncidentEnergy self);
 
 // +++ Set
 extern_c void
-IncidentEnergyEnergySet(ConstHandle2IncidentEnergy This, ConstHandle2ConstEnergy energy);
+IncidentEnergyEnergySet(ConstHandle2IncidentEnergy self, ConstHandle2ConstEnergy energy);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ IncidentEnergyEnergySet(ConstHandle2IncidentEnergy This, ConstHandle2ConstEnergy
 
 // +++ Has
 extern_c int
-IncidentEnergyYieldsHas(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyYieldsHas(ConstHandle2ConstIncidentEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstYields
-IncidentEnergyYieldsGetConst(ConstHandle2ConstIncidentEnergy This);
+IncidentEnergyYieldsGetConst(ConstHandle2ConstIncidentEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Yields
-IncidentEnergyYieldsGet(ConstHandle2IncidentEnergy This);
+IncidentEnergyYieldsGet(ConstHandle2IncidentEnergy self);
 
 // +++ Set
 extern_c void
-IncidentEnergyYieldsSet(ConstHandle2IncidentEnergy This, ConstHandle2ConstYields yields);
+IncidentEnergyYieldsSet(ConstHandle2IncidentEnergy self, ConstHandle2ConstYields yields);
 
 
 // -----------------------------------------------------------------------------

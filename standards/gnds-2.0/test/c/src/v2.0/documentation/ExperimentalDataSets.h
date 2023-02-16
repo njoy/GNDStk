@@ -90,13 +90,13 @@ ExperimentalDataSetsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExperimentalDataSetsAssign(ConstHandle2ExperimentalDataSets This, ConstHandle2ConstExperimentalDataSets from);
+ExperimentalDataSetsAssign(ConstHandle2ExperimentalDataSets self, ConstHandle2ConstExperimentalDataSets from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExperimentalDataSetsRead(ConstHandle2ExperimentalDataSets This, const char *const filename);
+ExperimentalDataSetsRead(ConstHandle2ExperimentalDataSets self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExperimentalDataSetsWrite(ConstHandle2ConstExperimentalDataSets This, const char *const filename);
+ExperimentalDataSetsWrite(ConstHandle2ConstExperimentalDataSets self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExperimentalDataSetsPrint(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsPrint(ConstHandle2ConstExperimentalDataSets self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExperimentalDataSetsPrintXML(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsPrintXML(ConstHandle2ConstExperimentalDataSets self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets This);
 
 // +++ Has
 extern_c int
-ExperimentalDataSetsExforDataSetsHas(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsExforDataSetsHas(ConstHandle2ConstExperimentalDataSets self);
 
 // --- Get, const
 extern_c Handle2ConstExforDataSets
-ExperimentalDataSetsExforDataSetsGetConst(ConstHandle2ConstExperimentalDataSets This);
+ExperimentalDataSetsExforDataSetsGetConst(ConstHandle2ConstExperimentalDataSets self);
 
 // +++ Get, non-const
 extern_c Handle2ExforDataSets
-ExperimentalDataSetsExforDataSetsGet(ConstHandle2ExperimentalDataSets This);
+ExperimentalDataSetsExforDataSetsGet(ConstHandle2ExperimentalDataSets self);
 
 // +++ Set
 extern_c void
-ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets This, ConstHandle2ConstExforDataSets exforDataSets);
+ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets self, ConstHandle2ConstExforDataSets exforDataSets);
 
 
 // -----------------------------------------------------------------------------

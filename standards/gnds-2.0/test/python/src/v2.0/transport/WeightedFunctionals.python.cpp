@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// WeightedFunctionals wrapper
-void wrapWeightedFunctionals(python::module &module)
+// wrapper for transport::WeightedFunctionals
+void wrapWeightedFunctionals(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::WeightedFunctionals;
+   using cppCLASS = transport::WeightedFunctionals;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "WeightedFunctionals",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "WeightedFunctionals",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const transport::Weighted &
-         >(),
-         python::arg("weighted"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "weighted",
-         [](const Component &self) { return self.weighted(); },
-         Component::documentation("weighted").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const transport::Weighted &
+      >(),
+      py::arg("weighted"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set weighted
+   object.def_property(
+      "weighted",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.weighted();
+      },
+      [](cppCLASS &self, const transport::Weighted &value)
+      {
+         self.weighted() = value;
+      },
+      cppCLASS::component_t::documentation("weighted").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

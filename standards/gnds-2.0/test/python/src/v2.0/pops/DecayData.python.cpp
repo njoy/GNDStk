@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// DecayData wrapper
-void wrapDecayData(python::module &module)
+// wrapper for pops::DecayData
+void wrapDecayData(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::DecayData;
+   using cppCLASS = pops::DecayData;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DecayData",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DecayData",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<pops::DecayModes> &,
-            const std::optional<pops::AverageEnergies> &
-         >(),
-         python::arg("decay_modes") = std::nullopt,
-         python::arg("average_energies") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "decay_modes",
-         [](const Component &self) { return self.decayModes(); },
-         Component::documentation("decay_modes").data()
-      )
-      .def_property_readonly(
-         "average_energies",
-         [](const Component &self) { return self.averageEnergies(); },
-         Component::documentation("average_energies").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<pops::DecayModes> &,
+         const std::optional<pops::AverageEnergies> &
+      >(),
+      py::arg("decay_modes") = std::nullopt,
+      py::arg("average_energies") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set decayModes
+   object.def_property(
+      "decay_modes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decayModes();
+      },
+      [](cppCLASS &self, const std::optional<pops::DecayModes> &value)
+      {
+         self.decayModes() = value;
+      },
+      cppCLASS::component_t::documentation("decay_modes").data()
+   );
+
+   // get/set averageEnergies
+   object.def_property(
+      "average_energies",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.averageEnergies();
+      },
+      [](cppCLASS &self, const std::optional<pops::AverageEnergies> &value)
+      {
+         self.averageEnergies() = value;
+      },
+      cppCLASS::component_t::documentation("average_energies").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

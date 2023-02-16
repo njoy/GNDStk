@@ -11,59 +11,80 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fpy {
 
-// Time wrapper
-void wrapTime(python::module &module)
+// wrapper for fpy::Time
+void wrapTime(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fpy::Time;
+   using cppCLASS = fpy::Time;
    using _t = std::variant<
       containers::Double,
       containers::String
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Time",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Time",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const _t &
-         >(),
-         python::arg("_doublestring"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self) { return self.Double(); },
-         Component::documentation("double").data()
-      )
-      .def_property_readonly(
-         "string",
-         [](const Component &self) { return self.string(); },
-         Component::documentation("string").data()
-      )
-      .def_property_readonly(
-         "_doublestring",
-         [](const Component &self) { return self._Doublestring(); },
-         Component::documentation("_doublestring").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const _t &
+      >(),
+      py::arg("_doublestring"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const containers::Double &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   object.def_property(
+      "string",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.string();
+      },
+      [](cppCLASS &self, const containers::String &value)
+      {
+         self.string() = value;
+      },
+      cppCLASS::component_t::documentation("string").data()
+   );
+
+   object.def_property(
+      "_doublestring",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._Doublestring();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._Doublestring() = value;
+      },
+      cppCLASS::component_t::documentation("_doublestring").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fpy

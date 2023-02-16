@@ -96,13 +96,13 @@ MadlandNixCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MadlandNixAssign(ConstHandle2MadlandNix This, ConstHandle2ConstMadlandNix from);
+MadlandNixAssign(ConstHandle2MadlandNix self, ConstHandle2ConstMadlandNix from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MadlandNixDelete(ConstHandle2ConstMadlandNix This);
+MadlandNixDelete(ConstHandle2ConstMadlandNix self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ MadlandNixDelete(ConstHandle2ConstMadlandNix This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MadlandNixRead(ConstHandle2MadlandNix This, const char *const filename);
+MadlandNixRead(ConstHandle2MadlandNix self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MadlandNixWrite(ConstHandle2ConstMadlandNix This, const char *const filename);
+MadlandNixWrite(ConstHandle2ConstMadlandNix self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MadlandNixPrint(ConstHandle2ConstMadlandNix This);
+MadlandNixPrint(ConstHandle2ConstMadlandNix self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MadlandNixPrintXML(ConstHandle2ConstMadlandNix This);
+MadlandNixPrintXML(ConstHandle2ConstMadlandNix self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MadlandNixPrintJSON(ConstHandle2ConstMadlandNix This);
+MadlandNixPrintJSON(ConstHandle2ConstMadlandNix self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ MadlandNixPrintJSON(ConstHandle2ConstMadlandNix This);
 
 // +++ Has
 extern_c int
-MadlandNixEFHHas(ConstHandle2ConstMadlandNix This);
+MadlandNixEFHHas(ConstHandle2ConstMadlandNix self);
 
 // --- Get, const
 extern_c Handle2ConstEFH
-MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix This);
+MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix self);
 
 // +++ Get, non-const
 extern_c Handle2EFH
-MadlandNixEFHGet(ConstHandle2MadlandNix This);
+MadlandNixEFHGet(ConstHandle2MadlandNix self);
 
 // +++ Set
 extern_c void
-MadlandNixEFHSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFH EFH);
+MadlandNixEFHSet(ConstHandle2MadlandNix self, ConstHandle2ConstEFH EFH);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ MadlandNixEFHSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFH EFH);
 
 // +++ Has
 extern_c int
-MadlandNixEFLHas(ConstHandle2ConstMadlandNix This);
+MadlandNixEFLHas(ConstHandle2ConstMadlandNix self);
 
 // --- Get, const
 extern_c Handle2ConstEFL
-MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix This);
+MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix self);
 
 // +++ Get, non-const
 extern_c Handle2EFL
-MadlandNixEFLGet(ConstHandle2MadlandNix This);
+MadlandNixEFLGet(ConstHandle2MadlandNix self);
 
 // +++ Set
 extern_c void
-MadlandNixEFLSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFL EFL);
+MadlandNixEFLSet(ConstHandle2MadlandNix self, ConstHandle2ConstEFL EFL);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ MadlandNixEFLSet(ConstHandle2MadlandNix This, ConstHandle2ConstEFL EFL);
 
 // +++ Has
 extern_c int
-MadlandNixT_MHas(ConstHandle2ConstMadlandNix This);
+MadlandNixT_MHas(ConstHandle2ConstMadlandNix self);
 
 // --- Get, const
 extern_c Handle2ConstT_M
-MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix This);
+MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix self);
 
 // +++ Get, non-const
 extern_c Handle2T_M
-MadlandNixT_MGet(ConstHandle2MadlandNix This);
+MadlandNixT_MGet(ConstHandle2MadlandNix self);
 
 // +++ Set
 extern_c void
-MadlandNixT_MSet(ConstHandle2MadlandNix This, ConstHandle2ConstT_M T_M);
+MadlandNixT_MSet(ConstHandle2MadlandNix self, ConstHandle2ConstT_M T_M);
 
 
 // -----------------------------------------------------------------------------

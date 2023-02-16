@@ -98,13 +98,13 @@ SumCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SumAssign(ConstHandle2Sum This, ConstHandle2ConstSum from);
+SumAssign(ConstHandle2Sum self, ConstHandle2ConstSum from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SumDelete(ConstHandle2ConstSum This);
+SumDelete(ConstHandle2ConstSum self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ SumDelete(ConstHandle2ConstSum This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SumRead(ConstHandle2Sum This, const char *const filename);
+SumRead(ConstHandle2Sum self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SumWrite(ConstHandle2ConstSum This, const char *const filename);
+SumWrite(ConstHandle2ConstSum self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SumPrint(ConstHandle2ConstSum This);
+SumPrint(ConstHandle2ConstSum self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SumPrintXML(ConstHandle2ConstSum This);
+SumPrintXML(ConstHandle2ConstSum self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SumPrintJSON(ConstHandle2ConstSum This);
+SumPrintJSON(ConstHandle2ConstSum self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ SumPrintJSON(ConstHandle2ConstSum This);
 
 // +++ Has
 extern_c int
-SumDomainMinHas(ConstHandle2ConstSum This);
+SumDomainMinHas(ConstHandle2ConstSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SumDomainMinGet(ConstHandle2ConstSum This);
+SumDomainMinGet(ConstHandle2ConstSum self);
 
 // +++ Set
 extern_c void
-SumDomainMinSet(ConstHandle2Sum This, const Float64 domainMin);
+SumDomainMinSet(ConstHandle2Sum self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ SumDomainMinSet(ConstHandle2Sum This, const Float64 domainMin);
 
 // +++ Has
 extern_c int
-SumDomainMaxHas(ConstHandle2ConstSum This);
+SumDomainMaxHas(ConstHandle2ConstSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-SumDomainMaxGet(ConstHandle2ConstSum This);
+SumDomainMaxGet(ConstHandle2ConstSum self);
 
 // +++ Set
 extern_c void
-SumDomainMaxSet(ConstHandle2Sum This, const Float64 domainMax);
+SumDomainMaxSet(ConstHandle2Sum self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ SumDomainMaxSet(ConstHandle2Sum This, const Float64 domainMax);
 
 // +++ Has
 extern_c int
-SumDomainUnitHas(ConstHandle2ConstSum This);
+SumDomainUnitHas(ConstHandle2ConstSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SumDomainUnitGet(ConstHandle2ConstSum This);
+SumDomainUnitGet(ConstHandle2ConstSum self);
 
 // +++ Set
 extern_c void
-SumDomainUnitSet(ConstHandle2Sum This, const XMLName domainUnit);
+SumDomainUnitSet(ConstHandle2Sum self, const XMLName domainUnit);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ SumDomainUnitSet(ConstHandle2Sum This, const XMLName domainUnit);
 
 // +++ Has
 extern_c int
-SumLabelHas(ConstHandle2ConstSum This);
+SumLabelHas(ConstHandle2ConstSum self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SumLabelGet(ConstHandle2ConstSum This);
+SumLabelGet(ConstHandle2ConstSum self);
 
 // +++ Set
 extern_c void
-SumLabelSet(ConstHandle2Sum This, const XMLName label);
+SumLabelSet(ConstHandle2Sum self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -216,32 +216,32 @@ SumLabelSet(ConstHandle2Sum This, const XMLName label);
 
 // +++ Has
 extern_c int
-SumSummandHas(ConstHandle2ConstSum This);
+SumSummandHas(ConstHandle2ConstSum self);
 
 // +++ Clear
 extern_c void
-SumSummandClear(ConstHandle2Sum This);
+SumSummandClear(ConstHandle2Sum self);
 
 // +++ Size
 extern_c size_t
-SumSummandSize(ConstHandle2ConstSum This);
+SumSummandSize(ConstHandle2ConstSum self);
 
 // +++ Add
 extern_c void
-SumSummandAdd(ConstHandle2Sum This, ConstHandle2ConstSummand summand);
+SumSummandAdd(ConstHandle2Sum self, ConstHandle2ConstSummand summand);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstSummand
-SumSummandGetConst(ConstHandle2ConstSum This, const size_t index_);
+SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Summand
-SumSummandGet(ConstHandle2Sum This, const size_t index_);
+SumSummandGet(ConstHandle2Sum self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 SumSummandSet(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const size_t index_,
    ConstHandle2ConstSummand summand
 );
@@ -249,28 +249,28 @@ SumSummandSet(
 // +++ Has, by ENDF_MFMT
 extern_c int
 SumSummandHasByENDFMFMT(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const XMLName ENDF_MFMT
 );
 
 // --- Get, by ENDF_MFMT, const
 extern_c Handle2ConstSummand
 SumSummandGetByENDFMFMTConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const XMLName ENDF_MFMT
 );
 
 // +++ Get, by ENDF_MFMT, non-const
 extern_c Handle2Summand
 SumSummandGetByENDFMFMT(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const XMLName ENDF_MFMT
 );
 
 // +++ Set, by ENDF_MFMT
 extern_c void
 SumSummandSetByENDFMFMT(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const XMLName ENDF_MFMT,
    ConstHandle2ConstSummand summand
 );
@@ -278,28 +278,28 @@ SumSummandSetByENDFMFMT(
 // +++ Has, by coefficient
 extern_c int
 SumSummandHasByCoefficient(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const Float64 coefficient
 );
 
 // --- Get, by coefficient, const
 extern_c Handle2ConstSummand
 SumSummandGetByCoefficientConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const Float64 coefficient
 );
 
 // +++ Get, by coefficient, non-const
 extern_c Handle2Summand
 SumSummandGetByCoefficient(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const Float64 coefficient
 );
 
 // +++ Set, by coefficient
 extern_c void
 SumSummandSetByCoefficient(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const Float64 coefficient,
    ConstHandle2ConstSummand summand
 );
@@ -307,28 +307,28 @@ SumSummandSetByCoefficient(
 // +++ Has, by href
 extern_c int
 SumSummandHasByHref(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const char *const href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstSummand
 SumSummandGetByHrefConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const char *const href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Summand
 SumSummandGetByHref(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const char *const href
 );
 
 // +++ Set, by href
 extern_c void
 SumSummandSetByHref(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const char *const href,
    ConstHandle2ConstSummand summand
 );

@@ -100,13 +100,13 @@ WidthCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-WidthAssign(ConstHandle2Width This, ConstHandle2ConstWidth from);
+WidthAssign(ConstHandle2Width self, ConstHandle2ConstWidth from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-WidthDelete(ConstHandle2ConstWidth This);
+WidthDelete(ConstHandle2ConstWidth self);
 
 
 // -----------------------------------------------------------------------------
@@ -119,25 +119,25 @@ WidthDelete(ConstHandle2ConstWidth This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-WidthRead(ConstHandle2Width This, const char *const filename);
+WidthRead(ConstHandle2Width self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-WidthWrite(ConstHandle2ConstWidth This, const char *const filename);
+WidthWrite(ConstHandle2ConstWidth self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-WidthPrint(ConstHandle2ConstWidth This);
+WidthPrint(ConstHandle2ConstWidth self);
 
 // +++ Print to standard output, as XML
 extern_c int
-WidthPrintXML(ConstHandle2ConstWidth This);
+WidthPrintXML(ConstHandle2ConstWidth self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-WidthPrintJSON(ConstHandle2ConstWidth This);
+WidthPrintJSON(ConstHandle2ConstWidth self);
 
 
 // -----------------------------------------------------------------------------
@@ -146,16 +146,16 @@ WidthPrintJSON(ConstHandle2ConstWidth This);
 
 // +++ Has
 extern_c int
-WidthResonanceReactionHas(ConstHandle2ConstWidth This);
+WidthResonanceReactionHas(ConstHandle2ConstWidth self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-WidthResonanceReactionGet(ConstHandle2ConstWidth This);
+WidthResonanceReactionGet(ConstHandle2ConstWidth self);
 
 // +++ Set
 extern_c void
-WidthResonanceReactionSet(ConstHandle2Width This, const char *const resonanceReaction);
+WidthResonanceReactionSet(ConstHandle2Width self, const char *const resonanceReaction);
 
 
 // -----------------------------------------------------------------------------
@@ -164,16 +164,16 @@ WidthResonanceReactionSet(ConstHandle2Width This, const char *const resonanceRea
 
 // +++ Has
 extern_c int
-WidthDegreesOfFreedomHas(ConstHandle2ConstWidth This);
+WidthDegreesOfFreedomHas(ConstHandle2ConstWidth self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-WidthDegreesOfFreedomGet(ConstHandle2ConstWidth This);
+WidthDegreesOfFreedomGet(ConstHandle2ConstWidth self);
 
 // +++ Set
 extern_c void
-WidthDegreesOfFreedomSet(ConstHandle2Width This, const Float64 degreesOfFreedom);
+WidthDegreesOfFreedomSet(ConstHandle2Width self, const Float64 degreesOfFreedom);
 
 
 // -----------------------------------------------------------------------------
@@ -182,19 +182,19 @@ WidthDegreesOfFreedomSet(ConstHandle2Width This, const Float64 degreesOfFreedom)
 
 // +++ Has
 extern_c int
-WidthConstant1dHas(ConstHandle2ConstWidth This);
+WidthConstant1dHas(ConstHandle2ConstWidth self);
 
 // --- Get, const
 extern_c Handle2ConstConstant1d
-WidthConstant1dGetConst(ConstHandle2ConstWidth This);
+WidthConstant1dGetConst(ConstHandle2ConstWidth self);
 
 // +++ Get, non-const
 extern_c Handle2Constant1d
-WidthConstant1dGet(ConstHandle2Width This);
+WidthConstant1dGet(ConstHandle2Width self);
 
 // +++ Set
 extern_c void
-WidthConstant1dSet(ConstHandle2Width This, ConstHandle2ConstConstant1d constant1d);
+WidthConstant1dSet(ConstHandle2Width self, ConstHandle2ConstConstant1d constant1d);
 
 
 // -----------------------------------------------------------------------------
@@ -203,19 +203,19 @@ WidthConstant1dSet(ConstHandle2Width This, ConstHandle2ConstConstant1d constant1
 
 // +++ Has
 extern_c int
-WidthXYs1dHas(ConstHandle2ConstWidth This);
+WidthXYs1dHas(ConstHandle2ConstWidth self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-WidthXYs1dGetConst(ConstHandle2ConstWidth This);
+WidthXYs1dGetConst(ConstHandle2ConstWidth self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-WidthXYs1dGet(ConstHandle2Width This);
+WidthXYs1dGet(ConstHandle2Width self);
 
 // +++ Set
 extern_c void
-WidthXYs1dSet(ConstHandle2Width This, ConstHandle2ConstXYs1d XYs1d);
+WidthXYs1dSet(ConstHandle2Width self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------
@@ -224,19 +224,19 @@ WidthXYs1dSet(ConstHandle2Width This, ConstHandle2ConstXYs1d XYs1d);
 
 // +++ Has
 extern_c int
-WidthRegions1dHas(ConstHandle2ConstWidth This);
+WidthRegions1dHas(ConstHandle2ConstWidth self);
 
 // --- Get, const
 extern_c Handle2ConstRegions1d
-WidthRegions1dGetConst(ConstHandle2ConstWidth This);
+WidthRegions1dGetConst(ConstHandle2ConstWidth self);
 
 // +++ Get, non-const
 extern_c Handle2Regions1d
-WidthRegions1dGet(ConstHandle2Width This);
+WidthRegions1dGet(ConstHandle2Width self);
 
 // +++ Set
 extern_c void
-WidthRegions1dSet(ConstHandle2Width This, ConstHandle2ConstRegions1d regions1d);
+WidthRegions1dSet(ConstHandle2Width self, ConstHandle2ConstRegions1d regions1d);
 
 
 // -----------------------------------------------------------------------------

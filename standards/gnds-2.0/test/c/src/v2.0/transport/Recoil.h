@@ -89,13 +89,13 @@ RecoilCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RecoilAssign(ConstHandle2Recoil This, ConstHandle2ConstRecoil from);
+RecoilAssign(ConstHandle2Recoil self, ConstHandle2ConstRecoil from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RecoilDelete(ConstHandle2ConstRecoil This);
+RecoilDelete(ConstHandle2ConstRecoil self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ RecoilDelete(ConstHandle2ConstRecoil This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RecoilRead(ConstHandle2Recoil This, const char *const filename);
+RecoilRead(ConstHandle2Recoil self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RecoilWrite(ConstHandle2ConstRecoil This, const char *const filename);
+RecoilWrite(ConstHandle2ConstRecoil self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RecoilPrint(ConstHandle2ConstRecoil This);
+RecoilPrint(ConstHandle2ConstRecoil self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RecoilPrintXML(ConstHandle2ConstRecoil This);
+RecoilPrintXML(ConstHandle2ConstRecoil self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RecoilPrintJSON(ConstHandle2ConstRecoil This);
+RecoilPrintJSON(ConstHandle2ConstRecoil self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,16 +135,16 @@ RecoilPrintJSON(ConstHandle2ConstRecoil This);
 
 // +++ Has
 extern_c int
-RecoilHrefHas(ConstHandle2ConstRecoil This);
+RecoilHrefHas(ConstHandle2ConstRecoil self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-RecoilHrefGet(ConstHandle2ConstRecoil This);
+RecoilHrefGet(ConstHandle2ConstRecoil self);
 
 // +++ Set
 extern_c void
-RecoilHrefSet(ConstHandle2Recoil This, const char *const href);
+RecoilHrefSet(ConstHandle2Recoil self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

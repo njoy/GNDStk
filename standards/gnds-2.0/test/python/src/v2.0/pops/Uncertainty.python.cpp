@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Uncertainty wrapper
-void wrapUncertainty(python::module &module)
+// wrapper for pops::Uncertainty
+void wrapUncertainty(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Uncertainty;
+   using cppCLASS = pops::Uncertainty;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Uncertainty",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Uncertainty",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<pops::Standard> &,
-            const std::optional<pops::LogNormal> &,
-            const std::optional<pops::ConfidenceIntervals> &,
-            const std::optional<pops::Pdf> &
-         >(),
-         python::arg("standard") = std::nullopt,
-         python::arg("log_normal") = std::nullopt,
-         python::arg("confidence_intervals") = std::nullopt,
-         python::arg("pdf") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "standard",
-         [](const Component &self) { return self.standard(); },
-         Component::documentation("standard").data()
-      )
-      .def_property_readonly(
-         "log_normal",
-         [](const Component &self) { return self.logNormal(); },
-         Component::documentation("log_normal").data()
-      )
-      .def_property_readonly(
-         "confidence_intervals",
-         [](const Component &self) { return self.confidenceIntervals(); },
-         Component::documentation("confidence_intervals").data()
-      )
-      .def_property_readonly(
-         "pdf",
-         [](const Component &self) { return self.pdf(); },
-         Component::documentation("pdf").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<pops::Standard> &,
+         const std::optional<pops::LogNormal> &,
+         const std::optional<pops::ConfidenceIntervals> &,
+         const std::optional<pops::Pdf> &
+      >(),
+      py::arg("standard") = std::nullopt,
+      py::arg("log_normal") = std::nullopt,
+      py::arg("confidence_intervals") = std::nullopt,
+      py::arg("pdf") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set standard
+   object.def_property(
+      "standard",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.standard();
+      },
+      [](cppCLASS &self, const std::optional<pops::Standard> &value)
+      {
+         self.standard() = value;
+      },
+      cppCLASS::component_t::documentation("standard").data()
+   );
+
+   // get/set logNormal
+   object.def_property(
+      "log_normal",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.logNormal();
+      },
+      [](cppCLASS &self, const std::optional<pops::LogNormal> &value)
+      {
+         self.logNormal() = value;
+      },
+      cppCLASS::component_t::documentation("log_normal").data()
+   );
+
+   // get/set confidenceIntervals
+   object.def_property(
+      "confidence_intervals",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.confidenceIntervals();
+      },
+      [](cppCLASS &self, const std::optional<pops::ConfidenceIntervals> &value)
+      {
+         self.confidenceIntervals() = value;
+      },
+      cppCLASS::component_t::documentation("confidence_intervals").data()
+   );
+
+   // get/set pdf
+   object.def_property(
+      "pdf",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pdf();
+      },
+      [](cppCLASS &self, const std::optional<pops::Pdf> &value)
+      {
+         self.pdf() = value;
+      },
+      cppCLASS::component_t::documentation("pdf").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

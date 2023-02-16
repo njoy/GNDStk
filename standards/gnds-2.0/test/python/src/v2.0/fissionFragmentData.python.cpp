@@ -5,24 +5,24 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // fissionFragmentData declarations
 namespace python_fissionFragmentData {
-   void wrapRate(python::module &);
-   void wrapDelayedNeutron(python::module &);
-   void wrapDelayedNeutrons(python::module &);
-   void wrapFissionFragmentData(python::module &);
+   void wrapRate(py::module &);
+   void wrapDelayedNeutron(py::module &);
+   void wrapDelayedNeutrons(py::module &);
+   void wrapFissionFragmentData(py::module &);
 } // namespace python_fissionFragmentData
 
-// fissionFragmentData wrapper
-void wrapFissionFragmentData(python::module &module)
+// wrapper for fissionFragmentData
+void wrapFissionFragmentData(py::module &module)
 {
    // create the fissionFragmentData submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "fissionFragmentData",
       "test v2.0 fissionFragmentData"
    );

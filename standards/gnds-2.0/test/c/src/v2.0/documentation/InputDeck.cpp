@@ -82,20 +82,20 @@ InputDeckCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-InputDeckAssign(ConstHandle2InputDeck This, ConstHandle2ConstInputDeck from)
+InputDeckAssign(ConstHandle2InputDeck self, ConstHandle2ConstInputDeck from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-InputDeckDelete(ConstHandle2ConstInputDeck This)
+InputDeckDelete(ConstHandle2ConstInputDeck self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ InputDeckDelete(ConstHandle2ConstInputDeck This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-InputDeckRead(ConstHandle2InputDeck This, const char *const filename)
+InputDeckRead(ConstHandle2InputDeck self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-InputDeckWrite(ConstHandle2ConstInputDeck This, const char *const filename)
+InputDeckWrite(ConstHandle2ConstInputDeck self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-InputDeckPrint(ConstHandle2ConstInputDeck This)
+InputDeckPrint(ConstHandle2ConstInputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-InputDeckPrintXML(ConstHandle2ConstInputDeck This)
+InputDeckPrintXML(ConstHandle2ConstInputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-InputDeckPrintJSON(ConstHandle2ConstInputDeck This)
+InputDeckPrintJSON(ConstHandle2ConstInputDeck self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ InputDeckPrintJSON(ConstHandle2ConstInputDeck This)
 
 // Clear
 void
-InputDeckIntsClear(ConstHandle2InputDeck This)
+InputDeckIntsClear(ConstHandle2InputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-InputDeckIntsSize(ConstHandle2ConstInputDeck This)
+InputDeckIntsSize(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-InputDeckIntsGet(ConstHandle2ConstInputDeck This, const size_t index)
+InputDeckIntsGet(ConstHandle2ConstInputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-InputDeckIntsSet(ConstHandle2InputDeck This, const size_t index, const int value)
+InputDeckIntsSet(ConstHandle2InputDeck self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-InputDeckIntsGetArrayConst(ConstHandle2ConstInputDeck This)
+InputDeckIntsGetArrayConst(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-InputDeckIntsGetArray(ConstHandle2InputDeck This)
+InputDeckIntsGetArray(ConstHandle2InputDeck self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-InputDeckIntsSetArray(ConstHandle2InputDeck This, const int *const values, const size_t size)
+InputDeckIntsSetArray(ConstHandle2InputDeck self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ InputDeckIntsSetArray(ConstHandle2InputDeck This, const int *const values, const
 
 // Clear
 void
-InputDeckUnsignedsClear(ConstHandle2InputDeck This)
+InputDeckUnsignedsClear(ConstHandle2InputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-InputDeckUnsignedsSize(ConstHandle2ConstInputDeck This)
+InputDeckUnsignedsSize(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-InputDeckUnsignedsGet(ConstHandle2ConstInputDeck This, const size_t index)
+InputDeckUnsignedsGet(ConstHandle2ConstInputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-InputDeckUnsignedsSet(ConstHandle2InputDeck This, const size_t index, const unsigned value)
+InputDeckUnsignedsSet(ConstHandle2InputDeck self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-InputDeckUnsignedsGetArrayConst(ConstHandle2ConstInputDeck This)
+InputDeckUnsignedsGetArrayConst(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-InputDeckUnsignedsGetArray(ConstHandle2InputDeck This)
+InputDeckUnsignedsGetArray(ConstHandle2InputDeck self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-InputDeckUnsignedsSetArray(ConstHandle2InputDeck This, const unsigned *const values, const size_t size)
+InputDeckUnsignedsSetArray(ConstHandle2InputDeck self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ InputDeckUnsignedsSetArray(ConstHandle2InputDeck This, const unsigned *const val
 
 // Clear
 void
-InputDeckFloatsClear(ConstHandle2InputDeck This)
+InputDeckFloatsClear(ConstHandle2InputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-InputDeckFloatsSize(ConstHandle2ConstInputDeck This)
+InputDeckFloatsSize(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-InputDeckFloatsGet(ConstHandle2ConstInputDeck This, const size_t index)
+InputDeckFloatsGet(ConstHandle2ConstInputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-InputDeckFloatsSet(ConstHandle2InputDeck This, const size_t index, const float value)
+InputDeckFloatsSet(ConstHandle2InputDeck self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-InputDeckFloatsGetArrayConst(ConstHandle2ConstInputDeck This)
+InputDeckFloatsGetArrayConst(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-InputDeckFloatsGetArray(ConstHandle2InputDeck This)
+InputDeckFloatsGetArray(ConstHandle2InputDeck self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-InputDeckFloatsSetArray(ConstHandle2InputDeck This, const float *const values, const size_t size)
+InputDeckFloatsSetArray(ConstHandle2InputDeck self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ InputDeckFloatsSetArray(ConstHandle2InputDeck This, const float *const values, c
 
 // Clear
 void
-InputDeckDoublesClear(ConstHandle2InputDeck This)
+InputDeckDoublesClear(ConstHandle2InputDeck self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-InputDeckDoublesSize(ConstHandle2ConstInputDeck This)
+InputDeckDoublesSize(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-InputDeckDoublesGet(ConstHandle2ConstInputDeck This, const size_t index)
+InputDeckDoublesGet(ConstHandle2ConstInputDeck self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-InputDeckDoublesSet(ConstHandle2InputDeck This, const size_t index, const double value)
+InputDeckDoublesSet(ConstHandle2InputDeck self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-InputDeckDoublesGetArrayConst(ConstHandle2ConstInputDeck This)
+InputDeckDoublesGetArrayConst(ConstHandle2ConstInputDeck self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-InputDeckDoublesGetArray(ConstHandle2InputDeck This)
+InputDeckDoublesGetArray(ConstHandle2InputDeck self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-InputDeckDoublesSetArray(ConstHandle2InputDeck This, const double *const values, const size_t size)
+InputDeckDoublesSetArray(ConstHandle2InputDeck self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ InputDeckDoublesSetArray(ConstHandle2InputDeck This, const double *const values,
 
 // Has
 int
-InputDeckEncodingHas(ConstHandle2ConstInputDeck This)
+InputDeckEncodingHas(ConstHandle2ConstInputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-InputDeckEncodingGet(ConstHandle2ConstInputDeck This)
+InputDeckEncodingGet(ConstHandle2ConstInputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-InputDeckEncodingSet(ConstHandle2InputDeck This, const XMLName encoding)
+InputDeckEncodingSet(ConstHandle2InputDeck self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ InputDeckEncodingSet(ConstHandle2InputDeck This, const XMLName encoding)
 
 // Has
 int
-InputDeckMarkupHas(ConstHandle2ConstInputDeck This)
+InputDeckMarkupHas(ConstHandle2ConstInputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-InputDeckMarkupGet(ConstHandle2ConstInputDeck This)
+InputDeckMarkupGet(ConstHandle2ConstInputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-InputDeckMarkupSet(ConstHandle2InputDeck This, const char *const markup)
+InputDeckMarkupSet(ConstHandle2InputDeck self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ InputDeckMarkupSet(ConstHandle2InputDeck This, const char *const markup)
 
 // Has
 int
-InputDeckLabelHas(ConstHandle2ConstInputDeck This)
+InputDeckLabelHas(ConstHandle2ConstInputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-InputDeckLabelGet(ConstHandle2ConstInputDeck This)
+InputDeckLabelGet(ConstHandle2ConstInputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-InputDeckLabelSet(ConstHandle2InputDeck This, const XMLName label)
+InputDeckLabelSet(ConstHandle2InputDeck self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ InputDeckLabelSet(ConstHandle2InputDeck This, const XMLName label)
 
 // Has
 int
-InputDeckFilenameHas(ConstHandle2ConstInputDeck This)
+InputDeckFilenameHas(ConstHandle2ConstInputDeck self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameHas", This, extract::filename);
+      (CLASSNAME, CLASSNAME+"FilenameHas", self, extract::filename);
 }
 
 // Get
 // Returns by value
 XMLName
-InputDeckFilenameGet(ConstHandle2ConstInputDeck This)
+InputDeckFilenameGet(ConstHandle2ConstInputDeck self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameGet", This, extract::filename);
+      (CLASSNAME, CLASSNAME+"FilenameGet", self, extract::filename);
 }
 
 // Set
 void
-InputDeckFilenameSet(ConstHandle2InputDeck This, const XMLName filename)
+InputDeckFilenameSet(ConstHandle2InputDeck self, const XMLName filename)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FilenameSet", This, extract::filename, filename);
+      (CLASSNAME, CLASSNAME+"FilenameSet", self, extract::filename, filename);
 }
 
 

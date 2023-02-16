@@ -11,73 +11,115 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// KalbachMann wrapper
-void wrapKalbachMann(python::module &module)
+// wrapper for transport::KalbachMann
+void wrapKalbachMann(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::KalbachMann;
+   using cppCLASS = transport::KalbachMann;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "KalbachMann",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "KalbachMann",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const transport::F &,
-            const transport::R &,
-            const std::optional<transport::A> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("product_frame"),
-         python::arg("f"),
-         python::arg("r"),
-         python::arg("a") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "f",
-         [](const Component &self) { return self.f(); },
-         Component::documentation("f").data()
-      )
-      .def_property_readonly(
-         "r",
-         [](const Component &self) { return self.r(); },
-         Component::documentation("r").data()
-      )
-      .def_property_readonly(
-         "a",
-         [](const Component &self) { return self.a(); },
-         Component::documentation("a").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const transport::F &,
+         const transport::R &,
+         const std::optional<transport::A> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("product_frame"),
+      py::arg("f"),
+      py::arg("r"),
+      py::arg("a") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set f
+   object.def_property(
+      "f",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.f();
+      },
+      [](cppCLASS &self, const transport::F &value)
+      {
+         self.f() = value;
+      },
+      cppCLASS::component_t::documentation("f").data()
+   );
+
+   // get/set r
+   object.def_property(
+      "r",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.r();
+      },
+      [](cppCLASS &self, const transport::R &value)
+      {
+         self.r() = value;
+      },
+      cppCLASS::component_t::documentation("r").data()
+   );
+
+   // get/set a
+   object.def_property(
+      "a",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.a();
+      },
+      [](cppCLASS &self, const std::optional<transport::A> &value)
+      {
+         self.a() = value;
+      },
+      cppCLASS::component_t::documentation("a").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

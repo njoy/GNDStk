@@ -25,12 +25,12 @@ class IncoherentPhotonScattering :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "atomic"; }
    static auto CLASS() { return "IncoherentPhotonScattering"; }
-   static auto FIELD() { return "incoherentPhotonScattering"; }
+   static auto NODENAME() { return "incoherentPhotonScattering"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -48,36 +48,84 @@ class IncoherentPhotonScattering :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<atomic::ScatteringFactor>>("scatteringFactor")
+         --Child<std::optional<atomic::ScatteringFactor>>
+            ("scatteringFactor")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "pid",
+         "productFrame",
+         "scatteringFactor"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "pid",
+         "product_frame",
+         "scattering_factor"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> pid{this};
-   Field<enums::Frame> productFrame{this};
+   Field<std::optional<std::string>>
+      href{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      pid{this};
+   Field<enums::Frame>
+      productFrame{this};
 
    // children
-   Field<std::optional<atomic::ScatteringFactor>> scatteringFactor{this};
+   Field<std::optional<atomic::ScatteringFactor>>
+      scatteringFactor{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->label, \
       this->pid, \
       this->productFrame, \
-      this->scatteringFactor)
+      this->scatteringFactor \
+   )
 
    // default
    IncoherentPhotonScattering() :
@@ -88,11 +136,16 @@ public:
 
    // from fields, comment excluded
    explicit IncoherentPhotonScattering(
-      const wrapper<std::optional<std::string>> &href,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<XMLName>> &pid = {},
-      const wrapper<enums::Frame> &productFrame = {},
-      const wrapper<std::optional<atomic::ScatteringFactor>> &scatteringFactor = {}
+      const wrapper<std::optional<std::string>>
+         &href,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &pid = {},
+      const wrapper<enums::Frame>
+         &productFrame = {},
+      const wrapper<std::optional<atomic::ScatteringFactor>>
+         &scatteringFactor = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -141,8 +194,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   IncoherentPhotonScattering &operator=(const IncoherentPhotonScattering &) = default;
-   IncoherentPhotonScattering &operator=(IncoherentPhotonScattering &&) = default;
+   // copy
+   IncoherentPhotonScattering &operator=(const IncoherentPhotonScattering &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         scatteringFactor = other.scatteringFactor;
+      }
+      return *this;
+   }
+
+   // move
+   IncoherentPhotonScattering &operator=(IncoherentPhotonScattering &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         scatteringFactor = std::move(other.scatteringFactor);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

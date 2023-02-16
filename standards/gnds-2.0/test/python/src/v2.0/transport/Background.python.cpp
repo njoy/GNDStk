@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Background wrapper
-void wrapBackground(python::module &module)
+// wrapper for transport::Background
+void wrapBackground(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Background;
+   using cppCLASS = transport::Background;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Background",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Background",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<transport::ResolvedRegion> &,
-            const std::optional<transport::UnresolvedRegion> &,
-            const std::optional<transport::FastRegion> &
-         >(),
-         python::arg("resolved_region") = std::nullopt,
-         python::arg("unresolved_region") = std::nullopt,
-         python::arg("fast_region") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "resolved_region",
-         [](const Component &self) { return self.resolvedRegion(); },
-         Component::documentation("resolved_region").data()
-      )
-      .def_property_readonly(
-         "unresolved_region",
-         [](const Component &self) { return self.unresolvedRegion(); },
-         Component::documentation("unresolved_region").data()
-      )
-      .def_property_readonly(
-         "fast_region",
-         [](const Component &self) { return self.fastRegion(); },
-         Component::documentation("fast_region").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<transport::ResolvedRegion> &,
+         const std::optional<transport::UnresolvedRegion> &,
+         const std::optional<transport::FastRegion> &
+      >(),
+      py::arg("resolved_region") = std::nullopt,
+      py::arg("unresolved_region") = std::nullopt,
+      py::arg("fast_region") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set resolvedRegion
+   object.def_property(
+      "resolved_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resolvedRegion();
+      },
+      [](cppCLASS &self, const std::optional<transport::ResolvedRegion> &value)
+      {
+         self.resolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("resolved_region").data()
+   );
+
+   // get/set unresolvedRegion
+   object.def_property(
+      "unresolved_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unresolvedRegion();
+      },
+      [](cppCLASS &self, const std::optional<transport::UnresolvedRegion> &value)
+      {
+         self.unresolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("unresolved_region").data()
+   );
+
+   // get/set fastRegion
+   object.def_property(
+      "fast_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fastRegion();
+      },
+      [](cppCLASS &self, const std::optional<transport::FastRegion> &value)
+      {
+         self.fastRegion() = value;
+      },
+      cppCLASS::component_t::documentation("fast_region").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

@@ -90,13 +90,13 @@ RelatedItemsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-RelatedItemsAssign(ConstHandle2RelatedItems This, ConstHandle2ConstRelatedItems from);
+RelatedItemsAssign(ConstHandle2RelatedItems self, ConstHandle2ConstRelatedItems from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-RelatedItemsDelete(ConstHandle2ConstRelatedItems This);
+RelatedItemsDelete(ConstHandle2ConstRelatedItems self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ RelatedItemsDelete(ConstHandle2ConstRelatedItems This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-RelatedItemsRead(ConstHandle2RelatedItems This, const char *const filename);
+RelatedItemsRead(ConstHandle2RelatedItems self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-RelatedItemsWrite(ConstHandle2ConstRelatedItems This, const char *const filename);
+RelatedItemsWrite(ConstHandle2ConstRelatedItems self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-RelatedItemsPrint(ConstHandle2ConstRelatedItems This);
+RelatedItemsPrint(ConstHandle2ConstRelatedItems self);
 
 // +++ Print to standard output, as XML
 extern_c int
-RelatedItemsPrintXML(ConstHandle2ConstRelatedItems This);
+RelatedItemsPrintXML(ConstHandle2ConstRelatedItems self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems This);
+RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems This);
 
 // +++ Has
 extern_c int
-RelatedItemsRelatedItemHas(ConstHandle2ConstRelatedItems This);
+RelatedItemsRelatedItemHas(ConstHandle2ConstRelatedItems self);
 
 // +++ Clear
 extern_c void
-RelatedItemsRelatedItemClear(ConstHandle2RelatedItems This);
+RelatedItemsRelatedItemClear(ConstHandle2RelatedItems self);
 
 // +++ Size
 extern_c size_t
-RelatedItemsRelatedItemSize(ConstHandle2ConstRelatedItems This);
+RelatedItemsRelatedItemSize(ConstHandle2ConstRelatedItems self);
 
 // +++ Add
 extern_c void
-RelatedItemsRelatedItemAdd(ConstHandle2RelatedItems This, ConstHandle2ConstRelatedItem relatedItem);
+RelatedItemsRelatedItemAdd(ConstHandle2RelatedItems self, ConstHandle2ConstRelatedItem relatedItem);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstRelatedItem
-RelatedItemsRelatedItemGetConst(ConstHandle2ConstRelatedItems This, const size_t index_);
+RelatedItemsRelatedItemGetConst(ConstHandle2ConstRelatedItems self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2RelatedItem
-RelatedItemsRelatedItemGet(ConstHandle2RelatedItems This, const size_t index_);
+RelatedItemsRelatedItemGet(ConstHandle2RelatedItems self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 RelatedItemsRelatedItemSet(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const size_t index_,
    ConstHandle2ConstRelatedItem relatedItem
 );
@@ -169,28 +169,28 @@ RelatedItemsRelatedItemSet(
 // +++ Has, by name
 extern_c int
 RelatedItemsRelatedItemHasByName(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByNameConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2RelatedItem
 RelatedItemsRelatedItemGetByName(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text name
 );
 
 // +++ Set, by name
 extern_c void
 RelatedItemsRelatedItemSetByName(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text name,
    ConstHandle2ConstRelatedItem relatedItem
 );
@@ -198,28 +198,28 @@ RelatedItemsRelatedItemSetByName(
 // +++ Has, by href
 extern_c int
 RelatedItemsRelatedItemHasByHref(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByHrefConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2RelatedItem
 RelatedItemsRelatedItemGetByHref(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text href
 );
 
 // +++ Set, by href
 extern_c void
 RelatedItemsRelatedItemSetByHref(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text href,
    ConstHandle2ConstRelatedItem relatedItem
 );
@@ -227,28 +227,28 @@ RelatedItemsRelatedItemSetByHref(
 // +++ Has, by relationType
 extern_c int
 RelatedItemsRelatedItemHasByRelationType(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const enums::RelationType relationType
 );
 
 // --- Get, by relationType, const
 extern_c Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByRelationTypeConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const enums::RelationType relationType
 );
 
 // +++ Get, by relationType, non-const
 extern_c Handle2RelatedItem
 RelatedItemsRelatedItemGetByRelationType(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const enums::RelationType relationType
 );
 
 // +++ Set, by relationType
 extern_c void
 RelatedItemsRelatedItemSetByRelationType(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const enums::RelationType relationType,
    ConstHandle2ConstRelatedItem relatedItem
 );

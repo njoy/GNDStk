@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Uncertainty wrapper
-void wrapUncertainty(python::module &module)
+// wrapper for containers::Uncertainty
+void wrapUncertainty(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Uncertainty;
+   using cppCLASS = containers::Uncertainty;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Uncertainty",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Uncertainty",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::Standard> &,
-            const std::optional<containers::LogNormal> &,
-            const std::optional<containers::ConfidenceIntervals> &,
-            const std::optional<containers::Pdf> &,
-            const std::optional<containers::XYs1d> &,
-            const std::optional<containers::Polynomial1d> &,
-            const std::optional<containers::Covariance> &,
-            const std::optional<containers::ListOfCovariances> &
-         >(),
-         python::arg("standard") = std::nullopt,
-         python::arg("log_normal") = std::nullopt,
-         python::arg("confidence_intervals") = std::nullopt,
-         python::arg("pdf") = std::nullopt,
-         python::arg("xys1d") = std::nullopt,
-         python::arg("polynomial1d") = std::nullopt,
-         python::arg("covariance") = std::nullopt,
-         python::arg("list_of_covariances") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "standard",
-         [](const Component &self) { return self.standard(); },
-         Component::documentation("standard").data()
-      )
-      .def_property_readonly(
-         "log_normal",
-         [](const Component &self) { return self.logNormal(); },
-         Component::documentation("log_normal").data()
-      )
-      .def_property_readonly(
-         "confidence_intervals",
-         [](const Component &self) { return self.confidenceIntervals(); },
-         Component::documentation("confidence_intervals").data()
-      )
-      .def_property_readonly(
-         "pdf",
-         [](const Component &self) { return self.pdf(); },
-         Component::documentation("pdf").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "polynomial1d",
-         [](const Component &self) { return self.polynomial1d(); },
-         Component::documentation("polynomial1d").data()
-      )
-      .def_property_readonly(
-         "covariance",
-         [](const Component &self) { return self.covariance(); },
-         Component::documentation("covariance").data()
-      )
-      .def_property_readonly(
-         "list_of_covariances",
-         [](const Component &self) { return self.listOfCovariances(); },
-         Component::documentation("list_of_covariances").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::Standard> &,
+         const std::optional<containers::LogNormal> &,
+         const std::optional<containers::ConfidenceIntervals> &,
+         const std::optional<containers::Pdf> &,
+         const std::optional<containers::XYs1d> &,
+         const std::optional<containers::Polynomial1d> &,
+         const std::optional<containers::Covariance> &,
+         const std::optional<containers::ListOfCovariances> &
+      >(),
+      py::arg("standard") = std::nullopt,
+      py::arg("log_normal") = std::nullopt,
+      py::arg("confidence_intervals") = std::nullopt,
+      py::arg("pdf") = std::nullopt,
+      py::arg("xys1d") = std::nullopt,
+      py::arg("polynomial1d") = std::nullopt,
+      py::arg("covariance") = std::nullopt,
+      py::arg("list_of_covariances") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set standard
+   object.def_property(
+      "standard",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.standard();
+      },
+      [](cppCLASS &self, const std::optional<containers::Standard> &value)
+      {
+         self.standard() = value;
+      },
+      cppCLASS::component_t::documentation("standard").data()
+   );
+
+   // get/set logNormal
+   object.def_property(
+      "log_normal",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.logNormal();
+      },
+      [](cppCLASS &self, const std::optional<containers::LogNormal> &value)
+      {
+         self.logNormal() = value;
+      },
+      cppCLASS::component_t::documentation("log_normal").data()
+   );
+
+   // get/set confidenceIntervals
+   object.def_property(
+      "confidence_intervals",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.confidenceIntervals();
+      },
+      [](cppCLASS &self, const std::optional<containers::ConfidenceIntervals> &value)
+      {
+         self.confidenceIntervals() = value;
+      },
+      cppCLASS::component_t::documentation("confidence_intervals").data()
+   );
+
+   // get/set pdf
+   object.def_property(
+      "pdf",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pdf();
+      },
+      [](cppCLASS &self, const std::optional<containers::Pdf> &value)
+      {
+         self.pdf() = value;
+      },
+      cppCLASS::component_t::documentation("pdf").data()
+   );
+
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Polynomial1d> &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // get/set covariance
+   object.def_property(
+      "covariance",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covariance();
+      },
+      [](cppCLASS &self, const std::optional<containers::Covariance> &value)
+      {
+         self.covariance() = value;
+      },
+      cppCLASS::component_t::documentation("covariance").data()
+   );
+
+   // get/set listOfCovariances
+   object.def_property(
+      "list_of_covariances",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.listOfCovariances();
+      },
+      [](cppCLASS &self, const std::optional<containers::ListOfCovariances> &value)
+      {
+         self.listOfCovariances() = value;
+      },
+      cppCLASS::component_t::documentation("list_of_covariances").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

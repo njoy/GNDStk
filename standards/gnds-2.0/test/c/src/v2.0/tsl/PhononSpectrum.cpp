@@ -69,20 +69,20 @@ PhononSpectrumCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PhononSpectrumAssign(ConstHandle2PhononSpectrum This, ConstHandle2ConstPhononSpectrum from)
+PhononSpectrumAssign(ConstHandle2PhononSpectrum self, ConstHandle2ConstPhononSpectrum from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ PhononSpectrumDelete(ConstHandle2ConstPhononSpectrum This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PhononSpectrumRead(ConstHandle2PhononSpectrum This, const char *const filename)
+PhononSpectrumRead(ConstHandle2PhononSpectrum self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PhononSpectrumWrite(ConstHandle2ConstPhononSpectrum This, const char *const filename)
+PhononSpectrumWrite(ConstHandle2ConstPhononSpectrum self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PhononSpectrumPrint(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumPrint(ConstHandle2ConstPhononSpectrum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PhononSpectrumPrintXML(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumPrintXML(ConstHandle2ConstPhononSpectrum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ PhononSpectrumPrintJSON(ConstHandle2ConstPhononSpectrum This)
 
 // Has
 int
-PhononSpectrumXYs1dHas(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumXYs1dHas(ConstHandle2ConstPhononSpectrum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-PhononSpectrumXYs1dGetConst(ConstHandle2ConstPhononSpectrum This)
+PhononSpectrumXYs1dGetConst(ConstHandle2ConstPhononSpectrum self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-PhononSpectrumXYs1dGet(ConstHandle2PhononSpectrum This)
+PhononSpectrumXYs1dGet(ConstHandle2PhononSpectrum self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum This, ConstHandle2ConstXYs1d XYs1d)
+PhononSpectrumXYs1dSet(ConstHandle2PhononSpectrum self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 

@@ -74,20 +74,20 @@ MultiGroupCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MultiGroupAssign(ConstHandle2MultiGroup This, ConstHandle2ConstMultiGroup from)
+MultiGroupAssign(ConstHandle2MultiGroup self, ConstHandle2ConstMultiGroup from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MultiGroupDelete(ConstHandle2ConstMultiGroup This)
+MultiGroupDelete(ConstHandle2ConstMultiGroup self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ MultiGroupDelete(ConstHandle2ConstMultiGroup This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MultiGroupRead(ConstHandle2MultiGroup This, const char *const filename)
+MultiGroupRead(ConstHandle2MultiGroup self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MultiGroupWrite(ConstHandle2ConstMultiGroup This, const char *const filename)
+MultiGroupWrite(ConstHandle2ConstMultiGroup self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MultiGroupPrint(ConstHandle2ConstMultiGroup This)
+MultiGroupPrint(ConstHandle2ConstMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MultiGroupPrintXML(ConstHandle2ConstMultiGroup This)
+MultiGroupPrintXML(ConstHandle2ConstMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MultiGroupPrintJSON(ConstHandle2ConstMultiGroup This)
+MultiGroupPrintJSON(ConstHandle2ConstMultiGroup self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ MultiGroupPrintJSON(ConstHandle2ConstMultiGroup This)
 
 // Has
 int
-MultiGroupLabelHas(ConstHandle2ConstMultiGroup This)
+MultiGroupLabelHas(ConstHandle2ConstMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-MultiGroupLabelGet(ConstHandle2ConstMultiGroup This)
+MultiGroupLabelGet(ConstHandle2ConstMultiGroup self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MultiGroupLabelSet(ConstHandle2MultiGroup This, const XMLName label)
+MultiGroupLabelSet(ConstHandle2MultiGroup self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -178,34 +178,34 @@ MultiGroupLabelSet(ConstHandle2MultiGroup This, const XMLName label)
 
 // Has
 int
-MultiGroupGridHas(ConstHandle2ConstMultiGroup This)
+MultiGroupGridHas(ConstHandle2ConstMultiGroup self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GridHas", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridHas", self, extract::grid);
 }
 
 // Get, const
 Handle2ConstGrid
-MultiGroupGridGetConst(ConstHandle2ConstMultiGroup This)
+MultiGroupGridGetConst(ConstHandle2ConstMultiGroup self)
 {
    return detail::getField<CPP,Handle2ConstGrid>
-      (CLASSNAME, CLASSNAME+"GridGetConst", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridGetConst", self, extract::grid);
 }
 
 // Get, non-const
 Handle2Grid
-MultiGroupGridGet(ConstHandle2MultiGroup This)
+MultiGroupGridGet(ConstHandle2MultiGroup self)
 {
    return detail::getField<CPP,Handle2Grid>
-      (CLASSNAME, CLASSNAME+"GridGet", This, extract::grid);
+      (CLASSNAME, CLASSNAME+"GridGet", self, extract::grid);
 }
 
 // Set
 void
-MultiGroupGridSet(ConstHandle2MultiGroup This, ConstHandle2ConstGrid grid)
+MultiGroupGridSet(ConstHandle2MultiGroup self, ConstHandle2ConstGrid grid)
 {
    detail::setField<CPP,CPPGrid>
-      (CLASSNAME, CLASSNAME+"GridSet", This, extract::grid, grid);
+      (CLASSNAME, CLASSNAME+"GridSet", self, extract::grid, grid);
 }
 
 

@@ -73,20 +73,20 @@ ProbabilityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProbabilityAssign(ConstHandle2Probability This, ConstHandle2ConstProbability from)
+ProbabilityAssign(ConstHandle2Probability self, ConstHandle2ConstProbability from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProbabilityDelete(ConstHandle2ConstProbability This)
+ProbabilityDelete(ConstHandle2ConstProbability self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ProbabilityDelete(ConstHandle2ConstProbability This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProbabilityRead(ConstHandle2Probability This, const char *const filename)
+ProbabilityRead(ConstHandle2Probability self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProbabilityWrite(ConstHandle2ConstProbability This, const char *const filename)
+ProbabilityWrite(ConstHandle2ConstProbability self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProbabilityPrint(ConstHandle2ConstProbability This)
+ProbabilityPrint(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProbabilityPrintXML(ConstHandle2ConstProbability This)
+ProbabilityPrintXML(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProbabilityPrintJSON(ConstHandle2ConstProbability This)
+ProbabilityPrintJSON(ConstHandle2ConstProbability self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ ProbabilityPrintJSON(ConstHandle2ConstProbability This)
 
 // Has
 int
-ProbabilityDoubleHas(ConstHandle2ConstProbability This)
+ProbabilityDoubleHas(ConstHandle2ConstProbability self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Clear
 void
-ProbabilityDoubleClear(ConstHandle2Probability This)
+ProbabilityDoubleClear(ConstHandle2Probability self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleClear", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleClear", self, extract::Double);
 }
 
 // Size
 size_t
-ProbabilityDoubleSize(ConstHandle2ConstProbability This)
+ProbabilityDoubleSize(ConstHandle2ConstProbability self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleSize", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleSize", self, extract::Double);
 }
 
 // Add
 void
-ProbabilityDoubleAdd(ConstHandle2Probability This, ConstHandle2ConstDouble Double)
+ProbabilityDoubleAdd(ConstHandle2Probability self, ConstHandle2ConstDouble Double)
 {
    detail::addToContainer<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleAdd", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleAdd", self, extract::Double, Double);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDouble
-ProbabilityDoubleGetConst(ConstHandle2ConstProbability This, const size_t index_)
+ProbabilityDoubleGetConst(ConstHandle2ConstProbability self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Double
-ProbabilityDoubleGet(ConstHandle2Probability This, const size_t index_)
+ProbabilityDoubleGet(ConstHandle2Probability self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ProbabilityDoubleSet(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByIndex<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, index_, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, index_, Double);
 }
 
 // Has, by label
 int
 ProbabilityDoubleHasByLabel(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstDouble
 ProbabilityDoubleGetByLabelConst(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabelConst",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Double
 ProbabilityDoubleGetByLabel(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Set, by label
 void
 ProbabilityDoubleSetByLabel(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByLabel",
-       This, extract::Double, meta::label, label, Double);
+       self, extract::Double, meta::label, label, Double);
 }
 
 // Has, by unit
 int
 ProbabilityDoubleHasByUnit(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstDouble
 ProbabilityDoubleGetByUnitConst(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnitConst",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Double
 ProbabilityDoubleGetByUnit(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Set, by unit
 void
 ProbabilityDoubleSetByUnit(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByUnit",
-       This, extract::Double, meta::unit, unit, Double);
+       self, extract::Double, meta::unit, unit, Double);
 }
 
 // Has, by value
 int
 ProbabilityDoubleHasByValue(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const Float64 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstDouble
 ProbabilityDoubleGetByValueConst(
-   ConstHandle2ConstProbability This,
+   ConstHandle2ConstProbability self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByValueConst",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Double
 ProbabilityDoubleGetByValue(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Set, by value
 void
 ProbabilityDoubleSetByValue(
-   ConstHandle2Probability This,
+   ConstHandle2Probability self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByValue",
-       This, extract::Double, meta::value, value, Double);
+       self, extract::Double, meta::value, value, Double);
 }
 
 

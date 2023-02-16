@@ -98,13 +98,13 @@ CrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CrossSectionAssign(ConstHandle2CrossSection This, ConstHandle2ConstCrossSection from);
+CrossSectionAssign(ConstHandle2CrossSection self, ConstHandle2ConstCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CrossSectionDelete(ConstHandle2ConstCrossSection This);
+CrossSectionDelete(ConstHandle2ConstCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ CrossSectionDelete(ConstHandle2ConstCrossSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CrossSectionRead(ConstHandle2CrossSection This, const char *const filename);
+CrossSectionRead(ConstHandle2CrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CrossSectionWrite(ConstHandle2ConstCrossSection This, const char *const filename);
+CrossSectionWrite(ConstHandle2ConstCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CrossSectionPrint(ConstHandle2ConstCrossSection This);
+CrossSectionPrint(ConstHandle2ConstCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CrossSectionPrintXML(ConstHandle2ConstCrossSection This);
+CrossSectionPrintXML(ConstHandle2ConstCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CrossSectionPrintJSON(ConstHandle2ConstCrossSection This);
+CrossSectionPrintJSON(ConstHandle2ConstCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ CrossSectionPrintJSON(ConstHandle2ConstCrossSection This);
 
 // +++ Has
 extern_c int
-CrossSectionLabelHas(ConstHandle2ConstCrossSection This);
+CrossSectionLabelHas(ConstHandle2ConstCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CrossSectionLabelGet(ConstHandle2ConstCrossSection This);
+CrossSectionLabelGet(ConstHandle2ConstCrossSection self);
 
 // +++ Set
 extern_c void
-CrossSectionLabelSet(ConstHandle2CrossSection This, const XMLName label);
+CrossSectionLabelSet(ConstHandle2CrossSection self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

@@ -168,20 +168,20 @@ DocumentationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DocumentationAssign(ConstHandle2Documentation This, ConstHandle2ConstDocumentation from)
+DocumentationAssign(ConstHandle2Documentation self, ConstHandle2ConstDocumentation from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DocumentationDelete(ConstHandle2ConstDocumentation This)
+DocumentationDelete(ConstHandle2ConstDocumentation self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -195,44 +195,44 @@ DocumentationDelete(ConstHandle2ConstDocumentation This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DocumentationRead(ConstHandle2Documentation This, const char *const filename)
+DocumentationRead(ConstHandle2Documentation self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DocumentationWrite(ConstHandle2ConstDocumentation This, const char *const filename)
+DocumentationWrite(ConstHandle2ConstDocumentation self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DocumentationPrint(ConstHandle2ConstDocumentation This)
+DocumentationPrint(ConstHandle2ConstDocumentation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DocumentationPrintXML(ConstHandle2ConstDocumentation This)
+DocumentationPrintXML(ConstHandle2ConstDocumentation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DocumentationPrintJSON(ConstHandle2ConstDocumentation This)
+DocumentationPrintJSON(ConstHandle2ConstDocumentation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -242,27 +242,27 @@ DocumentationPrintJSON(ConstHandle2ConstDocumentation This)
 
 // Has
 int
-DocumentationDoiHas(ConstHandle2ConstDocumentation This)
+DocumentationDoiHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoiHas", This, extract::doi);
+      (CLASSNAME, CLASSNAME+"DoiHas", self, extract::doi);
 }
 
 // Get
 // Returns by value
 UTF8Text
-DocumentationDoiGet(ConstHandle2ConstDocumentation This)
+DocumentationDoiGet(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DoiGet", This, extract::doi);
+      (CLASSNAME, CLASSNAME+"DoiGet", self, extract::doi);
 }
 
 // Set
 void
-DocumentationDoiSet(ConstHandle2Documentation This, const UTF8Text doi)
+DocumentationDoiSet(ConstHandle2Documentation self, const UTF8Text doi)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DoiSet", This, extract::doi, doi);
+      (CLASSNAME, CLASSNAME+"DoiSet", self, extract::doi, doi);
 }
 
 
@@ -272,27 +272,27 @@ DocumentationDoiSet(ConstHandle2Documentation This, const UTF8Text doi)
 
 // Has
 int
-DocumentationPublicationDateHas(ConstHandle2ConstDocumentation This)
+DocumentationPublicationDateHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PublicationDateHas", This, extract::publicationDate);
+      (CLASSNAME, CLASSNAME+"PublicationDateHas", self, extract::publicationDate);
 }
 
 // Get
 // Returns by value
 const char *
-DocumentationPublicationDateGet(ConstHandle2ConstDocumentation This)
+DocumentationPublicationDateGet(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PublicationDateGet", This, extract::publicationDate);
+      (CLASSNAME, CLASSNAME+"PublicationDateGet", self, extract::publicationDate);
 }
 
 // Set
 void
-DocumentationPublicationDateSet(ConstHandle2Documentation This, const char *const publicationDate)
+DocumentationPublicationDateSet(ConstHandle2Documentation self, const char *const publicationDate)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PublicationDateSet", This, extract::publicationDate, publicationDate);
+      (CLASSNAME, CLASSNAME+"PublicationDateSet", self, extract::publicationDate, publicationDate);
 }
 
 
@@ -302,27 +302,27 @@ DocumentationPublicationDateSet(ConstHandle2Documentation This, const char *cons
 
 // Has
 int
-DocumentationVersionHas(ConstHandle2ConstDocumentation This)
+DocumentationVersionHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionHas", self, extract::version);
 }
 
 // Get
 // Returns by value
 UTF8Text
-DocumentationVersionGet(ConstHandle2ConstDocumentation This)
+DocumentationVersionGet(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionGet", self, extract::version);
 }
 
 // Set
 void
-DocumentationVersionSet(ConstHandle2Documentation This, const UTF8Text version)
+DocumentationVersionSet(ConstHandle2Documentation self, const UTF8Text version)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"VersionSet", self, extract::version, version);
 }
 
 
@@ -332,34 +332,34 @@ DocumentationVersionSet(ConstHandle2Documentation This, const UTF8Text version)
 
 // Has
 int
-DocumentationAuthorsHas(ConstHandle2ConstDocumentation This)
+DocumentationAuthorsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AuthorsHas", This, extract::authors);
+      (CLASSNAME, CLASSNAME+"AuthorsHas", self, extract::authors);
 }
 
 // Get, const
 Handle2ConstAuthors
-DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstAuthors>
-      (CLASSNAME, CLASSNAME+"AuthorsGetConst", This, extract::authors);
+      (CLASSNAME, CLASSNAME+"AuthorsGetConst", self, extract::authors);
 }
 
 // Get, non-const
 Handle2Authors
-DocumentationAuthorsGet(ConstHandle2Documentation This)
+DocumentationAuthorsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Authors>
-      (CLASSNAME, CLASSNAME+"AuthorsGet", This, extract::authors);
+      (CLASSNAME, CLASSNAME+"AuthorsGet", self, extract::authors);
 }
 
 // Set
 void
-DocumentationAuthorsSet(ConstHandle2Documentation This, ConstHandle2ConstAuthors authors)
+DocumentationAuthorsSet(ConstHandle2Documentation self, ConstHandle2ConstAuthors authors)
 {
    detail::setField<CPP,CPPAuthors>
-      (CLASSNAME, CLASSNAME+"AuthorsSet", This, extract::authors, authors);
+      (CLASSNAME, CLASSNAME+"AuthorsSet", self, extract::authors, authors);
 }
 
 
@@ -369,34 +369,34 @@ DocumentationAuthorsSet(ConstHandle2Documentation This, ConstHandle2ConstAuthors
 
 // Has
 int
-DocumentationContributorsHas(ConstHandle2ConstDocumentation This)
+DocumentationContributorsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ContributorsHas", This, extract::contributors);
+      (CLASSNAME, CLASSNAME+"ContributorsHas", self, extract::contributors);
 }
 
 // Get, const
 Handle2ConstContributors
-DocumentationContributorsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationContributorsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstContributors>
-      (CLASSNAME, CLASSNAME+"ContributorsGetConst", This, extract::contributors);
+      (CLASSNAME, CLASSNAME+"ContributorsGetConst", self, extract::contributors);
 }
 
 // Get, non-const
 Handle2Contributors
-DocumentationContributorsGet(ConstHandle2Documentation This)
+DocumentationContributorsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Contributors>
-      (CLASSNAME, CLASSNAME+"ContributorsGet", This, extract::contributors);
+      (CLASSNAME, CLASSNAME+"ContributorsGet", self, extract::contributors);
 }
 
 // Set
 void
-DocumentationContributorsSet(ConstHandle2Documentation This, ConstHandle2ConstContributors contributors)
+DocumentationContributorsSet(ConstHandle2Documentation self, ConstHandle2ConstContributors contributors)
 {
    detail::setField<CPP,CPPContributors>
-      (CLASSNAME, CLASSNAME+"ContributorsSet", This, extract::contributors, contributors);
+      (CLASSNAME, CLASSNAME+"ContributorsSet", self, extract::contributors, contributors);
 }
 
 
@@ -406,34 +406,34 @@ DocumentationContributorsSet(ConstHandle2Documentation This, ConstHandle2ConstCo
 
 // Has
 int
-DocumentationCollaborationsHas(ConstHandle2ConstDocumentation This)
+DocumentationCollaborationsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CollaborationsHas", This, extract::collaborations);
+      (CLASSNAME, CLASSNAME+"CollaborationsHas", self, extract::collaborations);
 }
 
 // Get, const
 Handle2ConstCollaborations
-DocumentationCollaborationsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationCollaborationsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstCollaborations>
-      (CLASSNAME, CLASSNAME+"CollaborationsGetConst", This, extract::collaborations);
+      (CLASSNAME, CLASSNAME+"CollaborationsGetConst", self, extract::collaborations);
 }
 
 // Get, non-const
 Handle2Collaborations
-DocumentationCollaborationsGet(ConstHandle2Documentation This)
+DocumentationCollaborationsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Collaborations>
-      (CLASSNAME, CLASSNAME+"CollaborationsGet", This, extract::collaborations);
+      (CLASSNAME, CLASSNAME+"CollaborationsGet", self, extract::collaborations);
 }
 
 // Set
 void
-DocumentationCollaborationsSet(ConstHandle2Documentation This, ConstHandle2ConstCollaborations collaborations)
+DocumentationCollaborationsSet(ConstHandle2Documentation self, ConstHandle2ConstCollaborations collaborations)
 {
    detail::setField<CPP,CPPCollaborations>
-      (CLASSNAME, CLASSNAME+"CollaborationsSet", This, extract::collaborations, collaborations);
+      (CLASSNAME, CLASSNAME+"CollaborationsSet", self, extract::collaborations, collaborations);
 }
 
 
@@ -443,34 +443,34 @@ DocumentationCollaborationsSet(ConstHandle2Documentation This, ConstHandle2Const
 
 // Has
 int
-DocumentationDatesHas(ConstHandle2ConstDocumentation This)
+DocumentationDatesHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DatesHas", This, extract::dates);
+      (CLASSNAME, CLASSNAME+"DatesHas", self, extract::dates);
 }
 
 // Get, const
 Handle2ConstDates
-DocumentationDatesGetConst(ConstHandle2ConstDocumentation This)
+DocumentationDatesGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstDates>
-      (CLASSNAME, CLASSNAME+"DatesGetConst", This, extract::dates);
+      (CLASSNAME, CLASSNAME+"DatesGetConst", self, extract::dates);
 }
 
 // Get, non-const
 Handle2Dates
-DocumentationDatesGet(ConstHandle2Documentation This)
+DocumentationDatesGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Dates>
-      (CLASSNAME, CLASSNAME+"DatesGet", This, extract::dates);
+      (CLASSNAME, CLASSNAME+"DatesGet", self, extract::dates);
 }
 
 // Set
 void
-DocumentationDatesSet(ConstHandle2Documentation This, ConstHandle2ConstDates dates)
+DocumentationDatesSet(ConstHandle2Documentation self, ConstHandle2ConstDates dates)
 {
    detail::setField<CPP,CPPDates>
-      (CLASSNAME, CLASSNAME+"DatesSet", This, extract::dates, dates);
+      (CLASSNAME, CLASSNAME+"DatesSet", self, extract::dates, dates);
 }
 
 
@@ -480,34 +480,34 @@ DocumentationDatesSet(ConstHandle2Documentation This, ConstHandle2ConstDates dat
 
 // Has
 int
-DocumentationCopyrightHas(ConstHandle2ConstDocumentation This)
+DocumentationCopyrightHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CopyrightHas", This, extract::copyright);
+      (CLASSNAME, CLASSNAME+"CopyrightHas", self, extract::copyright);
 }
 
 // Get, const
 Handle2ConstCopyright
-DocumentationCopyrightGetConst(ConstHandle2ConstDocumentation This)
+DocumentationCopyrightGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstCopyright>
-      (CLASSNAME, CLASSNAME+"CopyrightGetConst", This, extract::copyright);
+      (CLASSNAME, CLASSNAME+"CopyrightGetConst", self, extract::copyright);
 }
 
 // Get, non-const
 Handle2Copyright
-DocumentationCopyrightGet(ConstHandle2Documentation This)
+DocumentationCopyrightGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Copyright>
-      (CLASSNAME, CLASSNAME+"CopyrightGet", This, extract::copyright);
+      (CLASSNAME, CLASSNAME+"CopyrightGet", self, extract::copyright);
 }
 
 // Set
 void
-DocumentationCopyrightSet(ConstHandle2Documentation This, ConstHandle2ConstCopyright copyright)
+DocumentationCopyrightSet(ConstHandle2Documentation self, ConstHandle2ConstCopyright copyright)
 {
    detail::setField<CPP,CPPCopyright>
-      (CLASSNAME, CLASSNAME+"CopyrightSet", This, extract::copyright, copyright);
+      (CLASSNAME, CLASSNAME+"CopyrightSet", self, extract::copyright, copyright);
 }
 
 
@@ -517,34 +517,34 @@ DocumentationCopyrightSet(ConstHandle2Documentation This, ConstHandle2ConstCopyr
 
 // Has
 int
-DocumentationAcknowledgementsHas(ConstHandle2ConstDocumentation This)
+DocumentationAcknowledgementsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AcknowledgementsHas", This, extract::acknowledgements);
+      (CLASSNAME, CLASSNAME+"AcknowledgementsHas", self, extract::acknowledgements);
 }
 
 // Get, const
 Handle2ConstAcknowledgements
-DocumentationAcknowledgementsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationAcknowledgementsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstAcknowledgements>
-      (CLASSNAME, CLASSNAME+"AcknowledgementsGetConst", This, extract::acknowledgements);
+      (CLASSNAME, CLASSNAME+"AcknowledgementsGetConst", self, extract::acknowledgements);
 }
 
 // Get, non-const
 Handle2Acknowledgements
-DocumentationAcknowledgementsGet(ConstHandle2Documentation This)
+DocumentationAcknowledgementsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Acknowledgements>
-      (CLASSNAME, CLASSNAME+"AcknowledgementsGet", This, extract::acknowledgements);
+      (CLASSNAME, CLASSNAME+"AcknowledgementsGet", self, extract::acknowledgements);
 }
 
 // Set
 void
-DocumentationAcknowledgementsSet(ConstHandle2Documentation This, ConstHandle2ConstAcknowledgements acknowledgements)
+DocumentationAcknowledgementsSet(ConstHandle2Documentation self, ConstHandle2ConstAcknowledgements acknowledgements)
 {
    detail::setField<CPP,CPPAcknowledgements>
-      (CLASSNAME, CLASSNAME+"AcknowledgementsSet", This, extract::acknowledgements, acknowledgements);
+      (CLASSNAME, CLASSNAME+"AcknowledgementsSet", self, extract::acknowledgements, acknowledgements);
 }
 
 
@@ -554,34 +554,34 @@ DocumentationAcknowledgementsSet(ConstHandle2Documentation This, ConstHandle2Con
 
 // Has
 int
-DocumentationKeywordsHas(ConstHandle2ConstDocumentation This)
+DocumentationKeywordsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"KeywordsHas", This, extract::keywords);
+      (CLASSNAME, CLASSNAME+"KeywordsHas", self, extract::keywords);
 }
 
 // Get, const
 Handle2ConstKeywords
-DocumentationKeywordsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationKeywordsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstKeywords>
-      (CLASSNAME, CLASSNAME+"KeywordsGetConst", This, extract::keywords);
+      (CLASSNAME, CLASSNAME+"KeywordsGetConst", self, extract::keywords);
 }
 
 // Get, non-const
 Handle2Keywords
-DocumentationKeywordsGet(ConstHandle2Documentation This)
+DocumentationKeywordsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Keywords>
-      (CLASSNAME, CLASSNAME+"KeywordsGet", This, extract::keywords);
+      (CLASSNAME, CLASSNAME+"KeywordsGet", self, extract::keywords);
 }
 
 // Set
 void
-DocumentationKeywordsSet(ConstHandle2Documentation This, ConstHandle2ConstKeywords keywords)
+DocumentationKeywordsSet(ConstHandle2Documentation self, ConstHandle2ConstKeywords keywords)
 {
    detail::setField<CPP,CPPKeywords>
-      (CLASSNAME, CLASSNAME+"KeywordsSet", This, extract::keywords, keywords);
+      (CLASSNAME, CLASSNAME+"KeywordsSet", self, extract::keywords, keywords);
 }
 
 
@@ -591,34 +591,34 @@ DocumentationKeywordsSet(ConstHandle2Documentation This, ConstHandle2ConstKeywor
 
 // Has
 int
-DocumentationRelatedItemsHas(ConstHandle2ConstDocumentation This)
+DocumentationRelatedItemsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RelatedItemsHas", This, extract::relatedItems);
+      (CLASSNAME, CLASSNAME+"RelatedItemsHas", self, extract::relatedItems);
 }
 
 // Get, const
 Handle2ConstRelatedItems
-DocumentationRelatedItemsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationRelatedItemsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstRelatedItems>
-      (CLASSNAME, CLASSNAME+"RelatedItemsGetConst", This, extract::relatedItems);
+      (CLASSNAME, CLASSNAME+"RelatedItemsGetConst", self, extract::relatedItems);
 }
 
 // Get, non-const
 Handle2RelatedItems
-DocumentationRelatedItemsGet(ConstHandle2Documentation This)
+DocumentationRelatedItemsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2RelatedItems>
-      (CLASSNAME, CLASSNAME+"RelatedItemsGet", This, extract::relatedItems);
+      (CLASSNAME, CLASSNAME+"RelatedItemsGet", self, extract::relatedItems);
 }
 
 // Set
 void
-DocumentationRelatedItemsSet(ConstHandle2Documentation This, ConstHandle2ConstRelatedItems relatedItems)
+DocumentationRelatedItemsSet(ConstHandle2Documentation self, ConstHandle2ConstRelatedItems relatedItems)
 {
    detail::setField<CPP,CPPRelatedItems>
-      (CLASSNAME, CLASSNAME+"RelatedItemsSet", This, extract::relatedItems, relatedItems);
+      (CLASSNAME, CLASSNAME+"RelatedItemsSet", self, extract::relatedItems, relatedItems);
 }
 
 
@@ -628,34 +628,34 @@ DocumentationRelatedItemsSet(ConstHandle2Documentation This, ConstHandle2ConstRe
 
 // Has
 int
-DocumentationTitleHas(ConstHandle2ConstDocumentation This)
+DocumentationTitleHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TitleHas", This, extract::title);
+      (CLASSNAME, CLASSNAME+"TitleHas", self, extract::title);
 }
 
 // Get, const
 Handle2ConstTitle
-DocumentationTitleGetConst(ConstHandle2ConstDocumentation This)
+DocumentationTitleGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstTitle>
-      (CLASSNAME, CLASSNAME+"TitleGetConst", This, extract::title);
+      (CLASSNAME, CLASSNAME+"TitleGetConst", self, extract::title);
 }
 
 // Get, non-const
 Handle2Title
-DocumentationTitleGet(ConstHandle2Documentation This)
+DocumentationTitleGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Title>
-      (CLASSNAME, CLASSNAME+"TitleGet", This, extract::title);
+      (CLASSNAME, CLASSNAME+"TitleGet", self, extract::title);
 }
 
 // Set
 void
-DocumentationTitleSet(ConstHandle2Documentation This, ConstHandle2ConstTitle title)
+DocumentationTitleSet(ConstHandle2Documentation self, ConstHandle2ConstTitle title)
 {
    detail::setField<CPP,CPPTitle>
-      (CLASSNAME, CLASSNAME+"TitleSet", This, extract::title, title);
+      (CLASSNAME, CLASSNAME+"TitleSet", self, extract::title, title);
 }
 
 
@@ -665,34 +665,34 @@ DocumentationTitleSet(ConstHandle2Documentation This, ConstHandle2ConstTitle tit
 
 // Has
 int
-DocumentationAbstractHas(ConstHandle2ConstDocumentation This)
+DocumentationAbstractHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AbstractHas", This, extract::abstract);
+      (CLASSNAME, CLASSNAME+"AbstractHas", self, extract::abstract);
 }
 
 // Get, const
 Handle2ConstAbstract
-DocumentationAbstractGetConst(ConstHandle2ConstDocumentation This)
+DocumentationAbstractGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstAbstract>
-      (CLASSNAME, CLASSNAME+"AbstractGetConst", This, extract::abstract);
+      (CLASSNAME, CLASSNAME+"AbstractGetConst", self, extract::abstract);
 }
 
 // Get, non-const
 Handle2Abstract
-DocumentationAbstractGet(ConstHandle2Documentation This)
+DocumentationAbstractGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Abstract>
-      (CLASSNAME, CLASSNAME+"AbstractGet", This, extract::abstract);
+      (CLASSNAME, CLASSNAME+"AbstractGet", self, extract::abstract);
 }
 
 // Set
 void
-DocumentationAbstractSet(ConstHandle2Documentation This, ConstHandle2ConstAbstract abstract)
+DocumentationAbstractSet(ConstHandle2Documentation self, ConstHandle2ConstAbstract abstract)
 {
    detail::setField<CPP,CPPAbstract>
-      (CLASSNAME, CLASSNAME+"AbstractSet", This, extract::abstract, abstract);
+      (CLASSNAME, CLASSNAME+"AbstractSet", self, extract::abstract, abstract);
 }
 
 
@@ -702,34 +702,34 @@ DocumentationAbstractSet(ConstHandle2Documentation This, ConstHandle2ConstAbstra
 
 // Has
 int
-DocumentationBodyHas(ConstHandle2ConstDocumentation This)
+DocumentationBodyHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BodyHas", This, extract::body);
+      (CLASSNAME, CLASSNAME+"BodyHas", self, extract::body);
 }
 
 // Get, const
 Handle2ConstBody
-DocumentationBodyGetConst(ConstHandle2ConstDocumentation This)
+DocumentationBodyGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstBody>
-      (CLASSNAME, CLASSNAME+"BodyGetConst", This, extract::body);
+      (CLASSNAME, CLASSNAME+"BodyGetConst", self, extract::body);
 }
 
 // Get, non-const
 Handle2Body
-DocumentationBodyGet(ConstHandle2Documentation This)
+DocumentationBodyGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Body>
-      (CLASSNAME, CLASSNAME+"BodyGet", This, extract::body);
+      (CLASSNAME, CLASSNAME+"BodyGet", self, extract::body);
 }
 
 // Set
 void
-DocumentationBodySet(ConstHandle2Documentation This, ConstHandle2ConstBody body)
+DocumentationBodySet(ConstHandle2Documentation self, ConstHandle2ConstBody body)
 {
    detail::setField<CPP,CPPBody>
-      (CLASSNAME, CLASSNAME+"BodySet", This, extract::body, body);
+      (CLASSNAME, CLASSNAME+"BodySet", self, extract::body, body);
 }
 
 
@@ -739,34 +739,34 @@ DocumentationBodySet(ConstHandle2Documentation This, ConstHandle2ConstBody body)
 
 // Has
 int
-DocumentationComputerCodesHas(ConstHandle2ConstDocumentation This)
+DocumentationComputerCodesHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ComputerCodesHas", This, extract::computerCodes);
+      (CLASSNAME, CLASSNAME+"ComputerCodesHas", self, extract::computerCodes);
 }
 
 // Get, const
 Handle2ConstComputerCodes
-DocumentationComputerCodesGetConst(ConstHandle2ConstDocumentation This)
+DocumentationComputerCodesGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstComputerCodes>
-      (CLASSNAME, CLASSNAME+"ComputerCodesGetConst", This, extract::computerCodes);
+      (CLASSNAME, CLASSNAME+"ComputerCodesGetConst", self, extract::computerCodes);
 }
 
 // Get, non-const
 Handle2ComputerCodes
-DocumentationComputerCodesGet(ConstHandle2Documentation This)
+DocumentationComputerCodesGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2ComputerCodes>
-      (CLASSNAME, CLASSNAME+"ComputerCodesGet", This, extract::computerCodes);
+      (CLASSNAME, CLASSNAME+"ComputerCodesGet", self, extract::computerCodes);
 }
 
 // Set
 void
-DocumentationComputerCodesSet(ConstHandle2Documentation This, ConstHandle2ConstComputerCodes computerCodes)
+DocumentationComputerCodesSet(ConstHandle2Documentation self, ConstHandle2ConstComputerCodes computerCodes)
 {
    detail::setField<CPP,CPPComputerCodes>
-      (CLASSNAME, CLASSNAME+"ComputerCodesSet", This, extract::computerCodes, computerCodes);
+      (CLASSNAME, CLASSNAME+"ComputerCodesSet", self, extract::computerCodes, computerCodes);
 }
 
 
@@ -776,34 +776,34 @@ DocumentationComputerCodesSet(ConstHandle2Documentation This, ConstHandle2ConstC
 
 // Has
 int
-DocumentationExperimentalDataSetsHas(ConstHandle2ConstDocumentation This)
+DocumentationExperimentalDataSetsHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsHas", This, extract::experimentalDataSets);
+      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsHas", self, extract::experimentalDataSets);
 }
 
 // Get, const
 Handle2ConstExperimentalDataSets
-DocumentationExperimentalDataSetsGetConst(ConstHandle2ConstDocumentation This)
+DocumentationExperimentalDataSetsGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstExperimentalDataSets>
-      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsGetConst", This, extract::experimentalDataSets);
+      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsGetConst", self, extract::experimentalDataSets);
 }
 
 // Get, non-const
 Handle2ExperimentalDataSets
-DocumentationExperimentalDataSetsGet(ConstHandle2Documentation This)
+DocumentationExperimentalDataSetsGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2ExperimentalDataSets>
-      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsGet", This, extract::experimentalDataSets);
+      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsGet", self, extract::experimentalDataSets);
 }
 
 // Set
 void
-DocumentationExperimentalDataSetsSet(ConstHandle2Documentation This, ConstHandle2ConstExperimentalDataSets experimentalDataSets)
+DocumentationExperimentalDataSetsSet(ConstHandle2Documentation self, ConstHandle2ConstExperimentalDataSets experimentalDataSets)
 {
    detail::setField<CPP,CPPExperimentalDataSets>
-      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsSet", This, extract::experimentalDataSets, experimentalDataSets);
+      (CLASSNAME, CLASSNAME+"ExperimentalDataSetsSet", self, extract::experimentalDataSets, experimentalDataSets);
 }
 
 
@@ -813,34 +813,34 @@ DocumentationExperimentalDataSetsSet(ConstHandle2Documentation This, ConstHandle
 
 // Has
 int
-DocumentationBibliographyHas(ConstHandle2ConstDocumentation This)
+DocumentationBibliographyHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BibliographyHas", This, extract::bibliography);
+      (CLASSNAME, CLASSNAME+"BibliographyHas", self, extract::bibliography);
 }
 
 // Get, const
 Handle2ConstBibliography
-DocumentationBibliographyGetConst(ConstHandle2ConstDocumentation This)
+DocumentationBibliographyGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstBibliography>
-      (CLASSNAME, CLASSNAME+"BibliographyGetConst", This, extract::bibliography);
+      (CLASSNAME, CLASSNAME+"BibliographyGetConst", self, extract::bibliography);
 }
 
 // Get, non-const
 Handle2Bibliography
-DocumentationBibliographyGet(ConstHandle2Documentation This)
+DocumentationBibliographyGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2Bibliography>
-      (CLASSNAME, CLASSNAME+"BibliographyGet", This, extract::bibliography);
+      (CLASSNAME, CLASSNAME+"BibliographyGet", self, extract::bibliography);
 }
 
 // Set
 void
-DocumentationBibliographySet(ConstHandle2Documentation This, ConstHandle2ConstBibliography bibliography)
+DocumentationBibliographySet(ConstHandle2Documentation self, ConstHandle2ConstBibliography bibliography)
 {
    detail::setField<CPP,CPPBibliography>
-      (CLASSNAME, CLASSNAME+"BibliographySet", This, extract::bibliography, bibliography);
+      (CLASSNAME, CLASSNAME+"BibliographySet", self, extract::bibliography, bibliography);
 }
 
 
@@ -850,34 +850,34 @@ DocumentationBibliographySet(ConstHandle2Documentation This, ConstHandle2ConstBi
 
 // Has
 int
-DocumentationEndfCompatibleHas(ConstHandle2ConstDocumentation This)
+DocumentationEndfCompatibleHas(ConstHandle2ConstDocumentation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EndfCompatibleHas", This, extract::endfCompatible);
+      (CLASSNAME, CLASSNAME+"EndfCompatibleHas", self, extract::endfCompatible);
 }
 
 // Get, const
 Handle2ConstEndfCompatible
-DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation This)
+DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation self)
 {
    return detail::getField<CPP,Handle2ConstEndfCompatible>
-      (CLASSNAME, CLASSNAME+"EndfCompatibleGetConst", This, extract::endfCompatible);
+      (CLASSNAME, CLASSNAME+"EndfCompatibleGetConst", self, extract::endfCompatible);
 }
 
 // Get, non-const
 Handle2EndfCompatible
-DocumentationEndfCompatibleGet(ConstHandle2Documentation This)
+DocumentationEndfCompatibleGet(ConstHandle2Documentation self)
 {
    return detail::getField<CPP,Handle2EndfCompatible>
-      (CLASSNAME, CLASSNAME+"EndfCompatibleGet", This, extract::endfCompatible);
+      (CLASSNAME, CLASSNAME+"EndfCompatibleGet", self, extract::endfCompatible);
 }
 
 // Set
 void
-DocumentationEndfCompatibleSet(ConstHandle2Documentation This, ConstHandle2ConstEndfCompatible endfCompatible)
+DocumentationEndfCompatibleSet(ConstHandle2Documentation self, ConstHandle2ConstEndfCompatible endfCompatible)
 {
    detail::setField<CPP,CPPEndfCompatible>
-      (CLASSNAME, CLASSNAME+"EndfCompatibleSet", This, extract::endfCompatible, endfCompatible);
+      (CLASSNAME, CLASSNAME+"EndfCompatibleSet", self, extract::endfCompatible, endfCompatible);
 }
 
 

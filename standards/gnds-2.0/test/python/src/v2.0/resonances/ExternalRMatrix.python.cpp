@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// ExternalRMatrix wrapper
-void wrapExternalRMatrix(python::module &module)
+// wrapper for resonances::ExternalRMatrix
+void wrapExternalRMatrix(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::ExternalRMatrix;
+   using cppCLASS = resonances::ExternalRMatrix;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ExternalRMatrix",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ExternalRMatrix",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::vector<containers::Double> &
-         >(),
-         python::arg("type") = std::nullopt,
-         python::arg("double"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self) { return self.type().value(); },
-         Component::documentation("type").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self) { return self.Double(); },
-         Component::documentation("double").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::vector<containers::Double> &
+      >(),
+      py::arg("type") = std::nullopt,
+      py::arg("double"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.type().value();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::vector<containers::Double> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

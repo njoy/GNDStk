@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// ConfidenceIntervals wrapper
-void wrapConfidenceIntervals(python::module &module)
+// wrapper for pops::ConfidenceIntervals
+void wrapConfidenceIntervals(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::ConfidenceIntervals;
+   using cppCLASS = pops::ConfidenceIntervals;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ConfidenceIntervals",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ConfidenceIntervals",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Interval> &
-         >(),
-         python::arg("interval"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "interval",
-         [](const Component &self) { return self.interval(); },
-         Component::documentation("interval").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Interval> &
+      >(),
+      py::arg("interval"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set interval
+   object.def_property(
+      "interval",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interval();
+      },
+      [](cppCLASS &self, const std::vector<pops::Interval> &value)
+      {
+         self.interval() = value;
+      },
+      cppCLASS::component_t::documentation("interval").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

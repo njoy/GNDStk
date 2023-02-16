@@ -105,13 +105,13 @@ HeatedMultiGroupCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-HeatedMultiGroupAssign(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstHeatedMultiGroup from);
+HeatedMultiGroupAssign(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstHeatedMultiGroup from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -124,25 +124,25 @@ HeatedMultiGroupDelete(ConstHandle2ConstHeatedMultiGroup This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-HeatedMultiGroupRead(ConstHandle2HeatedMultiGroup This, const char *const filename);
+HeatedMultiGroupRead(ConstHandle2HeatedMultiGroup self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-HeatedMultiGroupWrite(ConstHandle2ConstHeatedMultiGroup This, const char *const filename);
+HeatedMultiGroupWrite(ConstHandle2ConstHeatedMultiGroup self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-HeatedMultiGroupPrint(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupPrint(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Print to standard output, as XML
 extern_c int
-HeatedMultiGroupPrintXML(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupPrintXML(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -151,16 +151,16 @@ HeatedMultiGroupPrintJSON(ConstHandle2ConstHeatedMultiGroup This);
 
 // +++ Has
 extern_c int
-HeatedMultiGroupDateHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDateHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-HeatedMultiGroupDateGet(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDateGet(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup This, const char *const date);
+HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -169,16 +169,16 @@ HeatedMultiGroupDateSet(ConstHandle2HeatedMultiGroup This, const char *const dat
 
 // +++ Has
 extern_c int
-HeatedMultiGroupDerivedFromHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDerivedFromHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-HeatedMultiGroupDerivedFromGet(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDerivedFromGet(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup This, const XMLName derivedFrom);
+HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -187,16 +187,16 @@ HeatedMultiGroupDerivedFromSet(ConstHandle2HeatedMultiGroup This, const XMLName 
 
 // +++ Has
 extern_c int
-HeatedMultiGroupLabelHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupLabelHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-HeatedMultiGroupLabelGet(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupLabelGet(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup This, const XMLName label);
+HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -205,19 +205,19 @@ HeatedMultiGroupLabelSet(ConstHandle2HeatedMultiGroup This, const XMLName label)
 
 // +++ Has
 extern_c int
-HeatedMultiGroupTransportablesHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupTransportablesHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // --- Get, const
 extern_c Handle2ConstTransportables
-HeatedMultiGroupTransportablesGetConst(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupTransportablesGetConst(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get, non-const
 extern_c Handle2Transportables
-HeatedMultiGroupTransportablesGet(ConstHandle2HeatedMultiGroup This);
+HeatedMultiGroupTransportablesGet(ConstHandle2HeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstTransportables transportables);
+HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstTransportables transportables);
 
 
 // -----------------------------------------------------------------------------
@@ -226,19 +226,19 @@ HeatedMultiGroupTransportablesSet(ConstHandle2HeatedMultiGroup This, ConstHandle
 
 // +++ Has
 extern_c int
-HeatedMultiGroupFluxHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupFluxHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // --- Get, const
 extern_c Handle2ConstFlux
-HeatedMultiGroupFluxGetConst(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupFluxGetConst(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get, non-const
 extern_c Handle2Flux
-HeatedMultiGroupFluxGet(ConstHandle2HeatedMultiGroup This);
+HeatedMultiGroupFluxGet(ConstHandle2HeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstFlux flux);
+HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstFlux flux);
 
 
 // -----------------------------------------------------------------------------
@@ -247,19 +247,19 @@ HeatedMultiGroupFluxSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstFlux
 
 // +++ Has
 extern_c int
-HeatedMultiGroupInverseSpeedHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupInverseSpeedHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // --- Get, const
 extern_c Handle2ConstInverseSpeed
-HeatedMultiGroupInverseSpeedGetConst(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupInverseSpeedGetConst(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get, non-const
 extern_c Handle2InverseSpeed
-HeatedMultiGroupInverseSpeedGet(ConstHandle2HeatedMultiGroup This);
+HeatedMultiGroupInverseSpeedGet(ConstHandle2HeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstInverseSpeed inverseSpeed);
+HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstInverseSpeed inverseSpeed);
 
 
 // -----------------------------------------------------------------------------
@@ -268,19 +268,19 @@ HeatedMultiGroupInverseSpeedSet(ConstHandle2HeatedMultiGroup This, ConstHandle2C
 
 // +++ Has
 extern_c int
-HeatedMultiGroupDocumentationHas(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDocumentationHas(ConstHandle2ConstHeatedMultiGroup self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-HeatedMultiGroupDocumentationGetConst(ConstHandle2ConstHeatedMultiGroup This);
+HeatedMultiGroupDocumentationGetConst(ConstHandle2ConstHeatedMultiGroup self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-HeatedMultiGroupDocumentationGet(ConstHandle2HeatedMultiGroup This);
+HeatedMultiGroupDocumentationGet(ConstHandle2HeatedMultiGroup self);
 
 // +++ Set
 extern_c void
-HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup This, ConstHandle2ConstDocumentation documentation);
+HeatedMultiGroupDocumentationSet(ConstHandle2HeatedMultiGroup self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

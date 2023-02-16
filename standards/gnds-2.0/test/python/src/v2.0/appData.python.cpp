@@ -5,24 +5,24 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // appData declarations
 namespace python_appData {
-   void wrapConversion(python::module &);
-   void wrapENDFconversionFlags(python::module &);
-   void wrapInstitution(python::module &);
-   void wrapApplicationData(python::module &);
+   void wrapConversion(py::module &);
+   void wrapENDFconversionFlags(py::module &);
+   void wrapInstitution(py::module &);
+   void wrapApplicationData(py::module &);
 } // namespace python_appData
 
-// appData wrapper
-void wrapAppData(python::module &module)
+// wrapper for appData
+void wrapAppData(py::module &module)
 {
    // create the appData submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "appData",
       "test v2.0 appData"
    );

@@ -90,13 +90,13 @@ ResonanceReactionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonanceReactionsAssign(ConstHandle2ResonanceReactions This, ConstHandle2ConstResonanceReactions from);
+ResonanceReactionsAssign(ConstHandle2ResonanceReactions self, ConstHandle2ConstResonanceReactions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonanceReactionsDelete(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsDelete(ConstHandle2ConstResonanceReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ResonanceReactionsDelete(ConstHandle2ConstResonanceReactions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonanceReactionsRead(ConstHandle2ResonanceReactions This, const char *const filename);
+ResonanceReactionsRead(ConstHandle2ResonanceReactions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonanceReactionsWrite(ConstHandle2ConstResonanceReactions This, const char *const filename);
+ResonanceReactionsWrite(ConstHandle2ConstResonanceReactions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonanceReactionsPrint(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsPrint(ConstHandle2ConstResonanceReactions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonanceReactionsPrintXML(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsPrintXML(ConstHandle2ConstResonanceReactions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonanceReactionsPrintJSON(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsPrintJSON(ConstHandle2ConstResonanceReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ResonanceReactionsPrintJSON(ConstHandle2ConstResonanceReactions This);
 
 // +++ Has
 extern_c int
-ResonanceReactionsResonanceReactionHas(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsResonanceReactionHas(ConstHandle2ConstResonanceReactions self);
 
 // +++ Clear
 extern_c void
-ResonanceReactionsResonanceReactionClear(ConstHandle2ResonanceReactions This);
+ResonanceReactionsResonanceReactionClear(ConstHandle2ResonanceReactions self);
 
 // +++ Size
 extern_c size_t
-ResonanceReactionsResonanceReactionSize(ConstHandle2ConstResonanceReactions This);
+ResonanceReactionsResonanceReactionSize(ConstHandle2ConstResonanceReactions self);
 
 // +++ Add
 extern_c void
-ResonanceReactionsResonanceReactionAdd(ConstHandle2ResonanceReactions This, ConstHandle2ConstResonanceReaction resonanceReaction);
+ResonanceReactionsResonanceReactionAdd(ConstHandle2ResonanceReactions self, ConstHandle2ConstResonanceReaction resonanceReaction);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstResonanceReaction
-ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions This, const size_t index_);
+ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ResonanceReaction
-ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions This, const size_t index_);
+ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ResonanceReactionsResonanceReactionSet(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const size_t index_,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
@@ -169,28 +169,28 @@ ResonanceReactionsResonanceReactionSet(
 // +++ Has, by label
 extern_c int
 ResonanceReactionsResonanceReactionHasByLabel(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabelConst(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabel(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ResonanceReactionsResonanceReactionSetByLabel(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const XMLName label,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
@@ -198,28 +198,28 @@ ResonanceReactionsResonanceReactionSetByLabel(
 // +++ Has, by ejectile
 extern_c int
 ResonanceReactionsResonanceReactionHasByEjectile(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const XMLName ejectile
 );
 
 // --- Get, by ejectile, const
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectileConst(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const XMLName ejectile
 );
 
 // +++ Get, by ejectile, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectile(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const XMLName ejectile
 );
 
 // +++ Set, by ejectile
 extern_c void
 ResonanceReactionsResonanceReactionSetByEjectile(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const XMLName ejectile,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
@@ -227,28 +227,28 @@ ResonanceReactionsResonanceReactionSetByEjectile(
 // +++ Has, by boundaryConditionValue
 extern_c int
 ResonanceReactionsResonanceReactionHasByBoundaryConditionValue(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const Float64 boundaryConditionValue
 );
 
 // --- Get, by boundaryConditionValue, const
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetByBoundaryConditionValueConst(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const Float64 boundaryConditionValue
 );
 
 // +++ Get, by boundaryConditionValue, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByBoundaryConditionValue(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const Float64 boundaryConditionValue
 );
 
 // +++ Set, by boundaryConditionValue
 extern_c void
 ResonanceReactionsResonanceReactionSetByBoundaryConditionValue(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const Float64 boundaryConditionValue,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
@@ -256,28 +256,28 @@ ResonanceReactionsResonanceReactionSetByBoundaryConditionValue(
 // +++ Has, by eliminated
 extern_c int
 ResonanceReactionsResonanceReactionHasByEliminated(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const bool eliminated
 );
 
 // --- Get, by eliminated, const
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminatedConst(
-   ConstHandle2ConstResonanceReactions This,
+   ConstHandle2ConstResonanceReactions self,
    const bool eliminated
 );
 
 // +++ Get, by eliminated, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminated(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const bool eliminated
 );
 
 // +++ Set, by eliminated
 extern_c void
 ResonanceReactionsResonanceReactionSetByEliminated(
-   ConstHandle2ResonanceReactions This,
+   ConstHandle2ResonanceReactions self,
    const bool eliminated,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );

@@ -90,13 +90,13 @@ AcknowledgementsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AcknowledgementsAssign(ConstHandle2Acknowledgements This, ConstHandle2ConstAcknowledgements from);
+AcknowledgementsAssign(ConstHandle2Acknowledgements self, ConstHandle2ConstAcknowledgements from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AcknowledgementsDelete(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsDelete(ConstHandle2ConstAcknowledgements self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AcknowledgementsDelete(ConstHandle2ConstAcknowledgements This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AcknowledgementsRead(ConstHandle2Acknowledgements This, const char *const filename);
+AcknowledgementsRead(ConstHandle2Acknowledgements self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AcknowledgementsWrite(ConstHandle2ConstAcknowledgements This, const char *const filename);
+AcknowledgementsWrite(ConstHandle2ConstAcknowledgements self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AcknowledgementsPrint(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsPrint(ConstHandle2ConstAcknowledgements self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AcknowledgementsPrintXML(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsPrintXML(ConstHandle2ConstAcknowledgements self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ AcknowledgementsPrintJSON(ConstHandle2ConstAcknowledgements This);
 
 // +++ Has
 extern_c int
-AcknowledgementsAcknowledgementHas(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsAcknowledgementHas(ConstHandle2ConstAcknowledgements self);
 
 // +++ Clear
 extern_c void
-AcknowledgementsAcknowledgementClear(ConstHandle2Acknowledgements This);
+AcknowledgementsAcknowledgementClear(ConstHandle2Acknowledgements self);
 
 // +++ Size
 extern_c size_t
-AcknowledgementsAcknowledgementSize(ConstHandle2ConstAcknowledgements This);
+AcknowledgementsAcknowledgementSize(ConstHandle2ConstAcknowledgements self);
 
 // +++ Add
 extern_c void
-AcknowledgementsAcknowledgementAdd(ConstHandle2Acknowledgements This, ConstHandle2ConstAcknowledgement acknowledgement);
+AcknowledgementsAcknowledgementAdd(ConstHandle2Acknowledgements self, ConstHandle2ConstAcknowledgement acknowledgement);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAcknowledgement
-AcknowledgementsAcknowledgementGetConst(ConstHandle2ConstAcknowledgements This, const size_t index_);
+AcknowledgementsAcknowledgementGetConst(ConstHandle2ConstAcknowledgements self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Acknowledgement
-AcknowledgementsAcknowledgementGet(ConstHandle2Acknowledgements This, const size_t index_);
+AcknowledgementsAcknowledgementGet(ConstHandle2Acknowledgements self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AcknowledgementsAcknowledgementSet(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const size_t index_,
    ConstHandle2ConstAcknowledgement acknowledgement
 );
@@ -169,28 +169,28 @@ AcknowledgementsAcknowledgementSet(
 // +++ Has, by encoding
 extern_c int
 AcknowledgementsAcknowledgementHasByEncoding(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName encoding
 );
 
 // --- Get, by encoding, const
 extern_c Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByEncodingConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName encoding
 );
 
 // +++ Get, by encoding, non-const
 extern_c Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByEncoding(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName encoding
 );
 
 // +++ Set, by encoding
 extern_c void
 AcknowledgementsAcknowledgementSetByEncoding(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName encoding,
    ConstHandle2ConstAcknowledgement acknowledgement
 );
@@ -198,28 +198,28 @@ AcknowledgementsAcknowledgementSetByEncoding(
 // +++ Has, by markup
 extern_c int
 AcknowledgementsAcknowledgementHasByMarkup(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const char *const markup
 );
 
 // --- Get, by markup, const
 extern_c Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByMarkupConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const char *const markup
 );
 
 // +++ Get, by markup, non-const
 extern_c Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByMarkup(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const char *const markup
 );
 
 // +++ Set, by markup
 extern_c void
 AcknowledgementsAcknowledgementSetByMarkup(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const char *const markup,
    ConstHandle2ConstAcknowledgement acknowledgement
 );
@@ -227,28 +227,28 @@ AcknowledgementsAcknowledgementSetByMarkup(
 // +++ Has, by label
 extern_c int
 AcknowledgementsAcknowledgementHasByLabel(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByLabelConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByLabel(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 AcknowledgementsAcknowledgementSetByLabel(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName label,
    ConstHandle2ConstAcknowledgement acknowledgement
 );
@@ -256,28 +256,28 @@ AcknowledgementsAcknowledgementSetByLabel(
 // +++ Has, by type
 extern_c int
 AcknowledgementsAcknowledgementHasByType(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName type
 );
 
 // --- Get, by type, const
 extern_c Handle2ConstAcknowledgement
 AcknowledgementsAcknowledgementGetByTypeConst(
-   ConstHandle2ConstAcknowledgements This,
+   ConstHandle2ConstAcknowledgements self,
    const XMLName type
 );
 
 // +++ Get, by type, non-const
 extern_c Handle2Acknowledgement
 AcknowledgementsAcknowledgementGetByType(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName type
 );
 
 // +++ Set, by type
 extern_c void
 AcknowledgementsAcknowledgementSetByType(
-   ConstHandle2Acknowledgements This,
+   ConstHandle2Acknowledgements self,
    const XMLName type,
    ConstHandle2ConstAcknowledgement acknowledgement
 );

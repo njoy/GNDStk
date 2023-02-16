@@ -5,27 +5,27 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v1.9 interface
 namespace python_v1_9 {
 
 // containers declarations
 namespace python_containers {
-   void wrapLink(python::module &);
-   void wrapAxis(python::module &);
-   void wrapValues(python::module &);
-   void wrapGrid(python::module &);
-   void wrapAxes(python::module &);
-   void wrapXYs1d(python::module &);
-   void wrapRegions1d(python::module &);
+   void wrapLink(py::module &);
+   void wrapAxis(py::module &);
+   void wrapValues(py::module &);
+   void wrapGrid(py::module &);
+   void wrapAxes(py::module &);
+   void wrapXYs1d(py::module &);
+   void wrapRegions1d(py::module &);
 } // namespace python_containers
 
-// containers wrapper
-void wrapContainers(python::module &module)
+// wrapper for containers
+void wrapContainers(py::module &module)
 {
    // create the containers submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "containers",
       "proto v1.9 containers"
    );

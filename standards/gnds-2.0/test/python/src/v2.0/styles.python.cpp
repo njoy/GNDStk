@@ -5,44 +5,44 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // styles declarations
 namespace python_styles {
-   void wrapProjectileEnergyDomain(python::module &);
-   void wrapTemperature(python::module &);
-   void wrapEvaluated(python::module &);
-   void wrapCrossSectionReconstructed(python::module &);
-   void wrapAngularDistributionReconstructed(python::module &);
-   void wrapCoulombPlusNuclearElasticMuCutoff(python::module &);
-   void wrapHeated(python::module &);
-   void wrapAverageProductData(python::module &);
-   void wrapMonteCarlo_cdf(python::module &);
-   void wrapGriddedCrossSection(python::module &);
-   void wrapURR_probabilityTables(python::module &);
-   void wrapMultiGroup(python::module &);
-   void wrapTransportable(python::module &);
-   void wrapTransportables(python::module &);
-   void wrapFlux(python::module &);
-   void wrapInverseSpeed(python::module &);
-   void wrapHeatedMultiGroup(python::module &);
-   void wrapSnElasticUpScatter(python::module &);
-   void wrapStyles(python::module &);
-   void wrapSigmaZeros(python::module &);
-   void wrapBondarenko(python::module &);
-   void wrapMultiBand(python::module &);
-   void wrapEqualProbableBins(python::module &);
-   void wrapRealization(python::module &);
+   void wrapProjectileEnergyDomain(py::module &);
+   void wrapTemperature(py::module &);
+   void wrapEvaluated(py::module &);
+   void wrapCrossSectionReconstructed(py::module &);
+   void wrapAngularDistributionReconstructed(py::module &);
+   void wrapCoulombPlusNuclearElasticMuCutoff(py::module &);
+   void wrapHeated(py::module &);
+   void wrapAverageProductData(py::module &);
+   void wrapMonteCarlo_cdf(py::module &);
+   void wrapGriddedCrossSection(py::module &);
+   void wrapURR_probabilityTables(py::module &);
+   void wrapMultiGroup(py::module &);
+   void wrapTransportable(py::module &);
+   void wrapTransportables(py::module &);
+   void wrapFlux(py::module &);
+   void wrapInverseSpeed(py::module &);
+   void wrapHeatedMultiGroup(py::module &);
+   void wrapSnElasticUpScatter(py::module &);
+   void wrapStyles(py::module &);
+   void wrapSigmaZeros(py::module &);
+   void wrapBondarenko(py::module &);
+   void wrapMultiBand(py::module &);
+   void wrapEqualProbableBins(py::module &);
+   void wrapRealization(py::module &);
 } // namespace python_styles
 
-// styles wrapper
-void wrapStyles(python::module &module)
+// wrapper for styles
+void wrapStyles(py::module &module)
 {
    // create the styles submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "styles",
       "test v2.0 styles"
    );

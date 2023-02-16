@@ -25,12 +25,12 @@ class Constant1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Constant1d"; }
-   static auto FIELD() { return "constant1d"; }
+   static auto NODENAME() { return "constant1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,38 +50,89 @@ class Constant1d :
             / Meta<>("domainMax") |
 
          // children
-         --Child<containers::Axes>("axes")
+         --Child<containers::Axes>
+            ("axes")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "label",
+         "outerDomainValue",
+         "domainMin",
+         "domainMax",
+         "axes"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "label",
+         "outer_domain_value",
+         "domain_min",
+         "domain_max",
+         "axes"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Float64>> value{this};
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<Float64>> outerDomainValue{this};
-   Field<Float64> domainMin{this};
-   Field<Float64> domainMax{this};
+   Field<std::optional<Float64>>
+      value{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
+   Field<Float64>
+      domainMin{this};
+   Field<Float64>
+      domainMax{this};
 
    // children
-   Field<containers::Axes> axes{this};
+   Field<containers::Axes>
+      axes{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->value, \
       this->label, \
       this->outerDomainValue, \
       this->domainMin, \
       this->domainMax, \
-      this->axes)
+      this->axes \
+   )
 
    // default
    Constant1d() :
@@ -92,12 +143,18 @@ public:
 
    // from fields, comment excluded
    explicit Constant1d(
-      const wrapper<std::optional<Float64>> &value,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<Float64> &domainMin = {},
-      const wrapper<Float64> &domainMax = {},
-      const wrapper<containers::Axes> &axes = {}
+      const wrapper<std::optional<Float64>>
+         &value,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue = {},
+      const wrapper<Float64>
+         &domainMin = {},
+      const wrapper<Float64>
+         &domainMax = {},
+      const wrapper<containers::Axes>
+         &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
@@ -149,8 +206,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Constant1d &operator=(const Constant1d &) = default;
-   Constant1d &operator=(Constant1d &&) = default;
+   // copy
+   Constant1d &operator=(const Constant1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         value = other.value;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         axes = other.axes;
+      }
+      return *this;
+   }
+
+   // move
+   Constant1d &operator=(Constant1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         value = std::move(other.value);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         axes = std::move(other.axes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

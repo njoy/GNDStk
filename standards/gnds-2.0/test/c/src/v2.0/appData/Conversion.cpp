@@ -72,20 +72,20 @@ ConversionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ConversionAssign(ConstHandle2Conversion This, ConstHandle2ConstConversion from)
+ConversionAssign(ConstHandle2Conversion self, ConstHandle2ConstConversion from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ConversionDelete(ConstHandle2ConstConversion This)
+ConversionDelete(ConstHandle2ConstConversion self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ ConversionDelete(ConstHandle2ConstConversion This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ConversionRead(ConstHandle2Conversion This, const char *const filename)
+ConversionRead(ConstHandle2Conversion self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ConversionWrite(ConstHandle2ConstConversion This, const char *const filename)
+ConversionWrite(ConstHandle2ConstConversion self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ConversionPrint(ConstHandle2ConstConversion This)
+ConversionPrint(ConstHandle2ConstConversion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ConversionPrintXML(ConstHandle2ConstConversion This)
+ConversionPrintXML(ConstHandle2ConstConversion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ConversionPrintJSON(ConstHandle2ConstConversion This)
+ConversionPrintJSON(ConstHandle2ConstConversion self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ ConversionPrintJSON(ConstHandle2ConstConversion This)
 
 // Has
 int
-ConversionFlagsHas(ConstHandle2ConstConversion This)
+ConversionFlagsHas(ConstHandle2ConstConversion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsHas", This, extract::flags);
+      (CLASSNAME, CLASSNAME+"FlagsHas", self, extract::flags);
 }
 
 // Get
 // Returns by value
 XMLName
-ConversionFlagsGet(ConstHandle2ConstConversion This)
+ConversionFlagsGet(ConstHandle2ConstConversion self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsGet", This, extract::flags);
+      (CLASSNAME, CLASSNAME+"FlagsGet", self, extract::flags);
 }
 
 // Set
 void
-ConversionFlagsSet(ConstHandle2Conversion This, const XMLName flags)
+ConversionFlagsSet(ConstHandle2Conversion self, const XMLName flags)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FlagsSet", This, extract::flags, flags);
+      (CLASSNAME, CLASSNAME+"FlagsSet", self, extract::flags, flags);
 }
 
 
@@ -176,27 +176,27 @@ ConversionFlagsSet(ConstHandle2Conversion This, const XMLName flags)
 
 // Has
 int
-ConversionHrefHas(ConstHandle2ConstConversion This)
+ConversionHrefHas(ConstHandle2ConstConversion self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-ConversionHrefGet(ConstHandle2ConstConversion This)
+ConversionHrefGet(ConstHandle2ConstConversion self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-ConversionHrefSet(ConstHandle2Conversion This, const char *const href)
+ConversionHrefSet(ConstHandle2Conversion self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

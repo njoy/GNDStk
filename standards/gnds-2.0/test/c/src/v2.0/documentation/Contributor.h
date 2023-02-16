@@ -101,13 +101,13 @@ ContributorCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ContributorAssign(ConstHandle2Contributor This, ConstHandle2ConstContributor from);
+ContributorAssign(ConstHandle2Contributor self, ConstHandle2ConstContributor from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ContributorDelete(ConstHandle2ConstContributor This);
+ContributorDelete(ConstHandle2ConstContributor self);
 
 
 // -----------------------------------------------------------------------------
@@ -120,25 +120,25 @@ ContributorDelete(ConstHandle2ConstContributor This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ContributorRead(ConstHandle2Contributor This, const char *const filename);
+ContributorRead(ConstHandle2Contributor self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ContributorWrite(ConstHandle2ConstContributor This, const char *const filename);
+ContributorWrite(ConstHandle2ConstContributor self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ContributorPrint(ConstHandle2ConstContributor This);
+ContributorPrint(ConstHandle2ConstContributor self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ContributorPrintXML(ConstHandle2ConstContributor This);
+ContributorPrintXML(ConstHandle2ConstContributor self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ContributorPrintJSON(ConstHandle2ConstContributor This);
+ContributorPrintJSON(ConstHandle2ConstContributor self);
 
 
 // -----------------------------------------------------------------------------
@@ -147,16 +147,16 @@ ContributorPrintJSON(ConstHandle2ConstContributor This);
 
 // +++ Has
 extern_c int
-ContributorNameHas(ConstHandle2ConstContributor This);
+ContributorNameHas(ConstHandle2ConstContributor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-ContributorNameGet(ConstHandle2ConstContributor This);
+ContributorNameGet(ConstHandle2ConstContributor self);
 
 // +++ Set
 extern_c void
-ContributorNameSet(ConstHandle2Contributor This, const UTF8Text name);
+ContributorNameSet(ConstHandle2Contributor self, const UTF8Text name);
 
 
 // -----------------------------------------------------------------------------
@@ -165,16 +165,16 @@ ContributorNameSet(ConstHandle2Contributor This, const UTF8Text name);
 
 // +++ Has
 extern_c int
-ContributorContributorTypeHas(ConstHandle2ConstContributor This);
+ContributorContributorTypeHas(ConstHandle2ConstContributor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::ContributorType
-ContributorContributorTypeGet(ConstHandle2ConstContributor This);
+ContributorContributorTypeGet(ConstHandle2ConstContributor self);
 
 // +++ Set
 extern_c void
-ContributorContributorTypeSet(ConstHandle2Contributor This, const enums::ContributorType contributorType);
+ContributorContributorTypeSet(ConstHandle2Contributor self, const enums::ContributorType contributorType);
 
 
 // -----------------------------------------------------------------------------
@@ -183,16 +183,16 @@ ContributorContributorTypeSet(ConstHandle2Contributor This, const enums::Contrib
 
 // +++ Has
 extern_c int
-ContributorOrcidHas(ConstHandle2ConstContributor This);
+ContributorOrcidHas(ConstHandle2ConstContributor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-ContributorOrcidGet(ConstHandle2ConstContributor This);
+ContributorOrcidGet(ConstHandle2ConstContributor self);
 
 // +++ Set
 extern_c void
-ContributorOrcidSet(ConstHandle2Contributor This, const UTF8Text orcid);
+ContributorOrcidSet(ConstHandle2Contributor self, const UTF8Text orcid);
 
 
 // -----------------------------------------------------------------------------
@@ -201,16 +201,16 @@ ContributorOrcidSet(ConstHandle2Contributor This, const UTF8Text orcid);
 
 // +++ Has
 extern_c int
-ContributorEmailHas(ConstHandle2ConstContributor This);
+ContributorEmailHas(ConstHandle2ConstContributor self);
 
 // +++ Get
 // +++ Returns by value
 extern_c UTF8Text
-ContributorEmailGet(ConstHandle2ConstContributor This);
+ContributorEmailGet(ConstHandle2ConstContributor self);
 
 // +++ Set
 extern_c void
-ContributorEmailSet(ConstHandle2Contributor This, const UTF8Text email);
+ContributorEmailSet(ConstHandle2Contributor self, const UTF8Text email);
 
 
 // -----------------------------------------------------------------------------
@@ -219,19 +219,19 @@ ContributorEmailSet(ConstHandle2Contributor This, const UTF8Text email);
 
 // +++ Has
 extern_c int
-ContributorAffiliationsHas(ConstHandle2ConstContributor This);
+ContributorAffiliationsHas(ConstHandle2ConstContributor self);
 
 // --- Get, const
 extern_c Handle2ConstAffiliations
-ContributorAffiliationsGetConst(ConstHandle2ConstContributor This);
+ContributorAffiliationsGetConst(ConstHandle2ConstContributor self);
 
 // +++ Get, non-const
 extern_c Handle2Affiliations
-ContributorAffiliationsGet(ConstHandle2Contributor This);
+ContributorAffiliationsGet(ConstHandle2Contributor self);
 
 // +++ Set
 extern_c void
-ContributorAffiliationsSet(ConstHandle2Contributor This, ConstHandle2ConstAffiliations affiliations);
+ContributorAffiliationsSet(ConstHandle2Contributor self, ConstHandle2ConstAffiliations affiliations);
 
 
 // -----------------------------------------------------------------------------
@@ -240,19 +240,19 @@ ContributorAffiliationsSet(ConstHandle2Contributor This, ConstHandle2ConstAffili
 
 // +++ Has
 extern_c int
-ContributorNoteHas(ConstHandle2ConstContributor This);
+ContributorNoteHas(ConstHandle2ConstContributor self);
 
 // --- Get, const
 extern_c Handle2ConstNote
-ContributorNoteGetConst(ConstHandle2ConstContributor This);
+ContributorNoteGetConst(ConstHandle2ConstContributor self);
 
 // +++ Get, non-const
 extern_c Handle2Note
-ContributorNoteGet(ConstHandle2Contributor This);
+ContributorNoteGet(ConstHandle2Contributor self);
 
 // +++ Set
 extern_c void
-ContributorNoteSet(ConstHandle2Contributor This, ConstHandle2ConstNote note);
+ContributorNoteSet(ConstHandle2Contributor self, ConstHandle2ConstNote note);
 
 
 // -----------------------------------------------------------------------------

@@ -11,101 +11,179 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// CovarianceSuite wrapper
-void wrapCovarianceSuite(python::module &module)
+// wrapper for covariance::CovarianceSuite
+void wrapCovarianceSuite(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::CovarianceSuite;
+   using cppCLASS = covariance::CovarianceSuite;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CovarianceSuite",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CovarianceSuite",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const std::optional<XMLName> &,
-            const enums::Interaction &,
-            const std::optional<Float64> &,
-            const std::optional<common::ExternalFiles> &,
-            const std::optional<styles::Styles> &,
-            const std::optional<covariance::CovarianceSections> &,
-            const std::optional<covariance::ParameterCovariances> &
-         >(),
-         python::arg("evaluation") = std::nullopt,
-         python::arg("projectile") = std::nullopt,
-         python::arg("target") = std::nullopt,
-         python::arg("interaction"),
-         python::arg("format") = std::nullopt,
-         python::arg("external_files") = std::nullopt,
-         python::arg("styles") = std::nullopt,
-         python::arg("covariance_sections") = std::nullopt,
-         python::arg("parameter_covariances") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "evaluation",
-         [](const Component &self) { return self.evaluation(); },
-         Component::documentation("evaluation").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self) { return self.projectile(); },
-         Component::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "target",
-         [](const Component &self) { return self.target(); },
-         Component::documentation("target").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         [](const Component &self) { return self.interaction(); },
-         Component::documentation("interaction").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self) { return self.format(); },
-         Component::documentation("format").data()
-      )
-      .def_property_readonly(
-         "external_files",
-         [](const Component &self) { return self.externalFiles(); },
-         Component::documentation("external_files").data()
-      )
-      .def_property_readonly(
-         "styles",
-         [](const Component &self) { return self.styles(); },
-         Component::documentation("styles").data()
-      )
-      .def_property_readonly(
-         "covariance_sections",
-         [](const Component &self) { return self.covarianceSections(); },
-         Component::documentation("covariance_sections").data()
-      )
-      .def_property_readonly(
-         "parameter_covariances",
-         [](const Component &self) { return self.parameterCovariances(); },
-         Component::documentation("parameter_covariances").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const std::optional<XMLName> &,
+         const enums::Interaction &,
+         const std::optional<Float64> &,
+         const std::optional<common::ExternalFiles> &,
+         const std::optional<styles::Styles> &,
+         const std::optional<covariance::CovarianceSections> &,
+         const std::optional<covariance::ParameterCovariances> &
+      >(),
+      py::arg("evaluation") = std::nullopt,
+      py::arg("projectile") = std::nullopt,
+      py::arg("target") = std::nullopt,
+      py::arg("interaction"),
+      py::arg("format") = std::nullopt,
+      py::arg("external_files") = std::nullopt,
+      py::arg("styles") = std::nullopt,
+      py::arg("covariance_sections") = std::nullopt,
+      py::arg("parameter_covariances") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set evaluation
+   object.def_property(
+      "evaluation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluation();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.evaluation() = value;
+      },
+      cppCLASS::component_t::documentation("evaluation").data()
+   );
+
+   // get/set projectile
+   object.def_property(
+      "projectile",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectile();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.projectile() = value;
+      },
+      cppCLASS::component_t::documentation("projectile").data()
+   );
+
+   // get/set target
+   object.def_property(
+      "target",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.target();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.target() = value;
+      },
+      cppCLASS::component_t::documentation("target").data()
+   );
+
+   // get/set interaction
+   object.def_property(
+      "interaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interaction();
+      },
+      [](cppCLASS &self, const enums::Interaction &value)
+      {
+         self.interaction() = value;
+      },
+      cppCLASS::component_t::documentation("interaction").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::optional<Float64> &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set externalFiles
+   object.def_property(
+      "external_files",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.externalFiles();
+      },
+      [](cppCLASS &self, const std::optional<common::ExternalFiles> &value)
+      {
+         self.externalFiles() = value;
+      },
+      cppCLASS::component_t::documentation("external_files").data()
+   );
+
+   // get/set styles
+   object.def_property(
+      "styles",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.styles();
+      },
+      [](cppCLASS &self, const std::optional<styles::Styles> &value)
+      {
+         self.styles() = value;
+      },
+      cppCLASS::component_t::documentation("styles").data()
+   );
+
+   // get/set covarianceSections
+   object.def_property(
+      "covariance_sections",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covarianceSections();
+      },
+      [](cppCLASS &self, const std::optional<covariance::CovarianceSections> &value)
+      {
+         self.covarianceSections() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_sections").data()
+   );
+
+   // get/set parameterCovariances
+   object.def_property(
+      "parameter_covariances",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameterCovariances();
+      },
+      [](cppCLASS &self, const std::optional<covariance::ParameterCovariances> &value)
+      {
+         self.parameterCovariances() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_covariances").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

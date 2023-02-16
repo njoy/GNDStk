@@ -26,12 +26,12 @@ class CoulombPlusNuclearElastic :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "CoulombPlusNuclearElastic"; }
-   static auto FIELD() { return "CoulombPlusNuclearElastic"; }
+   static auto NODENAME() { return "CoulombPlusNuclearElastic"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -51,12 +51,53 @@ class CoulombPlusNuclearElastic :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<cpTransport::RutherfordScattering>>("RutherfordScattering") |
-         --Child<std::optional<cpTransport::NuclearAmplitudeExpansion>>("nuclearAmplitudeExpansion")
+         --Child<std::optional<cpTransport::RutherfordScattering>>
+            ("RutherfordScattering") |
+         --Child<std::optional<cpTransport::NuclearAmplitudeExpansion>>
+            ("nuclearAmplitudeExpansion")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "identicalParticles",
+         "label",
+         "pid",
+         "productFrame",
+         "RutherfordScattering",
+         "nuclearAmplitudeExpansion"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "identical_particles",
+         "label",
+         "pid",
+         "product_frame",
+         "rutherford_scattering",
+         "nuclear_amplitude_expansion"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -64,25 +105,38 @@ public:
       static inline const bool identicalParticles = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> href{this};
-   Field<Defaulted<bool>> identicalParticles{this,defaults.identicalParticles};
-   Field<XMLName> label{this};
-   Field<std::optional<XMLName>> pid{this};
-   Field<std::optional<enums::Frame>> productFrame{this};
+   Field<std::optional<XMLName>>
+      href{this};
+   Field<Defaulted<bool>>
+      identicalParticles{this,defaults.identicalParticles};
+   Field<XMLName>
+      label{this};
+   Field<std::optional<XMLName>>
+      pid{this};
+   Field<std::optional<enums::Frame>>
+      productFrame{this};
 
    // children
-   Field<std::optional<cpTransport::RutherfordScattering>> RutherfordScattering{this};
-   Field<std::optional<cpTransport::NuclearAmplitudeExpansion>> nuclearAmplitudeExpansion{this};
+   Field<std::optional<cpTransport::RutherfordScattering>>
+      RutherfordScattering{this};
+   Field<std::optional<cpTransport::NuclearAmplitudeExpansion>>
+      nuclearAmplitudeExpansion{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->identicalParticles, \
@@ -90,7 +144,8 @@ public:
       this->pid, \
       this->productFrame, \
       this->RutherfordScattering, \
-      this->nuclearAmplitudeExpansion)
+      this->nuclearAmplitudeExpansion \
+   )
 
    // default
    CoulombPlusNuclearElastic() :
@@ -102,13 +157,20 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit CoulombPlusNuclearElastic(
-      const wrapper<std::optional<XMLName>> &href,
-      const wrapper<std::optional<bool>> &identicalParticles = {},
-      const wrapper<XMLName> &label = {},
-      const wrapper<std::optional<XMLName>> &pid = {},
-      const wrapper<std::optional<enums::Frame>> &productFrame = {},
-      const wrapper<std::optional<cpTransport::RutherfordScattering>> &RutherfordScattering = {},
-      const wrapper<std::optional<cpTransport::NuclearAmplitudeExpansion>> &nuclearAmplitudeExpansion = {}
+      const wrapper<std::optional<XMLName>>
+         &href,
+      const wrapper<std::optional<bool>>
+         &identicalParticles = {},
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &pid = {},
+      const wrapper<std::optional<enums::Frame>>
+         &productFrame = {},
+      const wrapper<std::optional<cpTransport::RutherfordScattering>>
+         &RutherfordScattering = {},
+      const wrapper<std::optional<cpTransport::NuclearAmplitudeExpansion>>
+         &nuclearAmplitudeExpansion = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -163,8 +225,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   CoulombPlusNuclearElastic &operator=(const CoulombPlusNuclearElastic &) = default;
-   CoulombPlusNuclearElastic &operator=(CoulombPlusNuclearElastic &&) = default;
+   // copy
+   CoulombPlusNuclearElastic &operator=(const CoulombPlusNuclearElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         identicalParticles = other.identicalParticles;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         RutherfordScattering = other.RutherfordScattering;
+         nuclearAmplitudeExpansion = other.nuclearAmplitudeExpansion;
+      }
+      return *this;
+   }
+
+   // move
+   CoulombPlusNuclearElastic &operator=(CoulombPlusNuclearElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         identicalParticles = std::move(other.identicalParticles);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         RutherfordScattering = std::move(other.RutherfordScattering);
+         nuclearAmplitudeExpansion = std::move(other.nuclearAmplitudeExpansion);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

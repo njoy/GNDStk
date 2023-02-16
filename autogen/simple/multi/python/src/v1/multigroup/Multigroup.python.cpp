@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1 {
 namespace python_multigroup {
 
-// Multigroup wrapper
-void wrapMultigroup(python::module &module)
+// wrapper for multigroup::Multigroup
+void wrapMultigroup(py::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
 
    // type aliases
-   using Component = multigroup::Multigroup;
+   using cppCLASS = multigroup::Multigroup;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Multigroup",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Multigroup",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::vector<multigroup::Library> &
-         >(),
-         python::arg("projectile"),
-         python::arg("library"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self) { return self.projectile(); },
-         Component::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "library",
-         [](const Component &self) { return self.library(); },
-         Component::documentation("library").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::vector<multigroup::Library> &
+      >(),
+      py::arg("projectile"),
+      py::arg("library"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set projectile
+   object.def_property(
+      "projectile",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectile();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.projectile() = value;
+      },
+      cppCLASS::component_t::documentation("projectile").data()
+   );
+
+   // get/set library
+   object.def_property(
+      "library",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.library();
+      },
+      [](cppCLASS &self, const std::vector<multigroup::Library> &value)
+      {
+         self.library() = value;
+      },
+      cppCLASS::component_t::documentation("library").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_multigroup

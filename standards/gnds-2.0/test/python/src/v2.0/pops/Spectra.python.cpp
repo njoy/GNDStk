@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Spectra wrapper
-void wrapSpectra(python::module &module)
+// wrapper for pops::Spectra
+void wrapSpectra(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Spectra;
+   using cppCLASS = pops::Spectra;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Spectra",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Spectra",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::Spectrum> &
-         >(),
-         python::arg("spectrum"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "spectrum",
-         [](const Component &self) { return self.spectrum(); },
-         Component::documentation("spectrum").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::Spectrum> &
+      >(),
+      py::arg("spectrum"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set spectrum
+   object.def_property(
+      "spectrum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.spectrum();
+      },
+      [](cppCLASS &self, const std::vector<pops::Spectrum> &value)
+      {
+         self.spectrum() = value;
+      },
+      cppCLASS::component_t::documentation("spectrum").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

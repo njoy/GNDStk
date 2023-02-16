@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Function1ds wrapper
-void wrapFunction1ds(python::module &module)
+// wrapper for containers::Function1ds
+void wrapFunction1ds(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Function1ds;
+   using cppCLASS = containers::Function1ds;
    using _t = std::variant<
       containers::XYs1d,
       containers::Constant1d,
@@ -32,31 +32,36 @@ void wrapFunction1ds(python::module &module)
       containers::Gridded1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Function1ds",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Function1ds",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<_t> &
-         >(),
-         python::arg("_xys1dconstant1dpolynomial1d_legendregridded1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "_xys1dconstant1dpolynomial1d_legendregridded1d",
-         [](const Component &self) { return self._XYs1dconstant1dpolynomial1dLegendregridded1d(); },
-         Component::documentation("_xys1dconstant1dpolynomial1d_legendregridded1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<_t> &
+      >(),
+      py::arg("_xys1dconstant1dpolynomial1d_legendregridded1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   object.def_property(
+      "_xys1dconstant1dpolynomial1d_legendregridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs1dconstant1dpolynomial1dLegendregridded1d();
+      },
+      [](cppCLASS &self, const std::vector<_t> &value)
+      {
+         self._XYs1dconstant1dpolynomial1dLegendregridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys1dconstant1dpolynomial1d_legendregridded1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

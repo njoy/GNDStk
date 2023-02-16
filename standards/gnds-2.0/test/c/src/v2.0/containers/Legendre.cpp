@@ -94,20 +94,20 @@ LegendreCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-LegendreAssign(ConstHandle2Legendre This, ConstHandle2ConstLegendre from)
+LegendreAssign(ConstHandle2Legendre self, ConstHandle2ConstLegendre from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-LegendreDelete(ConstHandle2ConstLegendre This)
+LegendreDelete(ConstHandle2ConstLegendre self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -121,44 +121,44 @@ LegendreDelete(ConstHandle2ConstLegendre This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-LegendreRead(ConstHandle2Legendre This, const char *const filename)
+LegendreRead(ConstHandle2Legendre self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-LegendreWrite(ConstHandle2ConstLegendre This, const char *const filename)
+LegendreWrite(ConstHandle2ConstLegendre self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-LegendrePrint(ConstHandle2ConstLegendre This)
+LegendrePrint(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-LegendrePrintXML(ConstHandle2ConstLegendre This)
+LegendrePrintXML(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-LegendrePrintJSON(ConstHandle2ConstLegendre This)
+LegendrePrintJSON(ConstHandle2ConstLegendre self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -168,27 +168,27 @@ LegendrePrintJSON(ConstHandle2ConstLegendre This)
 
 // Has
 int
-LegendreLabelHas(ConstHandle2ConstLegendre This)
+LegendreLabelHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-LegendreLabelGet(ConstHandle2ConstLegendre This)
+LegendreLabelGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-LegendreLabelSet(ConstHandle2Legendre This, const XMLName label)
+LegendreLabelSet(ConstHandle2Legendre self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -198,27 +198,27 @@ LegendreLabelSet(ConstHandle2Legendre This, const XMLName label)
 
 // Has
 int
-LegendreOuterDomainValueHas(ConstHandle2ConstLegendre This)
+LegendreOuterDomainValueHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 Float64
-LegendreOuterDomainValueGet(ConstHandle2ConstLegendre This)
+LegendreOuterDomainValueGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-LegendreOuterDomainValueSet(ConstHandle2Legendre This, const Float64 outerDomainValue)
+LegendreOuterDomainValueSet(ConstHandle2Legendre self, const Float64 outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -228,27 +228,27 @@ LegendreOuterDomainValueSet(ConstHandle2Legendre This, const Float64 outerDomain
 
 // Has
 int
-LegendreLowerIndexHas(ConstHandle2ConstLegendre This)
+LegendreLowerIndexHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerIndexHas", This, extract::lowerIndex);
+      (CLASSNAME, CLASSNAME+"LowerIndexHas", self, extract::lowerIndex);
 }
 
 // Get
 // Returns by value
 Integer32
-LegendreLowerIndexGet(ConstHandle2ConstLegendre This)
+LegendreLowerIndexGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerIndexGet", This, extract::lowerIndex);
+      (CLASSNAME, CLASSNAME+"LowerIndexGet", self, extract::lowerIndex);
 }
 
 // Set
 void
-LegendreLowerIndexSet(ConstHandle2Legendre This, const Integer32 lowerIndex)
+LegendreLowerIndexSet(ConstHandle2Legendre self, const Integer32 lowerIndex)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LowerIndexSet", This, extract::lowerIndex, lowerIndex);
+      (CLASSNAME, CLASSNAME+"LowerIndexSet", self, extract::lowerIndex, lowerIndex);
 }
 
 
@@ -258,27 +258,27 @@ LegendreLowerIndexSet(ConstHandle2Legendre This, const Integer32 lowerIndex)
 
 // Has
 int
-LegendreDomainMinHas(ConstHandle2ConstLegendre This)
+LegendreDomainMinHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 Float64
-LegendreDomainMinGet(ConstHandle2ConstLegendre This)
+LegendreDomainMinGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-LegendreDomainMinSet(ConstHandle2Legendre This, const Float64 domainMin)
+LegendreDomainMinSet(ConstHandle2Legendre self, const Float64 domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -288,27 +288,27 @@ LegendreDomainMinSet(ConstHandle2Legendre This, const Float64 domainMin)
 
 // Has
 int
-LegendreDomainMaxHas(ConstHandle2ConstLegendre This)
+LegendreDomainMaxHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 Float64
-LegendreDomainMaxGet(ConstHandle2ConstLegendre This)
+LegendreDomainMaxGet(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-LegendreDomainMaxSet(ConstHandle2Legendre This, const Float64 domainMax)
+LegendreDomainMaxSet(ConstHandle2Legendre self, const Float64 domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -318,34 +318,34 @@ LegendreDomainMaxSet(ConstHandle2Legendre This, const Float64 domainMax)
 
 // Has
 int
-LegendreValuesHas(ConstHandle2ConstLegendre This)
+LegendreValuesHas(ConstHandle2ConstLegendre self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-LegendreValuesGetConst(ConstHandle2ConstLegendre This)
+LegendreValuesGetConst(ConstHandle2ConstLegendre self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-LegendreValuesGet(ConstHandle2Legendre This)
+LegendreValuesGet(ConstHandle2Legendre self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-LegendreValuesSet(ConstHandle2Legendre This, ConstHandle2ConstValues values)
+LegendreValuesSet(ConstHandle2Legendre self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

@@ -80,20 +80,20 @@ ThermalNeutronScatteringLaw_coherentElasticCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ThermalNeutronScatteringLaw_coherentElasticAssign(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic from)
+ThermalNeutronScatteringLaw_coherentElasticAssign(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -107,44 +107,44 @@ ThermalNeutronScatteringLaw_coherentElasticDelete(ConstHandle2ConstThermalNeutro
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ThermalNeutronScatteringLaw_coherentElasticRead(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const char *const filename)
+ThermalNeutronScatteringLaw_coherentElasticRead(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ThermalNeutronScatteringLaw_coherentElasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This, const char *const filename)
+ThermalNeutronScatteringLaw_coherentElasticWrite(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ThermalNeutronScatteringLaw_coherentElasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticPrint(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ThermalNeutronScatteringLaw_coherentElasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticPrintXML(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -154,27 +154,27 @@ ThermalNeutronScatteringLaw_coherentElasticPrintJSON(ConstHandle2ConstThermalNeu
 
 // Has
 int
-ThermalNeutronScatteringLaw_coherentElasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticLabelHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ThermalNeutronScatteringLaw_coherentElasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticLabelGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const XMLName label)
+ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -184,27 +184,27 @@ ThermalNeutronScatteringLaw_coherentElasticLabelSet(ConstHandle2ThermalNeutronSc
 
 // Has
 int
-ThermalNeutronScatteringLaw_coherentElasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticPidHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-ThermalNeutronScatteringLaw_coherentElasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticPidGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const XMLName pid)
+ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -214,27 +214,27 @@ ThermalNeutronScatteringLaw_coherentElasticPidSet(ConstHandle2ThermalNeutronScat
 
 // Has
 int
-ThermalNeutronScatteringLaw_coherentElasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticProductFrameHas(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-ThermalNeutronScatteringLaw_coherentElasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic This)
+ThermalNeutronScatteringLaw_coherentElasticProductFrameGet(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic This, const enums::Frame productFrame)
+ThermalNeutronScatteringLaw_coherentElasticProductFrameSet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self, const enums::Frame productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 

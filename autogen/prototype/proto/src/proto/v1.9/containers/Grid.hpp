@@ -31,12 +31,12 @@ class Grid :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Grid"; }
-   static auto FIELD() { return "grid"; }
+   static auto NODENAME() { return "grid"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -61,7 +61,44 @@ class Grid :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -69,18 +106,28 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<int>> index{this};
-   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<enums::GridStyle>> style{this};
-   Field<std::optional<std::string>> unit{this};
+   Field<std::optional<int>>
+      index{this};
+   Field<Defaulted<enums::Interpolation>>
+      interpolation{this,defaults.interpolation};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<enums::GridStyle>>
+      style{this};
+   Field<std::optional<std::string>>
+      unit{this};
 
    // children - variant
-   Field<link_values_t> link_values{this};
+   Field<link_values_t>
+      link_values{this};
    FieldPart<decltype(link_values),containers::Values> values{link_values};
    FieldPart<decltype(link_values),containers::Link> link{link_values};
 
@@ -88,14 +135,17 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->interpolation, \
       this->label, \
       this->style, \
       this->unit, \
-      this->link_values)
+      this->link_values \
+   )
 
    // default
    Grid() :
@@ -107,12 +157,18 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Grid(
-      const wrapper<std::optional<int>> &index,
-      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
-      const wrapper<std::optional<std::string>> &label = {},
-      const wrapper<std::optional<enums::GridStyle>> &style = {},
-      const wrapper<std::optional<std::string>> &unit = {},
-      const wrapper<link_values_t> &link_values = {}
+      const wrapper<std::optional<int>>
+         &index,
+      const wrapper<std::optional<enums::Interpolation>>
+         &interpolation = {},
+      const wrapper<std::optional<std::string>>
+         &label = {},
+      const wrapper<std::optional<enums::GridStyle>>
+         &style = {},
+      const wrapper<std::optional<std::string>>
+         &unit = {},
+      const wrapper<link_values_t>
+         &link_values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -164,8 +220,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Grid &operator=(const Grid &) = default;
-   Grid &operator=(Grid &&) = default;
+   // copy
+   Grid &operator=(const Grid &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         interpolation = other.interpolation;
+         label = other.label;
+         style = other.style;
+         unit = other.unit;
+         link_values = other.link_values;
+      }
+      return *this;
+   }
+
+   // move
+   Grid &operator=(Grid &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         interpolation = std::move(other.interpolation);
+         label = std::move(other.label);
+         style = std::move(other.style);
+         unit = std::move(other.unit);
+         link_values = std::move(other.link_values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -120,13 +120,13 @@ Energy_uncorrelatedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Energy_uncorrelatedAssign(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstEnergy_uncorrelated from);
+Energy_uncorrelatedAssign(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstEnergy_uncorrelated from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,25 +139,25 @@ Energy_uncorrelatedDelete(ConstHandle2ConstEnergy_uncorrelated This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Energy_uncorrelatedRead(ConstHandle2Energy_uncorrelated This, const char *const filename);
+Energy_uncorrelatedRead(ConstHandle2Energy_uncorrelated self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Energy_uncorrelatedWrite(ConstHandle2ConstEnergy_uncorrelated This, const char *const filename);
+Energy_uncorrelatedWrite(ConstHandle2ConstEnergy_uncorrelated self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Energy_uncorrelatedPrint(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedPrint(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Energy_uncorrelatedPrintXML(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedPrintXML(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated self);
 
 
 // -----------------------------------------------------------------------------
@@ -166,19 +166,19 @@ Energy_uncorrelatedPrintJSON(ConstHandle2ConstEnergy_uncorrelated This);
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedXYs2dHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedXYs2dHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstXYs2d
-Energy_uncorrelatedXYs2dGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedXYs2dGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2XYs2d
-Energy_uncorrelatedXYs2dGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedXYs2dGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstXYs2d XYs2d);
+Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstXYs2d XYs2d);
 
 
 // -----------------------------------------------------------------------------
@@ -187,19 +187,19 @@ Energy_uncorrelatedXYs2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2Co
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedRegions2dHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedRegions2dHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstRegions2d
-Energy_uncorrelatedRegions2dGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedRegions2dGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2Regions2d
-Energy_uncorrelatedRegions2dGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedRegions2dGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstRegions2d regions2d);
+Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstRegions2d regions2d);
 
 
 // -----------------------------------------------------------------------------
@@ -208,19 +208,19 @@ Energy_uncorrelatedRegions2dSet(ConstHandle2Energy_uncorrelated This, ConstHandl
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedGeneralEvaporationHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedGeneralEvaporationHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstGeneralEvaporation
-Energy_uncorrelatedGeneralEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedGeneralEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2GeneralEvaporation
-Energy_uncorrelatedGeneralEvaporationGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedGeneralEvaporationGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstGeneralEvaporation generalEvaporation);
+Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstGeneralEvaporation generalEvaporation);
 
 
 // -----------------------------------------------------------------------------
@@ -229,19 +229,19 @@ Energy_uncorrelatedGeneralEvaporationSet(ConstHandle2Energy_uncorrelated This, C
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedDiscreteGammaHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedDiscreteGammaHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstDiscreteGamma
-Energy_uncorrelatedDiscreteGammaGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedDiscreteGammaGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2DiscreteGamma
-Energy_uncorrelatedDiscreteGammaGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedDiscreteGammaGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstDiscreteGamma discreteGamma);
+Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstDiscreteGamma discreteGamma);
 
 
 // -----------------------------------------------------------------------------
@@ -250,19 +250,19 @@ Energy_uncorrelatedDiscreteGammaSet(ConstHandle2Energy_uncorrelated This, ConstH
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedPrimaryGammaHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedPrimaryGammaHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstPrimaryGamma
-Energy_uncorrelatedPrimaryGammaGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedPrimaryGammaGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2PrimaryGamma
-Energy_uncorrelatedPrimaryGammaGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedPrimaryGammaGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstPrimaryGamma primaryGamma);
+Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstPrimaryGamma primaryGamma);
 
 
 // -----------------------------------------------------------------------------
@@ -271,19 +271,19 @@ Energy_uncorrelatedPrimaryGammaSet(ConstHandle2Energy_uncorrelated This, ConstHa
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedNBodyPhaseSpaceHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedNBodyPhaseSpaceHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstNBodyPhaseSpace
-Energy_uncorrelatedNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2NBodyPhaseSpace
-Energy_uncorrelatedNBodyPhaseSpaceGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedNBodyPhaseSpaceGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace);
+Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstNBodyPhaseSpace NBodyPhaseSpace);
 
 
 // -----------------------------------------------------------------------------
@@ -292,19 +292,19 @@ Energy_uncorrelatedNBodyPhaseSpaceSet(ConstHandle2Energy_uncorrelated This, Cons
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedEvaporationHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedEvaporationHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstEvaporation
-Energy_uncorrelatedEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedEvaporationGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2Evaporation
-Energy_uncorrelatedEvaporationGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedEvaporationGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstEvaporation evaporation);
+Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstEvaporation evaporation);
 
 
 // -----------------------------------------------------------------------------
@@ -313,19 +313,19 @@ Energy_uncorrelatedEvaporationSet(ConstHandle2Energy_uncorrelated This, ConstHan
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedWeightedFunctionalsHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedWeightedFunctionalsHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstWeightedFunctionals
-Energy_uncorrelatedWeightedFunctionalsGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedWeightedFunctionalsGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2WeightedFunctionals
-Energy_uncorrelatedWeightedFunctionalsGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedWeightedFunctionalsGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstWeightedFunctionals weightedFunctionals);
+Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstWeightedFunctionals weightedFunctionals);
 
 
 // -----------------------------------------------------------------------------
@@ -334,19 +334,19 @@ Energy_uncorrelatedWeightedFunctionalsSet(ConstHandle2Energy_uncorrelated This, 
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedSimpleMaxwellianFissionHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedSimpleMaxwellianFissionHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstSimpleMaxwellianFission
-Energy_uncorrelatedSimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedSimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2SimpleMaxwellianFission
-Energy_uncorrelatedSimpleMaxwellianFissionGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedSimpleMaxwellianFissionGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission);
+Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstSimpleMaxwellianFission simpleMaxwellianFission);
 
 
 // -----------------------------------------------------------------------------
@@ -355,19 +355,19 @@ Energy_uncorrelatedSimpleMaxwellianFissionSet(ConstHandle2Energy_uncorrelated Th
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedWattHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedWattHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstWatt
-Energy_uncorrelatedWattGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedWattGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2Watt
-Energy_uncorrelatedWattGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedWattGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstWatt Watt);
+Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstWatt Watt);
 
 
 // -----------------------------------------------------------------------------
@@ -376,19 +376,19 @@ Energy_uncorrelatedWattSet(ConstHandle2Energy_uncorrelated This, ConstHandle2Con
 
 // +++ Has
 extern_c int
-Energy_uncorrelatedMadlandNixHas(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedMadlandNixHas(ConstHandle2ConstEnergy_uncorrelated self);
 
 // --- Get, const
 extern_c Handle2ConstMadlandNix
-Energy_uncorrelatedMadlandNixGetConst(ConstHandle2ConstEnergy_uncorrelated This);
+Energy_uncorrelatedMadlandNixGetConst(ConstHandle2ConstEnergy_uncorrelated self);
 
 // +++ Get, non-const
 extern_c Handle2MadlandNix
-Energy_uncorrelatedMadlandNixGet(ConstHandle2Energy_uncorrelated This);
+Energy_uncorrelatedMadlandNixGet(ConstHandle2Energy_uncorrelated self);
 
 // +++ Set
 extern_c void
-Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated This, ConstHandle2ConstMadlandNix MadlandNix);
+Energy_uncorrelatedMadlandNixSet(ConstHandle2Energy_uncorrelated self, ConstHandle2ConstMadlandNix MadlandNix);
 
 
 // -----------------------------------------------------------------------------

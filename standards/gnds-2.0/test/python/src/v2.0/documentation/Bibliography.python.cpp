@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Bibliography wrapper
-void wrapBibliography(python::module &module)
+// wrapper for documentation::Bibliography
+void wrapBibliography(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Bibliography;
+   using cppCLASS = documentation::Bibliography;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Bibliography",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Bibliography",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::Bibitem> &
-         >(),
-         python::arg("bibitem"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "bibitem",
-         [](const Component &self) { return self.bibitem(); },
-         Component::documentation("bibitem").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::Bibitem> &
+      >(),
+      py::arg("bibitem"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set bibitem
+   object.def_property(
+      "bibitem",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.bibitem();
+      },
+      [](cppCLASS &self, const std::vector<documentation::Bibitem> &value)
+      {
+         self.bibitem() = value;
+      },
+      cppCLASS::component_t::documentation("bibitem").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

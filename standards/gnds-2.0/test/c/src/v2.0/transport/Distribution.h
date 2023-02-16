@@ -103,13 +103,13 @@ DistributionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DistributionAssign(ConstHandle2Distribution This, ConstHandle2ConstDistribution from);
+DistributionAssign(ConstHandle2Distribution self, ConstHandle2ConstDistribution from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DistributionDelete(ConstHandle2ConstDistribution This);
+DistributionDelete(ConstHandle2ConstDistribution self);
 
 
 // -----------------------------------------------------------------------------
@@ -122,25 +122,25 @@ DistributionDelete(ConstHandle2ConstDistribution This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DistributionRead(ConstHandle2Distribution This, const char *const filename);
+DistributionRead(ConstHandle2Distribution self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DistributionWrite(ConstHandle2ConstDistribution This, const char *const filename);
+DistributionWrite(ConstHandle2ConstDistribution self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DistributionPrint(ConstHandle2ConstDistribution This);
+DistributionPrint(ConstHandle2ConstDistribution self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DistributionPrintXML(ConstHandle2ConstDistribution This);
+DistributionPrintXML(ConstHandle2ConstDistribution self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DistributionPrintJSON(ConstHandle2ConstDistribution This);
+DistributionPrintJSON(ConstHandle2ConstDistribution self);
 
 
 // -----------------------------------------------------------------------------

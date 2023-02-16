@@ -25,12 +25,12 @@ class Styles :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Styles"; }
-   static auto FIELD() { return "styles"; }
+   static auto NODENAME() { return "styles"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Styles :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<gnds::Evaluated>("evaluated")
+         --Child<gnds::Evaluated>
+            ("evaluated")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluated"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluated"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<gnds::Evaluated> evaluated{this};
+   Field<gnds::Evaluated>
+      evaluated{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->evaluated)
+      this->evaluated \
+   )
 
    // default
    Styles() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Styles(
-      const wrapper<gnds::Evaluated> &evaluated
+      const wrapper<gnds::Evaluated>
+         &evaluated
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Styles &operator=(const Styles &) = default;
-   Styles &operator=(Styles &&) = default;
+   // copy
+   Styles &operator=(const Styles &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluated = other.evaluated;
+      }
+      return *this;
+   }
+
+   // move
+   Styles &operator=(Styles &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluated = std::move(other.evaluated);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

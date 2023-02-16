@@ -90,20 +90,20 @@ InternalPairFormationCoefficientCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-InternalPairFormationCoefficientAssign(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstInternalPairFormationCoefficient from)
+InternalPairFormationCoefficientAssign(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstInternalPairFormationCoefficient from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ InternalPairFormationCoefficientDelete(ConstHandle2ConstInternalPairFormationCoe
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-InternalPairFormationCoefficientRead(ConstHandle2InternalPairFormationCoefficient This, const char *const filename)
+InternalPairFormationCoefficientRead(ConstHandle2InternalPairFormationCoefficient self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-InternalPairFormationCoefficientWrite(ConstHandle2ConstInternalPairFormationCoefficient This, const char *const filename)
+InternalPairFormationCoefficientWrite(ConstHandle2ConstInternalPairFormationCoefficient self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-InternalPairFormationCoefficientPrint(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientPrint(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-InternalPairFormationCoefficientPrintXML(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientPrintXML(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ InternalPairFormationCoefficientPrintJSON(ConstHandle2ConstInternalPairFormation
 
 // Has
 int
-InternalPairFormationCoefficientLabelHas(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientLabelHas(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-InternalPairFormationCoefficientLabelGet(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientLabelGet(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoefficient This, const XMLName label)
+InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoefficient self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -194,27 +194,27 @@ InternalPairFormationCoefficientLabelSet(ConstHandle2InternalPairFormationCoeffi
 
 // Has
 int
-InternalPairFormationCoefficientValueHas(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientValueHas(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-InternalPairFormationCoefficientValueGet(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientValueGet(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoefficient This, const Float64 value)
+InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoefficient self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -224,27 +224,27 @@ InternalPairFormationCoefficientValueSet(ConstHandle2InternalPairFormationCoeffi
 
 // Has
 int
-InternalPairFormationCoefficientUnitHas(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientUnitHas(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-InternalPairFormationCoefficientUnitGet(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientUnitGet(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoefficient This, const XMLName unit)
+InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoefficient self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -254,34 +254,34 @@ InternalPairFormationCoefficientUnitSet(ConstHandle2InternalPairFormationCoeffic
 
 // Has
 int
-InternalPairFormationCoefficientDocumentationHas(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientDocumentationHas(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-InternalPairFormationCoefficientDocumentationGetConst(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientDocumentationGetConst(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-InternalPairFormationCoefficientDocumentationGet(ConstHandle2InternalPairFormationCoefficient This)
+InternalPairFormationCoefficientDocumentationGet(ConstHandle2InternalPairFormationCoefficient self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstDocumentation documentation)
+InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -291,34 +291,34 @@ InternalPairFormationCoefficientDocumentationSet(ConstHandle2InternalPairFormati
 
 // Has
 int
-InternalPairFormationCoefficientUncertaintyHas(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientUncertaintyHas(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-InternalPairFormationCoefficientUncertaintyGetConst(ConstHandle2ConstInternalPairFormationCoefficient This)
+InternalPairFormationCoefficientUncertaintyGetConst(ConstHandle2ConstInternalPairFormationCoefficient self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-InternalPairFormationCoefficientUncertaintyGet(ConstHandle2InternalPairFormationCoefficient This)
+InternalPairFormationCoefficientUncertaintyGet(ConstHandle2InternalPairFormationCoefficient self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormationCoefficient This, ConstHandle2ConstUncertainty uncertainty)
+InternalPairFormationCoefficientUncertaintySet(ConstHandle2InternalPairFormationCoefficient self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 

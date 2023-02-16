@@ -73,20 +73,20 @@ AffiliationsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AffiliationsAssign(ConstHandle2Affiliations This, ConstHandle2ConstAffiliations from)
+AffiliationsAssign(ConstHandle2Affiliations self, ConstHandle2ConstAffiliations from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AffiliationsDelete(ConstHandle2ConstAffiliations This)
+AffiliationsDelete(ConstHandle2ConstAffiliations self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ AffiliationsDelete(ConstHandle2ConstAffiliations This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AffiliationsRead(ConstHandle2Affiliations This, const char *const filename)
+AffiliationsRead(ConstHandle2Affiliations self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AffiliationsWrite(ConstHandle2ConstAffiliations This, const char *const filename)
+AffiliationsWrite(ConstHandle2ConstAffiliations self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AffiliationsPrint(ConstHandle2ConstAffiliations This)
+AffiliationsPrint(ConstHandle2ConstAffiliations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AffiliationsPrintXML(ConstHandle2ConstAffiliations This)
+AffiliationsPrintXML(ConstHandle2ConstAffiliations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AffiliationsPrintJSON(ConstHandle2ConstAffiliations This)
+AffiliationsPrintJSON(ConstHandle2ConstAffiliations self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ AffiliationsPrintJSON(ConstHandle2ConstAffiliations This)
 
 // Has
 int
-AffiliationsAffiliationHas(ConstHandle2ConstAffiliations This)
+AffiliationsAffiliationHas(ConstHandle2ConstAffiliations self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AffiliationHas", This, extract::affiliation);
+      (CLASSNAME, CLASSNAME+"AffiliationHas", self, extract::affiliation);
 }
 
 // Clear
 void
-AffiliationsAffiliationClear(ConstHandle2Affiliations This)
+AffiliationsAffiliationClear(ConstHandle2Affiliations self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AffiliationClear", This, extract::affiliation);
+      (CLASSNAME, CLASSNAME+"AffiliationClear", self, extract::affiliation);
 }
 
 // Size
 size_t
-AffiliationsAffiliationSize(ConstHandle2ConstAffiliations This)
+AffiliationsAffiliationSize(ConstHandle2ConstAffiliations self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"AffiliationSize", This, extract::affiliation);
+      (CLASSNAME, CLASSNAME+"AffiliationSize", self, extract::affiliation);
 }
 
 // Add
 void
-AffiliationsAffiliationAdd(ConstHandle2Affiliations This, ConstHandle2ConstAffiliation affiliation)
+AffiliationsAffiliationAdd(ConstHandle2Affiliations self, ConstHandle2ConstAffiliation affiliation)
 {
    detail::addToContainer<CPP,CPPAffiliation>
-      (CLASSNAME, CLASSNAME+"AffiliationAdd", This, extract::affiliation, affiliation);
+      (CLASSNAME, CLASSNAME+"AffiliationAdd", self, extract::affiliation, affiliation);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstAffiliation
-AffiliationsAffiliationGetConst(ConstHandle2ConstAffiliations This, const size_t index_)
+AffiliationsAffiliationGetConst(ConstHandle2ConstAffiliations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstAffiliation>
-      (CLASSNAME, CLASSNAME+"AffiliationGetConst", This, extract::affiliation, index_);
+      (CLASSNAME, CLASSNAME+"AffiliationGetConst", self, extract::affiliation, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Affiliation
-AffiliationsAffiliationGet(ConstHandle2Affiliations This, const size_t index_)
+AffiliationsAffiliationGet(ConstHandle2Affiliations self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Affiliation>
-      (CLASSNAME, CLASSNAME+"AffiliationGet", This, extract::affiliation, index_);
+      (CLASSNAME, CLASSNAME+"AffiliationGet", self, extract::affiliation, index_);
 }
 
 // Set, by index \in [0,size)
 void
 AffiliationsAffiliationSet(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const size_t index_,
    ConstHandle2ConstAffiliation affiliation
 ) {
    detail::setByIndex<CPP,CPPAffiliation>
-      (CLASSNAME, CLASSNAME+"AffiliationSet", This, extract::affiliation, index_, affiliation);
+      (CLASSNAME, CLASSNAME+"AffiliationSet", self, extract::affiliation, index_, affiliation);
 }
 
 // Has, by name
 int
 AffiliationsAffiliationHasByName(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AffiliationHasByName",
-       This, extract::affiliation, meta::name, name);
+       self, extract::affiliation, meta::name, name);
 }
 
 // Get, by name, const
 Handle2ConstAffiliation
 AffiliationsAffiliationGetByNameConst(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAffiliation>
       (CLASSNAME, CLASSNAME+"AffiliationGetByNameConst",
-       This, extract::affiliation, meta::name, name);
+       self, extract::affiliation, meta::name, name);
 }
 
 // Get, by name, non-const
 Handle2Affiliation
 AffiliationsAffiliationGetByName(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2Affiliation>
       (CLASSNAME, CLASSNAME+"AffiliationGetByName",
-       This, extract::affiliation, meta::name, name);
+       self, extract::affiliation, meta::name, name);
 }
 
 // Set, by name
 void
 AffiliationsAffiliationSetByName(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text name,
    ConstHandle2ConstAffiliation affiliation
 ) {
    detail::setByMetadatum<CPP,CPPAffiliation>
       (CLASSNAME, CLASSNAME+"AffiliationSetByName",
-       This, extract::affiliation, meta::name, name, affiliation);
+       self, extract::affiliation, meta::name, name, affiliation);
 }
 
 // Has, by href
 int
 AffiliationsAffiliationHasByHref(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"AffiliationHasByHref",
-       This, extract::affiliation, meta::href, href);
+       self, extract::affiliation, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstAffiliation
 AffiliationsAffiliationGetByHrefConst(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstAffiliation>
       (CLASSNAME, CLASSNAME+"AffiliationGetByHrefConst",
-       This, extract::affiliation, meta::href, href);
+       self, extract::affiliation, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2Affiliation
 AffiliationsAffiliationGetByHref(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2Affiliation>
       (CLASSNAME, CLASSNAME+"AffiliationGetByHref",
-       This, extract::affiliation, meta::href, href);
+       self, extract::affiliation, meta::href, href);
 }
 
 // Set, by href
 void
 AffiliationsAffiliationSetByHref(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text href,
    ConstHandle2ConstAffiliation affiliation
 ) {
    detail::setByMetadatum<CPP,CPPAffiliation>
       (CLASSNAME, CLASSNAME+"AffiliationSetByHref",
-       This, extract::affiliation, meta::href, href, affiliation);
+       self, extract::affiliation, meta::href, href, affiliation);
 }
 
 

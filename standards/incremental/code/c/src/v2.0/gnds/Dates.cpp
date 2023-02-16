@@ -73,20 +73,20 @@ DatesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DatesAssign(ConstHandle2Dates This, ConstHandle2ConstDates from)
+DatesAssign(ConstHandle2Dates self, ConstHandle2ConstDates from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DatesDelete(ConstHandle2ConstDates This)
+DatesDelete(ConstHandle2ConstDates self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ DatesDelete(ConstHandle2ConstDates This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DatesRead(ConstHandle2Dates This, const char *const filename)
+DatesRead(ConstHandle2Dates self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DatesWrite(ConstHandle2ConstDates This, const char *const filename)
+DatesWrite(ConstHandle2ConstDates self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DatesPrint(ConstHandle2ConstDates This)
+DatesPrint(ConstHandle2ConstDates self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DatesPrintXML(ConstHandle2ConstDates This)
+DatesPrintXML(ConstHandle2ConstDates self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DatesPrintJSON(ConstHandle2ConstDates This)
+DatesPrintJSON(ConstHandle2ConstDates self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ DatesPrintJSON(ConstHandle2ConstDates This)
 
 // Has
 int
-DatesDateHas(ConstHandle2ConstDates This)
+DatesDateHas(ConstHandle2ConstDates self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Clear
 void
-DatesDateClear(ConstHandle2Dates This)
+DatesDateClear(ConstHandle2Dates self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DateClear", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateClear", self, extract::date);
 }
 
 // Size
 size_t
-DatesDateSize(ConstHandle2ConstDates This)
+DatesDateSize(ConstHandle2ConstDates self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DateSize", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateSize", self, extract::date);
 }
 
 // Add
 void
-DatesDateAdd(ConstHandle2Dates This, ConstHandle2ConstDate date)
+DatesDateAdd(ConstHandle2Dates self, ConstHandle2ConstDate date)
 {
    detail::addToContainer<CPP,CPPDate>
-      (CLASSNAME, CLASSNAME+"DateAdd", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateAdd", self, extract::date, date);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDate
-DatesDateGetConst(ConstHandle2ConstDates This, const size_t index_)
+DatesDateGetConst(ConstHandle2ConstDates self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDate>
-      (CLASSNAME, CLASSNAME+"DateGetConst", This, extract::date, index_);
+      (CLASSNAME, CLASSNAME+"DateGetConst", self, extract::date, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Date
-DatesDateGet(ConstHandle2Dates This, const size_t index_)
+DatesDateGet(ConstHandle2Dates self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Date>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date, index_);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date, index_);
 }
 
 // Set, by index \in [0,size)
 void
 DatesDateSet(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const size_t index_,
    ConstHandle2ConstDate date
 ) {
    detail::setByIndex<CPP,CPPDate>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, index_, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, index_, date);
 }
 
 // Has, by value
 int
 DatesDateHasByValue(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const char *const value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DateHasByValue",
-       This, extract::date, meta::value, value);
+       self, extract::date, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstDate
 DatesDateGetByValueConst(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const char *const value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDate>
       (CLASSNAME, CLASSNAME+"DateGetByValueConst",
-       This, extract::date, meta::value, value);
+       self, extract::date, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Date
 DatesDateGetByValue(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const char *const value
 ) {
    return detail::getByMetadatum<CPP,Handle2Date>
       (CLASSNAME, CLASSNAME+"DateGetByValue",
-       This, extract::date, meta::value, value);
+       self, extract::date, meta::value, value);
 }
 
 // Set, by value
 void
 DatesDateSetByValue(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const char *const value,
    ConstHandle2ConstDate date
 ) {
    detail::setByMetadatum<CPP,CPPDate>
       (CLASSNAME, CLASSNAME+"DateSetByValue",
-       This, extract::date, meta::value, value, date);
+       self, extract::date, meta::value, value, date);
 }
 
 // Has, by dateType
 int
 DatesDateHasByDateType(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const enums::DateType dateType
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DateHasByDateType",
-       This, extract::date, meta::dateType, dateType);
+       self, extract::date, meta::dateType, dateType);
 }
 
 // Get, by dateType, const
 Handle2ConstDate
 DatesDateGetByDateTypeConst(
-   ConstHandle2ConstDates This,
+   ConstHandle2ConstDates self,
    const enums::DateType dateType
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDate>
       (CLASSNAME, CLASSNAME+"DateGetByDateTypeConst",
-       This, extract::date, meta::dateType, dateType);
+       self, extract::date, meta::dateType, dateType);
 }
 
 // Get, by dateType, non-const
 Handle2Date
 DatesDateGetByDateType(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const enums::DateType dateType
 ) {
    return detail::getByMetadatum<CPP,Handle2Date>
       (CLASSNAME, CLASSNAME+"DateGetByDateType",
-       This, extract::date, meta::dateType, dateType);
+       self, extract::date, meta::dateType, dateType);
 }
 
 // Set, by dateType
 void
 DatesDateSetByDateType(
-   ConstHandle2Dates This,
+   ConstHandle2Dates self,
    const enums::DateType dateType,
    ConstHandle2ConstDate date
 ) {
    detail::setByMetadatum<CPP,CPPDate>
       (CLASSNAME, CLASSNAME+"DateSetByDateType",
-       This, extract::date, meta::dateType, dateType, date);
+       self, extract::date, meta::dateType, dateType, date);
 }
 
 

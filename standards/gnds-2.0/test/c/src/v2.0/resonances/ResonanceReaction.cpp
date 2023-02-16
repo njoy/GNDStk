@@ -107,20 +107,20 @@ ResonanceReactionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ResonanceReactionAssign(ConstHandle2ResonanceReaction This, ConstHandle2ConstResonanceReaction from)
+ResonanceReactionAssign(ConstHandle2ResonanceReaction self, ConstHandle2ConstResonanceReaction from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ResonanceReactionDelete(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionDelete(ConstHandle2ConstResonanceReaction self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -134,44 +134,44 @@ ResonanceReactionDelete(ConstHandle2ConstResonanceReaction This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ResonanceReactionRead(ConstHandle2ResonanceReaction This, const char *const filename)
+ResonanceReactionRead(ConstHandle2ResonanceReaction self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ResonanceReactionWrite(ConstHandle2ConstResonanceReaction This, const char *const filename)
+ResonanceReactionWrite(ConstHandle2ConstResonanceReaction self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ResonanceReactionPrint(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionPrint(ConstHandle2ConstResonanceReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ResonanceReactionPrintXML(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionPrintXML(ConstHandle2ConstResonanceReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -181,27 +181,27 @@ ResonanceReactionPrintJSON(ConstHandle2ConstResonanceReaction This)
 
 // Has
 int
-ResonanceReactionLabelHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionLabelHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ResonanceReactionLabelGet(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionLabelGet(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ResonanceReactionLabelSet(ConstHandle2ResonanceReaction This, const XMLName label)
+ResonanceReactionLabelSet(ConstHandle2ResonanceReaction self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -211,27 +211,27 @@ ResonanceReactionLabelSet(ConstHandle2ResonanceReaction This, const XMLName labe
 
 // Has
 int
-ResonanceReactionEjectileHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionEjectileHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EjectileHas", This, extract::ejectile);
+      (CLASSNAME, CLASSNAME+"EjectileHas", self, extract::ejectile);
 }
 
 // Get
 // Returns by value
 XMLName
-ResonanceReactionEjectileGet(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionEjectileGet(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EjectileGet", This, extract::ejectile);
+      (CLASSNAME, CLASSNAME+"EjectileGet", self, extract::ejectile);
 }
 
 // Set
 void
-ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction This, const XMLName ejectile)
+ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction self, const XMLName ejectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EjectileSet", This, extract::ejectile, ejectile);
+      (CLASSNAME, CLASSNAME+"EjectileSet", self, extract::ejectile, ejectile);
 }
 
 
@@ -241,27 +241,27 @@ ResonanceReactionEjectileSet(ConstHandle2ResonanceReaction This, const XMLName e
 
 // Has
 int
-ResonanceReactionBoundaryConditionValueHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionBoundaryConditionValueHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", self, extract::boundaryConditionValue);
 }
 
 // Get
 // Returns by value
 Float64
-ResonanceReactionBoundaryConditionValueGet(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionBoundaryConditionValueGet(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", self, extract::boundaryConditionValue);
 }
 
 // Set
 void
-ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction This, const Float64 boundaryConditionValue)
+ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction self, const Float64 boundaryConditionValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", This, extract::boundaryConditionValue, boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", self, extract::boundaryConditionValue, boundaryConditionValue);
 }
 
 
@@ -271,27 +271,27 @@ ResonanceReactionBoundaryConditionValueSet(ConstHandle2ResonanceReaction This, c
 
 // Has
 int
-ResonanceReactionEliminatedHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionEliminatedHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EliminatedHas", This, extract::eliminated);
+      (CLASSNAME, CLASSNAME+"EliminatedHas", self, extract::eliminated);
 }
 
 // Get
 // Returns by value
 bool
-ResonanceReactionEliminatedGet(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionEliminatedGet(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EliminatedGet", This, extract::eliminated);
+      (CLASSNAME, CLASSNAME+"EliminatedGet", self, extract::eliminated);
 }
 
 // Set
 void
-ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction This, const bool eliminated)
+ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction self, const bool eliminated)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EliminatedSet", This, extract::eliminated, eliminated);
+      (CLASSNAME, CLASSNAME+"EliminatedSet", self, extract::eliminated, eliminated);
 }
 
 
@@ -301,34 +301,34 @@ ResonanceReactionEliminatedSet(ConstHandle2ResonanceReaction This, const bool el
 
 // Has
 int
-ResonanceReactionQHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionQHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"QHas", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QHas", self, extract::Q);
 }
 
 // Get, const
 Handle2ConstQ
-ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP,Handle2ConstQ>
-      (CLASSNAME, CLASSNAME+"QGetConst", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
 // Get, non-const
 Handle2Q
-ResonanceReactionQGet(ConstHandle2ResonanceReaction This)
+ResonanceReactionQGet(ConstHandle2ResonanceReaction self)
 {
    return detail::getField<CPP,Handle2Q>
-      (CLASSNAME, CLASSNAME+"QGet", This, extract::Q);
+      (CLASSNAME, CLASSNAME+"QGet", self, extract::Q);
 }
 
 // Set
 void
-ResonanceReactionQSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstQ Q)
+ResonanceReactionQSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstQ Q)
 {
    detail::setField<CPP,CPPQ>
-      (CLASSNAME, CLASSNAME+"QSet", This, extract::Q, Q);
+      (CLASSNAME, CLASSNAME+"QSet", self, extract::Q, Q);
 }
 
 
@@ -338,34 +338,34 @@ ResonanceReactionQSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstQ Q)
 
 // Has
 int
-ResonanceReactionScatteringRadiusHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionScatteringRadiusHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", self, extract::scatteringRadius);
 }
 
 // Get, const
 Handle2ConstScatteringRadius
-ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP,Handle2ConstScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
 // Get, non-const
 Handle2ScatteringRadius
-ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction This)
+ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction self)
 {
    return detail::getField<CPP,Handle2ScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", self, extract::scatteringRadius);
 }
 
 // Set
 void
-ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstScatteringRadius scatteringRadius)
+ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstScatteringRadius scatteringRadius)
 {
    detail::setField<CPP,CPPScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", This, extract::scatteringRadius, scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", self, extract::scatteringRadius, scatteringRadius);
 }
 
 
@@ -375,34 +375,34 @@ ResonanceReactionScatteringRadiusSet(ConstHandle2ResonanceReaction This, ConstHa
 
 // Has
 int
-ResonanceReactionHardSphereRadiusHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionHardSphereRadiusHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", self, extract::hardSphereRadius);
 }
 
 // Get, const
 Handle2ConstHardSphereRadius
-ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP,Handle2ConstHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
 // Get, non-const
 Handle2HardSphereRadius
-ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction This)
+ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction self)
 {
    return detail::getField<CPP,Handle2HardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", self, extract::hardSphereRadius);
 }
 
 // Set
 void
-ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstHardSphereRadius hardSphereRadius)
+ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstHardSphereRadius hardSphereRadius)
 {
    detail::setField<CPP,CPPHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", This, extract::hardSphereRadius, hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", self, extract::hardSphereRadius, hardSphereRadius);
 }
 
 
@@ -412,34 +412,34 @@ ResonanceReactionHardSphereRadiusSet(ConstHandle2ResonanceReaction This, ConstHa
 
 // Has
 int
-ResonanceReactionLinkHas(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionLinkHas(ConstHandle2ConstResonanceReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LinkHas", This, extract::link);
+      (CLASSNAME, CLASSNAME+"LinkHas", self, extract::link);
 }
 
 // Get, const
 Handle2ConstLink
-ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction This)
+ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction self)
 {
    return detail::getField<CPP,Handle2ConstLink>
-      (CLASSNAME, CLASSNAME+"LinkGetConst", This, extract::link);
+      (CLASSNAME, CLASSNAME+"LinkGetConst", self, extract::link);
 }
 
 // Get, non-const
 Handle2Link
-ResonanceReactionLinkGet(ConstHandle2ResonanceReaction This)
+ResonanceReactionLinkGet(ConstHandle2ResonanceReaction self)
 {
    return detail::getField<CPP,Handle2Link>
-      (CLASSNAME, CLASSNAME+"LinkGet", This, extract::link);
+      (CLASSNAME, CLASSNAME+"LinkGet", self, extract::link);
 }
 
 // Set
 void
-ResonanceReactionLinkSet(ConstHandle2ResonanceReaction This, ConstHandle2ConstLink link)
+ResonanceReactionLinkSet(ConstHandle2ResonanceReaction self, ConstHandle2ConstLink link)
 {
    detail::setField<CPP,CPPLink>
-      (CLASSNAME, CLASSNAME+"LinkSet", This, extract::link, link);
+      (CLASSNAME, CLASSNAME+"LinkSet", self, extract::link, link);
 }
 
 

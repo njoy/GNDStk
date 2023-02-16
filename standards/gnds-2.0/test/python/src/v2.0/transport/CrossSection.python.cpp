@@ -11,19 +11,19 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// CrossSection wrapper
-void wrapCrossSection(python::module &module)
+// wrapper for transport::CrossSection
+void wrapCrossSection(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::CrossSection;
+   using cppCLASS = transport::CrossSection;
    using _t = std::variant<
       containers::XYs1d,
       containers::Regions1d,
@@ -36,83 +36,169 @@ void wrapCrossSection(python::module &module)
       transport::URR_probabilityTables1d
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CrossSection",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CrossSection",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const _t &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-      .def_property_readonly(
-         "regions1d",
-         [](const Component &self) { return self.regions1d(); },
-         Component::documentation("regions1d").data()
-      )
-      .def_property_readonly(
-         "resonances_with_background",
-         [](const Component &self) { return self.resonancesWithBackground(); },
-         Component::documentation("resonances_with_background").data()
-      )
-      .def_property_readonly(
-         "coulomb_plus_nuclear_elastic",
-         [](const Component &self) { return self.CoulombPlusNuclearElastic(); },
-         Component::documentation("coulomb_plus_nuclear_elastic").data()
-      )
-      .def_property_readonly(
-         "thermal_neutron_scattering_law1d",
-         [](const Component &self) { return self.thermalNeutronScatteringLaw1d(); },
-         Component::documentation("thermal_neutron_scattering_law1d").data()
-      )
-      .def_property_readonly(
-         "reference",
-         [](const Component &self) { return self.reference(); },
-         Component::documentation("reference").data()
-      )
-      .def_property_readonly(
-         "gridded1d",
-         [](const Component &self) { return self.gridded1d(); },
-         Component::documentation("gridded1d").data()
-      )
-      .def_property_readonly(
-         "ys1d",
-         [](const Component &self) { return self.Ys1d(); },
-         Component::documentation("ys1d").data()
-      )
-      .def_property_readonly(
-         "urr_probability_tables1d",
-         [](const Component &self) { return self.URR_probabilityTables1d(); },
-         Component::documentation("urr_probability_tables1d").data()
-      )
-      .def_property_readonly(
-         "_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d",
-         [](const Component &self) { return self._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d(); },
-         Component::documentation("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const _t &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const containers::XYs1d &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const containers::Regions1d &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   object.def_property(
+      "resonances_with_background",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonancesWithBackground();
+      },
+      [](cppCLASS &self, const transport::ResonancesWithBackground &value)
+      {
+         self.resonancesWithBackground() = value;
+      },
+      cppCLASS::component_t::documentation("resonances_with_background").data()
+   );
+
+   object.def_property(
+      "coulomb_plus_nuclear_elastic",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.CoulombPlusNuclearElastic();
+      },
+      [](cppCLASS &self, const cpTransport::CoulombPlusNuclearElastic &value)
+      {
+         self.CoulombPlusNuclearElastic() = value;
+      },
+      cppCLASS::component_t::documentation("coulomb_plus_nuclear_elastic").data()
+   );
+
+   object.def_property(
+      "thermal_neutron_scattering_law1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.thermalNeutronScatteringLaw1d();
+      },
+      [](cppCLASS &self, const tsl::ThermalNeutronScatteringLaw1d &value)
+      {
+         self.thermalNeutronScatteringLaw1d() = value;
+      },
+      cppCLASS::component_t::documentation("thermal_neutron_scattering_law1d").data()
+   );
+
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const transport::Reference &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   object.def_property(
+      "gridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded1d();
+      },
+      [](cppCLASS &self, const containers::Gridded1d &value)
+      {
+         self.gridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded1d").data()
+   );
+
+   object.def_property(
+      "ys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Ys1d();
+      },
+      [](cppCLASS &self, const containers::Ys1d &value)
+      {
+         self.Ys1d() = value;
+      },
+      cppCLASS::component_t::documentation("ys1d").data()
+   );
+
+   object.def_property(
+      "urr_probability_tables1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.URR_probabilityTables1d();
+      },
+      [](cppCLASS &self, const transport::URR_probabilityTables1d &value)
+      {
+         self.URR_probabilityTables1d() = value;
+      },
+      cppCLASS::component_t::documentation("urr_probability_tables1d").data()
+   );
+
+   object.def_property(
+      "_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._XYs1dregions1dresonancesWithBackgroundCoulombPlusNuclearElasticthermalNeutronScatteringLaw1dreferencegridded1dYs1dURR_probabilityTables1d() = value;
+      },
+      cppCLASS::component_t::documentation("_xys1dregions1dresonances_with_background_coulomb_plus_nuclear_elasticthermal_neutron_scattering_law1dreferencegridded1d_ys1d_urr_probability_tables1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

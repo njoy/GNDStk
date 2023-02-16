@@ -25,12 +25,12 @@ class Legendre :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Legendre"; }
-   static auto FIELD() { return "Legendre"; }
+   static auto NODENAME() { return "Legendre"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,11 +50,49 @@ class Legendre :
             / Meta<>("domainMax") |
 
          // children
-         --Child<containers::Values>("values")
+         --Child<containers::Values>
+            ("values")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outerDomainValue",
+         "lowerIndex",
+         "domainMin",
+         "domainMax",
+         "values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outer_domain_value",
+         "lower_index",
+         "domain_min",
+         "domain_max",
+         "values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -64,31 +102,44 @@ public:
       static inline const Float64 domainMax = 1.0;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<Float64>> outerDomainValue{this};
-   Field<Defaulted<Integer32>> lowerIndex{this,defaults.lowerIndex};
-   Field<Defaulted<Float64>> domainMin{this,defaults.domainMin};
-   Field<Defaulted<Float64>> domainMax{this,defaults.domainMax};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
+   Field<Defaulted<Integer32>>
+      lowerIndex{this,defaults.lowerIndex};
+   Field<Defaulted<Float64>>
+      domainMin{this,defaults.domainMin};
+   Field<Defaulted<Float64>>
+      domainMax{this,defaults.domainMax};
 
    // children
-   Field<containers::Values> values{this};
+   Field<containers::Values>
+      values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->lowerIndex, \
       this->domainMin, \
       this->domainMax, \
-      this->values)
+      this->values \
+   )
 
    // default
    Legendre() :
@@ -100,12 +151,18 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Legendre(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<std::optional<Integer32>> &lowerIndex = {},
-      const wrapper<std::optional<Float64>> &domainMin = {},
-      const wrapper<std::optional<Float64>> &domainMax = {},
-      const wrapper<containers::Values> &values = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<Integer32>>
+         &lowerIndex = {},
+      const wrapper<std::optional<Float64>>
+         &domainMin = {},
+      const wrapper<std::optional<Float64>>
+         &domainMax = {},
+      const wrapper<containers::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -157,8 +214,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   Legendre &operator=(const Legendre &) = default;
-   Legendre &operator=(Legendre &&) = default;
+   // copy
+   Legendre &operator=(const Legendre &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         lowerIndex = other.lowerIndex;
+         domainMin = other.domainMin;
+         domainMax = other.domainMax;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   Legendre &operator=(Legendre &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         lowerIndex = std::move(other.lowerIndex);
+         domainMin = std::move(other.domainMin);
+         domainMax = std::move(other.domainMax);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

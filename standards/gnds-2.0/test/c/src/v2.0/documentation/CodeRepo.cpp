@@ -82,20 +82,20 @@ CodeRepoCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CodeRepoAssign(ConstHandle2CodeRepo This, ConstHandle2ConstCodeRepo from)
+CodeRepoAssign(ConstHandle2CodeRepo self, ConstHandle2ConstCodeRepo from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CodeRepoDelete(ConstHandle2ConstCodeRepo This)
+CodeRepoDelete(ConstHandle2ConstCodeRepo self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ CodeRepoDelete(ConstHandle2ConstCodeRepo This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CodeRepoRead(ConstHandle2CodeRepo This, const char *const filename)
+CodeRepoRead(ConstHandle2CodeRepo self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CodeRepoWrite(ConstHandle2ConstCodeRepo This, const char *const filename)
+CodeRepoWrite(ConstHandle2ConstCodeRepo self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CodeRepoPrint(ConstHandle2ConstCodeRepo This)
+CodeRepoPrint(ConstHandle2ConstCodeRepo self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CodeRepoPrintXML(ConstHandle2ConstCodeRepo This)
+CodeRepoPrintXML(ConstHandle2ConstCodeRepo self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CodeRepoPrintJSON(ConstHandle2ConstCodeRepo This)
+CodeRepoPrintJSON(ConstHandle2ConstCodeRepo self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -156,27 +156,27 @@ CodeRepoPrintJSON(ConstHandle2ConstCodeRepo This)
 
 // Has
 int
-CodeRepoLabelHas(ConstHandle2ConstCodeRepo This)
+CodeRepoLabelHas(ConstHandle2ConstCodeRepo self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CodeRepoLabelGet(ConstHandle2ConstCodeRepo This)
+CodeRepoLabelGet(ConstHandle2ConstCodeRepo self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CodeRepoLabelSet(ConstHandle2CodeRepo This, const XMLName label)
+CodeRepoLabelSet(ConstHandle2CodeRepo self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -186,27 +186,27 @@ CodeRepoLabelSet(ConstHandle2CodeRepo This, const XMLName label)
 
 // Has
 int
-CodeRepoRevisionSystemHas(ConstHandle2ConstCodeRepo This)
+CodeRepoRevisionSystemHas(ConstHandle2ConstCodeRepo self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionSystemHas", This, extract::revisionSystem);
+      (CLASSNAME, CLASSNAME+"RevisionSystemHas", self, extract::revisionSystem);
 }
 
 // Get
 // Returns by value
 XMLName
-CodeRepoRevisionSystemGet(ConstHandle2ConstCodeRepo This)
+CodeRepoRevisionSystemGet(ConstHandle2ConstCodeRepo self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionSystemGet", This, extract::revisionSystem);
+      (CLASSNAME, CLASSNAME+"RevisionSystemGet", self, extract::revisionSystem);
 }
 
 // Set
 void
-CodeRepoRevisionSystemSet(ConstHandle2CodeRepo This, const XMLName revisionSystem)
+CodeRepoRevisionSystemSet(ConstHandle2CodeRepo self, const XMLName revisionSystem)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionSystemSet", This, extract::revisionSystem, revisionSystem);
+      (CLASSNAME, CLASSNAME+"RevisionSystemSet", self, extract::revisionSystem, revisionSystem);
 }
 
 
@@ -216,27 +216,27 @@ CodeRepoRevisionSystemSet(ConstHandle2CodeRepo This, const XMLName revisionSyste
 
 // Has
 int
-CodeRepoHrefHas(ConstHandle2ConstCodeRepo This)
+CodeRepoHrefHas(ConstHandle2ConstCodeRepo self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 XMLName
-CodeRepoHrefGet(ConstHandle2ConstCodeRepo This)
+CodeRepoHrefGet(ConstHandle2ConstCodeRepo self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-CodeRepoHrefSet(ConstHandle2CodeRepo This, const XMLName href)
+CodeRepoHrefSet(ConstHandle2CodeRepo self, const XMLName href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -246,27 +246,27 @@ CodeRepoHrefSet(ConstHandle2CodeRepo This, const XMLName href)
 
 // Has
 int
-CodeRepoRevisionIDHas(ConstHandle2ConstCodeRepo This)
+CodeRepoRevisionIDHas(ConstHandle2ConstCodeRepo self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionIDHas", This, extract::revisionID);
+      (CLASSNAME, CLASSNAME+"RevisionIDHas", self, extract::revisionID);
 }
 
 // Get
 // Returns by value
 XMLName
-CodeRepoRevisionIDGet(ConstHandle2ConstCodeRepo This)
+CodeRepoRevisionIDGet(ConstHandle2ConstCodeRepo self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionIDGet", This, extract::revisionID);
+      (CLASSNAME, CLASSNAME+"RevisionIDGet", self, extract::revisionID);
 }
 
 // Set
 void
-CodeRepoRevisionIDSet(ConstHandle2CodeRepo This, const XMLName revisionID)
+CodeRepoRevisionIDSet(ConstHandle2CodeRepo self, const XMLName revisionID)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"RevisionIDSet", This, extract::revisionID, revisionID);
+      (CLASSNAME, CLASSNAME+"RevisionIDSet", self, extract::revisionID, revisionID);
 }
 
 

@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Uncorrelated wrapper
-void wrapUncorrelated(python::module &module)
+// wrapper for transport::Uncorrelated
+void wrapUncorrelated(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Uncorrelated;
+   using cppCLASS = transport::Uncorrelated;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Uncorrelated",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Uncorrelated",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const transport::Angular_uncorrelated &,
-            const transport::Energy_uncorrelated &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("product_frame"),
-         python::arg("angular_uncorrelated"),
-         python::arg("energy_uncorrelated"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "angular_uncorrelated",
-         [](const Component &self) { return self.angular_uncorrelated(); },
-         Component::documentation("angular_uncorrelated").data()
-      )
-      .def_property_readonly(
-         "energy_uncorrelated",
-         [](const Component &self) { return self.energy_uncorrelated(); },
-         Component::documentation("energy_uncorrelated").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const transport::Angular_uncorrelated &,
+         const transport::Energy_uncorrelated &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("product_frame"),
+      py::arg("angular_uncorrelated"),
+      py::arg("energy_uncorrelated"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set angular_uncorrelated
+   object.def_property(
+      "angular_uncorrelated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.angular_uncorrelated();
+      },
+      [](cppCLASS &self, const transport::Angular_uncorrelated &value)
+      {
+         self.angular_uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("angular_uncorrelated").data()
+   );
+
+   // get/set energy_uncorrelated
+   object.def_property(
+      "energy_uncorrelated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.energy_uncorrelated();
+      },
+      [](cppCLASS &self, const transport::Energy_uncorrelated &value)
+      {
+         self.energy_uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("energy_uncorrelated").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

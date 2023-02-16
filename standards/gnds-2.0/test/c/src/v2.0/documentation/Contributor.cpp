@@ -95,20 +95,20 @@ ContributorCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ContributorAssign(ConstHandle2Contributor This, ConstHandle2ConstContributor from)
+ContributorAssign(ConstHandle2Contributor self, ConstHandle2ConstContributor from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ContributorDelete(ConstHandle2ConstContributor This)
+ContributorDelete(ConstHandle2ConstContributor self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -122,44 +122,44 @@ ContributorDelete(ConstHandle2ConstContributor This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ContributorRead(ConstHandle2Contributor This, const char *const filename)
+ContributorRead(ConstHandle2Contributor self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ContributorWrite(ConstHandle2ConstContributor This, const char *const filename)
+ContributorWrite(ConstHandle2ConstContributor self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ContributorPrint(ConstHandle2ConstContributor This)
+ContributorPrint(ConstHandle2ConstContributor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ContributorPrintXML(ConstHandle2ConstContributor This)
+ContributorPrintXML(ConstHandle2ConstContributor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ContributorPrintJSON(ConstHandle2ConstContributor This)
+ContributorPrintJSON(ConstHandle2ConstContributor self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -169,27 +169,27 @@ ContributorPrintJSON(ConstHandle2ConstContributor This)
 
 // Has
 int
-ContributorNameHas(ConstHandle2ConstContributor This)
+ContributorNameHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 UTF8Text
-ContributorNameGet(ConstHandle2ConstContributor This)
+ContributorNameGet(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-ContributorNameSet(ConstHandle2Contributor This, const UTF8Text name)
+ContributorNameSet(ConstHandle2Contributor self, const UTF8Text name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -199,27 +199,27 @@ ContributorNameSet(ConstHandle2Contributor This, const UTF8Text name)
 
 // Has
 int
-ContributorContributorTypeHas(ConstHandle2ConstContributor This)
+ContributorContributorTypeHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ContributorTypeHas", This, extract::contributorType);
+      (CLASSNAME, CLASSNAME+"ContributorTypeHas", self, extract::contributorType);
 }
 
 // Get
 // Returns by value
 enums::ContributorType
-ContributorContributorTypeGet(ConstHandle2ConstContributor This)
+ContributorContributorTypeGet(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ContributorTypeGet", This, extract::contributorType);
+      (CLASSNAME, CLASSNAME+"ContributorTypeGet", self, extract::contributorType);
 }
 
 // Set
 void
-ContributorContributorTypeSet(ConstHandle2Contributor This, const enums::ContributorType contributorType)
+ContributorContributorTypeSet(ConstHandle2Contributor self, const enums::ContributorType contributorType)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ContributorTypeSet", This, extract::contributorType, contributorType);
+      (CLASSNAME, CLASSNAME+"ContributorTypeSet", self, extract::contributorType, contributorType);
 }
 
 
@@ -229,27 +229,27 @@ ContributorContributorTypeSet(ConstHandle2Contributor This, const enums::Contrib
 
 // Has
 int
-ContributorOrcidHas(ConstHandle2ConstContributor This)
+ContributorOrcidHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidHas", This, extract::orcid);
+      (CLASSNAME, CLASSNAME+"OrcidHas", self, extract::orcid);
 }
 
 // Get
 // Returns by value
 UTF8Text
-ContributorOrcidGet(ConstHandle2ConstContributor This)
+ContributorOrcidGet(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidGet", This, extract::orcid);
+      (CLASSNAME, CLASSNAME+"OrcidGet", self, extract::orcid);
 }
 
 // Set
 void
-ContributorOrcidSet(ConstHandle2Contributor This, const UTF8Text orcid)
+ContributorOrcidSet(ConstHandle2Contributor self, const UTF8Text orcid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OrcidSet", This, extract::orcid, orcid);
+      (CLASSNAME, CLASSNAME+"OrcidSet", self, extract::orcid, orcid);
 }
 
 
@@ -259,27 +259,27 @@ ContributorOrcidSet(ConstHandle2Contributor This, const UTF8Text orcid)
 
 // Has
 int
-ContributorEmailHas(ConstHandle2ConstContributor This)
+ContributorEmailHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailHas", This, extract::email);
+      (CLASSNAME, CLASSNAME+"EmailHas", self, extract::email);
 }
 
 // Get
 // Returns by value
 UTF8Text
-ContributorEmailGet(ConstHandle2ConstContributor This)
+ContributorEmailGet(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailGet", This, extract::email);
+      (CLASSNAME, CLASSNAME+"EmailGet", self, extract::email);
 }
 
 // Set
 void
-ContributorEmailSet(ConstHandle2Contributor This, const UTF8Text email)
+ContributorEmailSet(ConstHandle2Contributor self, const UTF8Text email)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EmailSet", This, extract::email, email);
+      (CLASSNAME, CLASSNAME+"EmailSet", self, extract::email, email);
 }
 
 
@@ -289,34 +289,34 @@ ContributorEmailSet(ConstHandle2Contributor This, const UTF8Text email)
 
 // Has
 int
-ContributorAffiliationsHas(ConstHandle2ConstContributor This)
+ContributorAffiliationsHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AffiliationsHas", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsHas", self, extract::affiliations);
 }
 
 // Get, const
 Handle2ConstAffiliations
-ContributorAffiliationsGetConst(ConstHandle2ConstContributor This)
+ContributorAffiliationsGetConst(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP,Handle2ConstAffiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsGetConst", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsGetConst", self, extract::affiliations);
 }
 
 // Get, non-const
 Handle2Affiliations
-ContributorAffiliationsGet(ConstHandle2Contributor This)
+ContributorAffiliationsGet(ConstHandle2Contributor self)
 {
    return detail::getField<CPP,Handle2Affiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsGet", This, extract::affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsGet", self, extract::affiliations);
 }
 
 // Set
 void
-ContributorAffiliationsSet(ConstHandle2Contributor This, ConstHandle2ConstAffiliations affiliations)
+ContributorAffiliationsSet(ConstHandle2Contributor self, ConstHandle2ConstAffiliations affiliations)
 {
    detail::setField<CPP,CPPAffiliations>
-      (CLASSNAME, CLASSNAME+"AffiliationsSet", This, extract::affiliations, affiliations);
+      (CLASSNAME, CLASSNAME+"AffiliationsSet", self, extract::affiliations, affiliations);
 }
 
 
@@ -326,34 +326,34 @@ ContributorAffiliationsSet(ConstHandle2Contributor This, ConstHandle2ConstAffili
 
 // Has
 int
-ContributorNoteHas(ConstHandle2ConstContributor This)
+ContributorNoteHas(ConstHandle2ConstContributor self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NoteHas", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteHas", self, extract::note);
 }
 
 // Get, const
 Handle2ConstNote
-ContributorNoteGetConst(ConstHandle2ConstContributor This)
+ContributorNoteGetConst(ConstHandle2ConstContributor self)
 {
    return detail::getField<CPP,Handle2ConstNote>
-      (CLASSNAME, CLASSNAME+"NoteGetConst", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGetConst", self, extract::note);
 }
 
 // Get, non-const
 Handle2Note
-ContributorNoteGet(ConstHandle2Contributor This)
+ContributorNoteGet(ConstHandle2Contributor self)
 {
    return detail::getField<CPP,Handle2Note>
-      (CLASSNAME, CLASSNAME+"NoteGet", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGet", self, extract::note);
 }
 
 // Set
 void
-ContributorNoteSet(ConstHandle2Contributor This, ConstHandle2ConstNote note)
+ContributorNoteSet(ConstHandle2Contributor self, ConstHandle2ConstNote note)
 {
    detail::setField<CPP,CPPNote>
-      (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
+      (CLASSNAME, CLASSNAME+"NoteSet", self, extract::note, note);
 }
 
 

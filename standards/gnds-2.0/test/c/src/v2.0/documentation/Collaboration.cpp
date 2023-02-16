@@ -72,20 +72,20 @@ CollaborationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CollaborationAssign(ConstHandle2Collaboration This, ConstHandle2ConstCollaboration from)
+CollaborationAssign(ConstHandle2Collaboration self, ConstHandle2ConstCollaboration from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CollaborationDelete(ConstHandle2ConstCollaboration This)
+CollaborationDelete(ConstHandle2ConstCollaboration self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ CollaborationDelete(ConstHandle2ConstCollaboration This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CollaborationRead(ConstHandle2Collaboration This, const char *const filename)
+CollaborationRead(ConstHandle2Collaboration self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CollaborationWrite(ConstHandle2ConstCollaboration This, const char *const filename)
+CollaborationWrite(ConstHandle2ConstCollaboration self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CollaborationPrint(ConstHandle2ConstCollaboration This)
+CollaborationPrint(ConstHandle2ConstCollaboration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CollaborationPrintXML(ConstHandle2ConstCollaboration This)
+CollaborationPrintXML(ConstHandle2ConstCollaboration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CollaborationPrintJSON(ConstHandle2ConstCollaboration This)
+CollaborationPrintJSON(ConstHandle2ConstCollaboration self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ CollaborationPrintJSON(ConstHandle2ConstCollaboration This)
 
 // Has
 int
-CollaborationNameHas(ConstHandle2ConstCollaboration This)
+CollaborationNameHas(ConstHandle2ConstCollaboration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 UTF8Text
-CollaborationNameGet(ConstHandle2ConstCollaboration This)
+CollaborationNameGet(ConstHandle2ConstCollaboration self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-CollaborationNameSet(ConstHandle2Collaboration This, const UTF8Text name)
+CollaborationNameSet(ConstHandle2Collaboration self, const UTF8Text name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -176,27 +176,27 @@ CollaborationNameSet(ConstHandle2Collaboration This, const UTF8Text name)
 
 // Has
 int
-CollaborationHrefHas(ConstHandle2ConstCollaboration This)
+CollaborationHrefHas(ConstHandle2ConstCollaboration self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 UTF8Text
-CollaborationHrefGet(ConstHandle2ConstCollaboration This)
+CollaborationHrefGet(ConstHandle2ConstCollaboration self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-CollaborationHrefSet(ConstHandle2Collaboration This, const UTF8Text href)
+CollaborationHrefSet(ConstHandle2Collaboration self, const UTF8Text href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

@@ -100,20 +100,20 @@ BindingEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BindingEnergyAssign(ConstHandle2BindingEnergy This, ConstHandle2ConstBindingEnergy from)
+BindingEnergyAssign(ConstHandle2BindingEnergy self, ConstHandle2ConstBindingEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BindingEnergyDelete(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDelete(ConstHandle2ConstBindingEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -127,44 +127,44 @@ BindingEnergyDelete(ConstHandle2ConstBindingEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BindingEnergyRead(ConstHandle2BindingEnergy This, const char *const filename)
+BindingEnergyRead(ConstHandle2BindingEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BindingEnergyWrite(ConstHandle2ConstBindingEnergy This, const char *const filename)
+BindingEnergyWrite(ConstHandle2ConstBindingEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BindingEnergyPrint(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrint(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -174,27 +174,27 @@ BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This)
 
 // Has
 int
-BindingEnergyLabelHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyLabelHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-BindingEnergyLabelGet(ConstHandle2ConstBindingEnergy This)
+BindingEnergyLabelGet(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-BindingEnergyLabelSet(ConstHandle2BindingEnergy This, const XMLName label)
+BindingEnergyLabelSet(ConstHandle2BindingEnergy self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -204,27 +204,27 @@ BindingEnergyLabelSet(ConstHandle2BindingEnergy This, const XMLName label)
 
 // Has
 int
-BindingEnergyUnitHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyUnitHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-BindingEnergyUnitGet(ConstHandle2ConstBindingEnergy This)
+BindingEnergyUnitGet(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-BindingEnergyUnitSet(ConstHandle2BindingEnergy This, const XMLName unit)
+BindingEnergyUnitSet(ConstHandle2BindingEnergy self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -234,27 +234,27 @@ BindingEnergyUnitSet(ConstHandle2BindingEnergy This, const XMLName unit)
 
 // Has
 int
-BindingEnergyValueHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyValueHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-BindingEnergyValueGet(ConstHandle2ConstBindingEnergy This)
+BindingEnergyValueGet(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-BindingEnergyValueSet(ConstHandle2BindingEnergy This, const XMLName value)
+BindingEnergyValueSet(ConstHandle2BindingEnergy self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -264,34 +264,34 @@ BindingEnergyValueSet(ConstHandle2BindingEnergy This, const XMLName value)
 
 // Has
 int
-BindingEnergyDocumentationHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDocumentationHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-BindingEnergyDocumentationGetConst(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDocumentationGetConst(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-BindingEnergyDocumentationGet(ConstHandle2BindingEnergy This)
+BindingEnergyDocumentationGet(ConstHandle2BindingEnergy self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-BindingEnergyDocumentationSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDocumentation documentation)
+BindingEnergyDocumentationSet(ConstHandle2BindingEnergy self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -301,34 +301,34 @@ BindingEnergyDocumentationSet(ConstHandle2BindingEnergy This, ConstHandle2ConstD
 
 // Has
 int
-BindingEnergyUncertaintyHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyUncertaintyHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-BindingEnergyUncertaintyGetConst(ConstHandle2ConstBindingEnergy This)
+BindingEnergyUncertaintyGetConst(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-BindingEnergyUncertaintyGet(ConstHandle2BindingEnergy This)
+BindingEnergyUncertaintyGet(ConstHandle2BindingEnergy self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-BindingEnergyUncertaintySet(ConstHandle2BindingEnergy This, ConstHandle2ConstUncertainty uncertainty)
+BindingEnergyUncertaintySet(ConstHandle2BindingEnergy self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 
@@ -338,196 +338,196 @@ BindingEnergyUncertaintySet(ConstHandle2BindingEnergy This, ConstHandle2ConstUnc
 
 // Has
 int
-BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Clear
 void
-BindingEnergyDoubleClear(ConstHandle2BindingEnergy This)
+BindingEnergyDoubleClear(ConstHandle2BindingEnergy self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleClear", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleClear", self, extract::Double);
 }
 
 // Size
 size_t
-BindingEnergyDoubleSize(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDoubleSize(ConstHandle2ConstBindingEnergy self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleSize", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleSize", self, extract::Double);
 }
 
 // Add
 void
-BindingEnergyDoubleAdd(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble Double)
+BindingEnergyDoubleAdd(ConstHandle2BindingEnergy self, ConstHandle2ConstDouble Double)
 {
    detail::addToContainer<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleAdd", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleAdd", self, extract::Double, Double);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDouble
-BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy This, const size_t index_)
+BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Double
-BindingEnergyDoubleGet(ConstHandle2BindingEnergy This, const size_t index_)
+BindingEnergyDoubleGet(ConstHandle2BindingEnergy self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double, index_);
 }
 
 // Set, by index \in [0,size)
 void
 BindingEnergyDoubleSet(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByIndex<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, index_, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, index_, Double);
 }
 
 // Has, by label
 int
 BindingEnergyDoubleHasByLabel(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstDouble
 BindingEnergyDoubleGetByLabelConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabelConst",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Double
 BindingEnergyDoubleGetByLabel(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Set, by label
 void
 BindingEnergyDoubleSetByLabel(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByLabel",
-       This, extract::Double, meta::label, label, Double);
+       self, extract::Double, meta::label, label, Double);
 }
 
 // Has, by unit
 int
 BindingEnergyDoubleHasByUnit(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstDouble
 BindingEnergyDoubleGetByUnitConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnitConst",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Double
 BindingEnergyDoubleGetByUnit(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Set, by unit
 void
 BindingEnergyDoubleSetByUnit(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByUnit",
-       This, extract::Double, meta::unit, unit, Double);
+       self, extract::Double, meta::unit, unit, Double);
 }
 
 // Has, by value
 int
 BindingEnergyDoubleHasByValue(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const Float64 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstDouble
 BindingEnergyDoubleGetByValueConst(
-   ConstHandle2ConstBindingEnergy This,
+   ConstHandle2ConstBindingEnergy self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByValueConst",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Double
 BindingEnergyDoubleGetByValue(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Set, by value
 void
 BindingEnergyDoubleSetByValue(
-   ConstHandle2BindingEnergy This,
+   ConstHandle2BindingEnergy self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByValue",
-       This, extract::Double, meta::value, value, Double);
+       self, extract::Double, meta::value, value, Double);
 }
 
 

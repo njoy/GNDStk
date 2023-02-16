@@ -100,20 +100,20 @@ SpinCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SpinAssign(ConstHandle2Spin This, ConstHandle2ConstSpin from)
+SpinAssign(ConstHandle2Spin self, ConstHandle2ConstSpin from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SpinDelete(ConstHandle2ConstSpin This)
+SpinDelete(ConstHandle2ConstSpin self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -127,44 +127,44 @@ SpinDelete(ConstHandle2ConstSpin This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SpinRead(ConstHandle2Spin This, const char *const filename)
+SpinRead(ConstHandle2Spin self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SpinWrite(ConstHandle2ConstSpin This, const char *const filename)
+SpinWrite(ConstHandle2ConstSpin self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SpinPrint(ConstHandle2ConstSpin This)
+SpinPrint(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SpinPrintXML(ConstHandle2ConstSpin This)
+SpinPrintXML(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SpinPrintJSON(ConstHandle2ConstSpin This)
+SpinPrintJSON(ConstHandle2ConstSpin self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -174,27 +174,27 @@ SpinPrintJSON(ConstHandle2ConstSpin This)
 
 // Has
 int
-SpinLabelHas(ConstHandle2ConstSpin This)
+SpinLabelHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-SpinLabelGet(ConstHandle2ConstSpin This)
+SpinLabelGet(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-SpinLabelSet(ConstHandle2Spin This, const XMLName label)
+SpinLabelSet(ConstHandle2Spin self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -204,27 +204,27 @@ SpinLabelSet(ConstHandle2Spin This, const XMLName label)
 
 // Has
 int
-SpinUnitHas(ConstHandle2ConstSpin This)
+SpinUnitHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-SpinUnitGet(ConstHandle2ConstSpin This)
+SpinUnitGet(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-SpinUnitSet(ConstHandle2Spin This, const XMLName unit)
+SpinUnitSet(ConstHandle2Spin self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -234,27 +234,27 @@ SpinUnitSet(ConstHandle2Spin This, const XMLName unit)
 
 // Has
 int
-SpinValueHas(ConstHandle2ConstSpin This)
+SpinValueHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-SpinValueGet(ConstHandle2ConstSpin This)
+SpinValueGet(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-SpinValueSet(ConstHandle2Spin This, const XMLName value)
+SpinValueSet(ConstHandle2Spin self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -264,34 +264,34 @@ SpinValueSet(ConstHandle2Spin This, const XMLName value)
 
 // Has
 int
-SpinDocumentationHas(ConstHandle2ConstSpin This)
+SpinDocumentationHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-SpinDocumentationGetConst(ConstHandle2ConstSpin This)
+SpinDocumentationGetConst(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-SpinDocumentationGet(ConstHandle2Spin This)
+SpinDocumentationGet(ConstHandle2Spin self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-SpinDocumentationSet(ConstHandle2Spin This, ConstHandle2ConstDocumentation documentation)
+SpinDocumentationSet(ConstHandle2Spin self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -301,34 +301,34 @@ SpinDocumentationSet(ConstHandle2Spin This, ConstHandle2ConstDocumentation docum
 
 // Has
 int
-SpinUncertaintyHas(ConstHandle2ConstSpin This)
+SpinUncertaintyHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-SpinUncertaintyGetConst(ConstHandle2ConstSpin This)
+SpinUncertaintyGetConst(ConstHandle2ConstSpin self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-SpinUncertaintyGet(ConstHandle2Spin This)
+SpinUncertaintyGet(ConstHandle2Spin self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-SpinUncertaintySet(ConstHandle2Spin This, ConstHandle2ConstUncertainty uncertainty)
+SpinUncertaintySet(ConstHandle2Spin self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 
@@ -338,196 +338,196 @@ SpinUncertaintySet(ConstHandle2Spin This, ConstHandle2ConstUncertainty uncertain
 
 // Has
 int
-SpinFractionHas(ConstHandle2ConstSpin This)
+SpinFractionHas(ConstHandle2ConstSpin self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FractionHas", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionHas", self, extract::fraction);
 }
 
 // Clear
 void
-SpinFractionClear(ConstHandle2Spin This)
+SpinFractionClear(ConstHandle2Spin self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"FractionClear", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionClear", self, extract::fraction);
 }
 
 // Size
 size_t
-SpinFractionSize(ConstHandle2ConstSpin This)
+SpinFractionSize(ConstHandle2ConstSpin self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"FractionSize", This, extract::fraction);
+      (CLASSNAME, CLASSNAME+"FractionSize", self, extract::fraction);
 }
 
 // Add
 void
-SpinFractionAdd(ConstHandle2Spin This, ConstHandle2ConstFraction fraction)
+SpinFractionAdd(ConstHandle2Spin self, ConstHandle2ConstFraction fraction)
 {
    detail::addToContainer<CPP,CPPFraction>
-      (CLASSNAME, CLASSNAME+"FractionAdd", This, extract::fraction, fraction);
+      (CLASSNAME, CLASSNAME+"FractionAdd", self, extract::fraction, fraction);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstFraction
-SpinFractionGetConst(ConstHandle2ConstSpin This, const size_t index_)
+SpinFractionGetConst(ConstHandle2ConstSpin self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstFraction>
-      (CLASSNAME, CLASSNAME+"FractionGetConst", This, extract::fraction, index_);
+      (CLASSNAME, CLASSNAME+"FractionGetConst", self, extract::fraction, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Fraction
-SpinFractionGet(ConstHandle2Spin This, const size_t index_)
+SpinFractionGet(ConstHandle2Spin self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Fraction>
-      (CLASSNAME, CLASSNAME+"FractionGet", This, extract::fraction, index_);
+      (CLASSNAME, CLASSNAME+"FractionGet", self, extract::fraction, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SpinFractionSet(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const size_t index_,
    ConstHandle2ConstFraction fraction
 ) {
    detail::setByIndex<CPP,CPPFraction>
-      (CLASSNAME, CLASSNAME+"FractionSet", This, extract::fraction, index_, fraction);
+      (CLASSNAME, CLASSNAME+"FractionSet", self, extract::fraction, index_, fraction);
 }
 
 // Has, by label
 int
 SpinFractionHasByLabel(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FractionHasByLabel",
-       This, extract::fraction, meta::label, label);
+       self, extract::fraction, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstFraction
 SpinFractionGetByLabelConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFraction>
       (CLASSNAME, CLASSNAME+"FractionGetByLabelConst",
-       This, extract::fraction, meta::label, label);
+       self, extract::fraction, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Fraction
 SpinFractionGetByLabel(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Fraction>
       (CLASSNAME, CLASSNAME+"FractionGetByLabel",
-       This, extract::fraction, meta::label, label);
+       self, extract::fraction, meta::label, label);
 }
 
 // Set, by label
 void
 SpinFractionSetByLabel(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName label,
    ConstHandle2ConstFraction fraction
 ) {
    detail::setByMetadatum<CPP,CPPFraction>
       (CLASSNAME, CLASSNAME+"FractionSetByLabel",
-       This, extract::fraction, meta::label, label, fraction);
+       self, extract::fraction, meta::label, label, fraction);
 }
 
 // Has, by unit
 int
 SpinFractionHasByUnit(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FractionHasByUnit",
-       This, extract::fraction, meta::unit, unit);
+       self, extract::fraction, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstFraction
 SpinFractionGetByUnitConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFraction>
       (CLASSNAME, CLASSNAME+"FractionGetByUnitConst",
-       This, extract::fraction, meta::unit, unit);
+       self, extract::fraction, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Fraction
 SpinFractionGetByUnit(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Fraction>
       (CLASSNAME, CLASSNAME+"FractionGetByUnit",
-       This, extract::fraction, meta::unit, unit);
+       self, extract::fraction, meta::unit, unit);
 }
 
 // Set, by unit
 void
 SpinFractionSetByUnit(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const XMLName unit,
    ConstHandle2ConstFraction fraction
 ) {
    detail::setByMetadatum<CPP,CPPFraction>
       (CLASSNAME, CLASSNAME+"FractionSetByUnit",
-       This, extract::fraction, meta::unit, unit, fraction);
+       self, extract::fraction, meta::unit, unit, fraction);
 }
 
 // Has, by value
 int
 SpinFractionHasByValue(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const Fraction32 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"FractionHasByValue",
-       This, extract::fraction, meta::value, value);
+       self, extract::fraction, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstFraction
 SpinFractionGetByValueConst(
-   ConstHandle2ConstSpin This,
+   ConstHandle2ConstSpin self,
    const Fraction32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstFraction>
       (CLASSNAME, CLASSNAME+"FractionGetByValueConst",
-       This, extract::fraction, meta::value, value);
+       self, extract::fraction, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Fraction
 SpinFractionGetByValue(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const Fraction32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Fraction>
       (CLASSNAME, CLASSNAME+"FractionGetByValue",
-       This, extract::fraction, meta::value, value);
+       self, extract::fraction, meta::value, value);
 }
 
 // Set, by value
 void
 SpinFractionSetByValue(
-   ConstHandle2Spin This,
+   ConstHandle2Spin self,
    const Fraction32 value,
    ConstHandle2ConstFraction fraction
 ) {
    detail::setByMetadatum<CPP,CPPFraction>
       (CLASSNAME, CLASSNAME+"FractionSetByValue",
-       This, extract::fraction, meta::value, value, fraction);
+       self, extract::fraction, meta::value, value, fraction);
 }
 
 

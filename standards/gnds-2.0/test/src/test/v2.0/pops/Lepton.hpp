@@ -30,12 +30,12 @@ class Lepton :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Lepton"; }
-   static auto FIELD() { return "lepton"; }
+   static auto NODENAME() { return "lepton"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,38 +49,99 @@ class Lepton :
             / Meta<>("id") |
 
          // children
-         --Child<std::optional<pops::Charge>>("charge") |
-         --Child<std::optional<pops::Halflife>>("halflife") |
-         --Child<std::optional<pops::Mass>>("mass") |
-         --Child<std::optional<pops::Spin>>("spin") |
-         --Child<std::optional<pops::Parity>>("parity") |
-         --Child<std::optional<pops::DecayData>>("decayData")
+         --Child<std::optional<pops::Charge>>
+            ("charge") |
+         --Child<std::optional<pops::Halflife>>
+            ("halflife") |
+         --Child<std::optional<pops::Mass>>
+            ("mass") |
+         --Child<std::optional<pops::Spin>>
+            ("spin") |
+         --Child<std::optional<pops::Parity>>
+            ("parity") |
+         --Child<std::optional<pops::DecayData>>
+            ("decayData")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "generation",
+         "id",
+         "charge",
+         "halflife",
+         "mass",
+         "spin",
+         "parity",
+         "decayData"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "generation",
+         "id",
+         "charge",
+         "halflife",
+         "mass",
+         "spin",
+         "parity",
+         "decay_data"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> generation{this};
-   Field<XMLName> id{this};
+   Field<std::optional<XMLName>>
+      generation{this};
+   Field<XMLName>
+      id{this};
 
    // children
-   Field<std::optional<pops::Charge>> charge{this};
-   Field<std::optional<pops::Halflife>> halflife{this};
-   Field<std::optional<pops::Mass>> mass{this};
-   Field<std::optional<pops::Spin>> spin{this};
-   Field<std::optional<pops::Parity>> parity{this};
-   Field<std::optional<pops::DecayData>> decayData{this};
+   Field<std::optional<pops::Charge>>
+      charge{this};
+   Field<std::optional<pops::Halflife>>
+      halflife{this};
+   Field<std::optional<pops::Mass>>
+      mass{this};
+   Field<std::optional<pops::Spin>>
+      spin{this};
+   Field<std::optional<pops::Parity>>
+      parity{this};
+   Field<std::optional<pops::DecayData>>
+      decayData{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->generation, \
       this->id, \
@@ -89,7 +150,8 @@ public:
       this->mass, \
       this->spin, \
       this->parity, \
-      this->decayData)
+      this->decayData \
+   )
 
    // default
    Lepton() :
@@ -100,14 +162,22 @@ public:
 
    // from fields, comment excluded
    explicit Lepton(
-      const wrapper<std::optional<XMLName>> &generation,
-      const wrapper<XMLName> &id = {},
-      const wrapper<std::optional<pops::Charge>> &charge = {},
-      const wrapper<std::optional<pops::Halflife>> &halflife = {},
-      const wrapper<std::optional<pops::Mass>> &mass = {},
-      const wrapper<std::optional<pops::Spin>> &spin = {},
-      const wrapper<std::optional<pops::Parity>> &parity = {},
-      const wrapper<std::optional<pops::DecayData>> &decayData = {}
+      const wrapper<std::optional<XMLName>>
+         &generation,
+      const wrapper<XMLName>
+         &id = {},
+      const wrapper<std::optional<pops::Charge>>
+         &charge = {},
+      const wrapper<std::optional<pops::Halflife>>
+         &halflife = {},
+      const wrapper<std::optional<pops::Mass>>
+         &mass = {},
+      const wrapper<std::optional<pops::Spin>>
+         &spin = {},
+      const wrapper<std::optional<pops::Parity>>
+         &parity = {},
+      const wrapper<std::optional<pops::DecayData>>
+         &decayData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       generation(this,generation),
@@ -165,8 +235,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Lepton &operator=(const Lepton &) = default;
-   Lepton &operator=(Lepton &&) = default;
+   // copy
+   Lepton &operator=(const Lepton &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         generation = other.generation;
+         id = other.id;
+         charge = other.charge;
+         halflife = other.halflife;
+         mass = other.mass;
+         spin = other.spin;
+         parity = other.parity;
+         decayData = other.decayData;
+      }
+      return *this;
+   }
+
+   // move
+   Lepton &operator=(Lepton &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         generation = std::move(other.generation);
+         id = std::move(other.id);
+         charge = std::move(other.charge);
+         halflife = std::move(other.halflife);
+         mass = std::move(other.mass);
+         spin = std::move(other.spin);
+         parity = std::move(other.parity);
+         decayData = std::move(other.decayData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

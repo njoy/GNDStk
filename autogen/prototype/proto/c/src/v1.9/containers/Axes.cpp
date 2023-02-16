@@ -70,20 +70,20 @@ AxesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AxesAssign(ConstHandle2Axes This, ConstHandle2ConstAxes from)
+AxesAssign(ConstHandle2Axes self, ConstHandle2ConstAxes from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AxesDelete(ConstHandle2ConstAxes This)
+AxesDelete(ConstHandle2ConstAxes self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -97,44 +97,44 @@ AxesDelete(ConstHandle2ConstAxes This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AxesRead(ConstHandle2Axes This, const char *const filename)
+AxesRead(ConstHandle2Axes self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AxesWrite(ConstHandle2ConstAxes This, const char *const filename)
+AxesWrite(ConstHandle2ConstAxes self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AxesPrint(ConstHandle2ConstAxes This)
+AxesPrint(ConstHandle2ConstAxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AxesPrintXML(ConstHandle2ConstAxes This)
+AxesPrintXML(ConstHandle2ConstAxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AxesPrintJSON(ConstHandle2ConstAxes This)
+AxesPrintJSON(ConstHandle2ConstAxes self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -144,27 +144,27 @@ AxesPrintJSON(ConstHandle2ConstAxes This)
 
 // Has
 int
-AxesHrefHas(ConstHandle2ConstAxes This)
+AxesHrefHas(ConstHandle2ConstAxes self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-AxesHrefGet(ConstHandle2ConstAxes This)
+AxesHrefGet(ConstHandle2ConstAxes self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-AxesHrefSet(ConstHandle2Axes This, const char *const href)
+AxesHrefSet(ConstHandle2Axes self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

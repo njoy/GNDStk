@@ -5,24 +5,24 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // map declarations
 namespace python_map {
-   void wrapImport(python::module &);
-   void wrapProtare(python::module &);
-   void wrapTNSL(python::module &);
-   void wrapMap(python::module &);
+   void wrapImport(py::module &);
+   void wrapProtare(py::module &);
+   void wrapTNSL(py::module &);
+   void wrapMap(py::module &);
 } // namespace python_map
 
-// map wrapper
-void wrapMap(python::module &module)
+// wrapper for map
+void wrapMap(py::module &module)
 {
    // create the map submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "map",
       "test v2.0 map"
    );

@@ -85,13 +85,13 @@ ForwardCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ForwardAssign(ConstHandle2Forward This, ConstHandle2ConstForward from);
+ForwardAssign(ConstHandle2Forward self, ConstHandle2ConstForward from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ForwardDelete(ConstHandle2ConstForward This);
+ForwardDelete(ConstHandle2ConstForward self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ ForwardDelete(ConstHandle2ConstForward This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ForwardRead(ConstHandle2Forward This, const char *const filename);
+ForwardRead(ConstHandle2Forward self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ForwardWrite(ConstHandle2ConstForward This, const char *const filename);
+ForwardWrite(ConstHandle2ConstForward self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ForwardPrint(ConstHandle2ConstForward This);
+ForwardPrint(ConstHandle2ConstForward self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ForwardPrintXML(ConstHandle2ConstForward This);
+ForwardPrintXML(ConstHandle2ConstForward self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ForwardPrintJSON(ConstHandle2ConstForward This);
+ForwardPrintJSON(ConstHandle2ConstForward self);
 
 
 // -----------------------------------------------------------------------------

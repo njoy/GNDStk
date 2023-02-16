@@ -93,13 +93,13 @@ IntervalCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IntervalAssign(ConstHandle2Interval This, ConstHandle2ConstInterval from);
+IntervalAssign(ConstHandle2Interval self, ConstHandle2ConstInterval from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IntervalDelete(ConstHandle2ConstInterval This);
+IntervalDelete(ConstHandle2ConstInterval self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ IntervalDelete(ConstHandle2ConstInterval This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IntervalRead(ConstHandle2Interval This, const char *const filename);
+IntervalRead(ConstHandle2Interval self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IntervalWrite(ConstHandle2ConstInterval This, const char *const filename);
+IntervalWrite(ConstHandle2ConstInterval self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IntervalPrint(ConstHandle2ConstInterval This);
+IntervalPrint(ConstHandle2ConstInterval self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IntervalPrintXML(ConstHandle2ConstInterval This);
+IntervalPrintXML(ConstHandle2ConstInterval self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IntervalPrintJSON(ConstHandle2ConstInterval This);
+IntervalPrintJSON(ConstHandle2ConstInterval self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ IntervalPrintJSON(ConstHandle2ConstInterval This);
 
 // +++ Has
 extern_c int
-IntervalConfidenceHas(ConstHandle2ConstInterval This);
+IntervalConfidenceHas(ConstHandle2ConstInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-IntervalConfidenceGet(ConstHandle2ConstInterval This);
+IntervalConfidenceGet(ConstHandle2ConstInterval self);
 
 // +++ Set
 extern_c void
-IntervalConfidenceSet(ConstHandle2Interval This, const Float64 confidence);
+IntervalConfidenceSet(ConstHandle2Interval self, const Float64 confidence);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ IntervalConfidenceSet(ConstHandle2Interval This, const Float64 confidence);
 
 // +++ Has
 extern_c int
-IntervalLowerHas(ConstHandle2ConstInterval This);
+IntervalLowerHas(ConstHandle2ConstInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-IntervalLowerGet(ConstHandle2ConstInterval This);
+IntervalLowerGet(ConstHandle2ConstInterval self);
 
 // +++ Set
 extern_c void
-IntervalLowerSet(ConstHandle2Interval This, const Float64 lower);
+IntervalLowerSet(ConstHandle2Interval self, const Float64 lower);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ IntervalLowerSet(ConstHandle2Interval This, const Float64 lower);
 
 // +++ Has
 extern_c int
-IntervalUpperHas(ConstHandle2ConstInterval This);
+IntervalUpperHas(ConstHandle2ConstInterval self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-IntervalUpperGet(ConstHandle2ConstInterval This);
+IntervalUpperGet(ConstHandle2ConstInterval self);
 
 // +++ Set
 extern_c void
-IntervalUpperSet(ConstHandle2Interval This, const Float64 upper);
+IntervalUpperSet(ConstHandle2Interval self, const Float64 upper);
 
 
 // -----------------------------------------------------------------------------

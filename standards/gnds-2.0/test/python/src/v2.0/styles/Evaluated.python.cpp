@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_styles {
 
-// Evaluated wrapper
-void wrapEvaluated(python::module &module)
+// wrapper for styles::Evaluated
+void wrapEvaluated(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = styles::Evaluated;
+   using cppCLASS = styles::Evaluated;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Evaluated",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Evaluated",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const XMLName &,
-            const styles::ProjectileEnergyDomain &,
-            const styles::Temperature &,
-            const documentation::Documentation &
-         >(),
-         python::arg("date"),
-         python::arg("label"),
-         python::arg("derived_from") = std::nullopt,
-         python::arg("library"),
-         python::arg("version"),
-         python::arg("projectile_energy_domain"),
-         python::arg("temperature"),
-         python::arg("documentation"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "date",
-         [](const Component &self) { return self.date(); },
-         Component::documentation("date").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "derived_from",
-         [](const Component &self) { return self.derivedFrom(); },
-         Component::documentation("derived_from").data()
-      )
-      .def_property_readonly(
-         "library",
-         [](const Component &self) { return self.library(); },
-         Component::documentation("library").data()
-      )
-      .def_property_readonly(
-         "version",
-         [](const Component &self) { return self.version(); },
-         Component::documentation("version").data()
-      )
-      .def_property_readonly(
-         "projectile_energy_domain",
-         [](const Component &self) { return self.projectileEnergyDomain(); },
-         Component::documentation("projectile_energy_domain").data()
-      )
-      .def_property_readonly(
-         "temperature",
-         [](const Component &self) { return self.temperature(); },
-         Component::documentation("temperature").data()
-      )
-      .def_property_readonly(
-         "documentation",
-         [](const Component &self) { return self.documentation(); },
-         Component::documentation("documentation").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const XMLName &,
+         const styles::ProjectileEnergyDomain &,
+         const styles::Temperature &,
+         const documentation::Documentation &
+      >(),
+      py::arg("date"),
+      py::arg("label"),
+      py::arg("derived_from") = std::nullopt,
+      py::arg("library"),
+      py::arg("version"),
+      py::arg("projectile_energy_domain"),
+      py::arg("temperature"),
+      py::arg("documentation"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set derivedFrom
+   object.def_property(
+      "derived_from",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.derivedFrom();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.derivedFrom() = value;
+      },
+      cppCLASS::component_t::documentation("derived_from").data()
+   );
+
+   // get/set library
+   object.def_property(
+      "library",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.library();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.library() = value;
+      },
+      cppCLASS::component_t::documentation("library").data()
+   );
+
+   // get/set version
+   object.def_property(
+      "version",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.version();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.version() = value;
+      },
+      cppCLASS::component_t::documentation("version").data()
+   );
+
+   // get/set projectileEnergyDomain
+   object.def_property(
+      "projectile_energy_domain",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectileEnergyDomain();
+      },
+      [](cppCLASS &self, const styles::ProjectileEnergyDomain &value)
+      {
+         self.projectileEnergyDomain() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_energy_domain").data()
+   );
+
+   // get/set temperature
+   object.def_property(
+      "temperature",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.temperature();
+      },
+      [](cppCLASS &self, const styles::Temperature &value)
+      {
+         self.temperature() = value;
+      },
+      cppCLASS::component_t::documentation("temperature").data()
+   );
+
+   // get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const documentation::Documentation &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_styles

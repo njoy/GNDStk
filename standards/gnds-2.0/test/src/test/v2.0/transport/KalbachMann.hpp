@@ -27,12 +27,12 @@ class KalbachMann :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "KalbachMann"; }
-   static auto FIELD() { return "KalbachMann"; }
+   static auto NODENAME() { return "KalbachMann"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,38 +46,88 @@ class KalbachMann :
             / Meta<>("productFrame") |
 
          // children
-         --Child<transport::F>("f") |
-         --Child<transport::R>("r") |
-         --Child<std::optional<transport::A>>("a")
+         --Child<transport::F>
+            ("f") |
+         --Child<transport::R>
+            ("r") |
+         --Child<std::optional<transport::A>>
+            ("a")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "f",
+         "r",
+         "a"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "f",
+         "r",
+         "a"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<XMLName> productFrame{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // children
-   Field<transport::F> f{this};
-   Field<transport::R> r{this};
-   Field<std::optional<transport::A>> a{this};
+   Field<transport::F>
+      f{this};
+   Field<transport::R>
+      r{this};
+   Field<std::optional<transport::A>>
+      a{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
       this->f, \
       this->r, \
-      this->a)
+      this->a \
+   )
 
    // default
    KalbachMann() :
@@ -88,11 +138,16 @@ public:
 
    // from fields, comment excluded
    explicit KalbachMann(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<XMLName> &productFrame = {},
-      const wrapper<transport::F> &f = {},
-      const wrapper<transport::R> &r = {},
-      const wrapper<std::optional<transport::A>> &a = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {},
+      const wrapper<transport::F>
+         &f = {},
+      const wrapper<transport::R>
+         &r = {},
+      const wrapper<std::optional<transport::A>>
+         &a = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +196,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   KalbachMann &operator=(const KalbachMann &) = default;
-   KalbachMann &operator=(KalbachMann &&) = default;
+   // copy
+   KalbachMann &operator=(const KalbachMann &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         f = other.f;
+         r = other.r;
+         a = other.a;
+      }
+      return *this;
+   }
+
+   // move
+   KalbachMann &operator=(KalbachMann &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         f = std::move(other.f);
+         r = std::move(other.r);
+         a = std::move(other.a);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

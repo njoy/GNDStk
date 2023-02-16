@@ -27,12 +27,12 @@ class ExforDataSet :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ExforDataSet"; }
-   static auto FIELD() { return "exforDataSet"; }
+   static auto NODENAME() { return "exforDataSet"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,38 +46,88 @@ class ExforDataSet :
             / Meta<>("retrievalDate") |
 
          // children
-         --Child<std::optional<documentation::CovarianceScript>>("covarianceScript") |
-         --Child<std::optional<documentation::CorrectionScript>>("correctionScript") |
-         --Child<std::optional<documentation::Note>>("note")
+         --Child<std::optional<documentation::CovarianceScript>>
+            ("covarianceScript") |
+         --Child<std::optional<documentation::CorrectionScript>>
+            ("correctionScript") |
+         --Child<std::optional<documentation::Note>>
+            ("note")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "subentry",
+         "retrievalDate",
+         "covarianceScript",
+         "correctionScript",
+         "note"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "subentry",
+         "retrieval_date",
+         "covariance_script",
+         "correction_script",
+         "note"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> subentry{this};
-   Field<std::string> retrievalDate{this};
+   Field<XMLName>
+      subentry{this};
+   Field<std::string>
+      retrievalDate{this};
 
    // children
-   Field<std::optional<documentation::CovarianceScript>> covarianceScript{this};
-   Field<std::optional<documentation::CorrectionScript>> correctionScript{this};
-   Field<std::optional<documentation::Note>> note{this};
+   Field<std::optional<documentation::CovarianceScript>>
+      covarianceScript{this};
+   Field<std::optional<documentation::CorrectionScript>>
+      correctionScript{this};
+   Field<std::optional<documentation::Note>>
+      note{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->subentry, \
       this->retrievalDate, \
       this->covarianceScript, \
       this->correctionScript, \
-      this->note)
+      this->note \
+   )
 
    // default
    ExforDataSet() :
@@ -88,11 +138,16 @@ public:
 
    // from fields, comment excluded
    explicit ExforDataSet(
-      const wrapper<XMLName> &subentry,
-      const wrapper<std::string> &retrievalDate = {},
-      const wrapper<std::optional<documentation::CovarianceScript>> &covarianceScript = {},
-      const wrapper<std::optional<documentation::CorrectionScript>> &correctionScript = {},
-      const wrapper<std::optional<documentation::Note>> &note = {}
+      const wrapper<XMLName>
+         &subentry,
+      const wrapper<std::string>
+         &retrievalDate = {},
+      const wrapper<std::optional<documentation::CovarianceScript>>
+         &covarianceScript = {},
+      const wrapper<std::optional<documentation::CorrectionScript>>
+         &correctionScript = {},
+      const wrapper<std::optional<documentation::Note>>
+         &note = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       subentry(this,subentry),
@@ -141,8 +196,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   ExforDataSet &operator=(const ExforDataSet &) = default;
-   ExforDataSet &operator=(ExforDataSet &&) = default;
+   // copy
+   ExforDataSet &operator=(const ExforDataSet &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         subentry = other.subentry;
+         retrievalDate = other.retrievalDate;
+         covarianceScript = other.covarianceScript;
+         correctionScript = other.correctionScript;
+         note = other.note;
+      }
+      return *this;
+   }
+
+   // move
+   ExforDataSet &operator=(ExforDataSet &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         subentry = std::move(other.subentry);
+         retrievalDate = std::move(other.retrievalDate);
+         covarianceScript = std::move(other.covarianceScript);
+         correctionScript = std::move(other.correctionScript);
+         note = std::move(other.note);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -73,20 +73,20 @@ RelatedItemsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RelatedItemsAssign(ConstHandle2RelatedItems This, ConstHandle2ConstRelatedItems from)
+RelatedItemsAssign(ConstHandle2RelatedItems self, ConstHandle2ConstRelatedItems from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RelatedItemsDelete(ConstHandle2ConstRelatedItems This)
+RelatedItemsDelete(ConstHandle2ConstRelatedItems self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ RelatedItemsDelete(ConstHandle2ConstRelatedItems This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RelatedItemsRead(ConstHandle2RelatedItems This, const char *const filename)
+RelatedItemsRead(ConstHandle2RelatedItems self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RelatedItemsWrite(ConstHandle2ConstRelatedItems This, const char *const filename)
+RelatedItemsWrite(ConstHandle2ConstRelatedItems self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RelatedItemsPrint(ConstHandle2ConstRelatedItems This)
+RelatedItemsPrint(ConstHandle2ConstRelatedItems self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RelatedItemsPrintXML(ConstHandle2ConstRelatedItems This)
+RelatedItemsPrintXML(ConstHandle2ConstRelatedItems self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems This)
+RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ RelatedItemsPrintJSON(ConstHandle2ConstRelatedItems This)
 
 // Has
 int
-RelatedItemsRelatedItemHas(ConstHandle2ConstRelatedItems This)
+RelatedItemsRelatedItemHas(ConstHandle2ConstRelatedItems self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RelatedItemHas", This, extract::relatedItem);
+      (CLASSNAME, CLASSNAME+"RelatedItemHas", self, extract::relatedItem);
 }
 
 // Clear
 void
-RelatedItemsRelatedItemClear(ConstHandle2RelatedItems This)
+RelatedItemsRelatedItemClear(ConstHandle2RelatedItems self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"RelatedItemClear", This, extract::relatedItem);
+      (CLASSNAME, CLASSNAME+"RelatedItemClear", self, extract::relatedItem);
 }
 
 // Size
 size_t
-RelatedItemsRelatedItemSize(ConstHandle2ConstRelatedItems This)
+RelatedItemsRelatedItemSize(ConstHandle2ConstRelatedItems self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"RelatedItemSize", This, extract::relatedItem);
+      (CLASSNAME, CLASSNAME+"RelatedItemSize", self, extract::relatedItem);
 }
 
 // Add
 void
-RelatedItemsRelatedItemAdd(ConstHandle2RelatedItems This, ConstHandle2ConstRelatedItem relatedItem)
+RelatedItemsRelatedItemAdd(ConstHandle2RelatedItems self, ConstHandle2ConstRelatedItem relatedItem)
 {
    detail::addToContainer<CPP,CPPRelatedItem>
-      (CLASSNAME, CLASSNAME+"RelatedItemAdd", This, extract::relatedItem, relatedItem);
+      (CLASSNAME, CLASSNAME+"RelatedItemAdd", self, extract::relatedItem, relatedItem);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstRelatedItem
-RelatedItemsRelatedItemGetConst(ConstHandle2ConstRelatedItems This, const size_t index_)
+RelatedItemsRelatedItemGetConst(ConstHandle2ConstRelatedItems self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstRelatedItem>
-      (CLASSNAME, CLASSNAME+"RelatedItemGetConst", This, extract::relatedItem, index_);
+      (CLASSNAME, CLASSNAME+"RelatedItemGetConst", self, extract::relatedItem, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2RelatedItem
-RelatedItemsRelatedItemGet(ConstHandle2RelatedItems This, const size_t index_)
+RelatedItemsRelatedItemGet(ConstHandle2RelatedItems self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2RelatedItem>
-      (CLASSNAME, CLASSNAME+"RelatedItemGet", This, extract::relatedItem, index_);
+      (CLASSNAME, CLASSNAME+"RelatedItemGet", self, extract::relatedItem, index_);
 }
 
 // Set, by index \in [0,size)
 void
 RelatedItemsRelatedItemSet(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const size_t index_,
    ConstHandle2ConstRelatedItem relatedItem
 ) {
    detail::setByIndex<CPP,CPPRelatedItem>
-      (CLASSNAME, CLASSNAME+"RelatedItemSet", This, extract::relatedItem, index_, relatedItem);
+      (CLASSNAME, CLASSNAME+"RelatedItemSet", self, extract::relatedItem, index_, relatedItem);
 }
 
 // Has, by name
 int
 RelatedItemsRelatedItemHasByName(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text name
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"RelatedItemHasByName",
-       This, extract::relatedItem, meta::name, name);
+       self, extract::relatedItem, meta::name, name);
 }
 
 // Get, by name, const
 Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByNameConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByNameConst",
-       This, extract::relatedItem, meta::name, name);
+       self, extract::relatedItem, meta::name, name);
 }
 
 // Get, by name, non-const
 Handle2RelatedItem
 RelatedItemsRelatedItemGetByName(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text name
 ) {
    return detail::getByMetadatum<CPP,Handle2RelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByName",
-       This, extract::relatedItem, meta::name, name);
+       self, extract::relatedItem, meta::name, name);
 }
 
 // Set, by name
 void
 RelatedItemsRelatedItemSetByName(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text name,
    ConstHandle2ConstRelatedItem relatedItem
 ) {
    detail::setByMetadatum<CPP,CPPRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemSetByName",
-       This, extract::relatedItem, meta::name, name, relatedItem);
+       self, extract::relatedItem, meta::name, name, relatedItem);
 }
 
 // Has, by href
 int
 RelatedItemsRelatedItemHasByHref(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"RelatedItemHasByHref",
-       This, extract::relatedItem, meta::href, href);
+       self, extract::relatedItem, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByHrefConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByHrefConst",
-       This, extract::relatedItem, meta::href, href);
+       self, extract::relatedItem, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2RelatedItem
 RelatedItemsRelatedItemGetByHref(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text href
 ) {
    return detail::getByMetadatum<CPP,Handle2RelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByHref",
-       This, extract::relatedItem, meta::href, href);
+       self, extract::relatedItem, meta::href, href);
 }
 
 // Set, by href
 void
 RelatedItemsRelatedItemSetByHref(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const UTF8Text href,
    ConstHandle2ConstRelatedItem relatedItem
 ) {
    detail::setByMetadatum<CPP,CPPRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemSetByHref",
-       This, extract::relatedItem, meta::href, href, relatedItem);
+       self, extract::relatedItem, meta::href, href, relatedItem);
 }
 
 // Has, by relationType
 int
 RelatedItemsRelatedItemHasByRelationType(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const enums::RelationType relationType
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"RelatedItemHasByRelationType",
-       This, extract::relatedItem, meta::relationType, relationType);
+       self, extract::relatedItem, meta::relationType, relationType);
 }
 
 // Get, by relationType, const
 Handle2ConstRelatedItem
 RelatedItemsRelatedItemGetByRelationTypeConst(
-   ConstHandle2ConstRelatedItems This,
+   ConstHandle2ConstRelatedItems self,
    const enums::RelationType relationType
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByRelationTypeConst",
-       This, extract::relatedItem, meta::relationType, relationType);
+       self, extract::relatedItem, meta::relationType, relationType);
 }
 
 // Get, by relationType, non-const
 Handle2RelatedItem
 RelatedItemsRelatedItemGetByRelationType(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const enums::RelationType relationType
 ) {
    return detail::getByMetadatum<CPP,Handle2RelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemGetByRelationType",
-       This, extract::relatedItem, meta::relationType, relationType);
+       self, extract::relatedItem, meta::relationType, relationType);
 }
 
 // Set, by relationType
 void
 RelatedItemsRelatedItemSetByRelationType(
-   ConstHandle2RelatedItems This,
+   ConstHandle2RelatedItems self,
    const enums::RelationType relationType,
    ConstHandle2ConstRelatedItem relatedItem
 ) {
    detail::setByMetadatum<CPP,CPPRelatedItem>
       (CLASSNAME, CLASSNAME+"RelatedItemSetByRelationType",
-       This, extract::relatedItem, meta::relationType, relationType, relatedItem);
+       self, extract::relatedItem, meta::relationType, relationType, relatedItem);
 }
 
 

@@ -96,13 +96,13 @@ WattCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-WattAssign(ConstHandle2Watt This, ConstHandle2ConstWatt from);
+WattAssign(ConstHandle2Watt self, ConstHandle2ConstWatt from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-WattDelete(ConstHandle2ConstWatt This);
+WattDelete(ConstHandle2ConstWatt self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ WattDelete(ConstHandle2ConstWatt This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-WattRead(ConstHandle2Watt This, const char *const filename);
+WattRead(ConstHandle2Watt self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-WattWrite(ConstHandle2ConstWatt This, const char *const filename);
+WattWrite(ConstHandle2ConstWatt self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-WattPrint(ConstHandle2ConstWatt This);
+WattPrint(ConstHandle2ConstWatt self);
 
 // +++ Print to standard output, as XML
 extern_c int
-WattPrintXML(ConstHandle2ConstWatt This);
+WattPrintXML(ConstHandle2ConstWatt self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-WattPrintJSON(ConstHandle2ConstWatt This);
+WattPrintJSON(ConstHandle2ConstWatt self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,19 +142,19 @@ WattPrintJSON(ConstHandle2ConstWatt This);
 
 // +++ Has
 extern_c int
-WattUHas(ConstHandle2ConstWatt This);
+WattUHas(ConstHandle2ConstWatt self);
 
 // --- Get, const
 extern_c Handle2ConstU
-WattUGetConst(ConstHandle2ConstWatt This);
+WattUGetConst(ConstHandle2ConstWatt self);
 
 // +++ Get, non-const
 extern_c Handle2U
-WattUGet(ConstHandle2Watt This);
+WattUGet(ConstHandle2Watt self);
 
 // +++ Set
 extern_c void
-WattUSet(ConstHandle2Watt This, ConstHandle2ConstU U);
+WattUSet(ConstHandle2Watt self, ConstHandle2ConstU U);
 
 
 // -----------------------------------------------------------------------------
@@ -163,19 +163,19 @@ WattUSet(ConstHandle2Watt This, ConstHandle2ConstU U);
 
 // +++ Has
 extern_c int
-WattAHas(ConstHandle2ConstWatt This);
+WattAHas(ConstHandle2ConstWatt self);
 
 // --- Get, const
 extern_c Handle2ConstA
-WattAGetConst(ConstHandle2ConstWatt This);
+WattAGetConst(ConstHandle2ConstWatt self);
 
 // +++ Get, non-const
 extern_c Handle2A
-WattAGet(ConstHandle2Watt This);
+WattAGet(ConstHandle2Watt self);
 
 // +++ Set
 extern_c void
-WattASet(ConstHandle2Watt This, ConstHandle2ConstA a);
+WattASet(ConstHandle2Watt self, ConstHandle2ConstA a);
 
 
 // -----------------------------------------------------------------------------
@@ -184,19 +184,19 @@ WattASet(ConstHandle2Watt This, ConstHandle2ConstA a);
 
 // +++ Has
 extern_c int
-WattBHas(ConstHandle2ConstWatt This);
+WattBHas(ConstHandle2ConstWatt self);
 
 // --- Get, const
 extern_c Handle2ConstB
-WattBGetConst(ConstHandle2ConstWatt This);
+WattBGetConst(ConstHandle2ConstWatt self);
 
 // +++ Get, non-const
 extern_c Handle2B
-WattBGet(ConstHandle2Watt This);
+WattBGet(ConstHandle2Watt self);
 
 // +++ Set
 extern_c void
-WattBSet(ConstHandle2Watt This, ConstHandle2ConstB b);
+WattBSet(ConstHandle2Watt self, ConstHandle2ConstB b);
 
 
 // -----------------------------------------------------------------------------

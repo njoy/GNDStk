@@ -27,12 +27,12 @@ class CoherentPhotonScattering :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "atomic"; }
    static auto CLASS() { return "CoherentPhotonScattering"; }
-   static auto FIELD() { return "coherentPhotonScattering"; }
+   static auto NODENAME() { return "coherentPhotonScattering"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,34 +50,89 @@ class CoherentPhotonScattering :
             / Meta<>("productFrame") |
 
          // children
-         --Child<std::optional<atomic::FormFactor>>("formFactor") |
-         --Child<std::optional<atomic::RealAnomalousFactor>>("realAnomalousFactor") |
-         --Child<std::optional<atomic::ImaginaryAnomalousFactor>>("imaginaryAnomalousFactor")
+         --Child<std::optional<atomic::FormFactor>>
+            ("formFactor") |
+         --Child<std::optional<atomic::RealAnomalousFactor>>
+            ("realAnomalousFactor") |
+         --Child<std::optional<atomic::ImaginaryAnomalousFactor>>
+            ("imaginaryAnomalousFactor")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "pid",
+         "productFrame",
+         "formFactor",
+         "realAnomalousFactor",
+         "imaginaryAnomalousFactor"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "label",
+         "pid",
+         "product_frame",
+         "form_factor",
+         "real_anomalous_factor",
+         "imaginary_anomalous_factor"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> pid{this};
-   Field<enums::Frame> productFrame{this};
+   Field<std::optional<std::string>>
+      href{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      pid{this};
+   Field<enums::Frame>
+      productFrame{this};
 
    // children
-   Field<std::optional<atomic::FormFactor>> formFactor{this};
-   Field<std::optional<atomic::RealAnomalousFactor>> realAnomalousFactor{this};
-   Field<std::optional<atomic::ImaginaryAnomalousFactor>> imaginaryAnomalousFactor{this};
+   Field<std::optional<atomic::FormFactor>>
+      formFactor{this};
+   Field<std::optional<atomic::RealAnomalousFactor>>
+      realAnomalousFactor{this};
+   Field<std::optional<atomic::ImaginaryAnomalousFactor>>
+      imaginaryAnomalousFactor{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
       this->label, \
@@ -85,7 +140,8 @@ public:
       this->productFrame, \
       this->formFactor, \
       this->realAnomalousFactor, \
-      this->imaginaryAnomalousFactor)
+      this->imaginaryAnomalousFactor \
+   )
 
    // default
    CoherentPhotonScattering() :
@@ -96,13 +152,20 @@ public:
 
    // from fields, comment excluded
    explicit CoherentPhotonScattering(
-      const wrapper<std::optional<std::string>> &href,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<XMLName>> &pid = {},
-      const wrapper<enums::Frame> &productFrame = {},
-      const wrapper<std::optional<atomic::FormFactor>> &formFactor = {},
-      const wrapper<std::optional<atomic::RealAnomalousFactor>> &realAnomalousFactor = {},
-      const wrapper<std::optional<atomic::ImaginaryAnomalousFactor>> &imaginaryAnomalousFactor = {}
+      const wrapper<std::optional<std::string>>
+         &href,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &pid = {},
+      const wrapper<enums::Frame>
+         &productFrame = {},
+      const wrapper<std::optional<atomic::FormFactor>>
+         &formFactor = {},
+      const wrapper<std::optional<atomic::RealAnomalousFactor>>
+         &realAnomalousFactor = {},
+      const wrapper<std::optional<atomic::ImaginaryAnomalousFactor>>
+         &imaginaryAnomalousFactor = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -157,8 +220,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   CoherentPhotonScattering &operator=(const CoherentPhotonScattering &) = default;
-   CoherentPhotonScattering &operator=(CoherentPhotonScattering &&) = default;
+   // copy
+   CoherentPhotonScattering &operator=(const CoherentPhotonScattering &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         formFactor = other.formFactor;
+         realAnomalousFactor = other.realAnomalousFactor;
+         imaginaryAnomalousFactor = other.imaginaryAnomalousFactor;
+      }
+      return *this;
+   }
+
+   // move
+   CoherentPhotonScattering &operator=(CoherentPhotonScattering &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         formFactor = std::move(other.formFactor);
+         realAnomalousFactor = std::move(other.realAnomalousFactor);
+         imaginaryAnomalousFactor = std::move(other.imaginaryAnomalousFactor);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

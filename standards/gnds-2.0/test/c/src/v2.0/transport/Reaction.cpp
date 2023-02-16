@@ -96,20 +96,20 @@ ReactionCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ReactionAssign(ConstHandle2Reaction This, ConstHandle2ConstReaction from)
+ReactionAssign(ConstHandle2Reaction self, ConstHandle2ConstReaction from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ReactionDelete(ConstHandle2ConstReaction This)
+ReactionDelete(ConstHandle2ConstReaction self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -123,44 +123,44 @@ ReactionDelete(ConstHandle2ConstReaction This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ReactionRead(ConstHandle2Reaction This, const char *const filename)
+ReactionRead(ConstHandle2Reaction self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ReactionWrite(ConstHandle2ConstReaction This, const char *const filename)
+ReactionWrite(ConstHandle2ConstReaction self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ReactionPrint(ConstHandle2ConstReaction This)
+ReactionPrint(ConstHandle2ConstReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ReactionPrintXML(ConstHandle2ConstReaction This)
+ReactionPrintXML(ConstHandle2ConstReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ReactionPrintJSON(ConstHandle2ConstReaction This)
+ReactionPrintJSON(ConstHandle2ConstReaction self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -170,27 +170,27 @@ ReactionPrintJSON(ConstHandle2ConstReaction This)
 
 // Has
 int
-ReactionENDFMTHas(ConstHandle2ConstReaction This)
+ReactionENDFMTHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTHas", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTHas", self, extract::ENDF_MT);
 }
 
 // Get
 // Returns by value
 Integer32
-ReactionENDFMTGet(ConstHandle2ConstReaction This)
+ReactionENDFMTGet(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTGet", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTGet", self, extract::ENDF_MT);
 }
 
 // Set
 void
-ReactionENDFMTSet(ConstHandle2Reaction This, const Integer32 ENDF_MT)
+ReactionENDFMTSet(ConstHandle2Reaction self, const Integer32 ENDF_MT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTSet", This, extract::ENDF_MT, ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTSet", self, extract::ENDF_MT, ENDF_MT);
 }
 
 
@@ -200,27 +200,27 @@ ReactionENDFMTSet(ConstHandle2Reaction This, const Integer32 ENDF_MT)
 
 // Has
 int
-ReactionFissionGenreHas(ConstHandle2ConstReaction This)
+ReactionFissionGenreHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionGenreHas", This, extract::fissionGenre);
+      (CLASSNAME, CLASSNAME+"FissionGenreHas", self, extract::fissionGenre);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionFissionGenreGet(ConstHandle2ConstReaction This)
+ReactionFissionGenreGet(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionGenreGet", This, extract::fissionGenre);
+      (CLASSNAME, CLASSNAME+"FissionGenreGet", self, extract::fissionGenre);
 }
 
 // Set
 void
-ReactionFissionGenreSet(ConstHandle2Reaction This, const XMLName fissionGenre)
+ReactionFissionGenreSet(ConstHandle2Reaction self, const XMLName fissionGenre)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionGenreSet", This, extract::fissionGenre, fissionGenre);
+      (CLASSNAME, CLASSNAME+"FissionGenreSet", self, extract::fissionGenre, fissionGenre);
 }
 
 
@@ -230,27 +230,27 @@ ReactionFissionGenreSet(ConstHandle2Reaction This, const XMLName fissionGenre)
 
 // Has
 int
-ReactionLabelHas(ConstHandle2ConstReaction This)
+ReactionLabelHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionLabelGet(ConstHandle2ConstReaction This)
+ReactionLabelGet(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ReactionLabelSet(ConstHandle2Reaction This, const XMLName label)
+ReactionLabelSet(ConstHandle2Reaction self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -260,34 +260,34 @@ ReactionLabelSet(ConstHandle2Reaction This, const XMLName label)
 
 // Has
 int
-ReactionDoubleDifferentialCrossSectionHas(ConstHandle2ConstReaction This)
+ReactionDoubleDifferentialCrossSectionHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionHas", This, extract::doubleDifferentialCrossSection);
+      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionHas", self, extract::doubleDifferentialCrossSection);
 }
 
 // Get, const
 Handle2ConstDoubleDifferentialCrossSection
-ReactionDoubleDifferentialCrossSectionGetConst(ConstHandle2ConstReaction This)
+ReactionDoubleDifferentialCrossSectionGetConst(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP,Handle2ConstDoubleDifferentialCrossSection>
-      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionGetConst", This, extract::doubleDifferentialCrossSection);
+      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionGetConst", self, extract::doubleDifferentialCrossSection);
 }
 
 // Get, non-const
 Handle2DoubleDifferentialCrossSection
-ReactionDoubleDifferentialCrossSectionGet(ConstHandle2Reaction This)
+ReactionDoubleDifferentialCrossSectionGet(ConstHandle2Reaction self)
 {
    return detail::getField<CPP,Handle2DoubleDifferentialCrossSection>
-      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionGet", This, extract::doubleDifferentialCrossSection);
+      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionGet", self, extract::doubleDifferentialCrossSection);
 }
 
 // Set
 void
-ReactionDoubleDifferentialCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstDoubleDifferentialCrossSection doubleDifferentialCrossSection)
+ReactionDoubleDifferentialCrossSectionSet(ConstHandle2Reaction self, ConstHandle2ConstDoubleDifferentialCrossSection doubleDifferentialCrossSection)
 {
    detail::setField<CPP,CPPDoubleDifferentialCrossSection>
-      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionSet", This, extract::doubleDifferentialCrossSection, doubleDifferentialCrossSection);
+      (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionSet", self, extract::doubleDifferentialCrossSection, doubleDifferentialCrossSection);
 }
 
 
@@ -297,34 +297,34 @@ ReactionDoubleDifferentialCrossSectionSet(ConstHandle2Reaction This, ConstHandle
 
 // Has
 int
-ReactionCrossSectionHas(ConstHandle2ConstReaction This)
+ReactionCrossSectionHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionHas", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionHas", self, extract::crossSection);
 }
 
 // Get, const
 Handle2ConstCrossSection
-ReactionCrossSectionGetConst(ConstHandle2ConstReaction This)
+ReactionCrossSectionGetConst(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP,Handle2ConstCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
 // Get, non-const
 Handle2CrossSection
-ReactionCrossSectionGet(ConstHandle2Reaction This)
+ReactionCrossSectionGet(ConstHandle2Reaction self)
 {
    return detail::getField<CPP,Handle2CrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGet", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGet", self, extract::crossSection);
 }
 
 // Set
 void
-ReactionCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstCrossSection crossSection)
+ReactionCrossSectionSet(ConstHandle2Reaction self, ConstHandle2ConstCrossSection crossSection)
 {
    detail::setField<CPP,CPPCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionSet", This, extract::crossSection, crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionSet", self, extract::crossSection, crossSection);
 }
 
 
@@ -334,34 +334,34 @@ ReactionCrossSectionSet(ConstHandle2Reaction This, ConstHandle2ConstCrossSection
 
 // Has
 int
-ReactionOutputChannelHas(ConstHandle2ConstReaction This)
+ReactionOutputChannelHas(ConstHandle2ConstReaction self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputChannelHas", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelHas", self, extract::outputChannel);
 }
 
 // Get, const
 Handle2ConstOutputChannel
-ReactionOutputChannelGetConst(ConstHandle2ConstReaction This)
+ReactionOutputChannelGetConst(ConstHandle2ConstReaction self)
 {
    return detail::getField<CPP,Handle2ConstOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
 // Get, non-const
 Handle2OutputChannel
-ReactionOutputChannelGet(ConstHandle2Reaction This)
+ReactionOutputChannelGet(ConstHandle2Reaction self)
 {
    return detail::getField<CPP,Handle2OutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGet", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGet", self, extract::outputChannel);
 }
 
 // Set
 void
-ReactionOutputChannelSet(ConstHandle2Reaction This, ConstHandle2ConstOutputChannel outputChannel)
+ReactionOutputChannelSet(ConstHandle2Reaction self, ConstHandle2ConstOutputChannel outputChannel)
 {
    detail::setField<CPP,CPPOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelSet", self, extract::outputChannel, outputChannel);
 }
 
 

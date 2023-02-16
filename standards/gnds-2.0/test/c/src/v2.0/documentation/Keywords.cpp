@@ -73,20 +73,20 @@ KeywordsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-KeywordsAssign(ConstHandle2Keywords This, ConstHandle2ConstKeywords from)
+KeywordsAssign(ConstHandle2Keywords self, ConstHandle2ConstKeywords from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-KeywordsDelete(ConstHandle2ConstKeywords This)
+KeywordsDelete(ConstHandle2ConstKeywords self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ KeywordsDelete(ConstHandle2ConstKeywords This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-KeywordsRead(ConstHandle2Keywords This, const char *const filename)
+KeywordsRead(ConstHandle2Keywords self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-KeywordsWrite(ConstHandle2ConstKeywords This, const char *const filename)
+KeywordsWrite(ConstHandle2ConstKeywords self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-KeywordsPrint(ConstHandle2ConstKeywords This)
+KeywordsPrint(ConstHandle2ConstKeywords self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-KeywordsPrintXML(ConstHandle2ConstKeywords This)
+KeywordsPrintXML(ConstHandle2ConstKeywords self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-KeywordsPrintJSON(ConstHandle2ConstKeywords This)
+KeywordsPrintJSON(ConstHandle2ConstKeywords self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,241 +147,241 @@ KeywordsPrintJSON(ConstHandle2ConstKeywords This)
 
 // Has
 int
-KeywordsKeywordHas(ConstHandle2ConstKeywords This)
+KeywordsKeywordHas(ConstHandle2ConstKeywords self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"KeywordHas", This, extract::keyword);
+      (CLASSNAME, CLASSNAME+"KeywordHas", self, extract::keyword);
 }
 
 // Clear
 void
-KeywordsKeywordClear(ConstHandle2Keywords This)
+KeywordsKeywordClear(ConstHandle2Keywords self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"KeywordClear", This, extract::keyword);
+      (CLASSNAME, CLASSNAME+"KeywordClear", self, extract::keyword);
 }
 
 // Size
 size_t
-KeywordsKeywordSize(ConstHandle2ConstKeywords This)
+KeywordsKeywordSize(ConstHandle2ConstKeywords self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"KeywordSize", This, extract::keyword);
+      (CLASSNAME, CLASSNAME+"KeywordSize", self, extract::keyword);
 }
 
 // Add
 void
-KeywordsKeywordAdd(ConstHandle2Keywords This, ConstHandle2ConstKeyword keyword)
+KeywordsKeywordAdd(ConstHandle2Keywords self, ConstHandle2ConstKeyword keyword)
 {
    detail::addToContainer<CPP,CPPKeyword>
-      (CLASSNAME, CLASSNAME+"KeywordAdd", This, extract::keyword, keyword);
+      (CLASSNAME, CLASSNAME+"KeywordAdd", self, extract::keyword, keyword);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstKeyword
-KeywordsKeywordGetConst(ConstHandle2ConstKeywords This, const size_t index_)
+KeywordsKeywordGetConst(ConstHandle2ConstKeywords self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstKeyword>
-      (CLASSNAME, CLASSNAME+"KeywordGetConst", This, extract::keyword, index_);
+      (CLASSNAME, CLASSNAME+"KeywordGetConst", self, extract::keyword, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Keyword
-KeywordsKeywordGet(ConstHandle2Keywords This, const size_t index_)
+KeywordsKeywordGet(ConstHandle2Keywords self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Keyword>
-      (CLASSNAME, CLASSNAME+"KeywordGet", This, extract::keyword, index_);
+      (CLASSNAME, CLASSNAME+"KeywordGet", self, extract::keyword, index_);
 }
 
 // Set, by index \in [0,size)
 void
 KeywordsKeywordSet(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const size_t index_,
    ConstHandle2ConstKeyword keyword
 ) {
    detail::setByIndex<CPP,CPPKeyword>
-      (CLASSNAME, CLASSNAME+"KeywordSet", This, extract::keyword, index_, keyword);
+      (CLASSNAME, CLASSNAME+"KeywordSet", self, extract::keyword, index_, keyword);
 }
 
 // Has, by encoding
 int
 KeywordsKeywordHasByEncoding(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName encoding
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"KeywordHasByEncoding",
-       This, extract::keyword, meta::encoding, encoding);
+       self, extract::keyword, meta::encoding, encoding);
 }
 
 // Get, by encoding, const
 Handle2ConstKeyword
 KeywordsKeywordGetByEncodingConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstKeyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByEncodingConst",
-       This, extract::keyword, meta::encoding, encoding);
+       self, extract::keyword, meta::encoding, encoding);
 }
 
 // Get, by encoding, non-const
 Handle2Keyword
 KeywordsKeywordGetByEncoding(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName encoding
 ) {
    return detail::getByMetadatum<CPP,Handle2Keyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByEncoding",
-       This, extract::keyword, meta::encoding, encoding);
+       self, extract::keyword, meta::encoding, encoding);
 }
 
 // Set, by encoding
 void
 KeywordsKeywordSetByEncoding(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName encoding,
    ConstHandle2ConstKeyword keyword
 ) {
    detail::setByMetadatum<CPP,CPPKeyword>
       (CLASSNAME, CLASSNAME+"KeywordSetByEncoding",
-       This, extract::keyword, meta::encoding, encoding, keyword);
+       self, extract::keyword, meta::encoding, encoding, keyword);
 }
 
 // Has, by markup
 int
 KeywordsKeywordHasByMarkup(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const char *const markup
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"KeywordHasByMarkup",
-       This, extract::keyword, meta::markup, markup);
+       self, extract::keyword, meta::markup, markup);
 }
 
 // Get, by markup, const
 Handle2ConstKeyword
 KeywordsKeywordGetByMarkupConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstKeyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByMarkupConst",
-       This, extract::keyword, meta::markup, markup);
+       self, extract::keyword, meta::markup, markup);
 }
 
 // Get, by markup, non-const
 Handle2Keyword
 KeywordsKeywordGetByMarkup(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const char *const markup
 ) {
    return detail::getByMetadatum<CPP,Handle2Keyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByMarkup",
-       This, extract::keyword, meta::markup, markup);
+       self, extract::keyword, meta::markup, markup);
 }
 
 // Set, by markup
 void
 KeywordsKeywordSetByMarkup(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const char *const markup,
    ConstHandle2ConstKeyword keyword
 ) {
    detail::setByMetadatum<CPP,CPPKeyword>
       (CLASSNAME, CLASSNAME+"KeywordSetByMarkup",
-       This, extract::keyword, meta::markup, markup, keyword);
+       self, extract::keyword, meta::markup, markup, keyword);
 }
 
 // Has, by label
 int
 KeywordsKeywordHasByLabel(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"KeywordHasByLabel",
-       This, extract::keyword, meta::label, label);
+       self, extract::keyword, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstKeyword
 KeywordsKeywordGetByLabelConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstKeyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByLabelConst",
-       This, extract::keyword, meta::label, label);
+       self, extract::keyword, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Keyword
 KeywordsKeywordGetByLabel(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Keyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByLabel",
-       This, extract::keyword, meta::label, label);
+       self, extract::keyword, meta::label, label);
 }
 
 // Set, by label
 void
 KeywordsKeywordSetByLabel(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName label,
    ConstHandle2ConstKeyword keyword
 ) {
    detail::setByMetadatum<CPP,CPPKeyword>
       (CLASSNAME, CLASSNAME+"KeywordSetByLabel",
-       This, extract::keyword, meta::label, label, keyword);
+       self, extract::keyword, meta::label, label, keyword);
 }
 
 // Has, by type
 int
 KeywordsKeywordHasByType(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName type
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"KeywordHasByType",
-       This, extract::keyword, meta::type, type);
+       self, extract::keyword, meta::type, type);
 }
 
 // Get, by type, const
 Handle2ConstKeyword
 KeywordsKeywordGetByTypeConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstKeyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByTypeConst",
-       This, extract::keyword, meta::type, type);
+       self, extract::keyword, meta::type, type);
 }
 
 // Get, by type, non-const
 Handle2Keyword
 KeywordsKeywordGetByType(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName type
 ) {
    return detail::getByMetadatum<CPP,Handle2Keyword>
       (CLASSNAME, CLASSNAME+"KeywordGetByType",
-       This, extract::keyword, meta::type, type);
+       self, extract::keyword, meta::type, type);
 }
 
 // Set, by type
 void
 KeywordsKeywordSetByType(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName type,
    ConstHandle2ConstKeyword keyword
 ) {
    detail::setByMetadatum<CPP,CPPKeyword>
       (CLASSNAME, CLASSNAME+"KeywordSetByType",
-       This, extract::keyword, meta::type, type, keyword);
+       self, extract::keyword, meta::type, type, keyword);
 }
 
 

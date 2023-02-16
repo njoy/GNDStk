@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// OutputDecks wrapper
-void wrapOutputDecks(python::module &module)
+// wrapper for documentation::OutputDecks
+void wrapOutputDecks(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::OutputDecks;
+   using cppCLASS = documentation::OutputDecks;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "OutputDecks",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "OutputDecks",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::OutputDeck> &
-         >(),
-         python::arg("output_deck"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "output_deck",
-         [](const Component &self) { return self.outputDeck(); },
-         Component::documentation("output_deck").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::OutputDeck> &
+      >(),
+      py::arg("output_deck"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set outputDeck
+   object.def_property(
+      "output_deck",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outputDeck();
+      },
+      [](cppCLASS &self, const std::vector<documentation::OutputDeck> &value)
+      {
+         self.outputDeck() = value;
+      },
+      cppCLASS::component_t::documentation("output_deck").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

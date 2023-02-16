@@ -94,13 +94,13 @@ MultiGroup3dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MultiGroup3dAssign(ConstHandle2MultiGroup3d This, ConstHandle2ConstMultiGroup3d from);
+MultiGroup3dAssign(ConstHandle2MultiGroup3d self, ConstHandle2ConstMultiGroup3d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ MultiGroup3dDelete(ConstHandle2ConstMultiGroup3d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MultiGroup3dRead(ConstHandle2MultiGroup3d This, const char *const filename);
+MultiGroup3dRead(ConstHandle2MultiGroup3d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MultiGroup3dWrite(ConstHandle2ConstMultiGroup3d This, const char *const filename);
+MultiGroup3dWrite(ConstHandle2ConstMultiGroup3d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MultiGroup3dPrint(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dPrint(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MultiGroup3dPrintXML(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dPrintXML(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ MultiGroup3dPrintJSON(ConstHandle2ConstMultiGroup3d This);
 
 // +++ Has
 extern_c int
-MultiGroup3dLabelHas(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dLabelHas(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MultiGroup3dLabelGet(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dLabelGet(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Set
 extern_c void
-MultiGroup3dLabelSet(ConstHandle2MultiGroup3d This, const XMLName label);
+MultiGroup3dLabelSet(ConstHandle2MultiGroup3d self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ MultiGroup3dLabelSet(ConstHandle2MultiGroup3d This, const XMLName label);
 
 // +++ Has
 extern_c int
-MultiGroup3dProductFrameHas(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dProductFrameHas(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MultiGroup3dProductFrameGet(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dProductFrameGet(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Set
 extern_c void
-MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d This, const XMLName productFrame);
+MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d self, const XMLName productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ MultiGroup3dProductFrameSet(ConstHandle2MultiGroup3d This, const XMLName product
 
 // +++ Has
 extern_c int
-MultiGroup3dGridded3dHas(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dGridded3dHas(ConstHandle2ConstMultiGroup3d self);
 
 // --- Get, const
 extern_c Handle2ConstGridded3d
-MultiGroup3dGridded3dGetConst(ConstHandle2ConstMultiGroup3d This);
+MultiGroup3dGridded3dGetConst(ConstHandle2ConstMultiGroup3d self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded3d
-MultiGroup3dGridded3dGet(ConstHandle2MultiGroup3d This);
+MultiGroup3dGridded3dGet(ConstHandle2MultiGroup3d self);
 
 // +++ Set
 extern_c void
-MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d This, ConstHandle2ConstGridded3d gridded3d);
+MultiGroup3dGridded3dSet(ConstHandle2MultiGroup3d self, ConstHandle2ConstGridded3d gridded3d);
 
 
 // -----------------------------------------------------------------------------

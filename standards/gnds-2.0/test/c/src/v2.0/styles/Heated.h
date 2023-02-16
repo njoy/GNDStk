@@ -99,13 +99,13 @@ HeatedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-HeatedAssign(ConstHandle2Heated This, ConstHandle2ConstHeated from);
+HeatedAssign(ConstHandle2Heated self, ConstHandle2ConstHeated from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-HeatedDelete(ConstHandle2ConstHeated This);
+HeatedDelete(ConstHandle2ConstHeated self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ HeatedDelete(ConstHandle2ConstHeated This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-HeatedRead(ConstHandle2Heated This, const char *const filename);
+HeatedRead(ConstHandle2Heated self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-HeatedWrite(ConstHandle2ConstHeated This, const char *const filename);
+HeatedWrite(ConstHandle2ConstHeated self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-HeatedPrint(ConstHandle2ConstHeated This);
+HeatedPrint(ConstHandle2ConstHeated self);
 
 // +++ Print to standard output, as XML
 extern_c int
-HeatedPrintXML(ConstHandle2ConstHeated This);
+HeatedPrintXML(ConstHandle2ConstHeated self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-HeatedPrintJSON(ConstHandle2ConstHeated This);
+HeatedPrintJSON(ConstHandle2ConstHeated self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ HeatedPrintJSON(ConstHandle2ConstHeated This);
 
 // +++ Has
 extern_c int
-HeatedDateHas(ConstHandle2ConstHeated This);
+HeatedDateHas(ConstHandle2ConstHeated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-HeatedDateGet(ConstHandle2ConstHeated This);
+HeatedDateGet(ConstHandle2ConstHeated self);
 
 // +++ Set
 extern_c void
-HeatedDateSet(ConstHandle2Heated This, const char *const date);
+HeatedDateSet(ConstHandle2Heated self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ HeatedDateSet(ConstHandle2Heated This, const char *const date);
 
 // +++ Has
 extern_c int
-HeatedDerivedFromHas(ConstHandle2ConstHeated This);
+HeatedDerivedFromHas(ConstHandle2ConstHeated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-HeatedDerivedFromGet(ConstHandle2ConstHeated This);
+HeatedDerivedFromGet(ConstHandle2ConstHeated self);
 
 // +++ Set
 extern_c void
-HeatedDerivedFromSet(ConstHandle2Heated This, const XMLName derivedFrom);
+HeatedDerivedFromSet(ConstHandle2Heated self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ HeatedDerivedFromSet(ConstHandle2Heated This, const XMLName derivedFrom);
 
 // +++ Has
 extern_c int
-HeatedLabelHas(ConstHandle2ConstHeated This);
+HeatedLabelHas(ConstHandle2ConstHeated self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-HeatedLabelGet(ConstHandle2ConstHeated This);
+HeatedLabelGet(ConstHandle2ConstHeated self);
 
 // +++ Set
 extern_c void
-HeatedLabelSet(ConstHandle2Heated This, const XMLName label);
+HeatedLabelSet(ConstHandle2Heated self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ HeatedLabelSet(ConstHandle2Heated This, const XMLName label);
 
 // +++ Has
 extern_c int
-HeatedTemperatureHas(ConstHandle2ConstHeated This);
+HeatedTemperatureHas(ConstHandle2ConstHeated self);
 
 // --- Get, const
 extern_c Handle2ConstTemperature
-HeatedTemperatureGetConst(ConstHandle2ConstHeated This);
+HeatedTemperatureGetConst(ConstHandle2ConstHeated self);
 
 // +++ Get, non-const
 extern_c Handle2Temperature
-HeatedTemperatureGet(ConstHandle2Heated This);
+HeatedTemperatureGet(ConstHandle2Heated self);
 
 // +++ Set
 extern_c void
-HeatedTemperatureSet(ConstHandle2Heated This, ConstHandle2ConstTemperature temperature);
+HeatedTemperatureSet(ConstHandle2Heated self, ConstHandle2ConstTemperature temperature);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ HeatedTemperatureSet(ConstHandle2Heated This, ConstHandle2ConstTemperature tempe
 
 // +++ Has
 extern_c int
-HeatedDocumentationHas(ConstHandle2ConstHeated This);
+HeatedDocumentationHas(ConstHandle2ConstHeated self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-HeatedDocumentationGetConst(ConstHandle2ConstHeated This);
+HeatedDocumentationGetConst(ConstHandle2ConstHeated self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-HeatedDocumentationGet(ConstHandle2Heated This);
+HeatedDocumentationGet(ConstHandle2Heated self);
 
 // +++ Set
 extern_c void
-HeatedDocumentationSet(ConstHandle2Heated This, ConstHandle2ConstDocumentation documentation);
+HeatedDocumentationSet(ConstHandle2Heated self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

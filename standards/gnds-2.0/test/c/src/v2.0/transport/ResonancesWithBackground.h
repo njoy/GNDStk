@@ -98,13 +98,13 @@ ResonancesWithBackgroundCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ResonancesWithBackgroundAssign(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesWithBackground from);
+ResonancesWithBackgroundAssign(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstResonancesWithBackground from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ ResonancesWithBackgroundDelete(ConstHandle2ConstResonancesWithBackground This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ResonancesWithBackgroundRead(ConstHandle2ResonancesWithBackground This, const char *const filename);
+ResonancesWithBackgroundRead(ConstHandle2ResonancesWithBackground self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ResonancesWithBackgroundWrite(ConstHandle2ConstResonancesWithBackground This, const char *const filename);
+ResonancesWithBackgroundWrite(ConstHandle2ConstResonancesWithBackground self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ResonancesWithBackgroundPrint(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundPrint(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ResonancesWithBackgroundPrintXML(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundPrintXML(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ ResonancesWithBackgroundPrintJSON(ConstHandle2ConstResonancesWithBackground This
 
 // +++ Has
 extern_c int
-ResonancesWithBackgroundLabelHas(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundLabelHas(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ResonancesWithBackgroundLabelGet(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundLabelGet(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Set
 extern_c void
-ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, const XMLName label);
+ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -162,19 +162,19 @@ ResonancesWithBackgroundLabelSet(ConstHandle2ResonancesWithBackground This, cons
 
 // +++ Has
 extern_c int
-ResonancesWithBackgroundResonancesLinkHas(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundResonancesLinkHas(ConstHandle2ConstResonancesWithBackground self);
 
 // --- Get, const
 extern_c Handle2ConstResonancesLink
-ResonancesWithBackgroundResonancesLinkGetConst(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundResonancesLinkGetConst(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Get, non-const
 extern_c Handle2ResonancesLink
-ResonancesWithBackgroundResonancesLinkGet(ConstHandle2ResonancesWithBackground This);
+ResonancesWithBackgroundResonancesLinkGet(ConstHandle2ResonancesWithBackground self);
 
 // +++ Set
 extern_c void
-ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstResonancesLink resonancesLink);
+ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstResonancesLink resonancesLink);
 
 
 // -----------------------------------------------------------------------------
@@ -183,19 +183,19 @@ ResonancesWithBackgroundResonancesLinkSet(ConstHandle2ResonancesWithBackground T
 
 // +++ Has
 extern_c int
-ResonancesWithBackgroundBackgroundHas(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundBackgroundHas(ConstHandle2ConstResonancesWithBackground self);
 
 // --- Get, const
 extern_c Handle2ConstBackground
-ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Get, non-const
 extern_c Handle2Background
-ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground This);
+ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground self);
 
 // +++ Set
 extern_c void
-ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstBackground background);
+ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstBackground background);
 
 
 // -----------------------------------------------------------------------------
@@ -204,19 +204,19 @@ ResonancesWithBackgroundBackgroundSet(ConstHandle2ResonancesWithBackground This,
 
 // +++ Has
 extern_c int
-ResonancesWithBackgroundUncertaintyHas(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundUncertaintyHas(ConstHandle2ConstResonancesWithBackground self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackground This);
+ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackground self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground This);
+ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground self);
 
 // +++ Set
 extern_c void
-ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground This, ConstHandle2ConstUncertainty uncertainty);
+ResonancesWithBackgroundUncertaintySet(ConstHandle2ResonancesWithBackground self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------

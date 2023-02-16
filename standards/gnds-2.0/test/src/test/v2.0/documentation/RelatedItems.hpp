@@ -25,12 +25,12 @@ class RelatedItems :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "RelatedItems"; }
-   static auto FIELD() { return "relatedItems"; }
+   static auto NODENAME() { return "relatedItems"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class RelatedItems :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::RelatedItem>("relatedItem")
+         ++Child<documentation::RelatedItem>
+            ("relatedItem")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "relatedItem"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "related_item"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::RelatedItem>> relatedItem{this};
+   Field<std::vector<documentation::RelatedItem>>
+      relatedItem{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->relatedItem)
+      this->relatedItem \
+   )
 
    // default
    RelatedItems() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit RelatedItems(
-      const wrapper<std::vector<documentation::RelatedItem>> &relatedItem
+      const wrapper<std::vector<documentation::RelatedItem>>
+         &relatedItem
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       relatedItem(this,relatedItem)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   RelatedItems &operator=(const RelatedItems &) = default;
-   RelatedItems &operator=(RelatedItems &&) = default;
+   // copy
+   RelatedItems &operator=(const RelatedItems &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         relatedItem = other.relatedItem;
+      }
+      return *this;
+   }
+
+   // move
+   RelatedItems &operator=(RelatedItems &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         relatedItem = std::move(other.relatedItem);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

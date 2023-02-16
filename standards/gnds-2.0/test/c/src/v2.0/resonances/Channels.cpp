@@ -73,20 +73,20 @@ ChannelsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChannelsAssign(ConstHandle2Channels This, ConstHandle2ConstChannels from)
+ChannelsAssign(ConstHandle2Channels self, ConstHandle2ConstChannels from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChannelsDelete(ConstHandle2ConstChannels This)
+ChannelsDelete(ConstHandle2ConstChannels self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ ChannelsDelete(ConstHandle2ConstChannels This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChannelsRead(ConstHandle2Channels This, const char *const filename)
+ChannelsRead(ConstHandle2Channels self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChannelsWrite(ConstHandle2ConstChannels This, const char *const filename)
+ChannelsWrite(ConstHandle2ConstChannels self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChannelsPrint(ConstHandle2ConstChannels This)
+ChannelsPrint(ConstHandle2ConstChannels self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChannelsPrintXML(ConstHandle2ConstChannels This)
+ChannelsPrintXML(ConstHandle2ConstChannels self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChannelsPrintJSON(ConstHandle2ConstChannels This)
+ChannelsPrintJSON(ConstHandle2ConstChannels self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,331 +147,331 @@ ChannelsPrintJSON(ConstHandle2ConstChannels This)
 
 // Has
 int
-ChannelsChannelHas(ConstHandle2ConstChannels This)
+ChannelsChannelHas(ConstHandle2ConstChannels self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelHas", This, extract::channel);
+      (CLASSNAME, CLASSNAME+"ChannelHas", self, extract::channel);
 }
 
 // Clear
 void
-ChannelsChannelClear(ConstHandle2Channels This)
+ChannelsChannelClear(ConstHandle2Channels self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelClear", This, extract::channel);
+      (CLASSNAME, CLASSNAME+"ChannelClear", self, extract::channel);
 }
 
 // Size
 size_t
-ChannelsChannelSize(ConstHandle2ConstChannels This)
+ChannelsChannelSize(ConstHandle2ConstChannels self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelSize", This, extract::channel);
+      (CLASSNAME, CLASSNAME+"ChannelSize", self, extract::channel);
 }
 
 // Add
 void
-ChannelsChannelAdd(ConstHandle2Channels This, ConstHandle2ConstChannel channel)
+ChannelsChannelAdd(ConstHandle2Channels self, ConstHandle2ConstChannel channel)
 {
    detail::addToContainer<CPP,CPPChannel>
-      (CLASSNAME, CLASSNAME+"ChannelAdd", This, extract::channel, channel);
+      (CLASSNAME, CLASSNAME+"ChannelAdd", self, extract::channel, channel);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstChannel
-ChannelsChannelGetConst(ConstHandle2ConstChannels This, const size_t index_)
+ChannelsChannelGetConst(ConstHandle2ConstChannels self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstChannel>
-      (CLASSNAME, CLASSNAME+"ChannelGetConst", This, extract::channel, index_);
+      (CLASSNAME, CLASSNAME+"ChannelGetConst", self, extract::channel, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Channel
-ChannelsChannelGet(ConstHandle2Channels This, const size_t index_)
+ChannelsChannelGet(ConstHandle2Channels self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Channel>
-      (CLASSNAME, CLASSNAME+"ChannelGet", This, extract::channel, index_);
+      (CLASSNAME, CLASSNAME+"ChannelGet", self, extract::channel, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ChannelsChannelSet(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const size_t index_,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByIndex<CPP,CPPChannel>
-      (CLASSNAME, CLASSNAME+"ChannelSet", This, extract::channel, index_, channel);
+      (CLASSNAME, CLASSNAME+"ChannelSet", self, extract::channel, index_, channel);
 }
 
 // Has, by label
 int
 ChannelsChannelHasByLabel(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByLabel",
-       This, extract::channel, meta::label, label);
+       self, extract::channel, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstChannel
 ChannelsChannelGetByLabelConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByLabelConst",
-       This, extract::channel, meta::label, label);
+       self, extract::channel, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Channel
 ChannelsChannelGetByLabel(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByLabel",
-       This, extract::channel, meta::label, label);
+       self, extract::channel, meta::label, label);
 }
 
 // Set, by label
 void
 ChannelsChannelSetByLabel(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const XMLName label,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByLabel",
-       This, extract::channel, meta::label, label, channel);
+       self, extract::channel, meta::label, label, channel);
 }
 
 // Has, by resonanceReaction
 int
 ChannelsChannelHasByResonanceReaction(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const resonanceReaction
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByResonanceReaction",
-       This, extract::channel, meta::resonanceReaction, resonanceReaction);
+       self, extract::channel, meta::resonanceReaction, resonanceReaction);
 }
 
 // Get, by resonanceReaction, const
 Handle2ConstChannel
 ChannelsChannelGetByResonanceReactionConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const char *const resonanceReaction
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByResonanceReactionConst",
-       This, extract::channel, meta::resonanceReaction, resonanceReaction);
+       self, extract::channel, meta::resonanceReaction, resonanceReaction);
 }
 
 // Get, by resonanceReaction, non-const
 Handle2Channel
 ChannelsChannelGetByResonanceReaction(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const resonanceReaction
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByResonanceReaction",
-       This, extract::channel, meta::resonanceReaction, resonanceReaction);
+       self, extract::channel, meta::resonanceReaction, resonanceReaction);
 }
 
 // Set, by resonanceReaction
 void
 ChannelsChannelSetByResonanceReaction(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const char *const resonanceReaction,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByResonanceReaction",
-       This, extract::channel, meta::resonanceReaction, resonanceReaction, channel);
+       self, extract::channel, meta::resonanceReaction, resonanceReaction, channel);
 }
 
 // Has, by L
 int
 ChannelsChannelHasByL(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Integer32 L
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByL",
-       This, extract::channel, meta::L, L);
+       self, extract::channel, meta::L, L);
 }
 
 // Get, by L, const
 Handle2ConstChannel
 ChannelsChannelGetByLConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Integer32 L
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByLConst",
-       This, extract::channel, meta::L, L);
+       self, extract::channel, meta::L, L);
 }
 
 // Get, by L, non-const
 Handle2Channel
 ChannelsChannelGetByL(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Integer32 L
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByL",
-       This, extract::channel, meta::L, L);
+       self, extract::channel, meta::L, L);
 }
 
 // Set, by L
 void
 ChannelsChannelSetByL(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Integer32 L,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByL",
-       This, extract::channel, meta::L, L, channel);
+       self, extract::channel, meta::L, L, channel);
 }
 
 // Has, by channelSpin
 int
 ChannelsChannelHasByChannelSpin(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Fraction32 channelSpin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByChannelSpin",
-       This, extract::channel, meta::channelSpin, channelSpin);
+       self, extract::channel, meta::channelSpin, channelSpin);
 }
 
 // Get, by channelSpin, const
 Handle2ConstChannel
 ChannelsChannelGetByChannelSpinConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Fraction32 channelSpin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByChannelSpinConst",
-       This, extract::channel, meta::channelSpin, channelSpin);
+       self, extract::channel, meta::channelSpin, channelSpin);
 }
 
 // Get, by channelSpin, non-const
 Handle2Channel
 ChannelsChannelGetByChannelSpin(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Fraction32 channelSpin
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByChannelSpin",
-       This, extract::channel, meta::channelSpin, channelSpin);
+       self, extract::channel, meta::channelSpin, channelSpin);
 }
 
 // Set, by channelSpin
 void
 ChannelsChannelSetByChannelSpin(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Fraction32 channelSpin,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByChannelSpin",
-       This, extract::channel, meta::channelSpin, channelSpin, channel);
+       self, extract::channel, meta::channelSpin, channelSpin, channel);
 }
 
 // Has, by boundaryConditionValue
 int
 ChannelsChannelHasByBoundaryConditionValue(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Float64 boundaryConditionValue
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByBoundaryConditionValue",
-       This, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
+       self, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
 }
 
 // Get, by boundaryConditionValue, const
 Handle2ConstChannel
 ChannelsChannelGetByBoundaryConditionValueConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Float64 boundaryConditionValue
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByBoundaryConditionValueConst",
-       This, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
+       self, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
 }
 
 // Get, by boundaryConditionValue, non-const
 Handle2Channel
 ChannelsChannelGetByBoundaryConditionValue(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Float64 boundaryConditionValue
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByBoundaryConditionValue",
-       This, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
+       self, extract::channel, meta::boundaryConditionValue, boundaryConditionValue);
 }
 
 // Set, by boundaryConditionValue
 void
 ChannelsChannelSetByBoundaryConditionValue(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Float64 boundaryConditionValue,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByBoundaryConditionValue",
-       This, extract::channel, meta::boundaryConditionValue, boundaryConditionValue, channel);
+       self, extract::channel, meta::boundaryConditionValue, boundaryConditionValue, channel);
 }
 
 // Has, by columnIndex
 int
 ChannelsChannelHasByColumnIndex(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Integer32 columnIndex
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"ChannelHasByColumnIndex",
-       This, extract::channel, meta::columnIndex, columnIndex);
+       self, extract::channel, meta::columnIndex, columnIndex);
 }
 
 // Get, by columnIndex, const
 Handle2ConstChannel
 ChannelsChannelGetByColumnIndexConst(
-   ConstHandle2ConstChannels This,
+   ConstHandle2ConstChannels self,
    const Integer32 columnIndex
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstChannel>
       (CLASSNAME, CLASSNAME+"ChannelGetByColumnIndexConst",
-       This, extract::channel, meta::columnIndex, columnIndex);
+       self, extract::channel, meta::columnIndex, columnIndex);
 }
 
 // Get, by columnIndex, non-const
 Handle2Channel
 ChannelsChannelGetByColumnIndex(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Integer32 columnIndex
 ) {
    return detail::getByMetadatum<CPP,Handle2Channel>
       (CLASSNAME, CLASSNAME+"ChannelGetByColumnIndex",
-       This, extract::channel, meta::columnIndex, columnIndex);
+       self, extract::channel, meta::columnIndex, columnIndex);
 }
 
 // Set, by columnIndex
 void
 ChannelsChannelSetByColumnIndex(
-   ConstHandle2Channels This,
+   ConstHandle2Channels self,
    const Integer32 columnIndex,
    ConstHandle2ConstChannel channel
 ) {
    detail::setByMetadatum<CPP,CPPChannel>
       (CLASSNAME, CLASSNAME+"ChannelSetByColumnIndex",
-       This, extract::channel, meta::columnIndex, columnIndex, channel);
+       self, extract::channel, meta::columnIndex, columnIndex, channel);
 }
 
 

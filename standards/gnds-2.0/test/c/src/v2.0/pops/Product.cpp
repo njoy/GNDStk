@@ -72,20 +72,20 @@ ProductCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProductAssign(ConstHandle2Product This, ConstHandle2ConstProduct from)
+ProductAssign(ConstHandle2Product self, ConstHandle2ConstProduct from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProductDelete(ConstHandle2ConstProduct This)
+ProductDelete(ConstHandle2ConstProduct self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ ProductDelete(ConstHandle2ConstProduct This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProductRead(ConstHandle2Product This, const char *const filename)
+ProductRead(ConstHandle2Product self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProductWrite(ConstHandle2ConstProduct This, const char *const filename)
+ProductWrite(ConstHandle2ConstProduct self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProductPrint(ConstHandle2ConstProduct This)
+ProductPrint(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProductPrintXML(ConstHandle2ConstProduct This)
+ProductPrintXML(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProductPrintJSON(ConstHandle2ConstProduct This)
+ProductPrintJSON(ConstHandle2ConstProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ ProductPrintJSON(ConstHandle2ConstProduct This)
 
 // Has
 int
-ProductLabelHas(ConstHandle2ConstProduct This)
+ProductLabelHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ProductLabelGet(ConstHandle2ConstProduct This)
+ProductLabelGet(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ProductLabelSet(ConstHandle2Product This, const XMLName label)
+ProductLabelSet(ConstHandle2Product self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -176,27 +176,27 @@ ProductLabelSet(ConstHandle2Product This, const XMLName label)
 
 // Has
 int
-ProductPidHas(ConstHandle2ConstProduct This)
+ProductPidHas(ConstHandle2ConstProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-ProductPidGet(ConstHandle2ConstProduct This)
+ProductPidGet(ConstHandle2ConstProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-ProductPidSet(ConstHandle2Product This, const XMLName pid)
+ProductPidSet(ConstHandle2Product self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 

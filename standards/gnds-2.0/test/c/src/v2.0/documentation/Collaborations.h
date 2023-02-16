@@ -90,13 +90,13 @@ CollaborationsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CollaborationsAssign(ConstHandle2Collaborations This, ConstHandle2ConstCollaborations from);
+CollaborationsAssign(ConstHandle2Collaborations self, ConstHandle2ConstCollaborations from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CollaborationsDelete(ConstHandle2ConstCollaborations This);
+CollaborationsDelete(ConstHandle2ConstCollaborations self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ CollaborationsDelete(ConstHandle2ConstCollaborations This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CollaborationsRead(ConstHandle2Collaborations This, const char *const filename);
+CollaborationsRead(ConstHandle2Collaborations self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CollaborationsWrite(ConstHandle2ConstCollaborations This, const char *const filename);
+CollaborationsWrite(ConstHandle2ConstCollaborations self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CollaborationsPrint(ConstHandle2ConstCollaborations This);
+CollaborationsPrint(ConstHandle2ConstCollaborations self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CollaborationsPrintXML(ConstHandle2ConstCollaborations This);
+CollaborationsPrintXML(ConstHandle2ConstCollaborations self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CollaborationsPrintJSON(ConstHandle2ConstCollaborations This);
+CollaborationsPrintJSON(ConstHandle2ConstCollaborations self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ CollaborationsPrintJSON(ConstHandle2ConstCollaborations This);
 
 // +++ Has
 extern_c int
-CollaborationsCollaborationHas(ConstHandle2ConstCollaborations This);
+CollaborationsCollaborationHas(ConstHandle2ConstCollaborations self);
 
 // +++ Clear
 extern_c void
-CollaborationsCollaborationClear(ConstHandle2Collaborations This);
+CollaborationsCollaborationClear(ConstHandle2Collaborations self);
 
 // +++ Size
 extern_c size_t
-CollaborationsCollaborationSize(ConstHandle2ConstCollaborations This);
+CollaborationsCollaborationSize(ConstHandle2ConstCollaborations self);
 
 // +++ Add
 extern_c void
-CollaborationsCollaborationAdd(ConstHandle2Collaborations This, ConstHandle2ConstCollaboration collaboration);
+CollaborationsCollaborationAdd(ConstHandle2Collaborations self, ConstHandle2ConstCollaboration collaboration);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCollaboration
-CollaborationsCollaborationGetConst(ConstHandle2ConstCollaborations This, const size_t index_);
+CollaborationsCollaborationGetConst(ConstHandle2ConstCollaborations self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Collaboration
-CollaborationsCollaborationGet(ConstHandle2Collaborations This, const size_t index_);
+CollaborationsCollaborationGet(ConstHandle2Collaborations self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 CollaborationsCollaborationSet(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const size_t index_,
    ConstHandle2ConstCollaboration collaboration
 );
@@ -169,28 +169,28 @@ CollaborationsCollaborationSet(
 // +++ Has, by name
 extern_c int
 CollaborationsCollaborationHasByName(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstCollaboration
 CollaborationsCollaborationGetByNameConst(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Collaboration
 CollaborationsCollaborationGetByName(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text name
 );
 
 // +++ Set, by name
 extern_c void
 CollaborationsCollaborationSetByName(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text name,
    ConstHandle2ConstCollaboration collaboration
 );
@@ -198,28 +198,28 @@ CollaborationsCollaborationSetByName(
 // +++ Has, by href
 extern_c int
 CollaborationsCollaborationHasByHref(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstCollaboration
 CollaborationsCollaborationGetByHrefConst(
-   ConstHandle2ConstCollaborations This,
+   ConstHandle2ConstCollaborations self,
    const UTF8Text href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Collaboration
 CollaborationsCollaborationGetByHref(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text href
 );
 
 // +++ Set, by href
 extern_c void
 CollaborationsCollaborationSetByHref(
-   ConstHandle2Collaborations This,
+   ConstHandle2Collaborations self,
    const UTF8Text href,
    ConstHandle2ConstCollaboration collaboration
 );

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// BindingEnergy wrapper
-void wrapBindingEnergy(python::module &module)
+// wrapper for gnds::BindingEnergy
+void wrapBindingEnergy(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::BindingEnergy;
+   using cppCLASS = gnds::BindingEnergy;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "BindingEnergy",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "BindingEnergy",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const gnds::Double &
-         >(),
-         python::arg("double"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "double",
-         [](const Component &self) { return self.Double(); },
-         Component::documentation("double").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const gnds::Double &
+      >(),
+      py::arg("double"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const gnds::Double &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

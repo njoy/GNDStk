@@ -25,12 +25,12 @@ class Probability :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "Probability"; }
-   static auto FIELD() { return "probability"; }
+   static auto NODENAME() { return "probability"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Probability :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::Double>>("double")
+         --Child<std::optional<containers::Double>>
+            ("double")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "Double"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "double"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::Double>> Double{this};
+   Field<std::optional<containers::Double>>
+      Double{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->Double)
+      this->Double \
+   )
 
    // default
    Probability() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Probability(
-      const wrapper<std::optional<containers::Double>> &Double
+      const wrapper<std::optional<containers::Double>>
+         &Double
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Probability &operator=(const Probability &) = default;
-   Probability &operator=(Probability &&) = default;
+   // copy
+   Probability &operator=(const Probability &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         Double = other.Double;
+      }
+      return *this;
+   }
+
+   // move
+   Probability &operator=(Probability &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         Double = std::move(other.Double);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

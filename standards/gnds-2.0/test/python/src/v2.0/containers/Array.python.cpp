@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Array wrapper
-void wrapArray(python::module &module)
+// wrapper for containers::Array
+void wrapArray(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Array;
+   using cppCLASS = containers::Array;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Array",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Array",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const IntegerTuple &,
-            const std::optional<UTF8Text> &,
-            const std::optional<UTF8Text> &,
-            const std::optional<UTF8Text> &,
-            const std::optional<UTF8Text> &,
-            const std::optional<IntegerTuple> &,
-            const std::optional<std::vector<containers::Values>> &,
-            const std::optional<std::vector<containers::Array>> &
-         >(),
-         python::arg("shape"),
-         python::arg("compression") = std::nullopt,
-         python::arg("symmetry") = std::nullopt,
-         python::arg("permutation") = std::nullopt,
-         python::arg("storage_order") = std::nullopt,
-         python::arg("offset") = std::nullopt,
-         python::arg("values") = std::nullopt,
-         python::arg("array") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "shape",
-         [](const Component &self) { return self.shape(); },
-         Component::documentation("shape").data()
-      )
-      .def_property_readonly(
-         "compression",
-         [](const Component &self) { return self.compression(); },
-         Component::documentation("compression").data()
-      )
-      .def_property_readonly(
-         "symmetry",
-         [](const Component &self) { return self.symmetry(); },
-         Component::documentation("symmetry").data()
-      )
-      .def_property_readonly(
-         "permutation",
-         [](const Component &self) { return self.permutation(); },
-         Component::documentation("permutation").data()
-      )
-      .def_property_readonly(
-         "storage_order",
-         [](const Component &self) { return self.storageOrder().value(); },
-         Component::documentation("storage_order").data()
-      )
-      .def_property_readonly(
-         "offset",
-         [](const Component &self) { return self.offset(); },
-         Component::documentation("offset").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self) { return self.values(); },
-         Component::documentation("values").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self) { return self.array(); },
-         Component::documentation("array").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const IntegerTuple &,
+         const std::optional<UTF8Text> &,
+         const std::optional<UTF8Text> &,
+         const std::optional<UTF8Text> &,
+         const std::optional<UTF8Text> &,
+         const std::optional<IntegerTuple> &,
+         const std::optional<std::vector<containers::Values>> &,
+         const std::optional<std::vector<containers::Array>> &
+      >(),
+      py::arg("shape"),
+      py::arg("compression") = std::nullopt,
+      py::arg("symmetry") = std::nullopt,
+      py::arg("permutation") = std::nullopt,
+      py::arg("storage_order") = std::nullopt,
+      py::arg("offset") = std::nullopt,
+      py::arg("values") = std::nullopt,
+      py::arg("array") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set shape
+   object.def_property(
+      "shape",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.shape();
+      },
+      [](cppCLASS &self, const IntegerTuple &value)
+      {
+         self.shape() = value;
+      },
+      cppCLASS::component_t::documentation("shape").data()
+   );
+
+   // get/set compression
+   object.def_property(
+      "compression",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.compression();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.compression() = value;
+      },
+      cppCLASS::component_t::documentation("compression").data()
+   );
+
+   // get/set symmetry
+   object.def_property(
+      "symmetry",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.symmetry();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.symmetry() = value;
+      },
+      cppCLASS::component_t::documentation("symmetry").data()
+   );
+
+   // get/set permutation
+   object.def_property(
+      "permutation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.permutation();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.permutation() = value;
+      },
+      cppCLASS::component_t::documentation("permutation").data()
+   );
+
+   // get/set storageOrder
+   object.def_property(
+      "storage_order",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.storageOrder().value();
+      },
+      [](cppCLASS &self, const UTF8Text &value)
+      {
+         self.storageOrder() = value;
+      },
+      cppCLASS::component_t::documentation("storage_order").data()
+   );
+
+   // get/set offset
+   object.def_property(
+      "offset",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.offset();
+      },
+      [](cppCLASS &self, const std::optional<IntegerTuple> &value)
+      {
+         self.offset() = value;
+      },
+      cppCLASS::component_t::documentation("offset").data()
+   );
+
+   // get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<containers::Values>> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<containers::Array>> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

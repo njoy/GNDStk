@@ -111,20 +111,20 @@ ChannelCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChannelAssign(ConstHandle2Channel This, ConstHandle2ConstChannel from)
+ChannelAssign(ConstHandle2Channel self, ConstHandle2ConstChannel from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChannelDelete(ConstHandle2ConstChannel This)
+ChannelDelete(ConstHandle2ConstChannel self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -138,44 +138,44 @@ ChannelDelete(ConstHandle2ConstChannel This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChannelRead(ConstHandle2Channel This, const char *const filename)
+ChannelRead(ConstHandle2Channel self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChannelWrite(ConstHandle2ConstChannel This, const char *const filename)
+ChannelWrite(ConstHandle2ConstChannel self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChannelPrint(ConstHandle2ConstChannel This)
+ChannelPrint(ConstHandle2ConstChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChannelPrintXML(ConstHandle2ConstChannel This)
+ChannelPrintXML(ConstHandle2ConstChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChannelPrintJSON(ConstHandle2ConstChannel This)
+ChannelPrintJSON(ConstHandle2ConstChannel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -185,27 +185,27 @@ ChannelPrintJSON(ConstHandle2ConstChannel This)
 
 // Has
 int
-ChannelLabelHas(ConstHandle2ConstChannel This)
+ChannelLabelHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ChannelLabelGet(ConstHandle2ConstChannel This)
+ChannelLabelGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ChannelLabelSet(ConstHandle2Channel This, const XMLName label)
+ChannelLabelSet(ConstHandle2Channel self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -215,27 +215,27 @@ ChannelLabelSet(ConstHandle2Channel This, const XMLName label)
 
 // Has
 int
-ChannelResonanceReactionHas(ConstHandle2ConstChannel This)
+ChannelResonanceReactionHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionHas", This, extract::resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionHas", self, extract::resonanceReaction);
 }
 
 // Get
 // Returns by value
 const char *
-ChannelResonanceReactionGet(ConstHandle2ConstChannel This)
+ChannelResonanceReactionGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionGet", This, extract::resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionGet", self, extract::resonanceReaction);
 }
 
 // Set
 void
-ChannelResonanceReactionSet(ConstHandle2Channel This, const char *const resonanceReaction)
+ChannelResonanceReactionSet(ConstHandle2Channel self, const char *const resonanceReaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionSet", This, extract::resonanceReaction, resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionSet", self, extract::resonanceReaction, resonanceReaction);
 }
 
 
@@ -245,27 +245,27 @@ ChannelResonanceReactionSet(ConstHandle2Channel This, const char *const resonanc
 
 // Has
 int
-ChannelLHas(ConstHandle2ConstChannel This)
+ChannelLHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LHas", This, extract::L);
+      (CLASSNAME, CLASSNAME+"LHas", self, extract::L);
 }
 
 // Get
 // Returns by value
 Integer32
-ChannelLGet(ConstHandle2ConstChannel This)
+ChannelLGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LGet", This, extract::L);
+      (CLASSNAME, CLASSNAME+"LGet", self, extract::L);
 }
 
 // Set
 void
-ChannelLSet(ConstHandle2Channel This, const Integer32 L)
+ChannelLSet(ConstHandle2Channel self, const Integer32 L)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LSet", This, extract::L, L);
+      (CLASSNAME, CLASSNAME+"LSet", self, extract::L, L);
 }
 
 
@@ -275,27 +275,27 @@ ChannelLSet(ConstHandle2Channel This, const Integer32 L)
 
 // Has
 int
-ChannelChannelSpinHas(ConstHandle2ConstChannel This)
+ChannelChannelSpinHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelSpinHas", This, extract::channelSpin);
+      (CLASSNAME, CLASSNAME+"ChannelSpinHas", self, extract::channelSpin);
 }
 
 // Get
 // Returns by value
 Fraction32
-ChannelChannelSpinGet(ConstHandle2ConstChannel This)
+ChannelChannelSpinGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelSpinGet", This, extract::channelSpin);
+      (CLASSNAME, CLASSNAME+"ChannelSpinGet", self, extract::channelSpin);
 }
 
 // Set
 void
-ChannelChannelSpinSet(ConstHandle2Channel This, const Fraction32 channelSpin)
+ChannelChannelSpinSet(ConstHandle2Channel self, const Fraction32 channelSpin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChannelSpinSet", This, extract::channelSpin, channelSpin);
+      (CLASSNAME, CLASSNAME+"ChannelSpinSet", self, extract::channelSpin, channelSpin);
 }
 
 
@@ -305,27 +305,27 @@ ChannelChannelSpinSet(ConstHandle2Channel This, const Fraction32 channelSpin)
 
 // Has
 int
-ChannelBoundaryConditionValueHas(ConstHandle2ConstChannel This)
+ChannelBoundaryConditionValueHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueHas", self, extract::boundaryConditionValue);
 }
 
 // Get
 // Returns by value
 Float64
-ChannelBoundaryConditionValueGet(ConstHandle2ConstChannel This)
+ChannelBoundaryConditionValueGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", This, extract::boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueGet", self, extract::boundaryConditionValue);
 }
 
 // Set
 void
-ChannelBoundaryConditionValueSet(ConstHandle2Channel This, const Float64 boundaryConditionValue)
+ChannelBoundaryConditionValueSet(ConstHandle2Channel self, const Float64 boundaryConditionValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", This, extract::boundaryConditionValue, boundaryConditionValue);
+      (CLASSNAME, CLASSNAME+"BoundaryConditionValueSet", self, extract::boundaryConditionValue, boundaryConditionValue);
 }
 
 
@@ -335,27 +335,27 @@ ChannelBoundaryConditionValueSet(ConstHandle2Channel This, const Float64 boundar
 
 // Has
 int
-ChannelColumnIndexHas(ConstHandle2ConstChannel This)
+ChannelColumnIndexHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnIndexHas", This, extract::columnIndex);
+      (CLASSNAME, CLASSNAME+"ColumnIndexHas", self, extract::columnIndex);
 }
 
 // Get
 // Returns by value
 Integer32
-ChannelColumnIndexGet(ConstHandle2ConstChannel This)
+ChannelColumnIndexGet(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnIndexGet", This, extract::columnIndex);
+      (CLASSNAME, CLASSNAME+"ColumnIndexGet", self, extract::columnIndex);
 }
 
 // Set
 void
-ChannelColumnIndexSet(ConstHandle2Channel This, const Integer32 columnIndex)
+ChannelColumnIndexSet(ConstHandle2Channel self, const Integer32 columnIndex)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnIndexSet", This, extract::columnIndex, columnIndex);
+      (CLASSNAME, CLASSNAME+"ColumnIndexSet", self, extract::columnIndex, columnIndex);
 }
 
 
@@ -365,34 +365,34 @@ ChannelColumnIndexSet(ConstHandle2Channel This, const Integer32 columnIndex)
 
 // Has
 int
-ChannelExternalRMatrixHas(ConstHandle2ConstChannel This)
+ChannelExternalRMatrixHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExternalRMatrixHas", This, extract::externalRMatrix);
+      (CLASSNAME, CLASSNAME+"ExternalRMatrixHas", self, extract::externalRMatrix);
 }
 
 // Get, const
 Handle2ConstExternalRMatrix
-ChannelExternalRMatrixGetConst(ConstHandle2ConstChannel This)
+ChannelExternalRMatrixGetConst(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP,Handle2ConstExternalRMatrix>
-      (CLASSNAME, CLASSNAME+"ExternalRMatrixGetConst", This, extract::externalRMatrix);
+      (CLASSNAME, CLASSNAME+"ExternalRMatrixGetConst", self, extract::externalRMatrix);
 }
 
 // Get, non-const
 Handle2ExternalRMatrix
-ChannelExternalRMatrixGet(ConstHandle2Channel This)
+ChannelExternalRMatrixGet(ConstHandle2Channel self)
 {
    return detail::getField<CPP,Handle2ExternalRMatrix>
-      (CLASSNAME, CLASSNAME+"ExternalRMatrixGet", This, extract::externalRMatrix);
+      (CLASSNAME, CLASSNAME+"ExternalRMatrixGet", self, extract::externalRMatrix);
 }
 
 // Set
 void
-ChannelExternalRMatrixSet(ConstHandle2Channel This, ConstHandle2ConstExternalRMatrix externalRMatrix)
+ChannelExternalRMatrixSet(ConstHandle2Channel self, ConstHandle2ConstExternalRMatrix externalRMatrix)
 {
    detail::setField<CPP,CPPExternalRMatrix>
-      (CLASSNAME, CLASSNAME+"ExternalRMatrixSet", This, extract::externalRMatrix, externalRMatrix);
+      (CLASSNAME, CLASSNAME+"ExternalRMatrixSet", self, extract::externalRMatrix, externalRMatrix);
 }
 
 
@@ -402,34 +402,34 @@ ChannelExternalRMatrixSet(ConstHandle2Channel This, ConstHandle2ConstExternalRMa
 
 // Has
 int
-ChannelScatteringRadiusHas(ConstHandle2ConstChannel This)
+ChannelScatteringRadiusHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusHas", self, extract::scatteringRadius);
 }
 
 // Get, const
 Handle2ConstScatteringRadius
-ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel This)
+ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP,Handle2ConstScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
 // Get, non-const
 Handle2ScatteringRadius
-ChannelScatteringRadiusGet(ConstHandle2Channel This)
+ChannelScatteringRadiusGet(ConstHandle2Channel self)
 {
    return detail::getField<CPP,Handle2ScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", This, extract::scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusGet", self, extract::scatteringRadius);
 }
 
 // Set
 void
-ChannelScatteringRadiusSet(ConstHandle2Channel This, ConstHandle2ConstScatteringRadius scatteringRadius)
+ChannelScatteringRadiusSet(ConstHandle2Channel self, ConstHandle2ConstScatteringRadius scatteringRadius)
 {
    detail::setField<CPP,CPPScatteringRadius>
-      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", This, extract::scatteringRadius, scatteringRadius);
+      (CLASSNAME, CLASSNAME+"ScatteringRadiusSet", self, extract::scatteringRadius, scatteringRadius);
 }
 
 
@@ -439,34 +439,34 @@ ChannelScatteringRadiusSet(ConstHandle2Channel This, ConstHandle2ConstScattering
 
 // Has
 int
-ChannelHardSphereRadiusHas(ConstHandle2ConstChannel This)
+ChannelHardSphereRadiusHas(ConstHandle2ConstChannel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusHas", self, extract::hardSphereRadius);
 }
 
 // Get, const
 Handle2ConstHardSphereRadius
-ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel This)
+ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel self)
 {
    return detail::getField<CPP,Handle2ConstHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
 // Get, non-const
 Handle2HardSphereRadius
-ChannelHardSphereRadiusGet(ConstHandle2Channel This)
+ChannelHardSphereRadiusGet(ConstHandle2Channel self)
 {
    return detail::getField<CPP,Handle2HardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", This, extract::hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusGet", self, extract::hardSphereRadius);
 }
 
 // Set
 void
-ChannelHardSphereRadiusSet(ConstHandle2Channel This, ConstHandle2ConstHardSphereRadius hardSphereRadius)
+ChannelHardSphereRadiusSet(ConstHandle2Channel self, ConstHandle2ConstHardSphereRadius hardSphereRadius)
 {
    detail::setField<CPP,CPPHardSphereRadius>
-      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", This, extract::hardSphereRadius, hardSphereRadius);
+      (CLASSNAME, CLASSNAME+"HardSphereRadiusSet", self, extract::hardSphereRadius, hardSphereRadius);
 }
 
 

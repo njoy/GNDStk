@@ -85,13 +85,13 @@ BodyCreate();
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BodyAssign(ConstHandle2Body This, ConstHandle2ConstBody from);
+BodyAssign(ConstHandle2Body self, ConstHandle2ConstBody from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BodyDelete(ConstHandle2ConstBody This);
+BodyDelete(ConstHandle2ConstBody self);
 
 
 // -----------------------------------------------------------------------------
@@ -104,25 +104,25 @@ BodyDelete(ConstHandle2ConstBody This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BodyRead(ConstHandle2Body This, const char *const filename);
+BodyRead(ConstHandle2Body self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BodyWrite(ConstHandle2ConstBody This, const char *const filename);
+BodyWrite(ConstHandle2ConstBody self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BodyPrint(ConstHandle2ConstBody This);
+BodyPrint(ConstHandle2ConstBody self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BodyPrintXML(ConstHandle2ConstBody This);
+BodyPrintXML(ConstHandle2ConstBody self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BodyPrintJSON(ConstHandle2ConstBody This);
+BodyPrintJSON(ConstHandle2ConstBody self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,33 +135,33 @@ BodyPrintJSON(ConstHandle2ConstBody This);
 
 // +++ Clear
 extern_c void
-BodyIntsClear(ConstHandle2Body This);
+BodyIntsClear(ConstHandle2Body self);
 
 // +++ Get size
 extern_c size_t
-BodyIntsSize(ConstHandle2ConstBody This);
+BodyIntsSize(ConstHandle2ConstBody self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-BodyIntsGet(ConstHandle2ConstBody This, const size_t index);
+BodyIntsGet(ConstHandle2ConstBody self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BodyIntsSet(ConstHandle2Body This, const size_t index, const int value);
+BodyIntsSet(ConstHandle2Body self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-BodyIntsGetArrayConst(ConstHandle2ConstBody This);
+BodyIntsGetArrayConst(ConstHandle2ConstBody self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-BodyIntsGetArray(ConstHandle2Body This);
+BodyIntsGetArray(ConstHandle2Body self);
 
 // +++ Set completely new values and size
 extern_c void
-BodyIntsSetArray(ConstHandle2Body This, const int *const values, const size_t size);
+BodyIntsSetArray(ConstHandle2Body self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -169,33 +169,33 @@ BodyIntsSetArray(ConstHandle2Body This, const int *const values, const size_t si
 
 // +++ Clear
 extern_c void
-BodyUnsignedsClear(ConstHandle2Body This);
+BodyUnsignedsClear(ConstHandle2Body self);
 
 // +++ Get size
 extern_c size_t
-BodyUnsignedsSize(ConstHandle2ConstBody This);
+BodyUnsignedsSize(ConstHandle2ConstBody self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-BodyUnsignedsGet(ConstHandle2ConstBody This, const size_t index);
+BodyUnsignedsGet(ConstHandle2ConstBody self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BodyUnsignedsSet(ConstHandle2Body This, const size_t index, const unsigned value);
+BodyUnsignedsSet(ConstHandle2Body self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-BodyUnsignedsGetArrayConst(ConstHandle2ConstBody This);
+BodyUnsignedsGetArrayConst(ConstHandle2ConstBody self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-BodyUnsignedsGetArray(ConstHandle2Body This);
+BodyUnsignedsGetArray(ConstHandle2Body self);
 
 // +++ Set completely new values and size
 extern_c void
-BodyUnsignedsSetArray(ConstHandle2Body This, const unsigned *const values, const size_t size);
+BodyUnsignedsSetArray(ConstHandle2Body self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -203,33 +203,33 @@ BodyUnsignedsSetArray(ConstHandle2Body This, const unsigned *const values, const
 
 // +++ Clear
 extern_c void
-BodyFloatsClear(ConstHandle2Body This);
+BodyFloatsClear(ConstHandle2Body self);
 
 // +++ Get size
 extern_c size_t
-BodyFloatsSize(ConstHandle2ConstBody This);
+BodyFloatsSize(ConstHandle2ConstBody self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-BodyFloatsGet(ConstHandle2ConstBody This, const size_t index);
+BodyFloatsGet(ConstHandle2ConstBody self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BodyFloatsSet(ConstHandle2Body This, const size_t index, const float value);
+BodyFloatsSet(ConstHandle2Body self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-BodyFloatsGetArrayConst(ConstHandle2ConstBody This);
+BodyFloatsGetArrayConst(ConstHandle2ConstBody self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-BodyFloatsGetArray(ConstHandle2Body This);
+BodyFloatsGetArray(ConstHandle2Body self);
 
 // +++ Set completely new values and size
 extern_c void
-BodyFloatsSetArray(ConstHandle2Body This, const float *const values, const size_t size);
+BodyFloatsSetArray(ConstHandle2Body self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -237,33 +237,33 @@ BodyFloatsSetArray(ConstHandle2Body This, const float *const values, const size_
 
 // +++ Clear
 extern_c void
-BodyDoublesClear(ConstHandle2Body This);
+BodyDoublesClear(ConstHandle2Body self);
 
 // +++ Get size
 extern_c size_t
-BodyDoublesSize(ConstHandle2ConstBody This);
+BodyDoublesSize(ConstHandle2ConstBody self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-BodyDoublesGet(ConstHandle2ConstBody This, const size_t index);
+BodyDoublesGet(ConstHandle2ConstBody self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-BodyDoublesSet(ConstHandle2Body This, const size_t index, const double value);
+BodyDoublesSet(ConstHandle2Body self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-BodyDoublesGetArrayConst(ConstHandle2ConstBody This);
+BodyDoublesGetArrayConst(ConstHandle2ConstBody self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-BodyDoublesGetArray(ConstHandle2Body This);
+BodyDoublesGetArray(ConstHandle2Body self);
 
 // +++ Set completely new values and size
 extern_c void
-BodyDoublesSetArray(ConstHandle2Body This, const double *const values, const size_t size);
+BodyDoublesSetArray(ConstHandle2Body self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------

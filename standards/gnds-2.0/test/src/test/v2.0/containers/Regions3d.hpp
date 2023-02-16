@@ -27,12 +27,12 @@ class Regions3d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Regions3d"; }
-   static auto FIELD() { return "regions3d"; }
+   static auto NODENAME() { return "regions3d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,38 +46,88 @@ class Regions3d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<containers::Axes>>("axes") |
-         --Child<containers::Function3ds>("function3ds") |
-         --Child<std::optional<containers::Uncertainty>>("uncertainty")
+         --Child<std::optional<containers::Axes>>
+            ("axes") |
+         --Child<containers::Function3ds>
+            ("function3ds") |
+         --Child<std::optional<containers::Uncertainty>>
+            ("uncertainty")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outerDomainValue",
+         "axes",
+         "function3ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "function3ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<Float64>> outerDomainValue{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<Float64>>
+      outerDomainValue{this};
 
    // children
-   Field<std::optional<containers::Axes>> axes{this};
-   Field<containers::Function3ds> function3ds{this};
-   Field<std::optional<containers::Uncertainty>> uncertainty{this};
+   Field<std::optional<containers::Axes>>
+      axes{this};
+   Field<containers::Function3ds>
+      function3ds{this};
+   Field<std::optional<containers::Uncertainty>>
+      uncertainty{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
       this->function3ds, \
-      this->uncertainty)
+      this->uncertainty \
+   )
 
    // default
    Regions3d() :
@@ -88,11 +138,16 @@ public:
 
    // from fields, comment excluded
    explicit Regions3d(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<Float64>> &outerDomainValue = {},
-      const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Function3ds> &function3ds = {},
-      const wrapper<std::optional<containers::Uncertainty>> &uncertainty = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<Float64>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>>
+         &axes = {},
+      const wrapper<containers::Function3ds>
+         &function3ds = {},
+      const wrapper<std::optional<containers::Uncertainty>>
+         &uncertainty = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -141,8 +196,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Regions3d &operator=(const Regions3d &) = default;
-   Regions3d &operator=(Regions3d &&) = default;
+   // copy
+   Regions3d &operator=(const Regions3d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         function3ds = other.function3ds;
+         uncertainty = other.uncertainty;
+      }
+      return *this;
+   }
+
+   // move
+   Regions3d &operator=(Regions3d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         function3ds = std::move(other.function3ds);
+         uncertainty = std::move(other.uncertainty);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

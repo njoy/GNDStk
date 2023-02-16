@@ -96,13 +96,13 @@ DecayCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DecayAssign(ConstHandle2Decay This, ConstHandle2ConstDecay from);
+DecayAssign(ConstHandle2Decay self, ConstHandle2ConstDecay from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DecayDelete(ConstHandle2ConstDecay This);
+DecayDelete(ConstHandle2ConstDecay self);
 
 
 // -----------------------------------------------------------------------------
@@ -115,25 +115,25 @@ DecayDelete(ConstHandle2ConstDecay This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DecayRead(ConstHandle2Decay This, const char *const filename);
+DecayRead(ConstHandle2Decay self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DecayWrite(ConstHandle2ConstDecay This, const char *const filename);
+DecayWrite(ConstHandle2ConstDecay self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DecayPrint(ConstHandle2ConstDecay This);
+DecayPrint(ConstHandle2ConstDecay self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DecayPrintXML(ConstHandle2ConstDecay This);
+DecayPrintXML(ConstHandle2ConstDecay self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DecayPrintJSON(ConstHandle2ConstDecay This);
+DecayPrintJSON(ConstHandle2ConstDecay self);
 
 
 // -----------------------------------------------------------------------------
@@ -142,16 +142,16 @@ DecayPrintJSON(ConstHandle2ConstDecay This);
 
 // +++ Has
 extern_c int
-DecayIndexHas(ConstHandle2ConstDecay This);
+DecayIndexHas(ConstHandle2ConstDecay self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-DecayIndexGet(ConstHandle2ConstDecay This);
+DecayIndexGet(ConstHandle2ConstDecay self);
 
 // +++ Set
 extern_c void
-DecayIndexSet(ConstHandle2Decay This, const Integer32 index);
+DecayIndexSet(ConstHandle2Decay self, const Integer32 index);
 
 
 // -----------------------------------------------------------------------------
@@ -160,16 +160,16 @@ DecayIndexSet(ConstHandle2Decay This, const Integer32 index);
 
 // +++ Has
 extern_c int
-DecayModeHas(ConstHandle2ConstDecay This);
+DecayModeHas(ConstHandle2ConstDecay self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::DecayType
-DecayModeGet(ConstHandle2ConstDecay This);
+DecayModeGet(ConstHandle2ConstDecay self);
 
 // +++ Set
 extern_c void
-DecayModeSet(ConstHandle2Decay This, const enums::DecayType mode);
+DecayModeSet(ConstHandle2Decay self, const enums::DecayType mode);
 
 
 // -----------------------------------------------------------------------------
@@ -178,16 +178,16 @@ DecayModeSet(ConstHandle2Decay This, const enums::DecayType mode);
 
 // +++ Has
 extern_c int
-DecayCompleteHas(ConstHandle2ConstDecay This);
+DecayCompleteHas(ConstHandle2ConstDecay self);
 
 // +++ Get
 // +++ Returns by value
 extern_c bool
-DecayCompleteGet(ConstHandle2ConstDecay This);
+DecayCompleteGet(ConstHandle2ConstDecay self);
 
 // +++ Set
 extern_c void
-DecayCompleteSet(ConstHandle2Decay This, const bool complete);
+DecayCompleteSet(ConstHandle2Decay self, const bool complete);
 
 
 // -----------------------------------------------------------------------------
@@ -196,19 +196,19 @@ DecayCompleteSet(ConstHandle2Decay This, const bool complete);
 
 // +++ Has
 extern_c int
-DecayProductsHas(ConstHandle2ConstDecay This);
+DecayProductsHas(ConstHandle2ConstDecay self);
 
 // --- Get, const
 extern_c Handle2ConstProducts
-DecayProductsGetConst(ConstHandle2ConstDecay This);
+DecayProductsGetConst(ConstHandle2ConstDecay self);
 
 // +++ Get, non-const
 extern_c Handle2Products
-DecayProductsGet(ConstHandle2Decay This);
+DecayProductsGet(ConstHandle2Decay self);
 
 // +++ Set
 extern_c void
-DecayProductsSet(ConstHandle2Decay This, ConstHandle2ConstProducts products);
+DecayProductsSet(ConstHandle2Decay self, ConstHandle2ConstProducts products);
 
 
 // -----------------------------------------------------------------------------

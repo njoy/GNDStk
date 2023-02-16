@@ -25,12 +25,12 @@ class Date :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Date"; }
-   static auto FIELD() { return "date"; }
+   static auto NODENAME() { return "date"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,24 +45,62 @@ class Date :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "dateType",
+         "value"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date_type",
+         "value"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<enums::DateType> dateType{this};
-   Field<std::string> value{this};
+   Field<enums::DateType>
+      dateType{this};
+   Field<std::string>
+      value{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->dateType, \
-      this->value)
+      this->value \
+   )
 
    // default
    Date() :
@@ -73,8 +111,10 @@ public:
 
    // from fields, comment excluded
    explicit Date(
-      const wrapper<enums::DateType> &dateType,
-      const wrapper<std::string> &value = {}
+      const wrapper<enums::DateType>
+         &dateType,
+      const wrapper<std::string>
+         &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       dateType(this,dateType),
@@ -114,8 +154,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Date &operator=(const Date &) = default;
-   Date &operator=(Date &&) = default;
+   // copy
+   Date &operator=(const Date &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         dateType = other.dateType;
+         value = other.value;
+      }
+      return *this;
+   }
+
+   // move
+   Date &operator=(Date &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         dateType = std::move(other.dateType);
+         value = std::move(other.value);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

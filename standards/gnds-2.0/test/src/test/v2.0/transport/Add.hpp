@@ -25,12 +25,12 @@ class Add :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Add"; }
-   static auto FIELD() { return "add"; }
+   static auto NODENAME() { return "add"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,22 +43,57 @@ class Add :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->href)
+      this->href \
+   )
 
    // default
    Add() :
@@ -69,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Add(
-      const wrapper<std::optional<std::string>> &href
+      const wrapper<std::optional<std::string>>
+         &href
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href)
@@ -106,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Add &operator=(const Add &) = default;
-   Add &operator=(Add &&) = default;
+   // copy
+   Add &operator=(const Add &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Add &operator=(Add &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

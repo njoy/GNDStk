@@ -100,20 +100,20 @@ MassCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-MassAssign(ConstHandle2Mass This, ConstHandle2ConstMass from)
+MassAssign(ConstHandle2Mass self, ConstHandle2ConstMass from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-MassDelete(ConstHandle2ConstMass This)
+MassDelete(ConstHandle2ConstMass self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -127,44 +127,44 @@ MassDelete(ConstHandle2ConstMass This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-MassRead(ConstHandle2Mass This, const char *const filename)
+MassRead(ConstHandle2Mass self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-MassWrite(ConstHandle2ConstMass This, const char *const filename)
+MassWrite(ConstHandle2ConstMass self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-MassPrint(ConstHandle2ConstMass This)
+MassPrint(ConstHandle2ConstMass self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-MassPrintXML(ConstHandle2ConstMass This)
+MassPrintXML(ConstHandle2ConstMass self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-MassPrintJSON(ConstHandle2ConstMass This)
+MassPrintJSON(ConstHandle2ConstMass self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -174,27 +174,27 @@ MassPrintJSON(ConstHandle2ConstMass This)
 
 // Has
 int
-MassLabelHas(ConstHandle2ConstMass This)
+MassLabelHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-MassLabelGet(ConstHandle2ConstMass This)
+MassLabelGet(ConstHandle2ConstMass self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-MassLabelSet(ConstHandle2Mass This, const XMLName label)
+MassLabelSet(ConstHandle2Mass self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -204,27 +204,27 @@ MassLabelSet(ConstHandle2Mass This, const XMLName label)
 
 // Has
 int
-MassUnitHas(ConstHandle2ConstMass This)
+MassUnitHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-MassUnitGet(ConstHandle2ConstMass This)
+MassUnitGet(ConstHandle2ConstMass self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-MassUnitSet(ConstHandle2Mass This, const XMLName unit)
+MassUnitSet(ConstHandle2Mass self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -234,27 +234,27 @@ MassUnitSet(ConstHandle2Mass This, const XMLName unit)
 
 // Has
 int
-MassValueHas(ConstHandle2ConstMass This)
+MassValueHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-MassValueGet(ConstHandle2ConstMass This)
+MassValueGet(ConstHandle2ConstMass self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-MassValueSet(ConstHandle2Mass This, const XMLName value)
+MassValueSet(ConstHandle2Mass self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -264,34 +264,34 @@ MassValueSet(ConstHandle2Mass This, const XMLName value)
 
 // Has
 int
-MassDocumentationHas(ConstHandle2ConstMass This)
+MassDocumentationHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-MassDocumentationGetConst(ConstHandle2ConstMass This)
+MassDocumentationGetConst(ConstHandle2ConstMass self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-MassDocumentationGet(ConstHandle2Mass This)
+MassDocumentationGet(ConstHandle2Mass self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-MassDocumentationSet(ConstHandle2Mass This, ConstHandle2ConstDocumentation documentation)
+MassDocumentationSet(ConstHandle2Mass self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -301,34 +301,34 @@ MassDocumentationSet(ConstHandle2Mass This, ConstHandle2ConstDocumentation docum
 
 // Has
 int
-MassUncertaintyHas(ConstHandle2ConstMass This)
+MassUncertaintyHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-MassUncertaintyGetConst(ConstHandle2ConstMass This)
+MassUncertaintyGetConst(ConstHandle2ConstMass self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-MassUncertaintyGet(ConstHandle2Mass This)
+MassUncertaintyGet(ConstHandle2Mass self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-MassUncertaintySet(ConstHandle2Mass This, ConstHandle2ConstUncertainty uncertainty)
+MassUncertaintySet(ConstHandle2Mass self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 
@@ -338,196 +338,196 @@ MassUncertaintySet(ConstHandle2Mass This, ConstHandle2ConstUncertainty uncertain
 
 // Has
 int
-MassDoubleHas(ConstHandle2ConstMass This)
+MassDoubleHas(ConstHandle2ConstMass self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Clear
 void
-MassDoubleClear(ConstHandle2Mass This)
+MassDoubleClear(ConstHandle2Mass self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleClear", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleClear", self, extract::Double);
 }
 
 // Size
 size_t
-MassDoubleSize(ConstHandle2ConstMass This)
+MassDoubleSize(ConstHandle2ConstMass self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleSize", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleSize", self, extract::Double);
 }
 
 // Add
 void
-MassDoubleAdd(ConstHandle2Mass This, ConstHandle2ConstDouble Double)
+MassDoubleAdd(ConstHandle2Mass self, ConstHandle2ConstDouble Double)
 {
    detail::addToContainer<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleAdd", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleAdd", self, extract::Double, Double);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstDouble
-MassDoubleGetConst(ConstHandle2ConstMass This, const size_t index_)
+MassDoubleGetConst(ConstHandle2ConstMass self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Double
-MassDoubleGet(ConstHandle2Mass This, const size_t index_)
+MassDoubleGet(ConstHandle2Mass self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double, index_);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double, index_);
 }
 
 // Set, by index \in [0,size)
 void
 MassDoubleSet(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByIndex<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, index_, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, index_, Double);
 }
 
 // Has, by label
 int
 MassDoubleHasByLabel(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstDouble
 MassDoubleGetByLabelConst(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabelConst",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Double
 MassDoubleGetByLabel(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByLabel",
-       This, extract::Double, meta::label, label);
+       self, extract::Double, meta::label, label);
 }
 
 // Set, by label
 void
 MassDoubleSetByLabel(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByLabel",
-       This, extract::Double, meta::label, label, Double);
+       self, extract::Double, meta::label, label, Double);
 }
 
 // Has, by unit
 int
 MassDoubleHasByUnit(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstDouble
 MassDoubleGetByUnitConst(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnitConst",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Double
 MassDoubleGetByUnit(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByUnit",
-       This, extract::Double, meta::unit, unit);
+       self, extract::Double, meta::unit, unit);
 }
 
 // Set, by unit
 void
 MassDoubleSetByUnit(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByUnit",
-       This, extract::Double, meta::unit, unit, Double);
+       self, extract::Double, meta::unit, unit, Double);
 }
 
 // Has, by value
 int
 MassDoubleHasByValue(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const Float64 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"DoubleHasByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstDouble
 MassDoubleGetByValueConst(
-   ConstHandle2ConstMass This,
+   ConstHandle2ConstMass self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstDouble>
       (CLASSNAME, CLASSNAME+"DoubleGetByValueConst",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Double
 MassDoubleGetByValue(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const Float64 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Double>
       (CLASSNAME, CLASSNAME+"DoubleGetByValue",
-       This, extract::Double, meta::value, value);
+       self, extract::Double, meta::value, value);
 }
 
 // Set, by value
 void
 MassDoubleSetByValue(
-   ConstHandle2Mass This,
+   ConstHandle2Mass self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 ) {
    detail::setByMetadatum<CPP,CPPDouble>
       (CLASSNAME, CLASSNAME+"DoubleSetByValue",
-       This, extract::Double, meta::value, value, Double);
+       self, extract::Double, meta::value, value, Double);
 }
 
 

@@ -26,12 +26,12 @@ class Author :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Author"; }
-   static auto FIELD() { return "author"; }
+   static auto NODENAME() { return "author"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,37 +47,86 @@ class Author :
             / Meta<>("email") |
 
          // children
-         --Child<std::optional<documentation::Affiliations>>("affiliations") |
-         --Child<std::optional<documentation::Note>>("note")
+         --Child<std::optional<documentation::Affiliations>>
+            ("affiliations") |
+         --Child<std::optional<documentation::Note>>
+            ("note")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "orcid",
+         "email",
+         "affiliations",
+         "note"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "orcid",
+         "email",
+         "affiliations",
+         "note"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<UTF8Text> name{this};
-   Field<std::optional<UTF8Text>> orcid{this};
-   Field<std::optional<UTF8Text>> email{this};
+   Field<UTF8Text>
+      name{this};
+   Field<std::optional<UTF8Text>>
+      orcid{this};
+   Field<std::optional<UTF8Text>>
+      email{this};
 
    // children
-   Field<std::optional<documentation::Affiliations>> affiliations{this};
-   Field<std::optional<documentation::Note>> note{this};
+   Field<std::optional<documentation::Affiliations>>
+      affiliations{this};
+   Field<std::optional<documentation::Note>>
+      note{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->name, \
       this->orcid, \
       this->email, \
       this->affiliations, \
-      this->note)
+      this->note \
+   )
 
    // default
    Author() :
@@ -88,11 +137,16 @@ public:
 
    // from fields, comment excluded
    explicit Author(
-      const wrapper<UTF8Text> &name,
-      const wrapper<std::optional<UTF8Text>> &orcid = {},
-      const wrapper<std::optional<UTF8Text>> &email = {},
-      const wrapper<std::optional<documentation::Affiliations>> &affiliations = {},
-      const wrapper<std::optional<documentation::Note>> &note = {}
+      const wrapper<UTF8Text>
+         &name,
+      const wrapper<std::optional<UTF8Text>>
+         &orcid = {},
+      const wrapper<std::optional<UTF8Text>>
+         &email = {},
+      const wrapper<std::optional<documentation::Affiliations>>
+         &affiliations = {},
+      const wrapper<std::optional<documentation::Note>>
+         &note = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
@@ -141,8 +195,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Author &operator=(const Author &) = default;
-   Author &operator=(Author &&) = default;
+   // copy
+   Author &operator=(const Author &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+         orcid = other.orcid;
+         email = other.email;
+         affiliations = other.affiliations;
+         note = other.note;
+      }
+      return *this;
+   }
+
+   // move
+   Author &operator=(Author &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+         orcid = std::move(other.orcid);
+         email = std::move(other.email);
+         affiliations = std::move(other.affiliations);
+         note = std::move(other.note);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

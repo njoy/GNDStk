@@ -92,13 +92,13 @@ LibraryCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-LibraryAssign(ConstHandle2Library This, ConstHandle2ConstLibrary from);
+LibraryAssign(ConstHandle2Library self, ConstHandle2ConstLibrary from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-LibraryDelete(ConstHandle2ConstLibrary This);
+LibraryDelete(ConstHandle2ConstLibrary self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ LibraryDelete(ConstHandle2ConstLibrary This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-LibraryRead(ConstHandle2Library This, const char *const filename);
+LibraryRead(ConstHandle2Library self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-LibraryWrite(ConstHandle2ConstLibrary This, const char *const filename);
+LibraryWrite(ConstHandle2ConstLibrary self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-LibraryPrint(ConstHandle2ConstLibrary This);
+LibraryPrint(ConstHandle2ConstLibrary self);
 
 // +++ Print to standard output, as XML
 extern_c int
-LibraryPrintXML(ConstHandle2ConstLibrary This);
+LibraryPrintXML(ConstHandle2ConstLibrary self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-LibraryPrintJSON(ConstHandle2ConstLibrary This);
+LibraryPrintJSON(ConstHandle2ConstLibrary self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ LibraryPrintJSON(ConstHandle2ConstLibrary This);
 
 // +++ Has
 extern_c int
-LibraryNameHas(ConstHandle2ConstLibrary This);
+LibraryNameHas(ConstHandle2ConstLibrary self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-LibraryNameGet(ConstHandle2ConstLibrary This);
+LibraryNameGet(ConstHandle2ConstLibrary self);
 
 // +++ Set
 extern_c void
-LibraryNameSet(ConstHandle2Library This, const char *const name);
+LibraryNameSet(ConstHandle2Library self, const char *const name);
 
 
 // -----------------------------------------------------------------------------
@@ -156,32 +156,32 @@ LibraryNameSet(ConstHandle2Library This, const char *const name);
 
 // +++ Has
 extern_c int
-LibraryElementHas(ConstHandle2ConstLibrary This);
+LibraryElementHas(ConstHandle2ConstLibrary self);
 
 // +++ Clear
 extern_c void
-LibraryElementClear(ConstHandle2Library This);
+LibraryElementClear(ConstHandle2Library self);
 
 // +++ Size
 extern_c size_t
-LibraryElementSize(ConstHandle2ConstLibrary This);
+LibraryElementSize(ConstHandle2ConstLibrary self);
 
 // +++ Add
 extern_c void
-LibraryElementAdd(ConstHandle2Library This, ConstHandle2ConstElement element);
+LibraryElementAdd(ConstHandle2Library self, ConstHandle2ConstElement element);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstElement
-LibraryElementGetConst(ConstHandle2ConstLibrary This, const size_t index_);
+LibraryElementGetConst(ConstHandle2ConstLibrary self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Element
-LibraryElementGet(ConstHandle2Library This, const size_t index_);
+LibraryElementGet(ConstHandle2Library self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 LibraryElementSet(
-   ConstHandle2Library This,
+   ConstHandle2Library self,
    const size_t index_,
    ConstHandle2ConstElement element
 );
@@ -189,28 +189,28 @@ LibraryElementSet(
 // +++ Has, by symbol
 extern_c int
 LibraryElementHasBySymbol(
-   ConstHandle2ConstLibrary This,
+   ConstHandle2ConstLibrary self,
    const char *const symbol
 );
 
 // --- Get, by symbol, const
 extern_c Handle2ConstElement
 LibraryElementGetBySymbolConst(
-   ConstHandle2ConstLibrary This,
+   ConstHandle2ConstLibrary self,
    const char *const symbol
 );
 
 // +++ Get, by symbol, non-const
 extern_c Handle2Element
 LibraryElementGetBySymbol(
-   ConstHandle2Library This,
+   ConstHandle2Library self,
    const char *const symbol
 );
 
 // +++ Set, by symbol
 extern_c void
 LibraryElementSetBySymbol(
-   ConstHandle2Library This,
+   ConstHandle2Library self,
    const char *const symbol,
    ConstHandle2ConstElement element
 );
@@ -218,28 +218,28 @@ LibraryElementSetBySymbol(
 // +++ Has, by atomic_number
 extern_c int
 LibraryElementHasByAtomicNumber(
-   ConstHandle2ConstLibrary This,
+   ConstHandle2ConstLibrary self,
    const int atomic_number
 );
 
 // --- Get, by atomic_number, const
 extern_c Handle2ConstElement
 LibraryElementGetByAtomicNumberConst(
-   ConstHandle2ConstLibrary This,
+   ConstHandle2ConstLibrary self,
    const int atomic_number
 );
 
 // +++ Get, by atomic_number, non-const
 extern_c Handle2Element
 LibraryElementGetByAtomicNumber(
-   ConstHandle2Library This,
+   ConstHandle2Library self,
    const int atomic_number
 );
 
 // +++ Set, by atomic_number
 extern_c void
 LibraryElementSetByAtomicNumber(
-   ConstHandle2Library This,
+   ConstHandle2Library self,
    const int atomic_number,
    ConstHandle2ConstElement element
 );

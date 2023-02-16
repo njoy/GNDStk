@@ -77,20 +77,20 @@ RelatedItemCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-RelatedItemAssign(ConstHandle2RelatedItem This, ConstHandle2ConstRelatedItem from)
+RelatedItemAssign(ConstHandle2RelatedItem self, ConstHandle2ConstRelatedItem from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-RelatedItemDelete(ConstHandle2ConstRelatedItem This)
+RelatedItemDelete(ConstHandle2ConstRelatedItem self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ RelatedItemDelete(ConstHandle2ConstRelatedItem This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-RelatedItemRead(ConstHandle2RelatedItem This, const char *const filename)
+RelatedItemRead(ConstHandle2RelatedItem self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-RelatedItemWrite(ConstHandle2ConstRelatedItem This, const char *const filename)
+RelatedItemWrite(ConstHandle2ConstRelatedItem self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-RelatedItemPrint(ConstHandle2ConstRelatedItem This)
+RelatedItemPrint(ConstHandle2ConstRelatedItem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-RelatedItemPrintXML(ConstHandle2ConstRelatedItem This)
+RelatedItemPrintXML(ConstHandle2ConstRelatedItem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-RelatedItemPrintJSON(ConstHandle2ConstRelatedItem This)
+RelatedItemPrintJSON(ConstHandle2ConstRelatedItem self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ RelatedItemPrintJSON(ConstHandle2ConstRelatedItem This)
 
 // Has
 int
-RelatedItemNameHas(ConstHandle2ConstRelatedItem This)
+RelatedItemNameHas(ConstHandle2ConstRelatedItem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 UTF8Text
-RelatedItemNameGet(ConstHandle2ConstRelatedItem This)
+RelatedItemNameGet(ConstHandle2ConstRelatedItem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-RelatedItemNameSet(ConstHandle2RelatedItem This, const UTF8Text name)
+RelatedItemNameSet(ConstHandle2RelatedItem self, const UTF8Text name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -181,27 +181,27 @@ RelatedItemNameSet(ConstHandle2RelatedItem This, const UTF8Text name)
 
 // Has
 int
-RelatedItemHrefHas(ConstHandle2ConstRelatedItem This)
+RelatedItemHrefHas(ConstHandle2ConstRelatedItem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 UTF8Text
-RelatedItemHrefGet(ConstHandle2ConstRelatedItem This)
+RelatedItemHrefGet(ConstHandle2ConstRelatedItem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-RelatedItemHrefSet(ConstHandle2RelatedItem This, const UTF8Text href)
+RelatedItemHrefSet(ConstHandle2RelatedItem self, const UTF8Text href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -211,27 +211,27 @@ RelatedItemHrefSet(ConstHandle2RelatedItem This, const UTF8Text href)
 
 // Has
 int
-RelatedItemRelationTypeHas(ConstHandle2ConstRelatedItem This)
+RelatedItemRelationTypeHas(ConstHandle2ConstRelatedItem self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RelationTypeHas", This, extract::relationType);
+      (CLASSNAME, CLASSNAME+"RelationTypeHas", self, extract::relationType);
 }
 
 // Get
 // Returns by value
 enums::RelationType
-RelatedItemRelationTypeGet(ConstHandle2ConstRelatedItem This)
+RelatedItemRelationTypeGet(ConstHandle2ConstRelatedItem self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"RelationTypeGet", This, extract::relationType);
+      (CLASSNAME, CLASSNAME+"RelationTypeGet", self, extract::relationType);
 }
 
 // Set
 void
-RelatedItemRelationTypeSet(ConstHandle2RelatedItem This, const enums::RelationType relationType)
+RelatedItemRelationTypeSet(ConstHandle2RelatedItem self, const enums::RelationType relationType)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"RelationTypeSet", This, extract::relationType, relationType);
+      (CLASSNAME, CLASSNAME+"RelationTypeSet", self, extract::relationType, relationType);
 }
 
 

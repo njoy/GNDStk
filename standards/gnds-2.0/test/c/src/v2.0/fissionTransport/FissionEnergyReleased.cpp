@@ -122,20 +122,20 @@ FissionEnergyReleasedCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FissionEnergyReleasedAssign(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstFissionEnergyReleased from)
+FissionEnergyReleasedAssign(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstFissionEnergyReleased from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FissionEnergyReleasedDelete(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelete(ConstHandle2ConstFissionEnergyReleased self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -149,44 +149,44 @@ FissionEnergyReleasedDelete(ConstHandle2ConstFissionEnergyReleased This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FissionEnergyReleasedRead(ConstHandle2FissionEnergyReleased This, const char *const filename)
+FissionEnergyReleasedRead(ConstHandle2FissionEnergyReleased self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FissionEnergyReleasedWrite(ConstHandle2ConstFissionEnergyReleased This, const char *const filename)
+FissionEnergyReleasedWrite(ConstHandle2ConstFissionEnergyReleased self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FissionEnergyReleasedPrint(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPrint(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FissionEnergyReleasedPrintXML(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPrintXML(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FissionEnergyReleasedPrintJSON(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPrintJSON(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -196,27 +196,27 @@ FissionEnergyReleasedPrintJSON(ConstHandle2ConstFissionEnergyReleased This)
 
 // Has
 int
-FissionEnergyReleasedLabelHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedLabelHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-FissionEnergyReleasedLabelGet(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedLabelGet(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-FissionEnergyReleasedLabelSet(ConstHandle2FissionEnergyReleased This, const XMLName label)
+FissionEnergyReleasedLabelSet(ConstHandle2FissionEnergyReleased self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -226,34 +226,34 @@ FissionEnergyReleasedLabelSet(ConstHandle2FissionEnergyReleased This, const XMLN
 
 // Has
 int
-FissionEnergyReleasedDelayedBetaEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedBetaEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyHas", This, extract::delayedBetaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyHas", self, extract::delayedBetaEnergy);
 }
 
 // Get, const
 Handle2ConstDelayedBetaEnergy
-FissionEnergyReleasedDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstDelayedBetaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyGetConst", This, extract::delayedBetaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyGetConst", self, extract::delayedBetaEnergy);
 }
 
 // Get, non-const
 Handle2DelayedBetaEnergy
-FissionEnergyReleasedDelayedBetaEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedDelayedBetaEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2DelayedBetaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyGet", This, extract::delayedBetaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedBetaEnergyGet", self, extract::delayedBetaEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedDelayedBetaEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstDelayedBetaEnergy delayedBetaEnergy)
+FissionEnergyReleasedDelayedBetaEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstDelayedBetaEnergy delayedBetaEnergy)
 {
    detail::setField<CPP,CPPDelayedBetaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedBetaEnergySet", This, extract::delayedBetaEnergy, delayedBetaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedBetaEnergySet", self, extract::delayedBetaEnergy, delayedBetaEnergy);
 }
 
 
@@ -263,34 +263,34 @@ FissionEnergyReleasedDelayedBetaEnergySet(ConstHandle2FissionEnergyReleased This
 
 // Has
 int
-FissionEnergyReleasedDelayedGammaEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedGammaEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyHas", This, extract::delayedGammaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyHas", self, extract::delayedGammaEnergy);
 }
 
 // Get, const
 Handle2ConstDelayedGammaEnergy
-FissionEnergyReleasedDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstDelayedGammaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyGetConst", This, extract::delayedGammaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyGetConst", self, extract::delayedGammaEnergy);
 }
 
 // Get, non-const
 Handle2DelayedGammaEnergy
-FissionEnergyReleasedDelayedGammaEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedDelayedGammaEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2DelayedGammaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyGet", This, extract::delayedGammaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedGammaEnergyGet", self, extract::delayedGammaEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedDelayedGammaEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstDelayedGammaEnergy delayedGammaEnergy)
+FissionEnergyReleasedDelayedGammaEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstDelayedGammaEnergy delayedGammaEnergy)
 {
    detail::setField<CPP,CPPDelayedGammaEnergy>
-      (CLASSNAME, CLASSNAME+"DelayedGammaEnergySet", This, extract::delayedGammaEnergy, delayedGammaEnergy);
+      (CLASSNAME, CLASSNAME+"DelayedGammaEnergySet", self, extract::delayedGammaEnergy, delayedGammaEnergy);
 }
 
 
@@ -300,34 +300,34 @@ FissionEnergyReleasedDelayedGammaEnergySet(ConstHandle2FissionEnergyReleased Thi
 
 // Has
 int
-FissionEnergyReleasedDelayedNeutronKEHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedNeutronKEHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronKEHas", This, extract::delayedNeutronKE);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronKEHas", self, extract::delayedNeutronKE);
 }
 
 // Get, const
 Handle2ConstDelayedNeutronKE
-FissionEnergyReleasedDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstDelayedNeutronKE>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronKEGetConst", This, extract::delayedNeutronKE);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronKEGetConst", self, extract::delayedNeutronKE);
 }
 
 // Get, non-const
 Handle2DelayedNeutronKE
-FissionEnergyReleasedDelayedNeutronKEGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedDelayedNeutronKEGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2DelayedNeutronKE>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronKEGet", This, extract::delayedNeutronKE);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronKEGet", self, extract::delayedNeutronKE);
 }
 
 // Set
 void
-FissionEnergyReleasedDelayedNeutronKESet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstDelayedNeutronKE delayedNeutronKE)
+FissionEnergyReleasedDelayedNeutronKESet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstDelayedNeutronKE delayedNeutronKE)
 {
    detail::setField<CPP,CPPDelayedNeutronKE>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronKESet", This, extract::delayedNeutronKE, delayedNeutronKE);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronKESet", self, extract::delayedNeutronKE, delayedNeutronKE);
 }
 
 
@@ -337,34 +337,34 @@ FissionEnergyReleasedDelayedNeutronKESet(ConstHandle2FissionEnergyReleased This,
 
 // Has
 int
-FissionEnergyReleasedNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NeutrinoEnergyHas", This, extract::neutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NeutrinoEnergyHas", self, extract::neutrinoEnergy);
 }
 
 // Get, const
 Handle2ConstNeutrinoEnergy
-FissionEnergyReleasedNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstNeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NeutrinoEnergyGetConst", This, extract::neutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NeutrinoEnergyGetConst", self, extract::neutrinoEnergy);
 }
 
 // Get, non-const
 Handle2NeutrinoEnergy
-FissionEnergyReleasedNeutrinoEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedNeutrinoEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2NeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NeutrinoEnergyGet", This, extract::neutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NeutrinoEnergyGet", self, extract::neutrinoEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedNeutrinoEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstNeutrinoEnergy neutrinoEnergy)
+FissionEnergyReleasedNeutrinoEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstNeutrinoEnergy neutrinoEnergy)
 {
    detail::setField<CPP,CPPNeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NeutrinoEnergySet", This, extract::neutrinoEnergy, neutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NeutrinoEnergySet", self, extract::neutrinoEnergy, neutrinoEnergy);
 }
 
 
@@ -374,34 +374,34 @@ FissionEnergyReleasedNeutrinoEnergySet(ConstHandle2FissionEnergyReleased This, C
 
 // Has
 int
-FissionEnergyReleasedNonNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedNonNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyHas", This, extract::nonNeutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyHas", self, extract::nonNeutrinoEnergy);
 }
 
 // Get, const
 Handle2ConstNonNeutrinoEnergy
-FissionEnergyReleasedNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstNonNeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyGetConst", This, extract::nonNeutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyGetConst", self, extract::nonNeutrinoEnergy);
 }
 
 // Get, non-const
 Handle2NonNeutrinoEnergy
-FissionEnergyReleasedNonNeutrinoEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedNonNeutrinoEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2NonNeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyGet", This, extract::nonNeutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyGet", self, extract::nonNeutrinoEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedNonNeutrinoEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstNonNeutrinoEnergy nonNeutrinoEnergy)
+FissionEnergyReleasedNonNeutrinoEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstNonNeutrinoEnergy nonNeutrinoEnergy)
 {
    detail::setField<CPP,CPPNonNeutrinoEnergy>
-      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergySet", This, extract::nonNeutrinoEnergy, nonNeutrinoEnergy);
+      (CLASSNAME, CLASSNAME+"NonNeutrinoEnergySet", self, extract::nonNeutrinoEnergy, nonNeutrinoEnergy);
 }
 
 
@@ -411,34 +411,34 @@ FissionEnergyReleasedNonNeutrinoEnergySet(ConstHandle2FissionEnergyReleased This
 
 // Has
 int
-FissionEnergyReleasedPromptGammaEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptGammaEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PromptGammaEnergyHas", This, extract::promptGammaEnergy);
+      (CLASSNAME, CLASSNAME+"PromptGammaEnergyHas", self, extract::promptGammaEnergy);
 }
 
 // Get, const
 Handle2ConstPromptGammaEnergy
-FissionEnergyReleasedPromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstPromptGammaEnergy>
-      (CLASSNAME, CLASSNAME+"PromptGammaEnergyGetConst", This, extract::promptGammaEnergy);
+      (CLASSNAME, CLASSNAME+"PromptGammaEnergyGetConst", self, extract::promptGammaEnergy);
 }
 
 // Get, non-const
 Handle2PromptGammaEnergy
-FissionEnergyReleasedPromptGammaEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedPromptGammaEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2PromptGammaEnergy>
-      (CLASSNAME, CLASSNAME+"PromptGammaEnergyGet", This, extract::promptGammaEnergy);
+      (CLASSNAME, CLASSNAME+"PromptGammaEnergyGet", self, extract::promptGammaEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedPromptGammaEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstPromptGammaEnergy promptGammaEnergy)
+FissionEnergyReleasedPromptGammaEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstPromptGammaEnergy promptGammaEnergy)
 {
    detail::setField<CPP,CPPPromptGammaEnergy>
-      (CLASSNAME, CLASSNAME+"PromptGammaEnergySet", This, extract::promptGammaEnergy, promptGammaEnergy);
+      (CLASSNAME, CLASSNAME+"PromptGammaEnergySet", self, extract::promptGammaEnergy, promptGammaEnergy);
 }
 
 
@@ -448,34 +448,34 @@ FissionEnergyReleasedPromptGammaEnergySet(ConstHandle2FissionEnergyReleased This
 
 // Has
 int
-FissionEnergyReleasedPromptNeutronKEHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptNeutronKEHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PromptNeutronKEHas", This, extract::promptNeutronKE);
+      (CLASSNAME, CLASSNAME+"PromptNeutronKEHas", self, extract::promptNeutronKE);
 }
 
 // Get, const
 Handle2ConstPromptNeutronKE
-FissionEnergyReleasedPromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstPromptNeutronKE>
-      (CLASSNAME, CLASSNAME+"PromptNeutronKEGetConst", This, extract::promptNeutronKE);
+      (CLASSNAME, CLASSNAME+"PromptNeutronKEGetConst", self, extract::promptNeutronKE);
 }
 
 // Get, non-const
 Handle2PromptNeutronKE
-FissionEnergyReleasedPromptNeutronKEGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedPromptNeutronKEGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2PromptNeutronKE>
-      (CLASSNAME, CLASSNAME+"PromptNeutronKEGet", This, extract::promptNeutronKE);
+      (CLASSNAME, CLASSNAME+"PromptNeutronKEGet", self, extract::promptNeutronKE);
 }
 
 // Set
 void
-FissionEnergyReleasedPromptNeutronKESet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstPromptNeutronKE promptNeutronKE)
+FissionEnergyReleasedPromptNeutronKESet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstPromptNeutronKE promptNeutronKE)
 {
    detail::setField<CPP,CPPPromptNeutronKE>
-      (CLASSNAME, CLASSNAME+"PromptNeutronKESet", This, extract::promptNeutronKE, promptNeutronKE);
+      (CLASSNAME, CLASSNAME+"PromptNeutronKESet", self, extract::promptNeutronKE, promptNeutronKE);
 }
 
 
@@ -485,34 +485,34 @@ FissionEnergyReleasedPromptNeutronKESet(ConstHandle2FissionEnergyReleased This, 
 
 // Has
 int
-FissionEnergyReleasedPromptProductKEHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptProductKEHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PromptProductKEHas", This, extract::promptProductKE);
+      (CLASSNAME, CLASSNAME+"PromptProductKEHas", self, extract::promptProductKE);
 }
 
 // Get, const
 Handle2ConstPromptProductKE
-FissionEnergyReleasedPromptProductKEGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedPromptProductKEGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstPromptProductKE>
-      (CLASSNAME, CLASSNAME+"PromptProductKEGetConst", This, extract::promptProductKE);
+      (CLASSNAME, CLASSNAME+"PromptProductKEGetConst", self, extract::promptProductKE);
 }
 
 // Get, non-const
 Handle2PromptProductKE
-FissionEnergyReleasedPromptProductKEGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedPromptProductKEGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2PromptProductKE>
-      (CLASSNAME, CLASSNAME+"PromptProductKEGet", This, extract::promptProductKE);
+      (CLASSNAME, CLASSNAME+"PromptProductKEGet", self, extract::promptProductKE);
 }
 
 // Set
 void
-FissionEnergyReleasedPromptProductKESet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstPromptProductKE promptProductKE)
+FissionEnergyReleasedPromptProductKESet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstPromptProductKE promptProductKE)
 {
    detail::setField<CPP,CPPPromptProductKE>
-      (CLASSNAME, CLASSNAME+"PromptProductKESet", This, extract::promptProductKE, promptProductKE);
+      (CLASSNAME, CLASSNAME+"PromptProductKESet", self, extract::promptProductKE, promptProductKE);
 }
 
 
@@ -522,34 +522,34 @@ FissionEnergyReleasedPromptProductKESet(ConstHandle2FissionEnergyReleased This, 
 
 // Has
 int
-FissionEnergyReleasedTotalEnergyHas(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedTotalEnergyHas(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TotalEnergyHas", This, extract::totalEnergy);
+      (CLASSNAME, CLASSNAME+"TotalEnergyHas", self, extract::totalEnergy);
 }
 
 // Get, const
 Handle2ConstTotalEnergy
-FissionEnergyReleasedTotalEnergyGetConst(ConstHandle2ConstFissionEnergyReleased This)
+FissionEnergyReleasedTotalEnergyGetConst(ConstHandle2ConstFissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2ConstTotalEnergy>
-      (CLASSNAME, CLASSNAME+"TotalEnergyGetConst", This, extract::totalEnergy);
+      (CLASSNAME, CLASSNAME+"TotalEnergyGetConst", self, extract::totalEnergy);
 }
 
 // Get, non-const
 Handle2TotalEnergy
-FissionEnergyReleasedTotalEnergyGet(ConstHandle2FissionEnergyReleased This)
+FissionEnergyReleasedTotalEnergyGet(ConstHandle2FissionEnergyReleased self)
 {
    return detail::getField<CPP,Handle2TotalEnergy>
-      (CLASSNAME, CLASSNAME+"TotalEnergyGet", This, extract::totalEnergy);
+      (CLASSNAME, CLASSNAME+"TotalEnergyGet", self, extract::totalEnergy);
 }
 
 // Set
 void
-FissionEnergyReleasedTotalEnergySet(ConstHandle2FissionEnergyReleased This, ConstHandle2ConstTotalEnergy totalEnergy)
+FissionEnergyReleasedTotalEnergySet(ConstHandle2FissionEnergyReleased self, ConstHandle2ConstTotalEnergy totalEnergy)
 {
    detail::setField<CPP,CPPTotalEnergy>
-      (CLASSNAME, CLASSNAME+"TotalEnergySet", This, extract::totalEnergy, totalEnergy);
+      (CLASSNAME, CLASSNAME+"TotalEnergySet", self, extract::totalEnergy, totalEnergy);
 }
 
 

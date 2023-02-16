@@ -77,20 +77,20 @@ StringCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-StringAssign(ConstHandle2String This, ConstHandle2ConstString from)
+StringAssign(ConstHandle2String self, ConstHandle2ConstString from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-StringDelete(ConstHandle2ConstString This)
+StringDelete(ConstHandle2ConstString self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ StringDelete(ConstHandle2ConstString This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-StringRead(ConstHandle2String This, const char *const filename)
+StringRead(ConstHandle2String self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-StringWrite(ConstHandle2ConstString This, const char *const filename)
+StringWrite(ConstHandle2ConstString self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-StringPrint(ConstHandle2ConstString This)
+StringPrint(ConstHandle2ConstString self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-StringPrintXML(ConstHandle2ConstString This)
+StringPrintXML(ConstHandle2ConstString self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-StringPrintJSON(ConstHandle2ConstString This)
+StringPrintJSON(ConstHandle2ConstString self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ StringPrintJSON(ConstHandle2ConstString This)
 
 // Has
 int
-StringLabelHas(ConstHandle2ConstString This)
+StringLabelHas(ConstHandle2ConstString self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-StringLabelGet(ConstHandle2ConstString This)
+StringLabelGet(ConstHandle2ConstString self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-StringLabelSet(ConstHandle2String This, const XMLName label)
+StringLabelSet(ConstHandle2String self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -181,27 +181,27 @@ StringLabelSet(ConstHandle2String This, const XMLName label)
 
 // Has
 int
-StringUnitHas(ConstHandle2ConstString This)
+StringUnitHas(ConstHandle2ConstString self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-StringUnitGet(ConstHandle2ConstString This)
+StringUnitGet(ConstHandle2ConstString self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-StringUnitSet(ConstHandle2String This, const XMLName unit)
+StringUnitSet(ConstHandle2String self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -211,27 +211,27 @@ StringUnitSet(ConstHandle2String This, const XMLName unit)
 
 // Has
 int
-StringValueHas(ConstHandle2ConstString This)
+StringValueHas(ConstHandle2ConstString self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-StringValueGet(ConstHandle2ConstString This)
+StringValueGet(ConstHandle2ConstString self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-StringValueSet(ConstHandle2String This, const XMLName value)
+StringValueSet(ConstHandle2String self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 

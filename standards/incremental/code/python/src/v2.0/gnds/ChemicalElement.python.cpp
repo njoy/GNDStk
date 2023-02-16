@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// ChemicalElement wrapper
-void wrapChemicalElement(python::module &module)
+// wrapper for gnds::ChemicalElement
+void wrapChemicalElement(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::ChemicalElement;
+   using cppCLASS = gnds::ChemicalElement;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ChemicalElement",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ChemicalElement",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const int &,
-            const std::string &,
-            const gnds::Atomic &
-         >(),
-         python::arg("symbol"),
-         python::arg("z"),
-         python::arg("name"),
-         python::arg("atomic"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "symbol",
-         [](const Component &self) { return self.symbol(); },
-         Component::documentation("symbol").data()
-      )
-      .def_property_readonly(
-         "z",
-         [](const Component &self) { return self.Z(); },
-         Component::documentation("z").data()
-      )
-      .def_property_readonly(
-         "name",
-         [](const Component &self) { return self.name(); },
-         Component::documentation("name").data()
-      )
-      .def_property_readonly(
-         "atomic",
-         [](const Component &self) { return self.atomic(); },
-         Component::documentation("atomic").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const int &,
+         const std::string &,
+         const gnds::Atomic &
+      >(),
+      py::arg("symbol"),
+      py::arg("z"),
+      py::arg("name"),
+      py::arg("atomic"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set symbol
+   object.def_property(
+      "symbol",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.symbol();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.symbol() = value;
+      },
+      cppCLASS::component_t::documentation("symbol").data()
+   );
+
+   // get/set Z
+   object.def_property(
+      "z",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Z();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.Z() = value;
+      },
+      cppCLASS::component_t::documentation("z").data()
+   );
+
+   // get/set name
+   object.def_property(
+      "name",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.name();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.name() = value;
+      },
+      cppCLASS::component_t::documentation("name").data()
+   );
+
+   // get/set atomic
+   object.def_property(
+      "atomic",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.atomic();
+      },
+      [](cppCLASS &self, const gnds::Atomic &value)
+      {
+         self.atomic() = value;
+      },
+      cppCLASS::component_t::documentation("atomic").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

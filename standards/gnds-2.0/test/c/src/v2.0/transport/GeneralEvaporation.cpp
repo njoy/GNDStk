@@ -81,20 +81,20 @@ GeneralEvaporationCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GeneralEvaporationAssign(ConstHandle2GeneralEvaporation This, ConstHandle2ConstGeneralEvaporation from)
+GeneralEvaporationAssign(ConstHandle2GeneralEvaporation self, ConstHandle2ConstGeneralEvaporation from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ GeneralEvaporationDelete(ConstHandle2ConstGeneralEvaporation This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GeneralEvaporationRead(ConstHandle2GeneralEvaporation This, const char *const filename)
+GeneralEvaporationRead(ConstHandle2GeneralEvaporation self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GeneralEvaporationWrite(ConstHandle2ConstGeneralEvaporation This, const char *const filename)
+GeneralEvaporationWrite(ConstHandle2ConstGeneralEvaporation self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GeneralEvaporationPrint(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationPrint(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GeneralEvaporationPrintXML(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationPrintXML(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ GeneralEvaporationPrintJSON(ConstHandle2ConstGeneralEvaporation This)
 
 // Has
 int
-GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UHas", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UHas", self, extract::U);
 }
 
 // Get, const
 Handle2ConstU
-GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2ConstU>
-      (CLASSNAME, CLASSNAME+"UGetConst", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
 // Get, non-const
 Handle2U
-GeneralEvaporationUGet(ConstHandle2GeneralEvaporation This)
+GeneralEvaporationUGet(ConstHandle2GeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2U>
-      (CLASSNAME, CLASSNAME+"UGet", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGet", self, extract::U);
 }
 
 // Set
 void
-GeneralEvaporationUSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstU U)
+GeneralEvaporationUSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstU U)
 {
    detail::setField<CPP,CPPU>
-      (CLASSNAME, CLASSNAME+"USet", This, extract::U, U);
+      (CLASSNAME, CLASSNAME+"USet", self, extract::U, U);
 }
 
 
@@ -192,34 +192,34 @@ GeneralEvaporationUSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstU U
 
 // Has
 int
-GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"GHas", This, extract::g);
+      (CLASSNAME, CLASSNAME+"GHas", self, extract::g);
 }
 
 // Get, const
 Handle2ConstG
-GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2ConstG>
-      (CLASSNAME, CLASSNAME+"GGetConst", This, extract::g);
+      (CLASSNAME, CLASSNAME+"GGetConst", self, extract::g);
 }
 
 // Get, non-const
 Handle2G
-GeneralEvaporationGGet(ConstHandle2GeneralEvaporation This)
+GeneralEvaporationGGet(ConstHandle2GeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2G>
-      (CLASSNAME, CLASSNAME+"GGet", This, extract::g);
+      (CLASSNAME, CLASSNAME+"GGet", self, extract::g);
 }
 
 // Set
 void
-GeneralEvaporationGSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstG g)
+GeneralEvaporationGSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstG g)
 {
    detail::setField<CPP,CPPG>
-      (CLASSNAME, CLASSNAME+"GSet", This, extract::g, g);
+      (CLASSNAME, CLASSNAME+"GSet", self, extract::g, g);
 }
 
 
@@ -229,34 +229,34 @@ GeneralEvaporationGSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstG g
 
 // Has
 int
-GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ThetaHas", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaHas", self, extract::theta);
 }
 
 // Get, const
 Handle2ConstTheta
-GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation This)
+GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2ConstTheta>
-      (CLASSNAME, CLASSNAME+"ThetaGetConst", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
 // Get, non-const
 Handle2Theta
-GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation This)
+GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation self)
 {
    return detail::getField<CPP,Handle2Theta>
-      (CLASSNAME, CLASSNAME+"ThetaGet", This, extract::theta);
+      (CLASSNAME, CLASSNAME+"ThetaGet", self, extract::theta);
 }
 
 // Set
 void
-GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation This, ConstHandle2ConstTheta theta)
+GeneralEvaporationThetaSet(ConstHandle2GeneralEvaporation self, ConstHandle2ConstTheta theta)
 {
    detail::setField<CPP,CPPTheta>
-      (CLASSNAME, CLASSNAME+"ThetaSet", This, extract::theta, theta);
+      (CLASSNAME, CLASSNAME+"ThetaSet", self, extract::theta, theta);
 }
 
 

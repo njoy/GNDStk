@@ -90,13 +90,13 @@ BindingEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-BindingEnergyAssign(ConstHandle2BindingEnergy This, ConstHandle2ConstBindingEnergy from);
+BindingEnergyAssign(ConstHandle2BindingEnergy self, ConstHandle2ConstBindingEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-BindingEnergyDelete(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDelete(ConstHandle2ConstBindingEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ BindingEnergyDelete(ConstHandle2ConstBindingEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-BindingEnergyRead(ConstHandle2BindingEnergy This, const char *const filename);
+BindingEnergyRead(ConstHandle2BindingEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-BindingEnergyWrite(ConstHandle2ConstBindingEnergy This, const char *const filename);
+BindingEnergyWrite(ConstHandle2ConstBindingEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-BindingEnergyPrint(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrint(ConstHandle2ConstBindingEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This);
+BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This);
 
 // +++ Has
 extern_c int
-BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy This);
+BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-BindingEnergyDoubleGet(ConstHandle2BindingEnergy This);
+BindingEnergyDoubleGet(ConstHandle2BindingEnergy self);
 
 // +++ Set
 extern_c void
-BindingEnergyDoubleSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble Double);
+BindingEnergyDoubleSet(ConstHandle2BindingEnergy self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

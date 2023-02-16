@@ -25,12 +25,12 @@ class Shell :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Shell"; }
-   static auto FIELD() { return "shell"; }
+   static auto NODENAME() { return "shell"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class Shell :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "unit"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "value",
+         "unit"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<Float64> value{this};
-   Field<std::optional<XMLName>> unit{this};
+   Field<XMLName>
+      label{this};
+   Field<Float64>
+      value{this};
+   Field<std::optional<XMLName>>
+      unit{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->value, \
-      this->unit)
+      this->unit \
+   )
 
    // default
    Shell() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit Shell(
-      const wrapper<XMLName> &label,
-      const wrapper<Float64> &value = {},
-      const wrapper<std::optional<XMLName>> &unit = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<Float64>
+         &value = {},
+      const wrapper<std::optional<XMLName>>
+         &unit = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Shell &operator=(const Shell &) = default;
-   Shell &operator=(Shell &&) = default;
+   // copy
+   Shell &operator=(const Shell &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         value = other.value;
+         unit = other.unit;
+      }
+      return *this;
+   }
+
+   // move
+   Shell &operator=(Shell &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         value = std::move(other.value);
+         unit = std::move(other.unit);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -90,13 +90,13 @@ DecayModesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DecayModesAssign(ConstHandle2DecayModes This, ConstHandle2ConstDecayModes from);
+DecayModesAssign(ConstHandle2DecayModes self, ConstHandle2ConstDecayModes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DecayModesDelete(ConstHandle2ConstDecayModes This);
+DecayModesDelete(ConstHandle2ConstDecayModes self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DecayModesDelete(ConstHandle2ConstDecayModes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DecayModesRead(ConstHandle2DecayModes This, const char *const filename);
+DecayModesRead(ConstHandle2DecayModes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DecayModesWrite(ConstHandle2ConstDecayModes This, const char *const filename);
+DecayModesWrite(ConstHandle2ConstDecayModes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DecayModesPrint(ConstHandle2ConstDecayModes This);
+DecayModesPrint(ConstHandle2ConstDecayModes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DecayModesPrintXML(ConstHandle2ConstDecayModes This);
+DecayModesPrintXML(ConstHandle2ConstDecayModes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DecayModesPrintJSON(ConstHandle2ConstDecayModes This);
+DecayModesPrintJSON(ConstHandle2ConstDecayModes self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ DecayModesPrintJSON(ConstHandle2ConstDecayModes This);
 
 // +++ Has
 extern_c int
-DecayModesDecayModeHas(ConstHandle2ConstDecayModes This);
+DecayModesDecayModeHas(ConstHandle2ConstDecayModes self);
 
 // +++ Clear
 extern_c void
-DecayModesDecayModeClear(ConstHandle2DecayModes This);
+DecayModesDecayModeClear(ConstHandle2DecayModes self);
 
 // +++ Size
 extern_c size_t
-DecayModesDecayModeSize(ConstHandle2ConstDecayModes This);
+DecayModesDecayModeSize(ConstHandle2ConstDecayModes self);
 
 // +++ Add
 extern_c void
-DecayModesDecayModeAdd(ConstHandle2DecayModes This, ConstHandle2ConstDecayMode decayMode);
+DecayModesDecayModeAdd(ConstHandle2DecayModes self, ConstHandle2ConstDecayMode decayMode);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDecayMode
-DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes This, const size_t index_);
+DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2DecayMode
-DecayModesDecayModeGet(ConstHandle2DecayModes This, const size_t index_);
+DecayModesDecayModeGet(ConstHandle2DecayModes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 DecayModesDecayModeSet(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const size_t index_,
    ConstHandle2ConstDecayMode decayMode
 );
@@ -169,28 +169,28 @@ DecayModesDecayModeSet(
 // +++ Has, by label
 extern_c int
 DecayModesDecayModeHasByLabel(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDecayMode
 DecayModesDecayModeGetByLabelConst(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByLabel(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 DecayModesDecayModeSetByLabel(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const XMLName label,
    ConstHandle2ConstDecayMode decayMode
 );
@@ -198,28 +198,28 @@ DecayModesDecayModeSetByLabel(
 // +++ Has, by mode
 extern_c int
 DecayModesDecayModeHasByMode(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const enums::DecayType mode
 );
 
 // --- Get, by mode, const
 extern_c Handle2ConstDecayMode
 DecayModesDecayModeGetByModeConst(
-   ConstHandle2ConstDecayModes This,
+   ConstHandle2ConstDecayModes self,
    const enums::DecayType mode
 );
 
 // +++ Get, by mode, non-const
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByMode(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const enums::DecayType mode
 );
 
 // +++ Set, by mode
 extern_c void
 DecayModesDecayModeSetByMode(
-   ConstHandle2DecayModes This,
+   ConstHandle2DecayModes self,
    const enums::DecayType mode,
    ConstHandle2ConstDecayMode decayMode
 );

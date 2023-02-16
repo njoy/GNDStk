@@ -25,12 +25,12 @@ class RowSensitivity :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "RowSensitivity"; }
-   static auto FIELD() { return "rowSensitivity"; }
+   static auto NODENAME() { return "rowSensitivity"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class RowSensitivity :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<containers::Array>("array")
+         --Child<containers::Array>
+            ("array")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "array"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "array"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<containers::Array> array{this};
+   Field<containers::Array>
+      array{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->array)
+      this->array \
+   )
 
    // default
    RowSensitivity() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit RowSensitivity(
-      const wrapper<containers::Array> &array
+      const wrapper<containers::Array>
+         &array
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       array(this,array)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   RowSensitivity &operator=(const RowSensitivity &) = default;
-   RowSensitivity &operator=(RowSensitivity &&) = default;
+   // copy
+   RowSensitivity &operator=(const RowSensitivity &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         array = other.array;
+      }
+      return *this;
+   }
+
+   // move
+   RowSensitivity &operator=(RowSensitivity &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         array = std::move(other.array);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -108,20 +108,20 @@ ComputerCodeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ComputerCodeAssign(ConstHandle2ComputerCode This, ConstHandle2ConstComputerCode from)
+ComputerCodeAssign(ConstHandle2ComputerCode self, ConstHandle2ConstComputerCode from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ComputerCodeDelete(ConstHandle2ConstComputerCode This)
+ComputerCodeDelete(ConstHandle2ConstComputerCode self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -135,44 +135,44 @@ ComputerCodeDelete(ConstHandle2ConstComputerCode This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ComputerCodeRead(ConstHandle2ComputerCode This, const char *const filename)
+ComputerCodeRead(ConstHandle2ComputerCode self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ComputerCodeWrite(ConstHandle2ConstComputerCode This, const char *const filename)
+ComputerCodeWrite(ConstHandle2ConstComputerCode self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ComputerCodePrint(ConstHandle2ConstComputerCode This)
+ComputerCodePrint(ConstHandle2ConstComputerCode self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ComputerCodePrintXML(ConstHandle2ConstComputerCode This)
+ComputerCodePrintXML(ConstHandle2ConstComputerCode self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ComputerCodePrintJSON(ConstHandle2ConstComputerCode This)
+ComputerCodePrintJSON(ConstHandle2ConstComputerCode self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -182,27 +182,27 @@ ComputerCodePrintJSON(ConstHandle2ConstComputerCode This)
 
 // Has
 int
-ComputerCodeLabelHas(ConstHandle2ConstComputerCode This)
+ComputerCodeLabelHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ComputerCodeLabelGet(ConstHandle2ConstComputerCode This)
+ComputerCodeLabelGet(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ComputerCodeLabelSet(ConstHandle2ComputerCode This, const XMLName label)
+ComputerCodeLabelSet(ConstHandle2ComputerCode self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -212,27 +212,27 @@ ComputerCodeLabelSet(ConstHandle2ComputerCode This, const XMLName label)
 
 // Has
 int
-ComputerCodeNameHas(ConstHandle2ConstComputerCode This)
+ComputerCodeNameHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 UTF8Text
-ComputerCodeNameGet(ConstHandle2ConstComputerCode This)
+ComputerCodeNameGet(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-ComputerCodeNameSet(ConstHandle2ComputerCode This, const UTF8Text name)
+ComputerCodeNameSet(ConstHandle2ComputerCode self, const UTF8Text name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -242,27 +242,27 @@ ComputerCodeNameSet(ConstHandle2ComputerCode This, const UTF8Text name)
 
 // Has
 int
-ComputerCodeVersionHas(ConstHandle2ConstComputerCode This)
+ComputerCodeVersionHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionHas", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionHas", self, extract::version);
 }
 
 // Get
 // Returns by value
 XMLName
-ComputerCodeVersionGet(ConstHandle2ConstComputerCode This)
+ComputerCodeVersionGet(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionGet", This, extract::version);
+      (CLASSNAME, CLASSNAME+"VersionGet", self, extract::version);
 }
 
 // Set
 void
-ComputerCodeVersionSet(ConstHandle2ComputerCode This, const XMLName version)
+ComputerCodeVersionSet(ConstHandle2ComputerCode self, const XMLName version)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"VersionSet", This, extract::version, version);
+      (CLASSNAME, CLASSNAME+"VersionSet", self, extract::version, version);
 }
 
 
@@ -272,34 +272,34 @@ ComputerCodeVersionSet(ConstHandle2ComputerCode This, const XMLName version)
 
 // Has
 int
-ComputerCodeExecutionArgumentsHas(ConstHandle2ConstComputerCode This)
+ComputerCodeExecutionArgumentsHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExecutionArgumentsHas", This, extract::executionArguments);
+      (CLASSNAME, CLASSNAME+"ExecutionArgumentsHas", self, extract::executionArguments);
 }
 
 // Get, const
 Handle2ConstExecutionArguments
-ComputerCodeExecutionArgumentsGetConst(ConstHandle2ConstComputerCode This)
+ComputerCodeExecutionArgumentsGetConst(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP,Handle2ConstExecutionArguments>
-      (CLASSNAME, CLASSNAME+"ExecutionArgumentsGetConst", This, extract::executionArguments);
+      (CLASSNAME, CLASSNAME+"ExecutionArgumentsGetConst", self, extract::executionArguments);
 }
 
 // Get, non-const
 Handle2ExecutionArguments
-ComputerCodeExecutionArgumentsGet(ConstHandle2ComputerCode This)
+ComputerCodeExecutionArgumentsGet(ConstHandle2ComputerCode self)
 {
    return detail::getField<CPP,Handle2ExecutionArguments>
-      (CLASSNAME, CLASSNAME+"ExecutionArgumentsGet", This, extract::executionArguments);
+      (CLASSNAME, CLASSNAME+"ExecutionArgumentsGet", self, extract::executionArguments);
 }
 
 // Set
 void
-ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode This, ConstHandle2ConstExecutionArguments executionArguments)
+ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode self, ConstHandle2ConstExecutionArguments executionArguments)
 {
    detail::setField<CPP,CPPExecutionArguments>
-      (CLASSNAME, CLASSNAME+"ExecutionArgumentsSet", This, extract::executionArguments, executionArguments);
+      (CLASSNAME, CLASSNAME+"ExecutionArgumentsSet", self, extract::executionArguments, executionArguments);
 }
 
 
@@ -309,34 +309,34 @@ ComputerCodeExecutionArgumentsSet(ConstHandle2ComputerCode This, ConstHandle2Con
 
 // Has
 int
-ComputerCodeCodeRepoHas(ConstHandle2ConstComputerCode This)
+ComputerCodeCodeRepoHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CodeRepoHas", This, extract::codeRepo);
+      (CLASSNAME, CLASSNAME+"CodeRepoHas", self, extract::codeRepo);
 }
 
 // Get, const
 Handle2ConstCodeRepo
-ComputerCodeCodeRepoGetConst(ConstHandle2ConstComputerCode This)
+ComputerCodeCodeRepoGetConst(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP,Handle2ConstCodeRepo>
-      (CLASSNAME, CLASSNAME+"CodeRepoGetConst", This, extract::codeRepo);
+      (CLASSNAME, CLASSNAME+"CodeRepoGetConst", self, extract::codeRepo);
 }
 
 // Get, non-const
 Handle2CodeRepo
-ComputerCodeCodeRepoGet(ConstHandle2ComputerCode This)
+ComputerCodeCodeRepoGet(ConstHandle2ComputerCode self)
 {
    return detail::getField<CPP,Handle2CodeRepo>
-      (CLASSNAME, CLASSNAME+"CodeRepoGet", This, extract::codeRepo);
+      (CLASSNAME, CLASSNAME+"CodeRepoGet", self, extract::codeRepo);
 }
 
 // Set
 void
-ComputerCodeCodeRepoSet(ConstHandle2ComputerCode This, ConstHandle2ConstCodeRepo codeRepo)
+ComputerCodeCodeRepoSet(ConstHandle2ComputerCode self, ConstHandle2ConstCodeRepo codeRepo)
 {
    detail::setField<CPP,CPPCodeRepo>
-      (CLASSNAME, CLASSNAME+"CodeRepoSet", This, extract::codeRepo, codeRepo);
+      (CLASSNAME, CLASSNAME+"CodeRepoSet", self, extract::codeRepo, codeRepo);
 }
 
 
@@ -346,34 +346,34 @@ ComputerCodeCodeRepoSet(ConstHandle2ComputerCode This, ConstHandle2ConstCodeRepo
 
 // Has
 int
-ComputerCodeNoteHas(ConstHandle2ConstComputerCode This)
+ComputerCodeNoteHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NoteHas", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteHas", self, extract::note);
 }
 
 // Get, const
 Handle2ConstNote
-ComputerCodeNoteGetConst(ConstHandle2ConstComputerCode This)
+ComputerCodeNoteGetConst(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP,Handle2ConstNote>
-      (CLASSNAME, CLASSNAME+"NoteGetConst", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGetConst", self, extract::note);
 }
 
 // Get, non-const
 Handle2Note
-ComputerCodeNoteGet(ConstHandle2ComputerCode This)
+ComputerCodeNoteGet(ConstHandle2ComputerCode self)
 {
    return detail::getField<CPP,Handle2Note>
-      (CLASSNAME, CLASSNAME+"NoteGet", This, extract::note);
+      (CLASSNAME, CLASSNAME+"NoteGet", self, extract::note);
 }
 
 // Set
 void
-ComputerCodeNoteSet(ConstHandle2ComputerCode This, ConstHandle2ConstNote note)
+ComputerCodeNoteSet(ConstHandle2ComputerCode self, ConstHandle2ConstNote note)
 {
    detail::setField<CPP,CPPNote>
-      (CLASSNAME, CLASSNAME+"NoteSet", This, extract::note, note);
+      (CLASSNAME, CLASSNAME+"NoteSet", self, extract::note, note);
 }
 
 
@@ -383,34 +383,34 @@ ComputerCodeNoteSet(ConstHandle2ComputerCode This, ConstHandle2ConstNote note)
 
 // Has
 int
-ComputerCodeInputDecksHas(ConstHandle2ConstComputerCode This)
+ComputerCodeInputDecksHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InputDecksHas", This, extract::inputDecks);
+      (CLASSNAME, CLASSNAME+"InputDecksHas", self, extract::inputDecks);
 }
 
 // Get, const
 Handle2ConstInputDecks
-ComputerCodeInputDecksGetConst(ConstHandle2ConstComputerCode This)
+ComputerCodeInputDecksGetConst(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP,Handle2ConstInputDecks>
-      (CLASSNAME, CLASSNAME+"InputDecksGetConst", This, extract::inputDecks);
+      (CLASSNAME, CLASSNAME+"InputDecksGetConst", self, extract::inputDecks);
 }
 
 // Get, non-const
 Handle2InputDecks
-ComputerCodeInputDecksGet(ConstHandle2ComputerCode This)
+ComputerCodeInputDecksGet(ConstHandle2ComputerCode self)
 {
    return detail::getField<CPP,Handle2InputDecks>
-      (CLASSNAME, CLASSNAME+"InputDecksGet", This, extract::inputDecks);
+      (CLASSNAME, CLASSNAME+"InputDecksGet", self, extract::inputDecks);
 }
 
 // Set
 void
-ComputerCodeInputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstInputDecks inputDecks)
+ComputerCodeInputDecksSet(ConstHandle2ComputerCode self, ConstHandle2ConstInputDecks inputDecks)
 {
    detail::setField<CPP,CPPInputDecks>
-      (CLASSNAME, CLASSNAME+"InputDecksSet", This, extract::inputDecks, inputDecks);
+      (CLASSNAME, CLASSNAME+"InputDecksSet", self, extract::inputDecks, inputDecks);
 }
 
 
@@ -420,34 +420,34 @@ ComputerCodeInputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstInputD
 
 // Has
 int
-ComputerCodeOutputDecksHas(ConstHandle2ConstComputerCode This)
+ComputerCodeOutputDecksHas(ConstHandle2ConstComputerCode self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputDecksHas", This, extract::outputDecks);
+      (CLASSNAME, CLASSNAME+"OutputDecksHas", self, extract::outputDecks);
 }
 
 // Get, const
 Handle2ConstOutputDecks
-ComputerCodeOutputDecksGetConst(ConstHandle2ConstComputerCode This)
+ComputerCodeOutputDecksGetConst(ConstHandle2ConstComputerCode self)
 {
    return detail::getField<CPP,Handle2ConstOutputDecks>
-      (CLASSNAME, CLASSNAME+"OutputDecksGetConst", This, extract::outputDecks);
+      (CLASSNAME, CLASSNAME+"OutputDecksGetConst", self, extract::outputDecks);
 }
 
 // Get, non-const
 Handle2OutputDecks
-ComputerCodeOutputDecksGet(ConstHandle2ComputerCode This)
+ComputerCodeOutputDecksGet(ConstHandle2ComputerCode self)
 {
    return detail::getField<CPP,Handle2OutputDecks>
-      (CLASSNAME, CLASSNAME+"OutputDecksGet", This, extract::outputDecks);
+      (CLASSNAME, CLASSNAME+"OutputDecksGet", self, extract::outputDecks);
 }
 
 // Set
 void
-ComputerCodeOutputDecksSet(ConstHandle2ComputerCode This, ConstHandle2ConstOutputDecks outputDecks)
+ComputerCodeOutputDecksSet(ConstHandle2ComputerCode self, ConstHandle2ConstOutputDecks outputDecks)
 {
    detail::setField<CPP,CPPOutputDecks>
-      (CLASSNAME, CLASSNAME+"OutputDecksSet", This, extract::outputDecks, outputDecks);
+      (CLASSNAME, CLASSNAME+"OutputDecksSet", self, extract::outputDecks, outputDecks);
 }
 
 

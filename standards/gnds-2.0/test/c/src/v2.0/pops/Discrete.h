@@ -107,13 +107,13 @@ DiscreteCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DiscreteAssign(ConstHandle2Discrete This, ConstHandle2ConstDiscrete from);
+DiscreteAssign(ConstHandle2Discrete self, ConstHandle2ConstDiscrete from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DiscreteDelete(ConstHandle2ConstDiscrete This);
+DiscreteDelete(ConstHandle2ConstDiscrete self);
 
 
 // -----------------------------------------------------------------------------
@@ -126,25 +126,25 @@ DiscreteDelete(ConstHandle2ConstDiscrete This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DiscreteRead(ConstHandle2Discrete This, const char *const filename);
+DiscreteRead(ConstHandle2Discrete self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DiscreteWrite(ConstHandle2ConstDiscrete This, const char *const filename);
+DiscreteWrite(ConstHandle2ConstDiscrete self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DiscretePrint(ConstHandle2ConstDiscrete This);
+DiscretePrint(ConstHandle2ConstDiscrete self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DiscretePrintXML(ConstHandle2ConstDiscrete This);
+DiscretePrintXML(ConstHandle2ConstDiscrete self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DiscretePrintJSON(ConstHandle2ConstDiscrete This);
+DiscretePrintJSON(ConstHandle2ConstDiscrete self);
 
 
 // -----------------------------------------------------------------------------
@@ -153,16 +153,16 @@ DiscretePrintJSON(ConstHandle2ConstDiscrete This);
 
 // +++ Has
 extern_c int
-DiscreteTypeHas(ConstHandle2ConstDiscrete This);
+DiscreteTypeHas(ConstHandle2ConstDiscrete self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-DiscreteTypeGet(ConstHandle2ConstDiscrete This);
+DiscreteTypeGet(ConstHandle2ConstDiscrete self);
 
 // +++ Set
 extern_c void
-DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type);
+DiscreteTypeSet(ConstHandle2Discrete self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
@@ -171,19 +171,19 @@ DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type);
 
 // +++ Has
 extern_c int
-DiscreteDiscreteEnergyHas(ConstHandle2ConstDiscrete This);
+DiscreteDiscreteEnergyHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstDiscreteEnergy
-DiscreteDiscreteEnergyGetConst(ConstHandle2ConstDiscrete This);
+DiscreteDiscreteEnergyGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2DiscreteEnergy
-DiscreteDiscreteEnergyGet(ConstHandle2Discrete This);
+DiscreteDiscreteEnergyGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy discreteEnergy);
+DiscreteDiscreteEnergySet(ConstHandle2Discrete self, ConstHandle2ConstDiscreteEnergy discreteEnergy);
 
 
 // -----------------------------------------------------------------------------
@@ -192,19 +192,19 @@ DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEn
 
 // +++ Has
 extern_c int
-DiscreteIntensityHas(ConstHandle2ConstDiscrete This);
+DiscreteIntensityHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstIntensity
-DiscreteIntensityGetConst(ConstHandle2ConstDiscrete This);
+DiscreteIntensityGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2Intensity
-DiscreteIntensityGet(ConstHandle2Discrete This);
+DiscreteIntensityGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscreteIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstIntensity intensity);
+DiscreteIntensitySet(ConstHandle2Discrete self, ConstHandle2ConstIntensity intensity);
 
 
 // -----------------------------------------------------------------------------
@@ -213,19 +213,19 @@ DiscreteIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstIntensity inten
 
 // +++ Has
 extern_c int
-DiscreteInternalConversionCoefficientsHas(ConstHandle2ConstDiscrete This);
+DiscreteInternalConversionCoefficientsHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstInternalConversionCoefficients
-DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete This);
+DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2InternalConversionCoefficients
-DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete This);
+DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete This, ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients);
+DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete self, ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients);
 
 
 // -----------------------------------------------------------------------------
@@ -234,19 +234,19 @@ DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete This, ConstHandle
 
 // +++ Has
 extern_c int
-DiscreteInternalPairFormationCoefficientHas(ConstHandle2ConstDiscrete This);
+DiscreteInternalPairFormationCoefficientHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstInternalPairFormationCoefficient
-DiscreteInternalPairFormationCoefficientGetConst(ConstHandle2ConstDiscrete This);
+DiscreteInternalPairFormationCoefficientGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2InternalPairFormationCoefficient
-DiscreteInternalPairFormationCoefficientGet(ConstHandle2Discrete This);
+DiscreteInternalPairFormationCoefficientGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete This, ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient);
+DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete self, ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient);
 
 
 // -----------------------------------------------------------------------------
@@ -255,19 +255,19 @@ DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete This, ConstHand
 
 // +++ Has
 extern_c int
-DiscretePhotonEmissionProbabilitiesHas(ConstHandle2ConstDiscrete This);
+DiscretePhotonEmissionProbabilitiesHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstPhotonEmissionProbabilities
-DiscretePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDiscrete This);
+DiscretePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2PhotonEmissionProbabilities
-DiscretePhotonEmissionProbabilitiesGet(ConstHandle2Discrete This);
+DiscretePhotonEmissionProbabilitiesGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete This, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities);
+DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete self, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities);
 
 
 // -----------------------------------------------------------------------------
@@ -276,19 +276,19 @@ DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete This, ConstHandle2Co
 
 // +++ Has
 extern_c int
-DiscretePositronEmissionIntensityHas(ConstHandle2ConstDiscrete This);
+DiscretePositronEmissionIntensityHas(ConstHandle2ConstDiscrete self);
 
 // --- Get, const
 extern_c Handle2ConstPositronEmissionIntensity
-DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete This);
+DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete self);
 
 // +++ Get, non-const
 extern_c Handle2PositronEmissionIntensity
-DiscretePositronEmissionIntensityGet(ConstHandle2Discrete This);
+DiscretePositronEmissionIntensityGet(ConstHandle2Discrete self);
 
 // +++ Set
 extern_c void
-DiscretePositronEmissionIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstPositronEmissionIntensity positronEmissionIntensity);
+DiscretePositronEmissionIntensitySet(ConstHandle2Discrete self, ConstHandle2ConstPositronEmissionIntensity positronEmissionIntensity);
 
 
 // -----------------------------------------------------------------------------

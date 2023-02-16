@@ -94,13 +94,13 @@ EnergyAngularCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyAngularAssign(ConstHandle2EnergyAngular This, ConstHandle2ConstEnergyAngular from);
+EnergyAngularAssign(ConstHandle2EnergyAngular self, ConstHandle2ConstEnergyAngular from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyAngularDelete(ConstHandle2ConstEnergyAngular This);
+EnergyAngularDelete(ConstHandle2ConstEnergyAngular self);
 
 
 // -----------------------------------------------------------------------------
@@ -113,25 +113,25 @@ EnergyAngularDelete(ConstHandle2ConstEnergyAngular This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyAngularRead(ConstHandle2EnergyAngular This, const char *const filename);
+EnergyAngularRead(ConstHandle2EnergyAngular self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyAngularWrite(ConstHandle2ConstEnergyAngular This, const char *const filename);
+EnergyAngularWrite(ConstHandle2ConstEnergyAngular self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyAngularPrint(ConstHandle2ConstEnergyAngular This);
+EnergyAngularPrint(ConstHandle2ConstEnergyAngular self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyAngularPrintXML(ConstHandle2ConstEnergyAngular This);
+EnergyAngularPrintXML(ConstHandle2ConstEnergyAngular self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular This);
+EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular self);
 
 
 // -----------------------------------------------------------------------------
@@ -140,16 +140,16 @@ EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular This);
 
 // +++ Has
 extern_c int
-EnergyAngularLabelHas(ConstHandle2ConstEnergyAngular This);
+EnergyAngularLabelHas(ConstHandle2ConstEnergyAngular self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyAngularLabelGet(ConstHandle2ConstEnergyAngular This);
+EnergyAngularLabelGet(ConstHandle2ConstEnergyAngular self);
 
 // +++ Set
 extern_c void
-EnergyAngularLabelSet(ConstHandle2EnergyAngular This, const XMLName label);
+EnergyAngularLabelSet(ConstHandle2EnergyAngular self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -158,16 +158,16 @@ EnergyAngularLabelSet(ConstHandle2EnergyAngular This, const XMLName label);
 
 // +++ Has
 extern_c int
-EnergyAngularProductFrameHas(ConstHandle2ConstEnergyAngular This);
+EnergyAngularProductFrameHas(ConstHandle2ConstEnergyAngular self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyAngularProductFrameGet(ConstHandle2ConstEnergyAngular This);
+EnergyAngularProductFrameGet(ConstHandle2ConstEnergyAngular self);
 
 // +++ Set
 extern_c void
-EnergyAngularProductFrameSet(ConstHandle2EnergyAngular This, const XMLName productFrame);
+EnergyAngularProductFrameSet(ConstHandle2EnergyAngular self, const XMLName productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -176,19 +176,19 @@ EnergyAngularProductFrameSet(ConstHandle2EnergyAngular This, const XMLName produ
 
 // +++ Has
 extern_c int
-EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular This);
+EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular self);
 
 // --- Get, const
 extern_c Handle2ConstXYs3d
-EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular This);
+EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular self);
 
 // +++ Get, non-const
 extern_c Handle2XYs3d
-EnergyAngularXYs3dGet(ConstHandle2EnergyAngular This);
+EnergyAngularXYs3dGet(ConstHandle2EnergyAngular self);
 
 // +++ Set
 extern_c void
-EnergyAngularXYs3dSet(ConstHandle2EnergyAngular This, ConstHandle2ConstXYs3d XYs3d);
+EnergyAngularXYs3dSet(ConstHandle2EnergyAngular self, ConstHandle2ConstXYs3d XYs3d);
 
 
 // -----------------------------------------------------------------------------

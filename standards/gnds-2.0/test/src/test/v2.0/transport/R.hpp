@@ -31,12 +31,12 @@ class R :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "R"; }
-   static auto FIELD() { return "r"; }
+   static auto NODENAME() { return "r"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,14 +49,46 @@ class R :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_XYs2dregions2d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_xys2dregions2d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children - variant
-   Field<_t> _XYs2dregions2d{this};
+   Field<_t>
+      _XYs2dregions2d{this};
    FieldPart<decltype(_XYs2dregions2d),containers::XYs2d> XYs2d{_XYs2dregions2d};
    FieldPart<decltype(_XYs2dregions2d),containers::Regions2d> regions2d{_XYs2dregions2d};
 
@@ -64,9 +96,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->_XYs2dregions2d)
+      this->_XYs2dregions2d \
+   )
 
    // default
    R() :
@@ -77,7 +112,8 @@ public:
 
    // from fields, comment excluded
    explicit R(
-      const wrapper<_t> &_XYs2dregions2d
+      const wrapper<_t>
+         &_XYs2dregions2d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs2dregions2d(this,_XYs2dregions2d)
@@ -114,8 +150,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   R &operator=(const R &) = default;
-   R &operator=(R &&) = default;
+   // copy
+   R &operator=(const R &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         _XYs2dregions2d = other._XYs2dregions2d;
+      }
+      return *this;
+   }
+
+   // move
+   R &operator=(R &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         _XYs2dregions2d = std::move(other._XYs2dregions2d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

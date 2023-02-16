@@ -90,13 +90,13 @@ JsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-JsAssign(ConstHandle2Js This, ConstHandle2ConstJs from);
+JsAssign(ConstHandle2Js self, ConstHandle2ConstJs from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-JsDelete(ConstHandle2ConstJs This);
+JsDelete(ConstHandle2ConstJs self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ JsDelete(ConstHandle2ConstJs This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-JsRead(ConstHandle2Js This, const char *const filename);
+JsRead(ConstHandle2Js self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-JsWrite(ConstHandle2ConstJs This, const char *const filename);
+JsWrite(ConstHandle2ConstJs self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-JsPrint(ConstHandle2ConstJs This);
+JsPrint(ConstHandle2ConstJs self);
 
 // +++ Print to standard output, as XML
 extern_c int
-JsPrintXML(ConstHandle2ConstJs This);
+JsPrintXML(ConstHandle2ConstJs self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-JsPrintJSON(ConstHandle2ConstJs This);
+JsPrintJSON(ConstHandle2ConstJs self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ JsPrintJSON(ConstHandle2ConstJs This);
 
 // +++ Has
 extern_c int
-JsJHas(ConstHandle2ConstJs This);
+JsJHas(ConstHandle2ConstJs self);
 
 // +++ Clear
 extern_c void
-JsJClear(ConstHandle2Js This);
+JsJClear(ConstHandle2Js self);
 
 // +++ Size
 extern_c size_t
-JsJSize(ConstHandle2ConstJs This);
+JsJSize(ConstHandle2ConstJs self);
 
 // +++ Add
 extern_c void
-JsJAdd(ConstHandle2Js This, ConstHandle2ConstJ J);
+JsJAdd(ConstHandle2Js self, ConstHandle2ConstJ J);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstJ
-JsJGetConst(ConstHandle2ConstJs This, const size_t index_);
+JsJGetConst(ConstHandle2ConstJs self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2J
-JsJGet(ConstHandle2Js This, const size_t index_);
+JsJGet(ConstHandle2Js self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 JsJSet(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const size_t index_,
    ConstHandle2ConstJ J
 );
@@ -169,28 +169,28 @@ JsJSet(
 // +++ Has, by label
 extern_c int
 JsJHasByLabel(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstJ
 JsJGetByLabelConst(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2J
 JsJGetByLabel(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 JsJSetByLabel(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const XMLName label,
    ConstHandle2ConstJ J
 );
@@ -198,28 +198,28 @@ JsJSetByLabel(
 // +++ Has, by value
 extern_c int
 JsJHasByValue(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const Fraction32 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstJ
 JsJGetByValueConst(
-   ConstHandle2ConstJs This,
+   ConstHandle2ConstJs self,
    const Fraction32 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2J
 JsJGetByValue(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const Fraction32 value
 );
 
 // +++ Set, by value
 extern_c void
 JsJSetByValue(
-   ConstHandle2Js This,
+   ConstHandle2Js self,
    const Fraction32 value,
    ConstHandle2ConstJ J
 );

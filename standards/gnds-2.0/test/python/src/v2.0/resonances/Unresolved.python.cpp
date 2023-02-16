@@ -11,74 +11,114 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// Unresolved wrapper
-void wrapUnresolved(python::module &module)
+// wrapper for resonances::Unresolved
+void wrapUnresolved(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::Unresolved;
+   using cppCLASS = resonances::Unresolved;
    using _t = std::variant<
       resonances::TabulatedWidths
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Unresolved",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Unresolved",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const Float64 &,
-            const Float64 &,
-            const XMLName &,
-            const _t &
-         >(),
-         python::arg("domain_min"),
-         python::arg("domain_max"),
-         python::arg("domain_unit"),
-         python::arg("_tabulated_widths"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "domain_min",
-         [](const Component &self) { return self.domainMin(); },
-         Component::documentation("domain_min").data()
-      )
-      .def_property_readonly(
-         "domain_max",
-         [](const Component &self) { return self.domainMax(); },
-         Component::documentation("domain_max").data()
-      )
-      .def_property_readonly(
-         "domain_unit",
-         [](const Component &self) { return self.domainUnit(); },
-         Component::documentation("domain_unit").data()
-      )
-      .def_property_readonly(
-         "tabulated_widths",
-         [](const Component &self) { return self.tabulatedWidths(); },
-         Component::documentation("tabulated_widths").data()
-      )
-      .def_property_readonly(
-         "_tabulated_widths",
-         [](const Component &self) { return self._tabulatedWidths(); },
-         Component::documentation("_tabulated_widths").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const Float64 &,
+         const Float64 &,
+         const XMLName &,
+         const _t &
+      >(),
+      py::arg("domain_min"),
+      py::arg("domain_max"),
+      py::arg("domain_unit"),
+      py::arg("_tabulated_widths"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set domainMin
+   object.def_property(
+      "domain_min",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMin();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMin() = value;
+      },
+      cppCLASS::component_t::documentation("domain_min").data()
+   );
+
+   // get/set domainMax
+   object.def_property(
+      "domain_max",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainMax();
+      },
+      [](cppCLASS &self, const Float64 &value)
+      {
+         self.domainMax() = value;
+      },
+      cppCLASS::component_t::documentation("domain_max").data()
+   );
+
+   // get/set domainUnit
+   object.def_property(
+      "domain_unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.domainUnit();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.domainUnit() = value;
+      },
+      cppCLASS::component_t::documentation("domain_unit").data()
+   );
+
+   object.def_property(
+      "tabulated_widths",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.tabulatedWidths();
+      },
+      [](cppCLASS &self, const resonances::TabulatedWidths &value)
+      {
+         self.tabulatedWidths() = value;
+      },
+      cppCLASS::component_t::documentation("tabulated_widths").data()
+   );
+
+   object.def_property(
+      "_tabulated_widths",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._tabulatedWidths();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._tabulatedWidths() = value;
+      },
+      cppCLASS::component_t::documentation("_tabulated_widths").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

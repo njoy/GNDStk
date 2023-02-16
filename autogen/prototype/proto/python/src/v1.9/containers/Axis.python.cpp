@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_containers {
 
-// Axis wrapper
-void wrapAxis(python::module &module)
+// wrapper for containers::Axis
+void wrapAxis(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = containers::Axis;
+   using cppCLASS = containers::Axis;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Axis",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Axis",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<int> &,
-            const std::optional<std::string> &,
-            const std::optional<std::string> &
-         >(),
-         python::arg("index") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self) { return self.index(); },
-         Component::documentation("index").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<int> &,
+         const std::optional<std::string> &,
+         const std::optional<std::string> &
+      >(),
+      py::arg("index") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const std::optional<int> &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

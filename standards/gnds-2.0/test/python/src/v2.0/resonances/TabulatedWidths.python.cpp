@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// TabulatedWidths wrapper
-void wrapTabulatedWidths(python::module &module)
+// wrapper for resonances::TabulatedWidths
+void wrapTabulatedWidths(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::TabulatedWidths;
+   using cppCLASS = resonances::TabulatedWidths;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "TabulatedWidths",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "TabulatedWidths",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<bool> &,
-            const std::optional<pops::PoPs_database> &,
-            const std::optional<resonances::ScatteringRadius> &,
-            const std::optional<resonances::HardSphereRadius> &,
-            const resonances::ResonanceReactions &,
-            const resonances::Ls &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("use_for_self_shielding_only") = std::nullopt,
-         python::arg("po_ps_database") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         python::arg("hard_sphere_radius") = std::nullopt,
-         python::arg("resonance_reactions"),
-         python::arg("ls"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self) { return self.approximation(); },
-         Component::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "use_for_self_shielding_only",
-         [](const Component &self) { return self.useForSelfShieldingOnly().value(); },
-         Component::documentation("use_for_self_shielding_only").data()
-      )
-      .def_property_readonly(
-         "po_ps_database",
-         [](const Component &self) { return self.PoPs_database(); },
-         Component::documentation("po_ps_database").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
-         Component::documentation("scattering_radius").data()
-      )
-      .def_property_readonly(
-         "hard_sphere_radius",
-         [](const Component &self) { return self.hardSphereRadius(); },
-         Component::documentation("hard_sphere_radius").data()
-      )
-      .def_property_readonly(
-         "resonance_reactions",
-         [](const Component &self) { return self.resonanceReactions(); },
-         Component::documentation("resonance_reactions").data()
-      )
-      .def_property_readonly(
-         "ls",
-         [](const Component &self) { return self.Ls(); },
-         Component::documentation("ls").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<bool> &,
+         const std::optional<pops::PoPs_database> &,
+         const std::optional<resonances::ScatteringRadius> &,
+         const std::optional<resonances::HardSphereRadius> &,
+         const resonances::ResonanceReactions &,
+         const resonances::Ls &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("use_for_self_shielding_only") = std::nullopt,
+      py::arg("po_ps_database") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      py::arg("hard_sphere_radius") = std::nullopt,
+      py::arg("resonance_reactions"),
+      py::arg("ls"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set useForSelfShieldingOnly
+   object.def_property(
+      "use_for_self_shielding_only",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.useForSelfShieldingOnly().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.useForSelfShieldingOnly() = value;
+      },
+      cppCLASS::component_t::documentation("use_for_self_shielding_only").data()
+   );
+
+   // get/set PoPs_database
+   object.def_property(
+      "po_ps_database",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.PoPs_database();
+      },
+      [](cppCLASS &self, const std::optional<pops::PoPs_database> &value)
+      {
+         self.PoPs_database() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps_database").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // get/set hardSphereRadius
+   object.def_property(
+      "hard_sphere_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.hardSphereRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::HardSphereRadius> &value)
+      {
+         self.hardSphereRadius() = value;
+      },
+      cppCLASS::component_t::documentation("hard_sphere_radius").data()
+   );
+
+   // get/set resonanceReactions
+   object.def_property(
+      "resonance_reactions",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReactions();
+      },
+      [](cppCLASS &self, const resonances::ResonanceReactions &value)
+      {
+         self.resonanceReactions() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reactions").data()
+   );
+
+   // get/set Ls
+   object.def_property(
+      "ls",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Ls();
+      },
+      [](cppCLASS &self, const resonances::Ls &value)
+      {
+         self.Ls() = value;
+      },
+      cppCLASS::component_t::documentation("ls").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

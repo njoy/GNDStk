@@ -26,12 +26,12 @@ class XYs1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "XYs1d"; }
-   static auto FIELD() { return "XYs1d"; }
+   static auto NODENAME() { return "XYs1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,12 +49,51 @@ class XYs1d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<containers::Axes>>("axes") |
-         --Child<containers::Values>("values")
+         --Child<std::optional<containers::Axes>>
+            ("axes") |
+         --Child<containers::Values>
+            ("values")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "label",
+         "outerDomainValue",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -62,31 +101,44 @@ public:
       static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<int>> index{this};
-   Field<Defaulted<enums::Interpolation>> interpolation{this,defaults.interpolation};
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<double>> outerDomainValue{this};
+   Field<std::optional<int>>
+      index{this};
+   Field<Defaulted<enums::Interpolation>>
+      interpolation{this,defaults.interpolation};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<double>>
+      outerDomainValue{this};
 
    // children
-   Field<std::optional<containers::Axes>> axes{this};
-   Field<containers::Values> values{this};
+   Field<std::optional<containers::Axes>>
+      axes{this};
+   Field<containers::Values>
+      values{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->interpolation, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
-      this->values)
+      this->values \
+   )
 
    // default
    XYs1d() :
@@ -98,12 +150,18 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit XYs1d(
-      const wrapper<std::optional<int>> &index,
-      const wrapper<std::optional<enums::Interpolation>> &interpolation = {},
-      const wrapper<std::optional<std::string>> &label = {},
-      const wrapper<std::optional<double>> &outerDomainValue = {},
-      const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<containers::Values> &values = {}
+      const wrapper<std::optional<int>>
+         &index,
+      const wrapper<std::optional<enums::Interpolation>>
+         &interpolation = {},
+      const wrapper<std::optional<std::string>>
+         &label = {},
+      const wrapper<std::optional<double>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>>
+         &axes = {},
+      const wrapper<containers::Values>
+         &values = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -155,8 +213,37 @@ public:
    // Assignment operators
    // ------------------------
 
-   XYs1d &operator=(const XYs1d &) = default;
-   XYs1d &operator=(XYs1d &&) = default;
+   // copy
+   XYs1d &operator=(const XYs1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         interpolation = other.interpolation;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         values = other.values;
+      }
+      return *this;
+   }
+
+   // move
+   XYs1d &operator=(XYs1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         interpolation = std::move(other.interpolation);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         values = std::move(other.values);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

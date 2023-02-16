@@ -98,13 +98,13 @@ EqualProbableBinsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EqualProbableBinsAssign(ConstHandle2EqualProbableBins This, ConstHandle2ConstEqualProbableBins from);
+EqualProbableBinsAssign(ConstHandle2EqualProbableBins self, ConstHandle2ConstEqualProbableBins from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ EqualProbableBinsDelete(ConstHandle2ConstEqualProbableBins This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EqualProbableBinsRead(ConstHandle2EqualProbableBins This, const char *const filename);
+EqualProbableBinsRead(ConstHandle2EqualProbableBins self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EqualProbableBinsWrite(ConstHandle2ConstEqualProbableBins This, const char *const filename);
+EqualProbableBinsWrite(ConstHandle2ConstEqualProbableBins self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EqualProbableBinsPrint(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsPrint(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EqualProbableBinsPrintXML(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsPrintXML(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ EqualProbableBinsPrintJSON(ConstHandle2ConstEqualProbableBins This);
 
 // +++ Has
 extern_c int
-EqualProbableBinsDateHas(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDateHas(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-EqualProbableBinsDateGet(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDateGet(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Set
 extern_c void
-EqualProbableBinsDateSet(ConstHandle2EqualProbableBins This, const char *const date);
+EqualProbableBinsDateSet(ConstHandle2EqualProbableBins self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ EqualProbableBinsDateSet(ConstHandle2EqualProbableBins This, const char *const d
 
 // +++ Has
 extern_c int
-EqualProbableBinsDerivedFromHas(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDerivedFromHas(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EqualProbableBinsDerivedFromGet(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDerivedFromGet(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Set
 extern_c void
-EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins This, const XMLName derivedFrom);
+EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ EqualProbableBinsDerivedFromSet(ConstHandle2EqualProbableBins This, const XMLNam
 
 // +++ Has
 extern_c int
-EqualProbableBinsLabelHas(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsLabelHas(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EqualProbableBinsLabelGet(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsLabelGet(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Set
 extern_c void
-EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins This, const XMLName label);
+EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ EqualProbableBinsLabelSet(ConstHandle2EqualProbableBins This, const XMLName labe
 
 // +++ Has
 extern_c int
-EqualProbableBinsNumberOfBinsHas(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsNumberOfBinsHas(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-EqualProbableBinsNumberOfBinsGet(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsNumberOfBinsGet(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Set
 extern_c void
-EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins This, const Integer32 numberOfBins);
+EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins self, const Integer32 numberOfBins);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ EqualProbableBinsNumberOfBinsSet(ConstHandle2EqualProbableBins This, const Integ
 
 // +++ Has
 extern_c int
-EqualProbableBinsDocumentationHas(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDocumentationHas(ConstHandle2ConstEqualProbableBins self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-EqualProbableBinsDocumentationGetConst(ConstHandle2ConstEqualProbableBins This);
+EqualProbableBinsDocumentationGetConst(ConstHandle2ConstEqualProbableBins self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-EqualProbableBinsDocumentationGet(ConstHandle2EqualProbableBins This);
+EqualProbableBinsDocumentationGet(ConstHandle2EqualProbableBins self);
 
 // +++ Set
 extern_c void
-EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins This, ConstHandle2ConstDocumentation documentation);
+EqualProbableBinsDocumentationSet(ConstHandle2EqualProbableBins self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

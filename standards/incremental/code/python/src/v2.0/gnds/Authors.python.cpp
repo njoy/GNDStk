@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Authors wrapper
-void wrapAuthors(python::module &module)
+// wrapper for gnds::Authors
+void wrapAuthors(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Authors;
+   using cppCLASS = gnds::Authors;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Authors",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Authors",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<gnds::Author> &
-         >(),
-         python::arg("author"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "author",
-         [](const Component &self) { return self.author(); },
-         Component::documentation("author").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<gnds::Author> &
+      >(),
+      py::arg("author"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set author
+   object.def_property(
+      "author",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.author();
+      },
+      [](cppCLASS &self, const std::vector<gnds::Author> &value)
+      {
+         self.author() = value;
+      },
+      cppCLASS::component_t::documentation("author").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

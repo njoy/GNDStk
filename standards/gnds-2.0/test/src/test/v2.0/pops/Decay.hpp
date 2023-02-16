@@ -25,12 +25,12 @@ class Decay :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Decay"; }
-   static auto FIELD() { return "decay"; }
+   static auto NODENAME() { return "decay"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,11 +46,45 @@ class Decay :
             / Meta<>("complete") |
 
          // children
-         --Child<std::optional<pops::Products>>("products")
+         --Child<std::optional<pops::Products>>
+            ("products")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "mode",
+         "complete",
+         "products"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "mode",
+         "complete",
+         "products"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -58,27 +92,38 @@ public:
       static inline const bool complete = false;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Integer32> index{this};
-   Field<std::optional<enums::DecayType>> mode{this};
-   Field<Defaulted<bool>> complete{this,defaults.complete};
+   Field<Integer32>
+      index{this};
+   Field<std::optional<enums::DecayType>>
+      mode{this};
+   Field<Defaulted<bool>>
+      complete{this,defaults.complete};
 
    // children
-   Field<std::optional<pops::Products>> products{this};
+   Field<std::optional<pops::Products>>
+      products{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->index, \
       this->mode, \
       this->complete, \
-      this->products)
+      this->products \
+   )
 
    // default
    Decay() :
@@ -90,10 +135,14 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Decay(
-      const wrapper<Integer32> &index,
-      const wrapper<std::optional<enums::DecayType>> &mode = {},
-      const wrapper<std::optional<bool>> &complete = {},
-      const wrapper<std::optional<pops::Products>> &products = {}
+      const wrapper<Integer32>
+         &index,
+      const wrapper<std::optional<enums::DecayType>>
+         &mode = {},
+      const wrapper<std::optional<bool>>
+         &complete = {},
+      const wrapper<std::optional<pops::Products>>
+         &products = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
@@ -139,8 +188,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Decay &operator=(const Decay &) = default;
-   Decay &operator=(Decay &&) = default;
+   // copy
+   Decay &operator=(const Decay &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         index = other.index;
+         mode = other.mode;
+         complete = other.complete;
+         products = other.products;
+      }
+      return *this;
+   }
+
+   // move
+   Decay &operator=(Decay &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         index = std::move(other.index);
+         mode = std::move(other.mode);
+         complete = std::move(other.complete);
+         products = std::move(other.products);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

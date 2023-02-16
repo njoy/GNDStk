@@ -26,12 +26,12 @@ class EnergyAngularMC :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "processed"; }
    static auto CLASS() { return "EnergyAngularMC"; }
-   static auto FIELD() { return "energyAngularMC"; }
+   static auto NODENAME() { return "energyAngularMC"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class EnergyAngularMC :
             / Meta<>("productFrame") |
 
          // children
-         --Child<common::Energy>("energy") |
-         --Child<transport::EnergyAngular>("energyAngular")
+         --Child<common::Energy>
+            ("energy") |
+         --Child<transport::EnergyAngular>
+            ("energyAngular")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "productFrame",
+         "energy",
+         "energyAngular"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "energy",
+         "energy_angular"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<XMLName> productFrame{this};
+   Field<XMLName>
+      label{this};
+   Field<XMLName>
+      productFrame{this};
 
    // children
-   Field<common::Energy> energy{this};
-   Field<transport::EnergyAngular> energyAngular{this};
+   Field<common::Energy>
+      energy{this};
+   Field<transport::EnergyAngular>
+      energyAngular{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->productFrame, \
       this->energy, \
-      this->energyAngular)
+      this->energyAngular \
+   )
 
    // default
    EnergyAngularMC() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit EnergyAngularMC(
-      const wrapper<XMLName> &label,
-      const wrapper<XMLName> &productFrame = {},
-      const wrapper<common::Energy> &energy = {},
-      const wrapper<transport::EnergyAngular> &energyAngular = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<XMLName>
+         &productFrame = {},
+      const wrapper<common::Energy>
+         &energy = {},
+      const wrapper<transport::EnergyAngular>
+         &energyAngular = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   EnergyAngularMC &operator=(const EnergyAngularMC &) = default;
-   EnergyAngularMC &operator=(EnergyAngularMC &&) = default;
+   // copy
+   EnergyAngularMC &operator=(const EnergyAngularMC &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         productFrame = other.productFrame;
+         energy = other.energy;
+         energyAngular = other.energyAngular;
+      }
+      return *this;
+   }
+
+   // move
+   EnergyAngularMC &operator=(EnergyAngularMC &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         productFrame = std::move(other.productFrame);
+         energy = std::move(other.energy);
+         energyAngular = std::move(other.energyAngular);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

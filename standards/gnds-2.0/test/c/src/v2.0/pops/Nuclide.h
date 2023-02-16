@@ -110,13 +110,13 @@ NuclideCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclideAssign(ConstHandle2Nuclide This, ConstHandle2ConstNuclide from);
+NuclideAssign(ConstHandle2Nuclide self, ConstHandle2ConstNuclide from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclideDelete(ConstHandle2ConstNuclide This);
+NuclideDelete(ConstHandle2ConstNuclide self);
 
 
 // -----------------------------------------------------------------------------
@@ -129,25 +129,25 @@ NuclideDelete(ConstHandle2ConstNuclide This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclideRead(ConstHandle2Nuclide This, const char *const filename);
+NuclideRead(ConstHandle2Nuclide self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclideWrite(ConstHandle2ConstNuclide This, const char *const filename);
+NuclideWrite(ConstHandle2ConstNuclide self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclidePrint(ConstHandle2ConstNuclide This);
+NuclidePrint(ConstHandle2ConstNuclide self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclidePrintXML(ConstHandle2ConstNuclide This);
+NuclidePrintXML(ConstHandle2ConstNuclide self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclidePrintJSON(ConstHandle2ConstNuclide This);
+NuclidePrintJSON(ConstHandle2ConstNuclide self);
 
 
 // -----------------------------------------------------------------------------
@@ -156,16 +156,16 @@ NuclidePrintJSON(ConstHandle2ConstNuclide This);
 
 // +++ Has
 extern_c int
-NuclideIdHas(ConstHandle2ConstNuclide This);
+NuclideIdHas(ConstHandle2ConstNuclide self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-NuclideIdGet(ConstHandle2ConstNuclide This);
+NuclideIdGet(ConstHandle2ConstNuclide self);
 
 // +++ Set
 extern_c void
-NuclideIdSet(ConstHandle2Nuclide This, const XMLName id);
+NuclideIdSet(ConstHandle2Nuclide self, const XMLName id);
 
 
 // -----------------------------------------------------------------------------
@@ -174,19 +174,19 @@ NuclideIdSet(ConstHandle2Nuclide This, const XMLName id);
 
 // +++ Has
 extern_c int
-NuclideChargeHas(ConstHandle2ConstNuclide This);
+NuclideChargeHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstCharge
-NuclideChargeGetConst(ConstHandle2ConstNuclide This);
+NuclideChargeGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2Charge
-NuclideChargeGet(ConstHandle2Nuclide This);
+NuclideChargeGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideChargeSet(ConstHandle2Nuclide This, ConstHandle2ConstCharge charge);
+NuclideChargeSet(ConstHandle2Nuclide self, ConstHandle2ConstCharge charge);
 
 
 // -----------------------------------------------------------------------------
@@ -195,19 +195,19 @@ NuclideChargeSet(ConstHandle2Nuclide This, ConstHandle2ConstCharge charge);
 
 // +++ Has
 extern_c int
-NuclideMassHas(ConstHandle2ConstNuclide This);
+NuclideMassHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstMass
-NuclideMassGetConst(ConstHandle2ConstNuclide This);
+NuclideMassGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2Mass
-NuclideMassGet(ConstHandle2Nuclide This);
+NuclideMassGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideMassSet(ConstHandle2Nuclide This, ConstHandle2ConstMass mass);
+NuclideMassSet(ConstHandle2Nuclide self, ConstHandle2ConstMass mass);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ NuclideMassSet(ConstHandle2Nuclide This, ConstHandle2ConstMass mass);
 
 // +++ Has
 extern_c int
-NuclideSpinHas(ConstHandle2ConstNuclide This);
+NuclideSpinHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstSpin
-NuclideSpinGetConst(ConstHandle2ConstNuclide This);
+NuclideSpinGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2Spin
-NuclideSpinGet(ConstHandle2Nuclide This);
+NuclideSpinGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideSpinSet(ConstHandle2Nuclide This, ConstHandle2ConstSpin spin);
+NuclideSpinSet(ConstHandle2Nuclide self, ConstHandle2ConstSpin spin);
 
 
 // -----------------------------------------------------------------------------
@@ -237,19 +237,19 @@ NuclideSpinSet(ConstHandle2Nuclide This, ConstHandle2ConstSpin spin);
 
 // +++ Has
 extern_c int
-NuclideParityHas(ConstHandle2ConstNuclide This);
+NuclideParityHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstParity
-NuclideParityGetConst(ConstHandle2ConstNuclide This);
+NuclideParityGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2Parity
-NuclideParityGet(ConstHandle2Nuclide This);
+NuclideParityGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideParitySet(ConstHandle2Nuclide This, ConstHandle2ConstParity parity);
+NuclideParitySet(ConstHandle2Nuclide self, ConstHandle2ConstParity parity);
 
 
 // -----------------------------------------------------------------------------
@@ -258,19 +258,19 @@ NuclideParitySet(ConstHandle2Nuclide This, ConstHandle2ConstParity parity);
 
 // +++ Has
 extern_c int
-NuclideNucleusHas(ConstHandle2ConstNuclide This);
+NuclideNucleusHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstNucleus
-NuclideNucleusGetConst(ConstHandle2ConstNuclide This);
+NuclideNucleusGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2Nucleus
-NuclideNucleusGet(ConstHandle2Nuclide This);
+NuclideNucleusGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideNucleusSet(ConstHandle2Nuclide This, ConstHandle2ConstNucleus nucleus);
+NuclideNucleusSet(ConstHandle2Nuclide self, ConstHandle2ConstNucleus nucleus);
 
 
 // -----------------------------------------------------------------------------
@@ -279,19 +279,19 @@ NuclideNucleusSet(ConstHandle2Nuclide This, ConstHandle2ConstNucleus nucleus);
 
 // +++ Has
 extern_c int
-NuclideDecayDataHas(ConstHandle2ConstNuclide This);
+NuclideDecayDataHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstDecayData
-NuclideDecayDataGetConst(ConstHandle2ConstNuclide This);
+NuclideDecayDataGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2DecayData
-NuclideDecayDataGet(ConstHandle2Nuclide This);
+NuclideDecayDataGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideDecayDataSet(ConstHandle2Nuclide This, ConstHandle2ConstDecayData decayData);
+NuclideDecayDataSet(ConstHandle2Nuclide self, ConstHandle2ConstDecayData decayData);
 
 
 // -----------------------------------------------------------------------------
@@ -300,19 +300,19 @@ NuclideDecayDataSet(ConstHandle2Nuclide This, ConstHandle2ConstDecayData decayDa
 
 // +++ Has
 extern_c int
-NuclideFissionFragmentDataHas(ConstHandle2ConstNuclide This);
+NuclideFissionFragmentDataHas(ConstHandle2ConstNuclide self);
 
 // --- Get, const
 extern_c Handle2ConstFissionFragmentData
-NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide This);
+NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide self);
 
 // +++ Get, non-const
 extern_c Handle2FissionFragmentData
-NuclideFissionFragmentDataGet(ConstHandle2Nuclide This);
+NuclideFissionFragmentDataGet(ConstHandle2Nuclide self);
 
 // +++ Set
 extern_c void
-NuclideFissionFragmentDataSet(ConstHandle2Nuclide This, ConstHandle2ConstFissionFragmentData fissionFragmentData);
+NuclideFissionFragmentDataSet(ConstHandle2Nuclide self, ConstHandle2ConstFissionFragmentData fissionFragmentData);
 
 
 // -----------------------------------------------------------------------------

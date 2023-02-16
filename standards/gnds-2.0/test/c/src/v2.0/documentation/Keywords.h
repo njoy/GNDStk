@@ -90,13 +90,13 @@ KeywordsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-KeywordsAssign(ConstHandle2Keywords This, ConstHandle2ConstKeywords from);
+KeywordsAssign(ConstHandle2Keywords self, ConstHandle2ConstKeywords from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-KeywordsDelete(ConstHandle2ConstKeywords This);
+KeywordsDelete(ConstHandle2ConstKeywords self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ KeywordsDelete(ConstHandle2ConstKeywords This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-KeywordsRead(ConstHandle2Keywords This, const char *const filename);
+KeywordsRead(ConstHandle2Keywords self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-KeywordsWrite(ConstHandle2ConstKeywords This, const char *const filename);
+KeywordsWrite(ConstHandle2ConstKeywords self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-KeywordsPrint(ConstHandle2ConstKeywords This);
+KeywordsPrint(ConstHandle2ConstKeywords self);
 
 // +++ Print to standard output, as XML
 extern_c int
-KeywordsPrintXML(ConstHandle2ConstKeywords This);
+KeywordsPrintXML(ConstHandle2ConstKeywords self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-KeywordsPrintJSON(ConstHandle2ConstKeywords This);
+KeywordsPrintJSON(ConstHandle2ConstKeywords self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ KeywordsPrintJSON(ConstHandle2ConstKeywords This);
 
 // +++ Has
 extern_c int
-KeywordsKeywordHas(ConstHandle2ConstKeywords This);
+KeywordsKeywordHas(ConstHandle2ConstKeywords self);
 
 // +++ Clear
 extern_c void
-KeywordsKeywordClear(ConstHandle2Keywords This);
+KeywordsKeywordClear(ConstHandle2Keywords self);
 
 // +++ Size
 extern_c size_t
-KeywordsKeywordSize(ConstHandle2ConstKeywords This);
+KeywordsKeywordSize(ConstHandle2ConstKeywords self);
 
 // +++ Add
 extern_c void
-KeywordsKeywordAdd(ConstHandle2Keywords This, ConstHandle2ConstKeyword keyword);
+KeywordsKeywordAdd(ConstHandle2Keywords self, ConstHandle2ConstKeyword keyword);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstKeyword
-KeywordsKeywordGetConst(ConstHandle2ConstKeywords This, const size_t index_);
+KeywordsKeywordGetConst(ConstHandle2ConstKeywords self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Keyword
-KeywordsKeywordGet(ConstHandle2Keywords This, const size_t index_);
+KeywordsKeywordGet(ConstHandle2Keywords self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 KeywordsKeywordSet(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const size_t index_,
    ConstHandle2ConstKeyword keyword
 );
@@ -169,28 +169,28 @@ KeywordsKeywordSet(
 // +++ Has, by encoding
 extern_c int
 KeywordsKeywordHasByEncoding(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName encoding
 );
 
 // --- Get, by encoding, const
 extern_c Handle2ConstKeyword
 KeywordsKeywordGetByEncodingConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName encoding
 );
 
 // +++ Get, by encoding, non-const
 extern_c Handle2Keyword
 KeywordsKeywordGetByEncoding(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName encoding
 );
 
 // +++ Set, by encoding
 extern_c void
 KeywordsKeywordSetByEncoding(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName encoding,
    ConstHandle2ConstKeyword keyword
 );
@@ -198,28 +198,28 @@ KeywordsKeywordSetByEncoding(
 // +++ Has, by markup
 extern_c int
 KeywordsKeywordHasByMarkup(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const char *const markup
 );
 
 // --- Get, by markup, const
 extern_c Handle2ConstKeyword
 KeywordsKeywordGetByMarkupConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const char *const markup
 );
 
 // +++ Get, by markup, non-const
 extern_c Handle2Keyword
 KeywordsKeywordGetByMarkup(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const char *const markup
 );
 
 // +++ Set, by markup
 extern_c void
 KeywordsKeywordSetByMarkup(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const char *const markup,
    ConstHandle2ConstKeyword keyword
 );
@@ -227,28 +227,28 @@ KeywordsKeywordSetByMarkup(
 // +++ Has, by label
 extern_c int
 KeywordsKeywordHasByLabel(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstKeyword
 KeywordsKeywordGetByLabelConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Keyword
 KeywordsKeywordGetByLabel(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 KeywordsKeywordSetByLabel(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName label,
    ConstHandle2ConstKeyword keyword
 );
@@ -256,28 +256,28 @@ KeywordsKeywordSetByLabel(
 // +++ Has, by type
 extern_c int
 KeywordsKeywordHasByType(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName type
 );
 
 // --- Get, by type, const
 extern_c Handle2ConstKeyword
 KeywordsKeywordGetByTypeConst(
-   ConstHandle2ConstKeywords This,
+   ConstHandle2ConstKeywords self,
    const XMLName type
 );
 
 // +++ Get, by type, non-const
 extern_c Handle2Keyword
 KeywordsKeywordGetByType(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName type
 );
 
 // +++ Set, by type
 extern_c void
 KeywordsKeywordSetByType(
-   ConstHandle2Keywords This,
+   ConstHandle2Keywords self,
    const XMLName type,
    ConstHandle2ConstKeyword keyword
 );

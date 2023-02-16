@@ -90,13 +90,13 @@ EnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyAssign(ConstHandle2Energy This, ConstHandle2ConstEnergy from);
+EnergyAssign(ConstHandle2Energy self, ConstHandle2ConstEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyDelete(ConstHandle2ConstEnergy This);
+EnergyDelete(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ EnergyDelete(ConstHandle2ConstEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyRead(ConstHandle2Energy This, const char *const filename);
+EnergyRead(ConstHandle2Energy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyWrite(ConstHandle2ConstEnergy This, const char *const filename);
+EnergyWrite(ConstHandle2ConstEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyPrint(ConstHandle2ConstEnergy This);
+EnergyPrint(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyPrintXML(ConstHandle2ConstEnergy This);
+EnergyPrintXML(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyPrintJSON(ConstHandle2ConstEnergy This);
+EnergyPrintJSON(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ EnergyPrintJSON(ConstHandle2ConstEnergy This);
 
 // +++ Has
 extern_c int
-EnergyDoubleHas(ConstHandle2ConstEnergy This);
+EnergyDoubleHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDouble
-EnergyDoubleGetConst(ConstHandle2ConstEnergy This);
+EnergyDoubleGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Double
-EnergyDoubleGet(ConstHandle2Energy This);
+EnergyDoubleGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyDoubleSet(ConstHandle2Energy This, ConstHandle2ConstDouble Double);
+EnergyDoubleSet(ConstHandle2Energy self, ConstHandle2ConstDouble Double);
 
 
 // -----------------------------------------------------------------------------

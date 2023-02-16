@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// CodeRepo wrapper
-void wrapCodeRepo(python::module &module)
+// wrapper for documentation::CodeRepo
+void wrapCodeRepo(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::CodeRepo;
+   using cppCLASS = documentation::CodeRepo;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CodeRepo",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CodeRepo",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const XMLName &,
-            const XMLName &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("revision_system"),
-         python::arg("href"),
-         python::arg("revision_id"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "revision_system",
-         [](const Component &self) { return self.revisionSystem(); },
-         Component::documentation("revision_system").data()
-      )
-      .def_property_readonly(
-         "href",
-         [](const Component &self) { return self.href(); },
-         Component::documentation("href").data()
-      )
-      .def_property_readonly(
-         "revision_id",
-         [](const Component &self) { return self.revisionID(); },
-         Component::documentation("revision_id").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const XMLName &,
+         const XMLName &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("revision_system"),
+      py::arg("href"),
+      py::arg("revision_id"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set revisionSystem
+   object.def_property(
+      "revision_system",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.revisionSystem();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.revisionSystem() = value;
+      },
+      cppCLASS::component_t::documentation("revision_system").data()
+   );
+
+   // get/set href
+   object.def_property(
+      "href",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.href();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.href() = value;
+      },
+      cppCLASS::component_t::documentation("href").data()
+   );
+
+   // get/set revisionID
+   object.def_property(
+      "revision_id",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.revisionID();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.revisionID() = value;
+      },
+      cppCLASS::component_t::documentation("revision_id").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

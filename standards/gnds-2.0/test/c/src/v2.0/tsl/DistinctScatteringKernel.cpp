@@ -69,20 +69,20 @@ DistinctScatteringKernelCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DistinctScatteringKernelAssign(ConstHandle2DistinctScatteringKernel This, ConstHandle2ConstDistinctScatteringKernel from)
+DistinctScatteringKernelAssign(ConstHandle2DistinctScatteringKernel self, ConstHandle2ConstDistinctScatteringKernel from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ DistinctScatteringKernelDelete(ConstHandle2ConstDistinctScatteringKernel This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DistinctScatteringKernelRead(ConstHandle2DistinctScatteringKernel This, const char *const filename)
+DistinctScatteringKernelRead(ConstHandle2DistinctScatteringKernel self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DistinctScatteringKernelWrite(ConstHandle2ConstDistinctScatteringKernel This, const char *const filename)
+DistinctScatteringKernelWrite(ConstHandle2ConstDistinctScatteringKernel self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DistinctScatteringKernelPrint(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelPrint(ConstHandle2ConstDistinctScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DistinctScatteringKernelPrintXML(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelPrintXML(ConstHandle2ConstDistinctScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ DistinctScatteringKernelPrintJSON(ConstHandle2ConstDistinctScatteringKernel This
 
 // Has
 int
-DistinctScatteringKernelGridded3dHas(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelGridded3dHas(ConstHandle2ConstDistinctScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded3dHas", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dHas", self, extract::gridded3d);
 }
 
 // Get, const
 Handle2ConstGridded3d
-DistinctScatteringKernelGridded3dGetConst(ConstHandle2ConstDistinctScatteringKernel This)
+DistinctScatteringKernelGridded3dGetConst(ConstHandle2ConstDistinctScatteringKernel self)
 {
    return detail::getField<CPP,Handle2ConstGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGetConst", self, extract::gridded3d);
 }
 
 // Get, non-const
 Handle2Gridded3d
-DistinctScatteringKernelGridded3dGet(ConstHandle2DistinctScatteringKernel This)
+DistinctScatteringKernelGridded3dGet(ConstHandle2DistinctScatteringKernel self)
 {
    return detail::getField<CPP,Handle2Gridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dGet", This, extract::gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dGet", self, extract::gridded3d);
 }
 
 // Set
 void
-DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel This, ConstHandle2ConstGridded3d gridded3d)
+DistinctScatteringKernelGridded3dSet(ConstHandle2DistinctScatteringKernel self, ConstHandle2ConstGridded3d gridded3d)
 {
    detail::setField<CPP,CPPGridded3d>
-      (CLASSNAME, CLASSNAME+"Gridded3dSet", This, extract::gridded3d, gridded3d);
+      (CLASSNAME, CLASSNAME+"Gridded3dSet", self, extract::gridded3d, gridded3d);
 }
 
 

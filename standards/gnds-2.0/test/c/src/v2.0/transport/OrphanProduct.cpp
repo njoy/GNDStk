@@ -85,20 +85,20 @@ OrphanProductCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-OrphanProductAssign(ConstHandle2OrphanProduct This, ConstHandle2ConstOrphanProduct from)
+OrphanProductAssign(ConstHandle2OrphanProduct self, ConstHandle2ConstOrphanProduct from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-OrphanProductDelete(ConstHandle2ConstOrphanProduct This)
+OrphanProductDelete(ConstHandle2ConstOrphanProduct self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -112,44 +112,44 @@ OrphanProductDelete(ConstHandle2ConstOrphanProduct This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-OrphanProductRead(ConstHandle2OrphanProduct This, const char *const filename)
+OrphanProductRead(ConstHandle2OrphanProduct self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-OrphanProductWrite(ConstHandle2ConstOrphanProduct This, const char *const filename)
+OrphanProductWrite(ConstHandle2ConstOrphanProduct self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-OrphanProductPrint(ConstHandle2ConstOrphanProduct This)
+OrphanProductPrint(ConstHandle2ConstOrphanProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-OrphanProductPrintXML(ConstHandle2ConstOrphanProduct This)
+OrphanProductPrintXML(ConstHandle2ConstOrphanProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct This)
+OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -159,27 +159,27 @@ OrphanProductPrintJSON(ConstHandle2ConstOrphanProduct This)
 
 // Has
 int
-OrphanProductENDFMTHas(ConstHandle2ConstOrphanProduct This)
+OrphanProductENDFMTHas(ConstHandle2ConstOrphanProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTHas", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTHas", self, extract::ENDF_MT);
 }
 
 // Get
 // Returns by value
 Integer32
-OrphanProductENDFMTGet(ConstHandle2ConstOrphanProduct This)
+OrphanProductENDFMTGet(ConstHandle2ConstOrphanProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTGet", This, extract::ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTGet", self, extract::ENDF_MT);
 }
 
 // Set
 void
-OrphanProductENDFMTSet(ConstHandle2OrphanProduct This, const Integer32 ENDF_MT)
+OrphanProductENDFMTSet(ConstHandle2OrphanProduct self, const Integer32 ENDF_MT)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ENDFMTSet", This, extract::ENDF_MT, ENDF_MT);
+      (CLASSNAME, CLASSNAME+"ENDFMTSet", self, extract::ENDF_MT, ENDF_MT);
 }
 
 
@@ -189,27 +189,27 @@ OrphanProductENDFMTSet(ConstHandle2OrphanProduct This, const Integer32 ENDF_MT)
 
 // Has
 int
-OrphanProductLabelHas(ConstHandle2ConstOrphanProduct This)
+OrphanProductLabelHas(ConstHandle2ConstOrphanProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-OrphanProductLabelGet(ConstHandle2ConstOrphanProduct This)
+OrphanProductLabelGet(ConstHandle2ConstOrphanProduct self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-OrphanProductLabelSet(ConstHandle2OrphanProduct This, const XMLName label)
+OrphanProductLabelSet(ConstHandle2OrphanProduct self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -219,34 +219,34 @@ OrphanProductLabelSet(ConstHandle2OrphanProduct This, const XMLName label)
 
 // Has
 int
-OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct This)
+OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionHas", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionHas", self, extract::crossSection);
 }
 
 // Get, const
 Handle2ConstCrossSection
-OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct This)
+OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self)
 {
    return detail::getField<CPP,Handle2ConstCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
 // Get, non-const
 Handle2CrossSection
-OrphanProductCrossSectionGet(ConstHandle2OrphanProduct This)
+OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self)
 {
    return detail::getField<CPP,Handle2CrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionGet", This, extract::crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionGet", self, extract::crossSection);
 }
 
 // Set
 void
-OrphanProductCrossSectionSet(ConstHandle2OrphanProduct This, ConstHandle2ConstCrossSection crossSection)
+OrphanProductCrossSectionSet(ConstHandle2OrphanProduct self, ConstHandle2ConstCrossSection crossSection)
 {
    detail::setField<CPP,CPPCrossSection>
-      (CLASSNAME, CLASSNAME+"CrossSectionSet", This, extract::crossSection, crossSection);
+      (CLASSNAME, CLASSNAME+"CrossSectionSet", self, extract::crossSection, crossSection);
 }
 
 
@@ -256,34 +256,34 @@ OrphanProductCrossSectionSet(ConstHandle2OrphanProduct This, ConstHandle2ConstCr
 
 // Has
 int
-OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct This)
+OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OutputChannelHas", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelHas", self, extract::outputChannel);
 }
 
 // Get, const
 Handle2ConstOutputChannel
-OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct This)
+OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self)
 {
    return detail::getField<CPP,Handle2ConstOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
 // Get, non-const
 Handle2OutputChannel
-OrphanProductOutputChannelGet(ConstHandle2OrphanProduct This)
+OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self)
 {
    return detail::getField<CPP,Handle2OutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelGet", This, extract::outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelGet", self, extract::outputChannel);
 }
 
 // Set
 void
-OrphanProductOutputChannelSet(ConstHandle2OrphanProduct This, ConstHandle2ConstOutputChannel outputChannel)
+OrphanProductOutputChannelSet(ConstHandle2OrphanProduct self, ConstHandle2ConstOutputChannel outputChannel)
 {
    detail::setField<CPP,CPPOutputChannel>
-      (CLASSNAME, CLASSNAME+"OutputChannelSet", This, extract::outputChannel, outputChannel);
+      (CLASSNAME, CLASSNAME+"OutputChannelSet", self, extract::outputChannel, outputChannel);
 }
 
 

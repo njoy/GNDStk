@@ -79,20 +79,20 @@ EnergyAngularCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-EnergyAngularAssign(ConstHandle2EnergyAngular This, ConstHandle2ConstEnergyAngular from)
+EnergyAngularAssign(ConstHandle2EnergyAngular self, ConstHandle2ConstEnergyAngular from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-EnergyAngularDelete(ConstHandle2ConstEnergyAngular This)
+EnergyAngularDelete(ConstHandle2ConstEnergyAngular self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ EnergyAngularDelete(ConstHandle2ConstEnergyAngular This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-EnergyAngularRead(ConstHandle2EnergyAngular This, const char *const filename)
+EnergyAngularRead(ConstHandle2EnergyAngular self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-EnergyAngularWrite(ConstHandle2ConstEnergyAngular This, const char *const filename)
+EnergyAngularWrite(ConstHandle2ConstEnergyAngular self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-EnergyAngularPrint(ConstHandle2ConstEnergyAngular This)
+EnergyAngularPrint(ConstHandle2ConstEnergyAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-EnergyAngularPrintXML(ConstHandle2ConstEnergyAngular This)
+EnergyAngularPrintXML(ConstHandle2ConstEnergyAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular This)
+EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ EnergyAngularPrintJSON(ConstHandle2ConstEnergyAngular This)
 
 // Has
 int
-EnergyAngularLabelHas(ConstHandle2ConstEnergyAngular This)
+EnergyAngularLabelHas(ConstHandle2ConstEnergyAngular self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-EnergyAngularLabelGet(ConstHandle2ConstEnergyAngular This)
+EnergyAngularLabelGet(ConstHandle2ConstEnergyAngular self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-EnergyAngularLabelSet(ConstHandle2EnergyAngular This, const XMLName label)
+EnergyAngularLabelSet(ConstHandle2EnergyAngular self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -183,27 +183,27 @@ EnergyAngularLabelSet(ConstHandle2EnergyAngular This, const XMLName label)
 
 // Has
 int
-EnergyAngularProductFrameHas(ConstHandle2ConstEnergyAngular This)
+EnergyAngularProductFrameHas(ConstHandle2ConstEnergyAngular self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 XMLName
-EnergyAngularProductFrameGet(ConstHandle2ConstEnergyAngular This)
+EnergyAngularProductFrameGet(ConstHandle2ConstEnergyAngular self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-EnergyAngularProductFrameSet(ConstHandle2EnergyAngular This, const XMLName productFrame)
+EnergyAngularProductFrameSet(ConstHandle2EnergyAngular self, const XMLName productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -213,34 +213,34 @@ EnergyAngularProductFrameSet(ConstHandle2EnergyAngular This, const XMLName produ
 
 // Has
 int
-EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular This)
+EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs3dHas", This, extract::XYs3d);
+      (CLASSNAME, CLASSNAME+"XYs3dHas", self, extract::XYs3d);
 }
 
 // Get, const
 Handle2ConstXYs3d
-EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular This)
+EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular self)
 {
    return detail::getField<CPP,Handle2ConstXYs3d>
-      (CLASSNAME, CLASSNAME+"XYs3dGetConst", This, extract::XYs3d);
+      (CLASSNAME, CLASSNAME+"XYs3dGetConst", self, extract::XYs3d);
 }
 
 // Get, non-const
 Handle2XYs3d
-EnergyAngularXYs3dGet(ConstHandle2EnergyAngular This)
+EnergyAngularXYs3dGet(ConstHandle2EnergyAngular self)
 {
    return detail::getField<CPP,Handle2XYs3d>
-      (CLASSNAME, CLASSNAME+"XYs3dGet", This, extract::XYs3d);
+      (CLASSNAME, CLASSNAME+"XYs3dGet", self, extract::XYs3d);
 }
 
 // Set
 void
-EnergyAngularXYs3dSet(ConstHandle2EnergyAngular This, ConstHandle2ConstXYs3d XYs3d)
+EnergyAngularXYs3dSet(ConstHandle2EnergyAngular self, ConstHandle2ConstXYs3d XYs3d)
 {
    detail::setField<CPP,CPPXYs3d>
-      (CLASSNAME, CLASSNAME+"XYs3dSet", This, extract::XYs3d, XYs3d);
+      (CLASSNAME, CLASSNAME+"XYs3dSet", self, extract::XYs3d, XYs3d);
 }
 
 

@@ -75,20 +75,20 @@ NuclearTermCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-NuclearTermAssign(ConstHandle2NuclearTerm This, ConstHandle2ConstNuclearTerm from)
+NuclearTermAssign(ConstHandle2NuclearTerm self, ConstHandle2ConstNuclearTerm from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-NuclearTermDelete(ConstHandle2ConstNuclearTerm This)
+NuclearTermDelete(ConstHandle2ConstNuclearTerm self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ NuclearTermDelete(ConstHandle2ConstNuclearTerm This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-NuclearTermRead(ConstHandle2NuclearTerm This, const char *const filename)
+NuclearTermRead(ConstHandle2NuclearTerm self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-NuclearTermWrite(ConstHandle2ConstNuclearTerm This, const char *const filename)
+NuclearTermWrite(ConstHandle2ConstNuclearTerm self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-NuclearTermPrint(ConstHandle2ConstNuclearTerm This)
+NuclearTermPrint(ConstHandle2ConstNuclearTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-NuclearTermPrintXML(ConstHandle2ConstNuclearTerm This)
+NuclearTermPrintXML(ConstHandle2ConstNuclearTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm This)
+NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ NuclearTermPrintJSON(ConstHandle2ConstNuclearTerm This)
 
 // Has
 int
-NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm This)
+NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs2dHas", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dHas", self, extract::XYs2d);
 }
 
 // Get, const
 Handle2ConstXYs2d
-NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm This)
+NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self)
 {
    return detail::getField<CPP,Handle2ConstXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGetConst", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
 // Get, non-const
 Handle2XYs2d
-NuclearTermXYs2dGet(ConstHandle2NuclearTerm This)
+NuclearTermXYs2dGet(ConstHandle2NuclearTerm self)
 {
    return detail::getField<CPP,Handle2XYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dGet", This, extract::XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dGet", self, extract::XYs2d);
 }
 
 // Set
 void
-NuclearTermXYs2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstXYs2d XYs2d)
+NuclearTermXYs2dSet(ConstHandle2NuclearTerm self, ConstHandle2ConstXYs2d XYs2d)
 {
    detail::setField<CPP,CPPXYs2d>
-      (CLASSNAME, CLASSNAME+"XYs2dSet", This, extract::XYs2d, XYs2d);
+      (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, XYs2d);
 }
 
 
@@ -186,34 +186,34 @@ NuclearTermXYs2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstXYs2d XYs2d)
 
 // Has
 int
-NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm This)
+NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions2dHas", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dHas", self, extract::regions2d);
 }
 
 // Get, const
 Handle2ConstRegions2d
-NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm This)
+NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self)
 {
    return detail::getField<CPP,Handle2ConstRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGetConst", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
 // Get, non-const
 Handle2Regions2d
-NuclearTermRegions2dGet(ConstHandle2NuclearTerm This)
+NuclearTermRegions2dGet(ConstHandle2NuclearTerm self)
 {
    return detail::getField<CPP,Handle2Regions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dGet", This, extract::regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dGet", self, extract::regions2d);
 }
 
 // Set
 void
-NuclearTermRegions2dSet(ConstHandle2NuclearTerm This, ConstHandle2ConstRegions2d regions2d)
+NuclearTermRegions2dSet(ConstHandle2NuclearTerm self, ConstHandle2ConstRegions2d regions2d)
 {
    detail::setField<CPP,CPPRegions2d>
-      (CLASSNAME, CLASSNAME+"Regions2dSet", This, extract::regions2d, regions2d);
+      (CLASSNAME, CLASSNAME+"Regions2dSet", self, extract::regions2d, regions2d);
 }
 
 

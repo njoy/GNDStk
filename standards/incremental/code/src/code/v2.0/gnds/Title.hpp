@@ -25,12 +25,12 @@ class Title :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "Title"; }
-   static auto FIELD() { return "title"; }
+   static auto NODENAME() { return "title"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,9 +39,38 @@ class Title :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
    using BlockData::operator=;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
@@ -50,8 +79,11 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
-      this->comment)
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
+      this->comment \
+   )
 
    // default
    Title() :
@@ -69,7 +101,7 @@ public:
 
    // from vector
    template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
-   Title(const std::vector<T> &vector) :
+   explicit Title(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(vector);
@@ -95,8 +127,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   Title &operator=(const Title &) = default;
-   Title &operator=(Title &&) = default;
+   // copy
+   Title &operator=(const Title &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   Title &operator=(Title &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

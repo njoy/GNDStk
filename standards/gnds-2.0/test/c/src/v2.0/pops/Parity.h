@@ -102,13 +102,13 @@ ParityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ParityAssign(ConstHandle2Parity This, ConstHandle2ConstParity from);
+ParityAssign(ConstHandle2Parity self, ConstHandle2ConstParity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ParityDelete(ConstHandle2ConstParity This);
+ParityDelete(ConstHandle2ConstParity self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ ParityDelete(ConstHandle2ConstParity This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ParityRead(ConstHandle2Parity This, const char *const filename);
+ParityRead(ConstHandle2Parity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ParityWrite(ConstHandle2ConstParity This, const char *const filename);
+ParityWrite(ConstHandle2ConstParity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ParityPrint(ConstHandle2ConstParity This);
+ParityPrint(ConstHandle2ConstParity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ParityPrintXML(ConstHandle2ConstParity This);
+ParityPrintXML(ConstHandle2ConstParity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ParityPrintJSON(ConstHandle2ConstParity This);
+ParityPrintJSON(ConstHandle2ConstParity self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ ParityPrintJSON(ConstHandle2ConstParity This);
 
 // +++ Has
 extern_c int
-ParityLabelHas(ConstHandle2ConstParity This);
+ParityLabelHas(ConstHandle2ConstParity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ParityLabelGet(ConstHandle2ConstParity This);
+ParityLabelGet(ConstHandle2ConstParity self);
 
 // +++ Set
 extern_c void
-ParityLabelSet(ConstHandle2Parity This, const XMLName label);
+ParityLabelSet(ConstHandle2Parity self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ ParityLabelSet(ConstHandle2Parity This, const XMLName label);
 
 // +++ Has
 extern_c int
-ParityUnitHas(ConstHandle2ConstParity This);
+ParityUnitHas(ConstHandle2ConstParity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ParityUnitGet(ConstHandle2ConstParity This);
+ParityUnitGet(ConstHandle2ConstParity self);
 
 // +++ Set
 extern_c void
-ParityUnitSet(ConstHandle2Parity This, const XMLName unit);
+ParityUnitSet(ConstHandle2Parity self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ ParityUnitSet(ConstHandle2Parity This, const XMLName unit);
 
 // +++ Has
 extern_c int
-ParityValueHas(ConstHandle2ConstParity This);
+ParityValueHas(ConstHandle2ConstParity self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ParityValueGet(ConstHandle2ConstParity This);
+ParityValueGet(ConstHandle2ConstParity self);
 
 // +++ Set
 extern_c void
-ParityValueSet(ConstHandle2Parity This, const XMLName value);
+ParityValueSet(ConstHandle2Parity self, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ ParityValueSet(ConstHandle2Parity This, const XMLName value);
 
 // +++ Has
 extern_c int
-ParityDocumentationHas(ConstHandle2ConstParity This);
+ParityDocumentationHas(ConstHandle2ConstParity self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-ParityDocumentationGetConst(ConstHandle2ConstParity This);
+ParityDocumentationGetConst(ConstHandle2ConstParity self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-ParityDocumentationGet(ConstHandle2Parity This);
+ParityDocumentationGet(ConstHandle2Parity self);
 
 // +++ Set
 extern_c void
-ParityDocumentationSet(ConstHandle2Parity This, ConstHandle2ConstDocumentation documentation);
+ParityDocumentationSet(ConstHandle2Parity self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ ParityDocumentationSet(ConstHandle2Parity This, ConstHandle2ConstDocumentation d
 
 // +++ Has
 extern_c int
-ParityUncertaintyHas(ConstHandle2ConstParity This);
+ParityUncertaintyHas(ConstHandle2ConstParity self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-ParityUncertaintyGetConst(ConstHandle2ConstParity This);
+ParityUncertaintyGetConst(ConstHandle2ConstParity self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-ParityUncertaintyGet(ConstHandle2Parity This);
+ParityUncertaintyGet(ConstHandle2Parity self);
 
 // +++ Set
 extern_c void
-ParityUncertaintySet(ConstHandle2Parity This, ConstHandle2ConstUncertainty uncertainty);
+ParityUncertaintySet(ConstHandle2Parity self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -244,32 +244,32 @@ ParityUncertaintySet(ConstHandle2Parity This, ConstHandle2ConstUncertainty uncer
 
 // +++ Has
 extern_c int
-ParityIntegerHas(ConstHandle2ConstParity This);
+ParityIntegerHas(ConstHandle2ConstParity self);
 
 // +++ Clear
 extern_c void
-ParityIntegerClear(ConstHandle2Parity This);
+ParityIntegerClear(ConstHandle2Parity self);
 
 // +++ Size
 extern_c size_t
-ParityIntegerSize(ConstHandle2ConstParity This);
+ParityIntegerSize(ConstHandle2ConstParity self);
 
 // +++ Add
 extern_c void
-ParityIntegerAdd(ConstHandle2Parity This, ConstHandle2ConstInteger integer);
+ParityIntegerAdd(ConstHandle2Parity self, ConstHandle2ConstInteger integer);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstInteger
-ParityIntegerGetConst(ConstHandle2ConstParity This, const size_t index_);
+ParityIntegerGetConst(ConstHandle2ConstParity self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Integer
-ParityIntegerGet(ConstHandle2Parity This, const size_t index_);
+ParityIntegerGet(ConstHandle2Parity self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ParityIntegerSet(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const size_t index_,
    ConstHandle2ConstInteger integer
 );
@@ -277,28 +277,28 @@ ParityIntegerSet(
 // +++ Has, by label
 extern_c int
 ParityIntegerHasByLabel(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstInteger
 ParityIntegerGetByLabelConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Integer
 ParityIntegerGetByLabel(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ParityIntegerSetByLabel(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName label,
    ConstHandle2ConstInteger integer
 );
@@ -306,28 +306,28 @@ ParityIntegerSetByLabel(
 // +++ Has, by unit
 extern_c int
 ParityIntegerHasByUnit(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstInteger
 ParityIntegerGetByUnitConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Integer
 ParityIntegerGetByUnit(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 ParityIntegerSetByUnit(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName unit,
    ConstHandle2ConstInteger integer
 );
@@ -335,28 +335,28 @@ ParityIntegerSetByUnit(
 // +++ Has, by value
 extern_c int
 ParityIntegerHasByValue(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const Integer32 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstInteger
 ParityIntegerGetByValueConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const Integer32 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Integer
 ParityIntegerGetByValue(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const Integer32 value
 );
 
 // +++ Set, by value
 extern_c void
 ParityIntegerSetByValue(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const Integer32 value,
    ConstHandle2ConstInteger integer
 );

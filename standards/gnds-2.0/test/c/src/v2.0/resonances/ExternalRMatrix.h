@@ -92,13 +92,13 @@ ExternalRMatrixCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExternalRMatrixAssign(ConstHandle2ExternalRMatrix This, ConstHandle2ConstExternalRMatrix from);
+ExternalRMatrixAssign(ConstHandle2ExternalRMatrix self, ConstHandle2ConstExternalRMatrix from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExternalRMatrixDelete(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixDelete(ConstHandle2ConstExternalRMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ ExternalRMatrixDelete(ConstHandle2ConstExternalRMatrix This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExternalRMatrixRead(ConstHandle2ExternalRMatrix This, const char *const filename);
+ExternalRMatrixRead(ConstHandle2ExternalRMatrix self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExternalRMatrixWrite(ConstHandle2ConstExternalRMatrix This, const char *const filename);
+ExternalRMatrixWrite(ConstHandle2ConstExternalRMatrix self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExternalRMatrixPrint(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixPrint(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExternalRMatrixPrintXML(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixPrintXML(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExternalRMatrixPrintJSON(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixPrintJSON(ConstHandle2ConstExternalRMatrix self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ ExternalRMatrixPrintJSON(ConstHandle2ConstExternalRMatrix This);
 
 // +++ Has
 extern_c int
-ExternalRMatrixTypeHas(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixTypeHas(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ExternalRMatrixTypeGet(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixTypeGet(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Set
 extern_c void
-ExternalRMatrixTypeSet(ConstHandle2ExternalRMatrix This, const XMLName type);
+ExternalRMatrixTypeSet(ConstHandle2ExternalRMatrix self, const XMLName type);
 
 
 // -----------------------------------------------------------------------------
@@ -156,32 +156,32 @@ ExternalRMatrixTypeSet(ConstHandle2ExternalRMatrix This, const XMLName type);
 
 // +++ Has
 extern_c int
-ExternalRMatrixDoubleHas(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixDoubleHas(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Clear
 extern_c void
-ExternalRMatrixDoubleClear(ConstHandle2ExternalRMatrix This);
+ExternalRMatrixDoubleClear(ConstHandle2ExternalRMatrix self);
 
 // +++ Size
 extern_c size_t
-ExternalRMatrixDoubleSize(ConstHandle2ConstExternalRMatrix This);
+ExternalRMatrixDoubleSize(ConstHandle2ConstExternalRMatrix self);
 
 // +++ Add
 extern_c void
-ExternalRMatrixDoubleAdd(ConstHandle2ExternalRMatrix This, ConstHandle2ConstDouble Double);
+ExternalRMatrixDoubleAdd(ConstHandle2ExternalRMatrix self, ConstHandle2ConstDouble Double);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDouble
-ExternalRMatrixDoubleGetConst(ConstHandle2ConstExternalRMatrix This, const size_t index_);
+ExternalRMatrixDoubleGetConst(ConstHandle2ConstExternalRMatrix self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Double
-ExternalRMatrixDoubleGet(ConstHandle2ExternalRMatrix This, const size_t index_);
+ExternalRMatrixDoubleGet(ConstHandle2ExternalRMatrix self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ExternalRMatrixDoubleSet(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 );
@@ -189,28 +189,28 @@ ExternalRMatrixDoubleSet(
 // +++ Has, by label
 extern_c int
 ExternalRMatrixDoubleHasByLabel(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDouble
 ExternalRMatrixDoubleGetByLabelConst(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Double
 ExternalRMatrixDoubleGetByLabel(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ExternalRMatrixDoubleSetByLabel(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 );
@@ -218,28 +218,28 @@ ExternalRMatrixDoubleSetByLabel(
 // +++ Has, by unit
 extern_c int
 ExternalRMatrixDoubleHasByUnit(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstDouble
 ExternalRMatrixDoubleGetByUnitConst(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Double
 ExternalRMatrixDoubleGetByUnit(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 ExternalRMatrixDoubleSetByUnit(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 );
@@ -247,28 +247,28 @@ ExternalRMatrixDoubleSetByUnit(
 // +++ Has, by value
 extern_c int
 ExternalRMatrixDoubleHasByValue(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const Float64 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstDouble
 ExternalRMatrixDoubleGetByValueConst(
-   ConstHandle2ConstExternalRMatrix This,
+   ConstHandle2ConstExternalRMatrix self,
    const Float64 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Double
 ExternalRMatrixDoubleGetByValue(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const Float64 value
 );
 
 // +++ Set, by value
 extern_c void
 ExternalRMatrixDoubleSetByValue(
-   ConstHandle2ExternalRMatrix This,
+   ConstHandle2ExternalRMatrix self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 );

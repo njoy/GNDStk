@@ -25,12 +25,12 @@ class Conversion :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "Conversion"; }
-   static auto FIELD() { return "conversion"; }
+   static auto NODENAME() { return "conversion"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,24 +45,62 @@ class Conversion :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "flags",
+         "href"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "flags",
+         "href"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> flags{this};
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<XMLName>>
+      flags{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->flags, \
-      this->href)
+      this->href \
+   )
 
    // default
    Conversion() :
@@ -73,8 +111,10 @@ public:
 
    // from fields, comment excluded
    explicit Conversion(
-      const wrapper<std::optional<XMLName>> &flags,
-      const wrapper<std::optional<std::string>> &href = {}
+      const wrapper<std::optional<XMLName>>
+         &flags,
+      const wrapper<std::optional<std::string>>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       flags(this,flags),
@@ -114,8 +154,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Conversion &operator=(const Conversion &) = default;
-   Conversion &operator=(Conversion &&) = default;
+   // copy
+   Conversion &operator=(const Conversion &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         flags = other.flags;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Conversion &operator=(Conversion &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         flags = std::move(other.flags);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -25,12 +25,12 @@ class Nuclides :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Nuclides"; }
-   static auto FIELD() { return "nuclides"; }
+   static auto NODENAME() { return "nuclides"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Nuclides :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<pops::Nuclide>("nuclide")
+         ++Child<pops::Nuclide>
+            ("nuclide")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclide"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclide"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<pops::Nuclide>> nuclide{this};
+   Field<std::vector<pops::Nuclide>>
+      nuclide{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->nuclide)
+      this->nuclide \
+   )
 
    // default
    Nuclides() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Nuclides(
-      const wrapper<std::vector<pops::Nuclide>> &nuclide
+      const wrapper<std::vector<pops::Nuclide>>
+         &nuclide
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclide(this,nuclide)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Nuclides &operator=(const Nuclides &) = default;
-   Nuclides &operator=(Nuclides &&) = default;
+   // copy
+   Nuclides &operator=(const Nuclides &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclide = other.nuclide;
+      }
+      return *this;
+   }
+
+   // move
+   Nuclides &operator=(Nuclides &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclide = std::move(other.nuclide);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

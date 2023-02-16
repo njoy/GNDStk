@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_gnds {
 
-// Atomic wrapper
-void wrapAtomic(python::module &module)
+// wrapper for gnds::Atomic
+void wrapAtomic(py::module &module)
 {
    using namespace code;
    using namespace code::v2_0;
 
    // type aliases
-   using Component = gnds::Atomic;
+   using cppCLASS = gnds::Atomic;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Atomic",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Atomic",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const gnds::Configurations &
-         >(),
-         python::arg("configurations"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "configurations",
-         [](const Component &self) { return self.configurations(); },
-         Component::documentation("configurations").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const gnds::Configurations &
+      >(),
+      py::arg("configurations"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set configurations
+   object.def_property(
+      "configurations",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.configurations();
+      },
+      [](cppCLASS &self, const gnds::Configurations &value)
+      {
+         self.configurations() = value;
+      },
+      cppCLASS::component_t::documentation("configurations").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_gnds

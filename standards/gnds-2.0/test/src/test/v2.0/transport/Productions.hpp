@@ -25,12 +25,12 @@ class Productions :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Productions"; }
-   static auto FIELD() { return "productions"; }
+   static auto NODENAME() { return "productions"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Productions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<transport::Production>>("production")
+         --Child<std::optional<transport::Production>>
+            ("production")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "production"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "production"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<transport::Production>> production{this};
+   Field<std::optional<transport::Production>>
+      production{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->production)
+      this->production \
+   )
 
    // default
    Productions() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Productions(
-      const wrapper<std::optional<transport::Production>> &production
+      const wrapper<std::optional<transport::Production>>
+         &production
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       production(this,production)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Productions &operator=(const Productions &) = default;
-   Productions &operator=(Productions &&) = default;
+   // copy
+   Productions &operator=(const Productions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         production = other.production;
+      }
+      return *this;
+   }
+
+   // move
+   Productions &operator=(Productions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         production = std::move(other.production);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

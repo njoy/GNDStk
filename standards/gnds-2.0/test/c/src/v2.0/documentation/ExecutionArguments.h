@@ -93,13 +93,13 @@ ExecutionArgumentsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ExecutionArgumentsAssign(ConstHandle2ExecutionArguments This, ConstHandle2ConstExecutionArguments from);
+ExecutionArgumentsAssign(ConstHandle2ExecutionArguments self, ConstHandle2ConstExecutionArguments from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ExecutionArgumentsDelete(ConstHandle2ConstExecutionArguments This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ExecutionArgumentsRead(ConstHandle2ExecutionArguments This, const char *const filename);
+ExecutionArgumentsRead(ConstHandle2ExecutionArguments self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ExecutionArgumentsWrite(ConstHandle2ConstExecutionArguments This, const char *const filename);
+ExecutionArgumentsWrite(ConstHandle2ConstExecutionArguments self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ExecutionArgumentsPrint(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsPrint(ConstHandle2ConstExecutionArguments self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ExecutionArgumentsPrintXML(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsPrintXML(ConstHandle2ConstExecutionArguments self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,33 +143,33 @@ ExecutionArgumentsPrintJSON(ConstHandle2ConstExecutionArguments This);
 
 // +++ Clear
 extern_c void
-ExecutionArgumentsIntsClear(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsIntsClear(ConstHandle2ExecutionArguments self);
 
 // +++ Get size
 extern_c size_t
-ExecutionArgumentsIntsSize(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsIntsSize(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c int
-ExecutionArgumentsIntsGet(ConstHandle2ConstExecutionArguments This, const size_t index);
+ExecutionArgumentsIntsGet(ConstHandle2ConstExecutionArguments self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-ExecutionArgumentsIntsSet(ConstHandle2ExecutionArguments This, const size_t index, const int value);
+ExecutionArgumentsIntsSet(ConstHandle2ExecutionArguments self, const size_t index, const int value);
 
 // --- Get pointer to existing values, const
 extern_c const int *
-ExecutionArgumentsIntsGetArrayConst(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsIntsGetArrayConst(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get pointer to existing values, non-const
 extern_c int *
-ExecutionArgumentsIntsGetArray(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsIntsGetArray(ConstHandle2ExecutionArguments self);
 
 // +++ Set completely new values and size
 extern_c void
-ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments This, const int *const values, const size_t size);
+ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments self, const int *const values, const size_t size);
 
 // ------------------------
 // unsigned
@@ -177,33 +177,33 @@ ExecutionArgumentsIntsSetArray(ConstHandle2ExecutionArguments This, const int *c
 
 // +++ Clear
 extern_c void
-ExecutionArgumentsUnsignedsClear(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsUnsignedsClear(ConstHandle2ExecutionArguments self);
 
 // +++ Get size
 extern_c size_t
-ExecutionArgumentsUnsignedsSize(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsUnsignedsSize(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c unsigned
-ExecutionArgumentsUnsignedsGet(ConstHandle2ConstExecutionArguments This, const size_t index);
+ExecutionArgumentsUnsignedsGet(ConstHandle2ConstExecutionArguments self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-ExecutionArgumentsUnsignedsSet(ConstHandle2ExecutionArguments This, const size_t index, const unsigned value);
+ExecutionArgumentsUnsignedsSet(ConstHandle2ExecutionArguments self, const size_t index, const unsigned value);
 
 // --- Get pointer to existing values, const
 extern_c const unsigned *
-ExecutionArgumentsUnsignedsGetArrayConst(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsUnsignedsGetArrayConst(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get pointer to existing values, non-const
 extern_c unsigned *
-ExecutionArgumentsUnsignedsGetArray(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsUnsignedsGetArray(ConstHandle2ExecutionArguments self);
 
 // +++ Set completely new values and size
 extern_c void
-ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments This, const unsigned *const values, const size_t size);
+ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments self, const unsigned *const values, const size_t size);
 
 // ------------------------
 // float
@@ -211,33 +211,33 @@ ExecutionArgumentsUnsignedsSetArray(ConstHandle2ExecutionArguments This, const u
 
 // +++ Clear
 extern_c void
-ExecutionArgumentsFloatsClear(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsFloatsClear(ConstHandle2ExecutionArguments self);
 
 // +++ Get size
 extern_c size_t
-ExecutionArgumentsFloatsSize(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsFloatsSize(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c float
-ExecutionArgumentsFloatsGet(ConstHandle2ConstExecutionArguments This, const size_t index);
+ExecutionArgumentsFloatsGet(ConstHandle2ConstExecutionArguments self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-ExecutionArgumentsFloatsSet(ConstHandle2ExecutionArguments This, const size_t index, const float value);
+ExecutionArgumentsFloatsSet(ConstHandle2ExecutionArguments self, const size_t index, const float value);
 
 // --- Get pointer to existing values, const
 extern_c const float *
-ExecutionArgumentsFloatsGetArrayConst(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsFloatsGetArrayConst(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get pointer to existing values, non-const
 extern_c float *
-ExecutionArgumentsFloatsGetArray(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsFloatsGetArray(ConstHandle2ExecutionArguments self);
 
 // +++ Set completely new values and size
 extern_c void
-ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments This, const float *const values, const size_t size);
+ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments self, const float *const values, const size_t size);
 
 // ------------------------
 // double
@@ -245,33 +245,33 @@ ExecutionArgumentsFloatsSetArray(ConstHandle2ExecutionArguments This, const floa
 
 // +++ Clear
 extern_c void
-ExecutionArgumentsDoublesClear(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsDoublesClear(ConstHandle2ExecutionArguments self);
 
 // +++ Get size
 extern_c size_t
-ExecutionArgumentsDoublesSize(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsDoublesSize(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-ExecutionArgumentsDoublesGet(ConstHandle2ConstExecutionArguments This, const size_t index);
+ExecutionArgumentsDoublesGet(ConstHandle2ConstExecutionArguments self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-ExecutionArgumentsDoublesSet(ConstHandle2ExecutionArguments This, const size_t index, const double value);
+ExecutionArgumentsDoublesSet(ConstHandle2ExecutionArguments self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-ExecutionArgumentsDoublesGetArrayConst(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsDoublesGetArrayConst(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-ExecutionArgumentsDoublesGetArray(ConstHandle2ExecutionArguments This);
+ExecutionArgumentsDoublesGetArray(ConstHandle2ExecutionArguments self);
 
 // +++ Set completely new values and size
 extern_c void
-ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments This, const double *const values, const size_t size);
+ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -280,16 +280,16 @@ ExecutionArgumentsDoublesSetArray(ConstHandle2ExecutionArguments This, const dou
 
 // +++ Has
 extern_c int
-ExecutionArgumentsEncodingHas(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsEncodingHas(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ExecutionArgumentsEncodingGet(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsEncodingGet(ConstHandle2ConstExecutionArguments self);
 
 // +++ Set
 extern_c void
-ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments This, const XMLName encoding);
+ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments self, const XMLName encoding);
 
 
 // -----------------------------------------------------------------------------
@@ -298,16 +298,16 @@ ExecutionArgumentsEncodingSet(ConstHandle2ExecutionArguments This, const XMLName
 
 // +++ Has
 extern_c int
-ExecutionArgumentsMarkupHas(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsMarkupHas(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ExecutionArgumentsMarkupGet(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsMarkupGet(ConstHandle2ConstExecutionArguments self);
 
 // +++ Set
 extern_c void
-ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments This, const char *const markup);
+ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments self, const char *const markup);
 
 
 // -----------------------------------------------------------------------------
@@ -316,16 +316,16 @@ ExecutionArgumentsMarkupSet(ConstHandle2ExecutionArguments This, const char *con
 
 // +++ Has
 extern_c int
-ExecutionArgumentsLabelHas(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsLabelHas(ConstHandle2ConstExecutionArguments self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ExecutionArgumentsLabelGet(ConstHandle2ConstExecutionArguments This);
+ExecutionArgumentsLabelGet(ConstHandle2ConstExecutionArguments self);
 
 // +++ Set
 extern_c void
-ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments This, const XMLName label);
+ExecutionArgumentsLabelSet(ConstHandle2ExecutionArguments self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------

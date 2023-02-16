@@ -75,20 +75,20 @@ PromptNeutronKECreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-PromptNeutronKEAssign(ConstHandle2PromptNeutronKE This, ConstHandle2ConstPromptNeutronKE from)
+PromptNeutronKEAssign(ConstHandle2PromptNeutronKE self, ConstHandle2ConstPromptNeutronKE from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ PromptNeutronKEDelete(ConstHandle2ConstPromptNeutronKE This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-PromptNeutronKERead(ConstHandle2PromptNeutronKE This, const char *const filename)
+PromptNeutronKERead(ConstHandle2PromptNeutronKE self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-PromptNeutronKEWrite(ConstHandle2ConstPromptNeutronKE This, const char *const filename)
+PromptNeutronKEWrite(ConstHandle2ConstPromptNeutronKE self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-PromptNeutronKEPrint(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEPrint(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-PromptNeutronKEPrintXML(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEPrintXML(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ PromptNeutronKEPrintJSON(ConstHandle2ConstPromptNeutronKE This)
 
 // Has
 int
-PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE This)
+PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-PromptNeutronKEXYs1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2ConstXYs1d XYs1d)
+PromptNeutronKEXYs1dSet(ConstHandle2PromptNeutronKE self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ PromptNeutronKEXYs1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2ConstXYs1d
 
 // Has
 int
-PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Polynomial1dHas", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dHas", self, extract::polynomial1d);
 }
 
 // Get, const
 Handle2ConstPolynomial1d
-PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE This)
+PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE self)
 {
    return detail::getField<CPP,Handle2ConstPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
 // Get, non-const
 Handle2Polynomial1d
-PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE This)
+PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE self)
 {
    return detail::getField<CPP,Handle2Polynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dGet", This, extract::polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dGet", self, extract::polynomial1d);
 }
 
 // Set
 void
-PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE This, ConstHandle2ConstPolynomial1d polynomial1d)
+PromptNeutronKEPolynomial1dSet(ConstHandle2PromptNeutronKE self, ConstHandle2ConstPolynomial1d polynomial1d)
 {
    detail::setField<CPP,CPPPolynomial1d>
-      (CLASSNAME, CLASSNAME+"Polynomial1dSet", This, extract::polynomial1d, polynomial1d);
+      (CLASSNAME, CLASSNAME+"Polynomial1dSet", self, extract::polynomial1d, polynomial1d);
 }
 
 

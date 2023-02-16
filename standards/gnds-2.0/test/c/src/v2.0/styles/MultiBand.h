@@ -98,13 +98,13 @@ MultiBandCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MultiBandAssign(ConstHandle2MultiBand This, ConstHandle2ConstMultiBand from);
+MultiBandAssign(ConstHandle2MultiBand self, ConstHandle2ConstMultiBand from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MultiBandDelete(ConstHandle2ConstMultiBand This);
+MultiBandDelete(ConstHandle2ConstMultiBand self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ MultiBandDelete(ConstHandle2ConstMultiBand This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MultiBandRead(ConstHandle2MultiBand This, const char *const filename);
+MultiBandRead(ConstHandle2MultiBand self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MultiBandWrite(ConstHandle2ConstMultiBand This, const char *const filename);
+MultiBandWrite(ConstHandle2ConstMultiBand self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MultiBandPrint(ConstHandle2ConstMultiBand This);
+MultiBandPrint(ConstHandle2ConstMultiBand self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MultiBandPrintXML(ConstHandle2ConstMultiBand This);
+MultiBandPrintXML(ConstHandle2ConstMultiBand self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MultiBandPrintJSON(ConstHandle2ConstMultiBand This);
+MultiBandPrintJSON(ConstHandle2ConstMultiBand self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ MultiBandPrintJSON(ConstHandle2ConstMultiBand This);
 
 // +++ Has
 extern_c int
-MultiBandDateHas(ConstHandle2ConstMultiBand This);
+MultiBandDateHas(ConstHandle2ConstMultiBand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-MultiBandDateGet(ConstHandle2ConstMultiBand This);
+MultiBandDateGet(ConstHandle2ConstMultiBand self);
 
 // +++ Set
 extern_c void
-MultiBandDateSet(ConstHandle2MultiBand This, const char *const date);
+MultiBandDateSet(ConstHandle2MultiBand self, const char *const date);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ MultiBandDateSet(ConstHandle2MultiBand This, const char *const date);
 
 // +++ Has
 extern_c int
-MultiBandDerivedFromHas(ConstHandle2ConstMultiBand This);
+MultiBandDerivedFromHas(ConstHandle2ConstMultiBand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MultiBandDerivedFromGet(ConstHandle2ConstMultiBand This);
+MultiBandDerivedFromGet(ConstHandle2ConstMultiBand self);
 
 // +++ Set
 extern_c void
-MultiBandDerivedFromSet(ConstHandle2MultiBand This, const XMLName derivedFrom);
+MultiBandDerivedFromSet(ConstHandle2MultiBand self, const XMLName derivedFrom);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ MultiBandDerivedFromSet(ConstHandle2MultiBand This, const XMLName derivedFrom);
 
 // +++ Has
 extern_c int
-MultiBandLabelHas(ConstHandle2ConstMultiBand This);
+MultiBandLabelHas(ConstHandle2ConstMultiBand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MultiBandLabelGet(ConstHandle2ConstMultiBand This);
+MultiBandLabelGet(ConstHandle2ConstMultiBand self);
 
 // +++ Set
 extern_c void
-MultiBandLabelSet(ConstHandle2MultiBand This, const XMLName label);
+MultiBandLabelSet(ConstHandle2MultiBand self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ MultiBandLabelSet(ConstHandle2MultiBand This, const XMLName label);
 
 // +++ Has
 extern_c int
-MultiBandNumberOfBandsHas(ConstHandle2ConstMultiBand This);
+MultiBandNumberOfBandsHas(ConstHandle2ConstMultiBand self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-MultiBandNumberOfBandsGet(ConstHandle2ConstMultiBand This);
+MultiBandNumberOfBandsGet(ConstHandle2ConstMultiBand self);
 
 // +++ Set
 extern_c void
-MultiBandNumberOfBandsSet(ConstHandle2MultiBand This, const Integer32 numberOfBands);
+MultiBandNumberOfBandsSet(ConstHandle2MultiBand self, const Integer32 numberOfBands);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ MultiBandNumberOfBandsSet(ConstHandle2MultiBand This, const Integer32 numberOfBa
 
 // +++ Has
 extern_c int
-MultiBandDocumentationHas(ConstHandle2ConstMultiBand This);
+MultiBandDocumentationHas(ConstHandle2ConstMultiBand self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-MultiBandDocumentationGetConst(ConstHandle2ConstMultiBand This);
+MultiBandDocumentationGetConst(ConstHandle2ConstMultiBand self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-MultiBandDocumentationGet(ConstHandle2MultiBand This);
+MultiBandDocumentationGet(ConstHandle2MultiBand self);
 
 // +++ Set
 extern_c void
-MultiBandDocumentationSet(ConstHandle2MultiBand This, ConstHandle2ConstDocumentation documentation);
+MultiBandDocumentationSet(ConstHandle2MultiBand self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------

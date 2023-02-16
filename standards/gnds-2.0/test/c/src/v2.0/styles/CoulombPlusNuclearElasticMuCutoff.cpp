@@ -89,20 +89,20 @@ CoulombPlusNuclearElasticMuCutoffCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CoulombPlusNuclearElasticMuCutoffAssign(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff from)
+CoulombPlusNuclearElasticMuCutoffAssign(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ CoulombPlusNuclearElasticMuCutoffDelete(ConstHandle2ConstCoulombPlusNuclearElast
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CoulombPlusNuclearElasticMuCutoffRead(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const char *const filename)
+CoulombPlusNuclearElasticMuCutoffRead(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CoulombPlusNuclearElasticMuCutoffWrite(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This, const char *const filename)
+CoulombPlusNuclearElasticMuCutoffWrite(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CoulombPlusNuclearElasticMuCutoffPrint(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffPrint(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CoulombPlusNuclearElasticMuCutoffPrintXML(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffPrintXML(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ CoulombPlusNuclearElasticMuCutoffPrintJSON(ConstHandle2ConstCoulombPlusNuclearEl
 
 // Has
 int
-CoulombPlusNuclearElasticMuCutoffDateHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDateHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DateHas", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateHas", self, extract::date);
 }
 
 // Get
 // Returns by value
 const char *
-CoulombPlusNuclearElasticMuCutoffDateGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDateGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DateGet", This, extract::date);
+      (CLASSNAME, CLASSNAME+"DateGet", self, extract::date);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const char *const date)
+CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const char *const date)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DateSet", This, extract::date, date);
+      (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, date);
 }
 
 
@@ -193,27 +193,27 @@ CoulombPlusNuclearElasticMuCutoffDateSet(ConstHandle2CoulombPlusNuclearElasticMu
 
 // Has
 int
-CoulombPlusNuclearElasticMuCutoffDerivedFromHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDerivedFromHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromHas", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromHas", self, extract::derivedFrom);
 }
 
 // Get
 // Returns by value
 XMLName
-CoulombPlusNuclearElasticMuCutoffDerivedFromGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDerivedFromGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromGet", This, extract::derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromGet", self, extract::derivedFrom);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const XMLName derivedFrom)
+CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const XMLName derivedFrom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DerivedFromSet", This, extract::derivedFrom, derivedFrom);
+      (CLASSNAME, CLASSNAME+"DerivedFromSet", self, extract::derivedFrom, derivedFrom);
 }
 
 
@@ -223,27 +223,27 @@ CoulombPlusNuclearElasticMuCutoffDerivedFromSet(ConstHandle2CoulombPlusNuclearEl
 
 // Has
 int
-CoulombPlusNuclearElasticMuCutoffLabelHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffLabelHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CoulombPlusNuclearElasticMuCutoffLabelGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffLabelGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const XMLName label)
+CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -253,27 +253,27 @@ CoulombPlusNuclearElasticMuCutoffLabelSet(ConstHandle2CoulombPlusNuclearElasticM
 
 // Has
 int
-CoulombPlusNuclearElasticMuCutoffMuCutoffHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffMuCutoffHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffHas", This, extract::muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffHas", self, extract::muCutoff);
 }
 
 // Get
 // Returns by value
 Float64
-CoulombPlusNuclearElasticMuCutoffMuCutoffGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffMuCutoffGet(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffGet", This, extract::muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffGet", self, extract::muCutoff);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, const Float64 muCutoff)
+CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, const Float64 muCutoff)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MuCutoffSet", This, extract::muCutoff, muCutoff);
+      (CLASSNAME, CLASSNAME+"MuCutoffSet", self, extract::muCutoff, muCutoff);
 }
 
 
@@ -283,34 +283,34 @@ CoulombPlusNuclearElasticMuCutoffMuCutoffSet(ConstHandle2CoulombPlusNuclearElast
 
 // Has
 int
-CoulombPlusNuclearElasticMuCutoffDocumentationHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDocumentationHas(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-CoulombPlusNuclearElasticMuCutoffDocumentationGetConst(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDocumentationGetConst(ConstHandle2ConstCoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-CoulombPlusNuclearElasticMuCutoffDocumentationGet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This)
+CoulombPlusNuclearElasticMuCutoffDocumentationGet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff This, ConstHandle2ConstDocumentation documentation)
+CoulombPlusNuclearElasticMuCutoffDocumentationSet(ConstHandle2CoulombPlusNuclearElasticMuCutoff self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 

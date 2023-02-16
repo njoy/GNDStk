@@ -90,20 +90,20 @@ ChemicalElementCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ChemicalElementAssign(ConstHandle2ChemicalElement This, ConstHandle2ConstChemicalElement from)
+ChemicalElementAssign(ConstHandle2ChemicalElement self, ConstHandle2ConstChemicalElement from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ChemicalElementDelete(ConstHandle2ConstChemicalElement This)
+ChemicalElementDelete(ConstHandle2ConstChemicalElement self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -117,44 +117,44 @@ ChemicalElementDelete(ConstHandle2ConstChemicalElement This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ChemicalElementRead(ConstHandle2ChemicalElement This, const char *const filename)
+ChemicalElementRead(ConstHandle2ChemicalElement self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ChemicalElementWrite(ConstHandle2ConstChemicalElement This, const char *const filename)
+ChemicalElementWrite(ConstHandle2ConstChemicalElement self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ChemicalElementPrint(ConstHandle2ConstChemicalElement This)
+ChemicalElementPrint(ConstHandle2ConstChemicalElement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ChemicalElementPrintXML(ConstHandle2ConstChemicalElement This)
+ChemicalElementPrintXML(ConstHandle2ConstChemicalElement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement This)
+ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -164,27 +164,27 @@ ChemicalElementPrintJSON(ConstHandle2ConstChemicalElement This)
 
 // Has
 int
-ChemicalElementSymbolHas(ConstHandle2ConstChemicalElement This)
+ChemicalElementSymbolHas(ConstHandle2ConstChemicalElement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolHas", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolHas", self, extract::symbol);
 }
 
 // Get
 // Returns by value
 XMLName
-ChemicalElementSymbolGet(ConstHandle2ConstChemicalElement This)
+ChemicalElementSymbolGet(ConstHandle2ConstChemicalElement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolGet", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolGet", self, extract::symbol);
 }
 
 // Set
 void
-ChemicalElementSymbolSet(ConstHandle2ChemicalElement This, const XMLName symbol)
+ChemicalElementSymbolSet(ConstHandle2ChemicalElement self, const XMLName symbol)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolSet", This, extract::symbol, symbol);
+      (CLASSNAME, CLASSNAME+"SymbolSet", self, extract::symbol, symbol);
 }
 
 
@@ -194,27 +194,27 @@ ChemicalElementSymbolSet(ConstHandle2ChemicalElement This, const XMLName symbol)
 
 // Has
 int
-ChemicalElementZHas(ConstHandle2ConstChemicalElement This)
+ChemicalElementZHas(ConstHandle2ConstChemicalElement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ZHas", This, extract::Z);
+      (CLASSNAME, CLASSNAME+"ZHas", self, extract::Z);
 }
 
 // Get
 // Returns by value
 Integer32
-ChemicalElementZGet(ConstHandle2ConstChemicalElement This)
+ChemicalElementZGet(ConstHandle2ConstChemicalElement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ZGet", This, extract::Z);
+      (CLASSNAME, CLASSNAME+"ZGet", self, extract::Z);
 }
 
 // Set
 void
-ChemicalElementZSet(ConstHandle2ChemicalElement This, const Integer32 Z)
+ChemicalElementZSet(ConstHandle2ChemicalElement self, const Integer32 Z)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ZSet", This, extract::Z, Z);
+      (CLASSNAME, CLASSNAME+"ZSet", self, extract::Z, Z);
 }
 
 
@@ -224,27 +224,27 @@ ChemicalElementZSet(ConstHandle2ChemicalElement This, const Integer32 Z)
 
 // Has
 int
-ChemicalElementNameHas(ConstHandle2ConstChemicalElement This)
+ChemicalElementNameHas(ConstHandle2ConstChemicalElement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NameHas", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameHas", self, extract::name);
 }
 
 // Get
 // Returns by value
 XMLName
-ChemicalElementNameGet(ConstHandle2ConstChemicalElement This)
+ChemicalElementNameGet(ConstHandle2ConstChemicalElement self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"NameGet", This, extract::name);
+      (CLASSNAME, CLASSNAME+"NameGet", self, extract::name);
 }
 
 // Set
 void
-ChemicalElementNameSet(ConstHandle2ChemicalElement This, const XMLName name)
+ChemicalElementNameSet(ConstHandle2ChemicalElement self, const XMLName name)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"NameSet", This, extract::name, name);
+      (CLASSNAME, CLASSNAME+"NameSet", self, extract::name, name);
 }
 
 
@@ -254,34 +254,34 @@ ChemicalElementNameSet(ConstHandle2ChemicalElement This, const XMLName name)
 
 // Has
 int
-ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement This)
+ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AtomicHas", This, extract::atomic);
+      (CLASSNAME, CLASSNAME+"AtomicHas", self, extract::atomic);
 }
 
 // Get, const
 Handle2ConstAtomic
-ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement This)
+ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self)
 {
    return detail::getField<CPP,Handle2ConstAtomic>
-      (CLASSNAME, CLASSNAME+"AtomicGetConst", This, extract::atomic);
+      (CLASSNAME, CLASSNAME+"AtomicGetConst", self, extract::atomic);
 }
 
 // Get, non-const
 Handle2Atomic
-ChemicalElementAtomicGet(ConstHandle2ChemicalElement This)
+ChemicalElementAtomicGet(ConstHandle2ChemicalElement self)
 {
    return detail::getField<CPP,Handle2Atomic>
-      (CLASSNAME, CLASSNAME+"AtomicGet", This, extract::atomic);
+      (CLASSNAME, CLASSNAME+"AtomicGet", self, extract::atomic);
 }
 
 // Set
 void
-ChemicalElementAtomicSet(ConstHandle2ChemicalElement This, ConstHandle2ConstAtomic atomic)
+ChemicalElementAtomicSet(ConstHandle2ChemicalElement self, ConstHandle2ConstAtomic atomic)
 {
    detail::setField<CPP,CPPAtomic>
-      (CLASSNAME, CLASSNAME+"AtomicSet", This, extract::atomic, atomic);
+      (CLASSNAME, CLASSNAME+"AtomicSet", self, extract::atomic, atomic);
 }
 
 
@@ -291,34 +291,34 @@ ChemicalElementAtomicSet(ConstHandle2ChemicalElement This, ConstHandle2ConstAtom
 
 // Has
 int
-ChemicalElementIsotopesHas(ConstHandle2ConstChemicalElement This)
+ChemicalElementIsotopesHas(ConstHandle2ConstChemicalElement self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IsotopesHas", This, extract::isotopes);
+      (CLASSNAME, CLASSNAME+"IsotopesHas", self, extract::isotopes);
 }
 
 // Get, const
 Handle2ConstIsotopes
-ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement This)
+ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement self)
 {
    return detail::getField<CPP,Handle2ConstIsotopes>
-      (CLASSNAME, CLASSNAME+"IsotopesGetConst", This, extract::isotopes);
+      (CLASSNAME, CLASSNAME+"IsotopesGetConst", self, extract::isotopes);
 }
 
 // Get, non-const
 Handle2Isotopes
-ChemicalElementIsotopesGet(ConstHandle2ChemicalElement This)
+ChemicalElementIsotopesGet(ConstHandle2ChemicalElement self)
 {
    return detail::getField<CPP,Handle2Isotopes>
-      (CLASSNAME, CLASSNAME+"IsotopesGet", This, extract::isotopes);
+      (CLASSNAME, CLASSNAME+"IsotopesGet", self, extract::isotopes);
 }
 
 // Set
 void
-ChemicalElementIsotopesSet(ConstHandle2ChemicalElement This, ConstHandle2ConstIsotopes isotopes)
+ChemicalElementIsotopesSet(ConstHandle2ChemicalElement self, ConstHandle2ConstIsotopes isotopes)
 {
    detail::setField<CPP,CPPIsotopes>
-      (CLASSNAME, CLASSNAME+"IsotopesSet", This, extract::isotopes, isotopes);
+      (CLASSNAME, CLASSNAME+"IsotopesSet", self, extract::isotopes, isotopes);
 }
 
 

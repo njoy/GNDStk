@@ -90,13 +90,13 @@ ColumnSensitivityCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ColumnSensitivityAssign(ConstHandle2ColumnSensitivity This, ConstHandle2ConstColumnSensitivity from);
+ColumnSensitivityAssign(ConstHandle2ColumnSensitivity self, ConstHandle2ConstColumnSensitivity from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ColumnSensitivityDelete(ConstHandle2ConstColumnSensitivity This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ColumnSensitivityRead(ConstHandle2ColumnSensitivity This, const char *const filename);
+ColumnSensitivityRead(ConstHandle2ColumnSensitivity self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ColumnSensitivityWrite(ConstHandle2ConstColumnSensitivity This, const char *const filename);
+ColumnSensitivityWrite(ConstHandle2ConstColumnSensitivity self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ColumnSensitivityPrint(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityPrint(ConstHandle2ConstColumnSensitivity self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ColumnSensitivityPrintXML(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityPrintXML(ConstHandle2ConstColumnSensitivity self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ ColumnSensitivityPrintJSON(ConstHandle2ConstColumnSensitivity This);
 
 // +++ Has
 extern_c int
-ColumnSensitivityArrayHas(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityArrayHas(ConstHandle2ConstColumnSensitivity self);
 
 // --- Get, const
 extern_c Handle2ConstArray
-ColumnSensitivityArrayGetConst(ConstHandle2ConstColumnSensitivity This);
+ColumnSensitivityArrayGetConst(ConstHandle2ConstColumnSensitivity self);
 
 // +++ Get, non-const
 extern_c Handle2Array
-ColumnSensitivityArrayGet(ConstHandle2ColumnSensitivity This);
+ColumnSensitivityArrayGet(ConstHandle2ColumnSensitivity self);
 
 // +++ Set
 extern_c void
-ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity This, ConstHandle2ConstArray array);
+ColumnSensitivityArraySet(ConstHandle2ColumnSensitivity self, ConstHandle2ConstArray array);
 
 
 // -----------------------------------------------------------------------------

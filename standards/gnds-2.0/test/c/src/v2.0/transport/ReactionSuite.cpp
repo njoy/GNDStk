@@ -159,20 +159,20 @@ ReactionSuiteCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ReactionSuiteAssign(ConstHandle2ReactionSuite This, ConstHandle2ConstReactionSuite from)
+ReactionSuiteAssign(ConstHandle2ReactionSuite self, ConstHandle2ConstReactionSuite from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ReactionSuiteDelete(ConstHandle2ConstReactionSuite This)
+ReactionSuiteDelete(ConstHandle2ConstReactionSuite self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -186,44 +186,44 @@ ReactionSuiteDelete(ConstHandle2ConstReactionSuite This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ReactionSuiteRead(ConstHandle2ReactionSuite This, const char *const filename)
+ReactionSuiteRead(ConstHandle2ReactionSuite self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ReactionSuiteWrite(ConstHandle2ConstReactionSuite This, const char *const filename)
+ReactionSuiteWrite(ConstHandle2ConstReactionSuite self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ReactionSuitePrint(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrint(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ReactionSuitePrintXML(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrintXML(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This)
+ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -233,27 +233,27 @@ ReactionSuitePrintJSON(ConstHandle2ConstReactionSuite This)
 
 // Has
 int
-ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteEvaluationHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationHas", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationHas", self, extract::evaluation);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteEvaluationGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationGet", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationGet", self, extract::evaluation);
 }
 
 // Set
 void
-ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const XMLName evaluation)
+ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite self, const XMLName evaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationSet", This, extract::evaluation, evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationSet", self, extract::evaluation, evaluation);
 }
 
 
@@ -263,27 +263,27 @@ ReactionSuiteEvaluationSet(ConstHandle2ReactionSuite This, const XMLName evaluat
 
 // Has
 int
-ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFormatHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatHas", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatHas", self, extract::format);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFormatGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatGet", This, extract::format);
+      (CLASSNAME, CLASSNAME+"FormatGet", self, extract::format);
 }
 
 // Set
 void
-ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const XMLName format)
+ReactionSuiteFormatSet(ConstHandle2ReactionSuite self, const XMLName format)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"FormatSet", This, extract::format, format);
+      (CLASSNAME, CLASSNAME+"FormatSet", self, extract::format, format);
 }
 
 
@@ -293,27 +293,27 @@ ReactionSuiteFormatSet(ConstHandle2ReactionSuite This, const XMLName format)
 
 // Has
 int
-ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileHas", self, extract::projectile);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileGet", self, extract::projectile);
 }
 
 // Set
 void
-ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const XMLName projectile)
+ReactionSuiteProjectileSet(ConstHandle2ReactionSuite self, const XMLName projectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileSet", self, extract::projectile, projectile);
 }
 
 
@@ -323,27 +323,27 @@ ReactionSuiteProjectileSet(ConstHandle2ReactionSuite This, const XMLName project
 
 // Has
 int
-ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileFrameHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameHas", This, extract::projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameHas", self, extract::projectileFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProjectileFrameGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameGet", This, extract::projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameGet", self, extract::projectileFrame);
 }
 
 // Set
 void
-ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Frame projectileFrame)
+ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite self, const enums::Frame projectileFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileFrameSet", This, extract::projectileFrame, projectileFrame);
+      (CLASSNAME, CLASSNAME+"ProjectileFrameSet", self, extract::projectileFrame, projectileFrame);
 }
 
 
@@ -353,27 +353,27 @@ ReactionSuiteProjectileFrameSet(ConstHandle2ReactionSuite This, const enums::Fra
 
 // Has
 int
-ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteTargetHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetHas", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetHas", self, extract::target);
 }
 
 // Get
 // Returns by value
 XMLName
-ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteTargetGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetGet", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetGet", self, extract::target);
 }
 
 // Set
 void
-ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const XMLName target)
+ReactionSuiteTargetSet(ConstHandle2ReactionSuite self, const XMLName target)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetSet", This, extract::target, target);
+      (CLASSNAME, CLASSNAME+"TargetSet", self, extract::target, target);
 }
 
 
@@ -383,27 +383,27 @@ ReactionSuiteTargetSet(ConstHandle2ReactionSuite This, const XMLName target)
 
 // Has
 int
-ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteInteractionHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionHas", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionHas", self, extract::interaction);
 }
 
 // Get
 // Returns by value
 enums::Interaction
-ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite This)
+ReactionSuiteInteractionGet(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionGet", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionGet", self, extract::interaction);
 }
 
 // Set
 void
-ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interaction interaction)
+ReactionSuiteInteractionSet(ConstHandle2ReactionSuite self, const enums::Interaction interaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionSet", This, extract::interaction, interaction);
+      (CLASSNAME, CLASSNAME+"InteractionSet", self, extract::interaction, interaction);
 }
 
 
@@ -413,34 +413,34 @@ ReactionSuiteInteractionSet(ConstHandle2ReactionSuite This, const enums::Interac
 
 // Has
 int
-ReactionSuiteExternalFilesHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteExternalFilesHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExternalFilesHas", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesHas", self, extract::externalFiles);
 }
 
 // Get, const
 Handle2ConstExternalFiles
-ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", self, extract::externalFiles);
 }
 
 // Get, non-const
 Handle2ExternalFiles
-ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite This)
+ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2ExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesGet", This, extract::externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesGet", self, extract::externalFiles);
 }
 
 // Set
 void
-ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstExternalFiles externalFiles)
+ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstExternalFiles externalFiles)
 {
    detail::setField<CPP,CPPExternalFiles>
-      (CLASSNAME, CLASSNAME+"ExternalFilesSet", This, extract::externalFiles, externalFiles);
+      (CLASSNAME, CLASSNAME+"ExternalFilesSet", self, extract::externalFiles, externalFiles);
 }
 
 
@@ -450,34 +450,34 @@ ReactionSuiteExternalFilesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstE
 
 // Has
 int
-ReactionSuiteStylesHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteStylesHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"StylesHas", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesHas", self, extract::styles);
 }
 
 // Get, const
 Handle2ConstStyles
-ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstStyles>
-      (CLASSNAME, CLASSNAME+"StylesGetConst", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
 // Get, non-const
 Handle2Styles
-ReactionSuiteStylesGet(ConstHandle2ReactionSuite This)
+ReactionSuiteStylesGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Styles>
-      (CLASSNAME, CLASSNAME+"StylesGet", This, extract::styles);
+      (CLASSNAME, CLASSNAME+"StylesGet", self, extract::styles);
 }
 
 // Set
 void
-ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles styles)
+ReactionSuiteStylesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstStyles styles)
 {
    detail::setField<CPP,CPPStyles>
-      (CLASSNAME, CLASSNAME+"StylesSet", This, extract::styles, styles);
+      (CLASSNAME, CLASSNAME+"StylesSet", self, extract::styles, styles);
 }
 
 
@@ -487,34 +487,34 @@ ReactionSuiteStylesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstStyles s
 
 // Has
 int
-ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite This)
+ReactionSuitePoPs_databaseHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseHas", self, extract::PoPs_database);
 }
 
 // Get, const
 Handle2ConstPoPs_database
-ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuitePoPs_databaseGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGetConst", self, extract::PoPs_database);
 }
 
 // Get, non-const
 Handle2PoPs_database
-ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite This)
+ReactionSuitePoPs_databaseGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2PoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", This, extract::PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseGet", self, extract::PoPs_database);
 }
 
 // Set
 void
-ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPoPs_database PoPs_database)
+ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite self, ConstHandle2ConstPoPs_database PoPs_database)
 {
    detail::setField<CPP,CPPPoPs_database>
-      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", This, extract::PoPs_database, PoPs_database);
+      (CLASSNAME, CLASSNAME+"PoPs_databaseSet", self, extract::PoPs_database, PoPs_database);
 }
 
 
@@ -524,34 +524,34 @@ ReactionSuitePoPs_databaseSet(ConstHandle2ReactionSuite This, ConstHandle2ConstP
 
 // Has
 int
-ReactionSuiteResonancesHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteResonancesHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonancesHas", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesHas", self, extract::resonances);
 }
 
 // Get, const
 Handle2ConstResonances
-ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstResonances>
-      (CLASSNAME, CLASSNAME+"ResonancesGetConst", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesGetConst", self, extract::resonances);
 }
 
 // Get, non-const
 Handle2Resonances
-ReactionSuiteResonancesGet(ConstHandle2ReactionSuite This)
+ReactionSuiteResonancesGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Resonances>
-      (CLASSNAME, CLASSNAME+"ResonancesGet", This, extract::resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesGet", self, extract::resonances);
 }
 
 // Set
 void
-ReactionSuiteResonancesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstResonances resonances)
+ReactionSuiteResonancesSet(ConstHandle2ReactionSuite self, ConstHandle2ConstResonances resonances)
 {
    detail::setField<CPP,CPPResonances>
-      (CLASSNAME, CLASSNAME+"ResonancesSet", This, extract::resonances, resonances);
+      (CLASSNAME, CLASSNAME+"ResonancesSet", self, extract::resonances, resonances);
 }
 
 
@@ -561,34 +561,34 @@ ReactionSuiteResonancesSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReso
 
 // Has
 int
-ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ReactionsHas", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsHas", self, extract::reactions);
 }
 
 // Get, const
 Handle2ConstReactions
-ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstReactions>
-      (CLASSNAME, CLASSNAME+"ReactionsGetConst", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsGetConst", self, extract::reactions);
 }
 
 // Get, non-const
 Handle2Reactions
-ReactionSuiteReactionsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteReactionsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Reactions>
-      (CLASSNAME, CLASSNAME+"ReactionsGet", This, extract::reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsGet", self, extract::reactions);
 }
 
 // Set
 void
-ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReactions reactions)
+ReactionSuiteReactionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstReactions reactions)
 {
    detail::setField<CPP,CPPReactions>
-      (CLASSNAME, CLASSNAME+"ReactionsSet", This, extract::reactions, reactions);
+      (CLASSNAME, CLASSNAME+"ReactionsSet", self, extract::reactions, reactions);
 }
 
 
@@ -598,34 +598,34 @@ ReactionSuiteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstReact
 
 // Has
 int
-ReactionSuiteOrphanProductsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteOrphanProductsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OrphanProductsHas", This, extract::orphanProducts);
+      (CLASSNAME, CLASSNAME+"OrphanProductsHas", self, extract::orphanProducts);
 }
 
 // Get, const
 Handle2ConstOrphanProducts
-ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstOrphanProducts>
-      (CLASSNAME, CLASSNAME+"OrphanProductsGetConst", This, extract::orphanProducts);
+      (CLASSNAME, CLASSNAME+"OrphanProductsGetConst", self, extract::orphanProducts);
 }
 
 // Get, non-const
 Handle2OrphanProducts
-ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2OrphanProducts>
-      (CLASSNAME, CLASSNAME+"OrphanProductsGet", This, extract::orphanProducts);
+      (CLASSNAME, CLASSNAME+"OrphanProductsGet", self, extract::orphanProducts);
 }
 
 // Set
 void
-ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstOrphanProducts orphanProducts)
+ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstOrphanProducts orphanProducts)
 {
    detail::setField<CPP,CPPOrphanProducts>
-      (CLASSNAME, CLASSNAME+"OrphanProductsSet", This, extract::orphanProducts, orphanProducts);
+      (CLASSNAME, CLASSNAME+"OrphanProductsSet", self, extract::orphanProducts, orphanProducts);
 }
 
 
@@ -635,34 +635,34 @@ ReactionSuiteOrphanProductsSet(ConstHandle2ReactionSuite This, ConstHandle2Const
 
 // Has
 int
-ReactionSuiteSumsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteSumsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SumsHas", This, extract::sums);
+      (CLASSNAME, CLASSNAME+"SumsHas", self, extract::sums);
 }
 
 // Get, const
 Handle2ConstSums
-ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstSums>
-      (CLASSNAME, CLASSNAME+"SumsGetConst", This, extract::sums);
+      (CLASSNAME, CLASSNAME+"SumsGetConst", self, extract::sums);
 }
 
 // Get, non-const
 Handle2Sums
-ReactionSuiteSumsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteSumsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Sums>
-      (CLASSNAME, CLASSNAME+"SumsGet", This, extract::sums);
+      (CLASSNAME, CLASSNAME+"SumsGet", self, extract::sums);
 }
 
 // Set
 void
-ReactionSuiteSumsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstSums sums)
+ReactionSuiteSumsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstSums sums)
 {
    detail::setField<CPP,CPPSums>
-      (CLASSNAME, CLASSNAME+"SumsSet", This, extract::sums, sums);
+      (CLASSNAME, CLASSNAME+"SumsSet", self, extract::sums, sums);
 }
 
 
@@ -672,34 +672,34 @@ ReactionSuiteSumsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstSums sums)
 
 // Has
 int
-ReactionSuiteFissionComponentsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFissionComponentsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionComponentsHas", This, extract::fissionComponents);
+      (CLASSNAME, CLASSNAME+"FissionComponentsHas", self, extract::fissionComponents);
 }
 
 // Get, const
 Handle2ConstFissionComponents
-ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstFissionComponents>
-      (CLASSNAME, CLASSNAME+"FissionComponentsGetConst", This, extract::fissionComponents);
+      (CLASSNAME, CLASSNAME+"FissionComponentsGetConst", self, extract::fissionComponents);
 }
 
 // Get, non-const
 Handle2FissionComponents
-ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2FissionComponents>
-      (CLASSNAME, CLASSNAME+"FissionComponentsGet", This, extract::fissionComponents);
+      (CLASSNAME, CLASSNAME+"FissionComponentsGet", self, extract::fissionComponents);
 }
 
 // Set
 void
-ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstFissionComponents fissionComponents)
+ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstFissionComponents fissionComponents)
 {
    detail::setField<CPP,CPPFissionComponents>
-      (CLASSNAME, CLASSNAME+"FissionComponentsSet", This, extract::fissionComponents, fissionComponents);
+      (CLASSNAME, CLASSNAME+"FissionComponentsSet", self, extract::fissionComponents, fissionComponents);
 }
 
 
@@ -709,34 +709,34 @@ ReactionSuiteFissionComponentsSet(ConstHandle2ReactionSuite This, ConstHandle2Co
 
 // Has
 int
-ReactionSuiteProductionsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProductionsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductionsHas", This, extract::productions);
+      (CLASSNAME, CLASSNAME+"ProductionsHas", self, extract::productions);
 }
 
 // Get, const
 Handle2ConstProductions
-ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstProductions>
-      (CLASSNAME, CLASSNAME+"ProductionsGetConst", This, extract::productions);
+      (CLASSNAME, CLASSNAME+"ProductionsGetConst", self, extract::productions);
 }
 
 // Get, non-const
 Handle2Productions
-ReactionSuiteProductionsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteProductionsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2Productions>
-      (CLASSNAME, CLASSNAME+"ProductionsGet", This, extract::productions);
+      (CLASSNAME, CLASSNAME+"ProductionsGet", self, extract::productions);
 }
 
 // Set
 void
-ReactionSuiteProductionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstProductions productions)
+ReactionSuiteProductionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstProductions productions)
 {
    detail::setField<CPP,CPPProductions>
-      (CLASSNAME, CLASSNAME+"ProductionsSet", This, extract::productions, productions);
+      (CLASSNAME, CLASSNAME+"ProductionsSet", self, extract::productions, productions);
 }
 
 
@@ -746,34 +746,34 @@ ReactionSuiteProductionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstPro
 
 // Has
 int
-ReactionSuiteIncompleteReactionsHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteIncompleteReactionsHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IncompleteReactionsHas", This, extract::incompleteReactions);
+      (CLASSNAME, CLASSNAME+"IncompleteReactionsHas", self, extract::incompleteReactions);
 }
 
 // Get, const
 Handle2ConstIncompleteReactions
-ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstIncompleteReactions>
-      (CLASSNAME, CLASSNAME+"IncompleteReactionsGetConst", This, extract::incompleteReactions);
+      (CLASSNAME, CLASSNAME+"IncompleteReactionsGetConst", self, extract::incompleteReactions);
 }
 
 // Get, non-const
 Handle2IncompleteReactions
-ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite This)
+ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2IncompleteReactions>
-      (CLASSNAME, CLASSNAME+"IncompleteReactionsGet", This, extract::incompleteReactions);
+      (CLASSNAME, CLASSNAME+"IncompleteReactionsGet", self, extract::incompleteReactions);
 }
 
 // Set
 void
-ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2ConstIncompleteReactions incompleteReactions)
+ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite self, ConstHandle2ConstIncompleteReactions incompleteReactions)
 {
    detail::setField<CPP,CPPIncompleteReactions>
-      (CLASSNAME, CLASSNAME+"IncompleteReactionsSet", This, extract::incompleteReactions, incompleteReactions);
+      (CLASSNAME, CLASSNAME+"IncompleteReactionsSet", self, extract::incompleteReactions, incompleteReactions);
 }
 
 
@@ -783,34 +783,34 @@ ReactionSuiteIncompleteReactionsSet(ConstHandle2ReactionSuite This, ConstHandle2
 
 // Has
 int
-ReactionSuiteApplicationDataHas(ConstHandle2ConstReactionSuite This)
+ReactionSuiteApplicationDataHas(ConstHandle2ConstReactionSuite self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ApplicationDataHas", This, extract::applicationData);
+      (CLASSNAME, CLASSNAME+"ApplicationDataHas", self, extract::applicationData);
 }
 
 // Get, const
 Handle2ConstApplicationData
-ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite This)
+ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite self)
 {
    return detail::getField<CPP,Handle2ConstApplicationData>
-      (CLASSNAME, CLASSNAME+"ApplicationDataGetConst", This, extract::applicationData);
+      (CLASSNAME, CLASSNAME+"ApplicationDataGetConst", self, extract::applicationData);
 }
 
 // Get, non-const
 Handle2ApplicationData
-ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite This)
+ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite self)
 {
    return detail::getField<CPP,Handle2ApplicationData>
-      (CLASSNAME, CLASSNAME+"ApplicationDataGet", This, extract::applicationData);
+      (CLASSNAME, CLASSNAME+"ApplicationDataGet", self, extract::applicationData);
 }
 
 // Set
 void
-ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite This, ConstHandle2ConstApplicationData applicationData)
+ReactionSuiteApplicationDataSet(ConstHandle2ReactionSuite self, ConstHandle2ConstApplicationData applicationData)
 {
    detail::setField<CPP,CPPApplicationData>
-      (CLASSNAME, CLASSNAME+"ApplicationDataSet", This, extract::applicationData, applicationData);
+      (CLASSNAME, CLASSNAME+"ApplicationDataSet", self, extract::applicationData, applicationData);
 }
 
 

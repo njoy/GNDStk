@@ -25,12 +25,12 @@ class ApplicationData :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "ApplicationData"; }
-   static auto FIELD() { return "applicationData"; }
+   static auto NODENAME() { return "applicationData"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ApplicationData :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<appData::Institution>>("institution")
+         --Child<std::optional<appData::Institution>>
+            ("institution")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "institution"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "institution"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<appData::Institution>> institution{this};
+   Field<std::optional<appData::Institution>>
+      institution{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->institution)
+      this->institution \
+   )
 
    // default
    ApplicationData() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ApplicationData(
-      const wrapper<std::optional<appData::Institution>> &institution
+      const wrapper<std::optional<appData::Institution>>
+         &institution
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       institution(this,institution)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ApplicationData &operator=(const ApplicationData &) = default;
-   ApplicationData &operator=(ApplicationData &&) = default;
+   // copy
+   ApplicationData &operator=(const ApplicationData &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         institution = other.institution;
+      }
+      return *this;
+   }
+
+   // move
+   ApplicationData &operator=(ApplicationData &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         institution = std::move(other.institution);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

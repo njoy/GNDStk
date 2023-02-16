@@ -27,12 +27,12 @@ class OutputChannel :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "OutputChannel"; }
-   static auto FIELD() { return "outputChannel"; }
+   static auto NODENAME() { return "outputChannel"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,38 +46,88 @@ class OutputChannel :
             / Meta<>("process") |
 
          // children
-         --Child<std::optional<common::Q>>("Q") |
-         --Child<std::optional<common::Products>>("products") |
-         --Child<std::optional<fissionFragmentData::FissionFragmentData>>("fissionFragmentData")
+         --Child<std::optional<common::Q>>
+            ("Q") |
+         --Child<std::optional<common::Products>>
+            ("products") |
+         --Child<std::optional<fissionFragmentData::FissionFragmentData>>
+            ("fissionFragmentData")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "genre",
+         "process",
+         "Q",
+         "products",
+         "fissionFragmentData"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "genre",
+         "process",
+         "q",
+         "products",
+         "fission_fragment_data"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> genre{this};
-   Field<std::optional<XMLName>> process{this};
+   Field<std::optional<XMLName>>
+      genre{this};
+   Field<std::optional<XMLName>>
+      process{this};
 
    // children
-   Field<std::optional<common::Q>> Q{this};
-   Field<std::optional<common::Products>> products{this};
-   Field<std::optional<fissionFragmentData::FissionFragmentData>> fissionFragmentData{this};
+   Field<std::optional<common::Q>>
+      Q{this};
+   Field<std::optional<common::Products>>
+      products{this};
+   Field<std::optional<fissionFragmentData::FissionFragmentData>>
+      fissionFragmentData{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->genre, \
       this->process, \
       this->Q, \
       this->products, \
-      this->fissionFragmentData)
+      this->fissionFragmentData \
+   )
 
    // default
    OutputChannel() :
@@ -88,11 +138,16 @@ public:
 
    // from fields, comment excluded
    explicit OutputChannel(
-      const wrapper<std::optional<XMLName>> &genre,
-      const wrapper<std::optional<XMLName>> &process = {},
-      const wrapper<std::optional<common::Q>> &Q = {},
-      const wrapper<std::optional<common::Products>> &products = {},
-      const wrapper<std::optional<fissionFragmentData::FissionFragmentData>> &fissionFragmentData = {}
+      const wrapper<std::optional<XMLName>>
+         &genre,
+      const wrapper<std::optional<XMLName>>
+         &process = {},
+      const wrapper<std::optional<common::Q>>
+         &Q = {},
+      const wrapper<std::optional<common::Products>>
+         &products = {},
+      const wrapper<std::optional<fissionFragmentData::FissionFragmentData>>
+         &fissionFragmentData = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       genre(this,genre),
@@ -141,8 +196,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   OutputChannel &operator=(const OutputChannel &) = default;
-   OutputChannel &operator=(OutputChannel &&) = default;
+   // copy
+   OutputChannel &operator=(const OutputChannel &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         genre = other.genre;
+         process = other.process;
+         Q = other.Q;
+         products = other.products;
+         fissionFragmentData = other.fissionFragmentData;
+      }
+      return *this;
+   }
+
+   // move
+   OutputChannel &operator=(OutputChannel &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         genre = std::move(other.genre);
+         process = std::move(other.process);
+         Q = std::move(other.Q);
+         products = std::move(other.products);
+         fissionFragmentData = std::move(other.fissionFragmentData);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

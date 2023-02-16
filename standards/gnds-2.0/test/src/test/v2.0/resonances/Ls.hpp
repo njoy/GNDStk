@@ -25,12 +25,12 @@ class Ls :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "Ls"; }
-   static auto FIELD() { return "Ls"; }
+   static auto NODENAME() { return "Ls"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Ls :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<resonances::L>("L")
+         ++Child<resonances::L>
+            ("L")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "L"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "l"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<resonances::L>> L{this};
+   Field<std::vector<resonances::L>>
+      L{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->L)
+      this->L \
+   )
 
    // default
    Ls() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Ls(
-      const wrapper<std::vector<resonances::L>> &L
+      const wrapper<std::vector<resonances::L>>
+         &L
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       L(this,L)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Ls &operator=(const Ls &) = default;
-   Ls &operator=(Ls &&) = default;
+   // copy
+   Ls &operator=(const Ls &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         L = other.L;
+      }
+      return *this;
+   }
+
+   // move
+   Ls &operator=(Ls &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         L = std::move(other.L);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

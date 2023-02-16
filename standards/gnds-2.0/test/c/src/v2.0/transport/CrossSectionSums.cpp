@@ -73,20 +73,20 @@ CrossSectionSumsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CrossSectionSumsAssign(ConstHandle2CrossSectionSums This, ConstHandle2ConstCrossSectionSums from)
+CrossSectionSumsAssign(ConstHandle2CrossSectionSums self, ConstHandle2ConstCrossSectionSums from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CrossSectionSumsDelete(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsDelete(ConstHandle2ConstCrossSectionSums self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ CrossSectionSumsDelete(ConstHandle2ConstCrossSectionSums This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CrossSectionSumsRead(ConstHandle2CrossSectionSums This, const char *const filename)
+CrossSectionSumsRead(ConstHandle2CrossSectionSums self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CrossSectionSumsWrite(ConstHandle2ConstCrossSectionSums This, const char *const filename)
+CrossSectionSumsWrite(ConstHandle2ConstCrossSectionSums self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CrossSectionSumsPrint(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsPrint(ConstHandle2ConstCrossSectionSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CrossSectionSumsPrintXML(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsPrintXML(ConstHandle2ConstCrossSectionSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CrossSectionSumsPrintJSON(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsPrintJSON(ConstHandle2ConstCrossSectionSums self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ CrossSectionSumsPrintJSON(ConstHandle2ConstCrossSectionSums This)
 
 // Has
 int
-CrossSectionSumsCrossSectionSumHas(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsCrossSectionSumHas(ConstHandle2ConstCrossSectionSums self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumHas", This, extract::crossSectionSum);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumHas", self, extract::crossSectionSum);
 }
 
 // Clear
 void
-CrossSectionSumsCrossSectionSumClear(ConstHandle2CrossSectionSums This)
+CrossSectionSumsCrossSectionSumClear(ConstHandle2CrossSectionSums self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumClear", This, extract::crossSectionSum);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumClear", self, extract::crossSectionSum);
 }
 
 // Size
 size_t
-CrossSectionSumsCrossSectionSumSize(ConstHandle2ConstCrossSectionSums This)
+CrossSectionSumsCrossSectionSumSize(ConstHandle2ConstCrossSectionSums self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumSize", This, extract::crossSectionSum);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumSize", self, extract::crossSectionSum);
 }
 
 // Add
 void
-CrossSectionSumsCrossSectionSumAdd(ConstHandle2CrossSectionSums This, ConstHandle2ConstCrossSectionSum crossSectionSum)
+CrossSectionSumsCrossSectionSumAdd(ConstHandle2CrossSectionSums self, ConstHandle2ConstCrossSectionSum crossSectionSum)
 {
    detail::addToContainer<CPP,CPPCrossSectionSum>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumAdd", This, extract::crossSectionSum, crossSectionSum);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumAdd", self, extract::crossSectionSum, crossSectionSum);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstCrossSectionSum
-CrossSectionSumsCrossSectionSumGetConst(ConstHandle2ConstCrossSectionSums This, const size_t index_)
+CrossSectionSumsCrossSectionSumGetConst(ConstHandle2ConstCrossSectionSums self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstCrossSectionSum>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumGetConst", This, extract::crossSectionSum, index_);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumGetConst", self, extract::crossSectionSum, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2CrossSectionSum
-CrossSectionSumsCrossSectionSumGet(ConstHandle2CrossSectionSums This, const size_t index_)
+CrossSectionSumsCrossSectionSumGet(ConstHandle2CrossSectionSums self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2CrossSectionSum>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumGet", This, extract::crossSectionSum, index_);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumGet", self, extract::crossSectionSum, index_);
 }
 
 // Set, by index \in [0,size)
 void
 CrossSectionSumsCrossSectionSumSet(
-   ConstHandle2CrossSectionSums This,
+   ConstHandle2CrossSectionSums self,
    const size_t index_,
    ConstHandle2ConstCrossSectionSum crossSectionSum
 ) {
    detail::setByIndex<CPP,CPPCrossSectionSum>
-      (CLASSNAME, CLASSNAME+"CrossSectionSumSet", This, extract::crossSectionSum, index_, crossSectionSum);
+      (CLASSNAME, CLASSNAME+"CrossSectionSumSet", self, extract::crossSectionSum, index_, crossSectionSum);
 }
 
 // Has, by ENDF_MT
 int
 CrossSectionSumsCrossSectionSumHasByENDFMT(
-   ConstHandle2ConstCrossSectionSums This,
+   ConstHandle2ConstCrossSectionSums self,
    const Integer32 ENDF_MT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CrossSectionSumHasByENDFMT",
-       This, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
+       self, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, const
 Handle2ConstCrossSectionSum
 CrossSectionSumsCrossSectionSumGetByENDFMTConst(
-   ConstHandle2ConstCrossSectionSums This,
+   ConstHandle2ConstCrossSectionSums self,
    const Integer32 ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumGetByENDFMTConst",
-       This, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
+       self, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Get, by ENDF_MT, non-const
 Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByENDFMT(
-   ConstHandle2CrossSectionSums This,
+   ConstHandle2CrossSectionSums self,
    const Integer32 ENDF_MT
 ) {
    return detail::getByMetadatum<CPP,Handle2CrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumGetByENDFMT",
-       This, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
+       self, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
 }
 
 // Set, by ENDF_MT
 void
 CrossSectionSumsCrossSectionSumSetByENDFMT(
-   ConstHandle2CrossSectionSums This,
+   ConstHandle2CrossSectionSums self,
    const Integer32 ENDF_MT,
    ConstHandle2ConstCrossSectionSum crossSectionSum
 ) {
    detail::setByMetadatum<CPP,CPPCrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumSetByENDFMT",
-       This, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT, crossSectionSum);
+       self, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT, crossSectionSum);
 }
 
 // Has, by label
 int
 CrossSectionSumsCrossSectionSumHasByLabel(
-   ConstHandle2ConstCrossSectionSums This,
+   ConstHandle2ConstCrossSectionSums self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"CrossSectionSumHasByLabel",
-       This, extract::crossSectionSum, meta::label, label);
+       self, extract::crossSectionSum, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstCrossSectionSum
 CrossSectionSumsCrossSectionSumGetByLabelConst(
-   ConstHandle2ConstCrossSectionSums This,
+   ConstHandle2ConstCrossSectionSums self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstCrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumGetByLabelConst",
-       This, extract::crossSectionSum, meta::label, label);
+       self, extract::crossSectionSum, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByLabel(
-   ConstHandle2CrossSectionSums This,
+   ConstHandle2CrossSectionSums self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2CrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumGetByLabel",
-       This, extract::crossSectionSum, meta::label, label);
+       self, extract::crossSectionSum, meta::label, label);
 }
 
 // Set, by label
 void
 CrossSectionSumsCrossSectionSumSetByLabel(
-   ConstHandle2CrossSectionSums This,
+   ConstHandle2CrossSectionSums self,
    const XMLName label,
    ConstHandle2ConstCrossSectionSum crossSectionSum
 ) {
    detail::setByMetadatum<CPP,CPPCrossSectionSum>
       (CLASSNAME, CLASSNAME+"CrossSectionSumSetByLabel",
-       This, extract::crossSectionSum, meta::label, label, crossSectionSum);
+       self, extract::crossSectionSum, meta::label, label, crossSectionSum);
 }
 
 

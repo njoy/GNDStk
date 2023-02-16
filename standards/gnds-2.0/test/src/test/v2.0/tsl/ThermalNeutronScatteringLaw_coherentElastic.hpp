@@ -31,12 +31,12 @@ class ThermalNeutronScatteringLaw_coherentElastic :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "ThermalNeutronScatteringLaw_coherentElastic"; }
-   static auto FIELD() { return "thermalNeutronScatteringLaw_coherentElastic"; }
+   static auto NODENAME() { return "thermalNeutronScatteringLaw_coherentElastic"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -57,7 +57,40 @@ class ThermalNeutronScatteringLaw_coherentElastic :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "productFrame",
+         "_S_tableBraggEdges"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "pid",
+         "product_frame",
+         "_s_table_bragg_edges"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -66,16 +99,24 @@ public:
       static inline const enums::Frame productFrame = enums::Frame::lab;
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
-   Field<Defaulted<XMLName>> pid{this,defaults.pid};
-   Field<Defaulted<enums::Frame>> productFrame{this,defaults.productFrame};
+   Field<XMLName>
+      label{this};
+   Field<Defaulted<XMLName>>
+      pid{this,defaults.pid};
+   Field<Defaulted<enums::Frame>>
+      productFrame{this,defaults.productFrame};
 
    // children - variant
-   Field<_t> _S_tableBraggEdges{this};
+   Field<_t>
+      _S_tableBraggEdges{this};
    FieldPart<decltype(_S_tableBraggEdges),tsl::S_table> S_table{_S_tableBraggEdges};
    FieldPart<decltype(_S_tableBraggEdges),tsl::BraggEdges> BraggEdges{_S_tableBraggEdges};
 
@@ -83,12 +124,15 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->pid, \
       this->productFrame, \
-      this->_S_tableBraggEdges)
+      this->_S_tableBraggEdges \
+   )
 
    // default
    ThermalNeutronScatteringLaw_coherentElastic() :
@@ -100,10 +144,14 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit ThermalNeutronScatteringLaw_coherentElastic(
-      const wrapper<XMLName> &label,
-      const wrapper<std::optional<XMLName>> &pid = {},
-      const wrapper<std::optional<enums::Frame>> &productFrame = {},
-      const wrapper<_t> &_S_tableBraggEdges = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<std::optional<XMLName>>
+         &pid = {},
+      const wrapper<std::optional<enums::Frame>>
+         &productFrame = {},
+      const wrapper<_t>
+         &_S_tableBraggEdges = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -149,8 +197,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ThermalNeutronScatteringLaw_coherentElastic &operator=(const ThermalNeutronScatteringLaw_coherentElastic &) = default;
-   ThermalNeutronScatteringLaw_coherentElastic &operator=(ThermalNeutronScatteringLaw_coherentElastic &&) = default;
+   // copy
+   ThermalNeutronScatteringLaw_coherentElastic &operator=(const ThermalNeutronScatteringLaw_coherentElastic &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         pid = other.pid;
+         productFrame = other.productFrame;
+         _S_tableBraggEdges = other._S_tableBraggEdges;
+      }
+      return *this;
+   }
+
+   // move
+   ThermalNeutronScatteringLaw_coherentElastic &operator=(ThermalNeutronScatteringLaw_coherentElastic &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         pid = std::move(other.pid);
+         productFrame = std::move(other.productFrame);
+         _S_tableBraggEdges = std::move(other._S_tableBraggEdges);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

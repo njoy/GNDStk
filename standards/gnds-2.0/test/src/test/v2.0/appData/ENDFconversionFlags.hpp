@@ -25,12 +25,12 @@ class ENDFconversionFlags :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "appData"; }
    static auto CLASS() { return "ENDFconversionFlags"; }
-   static auto FIELD() { return "ENDFconversionFlags"; }
+   static auto NODENAME() { return "ENDFconversionFlags"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ENDFconversionFlags :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<appData::Conversion>>("conversion")
+         --Child<std::optional<appData::Conversion>>
+            ("conversion")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "conversion"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "conversion"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<appData::Conversion>> conversion{this};
+   Field<std::optional<appData::Conversion>>
+      conversion{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->conversion)
+      this->conversion \
+   )
 
    // default
    ENDFconversionFlags() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ENDFconversionFlags(
-      const wrapper<std::optional<appData::Conversion>> &conversion
+      const wrapper<std::optional<appData::Conversion>>
+         &conversion
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       conversion(this,conversion)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ENDFconversionFlags &operator=(const ENDFconversionFlags &) = default;
-   ENDFconversionFlags &operator=(ENDFconversionFlags &&) = default;
+   // copy
+   ENDFconversionFlags &operator=(const ENDFconversionFlags &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         conversion = other.conversion;
+      }
+      return *this;
+   }
+
+   // move
+   ENDFconversionFlags &operator=(ENDFconversionFlags &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         conversion = std::move(other.conversion);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

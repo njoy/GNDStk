@@ -26,12 +26,12 @@ class Gridded2d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Gridded2d"; }
-   static auto FIELD() { return "gridded2d"; }
+   static auto NODENAME() { return "gridded2d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class Gridded2d :
             / Meta<>("label") |
 
          // children
-         --Child<containers::Array>("array") |
-         --Child<containers::Axes>("axes")
+         --Child<containers::Array>
+            ("array") |
+         --Child<containers::Axes>
+            ("axes")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "array",
+         "axes"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "array",
+         "axes"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<containers::Array> array{this};
-   Field<containers::Axes> axes{this};
+   Field<containers::Array>
+      array{this};
+   Field<containers::Axes>
+      axes{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->array, \
-      this->axes)
+      this->axes \
+   )
 
    // default
    Gridded2d() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit Gridded2d(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<containers::Array> &array = {},
-      const wrapper<containers::Axes> &axes = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<containers::Array>
+         &array = {},
+      const wrapper<containers::Axes>
+         &axes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Gridded2d &operator=(const Gridded2d &) = default;
-   Gridded2d &operator=(Gridded2d &&) = default;
+   // copy
+   Gridded2d &operator=(const Gridded2d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         array = other.array;
+         axes = other.axes;
+      }
+      return *this;
+   }
+
+   // move
+   Gridded2d &operator=(Gridded2d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         array = std::move(other.array);
+         axes = std::move(other.axes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

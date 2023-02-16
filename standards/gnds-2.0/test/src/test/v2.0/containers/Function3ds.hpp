@@ -31,12 +31,12 @@ class Function3ds :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Function3ds"; }
-   static auto FIELD() { return "function3ds"; }
+   static auto NODENAME() { return "function3ds"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,14 +49,46 @@ class Function3ds :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_XYs3dgridded3d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "_xys3dgridded3d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children - variant
-   Field<std::vector<_t>> _XYs3dgridded3d{this};
+   Field<std::vector<_t>>
+      _XYs3dgridded3d{this};
    FieldPart<decltype(_XYs3dgridded3d),containers::XYs3d> XYs3d{_XYs3dgridded3d};
    FieldPart<decltype(_XYs3dgridded3d),containers::Gridded3d> gridded3d{_XYs3dgridded3d};
 
@@ -64,9 +96,12 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->_XYs3dgridded3d)
+      this->_XYs3dgridded3d \
+   )
 
    // default
    Function3ds() :
@@ -77,7 +112,8 @@ public:
 
    // from fields, comment excluded
    explicit Function3ds(
-      const wrapper<std::vector<_t>> &_XYs3dgridded3d
+      const wrapper<std::vector<_t>>
+         &_XYs3dgridded3d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       _XYs3dgridded3d(this,_XYs3dgridded3d)
@@ -114,8 +150,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Function3ds &operator=(const Function3ds &) = default;
-   Function3ds &operator=(Function3ds &&) = default;
+   // copy
+   Function3ds &operator=(const Function3ds &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         _XYs3dgridded3d = other._XYs3dgridded3d;
+      }
+      return *this;
+   }
+
+   // move
+   Function3ds &operator=(Function3ds &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         _XYs3dgridded3d = std::move(other._XYs3dgridded3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -99,13 +99,13 @@ PoPsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-PoPsAssign(ConstHandle2PoPs This, ConstHandle2ConstPoPs from);
+PoPsAssign(ConstHandle2PoPs self, ConstHandle2ConstPoPs from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-PoPsDelete(ConstHandle2ConstPoPs This);
+PoPsDelete(ConstHandle2ConstPoPs self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ PoPsDelete(ConstHandle2ConstPoPs This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-PoPsRead(ConstHandle2PoPs This, const char *const filename);
+PoPsRead(ConstHandle2PoPs self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-PoPsWrite(ConstHandle2ConstPoPs This, const char *const filename);
+PoPsWrite(ConstHandle2ConstPoPs self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-PoPsPrint(ConstHandle2ConstPoPs This);
+PoPsPrint(ConstHandle2ConstPoPs self);
 
 // +++ Print to standard output, as XML
 extern_c int
-PoPsPrintXML(ConstHandle2ConstPoPs This);
+PoPsPrintXML(ConstHandle2ConstPoPs self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-PoPsPrintJSON(ConstHandle2ConstPoPs This);
+PoPsPrintJSON(ConstHandle2ConstPoPs self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ PoPsPrintJSON(ConstHandle2ConstPoPs This);
 
 // +++ Has
 extern_c int
-PoPsNameHas(ConstHandle2ConstPoPs This);
+PoPsNameHas(ConstHandle2ConstPoPs self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-PoPsNameGet(ConstHandle2ConstPoPs This);
+PoPsNameGet(ConstHandle2ConstPoPs self);
 
 // +++ Set
 extern_c void
-PoPsNameSet(ConstHandle2PoPs This, const char *const name);
+PoPsNameSet(ConstHandle2PoPs self, const char *const name);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ PoPsNameSet(ConstHandle2PoPs This, const char *const name);
 
 // +++ Has
 extern_c int
-PoPsVersionHas(ConstHandle2ConstPoPs This);
+PoPsVersionHas(ConstHandle2ConstPoPs self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-PoPsVersionGet(ConstHandle2ConstPoPs This);
+PoPsVersionGet(ConstHandle2ConstPoPs self);
 
 // +++ Set
 extern_c void
-PoPsVersionSet(ConstHandle2PoPs This, const char *const version);
+PoPsVersionSet(ConstHandle2PoPs self, const char *const version);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ PoPsVersionSet(ConstHandle2PoPs This, const char *const version);
 
 // +++ Has
 extern_c int
-PoPsFormatHas(ConstHandle2ConstPoPs This);
+PoPsFormatHas(ConstHandle2ConstPoPs self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-PoPsFormatGet(ConstHandle2ConstPoPs This);
+PoPsFormatGet(ConstHandle2ConstPoPs self);
 
 // +++ Set
 extern_c void
-PoPsFormatSet(ConstHandle2PoPs This, const char *const format);
+PoPsFormatSet(ConstHandle2PoPs self, const char *const format);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ PoPsFormatSet(ConstHandle2PoPs This, const char *const format);
 
 // +++ Has
 extern_c int
-PoPsStylesHas(ConstHandle2ConstPoPs This);
+PoPsStylesHas(ConstHandle2ConstPoPs self);
 
 // --- Get, const
 extern_c Handle2ConstStyles
-PoPsStylesGetConst(ConstHandle2ConstPoPs This);
+PoPsStylesGetConst(ConstHandle2ConstPoPs self);
 
 // +++ Get, non-const
 extern_c Handle2Styles
-PoPsStylesGet(ConstHandle2PoPs This);
+PoPsStylesGet(ConstHandle2PoPs self);
 
 // +++ Set
 extern_c void
-PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles);
+PoPsStylesSet(ConstHandle2PoPs self, ConstHandle2ConstStyles styles);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ PoPsStylesSet(ConstHandle2PoPs This, ConstHandle2ConstStyles styles);
 
 // +++ Has
 extern_c int
-PoPsChemicalElementsHas(ConstHandle2ConstPoPs This);
+PoPsChemicalElementsHas(ConstHandle2ConstPoPs self);
 
 // --- Get, const
 extern_c Handle2ConstChemicalElements
-PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs This);
+PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs self);
 
 // +++ Get, non-const
 extern_c Handle2ChemicalElements
-PoPsChemicalElementsGet(ConstHandle2PoPs This);
+PoPsChemicalElementsGet(ConstHandle2PoPs self);
 
 // +++ Set
 extern_c void
-PoPsChemicalElementsSet(ConstHandle2PoPs This, ConstHandle2ConstChemicalElements chemicalElements);
+PoPsChemicalElementsSet(ConstHandle2PoPs self, ConstHandle2ConstChemicalElements chemicalElements);
 
 
 // -----------------------------------------------------------------------------

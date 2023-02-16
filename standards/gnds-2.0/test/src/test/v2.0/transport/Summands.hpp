@@ -25,12 +25,12 @@ class Summands :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Summands"; }
-   static auto FIELD() { return "summands"; }
+   static auto NODENAME() { return "summands"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Summands :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<std::optional<transport::Add>>("add")
+         ++Child<std::optional<transport::Add>>
+            ("add")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "add"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "add"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<std::vector<transport::Add>>> add{this};
+   Field<std::optional<std::vector<transport::Add>>>
+      add{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->add)
+      this->add \
+   )
 
    // default
    Summands() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Summands(
-      const wrapper<std::optional<std::vector<transport::Add>>> &add
+      const wrapper<std::optional<std::vector<transport::Add>>>
+         &add
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       add(this,add)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Summands &operator=(const Summands &) = default;
-   Summands &operator=(Summands &&) = default;
+   // copy
+   Summands &operator=(const Summands &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         add = other.add;
+      }
+      return *this;
+   }
+
+   // move
+   Summands &operator=(Summands &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         add = std::move(other.add);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

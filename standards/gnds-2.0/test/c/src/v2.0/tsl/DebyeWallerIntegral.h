@@ -90,13 +90,13 @@ DebyeWallerIntegralCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DebyeWallerIntegralAssign(ConstHandle2DebyeWallerIntegral This, ConstHandle2ConstDebyeWallerIntegral from);
+DebyeWallerIntegralAssign(ConstHandle2DebyeWallerIntegral self, ConstHandle2ConstDebyeWallerIntegral from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DebyeWallerIntegralDelete(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralDelete(ConstHandle2ConstDebyeWallerIntegral self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ DebyeWallerIntegralDelete(ConstHandle2ConstDebyeWallerIntegral This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DebyeWallerIntegralRead(ConstHandle2DebyeWallerIntegral This, const char *const filename);
+DebyeWallerIntegralRead(ConstHandle2DebyeWallerIntegral self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DebyeWallerIntegralWrite(ConstHandle2ConstDebyeWallerIntegral This, const char *const filename);
+DebyeWallerIntegralWrite(ConstHandle2ConstDebyeWallerIntegral self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DebyeWallerIntegralPrint(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralPrint(ConstHandle2ConstDebyeWallerIntegral self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DebyeWallerIntegralPrintXML(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralPrintXML(ConstHandle2ConstDebyeWallerIntegral self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DebyeWallerIntegralPrintJSON(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralPrintJSON(ConstHandle2ConstDebyeWallerIntegral self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ DebyeWallerIntegralPrintJSON(ConstHandle2ConstDebyeWallerIntegral This);
 
 // +++ Has
 extern_c int
-DebyeWallerIntegralXYs1dHas(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralXYs1dHas(ConstHandle2ConstDebyeWallerIntegral self);
 
 // --- Get, const
 extern_c Handle2ConstXYs1d
-DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral This);
+DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral self);
 
 // +++ Get, non-const
 extern_c Handle2XYs1d
-DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral This);
+DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral self);
 
 // +++ Set
 extern_c void
-DebyeWallerIntegralXYs1dSet(ConstHandle2DebyeWallerIntegral This, ConstHandle2ConstXYs1d XYs1d);
+DebyeWallerIntegralXYs1dSet(ConstHandle2DebyeWallerIntegral self, ConstHandle2ConstXYs1d XYs1d);
 
 
 // -----------------------------------------------------------------------------

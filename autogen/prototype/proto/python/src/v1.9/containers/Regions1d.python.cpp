@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_containers {
 
-// Regions1d wrapper
-void wrapRegions1d(python::module &module)
+// wrapper for containers::Regions1d
+void wrapRegions1d(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = containers::Regions1d;
+   using cppCLASS = containers::Regions1d;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Regions1d",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Regions1d",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const std::optional<double> &,
-            const std::optional<containers::Axes> &,
-            const std::vector<containers::XYs1d> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("outer_domain_value") = std::nullopt,
-         python::arg("axes") = std::nullopt,
-         python::arg("xys1d"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "outer_domain_value",
-         [](const Component &self) { return self.outerDomainValue(); },
-         Component::documentation("outer_domain_value").data()
-      )
-      .def_property_readonly(
-         "axes",
-         [](const Component &self) { return self.axes(); },
-         Component::documentation("axes").data()
-      )
-      .def_property_readonly(
-         "xys1d",
-         [](const Component &self) { return self.XYs1d(); },
-         Component::documentation("xys1d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const std::optional<double> &,
+         const std::optional<containers::Axes> &,
+         const std::vector<containers::XYs1d> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("outer_domain_value") = std::nullopt,
+      py::arg("axes") = std::nullopt,
+      py::arg("xys1d"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set outerDomainValue
+   object.def_property(
+      "outer_domain_value",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.outerDomainValue();
+      },
+      [](cppCLASS &self, const std::optional<double> &value)
+      {
+         self.outerDomainValue() = value;
+      },
+      cppCLASS::component_t::documentation("outer_domain_value").data()
+   );
+
+   // get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::optional<containers::Axes> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::vector<containers::XYs1d> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

@@ -72,20 +72,20 @@ SelfScatteringKernelCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel This, ConstHandle2ConstSelfScatteringKernel from)
+SelfScatteringKernelAssign(ConstHandle2SelfScatteringKernel self, ConstHandle2ConstSelfScatteringKernel from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -99,44 +99,44 @@ SelfScatteringKernelDelete(ConstHandle2ConstSelfScatteringKernel This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel This, const char *const filename)
+SelfScatteringKernelRead(ConstHandle2SelfScatteringKernel self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel This, const char *const filename)
+SelfScatteringKernelWrite(ConstHandle2ConstSelfScatteringKernel self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrint(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrintXML(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -146,27 +146,27 @@ SelfScatteringKernelPrintJSON(ConstHandle2ConstSelfScatteringKernel This)
 
 // Has
 int
-SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSymmetricHas(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricHas", This, extract::symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricHas", self, extract::symmetric);
 }
 
 // Get
 // Returns by value
 bool
-SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel This)
+SelfScatteringKernelSymmetricGet(ConstHandle2ConstSelfScatteringKernel self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricGet", This, extract::symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricGet", self, extract::symmetric);
 }
 
 // Set
 void
-SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel This, const bool symmetric)
+SelfScatteringKernelSymmetricSet(ConstHandle2SelfScatteringKernel self, const bool symmetric)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SymmetricSet", This, extract::symmetric, symmetric);
+      (CLASSNAME, CLASSNAME+"SymmetricSet", self, extract::symmetric, symmetric);
 }
 
 

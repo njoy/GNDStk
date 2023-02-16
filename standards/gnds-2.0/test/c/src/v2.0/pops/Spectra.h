@@ -90,13 +90,13 @@ SpectraCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SpectraAssign(ConstHandle2Spectra This, ConstHandle2ConstSpectra from);
+SpectraAssign(ConstHandle2Spectra self, ConstHandle2ConstSpectra from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SpectraDelete(ConstHandle2ConstSpectra This);
+SpectraDelete(ConstHandle2ConstSpectra self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ SpectraDelete(ConstHandle2ConstSpectra This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SpectraRead(ConstHandle2Spectra This, const char *const filename);
+SpectraRead(ConstHandle2Spectra self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SpectraWrite(ConstHandle2ConstSpectra This, const char *const filename);
+SpectraWrite(ConstHandle2ConstSpectra self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SpectraPrint(ConstHandle2ConstSpectra This);
+SpectraPrint(ConstHandle2ConstSpectra self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SpectraPrintXML(ConstHandle2ConstSpectra This);
+SpectraPrintXML(ConstHandle2ConstSpectra self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SpectraPrintJSON(ConstHandle2ConstSpectra This);
+SpectraPrintJSON(ConstHandle2ConstSpectra self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ SpectraPrintJSON(ConstHandle2ConstSpectra This);
 
 // +++ Has
 extern_c int
-SpectraSpectrumHas(ConstHandle2ConstSpectra This);
+SpectraSpectrumHas(ConstHandle2ConstSpectra self);
 
 // +++ Clear
 extern_c void
-SpectraSpectrumClear(ConstHandle2Spectra This);
+SpectraSpectrumClear(ConstHandle2Spectra self);
 
 // +++ Size
 extern_c size_t
-SpectraSpectrumSize(ConstHandle2ConstSpectra This);
+SpectraSpectrumSize(ConstHandle2ConstSpectra self);
 
 // +++ Add
 extern_c void
-SpectraSpectrumAdd(ConstHandle2Spectra This, ConstHandle2ConstSpectrum spectrum);
+SpectraSpectrumAdd(ConstHandle2Spectra self, ConstHandle2ConstSpectrum spectrum);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstSpectrum
-SpectraSpectrumGetConst(ConstHandle2ConstSpectra This, const size_t index_);
+SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Spectrum
-SpectraSpectrumGet(ConstHandle2Spectra This, const size_t index_);
+SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 SpectraSpectrumSet(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const size_t index_,
    ConstHandle2ConstSpectrum spectrum
 );
@@ -169,28 +169,28 @@ SpectraSpectrumSet(
 // +++ Has, by label
 extern_c int
 SpectraSpectrumHasByLabel(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstSpectrum
 SpectraSpectrumGetByLabelConst(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Spectrum
 SpectraSpectrumGetByLabel(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 SpectraSpectrumSetByLabel(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const XMLName label,
    ConstHandle2ConstSpectrum spectrum
 );
@@ -198,28 +198,28 @@ SpectraSpectrumSetByLabel(
 // +++ Has, by pid
 extern_c int
 SpectraSpectrumHasByPid(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const XMLName pid
 );
 
 // --- Get, by pid, const
 extern_c Handle2ConstSpectrum
 SpectraSpectrumGetByPidConst(
-   ConstHandle2ConstSpectra This,
+   ConstHandle2ConstSpectra self,
    const XMLName pid
 );
 
 // +++ Get, by pid, non-const
 extern_c Handle2Spectrum
 SpectraSpectrumGetByPid(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const XMLName pid
 );
 
 // +++ Set, by pid
 extern_c void
 SpectraSpectrumSetByPid(
-   ConstHandle2Spectra This,
+   ConstHandle2Spectra self,
    const XMLName pid,
    ConstHandle2ConstSpectrum spectrum
 );

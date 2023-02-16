@@ -79,20 +79,20 @@ IsotopeCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IsotopeAssign(ConstHandle2Isotope This, ConstHandle2ConstIsotope from)
+IsotopeAssign(ConstHandle2Isotope self, ConstHandle2ConstIsotope from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IsotopeDelete(ConstHandle2ConstIsotope This)
+IsotopeDelete(ConstHandle2ConstIsotope self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -106,44 +106,44 @@ IsotopeDelete(ConstHandle2ConstIsotope This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IsotopeRead(ConstHandle2Isotope This, const char *const filename)
+IsotopeRead(ConstHandle2Isotope self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IsotopeWrite(ConstHandle2ConstIsotope This, const char *const filename)
+IsotopeWrite(ConstHandle2ConstIsotope self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IsotopePrint(ConstHandle2ConstIsotope This)
+IsotopePrint(ConstHandle2ConstIsotope self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IsotopePrintXML(ConstHandle2ConstIsotope This)
+IsotopePrintXML(ConstHandle2ConstIsotope self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IsotopePrintJSON(ConstHandle2ConstIsotope This)
+IsotopePrintJSON(ConstHandle2ConstIsotope self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -153,27 +153,27 @@ IsotopePrintJSON(ConstHandle2ConstIsotope This)
 
 // Has
 int
-IsotopeAHas(ConstHandle2ConstIsotope This)
+IsotopeAHas(ConstHandle2ConstIsotope self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AHas", This, extract::A);
+      (CLASSNAME, CLASSNAME+"AHas", self, extract::A);
 }
 
 // Get
 // Returns by value
 Integer32
-IsotopeAGet(ConstHandle2ConstIsotope This)
+IsotopeAGet(ConstHandle2ConstIsotope self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AGet", This, extract::A);
+      (CLASSNAME, CLASSNAME+"AGet", self, extract::A);
 }
 
 // Set
 void
-IsotopeASet(ConstHandle2Isotope This, const Integer32 A)
+IsotopeASet(ConstHandle2Isotope self, const Integer32 A)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ASet", This, extract::A, A);
+      (CLASSNAME, CLASSNAME+"ASet", self, extract::A, A);
 }
 
 
@@ -183,27 +183,27 @@ IsotopeASet(ConstHandle2Isotope This, const Integer32 A)
 
 // Has
 int
-IsotopeSymbolHas(ConstHandle2ConstIsotope This)
+IsotopeSymbolHas(ConstHandle2ConstIsotope self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolHas", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolHas", self, extract::symbol);
 }
 
 // Get
 // Returns by value
 XMLName
-IsotopeSymbolGet(ConstHandle2ConstIsotope This)
+IsotopeSymbolGet(ConstHandle2ConstIsotope self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolGet", This, extract::symbol);
+      (CLASSNAME, CLASSNAME+"SymbolGet", self, extract::symbol);
 }
 
 // Set
 void
-IsotopeSymbolSet(ConstHandle2Isotope This, const XMLName symbol)
+IsotopeSymbolSet(ConstHandle2Isotope self, const XMLName symbol)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"SymbolSet", This, extract::symbol, symbol);
+      (CLASSNAME, CLASSNAME+"SymbolSet", self, extract::symbol, symbol);
 }
 
 
@@ -213,34 +213,34 @@ IsotopeSymbolSet(ConstHandle2Isotope This, const XMLName symbol)
 
 // Has
 int
-IsotopeNuclidesHas(ConstHandle2ConstIsotope This)
+IsotopeNuclidesHas(ConstHandle2ConstIsotope self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"NuclidesHas", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesHas", self, extract::nuclides);
 }
 
 // Get, const
 Handle2ConstNuclides
-IsotopeNuclidesGetConst(ConstHandle2ConstIsotope This)
+IsotopeNuclidesGetConst(ConstHandle2ConstIsotope self)
 {
    return detail::getField<CPP,Handle2ConstNuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesGetConst", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
 // Get, non-const
 Handle2Nuclides
-IsotopeNuclidesGet(ConstHandle2Isotope This)
+IsotopeNuclidesGet(ConstHandle2Isotope self)
 {
    return detail::getField<CPP,Handle2Nuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesGet", This, extract::nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesGet", self, extract::nuclides);
 }
 
 // Set
 void
-IsotopeNuclidesSet(ConstHandle2Isotope This, ConstHandle2ConstNuclides nuclides)
+IsotopeNuclidesSet(ConstHandle2Isotope self, ConstHandle2ConstNuclides nuclides)
 {
    detail::setField<CPP,CPPNuclides>
-      (CLASSNAME, CLASSNAME+"NuclidesSet", This, extract::nuclides, nuclides);
+      (CLASSNAME, CLASSNAME+"NuclidesSet", self, extract::nuclides, nuclides);
 }
 
 

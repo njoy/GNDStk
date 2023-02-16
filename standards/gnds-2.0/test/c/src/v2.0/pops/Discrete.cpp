@@ -104,20 +104,20 @@ DiscreteCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-DiscreteAssign(ConstHandle2Discrete This, ConstHandle2ConstDiscrete from)
+DiscreteAssign(ConstHandle2Discrete self, ConstHandle2ConstDiscrete from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-DiscreteDelete(ConstHandle2ConstDiscrete This)
+DiscreteDelete(ConstHandle2ConstDiscrete self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -131,44 +131,44 @@ DiscreteDelete(ConstHandle2ConstDiscrete This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-DiscreteRead(ConstHandle2Discrete This, const char *const filename)
+DiscreteRead(ConstHandle2Discrete self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-DiscreteWrite(ConstHandle2ConstDiscrete This, const char *const filename)
+DiscreteWrite(ConstHandle2ConstDiscrete self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-DiscretePrint(ConstHandle2ConstDiscrete This)
+DiscretePrint(ConstHandle2ConstDiscrete self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-DiscretePrintXML(ConstHandle2ConstDiscrete This)
+DiscretePrintXML(ConstHandle2ConstDiscrete self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-DiscretePrintJSON(ConstHandle2ConstDiscrete This)
+DiscretePrintJSON(ConstHandle2ConstDiscrete self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -178,27 +178,27 @@ DiscretePrintJSON(ConstHandle2ConstDiscrete This)
 
 // Has
 int
-DiscreteTypeHas(ConstHandle2ConstDiscrete This)
+DiscreteTypeHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeHas", self, extract::type);
 }
 
 // Get
 // Returns by value
 XMLName
-DiscreteTypeGet(ConstHandle2ConstDiscrete This)
+DiscreteTypeGet(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeGet", self, extract::type);
 }
 
 // Set
 void
-DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type)
+DiscreteTypeSet(ConstHandle2Discrete self, const XMLName type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
+      (CLASSNAME, CLASSNAME+"TypeSet", self, extract::type, type);
 }
 
 
@@ -208,34 +208,34 @@ DiscreteTypeSet(ConstHandle2Discrete This, const XMLName type)
 
 // Has
 int
-DiscreteDiscreteEnergyHas(ConstHandle2ConstDiscrete This)
+DiscreteDiscreteEnergyHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyHas", This, extract::discreteEnergy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyHas", self, extract::discreteEnergy);
 }
 
 // Get, const
 Handle2ConstDiscreteEnergy
-DiscreteDiscreteEnergyGetConst(ConstHandle2ConstDiscrete This)
+DiscreteDiscreteEnergyGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstDiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyGetConst", This, extract::discreteEnergy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyGetConst", self, extract::discreteEnergy);
 }
 
 // Get, non-const
 Handle2DiscreteEnergy
-DiscreteDiscreteEnergyGet(ConstHandle2Discrete This)
+DiscreteDiscreteEnergyGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2DiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergyGet", This, extract::discreteEnergy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergyGet", self, extract::discreteEnergy);
 }
 
 // Set
 void
-DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEnergy discreteEnergy)
+DiscreteDiscreteEnergySet(ConstHandle2Discrete self, ConstHandle2ConstDiscreteEnergy discreteEnergy)
 {
    detail::setField<CPP,CPPDiscreteEnergy>
-      (CLASSNAME, CLASSNAME+"DiscreteEnergySet", This, extract::discreteEnergy, discreteEnergy);
+      (CLASSNAME, CLASSNAME+"DiscreteEnergySet", self, extract::discreteEnergy, discreteEnergy);
 }
 
 
@@ -245,34 +245,34 @@ DiscreteDiscreteEnergySet(ConstHandle2Discrete This, ConstHandle2ConstDiscreteEn
 
 // Has
 int
-DiscreteIntensityHas(ConstHandle2ConstDiscrete This)
+DiscreteIntensityHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IntensityHas", This, extract::intensity);
+      (CLASSNAME, CLASSNAME+"IntensityHas", self, extract::intensity);
 }
 
 // Get, const
 Handle2ConstIntensity
-DiscreteIntensityGetConst(ConstHandle2ConstDiscrete This)
+DiscreteIntensityGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstIntensity>
-      (CLASSNAME, CLASSNAME+"IntensityGetConst", This, extract::intensity);
+      (CLASSNAME, CLASSNAME+"IntensityGetConst", self, extract::intensity);
 }
 
 // Get, non-const
 Handle2Intensity
-DiscreteIntensityGet(ConstHandle2Discrete This)
+DiscreteIntensityGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2Intensity>
-      (CLASSNAME, CLASSNAME+"IntensityGet", This, extract::intensity);
+      (CLASSNAME, CLASSNAME+"IntensityGet", self, extract::intensity);
 }
 
 // Set
 void
-DiscreteIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstIntensity intensity)
+DiscreteIntensitySet(ConstHandle2Discrete self, ConstHandle2ConstIntensity intensity)
 {
    detail::setField<CPP,CPPIntensity>
-      (CLASSNAME, CLASSNAME+"IntensitySet", This, extract::intensity, intensity);
+      (CLASSNAME, CLASSNAME+"IntensitySet", self, extract::intensity, intensity);
 }
 
 
@@ -282,34 +282,34 @@ DiscreteIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstIntensity inten
 
 // Has
 int
-DiscreteInternalConversionCoefficientsHas(ConstHandle2ConstDiscrete This)
+DiscreteInternalConversionCoefficientsHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsHas", This, extract::internalConversionCoefficients);
+      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsHas", self, extract::internalConversionCoefficients);
 }
 
 // Get, const
 Handle2ConstInternalConversionCoefficients
-DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete This)
+DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstInternalConversionCoefficients>
-      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsGetConst", This, extract::internalConversionCoefficients);
+      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsGetConst", self, extract::internalConversionCoefficients);
 }
 
 // Get, non-const
 Handle2InternalConversionCoefficients
-DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete This)
+DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2InternalConversionCoefficients>
-      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsGet", This, extract::internalConversionCoefficients);
+      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsGet", self, extract::internalConversionCoefficients);
 }
 
 // Set
 void
-DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete This, ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients)
+DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete self, ConstHandle2ConstInternalConversionCoefficients internalConversionCoefficients)
 {
    detail::setField<CPP,CPPInternalConversionCoefficients>
-      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsSet", This, extract::internalConversionCoefficients, internalConversionCoefficients);
+      (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsSet", self, extract::internalConversionCoefficients, internalConversionCoefficients);
 }
 
 
@@ -319,34 +319,34 @@ DiscreteInternalConversionCoefficientsSet(ConstHandle2Discrete This, ConstHandle
 
 // Has
 int
-DiscreteInternalPairFormationCoefficientHas(ConstHandle2ConstDiscrete This)
+DiscreteInternalPairFormationCoefficientHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientHas", This, extract::internalPairFormationCoefficient);
+      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientHas", self, extract::internalPairFormationCoefficient);
 }
 
 // Get, const
 Handle2ConstInternalPairFormationCoefficient
-DiscreteInternalPairFormationCoefficientGetConst(ConstHandle2ConstDiscrete This)
+DiscreteInternalPairFormationCoefficientGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstInternalPairFormationCoefficient>
-      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientGetConst", This, extract::internalPairFormationCoefficient);
+      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientGetConst", self, extract::internalPairFormationCoefficient);
 }
 
 // Get, non-const
 Handle2InternalPairFormationCoefficient
-DiscreteInternalPairFormationCoefficientGet(ConstHandle2Discrete This)
+DiscreteInternalPairFormationCoefficientGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2InternalPairFormationCoefficient>
-      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientGet", This, extract::internalPairFormationCoefficient);
+      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientGet", self, extract::internalPairFormationCoefficient);
 }
 
 // Set
 void
-DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete This, ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient)
+DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete self, ConstHandle2ConstInternalPairFormationCoefficient internalPairFormationCoefficient)
 {
    detail::setField<CPP,CPPInternalPairFormationCoefficient>
-      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientSet", This, extract::internalPairFormationCoefficient, internalPairFormationCoefficient);
+      (CLASSNAME, CLASSNAME+"InternalPairFormationCoefficientSet", self, extract::internalPairFormationCoefficient, internalPairFormationCoefficient);
 }
 
 
@@ -356,34 +356,34 @@ DiscreteInternalPairFormationCoefficientSet(ConstHandle2Discrete This, ConstHand
 
 // Has
 int
-DiscretePhotonEmissionProbabilitiesHas(ConstHandle2ConstDiscrete This)
+DiscretePhotonEmissionProbabilitiesHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesHas", This, extract::photonEmissionProbabilities);
+      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesHas", self, extract::photonEmissionProbabilities);
 }
 
 // Get, const
 Handle2ConstPhotonEmissionProbabilities
-DiscretePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDiscrete This)
+DiscretePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstPhotonEmissionProbabilities>
-      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesGetConst", This, extract::photonEmissionProbabilities);
+      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesGetConst", self, extract::photonEmissionProbabilities);
 }
 
 // Get, non-const
 Handle2PhotonEmissionProbabilities
-DiscretePhotonEmissionProbabilitiesGet(ConstHandle2Discrete This)
+DiscretePhotonEmissionProbabilitiesGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2PhotonEmissionProbabilities>
-      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesGet", This, extract::photonEmissionProbabilities);
+      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesGet", self, extract::photonEmissionProbabilities);
 }
 
 // Set
 void
-DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete This, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities)
+DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete self, ConstHandle2ConstPhotonEmissionProbabilities photonEmissionProbabilities)
 {
    detail::setField<CPP,CPPPhotonEmissionProbabilities>
-      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesSet", This, extract::photonEmissionProbabilities, photonEmissionProbabilities);
+      (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesSet", self, extract::photonEmissionProbabilities, photonEmissionProbabilities);
 }
 
 
@@ -393,34 +393,34 @@ DiscretePhotonEmissionProbabilitiesSet(ConstHandle2Discrete This, ConstHandle2Co
 
 // Has
 int
-DiscretePositronEmissionIntensityHas(ConstHandle2ConstDiscrete This)
+DiscretePositronEmissionIntensityHas(ConstHandle2ConstDiscrete self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityHas", This, extract::positronEmissionIntensity);
+      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityHas", self, extract::positronEmissionIntensity);
 }
 
 // Get, const
 Handle2ConstPositronEmissionIntensity
-DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete This)
+DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete self)
 {
    return detail::getField<CPP,Handle2ConstPositronEmissionIntensity>
-      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityGetConst", This, extract::positronEmissionIntensity);
+      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityGetConst", self, extract::positronEmissionIntensity);
 }
 
 // Get, non-const
 Handle2PositronEmissionIntensity
-DiscretePositronEmissionIntensityGet(ConstHandle2Discrete This)
+DiscretePositronEmissionIntensityGet(ConstHandle2Discrete self)
 {
    return detail::getField<CPP,Handle2PositronEmissionIntensity>
-      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityGet", This, extract::positronEmissionIntensity);
+      (CLASSNAME, CLASSNAME+"PositronEmissionIntensityGet", self, extract::positronEmissionIntensity);
 }
 
 // Set
 void
-DiscretePositronEmissionIntensitySet(ConstHandle2Discrete This, ConstHandle2ConstPositronEmissionIntensity positronEmissionIntensity)
+DiscretePositronEmissionIntensitySet(ConstHandle2Discrete self, ConstHandle2ConstPositronEmissionIntensity positronEmissionIntensity)
 {
    detail::setField<CPP,CPPPositronEmissionIntensity>
-      (CLASSNAME, CLASSNAME+"PositronEmissionIntensitySet", This, extract::positronEmissionIntensity, positronEmissionIntensity);
+      (CLASSNAME, CLASSNAME+"PositronEmissionIntensitySet", self, extract::positronEmissionIntensity, positronEmissionIntensity);
 }
 
 

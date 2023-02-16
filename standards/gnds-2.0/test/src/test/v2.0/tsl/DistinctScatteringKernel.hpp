@@ -25,12 +25,12 @@ class DistinctScatteringKernel :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "tsl"; }
    static auto CLASS() { return "DistinctScatteringKernel"; }
-   static auto FIELD() { return "distinctScatteringKernel"; }
+   static auto NODENAME() { return "distinctScatteringKernel"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class DistinctScatteringKernel :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::Gridded3d>>("gridded3d")
+         --Child<std::optional<containers::Gridded3d>>
+            ("gridded3d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "gridded3d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "gridded3d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::Gridded3d>> gridded3d{this};
+   Field<std::optional<containers::Gridded3d>>
+      gridded3d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->gridded3d)
+      this->gridded3d \
+   )
 
    // default
    DistinctScatteringKernel() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit DistinctScatteringKernel(
-      const wrapper<std::optional<containers::Gridded3d>> &gridded3d
+      const wrapper<std::optional<containers::Gridded3d>>
+         &gridded3d
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       gridded3d(this,gridded3d)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   DistinctScatteringKernel &operator=(const DistinctScatteringKernel &) = default;
-   DistinctScatteringKernel &operator=(DistinctScatteringKernel &&) = default;
+   // copy
+   DistinctScatteringKernel &operator=(const DistinctScatteringKernel &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         gridded3d = other.gridded3d;
+      }
+      return *this;
+   }
+
+   // move
+   DistinctScatteringKernel &operator=(DistinctScatteringKernel &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         gridded3d = std::move(other.gridded3d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

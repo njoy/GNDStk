@@ -11,87 +11,147 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1_9 {
 namespace python_transport {
 
-// ReactionSuite wrapper
-void wrapReactionSuite(python::module &module)
+// wrapper for transport::ReactionSuite
+void wrapReactionSuite(py::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
 
    // type aliases
-   using Component = transport::ReactionSuite;
+   using cppCLASS = transport::ReactionSuite;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ReactionSuite",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ReactionSuite",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::string &,
-            const std::string &,
-            const std::string &,
-            const enums::Frame &,
-            const std::string &,
-            const std::optional<enums::Interaction> &,
-            const std::optional<transport::Reactions> &
-         >(),
-         python::arg("evaluation"),
-         python::arg("format"),
-         python::arg("projectile"),
-         python::arg("projectile_frame"),
-         python::arg("target"),
-         python::arg("interaction") = std::nullopt,
-         python::arg("reactions") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "evaluation",
-         [](const Component &self) { return self.evaluation(); },
-         Component::documentation("evaluation").data()
-      )
-      .def_property_readonly(
-         "format",
-         [](const Component &self) { return self.format(); },
-         Component::documentation("format").data()
-      )
-      .def_property_readonly(
-         "projectile",
-         [](const Component &self) { return self.projectile(); },
-         Component::documentation("projectile").data()
-      )
-      .def_property_readonly(
-         "projectile_frame",
-         [](const Component &self) { return self.projectileFrame(); },
-         Component::documentation("projectile_frame").data()
-      )
-      .def_property_readonly(
-         "target",
-         [](const Component &self) { return self.target(); },
-         Component::documentation("target").data()
-      )
-      .def_property_readonly(
-         "interaction",
-         [](const Component &self) { return self.interaction(); },
-         Component::documentation("interaction").data()
-      )
-      .def_property_readonly(
-         "reactions",
-         [](const Component &self) { return self.reactions(); },
-         Component::documentation("reactions").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::string &,
+         const std::string &,
+         const std::string &,
+         const enums::Frame &,
+         const std::string &,
+         const std::optional<enums::Interaction> &,
+         const std::optional<transport::Reactions> &
+      >(),
+      py::arg("evaluation"),
+      py::arg("format"),
+      py::arg("projectile"),
+      py::arg("projectile_frame"),
+      py::arg("target"),
+      py::arg("interaction") = std::nullopt,
+      py::arg("reactions") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set evaluation
+   object.def_property(
+      "evaluation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluation();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.evaluation() = value;
+      },
+      cppCLASS::component_t::documentation("evaluation").data()
+   );
+
+   // get/set format
+   object.def_property(
+      "format",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.format();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.format() = value;
+      },
+      cppCLASS::component_t::documentation("format").data()
+   );
+
+   // get/set projectile
+   object.def_property(
+      "projectile",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectile();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.projectile() = value;
+      },
+      cppCLASS::component_t::documentation("projectile").data()
+   );
+
+   // get/set projectileFrame
+   object.def_property(
+      "projectile_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectileFrame();
+      },
+      [](cppCLASS &self, const enums::Frame &value)
+      {
+         self.projectileFrame() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_frame").data()
+   );
+
+   // get/set target
+   object.def_property(
+      "target",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.target();
+      },
+      [](cppCLASS &self, const std::string &value)
+      {
+         self.target() = value;
+      },
+      cppCLASS::component_t::documentation("target").data()
+   );
+
+   // get/set interaction
+   object.def_property(
+      "interaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interaction();
+      },
+      [](cppCLASS &self, const std::optional<enums::Interaction> &value)
+      {
+         self.interaction() = value;
+      },
+      cppCLASS::component_t::documentation("interaction").data()
+   );
+
+   // get/set reactions
+   object.def_property(
+      "reactions",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reactions();
+      },
+      [](cppCLASS &self, const std::optional<transport::Reactions> &value)
+      {
+         self.reactions() = value;
+      },
+      cppCLASS::component_t::documentation("reactions").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

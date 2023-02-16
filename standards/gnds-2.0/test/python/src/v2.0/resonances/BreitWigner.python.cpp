@@ -11,94 +11,163 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// BreitWigner wrapper
-void wrapBreitWigner(python::module &module)
+// wrapper for resonances::BreitWigner
+void wrapBreitWigner(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::BreitWigner;
+   using cppCLASS = resonances::BreitWigner;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "BreitWigner",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "BreitWigner",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<bool> &,
-            const std::optional<bool> &,
-            const std::optional<pops::PoPs_database> &,
-            const std::optional<resonances::ScatteringRadius> &,
-            const std::optional<resonances::HardSphereRadius> &,
-            const std::optional<resonances::ResonanceParameters> &
-         >(),
-         python::arg("label"),
-         python::arg("approximation"),
-         python::arg("calculate_channel_radius") = std::nullopt,
-         python::arg("use_for_self_shielding_only") = std::nullopt,
-         python::arg("po_ps_database") = std::nullopt,
-         python::arg("scattering_radius") = std::nullopt,
-         python::arg("hard_sphere_radius") = std::nullopt,
-         python::arg("resonance_parameters") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "approximation",
-         [](const Component &self) { return self.approximation(); },
-         Component::documentation("approximation").data()
-      )
-      .def_property_readonly(
-         "calculate_channel_radius",
-         [](const Component &self) { return self.calculateChannelRadius().value(); },
-         Component::documentation("calculate_channel_radius").data()
-      )
-      .def_property_readonly(
-         "use_for_self_shielding_only",
-         [](const Component &self) { return self.useForSelfShieldingOnly().value(); },
-         Component::documentation("use_for_self_shielding_only").data()
-      )
-      .def_property_readonly(
-         "po_ps_database",
-         [](const Component &self) { return self.PoPs_database(); },
-         Component::documentation("po_ps_database").data()
-      )
-      .def_property_readonly(
-         "scattering_radius",
-         [](const Component &self) { return self.scatteringRadius(); },
-         Component::documentation("scattering_radius").data()
-      )
-      .def_property_readonly(
-         "hard_sphere_radius",
-         [](const Component &self) { return self.hardSphereRadius(); },
-         Component::documentation("hard_sphere_radius").data()
-      )
-      .def_property_readonly(
-         "resonance_parameters",
-         [](const Component &self) { return self.resonanceParameters(); },
-         Component::documentation("resonance_parameters").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<bool> &,
+         const std::optional<bool> &,
+         const std::optional<pops::PoPs_database> &,
+         const std::optional<resonances::ScatteringRadius> &,
+         const std::optional<resonances::HardSphereRadius> &,
+         const std::optional<resonances::ResonanceParameters> &
+      >(),
+      py::arg("label"),
+      py::arg("approximation"),
+      py::arg("calculate_channel_radius") = std::nullopt,
+      py::arg("use_for_self_shielding_only") = std::nullopt,
+      py::arg("po_ps_database") = std::nullopt,
+      py::arg("scattering_radius") = std::nullopt,
+      py::arg("hard_sphere_radius") = std::nullopt,
+      py::arg("resonance_parameters") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set approximation
+   object.def_property(
+      "approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.approximation();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.approximation() = value;
+      },
+      cppCLASS::component_t::documentation("approximation").data()
+   );
+
+   // get/set calculateChannelRadius
+   object.def_property(
+      "calculate_channel_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.calculateChannelRadius().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.calculateChannelRadius() = value;
+      },
+      cppCLASS::component_t::documentation("calculate_channel_radius").data()
+   );
+
+   // get/set useForSelfShieldingOnly
+   object.def_property(
+      "use_for_self_shielding_only",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.useForSelfShieldingOnly().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.useForSelfShieldingOnly() = value;
+      },
+      cppCLASS::component_t::documentation("use_for_self_shielding_only").data()
+   );
+
+   // get/set PoPs_database
+   object.def_property(
+      "po_ps_database",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.PoPs_database();
+      },
+      [](cppCLASS &self, const std::optional<pops::PoPs_database> &value)
+      {
+         self.PoPs_database() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps_database").data()
+   );
+
+   // get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::ScatteringRadius> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
+   // get/set hardSphereRadius
+   object.def_property(
+      "hard_sphere_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.hardSphereRadius();
+      },
+      [](cppCLASS &self, const std::optional<resonances::HardSphereRadius> &value)
+      {
+         self.hardSphereRadius() = value;
+      },
+      cppCLASS::component_t::documentation("hard_sphere_radius").data()
+   );
+
+   // get/set resonanceParameters
+   object.def_property(
+      "resonance_parameters",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceParameters();
+      },
+      [](cppCLASS &self, const std::optional<resonances::ResonanceParameters> &value)
+      {
+         self.resonanceParameters() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_parameters").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

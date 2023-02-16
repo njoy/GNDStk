@@ -25,12 +25,12 @@ class Copyright :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Copyright"; }
-   static auto FIELD() { return "copyright"; }
+   static auto NODENAME() { return "copyright"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,7 +49,40 @@ class Copyright :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "encoding",
+         "markup",
+         "label",
+         "href"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "encoding",
+         "markup",
+         "label",
+         "href"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
    using BlockData::operator=;
 
@@ -59,25 +92,36 @@ public:
       static inline const std::string markup = "enums::GridStyle::none";
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Defaulted<XMLName>> encoding{this,defaults.encoding};
-   Field<Defaulted<std::string>> markup{this,defaults.markup};
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<UTF8Text>> href{this};
+   Field<Defaulted<XMLName>>
+      encoding{this,defaults.encoding};
+   Field<Defaulted<std::string>>
+      markup{this,defaults.markup};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<UTF8Text>>
+      href{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->encoding, \
       this->markup, \
       this->label, \
-      this->href)
+      this->href \
+   )
 
    // default
    Copyright() :
@@ -89,10 +133,14 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Copyright(
-      const wrapper<std::optional<XMLName>> &encoding,
-      const wrapper<std::optional<std::string>> &markup = {},
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<UTF8Text>> &href = {}
+      const wrapper<std::optional<XMLName>>
+         &encoding,
+      const wrapper<std::optional<std::string>>
+         &markup = {},
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<UTF8Text>>
+         &href = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       encoding(this,defaults.encoding,encoding),
@@ -112,7 +160,7 @@ public:
 
    // from vector
    template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
-   Copyright(const std::vector<T> &vector) :
+   explicit Copyright(const std::vector<T> &vector) :
       GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(vector);
@@ -146,8 +194,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Copyright &operator=(const Copyright &) = default;
-   Copyright &operator=(Copyright &&) = default;
+   // copy
+   Copyright &operator=(const Copyright &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         encoding = other.encoding;
+         markup = other.markup;
+         label = other.label;
+         href = other.href;
+      }
+      return *this;
+   }
+
+   // move
+   Copyright &operator=(Copyright &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         encoding = std::move(other.encoding);
+         markup = std::move(other.markup);
+         label = std::move(other.label);
+         href = std::move(other.href);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

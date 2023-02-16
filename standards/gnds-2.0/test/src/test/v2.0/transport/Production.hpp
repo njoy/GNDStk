@@ -26,12 +26,12 @@ class Production :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Production"; }
-   static auto FIELD() { return "production"; }
+   static auto NODENAME() { return "production"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class Production :
             / Meta<>("label") |
 
          // children
-         --Child<std::optional<transport::CrossSection>>("crossSection") |
-         --Child<std::optional<transport::OutputChannel>>("outputChannel")
+         --Child<std::optional<transport::CrossSection>>
+            ("crossSection") |
+         --Child<std::optional<transport::OutputChannel>>
+            ("outputChannel")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "ENDF_MT",
+         "label",
+         "crossSection",
+         "outputChannel"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "endf_mt",
+         "label",
+         "cross_section",
+         "output_channel"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Integer32>> ENDF_MT{this};
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<Integer32>>
+      ENDF_MT{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<std::optional<transport::CrossSection>> crossSection{this};
-   Field<std::optional<transport::OutputChannel>> outputChannel{this};
+   Field<std::optional<transport::CrossSection>>
+      crossSection{this};
+   Field<std::optional<transport::OutputChannel>>
+      outputChannel{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MT, \
       this->label, \
       this->crossSection, \
-      this->outputChannel)
+      this->outputChannel \
+   )
 
    // default
    Production() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit Production(
-      const wrapper<std::optional<Integer32>> &ENDF_MT,
-      const wrapper<std::optional<XMLName>> &label = {},
-      const wrapper<std::optional<transport::CrossSection>> &crossSection = {},
-      const wrapper<std::optional<transport::OutputChannel>> &outputChannel = {}
+      const wrapper<std::optional<Integer32>>
+         &ENDF_MT,
+      const wrapper<std::optional<XMLName>>
+         &label = {},
+      const wrapper<std::optional<transport::CrossSection>>
+         &crossSection = {},
+      const wrapper<std::optional<transport::OutputChannel>>
+         &outputChannel = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MT(this,ENDF_MT),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Production &operator=(const Production &) = default;
-   Production &operator=(Production &&) = default;
+   // copy
+   Production &operator=(const Production &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MT = other.ENDF_MT;
+         label = other.label;
+         crossSection = other.crossSection;
+         outputChannel = other.outputChannel;
+      }
+      return *this;
+   }
+
+   // move
+   Production &operator=(Production &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MT = std::move(other.ENDF_MT);
+         label = std::move(other.label);
+         crossSection = std::move(other.crossSection);
+         outputChannel = std::move(other.outputChannel);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

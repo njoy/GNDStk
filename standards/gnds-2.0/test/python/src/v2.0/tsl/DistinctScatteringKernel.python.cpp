@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_tsl {
 
-// DistinctScatteringKernel wrapper
-void wrapDistinctScatteringKernel(python::module &module)
+// wrapper for tsl::DistinctScatteringKernel
+void wrapDistinctScatteringKernel(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = tsl::DistinctScatteringKernel;
+   using cppCLASS = tsl::DistinctScatteringKernel;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DistinctScatteringKernel",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DistinctScatteringKernel",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<containers::Gridded3d> &
-         >(),
-         python::arg("gridded3d") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "gridded3d",
-         [](const Component &self) { return self.gridded3d(); },
-         Component::documentation("gridded3d").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<containers::Gridded3d> &
+      >(),
+      py::arg("gridded3d") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set gridded3d
+   object.def_property(
+      "gridded3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded3d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Gridded3d> &value)
+      {
+         self.gridded3d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded3d").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_tsl

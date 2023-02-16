@@ -82,20 +82,20 @@ KeywordCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-KeywordAssign(ConstHandle2Keyword This, ConstHandle2ConstKeyword from)
+KeywordAssign(ConstHandle2Keyword self, ConstHandle2ConstKeyword from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-KeywordDelete(ConstHandle2ConstKeyword This)
+KeywordDelete(ConstHandle2ConstKeyword self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ KeywordDelete(ConstHandle2ConstKeyword This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-KeywordRead(ConstHandle2Keyword This, const char *const filename)
+KeywordRead(ConstHandle2Keyword self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-KeywordWrite(ConstHandle2ConstKeyword This, const char *const filename)
+KeywordWrite(ConstHandle2ConstKeyword self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-KeywordPrint(ConstHandle2ConstKeyword This)
+KeywordPrint(ConstHandle2ConstKeyword self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-KeywordPrintXML(ConstHandle2ConstKeyword This)
+KeywordPrintXML(ConstHandle2ConstKeyword self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-KeywordPrintJSON(ConstHandle2ConstKeyword This)
+KeywordPrintJSON(ConstHandle2ConstKeyword self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ KeywordPrintJSON(ConstHandle2ConstKeyword This)
 
 // Clear
 void
-KeywordIntsClear(ConstHandle2Keyword This)
+KeywordIntsClear(ConstHandle2Keyword self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-KeywordIntsSize(ConstHandle2ConstKeyword This)
+KeywordIntsSize(ConstHandle2ConstKeyword self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-KeywordIntsGet(ConstHandle2ConstKeyword This, const size_t index)
+KeywordIntsGet(ConstHandle2ConstKeyword self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-KeywordIntsSet(ConstHandle2Keyword This, const size_t index, const int value)
+KeywordIntsSet(ConstHandle2Keyword self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-KeywordIntsGetArrayConst(ConstHandle2ConstKeyword This)
+KeywordIntsGetArrayConst(ConstHandle2ConstKeyword self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-KeywordIntsGetArray(ConstHandle2Keyword This)
+KeywordIntsGetArray(ConstHandle2Keyword self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-KeywordIntsSetArray(ConstHandle2Keyword This, const int *const values, const size_t size)
+KeywordIntsSetArray(ConstHandle2Keyword self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ KeywordIntsSetArray(ConstHandle2Keyword This, const int *const values, const siz
 
 // Clear
 void
-KeywordUnsignedsClear(ConstHandle2Keyword This)
+KeywordUnsignedsClear(ConstHandle2Keyword self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-KeywordUnsignedsSize(ConstHandle2ConstKeyword This)
+KeywordUnsignedsSize(ConstHandle2ConstKeyword self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-KeywordUnsignedsGet(ConstHandle2ConstKeyword This, const size_t index)
+KeywordUnsignedsGet(ConstHandle2ConstKeyword self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-KeywordUnsignedsSet(ConstHandle2Keyword This, const size_t index, const unsigned value)
+KeywordUnsignedsSet(ConstHandle2Keyword self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-KeywordUnsignedsGetArrayConst(ConstHandle2ConstKeyword This)
+KeywordUnsignedsGetArrayConst(ConstHandle2ConstKeyword self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-KeywordUnsignedsGetArray(ConstHandle2Keyword This)
+KeywordUnsignedsGetArray(ConstHandle2Keyword self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-KeywordUnsignedsSetArray(ConstHandle2Keyword This, const unsigned *const values, const size_t size)
+KeywordUnsignedsSetArray(ConstHandle2Keyword self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ KeywordUnsignedsSetArray(ConstHandle2Keyword This, const unsigned *const values,
 
 // Clear
 void
-KeywordFloatsClear(ConstHandle2Keyword This)
+KeywordFloatsClear(ConstHandle2Keyword self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-KeywordFloatsSize(ConstHandle2ConstKeyword This)
+KeywordFloatsSize(ConstHandle2ConstKeyword self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-KeywordFloatsGet(ConstHandle2ConstKeyword This, const size_t index)
+KeywordFloatsGet(ConstHandle2ConstKeyword self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-KeywordFloatsSet(ConstHandle2Keyword This, const size_t index, const float value)
+KeywordFloatsSet(ConstHandle2Keyword self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-KeywordFloatsGetArrayConst(ConstHandle2ConstKeyword This)
+KeywordFloatsGetArrayConst(ConstHandle2ConstKeyword self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-KeywordFloatsGetArray(ConstHandle2Keyword This)
+KeywordFloatsGetArray(ConstHandle2Keyword self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-KeywordFloatsSetArray(ConstHandle2Keyword This, const float *const values, const size_t size)
+KeywordFloatsSetArray(ConstHandle2Keyword self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ KeywordFloatsSetArray(ConstHandle2Keyword This, const float *const values, const
 
 // Clear
 void
-KeywordDoublesClear(ConstHandle2Keyword This)
+KeywordDoublesClear(ConstHandle2Keyword self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-KeywordDoublesSize(ConstHandle2ConstKeyword This)
+KeywordDoublesSize(ConstHandle2ConstKeyword self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-KeywordDoublesGet(ConstHandle2ConstKeyword This, const size_t index)
+KeywordDoublesGet(ConstHandle2ConstKeyword self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-KeywordDoublesSet(ConstHandle2Keyword This, const size_t index, const double value)
+KeywordDoublesSet(ConstHandle2Keyword self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-KeywordDoublesGetArrayConst(ConstHandle2ConstKeyword This)
+KeywordDoublesGetArrayConst(ConstHandle2ConstKeyword self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-KeywordDoublesGetArray(ConstHandle2Keyword This)
+KeywordDoublesGetArray(ConstHandle2Keyword self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-KeywordDoublesSetArray(ConstHandle2Keyword This, const double *const values, const size_t size)
+KeywordDoublesSetArray(ConstHandle2Keyword self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ KeywordDoublesSetArray(ConstHandle2Keyword This, const double *const values, con
 
 // Has
 int
-KeywordEncodingHas(ConstHandle2ConstKeyword This)
+KeywordEncodingHas(ConstHandle2ConstKeyword self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-KeywordEncodingGet(ConstHandle2ConstKeyword This)
+KeywordEncodingGet(ConstHandle2ConstKeyword self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-KeywordEncodingSet(ConstHandle2Keyword This, const XMLName encoding)
+KeywordEncodingSet(ConstHandle2Keyword self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ KeywordEncodingSet(ConstHandle2Keyword This, const XMLName encoding)
 
 // Has
 int
-KeywordMarkupHas(ConstHandle2ConstKeyword This)
+KeywordMarkupHas(ConstHandle2ConstKeyword self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-KeywordMarkupGet(ConstHandle2ConstKeyword This)
+KeywordMarkupGet(ConstHandle2ConstKeyword self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-KeywordMarkupSet(ConstHandle2Keyword This, const char *const markup)
+KeywordMarkupSet(ConstHandle2Keyword self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ KeywordMarkupSet(ConstHandle2Keyword This, const char *const markup)
 
 // Has
 int
-KeywordLabelHas(ConstHandle2ConstKeyword This)
+KeywordLabelHas(ConstHandle2ConstKeyword self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-KeywordLabelGet(ConstHandle2ConstKeyword This)
+KeywordLabelGet(ConstHandle2ConstKeyword self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-KeywordLabelSet(ConstHandle2Keyword This, const XMLName label)
+KeywordLabelSet(ConstHandle2Keyword self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ KeywordLabelSet(ConstHandle2Keyword This, const XMLName label)
 
 // Has
 int
-KeywordTypeHas(ConstHandle2ConstKeyword This)
+KeywordTypeHas(ConstHandle2ConstKeyword self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeHas", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeHas", self, extract::type);
 }
 
 // Get
 // Returns by value
 XMLName
-KeywordTypeGet(ConstHandle2ConstKeyword This)
+KeywordTypeGet(ConstHandle2ConstKeyword self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeGet", This, extract::type);
+      (CLASSNAME, CLASSNAME+"TypeGet", self, extract::type);
 }
 
 // Set
 void
-KeywordTypeSet(ConstHandle2Keyword This, const XMLName type)
+KeywordTypeSet(ConstHandle2Keyword self, const XMLName type)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TypeSet", This, extract::type, type);
+      (CLASSNAME, CLASSNAME+"TypeSet", self, extract::type, type);
 }
 
 

@@ -25,12 +25,12 @@ class ExforDataSets :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "ExforDataSets"; }
-   static auto FIELD() { return "exforDataSets"; }
+   static auto NODENAME() { return "exforDataSets"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ExforDataSets :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::ExforDataSet>("exforDataSet")
+         ++Child<documentation::ExforDataSet>
+            ("exforDataSet")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "exforDataSet"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "exfor_data_set"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::ExforDataSet>> exforDataSet{this};
+   Field<std::vector<documentation::ExforDataSet>>
+      exforDataSet{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->exforDataSet)
+      this->exforDataSet \
+   )
 
    // default
    ExforDataSets() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ExforDataSets(
-      const wrapper<std::vector<documentation::ExforDataSet>> &exforDataSet
+      const wrapper<std::vector<documentation::ExforDataSet>>
+         &exforDataSet
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       exforDataSet(this,exforDataSet)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ExforDataSets &operator=(const ExforDataSets &) = default;
-   ExforDataSets &operator=(ExforDataSets &&) = default;
+   // copy
+   ExforDataSets &operator=(const ExforDataSets &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         exforDataSet = other.exforDataSet;
+      }
+      return *this;
+   }
+
+   // move
+   ExforDataSets &operator=(ExforDataSets &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         exforDataSet = std::move(other.exforDataSet);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

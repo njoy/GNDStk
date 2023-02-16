@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// ParameterCovarianceMatrix wrapper
-void wrapParameterCovarianceMatrix(python::module &module)
+// wrapper for covariance::ParameterCovarianceMatrix
+void wrapParameterCovarianceMatrix(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::ParameterCovarianceMatrix;
+   using cppCLASS = covariance::ParameterCovarianceMatrix;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ParameterCovarianceMatrix",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ParameterCovarianceMatrix",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const std::optional<XMLName> &,
-            const covariance::Parameters &,
-            const containers::Array &
-         >(),
-         python::arg("label"),
-         python::arg("type") = std::nullopt,
-         python::arg("parameters"),
-         python::arg("array"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "type",
-         [](const Component &self) { return self.type(); },
-         Component::documentation("type").data()
-      )
-      .def_property_readonly(
-         "parameters",
-         [](const Component &self) { return self.parameters(); },
-         Component::documentation("parameters").data()
-      )
-      .def_property_readonly(
-         "array",
-         [](const Component &self) { return self.array(); },
-         Component::documentation("array").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const std::optional<XMLName> &,
+         const covariance::Parameters &,
+         const containers::Array &
+      >(),
+      py::arg("label"),
+      py::arg("type") = std::nullopt,
+      py::arg("parameters"),
+      py::arg("array"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set type
+   object.def_property(
+      "type",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.type();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.type() = value;
+      },
+      cppCLASS::component_t::documentation("type").data()
+   );
+
+   // get/set parameters
+   object.def_property(
+      "parameters",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameters();
+      },
+      [](cppCLASS &self, const covariance::Parameters &value)
+      {
+         self.parameters() = value;
+      },
+      cppCLASS::component_t::documentation("parameters").data()
+   );
+
+   // get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const containers::Array &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

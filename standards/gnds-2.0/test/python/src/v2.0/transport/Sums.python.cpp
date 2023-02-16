@@ -11,52 +11,67 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// Sums wrapper
-void wrapSums(python::module &module)
+// wrapper for transport::Sums
+void wrapSums(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::Sums;
+   using cppCLASS = transport::Sums;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Sums",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Sums",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const transport::CrossSectionSums &,
-            const std::optional<transport::MultiplicitySums> &
-         >(),
-         python::arg("cross_section_sums"),
-         python::arg("multiplicity_sums") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_section_sums",
-         [](const Component &self) { return self.crossSectionSums(); },
-         Component::documentation("cross_section_sums").data()
-      )
-      .def_property_readonly(
-         "multiplicity_sums",
-         [](const Component &self) { return self.multiplicitySums(); },
-         Component::documentation("multiplicity_sums").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const transport::CrossSectionSums &,
+         const std::optional<transport::MultiplicitySums> &
+      >(),
+      py::arg("cross_section_sums"),
+      py::arg("multiplicity_sums") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set crossSectionSums
+   object.def_property(
+      "cross_section_sums",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSectionSums();
+      },
+      [](cppCLASS &self, const transport::CrossSectionSums &value)
+      {
+         self.crossSectionSums() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_sums").data()
+   );
+
+   // get/set multiplicitySums
+   object.def_property(
+      "multiplicity_sums",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.multiplicitySums();
+      },
+      [](cppCLASS &self, const std::optional<transport::MultiplicitySums> &value)
+      {
+         self.multiplicitySums() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity_sums").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

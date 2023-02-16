@@ -98,13 +98,13 @@ IncoherentPhotonScatteringCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IncoherentPhotonScatteringAssign(ConstHandle2IncoherentPhotonScattering This, ConstHandle2ConstIncoherentPhotonScattering from);
+IncoherentPhotonScatteringAssign(ConstHandle2IncoherentPhotonScattering self, ConstHandle2ConstIncoherentPhotonScattering from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering Thi
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IncoherentPhotonScatteringRead(ConstHandle2IncoherentPhotonScattering This, const char *const filename);
+IncoherentPhotonScatteringRead(ConstHandle2IncoherentPhotonScattering self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IncoherentPhotonScatteringWrite(ConstHandle2ConstIncoherentPhotonScattering This, const char *const filename);
+IncoherentPhotonScatteringWrite(ConstHandle2ConstIncoherentPhotonScattering self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IncoherentPhotonScatteringPrint(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringPrint(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IncoherentPhotonScatteringPrintXML(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringPrintXML(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering 
 
 // +++ Has
 extern_c int
-IncoherentPhotonScatteringHrefHas(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringHrefHas(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-IncoherentPhotonScatteringHrefGet(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringHrefGet(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Set
 extern_c void
-IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering This, const char *const href);
+IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering self, const char *const href);
 
 
 // -----------------------------------------------------------------------------
@@ -162,16 +162,16 @@ IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering This, c
 
 // +++ Has
 extern_c int
-IncoherentPhotonScatteringLabelHas(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringLabelHas(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IncoherentPhotonScatteringLabelGet(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringLabelGet(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Set
 extern_c void
-IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering This, const XMLName label);
+IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -180,16 +180,16 @@ IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering This, 
 
 // +++ Has
 extern_c int
-IncoherentPhotonScatteringPidHas(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringPidHas(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-IncoherentPhotonScatteringPidGet(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringPidGet(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Set
 extern_c void
-IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering This, const XMLName pid);
+IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering self, const XMLName pid);
 
 
 // -----------------------------------------------------------------------------
@@ -198,16 +198,16 @@ IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering This, co
 
 // +++ Has
 extern_c int
-IncoherentPhotonScatteringProductFrameHas(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringProductFrameHas(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::Frame
-IncoherentPhotonScatteringProductFrameGet(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringProductFrameGet(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Set
 extern_c void
-IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering This, const enums::Frame productFrame);
+IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering self, const enums::Frame productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -216,19 +216,19 @@ IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering
 
 // +++ Has
 extern_c int
-IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // --- Get, const
 extern_c Handle2ConstScatteringFactor
-IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering This);
+IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering self);
 
 // +++ Get, non-const
 extern_c Handle2ScatteringFactor
-IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering This);
+IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self);
 
 // +++ Set
 extern_c void
-IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScattering This, ConstHandle2ConstScatteringFactor scatteringFactor);
+IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScattering self, ConstHandle2ConstScatteringFactor scatteringFactor);
 
 
 // -----------------------------------------------------------------------------

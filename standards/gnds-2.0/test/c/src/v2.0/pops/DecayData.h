@@ -93,13 +93,13 @@ DecayDataCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-DecayDataAssign(ConstHandle2DecayData This, ConstHandle2ConstDecayData from);
+DecayDataAssign(ConstHandle2DecayData self, ConstHandle2ConstDecayData from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-DecayDataDelete(ConstHandle2ConstDecayData This);
+DecayDataDelete(ConstHandle2ConstDecayData self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ DecayDataDelete(ConstHandle2ConstDecayData This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-DecayDataRead(ConstHandle2DecayData This, const char *const filename);
+DecayDataRead(ConstHandle2DecayData self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-DecayDataWrite(ConstHandle2ConstDecayData This, const char *const filename);
+DecayDataWrite(ConstHandle2ConstDecayData self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-DecayDataPrint(ConstHandle2ConstDecayData This);
+DecayDataPrint(ConstHandle2ConstDecayData self);
 
 // +++ Print to standard output, as XML
 extern_c int
-DecayDataPrintXML(ConstHandle2ConstDecayData This);
+DecayDataPrintXML(ConstHandle2ConstDecayData self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-DecayDataPrintJSON(ConstHandle2ConstDecayData This);
+DecayDataPrintJSON(ConstHandle2ConstDecayData self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ DecayDataPrintJSON(ConstHandle2ConstDecayData This);
 
 // +++ Has
 extern_c int
-DecayDataDecayModesHas(ConstHandle2ConstDecayData This);
+DecayDataDecayModesHas(ConstHandle2ConstDecayData self);
 
 // --- Get, const
 extern_c Handle2ConstDecayModes
-DecayDataDecayModesGetConst(ConstHandle2ConstDecayData This);
+DecayDataDecayModesGetConst(ConstHandle2ConstDecayData self);
 
 // +++ Get, non-const
 extern_c Handle2DecayModes
-DecayDataDecayModesGet(ConstHandle2DecayData This);
+DecayDataDecayModesGet(ConstHandle2DecayData self);
 
 // +++ Set
 extern_c void
-DecayDataDecayModesSet(ConstHandle2DecayData This, ConstHandle2ConstDecayModes decayModes);
+DecayDataDecayModesSet(ConstHandle2DecayData self, ConstHandle2ConstDecayModes decayModes);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ DecayDataDecayModesSet(ConstHandle2DecayData This, ConstHandle2ConstDecayModes d
 
 // +++ Has
 extern_c int
-DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData This);
+DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData self);
 
 // --- Get, const
 extern_c Handle2ConstAverageEnergies
-DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData This);
+DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData self);
 
 // +++ Get, non-const
 extern_c Handle2AverageEnergies
-DecayDataAverageEnergiesGet(ConstHandle2DecayData This);
+DecayDataAverageEnergiesGet(ConstHandle2DecayData self);
 
 // +++ Set
 extern_c void
-DecayDataAverageEnergiesSet(ConstHandle2DecayData This, ConstHandle2ConstAverageEnergies averageEnergies);
+DecayDataAverageEnergiesSet(ConstHandle2DecayData self, ConstHandle2ConstAverageEnergies averageEnergies);
 
 
 // -----------------------------------------------------------------------------

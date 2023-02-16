@@ -25,12 +25,12 @@ class String :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "String"; }
-   static auto FIELD() { return "string"; }
+   static auto NODENAME() { return "string"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,26 +47,67 @@ class String :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "unit",
+         "value"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<std::optional<XMLName>> unit{this};
-   Field<XMLName> value{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<std::optional<XMLName>>
+      unit{this};
+   Field<XMLName>
+      value{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->unit, \
-      this->value)
+      this->value \
+   )
 
    // default
    String() :
@@ -77,9 +118,12 @@ public:
 
    // from fields, comment excluded
    explicit String(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<std::optional<XMLName>> &unit = {},
-      const wrapper<XMLName> &value = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<std::optional<XMLName>>
+         &unit = {},
+      const wrapper<XMLName>
+         &value = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -122,8 +166,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   String &operator=(const String &) = default;
-   String &operator=(String &&) = default;
+   // copy
+   String &operator=(const String &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         unit = other.unit;
+         value = other.value;
+      }
+      return *this;
+   }
+
+   // move
+   String &operator=(String &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         unit = std::move(other.unit);
+         value = std::move(other.value);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

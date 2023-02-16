@@ -74,20 +74,20 @@ SigmaZerosCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SigmaZerosAssign(ConstHandle2SigmaZeros This, ConstHandle2ConstSigmaZeros from)
+SigmaZerosAssign(ConstHandle2SigmaZeros self, ConstHandle2ConstSigmaZeros from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SigmaZerosDelete(ConstHandle2ConstSigmaZeros This)
+SigmaZerosDelete(ConstHandle2ConstSigmaZeros self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -101,44 +101,44 @@ SigmaZerosDelete(ConstHandle2ConstSigmaZeros This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SigmaZerosRead(ConstHandle2SigmaZeros This, const char *const filename)
+SigmaZerosRead(ConstHandle2SigmaZeros self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SigmaZerosWrite(ConstHandle2ConstSigmaZeros This, const char *const filename)
+SigmaZerosWrite(ConstHandle2ConstSigmaZeros self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SigmaZerosPrint(ConstHandle2ConstSigmaZeros This)
+SigmaZerosPrint(ConstHandle2ConstSigmaZeros self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SigmaZerosPrintXML(ConstHandle2ConstSigmaZeros This)
+SigmaZerosPrintXML(ConstHandle2ConstSigmaZeros self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros This)
+SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -148,27 +148,27 @@ SigmaZerosPrintJSON(ConstHandle2ConstSigmaZeros This)
 
 // Has
 int
-SigmaZerosLabelHas(ConstHandle2ConstSigmaZeros This)
+SigmaZerosLabelHas(ConstHandle2ConstSigmaZeros self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-SigmaZerosLabelGet(ConstHandle2ConstSigmaZeros This)
+SigmaZerosLabelGet(ConstHandle2ConstSigmaZeros self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-SigmaZerosLabelSet(ConstHandle2SigmaZeros This, const XMLName label)
+SigmaZerosLabelSet(ConstHandle2SigmaZeros self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -178,34 +178,34 @@ SigmaZerosLabelSet(ConstHandle2SigmaZeros This, const XMLName label)
 
 // Has
 int
-SigmaZerosValuesHas(ConstHandle2ConstSigmaZeros This)
+SigmaZerosValuesHas(ConstHandle2ConstSigmaZeros self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValuesHas", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesHas", self, extract::values);
 }
 
 // Get, const
 Handle2ConstValues
-SigmaZerosValuesGetConst(ConstHandle2ConstSigmaZeros This)
+SigmaZerosValuesGetConst(ConstHandle2ConstSigmaZeros self)
 {
    return detail::getField<CPP,Handle2ConstValues>
-      (CLASSNAME, CLASSNAME+"ValuesGetConst", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
 // Get, non-const
 Handle2Values
-SigmaZerosValuesGet(ConstHandle2SigmaZeros This)
+SigmaZerosValuesGet(ConstHandle2SigmaZeros self)
 {
    return detail::getField<CPP,Handle2Values>
-      (CLASSNAME, CLASSNAME+"ValuesGet", This, extract::values);
+      (CLASSNAME, CLASSNAME+"ValuesGet", self, extract::values);
 }
 
 // Set
 void
-SigmaZerosValuesSet(ConstHandle2SigmaZeros This, ConstHandle2ConstValues values)
+SigmaZerosValuesSet(ConstHandle2SigmaZeros self, ConstHandle2ConstValues values)
 {
    detail::setField<CPP,CPPValues>
-      (CLASSNAME, CLASSNAME+"ValuesSet", This, extract::values, values);
+      (CLASSNAME, CLASSNAME+"ValuesSet", self, extract::values, values);
 }
 
 

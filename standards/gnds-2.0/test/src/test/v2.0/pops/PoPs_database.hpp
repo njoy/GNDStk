@@ -32,12 +32,12 @@ class PoPs_database :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "PoPs_database"; }
-   static auto FIELD() { return "PoPs"; }
+   static auto NODENAME() { return "PoPs"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -53,43 +53,115 @@ class PoPs_database :
             / Meta<>("format") |
 
          // children
-         --Child<std::optional<styles::Styles>>("styles") |
-         --Child<std::optional<documentation::Documentation>>("documentation") |
-         --Child<std::optional<pops::Aliases>>("aliases") |
-         --Child<std::optional<pops::GaugeBosons>>("gaugeBosons") |
-         --Child<std::optional<pops::Leptons>>("leptons") |
-         --Child<std::optional<pops::Baryons>>("baryons") |
-         --Child<std::optional<pops::ChemicalElements>>("chemicalElements") |
-         --Child<std::optional<pops::Unorthodoxes>>("unorthodoxes")
+         --Child<std::optional<styles::Styles>>
+            ("styles") |
+         --Child<std::optional<documentation::Documentation>>
+            ("documentation") |
+         --Child<std::optional<pops::Aliases>>
+            ("aliases") |
+         --Child<std::optional<pops::GaugeBosons>>
+            ("gaugeBosons") |
+         --Child<std::optional<pops::Leptons>>
+            ("leptons") |
+         --Child<std::optional<pops::Baryons>>
+            ("baryons") |
+         --Child<std::optional<pops::ChemicalElements>>
+            ("chemicalElements") |
+         --Child<std::optional<pops::Unorthodoxes>>
+            ("unorthodoxes")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "version",
+         "format",
+         "styles",
+         "documentation",
+         "aliases",
+         "gaugeBosons",
+         "leptons",
+         "baryons",
+         "chemicalElements",
+         "unorthodoxes"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "version",
+         "format",
+         "styles",
+         "documentation",
+         "aliases",
+         "gauge_bosons",
+         "leptons",
+         "baryons",
+         "chemical_elements",
+         "unorthodoxes"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> name{this};
-   Field<XMLName> version{this};
-   Field<XMLName> format{this};
+   Field<XMLName>
+      name{this};
+   Field<XMLName>
+      version{this};
+   Field<XMLName>
+      format{this};
 
    // children
-   Field<std::optional<styles::Styles>> styles{this};
-   Field<std::optional<documentation::Documentation>> documentation{this};
-   Field<std::optional<pops::Aliases>> aliases{this};
-   Field<std::optional<pops::GaugeBosons>> gaugeBosons{this};
-   Field<std::optional<pops::Leptons>> leptons{this};
-   Field<std::optional<pops::Baryons>> baryons{this};
-   Field<std::optional<pops::ChemicalElements>> chemicalElements{this};
-   Field<std::optional<pops::Unorthodoxes>> unorthodoxes{this};
+   Field<std::optional<styles::Styles>>
+      styles{this};
+   Field<std::optional<documentation::Documentation>>
+      documentation{this};
+   Field<std::optional<pops::Aliases>>
+      aliases{this};
+   Field<std::optional<pops::GaugeBosons>>
+      gaugeBosons{this};
+   Field<std::optional<pops::Leptons>>
+      leptons{this};
+   Field<std::optional<pops::Baryons>>
+      baryons{this};
+   Field<std::optional<pops::ChemicalElements>>
+      chemicalElements{this};
+   Field<std::optional<pops::Unorthodoxes>>
+      unorthodoxes{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->name, \
       this->version, \
@@ -101,7 +173,8 @@ public:
       this->leptons, \
       this->baryons, \
       this->chemicalElements, \
-      this->unorthodoxes)
+      this->unorthodoxes \
+   )
 
    // default
    PoPs_database() :
@@ -112,17 +185,28 @@ public:
 
    // from fields, comment excluded
    explicit PoPs_database(
-      const wrapper<XMLName> &name,
-      const wrapper<XMLName> &version = {},
-      const wrapper<XMLName> &format = {},
-      const wrapper<std::optional<styles::Styles>> &styles = {},
-      const wrapper<std::optional<documentation::Documentation>> &documentation = {},
-      const wrapper<std::optional<pops::Aliases>> &aliases = {},
-      const wrapper<std::optional<pops::GaugeBosons>> &gaugeBosons = {},
-      const wrapper<std::optional<pops::Leptons>> &leptons = {},
-      const wrapper<std::optional<pops::Baryons>> &baryons = {},
-      const wrapper<std::optional<pops::ChemicalElements>> &chemicalElements = {},
-      const wrapper<std::optional<pops::Unorthodoxes>> &unorthodoxes = {}
+      const wrapper<XMLName>
+         &name,
+      const wrapper<XMLName>
+         &version = {},
+      const wrapper<XMLName>
+         &format = {},
+      const wrapper<std::optional<styles::Styles>>
+         &styles = {},
+      const wrapper<std::optional<documentation::Documentation>>
+         &documentation = {},
+      const wrapper<std::optional<pops::Aliases>>
+         &aliases = {},
+      const wrapper<std::optional<pops::GaugeBosons>>
+         &gaugeBosons = {},
+      const wrapper<std::optional<pops::Leptons>>
+         &leptons = {},
+      const wrapper<std::optional<pops::Baryons>>
+         &baryons = {},
+      const wrapper<std::optional<pops::ChemicalElements>>
+         &chemicalElements = {},
+      const wrapper<std::optional<pops::Unorthodoxes>>
+         &unorthodoxes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
@@ -189,8 +273,47 @@ public:
    // Assignment operators
    // ------------------------
 
-   PoPs_database &operator=(const PoPs_database &) = default;
-   PoPs_database &operator=(PoPs_database &&) = default;
+   // copy
+   PoPs_database &operator=(const PoPs_database &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         name = other.name;
+         version = other.version;
+         format = other.format;
+         styles = other.styles;
+         documentation = other.documentation;
+         aliases = other.aliases;
+         gaugeBosons = other.gaugeBosons;
+         leptons = other.leptons;
+         baryons = other.baryons;
+         chemicalElements = other.chemicalElements;
+         unorthodoxes = other.unorthodoxes;
+      }
+      return *this;
+   }
+
+   // move
+   PoPs_database &operator=(PoPs_database &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         name = std::move(other.name);
+         version = std::move(other.version);
+         format = std::move(other.format);
+         styles = std::move(other.styles);
+         documentation = std::move(other.documentation);
+         aliases = std::move(other.aliases);
+         gaugeBosons = std::move(other.gaugeBosons);
+         leptons = std::move(other.leptons);
+         baryons = std::move(other.baryons);
+         chemicalElements = std::move(other.chemicalElements);
+         unorthodoxes = std::move(other.unorthodoxes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

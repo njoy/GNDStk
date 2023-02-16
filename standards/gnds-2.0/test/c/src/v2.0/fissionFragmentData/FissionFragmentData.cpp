@@ -81,20 +81,20 @@ FissionFragmentDataCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-FissionFragmentDataAssign(ConstHandle2FissionFragmentData This, ConstHandle2ConstFissionFragmentData from)
+FissionFragmentDataAssign(ConstHandle2FissionFragmentData self, ConstHandle2ConstFissionFragmentData from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ FissionFragmentDataDelete(ConstHandle2ConstFissionFragmentData This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-FissionFragmentDataRead(ConstHandle2FissionFragmentData This, const char *const filename)
+FissionFragmentDataRead(ConstHandle2FissionFragmentData self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-FissionFragmentDataWrite(ConstHandle2ConstFissionFragmentData This, const char *const filename)
+FissionFragmentDataWrite(ConstHandle2ConstFissionFragmentData self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-FissionFragmentDataPrint(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataPrint(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-FissionFragmentDataPrintXML(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataPrintXML(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ FissionFragmentDataPrintJSON(ConstHandle2ConstFissionFragmentData This)
 
 // Has
 int
-FissionFragmentDataDelayedNeutronsHas(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataDelayedNeutronsHas(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronsHas", This, extract::delayedNeutrons);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronsHas", self, extract::delayedNeutrons);
 }
 
 // Get, const
 Handle2ConstDelayedNeutrons
-FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::getField<CPP,Handle2ConstDelayedNeutrons>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronsGetConst", This, extract::delayedNeutrons);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronsGetConst", self, extract::delayedNeutrons);
 }
 
 // Get, non-const
 Handle2DelayedNeutrons
-FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData This)
+FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData self)
 {
    return detail::getField<CPP,Handle2DelayedNeutrons>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronsGet", This, extract::delayedNeutrons);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronsGet", self, extract::delayedNeutrons);
 }
 
 // Set
 void
-FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstDelayedNeutrons delayedNeutrons)
+FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstDelayedNeutrons delayedNeutrons)
 {
    detail::setField<CPP,CPPDelayedNeutrons>
-      (CLASSNAME, CLASSNAME+"DelayedNeutronsSet", This, extract::delayedNeutrons, delayedNeutrons);
+      (CLASSNAME, CLASSNAME+"DelayedNeutronsSet", self, extract::delayedNeutrons, delayedNeutrons);
 }
 
 
@@ -192,34 +192,34 @@ FissionFragmentDataDelayedNeutronsSet(ConstHandle2FissionFragmentData This, Cons
 
 // Has
 int
-FissionFragmentDataFissionEnergyReleasedHas(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataFissionEnergyReleasedHas(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedHas", This, extract::fissionEnergyReleased);
+      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedHas", self, extract::fissionEnergyReleased);
 }
 
 // Get, const
 Handle2ConstFissionEnergyReleased
-FissionFragmentDataFissionEnergyReleasedGetConst(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataFissionEnergyReleasedGetConst(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::getField<CPP,Handle2ConstFissionEnergyReleased>
-      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedGetConst", This, extract::fissionEnergyReleased);
+      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedGetConst", self, extract::fissionEnergyReleased);
 }
 
 // Get, non-const
 Handle2FissionEnergyReleased
-FissionFragmentDataFissionEnergyReleasedGet(ConstHandle2FissionFragmentData This)
+FissionFragmentDataFissionEnergyReleasedGet(ConstHandle2FissionFragmentData self)
 {
    return detail::getField<CPP,Handle2FissionEnergyReleased>
-      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedGet", This, extract::fissionEnergyReleased);
+      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedGet", self, extract::fissionEnergyReleased);
 }
 
 // Set
 void
-FissionFragmentDataFissionEnergyReleasedSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstFissionEnergyReleased fissionEnergyReleased)
+FissionFragmentDataFissionEnergyReleasedSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstFissionEnergyReleased fissionEnergyReleased)
 {
    detail::setField<CPP,CPPFissionEnergyReleased>
-      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedSet", This, extract::fissionEnergyReleased, fissionEnergyReleased);
+      (CLASSNAME, CLASSNAME+"FissionEnergyReleasedSet", self, extract::fissionEnergyReleased, fissionEnergyReleased);
 }
 
 
@@ -229,34 +229,34 @@ FissionFragmentDataFissionEnergyReleasedSet(ConstHandle2FissionFragmentData This
 
 // Has
 int
-FissionFragmentDataProductYieldsHas(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataProductYieldsHas(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductYieldsHas", This, extract::productYields);
+      (CLASSNAME, CLASSNAME+"ProductYieldsHas", self, extract::productYields);
 }
 
 // Get, const
 Handle2ConstProductYields
-FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData This)
+FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData self)
 {
    return detail::getField<CPP,Handle2ConstProductYields>
-      (CLASSNAME, CLASSNAME+"ProductYieldsGetConst", This, extract::productYields);
+      (CLASSNAME, CLASSNAME+"ProductYieldsGetConst", self, extract::productYields);
 }
 
 // Get, non-const
 Handle2ProductYields
-FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData This)
+FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData self)
 {
    return detail::getField<CPP,Handle2ProductYields>
-      (CLASSNAME, CLASSNAME+"ProductYieldsGet", This, extract::productYields);
+      (CLASSNAME, CLASSNAME+"ProductYieldsGet", self, extract::productYields);
 }
 
 // Set
 void
-FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData This, ConstHandle2ConstProductYields productYields)
+FissionFragmentDataProductYieldsSet(ConstHandle2FissionFragmentData self, ConstHandle2ConstProductYields productYields)
 {
    detail::setField<CPP,CPPProductYields>
-      (CLASSNAME, CLASSNAME+"ProductYieldsSet", This, extract::productYields, productYields);
+      (CLASSNAME, CLASSNAME+"ProductYieldsSet", self, extract::productYields, productYields);
 }
 
 

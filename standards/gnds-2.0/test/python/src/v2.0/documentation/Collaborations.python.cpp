@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// Collaborations wrapper
-void wrapCollaborations(python::module &module)
+// wrapper for documentation::Collaborations
+void wrapCollaborations(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::Collaborations;
+   using cppCLASS = documentation::Collaborations;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Collaborations",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Collaborations",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<documentation::Collaboration> &
-         >(),
-         python::arg("collaboration"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "collaboration",
-         [](const Component &self) { return self.collaboration(); },
-         Component::documentation("collaboration").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<documentation::Collaboration> &
+      >(),
+      py::arg("collaboration"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set collaboration
+   object.def_property(
+      "collaboration",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.collaboration();
+      },
+      [](cppCLASS &self, const std::vector<documentation::Collaboration> &value)
+      {
+         self.collaboration() = value;
+      },
+      cppCLASS::component_t::documentation("collaboration").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

@@ -25,12 +25,12 @@ class ChemicalElement :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "gnds"; }
    static auto CLASS() { return "ChemicalElement"; }
-   static auto FIELD() { return "chemicalElement"; }
+   static auto NODENAME() { return "chemicalElement"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,34 +46,79 @@ class ChemicalElement :
             / Meta<>("name") |
 
          // children
-         --Child<gnds::Atomic>("atomic")
+         --Child<gnds::Atomic>
+            ("atomic")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "symbol",
+         "Z",
+         "name",
+         "atomic"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "symbol",
+         "z",
+         "name",
+         "atomic"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> symbol{this};
-   Field<int> Z{this};
-   Field<std::string> name{this};
+   Field<std::string>
+      symbol{this};
+   Field<int>
+      Z{this};
+   Field<std::string>
+      name{this};
 
    // children
-   Field<gnds::Atomic> atomic{this};
+   Field<gnds::Atomic>
+      atomic{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->symbol, \
       this->Z, \
       this->name, \
-      this->atomic)
+      this->atomic \
+   )
 
    // default
    ChemicalElement() :
@@ -84,10 +129,14 @@ public:
 
    // from fields, comment excluded
    explicit ChemicalElement(
-      const wrapper<std::string> &symbol,
-      const wrapper<int> &Z = {},
-      const wrapper<std::string> &name = {},
-      const wrapper<gnds::Atomic> &atomic = {}
+      const wrapper<std::string>
+         &symbol,
+      const wrapper<int>
+         &Z = {},
+      const wrapper<std::string>
+         &name = {},
+      const wrapper<gnds::Atomic>
+         &atomic = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
@@ -133,8 +182,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   ChemicalElement &operator=(const ChemicalElement &) = default;
-   ChemicalElement &operator=(ChemicalElement &&) = default;
+   // copy
+   ChemicalElement &operator=(const ChemicalElement &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         symbol = other.symbol;
+         Z = other.Z;
+         name = other.name;
+         atomic = other.atomic;
+      }
+      return *this;
+   }
+
+   // move
+   ChemicalElement &operator=(ChemicalElement &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         symbol = std::move(other.symbol);
+         Z = std::move(other.Z);
+         name = std::move(other.name);
+         atomic = std::move(other.atomic);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

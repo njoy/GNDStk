@@ -25,12 +25,12 @@ class NBodyPhaseSpace :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "NBodyPhaseSpace"; }
-   static auto FIELD() { return "NBodyPhaseSpace"; }
+   static auto NODENAME() { return "NBodyPhaseSpace"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,30 +42,69 @@ class NBodyPhaseSpace :
             / Meta<>("numberOfProducts") |
 
          // children
-         --Child<std::optional<tsl::Mass>>("mass")
+         --Child<std::optional<tsl::Mass>>
+            ("mass")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "numberOfProducts",
+         "mass"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "number_of_products",
+         "mass"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Integer32>> numberOfProducts{this};
+   Field<std::optional<Integer32>>
+      numberOfProducts{this};
 
    // children
-   Field<std::optional<tsl::Mass>> mass{this};
+   Field<std::optional<tsl::Mass>>
+      mass{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->numberOfProducts, \
-      this->mass)
+      this->mass \
+   )
 
    // default
    NBodyPhaseSpace() :
@@ -76,8 +115,10 @@ public:
 
    // from fields, comment excluded
    explicit NBodyPhaseSpace(
-      const wrapper<std::optional<Integer32>> &numberOfProducts,
-      const wrapper<std::optional<tsl::Mass>> &mass = {}
+      const wrapper<std::optional<Integer32>>
+         &numberOfProducts,
+      const wrapper<std::optional<tsl::Mass>>
+         &mass = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       numberOfProducts(this,numberOfProducts),
@@ -117,8 +158,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   NBodyPhaseSpace &operator=(const NBodyPhaseSpace &) = default;
-   NBodyPhaseSpace &operator=(NBodyPhaseSpace &&) = default;
+   // copy
+   NBodyPhaseSpace &operator=(const NBodyPhaseSpace &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         numberOfProducts = other.numberOfProducts;
+         mass = other.mass;
+      }
+      return *this;
+   }
+
+   // move
+   NBodyPhaseSpace &operator=(NBodyPhaseSpace &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         numberOfProducts = std::move(other.numberOfProducts);
+         mass = std::move(other.mass);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

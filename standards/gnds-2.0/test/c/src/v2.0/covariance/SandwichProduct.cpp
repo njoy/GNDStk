@@ -87,20 +87,20 @@ SandwichProductCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SandwichProductAssign(ConstHandle2SandwichProduct This, ConstHandle2ConstSandwichProduct from)
+SandwichProductAssign(ConstHandle2SandwichProduct self, ConstHandle2ConstSandwichProduct from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SandwichProductDelete(ConstHandle2ConstSandwichProduct This)
+SandwichProductDelete(ConstHandle2ConstSandwichProduct self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -114,44 +114,44 @@ SandwichProductDelete(ConstHandle2ConstSandwichProduct This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SandwichProductRead(ConstHandle2SandwichProduct This, const char *const filename)
+SandwichProductRead(ConstHandle2SandwichProduct self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SandwichProductWrite(ConstHandle2ConstSandwichProduct This, const char *const filename)
+SandwichProductWrite(ConstHandle2ConstSandwichProduct self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SandwichProductPrint(ConstHandle2ConstSandwichProduct This)
+SandwichProductPrint(ConstHandle2ConstSandwichProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SandwichProductPrintXML(ConstHandle2ConstSandwichProduct This)
+SandwichProductPrintXML(ConstHandle2ConstSandwichProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct This)
+SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -161,34 +161,34 @@ SandwichProductPrintJSON(ConstHandle2ConstSandwichProduct This)
 
 // Has
 int
-SandwichProductAxesHas(ConstHandle2ConstSandwichProduct This)
+SandwichProductAxesHas(ConstHandle2ConstSandwichProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-SandwichProductAxesGetConst(ConstHandle2ConstSandwichProduct This)
+SandwichProductAxesGetConst(ConstHandle2ConstSandwichProduct self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-SandwichProductAxesGet(ConstHandle2SandwichProduct This)
+SandwichProductAxesGet(ConstHandle2SandwichProduct self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-SandwichProductAxesSet(ConstHandle2SandwichProduct This, ConstHandle2ConstAxes axes)
+SandwichProductAxesSet(ConstHandle2SandwichProduct self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 
@@ -198,34 +198,34 @@ SandwichProductAxesSet(ConstHandle2SandwichProduct This, ConstHandle2ConstAxes a
 
 // Has
 int
-SandwichProductCovarianceHas(ConstHandle2ConstSandwichProduct This)
+SandwichProductCovarianceHas(ConstHandle2ConstSandwichProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"CovarianceHas", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceHas", self, extract::covariance);
 }
 
 // Get, const
 Handle2ConstCovariance
-SandwichProductCovarianceGetConst(ConstHandle2ConstSandwichProduct This)
+SandwichProductCovarianceGetConst(ConstHandle2ConstSandwichProduct self)
 {
    return detail::getField<CPP,Handle2ConstCovariance>
-      (CLASSNAME, CLASSNAME+"CovarianceGetConst", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceGetConst", self, extract::covariance);
 }
 
 // Get, non-const
 Handle2Covariance
-SandwichProductCovarianceGet(ConstHandle2SandwichProduct This)
+SandwichProductCovarianceGet(ConstHandle2SandwichProduct self)
 {
    return detail::getField<CPP,Handle2Covariance>
-      (CLASSNAME, CLASSNAME+"CovarianceGet", This, extract::covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceGet", self, extract::covariance);
 }
 
 // Set
 void
-SandwichProductCovarianceSet(ConstHandle2SandwichProduct This, ConstHandle2ConstCovariance covariance)
+SandwichProductCovarianceSet(ConstHandle2SandwichProduct self, ConstHandle2ConstCovariance covariance)
 {
    detail::setField<CPP,CPPCovariance>
-      (CLASSNAME, CLASSNAME+"CovarianceSet", This, extract::covariance, covariance);
+      (CLASSNAME, CLASSNAME+"CovarianceSet", self, extract::covariance, covariance);
 }
 
 
@@ -235,34 +235,34 @@ SandwichProductCovarianceSet(ConstHandle2SandwichProduct This, ConstHandle2Const
 
 // Has
 int
-SandwichProductRowSensitivityHas(ConstHandle2ConstSandwichProduct This)
+SandwichProductRowSensitivityHas(ConstHandle2ConstSandwichProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"RowSensitivityHas", This, extract::rowSensitivity);
+      (CLASSNAME, CLASSNAME+"RowSensitivityHas", self, extract::rowSensitivity);
 }
 
 // Get, const
 Handle2ConstRowSensitivity
-SandwichProductRowSensitivityGetConst(ConstHandle2ConstSandwichProduct This)
+SandwichProductRowSensitivityGetConst(ConstHandle2ConstSandwichProduct self)
 {
    return detail::getField<CPP,Handle2ConstRowSensitivity>
-      (CLASSNAME, CLASSNAME+"RowSensitivityGetConst", This, extract::rowSensitivity);
+      (CLASSNAME, CLASSNAME+"RowSensitivityGetConst", self, extract::rowSensitivity);
 }
 
 // Get, non-const
 Handle2RowSensitivity
-SandwichProductRowSensitivityGet(ConstHandle2SandwichProduct This)
+SandwichProductRowSensitivityGet(ConstHandle2SandwichProduct self)
 {
    return detail::getField<CPP,Handle2RowSensitivity>
-      (CLASSNAME, CLASSNAME+"RowSensitivityGet", This, extract::rowSensitivity);
+      (CLASSNAME, CLASSNAME+"RowSensitivityGet", self, extract::rowSensitivity);
 }
 
 // Set
 void
-SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2ConstRowSensitivity rowSensitivity)
+SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct self, ConstHandle2ConstRowSensitivity rowSensitivity)
 {
    detail::setField<CPP,CPPRowSensitivity>
-      (CLASSNAME, CLASSNAME+"RowSensitivitySet", This, extract::rowSensitivity, rowSensitivity);
+      (CLASSNAME, CLASSNAME+"RowSensitivitySet", self, extract::rowSensitivity, rowSensitivity);
 }
 
 
@@ -272,34 +272,34 @@ SandwichProductRowSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2C
 
 // Has
 int
-SandwichProductColumnSensitivityHas(ConstHandle2ConstSandwichProduct This)
+SandwichProductColumnSensitivityHas(ConstHandle2ConstSandwichProduct self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ColumnSensitivityHas", This, extract::columnSensitivity);
+      (CLASSNAME, CLASSNAME+"ColumnSensitivityHas", self, extract::columnSensitivity);
 }
 
 // Get, const
 Handle2ConstColumnSensitivity
-SandwichProductColumnSensitivityGetConst(ConstHandle2ConstSandwichProduct This)
+SandwichProductColumnSensitivityGetConst(ConstHandle2ConstSandwichProduct self)
 {
    return detail::getField<CPP,Handle2ConstColumnSensitivity>
-      (CLASSNAME, CLASSNAME+"ColumnSensitivityGetConst", This, extract::columnSensitivity);
+      (CLASSNAME, CLASSNAME+"ColumnSensitivityGetConst", self, extract::columnSensitivity);
 }
 
 // Get, non-const
 Handle2ColumnSensitivity
-SandwichProductColumnSensitivityGet(ConstHandle2SandwichProduct This)
+SandwichProductColumnSensitivityGet(ConstHandle2SandwichProduct self)
 {
    return detail::getField<CPP,Handle2ColumnSensitivity>
-      (CLASSNAME, CLASSNAME+"ColumnSensitivityGet", This, extract::columnSensitivity);
+      (CLASSNAME, CLASSNAME+"ColumnSensitivityGet", self, extract::columnSensitivity);
 }
 
 // Set
 void
-SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct This, ConstHandle2ConstColumnSensitivity columnSensitivity)
+SandwichProductColumnSensitivitySet(ConstHandle2SandwichProduct self, ConstHandle2ConstColumnSensitivity columnSensitivity)
 {
    detail::setField<CPP,CPPColumnSensitivity>
-      (CLASSNAME, CLASSNAME+"ColumnSensitivitySet", This, extract::columnSensitivity, columnSensitivity);
+      (CLASSNAME, CLASSNAME+"ColumnSensitivitySet", self, extract::columnSensitivity, columnSensitivity);
 }
 
 

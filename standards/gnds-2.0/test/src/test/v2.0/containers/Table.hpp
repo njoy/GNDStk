@@ -26,12 +26,12 @@ class Table :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Table"; }
-   static auto FIELD() { return "table"; }
+   static auto NODENAME() { return "table"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -47,12 +47,49 @@ class Table :
             / Meta<>("storageOrder") |
 
          // children
-         --Child<containers::ColumnHeaders>("columnHeaders") |
-         --Child<containers::Data>("data")
+         --Child<containers::ColumnHeaders>
+            ("columnHeaders") |
+         --Child<containers::Data>
+            ("data")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "columns",
+         "rows",
+         "storageOrder",
+         "columnHeaders",
+         "data"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "columns",
+         "rows",
+         "storage_order",
+         "column_headers",
+         "data"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
 
    // defaults
@@ -60,29 +97,41 @@ public:
       static inline const XMLName storageOrder = "row-major";
    } defaults;
 
+   // ------------------------
+   // Data members
+   // ------------------------
+
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<Integer32> columns{this};
-   Field<Integer32> rows{this};
-   Field<Defaulted<XMLName>> storageOrder{this,defaults.storageOrder};
+   Field<Integer32>
+      columns{this};
+   Field<Integer32>
+      rows{this};
+   Field<Defaulted<XMLName>>
+      storageOrder{this,defaults.storageOrder};
 
    // children
-   Field<containers::ColumnHeaders> columnHeaders{this};
-   Field<containers::Data> data{this};
+   Field<containers::ColumnHeaders>
+      columnHeaders{this};
+   Field<containers::Data>
+      data{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->columns, \
       this->rows, \
       this->storageOrder, \
       this->columnHeaders, \
-      this->data)
+      this->data \
+   )
 
    // default
    Table() :
@@ -94,11 +143,16 @@ public:
    // from fields, comment excluded
    // optional replaces Defaulted; this class knows the default(s)
    explicit Table(
-      const wrapper<Integer32> &columns,
-      const wrapper<Integer32> &rows = {},
-      const wrapper<std::optional<XMLName>> &storageOrder = {},
-      const wrapper<containers::ColumnHeaders> &columnHeaders = {},
-      const wrapper<containers::Data> &data = {}
+      const wrapper<Integer32>
+         &columns,
+      const wrapper<Integer32>
+         &rows = {},
+      const wrapper<std::optional<XMLName>>
+         &storageOrder = {},
+      const wrapper<containers::ColumnHeaders>
+         &columnHeaders = {},
+      const wrapper<containers::Data>
+         &data = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       columns(this,columns),
@@ -147,8 +201,35 @@ public:
    // Assignment operators
    // ------------------------
 
-   Table &operator=(const Table &) = default;
-   Table &operator=(Table &&) = default;
+   // copy
+   Table &operator=(const Table &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         columns = other.columns;
+         rows = other.rows;
+         storageOrder = other.storageOrder;
+         columnHeaders = other.columnHeaders;
+         data = other.data;
+      }
+      return *this;
+   }
+
+   // move
+   Table &operator=(Table &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         columns = std::move(other.columns);
+         rows = std::move(other.rows);
+         storageOrder = std::move(other.storageOrder);
+         columnHeaders = std::move(other.columnHeaders);
+         data = std::move(other.data);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_resonances {
 
-// ResonanceReactions wrapper
-void wrapResonanceReactions(python::module &module)
+// wrapper for resonances::ResonanceReactions
+void wrapResonanceReactions(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = resonances::ResonanceReactions;
+   using cppCLASS = resonances::ResonanceReactions;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ResonanceReactions",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ResonanceReactions",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<resonances::ResonanceReaction> &
-         >(),
-         python::arg("resonance_reaction"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "resonance_reaction",
-         [](const Component &self) { return self.resonanceReaction(); },
-         Component::documentation("resonance_reaction").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<resonances::ResonanceReaction> &
+      >(),
+      py::arg("resonance_reaction"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::vector<resonances::ResonanceReaction> &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_resonances

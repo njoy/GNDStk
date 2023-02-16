@@ -75,20 +75,20 @@ GCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GAssign(ConstHandle2G This, ConstHandle2ConstG from)
+GAssign(ConstHandle2G self, ConstHandle2ConstG from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GDelete(ConstHandle2ConstG This)
+GDelete(ConstHandle2ConstG self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ GDelete(ConstHandle2ConstG This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GRead(ConstHandle2G This, const char *const filename)
+GRead(ConstHandle2G self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GWrite(ConstHandle2ConstG This, const char *const filename)
+GWrite(ConstHandle2ConstG self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GPrint(ConstHandle2ConstG This)
+GPrint(ConstHandle2ConstG self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GPrintXML(ConstHandle2ConstG This)
+GPrintXML(ConstHandle2ConstG self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GPrintJSON(ConstHandle2ConstG This)
+GPrintJSON(ConstHandle2ConstG self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ GPrintJSON(ConstHandle2ConstG This)
 
 // Has
 int
-GXYs1dHas(ConstHandle2ConstG This)
+GXYs1dHas(ConstHandle2ConstG self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-GXYs1dGetConst(ConstHandle2ConstG This)
+GXYs1dGetConst(ConstHandle2ConstG self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-GXYs1dGet(ConstHandle2G This)
+GXYs1dGet(ConstHandle2G self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-GXYs1dSet(ConstHandle2G This, ConstHandle2ConstXYs1d XYs1d)
+GXYs1dSet(ConstHandle2G self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ GXYs1dSet(ConstHandle2G This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-GRegions1dHas(ConstHandle2ConstG This)
+GRegions1dHas(ConstHandle2ConstG self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-GRegions1dGetConst(ConstHandle2ConstG This)
+GRegions1dGetConst(ConstHandle2ConstG self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-GRegions1dGet(ConstHandle2G This)
+GRegions1dGet(ConstHandle2G self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-GRegions1dSet(ConstHandle2G This, ConstHandle2ConstRegions1d regions1d)
+GRegions1dSet(ConstHandle2G self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

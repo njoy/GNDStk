@@ -81,20 +81,20 @@ WattCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-WattAssign(ConstHandle2Watt This, ConstHandle2ConstWatt from)
+WattAssign(ConstHandle2Watt self, ConstHandle2ConstWatt from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-WattDelete(ConstHandle2ConstWatt This)
+WattDelete(ConstHandle2ConstWatt self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -108,44 +108,44 @@ WattDelete(ConstHandle2ConstWatt This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-WattRead(ConstHandle2Watt This, const char *const filename)
+WattRead(ConstHandle2Watt self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-WattWrite(ConstHandle2ConstWatt This, const char *const filename)
+WattWrite(ConstHandle2ConstWatt self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-WattPrint(ConstHandle2ConstWatt This)
+WattPrint(ConstHandle2ConstWatt self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-WattPrintXML(ConstHandle2ConstWatt This)
+WattPrintXML(ConstHandle2ConstWatt self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-WattPrintJSON(ConstHandle2ConstWatt This)
+WattPrintJSON(ConstHandle2ConstWatt self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -155,34 +155,34 @@ WattPrintJSON(ConstHandle2ConstWatt This)
 
 // Has
 int
-WattUHas(ConstHandle2ConstWatt This)
+WattUHas(ConstHandle2ConstWatt self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UHas", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UHas", self, extract::U);
 }
 
 // Get, const
 Handle2ConstU
-WattUGetConst(ConstHandle2ConstWatt This)
+WattUGetConst(ConstHandle2ConstWatt self)
 {
    return detail::getField<CPP,Handle2ConstU>
-      (CLASSNAME, CLASSNAME+"UGetConst", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
 // Get, non-const
 Handle2U
-WattUGet(ConstHandle2Watt This)
+WattUGet(ConstHandle2Watt self)
 {
    return detail::getField<CPP,Handle2U>
-      (CLASSNAME, CLASSNAME+"UGet", This, extract::U);
+      (CLASSNAME, CLASSNAME+"UGet", self, extract::U);
 }
 
 // Set
 void
-WattUSet(ConstHandle2Watt This, ConstHandle2ConstU U)
+WattUSet(ConstHandle2Watt self, ConstHandle2ConstU U)
 {
    detail::setField<CPP,CPPU>
-      (CLASSNAME, CLASSNAME+"USet", This, extract::U, U);
+      (CLASSNAME, CLASSNAME+"USet", self, extract::U, U);
 }
 
 
@@ -192,34 +192,34 @@ WattUSet(ConstHandle2Watt This, ConstHandle2ConstU U)
 
 // Has
 int
-WattAHas(ConstHandle2ConstWatt This)
+WattAHas(ConstHandle2ConstWatt self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AHas", This, extract::a);
+      (CLASSNAME, CLASSNAME+"AHas", self, extract::a);
 }
 
 // Get, const
 Handle2ConstA
-WattAGetConst(ConstHandle2ConstWatt This)
+WattAGetConst(ConstHandle2ConstWatt self)
 {
    return detail::getField<CPP,Handle2ConstA>
-      (CLASSNAME, CLASSNAME+"AGetConst", This, extract::a);
+      (CLASSNAME, CLASSNAME+"AGetConst", self, extract::a);
 }
 
 // Get, non-const
 Handle2A
-WattAGet(ConstHandle2Watt This)
+WattAGet(ConstHandle2Watt self)
 {
    return detail::getField<CPP,Handle2A>
-      (CLASSNAME, CLASSNAME+"AGet", This, extract::a);
+      (CLASSNAME, CLASSNAME+"AGet", self, extract::a);
 }
 
 // Set
 void
-WattASet(ConstHandle2Watt This, ConstHandle2ConstA a)
+WattASet(ConstHandle2Watt self, ConstHandle2ConstA a)
 {
    detail::setField<CPP,CPPA>
-      (CLASSNAME, CLASSNAME+"ASet", This, extract::a, a);
+      (CLASSNAME, CLASSNAME+"ASet", self, extract::a, a);
 }
 
 
@@ -229,34 +229,34 @@ WattASet(ConstHandle2Watt This, ConstHandle2ConstA a)
 
 // Has
 int
-WattBHas(ConstHandle2ConstWatt This)
+WattBHas(ConstHandle2ConstWatt self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"BHas", This, extract::b);
+      (CLASSNAME, CLASSNAME+"BHas", self, extract::b);
 }
 
 // Get, const
 Handle2ConstB
-WattBGetConst(ConstHandle2ConstWatt This)
+WattBGetConst(ConstHandle2ConstWatt self)
 {
    return detail::getField<CPP,Handle2ConstB>
-      (CLASSNAME, CLASSNAME+"BGetConst", This, extract::b);
+      (CLASSNAME, CLASSNAME+"BGetConst", self, extract::b);
 }
 
 // Get, non-const
 Handle2B
-WattBGet(ConstHandle2Watt This)
+WattBGet(ConstHandle2Watt self)
 {
    return detail::getField<CPP,Handle2B>
-      (CLASSNAME, CLASSNAME+"BGet", This, extract::b);
+      (CLASSNAME, CLASSNAME+"BGet", self, extract::b);
 }
 
 // Set
 void
-WattBSet(ConstHandle2Watt This, ConstHandle2ConstB b)
+WattBSet(ConstHandle2Watt self, ConstHandle2ConstB b)
 {
    detail::setField<CPP,CPPB>
-      (CLASSNAME, CLASSNAME+"BSet", This, extract::b, b);
+      (CLASSNAME, CLASSNAME+"BSet", self, extract::b, b);
 }
 
 

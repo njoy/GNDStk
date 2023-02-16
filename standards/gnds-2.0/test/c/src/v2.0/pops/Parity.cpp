@@ -100,20 +100,20 @@ ParityCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ParityAssign(ConstHandle2Parity This, ConstHandle2ConstParity from)
+ParityAssign(ConstHandle2Parity self, ConstHandle2ConstParity from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ParityDelete(ConstHandle2ConstParity This)
+ParityDelete(ConstHandle2ConstParity self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -127,44 +127,44 @@ ParityDelete(ConstHandle2ConstParity This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ParityRead(ConstHandle2Parity This, const char *const filename)
+ParityRead(ConstHandle2Parity self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ParityWrite(ConstHandle2ConstParity This, const char *const filename)
+ParityWrite(ConstHandle2ConstParity self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ParityPrint(ConstHandle2ConstParity This)
+ParityPrint(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ParityPrintXML(ConstHandle2ConstParity This)
+ParityPrintXML(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ParityPrintJSON(ConstHandle2ConstParity This)
+ParityPrintJSON(ConstHandle2ConstParity self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -174,27 +174,27 @@ ParityPrintJSON(ConstHandle2ConstParity This)
 
 // Has
 int
-ParityLabelHas(ConstHandle2ConstParity This)
+ParityLabelHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-ParityLabelGet(ConstHandle2ConstParity This)
+ParityLabelGet(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-ParityLabelSet(ConstHandle2Parity This, const XMLName label)
+ParityLabelSet(ConstHandle2Parity self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -204,27 +204,27 @@ ParityLabelSet(ConstHandle2Parity This, const XMLName label)
 
 // Has
 int
-ParityUnitHas(ConstHandle2ConstParity This)
+ParityUnitHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-ParityUnitGet(ConstHandle2ConstParity This)
+ParityUnitGet(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-ParityUnitSet(ConstHandle2Parity This, const XMLName unit)
+ParityUnitSet(ConstHandle2Parity self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 
@@ -234,27 +234,27 @@ ParityUnitSet(ConstHandle2Parity This, const XMLName unit)
 
 // Has
 int
-ParityValueHas(ConstHandle2ConstParity This)
+ParityValueHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 XMLName
-ParityValueGet(ConstHandle2ConstParity This)
+ParityValueGet(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-ParityValueSet(ConstHandle2Parity This, const XMLName value)
+ParityValueSet(ConstHandle2Parity self, const XMLName value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -264,34 +264,34 @@ ParityValueSet(ConstHandle2Parity This, const XMLName value)
 
 // Has
 int
-ParityDocumentationHas(ConstHandle2ConstParity This)
+ParityDocumentationHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DocumentationHas", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationHas", self, extract::documentation);
 }
 
 // Get, const
 Handle2ConstDocumentation
-ParityDocumentationGetConst(ConstHandle2ConstParity This)
+ParityDocumentationGetConst(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP,Handle2ConstDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGetConst", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
 // Get, non-const
 Handle2Documentation
-ParityDocumentationGet(ConstHandle2Parity This)
+ParityDocumentationGet(ConstHandle2Parity self)
 {
    return detail::getField<CPP,Handle2Documentation>
-      (CLASSNAME, CLASSNAME+"DocumentationGet", This, extract::documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationGet", self, extract::documentation);
 }
 
 // Set
 void
-ParityDocumentationSet(ConstHandle2Parity This, ConstHandle2ConstDocumentation documentation)
+ParityDocumentationSet(ConstHandle2Parity self, ConstHandle2ConstDocumentation documentation)
 {
    detail::setField<CPP,CPPDocumentation>
-      (CLASSNAME, CLASSNAME+"DocumentationSet", This, extract::documentation, documentation);
+      (CLASSNAME, CLASSNAME+"DocumentationSet", self, extract::documentation, documentation);
 }
 
 
@@ -301,34 +301,34 @@ ParityDocumentationSet(ConstHandle2Parity This, ConstHandle2ConstDocumentation d
 
 // Has
 int
-ParityUncertaintyHas(ConstHandle2ConstParity This)
+ParityUncertaintyHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UncertaintyHas", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyHas", self, extract::uncertainty);
 }
 
 // Get, const
 Handle2ConstUncertainty
-ParityUncertaintyGetConst(ConstHandle2ConstParity This)
+ParityUncertaintyGetConst(ConstHandle2ConstParity self)
 {
    return detail::getField<CPP,Handle2ConstUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
 // Get, non-const
 Handle2Uncertainty
-ParityUncertaintyGet(ConstHandle2Parity This)
+ParityUncertaintyGet(ConstHandle2Parity self)
 {
    return detail::getField<CPP,Handle2Uncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintyGet", This, extract::uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintyGet", self, extract::uncertainty);
 }
 
 // Set
 void
-ParityUncertaintySet(ConstHandle2Parity This, ConstHandle2ConstUncertainty uncertainty)
+ParityUncertaintySet(ConstHandle2Parity self, ConstHandle2ConstUncertainty uncertainty)
 {
    detail::setField<CPP,CPPUncertainty>
-      (CLASSNAME, CLASSNAME+"UncertaintySet", This, extract::uncertainty, uncertainty);
+      (CLASSNAME, CLASSNAME+"UncertaintySet", self, extract::uncertainty, uncertainty);
 }
 
 
@@ -338,196 +338,196 @@ ParityUncertaintySet(ConstHandle2Parity This, ConstHandle2ConstUncertainty uncer
 
 // Has
 int
-ParityIntegerHas(ConstHandle2ConstParity This)
+ParityIntegerHas(ConstHandle2ConstParity self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IntegerHas", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerHas", self, extract::integer);
 }
 
 // Clear
 void
-ParityIntegerClear(ConstHandle2Parity This)
+ParityIntegerClear(ConstHandle2Parity self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IntegerClear", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerClear", self, extract::integer);
 }
 
 // Size
 size_t
-ParityIntegerSize(ConstHandle2ConstParity This)
+ParityIntegerSize(ConstHandle2ConstParity self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"IntegerSize", This, extract::integer);
+      (CLASSNAME, CLASSNAME+"IntegerSize", self, extract::integer);
 }
 
 // Add
 void
-ParityIntegerAdd(ConstHandle2Parity This, ConstHandle2ConstInteger integer)
+ParityIntegerAdd(ConstHandle2Parity self, ConstHandle2ConstInteger integer)
 {
    detail::addToContainer<CPP,CPPInteger>
-      (CLASSNAME, CLASSNAME+"IntegerAdd", This, extract::integer, integer);
+      (CLASSNAME, CLASSNAME+"IntegerAdd", self, extract::integer, integer);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstInteger
-ParityIntegerGetConst(ConstHandle2ConstParity This, const size_t index_)
+ParityIntegerGetConst(ConstHandle2ConstParity self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstInteger>
-      (CLASSNAME, CLASSNAME+"IntegerGetConst", This, extract::integer, index_);
+      (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Integer
-ParityIntegerGet(ConstHandle2Parity This, const size_t index_)
+ParityIntegerGet(ConstHandle2Parity self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Integer>
-      (CLASSNAME, CLASSNAME+"IntegerGet", This, extract::integer, index_);
+      (CLASSNAME, CLASSNAME+"IntegerGet", self, extract::integer, index_);
 }
 
 // Set, by index \in [0,size)
 void
 ParityIntegerSet(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const size_t index_,
    ConstHandle2ConstInteger integer
 ) {
    detail::setByIndex<CPP,CPPInteger>
-      (CLASSNAME, CLASSNAME+"IntegerSet", This, extract::integer, index_, integer);
+      (CLASSNAME, CLASSNAME+"IntegerSet", self, extract::integer, index_, integer);
 }
 
 // Has, by label
 int
 ParityIntegerHasByLabel(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntegerHasByLabel",
-       This, extract::integer, meta::label, label);
+       self, extract::integer, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstInteger
 ParityIntegerGetByLabelConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInteger>
       (CLASSNAME, CLASSNAME+"IntegerGetByLabelConst",
-       This, extract::integer, meta::label, label);
+       self, extract::integer, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Integer
 ParityIntegerGetByLabel(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Integer>
       (CLASSNAME, CLASSNAME+"IntegerGetByLabel",
-       This, extract::integer, meta::label, label);
+       self, extract::integer, meta::label, label);
 }
 
 // Set, by label
 void
 ParityIntegerSetByLabel(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName label,
    ConstHandle2ConstInteger integer
 ) {
    detail::setByMetadatum<CPP,CPPInteger>
       (CLASSNAME, CLASSNAME+"IntegerSetByLabel",
-       This, extract::integer, meta::label, label, integer);
+       self, extract::integer, meta::label, label, integer);
 }
 
 // Has, by unit
 int
 ParityIntegerHasByUnit(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName unit
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntegerHasByUnit",
-       This, extract::integer, meta::unit, unit);
+       self, extract::integer, meta::unit, unit);
 }
 
 // Get, by unit, const
 Handle2ConstInteger
 ParityIntegerGetByUnitConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInteger>
       (CLASSNAME, CLASSNAME+"IntegerGetByUnitConst",
-       This, extract::integer, meta::unit, unit);
+       self, extract::integer, meta::unit, unit);
 }
 
 // Get, by unit, non-const
 Handle2Integer
 ParityIntegerGetByUnit(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName unit
 ) {
    return detail::getByMetadatum<CPP,Handle2Integer>
       (CLASSNAME, CLASSNAME+"IntegerGetByUnit",
-       This, extract::integer, meta::unit, unit);
+       self, extract::integer, meta::unit, unit);
 }
 
 // Set, by unit
 void
 ParityIntegerSetByUnit(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const XMLName unit,
    ConstHandle2ConstInteger integer
 ) {
    detail::setByMetadatum<CPP,CPPInteger>
       (CLASSNAME, CLASSNAME+"IntegerSetByUnit",
-       This, extract::integer, meta::unit, unit, integer);
+       self, extract::integer, meta::unit, unit, integer);
 }
 
 // Has, by value
 int
 ParityIntegerHasByValue(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const Integer32 value
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"IntegerHasByValue",
-       This, extract::integer, meta::value, value);
+       self, extract::integer, meta::value, value);
 }
 
 // Get, by value, const
 Handle2ConstInteger
 ParityIntegerGetByValueConst(
-   ConstHandle2ConstParity This,
+   ConstHandle2ConstParity self,
    const Integer32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstInteger>
       (CLASSNAME, CLASSNAME+"IntegerGetByValueConst",
-       This, extract::integer, meta::value, value);
+       self, extract::integer, meta::value, value);
 }
 
 // Get, by value, non-const
 Handle2Integer
 ParityIntegerGetByValue(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const Integer32 value
 ) {
    return detail::getByMetadatum<CPP,Handle2Integer>
       (CLASSNAME, CLASSNAME+"IntegerGetByValue",
-       This, extract::integer, meta::value, value);
+       self, extract::integer, meta::value, value);
 }
 
 // Set, by value
 void
 ParityIntegerSetByValue(
-   ConstHandle2Parity This,
+   ConstHandle2Parity self,
    const Integer32 value,
    ConstHandle2ConstInteger integer
 ) {
    detail::setByMetadatum<CPP,CPPInteger>
       (CLASSNAME, CLASSNAME+"IntegerSetByValue",
-       This, extract::integer, meta::value, value, integer);
+       self, extract::integer, meta::value, value, integer);
 }
 
 

@@ -11,94 +11,160 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_containers {
 
-// Grid wrapper
-void wrapGrid(python::module &module)
+// wrapper for containers::Grid
+void wrapGrid(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = containers::Grid;
+   using cppCLASS = containers::Grid;
    using _t = std::variant<
       containers::Values,
       containers::Link
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Grid",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Grid",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<Integer32> &,
-            const std::optional<enums::Interpolation> &,
-            const std::optional<XMLName> &,
-            const std::optional<UTF8Text> &,
-            const std::optional<XMLName> &,
-            const _t &
-         >(),
-         python::arg("index") = std::nullopt,
-         python::arg("interpolation") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("style") = std::nullopt,
-         python::arg("unit") = std::nullopt,
-         python::arg("_valueslink"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "index",
-         [](const Component &self) { return self.index(); },
-         Component::documentation("index").data()
-      )
-      .def_property_readonly(
-         "interpolation",
-         [](const Component &self) { return self.interpolation().value(); },
-         Component::documentation("interpolation").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "style",
-         [](const Component &self) { return self.style(); },
-         Component::documentation("style").data()
-      )
-      .def_property_readonly(
-         "unit",
-         [](const Component &self) { return self.unit(); },
-         Component::documentation("unit").data()
-      )
-      .def_property_readonly(
-         "values",
-         [](const Component &self) { return self.values(); },
-         Component::documentation("values").data()
-      )
-      .def_property_readonly(
-         "link",
-         [](const Component &self) { return self.link(); },
-         Component::documentation("link").data()
-      )
-      .def_property_readonly(
-         "_valueslink",
-         [](const Component &self) { return self._valueslink(); },
-         Component::documentation("_valueslink").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<Integer32> &,
+         const std::optional<enums::Interpolation> &,
+         const std::optional<XMLName> &,
+         const std::optional<UTF8Text> &,
+         const std::optional<XMLName> &,
+         const _t &
+      >(),
+      py::arg("index") = std::nullopt,
+      py::arg("interpolation") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("style") = std::nullopt,
+      py::arg("unit") = std::nullopt,
+      py::arg("_valueslink"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set index
+   object.def_property(
+      "index",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.index();
+      },
+      [](cppCLASS &self, const std::optional<Integer32> &value)
+      {
+         self.index() = value;
+      },
+      cppCLASS::component_t::documentation("index").data()
+   );
+
+   // get/set interpolation
+   object.def_property(
+      "interpolation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.interpolation().value();
+      },
+      [](cppCLASS &self, const enums::Interpolation &value)
+      {
+         self.interpolation() = value;
+      },
+      cppCLASS::component_t::documentation("interpolation").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set style
+   object.def_property(
+      "style",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.style();
+      },
+      [](cppCLASS &self, const std::optional<UTF8Text> &value)
+      {
+         self.style() = value;
+      },
+      cppCLASS::component_t::documentation("style").data()
+   );
+
+   // get/set unit
+   object.def_property(
+      "unit",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unit();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.unit() = value;
+      },
+      cppCLASS::component_t::documentation("unit").data()
+   );
+
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const containers::Values &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
+   object.def_property(
+      "link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.link();
+      },
+      [](cppCLASS &self, const containers::Link &value)
+      {
+         self.link() = value;
+      },
+      cppCLASS::component_t::documentation("link").data()
+   );
+
+   object.def_property(
+      "_valueslink",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._valueslink();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._valueslink() = value;
+      },
+      cppCLASS::component_t::documentation("_valueslink").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_containers

@@ -69,20 +69,20 @@ ExperimentalDataSetsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ExperimentalDataSetsAssign(ConstHandle2ExperimentalDataSets This, ConstHandle2ConstExperimentalDataSets from)
+ExperimentalDataSetsAssign(ConstHandle2ExperimentalDataSets self, ConstHandle2ConstExperimentalDataSets from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ExperimentalDataSetsDelete(ConstHandle2ConstExperimentalDataSets This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ExperimentalDataSetsRead(ConstHandle2ExperimentalDataSets This, const char *const filename)
+ExperimentalDataSetsRead(ConstHandle2ExperimentalDataSets self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ExperimentalDataSetsWrite(ConstHandle2ConstExperimentalDataSets This, const char *const filename)
+ExperimentalDataSetsWrite(ConstHandle2ConstExperimentalDataSets self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ExperimentalDataSetsPrint(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsPrint(ConstHandle2ConstExperimentalDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ExperimentalDataSetsPrintXML(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsPrintXML(ConstHandle2ConstExperimentalDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ExperimentalDataSetsPrintJSON(ConstHandle2ConstExperimentalDataSets This)
 
 // Has
 int
-ExperimentalDataSetsExforDataSetsHas(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsExforDataSetsHas(ConstHandle2ConstExperimentalDataSets self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ExforDataSetsHas", This, extract::exforDataSets);
+      (CLASSNAME, CLASSNAME+"ExforDataSetsHas", self, extract::exforDataSets);
 }
 
 // Get, const
 Handle2ConstExforDataSets
-ExperimentalDataSetsExforDataSetsGetConst(ConstHandle2ConstExperimentalDataSets This)
+ExperimentalDataSetsExforDataSetsGetConst(ConstHandle2ConstExperimentalDataSets self)
 {
    return detail::getField<CPP,Handle2ConstExforDataSets>
-      (CLASSNAME, CLASSNAME+"ExforDataSetsGetConst", This, extract::exforDataSets);
+      (CLASSNAME, CLASSNAME+"ExforDataSetsGetConst", self, extract::exforDataSets);
 }
 
 // Get, non-const
 Handle2ExforDataSets
-ExperimentalDataSetsExforDataSetsGet(ConstHandle2ExperimentalDataSets This)
+ExperimentalDataSetsExforDataSetsGet(ConstHandle2ExperimentalDataSets self)
 {
    return detail::getField<CPP,Handle2ExforDataSets>
-      (CLASSNAME, CLASSNAME+"ExforDataSetsGet", This, extract::exforDataSets);
+      (CLASSNAME, CLASSNAME+"ExforDataSetsGet", self, extract::exforDataSets);
 }
 
 // Set
 void
-ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets This, ConstHandle2ConstExforDataSets exforDataSets)
+ExperimentalDataSetsExforDataSetsSet(ConstHandle2ExperimentalDataSets self, ConstHandle2ConstExforDataSets exforDataSets)
 {
    detail::setField<CPP,CPPExforDataSets>
-      (CLASSNAME, CLASSNAME+"ExforDataSetsSet", This, extract::exforDataSets, exforDataSets);
+      (CLASSNAME, CLASSNAME+"ExforDataSetsSet", self, extract::exforDataSets, exforDataSets);
 }
 
 

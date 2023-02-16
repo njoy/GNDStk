@@ -91,20 +91,20 @@ WidthCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-WidthAssign(ConstHandle2Width This, ConstHandle2ConstWidth from)
+WidthAssign(ConstHandle2Width self, ConstHandle2ConstWidth from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-WidthDelete(ConstHandle2ConstWidth This)
+WidthDelete(ConstHandle2ConstWidth self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -118,44 +118,44 @@ WidthDelete(ConstHandle2ConstWidth This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-WidthRead(ConstHandle2Width This, const char *const filename)
+WidthRead(ConstHandle2Width self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-WidthWrite(ConstHandle2ConstWidth This, const char *const filename)
+WidthWrite(ConstHandle2ConstWidth self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-WidthPrint(ConstHandle2ConstWidth This)
+WidthPrint(ConstHandle2ConstWidth self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-WidthPrintXML(ConstHandle2ConstWidth This)
+WidthPrintXML(ConstHandle2ConstWidth self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-WidthPrintJSON(ConstHandle2ConstWidth This)
+WidthPrintJSON(ConstHandle2ConstWidth self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -165,27 +165,27 @@ WidthPrintJSON(ConstHandle2ConstWidth This)
 
 // Has
 int
-WidthResonanceReactionHas(ConstHandle2ConstWidth This)
+WidthResonanceReactionHas(ConstHandle2ConstWidth self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionHas", This, extract::resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionHas", self, extract::resonanceReaction);
 }
 
 // Get
 // Returns by value
 const char *
-WidthResonanceReactionGet(ConstHandle2ConstWidth This)
+WidthResonanceReactionGet(ConstHandle2ConstWidth self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionGet", This, extract::resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionGet", self, extract::resonanceReaction);
 }
 
 // Set
 void
-WidthResonanceReactionSet(ConstHandle2Width This, const char *const resonanceReaction)
+WidthResonanceReactionSet(ConstHandle2Width self, const char *const resonanceReaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ResonanceReactionSet", This, extract::resonanceReaction, resonanceReaction);
+      (CLASSNAME, CLASSNAME+"ResonanceReactionSet", self, extract::resonanceReaction, resonanceReaction);
 }
 
 
@@ -195,27 +195,27 @@ WidthResonanceReactionSet(ConstHandle2Width This, const char *const resonanceRea
 
 // Has
 int
-WidthDegreesOfFreedomHas(ConstHandle2ConstWidth This)
+WidthDegreesOfFreedomHas(ConstHandle2ConstWidth self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DegreesOfFreedomHas", This, extract::degreesOfFreedom);
+      (CLASSNAME, CLASSNAME+"DegreesOfFreedomHas", self, extract::degreesOfFreedom);
 }
 
 // Get
 // Returns by value
 Float64
-WidthDegreesOfFreedomGet(ConstHandle2ConstWidth This)
+WidthDegreesOfFreedomGet(ConstHandle2ConstWidth self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DegreesOfFreedomGet", This, extract::degreesOfFreedom);
+      (CLASSNAME, CLASSNAME+"DegreesOfFreedomGet", self, extract::degreesOfFreedom);
 }
 
 // Set
 void
-WidthDegreesOfFreedomSet(ConstHandle2Width This, const Float64 degreesOfFreedom)
+WidthDegreesOfFreedomSet(ConstHandle2Width self, const Float64 degreesOfFreedom)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DegreesOfFreedomSet", This, extract::degreesOfFreedom, degreesOfFreedom);
+      (CLASSNAME, CLASSNAME+"DegreesOfFreedomSet", self, extract::degreesOfFreedom, degreesOfFreedom);
 }
 
 
@@ -225,34 +225,34 @@ WidthDegreesOfFreedomSet(ConstHandle2Width This, const Float64 degreesOfFreedom)
 
 // Has
 int
-WidthConstant1dHas(ConstHandle2ConstWidth This)
+WidthConstant1dHas(ConstHandle2ConstWidth self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Constant1dHas", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dHas", self, extract::constant1d);
 }
 
 // Get, const
 Handle2ConstConstant1d
-WidthConstant1dGetConst(ConstHandle2ConstWidth This)
+WidthConstant1dGetConst(ConstHandle2ConstWidth self)
 {
    return detail::getField<CPP,Handle2ConstConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGetConst", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
 // Get, non-const
 Handle2Constant1d
-WidthConstant1dGet(ConstHandle2Width This)
+WidthConstant1dGet(ConstHandle2Width self)
 {
    return detail::getField<CPP,Handle2Constant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dGet", This, extract::constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dGet", self, extract::constant1d);
 }
 
 // Set
 void
-WidthConstant1dSet(ConstHandle2Width This, ConstHandle2ConstConstant1d constant1d)
+WidthConstant1dSet(ConstHandle2Width self, ConstHandle2ConstConstant1d constant1d)
 {
    detail::setField<CPP,CPPConstant1d>
-      (CLASSNAME, CLASSNAME+"Constant1dSet", This, extract::constant1d, constant1d);
+      (CLASSNAME, CLASSNAME+"Constant1dSet", self, extract::constant1d, constant1d);
 }
 
 
@@ -262,34 +262,34 @@ WidthConstant1dSet(ConstHandle2Width This, ConstHandle2ConstConstant1d constant1
 
 // Has
 int
-WidthXYs1dHas(ConstHandle2ConstWidth This)
+WidthXYs1dHas(ConstHandle2ConstWidth self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-WidthXYs1dGetConst(ConstHandle2ConstWidth This)
+WidthXYs1dGetConst(ConstHandle2ConstWidth self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-WidthXYs1dGet(ConstHandle2Width This)
+WidthXYs1dGet(ConstHandle2Width self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-WidthXYs1dSet(ConstHandle2Width This, ConstHandle2ConstXYs1d XYs1d)
+WidthXYs1dSet(ConstHandle2Width self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -299,34 +299,34 @@ WidthXYs1dSet(ConstHandle2Width This, ConstHandle2ConstXYs1d XYs1d)
 
 // Has
 int
-WidthRegions1dHas(ConstHandle2ConstWidth This)
+WidthRegions1dHas(ConstHandle2ConstWidth self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Regions1dHas", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dHas", self, extract::regions1d);
 }
 
 // Get, const
 Handle2ConstRegions1d
-WidthRegions1dGetConst(ConstHandle2ConstWidth This)
+WidthRegions1dGetConst(ConstHandle2ConstWidth self)
 {
    return detail::getField<CPP,Handle2ConstRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGetConst", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
 // Get, non-const
 Handle2Regions1d
-WidthRegions1dGet(ConstHandle2Width This)
+WidthRegions1dGet(ConstHandle2Width self)
 {
    return detail::getField<CPP,Handle2Regions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dGet", This, extract::regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dGet", self, extract::regions1d);
 }
 
 // Set
 void
-WidthRegions1dSet(ConstHandle2Width This, ConstHandle2ConstRegions1d regions1d)
+WidthRegions1dSet(ConstHandle2Width self, ConstHandle2ConstRegions1d regions1d)
 {
    detail::setField<CPP,CPPRegions1d>
-      (CLASSNAME, CLASSNAME+"Regions1dSet", This, extract::regions1d, regions1d);
+      (CLASSNAME, CLASSNAME+"Regions1dSet", self, extract::regions1d, regions1d);
 }
 
 

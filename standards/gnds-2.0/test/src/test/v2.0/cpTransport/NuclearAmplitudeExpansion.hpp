@@ -27,12 +27,12 @@ class NuclearAmplitudeExpansion :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "cpTransport"; }
    static auto CLASS() { return "NuclearAmplitudeExpansion"; }
-   static auto FIELD() { return "nuclearAmplitudeExpansion"; }
+   static auto NODENAME() { return "nuclearAmplitudeExpansion"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class NuclearAmplitudeExpansion :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<cpTransport::NuclearTerm>("nuclearTerm") |
-         --Child<cpTransport::RealInterferenceTerm>("realInterferenceTerm") |
-         --Child<cpTransport::ImaginaryInterferenceTerm>("imaginaryInterferenceTerm")
+         --Child<cpTransport::NuclearTerm>
+            ("nuclearTerm") |
+         --Child<cpTransport::RealInterferenceTerm>
+            ("realInterferenceTerm") |
+         --Child<cpTransport::ImaginaryInterferenceTerm>
+            ("imaginaryInterferenceTerm")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclearTerm",
+         "realInterferenceTerm",
+         "imaginaryInterferenceTerm"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclear_term",
+         "real_interference_term",
+         "imaginary_interference_term"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<cpTransport::NuclearTerm> nuclearTerm{this};
-   Field<cpTransport::RealInterferenceTerm> realInterferenceTerm{this};
-   Field<cpTransport::ImaginaryInterferenceTerm> imaginaryInterferenceTerm{this};
+   Field<cpTransport::NuclearTerm>
+      nuclearTerm{this};
+   Field<cpTransport::RealInterferenceTerm>
+      realInterferenceTerm{this};
+   Field<cpTransport::ImaginaryInterferenceTerm>
+      imaginaryInterferenceTerm{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->nuclearTerm, \
       this->realInterferenceTerm, \
-      this->imaginaryInterferenceTerm)
+      this->imaginaryInterferenceTerm \
+   )
 
    // default
    NuclearAmplitudeExpansion() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit NuclearAmplitudeExpansion(
-      const wrapper<cpTransport::NuclearTerm> &nuclearTerm,
-      const wrapper<cpTransport::RealInterferenceTerm> &realInterferenceTerm = {},
-      const wrapper<cpTransport::ImaginaryInterferenceTerm> &imaginaryInterferenceTerm = {}
+      const wrapper<cpTransport::NuclearTerm>
+         &nuclearTerm,
+      const wrapper<cpTransport::RealInterferenceTerm>
+         &realInterferenceTerm = {},
+      const wrapper<cpTransport::ImaginaryInterferenceTerm>
+         &imaginaryInterferenceTerm = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       nuclearTerm(this,nuclearTerm),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   NuclearAmplitudeExpansion &operator=(const NuclearAmplitudeExpansion &) = default;
-   NuclearAmplitudeExpansion &operator=(NuclearAmplitudeExpansion &&) = default;
+   // copy
+   NuclearAmplitudeExpansion &operator=(const NuclearAmplitudeExpansion &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         nuclearTerm = other.nuclearTerm;
+         realInterferenceTerm = other.realInterferenceTerm;
+         imaginaryInterferenceTerm = other.imaginaryInterferenceTerm;
+      }
+      return *this;
+   }
+
+   // move
+   NuclearAmplitudeExpansion &operator=(NuclearAmplitudeExpansion &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         nuclearTerm = std::move(other.nuclearTerm);
+         realInterferenceTerm = std::move(other.realInterferenceTerm);
+         imaginaryInterferenceTerm = std::move(other.imaginaryInterferenceTerm);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

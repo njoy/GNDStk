@@ -77,20 +77,20 @@ AxisCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AxisAssign(ConstHandle2Axis This, ConstHandle2ConstAxis from)
+AxisAssign(ConstHandle2Axis self, ConstHandle2ConstAxis from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AxisDelete(ConstHandle2ConstAxis This)
+AxisDelete(ConstHandle2ConstAxis self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -104,44 +104,44 @@ AxisDelete(ConstHandle2ConstAxis This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AxisRead(ConstHandle2Axis This, const char *const filename)
+AxisRead(ConstHandle2Axis self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AxisWrite(ConstHandle2ConstAxis This, const char *const filename)
+AxisWrite(ConstHandle2ConstAxis self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AxisPrint(ConstHandle2ConstAxis This)
+AxisPrint(ConstHandle2ConstAxis self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AxisPrintXML(ConstHandle2ConstAxis This)
+AxisPrintXML(ConstHandle2ConstAxis self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AxisPrintJSON(ConstHandle2ConstAxis This)
+AxisPrintJSON(ConstHandle2ConstAxis self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -151,27 +151,27 @@ AxisPrintJSON(ConstHandle2ConstAxis This)
 
 // Has
 int
-AxisIndexHas(ConstHandle2ConstAxis This)
+AxisIndexHas(ConstHandle2ConstAxis self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexHas", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexHas", self, extract::index);
 }
 
 // Get
 // Returns by value
 Integer32
-AxisIndexGet(ConstHandle2ConstAxis This)
+AxisIndexGet(ConstHandle2ConstAxis self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexGet", This, extract::index);
+      (CLASSNAME, CLASSNAME+"IndexGet", self, extract::index);
 }
 
 // Set
 void
-AxisIndexSet(ConstHandle2Axis This, const Integer32 index)
+AxisIndexSet(ConstHandle2Axis self, const Integer32 index)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IndexSet", This, extract::index, index);
+      (CLASSNAME, CLASSNAME+"IndexSet", self, extract::index, index);
 }
 
 
@@ -181,27 +181,27 @@ AxisIndexSet(ConstHandle2Axis This, const Integer32 index)
 
 // Has
 int
-AxisLabelHas(ConstHandle2ConstAxis This)
+AxisLabelHas(ConstHandle2ConstAxis self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-AxisLabelGet(ConstHandle2ConstAxis This)
+AxisLabelGet(ConstHandle2ConstAxis self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-AxisLabelSet(ConstHandle2Axis This, const XMLName label)
+AxisLabelSet(ConstHandle2Axis self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -211,27 +211,27 @@ AxisLabelSet(ConstHandle2Axis This, const XMLName label)
 
 // Has
 int
-AxisUnitHas(ConstHandle2ConstAxis This)
+AxisUnitHas(ConstHandle2ConstAxis self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitHas", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitHas", self, extract::unit);
 }
 
 // Get
 // Returns by value
 XMLName
-AxisUnitGet(ConstHandle2ConstAxis This)
+AxisUnitGet(ConstHandle2ConstAxis self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitGet", This, extract::unit);
+      (CLASSNAME, CLASSNAME+"UnitGet", self, extract::unit);
 }
 
 // Set
 void
-AxisUnitSet(ConstHandle2Axis This, const XMLName unit)
+AxisUnitSet(ConstHandle2Axis self, const XMLName unit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"UnitSet", This, extract::unit, unit);
+      (CLASSNAME, CLASSNAME+"UnitSet", self, extract::unit, unit);
 }
 
 

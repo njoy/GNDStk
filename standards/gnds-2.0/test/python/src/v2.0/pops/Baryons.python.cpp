@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Baryons wrapper
-void wrapBaryons(python::module &module)
+// wrapper for pops::Baryons
+void wrapBaryons(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Baryons;
+   using cppCLASS = pops::Baryons;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Baryons",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Baryons",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::vector<pops::Baryon>> &
-         >(),
-         python::arg("baryon") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "baryon",
-         [](const Component &self) { return self.baryon(); },
-         Component::documentation("baryon").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::vector<pops::Baryon>> &
+      >(),
+      py::arg("baryon") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set baryon
+   object.def_property(
+      "baryon",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.baryon();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<pops::Baryon>> &value)
+      {
+         self.baryon() = value;
+      },
+      cppCLASS::component_t::documentation("baryon").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

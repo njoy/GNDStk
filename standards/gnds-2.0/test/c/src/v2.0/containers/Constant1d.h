@@ -100,13 +100,13 @@ Constant1dCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-Constant1dAssign(ConstHandle2Constant1d This, ConstHandle2ConstConstant1d from);
+Constant1dAssign(ConstHandle2Constant1d self, ConstHandle2ConstConstant1d from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-Constant1dDelete(ConstHandle2ConstConstant1d This);
+Constant1dDelete(ConstHandle2ConstConstant1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -119,25 +119,25 @@ Constant1dDelete(ConstHandle2ConstConstant1d This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-Constant1dRead(ConstHandle2Constant1d This, const char *const filename);
+Constant1dRead(ConstHandle2Constant1d self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-Constant1dWrite(ConstHandle2ConstConstant1d This, const char *const filename);
+Constant1dWrite(ConstHandle2ConstConstant1d self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-Constant1dPrint(ConstHandle2ConstConstant1d This);
+Constant1dPrint(ConstHandle2ConstConstant1d self);
 
 // +++ Print to standard output, as XML
 extern_c int
-Constant1dPrintXML(ConstHandle2ConstConstant1d This);
+Constant1dPrintXML(ConstHandle2ConstConstant1d self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-Constant1dPrintJSON(ConstHandle2ConstConstant1d This);
+Constant1dPrintJSON(ConstHandle2ConstConstant1d self);
 
 
 // -----------------------------------------------------------------------------
@@ -146,16 +146,16 @@ Constant1dPrintJSON(ConstHandle2ConstConstant1d This);
 
 // +++ Has
 extern_c int
-Constant1dValueHas(ConstHandle2ConstConstant1d This);
+Constant1dValueHas(ConstHandle2ConstConstant1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Constant1dValueGet(ConstHandle2ConstConstant1d This);
+Constant1dValueGet(ConstHandle2ConstConstant1d self);
 
 // +++ Set
 extern_c void
-Constant1dValueSet(ConstHandle2Constant1d This, const Float64 value);
+Constant1dValueSet(ConstHandle2Constant1d self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------
@@ -164,16 +164,16 @@ Constant1dValueSet(ConstHandle2Constant1d This, const Float64 value);
 
 // +++ Has
 extern_c int
-Constant1dLabelHas(ConstHandle2ConstConstant1d This);
+Constant1dLabelHas(ConstHandle2ConstConstant1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-Constant1dLabelGet(ConstHandle2ConstConstant1d This);
+Constant1dLabelGet(ConstHandle2ConstConstant1d self);
 
 // +++ Set
 extern_c void
-Constant1dLabelSet(ConstHandle2Constant1d This, const XMLName label);
+Constant1dLabelSet(ConstHandle2Constant1d self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -182,16 +182,16 @@ Constant1dLabelSet(ConstHandle2Constant1d This, const XMLName label);
 
 // +++ Has
 extern_c int
-Constant1dOuterDomainValueHas(ConstHandle2ConstConstant1d This);
+Constant1dOuterDomainValueHas(ConstHandle2ConstConstant1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Constant1dOuterDomainValueGet(ConstHandle2ConstConstant1d This);
+Constant1dOuterDomainValueGet(ConstHandle2ConstConstant1d self);
 
 // +++ Set
 extern_c void
-Constant1dOuterDomainValueSet(ConstHandle2Constant1d This, const Float64 outerDomainValue);
+Constant1dOuterDomainValueSet(ConstHandle2Constant1d self, const Float64 outerDomainValue);
 
 
 // -----------------------------------------------------------------------------
@@ -200,16 +200,16 @@ Constant1dOuterDomainValueSet(ConstHandle2Constant1d This, const Float64 outerDo
 
 // +++ Has
 extern_c int
-Constant1dDomainMinHas(ConstHandle2ConstConstant1d This);
+Constant1dDomainMinHas(ConstHandle2ConstConstant1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Constant1dDomainMinGet(ConstHandle2ConstConstant1d This);
+Constant1dDomainMinGet(ConstHandle2ConstConstant1d self);
 
 // +++ Set
 extern_c void
-Constant1dDomainMinSet(ConstHandle2Constant1d This, const Float64 domainMin);
+Constant1dDomainMinSet(ConstHandle2Constant1d self, const Float64 domainMin);
 
 
 // -----------------------------------------------------------------------------
@@ -218,16 +218,16 @@ Constant1dDomainMinSet(ConstHandle2Constant1d This, const Float64 domainMin);
 
 // +++ Has
 extern_c int
-Constant1dDomainMaxHas(ConstHandle2ConstConstant1d This);
+Constant1dDomainMaxHas(ConstHandle2ConstConstant1d self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-Constant1dDomainMaxGet(ConstHandle2ConstConstant1d This);
+Constant1dDomainMaxGet(ConstHandle2ConstConstant1d self);
 
 // +++ Set
 extern_c void
-Constant1dDomainMaxSet(ConstHandle2Constant1d This, const Float64 domainMax);
+Constant1dDomainMaxSet(ConstHandle2Constant1d self, const Float64 domainMax);
 
 
 // -----------------------------------------------------------------------------
@@ -236,19 +236,19 @@ Constant1dDomainMaxSet(ConstHandle2Constant1d This, const Float64 domainMax);
 
 // +++ Has
 extern_c int
-Constant1dAxesHas(ConstHandle2ConstConstant1d This);
+Constant1dAxesHas(ConstHandle2ConstConstant1d self);
 
 // --- Get, const
 extern_c Handle2ConstAxes
-Constant1dAxesGetConst(ConstHandle2ConstConstant1d This);
+Constant1dAxesGetConst(ConstHandle2ConstConstant1d self);
 
 // +++ Get, non-const
 extern_c Handle2Axes
-Constant1dAxesGet(ConstHandle2Constant1d This);
+Constant1dAxesGet(ConstHandle2Constant1d self);
 
 // +++ Set
 extern_c void
-Constant1dAxesSet(ConstHandle2Constant1d This, ConstHandle2ConstAxes axes);
+Constant1dAxesSet(ConstHandle2Constant1d self, ConstHandle2ConstAxes axes);
 
 
 // -----------------------------------------------------------------------------

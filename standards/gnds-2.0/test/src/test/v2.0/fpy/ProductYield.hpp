@@ -26,12 +26,12 @@ class ProductYield :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fpy"; }
    static auto CLASS() { return "ProductYield"; }
-   static auto FIELD() { return "productYield"; }
+   static auto NODENAME() { return "productYield"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class ProductYield :
             / Meta<>("label") |
 
          // children
-         --Child<std::optional<fpy::Nuclides>>("nuclides") |
-         --Child<fpy::ElapsedTimes>("elapsedTimes")
+         --Child<std::optional<fpy::Nuclides>>
+            ("nuclides") |
+         --Child<fpy::ElapsedTimes>
+            ("elapsedTimes")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "nuclides",
+         "elapsedTimes"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "nuclides",
+         "elapsed_times"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<std::optional<fpy::Nuclides>> nuclides{this};
-   Field<fpy::ElapsedTimes> elapsedTimes{this};
+   Field<std::optional<fpy::Nuclides>>
+      nuclides{this};
+   Field<fpy::ElapsedTimes>
+      elapsedTimes{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->nuclides, \
-      this->elapsedTimes)
+      this->elapsedTimes \
+   )
 
    // default
    ProductYield() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit ProductYield(
-      const wrapper<XMLName> &label,
-      const wrapper<std::optional<fpy::Nuclides>> &nuclides = {},
-      const wrapper<fpy::ElapsedTimes> &elapsedTimes = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<std::optional<fpy::Nuclides>>
+         &nuclides = {},
+      const wrapper<fpy::ElapsedTimes>
+         &elapsedTimes = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   ProductYield &operator=(const ProductYield &) = default;
-   ProductYield &operator=(ProductYield &&) = default;
+   // copy
+   ProductYield &operator=(const ProductYield &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         nuclides = other.nuclides;
+         elapsedTimes = other.elapsedTimes;
+      }
+      return *this;
+   }
+
+   // move
+   ProductYield &operator=(ProductYield &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         nuclides = std::move(other.nuclides);
+         elapsedTimes = std::move(other.elapsedTimes);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

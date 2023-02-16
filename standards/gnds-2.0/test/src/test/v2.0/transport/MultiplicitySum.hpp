@@ -26,12 +26,12 @@ class MultiplicitySum :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "MultiplicitySum"; }
-   static auto FIELD() { return "multiplicitySum"; }
+   static auto NODENAME() { return "multiplicitySum"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class MultiplicitySum :
             / Meta<>("label") |
 
          // children
-         --Child<transport::Multiplicity>("multiplicity") |
-         --Child<transport::Summands>("summands")
+         --Child<transport::Multiplicity>
+            ("multiplicity") |
+         --Child<transport::Summands>
+            ("summands")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "ENDF_MT",
+         "label",
+         "multiplicity",
+         "summands"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "endf_mt",
+         "label",
+         "multiplicity",
+         "summands"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<Integer32>> ENDF_MT{this};
-   Field<XMLName> label{this};
+   Field<std::optional<Integer32>>
+      ENDF_MT{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<transport::Multiplicity> multiplicity{this};
-   Field<transport::Summands> summands{this};
+   Field<transport::Multiplicity>
+      multiplicity{this};
+   Field<transport::Summands>
+      summands{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->ENDF_MT, \
       this->label, \
       this->multiplicity, \
-      this->summands)
+      this->summands \
+   )
 
    // default
    MultiplicitySum() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit MultiplicitySum(
-      const wrapper<std::optional<Integer32>> &ENDF_MT,
-      const wrapper<XMLName> &label = {},
-      const wrapper<transport::Multiplicity> &multiplicity = {},
-      const wrapper<transport::Summands> &summands = {}
+      const wrapper<std::optional<Integer32>>
+         &ENDF_MT,
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<transport::Multiplicity>
+         &multiplicity = {},
+      const wrapper<transport::Summands>
+         &summands = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       ENDF_MT(this,ENDF_MT),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   MultiplicitySum &operator=(const MultiplicitySum &) = default;
-   MultiplicitySum &operator=(MultiplicitySum &&) = default;
+   // copy
+   MultiplicitySum &operator=(const MultiplicitySum &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         ENDF_MT = other.ENDF_MT;
+         label = other.label;
+         multiplicity = other.multiplicity;
+         summands = other.summands;
+      }
+      return *this;
+   }
+
+   // move
+   MultiplicitySum &operator=(MultiplicitySum &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         ENDF_MT = std::move(other.ENDF_MT);
+         label = std::move(other.label);
+         multiplicity = std::move(other.multiplicity);
+         summands = std::move(other.summands);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

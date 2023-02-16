@@ -93,13 +93,13 @@ SimpleMaxwellianFissionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SimpleMaxwellianFissionAssign(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstSimpleMaxwellianFission from);
+SimpleMaxwellianFissionAssign(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstSimpleMaxwellianFission from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ SimpleMaxwellianFissionDelete(ConstHandle2ConstSimpleMaxwellianFission This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SimpleMaxwellianFissionRead(ConstHandle2SimpleMaxwellianFission This, const char *const filename);
+SimpleMaxwellianFissionRead(ConstHandle2SimpleMaxwellianFission self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SimpleMaxwellianFissionWrite(ConstHandle2ConstSimpleMaxwellianFission This, const char *const filename);
+SimpleMaxwellianFissionWrite(ConstHandle2ConstSimpleMaxwellianFission self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SimpleMaxwellianFissionPrint(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionPrint(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SimpleMaxwellianFissionPrintXML(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionPrintXML(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,19 +139,19 @@ SimpleMaxwellianFissionPrintJSON(ConstHandle2ConstSimpleMaxwellianFission This);
 
 // +++ Has
 extern_c int
-SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // --- Get, const
 extern_c Handle2ConstU
-SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // +++ Get, non-const
 extern_c Handle2U
-SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission This);
+SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self);
 
 // +++ Set
 extern_c void
-SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstU U);
+SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstU U);
 
 
 // -----------------------------------------------------------------------------
@@ -160,19 +160,19 @@ SimpleMaxwellianFissionUSet(ConstHandle2SimpleMaxwellianFission This, ConstHandl
 
 // +++ Has
 extern_c int
-SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // --- Get, const
 extern_c Handle2ConstTheta
-SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission This);
+SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
 // +++ Get, non-const
 extern_c Handle2Theta
-SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission This);
+SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self);
 
 // +++ Set
 extern_c void
-SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission This, ConstHandle2ConstTheta theta);
+SimpleMaxwellianFissionThetaSet(ConstHandle2SimpleMaxwellianFission self, ConstHandle2ConstTheta theta);
 
 
 // -----------------------------------------------------------------------------

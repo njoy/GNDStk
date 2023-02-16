@@ -70,20 +70,20 @@ URR_probabilityTables1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-URR_probabilityTables1dAssign(ConstHandle2URR_probabilityTables1d This, ConstHandle2ConstURR_probabilityTables1d from)
+URR_probabilityTables1dAssign(ConstHandle2URR_probabilityTables1d self, ConstHandle2ConstURR_probabilityTables1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-URR_probabilityTables1dDelete(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dDelete(ConstHandle2ConstURR_probabilityTables1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -97,44 +97,44 @@ URR_probabilityTables1dDelete(ConstHandle2ConstURR_probabilityTables1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-URR_probabilityTables1dRead(ConstHandle2URR_probabilityTables1d This, const char *const filename)
+URR_probabilityTables1dRead(ConstHandle2URR_probabilityTables1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-URR_probabilityTables1dWrite(ConstHandle2ConstURR_probabilityTables1d This, const char *const filename)
+URR_probabilityTables1dWrite(ConstHandle2ConstURR_probabilityTables1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-URR_probabilityTables1dPrint(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dPrint(ConstHandle2ConstURR_probabilityTables1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-URR_probabilityTables1dPrintXML(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dPrintXML(ConstHandle2ConstURR_probabilityTables1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-URR_probabilityTables1dPrintJSON(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dPrintJSON(ConstHandle2ConstURR_probabilityTables1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -144,27 +144,27 @@ URR_probabilityTables1dPrintJSON(ConstHandle2ConstURR_probabilityTables1d This)
 
 // Has
 int
-URR_probabilityTables1dLabelHas(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dLabelHas(ConstHandle2ConstURR_probabilityTables1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-URR_probabilityTables1dLabelGet(ConstHandle2ConstURR_probabilityTables1d This)
+URR_probabilityTables1dLabelGet(ConstHandle2ConstURR_probabilityTables1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-URR_probabilityTables1dLabelSet(ConstHandle2URR_probabilityTables1d This, const XMLName label)
+URR_probabilityTables1dLabelSet(ConstHandle2URR_probabilityTables1d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 

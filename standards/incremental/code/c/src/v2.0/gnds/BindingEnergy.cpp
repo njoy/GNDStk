@@ -69,20 +69,20 @@ BindingEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-BindingEnergyAssign(ConstHandle2BindingEnergy This, ConstHandle2ConstBindingEnergy from)
+BindingEnergyAssign(ConstHandle2BindingEnergy self, ConstHandle2ConstBindingEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-BindingEnergyDelete(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDelete(ConstHandle2ConstBindingEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ BindingEnergyDelete(ConstHandle2ConstBindingEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-BindingEnergyRead(ConstHandle2BindingEnergy This, const char *const filename)
+BindingEnergyRead(ConstHandle2BindingEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-BindingEnergyWrite(ConstHandle2ConstBindingEnergy This, const char *const filename)
+BindingEnergyWrite(ConstHandle2ConstBindingEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-BindingEnergyPrint(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrint(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrintXML(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This)
+BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ BindingEnergyPrintJSON(ConstHandle2ConstBindingEnergy This)
 
 // Has
 int
-BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DoubleHas", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleHas", self, extract::Double);
 }
 
 // Get, const
 Handle2ConstDouble
-BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy This)
+BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self)
 {
    return detail::getField<CPP,Handle2ConstDouble>
-      (CLASSNAME, CLASSNAME+"DoubleGetConst", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
 // Get, non-const
 Handle2Double
-BindingEnergyDoubleGet(ConstHandle2BindingEnergy This)
+BindingEnergyDoubleGet(ConstHandle2BindingEnergy self)
 {
    return detail::getField<CPP,Handle2Double>
-      (CLASSNAME, CLASSNAME+"DoubleGet", This, extract::Double);
+      (CLASSNAME, CLASSNAME+"DoubleGet", self, extract::Double);
 }
 
 // Set
 void
-BindingEnergyDoubleSet(ConstHandle2BindingEnergy This, ConstHandle2ConstDouble Double)
+BindingEnergyDoubleSet(ConstHandle2BindingEnergy self, ConstHandle2ConstDouble Double)
 {
    detail::setField<CPP,CPPDouble>
-      (CLASSNAME, CLASSNAME+"DoubleSet", This, extract::Double, Double);
+      (CLASSNAME, CLASSNAME+"DoubleSet", self, extract::Double, Double);
 }
 
 

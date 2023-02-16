@@ -26,12 +26,12 @@ class Regions1d :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Regions1d"; }
-   static auto FIELD() { return "regions1d"; }
+   static auto NODENAME() { return "regions1d"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -45,35 +45,81 @@ class Regions1d :
             / Meta<>("outerDomainValue") |
 
          // children
-         --Child<std::optional<containers::Axes>>("axes") |
-         ++Child<containers::XYs1d>("XYs1d")
+         --Child<std::optional<containers::Axes>>
+            ("axes") |
+         ++Child<containers::XYs1d>
+            ("XYs1d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outerDomainValue",
+         "axes",
+         "XYs1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "xys1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> label{this};
-   Field<std::optional<double>> outerDomainValue{this};
+   Field<std::optional<std::string>>
+      label{this};
+   Field<std::optional<double>>
+      outerDomainValue{this};
 
    // children
-   Field<std::optional<containers::Axes>> axes{this};
-   Field<std::vector<containers::XYs1d>> XYs1d{this};
+   Field<std::optional<containers::Axes>>
+      axes{this};
+   Field<std::vector<containers::XYs1d>>
+      XYs1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->outerDomainValue, \
       this->axes, \
-      this->XYs1d)
+      this->XYs1d \
+   )
 
    // default
    Regions1d() :
@@ -84,10 +130,14 @@ public:
 
    // from fields, comment excluded
    explicit Regions1d(
-      const wrapper<std::optional<std::string>> &label,
-      const wrapper<std::optional<double>> &outerDomainValue = {},
-      const wrapper<std::optional<containers::Axes>> &axes = {},
-      const wrapper<std::vector<containers::XYs1d>> &XYs1d = {}
+      const wrapper<std::optional<std::string>>
+         &label,
+      const wrapper<std::optional<double>>
+         &outerDomainValue = {},
+      const wrapper<std::optional<containers::Axes>>
+         &axes = {},
+      const wrapper<std::vector<containers::XYs1d>>
+         &XYs1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -133,8 +183,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   Regions1d &operator=(const Regions1d &) = default;
-   Regions1d &operator=(Regions1d &&) = default;
+   // copy
+   Regions1d &operator=(const Regions1d &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         outerDomainValue = other.outerDomainValue;
+         axes = other.axes;
+         XYs1d = other.XYs1d;
+      }
+      return *this;
+   }
+
+   // move
+   Regions1d &operator=(Regions1d &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         outerDomainValue = std::move(other.outerDomainValue);
+         axes = std::move(other.axes);
+         XYs1d = std::move(other.XYs1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

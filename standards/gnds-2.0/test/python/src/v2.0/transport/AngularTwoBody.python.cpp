@@ -11,80 +11,131 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_transport {
 
-// AngularTwoBody wrapper
-void wrapAngularTwoBody(python::module &module)
+// wrapper for transport::AngularTwoBody
+void wrapAngularTwoBody(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = transport::AngularTwoBody;
+   using cppCLASS = transport::AngularTwoBody;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "AngularTwoBody",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "AngularTwoBody",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<XMLName> &,
-            const XMLName &,
-            const std::optional<containers::XYs2d> &,
-            const std::optional<containers::Regions2d> &,
-            const std::optional<transport::Isotropic2d> &,
-            const std::optional<transport::Recoil> &
-         >(),
-         python::arg("label") = std::nullopt,
-         python::arg("product_frame"),
-         python::arg("xys2d") = std::nullopt,
-         python::arg("regions2d") = std::nullopt,
-         python::arg("isotropic2d") = std::nullopt,
-         python::arg("recoil") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "product_frame",
-         [](const Component &self) { return self.productFrame(); },
-         Component::documentation("product_frame").data()
-      )
-      .def_property_readonly(
-         "xys2d",
-         [](const Component &self) { return self.XYs2d(); },
-         Component::documentation("xys2d").data()
-      )
-      .def_property_readonly(
-         "regions2d",
-         [](const Component &self) { return self.regions2d(); },
-         Component::documentation("regions2d").data()
-      )
-      .def_property_readonly(
-         "isotropic2d",
-         [](const Component &self) { return self.isotropic2d(); },
-         Component::documentation("isotropic2d").data()
-      )
-      .def_property_readonly(
-         "recoil",
-         [](const Component &self) { return self.recoil(); },
-         Component::documentation("recoil").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<XMLName> &,
+         const XMLName &,
+         const std::optional<containers::XYs2d> &,
+         const std::optional<containers::Regions2d> &,
+         const std::optional<transport::Isotropic2d> &,
+         const std::optional<transport::Recoil> &
+      >(),
+      py::arg("label") = std::nullopt,
+      py::arg("product_frame"),
+      py::arg("xys2d") = std::nullopt,
+      py::arg("regions2d") = std::nullopt,
+      py::arg("isotropic2d") = std::nullopt,
+      py::arg("recoil") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set productFrame
+   object.def_property(
+      "product_frame",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.productFrame();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.productFrame() = value;
+      },
+      cppCLASS::component_t::documentation("product_frame").data()
+   );
+
+   // get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::optional<containers::XYs2d> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // get/set regions2d
+   object.def_property(
+      "regions2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions2d();
+      },
+      [](cppCLASS &self, const std::optional<containers::Regions2d> &value)
+      {
+         self.regions2d() = value;
+      },
+      cppCLASS::component_t::documentation("regions2d").data()
+   );
+
+   // get/set isotropic2d
+   object.def_property(
+      "isotropic2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotropic2d();
+      },
+      [](cppCLASS &self, const std::optional<transport::Isotropic2d> &value)
+      {
+         self.isotropic2d() = value;
+      },
+      cppCLASS::component_t::documentation("isotropic2d").data()
+   );
+
+   // get/set recoil
+   object.def_property(
+      "recoil",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.recoil();
+      },
+      [](cppCLASS &self, const std::optional<transport::Recoil> &value)
+      {
+         self.recoil() = value;
+      },
+      cppCLASS::component_t::documentation("recoil").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_transport

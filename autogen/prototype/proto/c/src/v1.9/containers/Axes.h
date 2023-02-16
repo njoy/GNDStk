@@ -91,13 +91,13 @@ AxesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AxesAssign(ConstHandle2Axes This, ConstHandle2ConstAxes from);
+AxesAssign(ConstHandle2Axes self, ConstHandle2ConstAxes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AxesDelete(ConstHandle2ConstAxes This);
+AxesDelete(ConstHandle2ConstAxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ AxesDelete(ConstHandle2ConstAxes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AxesRead(ConstHandle2Axes This, const char *const filename);
+AxesRead(ConstHandle2Axes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AxesWrite(ConstHandle2ConstAxes This, const char *const filename);
+AxesWrite(ConstHandle2ConstAxes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AxesPrint(ConstHandle2ConstAxes This);
+AxesPrint(ConstHandle2ConstAxes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AxesPrintXML(ConstHandle2ConstAxes This);
+AxesPrintXML(ConstHandle2ConstAxes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AxesPrintJSON(ConstHandle2ConstAxes This);
+AxesPrintJSON(ConstHandle2ConstAxes self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ AxesPrintJSON(ConstHandle2ConstAxes This);
 
 // +++ Has
 extern_c int
-AxesHrefHas(ConstHandle2ConstAxes This);
+AxesHrefHas(ConstHandle2ConstAxes self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AxesHrefGet(ConstHandle2ConstAxes This);
+AxesHrefGet(ConstHandle2ConstAxes self);
 
 // +++ Set
 extern_c void
-AxesHrefSet(ConstHandle2Axes This, const char *const href);
+AxesHrefSet(ConstHandle2Axes self, const char *const href);
 
 
 // -----------------------------------------------------------------------------

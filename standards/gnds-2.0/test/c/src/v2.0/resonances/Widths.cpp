@@ -73,20 +73,20 @@ WidthsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-WidthsAssign(ConstHandle2Widths This, ConstHandle2ConstWidths from)
+WidthsAssign(ConstHandle2Widths self, ConstHandle2ConstWidths from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-WidthsDelete(ConstHandle2ConstWidths This)
+WidthsDelete(ConstHandle2ConstWidths self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ WidthsDelete(ConstHandle2ConstWidths This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-WidthsRead(ConstHandle2Widths This, const char *const filename)
+WidthsRead(ConstHandle2Widths self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-WidthsWrite(ConstHandle2ConstWidths This, const char *const filename)
+WidthsWrite(ConstHandle2ConstWidths self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-WidthsPrint(ConstHandle2ConstWidths This)
+WidthsPrint(ConstHandle2ConstWidths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-WidthsPrintXML(ConstHandle2ConstWidths This)
+WidthsPrintXML(ConstHandle2ConstWidths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-WidthsPrintJSON(ConstHandle2ConstWidths This)
+WidthsPrintJSON(ConstHandle2ConstWidths self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,151 +147,151 @@ WidthsPrintJSON(ConstHandle2ConstWidths This)
 
 // Has
 int
-WidthsWidthHas(ConstHandle2ConstWidths This)
+WidthsWidthHas(ConstHandle2ConstWidths self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"WidthHas", This, extract::width);
+      (CLASSNAME, CLASSNAME+"WidthHas", self, extract::width);
 }
 
 // Clear
 void
-WidthsWidthClear(ConstHandle2Widths This)
+WidthsWidthClear(ConstHandle2Widths self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"WidthClear", This, extract::width);
+      (CLASSNAME, CLASSNAME+"WidthClear", self, extract::width);
 }
 
 // Size
 size_t
-WidthsWidthSize(ConstHandle2ConstWidths This)
+WidthsWidthSize(ConstHandle2ConstWidths self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"WidthSize", This, extract::width);
+      (CLASSNAME, CLASSNAME+"WidthSize", self, extract::width);
 }
 
 // Add
 void
-WidthsWidthAdd(ConstHandle2Widths This, ConstHandle2ConstWidth width)
+WidthsWidthAdd(ConstHandle2Widths self, ConstHandle2ConstWidth width)
 {
    detail::addToContainer<CPP,CPPWidth>
-      (CLASSNAME, CLASSNAME+"WidthAdd", This, extract::width, width);
+      (CLASSNAME, CLASSNAME+"WidthAdd", self, extract::width, width);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstWidth
-WidthsWidthGetConst(ConstHandle2ConstWidths This, const size_t index_)
+WidthsWidthGetConst(ConstHandle2ConstWidths self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstWidth>
-      (CLASSNAME, CLASSNAME+"WidthGetConst", This, extract::width, index_);
+      (CLASSNAME, CLASSNAME+"WidthGetConst", self, extract::width, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Width
-WidthsWidthGet(ConstHandle2Widths This, const size_t index_)
+WidthsWidthGet(ConstHandle2Widths self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Width>
-      (CLASSNAME, CLASSNAME+"WidthGet", This, extract::width, index_);
+      (CLASSNAME, CLASSNAME+"WidthGet", self, extract::width, index_);
 }
 
 // Set, by index \in [0,size)
 void
 WidthsWidthSet(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const size_t index_,
    ConstHandle2ConstWidth width
 ) {
    detail::setByIndex<CPP,CPPWidth>
-      (CLASSNAME, CLASSNAME+"WidthSet", This, extract::width, index_, width);
+      (CLASSNAME, CLASSNAME+"WidthSet", self, extract::width, index_, width);
 }
 
 // Has, by resonanceReaction
 int
 WidthsWidthHasByResonanceReaction(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const char *const resonanceReaction
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"WidthHasByResonanceReaction",
-       This, extract::width, meta::resonanceReaction, resonanceReaction);
+       self, extract::width, meta::resonanceReaction, resonanceReaction);
 }
 
 // Get, by resonanceReaction, const
 Handle2ConstWidth
 WidthsWidthGetByResonanceReactionConst(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const char *const resonanceReaction
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstWidth>
       (CLASSNAME, CLASSNAME+"WidthGetByResonanceReactionConst",
-       This, extract::width, meta::resonanceReaction, resonanceReaction);
+       self, extract::width, meta::resonanceReaction, resonanceReaction);
 }
 
 // Get, by resonanceReaction, non-const
 Handle2Width
 WidthsWidthGetByResonanceReaction(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const char *const resonanceReaction
 ) {
    return detail::getByMetadatum<CPP,Handle2Width>
       (CLASSNAME, CLASSNAME+"WidthGetByResonanceReaction",
-       This, extract::width, meta::resonanceReaction, resonanceReaction);
+       self, extract::width, meta::resonanceReaction, resonanceReaction);
 }
 
 // Set, by resonanceReaction
 void
 WidthsWidthSetByResonanceReaction(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const char *const resonanceReaction,
    ConstHandle2ConstWidth width
 ) {
    detail::setByMetadatum<CPP,CPPWidth>
       (CLASSNAME, CLASSNAME+"WidthSetByResonanceReaction",
-       This, extract::width, meta::resonanceReaction, resonanceReaction, width);
+       self, extract::width, meta::resonanceReaction, resonanceReaction, width);
 }
 
 // Has, by degreesOfFreedom
 int
 WidthsWidthHasByDegreesOfFreedom(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const Float64 degreesOfFreedom
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"WidthHasByDegreesOfFreedom",
-       This, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
+       self, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
 }
 
 // Get, by degreesOfFreedom, const
 Handle2ConstWidth
 WidthsWidthGetByDegreesOfFreedomConst(
-   ConstHandle2ConstWidths This,
+   ConstHandle2ConstWidths self,
    const Float64 degreesOfFreedom
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstWidth>
       (CLASSNAME, CLASSNAME+"WidthGetByDegreesOfFreedomConst",
-       This, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
+       self, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
 }
 
 // Get, by degreesOfFreedom, non-const
 Handle2Width
 WidthsWidthGetByDegreesOfFreedom(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const Float64 degreesOfFreedom
 ) {
    return detail::getByMetadatum<CPP,Handle2Width>
       (CLASSNAME, CLASSNAME+"WidthGetByDegreesOfFreedom",
-       This, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
+       self, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
 }
 
 // Set, by degreesOfFreedom
 void
 WidthsWidthSetByDegreesOfFreedom(
-   ConstHandle2Widths This,
+   ConstHandle2Widths self,
    const Float64 degreesOfFreedom,
    ConstHandle2ConstWidth width
 ) {
    detail::setByMetadatum<CPP,CPPWidth>
       (CLASSNAME, CLASSNAME+"WidthSetByDegreesOfFreedom",
-       This, extract::width, meta::degreesOfFreedom, degreesOfFreedom, width);
+       self, extract::width, meta::degreesOfFreedom, degreesOfFreedom, width);
 }
 
 

@@ -89,20 +89,20 @@ IncoherentPhotonScatteringCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-IncoherentPhotonScatteringAssign(ConstHandle2IncoherentPhotonScattering This, ConstHandle2ConstIncoherentPhotonScattering from)
+IncoherentPhotonScatteringAssign(ConstHandle2IncoherentPhotonScattering self, ConstHandle2ConstIncoherentPhotonScattering from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -116,44 +116,44 @@ IncoherentPhotonScatteringDelete(ConstHandle2ConstIncoherentPhotonScattering Thi
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-IncoherentPhotonScatteringRead(ConstHandle2IncoherentPhotonScattering This, const char *const filename)
+IncoherentPhotonScatteringRead(ConstHandle2IncoherentPhotonScattering self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-IncoherentPhotonScatteringWrite(ConstHandle2ConstIncoherentPhotonScattering This, const char *const filename)
+IncoherentPhotonScatteringWrite(ConstHandle2ConstIncoherentPhotonScattering self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-IncoherentPhotonScatteringPrint(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringPrint(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-IncoherentPhotonScatteringPrintXML(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringPrintXML(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -163,27 +163,27 @@ IncoherentPhotonScatteringPrintJSON(ConstHandle2ConstIncoherentPhotonScattering 
 
 // Has
 int
-IncoherentPhotonScatteringHrefHas(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringHrefHas(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 const char *
-IncoherentPhotonScatteringHrefGet(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringHrefGet(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering This, const char *const href)
+IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering self, const char *const href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 
@@ -193,27 +193,27 @@ IncoherentPhotonScatteringHrefSet(ConstHandle2IncoherentPhotonScattering This, c
 
 // Has
 int
-IncoherentPhotonScatteringLabelHas(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringLabelHas(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-IncoherentPhotonScatteringLabelGet(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringLabelGet(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering This, const XMLName label)
+IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -223,27 +223,27 @@ IncoherentPhotonScatteringLabelSet(ConstHandle2IncoherentPhotonScattering This, 
 
 // Has
 int
-IncoherentPhotonScatteringPidHas(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringPidHas(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PidHas", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidHas", self, extract::pid);
 }
 
 // Get
 // Returns by value
 XMLName
-IncoherentPhotonScatteringPidGet(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringPidGet(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PidGet", This, extract::pid);
+      (CLASSNAME, CLASSNAME+"PidGet", self, extract::pid);
 }
 
 // Set
 void
-IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering This, const XMLName pid)
+IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering self, const XMLName pid)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PidSet", This, extract::pid, pid);
+      (CLASSNAME, CLASSNAME+"PidSet", self, extract::pid, pid);
 }
 
 
@@ -253,27 +253,27 @@ IncoherentPhotonScatteringPidSet(ConstHandle2IncoherentPhotonScattering This, co
 
 // Has
 int
-IncoherentPhotonScatteringProductFrameHas(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringProductFrameHas(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameHas", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameHas", self, extract::productFrame);
 }
 
 // Get
 // Returns by value
 enums::Frame
-IncoherentPhotonScatteringProductFrameGet(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringProductFrameGet(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameGet", This, extract::productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameGet", self, extract::productFrame);
 }
 
 // Set
 void
-IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering This, const enums::Frame productFrame)
+IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering self, const enums::Frame productFrame)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductFrameSet", This, extract::productFrame, productFrame);
+      (CLASSNAME, CLASSNAME+"ProductFrameSet", self, extract::productFrame, productFrame);
 }
 
 
@@ -283,34 +283,34 @@ IncoherentPhotonScatteringProductFrameSet(ConstHandle2IncoherentPhotonScattering
 
 // Has
 int
-IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ScatteringFactorHas", This, extract::scatteringFactor);
+      (CLASSNAME, CLASSNAME+"ScatteringFactorHas", self, extract::scatteringFactor);
 }
 
 // Get, const
 Handle2ConstScatteringFactor
-IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering This)
+IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering self)
 {
    return detail::getField<CPP,Handle2ConstScatteringFactor>
-      (CLASSNAME, CLASSNAME+"ScatteringFactorGetConst", This, extract::scatteringFactor);
+      (CLASSNAME, CLASSNAME+"ScatteringFactorGetConst", self, extract::scatteringFactor);
 }
 
 // Get, non-const
 Handle2ScatteringFactor
-IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering This)
+IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self)
 {
    return detail::getField<CPP,Handle2ScatteringFactor>
-      (CLASSNAME, CLASSNAME+"ScatteringFactorGet", This, extract::scatteringFactor);
+      (CLASSNAME, CLASSNAME+"ScatteringFactorGet", self, extract::scatteringFactor);
 }
 
 // Set
 void
-IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScattering This, ConstHandle2ConstScatteringFactor scatteringFactor)
+IncoherentPhotonScatteringScatteringFactorSet(ConstHandle2IncoherentPhotonScattering self, ConstHandle2ConstScatteringFactor scatteringFactor)
 {
    detail::setField<CPP,CPPScatteringFactor>
-      (CLASSNAME, CLASSNAME+"ScatteringFactorSet", This, extract::scatteringFactor, scatteringFactor);
+      (CLASSNAME, CLASSNAME+"ScatteringFactorSet", self, extract::scatteringFactor, scatteringFactor);
 }
 
 

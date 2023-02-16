@@ -92,13 +92,13 @@ MultigroupCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MultigroupAssign(ConstHandle2Multigroup This, ConstHandle2ConstMultigroup from);
+MultigroupAssign(ConstHandle2Multigroup self, ConstHandle2ConstMultigroup from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MultigroupDelete(ConstHandle2ConstMultigroup This);
+MultigroupDelete(ConstHandle2ConstMultigroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ MultigroupDelete(ConstHandle2ConstMultigroup This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MultigroupRead(ConstHandle2Multigroup This, const char *const filename);
+MultigroupRead(ConstHandle2Multigroup self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MultigroupWrite(ConstHandle2ConstMultigroup This, const char *const filename);
+MultigroupWrite(ConstHandle2ConstMultigroup self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MultigroupPrint(ConstHandle2ConstMultigroup This);
+MultigroupPrint(ConstHandle2ConstMultigroup self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MultigroupPrintXML(ConstHandle2ConstMultigroup This);
+MultigroupPrintXML(ConstHandle2ConstMultigroup self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MultigroupPrintJSON(ConstHandle2ConstMultigroup This);
+MultigroupPrintJSON(ConstHandle2ConstMultigroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ MultigroupPrintJSON(ConstHandle2ConstMultigroup This);
 
 // +++ Has
 extern_c int
-MultigroupProjectileHas(ConstHandle2ConstMultigroup This);
+MultigroupProjectileHas(ConstHandle2ConstMultigroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-MultigroupProjectileGet(ConstHandle2ConstMultigroup This);
+MultigroupProjectileGet(ConstHandle2ConstMultigroup self);
 
 // +++ Set
 extern_c void
-MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectile);
+MultigroupProjectileSet(ConstHandle2Multigroup self, const char *const projectile);
 
 
 // -----------------------------------------------------------------------------
@@ -156,32 +156,32 @@ MultigroupProjectileSet(ConstHandle2Multigroup This, const char *const projectil
 
 // +++ Has
 extern_c int
-MultigroupLibraryHas(ConstHandle2ConstMultigroup This);
+MultigroupLibraryHas(ConstHandle2ConstMultigroup self);
 
 // +++ Clear
 extern_c void
-MultigroupLibraryClear(ConstHandle2Multigroup This);
+MultigroupLibraryClear(ConstHandle2Multigroup self);
 
 // +++ Size
 extern_c size_t
-MultigroupLibrarySize(ConstHandle2ConstMultigroup This);
+MultigroupLibrarySize(ConstHandle2ConstMultigroup self);
 
 // +++ Add
 extern_c void
-MultigroupLibraryAdd(ConstHandle2Multigroup This, ConstHandle2ConstLibrary library);
+MultigroupLibraryAdd(ConstHandle2Multigroup self, ConstHandle2ConstLibrary library);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstLibrary
-MultigroupLibraryGetConst(ConstHandle2ConstMultigroup This, const size_t index_);
+MultigroupLibraryGetConst(ConstHandle2ConstMultigroup self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Library
-MultigroupLibraryGet(ConstHandle2Multigroup This, const size_t index_);
+MultigroupLibraryGet(ConstHandle2Multigroup self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 MultigroupLibrarySet(
-   ConstHandle2Multigroup This,
+   ConstHandle2Multigroup self,
    const size_t index_,
    ConstHandle2ConstLibrary library
 );
@@ -189,28 +189,28 @@ MultigroupLibrarySet(
 // +++ Has, by name
 extern_c int
 MultigroupLibraryHasByName(
-   ConstHandle2ConstMultigroup This,
+   ConstHandle2ConstMultigroup self,
    const char *const name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstLibrary
 MultigroupLibraryGetByNameConst(
-   ConstHandle2ConstMultigroup This,
+   ConstHandle2ConstMultigroup self,
    const char *const name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Library
 MultigroupLibraryGetByName(
-   ConstHandle2Multigroup This,
+   ConstHandle2Multigroup self,
    const char *const name
 );
 
 // +++ Set, by name
 extern_c void
 MultigroupLibrarySetByName(
-   ConstHandle2Multigroup This,
+   ConstHandle2Multigroup self,
    const char *const name,
    ConstHandle2ConstLibrary library
 );

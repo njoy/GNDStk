@@ -25,12 +25,12 @@ class ExternalFiles :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "common"; }
    static auto CLASS() { return "ExternalFiles"; }
-   static auto FIELD() { return "externalFiles"; }
+   static auto NODENAME() { return "externalFiles"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ExternalFiles :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<common::ExternalFile>("externalFile")
+         ++Child<common::ExternalFile>
+            ("externalFile")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "externalFile"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "external_file"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<common::ExternalFile>> externalFile{this};
+   Field<std::vector<common::ExternalFile>>
+      externalFile{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->externalFile)
+      this->externalFile \
+   )
 
    // default
    ExternalFiles() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ExternalFiles(
-      const wrapper<std::vector<common::ExternalFile>> &externalFile
+      const wrapper<std::vector<common::ExternalFile>>
+         &externalFile
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       externalFile(this,externalFile)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ExternalFiles &operator=(const ExternalFiles &) = default;
-   ExternalFiles &operator=(ExternalFiles &&) = default;
+   // copy
+   ExternalFiles &operator=(const ExternalFiles &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         externalFile = other.externalFile;
+      }
+      return *this;
+   }
+
+   // move
+   ExternalFiles &operator=(ExternalFiles &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         externalFile = std::move(other.externalFile);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

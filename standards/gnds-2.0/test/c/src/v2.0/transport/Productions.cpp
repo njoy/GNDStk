@@ -69,20 +69,20 @@ ProductionsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProductionsAssign(ConstHandle2Productions This, ConstHandle2ConstProductions from)
+ProductionsAssign(ConstHandle2Productions self, ConstHandle2ConstProductions from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProductionsDelete(ConstHandle2ConstProductions This)
+ProductionsDelete(ConstHandle2ConstProductions self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -96,44 +96,44 @@ ProductionsDelete(ConstHandle2ConstProductions This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProductionsRead(ConstHandle2Productions This, const char *const filename)
+ProductionsRead(ConstHandle2Productions self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProductionsWrite(ConstHandle2ConstProductions This, const char *const filename)
+ProductionsWrite(ConstHandle2ConstProductions self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProductionsPrint(ConstHandle2ConstProductions This)
+ProductionsPrint(ConstHandle2ConstProductions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProductionsPrintXML(ConstHandle2ConstProductions This)
+ProductionsPrintXML(ConstHandle2ConstProductions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProductionsPrintJSON(ConstHandle2ConstProductions This)
+ProductionsPrintJSON(ConstHandle2ConstProductions self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -143,34 +143,34 @@ ProductionsPrintJSON(ConstHandle2ConstProductions This)
 
 // Has
 int
-ProductionsProductionHas(ConstHandle2ConstProductions This)
+ProductionsProductionHas(ConstHandle2ConstProductions self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProductionHas", This, extract::production);
+      (CLASSNAME, CLASSNAME+"ProductionHas", self, extract::production);
 }
 
 // Get, const
 Handle2ConstProduction
-ProductionsProductionGetConst(ConstHandle2ConstProductions This)
+ProductionsProductionGetConst(ConstHandle2ConstProductions self)
 {
    return detail::getField<CPP,Handle2ConstProduction>
-      (CLASSNAME, CLASSNAME+"ProductionGetConst", This, extract::production);
+      (CLASSNAME, CLASSNAME+"ProductionGetConst", self, extract::production);
 }
 
 // Get, non-const
 Handle2Production
-ProductionsProductionGet(ConstHandle2Productions This)
+ProductionsProductionGet(ConstHandle2Productions self)
 {
    return detail::getField<CPP,Handle2Production>
-      (CLASSNAME, CLASSNAME+"ProductionGet", This, extract::production);
+      (CLASSNAME, CLASSNAME+"ProductionGet", self, extract::production);
 }
 
 // Set
 void
-ProductionsProductionSet(ConstHandle2Productions This, ConstHandle2ConstProduction production)
+ProductionsProductionSet(ConstHandle2Productions self, ConstHandle2ConstProduction production)
 {
    detail::setField<CPP,CPPProduction>
-      (CLASSNAME, CLASSNAME+"ProductionSet", This, extract::production, production);
+      (CLASSNAME, CLASSNAME+"ProductionSet", self, extract::production, production);
 }
 
 

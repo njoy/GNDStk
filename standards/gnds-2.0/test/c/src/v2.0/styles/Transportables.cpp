@@ -78,20 +78,20 @@ TransportablesCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-TransportablesAssign(ConstHandle2Transportables This, ConstHandle2ConstTransportables from)
+TransportablesAssign(ConstHandle2Transportables self, ConstHandle2ConstTransportables from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-TransportablesDelete(ConstHandle2ConstTransportables This)
+TransportablesDelete(ConstHandle2ConstTransportables self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -105,44 +105,44 @@ TransportablesDelete(ConstHandle2ConstTransportables This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-TransportablesRead(ConstHandle2Transportables This, const char *const filename)
+TransportablesRead(ConstHandle2Transportables self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-TransportablesWrite(ConstHandle2ConstTransportables This, const char *const filename)
+TransportablesWrite(ConstHandle2ConstTransportables self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-TransportablesPrint(ConstHandle2ConstTransportables This)
+TransportablesPrint(ConstHandle2ConstTransportables self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-TransportablesPrintXML(ConstHandle2ConstTransportables This)
+TransportablesPrintXML(ConstHandle2ConstTransportables self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-TransportablesPrintJSON(ConstHandle2ConstTransportables This)
+TransportablesPrintJSON(ConstHandle2ConstTransportables self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -152,27 +152,27 @@ TransportablesPrintJSON(ConstHandle2ConstTransportables This)
 
 // Has
 int
-TransportablesLabelHas(ConstHandle2ConstTransportables This)
+TransportablesLabelHas(ConstHandle2ConstTransportables self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-TransportablesLabelGet(ConstHandle2ConstTransportables This)
+TransportablesLabelGet(ConstHandle2ConstTransportables self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-TransportablesLabelSet(ConstHandle2Transportables This, const XMLName label)
+TransportablesLabelSet(ConstHandle2Transportables self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -182,151 +182,151 @@ TransportablesLabelSet(ConstHandle2Transportables This, const XMLName label)
 
 // Has
 int
-TransportablesTransportableHas(ConstHandle2ConstTransportables This)
+TransportablesTransportableHas(ConstHandle2ConstTransportables self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TransportableHas", This, extract::transportable);
+      (CLASSNAME, CLASSNAME+"TransportableHas", self, extract::transportable);
 }
 
 // Clear
 void
-TransportablesTransportableClear(ConstHandle2Transportables This)
+TransportablesTransportableClear(ConstHandle2Transportables self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"TransportableClear", This, extract::transportable);
+      (CLASSNAME, CLASSNAME+"TransportableClear", self, extract::transportable);
 }
 
 // Size
 size_t
-TransportablesTransportableSize(ConstHandle2ConstTransportables This)
+TransportablesTransportableSize(ConstHandle2ConstTransportables self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"TransportableSize", This, extract::transportable);
+      (CLASSNAME, CLASSNAME+"TransportableSize", self, extract::transportable);
 }
 
 // Add
 void
-TransportablesTransportableAdd(ConstHandle2Transportables This, ConstHandle2ConstTransportable transportable)
+TransportablesTransportableAdd(ConstHandle2Transportables self, ConstHandle2ConstTransportable transportable)
 {
    detail::addToContainer<CPP,CPPTransportable>
-      (CLASSNAME, CLASSNAME+"TransportableAdd", This, extract::transportable, transportable);
+      (CLASSNAME, CLASSNAME+"TransportableAdd", self, extract::transportable, transportable);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstTransportable
-TransportablesTransportableGetConst(ConstHandle2ConstTransportables This, const size_t index_)
+TransportablesTransportableGetConst(ConstHandle2ConstTransportables self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstTransportable>
-      (CLASSNAME, CLASSNAME+"TransportableGetConst", This, extract::transportable, index_);
+      (CLASSNAME, CLASSNAME+"TransportableGetConst", self, extract::transportable, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Transportable
-TransportablesTransportableGet(ConstHandle2Transportables This, const size_t index_)
+TransportablesTransportableGet(ConstHandle2Transportables self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Transportable>
-      (CLASSNAME, CLASSNAME+"TransportableGet", This, extract::transportable, index_);
+      (CLASSNAME, CLASSNAME+"TransportableGet", self, extract::transportable, index_);
 }
 
 // Set, by index \in [0,size)
 void
 TransportablesTransportableSet(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const size_t index_,
    ConstHandle2ConstTransportable transportable
 ) {
    detail::setByIndex<CPP,CPPTransportable>
-      (CLASSNAME, CLASSNAME+"TransportableSet", This, extract::transportable, index_, transportable);
+      (CLASSNAME, CLASSNAME+"TransportableSet", self, extract::transportable, index_, transportable);
 }
 
 // Has, by conserve
 int
 TransportablesTransportableHasByConserve(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName conserve
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TransportableHasByConserve",
-       This, extract::transportable, meta::conserve, conserve);
+       self, extract::transportable, meta::conserve, conserve);
 }
 
 // Get, by conserve, const
 Handle2ConstTransportable
 TransportablesTransportableGetByConserveConst(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName conserve
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTransportable>
       (CLASSNAME, CLASSNAME+"TransportableGetByConserveConst",
-       This, extract::transportable, meta::conserve, conserve);
+       self, extract::transportable, meta::conserve, conserve);
 }
 
 // Get, by conserve, non-const
 Handle2Transportable
 TransportablesTransportableGetByConserve(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName conserve
 ) {
    return detail::getByMetadatum<CPP,Handle2Transportable>
       (CLASSNAME, CLASSNAME+"TransportableGetByConserve",
-       This, extract::transportable, meta::conserve, conserve);
+       self, extract::transportable, meta::conserve, conserve);
 }
 
 // Set, by conserve
 void
 TransportablesTransportableSetByConserve(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName conserve,
    ConstHandle2ConstTransportable transportable
 ) {
    detail::setByMetadatum<CPP,CPPTransportable>
       (CLASSNAME, CLASSNAME+"TransportableSetByConserve",
-       This, extract::transportable, meta::conserve, conserve, transportable);
+       self, extract::transportable, meta::conserve, conserve, transportable);
 }
 
 // Has, by label
 int
 TransportablesTransportableHasByLabel(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"TransportableHasByLabel",
-       This, extract::transportable, meta::label, label);
+       self, extract::transportable, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstTransportable
 TransportablesTransportableGetByLabelConst(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstTransportable>
       (CLASSNAME, CLASSNAME+"TransportableGetByLabelConst",
-       This, extract::transportable, meta::label, label);
+       self, extract::transportable, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2Transportable
 TransportablesTransportableGetByLabel(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2Transportable>
       (CLASSNAME, CLASSNAME+"TransportableGetByLabel",
-       This, extract::transportable, meta::label, label);
+       self, extract::transportable, meta::label, label);
 }
 
 // Set, by label
 void
 TransportablesTransportableSetByLabel(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName label,
    ConstHandle2ConstTransportable transportable
 ) {
    detail::setByMetadatum<CPP,CPPTransportable>
       (CLASSNAME, CLASSNAME+"TransportableSetByLabel",
-       This, extract::transportable, meta::label, label, transportable);
+       self, extract::transportable, meta::label, label, transportable);
 }
 
 

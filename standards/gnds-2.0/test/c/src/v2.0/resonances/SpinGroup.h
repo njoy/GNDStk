@@ -99,13 +99,13 @@ SpinGroupCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-SpinGroupAssign(ConstHandle2SpinGroup This, ConstHandle2ConstSpinGroup from);
+SpinGroupAssign(ConstHandle2SpinGroup self, ConstHandle2ConstSpinGroup from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-SpinGroupDelete(ConstHandle2ConstSpinGroup This);
+SpinGroupDelete(ConstHandle2ConstSpinGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -118,25 +118,25 @@ SpinGroupDelete(ConstHandle2ConstSpinGroup This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-SpinGroupRead(ConstHandle2SpinGroup This, const char *const filename);
+SpinGroupRead(ConstHandle2SpinGroup self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-SpinGroupWrite(ConstHandle2ConstSpinGroup This, const char *const filename);
+SpinGroupWrite(ConstHandle2ConstSpinGroup self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-SpinGroupPrint(ConstHandle2ConstSpinGroup This);
+SpinGroupPrint(ConstHandle2ConstSpinGroup self);
 
 // +++ Print to standard output, as XML
 extern_c int
-SpinGroupPrintXML(ConstHandle2ConstSpinGroup This);
+SpinGroupPrintXML(ConstHandle2ConstSpinGroup self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-SpinGroupPrintJSON(ConstHandle2ConstSpinGroup This);
+SpinGroupPrintJSON(ConstHandle2ConstSpinGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -145,16 +145,16 @@ SpinGroupPrintJSON(ConstHandle2ConstSpinGroup This);
 
 // +++ Has
 extern_c int
-SpinGroupLabelHas(ConstHandle2ConstSpinGroup This);
+SpinGroupLabelHas(ConstHandle2ConstSpinGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-SpinGroupLabelGet(ConstHandle2ConstSpinGroup This);
+SpinGroupLabelGet(ConstHandle2ConstSpinGroup self);
 
 // +++ Set
 extern_c void
-SpinGroupLabelSet(ConstHandle2SpinGroup This, const XMLName label);
+SpinGroupLabelSet(ConstHandle2SpinGroup self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -163,16 +163,16 @@ SpinGroupLabelSet(ConstHandle2SpinGroup This, const XMLName label);
 
 // +++ Has
 extern_c int
-SpinGroupSpinHas(ConstHandle2ConstSpinGroup This);
+SpinGroupSpinHas(ConstHandle2ConstSpinGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Fraction32
-SpinGroupSpinGet(ConstHandle2ConstSpinGroup This);
+SpinGroupSpinGet(ConstHandle2ConstSpinGroup self);
 
 // +++ Set
 extern_c void
-SpinGroupSpinSet(ConstHandle2SpinGroup This, const Fraction32 spin);
+SpinGroupSpinSet(ConstHandle2SpinGroup self, const Fraction32 spin);
 
 
 // -----------------------------------------------------------------------------
@@ -181,16 +181,16 @@ SpinGroupSpinSet(ConstHandle2SpinGroup This, const Fraction32 spin);
 
 // +++ Has
 extern_c int
-SpinGroupParityHas(ConstHandle2ConstSpinGroup This);
+SpinGroupParityHas(ConstHandle2ConstSpinGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Integer32
-SpinGroupParityGet(ConstHandle2ConstSpinGroup This);
+SpinGroupParityGet(ConstHandle2ConstSpinGroup self);
 
 // +++ Set
 extern_c void
-SpinGroupParitySet(ConstHandle2SpinGroup This, const Integer32 parity);
+SpinGroupParitySet(ConstHandle2SpinGroup self, const Integer32 parity);
 
 
 // -----------------------------------------------------------------------------
@@ -199,19 +199,19 @@ SpinGroupParitySet(ConstHandle2SpinGroup This, const Integer32 parity);
 
 // +++ Has
 extern_c int
-SpinGroupChannelsHas(ConstHandle2ConstSpinGroup This);
+SpinGroupChannelsHas(ConstHandle2ConstSpinGroup self);
 
 // --- Get, const
 extern_c Handle2ConstChannels
-SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup This);
+SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup self);
 
 // +++ Get, non-const
 extern_c Handle2Channels
-SpinGroupChannelsGet(ConstHandle2SpinGroup This);
+SpinGroupChannelsGet(ConstHandle2SpinGroup self);
 
 // +++ Set
 extern_c void
-SpinGroupChannelsSet(ConstHandle2SpinGroup This, ConstHandle2ConstChannels channels);
+SpinGroupChannelsSet(ConstHandle2SpinGroup self, ConstHandle2ConstChannels channels);
 
 
 // -----------------------------------------------------------------------------
@@ -220,19 +220,19 @@ SpinGroupChannelsSet(ConstHandle2SpinGroup This, ConstHandle2ConstChannels chann
 
 // +++ Has
 extern_c int
-SpinGroupResonanceParametersHas(ConstHandle2ConstSpinGroup This);
+SpinGroupResonanceParametersHas(ConstHandle2ConstSpinGroup self);
 
 // --- Get, const
 extern_c Handle2ConstResonanceParameters
-SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup This);
+SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup self);
 
 // +++ Get, non-const
 extern_c Handle2ResonanceParameters
-SpinGroupResonanceParametersGet(ConstHandle2SpinGroup This);
+SpinGroupResonanceParametersGet(ConstHandle2SpinGroup self);
 
 // +++ Set
 extern_c void
-SpinGroupResonanceParametersSet(ConstHandle2SpinGroup This, ConstHandle2ConstResonanceParameters resonanceParameters);
+SpinGroupResonanceParametersSet(ConstHandle2SpinGroup self, ConstHandle2ConstResonanceParameters resonanceParameters);
 
 
 // -----------------------------------------------------------------------------

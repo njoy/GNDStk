@@ -95,13 +95,13 @@ NuclearPlusInterferenceCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NuclearPlusInterferenceAssign(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstNuclearPlusInterference from);
+NuclearPlusInterferenceAssign(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstNuclearPlusInterference from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference self);
 
 
 // -----------------------------------------------------------------------------
@@ -114,25 +114,25 @@ NuclearPlusInterferenceDelete(ConstHandle2ConstNuclearPlusInterference This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NuclearPlusInterferenceRead(ConstHandle2NuclearPlusInterference This, const char *const filename);
+NuclearPlusInterferenceRead(ConstHandle2NuclearPlusInterference self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NuclearPlusInterferenceWrite(ConstHandle2ConstNuclearPlusInterference This, const char *const filename);
+NuclearPlusInterferenceWrite(ConstHandle2ConstNuclearPlusInterference self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NuclearPlusInterferencePrint(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferencePrint(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NuclearPlusInterferencePrintXML(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferencePrintXML(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference self);
 
 
 // -----------------------------------------------------------------------------
@@ -141,16 +141,16 @@ NuclearPlusInterferencePrintJSON(ConstHandle2ConstNuclearPlusInterference This);
 
 // +++ Has
 extern_c int
-NuclearPlusInterferenceMuCutoffHas(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceMuCutoffHas(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-NuclearPlusInterferenceMuCutoffGet(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceMuCutoffGet(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Set
 extern_c void
-NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference This, const Float64 muCutoff);
+NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference self, const Float64 muCutoff);
 
 
 // -----------------------------------------------------------------------------
@@ -159,19 +159,19 @@ NuclearPlusInterferenceMuCutoffSet(ConstHandle2NuclearPlusInterference This, con
 
 // +++ Has
 extern_c int
-NuclearPlusInterferenceCrossSectionHas(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceCrossSectionHas(ConstHandle2ConstNuclearPlusInterference self);
 
 // --- Get, const
 extern_c Handle2ConstCrossSection
-NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Get, non-const
 extern_c Handle2CrossSection
-NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference This);
+NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference self);
 
 // +++ Set
 extern_c void
-NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstCrossSection crossSection);
+NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstCrossSection crossSection);
 
 
 // -----------------------------------------------------------------------------
@@ -180,19 +180,19 @@ NuclearPlusInterferenceCrossSectionSet(ConstHandle2NuclearPlusInterference This,
 
 // +++ Has
 extern_c int
-NuclearPlusInterferenceDistributionHas(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceDistributionHas(ConstHandle2ConstNuclearPlusInterference self);
 
 // --- Get, const
 extern_c Handle2ConstDistribution
-NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterference This);
+NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterference self);
 
 // +++ Get, non-const
 extern_c Handle2Distribution
-NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference This);
+NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference self);
 
 // +++ Set
 extern_c void
-NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference This, ConstHandle2ConstDistribution distribution);
+NuclearPlusInterferenceDistributionSet(ConstHandle2NuclearPlusInterference self, ConstHandle2ConstDistribution distribution);
 
 
 // -----------------------------------------------------------------------------

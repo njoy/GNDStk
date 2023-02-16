@@ -91,13 +91,13 @@ EFLCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EFLAssign(ConstHandle2EFL This, ConstHandle2ConstEFL from);
+EFLAssign(ConstHandle2EFL self, ConstHandle2ConstEFL from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EFLDelete(ConstHandle2ConstEFL This);
+EFLDelete(ConstHandle2ConstEFL self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ EFLDelete(ConstHandle2ConstEFL This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EFLRead(ConstHandle2EFL This, const char *const filename);
+EFLRead(ConstHandle2EFL self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EFLWrite(ConstHandle2ConstEFL This, const char *const filename);
+EFLWrite(ConstHandle2ConstEFL self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EFLPrint(ConstHandle2ConstEFL This);
+EFLPrint(ConstHandle2ConstEFL self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EFLPrintXML(ConstHandle2ConstEFL This);
+EFLPrintXML(ConstHandle2ConstEFL self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EFLPrintJSON(ConstHandle2ConstEFL This);
+EFLPrintJSON(ConstHandle2ConstEFL self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ EFLPrintJSON(ConstHandle2ConstEFL This);
 
 // +++ Has
 extern_c int
-EFLUnitHas(ConstHandle2ConstEFL This);
+EFLUnitHas(ConstHandle2ConstEFL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EFLUnitGet(ConstHandle2ConstEFL This);
+EFLUnitGet(ConstHandle2ConstEFL self);
 
 // +++ Set
 extern_c void
-EFLUnitSet(ConstHandle2EFL This, const XMLName unit);
+EFLUnitSet(ConstHandle2EFL self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ EFLUnitSet(ConstHandle2EFL This, const XMLName unit);
 
 // +++ Has
 extern_c int
-EFLValueHas(ConstHandle2ConstEFL This);
+EFLValueHas(ConstHandle2ConstEFL self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-EFLValueGet(ConstHandle2ConstEFL This);
+EFLValueGet(ConstHandle2ConstEFL self);
 
 // +++ Set
 extern_c void
-EFLValueSet(ConstHandle2EFL This, const Float64 value);
+EFLValueSet(ConstHandle2EFL self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

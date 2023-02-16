@@ -90,13 +90,13 @@ S_tableCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-S_tableAssign(ConstHandle2S_table This, ConstHandle2ConstS_table from);
+S_tableAssign(ConstHandle2S_table self, ConstHandle2ConstS_table from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-S_tableDelete(ConstHandle2ConstS_table This);
+S_tableDelete(ConstHandle2ConstS_table self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ S_tableDelete(ConstHandle2ConstS_table This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-S_tableRead(ConstHandle2S_table This, const char *const filename);
+S_tableRead(ConstHandle2S_table self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-S_tableWrite(ConstHandle2ConstS_table This, const char *const filename);
+S_tableWrite(ConstHandle2ConstS_table self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-S_tablePrint(ConstHandle2ConstS_table This);
+S_tablePrint(ConstHandle2ConstS_table self);
 
 // +++ Print to standard output, as XML
 extern_c int
-S_tablePrintXML(ConstHandle2ConstS_table This);
+S_tablePrintXML(ConstHandle2ConstS_table self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-S_tablePrintJSON(ConstHandle2ConstS_table This);
+S_tablePrintJSON(ConstHandle2ConstS_table self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ S_tablePrintJSON(ConstHandle2ConstS_table This);
 
 // +++ Has
 extern_c int
-S_tableGridded2dHas(ConstHandle2ConstS_table This);
+S_tableGridded2dHas(ConstHandle2ConstS_table self);
 
 // --- Get, const
 extern_c Handle2ConstGridded2d
-S_tableGridded2dGetConst(ConstHandle2ConstS_table This);
+S_tableGridded2dGetConst(ConstHandle2ConstS_table self);
 
 // +++ Get, non-const
 extern_c Handle2Gridded2d
-S_tableGridded2dGet(ConstHandle2S_table This);
+S_tableGridded2dGet(ConstHandle2S_table self);
 
 // +++ Set
 extern_c void
-S_tableGridded2dSet(ConstHandle2S_table This, ConstHandle2ConstGridded2d gridded2d);
+S_tableGridded2dSet(ConstHandle2S_table self, ConstHandle2ConstGridded2d gridded2d);
 
 
 // -----------------------------------------------------------------------------

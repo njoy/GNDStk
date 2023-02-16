@@ -102,13 +102,13 @@ EnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyAssign(ConstHandle2Energy This, ConstHandle2ConstEnergy from);
+EnergyAssign(ConstHandle2Energy self, ConstHandle2ConstEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyDelete(ConstHandle2ConstEnergy This);
+EnergyDelete(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -121,25 +121,25 @@ EnergyDelete(ConstHandle2ConstEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyRead(ConstHandle2Energy This, const char *const filename);
+EnergyRead(ConstHandle2Energy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyWrite(ConstHandle2ConstEnergy This, const char *const filename);
+EnergyWrite(ConstHandle2ConstEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyPrint(ConstHandle2ConstEnergy This);
+EnergyPrint(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyPrintXML(ConstHandle2ConstEnergy This);
+EnergyPrintXML(ConstHandle2ConstEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyPrintJSON(ConstHandle2ConstEnergy This);
+EnergyPrintJSON(ConstHandle2ConstEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -148,16 +148,16 @@ EnergyPrintJSON(ConstHandle2ConstEnergy This);
 
 // +++ Has
 extern_c int
-EnergyLabelHas(ConstHandle2ConstEnergy This);
+EnergyLabelHas(ConstHandle2ConstEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyLabelGet(ConstHandle2ConstEnergy This);
+EnergyLabelGet(ConstHandle2ConstEnergy self);
 
 // +++ Set
 extern_c void
-EnergyLabelSet(ConstHandle2Energy This, const XMLName label);
+EnergyLabelSet(ConstHandle2Energy self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -166,16 +166,16 @@ EnergyLabelSet(ConstHandle2Energy This, const XMLName label);
 
 // +++ Has
 extern_c int
-EnergyUnitHas(ConstHandle2ConstEnergy This);
+EnergyUnitHas(ConstHandle2ConstEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyUnitGet(ConstHandle2ConstEnergy This);
+EnergyUnitGet(ConstHandle2ConstEnergy self);
 
 // +++ Set
 extern_c void
-EnergyUnitSet(ConstHandle2Energy This, const XMLName unit);
+EnergyUnitSet(ConstHandle2Energy self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -184,16 +184,16 @@ EnergyUnitSet(ConstHandle2Energy This, const XMLName unit);
 
 // +++ Has
 extern_c int
-EnergyValueHas(ConstHandle2ConstEnergy This);
+EnergyValueHas(ConstHandle2ConstEnergy self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyValueGet(ConstHandle2ConstEnergy This);
+EnergyValueGet(ConstHandle2ConstEnergy self);
 
 // +++ Set
 extern_c void
-EnergyValueSet(ConstHandle2Energy This, const XMLName value);
+EnergyValueSet(ConstHandle2Energy self, const XMLName value);
 
 
 // -----------------------------------------------------------------------------
@@ -202,19 +202,19 @@ EnergyValueSet(ConstHandle2Energy This, const XMLName value);
 
 // +++ Has
 extern_c int
-EnergyDocumentationHas(ConstHandle2ConstEnergy This);
+EnergyDocumentationHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstDocumentation
-EnergyDocumentationGetConst(ConstHandle2ConstEnergy This);
+EnergyDocumentationGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Documentation
-EnergyDocumentationGet(ConstHandle2Energy This);
+EnergyDocumentationGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyDocumentationSet(ConstHandle2Energy This, ConstHandle2ConstDocumentation documentation);
+EnergyDocumentationSet(ConstHandle2Energy self, ConstHandle2ConstDocumentation documentation);
 
 
 // -----------------------------------------------------------------------------
@@ -223,19 +223,19 @@ EnergyDocumentationSet(ConstHandle2Energy This, ConstHandle2ConstDocumentation d
 
 // +++ Has
 extern_c int
-EnergyUncertaintyHas(ConstHandle2ConstEnergy This);
+EnergyUncertaintyHas(ConstHandle2ConstEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstUncertainty
-EnergyUncertaintyGetConst(ConstHandle2ConstEnergy This);
+EnergyUncertaintyGetConst(ConstHandle2ConstEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Uncertainty
-EnergyUncertaintyGet(ConstHandle2Energy This);
+EnergyUncertaintyGet(ConstHandle2Energy self);
 
 // +++ Set
 extern_c void
-EnergyUncertaintySet(ConstHandle2Energy This, ConstHandle2ConstUncertainty uncertainty);
+EnergyUncertaintySet(ConstHandle2Energy self, ConstHandle2ConstUncertainty uncertainty);
 
 
 // -----------------------------------------------------------------------------
@@ -244,32 +244,32 @@ EnergyUncertaintySet(ConstHandle2Energy This, ConstHandle2ConstUncertainty uncer
 
 // +++ Has
 extern_c int
-EnergyDoubleHas(ConstHandle2ConstEnergy This);
+EnergyDoubleHas(ConstHandle2ConstEnergy self);
 
 // +++ Clear
 extern_c void
-EnergyDoubleClear(ConstHandle2Energy This);
+EnergyDoubleClear(ConstHandle2Energy self);
 
 // +++ Size
 extern_c size_t
-EnergyDoubleSize(ConstHandle2ConstEnergy This);
+EnergyDoubleSize(ConstHandle2ConstEnergy self);
 
 // +++ Add
 extern_c void
-EnergyDoubleAdd(ConstHandle2Energy This, ConstHandle2ConstDouble Double);
+EnergyDoubleAdd(ConstHandle2Energy self, ConstHandle2ConstDouble Double);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstDouble
-EnergyDoubleGetConst(ConstHandle2ConstEnergy This, const size_t index_);
+EnergyDoubleGetConst(ConstHandle2ConstEnergy self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Double
-EnergyDoubleGet(ConstHandle2Energy This, const size_t index_);
+EnergyDoubleGet(ConstHandle2Energy self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 EnergyDoubleSet(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const size_t index_,
    ConstHandle2ConstDouble Double
 );
@@ -277,28 +277,28 @@ EnergyDoubleSet(
 // +++ Has, by label
 extern_c int
 EnergyDoubleHasByLabel(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstDouble
 EnergyDoubleGetByLabelConst(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Double
 EnergyDoubleGetByLabel(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 EnergyDoubleSetByLabel(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const XMLName label,
    ConstHandle2ConstDouble Double
 );
@@ -306,28 +306,28 @@ EnergyDoubleSetByLabel(
 // +++ Has, by unit
 extern_c int
 EnergyDoubleHasByUnit(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const XMLName unit
 );
 
 // --- Get, by unit, const
 extern_c Handle2ConstDouble
 EnergyDoubleGetByUnitConst(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const XMLName unit
 );
 
 // +++ Get, by unit, non-const
 extern_c Handle2Double
 EnergyDoubleGetByUnit(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const XMLName unit
 );
 
 // +++ Set, by unit
 extern_c void
 EnergyDoubleSetByUnit(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const XMLName unit,
    ConstHandle2ConstDouble Double
 );
@@ -335,28 +335,28 @@ EnergyDoubleSetByUnit(
 // +++ Has, by value
 extern_c int
 EnergyDoubleHasByValue(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const Float64 value
 );
 
 // --- Get, by value, const
 extern_c Handle2ConstDouble
 EnergyDoubleGetByValueConst(
-   ConstHandle2ConstEnergy This,
+   ConstHandle2ConstEnergy self,
    const Float64 value
 );
 
 // +++ Get, by value, non-const
 extern_c Handle2Double
 EnergyDoubleGetByValue(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const Float64 value
 );
 
 // +++ Set, by value
 extern_c void
 EnergyDoubleSetByValue(
-   ConstHandle2Energy This,
+   ConstHandle2Energy self,
    const Float64 value,
    ConstHandle2ConstDouble Double
 );

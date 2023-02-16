@@ -25,12 +25,12 @@ class Spectra :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "pops"; }
    static auto CLASS() { return "Spectra"; }
-   static auto FIELD() { return "spectra"; }
+   static auto NODENAME() { return "spectra"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Spectra :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<pops::Spectrum>("spectrum")
+         ++Child<pops::Spectrum>
+            ("spectrum")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "spectrum"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "spectrum"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<pops::Spectrum>> spectrum{this};
+   Field<std::vector<pops::Spectrum>>
+      spectrum{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->spectrum)
+      this->spectrum \
+   )
 
    // default
    Spectra() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Spectra(
-      const wrapper<std::vector<pops::Spectrum>> &spectrum
+      const wrapper<std::vector<pops::Spectrum>>
+         &spectrum
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       spectrum(this,spectrum)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Spectra &operator=(const Spectra &) = default;
-   Spectra &operator=(Spectra &&) = default;
+   // copy
+   Spectra &operator=(const Spectra &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         spectrum = other.spectrum;
+      }
+      return *this;
+   }
+
+   // move
+   Spectra &operator=(Spectra &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         spectrum = std::move(other.spectrum);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

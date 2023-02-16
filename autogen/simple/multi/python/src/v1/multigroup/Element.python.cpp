@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v1 {
 namespace python_multigroup {
 
-// Element wrapper
-void wrapElement(python::module &module)
+// wrapper for multigroup::Element
+void wrapElement(py::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
 
    // type aliases
-   using Component = multigroup::Element;
+   using cppCLASS = multigroup::Element;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Element",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Element",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<std::string> &,
-            const int &,
-            const std::vector<multigroup::Isotope> &,
-            const std::optional<multigroup::Foobar> &
-         >(),
-         python::arg("symbol") = std::nullopt,
-         python::arg("atomic_number"),
-         python::arg("isotope"),
-         python::arg("foobar") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "symbol",
-         [](const Component &self) { return self.symbol(); },
-         Component::documentation("symbol").data()
-      )
-      .def_property_readonly(
-         "atomic_number",
-         [](const Component &self) { return self.atomic_number(); },
-         Component::documentation("atomic_number").data()
-      )
-      .def_property_readonly(
-         "isotope",
-         [](const Component &self) { return self.isotope(); },
-         Component::documentation("isotope").data()
-      )
-      .def_property_readonly(
-         "foobar",
-         [](const Component &self) { return self.foobar(); },
-         Component::documentation("foobar").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<std::string> &,
+         const int &,
+         const std::vector<multigroup::Isotope> &,
+         const std::optional<multigroup::Foobar> &
+      >(),
+      py::arg("symbol") = std::nullopt,
+      py::arg("atomic_number"),
+      py::arg("isotope"),
+      py::arg("foobar") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set symbol
+   object.def_property(
+      "symbol",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.symbol();
+      },
+      [](cppCLASS &self, const std::optional<std::string> &value)
+      {
+         self.symbol() = value;
+      },
+      cppCLASS::component_t::documentation("symbol").data()
+   );
+
+   // get/set atomic_number
+   object.def_property(
+      "atomic_number",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.atomic_number();
+      },
+      [](cppCLASS &self, const int &value)
+      {
+         self.atomic_number() = value;
+      },
+      cppCLASS::component_t::documentation("atomic_number").data()
+   );
+
+   // get/set isotope
+   object.def_property(
+      "isotope",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotope();
+      },
+      [](cppCLASS &self, const std::vector<multigroup::Isotope> &value)
+      {
+         self.isotope() = value;
+      },
+      cppCLASS::component_t::documentation("isotope").data()
+   );
+
+   // get/set foobar
+   object.def_property(
+      "foobar",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.foobar();
+      },
+      [](cppCLASS &self, const std::optional<multigroup::Foobar> &value)
+      {
+         self.foobar() = value;
+      },
+      cppCLASS::component_t::documentation("foobar").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_multigroup

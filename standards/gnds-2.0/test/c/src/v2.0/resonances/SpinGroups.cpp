@@ -73,20 +73,20 @@ SpinGroupsCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SpinGroupsAssign(ConstHandle2SpinGroups This, ConstHandle2ConstSpinGroups from)
+SpinGroupsAssign(ConstHandle2SpinGroups self, ConstHandle2ConstSpinGroups from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SpinGroupsDelete(ConstHandle2ConstSpinGroups This)
+SpinGroupsDelete(ConstHandle2ConstSpinGroups self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -100,44 +100,44 @@ SpinGroupsDelete(ConstHandle2ConstSpinGroups This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SpinGroupsRead(ConstHandle2SpinGroups This, const char *const filename)
+SpinGroupsRead(ConstHandle2SpinGroups self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SpinGroupsWrite(ConstHandle2ConstSpinGroups This, const char *const filename)
+SpinGroupsWrite(ConstHandle2ConstSpinGroups self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SpinGroupsPrint(ConstHandle2ConstSpinGroups This)
+SpinGroupsPrint(ConstHandle2ConstSpinGroups self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SpinGroupsPrintXML(ConstHandle2ConstSpinGroups This)
+SpinGroupsPrintXML(ConstHandle2ConstSpinGroups self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SpinGroupsPrintJSON(ConstHandle2ConstSpinGroups This)
+SpinGroupsPrintJSON(ConstHandle2ConstSpinGroups self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -147,196 +147,196 @@ SpinGroupsPrintJSON(ConstHandle2ConstSpinGroups This)
 
 // Has
 int
-SpinGroupsSpinGroupHas(ConstHandle2ConstSpinGroups This)
+SpinGroupsSpinGroupHas(ConstHandle2ConstSpinGroups self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpinGroupHas", This, extract::spinGroup);
+      (CLASSNAME, CLASSNAME+"SpinGroupHas", self, extract::spinGroup);
 }
 
 // Clear
 void
-SpinGroupsSpinGroupClear(ConstHandle2SpinGroups This)
+SpinGroupsSpinGroupClear(ConstHandle2SpinGroups self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SpinGroupClear", This, extract::spinGroup);
+      (CLASSNAME, CLASSNAME+"SpinGroupClear", self, extract::spinGroup);
 }
 
 // Size
 size_t
-SpinGroupsSpinGroupSize(ConstHandle2ConstSpinGroups This)
+SpinGroupsSpinGroupSize(ConstHandle2ConstSpinGroups self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SpinGroupSize", This, extract::spinGroup);
+      (CLASSNAME, CLASSNAME+"SpinGroupSize", self, extract::spinGroup);
 }
 
 // Add
 void
-SpinGroupsSpinGroupAdd(ConstHandle2SpinGroups This, ConstHandle2ConstSpinGroup spinGroup)
+SpinGroupsSpinGroupAdd(ConstHandle2SpinGroups self, ConstHandle2ConstSpinGroup spinGroup)
 {
    detail::addToContainer<CPP,CPPSpinGroup>
-      (CLASSNAME, CLASSNAME+"SpinGroupAdd", This, extract::spinGroup, spinGroup);
+      (CLASSNAME, CLASSNAME+"SpinGroupAdd", self, extract::spinGroup, spinGroup);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSpinGroup
-SpinGroupsSpinGroupGetConst(ConstHandle2ConstSpinGroups This, const size_t index_)
+SpinGroupsSpinGroupGetConst(ConstHandle2ConstSpinGroups self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSpinGroup>
-      (CLASSNAME, CLASSNAME+"SpinGroupGetConst", This, extract::spinGroup, index_);
+      (CLASSNAME, CLASSNAME+"SpinGroupGetConst", self, extract::spinGroup, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2SpinGroup
-SpinGroupsSpinGroupGet(ConstHandle2SpinGroups This, const size_t index_)
+SpinGroupsSpinGroupGet(ConstHandle2SpinGroups self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2SpinGroup>
-      (CLASSNAME, CLASSNAME+"SpinGroupGet", This, extract::spinGroup, index_);
+      (CLASSNAME, CLASSNAME+"SpinGroupGet", self, extract::spinGroup, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SpinGroupsSpinGroupSet(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const size_t index_,
    ConstHandle2ConstSpinGroup spinGroup
 ) {
    detail::setByIndex<CPP,CPPSpinGroup>
-      (CLASSNAME, CLASSNAME+"SpinGroupSet", This, extract::spinGroup, index_, spinGroup);
+      (CLASSNAME, CLASSNAME+"SpinGroupSet", self, extract::spinGroup, index_, spinGroup);
 }
 
 // Has, by label
 int
 SpinGroupsSpinGroupHasByLabel(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const XMLName label
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SpinGroupHasByLabel",
-       This, extract::spinGroup, meta::label, label);
+       self, extract::spinGroup, meta::label, label);
 }
 
 // Get, by label, const
 Handle2ConstSpinGroup
 SpinGroupsSpinGroupGetByLabelConst(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetByLabelConst",
-       This, extract::spinGroup, meta::label, label);
+       self, extract::spinGroup, meta::label, label);
 }
 
 // Get, by label, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetByLabel(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const XMLName label
 ) {
    return detail::getByMetadatum<CPP,Handle2SpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetByLabel",
-       This, extract::spinGroup, meta::label, label);
+       self, extract::spinGroup, meta::label, label);
 }
 
 // Set, by label
 void
 SpinGroupsSpinGroupSetByLabel(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const XMLName label,
    ConstHandle2ConstSpinGroup spinGroup
 ) {
    detail::setByMetadatum<CPP,CPPSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupSetByLabel",
-       This, extract::spinGroup, meta::label, label, spinGroup);
+       self, extract::spinGroup, meta::label, label, spinGroup);
 }
 
 // Has, by spin
 int
 SpinGroupsSpinGroupHasBySpin(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const Fraction32 spin
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SpinGroupHasBySpin",
-       This, extract::spinGroup, meta::spin, spin);
+       self, extract::spinGroup, meta::spin, spin);
 }
 
 // Get, by spin, const
 Handle2ConstSpinGroup
 SpinGroupsSpinGroupGetBySpinConst(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const Fraction32 spin
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetBySpinConst",
-       This, extract::spinGroup, meta::spin, spin);
+       self, extract::spinGroup, meta::spin, spin);
 }
 
 // Get, by spin, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetBySpin(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const Fraction32 spin
 ) {
    return detail::getByMetadatum<CPP,Handle2SpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetBySpin",
-       This, extract::spinGroup, meta::spin, spin);
+       self, extract::spinGroup, meta::spin, spin);
 }
 
 // Set, by spin
 void
 SpinGroupsSpinGroupSetBySpin(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const Fraction32 spin,
    ConstHandle2ConstSpinGroup spinGroup
 ) {
    detail::setByMetadatum<CPP,CPPSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupSetBySpin",
-       This, extract::spinGroup, meta::spin, spin, spinGroup);
+       self, extract::spinGroup, meta::spin, spin, spinGroup);
 }
 
 // Has, by parity
 int
 SpinGroupsSpinGroupHasByParity(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const Integer32 parity
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SpinGroupHasByParity",
-       This, extract::spinGroup, meta::parity, parity);
+       self, extract::spinGroup, meta::parity, parity);
 }
 
 // Get, by parity, const
 Handle2ConstSpinGroup
 SpinGroupsSpinGroupGetByParityConst(
-   ConstHandle2ConstSpinGroups This,
+   ConstHandle2ConstSpinGroups self,
    const Integer32 parity
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetByParityConst",
-       This, extract::spinGroup, meta::parity, parity);
+       self, extract::spinGroup, meta::parity, parity);
 }
 
 // Get, by parity, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetByParity(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const Integer32 parity
 ) {
    return detail::getByMetadatum<CPP,Handle2SpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupGetByParity",
-       This, extract::spinGroup, meta::parity, parity);
+       self, extract::spinGroup, meta::parity, parity);
 }
 
 // Set, by parity
 void
 SpinGroupsSpinGroupSetByParity(
-   ConstHandle2SpinGroups This,
+   ConstHandle2SpinGroups self,
    const Integer32 parity,
    ConstHandle2ConstSpinGroup spinGroup
 ) {
    detail::setByMetadatum<CPP,CPPSpinGroup>
       (CLASSNAME, CLASSNAME+"SpinGroupSetByParity",
-       This, extract::spinGroup, meta::parity, parity, spinGroup);
+       self, extract::spinGroup, meta::parity, parity, spinGroup);
 }
 
 

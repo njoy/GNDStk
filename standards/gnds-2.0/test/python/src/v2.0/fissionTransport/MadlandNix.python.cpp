@@ -11,59 +11,83 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_fissionTransport {
 
-// MadlandNix wrapper
-void wrapMadlandNix(python::module &module)
+// wrapper for fissionTransport::MadlandNix
+void wrapMadlandNix(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = fissionTransport::MadlandNix;
+   using cppCLASS = fissionTransport::MadlandNix;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "MadlandNix",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "MadlandNix",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const fissionTransport::EFH &,
-            const fissionTransport::EFL &,
-            const fissionTransport::T_M &
-         >(),
-         python::arg("efh"),
-         python::arg("efl"),
-         python::arg("t_m"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "efh",
-         [](const Component &self) { return self.EFH(); },
-         Component::documentation("efh").data()
-      )
-      .def_property_readonly(
-         "efl",
-         [](const Component &self) { return self.EFL(); },
-         Component::documentation("efl").data()
-      )
-      .def_property_readonly(
-         "t_m",
-         [](const Component &self) { return self.T_M(); },
-         Component::documentation("t_m").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const fissionTransport::EFH &,
+         const fissionTransport::EFL &,
+         const fissionTransport::T_M &
+      >(),
+      py::arg("efh"),
+      py::arg("efl"),
+      py::arg("t_m"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set EFH
+   object.def_property(
+      "efh",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.EFH();
+      },
+      [](cppCLASS &self, const fissionTransport::EFH &value)
+      {
+         self.EFH() = value;
+      },
+      cppCLASS::component_t::documentation("efh").data()
+   );
+
+   // get/set EFL
+   object.def_property(
+      "efl",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.EFL();
+      },
+      [](cppCLASS &self, const fissionTransport::EFL &value)
+      {
+         self.EFL() = value;
+      },
+      cppCLASS::component_t::documentation("efl").data()
+   );
+
+   // get/set T_M
+   object.def_property(
+      "t_m",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.T_M();
+      },
+      [](cppCLASS &self, const fissionTransport::T_M &value)
+      {
+         self.T_M() = value;
+      },
+      cppCLASS::component_t::documentation("t_m").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_fissionTransport

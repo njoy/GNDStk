@@ -89,13 +89,13 @@ FoobarCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-FoobarAssign(ConstHandle2Foobar This, ConstHandle2ConstFoobar from);
+FoobarAssign(ConstHandle2Foobar self, ConstHandle2ConstFoobar from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-FoobarDelete(ConstHandle2ConstFoobar This);
+FoobarDelete(ConstHandle2ConstFoobar self);
 
 
 // -----------------------------------------------------------------------------
@@ -108,25 +108,25 @@ FoobarDelete(ConstHandle2ConstFoobar This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-FoobarRead(ConstHandle2Foobar This, const char *const filename);
+FoobarRead(ConstHandle2Foobar self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-FoobarWrite(ConstHandle2ConstFoobar This, const char *const filename);
+FoobarWrite(ConstHandle2ConstFoobar self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-FoobarPrint(ConstHandle2ConstFoobar This);
+FoobarPrint(ConstHandle2ConstFoobar self);
 
 // +++ Print to standard output, as XML
 extern_c int
-FoobarPrintXML(ConstHandle2ConstFoobar This);
+FoobarPrintXML(ConstHandle2ConstFoobar self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-FoobarPrintJSON(ConstHandle2ConstFoobar This);
+FoobarPrintJSON(ConstHandle2ConstFoobar self);
 
 
 // -----------------------------------------------------------------------------
@@ -135,33 +135,33 @@ FoobarPrintJSON(ConstHandle2ConstFoobar This);
 
 // +++ Clear
 extern_c void
-FoobarDoublesClear(ConstHandle2Foobar This);
+FoobarDoublesClear(ConstHandle2Foobar self);
 
 // +++ Get size
 extern_c size_t
-FoobarDoublesSize(ConstHandle2ConstFoobar This);
+FoobarDoublesSize(ConstHandle2ConstFoobar self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c double
-FoobarDoublesGet(ConstHandle2ConstFoobar This, const size_t index);
+FoobarDoublesGet(ConstHandle2ConstFoobar self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-FoobarDoublesSet(ConstHandle2Foobar This, const size_t index, const double value);
+FoobarDoublesSet(ConstHandle2Foobar self, const size_t index, const double value);
 
 // --- Get pointer to existing values, const
 extern_c const double *
-FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar This);
+FoobarDoublesGetArrayConst(ConstHandle2ConstFoobar self);
 
 // +++ Get pointer to existing values, non-const
 extern_c double *
-FoobarDoublesGetArray(ConstHandle2Foobar This);
+FoobarDoublesGetArray(ConstHandle2Foobar self);
 
 // +++ Set completely new values and size
 extern_c void
-FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const size_t size);
+FoobarDoublesSetArray(ConstHandle2Foobar self, const double *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------
@@ -170,16 +170,16 @@ FoobarDoublesSetArray(ConstHandle2Foobar This, const double *const values, const
 
 // +++ Has
 extern_c int
-FoobarValueHas(ConstHandle2ConstFoobar This);
+FoobarValueHas(ConstHandle2ConstFoobar self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-FoobarValueGet(ConstHandle2ConstFoobar This);
+FoobarValueGet(ConstHandle2ConstFoobar self);
 
 // +++ Set
 extern_c void
-FoobarValueSet(ConstHandle2Foobar This, const char *const value);
+FoobarValueSet(ConstHandle2Foobar self, const char *const value);
 
 
 // -----------------------------------------------------------------------------

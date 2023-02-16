@@ -97,20 +97,20 @@ ProtareCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-ProtareAssign(ConstHandle2Protare This, ConstHandle2ConstProtare from)
+ProtareAssign(ConstHandle2Protare self, ConstHandle2ConstProtare from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-ProtareDelete(ConstHandle2ConstProtare This)
+ProtareDelete(ConstHandle2ConstProtare self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -124,44 +124,44 @@ ProtareDelete(ConstHandle2ConstProtare This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-ProtareRead(ConstHandle2Protare This, const char *const filename)
+ProtareRead(ConstHandle2Protare self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-ProtareWrite(ConstHandle2ConstProtare This, const char *const filename)
+ProtareWrite(ConstHandle2ConstProtare self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-ProtarePrint(ConstHandle2ConstProtare This)
+ProtarePrint(ConstHandle2ConstProtare self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-ProtarePrintXML(ConstHandle2ConstProtare This)
+ProtarePrintXML(ConstHandle2ConstProtare self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-ProtarePrintJSON(ConstHandle2ConstProtare This)
+ProtarePrintJSON(ConstHandle2ConstProtare self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -171,27 +171,27 @@ ProtarePrintJSON(ConstHandle2ConstProtare This)
 
 // Has
 int
-ProtareProjectileHas(ConstHandle2ConstProtare This)
+ProtareProjectileHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileHas", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileHas", self, extract::projectile);
 }
 
 // Get
 // Returns by value
 XMLName
-ProtareProjectileGet(ConstHandle2ConstProtare This)
+ProtareProjectileGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileGet", This, extract::projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileGet", self, extract::projectile);
 }
 
 // Set
 void
-ProtareProjectileSet(ConstHandle2Protare This, const XMLName projectile)
+ProtareProjectileSet(ConstHandle2Protare self, const XMLName projectile)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ProjectileSet", This, extract::projectile, projectile);
+      (CLASSNAME, CLASSNAME+"ProjectileSet", self, extract::projectile, projectile);
 }
 
 
@@ -201,27 +201,27 @@ ProtareProjectileSet(ConstHandle2Protare This, const XMLName projectile)
 
 // Has
 int
-ProtareTargetHas(ConstHandle2ConstProtare This)
+ProtareTargetHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetHas", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetHas", self, extract::target);
 }
 
 // Get
 // Returns by value
 XMLName
-ProtareTargetGet(ConstHandle2ConstProtare This)
+ProtareTargetGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetGet", This, extract::target);
+      (CLASSNAME, CLASSNAME+"TargetGet", self, extract::target);
 }
 
 // Set
 void
-ProtareTargetSet(ConstHandle2Protare This, const XMLName target)
+ProtareTargetSet(ConstHandle2Protare self, const XMLName target)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"TargetSet", This, extract::target, target);
+      (CLASSNAME, CLASSNAME+"TargetSet", self, extract::target, target);
 }
 
 
@@ -231,27 +231,27 @@ ProtareTargetSet(ConstHandle2Protare This, const XMLName target)
 
 // Has
 int
-ProtareEvaluationHas(ConstHandle2ConstProtare This)
+ProtareEvaluationHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationHas", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationHas", self, extract::evaluation);
 }
 
 // Get
 // Returns by value
 XMLName
-ProtareEvaluationGet(ConstHandle2ConstProtare This)
+ProtareEvaluationGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationGet", This, extract::evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationGet", self, extract::evaluation);
 }
 
 // Set
 void
-ProtareEvaluationSet(ConstHandle2Protare This, const XMLName evaluation)
+ProtareEvaluationSet(ConstHandle2Protare self, const XMLName evaluation)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EvaluationSet", This, extract::evaluation, evaluation);
+      (CLASSNAME, CLASSNAME+"EvaluationSet", self, extract::evaluation, evaluation);
 }
 
 
@@ -261,27 +261,27 @@ ProtareEvaluationSet(ConstHandle2Protare This, const XMLName evaluation)
 
 // Has
 int
-ProtarePathHas(ConstHandle2ConstProtare This)
+ProtarePathHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"PathHas", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathHas", self, extract::path);
 }
 
 // Get
 // Returns by value
 XMLName
-ProtarePathGet(ConstHandle2ConstProtare This)
+ProtarePathGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"PathGet", This, extract::path);
+      (CLASSNAME, CLASSNAME+"PathGet", self, extract::path);
 }
 
 // Set
 void
-ProtarePathSet(ConstHandle2Protare This, const XMLName path)
+ProtarePathSet(ConstHandle2Protare self, const XMLName path)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"PathSet", This, extract::path, path);
+      (CLASSNAME, CLASSNAME+"PathSet", self, extract::path, path);
 }
 
 
@@ -291,27 +291,27 @@ ProtarePathSet(ConstHandle2Protare This, const XMLName path)
 
 // Has
 int
-ProtareInteractionHas(ConstHandle2ConstProtare This)
+ProtareInteractionHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionHas", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionHas", self, extract::interaction);
 }
 
 // Get
 // Returns by value
 XMLName
-ProtareInteractionGet(ConstHandle2ConstProtare This)
+ProtareInteractionGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionGet", This, extract::interaction);
+      (CLASSNAME, CLASSNAME+"InteractionGet", self, extract::interaction);
 }
 
 // Set
 void
-ProtareInteractionSet(ConstHandle2Protare This, const XMLName interaction)
+ProtareInteractionSet(ConstHandle2Protare self, const XMLName interaction)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"InteractionSet", This, extract::interaction, interaction);
+      (CLASSNAME, CLASSNAME+"InteractionSet", self, extract::interaction, interaction);
 }
 
 
@@ -321,27 +321,27 @@ ProtareInteractionSet(ConstHandle2Protare This, const XMLName interaction)
 
 // Has
 int
-ProtareChecksumHas(ConstHandle2ConstProtare This)
+ProtareChecksumHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumHas", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumHas", self, extract::checksum);
 }
 
 // Get
 // Returns by value
 const char *
-ProtareChecksumGet(ConstHandle2ConstProtare This)
+ProtareChecksumGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumGet", This, extract::checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumGet", self, extract::checksum);
 }
 
 // Set
 void
-ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum)
+ProtareChecksumSet(ConstHandle2Protare self, const char *const checksum)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ChecksumSet", This, extract::checksum, checksum);
+      (CLASSNAME, CLASSNAME+"ChecksumSet", self, extract::checksum, checksum);
 }
 
 
@@ -351,27 +351,27 @@ ProtareChecksumSet(ConstHandle2Protare This, const char *const checksum)
 
 // Has
 int
-ProtareAlgorithmHas(ConstHandle2ConstProtare This)
+ProtareAlgorithmHas(ConstHandle2ConstProtare self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmHas", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmHas", self, extract::algorithm);
 }
 
 // Get
 // Returns by value
 enums::HashAlgorithm
-ProtareAlgorithmGet(ConstHandle2ConstProtare This)
+ProtareAlgorithmGet(ConstHandle2ConstProtare self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmGet", This, extract::algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmGet", self, extract::algorithm);
 }
 
 // Set
 void
-ProtareAlgorithmSet(ConstHandle2Protare This, const enums::HashAlgorithm algorithm)
+ProtareAlgorithmSet(ConstHandle2Protare self, const enums::HashAlgorithm algorithm)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"AlgorithmSet", This, extract::algorithm, algorithm);
+      (CLASSNAME, CLASSNAME+"AlgorithmSet", self, extract::algorithm, algorithm);
 }
 
 

@@ -104,20 +104,20 @@ GaugeBosonCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-GaugeBosonAssign(ConstHandle2GaugeBoson This, ConstHandle2ConstGaugeBoson from)
+GaugeBosonAssign(ConstHandle2GaugeBoson self, ConstHandle2ConstGaugeBoson from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-GaugeBosonDelete(ConstHandle2ConstGaugeBoson This)
+GaugeBosonDelete(ConstHandle2ConstGaugeBoson self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -131,44 +131,44 @@ GaugeBosonDelete(ConstHandle2ConstGaugeBoson This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-GaugeBosonRead(ConstHandle2GaugeBoson This, const char *const filename)
+GaugeBosonRead(ConstHandle2GaugeBoson self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-GaugeBosonWrite(ConstHandle2ConstGaugeBoson This, const char *const filename)
+GaugeBosonWrite(ConstHandle2ConstGaugeBoson self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-GaugeBosonPrint(ConstHandle2ConstGaugeBoson This)
+GaugeBosonPrint(ConstHandle2ConstGaugeBoson self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-GaugeBosonPrintXML(ConstHandle2ConstGaugeBoson This)
+GaugeBosonPrintXML(ConstHandle2ConstGaugeBoson self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson This)
+GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -178,27 +178,27 @@ GaugeBosonPrintJSON(ConstHandle2ConstGaugeBoson This)
 
 // Has
 int
-GaugeBosonIdHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonIdHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"IdHas", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdHas", self, extract::id);
 }
 
 // Get
 // Returns by value
 XMLName
-GaugeBosonIdGet(ConstHandle2ConstGaugeBoson This)
+GaugeBosonIdGet(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"IdGet", This, extract::id);
+      (CLASSNAME, CLASSNAME+"IdGet", self, extract::id);
 }
 
 // Set
 void
-GaugeBosonIdSet(ConstHandle2GaugeBoson This, const XMLName id)
+GaugeBosonIdSet(ConstHandle2GaugeBoson self, const XMLName id)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"IdSet", This, extract::id, id);
+      (CLASSNAME, CLASSNAME+"IdSet", self, extract::id, id);
 }
 
 
@@ -208,34 +208,34 @@ GaugeBosonIdSet(ConstHandle2GaugeBoson This, const XMLName id)
 
 // Has
 int
-GaugeBosonChargeHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonChargeHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ChargeHas", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeHas", self, extract::charge);
 }
 
 // Get, const
 Handle2ConstCharge
-GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstCharge>
-      (CLASSNAME, CLASSNAME+"ChargeGetConst", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
 // Get, non-const
 Handle2Charge
-GaugeBosonChargeGet(ConstHandle2GaugeBoson This)
+GaugeBosonChargeGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2Charge>
-      (CLASSNAME, CLASSNAME+"ChargeGet", This, extract::charge);
+      (CLASSNAME, CLASSNAME+"ChargeGet", self, extract::charge);
 }
 
 // Set
 void
-GaugeBosonChargeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstCharge charge)
+GaugeBosonChargeSet(ConstHandle2GaugeBoson self, ConstHandle2ConstCharge charge)
 {
    detail::setField<CPP,CPPCharge>
-      (CLASSNAME, CLASSNAME+"ChargeSet", This, extract::charge, charge);
+      (CLASSNAME, CLASSNAME+"ChargeSet", self, extract::charge, charge);
 }
 
 
@@ -245,34 +245,34 @@ GaugeBosonChargeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstCharge charge)
 
 // Has
 int
-GaugeBosonHalflifeHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonHalflifeHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HalflifeHas", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeHas", self, extract::halflife);
 }
 
 // Get, const
 Handle2ConstHalflife
-GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGetConst", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
 // Get, non-const
 Handle2Halflife
-GaugeBosonHalflifeGet(ConstHandle2GaugeBoson This)
+GaugeBosonHalflifeGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2Halflife>
-      (CLASSNAME, CLASSNAME+"HalflifeGet", This, extract::halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeGet", self, extract::halflife);
 }
 
 // Set
 void
-GaugeBosonHalflifeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstHalflife halflife)
+GaugeBosonHalflifeSet(ConstHandle2GaugeBoson self, ConstHandle2ConstHalflife halflife)
 {
    detail::setField<CPP,CPPHalflife>
-      (CLASSNAME, CLASSNAME+"HalflifeSet", This, extract::halflife, halflife);
+      (CLASSNAME, CLASSNAME+"HalflifeSet", self, extract::halflife, halflife);
 }
 
 
@@ -282,34 +282,34 @@ GaugeBosonHalflifeSet(ConstHandle2GaugeBoson This, ConstHandle2ConstHalflife hal
 
 // Has
 int
-GaugeBosonMassHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonMassHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MassHas", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassHas", self, extract::mass);
 }
 
 // Get, const
 Handle2ConstMass
-GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstMass>
-      (CLASSNAME, CLASSNAME+"MassGetConst", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
 // Get, non-const
 Handle2Mass
-GaugeBosonMassGet(ConstHandle2GaugeBoson This)
+GaugeBosonMassGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2Mass>
-      (CLASSNAME, CLASSNAME+"MassGet", This, extract::mass);
+      (CLASSNAME, CLASSNAME+"MassGet", self, extract::mass);
 }
 
 // Set
 void
-GaugeBosonMassSet(ConstHandle2GaugeBoson This, ConstHandle2ConstMass mass)
+GaugeBosonMassSet(ConstHandle2GaugeBoson self, ConstHandle2ConstMass mass)
 {
    detail::setField<CPP,CPPMass>
-      (CLASSNAME, CLASSNAME+"MassSet", This, extract::mass, mass);
+      (CLASSNAME, CLASSNAME+"MassSet", self, extract::mass, mass);
 }
 
 
@@ -319,34 +319,34 @@ GaugeBosonMassSet(ConstHandle2GaugeBoson This, ConstHandle2ConstMass mass)
 
 // Has
 int
-GaugeBosonSpinHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonSpinHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SpinHas", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinHas", self, extract::spin);
 }
 
 // Get, const
 Handle2ConstSpin
-GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstSpin>
-      (CLASSNAME, CLASSNAME+"SpinGetConst", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
 // Get, non-const
 Handle2Spin
-GaugeBosonSpinGet(ConstHandle2GaugeBoson This)
+GaugeBosonSpinGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2Spin>
-      (CLASSNAME, CLASSNAME+"SpinGet", This, extract::spin);
+      (CLASSNAME, CLASSNAME+"SpinGet", self, extract::spin);
 }
 
 // Set
 void
-GaugeBosonSpinSet(ConstHandle2GaugeBoson This, ConstHandle2ConstSpin spin)
+GaugeBosonSpinSet(ConstHandle2GaugeBoson self, ConstHandle2ConstSpin spin)
 {
    detail::setField<CPP,CPPSpin>
-      (CLASSNAME, CLASSNAME+"SpinSet", This, extract::spin, spin);
+      (CLASSNAME, CLASSNAME+"SpinSet", self, extract::spin, spin);
 }
 
 
@@ -356,34 +356,34 @@ GaugeBosonSpinSet(ConstHandle2GaugeBoson This, ConstHandle2ConstSpin spin)
 
 // Has
 int
-GaugeBosonParityHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonParityHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ParityHas", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityHas", self, extract::parity);
 }
 
 // Get, const
 Handle2ConstParity
-GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstParity>
-      (CLASSNAME, CLASSNAME+"ParityGetConst", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
 // Get, non-const
 Handle2Parity
-GaugeBosonParityGet(ConstHandle2GaugeBoson This)
+GaugeBosonParityGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2Parity>
-      (CLASSNAME, CLASSNAME+"ParityGet", This, extract::parity);
+      (CLASSNAME, CLASSNAME+"ParityGet", self, extract::parity);
 }
 
 // Set
 void
-GaugeBosonParitySet(ConstHandle2GaugeBoson This, ConstHandle2ConstParity parity)
+GaugeBosonParitySet(ConstHandle2GaugeBoson self, ConstHandle2ConstParity parity)
 {
    detail::setField<CPP,CPPParity>
-      (CLASSNAME, CLASSNAME+"ParitySet", This, extract::parity, parity);
+      (CLASSNAME, CLASSNAME+"ParitySet", self, extract::parity, parity);
 }
 
 
@@ -393,34 +393,34 @@ GaugeBosonParitySet(ConstHandle2GaugeBoson This, ConstHandle2ConstParity parity)
 
 // Has
 int
-GaugeBosonDecayDataHas(ConstHandle2ConstGaugeBoson This)
+GaugeBosonDecayDataHas(ConstHandle2ConstGaugeBoson self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DecayDataHas", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataHas", self, extract::decayData);
 }
 
 // Get, const
 Handle2ConstDecayData
-GaugeBosonDecayDataGetConst(ConstHandle2ConstGaugeBoson This)
+GaugeBosonDecayDataGetConst(ConstHandle2ConstGaugeBoson self)
 {
    return detail::getField<CPP,Handle2ConstDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGetConst", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
 // Get, non-const
 Handle2DecayData
-GaugeBosonDecayDataGet(ConstHandle2GaugeBoson This)
+GaugeBosonDecayDataGet(ConstHandle2GaugeBoson self)
 {
    return detail::getField<CPP,Handle2DecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataGet", This, extract::decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataGet", self, extract::decayData);
 }
 
 // Set
 void
-GaugeBosonDecayDataSet(ConstHandle2GaugeBoson This, ConstHandle2ConstDecayData decayData)
+GaugeBosonDecayDataSet(ConstHandle2GaugeBoson self, ConstHandle2ConstDecayData decayData)
 {
    detail::setField<CPP,CPPDecayData>
-      (CLASSNAME, CLASSNAME+"DecayDataSet", This, extract::decayData, decayData);
+      (CLASSNAME, CLASSNAME+"DecayDataSet", self, extract::decayData, decayData);
 }
 
 

@@ -92,13 +92,13 @@ TransportablesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-TransportablesAssign(ConstHandle2Transportables This, ConstHandle2ConstTransportables from);
+TransportablesAssign(ConstHandle2Transportables self, ConstHandle2ConstTransportables from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-TransportablesDelete(ConstHandle2ConstTransportables This);
+TransportablesDelete(ConstHandle2ConstTransportables self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ TransportablesDelete(ConstHandle2ConstTransportables This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-TransportablesRead(ConstHandle2Transportables This, const char *const filename);
+TransportablesRead(ConstHandle2Transportables self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-TransportablesWrite(ConstHandle2ConstTransportables This, const char *const filename);
+TransportablesWrite(ConstHandle2ConstTransportables self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-TransportablesPrint(ConstHandle2ConstTransportables This);
+TransportablesPrint(ConstHandle2ConstTransportables self);
 
 // +++ Print to standard output, as XML
 extern_c int
-TransportablesPrintXML(ConstHandle2ConstTransportables This);
+TransportablesPrintXML(ConstHandle2ConstTransportables self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-TransportablesPrintJSON(ConstHandle2ConstTransportables This);
+TransportablesPrintJSON(ConstHandle2ConstTransportables self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ TransportablesPrintJSON(ConstHandle2ConstTransportables This);
 
 // +++ Has
 extern_c int
-TransportablesLabelHas(ConstHandle2ConstTransportables This);
+TransportablesLabelHas(ConstHandle2ConstTransportables self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-TransportablesLabelGet(ConstHandle2ConstTransportables This);
+TransportablesLabelGet(ConstHandle2ConstTransportables self);
 
 // +++ Set
 extern_c void
-TransportablesLabelSet(ConstHandle2Transportables This, const XMLName label);
+TransportablesLabelSet(ConstHandle2Transportables self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,32 +156,32 @@ TransportablesLabelSet(ConstHandle2Transportables This, const XMLName label);
 
 // +++ Has
 extern_c int
-TransportablesTransportableHas(ConstHandle2ConstTransportables This);
+TransportablesTransportableHas(ConstHandle2ConstTransportables self);
 
 // +++ Clear
 extern_c void
-TransportablesTransportableClear(ConstHandle2Transportables This);
+TransportablesTransportableClear(ConstHandle2Transportables self);
 
 // +++ Size
 extern_c size_t
-TransportablesTransportableSize(ConstHandle2ConstTransportables This);
+TransportablesTransportableSize(ConstHandle2ConstTransportables self);
 
 // +++ Add
 extern_c void
-TransportablesTransportableAdd(ConstHandle2Transportables This, ConstHandle2ConstTransportable transportable);
+TransportablesTransportableAdd(ConstHandle2Transportables self, ConstHandle2ConstTransportable transportable);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstTransportable
-TransportablesTransportableGetConst(ConstHandle2ConstTransportables This, const size_t index_);
+TransportablesTransportableGetConst(ConstHandle2ConstTransportables self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Transportable
-TransportablesTransportableGet(ConstHandle2Transportables This, const size_t index_);
+TransportablesTransportableGet(ConstHandle2Transportables self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 TransportablesTransportableSet(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const size_t index_,
    ConstHandle2ConstTransportable transportable
 );
@@ -189,28 +189,28 @@ TransportablesTransportableSet(
 // +++ Has, by conserve
 extern_c int
 TransportablesTransportableHasByConserve(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName conserve
 );
 
 // --- Get, by conserve, const
 extern_c Handle2ConstTransportable
 TransportablesTransportableGetByConserveConst(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName conserve
 );
 
 // +++ Get, by conserve, non-const
 extern_c Handle2Transportable
 TransportablesTransportableGetByConserve(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName conserve
 );
 
 // +++ Set, by conserve
 extern_c void
 TransportablesTransportableSetByConserve(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName conserve,
    ConstHandle2ConstTransportable transportable
 );
@@ -218,28 +218,28 @@ TransportablesTransportableSetByConserve(
 // +++ Has, by label
 extern_c int
 TransportablesTransportableHasByLabel(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstTransportable
 TransportablesTransportableGetByLabelConst(
-   ConstHandle2ConstTransportables This,
+   ConstHandle2ConstTransportables self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Transportable
 TransportablesTransportableGetByLabel(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 TransportablesTransportableSetByLabel(
-   ConstHandle2Transportables This,
+   ConstHandle2Transportables self,
    const XMLName label,
    ConstHandle2ConstTransportable transportable
 );

@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_documentation {
 
-// ExperimentalDataSets wrapper
-void wrapExperimentalDataSets(python::module &module)
+// wrapper for documentation::ExperimentalDataSets
+void wrapExperimentalDataSets(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = documentation::ExperimentalDataSets;
+   using cppCLASS = documentation::ExperimentalDataSets;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "ExperimentalDataSets",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "ExperimentalDataSets",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const documentation::ExforDataSets &
-         >(),
-         python::arg("exfor_data_sets"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "exfor_data_sets",
-         [](const Component &self) { return self.exforDataSets(); },
-         Component::documentation("exfor_data_sets").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const documentation::ExforDataSets &
+      >(),
+      py::arg("exfor_data_sets"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set exforDataSets
+   object.def_property(
+      "exfor_data_sets",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.exforDataSets();
+      },
+      [](cppCLASS &self, const documentation::ExforDataSets &value)
+      {
+         self.exforDataSets() = value;
+      },
+      cppCLASS::component_t::documentation("exfor_data_sets").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_documentation

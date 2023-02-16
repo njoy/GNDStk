@@ -82,20 +82,20 @@ CopyrightCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-CopyrightAssign(ConstHandle2Copyright This, ConstHandle2ConstCopyright from)
+CopyrightAssign(ConstHandle2Copyright self, ConstHandle2ConstCopyright from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-CopyrightDelete(ConstHandle2ConstCopyright This)
+CopyrightDelete(ConstHandle2ConstCopyright self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -109,44 +109,44 @@ CopyrightDelete(ConstHandle2ConstCopyright This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-CopyrightRead(ConstHandle2Copyright This, const char *const filename)
+CopyrightRead(ConstHandle2Copyright self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-CopyrightWrite(ConstHandle2ConstCopyright This, const char *const filename)
+CopyrightWrite(ConstHandle2ConstCopyright self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-CopyrightPrint(ConstHandle2ConstCopyright This)
+CopyrightPrint(ConstHandle2ConstCopyright self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-CopyrightPrintXML(ConstHandle2ConstCopyright This)
+CopyrightPrintXML(ConstHandle2ConstCopyright self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-CopyrightPrintJSON(ConstHandle2ConstCopyright This)
+CopyrightPrintJSON(ConstHandle2ConstCopyright self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -160,60 +160,60 @@ CopyrightPrintJSON(ConstHandle2ConstCopyright This)
 
 // Clear
 void
-CopyrightIntsClear(ConstHandle2Copyright This)
+CopyrightIntsClear(ConstHandle2Copyright self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"IntsClear", This);
+      (CLASSNAME, CLASSNAME+"IntsClear", self);
 }
 
 // Get size
 size_t
-CopyrightIntsSize(ConstHandle2ConstCopyright This)
+CopyrightIntsSize(ConstHandle2ConstCopyright self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"IntsSize", This);
+      (CLASSNAME, CLASSNAME+"IntsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 int
-CopyrightIntsGet(ConstHandle2ConstCopyright This, const size_t index)
+CopyrightIntsGet(ConstHandle2ConstCopyright self, const size_t index)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGet", This, index);
+      (CLASSNAME, CLASSNAME+"IntsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CopyrightIntsSet(ConstHandle2Copyright This, const size_t index, const int value)
+CopyrightIntsSet(ConstHandle2Copyright self, const size_t index, const int value)
 {
    detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"IntsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const int *
-CopyrightIntsGetArrayConst(ConstHandle2ConstCopyright This)
+CopyrightIntsGetArrayConst(ConstHandle2ConstCopyright self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 int *
-CopyrightIntsGetArray(ConstHandle2Copyright This)
+CopyrightIntsGetArray(ConstHandle2Copyright self)
 {
    return detail::vectorGet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsGetArray", This);
+      (CLASSNAME, CLASSNAME+"IntsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CopyrightIntsSetArray(ConstHandle2Copyright This, const int *const values, const size_t size)
+CopyrightIntsSetArray(ConstHandle2Copyright self, const int *const values, const size_t size)
 {
    return detail::vectorSet<CPP,int>
-      (CLASSNAME, CLASSNAME+"IntsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"IntsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -222,60 +222,60 @@ CopyrightIntsSetArray(ConstHandle2Copyright This, const int *const values, const
 
 // Clear
 void
-CopyrightUnsignedsClear(ConstHandle2Copyright This)
+CopyrightUnsignedsClear(ConstHandle2Copyright self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsClear", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsClear", self);
 }
 
 // Get size
 size_t
-CopyrightUnsignedsSize(ConstHandle2ConstCopyright This)
+CopyrightUnsignedsSize(ConstHandle2ConstCopyright self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"UnsignedsSize", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 unsigned
-CopyrightUnsignedsGet(ConstHandle2ConstCopyright This, const size_t index)
+CopyrightUnsignedsGet(ConstHandle2ConstCopyright self, const size_t index)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGet", This, index);
+      (CLASSNAME, CLASSNAME+"UnsignedsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CopyrightUnsignedsSet(ConstHandle2Copyright This, const size_t index, const unsigned value)
+CopyrightUnsignedsSet(ConstHandle2Copyright self, const size_t index, const unsigned value)
 {
    detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"UnsignedsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const unsigned *
-CopyrightUnsignedsGetArrayConst(ConstHandle2ConstCopyright This)
+CopyrightUnsignedsGetArrayConst(ConstHandle2ConstCopyright self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 unsigned *
-CopyrightUnsignedsGetArray(ConstHandle2Copyright This)
+CopyrightUnsignedsGetArray(ConstHandle2Copyright self)
 {
    return detail::vectorGet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", This);
+      (CLASSNAME, CLASSNAME+"UnsignedsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CopyrightUnsignedsSetArray(ConstHandle2Copyright This, const unsigned *const values, const size_t size)
+CopyrightUnsignedsSetArray(ConstHandle2Copyright self, const unsigned *const values, const size_t size)
 {
    return detail::vectorSet<CPP,unsigned>
-      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"UnsignedsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -284,60 +284,60 @@ CopyrightUnsignedsSetArray(ConstHandle2Copyright This, const unsigned *const val
 
 // Clear
 void
-CopyrightFloatsClear(ConstHandle2Copyright This)
+CopyrightFloatsClear(ConstHandle2Copyright self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsClear", This);
+      (CLASSNAME, CLASSNAME+"FloatsClear", self);
 }
 
 // Get size
 size_t
-CopyrightFloatsSize(ConstHandle2ConstCopyright This)
+CopyrightFloatsSize(ConstHandle2ConstCopyright self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"FloatsSize", This);
+      (CLASSNAME, CLASSNAME+"FloatsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 float
-CopyrightFloatsGet(ConstHandle2ConstCopyright This, const size_t index)
+CopyrightFloatsGet(ConstHandle2ConstCopyright self, const size_t index)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGet", This, index);
+      (CLASSNAME, CLASSNAME+"FloatsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CopyrightFloatsSet(ConstHandle2Copyright This, const size_t index, const float value)
+CopyrightFloatsSet(ConstHandle2Copyright self, const size_t index, const float value)
 {
    detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"FloatsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const float *
-CopyrightFloatsGetArrayConst(ConstHandle2ConstCopyright This)
+CopyrightFloatsGetArrayConst(ConstHandle2ConstCopyright self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 float *
-CopyrightFloatsGetArray(ConstHandle2Copyright This)
+CopyrightFloatsGetArray(ConstHandle2Copyright self)
 {
    return detail::vectorGet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsGetArray", This);
+      (CLASSNAME, CLASSNAME+"FloatsGetArray", self);
 }
 
 // Set completely new values and size
 void
-CopyrightFloatsSetArray(ConstHandle2Copyright This, const float *const values, const size_t size)
+CopyrightFloatsSetArray(ConstHandle2Copyright self, const float *const values, const size_t size)
 {
    return detail::vectorSet<CPP,float>
-      (CLASSNAME, CLASSNAME+"FloatsSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"FloatsSetArray", self, size, values);
 }
 
 // ------------------------
@@ -346,60 +346,60 @@ CopyrightFloatsSetArray(ConstHandle2Copyright This, const float *const values, c
 
 // Clear
 void
-CopyrightDoublesClear(ConstHandle2Copyright This)
+CopyrightDoublesClear(ConstHandle2Copyright self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesClear", This);
+      (CLASSNAME, CLASSNAME+"DoublesClear", self);
 }
 
 // Get size
 size_t
-CopyrightDoublesSize(ConstHandle2ConstCopyright This)
+CopyrightDoublesSize(ConstHandle2ConstCopyright self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"DoublesSize", This);
+      (CLASSNAME, CLASSNAME+"DoublesSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 double
-CopyrightDoublesGet(ConstHandle2ConstCopyright This, const size_t index)
+CopyrightDoublesGet(ConstHandle2ConstCopyright self, const size_t index)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGet", This, index);
+      (CLASSNAME, CLASSNAME+"DoublesGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-CopyrightDoublesSet(ConstHandle2Copyright This, const size_t index, const double value)
+CopyrightDoublesSet(ConstHandle2Copyright self, const size_t index, const double value)
 {
    detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSet", This, index, value);
+      (CLASSNAME, CLASSNAME+"DoublesSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const double *
-CopyrightDoublesGetArrayConst(ConstHandle2ConstCopyright This)
+CopyrightDoublesGetArrayConst(ConstHandle2ConstCopyright self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
 // Get pointer to existing values, non-const
 double *
-CopyrightDoublesGetArray(ConstHandle2Copyright This)
+CopyrightDoublesGetArray(ConstHandle2Copyright self)
 {
    return detail::vectorGet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesGetArray", This);
+      (CLASSNAME, CLASSNAME+"DoublesGetArray", self);
 }
 
 // Set completely new values and size
 void
-CopyrightDoublesSetArray(ConstHandle2Copyright This, const double *const values, const size_t size)
+CopyrightDoublesSetArray(ConstHandle2Copyright self, const double *const values, const size_t size)
 {
    return detail::vectorSet<CPP,double>
-      (CLASSNAME, CLASSNAME+"DoublesSetArray", This, size, values);
+      (CLASSNAME, CLASSNAME+"DoublesSetArray", self, size, values);
 }
 
 
@@ -409,27 +409,27 @@ CopyrightDoublesSetArray(ConstHandle2Copyright This, const double *const values,
 
 // Has
 int
-CopyrightEncodingHas(ConstHandle2ConstCopyright This)
+CopyrightEncodingHas(ConstHandle2ConstCopyright self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingHas", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingHas", self, extract::encoding);
 }
 
 // Get
 // Returns by value
 XMLName
-CopyrightEncodingGet(ConstHandle2ConstCopyright This)
+CopyrightEncodingGet(ConstHandle2ConstCopyright self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingGet", This, extract::encoding);
+      (CLASSNAME, CLASSNAME+"EncodingGet", self, extract::encoding);
 }
 
 // Set
 void
-CopyrightEncodingSet(ConstHandle2Copyright This, const XMLName encoding)
+CopyrightEncodingSet(ConstHandle2Copyright self, const XMLName encoding)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"EncodingSet", This, extract::encoding, encoding);
+      (CLASSNAME, CLASSNAME+"EncodingSet", self, extract::encoding, encoding);
 }
 
 
@@ -439,27 +439,27 @@ CopyrightEncodingSet(ConstHandle2Copyright This, const XMLName encoding)
 
 // Has
 int
-CopyrightMarkupHas(ConstHandle2ConstCopyright This)
+CopyrightMarkupHas(ConstHandle2ConstCopyright self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupHas", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupHas", self, extract::markup);
 }
 
 // Get
 // Returns by value
 const char *
-CopyrightMarkupGet(ConstHandle2ConstCopyright This)
+CopyrightMarkupGet(ConstHandle2ConstCopyright self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupGet", This, extract::markup);
+      (CLASSNAME, CLASSNAME+"MarkupGet", self, extract::markup);
 }
 
 // Set
 void
-CopyrightMarkupSet(ConstHandle2Copyright This, const char *const markup)
+CopyrightMarkupSet(ConstHandle2Copyright self, const char *const markup)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"MarkupSet", This, extract::markup, markup);
+      (CLASSNAME, CLASSNAME+"MarkupSet", self, extract::markup, markup);
 }
 
 
@@ -469,27 +469,27 @@ CopyrightMarkupSet(ConstHandle2Copyright This, const char *const markup)
 
 // Has
 int
-CopyrightLabelHas(ConstHandle2ConstCopyright This)
+CopyrightLabelHas(ConstHandle2ConstCopyright self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-CopyrightLabelGet(ConstHandle2ConstCopyright This)
+CopyrightLabelGet(ConstHandle2ConstCopyright self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-CopyrightLabelSet(ConstHandle2Copyright This, const XMLName label)
+CopyrightLabelSet(ConstHandle2Copyright self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -499,27 +499,27 @@ CopyrightLabelSet(ConstHandle2Copyright This, const XMLName label)
 
 // Has
 int
-CopyrightHrefHas(ConstHandle2ConstCopyright This)
+CopyrightHrefHas(ConstHandle2ConstCopyright self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefHas", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefHas", self, extract::href);
 }
 
 // Get
 // Returns by value
 UTF8Text
-CopyrightHrefGet(ConstHandle2ConstCopyright This)
+CopyrightHrefGet(ConstHandle2ConstCopyright self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefGet", This, extract::href);
+      (CLASSNAME, CLASSNAME+"HrefGet", self, extract::href);
 }
 
 // Set
 void
-CopyrightHrefSet(ConstHandle2Copyright This, const UTF8Text href)
+CopyrightHrefSet(ConstHandle2Copyright self, const UTF8Text href)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"HrefSet", This, extract::href, href);
+      (CLASSNAME, CLASSNAME+"HrefSet", self, extract::href, href);
 }
 
 

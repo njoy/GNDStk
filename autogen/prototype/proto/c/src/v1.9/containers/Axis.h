@@ -93,13 +93,13 @@ AxisCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AxisAssign(ConstHandle2Axis This, ConstHandle2ConstAxis from);
+AxisAssign(ConstHandle2Axis self, ConstHandle2ConstAxis from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AxisDelete(ConstHandle2ConstAxis This);
+AxisDelete(ConstHandle2ConstAxis self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ AxisDelete(ConstHandle2ConstAxis This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AxisRead(ConstHandle2Axis This, const char *const filename);
+AxisRead(ConstHandle2Axis self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AxisWrite(ConstHandle2ConstAxis This, const char *const filename);
+AxisWrite(ConstHandle2ConstAxis self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AxisPrint(ConstHandle2ConstAxis This);
+AxisPrint(ConstHandle2ConstAxis self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AxisPrintXML(ConstHandle2ConstAxis This);
+AxisPrintXML(ConstHandle2ConstAxis self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AxisPrintJSON(ConstHandle2ConstAxis This);
+AxisPrintJSON(ConstHandle2ConstAxis self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ AxisPrintJSON(ConstHandle2ConstAxis This);
 
 // +++ Has
 extern_c int
-AxisIndexHas(ConstHandle2ConstAxis This);
+AxisIndexHas(ConstHandle2ConstAxis self);
 
 // +++ Get
 // +++ Returns by value
 extern_c int
-AxisIndexGet(ConstHandle2ConstAxis This);
+AxisIndexGet(ConstHandle2ConstAxis self);
 
 // +++ Set
 extern_c void
-AxisIndexSet(ConstHandle2Axis This, const int index);
+AxisIndexSet(ConstHandle2Axis self, const int index);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ AxisIndexSet(ConstHandle2Axis This, const int index);
 
 // +++ Has
 extern_c int
-AxisLabelHas(ConstHandle2ConstAxis This);
+AxisLabelHas(ConstHandle2ConstAxis self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AxisLabelGet(ConstHandle2ConstAxis This);
+AxisLabelGet(ConstHandle2ConstAxis self);
 
 // +++ Set
 extern_c void
-AxisLabelSet(ConstHandle2Axis This, const char *const label);
+AxisLabelSet(ConstHandle2Axis self, const char *const label);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ AxisLabelSet(ConstHandle2Axis This, const char *const label);
 
 // +++ Has
 extern_c int
-AxisUnitHas(ConstHandle2ConstAxis This);
+AxisUnitHas(ConstHandle2ConstAxis self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-AxisUnitGet(ConstHandle2ConstAxis This);
+AxisUnitGet(ConstHandle2ConstAxis self);
 
 // +++ Set
 extern_c void
-AxisUnitSet(ConstHandle2Axis This, const char *const unit);
+AxisUnitSet(ConstHandle2Axis self, const char *const unit);
 
 
 // -----------------------------------------------------------------------------

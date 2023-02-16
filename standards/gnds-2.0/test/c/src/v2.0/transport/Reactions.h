@@ -90,13 +90,13 @@ ReactionsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ReactionsAssign(ConstHandle2Reactions This, ConstHandle2ConstReactions from);
+ReactionsAssign(ConstHandle2Reactions self, ConstHandle2ConstReactions from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ReactionsDelete(ConstHandle2ConstReactions This);
+ReactionsDelete(ConstHandle2ConstReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ ReactionsDelete(ConstHandle2ConstReactions This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ReactionsRead(ConstHandle2Reactions This, const char *const filename);
+ReactionsRead(ConstHandle2Reactions self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ReactionsWrite(ConstHandle2ConstReactions This, const char *const filename);
+ReactionsWrite(ConstHandle2ConstReactions self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ReactionsPrint(ConstHandle2ConstReactions This);
+ReactionsPrint(ConstHandle2ConstReactions self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ReactionsPrintXML(ConstHandle2ConstReactions This);
+ReactionsPrintXML(ConstHandle2ConstReactions self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ReactionsPrintJSON(ConstHandle2ConstReactions This);
+ReactionsPrintJSON(ConstHandle2ConstReactions self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ ReactionsPrintJSON(ConstHandle2ConstReactions This);
 
 // +++ Has
 extern_c int
-ReactionsReactionHas(ConstHandle2ConstReactions This);
+ReactionsReactionHas(ConstHandle2ConstReactions self);
 
 // +++ Clear
 extern_c void
-ReactionsReactionClear(ConstHandle2Reactions This);
+ReactionsReactionClear(ConstHandle2Reactions self);
 
 // +++ Size
 extern_c size_t
-ReactionsReactionSize(ConstHandle2ConstReactions This);
+ReactionsReactionSize(ConstHandle2ConstReactions self);
 
 // +++ Add
 extern_c void
-ReactionsReactionAdd(ConstHandle2Reactions This, ConstHandle2ConstReaction reaction);
+ReactionsReactionAdd(ConstHandle2Reactions self, ConstHandle2ConstReaction reaction);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstReaction
-ReactionsReactionGetConst(ConstHandle2ConstReactions This, const size_t index_);
+ReactionsReactionGetConst(ConstHandle2ConstReactions self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Reaction
-ReactionsReactionGet(ConstHandle2Reactions This, const size_t index_);
+ReactionsReactionGet(ConstHandle2Reactions self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 ReactionsReactionSet(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const size_t index_,
    ConstHandle2ConstReaction reaction
 );
@@ -169,28 +169,28 @@ ReactionsReactionSet(
 // +++ Has, by ENDF_MT
 extern_c int
 ReactionsReactionHasByENDFMT(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const Integer32 ENDF_MT
 );
 
 // --- Get, by ENDF_MT, const
 extern_c Handle2ConstReaction
 ReactionsReactionGetByENDFMTConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const Integer32 ENDF_MT
 );
 
 // +++ Get, by ENDF_MT, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByENDFMT(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const Integer32 ENDF_MT
 );
 
 // +++ Set, by ENDF_MT
 extern_c void
 ReactionsReactionSetByENDFMT(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const Integer32 ENDF_MT,
    ConstHandle2ConstReaction reaction
 );
@@ -198,28 +198,28 @@ ReactionsReactionSetByENDFMT(
 // +++ Has, by fissionGenre
 extern_c int
 ReactionsReactionHasByFissionGenre(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName fissionGenre
 );
 
 // --- Get, by fissionGenre, const
 extern_c Handle2ConstReaction
 ReactionsReactionGetByFissionGenreConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName fissionGenre
 );
 
 // +++ Get, by fissionGenre, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByFissionGenre(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName fissionGenre
 );
 
 // +++ Set, by fissionGenre
 extern_c void
 ReactionsReactionSetByFissionGenre(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName fissionGenre,
    ConstHandle2ConstReaction reaction
 );
@@ -227,28 +227,28 @@ ReactionsReactionSetByFissionGenre(
 // +++ Has, by label
 extern_c int
 ReactionsReactionHasByLabel(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstReaction
 ReactionsReactionGetByLabelConst(
-   ConstHandle2ConstReactions This,
+   ConstHandle2ConstReactions self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByLabel(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 ReactionsReactionSetByLabel(
-   ConstHandle2Reactions This,
+   ConstHandle2Reactions self,
    const XMLName label,
    ConstHandle2ConstReaction reaction
 );

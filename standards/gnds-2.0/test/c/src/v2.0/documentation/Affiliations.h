@@ -90,13 +90,13 @@ AffiliationsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AffiliationsAssign(ConstHandle2Affiliations This, ConstHandle2ConstAffiliations from);
+AffiliationsAssign(ConstHandle2Affiliations self, ConstHandle2ConstAffiliations from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AffiliationsDelete(ConstHandle2ConstAffiliations This);
+AffiliationsDelete(ConstHandle2ConstAffiliations self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ AffiliationsDelete(ConstHandle2ConstAffiliations This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AffiliationsRead(ConstHandle2Affiliations This, const char *const filename);
+AffiliationsRead(ConstHandle2Affiliations self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AffiliationsWrite(ConstHandle2ConstAffiliations This, const char *const filename);
+AffiliationsWrite(ConstHandle2ConstAffiliations self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AffiliationsPrint(ConstHandle2ConstAffiliations This);
+AffiliationsPrint(ConstHandle2ConstAffiliations self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AffiliationsPrintXML(ConstHandle2ConstAffiliations This);
+AffiliationsPrintXML(ConstHandle2ConstAffiliations self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AffiliationsPrintJSON(ConstHandle2ConstAffiliations This);
+AffiliationsPrintJSON(ConstHandle2ConstAffiliations self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ AffiliationsPrintJSON(ConstHandle2ConstAffiliations This);
 
 // +++ Has
 extern_c int
-AffiliationsAffiliationHas(ConstHandle2ConstAffiliations This);
+AffiliationsAffiliationHas(ConstHandle2ConstAffiliations self);
 
 // +++ Clear
 extern_c void
-AffiliationsAffiliationClear(ConstHandle2Affiliations This);
+AffiliationsAffiliationClear(ConstHandle2Affiliations self);
 
 // +++ Size
 extern_c size_t
-AffiliationsAffiliationSize(ConstHandle2ConstAffiliations This);
+AffiliationsAffiliationSize(ConstHandle2ConstAffiliations self);
 
 // +++ Add
 extern_c void
-AffiliationsAffiliationAdd(ConstHandle2Affiliations This, ConstHandle2ConstAffiliation affiliation);
+AffiliationsAffiliationAdd(ConstHandle2Affiliations self, ConstHandle2ConstAffiliation affiliation);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstAffiliation
-AffiliationsAffiliationGetConst(ConstHandle2ConstAffiliations This, const size_t index_);
+AffiliationsAffiliationGetConst(ConstHandle2ConstAffiliations self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Affiliation
-AffiliationsAffiliationGet(ConstHandle2Affiliations This, const size_t index_);
+AffiliationsAffiliationGet(ConstHandle2Affiliations self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 AffiliationsAffiliationSet(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const size_t index_,
    ConstHandle2ConstAffiliation affiliation
 );
@@ -169,28 +169,28 @@ AffiliationsAffiliationSet(
 // +++ Has, by name
 extern_c int
 AffiliationsAffiliationHasByName(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text name
 );
 
 // --- Get, by name, const
 extern_c Handle2ConstAffiliation
 AffiliationsAffiliationGetByNameConst(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text name
 );
 
 // +++ Get, by name, non-const
 extern_c Handle2Affiliation
 AffiliationsAffiliationGetByName(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text name
 );
 
 // +++ Set, by name
 extern_c void
 AffiliationsAffiliationSetByName(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text name,
    ConstHandle2ConstAffiliation affiliation
 );
@@ -198,28 +198,28 @@ AffiliationsAffiliationSetByName(
 // +++ Has, by href
 extern_c int
 AffiliationsAffiliationHasByHref(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text href
 );
 
 // --- Get, by href, const
 extern_c Handle2ConstAffiliation
 AffiliationsAffiliationGetByHrefConst(
-   ConstHandle2ConstAffiliations This,
+   ConstHandle2ConstAffiliations self,
    const UTF8Text href
 );
 
 // +++ Get, by href, non-const
 extern_c Handle2Affiliation
 AffiliationsAffiliationGetByHref(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text href
 );
 
 // +++ Set, by href
 extern_c void
 AffiliationsAffiliationSetByHref(
-   ConstHandle2Affiliations This,
+   ConstHandle2Affiliations self,
    const UTF8Text href,
    ConstHandle2ConstAffiliation affiliation
 );

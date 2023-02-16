@@ -92,13 +92,13 @@ EnergyIntervalsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-EnergyIntervalsAssign(ConstHandle2EnergyIntervals This, ConstHandle2ConstEnergyIntervals from);
+EnergyIntervalsAssign(ConstHandle2EnergyIntervals self, ConstHandle2ConstEnergyIntervals from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-EnergyIntervalsDelete(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsDelete(ConstHandle2ConstEnergyIntervals self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ EnergyIntervalsDelete(ConstHandle2ConstEnergyIntervals This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-EnergyIntervalsRead(ConstHandle2EnergyIntervals This, const char *const filename);
+EnergyIntervalsRead(ConstHandle2EnergyIntervals self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-EnergyIntervalsWrite(ConstHandle2ConstEnergyIntervals This, const char *const filename);
+EnergyIntervalsWrite(ConstHandle2ConstEnergyIntervals self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-EnergyIntervalsPrint(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsPrint(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Print to standard output, as XML
 extern_c int
-EnergyIntervalsPrintXML(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsPrintXML(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-EnergyIntervalsPrintJSON(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsPrintJSON(ConstHandle2ConstEnergyIntervals self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ EnergyIntervalsPrintJSON(ConstHandle2ConstEnergyIntervals This);
 
 // +++ Has
 extern_c int
-EnergyIntervalsLabelHas(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsLabelHas(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-EnergyIntervalsLabelGet(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsLabelGet(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Set
 extern_c void
-EnergyIntervalsLabelSet(ConstHandle2EnergyIntervals This, const XMLName label);
+EnergyIntervalsLabelSet(ConstHandle2EnergyIntervals self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,32 +156,32 @@ EnergyIntervalsLabelSet(ConstHandle2EnergyIntervals This, const XMLName label);
 
 // +++ Has
 extern_c int
-EnergyIntervalsEnergyIntervalHas(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsEnergyIntervalHas(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Clear
 extern_c void
-EnergyIntervalsEnergyIntervalClear(ConstHandle2EnergyIntervals This);
+EnergyIntervalsEnergyIntervalClear(ConstHandle2EnergyIntervals self);
 
 // +++ Size
 extern_c size_t
-EnergyIntervalsEnergyIntervalSize(ConstHandle2ConstEnergyIntervals This);
+EnergyIntervalsEnergyIntervalSize(ConstHandle2ConstEnergyIntervals self);
 
 // +++ Add
 extern_c void
-EnergyIntervalsEnergyIntervalAdd(ConstHandle2EnergyIntervals This, ConstHandle2ConstEnergyInterval energyInterval);
+EnergyIntervalsEnergyIntervalAdd(ConstHandle2EnergyIntervals self, ConstHandle2ConstEnergyInterval energyInterval);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstEnergyInterval
-EnergyIntervalsEnergyIntervalGetConst(ConstHandle2ConstEnergyIntervals This, const size_t index_);
+EnergyIntervalsEnergyIntervalGetConst(ConstHandle2ConstEnergyIntervals self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2EnergyInterval
-EnergyIntervalsEnergyIntervalGet(ConstHandle2EnergyIntervals This, const size_t index_);
+EnergyIntervalsEnergyIntervalGet(ConstHandle2EnergyIntervals self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 EnergyIntervalsEnergyIntervalSet(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const size_t index_,
    ConstHandle2ConstEnergyInterval energyInterval
 );
@@ -189,28 +189,28 @@ EnergyIntervalsEnergyIntervalSet(
 // +++ Has, by index
 extern_c int
 EnergyIntervalsEnergyIntervalHasByIndex(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Integer32 index
 );
 
 // --- Get, by index, const
 extern_c Handle2ConstEnergyInterval
 EnergyIntervalsEnergyIntervalGetByIndexConst(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Integer32 index
 );
 
 // +++ Get, by index, non-const
 extern_c Handle2EnergyInterval
 EnergyIntervalsEnergyIntervalGetByIndex(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Integer32 index
 );
 
 // +++ Set, by index
 extern_c void
 EnergyIntervalsEnergyIntervalSetByIndex(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Integer32 index,
    ConstHandle2ConstEnergyInterval energyInterval
 );
@@ -218,28 +218,28 @@ EnergyIntervalsEnergyIntervalSetByIndex(
 // +++ Has, by domainMin
 extern_c int
 EnergyIntervalsEnergyIntervalHasByDomainMin(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Float64 domainMin
 );
 
 // --- Get, by domainMin, const
 extern_c Handle2ConstEnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainMinConst(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Float64 domainMin
 );
 
 // +++ Get, by domainMin, non-const
 extern_c Handle2EnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainMin(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Float64 domainMin
 );
 
 // +++ Set, by domainMin
 extern_c void
 EnergyIntervalsEnergyIntervalSetByDomainMin(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Float64 domainMin,
    ConstHandle2ConstEnergyInterval energyInterval
 );
@@ -247,28 +247,28 @@ EnergyIntervalsEnergyIntervalSetByDomainMin(
 // +++ Has, by domainMax
 extern_c int
 EnergyIntervalsEnergyIntervalHasByDomainMax(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Float64 domainMax
 );
 
 // --- Get, by domainMax, const
 extern_c Handle2ConstEnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainMaxConst(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const Float64 domainMax
 );
 
 // +++ Get, by domainMax, non-const
 extern_c Handle2EnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainMax(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Float64 domainMax
 );
 
 // +++ Set, by domainMax
 extern_c void
 EnergyIntervalsEnergyIntervalSetByDomainMax(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const Float64 domainMax,
    ConstHandle2ConstEnergyInterval energyInterval
 );
@@ -276,28 +276,28 @@ EnergyIntervalsEnergyIntervalSetByDomainMax(
 // +++ Has, by domainUnit
 extern_c int
 EnergyIntervalsEnergyIntervalHasByDomainUnit(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const XMLName domainUnit
 );
 
 // --- Get, by domainUnit, const
 extern_c Handle2ConstEnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainUnitConst(
-   ConstHandle2ConstEnergyIntervals This,
+   ConstHandle2ConstEnergyIntervals self,
    const XMLName domainUnit
 );
 
 // +++ Get, by domainUnit, non-const
 extern_c Handle2EnergyInterval
 EnergyIntervalsEnergyIntervalGetByDomainUnit(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const XMLName domainUnit
 );
 
 // +++ Set, by domainUnit
 extern_c void
 EnergyIntervalsEnergyIntervalSetByDomainUnit(
-   ConstHandle2EnergyIntervals This,
+   ConstHandle2EnergyIntervals self,
    const XMLName domainUnit,
    ConstHandle2ConstEnergyInterval energyInterval
 );

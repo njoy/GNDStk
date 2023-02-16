@@ -27,12 +27,12 @@ class Evaluated :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "Evaluated"; }
-   static auto FIELD() { return "evaluated"; }
+   static auto NODENAME() { return "evaluated"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -52,35 +52,93 @@ class Evaluated :
             / Meta<>("version") |
 
          // children
-         --Child<styles::ProjectileEnergyDomain>("projectileEnergyDomain") |
-         --Child<styles::Temperature>("temperature") |
-         --Child<documentation::Documentation>("documentation")
+         --Child<styles::ProjectileEnergyDomain>
+            ("projectileEnergyDomain") |
+         --Child<styles::Temperature>
+            ("temperature") |
+         --Child<documentation::Documentation>
+            ("documentation")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "label",
+         "derivedFrom",
+         "library",
+         "version",
+         "projectileEnergyDomain",
+         "temperature",
+         "documentation"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "date",
+         "label",
+         "derived_from",
+         "library",
+         "version",
+         "projectile_energy_domain",
+         "temperature",
+         "documentation"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::string> date{this};
-   Field<XMLName> label{this};
-   Field<std::optional<XMLName>> derivedFrom{this};
-   Field<XMLName> library{this};
-   Field<XMLName> version{this};
+   Field<std::string>
+      date{this};
+   Field<XMLName>
+      label{this};
+   Field<std::optional<XMLName>>
+      derivedFrom{this};
+   Field<XMLName>
+      library{this};
+   Field<XMLName>
+      version{this};
 
    // children
-   Field<styles::ProjectileEnergyDomain> projectileEnergyDomain{this};
-   Field<styles::Temperature> temperature{this};
-   Field<documentation::Documentation> documentation{this};
+   Field<styles::ProjectileEnergyDomain>
+      projectileEnergyDomain{this};
+   Field<styles::Temperature>
+      temperature{this};
+   Field<documentation::Documentation>
+      documentation{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->date, \
       this->label, \
@@ -89,7 +147,8 @@ public:
       this->version, \
       this->projectileEnergyDomain, \
       this->temperature, \
-      this->documentation)
+      this->documentation \
+   )
 
    // default
    Evaluated() :
@@ -100,14 +159,22 @@ public:
 
    // from fields, comment excluded
    explicit Evaluated(
-      const wrapper<std::string> &date,
-      const wrapper<XMLName> &label = {},
-      const wrapper<std::optional<XMLName>> &derivedFrom = {},
-      const wrapper<XMLName> &library = {},
-      const wrapper<XMLName> &version = {},
-      const wrapper<styles::ProjectileEnergyDomain> &projectileEnergyDomain = {},
-      const wrapper<styles::Temperature> &temperature = {},
-      const wrapper<documentation::Documentation> &documentation = {}
+      const wrapper<std::string>
+         &date,
+      const wrapper<XMLName>
+         &label = {},
+      const wrapper<std::optional<XMLName>>
+         &derivedFrom = {},
+      const wrapper<XMLName>
+         &library = {},
+      const wrapper<XMLName>
+         &version = {},
+      const wrapper<styles::ProjectileEnergyDomain>
+         &projectileEnergyDomain = {},
+      const wrapper<styles::Temperature>
+         &temperature = {},
+      const wrapper<documentation::Documentation>
+         &documentation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       date(this,date),
@@ -165,8 +232,41 @@ public:
    // Assignment operators
    // ------------------------
 
-   Evaluated &operator=(const Evaluated &) = default;
-   Evaluated &operator=(Evaluated &&) = default;
+   // copy
+   Evaluated &operator=(const Evaluated &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         date = other.date;
+         label = other.label;
+         derivedFrom = other.derivedFrom;
+         library = other.library;
+         version = other.version;
+         projectileEnergyDomain = other.projectileEnergyDomain;
+         temperature = other.temperature;
+         documentation = other.documentation;
+      }
+      return *this;
+   }
+
+   // move
+   Evaluated &operator=(Evaluated &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         date = std::move(other.date);
+         label = std::move(other.label);
+         derivedFrom = std::move(other.derivedFrom);
+         library = std::move(other.library);
+         version = std::move(other.version);
+         projectileEnergyDomain = std::move(other.projectileEnergyDomain);
+         temperature = std::move(other.temperature);
+         documentation = std::move(other.documentation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

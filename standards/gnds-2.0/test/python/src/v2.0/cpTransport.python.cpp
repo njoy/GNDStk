@@ -5,27 +5,27 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // cpTransport declarations
 namespace python_cpTransport {
-   void wrapRutherfordScattering(python::module &);
-   void wrapNuclearTerm(python::module &);
-   void wrapRealInterferenceTerm(python::module &);
-   void wrapImaginaryInterferenceTerm(python::module &);
-   void wrapNuclearAmplitudeExpansion(python::module &);
-   void wrapCoulombPlusNuclearElastic(python::module &);
-   void wrapNuclearPlusInterference(python::module &);
+   void wrapRutherfordScattering(py::module &);
+   void wrapNuclearTerm(py::module &);
+   void wrapRealInterferenceTerm(py::module &);
+   void wrapImaginaryInterferenceTerm(py::module &);
+   void wrapNuclearAmplitudeExpansion(py::module &);
+   void wrapCoulombPlusNuclearElastic(py::module &);
+   void wrapNuclearPlusInterference(py::module &);
 } // namespace python_cpTransport
 
-// cpTransport wrapper
-void wrapCpTransport(python::module &module)
+// wrapper for cpTransport
+void wrapCpTransport(py::module &module)
 {
    // create the cpTransport submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "cpTransport",
       "test v2.0 cpTransport"
    );

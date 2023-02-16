@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// DecayModes wrapper
-void wrapDecayModes(python::module &module)
+// wrapper for pops::DecayModes
+void wrapDecayModes(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::DecayModes;
+   using cppCLASS = pops::DecayModes;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "DecayModes",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "DecayModes",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::DecayMode> &
-         >(),
-         python::arg("decay_mode"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "decay_mode",
-         [](const Component &self) { return self.decayMode(); },
-         Component::documentation("decay_mode").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::DecayMode> &
+      >(),
+      py::arg("decay_mode"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set decayMode
+   object.def_property(
+      "decay_mode",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decayMode();
+      },
+      [](cppCLASS &self, const std::vector<pops::DecayMode> &value)
+      {
+         self.decayMode() = value;
+      },
+      cppCLASS::component_t::documentation("decay_mode").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

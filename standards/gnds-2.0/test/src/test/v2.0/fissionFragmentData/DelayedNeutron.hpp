@@ -26,12 +26,12 @@ class DelayedNeutron :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionFragmentData"; }
    static auto CLASS() { return "DelayedNeutron"; }
-   static auto FIELD() { return "delayedNeutron"; }
+   static auto NODENAME() { return "delayedNeutron"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -43,33 +43,76 @@ class DelayedNeutron :
             / Meta<>("label") |
 
          // children
-         --Child<fissionFragmentData::Rate>("rate") |
-         --Child<common::Product>("product")
+         --Child<fissionFragmentData::Rate>
+            ("rate") |
+         --Child<common::Product>
+            ("product")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "rate",
+         "product"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "rate",
+         "product"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> label{this};
+   Field<XMLName>
+      label{this};
 
    // children
-   Field<fissionFragmentData::Rate> rate{this};
-   Field<common::Product> product{this};
+   Field<fissionFragmentData::Rate>
+      rate{this};
+   Field<common::Product>
+      product{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->rate, \
-      this->product)
+      this->product \
+   )
 
    // default
    DelayedNeutron() :
@@ -80,9 +123,12 @@ public:
 
    // from fields, comment excluded
    explicit DelayedNeutron(
-      const wrapper<XMLName> &label,
-      const wrapper<fissionFragmentData::Rate> &rate = {},
-      const wrapper<common::Product> &product = {}
+      const wrapper<XMLName>
+         &label,
+      const wrapper<fissionFragmentData::Rate>
+         &rate = {},
+      const wrapper<common::Product>
+         &product = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -125,8 +171,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   DelayedNeutron &operator=(const DelayedNeutron &) = default;
-   DelayedNeutron &operator=(DelayedNeutron &&) = default;
+   // copy
+   DelayedNeutron &operator=(const DelayedNeutron &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         rate = other.rate;
+         product = other.product;
+      }
+      return *this;
+   }
+
+   // move
+   DelayedNeutron &operator=(DelayedNeutron &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         rate = std::move(other.rate);
+         product = std::move(other.product);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

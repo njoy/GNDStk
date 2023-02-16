@@ -90,13 +90,13 @@ IsotopesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-IsotopesAssign(ConstHandle2Isotopes This, ConstHandle2ConstIsotopes from);
+IsotopesAssign(ConstHandle2Isotopes self, ConstHandle2ConstIsotopes from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-IsotopesDelete(ConstHandle2ConstIsotopes This);
+IsotopesDelete(ConstHandle2ConstIsotopes self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ IsotopesDelete(ConstHandle2ConstIsotopes This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-IsotopesRead(ConstHandle2Isotopes This, const char *const filename);
+IsotopesRead(ConstHandle2Isotopes self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-IsotopesWrite(ConstHandle2ConstIsotopes This, const char *const filename);
+IsotopesWrite(ConstHandle2ConstIsotopes self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-IsotopesPrint(ConstHandle2ConstIsotopes This);
+IsotopesPrint(ConstHandle2ConstIsotopes self);
 
 // +++ Print to standard output, as XML
 extern_c int
-IsotopesPrintXML(ConstHandle2ConstIsotopes This);
+IsotopesPrintXML(ConstHandle2ConstIsotopes self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-IsotopesPrintJSON(ConstHandle2ConstIsotopes This);
+IsotopesPrintJSON(ConstHandle2ConstIsotopes self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ IsotopesPrintJSON(ConstHandle2ConstIsotopes This);
 
 // +++ Has
 extern_c int
-IsotopesIsotopeHas(ConstHandle2ConstIsotopes This);
+IsotopesIsotopeHas(ConstHandle2ConstIsotopes self);
 
 // +++ Clear
 extern_c void
-IsotopesIsotopeClear(ConstHandle2Isotopes This);
+IsotopesIsotopeClear(ConstHandle2Isotopes self);
 
 // +++ Size
 extern_c size_t
-IsotopesIsotopeSize(ConstHandle2ConstIsotopes This);
+IsotopesIsotopeSize(ConstHandle2ConstIsotopes self);
 
 // +++ Add
 extern_c void
-IsotopesIsotopeAdd(ConstHandle2Isotopes This, ConstHandle2ConstIsotope isotope);
+IsotopesIsotopeAdd(ConstHandle2Isotopes self, ConstHandle2ConstIsotope isotope);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstIsotope
-IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes This, const size_t index_);
+IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Isotope
-IsotopesIsotopeGet(ConstHandle2Isotopes This, const size_t index_);
+IsotopesIsotopeGet(ConstHandle2Isotopes self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 IsotopesIsotopeSet(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const size_t index_,
    ConstHandle2ConstIsotope isotope
 );
@@ -169,28 +169,28 @@ IsotopesIsotopeSet(
 // +++ Has, by A
 extern_c int
 IsotopesIsotopeHasByA(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const Integer32 A
 );
 
 // --- Get, by A, const
 extern_c Handle2ConstIsotope
 IsotopesIsotopeGetByAConst(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const Integer32 A
 );
 
 // +++ Get, by A, non-const
 extern_c Handle2Isotope
 IsotopesIsotopeGetByA(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const Integer32 A
 );
 
 // +++ Set, by A
 extern_c void
 IsotopesIsotopeSetByA(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const Integer32 A,
    ConstHandle2ConstIsotope isotope
 );
@@ -198,28 +198,28 @@ IsotopesIsotopeSetByA(
 // +++ Has, by symbol
 extern_c int
 IsotopesIsotopeHasBySymbol(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const XMLName symbol
 );
 
 // --- Get, by symbol, const
 extern_c Handle2ConstIsotope
 IsotopesIsotopeGetBySymbolConst(
-   ConstHandle2ConstIsotopes This,
+   ConstHandle2ConstIsotopes self,
    const XMLName symbol
 );
 
 // +++ Get, by symbol, non-const
 extern_c Handle2Isotope
 IsotopesIsotopeGetBySymbol(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const XMLName symbol
 );
 
 // +++ Set, by symbol
 extern_c void
 IsotopesIsotopeSetBySymbol(
-   ConstHandle2Isotopes This,
+   ConstHandle2Isotopes self,
    const XMLName symbol,
    ConstHandle2ConstIsotope isotope
 );

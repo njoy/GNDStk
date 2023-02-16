@@ -25,12 +25,12 @@ class ProjectileEnergyDomain :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "general"; }
    static auto CLASS() { return "ProjectileEnergyDomain"; }
-   static auto FIELD() { return "projectileEnergyDomain"; }
+   static auto NODENAME() { return "projectileEnergyDomain"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return

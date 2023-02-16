@@ -11,45 +11,51 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// AverageEnergies wrapper
-void wrapAverageEnergies(python::module &module)
+// wrapper for pops::AverageEnergies
+void wrapAverageEnergies(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::AverageEnergies;
+   using cppCLASS = pops::AverageEnergies;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "AverageEnergies",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "AverageEnergies",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::vector<pops::AverageEnergy> &
-         >(),
-         python::arg("average_energy"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "average_energy",
-         [](const Component &self) { return self.averageEnergy(); },
-         Component::documentation("average_energy").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::vector<pops::AverageEnergy> &
+      >(),
+      py::arg("average_energy"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set averageEnergy
+   object.def_property(
+      "average_energy",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.averageEnergy();
+      },
+      [](cppCLASS &self, const std::vector<pops::AverageEnergy> &value)
+      {
+         self.averageEnergy() = value;
+      },
+      cppCLASS::component_t::documentation("average_energy").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops

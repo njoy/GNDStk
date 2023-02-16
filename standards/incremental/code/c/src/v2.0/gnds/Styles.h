@@ -90,13 +90,13 @@ StylesCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-StylesAssign(ConstHandle2Styles This, ConstHandle2ConstStyles from);
+StylesAssign(ConstHandle2Styles self, ConstHandle2ConstStyles from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-StylesDelete(ConstHandle2ConstStyles This);
+StylesDelete(ConstHandle2ConstStyles self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ StylesDelete(ConstHandle2ConstStyles This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-StylesRead(ConstHandle2Styles This, const char *const filename);
+StylesRead(ConstHandle2Styles self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-StylesWrite(ConstHandle2ConstStyles This, const char *const filename);
+StylesWrite(ConstHandle2ConstStyles self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-StylesPrint(ConstHandle2ConstStyles This);
+StylesPrint(ConstHandle2ConstStyles self);
 
 // +++ Print to standard output, as XML
 extern_c int
-StylesPrintXML(ConstHandle2ConstStyles This);
+StylesPrintXML(ConstHandle2ConstStyles self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-StylesPrintJSON(ConstHandle2ConstStyles This);
+StylesPrintJSON(ConstHandle2ConstStyles self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ StylesPrintJSON(ConstHandle2ConstStyles This);
 
 // +++ Has
 extern_c int
-StylesEvaluatedHas(ConstHandle2ConstStyles This);
+StylesEvaluatedHas(ConstHandle2ConstStyles self);
 
 // --- Get, const
 extern_c Handle2ConstEvaluated
-StylesEvaluatedGetConst(ConstHandle2ConstStyles This);
+StylesEvaluatedGetConst(ConstHandle2ConstStyles self);
 
 // +++ Get, non-const
 extern_c Handle2Evaluated
-StylesEvaluatedGet(ConstHandle2Styles This);
+StylesEvaluatedGet(ConstHandle2Styles self);
 
 // +++ Set
 extern_c void
-StylesEvaluatedSet(ConstHandle2Styles This, ConstHandle2ConstEvaluated evaluated);
+StylesEvaluatedSet(ConstHandle2Styles self, ConstHandle2ConstEvaluated evaluated);
 
 
 // -----------------------------------------------------------------------------

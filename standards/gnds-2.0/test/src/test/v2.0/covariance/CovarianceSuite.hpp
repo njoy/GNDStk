@@ -28,12 +28,12 @@ class CovarianceSuite :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "covariance"; }
    static auto CLASS() { return "CovarianceSuite"; }
-   static auto FIELD() { return "covarianceSuite"; }
+   static auto NODENAME() { return "covarianceSuite"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -53,37 +53,99 @@ class CovarianceSuite :
             / Meta<>("version") |
 
          // children
-         --Child<std::optional<common::ExternalFiles>>("externalFiles") |
-         --Child<std::optional<styles::Styles>>("styles") |
-         --Child<std::optional<covariance::CovarianceSections>>("covarianceSections") |
-         --Child<std::optional<covariance::ParameterCovariances>>("parameterCovariances")
+         --Child<std::optional<common::ExternalFiles>>
+            ("externalFiles") |
+         --Child<std::optional<styles::Styles>>
+            ("styles") |
+         --Child<std::optional<covariance::CovarianceSections>>
+            ("covarianceSections") |
+         --Child<std::optional<covariance::ParameterCovariances>>
+            ("parameterCovariances")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "projectile",
+         "target",
+         "interaction",
+         "format",
+         "externalFiles",
+         "styles",
+         "covarianceSections",
+         "parameterCovariances"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluation",
+         "projectile",
+         "target",
+         "interaction",
+         "format",
+         "external_files",
+         "styles",
+         "covariance_sections",
+         "parameter_covariances"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> evaluation{this};
-   Field<std::optional<XMLName>> projectile{this};
-   Field<std::optional<XMLName>> target{this};
-   Field<enums::Interaction> interaction{this};
-   Field<std::optional<Float64>> format{this};
+   Field<std::optional<XMLName>>
+      evaluation{this};
+   Field<std::optional<XMLName>>
+      projectile{this};
+   Field<std::optional<XMLName>>
+      target{this};
+   Field<enums::Interaction>
+      interaction{this};
+   Field<std::optional<Float64>>
+      format{this};
 
    // children
-   Field<std::optional<common::ExternalFiles>> externalFiles{this};
-   Field<std::optional<styles::Styles>> styles{this};
-   Field<std::optional<covariance::CovarianceSections>> covarianceSections{this};
-   Field<std::optional<covariance::ParameterCovariances>> parameterCovariances{this};
+   Field<std::optional<common::ExternalFiles>>
+      externalFiles{this};
+   Field<std::optional<styles::Styles>>
+      styles{this};
+   Field<std::optional<covariance::CovarianceSections>>
+      covarianceSections{this};
+   Field<std::optional<covariance::ParameterCovariances>>
+      parameterCovariances{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->evaluation, \
       this->projectile, \
@@ -93,7 +155,8 @@ public:
       this->externalFiles, \
       this->styles, \
       this->covarianceSections, \
-      this->parameterCovariances)
+      this->parameterCovariances \
+   )
 
    // default
    CovarianceSuite() :
@@ -104,15 +167,24 @@ public:
 
    // from fields, comment excluded
    explicit CovarianceSuite(
-      const wrapper<std::optional<XMLName>> &evaluation,
-      const wrapper<std::optional<XMLName>> &projectile = {},
-      const wrapper<std::optional<XMLName>> &target = {},
-      const wrapper<enums::Interaction> &interaction = {},
-      const wrapper<std::optional<Float64>> &format = {},
-      const wrapper<std::optional<common::ExternalFiles>> &externalFiles = {},
-      const wrapper<std::optional<styles::Styles>> &styles = {},
-      const wrapper<std::optional<covariance::CovarianceSections>> &covarianceSections = {},
-      const wrapper<std::optional<covariance::ParameterCovariances>> &parameterCovariances = {}
+      const wrapper<std::optional<XMLName>>
+         &evaluation,
+      const wrapper<std::optional<XMLName>>
+         &projectile = {},
+      const wrapper<std::optional<XMLName>>
+         &target = {},
+      const wrapper<enums::Interaction>
+         &interaction = {},
+      const wrapper<std::optional<Float64>>
+         &format = {},
+      const wrapper<std::optional<common::ExternalFiles>>
+         &externalFiles = {},
+      const wrapper<std::optional<styles::Styles>>
+         &styles = {},
+      const wrapper<std::optional<covariance::CovarianceSections>>
+         &covarianceSections = {},
+      const wrapper<std::optional<covariance::ParameterCovariances>>
+         &parameterCovariances = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       evaluation(this,evaluation),
@@ -173,8 +245,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   CovarianceSuite &operator=(const CovarianceSuite &) = default;
-   CovarianceSuite &operator=(CovarianceSuite &&) = default;
+   // copy
+   CovarianceSuite &operator=(const CovarianceSuite &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         evaluation = other.evaluation;
+         projectile = other.projectile;
+         target = other.target;
+         interaction = other.interaction;
+         format = other.format;
+         externalFiles = other.externalFiles;
+         styles = other.styles;
+         covarianceSections = other.covarianceSections;
+         parameterCovariances = other.parameterCovariances;
+      }
+      return *this;
+   }
+
+   // move
+   CovarianceSuite &operator=(CovarianceSuite &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         evaluation = std::move(other.evaluation);
+         projectile = std::move(other.projectile);
+         target = std::move(other.target);
+         interaction = std::move(other.interaction);
+         format = std::move(other.format);
+         externalFiles = std::move(other.externalFiles);
+         styles = std::move(other.styles);
+         covarianceSections = std::move(other.covarianceSections);
+         parameterCovariances = std::move(other.parameterCovariances);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

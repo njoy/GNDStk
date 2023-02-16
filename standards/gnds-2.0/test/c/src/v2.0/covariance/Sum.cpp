@@ -93,20 +93,20 @@ SumCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-SumAssign(ConstHandle2Sum This, ConstHandle2ConstSum from)
+SumAssign(ConstHandle2Sum self, ConstHandle2ConstSum from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-SumDelete(ConstHandle2ConstSum This)
+SumDelete(ConstHandle2ConstSum self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -120,44 +120,44 @@ SumDelete(ConstHandle2ConstSum This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-SumRead(ConstHandle2Sum This, const char *const filename)
+SumRead(ConstHandle2Sum self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-SumWrite(ConstHandle2ConstSum This, const char *const filename)
+SumWrite(ConstHandle2ConstSum self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-SumPrint(ConstHandle2ConstSum This)
+SumPrint(ConstHandle2ConstSum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-SumPrintXML(ConstHandle2ConstSum This)
+SumPrintXML(ConstHandle2ConstSum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-SumPrintJSON(ConstHandle2ConstSum This)
+SumPrintJSON(ConstHandle2ConstSum self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -167,27 +167,27 @@ SumPrintJSON(ConstHandle2ConstSum This)
 
 // Has
 int
-SumDomainMinHas(ConstHandle2ConstSum This)
+SumDomainMinHas(ConstHandle2ConstSum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 Float64
-SumDomainMinGet(ConstHandle2ConstSum This)
+SumDomainMinGet(ConstHandle2ConstSum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-SumDomainMinSet(ConstHandle2Sum This, const Float64 domainMin)
+SumDomainMinSet(ConstHandle2Sum self, const Float64 domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -197,27 +197,27 @@ SumDomainMinSet(ConstHandle2Sum This, const Float64 domainMin)
 
 // Has
 int
-SumDomainMaxHas(ConstHandle2ConstSum This)
+SumDomainMaxHas(ConstHandle2ConstSum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 Float64
-SumDomainMaxGet(ConstHandle2ConstSum This)
+SumDomainMaxGet(ConstHandle2ConstSum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-SumDomainMaxSet(ConstHandle2Sum This, const Float64 domainMax)
+SumDomainMaxSet(ConstHandle2Sum self, const Float64 domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -227,27 +227,27 @@ SumDomainMaxSet(ConstHandle2Sum This, const Float64 domainMax)
 
 // Has
 int
-SumDomainUnitHas(ConstHandle2ConstSum This)
+SumDomainUnitHas(ConstHandle2ConstSum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitHas", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitHas", self, extract::domainUnit);
 }
 
 // Get
 // Returns by value
 XMLName
-SumDomainUnitGet(ConstHandle2ConstSum This)
+SumDomainUnitGet(ConstHandle2ConstSum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitGet", This, extract::domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitGet", self, extract::domainUnit);
 }
 
 // Set
 void
-SumDomainUnitSet(ConstHandle2Sum This, const XMLName domainUnit)
+SumDomainUnitSet(ConstHandle2Sum self, const XMLName domainUnit)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainUnitSet", This, extract::domainUnit, domainUnit);
+      (CLASSNAME, CLASSNAME+"DomainUnitSet", self, extract::domainUnit, domainUnit);
 }
 
 
@@ -257,27 +257,27 @@ SumDomainUnitSet(ConstHandle2Sum This, const XMLName domainUnit)
 
 // Has
 int
-SumLabelHas(ConstHandle2ConstSum This)
+SumLabelHas(ConstHandle2ConstSum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-SumLabelGet(ConstHandle2ConstSum This)
+SumLabelGet(ConstHandle2ConstSum self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-SumLabelSet(ConstHandle2Sum This, const XMLName label)
+SumLabelSet(ConstHandle2Sum self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -287,196 +287,196 @@ SumLabelSet(ConstHandle2Sum This, const XMLName label)
 
 // Has
 int
-SumSummandHas(ConstHandle2ConstSum This)
+SumSummandHas(ConstHandle2ConstSum self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"SummandHas", This, extract::summand);
+      (CLASSNAME, CLASSNAME+"SummandHas", self, extract::summand);
 }
 
 // Clear
 void
-SumSummandClear(ConstHandle2Sum This)
+SumSummandClear(ConstHandle2Sum self)
 {
    detail::clearContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SummandClear", This, extract::summand);
+      (CLASSNAME, CLASSNAME+"SummandClear", self, extract::summand);
 }
 
 // Size
 size_t
-SumSummandSize(ConstHandle2ConstSum This)
+SumSummandSize(ConstHandle2ConstSum self)
 {
    return detail::sizeOfContainer<CPP>
-      (CLASSNAME, CLASSNAME+"SummandSize", This, extract::summand);
+      (CLASSNAME, CLASSNAME+"SummandSize", self, extract::summand);
 }
 
 // Add
 void
-SumSummandAdd(ConstHandle2Sum This, ConstHandle2ConstSummand summand)
+SumSummandAdd(ConstHandle2Sum self, ConstHandle2ConstSummand summand)
 {
    detail::addToContainer<CPP,CPPSummand>
-      (CLASSNAME, CLASSNAME+"SummandAdd", This, extract::summand, summand);
+      (CLASSNAME, CLASSNAME+"SummandAdd", self, extract::summand, summand);
 }
 
 // Get, by index \in [0,size), const
 Handle2ConstSummand
-SumSummandGetConst(ConstHandle2ConstSum This, const size_t index_)
+SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2ConstSummand>
-      (CLASSNAME, CLASSNAME+"SummandGetConst", This, extract::summand, index_);
+      (CLASSNAME, CLASSNAME+"SummandGetConst", self, extract::summand, index_);
 }
 
 // Get, by index \in [0,size), non-const
 Handle2Summand
-SumSummandGet(ConstHandle2Sum This, const size_t index_)
+SumSummandGet(ConstHandle2Sum self, const size_t index_)
 {
    return detail::getByIndex<CPP,Handle2Summand>
-      (CLASSNAME, CLASSNAME+"SummandGet", This, extract::summand, index_);
+      (CLASSNAME, CLASSNAME+"SummandGet", self, extract::summand, index_);
 }
 
 // Set, by index \in [0,size)
 void
 SumSummandSet(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const size_t index_,
    ConstHandle2ConstSummand summand
 ) {
    detail::setByIndex<CPP,CPPSummand>
-      (CLASSNAME, CLASSNAME+"SummandSet", This, extract::summand, index_, summand);
+      (CLASSNAME, CLASSNAME+"SummandSet", self, extract::summand, index_, summand);
 }
 
 // Has, by ENDF_MFMT
 int
 SumSummandHasByENDFMFMT(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const XMLName ENDF_MFMT
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SummandHasByENDFMFMT",
-       This, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
+       self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
 }
 
 // Get, by ENDF_MFMT, const
 Handle2ConstSummand
 SumSummandGetByENDFMFMTConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const XMLName ENDF_MFMT
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSummand>
       (CLASSNAME, CLASSNAME+"SummandGetByENDFMFMTConst",
-       This, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
+       self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
 }
 
 // Get, by ENDF_MFMT, non-const
 Handle2Summand
 SumSummandGetByENDFMFMT(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const XMLName ENDF_MFMT
 ) {
    return detail::getByMetadatum<CPP,Handle2Summand>
       (CLASSNAME, CLASSNAME+"SummandGetByENDFMFMT",
-       This, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
+       self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
 }
 
 // Set, by ENDF_MFMT
 void
 SumSummandSetByENDFMFMT(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const XMLName ENDF_MFMT,
    ConstHandle2ConstSummand summand
 ) {
    detail::setByMetadatum<CPP,CPPSummand>
       (CLASSNAME, CLASSNAME+"SummandSetByENDFMFMT",
-       This, extract::summand, meta::ENDF_MFMT, ENDF_MFMT, summand);
+       self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT, summand);
 }
 
 // Has, by coefficient
 int
 SumSummandHasByCoefficient(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const Float64 coefficient
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SummandHasByCoefficient",
-       This, extract::summand, meta::coefficient, coefficient);
+       self, extract::summand, meta::coefficient, coefficient);
 }
 
 // Get, by coefficient, const
 Handle2ConstSummand
 SumSummandGetByCoefficientConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const Float64 coefficient
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSummand>
       (CLASSNAME, CLASSNAME+"SummandGetByCoefficientConst",
-       This, extract::summand, meta::coefficient, coefficient);
+       self, extract::summand, meta::coefficient, coefficient);
 }
 
 // Get, by coefficient, non-const
 Handle2Summand
 SumSummandGetByCoefficient(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const Float64 coefficient
 ) {
    return detail::getByMetadatum<CPP,Handle2Summand>
       (CLASSNAME, CLASSNAME+"SummandGetByCoefficient",
-       This, extract::summand, meta::coefficient, coefficient);
+       self, extract::summand, meta::coefficient, coefficient);
 }
 
 // Set, by coefficient
 void
 SumSummandSetByCoefficient(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const Float64 coefficient,
    ConstHandle2ConstSummand summand
 ) {
    detail::setByMetadatum<CPP,CPPSummand>
       (CLASSNAME, CLASSNAME+"SummandSetByCoefficient",
-       This, extract::summand, meta::coefficient, coefficient, summand);
+       self, extract::summand, meta::coefficient, coefficient, summand);
 }
 
 // Has, by href
 int
 SumSummandHasByHref(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const char *const href
 ) {
    return detail::hasByMetadatum<CPP>
       (CLASSNAME, CLASSNAME+"SummandHasByHref",
-       This, extract::summand, meta::href, href);
+       self, extract::summand, meta::href, href);
 }
 
 // Get, by href, const
 Handle2ConstSummand
 SumSummandGetByHrefConst(
-   ConstHandle2ConstSum This,
+   ConstHandle2ConstSum self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2ConstSummand>
       (CLASSNAME, CLASSNAME+"SummandGetByHrefConst",
-       This, extract::summand, meta::href, href);
+       self, extract::summand, meta::href, href);
 }
 
 // Get, by href, non-const
 Handle2Summand
 SumSummandGetByHref(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const char *const href
 ) {
    return detail::getByMetadatum<CPP,Handle2Summand>
       (CLASSNAME, CLASSNAME+"SummandGetByHref",
-       This, extract::summand, meta::href, href);
+       self, extract::summand, meta::href, href);
 }
 
 // Set, by href
 void
 SumSummandSetByHref(
-   ConstHandle2Sum This,
+   ConstHandle2Sum self,
    const char *const href,
    ConstHandle2ConstSummand summand
 ) {
    detail::setByMetadatum<CPP,CPPSummand>
       (CLASSNAME, CLASSNAME+"SummandSetByHref",
-       This, extract::summand, meta::href, href, summand);
+       self, extract::summand, meta::href, href, summand);
 }
 
 

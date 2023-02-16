@@ -93,13 +93,13 @@ ImportCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-ImportAssign(ConstHandle2Import This, ConstHandle2ConstImport from);
+ImportAssign(ConstHandle2Import self, ConstHandle2ConstImport from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-ImportDelete(ConstHandle2ConstImport This);
+ImportDelete(ConstHandle2ConstImport self);
 
 
 // -----------------------------------------------------------------------------
@@ -112,25 +112,25 @@ ImportDelete(ConstHandle2ConstImport This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-ImportRead(ConstHandle2Import This, const char *const filename);
+ImportRead(ConstHandle2Import self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-ImportWrite(ConstHandle2ConstImport This, const char *const filename);
+ImportWrite(ConstHandle2ConstImport self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-ImportPrint(ConstHandle2ConstImport This);
+ImportPrint(ConstHandle2ConstImport self);
 
 // +++ Print to standard output, as XML
 extern_c int
-ImportPrintXML(ConstHandle2ConstImport This);
+ImportPrintXML(ConstHandle2ConstImport self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-ImportPrintJSON(ConstHandle2ConstImport This);
+ImportPrintJSON(ConstHandle2ConstImport self);
 
 
 // -----------------------------------------------------------------------------
@@ -139,16 +139,16 @@ ImportPrintJSON(ConstHandle2ConstImport This);
 
 // +++ Has
 extern_c int
-ImportPathHas(ConstHandle2ConstImport This);
+ImportPathHas(ConstHandle2ConstImport self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-ImportPathGet(ConstHandle2ConstImport This);
+ImportPathGet(ConstHandle2ConstImport self);
 
 // +++ Set
 extern_c void
-ImportPathSet(ConstHandle2Import This, const XMLName path);
+ImportPathSet(ConstHandle2Import self, const XMLName path);
 
 
 // -----------------------------------------------------------------------------
@@ -157,16 +157,16 @@ ImportPathSet(ConstHandle2Import This, const XMLName path);
 
 // +++ Has
 extern_c int
-ImportChecksumHas(ConstHandle2ConstImport This);
+ImportChecksumHas(ConstHandle2ConstImport self);
 
 // +++ Get
 // +++ Returns by value
 extern_c const char *
-ImportChecksumGet(ConstHandle2ConstImport This);
+ImportChecksumGet(ConstHandle2ConstImport self);
 
 // +++ Set
 extern_c void
-ImportChecksumSet(ConstHandle2Import This, const char *const checksum);
+ImportChecksumSet(ConstHandle2Import self, const char *const checksum);
 
 
 // -----------------------------------------------------------------------------
@@ -175,16 +175,16 @@ ImportChecksumSet(ConstHandle2Import This, const char *const checksum);
 
 // +++ Has
 extern_c int
-ImportAlgorithmHas(ConstHandle2ConstImport This);
+ImportAlgorithmHas(ConstHandle2ConstImport self);
 
 // +++ Get
 // +++ Returns by value
 extern_c enums::HashAlgorithm
-ImportAlgorithmGet(ConstHandle2ConstImport This);
+ImportAlgorithmGet(ConstHandle2ConstImport self);
 
 // +++ Set
 extern_c void
-ImportAlgorithmSet(ConstHandle2Import This, const enums::HashAlgorithm algorithm);
+ImportAlgorithmSet(ConstHandle2Import self, const enums::HashAlgorithm algorithm);
 
 
 // -----------------------------------------------------------------------------

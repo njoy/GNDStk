@@ -33,12 +33,12 @@ class DoubleDifferentialCrossSection :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "DoubleDifferentialCrossSection"; }
-   static auto FIELD() { return "doubleDifferentialCrossSection"; }
+   static auto NODENAME() { return "doubleDifferentialCrossSection"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -46,40 +46,107 @@ class DoubleDifferentialCrossSection :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<containers::Regions3d>>("regions3d") |
-         --Child<std::optional<containers::XYs3d>>("XYs3d") |
-         --Child<std::optional<cpTransport::CoulombPlusNuclearElastic>>("CoulombPlusNuclearElastic") |
-         --Child<std::optional<transport::Reference>>("reference") |
-         --Child<std::optional<atomic::CoherentPhotonScattering>>("coherentPhotonScattering") |
-         --Child<std::optional<atomic::IncoherentPhotonScattering>>("incoherentPhotonScattering") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>("thermalNeutronScatteringLaw_coherentElastic") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>("thermalNeutronScatteringLaw_incoherentElastic") |
-         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>("thermalNeutronScatteringLaw_incoherentInelastic")
+         --Child<std::optional<containers::Regions3d>>
+            ("regions3d") |
+         --Child<std::optional<containers::XYs3d>>
+            ("XYs3d") |
+         --Child<std::optional<cpTransport::CoulombPlusNuclearElastic>>
+            ("CoulombPlusNuclearElastic") |
+         --Child<std::optional<transport::Reference>>
+            ("reference") |
+         --Child<std::optional<atomic::CoherentPhotonScattering>>
+            ("coherentPhotonScattering") |
+         --Child<std::optional<atomic::IncoherentPhotonScattering>>
+            ("incoherentPhotonScattering") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+            ("thermalNeutronScatteringLaw_coherentElastic") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+            ("thermalNeutronScatteringLaw_incoherentElastic") |
+         --Child<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+            ("thermalNeutronScatteringLaw_incoherentInelastic")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "regions3d",
+         "XYs3d",
+         "CoulombPlusNuclearElastic",
+         "reference",
+         "coherentPhotonScattering",
+         "incoherentPhotonScattering",
+         "thermalNeutronScatteringLaw_coherentElastic",
+         "thermalNeutronScatteringLaw_incoherentElastic",
+         "thermalNeutronScatteringLaw_incoherentInelastic"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "regions3d",
+         "xys3d",
+         "coulomb_plus_nuclear_elastic",
+         "reference",
+         "coherent_photon_scattering",
+         "incoherent_photon_scattering",
+         "thermal_neutron_scattering_law_coherent_elastic",
+         "thermal_neutron_scattering_law_incoherent_elastic",
+         "thermal_neutron_scattering_law_incoherent_inelastic"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<containers::Regions3d>> regions3d{this};
-   Field<std::optional<containers::XYs3d>> XYs3d{this};
-   Field<std::optional<cpTransport::CoulombPlusNuclearElastic>> CoulombPlusNuclearElastic{this};
-   Field<std::optional<transport::Reference>> reference{this};
-   Field<std::optional<atomic::CoherentPhotonScattering>> coherentPhotonScattering{this};
-   Field<std::optional<atomic::IncoherentPhotonScattering>> incoherentPhotonScattering{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>> thermalNeutronScatteringLaw_coherentElastic{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>> thermalNeutronScatteringLaw_incoherentElastic{this};
-   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>> thermalNeutronScatteringLaw_incoherentInelastic{this};
+   Field<std::optional<containers::Regions3d>>
+      regions3d{this};
+   Field<std::optional<containers::XYs3d>>
+      XYs3d{this};
+   Field<std::optional<cpTransport::CoulombPlusNuclearElastic>>
+      CoulombPlusNuclearElastic{this};
+   Field<std::optional<transport::Reference>>
+      reference{this};
+   Field<std::optional<atomic::CoherentPhotonScattering>>
+      coherentPhotonScattering{this};
+   Field<std::optional<atomic::IncoherentPhotonScattering>>
+      incoherentPhotonScattering{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+      thermalNeutronScatteringLaw_coherentElastic{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+      thermalNeutronScatteringLaw_incoherentElastic{this};
+   Field<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+      thermalNeutronScatteringLaw_incoherentInelastic{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->regions3d, \
       this->XYs3d, \
@@ -89,7 +156,8 @@ public:
       this->incoherentPhotonScattering, \
       this->thermalNeutronScatteringLaw_coherentElastic, \
       this->thermalNeutronScatteringLaw_incoherentElastic, \
-      this->thermalNeutronScatteringLaw_incoherentInelastic)
+      this->thermalNeutronScatteringLaw_incoherentInelastic \
+   )
 
    // default
    DoubleDifferentialCrossSection() :
@@ -100,15 +168,24 @@ public:
 
    // from fields, comment excluded
    explicit DoubleDifferentialCrossSection(
-      const wrapper<std::optional<containers::Regions3d>> &regions3d,
-      const wrapper<std::optional<containers::XYs3d>> &XYs3d = {},
-      const wrapper<std::optional<cpTransport::CoulombPlusNuclearElastic>> &CoulombPlusNuclearElastic = {},
-      const wrapper<std::optional<transport::Reference>> &reference = {},
-      const wrapper<std::optional<atomic::CoherentPhotonScattering>> &coherentPhotonScattering = {},
-      const wrapper<std::optional<atomic::IncoherentPhotonScattering>> &incoherentPhotonScattering = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>> &thermalNeutronScatteringLaw_coherentElastic = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>> &thermalNeutronScatteringLaw_incoherentElastic = {},
-      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>> &thermalNeutronScatteringLaw_incoherentInelastic = {}
+      const wrapper<std::optional<containers::Regions3d>>
+         &regions3d,
+      const wrapper<std::optional<containers::XYs3d>>
+         &XYs3d = {},
+      const wrapper<std::optional<cpTransport::CoulombPlusNuclearElastic>>
+         &CoulombPlusNuclearElastic = {},
+      const wrapper<std::optional<transport::Reference>>
+         &reference = {},
+      const wrapper<std::optional<atomic::CoherentPhotonScattering>>
+         &coherentPhotonScattering = {},
+      const wrapper<std::optional<atomic::IncoherentPhotonScattering>>
+         &incoherentPhotonScattering = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_coherentElastic>>
+         &thermalNeutronScatteringLaw_coherentElastic = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentElastic>>
+         &thermalNeutronScatteringLaw_incoherentElastic = {},
+      const wrapper<std::optional<tsl::ThermalNeutronScatteringLaw_incoherentInelastic>>
+         &thermalNeutronScatteringLaw_incoherentInelastic = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       regions3d(this,regions3d),
@@ -169,8 +246,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   DoubleDifferentialCrossSection &operator=(const DoubleDifferentialCrossSection &) = default;
-   DoubleDifferentialCrossSection &operator=(DoubleDifferentialCrossSection &&) = default;
+   // copy
+   DoubleDifferentialCrossSection &operator=(const DoubleDifferentialCrossSection &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         regions3d = other.regions3d;
+         XYs3d = other.XYs3d;
+         CoulombPlusNuclearElastic = other.CoulombPlusNuclearElastic;
+         reference = other.reference;
+         coherentPhotonScattering = other.coherentPhotonScattering;
+         incoherentPhotonScattering = other.incoherentPhotonScattering;
+         thermalNeutronScatteringLaw_coherentElastic = other.thermalNeutronScatteringLaw_coherentElastic;
+         thermalNeutronScatteringLaw_incoherentElastic = other.thermalNeutronScatteringLaw_incoherentElastic;
+         thermalNeutronScatteringLaw_incoherentInelastic = other.thermalNeutronScatteringLaw_incoherentInelastic;
+      }
+      return *this;
+   }
+
+   // move
+   DoubleDifferentialCrossSection &operator=(DoubleDifferentialCrossSection &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         regions3d = std::move(other.regions3d);
+         XYs3d = std::move(other.XYs3d);
+         CoulombPlusNuclearElastic = std::move(other.CoulombPlusNuclearElastic);
+         reference = std::move(other.reference);
+         coherentPhotonScattering = std::move(other.coherentPhotonScattering);
+         incoherentPhotonScattering = std::move(other.incoherentPhotonScattering);
+         thermalNeutronScatteringLaw_coherentElastic = std::move(other.thermalNeutronScatteringLaw_coherentElastic);
+         thermalNeutronScatteringLaw_incoherentElastic = std::move(other.thermalNeutronScatteringLaw_incoherentElastic);
+         thermalNeutronScatteringLaw_incoherentInelastic = std::move(other.thermalNeutronScatteringLaw_incoherentInelastic);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

@@ -5,78 +5,78 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // transport declarations
 namespace python_transport {
-   void wrapBranching1d(python::module &);
-   void wrapReference(python::module &);
-   void wrapMultiplicity(python::module &);
-   void wrapIsotropic2d(python::module &);
-   void wrapRecoil(python::module &);
-   void wrapAngularTwoBody(python::module &);
-   void wrapForward(python::module &);
-   void wrapAngular_uncorrelated(python::module &);
-   void wrapU(python::module &);
-   void wrapG(python::module &);
-   void wrapTheta(python::module &);
-   void wrapGeneralEvaporation(python::module &);
-   void wrapDiscreteGamma(python::module &);
-   void wrapPrimaryGamma(python::module &);
-   void wrapNBodyPhaseSpace(python::module &);
-   void wrapEvaporation(python::module &);
-   void wrapWeighted(python::module &);
-   void wrapWeightedFunctionals(python::module &);
-   void wrapEnergy_uncorrelated(python::module &);
-   void wrapUncorrelated(python::module &);
-   void wrapAngularEnergy(python::module &);
-   void wrapEnergyAngular(python::module &);
-   void wrapF(python::module &);
-   void wrapR(python::module &);
-   void wrapA(python::module &);
-   void wrapKalbachMann(python::module &);
-   void wrapBranching3d(python::module &);
-   void wrapUnspecified(python::module &);
-   void wrapMultiGroup3d(python::module &);
-   void wrapDistribution(python::module &);
-   void wrapResonancesLink(python::module &);
-   void wrapResolvedRegion(python::module &);
-   void wrapUnresolvedRegion(python::module &);
-   void wrapFastRegion(python::module &);
-   void wrapBackground(python::module &);
-   void wrapResonancesWithBackground(python::module &);
-   void wrapURR_probabilityTables1d(python::module &);
-   void wrapCrossSection(python::module &);
-   void wrapOutputChannel(python::module &);
-   void wrapDoubleDifferentialCrossSection(python::module &);
-   void wrapReaction(python::module &);
-   void wrapReactions(python::module &);
-   void wrapOrphanProduct(python::module &);
-   void wrapOrphanProducts(python::module &);
-   void wrapAdd(python::module &);
-   void wrapSummands(python::module &);
-   void wrapCrossSectionSum(python::module &);
-   void wrapCrossSectionSums(python::module &);
-   void wrapMultiplicitySum(python::module &);
-   void wrapMultiplicitySums(python::module &);
-   void wrapSums(python::module &);
-   void wrapProduction(python::module &);
-   void wrapProductions(python::module &);
-   void wrapIncompleteReactions(python::module &);
-   void wrapReactionSuite(python::module &);
-   void wrapCoherentPhoton(python::module &);
-   void wrapIncoherentPhoton(python::module &);
-   void wrapPhotonEmissionProbabilities(python::module &);
+   void wrapBranching1d(py::module &);
+   void wrapReference(py::module &);
+   void wrapMultiplicity(py::module &);
+   void wrapIsotropic2d(py::module &);
+   void wrapRecoil(py::module &);
+   void wrapAngularTwoBody(py::module &);
+   void wrapForward(py::module &);
+   void wrapAngular_uncorrelated(py::module &);
+   void wrapU(py::module &);
+   void wrapG(py::module &);
+   void wrapTheta(py::module &);
+   void wrapGeneralEvaporation(py::module &);
+   void wrapDiscreteGamma(py::module &);
+   void wrapPrimaryGamma(py::module &);
+   void wrapNBodyPhaseSpace(py::module &);
+   void wrapEvaporation(py::module &);
+   void wrapWeighted(py::module &);
+   void wrapWeightedFunctionals(py::module &);
+   void wrapEnergy_uncorrelated(py::module &);
+   void wrapUncorrelated(py::module &);
+   void wrapAngularEnergy(py::module &);
+   void wrapEnergyAngular(py::module &);
+   void wrapF(py::module &);
+   void wrapR(py::module &);
+   void wrapA(py::module &);
+   void wrapKalbachMann(py::module &);
+   void wrapBranching3d(py::module &);
+   void wrapUnspecified(py::module &);
+   void wrapMultiGroup3d(py::module &);
+   void wrapDistribution(py::module &);
+   void wrapResonancesLink(py::module &);
+   void wrapResolvedRegion(py::module &);
+   void wrapUnresolvedRegion(py::module &);
+   void wrapFastRegion(py::module &);
+   void wrapBackground(py::module &);
+   void wrapResonancesWithBackground(py::module &);
+   void wrapURR_probabilityTables1d(py::module &);
+   void wrapCrossSection(py::module &);
+   void wrapOutputChannel(py::module &);
+   void wrapDoubleDifferentialCrossSection(py::module &);
+   void wrapReaction(py::module &);
+   void wrapReactions(py::module &);
+   void wrapOrphanProduct(py::module &);
+   void wrapOrphanProducts(py::module &);
+   void wrapAdd(py::module &);
+   void wrapSummands(py::module &);
+   void wrapCrossSectionSum(py::module &);
+   void wrapCrossSectionSums(py::module &);
+   void wrapMultiplicitySum(py::module &);
+   void wrapMultiplicitySums(py::module &);
+   void wrapSums(py::module &);
+   void wrapProduction(py::module &);
+   void wrapProductions(py::module &);
+   void wrapIncompleteReactions(py::module &);
+   void wrapReactionSuite(py::module &);
+   void wrapCoherentPhoton(py::module &);
+   void wrapIncoherentPhoton(py::module &);
+   void wrapPhotonEmissionProbabilities(py::module &);
 } // namespace python_transport
 
-// transport wrapper
-void wrapTransport(python::module &module)
+// wrapper for transport
+void wrapTransport(py::module &module)
 {
    // create the transport submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "transport",
       "test v2.0 transport"
    );

@@ -5,45 +5,45 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // resonances declarations
 namespace python_resonances {
-   void wrapScatteringRadius(python::module &);
-   void wrapHardSphereRadius(python::module &);
-   void wrapResonanceReaction(python::module &);
-   void wrapResonanceReactions(python::module &);
-   void wrapExternalRMatrix(python::module &);
-   void wrapChannel(python::module &);
-   void wrapChannels(python::module &);
-   void wrapResonanceParameters(python::module &);
-   void wrapSpinGroup(python::module &);
-   void wrapSpinGroups(python::module &);
-   void wrapRMatrix(python::module &);
-   void wrapBreitWigner(python::module &);
-   void wrapEnergyInterval(python::module &);
-   void wrapEnergyIntervals(python::module &);
-   void wrapResolved(python::module &);
-   void wrapLevelSpacing(python::module &);
-   void wrapWidth(python::module &);
-   void wrapWidths(python::module &);
-   void wrapJ(python::module &);
-   void wrapJs(python::module &);
-   void wrapL(python::module &);
-   void wrapLs(python::module &);
-   void wrapTabulatedWidths(python::module &);
-   void wrapUnresolved(python::module &);
-   void wrapResonances(python::module &);
+   void wrapScatteringRadius(py::module &);
+   void wrapHardSphereRadius(py::module &);
+   void wrapResonanceReaction(py::module &);
+   void wrapResonanceReactions(py::module &);
+   void wrapExternalRMatrix(py::module &);
+   void wrapChannel(py::module &);
+   void wrapChannels(py::module &);
+   void wrapResonanceParameters(py::module &);
+   void wrapSpinGroup(py::module &);
+   void wrapSpinGroups(py::module &);
+   void wrapRMatrix(py::module &);
+   void wrapBreitWigner(py::module &);
+   void wrapEnergyInterval(py::module &);
+   void wrapEnergyIntervals(py::module &);
+   void wrapResolved(py::module &);
+   void wrapLevelSpacing(py::module &);
+   void wrapWidth(py::module &);
+   void wrapWidths(py::module &);
+   void wrapJ(py::module &);
+   void wrapJs(py::module &);
+   void wrapL(py::module &);
+   void wrapLs(py::module &);
+   void wrapTabulatedWidths(py::module &);
+   void wrapUnresolved(py::module &);
+   void wrapResonances(py::module &);
 } // namespace python_resonances
 
-// resonances wrapper
-void wrapResonances(python::module &module)
+// wrapper for resonances
+void wrapResonances(py::module &module)
 {
    // create the resonances submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "resonances",
       "test v2.0 resonances"
    );

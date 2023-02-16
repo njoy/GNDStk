@@ -25,12 +25,12 @@ class A :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "fissionTransport"; }
    static auto CLASS() { return "A"; }
-   static auto FIELD() { return "a"; }
+   static auto NODENAME() { return "a"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -39,8 +39,37 @@ class A :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
@@ -49,8 +78,11 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
-      this->comment)
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
+      this->comment \
+   )
 
    // default
    A() :
@@ -86,8 +118,25 @@ public:
    // Assignment operators
    // ------------------------
 
-   A &operator=(const A &) = default;
-   A &operator=(A &&) = default;
+   // copy
+   A &operator=(const A &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+      }
+      return *this;
+   }
+
+   // move
+   A &operator=(A &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

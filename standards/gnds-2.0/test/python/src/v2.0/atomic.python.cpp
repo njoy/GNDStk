@@ -5,26 +5,26 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // atomic declarations
 namespace python_atomic {
-   void wrapFormFactor(python::module &);
-   void wrapRealAnomalousFactor(python::module &);
-   void wrapImaginaryAnomalousFactor(python::module &);
-   void wrapCoherentPhotonScattering(python::module &);
-   void wrapScatteringFactor(python::module &);
-   void wrapIncoherentPhotonScattering(python::module &);
+   void wrapFormFactor(py::module &);
+   void wrapRealAnomalousFactor(py::module &);
+   void wrapImaginaryAnomalousFactor(py::module &);
+   void wrapCoherentPhotonScattering(py::module &);
+   void wrapScatteringFactor(py::module &);
+   void wrapIncoherentPhotonScattering(py::module &);
 } // namespace python_atomic
 
-// atomic wrapper
-void wrapAtomic(python::module &module)
+// wrapper for atomic
+void wrapAtomic(py::module &module)
 {
    // create the atomic submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "atomic",
       "test v2.0 atomic"
    );

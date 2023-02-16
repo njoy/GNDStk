@@ -97,13 +97,13 @@ AngularEnergyMCCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-AngularEnergyMCAssign(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngularEnergyMC from);
+AngularEnergyMCAssign(ConstHandle2AngularEnergyMC self, ConstHandle2ConstAngularEnergyMC from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-AngularEnergyMCDelete(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCDelete(ConstHandle2ConstAngularEnergyMC self);
 
 
 // -----------------------------------------------------------------------------
@@ -116,25 +116,25 @@ AngularEnergyMCDelete(ConstHandle2ConstAngularEnergyMC This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-AngularEnergyMCRead(ConstHandle2AngularEnergyMC This, const char *const filename);
+AngularEnergyMCRead(ConstHandle2AngularEnergyMC self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-AngularEnergyMCWrite(ConstHandle2ConstAngularEnergyMC This, const char *const filename);
+AngularEnergyMCWrite(ConstHandle2ConstAngularEnergyMC self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-AngularEnergyMCPrint(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCPrint(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Print to standard output, as XML
 extern_c int
-AngularEnergyMCPrintXML(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCPrintXML(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-AngularEnergyMCPrintJSON(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCPrintJSON(ConstHandle2ConstAngularEnergyMC self);
 
 
 // -----------------------------------------------------------------------------
@@ -143,16 +143,16 @@ AngularEnergyMCPrintJSON(ConstHandle2ConstAngularEnergyMC This);
 
 // +++ Has
 extern_c int
-AngularEnergyMCLabelHas(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCLabelHas(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AngularEnergyMCLabelGet(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCLabelGet(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Set
 extern_c void
-AngularEnergyMCLabelSet(ConstHandle2AngularEnergyMC This, const XMLName label);
+AngularEnergyMCLabelSet(ConstHandle2AngularEnergyMC self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ AngularEnergyMCLabelSet(ConstHandle2AngularEnergyMC This, const XMLName label);
 
 // +++ Has
 extern_c int
-AngularEnergyMCProductFrameHas(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCProductFrameHas(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-AngularEnergyMCProductFrameGet(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCProductFrameGet(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Set
 extern_c void
-AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName productFrame);
+AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC self, const XMLName productFrame);
 
 
 // -----------------------------------------------------------------------------
@@ -179,19 +179,19 @@ AngularEnergyMCProductFrameSet(ConstHandle2AngularEnergyMC This, const XMLName p
 
 // +++ Has
 extern_c int
-AngularEnergyMCAngular_uncorrelatedHas(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCAngular_uncorrelatedHas(ConstHandle2ConstAngularEnergyMC self);
 
 // --- Get, const
 extern_c Handle2ConstAngular_uncorrelated
-AngularEnergyMCAngular_uncorrelatedGetConst(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCAngular_uncorrelatedGetConst(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Get, non-const
 extern_c Handle2Angular_uncorrelated
-AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC This);
+AngularEnergyMCAngular_uncorrelatedGet(ConstHandle2AngularEnergyMC self);
 
 // +++ Set
 extern_c void
-AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
+AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC self, ConstHandle2ConstAngular_uncorrelated angular_uncorrelated);
 
 
 // -----------------------------------------------------------------------------
@@ -200,19 +200,19 @@ AngularEnergyMCAngular_uncorrelatedSet(ConstHandle2AngularEnergyMC This, ConstHa
 
 // +++ Has
 extern_c int
-AngularEnergyMCAngularEnergyHas(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCAngularEnergyHas(ConstHandle2ConstAngularEnergyMC self);
 
 // --- Get, const
 extern_c Handle2ConstAngularEnergy
-AngularEnergyMCAngularEnergyGetConst(ConstHandle2ConstAngularEnergyMC This);
+AngularEnergyMCAngularEnergyGetConst(ConstHandle2ConstAngularEnergyMC self);
 
 // +++ Get, non-const
 extern_c Handle2AngularEnergy
-AngularEnergyMCAngularEnergyGet(ConstHandle2AngularEnergyMC This);
+AngularEnergyMCAngularEnergyGet(ConstHandle2AngularEnergyMC self);
 
 // +++ Set
 extern_c void
-AngularEnergyMCAngularEnergySet(ConstHandle2AngularEnergyMC This, ConstHandle2ConstAngularEnergy angularEnergy);
+AngularEnergyMCAngularEnergySet(ConstHandle2AngularEnergyMC self, ConstHandle2ConstAngularEnergy angularEnergy);
 
 
 // -----------------------------------------------------------------------------

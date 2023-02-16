@@ -75,20 +75,20 @@ AvailableEnergyCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-AvailableEnergyAssign(ConstHandle2AvailableEnergy This, ConstHandle2ConstAvailableEnergy from)
+AvailableEnergyAssign(ConstHandle2AvailableEnergy self, ConstHandle2ConstAvailableEnergy from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -102,44 +102,44 @@ AvailableEnergyDelete(ConstHandle2ConstAvailableEnergy This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-AvailableEnergyRead(ConstHandle2AvailableEnergy This, const char *const filename)
+AvailableEnergyRead(ConstHandle2AvailableEnergy self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-AvailableEnergyWrite(ConstHandle2ConstAvailableEnergy This, const char *const filename)
+AvailableEnergyWrite(ConstHandle2ConstAvailableEnergy self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-AvailableEnergyPrint(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyPrint(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-AvailableEnergyPrintXML(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyPrintXML(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -149,34 +149,34 @@ AvailableEnergyPrintJSON(ConstHandle2ConstAvailableEnergy This)
 
 // Has
 int
-AvailableEnergyXYs1dHas(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyXYs1dHas(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"XYs1dHas", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dHas", self, extract::XYs1d);
 }
 
 // Get, const
 Handle2ConstXYs1d
-AvailableEnergyXYs1dGetConst(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyXYs1dGetConst(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::getField<CPP,Handle2ConstXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGetConst", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
 // Get, non-const
 Handle2XYs1d
-AvailableEnergyXYs1dGet(ConstHandle2AvailableEnergy This)
+AvailableEnergyXYs1dGet(ConstHandle2AvailableEnergy self)
 {
    return detail::getField<CPP,Handle2XYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dGet", This, extract::XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dGet", self, extract::XYs1d);
 }
 
 // Set
 void
-AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstXYs1d XYs1d)
+AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy self, ConstHandle2ConstXYs1d XYs1d)
 {
    detail::setField<CPP,CPPXYs1d>
-      (CLASSNAME, CLASSNAME+"XYs1dSet", This, extract::XYs1d, XYs1d);
+      (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, XYs1d);
 }
 
 
@@ -186,34 +186,34 @@ AvailableEnergyXYs1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstXYs1d
 
 // Has
 int
-AvailableEnergyGridded1dHas(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyGridded1dHas(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"Gridded1dHas", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dHas", self, extract::gridded1d);
 }
 
 // Get, const
 Handle2ConstGridded1d
-AvailableEnergyGridded1dGetConst(ConstHandle2ConstAvailableEnergy This)
+AvailableEnergyGridded1dGetConst(ConstHandle2ConstAvailableEnergy self)
 {
    return detail::getField<CPP,Handle2ConstGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGetConst", self, extract::gridded1d);
 }
 
 // Get, non-const
 Handle2Gridded1d
-AvailableEnergyGridded1dGet(ConstHandle2AvailableEnergy This)
+AvailableEnergyGridded1dGet(ConstHandle2AvailableEnergy self)
 {
    return detail::getField<CPP,Handle2Gridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dGet", This, extract::gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dGet", self, extract::gridded1d);
 }
 
 // Set
 void
-AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy This, ConstHandle2ConstGridded1d gridded1d)
+AvailableEnergyGridded1dSet(ConstHandle2AvailableEnergy self, ConstHandle2ConstGridded1d gridded1d)
 {
    detail::setField<CPP,CPPGridded1d>
-      (CLASSNAME, CLASSNAME+"Gridded1dSet", This, extract::gridded1d, gridded1d);
+      (CLASSNAME, CLASSNAME+"Gridded1dSet", self, extract::gridded1d, gridded1d);
 }
 
 

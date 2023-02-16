@@ -27,12 +27,12 @@ class Map :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "map"; }
    static auto CLASS() { return "Map"; }
-   static auto FIELD() { return "map"; }
+   static auto NODENAME() { return "map"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -50,34 +50,89 @@ class Map :
             / Meta<>("algorithm") |
 
          // children
-         ++Child<std::optional<map::Import>>("import") |
-         ++Child<std::optional<map::Protare>>("protare") |
-         ++Child<std::optional<map::TNSL>>("TNSL")
+         ++Child<std::optional<map::Import>>
+            ("import") |
+         ++Child<std::optional<map::Protare>>
+            ("protare") |
+         ++Child<std::optional<map::TNSL>>
+            ("TNSL")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "library",
+         "format",
+         "checksum",
+         "algorithm",
+         "import",
+         "protare",
+         "TNSL"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "library",
+         "format",
+         "checksum",
+         "algorithm",
+         "import",
+         "protare",
+         "tnsl"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> library{this};
-   Field<XMLName> format{this};
-   Field<std::string> checksum{this};
-   Field<enums::HashAlgorithm> algorithm{this};
+   Field<XMLName>
+      library{this};
+   Field<XMLName>
+      format{this};
+   Field<std::string>
+      checksum{this};
+   Field<enums::HashAlgorithm>
+      algorithm{this};
 
    // children
-   Field<std::optional<std::vector<map::Import>>> import{this};
-   Field<std::optional<std::vector<map::Protare>>> protare{this};
-   Field<std::optional<std::vector<map::TNSL>>> TNSL{this};
+   Field<std::optional<std::vector<map::Import>>>
+      import{this};
+   Field<std::optional<std::vector<map::Protare>>>
+      protare{this};
+   Field<std::optional<std::vector<map::TNSL>>>
+      TNSL{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->library, \
       this->format, \
@@ -85,7 +140,8 @@ public:
       this->algorithm, \
       this->import, \
       this->protare, \
-      this->TNSL)
+      this->TNSL \
+   )
 
    // default
    Map() :
@@ -96,13 +152,20 @@ public:
 
    // from fields, comment excluded
    explicit Map(
-      const wrapper<XMLName> &library,
-      const wrapper<XMLName> &format = {},
-      const wrapper<std::string> &checksum = {},
-      const wrapper<enums::HashAlgorithm> &algorithm = {},
-      const wrapper<std::optional<std::vector<map::Import>>> &import = {},
-      const wrapper<std::optional<std::vector<map::Protare>>> &protare = {},
-      const wrapper<std::optional<std::vector<map::TNSL>>> &TNSL = {}
+      const wrapper<XMLName>
+         &library,
+      const wrapper<XMLName>
+         &format = {},
+      const wrapper<std::string>
+         &checksum = {},
+      const wrapper<enums::HashAlgorithm>
+         &algorithm = {},
+      const wrapper<std::optional<std::vector<map::Import>>>
+         &import = {},
+      const wrapper<std::optional<std::vector<map::Protare>>>
+         &protare = {},
+      const wrapper<std::optional<std::vector<map::TNSL>>>
+         &TNSL = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       library(this,library),
@@ -157,8 +220,39 @@ public:
    // Assignment operators
    // ------------------------
 
-   Map &operator=(const Map &) = default;
-   Map &operator=(Map &&) = default;
+   // copy
+   Map &operator=(const Map &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         library = other.library;
+         format = other.format;
+         checksum = other.checksum;
+         algorithm = other.algorithm;
+         import = other.import;
+         protare = other.protare;
+         TNSL = other.TNSL;
+      }
+      return *this;
+   }
+
+   // move
+   Map &operator=(Map &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         library = std::move(other.library);
+         format = std::move(other.format);
+         checksum = std::move(other.checksum);
+         algorithm = std::move(other.algorithm);
+         import = std::move(other.import);
+         protare = std::move(other.protare);
+         TNSL = std::move(other.TNSL);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

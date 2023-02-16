@@ -25,12 +25,12 @@ class ResonanceReactions :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "resonances"; }
    static auto CLASS() { return "ResonanceReactions"; }
-   static auto FIELD() { return "resonanceReactions"; }
+   static auto NODENAME() { return "resonanceReactions"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class ResonanceReactions :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<resonances::ResonanceReaction>("resonanceReaction")
+         ++Child<resonances::ResonanceReaction>
+            ("resonanceReaction")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "resonanceReaction"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "resonance_reaction"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<resonances::ResonanceReaction>> resonanceReaction{this};
+   Field<std::vector<resonances::ResonanceReaction>>
+      resonanceReaction{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->resonanceReaction)
+      this->resonanceReaction \
+   )
 
    // default
    ResonanceReactions() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit ResonanceReactions(
-      const wrapper<std::vector<resonances::ResonanceReaction>> &resonanceReaction
+      const wrapper<std::vector<resonances::ResonanceReaction>>
+         &resonanceReaction
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resonanceReaction(this,resonanceReaction)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   ResonanceReactions &operator=(const ResonanceReactions &) = default;
-   ResonanceReactions &operator=(ResonanceReactions &&) = default;
+   // copy
+   ResonanceReactions &operator=(const ResonanceReactions &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         resonanceReaction = other.resonanceReaction;
+      }
+      return *this;
+   }
+
+   // move
+   ResonanceReactions &operator=(ResonanceReactions &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         resonanceReaction = std::move(other.resonanceReaction);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

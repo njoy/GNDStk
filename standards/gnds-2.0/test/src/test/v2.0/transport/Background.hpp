@@ -27,12 +27,12 @@ class Background :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "transport"; }
    static auto CLASS() { return "Background"; }
-   static auto FIELD() { return "background"; }
+   static auto NODENAME() { return "background"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -40,32 +40,76 @@ class Background :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         --Child<std::optional<transport::ResolvedRegion>>("resolvedRegion") |
-         --Child<std::optional<transport::UnresolvedRegion>>("unresolvedRegion") |
-         --Child<std::optional<transport::FastRegion>>("fastRegion")
+         --Child<std::optional<transport::ResolvedRegion>>
+            ("resolvedRegion") |
+         --Child<std::optional<transport::UnresolvedRegion>>
+            ("unresolvedRegion") |
+         --Child<std::optional<transport::FastRegion>>
+            ("fastRegion")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "resolvedRegion",
+         "unresolvedRegion",
+         "fastRegion"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "resolved_region",
+         "unresolved_region",
+         "fast_region"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::optional<transport::ResolvedRegion>> resolvedRegion{this};
-   Field<std::optional<transport::UnresolvedRegion>> unresolvedRegion{this};
-   Field<std::optional<transport::FastRegion>> fastRegion{this};
+   Field<std::optional<transport::ResolvedRegion>>
+      resolvedRegion{this};
+   Field<std::optional<transport::UnresolvedRegion>>
+      unresolvedRegion{this};
+   Field<std::optional<transport::FastRegion>>
+      fastRegion{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->resolvedRegion, \
       this->unresolvedRegion, \
-      this->fastRegion)
+      this->fastRegion \
+   )
 
    // default
    Background() :
@@ -76,9 +120,12 @@ public:
 
    // from fields, comment excluded
    explicit Background(
-      const wrapper<std::optional<transport::ResolvedRegion>> &resolvedRegion,
-      const wrapper<std::optional<transport::UnresolvedRegion>> &unresolvedRegion = {},
-      const wrapper<std::optional<transport::FastRegion>> &fastRegion = {}
+      const wrapper<std::optional<transport::ResolvedRegion>>
+         &resolvedRegion,
+      const wrapper<std::optional<transport::UnresolvedRegion>>
+         &unresolvedRegion = {},
+      const wrapper<std::optional<transport::FastRegion>>
+         &fastRegion = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       resolvedRegion(this,resolvedRegion),
@@ -121,8 +168,31 @@ public:
    // Assignment operators
    // ------------------------
 
-   Background &operator=(const Background &) = default;
-   Background &operator=(Background &&) = default;
+   // copy
+   Background &operator=(const Background &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         resolvedRegion = other.resolvedRegion;
+         unresolvedRegion = other.unresolvedRegion;
+         fastRegion = other.fastRegion;
+      }
+      return *this;
+   }
+
+   // move
+   Background &operator=(Background &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         resolvedRegion = std::move(other.resolvedRegion);
+         unresolvedRegion = std::move(other.unresolvedRegion);
+         fastRegion = std::move(other.fastRegion);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

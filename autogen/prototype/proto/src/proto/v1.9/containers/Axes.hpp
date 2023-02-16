@@ -31,12 +31,12 @@ class Axes :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "containers"; }
    static auto CLASS() { return "Axes"; }
-   static auto FIELD() { return "axes"; }
+   static auto NODENAME() { return "axes"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -53,17 +53,52 @@ class Axes :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "axis_grid"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "href",
+         "axis_grid"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<std::string>> href{this};
+   Field<std::optional<std::string>>
+      href{this};
 
    // children - variant
-   Field<std::vector<axis_grid_t>> axis_grid{this};
+   Field<std::vector<axis_grid_t>>
+      axis_grid{this};
    FieldPart<decltype(axis_grid),containers::Axis> axis{axis_grid};
    FieldPart<decltype(axis_grid),containers::Grid> grid{axis_grid};
 
@@ -71,10 +106,13 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->href, \
-      this->axis_grid)
+      this->axis_grid \
+   )
 
    // default
    Axes() :
@@ -85,8 +123,10 @@ public:
 
    // from fields, comment excluded
    explicit Axes(
-      const wrapper<std::optional<std::string>> &href,
-      const wrapper<std::vector<axis_grid_t>> &axis_grid = {}
+      const wrapper<std::optional<std::string>>
+         &href,
+      const wrapper<std::vector<axis_grid_t>>
+         &axis_grid = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
@@ -126,8 +166,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   Axes &operator=(const Axes &) = default;
-   Axes &operator=(Axes &&) = default;
+   // copy
+   Axes &operator=(const Axes &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         href = other.href;
+         axis_grid = other.axis_grid;
+      }
+      return *this;
+   }
+
+   // move
+   Axes &operator=(Axes &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         href = std::move(other.href);
+         axis_grid = std::move(other.axis_grid);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

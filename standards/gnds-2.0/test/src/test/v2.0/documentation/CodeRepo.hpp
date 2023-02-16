@@ -25,12 +25,12 @@ class CodeRepo :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "CodeRepo"; }
-   static auto FIELD() { return "codeRepo"; }
+   static auto NODENAME() { return "codeRepo"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -49,28 +49,72 @@ class CodeRepo :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "revisionSystem",
+         "href",
+         "revisionID"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "revision_system",
+         "href",
+         "revision_id"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
-   Field<XMLName> revisionSystem{this};
-   Field<XMLName> href{this};
-   Field<XMLName> revisionID{this};
+   Field<std::optional<XMLName>>
+      label{this};
+   Field<XMLName>
+      revisionSystem{this};
+   Field<XMLName>
+      href{this};
+   Field<XMLName>
+      revisionID{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
       this->revisionSystem, \
       this->href, \
-      this->revisionID)
+      this->revisionID \
+   )
 
    // default
    CodeRepo() :
@@ -81,10 +125,14 @@ public:
 
    // from fields, comment excluded
    explicit CodeRepo(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<XMLName> &revisionSystem = {},
-      const wrapper<XMLName> &href = {},
-      const wrapper<XMLName> &revisionID = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<XMLName>
+         &revisionSystem = {},
+      const wrapper<XMLName>
+         &href = {},
+      const wrapper<XMLName>
+         &revisionID = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -130,8 +178,33 @@ public:
    // Assignment operators
    // ------------------------
 
-   CodeRepo &operator=(const CodeRepo &) = default;
-   CodeRepo &operator=(CodeRepo &&) = default;
+   // copy
+   CodeRepo &operator=(const CodeRepo &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         revisionSystem = other.revisionSystem;
+         href = other.href;
+         revisionID = other.revisionID;
+      }
+      return *this;
+   }
+
+   // move
+   CodeRepo &operator=(CodeRepo &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         revisionSystem = std::move(other.revisionSystem);
+         href = std::move(other.href);
+         revisionID = std::move(other.revisionID);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

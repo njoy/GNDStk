@@ -25,12 +25,12 @@ class Affiliations :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "documentation"; }
    static auto CLASS() { return "Affiliations"; }
-   static auto FIELD() { return "affiliations"; }
+   static auto NODENAME() { return "affiliations"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -38,26 +38,62 @@ class Affiliations :
          ++Child<std::string>(special::comment) / CommentConverter{} |
 
          // children
-         ++Child<documentation::Affiliation>("affiliation")
+         ++Child<documentation::Affiliation>
+            ("affiliation")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "affiliation"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "affiliation"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // children
-   Field<std::vector<documentation::Affiliation>> affiliation{this};
+   Field<std::vector<documentation::Affiliation>>
+      affiliation{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
-      this->affiliation)
+      this->affiliation \
+   )
 
    // default
    Affiliations() :
@@ -68,7 +104,8 @@ public:
 
    // from fields, comment excluded
    explicit Affiliations(
-      const wrapper<std::vector<documentation::Affiliation>> &affiliation
+      const wrapper<std::vector<documentation::Affiliation>>
+         &affiliation
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       affiliation(this,affiliation)
@@ -105,8 +142,27 @@ public:
    // Assignment operators
    // ------------------------
 
-   Affiliations &operator=(const Affiliations &) = default;
-   Affiliations &operator=(Affiliations &&) = default;
+   // copy
+   Affiliations &operator=(const Affiliations &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         affiliation = other.affiliation;
+      }
+      return *this;
+   }
+
+   // move
+   Affiliations &operator=(Affiliations &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         affiliation = std::move(other.affiliation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

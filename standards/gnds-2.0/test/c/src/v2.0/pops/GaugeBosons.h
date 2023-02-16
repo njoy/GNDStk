@@ -90,13 +90,13 @@ GaugeBosonsCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-GaugeBosonsAssign(ConstHandle2GaugeBosons This, ConstHandle2ConstGaugeBosons from);
+GaugeBosonsAssign(ConstHandle2GaugeBosons self, ConstHandle2ConstGaugeBosons from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-GaugeBosonsDelete(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsDelete(ConstHandle2ConstGaugeBosons self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ GaugeBosonsDelete(ConstHandle2ConstGaugeBosons This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-GaugeBosonsRead(ConstHandle2GaugeBosons This, const char *const filename);
+GaugeBosonsRead(ConstHandle2GaugeBosons self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-GaugeBosonsWrite(ConstHandle2ConstGaugeBosons This, const char *const filename);
+GaugeBosonsWrite(ConstHandle2ConstGaugeBosons self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-GaugeBosonsPrint(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsPrint(ConstHandle2ConstGaugeBosons self);
 
 // +++ Print to standard output, as XML
 extern_c int
-GaugeBosonsPrintXML(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsPrintXML(ConstHandle2ConstGaugeBosons self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-GaugeBosonsPrintJSON(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsPrintJSON(ConstHandle2ConstGaugeBosons self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,32 +136,32 @@ GaugeBosonsPrintJSON(ConstHandle2ConstGaugeBosons This);
 
 // +++ Has
 extern_c int
-GaugeBosonsGaugeBosonHas(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsGaugeBosonHas(ConstHandle2ConstGaugeBosons self);
 
 // +++ Clear
 extern_c void
-GaugeBosonsGaugeBosonClear(ConstHandle2GaugeBosons This);
+GaugeBosonsGaugeBosonClear(ConstHandle2GaugeBosons self);
 
 // +++ Size
 extern_c size_t
-GaugeBosonsGaugeBosonSize(ConstHandle2ConstGaugeBosons This);
+GaugeBosonsGaugeBosonSize(ConstHandle2ConstGaugeBosons self);
 
 // +++ Add
 extern_c void
-GaugeBosonsGaugeBosonAdd(ConstHandle2GaugeBosons This, ConstHandle2ConstGaugeBoson gaugeBoson);
+GaugeBosonsGaugeBosonAdd(ConstHandle2GaugeBosons self, ConstHandle2ConstGaugeBoson gaugeBoson);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstGaugeBoson
-GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons This, const size_t index_);
+GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2GaugeBoson
-GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons This, const size_t index_);
+GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 GaugeBosonsGaugeBosonSet(
-   ConstHandle2GaugeBosons This,
+   ConstHandle2GaugeBosons self,
    const size_t index_,
    ConstHandle2ConstGaugeBoson gaugeBoson
 );
@@ -169,28 +169,28 @@ GaugeBosonsGaugeBosonSet(
 // +++ Has, by id
 extern_c int
 GaugeBosonsGaugeBosonHasById(
-   ConstHandle2ConstGaugeBosons This,
+   ConstHandle2ConstGaugeBosons self,
    const XMLName id
 );
 
 // --- Get, by id, const
 extern_c Handle2ConstGaugeBoson
 GaugeBosonsGaugeBosonGetByIdConst(
-   ConstHandle2ConstGaugeBosons This,
+   ConstHandle2ConstGaugeBosons self,
    const XMLName id
 );
 
 // +++ Get, by id, non-const
 extern_c Handle2GaugeBoson
 GaugeBosonsGaugeBosonGetById(
-   ConstHandle2GaugeBosons This,
+   ConstHandle2GaugeBosons self,
    const XMLName id
 );
 
 // +++ Set, by id
 extern_c void
 GaugeBosonsGaugeBosonSetById(
-   ConstHandle2GaugeBosons This,
+   ConstHandle2GaugeBosons self,
    const XMLName id,
    ConstHandle2ConstGaugeBoson gaugeBoson
 );

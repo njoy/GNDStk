@@ -25,12 +25,12 @@ class TNSL :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "map"; }
    static auto CLASS() { return "TNSL"; }
-   static auto FIELD() { return "TNSL"; }
+   static auto NODENAME() { return "TNSL"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -59,28 +59,86 @@ class TNSL :
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "target",
+         "evaluation",
+         "path",
+         "interaction",
+         "checksum",
+         "algorithm",
+         "standardTarget",
+         "standardEvaluation"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "target",
+         "evaluation",
+         "path",
+         "interaction",
+         "checksum",
+         "algorithm",
+         "standard_target",
+         "standard_evaluation"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<XMLName> projectile{this};
-   Field<XMLName> target{this};
-   Field<XMLName> evaluation{this};
-   Field<XMLName> path{this};
-   Field<std::optional<XMLName>> interaction{this};
-   Field<std::string> checksum{this};
-   Field<std::optional<enums::HashAlgorithm>> algorithm{this};
-   Field<XMLName> standardTarget{this};
-   Field<XMLName> standardEvaluation{this};
+   Field<XMLName>
+      projectile{this};
+   Field<XMLName>
+      target{this};
+   Field<XMLName>
+      evaluation{this};
+   Field<XMLName>
+      path{this};
+   Field<std::optional<XMLName>>
+      interaction{this};
+   Field<std::string>
+      checksum{this};
+   Field<std::optional<enums::HashAlgorithm>>
+      algorithm{this};
+   Field<XMLName>
+      standardTarget{this};
+   Field<XMLName>
+      standardEvaluation{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->projectile, \
       this->target, \
@@ -90,7 +148,8 @@ public:
       this->checksum, \
       this->algorithm, \
       this->standardTarget, \
-      this->standardEvaluation)
+      this->standardEvaluation \
+   )
 
    // default
    TNSL() :
@@ -101,15 +160,24 @@ public:
 
    // from fields, comment excluded
    explicit TNSL(
-      const wrapper<XMLName> &projectile,
-      const wrapper<XMLName> &target = {},
-      const wrapper<XMLName> &evaluation = {},
-      const wrapper<XMLName> &path = {},
-      const wrapper<std::optional<XMLName>> &interaction = {},
-      const wrapper<std::string> &checksum = {},
-      const wrapper<std::optional<enums::HashAlgorithm>> &algorithm = {},
-      const wrapper<XMLName> &standardTarget = {},
-      const wrapper<XMLName> &standardEvaluation = {}
+      const wrapper<XMLName>
+         &projectile,
+      const wrapper<XMLName>
+         &target = {},
+      const wrapper<XMLName>
+         &evaluation = {},
+      const wrapper<XMLName>
+         &path = {},
+      const wrapper<std::optional<XMLName>>
+         &interaction = {},
+      const wrapper<std::string>
+         &checksum = {},
+      const wrapper<std::optional<enums::HashAlgorithm>>
+         &algorithm = {},
+      const wrapper<XMLName>
+         &standardTarget = {},
+      const wrapper<XMLName>
+         &standardEvaluation = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
@@ -170,8 +238,43 @@ public:
    // Assignment operators
    // ------------------------
 
-   TNSL &operator=(const TNSL &) = default;
-   TNSL &operator=(TNSL &&) = default;
+   // copy
+   TNSL &operator=(const TNSL &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         projectile = other.projectile;
+         target = other.target;
+         evaluation = other.evaluation;
+         path = other.path;
+         interaction = other.interaction;
+         checksum = other.checksum;
+         algorithm = other.algorithm;
+         standardTarget = other.standardTarget;
+         standardEvaluation = other.standardEvaluation;
+      }
+      return *this;
+   }
+
+   // move
+   TNSL &operator=(TNSL &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         projectile = std::move(other.projectile);
+         target = std::move(other.target);
+         evaluation = std::move(other.evaluation);
+         path = std::move(other.path);
+         interaction = std::move(other.interaction);
+         checksum = std::move(other.checksum);
+         algorithm = std::move(other.algorithm);
+         standardTarget = std::move(other.standardTarget);
+         standardEvaluation = std::move(other.standardEvaluation);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

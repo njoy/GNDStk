@@ -25,12 +25,12 @@ class InverseSpeed :
    // For Component
    // ------------------------
 
-   // Names: this namespace, this class, and a field/node of this type
+   // Names: this namespace and class, and original nodes (as in XML <...>)
    static auto NAMESPACE() { return "styles"; }
    static auto CLASS() { return "InverseSpeed"; }
-   static auto FIELD() { return "inverseSpeed"; }
+   static auto NODENAME() { return "inverseSpeed"; }
 
-   // Core Interface multi-query to transfer information to/from Nodes
+   // Core Interface multi-query to transfer information to/from core Nodes
    static auto KEYS()
    {
       return
@@ -42,30 +42,69 @@ class InverseSpeed :
             / Meta<>("label") |
 
          // children
-         --Child<containers::Gridded1d>("gridded1d")
+         --Child<containers::Gridded1d>
+            ("gridded1d")
       ;
    }
 
+   // Data member names. Usually - but not necessarily - the same as the node
+   // names appearing in KEYS(). These are used by Component's prettyprinter.
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "gridded1d"
+      };
+      return names;
+   }
+
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "gridded1d"
+      };
+      return names;
+   }
+
+   // ------------------------
+   // Public interface
+   // ------------------------
+
 public:
+
+   using component_t = Component;
    using Component::construct;
+
+   // ------------------------
+   // Data members
+   // ------------------------
 
    // comment
    Field<std::vector<std::string>> comment{this};
 
    // metadata
-   Field<std::optional<XMLName>> label{this};
+   Field<std::optional<XMLName>>
+      label{this};
 
    // children
-   Field<containers::Gridded1d> gridded1d{this};
+   Field<containers::Gridded1d>
+      gridded1d{this};
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) Component(blockdata, \
+   #define GNDSTK_COMPONENT(blockdata) \
+   Component( \
+      blockdata, \
       this->comment, \
       this->label, \
-      this->gridded1d)
+      this->gridded1d \
+   )
 
    // default
    InverseSpeed() :
@@ -76,8 +115,10 @@ public:
 
    // from fields, comment excluded
    explicit InverseSpeed(
-      const wrapper<std::optional<XMLName>> &label,
-      const wrapper<containers::Gridded1d> &gridded1d = {}
+      const wrapper<std::optional<XMLName>>
+         &label,
+      const wrapper<containers::Gridded1d>
+         &gridded1d = {}
    ) :
       GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
@@ -117,8 +158,29 @@ public:
    // Assignment operators
    // ------------------------
 
-   InverseSpeed &operator=(const InverseSpeed &) = default;
-   InverseSpeed &operator=(InverseSpeed &&) = default;
+   // copy
+   InverseSpeed &operator=(const InverseSpeed &other)
+   {
+      if (this != &other) {
+         Component::operator=(other);
+         comment = other.comment;
+         label = other.label;
+         gridded1d = other.gridded1d;
+      }
+      return *this;
+   }
+
+   // move
+   InverseSpeed &operator=(InverseSpeed &&other)
+   {
+      if (this != &other) {
+         Component::operator=(std::move(other));
+         comment = std::move(other.comment);
+         label = std::move(other.label);
+         gridded1d = std::move(other.gridded1d);
+      }
+      return *this;
+   }
 
    // ------------------------
    // Custom functionality

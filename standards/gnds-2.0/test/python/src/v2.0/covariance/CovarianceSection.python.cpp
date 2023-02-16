@@ -11,93 +11,158 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_covariance {
 
-// CovarianceSection wrapper
-void wrapCovarianceSection(python::module &module)
+// wrapper for covariance::CovarianceSection
+void wrapCovarianceSection(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = covariance::CovarianceSection;
+   using cppCLASS = covariance::CovarianceSection;
    using _t = std::variant<
       covariance::CovarianceMatrix,
       covariance::Sum,
       covariance::Mixed
    >;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "CovarianceSection",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "CovarianceSection",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const std::optional<bool> &,
-            const std::optional<XMLName> &,
-            const covariance::RowData &,
-            const std::optional<covariance::ColumnData> &,
-            const _t &
-         >(),
-         python::arg("cross_term") = std::nullopt,
-         python::arg("label") = std::nullopt,
-         python::arg("row_data"),
-         python::arg("column_data") = std::nullopt,
-         python::arg("_covariance_matrixsummixed"),
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "cross_term",
-         [](const Component &self) { return self.crossTerm().value(); },
-         Component::documentation("cross_term").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "row_data",
-         [](const Component &self) { return self.rowData(); },
-         Component::documentation("row_data").data()
-      )
-      .def_property_readonly(
-         "column_data",
-         [](const Component &self) { return self.columnData(); },
-         Component::documentation("column_data").data()
-      )
-      .def_property_readonly(
-         "covariance_matrix",
-         [](const Component &self) { return self.covarianceMatrix(); },
-         Component::documentation("covariance_matrix").data()
-      )
-      .def_property_readonly(
-         "sum",
-         [](const Component &self) { return self.sum(); },
-         Component::documentation("sum").data()
-      )
-      .def_property_readonly(
-         "mixed",
-         [](const Component &self) { return self.mixed(); },
-         Component::documentation("mixed").data()
-      )
-      .def_property_readonly(
-         "_covariance_matrixsummixed",
-         [](const Component &self) { return self._covarianceMatrixsummixed(); },
-         Component::documentation("_covariance_matrixsummixed").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const std::optional<bool> &,
+         const std::optional<XMLName> &,
+         const covariance::RowData &,
+         const std::optional<covariance::ColumnData> &,
+         const _t &
+      >(),
+      py::arg("cross_term") = std::nullopt,
+      py::arg("label") = std::nullopt,
+      py::arg("row_data"),
+      py::arg("column_data") = std::nullopt,
+      py::arg("_covariance_matrixsummixed"),
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set crossTerm
+   object.def_property(
+      "cross_term",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossTerm().value();
+      },
+      [](cppCLASS &self, const bool &value)
+      {
+         self.crossTerm() = value;
+      },
+      cppCLASS::component_t::documentation("cross_term").data()
+   );
+
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const std::optional<XMLName> &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set rowData
+   object.def_property(
+      "row_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.rowData();
+      },
+      [](cppCLASS &self, const covariance::RowData &value)
+      {
+         self.rowData() = value;
+      },
+      cppCLASS::component_t::documentation("row_data").data()
+   );
+
+   // get/set columnData
+   object.def_property(
+      "column_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnData();
+      },
+      [](cppCLASS &self, const std::optional<covariance::ColumnData> &value)
+      {
+         self.columnData() = value;
+      },
+      cppCLASS::component_t::documentation("column_data").data()
+   );
+
+   object.def_property(
+      "covariance_matrix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.covarianceMatrix();
+      },
+      [](cppCLASS &self, const covariance::CovarianceMatrix &value)
+      {
+         self.covarianceMatrix() = value;
+      },
+      cppCLASS::component_t::documentation("covariance_matrix").data()
+   );
+
+   object.def_property(
+      "sum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.sum();
+      },
+      [](cppCLASS &self, const covariance::Sum &value)
+      {
+         self.sum() = value;
+      },
+      cppCLASS::component_t::documentation("sum").data()
+   );
+
+   object.def_property(
+      "mixed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.mixed();
+      },
+      [](cppCLASS &self, const covariance::Mixed &value)
+      {
+         self.mixed() = value;
+      },
+      cppCLASS::component_t::documentation("mixed").data()
+   );
+
+   object.def_property(
+      "_covariance_matrixsummixed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self._covarianceMatrixsummixed();
+      },
+      [](cppCLASS &self, const _t &value)
+      {
+         self._covarianceMatrixsummixed() = value;
+      },
+      cppCLASS::component_t::documentation("_covariance_matrixsummixed").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_covariance

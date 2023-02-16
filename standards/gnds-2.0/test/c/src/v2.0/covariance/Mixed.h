@@ -98,13 +98,13 @@ MixedCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MixedAssign(ConstHandle2Mixed This, ConstHandle2ConstMixed from);
+MixedAssign(ConstHandle2Mixed self, ConstHandle2ConstMixed from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MixedDelete(ConstHandle2ConstMixed This);
+MixedDelete(ConstHandle2ConstMixed self);
 
 
 // -----------------------------------------------------------------------------
@@ -117,25 +117,25 @@ MixedDelete(ConstHandle2ConstMixed This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MixedRead(ConstHandle2Mixed This, const char *const filename);
+MixedRead(ConstHandle2Mixed self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MixedWrite(ConstHandle2ConstMixed This, const char *const filename);
+MixedWrite(ConstHandle2ConstMixed self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MixedPrint(ConstHandle2ConstMixed This);
+MixedPrint(ConstHandle2ConstMixed self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MixedPrintXML(ConstHandle2ConstMixed This);
+MixedPrintXML(ConstHandle2ConstMixed self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MixedPrintJSON(ConstHandle2ConstMixed This);
+MixedPrintJSON(ConstHandle2ConstMixed self);
 
 
 // -----------------------------------------------------------------------------
@@ -144,16 +144,16 @@ MixedPrintJSON(ConstHandle2ConstMixed This);
 
 // +++ Has
 extern_c int
-MixedLabelHas(ConstHandle2ConstMixed This);
+MixedLabelHas(ConstHandle2ConstMixed self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MixedLabelGet(ConstHandle2ConstMixed This);
+MixedLabelGet(ConstHandle2ConstMixed self);
 
 // +++ Set
 extern_c void
-MixedLabelSet(ConstHandle2Mixed This, const XMLName label);
+MixedLabelSet(ConstHandle2Mixed self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -162,32 +162,32 @@ MixedLabelSet(ConstHandle2Mixed This, const XMLName label);
 
 // +++ Has
 extern_c int
-MixedCovarianceMatrixHas(ConstHandle2ConstMixed This);
+MixedCovarianceMatrixHas(ConstHandle2ConstMixed self);
 
 // +++ Clear
 extern_c void
-MixedCovarianceMatrixClear(ConstHandle2Mixed This);
+MixedCovarianceMatrixClear(ConstHandle2Mixed self);
 
 // +++ Size
 extern_c size_t
-MixedCovarianceMatrixSize(ConstHandle2ConstMixed This);
+MixedCovarianceMatrixSize(ConstHandle2ConstMixed self);
 
 // +++ Add
 extern_c void
-MixedCovarianceMatrixAdd(ConstHandle2Mixed This, ConstHandle2ConstCovarianceMatrix covarianceMatrix);
+MixedCovarianceMatrixAdd(ConstHandle2Mixed self, ConstHandle2ConstCovarianceMatrix covarianceMatrix);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstCovarianceMatrix
-MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed This, const size_t index_);
+MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2CovarianceMatrix
-MixedCovarianceMatrixGet(ConstHandle2Mixed This, const size_t index_);
+MixedCovarianceMatrixGet(ConstHandle2Mixed self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 MixedCovarianceMatrixSet(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const size_t index_,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
@@ -195,28 +195,28 @@ MixedCovarianceMatrixSet(
 // +++ Has, by label
 extern_c int
 MixedCovarianceMatrixHasByLabel(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByLabelConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 MixedCovarianceMatrixSetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
@@ -224,28 +224,28 @@ MixedCovarianceMatrixSetByLabel(
 // +++ Has, by productFrame
 extern_c int
 MixedCovarianceMatrixHasByProductFrame(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const enums::Frame productFrame
 );
 
 // --- Get, by productFrame, const
 extern_c Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByProductFrameConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const enums::Frame productFrame
 );
 
 // +++ Get, by productFrame, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByProductFrame(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const enums::Frame productFrame
 );
 
 // +++ Set, by productFrame
 extern_c void
 MixedCovarianceMatrixSetByProductFrame(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const enums::Frame productFrame,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
@@ -253,28 +253,28 @@ MixedCovarianceMatrixSetByProductFrame(
 // +++ Has, by type
 extern_c int
 MixedCovarianceMatrixHasByType(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName type
 );
 
 // --- Get, by type, const
 extern_c Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetByTypeConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName type
 );
 
 // +++ Get, by type, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName type
 );
 
 // +++ Set, by type
 extern_c void
 MixedCovarianceMatrixSetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName type,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
@@ -286,32 +286,32 @@ MixedCovarianceMatrixSetByType(
 
 // +++ Has
 extern_c int
-MixedShortRangeSelfScalingVarianceHas(ConstHandle2ConstMixed This);
+MixedShortRangeSelfScalingVarianceHas(ConstHandle2ConstMixed self);
 
 // +++ Clear
 extern_c void
-MixedShortRangeSelfScalingVarianceClear(ConstHandle2Mixed This);
+MixedShortRangeSelfScalingVarianceClear(ConstHandle2Mixed self);
 
 // +++ Size
 extern_c size_t
-MixedShortRangeSelfScalingVarianceSize(ConstHandle2ConstMixed This);
+MixedShortRangeSelfScalingVarianceSize(ConstHandle2ConstMixed self);
 
 // +++ Add
 extern_c void
-MixedShortRangeSelfScalingVarianceAdd(ConstHandle2Mixed This, ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance);
+MixedShortRangeSelfScalingVarianceAdd(ConstHandle2Mixed self, ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstShortRangeSelfScalingVariance
-MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed This, const size_t index_);
+MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2ShortRangeSelfScalingVariance
-MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed This, const size_t index_);
+MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 MixedShortRangeSelfScalingVarianceSet(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const size_t index_,
    ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance
 );
@@ -319,28 +319,28 @@ MixedShortRangeSelfScalingVarianceSet(
 // +++ Has, by dependenceOnProcessedGroupWidth
 extern_c int
 MixedShortRangeSelfScalingVarianceHasByDependenceOnProcessedGroupWidth(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName dependenceOnProcessedGroupWidth
 );
 
 // --- Get, by dependenceOnProcessedGroupWidth, const
 extern_c Handle2ConstShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByDependenceOnProcessedGroupWidthConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName dependenceOnProcessedGroupWidth
 );
 
 // +++ Get, by dependenceOnProcessedGroupWidth, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByDependenceOnProcessedGroupWidth(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName dependenceOnProcessedGroupWidth
 );
 
 // +++ Set, by dependenceOnProcessedGroupWidth
 extern_c void
 MixedShortRangeSelfScalingVarianceSetByDependenceOnProcessedGroupWidth(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName dependenceOnProcessedGroupWidth,
    ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance
 );
@@ -348,28 +348,28 @@ MixedShortRangeSelfScalingVarianceSetByDependenceOnProcessedGroupWidth(
 // +++ Has, by label
 extern_c int
 MixedShortRangeSelfScalingVarianceHasByLabel(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByLabelConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 MixedShortRangeSelfScalingVarianceSetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label,
    ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance
 );
@@ -377,28 +377,28 @@ MixedShortRangeSelfScalingVarianceSetByLabel(
 // +++ Has, by type
 extern_c int
 MixedShortRangeSelfScalingVarianceHasByType(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName type
 );
 
 // --- Get, by type, const
 extern_c Handle2ConstShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByTypeConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName type
 );
 
 // +++ Get, by type, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName type
 );
 
 // +++ Set, by type
 extern_c void
 MixedShortRangeSelfScalingVarianceSetByType(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName type,
    ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance
 );
@@ -410,32 +410,32 @@ MixedShortRangeSelfScalingVarianceSetByType(
 
 // +++ Has
 extern_c int
-MixedSumHas(ConstHandle2ConstMixed This);
+MixedSumHas(ConstHandle2ConstMixed self);
 
 // +++ Clear
 extern_c void
-MixedSumClear(ConstHandle2Mixed This);
+MixedSumClear(ConstHandle2Mixed self);
 
 // +++ Size
 extern_c size_t
-MixedSumSize(ConstHandle2ConstMixed This);
+MixedSumSize(ConstHandle2ConstMixed self);
 
 // +++ Add
 extern_c void
-MixedSumAdd(ConstHandle2Mixed This, ConstHandle2ConstSum sum);
+MixedSumAdd(ConstHandle2Mixed self, ConstHandle2ConstSum sum);
 
 // --- Get, by index \in [0,size), const
 extern_c Handle2ConstSum
-MixedSumGetConst(ConstHandle2ConstMixed This, const size_t index_);
+MixedSumGetConst(ConstHandle2ConstMixed self, const size_t index_);
 
 // +++ Get, by index \in [0,size), non-const
 extern_c Handle2Sum
-MixedSumGet(ConstHandle2Mixed This, const size_t index_);
+MixedSumGet(ConstHandle2Mixed self, const size_t index_);
 
 // +++ Set, by index \in [0,size)
 extern_c void
 MixedSumSet(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const size_t index_,
    ConstHandle2ConstSum sum
 );
@@ -443,28 +443,28 @@ MixedSumSet(
 // +++ Has, by domainMin
 extern_c int
 MixedSumHasByDomainMin(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const Float64 domainMin
 );
 
 // --- Get, by domainMin, const
 extern_c Handle2ConstSum
 MixedSumGetByDomainMinConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const Float64 domainMin
 );
 
 // +++ Get, by domainMin, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainMin(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const Float64 domainMin
 );
 
 // +++ Set, by domainMin
 extern_c void
 MixedSumSetByDomainMin(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const Float64 domainMin,
    ConstHandle2ConstSum sum
 );
@@ -472,28 +472,28 @@ MixedSumSetByDomainMin(
 // +++ Has, by domainMax
 extern_c int
 MixedSumHasByDomainMax(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const Float64 domainMax
 );
 
 // --- Get, by domainMax, const
 extern_c Handle2ConstSum
 MixedSumGetByDomainMaxConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const Float64 domainMax
 );
 
 // +++ Get, by domainMax, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainMax(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const Float64 domainMax
 );
 
 // +++ Set, by domainMax
 extern_c void
 MixedSumSetByDomainMax(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const Float64 domainMax,
    ConstHandle2ConstSum sum
 );
@@ -501,28 +501,28 @@ MixedSumSetByDomainMax(
 // +++ Has, by domainUnit
 extern_c int
 MixedSumHasByDomainUnit(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName domainUnit
 );
 
 // --- Get, by domainUnit, const
 extern_c Handle2ConstSum
 MixedSumGetByDomainUnitConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName domainUnit
 );
 
 // +++ Get, by domainUnit, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainUnit(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName domainUnit
 );
 
 // +++ Set, by domainUnit
 extern_c void
 MixedSumSetByDomainUnit(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName domainUnit,
    ConstHandle2ConstSum sum
 );
@@ -530,28 +530,28 @@ MixedSumSetByDomainUnit(
 // +++ Has, by label
 extern_c int
 MixedSumHasByLabel(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // --- Get, by label, const
 extern_c Handle2ConstSum
 MixedSumGetByLabelConst(
-   ConstHandle2ConstMixed This,
+   ConstHandle2ConstMixed self,
    const XMLName label
 );
 
 // +++ Get, by label, non-const
 extern_c Handle2Sum
 MixedSumGetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label
 );
 
 // +++ Set, by label
 extern_c void
 MixedSumSetByLabel(
-   ConstHandle2Mixed This,
+   ConstHandle2Mixed self,
    const XMLName label,
    ConstHandle2ConstSum sum
 );

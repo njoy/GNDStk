@@ -92,13 +92,13 @@ MultiGroupCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-MultiGroupAssign(ConstHandle2MultiGroup This, ConstHandle2ConstMultiGroup from);
+MultiGroupAssign(ConstHandle2MultiGroup self, ConstHandle2ConstMultiGroup from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-MultiGroupDelete(ConstHandle2ConstMultiGroup This);
+MultiGroupDelete(ConstHandle2ConstMultiGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -111,25 +111,25 @@ MultiGroupDelete(ConstHandle2ConstMultiGroup This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-MultiGroupRead(ConstHandle2MultiGroup This, const char *const filename);
+MultiGroupRead(ConstHandle2MultiGroup self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-MultiGroupWrite(ConstHandle2ConstMultiGroup This, const char *const filename);
+MultiGroupWrite(ConstHandle2ConstMultiGroup self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-MultiGroupPrint(ConstHandle2ConstMultiGroup This);
+MultiGroupPrint(ConstHandle2ConstMultiGroup self);
 
 // +++ Print to standard output, as XML
 extern_c int
-MultiGroupPrintXML(ConstHandle2ConstMultiGroup This);
+MultiGroupPrintXML(ConstHandle2ConstMultiGroup self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-MultiGroupPrintJSON(ConstHandle2ConstMultiGroup This);
+MultiGroupPrintJSON(ConstHandle2ConstMultiGroup self);
 
 
 // -----------------------------------------------------------------------------
@@ -138,16 +138,16 @@ MultiGroupPrintJSON(ConstHandle2ConstMultiGroup This);
 
 // +++ Has
 extern_c int
-MultiGroupLabelHas(ConstHandle2ConstMultiGroup This);
+MultiGroupLabelHas(ConstHandle2ConstMultiGroup self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-MultiGroupLabelGet(ConstHandle2ConstMultiGroup This);
+MultiGroupLabelGet(ConstHandle2ConstMultiGroup self);
 
 // +++ Set
 extern_c void
-MultiGroupLabelSet(ConstHandle2MultiGroup This, const XMLName label);
+MultiGroupLabelSet(ConstHandle2MultiGroup self, const XMLName label);
 
 
 // -----------------------------------------------------------------------------
@@ -156,19 +156,19 @@ MultiGroupLabelSet(ConstHandle2MultiGroup This, const XMLName label);
 
 // +++ Has
 extern_c int
-MultiGroupGridHas(ConstHandle2ConstMultiGroup This);
+MultiGroupGridHas(ConstHandle2ConstMultiGroup self);
 
 // --- Get, const
 extern_c Handle2ConstGrid
-MultiGroupGridGetConst(ConstHandle2ConstMultiGroup This);
+MultiGroupGridGetConst(ConstHandle2ConstMultiGroup self);
 
 // +++ Get, non-const
 extern_c Handle2Grid
-MultiGroupGridGet(ConstHandle2MultiGroup This);
+MultiGroupGridGet(ConstHandle2MultiGroup self);
 
 // +++ Set
 extern_c void
-MultiGroupGridSet(ConstHandle2MultiGroup This, ConstHandle2ConstGrid grid);
+MultiGroupGridSet(ConstHandle2MultiGroup self, ConstHandle2ConstGrid grid);
 
 
 // -----------------------------------------------------------------------------

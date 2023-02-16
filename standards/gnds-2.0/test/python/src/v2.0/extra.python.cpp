@@ -5,22 +5,22 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace python = pybind11;
+namespace py = pybind11;
 
 // v2.0 interface
 namespace python_v2_0 {
 
 // extra declarations
 namespace python_extra {
-   void wrapDouble(python::module &);
-   void wrapUncertainty(python::module &);
+   void wrapDouble(py::module &);
+   void wrapUncertainty(py::module &);
 } // namespace python_extra
 
-// extra wrapper
-void wrapExtra(python::module &module)
+// wrapper for extra
+void wrapExtra(py::module &module)
 {
    // create the extra submodule
-   python::module submodule = module.def_submodule(
+   py::module submodule = module.def_submodule(
       "extra",
       "test v2.0 extra"
    );

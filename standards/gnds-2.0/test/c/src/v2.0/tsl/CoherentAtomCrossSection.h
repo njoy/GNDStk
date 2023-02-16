@@ -91,13 +91,13 @@ CoherentAtomCrossSectionCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-CoherentAtomCrossSectionAssign(ConstHandle2CoherentAtomCrossSection This, ConstHandle2ConstCoherentAtomCrossSection from);
+CoherentAtomCrossSectionAssign(ConstHandle2CoherentAtomCrossSection self, ConstHandle2ConstCoherentAtomCrossSection from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -110,25 +110,25 @@ CoherentAtomCrossSectionDelete(ConstHandle2ConstCoherentAtomCrossSection This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-CoherentAtomCrossSectionRead(ConstHandle2CoherentAtomCrossSection This, const char *const filename);
+CoherentAtomCrossSectionRead(ConstHandle2CoherentAtomCrossSection self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-CoherentAtomCrossSectionWrite(ConstHandle2ConstCoherentAtomCrossSection This, const char *const filename);
+CoherentAtomCrossSectionWrite(ConstHandle2ConstCoherentAtomCrossSection self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-CoherentAtomCrossSectionPrint(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionPrint(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Print to standard output, as XML
 extern_c int
-CoherentAtomCrossSectionPrintXML(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionPrintXML(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection self);
 
 
 // -----------------------------------------------------------------------------
@@ -137,16 +137,16 @@ CoherentAtomCrossSectionPrintJSON(ConstHandle2ConstCoherentAtomCrossSection This
 
 // +++ Has
 extern_c int
-CoherentAtomCrossSectionUnitHas(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionUnitHas(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c XMLName
-CoherentAtomCrossSectionUnitGet(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionUnitGet(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Set
 extern_c void
-CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection This, const XMLName unit);
+CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection self, const XMLName unit);
 
 
 // -----------------------------------------------------------------------------
@@ -155,16 +155,16 @@ CoherentAtomCrossSectionUnitSet(ConstHandle2CoherentAtomCrossSection This, const
 
 // +++ Has
 extern_c int
-CoherentAtomCrossSectionValueHas(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionValueHas(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Get
 // +++ Returns by value
 extern_c Float64
-CoherentAtomCrossSectionValueGet(ConstHandle2ConstCoherentAtomCrossSection This);
+CoherentAtomCrossSectionValueGet(ConstHandle2ConstCoherentAtomCrossSection self);
 
 // +++ Set
 extern_c void
-CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection This, const Float64 value);
+CoherentAtomCrossSectionValueSet(ConstHandle2CoherentAtomCrossSection self, const Float64 value);
 
 
 // -----------------------------------------------------------------------------

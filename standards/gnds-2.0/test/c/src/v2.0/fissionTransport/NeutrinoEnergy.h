@@ -90,13 +90,13 @@ NeutrinoEnergyCreate(
 // +++ Use this to assign one handled object to another. Don't assign handles,
 // +++ as with to = from. That has a meaning that you probably don't intend.
 extern_c void
-NeutrinoEnergyAssign(ConstHandle2NeutrinoEnergy This, ConstHandle2ConstNeutrinoEnergy from);
+NeutrinoEnergyAssign(ConstHandle2NeutrinoEnergy self, ConstHandle2ConstNeutrinoEnergy from);
 
 // +++ Delete
 // +++ We'll attempt to remove no-longer-used objects automatically, but you
 // +++ may improve performance if you delete them when you're done with them.
 extern_c void
-NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -109,25 +109,25 @@ NeutrinoEnergyDelete(ConstHandle2ConstNeutrinoEnergy This);
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll examine the file's contents to determine its type automatically.
 extern_c int
-NeutrinoEnergyRead(ConstHandle2NeutrinoEnergy This, const char *const filename);
+NeutrinoEnergyRead(ConstHandle2NeutrinoEnergy self, const char *const filename);
 
 // +++ Write to file
 // +++ File can be XML, JSON, or HDF5.
 // +++ We'll use filename's extension to determine the type you want written.
 extern_c int
-NeutrinoEnergyWrite(ConstHandle2ConstNeutrinoEnergy This, const char *const filename);
+NeutrinoEnergyWrite(ConstHandle2ConstNeutrinoEnergy self, const char *const filename);
 
 // +++ Print to standard output, in our prettyprinting format
 extern_c int
-NeutrinoEnergyPrint(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyPrint(ConstHandle2ConstNeutrinoEnergy self);
 
 // +++ Print to standard output, as XML
 extern_c int
-NeutrinoEnergyPrintXML(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyPrintXML(ConstHandle2ConstNeutrinoEnergy self);
 
 // +++ Print to standard output, as JSON
 extern_c int
-NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy self);
 
 
 // -----------------------------------------------------------------------------
@@ -136,19 +136,19 @@ NeutrinoEnergyPrintJSON(ConstHandle2ConstNeutrinoEnergy This);
 
 // +++ Has
 extern_c int
-NeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNeutrinoEnergy self);
 
 // --- Get, const
 extern_c Handle2ConstPolynomial1d
-NeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNeutrinoEnergy This);
+NeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNeutrinoEnergy self);
 
 // +++ Get, non-const
 extern_c Handle2Polynomial1d
-NeutrinoEnergyPolynomial1dGet(ConstHandle2NeutrinoEnergy This);
+NeutrinoEnergyPolynomial1dGet(ConstHandle2NeutrinoEnergy self);
 
 // +++ Set
 extern_c void
-NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy This, ConstHandle2ConstPolynomial1d polynomial1d);
+NeutrinoEnergyPolynomial1dSet(ConstHandle2NeutrinoEnergy self, ConstHandle2ConstPolynomial1d polynomial1d);
 
 
 // -----------------------------------------------------------------------------

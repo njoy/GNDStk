@@ -94,20 +94,20 @@ Constant1dCreate(
 // Use this to assign one handled object to another. Don't assign handles,
 // as with to = from. That has a meaning that you probably don't intend.
 void
-Constant1dAssign(ConstHandle2Constant1d This, ConstHandle2ConstConstant1d from)
+Constant1dAssign(ConstHandle2Constant1d self, ConstHandle2ConstConstant1d from)
 {
    detail::assignHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Assign", This, from);
+      (CLASSNAME, CLASSNAME+"Assign", self, from);
 }
 
 // Delete
 // We'll attempt to remove no-longer-used objects automatically, but you
 // may improve performance if you delete them when you're done with them.
 void
-Constant1dDelete(ConstHandle2ConstConstant1d This)
+Constant1dDelete(ConstHandle2ConstConstant1d self)
 {
    detail::deleteHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Delete", This);
+      (CLASSNAME, CLASSNAME+"Delete", self);
 }
 
 
@@ -121,44 +121,44 @@ Constant1dDelete(ConstHandle2ConstConstant1d This)
 // File can be XML, JSON, or HDF5.
 // We'll examine the file's contents to determine its type automatically.
 int
-Constant1dRead(ConstHandle2Constant1d This, const char *const filename)
+Constant1dRead(ConstHandle2Constant1d self, const char *const filename)
 {
    return detail::readHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Read", This, filename);
+      (CLASSNAME, CLASSNAME+"Read", self, filename);
 }
 
 // Write to file
 // File can be XML, JSON, or HDF5.
 // We'll use filename's extension to determine the type you want written.
 int
-Constant1dWrite(ConstHandle2ConstConstant1d This, const char *const filename)
+Constant1dWrite(ConstHandle2ConstConstant1d self, const char *const filename)
 {
    return detail::writeHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Write", This, filename);
+      (CLASSNAME, CLASSNAME+"Write", self, filename);
 }
 
 // Print to standard output, in our prettyprinting format
 int
-Constant1dPrint(ConstHandle2ConstConstant1d This)
+Constant1dPrint(ConstHandle2ConstConstant1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"Print", This);
+      (CLASSNAME, CLASSNAME+"Print", self);
 }
 
 // Print to standard output, as XML
 int
-Constant1dPrintXML(ConstHandle2ConstConstant1d This)
+Constant1dPrintXML(ConstHandle2ConstConstant1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintXML", This, "XML");
+      (CLASSNAME, CLASSNAME+"PrintXML", self, "XML");
 }
 
 // Print to standard output, as JSON
 int
-Constant1dPrintJSON(ConstHandle2ConstConstant1d This)
+Constant1dPrintJSON(ConstHandle2ConstConstant1d self)
 {
    return detail::printHandle<CPP,C>
-      (CLASSNAME, CLASSNAME+"PrintJSON", This, "JSON");
+      (CLASSNAME, CLASSNAME+"PrintJSON", self, "JSON");
 }
 
 
@@ -168,27 +168,27 @@ Constant1dPrintJSON(ConstHandle2ConstConstant1d This)
 
 // Has
 int
-Constant1dValueHas(ConstHandle2ConstConstant1d This)
+Constant1dValueHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueHas", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueHas", self, extract::value);
 }
 
 // Get
 // Returns by value
 Float64
-Constant1dValueGet(ConstHandle2ConstConstant1d This)
+Constant1dValueGet(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueGet", This, extract::value);
+      (CLASSNAME, CLASSNAME+"ValueGet", self, extract::value);
 }
 
 // Set
 void
-Constant1dValueSet(ConstHandle2Constant1d This, const Float64 value)
+Constant1dValueSet(ConstHandle2Constant1d self, const Float64 value)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"ValueSet", This, extract::value, value);
+      (CLASSNAME, CLASSNAME+"ValueSet", self, extract::value, value);
 }
 
 
@@ -198,27 +198,27 @@ Constant1dValueSet(ConstHandle2Constant1d This, const Float64 value)
 
 // Has
 int
-Constant1dLabelHas(ConstHandle2ConstConstant1d This)
+Constant1dLabelHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelHas", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelHas", self, extract::label);
 }
 
 // Get
 // Returns by value
 XMLName
-Constant1dLabelGet(ConstHandle2ConstConstant1d This)
+Constant1dLabelGet(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelGet", This, extract::label);
+      (CLASSNAME, CLASSNAME+"LabelGet", self, extract::label);
 }
 
 // Set
 void
-Constant1dLabelSet(ConstHandle2Constant1d This, const XMLName label)
+Constant1dLabelSet(ConstHandle2Constant1d self, const XMLName label)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"LabelSet", This, extract::label, label);
+      (CLASSNAME, CLASSNAME+"LabelSet", self, extract::label, label);
 }
 
 
@@ -228,27 +228,27 @@ Constant1dLabelSet(ConstHandle2Constant1d This, const XMLName label)
 
 // Has
 int
-Constant1dOuterDomainValueHas(ConstHandle2ConstConstant1d This)
+Constant1dOuterDomainValueHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueHas", self, extract::outerDomainValue);
 }
 
 // Get
 // Returns by value
 Float64
-Constant1dOuterDomainValueGet(ConstHandle2ConstConstant1d This)
+Constant1dOuterDomainValueGet(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", This, extract::outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueGet", self, extract::outerDomainValue);
 }
 
 // Set
 void
-Constant1dOuterDomainValueSet(ConstHandle2Constant1d This, const Float64 outerDomainValue)
+Constant1dOuterDomainValueSet(ConstHandle2Constant1d self, const Float64 outerDomainValue)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", This, extract::outerDomainValue, outerDomainValue);
+      (CLASSNAME, CLASSNAME+"OuterDomainValueSet", self, extract::outerDomainValue, outerDomainValue);
 }
 
 
@@ -258,27 +258,27 @@ Constant1dOuterDomainValueSet(ConstHandle2Constant1d This, const Float64 outerDo
 
 // Has
 int
-Constant1dDomainMinHas(ConstHandle2ConstConstant1d This)
+Constant1dDomainMinHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinHas", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinHas", self, extract::domainMin);
 }
 
 // Get
 // Returns by value
 Float64
-Constant1dDomainMinGet(ConstHandle2ConstConstant1d This)
+Constant1dDomainMinGet(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinGet", This, extract::domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinGet", self, extract::domainMin);
 }
 
 // Set
 void
-Constant1dDomainMinSet(ConstHandle2Constant1d This, const Float64 domainMin)
+Constant1dDomainMinSet(ConstHandle2Constant1d self, const Float64 domainMin)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMinSet", This, extract::domainMin, domainMin);
+      (CLASSNAME, CLASSNAME+"DomainMinSet", self, extract::domainMin, domainMin);
 }
 
 
@@ -288,27 +288,27 @@ Constant1dDomainMinSet(ConstHandle2Constant1d This, const Float64 domainMin)
 
 // Has
 int
-Constant1dDomainMaxHas(ConstHandle2ConstConstant1d This)
+Constant1dDomainMaxHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxHas", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxHas", self, extract::domainMax);
 }
 
 // Get
 // Returns by value
 Float64
-Constant1dDomainMaxGet(ConstHandle2ConstConstant1d This)
+Constant1dDomainMaxGet(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxGet", This, extract::domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxGet", self, extract::domainMax);
 }
 
 // Set
 void
-Constant1dDomainMaxSet(ConstHandle2Constant1d This, const Float64 domainMax)
+Constant1dDomainMaxSet(ConstHandle2Constant1d self, const Float64 domainMax)
 {
    detail::setField<CPP>
-      (CLASSNAME, CLASSNAME+"DomainMaxSet", This, extract::domainMax, domainMax);
+      (CLASSNAME, CLASSNAME+"DomainMaxSet", self, extract::domainMax, domainMax);
 }
 
 
@@ -318,34 +318,34 @@ Constant1dDomainMaxSet(ConstHandle2Constant1d This, const Float64 domainMax)
 
 // Has
 int
-Constant1dAxesHas(ConstHandle2ConstConstant1d This)
+Constant1dAxesHas(ConstHandle2ConstConstant1d self)
 {
    return detail::hasField<CPP>
-      (CLASSNAME, CLASSNAME+"AxesHas", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesHas", self, extract::axes);
 }
 
 // Get, const
 Handle2ConstAxes
-Constant1dAxesGetConst(ConstHandle2ConstConstant1d This)
+Constant1dAxesGetConst(ConstHandle2ConstConstant1d self)
 {
    return detail::getField<CPP,Handle2ConstAxes>
-      (CLASSNAME, CLASSNAME+"AxesGetConst", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
 // Get, non-const
 Handle2Axes
-Constant1dAxesGet(ConstHandle2Constant1d This)
+Constant1dAxesGet(ConstHandle2Constant1d self)
 {
    return detail::getField<CPP,Handle2Axes>
-      (CLASSNAME, CLASSNAME+"AxesGet", This, extract::axes);
+      (CLASSNAME, CLASSNAME+"AxesGet", self, extract::axes);
 }
 
 // Set
 void
-Constant1dAxesSet(ConstHandle2Constant1d This, ConstHandle2ConstAxes axes)
+Constant1dAxesSet(ConstHandle2Constant1d self, ConstHandle2ConstAxes axes)
 {
    detail::setField<CPP,CPPAxes>
-      (CLASSNAME, CLASSNAME+"AxesSet", This, extract::axes, axes);
+      (CLASSNAME, CLASSNAME+"AxesSet", self, extract::axes, axes);
 }
 
 

@@ -11,66 +11,99 @@
 #include "definitions.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 namespace python_v2_0 {
 namespace python_pops {
 
-// Spectrum wrapper
-void wrapSpectrum(python::module &module)
+// wrapper for pops::Spectrum
+void wrapSpectrum(py::module &module)
 {
    using namespace test;
    using namespace test::v2_0;
 
    // type aliases
-   using Component = pops::Spectrum;
+   using cppCLASS = pops::Spectrum;
 
-   // create the component
-   python::class_<Component> component(
-      module,
-      "Spectrum",
-      Component::documentation().data()
+   // create the Python object
+   py::class_<cppCLASS> object(
+      module, "Spectrum",
+      cppCLASS::component_t::documentation().data()
    );
 
-   // wrap the component
-   component
-      .def(
-         python::init<
-            const XMLName &,
-            const XMLName &,
-            const std::optional<pops::Continuum> &,
-            const std::optional<std::vector<pops::Discrete>> &
-         >(),
-         python::arg("label"),
-         python::arg("pid"),
-         python::arg("continuum") = std::nullopt,
-         python::arg("discrete") = std::nullopt,
-         Component::documentation("constructor").data()
-      )
-      .def_property_readonly(
-         "label",
-         [](const Component &self) { return self.label(); },
-         Component::documentation("label").data()
-      )
-      .def_property_readonly(
-         "pid",
-         [](const Component &self) { return self.pid(); },
-         Component::documentation("pid").data()
-      )
-      .def_property_readonly(
-         "continuum",
-         [](const Component &self) { return self.continuum(); },
-         Component::documentation("continuum").data()
-      )
-      .def_property_readonly(
-         "discrete",
-         [](const Component &self) { return self.discrete(); },
-         Component::documentation("discrete").data()
-      )
-   ;
+   // constructor: from fields
+   object.def(
+      py::init<
+         const XMLName &,
+         const XMLName &,
+         const std::optional<pops::Continuum> &,
+         const std::optional<std::vector<pops::Discrete>> &
+      >(),
+      py::arg("label"),
+      py::arg("pid"),
+      py::arg("continuum") = std::nullopt,
+      py::arg("discrete") = std::nullopt,
+      cppCLASS::component_t::documentation("constructor").data()
+   );
 
-   // add standard component definitions
-   addStandardComponentDefinitions< Component >( component );
+   // get/set label
+   object.def_property(
+      "label",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.label();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.label() = value;
+      },
+      cppCLASS::component_t::documentation("label").data()
+   );
+
+   // get/set pid
+   object.def_property(
+      "pid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.pid();
+      },
+      [](cppCLASS &self, const XMLName &value)
+      {
+         self.pid() = value;
+      },
+      cppCLASS::component_t::documentation("pid").data()
+   );
+
+   // get/set continuum
+   object.def_property(
+      "continuum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.continuum();
+      },
+      [](cppCLASS &self, const std::optional<pops::Continuum> &value)
+      {
+         self.continuum() = value;
+      },
+      cppCLASS::component_t::documentation("continuum").data()
+   );
+
+   // get/set discrete
+   object.def_property(
+      "discrete",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.discrete();
+      },
+      [](cppCLASS &self, const std::optional<std::vector<pops::Discrete>> &value)
+      {
+         self.discrete() = value;
+      },
+      cppCLASS::component_t::documentation("discrete").data()
+   );
+
+   // add standard definitions
+   addStandardComponentDefinitions<cppCLASS>(object);
 }
 
 } // namespace python_pops
