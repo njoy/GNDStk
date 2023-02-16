@@ -91,6 +91,25 @@ class FissionEnergyRelease :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "prompt_product_ke",
+         "prompt_neutron_ke",
+         "delayed_neutron_ke",
+         "prompt_gamma_energy",
+         "delayed_gamma_energy",
+         "delayed_beta_energy",
+         "neutrino_energy",
+         "non_neutrino_energy",
+         "total_energy"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

@@ -73,6 +73,21 @@ class Width :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "resonance_reaction",
+         "degrees_of_freedom",
+         "xys1d",
+         "constant1d",
+         "regions1d"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

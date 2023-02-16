@@ -74,6 +74,21 @@ class CrossSection :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys1d",
+         "regions1d",
+         "reference",
+         "resonances_with_background",
+         "coulomb_plus_nuclear_elastic",
+         "thermal_neutron_scattering_law1d"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

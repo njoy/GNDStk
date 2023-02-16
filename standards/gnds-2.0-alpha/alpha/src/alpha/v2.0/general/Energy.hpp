@@ -102,6 +102,28 @@ class Energy :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "unit",
+         "double",
+         "uncertainty",
+         "nbody_phase_space",
+         "primary_gamma",
+         "discrete_gamma",
+         "xys2d",
+         "general_evaporation",
+         "evaporation",
+         "weighted_functionals",
+         "simple_maxwellian_fission",
+         "madland_nix"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

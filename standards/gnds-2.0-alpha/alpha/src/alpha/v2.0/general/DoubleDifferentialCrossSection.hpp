@@ -74,6 +74,21 @@ class DoubleDifferentialCrossSection :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "coulomb_plus_nuclear_elastic",
+         "coherent_photon_scattering",
+         "incoherent_photon_scattering",
+         "thermal_neutron_scattering_law_coherent_elastic",
+         "thermal_neutron_scattering_law_incoherent_elastic",
+         "thermal_neutron_scattering_law_incoherent_inelastic"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

@@ -76,6 +76,22 @@ class XYs2d :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "index",
+         "interpolation",
+         "interpolation_qualifier",
+         "outer_domain_value",
+         "axes",
+         "function1ds",
+         "uncertainty"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

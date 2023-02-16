@@ -79,6 +79,23 @@ class CoulombPlusNuclearElastic :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "href",
+         "pid",
+         "product_frame",
+         "identical_particles",
+         "rutherford_scattering",
+         "nuclear_amplitude_expansion",
+         "nuclear_plus_interference"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

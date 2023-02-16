@@ -70,6 +70,20 @@ class AverageParameterCovariance :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "cross_term",
+         "covariance_matrix",
+         "row_data",
+         "column_data"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

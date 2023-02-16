@@ -62,6 +62,18 @@ class NuclearAmplitudeExpansion :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "nuclear_term",
+         "real_interference_term",
+         "imaginary_interference_term"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

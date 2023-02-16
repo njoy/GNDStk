@@ -62,6 +62,18 @@ class EnergyAngular :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "product_frame",
+         "xys3d"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

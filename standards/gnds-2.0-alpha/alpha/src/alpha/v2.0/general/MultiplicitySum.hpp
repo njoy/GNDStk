@@ -66,6 +66,19 @@ class MultiplicitySum :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "endf_mt",
+         "multiplicity",
+         "summands"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

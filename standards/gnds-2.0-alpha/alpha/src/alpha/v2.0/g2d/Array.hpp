@@ -65,6 +65,19 @@ class Array :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "shape",
+         "compression",
+         "symmetry",
+         "values"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

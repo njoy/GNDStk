@@ -65,6 +65,19 @@ class PrimaryGamma :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "value",
+         "domain_min",
+         "domain_max",
+         "axes"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

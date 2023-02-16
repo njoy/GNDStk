@@ -114,6 +114,32 @@ class ReactionSuite :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "target",
+         "evaluation",
+         "format",
+         "projectile_frame",
+         "interaction",
+         "styles",
+         "po_ps",
+         "reactions",
+         "application_data",
+         "external_files",
+         "resonances",
+         "sums",
+         "productions",
+         "fission_components",
+         "orphan_products",
+         "incomplete_reactions"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

@@ -58,6 +58,17 @@ class FastRegion :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "xys1d",
+         "regions1d"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

@@ -77,6 +77,22 @@ class ResonanceReaction :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "ejectile",
+         "eliminated",
+         "link",
+         "hard_sphere_radius",
+         "q",
+         "scattering_radius"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

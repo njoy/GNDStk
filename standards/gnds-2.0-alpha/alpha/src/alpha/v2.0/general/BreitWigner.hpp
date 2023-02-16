@@ -73,6 +73,21 @@ class BreitWigner :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "calculate_channel_radius",
+         "resonance_parameters",
+         "po_ps",
+         "scattering_radius"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

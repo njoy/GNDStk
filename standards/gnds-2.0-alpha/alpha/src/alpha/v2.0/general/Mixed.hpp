@@ -67,6 +67,19 @@ class Mixed :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "covariance_matrix",
+         "sum",
+         "short_range_self_scaling_variance"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

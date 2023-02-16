@@ -70,6 +70,20 @@ class Regions1d :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "uncertainty",
+         "function1ds"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

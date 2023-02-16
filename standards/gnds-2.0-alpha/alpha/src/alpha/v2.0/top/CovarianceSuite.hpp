@@ -83,6 +83,24 @@ class CovarianceSuite :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "projectile",
+         "target",
+         "evaluation",
+         "interaction",
+         "format",
+         "external_files",
+         "styles",
+         "covariance_sections",
+         "parameter_covariances"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

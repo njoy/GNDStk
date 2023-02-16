@@ -89,6 +89,25 @@ class PoPs :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "name",
+         "version",
+         "format",
+         "aliases",
+         "baryons",
+         "chemical_elements",
+         "styles",
+         "unorthodoxes",
+         "gauge_bosons",
+         "leptons"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

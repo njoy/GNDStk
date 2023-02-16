@@ -79,6 +79,23 @@ class RMatrix :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "approximation",
+         "boundary_condition",
+         "calculate_channel_radius",
+         "supports_angular_reconstruction",
+         "po_ps",
+         "resonance_reactions",
+         "spin_groups"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

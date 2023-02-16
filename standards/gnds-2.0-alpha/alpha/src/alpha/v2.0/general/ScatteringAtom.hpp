@@ -85,6 +85,24 @@ class ScatteringAtom :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "pid",
+         "number_per_molecule",
+         "primary_scatterer",
+         "mass",
+         "e_critical",
+         "e_max",
+         "bound_atom_cross_section",
+         "self_scattering_kernel",
+         "t_effective"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

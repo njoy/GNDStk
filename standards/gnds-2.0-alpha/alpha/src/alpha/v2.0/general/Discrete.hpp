@@ -71,6 +71,20 @@ class Discrete :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "type",
+         "intensity",
+         "energy",
+         "internal_conversion_coefficients",
+         "positron_emission_intensity"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

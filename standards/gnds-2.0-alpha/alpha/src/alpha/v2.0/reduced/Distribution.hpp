@@ -70,6 +70,20 @@ class Distribution :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "thermal_neutron_scattering_law",
+         "uncorrelated",
+         "unspecified",
+         "xys2d",
+         "branching3d"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

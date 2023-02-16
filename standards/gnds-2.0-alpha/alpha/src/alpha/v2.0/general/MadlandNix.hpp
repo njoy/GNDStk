@@ -62,6 +62,18 @@ class MadlandNix :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "efl",
+         "efh",
+         "t_m"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

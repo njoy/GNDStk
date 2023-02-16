@@ -75,6 +75,22 @@ class Channel :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "resonance_reaction",
+         "l",
+         "channel_spin",
+         "column_index",
+         "scattering_radius",
+         "hard_sphere_radius"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

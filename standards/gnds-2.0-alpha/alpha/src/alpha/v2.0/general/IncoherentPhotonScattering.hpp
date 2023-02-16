@@ -68,6 +68,20 @@ class IncoherentPhotonScattering :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "label",
+         "href",
+         "pid",
+         "product_frame",
+         "scattering_factor"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

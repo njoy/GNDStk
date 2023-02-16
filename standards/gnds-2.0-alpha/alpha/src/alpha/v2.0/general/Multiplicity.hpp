@@ -82,6 +82,23 @@ class Multiplicity :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "constant1d",
+         "xys1d",
+         "regions1d",
+         "polynomial1d",
+         "reference",
+         "branching1d",
+         "branching3d",
+         "unspecified"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------

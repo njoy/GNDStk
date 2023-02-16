@@ -58,6 +58,17 @@ class Styles :
       return names;
    }
 
+   // Data member names, as they'll be presented in the Python bindings.
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "comment",
+         "evaluated",
+         "cross_section_reconstructed"
+      };
+      return names;
+   }
+
    // ------------------------
    // Public interface
    // ------------------------
