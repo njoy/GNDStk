@@ -20,7 +20,7 @@ class TestGetter : public Component<TestGetter>
 
    static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "TestGetter"; }
-   // static auto FIELD() - not actually needed here
+   // static auto NODENAME() - not actually needed here
    static auto KEYS()
    {
       return std::tuple<>{};

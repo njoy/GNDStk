@@ -17,7 +17,7 @@ class Floats : public Component<Floats,true,float> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "precision"; }
    static auto CLASS() { return "Floats"; }
-   static auto FIELD() { return "floats"; }
+   static auto NODENAME() { return "floats"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -223,7 +223,7 @@ class Doubles : public Component<Doubles,true,double> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "precision"; }
    static auto CLASS() { return "Doubles"; }
-   static auto FIELD() { return "doubles"; }
+   static auto NODENAME() { return "doubles"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -429,7 +429,7 @@ class Quads : public Component<Quads,true,long double> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "precision"; }
    static auto CLASS() { return "Quads"; }
-   static auto FIELD() { return "quads"; }
+   static auto NODENAME() { return "quads"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -635,7 +635,7 @@ class Reals : public Component<Reals,true> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "precision"; }
    static auto CLASS() { return "Reals"; }
-   static auto FIELD() { return "reals"; }
+   static auto NODENAME() { return "reals"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -841,7 +841,7 @@ class Numbers : public Component<Numbers> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "precision"; }
    static auto CLASS() { return "Numbers"; }
-   static auto FIELD() { return "numbers"; }
+   static auto NODENAME() { return "numbers"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()

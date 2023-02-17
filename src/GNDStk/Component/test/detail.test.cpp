@@ -79,7 +79,7 @@ public:
 
    static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "Derived"; }
-   static auto FIELD() { return "none"; }
+   static auto NODENAME() { return "none"; }
 
    static auto KEYS()
    {

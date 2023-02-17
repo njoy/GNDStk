@@ -112,7 +112,7 @@ class Values : public Component<Values,true> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Values"; }
-   static auto FIELD() { return "values"; }
+   static auto NODENAME() { return "values"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -327,7 +327,7 @@ class Link : public Component<Link> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Link"; }
-   static auto FIELD() { return "link"; }
+   static auto NODENAME() { return "link"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -476,7 +476,7 @@ class Grid : public Component<Grid> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Grid"; }
-   static auto FIELD() { return "grid"; }
+   static auto NODENAME() { return "grid"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -782,7 +782,7 @@ class Axis : public Component<Axis> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Axis"; }
-   static auto FIELD() { return "axis"; }
+   static auto NODENAME() { return "axis"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -971,7 +971,7 @@ class Axes : public Component<Axes> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Axes"; }
-   static auto FIELD() { return "axes"; }
+   static auto NODENAME() { return "axes"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -1226,7 +1226,7 @@ class XYs1d : public Component<XYs1d> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "XYs1d"; }
-   static auto FIELD() { return "XYs1d"; }
+   static auto NODENAME() { return "XYs1d"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -1512,7 +1512,7 @@ class Regions1d : public Component<Regions1d> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Regions1d"; }
-   static auto FIELD() { return "regions1d"; }
+   static auto NODENAME() { return "regions1d"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -1752,7 +1752,7 @@ class CrossSection : public Component<CrossSection> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "CrossSection"; }
-   static auto FIELD() { return "crossSection"; }
+   static auto NODENAME() { return "crossSection"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -1984,7 +1984,7 @@ class Reaction : public Component<Reaction> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Reaction"; }
-   static auto FIELD() { return "reaction"; }
+   static auto NODENAME() { return "reaction"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -2191,7 +2191,7 @@ class Reactions : public Component<Reactions> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "Reactions"; }
-   static auto FIELD() { return "reactions"; }
+   static auto NODENAME() { return "reactions"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()
@@ -2363,7 +2363,7 @@ class ReactionSuite : public Component<ReactionSuite> {
    // Current namespace, current class, and GNDS node name
    static auto NAMESPACE() { return "proto"; }
    static auto CLASS() { return "ReactionSuite"; }
-   static auto FIELD() { return "reactionSuite"; }
+   static auto NODENAME() { return "reactionSuite"; }
 
    // Core Interface object to extract metadata and child nodes
    static auto KEYS()

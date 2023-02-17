@@ -47,7 +47,7 @@ class DerivedValue : public Component<DerivedValue,true>
    // names
    static auto NAMESPACE() { return "test"; }
    static auto CLASS() { return "DerivedValue"; }
-   static auto FIELD() { return "value"; }
+   static auto NODENAME() { return "value"; }
 
    // keys
    static auto KEYS()
@@ -214,7 +214,7 @@ class DerivedPlain : public Component<DerivedPlain,false>
    // names
    static auto NAMESPACE() { return "test"; }
    static auto CLASS() { return "DerivedPlain"; }
-   static auto FIELD() { return "plain"; }
+   static auto NODENAME() { return "plain"; }
 
    // keys
    static auto KEYS()
