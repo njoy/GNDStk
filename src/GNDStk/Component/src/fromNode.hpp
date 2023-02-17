@@ -137,10 +137,10 @@ void fromNode(const Node &node)
 {
    try {
       // does the node have the name we expect?
-      if (node.name != DERIVED::FIELD()) {
+      if (node.name != DERIVED::NODENAME()) {
          log::error(
            "Node name \"{}\" is not the expected name \"{}\"",
-            node.name, DERIVED::FIELD()
+            node.name, DERIVED::NODENAME()
          );
          throw std::exception{};
       }

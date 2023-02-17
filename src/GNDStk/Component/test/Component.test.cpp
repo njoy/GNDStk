@@ -23,7 +23,7 @@ public:
    };
    static auto NAMESPACE() { return "hello"; }
    static auto CLASS() { return "DerivedT"; }
-   static auto FIELD() { return "none"; }
+   static auto NODENAME() { return "none"; }
    static auto KEYS() { return std::tuple<>{}; }
    DerivedT() : Component(BlockData{}) { }
 };
@@ -40,7 +40,7 @@ public:
    };
    static auto NAMESPACE() { return "world"; }
    static auto CLASS() { return "DerivedF"; }
-   static auto FIELD() { return "none"; }
+   static auto NODENAME() { return "none"; }
    static auto KEYS() { return std::tuple<>{}; }
    DerivedF() : Component(BlockData{}) { }
 };
@@ -57,7 +57,7 @@ public:
    friend class Component<DerivedData>;
    static auto NAMESPACE() { return ""; }
    static auto CLASS() { return "DerivedData"; }
-   static auto FIELD() { return "data"; }
+   static auto NODENAME() { return "data"; }
    static auto KEYS()
    {
       return

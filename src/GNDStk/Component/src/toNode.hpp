@@ -36,7 +36,7 @@ public:
 explicit operator Node() const
 {
    // Initialize a Node, with the necessary name
-   Node node(DERIVED::FIELD());
+   Node node(DERIVED::NODENAME());
 
    try {
       // Handle block data, if applicable

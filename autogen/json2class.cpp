@@ -1091,10 +1091,11 @@ void writeClassForComponent(writer &out, const PerClass &per)
    out(1,"// For Component");
    out(1,smallComment);
    out();
-   out(1,"// Names: this namespace, this class, and a field/node of this type");
+   out(1,"// Names: this namespace and class, "
+       "and original nodes (as in XML <...>)");
    out(1,"static auto NAMESPACE() { return \"@\"; }", per.nsname);
    out(1,"static auto CLASS() { return \"@\"; }", per.clname);
-   out(1,"static auto FIELD() { return \"@\"; }", per.nameGNDS);
+   out(1,"static auto NODENAME() { return \"@\"; }", per.nameGNDS);
 
    // ------------------------
    // KEYS()
@@ -1102,7 +1103,7 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
    // KEYS() begin
    out();
-   out(1,"// Core Interface multi-query to transfer information to/from Nodes");
+   out(1,"// Core Interface multi-query to transfer information to/from core Nodes");
    out(1,"static auto KEYS()");
    out(1,"{");
 
