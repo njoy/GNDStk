@@ -3867,89 +3867,86 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// shortcuts
+// Helper for the shortcuts() function
 // -----------------------------------------------------------------------------
 
-// Helper
-void cuts(
+void visit(
    const InfoSpecs &specs,
    const InfoChildren &child,
-   std::vector<std::string> &loc,
-   const std::set<std::string> &fieldnames,
-   std::multimap<std::string,std::vector<std::string>> &name2loc
+   std::map<std::string,bool> &usednames,
+   std::vector<std::string> &path,
+   std::multimap<std::string,std::vector<std::string>> &name2path,
+   std::set<std::string> &optvec,
+   std::string &title, // might be modified
+   const bool warn,
+   bool consider // <== we've *not* already gone through an optional or vector?
 ) {
-   if (child.isOptional || child.isVector) {
-      // zzz However, think about this in the following context. While we don't
-      // allow shortcutting through optionals and vectors, it's conceivable that
-      // something further down has the same name as something to which we
-      // determine we *can* shortcut, because that other thing doesn't require
-      // going through an optional or a vector. In that case, producing a
-      // shortcut, at all, could be confusing to a user who may not immediately
-      // recognize that another seeming shortcut opportunity one is excluded
-      // only because of an optional or vector. EXAMPLE: Foo has a required X
-      // and an *optional* Y. X and Y both contain bar. Should we produce an
-      // X.bar shortcut? We *can*, because anything below Y is excluded from
-      // consideration due to it being optional. But maybe we shouldn't do this,
-      // as a reasonable person could wonder whether the bar in question,
-      // accessible now as something in the parent, is X's or is Y's. (We know
-      // it can't be *optional* Y's bar, but it's still potentially confusing.)
-      return;
-   }
+   if (child.isOptional || child.isVector)
+      consider = false; // at least henceforth, if not already
 
    const std::string &nsname = child.ns;
-   const std::string &clname = child.plain;///type;///name;
-
+   const std::string &clname = child.plain;
    const auto it = specs.class2data.find(NamespaceAndClass(nsname,clname));
    if (it == specs.class2data.end()) {
       // We can't seem to find the namespace::class of the child object we're
       // looking at. This is probably more-or-less an error situation, at least
-      // if somebody created all children in generated classes at the same time
-      // they created the parent - basically, meaning everything was created in
-      // a single run of the code generator. In any event: right here, in the
-      // present context, we can't reason about shortcuts through the child if
-      // we can't find any information *about* the child! So, we'll just return.
+      // if somebody created all the children in their generated classes at the
+      // same time that they created the parent - basically, meaning everything
+      // was created in a single run of the code generator, which is how we
+      // intend for it to be used. In any event: right here, in the present
+      // context, we can't reason about shortcuts through the child if we can't
+      // find any information *about* the child. So, we'll just return.
       return;
    }
 
-   const PerClass &per = it->second;
-   for (const auto &grand : per.children) {
-      // grand: InfoChildren
-
-      if (fieldnames.find(grand.name) == fieldnames.end()) {
-         // Create a preliminary shortcut, to be used later if, and only if,
-         // no other shortcuts end up having the same name. If more than one
-         // shortcut would have the same name, then, to create a shortcut,
-         // we'd either need to invent different names (which would probably
-         // be goofy), or to use one and ignore others (which seems arbitrary).
-         name2loc.insert(std::make_pair(grand.name,loc));
-      } else {
+   for (const auto &grand : it->second.children) {
+      // grand: an InfoChildren
+      const auto used = usednames.find(grand.name);
+      if (used == usednames.end()) {
+         if (consider) {
+            // Create a preliminary shortcut, to be used later if, and only if,
+            // nothing elsewhere introduces a name conflict. If something else
+            // does, then we'll say, at that point, that the potential shortcut
+            // is ambiguous. (It would probably create confusion if we somehow
+            // chose one shortcut path over others, or tried to disambiguate by
+            // inventing different names based on the same original name.)
+            name2path.insert(std::make_pair(grand.name,path));
+         } else {
+            // We've gone through an optional or vector, and thus won't ever
+            // be creating a shortcut to here. However, we'll record the fact
+            // that something of this name exists, even if only through an
+            // optional or vector, because such a scenario might be regarded
+            // as a good reason to *not* shortcut to other same-named objects
+            // that are otherwise valid for shurtcuts.
+            optvec.insert(grand.name);
+         }
+      } else if (warn && !used->second) {
          std::cout
-            << color::custom::faded::yellow
-            << "   No shortcut created; current class already has: "
-            << grand.name
+            << title << color::custom::faded::yellow
+            << "   Shortcut would conflict with existing field: "
+            << color::custom::yellow << grand.name
             << color::reset << std::endl;
+         title = "";
+         used->second = true; // so, don't report future conflicts w/same name
       }
 
-      // Note that the following happens independently of the above conditional.
-      // The conditional itself (not to be confused with the situation described
-      // in the remark inside of it, which addresses a different issue), checks
-      // that the name the proposed shortcut would have is *not* already taken
-      // by a direct field (not a shortcut) that the original class (for which
-      // we're building shortcuts) happens to have. However, even when such a
-      // name conflict exists, we can still shortcut *through* the conflicting
-      // descendant to appropriate content further down. EXAMPLE: say that class
-      // Foo has fields called bar and baz, and that bar's type Bar has its own
-      // field called baz. Foo, having baz already, can't shortcut to bar's baz.
-      // However, if bar's baz has its own descendants - say, x and y - then,
-      // absent other deal breakers, Foo can shortcut all the way to x and y.
-      loc.push_back(grand.name);
-      cuts(specs, grand, loc, fieldnames, name2loc);
-      loc.pop_back();
+      // Note that we always dig further, regardless of what happened with the
+      // above conditionals. The current object might or might not, for whatever
+      // reason or reasons, be something to which we could shortcut. However,
+      // objects further down could potentially still be shortcut candidates,
+      // or could prove to be deal breakers for other candidates.
+      path.push_back(grand.name);
+      visit(specs,grand,usednames,path,name2path,optvec,title,warn,consider);
+      path.pop_back();
    }
 }
 
+
+// -----------------------------------------------------------------------------
 // shortcuts
-void shortcuts(const InfoSpecs &specs)
+// -----------------------------------------------------------------------------
+
+void shortcuts(const InfoSpecs &specs, const bool warn)
 {
    action("Computing Shortcuts");
 
@@ -3957,36 +3954,54 @@ void shortcuts(const InfoSpecs &specs)
    // For each class
    // ------------------------
 
-   for (const auto &parent : specs.class2data) {
-      // parent.first : NamespaceAndClass
-      // parent.second: PerClass
-      const std::string nsname = parent.first.nsname;
-      const std::string clname = parent.first.clname;
-      const PerClass &per = parent.second;
+   for (const auto &s : specs.class2data) {
+      // s.first : a NamespaceAndClass
+      // s.second: a PerClass, which we'll call "current" (the current class)
 
-      std::cout
-         << color::custom::purple
-         << nsname << "::" << clname
-         << color::reset << std::endl;
-      if (nsname != per.nsname || clname != per.clname)
-         std::cout << "...different: " << per.name() << std::endl;
+      // The following, title, simply tells us the namespace::class we're
+      // currently examining. We'll arrange things so that it isn't printed
+      // at all (thus reducing/decluttering the code generator's output) if
+      // there's nothing to say - no shortcuts, no remarks about why some
+      // shortcut potential didn't pan out. If anything *is* said, title is
+      // printed and then set to "", so that it isn't needlessly re-printed.
+      std::string title =
+         color::custom::purple +
+         s.first.nsname + "::" + s.first.clname +
+         color::reset + '\n';
 
       // ------------------------
       // Existing field names
+      // in the current class
       // ------------------------
 
-      std::set<std::string> fieldnames;
-      fieldnames.insert("comment");
-      for (const auto &m : per.metadata) fieldnames.insert(m.name);
-      for (const auto &c : per.children) fieldnames.insert(c.name);
-      for (const auto &v : per.variants) fieldnames.insert(v.name);
-      if (per.isDataNode) {
-         if (per.isDataString)
-            fieldnames.insert("string");
+      // The bool is for diagnostic reporting, if we want to report only
+      // once, per name, about potential shortcut(s) conflicting with it.
+      std::map<std::string,bool> usednames;
+
+      // comment; all of our generated classes have this
+      usednames.insert(std::make_pair("comment",false));
+
+      // metadata, children, variants
+      const PerClass &current = s.second;
+      for (const auto &m : current.metadata)
+         usednames.insert(std::make_pair(m.name,false));
+      for (const auto &c : current.children)
+         usednames.insert(std::make_pair(c.name,false));
+      for (const auto &v : current.variants)
+         usednames.insert(std::make_pair(v.name,false));
+
+      // data (string or vector)
+      if (current.isDataNode) {
+         if (current.isDataString)
+            usednames.insert(std::make_pair("string",false));
          else {
-            auto it = nameMap.find(per.elementType);
+            // As in some other new(er) code-generator capabilities, I haven't
+            // handled the GNDS valueType (basically, dynamic data type) stuff
+            // here because it's inherently a messy concept and we may be able
+            // to avoid the need for it. (But possibly todo.)
+            auto it = nameMap.find(current.elementType);
             if (it != nameMap.end())
-               fieldnames.insert(it->second.second);
+               usednames.insert(std::make_pair(it->second.second,false));
          }
       }
 
@@ -3994,13 +4009,42 @@ void shortcuts(const InfoSpecs &specs)
       // Visit children
       // ------------------------
 
-      std::vector<std::string> loc;
-      std::multimap<std::string,std::vector<std::string>> name2loc;
-      for (const auto &child : per.children) {
-         // child: InfoChildren
-         loc.push_back(child.name);
-         cuts(specs, child, loc, fieldnames, name2loc);
-         loc.pop_back();
+      // For each object to which a shortcut may be possible (to be determined,
+      // based on criteria such as uniqueness), we'll have a map key:value pair.
+      // The key is the name of the object to which we may shortcut. The value
+      // is a vector of names, giving the path to the object. Example: say that
+      // the current class has x, which has y, which has foo. The potential foo
+      // shortcut would be represented by map key "foo", value {"x","y"}. Note
+      // that we use a multimap, because something might appear via multiple
+      // viable paths - without going through any optional, vector, or variant.
+      // An object of the same name being in multiple paths may mean that we
+      // won't shortcut to any of them (unless we decide on a reasonable way
+      // to disambiguate), but we can still use the multimap we'll be computing
+      // to print informational messages telling users about multuple paths.
+      std::multimap<std::string, std::vector<std::string>> name2path;
+
+      // The above will contain key:value pairs for objects that appear to be
+      // valid for shortcutting - they don't go through optionals or vectors -
+      // except potentially for ambiguities. We'll also maintain (separately,
+      // as doing so is cleaner) a set of names that appear through optionals
+      // and/or vectors. We won't need paths here, as we'd never be using them,
+      // and also don't need to record names more than once for our purposes
+      // here (hence a plain set). This set can be used to exclude otherwise
+      // valid and unambiguous shortcuts, if we regard the existence of another
+      // object of the same name - even under an optional or a vector - to have
+      // introduced an ambiguity. todo: Consider variants here too!
+      std::set<std::string> optvec;
+
+      // Each "child" in the following is of class InfoChildren
+      for (const auto &child : current.children) {
+         // Path down which we're shortcutting
+         std::vector<std::string> path;
+         path.push_back(child.name);
+
+         // The "true" in the following call means we haven't already gone
+         // through an optional or vector. Which of course we haven't - at
+         // this point, because this is the initial call into the recursion.
+         visit(specs,child,usednames,path,name2path,optvec,title,warn,true);
       }
 
       // ------------------------
@@ -4008,28 +4052,65 @@ void shortcuts(const InfoSpecs &specs)
       // shortcuts
       // ------------------------
 
-      for (const auto &cut : name2loc) {
-         const std::string &name = cut.first;
-         const std::vector<std::string> &vec = cut.second;
+      using namespace color;
+      std::set<std::string> reportedAlready;
 
-         if (name2loc.count(name) > 1) {
-            // qqq Can end up printing multiple times for the same thing...
-            std::cout
-               << color::custom::faded::yellow
-               << "   Otherwise viable shortcut would be ambiguous: " << name
-               << color::reset << std::endl;
+      // For each potential shortcut as determined above...
+      for (const auto &cut : name2path) {
+         const std::string &name = cut.first;
+         const std::vector<std::string> &path = cut.second;
+
+         // If a shortcut of this name would be ambiguous directly - because
+         // another otherwise viable shortcut of the same name exists - then
+         // report on this. We arrange to do the reporting just once.
+         if (name2path.count(name) > 1) {
+            if (warn && reportedAlready.find(name) == reportedAlready.end()) {
+               std::cout
+                  << title << "   " << custom::faded::yellow
+                  << "Shortcut would be ambiguous: "
+                  << custom::yellow << name << reset << std::endl;
+               title = "";
+
+               auto one = name2path.lower_bound(name);
+               auto end = name2path.upper_bound(name);
+               while (one != end) {
+                  std::cout << "      " << custom::faded::yellow;
+                  for (const std::string &field : one->second)
+                     std::cout << field << '.';
+                  std::cout << custom::yellow << name << reset << std::endl;
+                  one++;
+               }
+
+               // So we don't print the above message again, for the duplicates
+               reportedAlready.insert(name);
+            }
             continue;
          }
-         assert(name2loc.count(name) == 1);
 
-         std::cout
-            << color::custom::blue << "   Shortcut: " << color::custom::green;
-         for (const std::string &field : vec)
+         // If a shortcut of this name *could* be considered ambiguous because
+         // the same name also exists beyond an optional or a vector, then the
+         // following code excludes it from being made into a shortcut. We may
+         // or may not want to have this condition. Todo: decide on this.
+         if (optvec.find(name) != optvec.end()) {
+            if (warn && reportedAlready.find(name) == reportedAlready.end()) {
+               std::cout
+                  << title << "   " << custom::faded::yellow
+                  << "Shortcut would be ambiguous vis-à-vis optional/vector: "
+                  << custom::yellow << name << reset << std::endl;
+               title = "";
+               reportedAlready.insert(name);
+            }
+            continue;
+         }
+
+         // Shortcut!
+         std::cout << title << custom::blue << "   Shortcut: " << custom::green;
+         title = "";
+         for (const std::string &field : path)
             std::cout << field << '.';
-         std::cout
-            << color::custom::red << name << color::reset << std::endl;
+         std::cout << custom::red << name << reset << std::endl;
       }
-   }
+   } // each class in which we're looking for shurtcuts
 }
 
 
@@ -4082,6 +4163,8 @@ int main(const int argc, const char *const *const argv)
       filePythonClass(specs, obj.second);
    std::cout << std::endl;
 
-   // qqq
-   shortcuts(specs);
+   // Compute Shortcuts.
+   // qqq This needs to go elsewhere, eventually, so that we
+   // can actually put the shortcuts into the generated code!
+   shortcuts(specs,false);
 }
