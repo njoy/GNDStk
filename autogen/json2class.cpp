@@ -222,7 +222,20 @@ struct InfoSpecs {
    std::map<std::string,PerNamespace> namespace2data;
 
    // Map from namespace::class to information about the class
-   nlohmann::ordered_map<NamespaceAndClass,PerClass> class2data;
+   static inline const auto compare =
+      [](const auto &a, const auto &b)
+      {
+         // In the event that we display entries in the map, we prefer putting
+         // everything in alphabetical order based primarily on the class name,
+         // with namespace only a secondary consideration. Someone looking for
+         // a class need only consider its name, and not initially worry about
+         // what namespace it's in.
+         return
+            a.clname <  b.clname || (
+            a.clname == b.clname &&
+            a.nsname <  b.nsname);
+      };
+   std::map<NamespaceAndClass, PerClass, decltype(compare)> class2data{compare};
 }; // InfoSpecs
 
 
@@ -1910,7 +1923,7 @@ void commandLine(
    );
 
    // Usage
-   if (argc != 2) {
+   if (argc < 2) {
       std::cout << "Usage: " << argv[0] << " file.json" << std::endl;
       exit(EXIT_FAILURE);
    }
@@ -3878,6 +3891,7 @@ void visit(
    std::multimap<std::string,std::vector<std::string>> &name2path,
    std::set<std::string> &optvec,
    std::string &title, // might be modified
+   int down,
    const bool warn,
    bool consider // <== we've *not* already gone through an optional or vector?
 ) {
@@ -3935,9 +3949,15 @@ void visit(
       // reason or reasons, be something to which we could shortcut. However,
       // objects further down could potentially still be shortcut candidates,
       // or could prove to be deal breakers for other candidates.
-      path.push_back(grand.name);
-      visit(specs,grand,usednames,path,name2path,optvec,title,warn,consider);
-      path.pop_back();
+      if (--down) {
+         path.push_back(grand.name);
+         visit(
+            specs, grand, usednames, path, name2path,
+            optvec, title, down, warn, consider
+         );
+         path.pop_back();
+      }
+      down++;
    }
 }
 
@@ -3946,8 +3966,10 @@ void visit(
 // shortcuts
 // -----------------------------------------------------------------------------
 
-void shortcuts(const InfoSpecs &specs, const bool warn)
+void shortcuts(const InfoSpecs &specs, int down, const bool warn)
 {
+   if (down == 1)
+      return;
    action("Computing Shortcuts");
 
    // ------------------------
@@ -3965,8 +3987,8 @@ void shortcuts(const InfoSpecs &specs, const bool warn)
       // shortcut potential didn't pan out. If anything *is* said, title is
       // printed and then set to "", so that it isn't needlessly re-printed.
       std::string title =
-         color::custom::purple +
-         s.first.nsname + "::" + s.first.clname +
+         color::custom::faded::purple + s.first.nsname + "::" +
+         color::custom::purple + s.first.clname +
          color::reset + '\n';
 
       // ------------------------
@@ -4044,7 +4066,12 @@ void shortcuts(const InfoSpecs &specs, const bool warn)
          // The "true" in the following call means we haven't already gone
          // through an optional or vector. Which of course we haven't - at
          // this point, because this is the initial call into the recursion.
-         visit(specs,child,usednames,path,name2path,optvec,title,warn,true);
+         down--;
+         visit(
+            specs, child, usednames, path, name2path,
+            optvec, title, down, warn, true
+         );
+         down++;
       }
 
       // ------------------------
@@ -4110,7 +4137,7 @@ void shortcuts(const InfoSpecs &specs, const bool warn)
             std::cout << field << '.';
          std::cout << custom::red << name << reset << std::endl;
       }
-   } // each class in which we're looking for shurtcuts
+   } // each class in which we're looking for shortcuts
 }
 
 
@@ -4164,7 +4191,19 @@ int main(const int argc, const char *const *const argv)
    std::cout << std::endl;
 
    // Compute Shortcuts.
-   // qqq This needs to go elsewhere, eventually, so that we
-   // can actually put the shortcuts into the generated code!
-   shortcuts(specs,false);
+   // The number indicates how far down we should look. For example, 2 means
+   // to look down only to "grandchild" nodes. (Child nodes, of course, are
+   // already in an object; that's basically what being a "child node" means.)
+   // Naturally, then, 1 means no shortcuts will be found. 0, or a negative
+   // number, is interpreted as meaning to recurse all the way to leaf nodes.
+   // The boolean tells us whether or not the code should print information
+   // about potential shortcuts that end up being unused for whatever reason.
+   // I suppose both of these, and probably various other things in this code,
+   // should eventually be things we can get through command-line arguments.
+   if (argc >= 3)
+      shortcuts(specs,atoi(argv[2]),false);
+   else
+      shortcuts(specs,0,false);
+   // zzz The above call needs to go elsewhere, eventually, so that
+   // we can actually put the shortcuts into the generated code!
 }
