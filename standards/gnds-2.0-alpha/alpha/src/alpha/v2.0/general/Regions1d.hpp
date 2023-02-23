@@ -114,6 +114,12 @@ public:
    Field<reduced::Function1ds>
       function1ds{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(function1ds(),Legendre);
+   GNDSTK_SHORTCUT(function1ds(),XYs1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

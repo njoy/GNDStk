@@ -141,6 +141,14 @@ public:
    Field<std::optional<general::T_effective>>
       T_effective{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(mass(),Double);
+   GNDSTK_SHORTCUT(selfScatteringKernel(),SCTApproximation);
+   GNDSTK_SHORTCUT(selfScatteringKernel(),freeGasApproximation);
+   GNDSTK_SHORTCUT(selfScatteringKernel(),gridded3d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

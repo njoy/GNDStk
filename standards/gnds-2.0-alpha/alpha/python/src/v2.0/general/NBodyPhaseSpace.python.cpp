@@ -70,6 +70,20 @@ void wrapNBodyPhaseSpace(py::module &module)
       cppCLASS::component_t::documentation("mass").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

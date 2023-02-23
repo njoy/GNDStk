@@ -134,6 +134,34 @@ void wrapGaugeBoson(py::module &module)
       cppCLASS::component_t::documentation("halflife").data()
    );
 
+   // shortcut: get/set fraction
+   object.def_property(
+      "fraction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fraction();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.fraction())> &value)
+      {
+         self.fraction() = value;
+      },
+      cppCLASS::component_t::documentation("fraction").data()
+   );
+
+   // shortcut: get/set string
+   object.def_property(
+      "string",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.string();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.string())> &value)
+      {
+         self.string() = value;
+      },
+      cppCLASS::component_t::documentation("string").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

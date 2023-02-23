@@ -94,6 +94,11 @@ public:
    Field<general::ENDFconversionFlags>
       ENDFconversionFlags{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(ENDFconversionFlags(),conversion);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

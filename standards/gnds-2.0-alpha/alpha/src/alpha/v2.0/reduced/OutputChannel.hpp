@@ -107,6 +107,12 @@ public:
    Field<std::optional<reduced::Products>>
       products{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(Q(),Double);
+   GNDSTK_SHORTCUT(Q(),constant1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

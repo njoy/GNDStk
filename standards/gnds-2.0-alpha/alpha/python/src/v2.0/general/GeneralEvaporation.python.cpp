@@ -86,6 +86,20 @@ void wrapGeneralEvaporation(py::module &module)
       cppCLASS::component_t::documentation("g").data()
    );
 
+   // shortcut: get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.regions1d())> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

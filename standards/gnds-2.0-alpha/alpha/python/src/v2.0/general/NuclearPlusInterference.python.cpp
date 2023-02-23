@@ -86,6 +86,118 @@ void wrapNuclearPlusInterference(py::module &module)
       cppCLASS::component_t::documentation("distribution").data()
    );
 
+   // shortcut: get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs1d())> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // shortcut: get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs2d())> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // shortcut: get/set branching3d
+   object.def_property(
+      "branching3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.branching3d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.branching3d())> &value)
+      {
+         self.branching3d() = value;
+      },
+      cppCLASS::component_t::documentation("branching3d").data()
+   );
+
+   // shortcut: get/set reference
+   object.def_property(
+      "reference",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.reference();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.reference())> &value)
+      {
+         self.reference() = value;
+      },
+      cppCLASS::component_t::documentation("reference").data()
+   );
+
+   // shortcut: get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.regions1d())> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // shortcut: get/set thermalNeutronScatteringLaw
+   object.def_property(
+      "thermal_neutron_scattering_law",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.thermalNeutronScatteringLaw();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.thermalNeutronScatteringLaw())> &value)
+      {
+         self.thermalNeutronScatteringLaw() = value;
+      },
+      cppCLASS::component_t::documentation("thermal_neutron_scattering_law").data()
+   );
+
+   // shortcut: get/set uncorrelated
+   object.def_property(
+      "uncorrelated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncorrelated();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncorrelated())> &value)
+      {
+         self.uncorrelated() = value;
+      },
+      cppCLASS::component_t::documentation("uncorrelated").data()
+   );
+
+   // shortcut: get/set unspecified
+   object.def_property(
+      "unspecified",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unspecified();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.unspecified())> &value)
+      {
+         self.unspecified() = value;
+      },
+      cppCLASS::component_t::documentation("unspecified").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

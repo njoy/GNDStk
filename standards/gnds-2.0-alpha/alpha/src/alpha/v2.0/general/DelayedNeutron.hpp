@@ -101,6 +101,23 @@ public:
    Field<reduced::Product>
       product{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(rate(),Double);
+   GNDSTK_SHORTCUT(product().multiplicity(),XYs1d);
+   GNDSTK_SHORTCUT(product().distribution(),XYs2d);
+   GNDSTK_SHORTCUT(product().multiplicity(),branching1d);
+   GNDSTK_SHORTCUT(product().multiplicity(),constant1d);
+   GNDSTK_SHORTCUT(product(),distribution);
+   GNDSTK_SHORTCUT(product(),multiplicity);
+   GNDSTK_SHORTCUT(product().multiplicity(),polynomial1d);
+   GNDSTK_SHORTCUT(product().multiplicity(),reference);
+   GNDSTK_SHORTCUT(product().multiplicity(),regions1d);
+   GNDSTK_SHORTCUT(product().distribution(),thermalNeutronScatteringLaw);
+   GNDSTK_SHORTCUT(rate().Double(),uncertainty);
+   GNDSTK_SHORTCUT(product().distribution(),uncorrelated);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

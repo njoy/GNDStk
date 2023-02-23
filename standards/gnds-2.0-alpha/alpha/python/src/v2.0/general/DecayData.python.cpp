@@ -70,6 +70,20 @@ void wrapDecayData(py::module &module)
       cppCLASS::component_t::documentation("average_energies").data()
    );
 
+   // shortcut: get/set decayMode
+   object.def_property(
+      "decay_mode",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decayMode();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.decayMode())> &value)
+      {
+         self.decayMode() = value;
+      },
+      cppCLASS::component_t::documentation("decay_mode").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

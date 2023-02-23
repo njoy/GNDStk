@@ -114,6 +114,13 @@ public:
    Field<std::optional<general::ColumnData>>
       columnData{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),array);
+   GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),axes);
+   GNDSTK_SHORTCUT(covarianceMatrix(),gridded2d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

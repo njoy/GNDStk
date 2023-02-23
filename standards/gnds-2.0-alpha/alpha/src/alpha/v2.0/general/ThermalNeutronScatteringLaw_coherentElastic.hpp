@@ -106,6 +106,13 @@ public:
    Field<general::S_table>
       S_table{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(S_table().gridded2d(),array);
+   GNDSTK_SHORTCUT(S_table().gridded2d(),axes);
+   GNDSTK_SHORTCUT(S_table(),gridded2d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

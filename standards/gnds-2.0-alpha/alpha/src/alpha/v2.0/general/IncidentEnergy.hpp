@@ -101,6 +101,22 @@ public:
    Field<general::Yields>
       yields{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(energy(),Double);
+   GNDSTK_SHORTCUT(energy(),MadlandNix);
+   GNDSTK_SHORTCUT(energy(),NBodyPhaseSpace);
+   GNDSTK_SHORTCUT(energy(),XYs2d);
+   GNDSTK_SHORTCUT(energy(),discreteGamma);
+   GNDSTK_SHORTCUT(energy(),evaporation);
+   GNDSTK_SHORTCUT(energy(),generalEvaporation);
+   GNDSTK_SHORTCUT(yields(),nuclides);
+   GNDSTK_SHORTCUT(energy(),primaryGamma);
+   GNDSTK_SHORTCUT(energy(),simpleMaxwellianFission);
+   GNDSTK_SHORTCUT(yields(),values);
+   GNDSTK_SHORTCUT(energy(),weightedFunctionals);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

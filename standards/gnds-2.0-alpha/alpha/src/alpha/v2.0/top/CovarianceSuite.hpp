@@ -139,6 +139,15 @@ public:
    Field<std::optional<general::ParameterCovariances>>
       parameterCovariances{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(styles(),crossSectionReconstructed);
+   GNDSTK_SHORTCUT(styles().evaluated(),documentation);
+   GNDSTK_SHORTCUT(styles(),evaluated);
+   GNDSTK_SHORTCUT(styles().evaluated(),projectileEnergyDomain);
+   GNDSTK_SHORTCUT(styles().evaluated(),temperature);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

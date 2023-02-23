@@ -150,6 +150,20 @@ void wrapDecayMode(py::module &module)
       cppCLASS::component_t::documentation("spectra").data()
    );
 
+   // shortcut: get/set decay
+   object.def_property(
+      "decay",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.decay();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.decay())> &value)
+      {
+         self.decay() = value;
+      },
+      cppCLASS::component_t::documentation("decay").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

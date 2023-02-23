@@ -86,6 +86,20 @@ void wrapIsotope(py::module &module)
       cppCLASS::component_t::documentation("nuclides").data()
    );
 
+   // shortcut: get/set nuclide
+   object.def_property(
+      "nuclide",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclide();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.nuclide())> &value)
+      {
+         self.nuclide() = value;
+      },
+      cppCLASS::component_t::documentation("nuclide").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -118,6 +118,34 @@ void wrapOutputChannel(py::module &module)
       cppCLASS::component_t::documentation("fission_fragment_data").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set constant1d
+   object.def_property(
+      "constant1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.constant1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.constant1d())> &value)
+      {
+         self.constant1d() = value;
+      },
+      cppCLASS::component_t::documentation("constant1d").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

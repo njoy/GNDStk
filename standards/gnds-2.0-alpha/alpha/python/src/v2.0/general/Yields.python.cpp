@@ -86,6 +86,48 @@ void wrapYields(py::module &module)
       cppCLASS::component_t::documentation("uncertainty").data()
    );
 
+   // shortcut: get/set listOfCovariances
+   object.def_property(
+      "list_of_covariances",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.listOfCovariances();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.listOfCovariances())> &value)
+      {
+         self.listOfCovariances() = value;
+      },
+      cppCLASS::component_t::documentation("list_of_covariances").data()
+   );
+
+   // shortcut: get/set polynomial1d
+   object.def_property(
+      "polynomial1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.polynomial1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.polynomial1d())> &value)
+      {
+         self.polynomial1d() = value;
+      },
+      cppCLASS::component_t::documentation("polynomial1d").data()
+   );
+
+   // shortcut: get/set standard
+   object.def_property(
+      "standard",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.standard();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.standard())> &value)
+      {
+         self.standard() = value;
+      },
+      cppCLASS::component_t::documentation("standard").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

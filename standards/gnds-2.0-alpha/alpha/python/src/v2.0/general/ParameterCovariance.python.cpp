@@ -86,6 +86,104 @@ void wrapParameterCovariance(py::module &module)
       cppCLASS::component_t::documentation("parameter_covariance_matrix").data()
    );
 
+   // shortcut: get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.array())> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // shortcut: get/set lengths
+   object.def_property(
+      "lengths",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.lengths();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.lengths())> &value)
+      {
+         self.lengths() = value;
+      },
+      cppCLASS::component_t::documentation("lengths").data()
+   );
+
+   // shortcut: get/set parameterLink
+   object.def_property(
+      "parameter_link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameterLink();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.parameterLink())> &value)
+      {
+         self.parameterLink() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_link").data()
+   );
+
+   // shortcut: get/set parameters
+   object.def_property(
+      "parameters",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameters();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.parameters())> &value)
+      {
+         self.parameters() = value;
+      },
+      cppCLASS::component_t::documentation("parameters").data()
+   );
+
+   // shortcut: get/set slices
+   object.def_property(
+      "slices",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.slices();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.slices())> &value)
+      {
+         self.slices() = value;
+      },
+      cppCLASS::component_t::documentation("slices").data()
+   );
+
+   // shortcut: get/set starts
+   object.def_property(
+      "starts",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.starts();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.starts())> &value)
+      {
+         self.starts() = value;
+      },
+      cppCLASS::component_t::documentation("starts").data()
+   );
+
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

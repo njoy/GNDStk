@@ -102,6 +102,146 @@ void wrapUncorrelated(py::module &module)
       cppCLASS::component_t::documentation("energy").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set MadlandNix
+   object.def_property(
+      "madland_nix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.MadlandNix();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.MadlandNix())> &value)
+      {
+         self.MadlandNix() = value;
+      },
+      cppCLASS::component_t::documentation("madland_nix").data()
+   );
+
+   // shortcut: get/set NBodyPhaseSpace
+   object.def_property(
+      "nbody_phase_space",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.NBodyPhaseSpace();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.NBodyPhaseSpace())> &value)
+      {
+         self.NBodyPhaseSpace() = value;
+      },
+      cppCLASS::component_t::documentation("nbody_phase_space").data()
+   );
+
+   // shortcut: get/set discreteGamma
+   object.def_property(
+      "discrete_gamma",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.discreteGamma();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.discreteGamma())> &value)
+      {
+         self.discreteGamma() = value;
+      },
+      cppCLASS::component_t::documentation("discrete_gamma").data()
+   );
+
+   // shortcut: get/set evaporation
+   object.def_property(
+      "evaporation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaporation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.evaporation())> &value)
+      {
+         self.evaporation() = value;
+      },
+      cppCLASS::component_t::documentation("evaporation").data()
+   );
+
+   // shortcut: get/set generalEvaporation
+   object.def_property(
+      "general_evaporation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.generalEvaporation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.generalEvaporation())> &value)
+      {
+         self.generalEvaporation() = value;
+      },
+      cppCLASS::component_t::documentation("general_evaporation").data()
+   );
+
+   // shortcut: get/set isotropic2d
+   object.def_property(
+      "isotropic2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotropic2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.isotropic2d())> &value)
+      {
+         self.isotropic2d() = value;
+      },
+      cppCLASS::component_t::documentation("isotropic2d").data()
+   );
+
+   // shortcut: get/set primaryGamma
+   object.def_property(
+      "primary_gamma",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.primaryGamma();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.primaryGamma())> &value)
+      {
+         self.primaryGamma() = value;
+      },
+      cppCLASS::component_t::documentation("primary_gamma").data()
+   );
+
+   // shortcut: get/set simpleMaxwellianFission
+   object.def_property(
+      "simple_maxwellian_fission",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.simpleMaxwellianFission();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.simpleMaxwellianFission())> &value)
+      {
+         self.simpleMaxwellianFission() = value;
+      },
+      cppCLASS::component_t::documentation("simple_maxwellian_fission").data()
+   );
+
+   // shortcut: get/set weightedFunctionals
+   object.def_property(
+      "weighted_functionals",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.weightedFunctionals();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.weightedFunctionals())> &value)
+      {
+         self.weightedFunctionals() = value;
+      },
+      cppCLASS::component_t::documentation("weighted_functionals").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

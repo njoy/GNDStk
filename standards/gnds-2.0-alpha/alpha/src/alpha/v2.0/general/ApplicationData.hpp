@@ -84,6 +84,12 @@ public:
    Field<general::Institution>
       institution{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(institution(),ENDFconversionFlags);
+   GNDSTK_SHORTCUT(institution().ENDFconversionFlags(),conversion);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

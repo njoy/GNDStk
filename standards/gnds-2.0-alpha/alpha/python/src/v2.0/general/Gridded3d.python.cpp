@@ -70,6 +70,62 @@ void wrapGridded3d(py::module &module)
       cppCLASS::component_t::documentation("array").data()
    );
 
+   // shortcut: get/set axis
+   object.def_property(
+      "axis",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axis();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axis())> &value)
+      {
+         self.axis() = value;
+      },
+      cppCLASS::component_t::documentation("axis").data()
+   );
+
+   // shortcut: get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.grid())> &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
+   // shortcut: get/set lengths
+   object.def_property(
+      "lengths",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.lengths();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.lengths())> &value)
+      {
+         self.lengths() = value;
+      },
+      cppCLASS::component_t::documentation("lengths").data()
+   );
+
+   // shortcut: get/set starts
+   object.def_property(
+      "starts",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.starts();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.starts())> &value)
+      {
+         self.starts() = value;
+      },
+      cppCLASS::component_t::documentation("starts").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -182,6 +182,76 @@ void wrapCovarianceSuite(py::module &module)
       cppCLASS::component_t::documentation("parameter_covariances").data()
    );
 
+   // shortcut: get/set crossSectionReconstructed
+   object.def_property(
+      "cross_section_reconstructed",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSectionReconstructed();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.crossSectionReconstructed())> &value)
+      {
+         self.crossSectionReconstructed() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_reconstructed").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // shortcut: get/set evaluated
+   object.def_property(
+      "evaluated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluated();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.evaluated())> &value)
+      {
+         self.evaluated() = value;
+      },
+      cppCLASS::component_t::documentation("evaluated").data()
+   );
+
+   // shortcut: get/set projectileEnergyDomain
+   object.def_property(
+      "projectile_energy_domain",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectileEnergyDomain();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.projectileEnergyDomain())> &value)
+      {
+         self.projectileEnergyDomain() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_energy_domain").data()
+   );
+
+   // shortcut: get/set temperature
+   object.def_property(
+      "temperature",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.temperature();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.temperature())> &value)
+      {
+         self.temperature() = value;
+      },
+      cppCLASS::component_t::documentation("temperature").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -107,6 +107,14 @@ public:
    Field<general::Parameters>
       parameters{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(array(),lengths);
+   GNDSTK_SHORTCUT(parameters(),parameterLink);
+   GNDSTK_SHORTCUT(array(),starts);
+   GNDSTK_SHORTCUT(array(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

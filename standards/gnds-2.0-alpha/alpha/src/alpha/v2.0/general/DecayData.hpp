@@ -91,6 +91,11 @@ public:
    Field<std::optional<general::AverageEnergies>>
       averageEnergies{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(decayModes(),decayMode);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

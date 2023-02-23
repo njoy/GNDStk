@@ -54,6 +54,48 @@ void wrapResonanceParameters(py::module &module)
       cppCLASS::component_t::documentation("table").data()
    );
 
+   // shortcut: get/set column
+   object.def_property(
+      "column",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.column();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.column())> &value)
+      {
+         self.column() = value;
+      },
+      cppCLASS::component_t::documentation("column").data()
+   );
+
+   // shortcut: get/set columnHeaders
+   object.def_property(
+      "column_headers",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnHeaders();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.columnHeaders())> &value)
+      {
+         self.columnHeaders() = value;
+      },
+      cppCLASS::component_t::documentation("column_headers").data()
+   );
+
+   // shortcut: get/set data
+   object.def_property(
+      "data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.data();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.data())> &value)
+      {
+         self.data() = value;
+      },
+      cppCLASS::component_t::documentation("data").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

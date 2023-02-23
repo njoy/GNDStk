@@ -102,6 +102,76 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
       cppCLASS::component_t::documentation("gridded2d").data()
    );
 
+   // shortcut: get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.array())> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set axis
+   object.def_property(
+      "axis",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axis();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axis())> &value)
+      {
+         self.axis() = value;
+      },
+      cppCLASS::component_t::documentation("axis").data()
+   );
+
+   // shortcut: get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.grid())> &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

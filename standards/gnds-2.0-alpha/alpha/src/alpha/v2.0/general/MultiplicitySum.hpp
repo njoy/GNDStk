@@ -107,6 +107,19 @@ public:
    Field<general::Summands>
       summands{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(multiplicity(),XYs1d);
+   GNDSTK_SHORTCUT(summands(),add);
+   GNDSTK_SHORTCUT(multiplicity(),branching1d);
+   GNDSTK_SHORTCUT(multiplicity(),branching3d);
+   GNDSTK_SHORTCUT(multiplicity(),constant1d);
+   GNDSTK_SHORTCUT(multiplicity(),polynomial1d);
+   GNDSTK_SHORTCUT(multiplicity(),reference);
+   GNDSTK_SHORTCUT(multiplicity(),regions1d);
+   GNDSTK_SHORTCUT(multiplicity(),unspecified);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

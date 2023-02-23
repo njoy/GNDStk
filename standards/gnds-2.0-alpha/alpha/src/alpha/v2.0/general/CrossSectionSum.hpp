@@ -114,6 +114,19 @@ public:
    Field<general::CrossSection>
       crossSection{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(crossSection(),CoulombPlusNuclearElastic);
+   GNDSTK_SHORTCUT(Q(),Double);
+   GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   GNDSTK_SHORTCUT(summands(),add);
+   GNDSTK_SHORTCUT(Q(),constant1d);
+   GNDSTK_SHORTCUT(crossSection(),reference);
+   GNDSTK_SHORTCUT(crossSection(),regions1d);
+   GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
+   GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

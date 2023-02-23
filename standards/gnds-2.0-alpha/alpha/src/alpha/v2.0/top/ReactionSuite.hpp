@@ -194,6 +194,19 @@ public:
    Field<std::optional<general::IncompleteReactions>>
       incompleteReactions{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(PoPs(),aliases);
+   GNDSTK_SHORTCUT(PoPs(),baryons);
+   GNDSTK_SHORTCUT(PoPs(),chemicalElements);
+   GNDSTK_SHORTCUT(styles().evaluated(),documentation);
+   GNDSTK_SHORTCUT(PoPs(),gaugeBosons);
+   GNDSTK_SHORTCUT(PoPs(),leptons);
+   GNDSTK_SHORTCUT(styles().evaluated(),projectileEnergyDomain);
+   GNDSTK_SHORTCUT(styles().evaluated(),temperature);
+   GNDSTK_SHORTCUT(PoPs(),unorthodoxes);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

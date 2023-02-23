@@ -54,6 +54,34 @@ void wrapApplicationData(py::module &module)
       cppCLASS::component_t::documentation("institution").data()
    );
 
+   // shortcut: get/set ENDFconversionFlags
+   object.def_property(
+      "endfconversion_flags",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.ENDFconversionFlags();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.ENDFconversionFlags())> &value)
+      {
+         self.ENDFconversionFlags() = value;
+      },
+      cppCLASS::component_t::documentation("endfconversion_flags").data()
+   );
+
+   // shortcut: get/set conversion
+   object.def_property(
+      "conversion",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.conversion();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.conversion())> &value)
+      {
+         self.conversion() = value;
+      },
+      cppCLASS::component_t::documentation("conversion").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

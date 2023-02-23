@@ -101,6 +101,17 @@ public:
    Field<general::ParameterCovarianceMatrix>
       parameterCovarianceMatrix{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix(),array);
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix().array(),lengths);
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix().parameters(),parameterLink);
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix(),parameters);
+   GNDSTK_SHORTCUT(rowData(),slices);
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix().array(),starts);
+   GNDSTK_SHORTCUT(parameterCovarianceMatrix().array(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

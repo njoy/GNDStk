@@ -118,6 +118,48 @@ void wrapAverageParameterCovariance(py::module &module)
       cppCLASS::component_t::documentation("column_data").data()
    );
 
+   // shortcut: get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.array())> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set gridded2d
+   object.def_property(
+      "gridded2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.gridded2d())> &value)
+      {
+         self.gridded2d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded2d").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

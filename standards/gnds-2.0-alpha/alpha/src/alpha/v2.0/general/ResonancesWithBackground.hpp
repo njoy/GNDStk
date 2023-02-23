@@ -108,6 +108,16 @@ public:
    Field<std::optional<general::Uncertainty>>
       uncertainty{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(background(),fastRegion);
+   GNDSTK_SHORTCUT(resonances(),resolved);
+   GNDSTK_SHORTCUT(background(),resolvedRegion);
+   GNDSTK_SHORTCUT(resonances(),scatteringRadius);
+   GNDSTK_SHORTCUT(resonances(),unresolved);
+   GNDSTK_SHORTCUT(background(),unresolvedRegion);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

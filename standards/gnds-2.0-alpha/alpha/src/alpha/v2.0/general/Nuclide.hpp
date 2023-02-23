@@ -122,6 +122,23 @@ public:
    Field<std::optional<top::FissionFragmentData>>
       fissionFragmentData{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(nucleus().energy(),MadlandNix);
+   GNDSTK_SHORTCUT(nucleus().energy(),NBodyPhaseSpace);
+   GNDSTK_SHORTCUT(nucleus().energy(),XYs2d);
+   GNDSTK_SHORTCUT(nucleus().energy(),discreteGamma);
+   GNDSTK_SHORTCUT(nucleus(),energy);
+   GNDSTK_SHORTCUT(nucleus().energy(),evaporation);
+   GNDSTK_SHORTCUT(nucleus().energy(),generalEvaporation);
+   GNDSTK_SHORTCUT(nucleus(),halflife);
+   GNDSTK_SHORTCUT(nucleus(),parity);
+   GNDSTK_SHORTCUT(nucleus().energy(),primaryGamma);
+   GNDSTK_SHORTCUT(nucleus().energy(),simpleMaxwellianFission);
+   GNDSTK_SHORTCUT(nucleus(),spin);
+   GNDSTK_SHORTCUT(nucleus().energy(),weightedFunctionals);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

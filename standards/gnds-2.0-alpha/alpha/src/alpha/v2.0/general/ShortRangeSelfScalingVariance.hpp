@@ -106,6 +106,15 @@ public:
    Field<general::Gridded2d>
       gridded2d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(gridded2d(),array);
+   GNDSTK_SHORTCUT(gridded2d(),axes);
+   GNDSTK_SHORTCUT(gridded2d().axes(),axis);
+   GNDSTK_SHORTCUT(gridded2d().axes(),grid);
+   GNDSTK_SHORTCUT(gridded2d().array(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

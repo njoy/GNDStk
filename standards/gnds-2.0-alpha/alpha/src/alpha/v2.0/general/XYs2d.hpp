@@ -126,6 +126,13 @@ public:
    Field<std::optional<general::Uncertainty>>
       uncertainty{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(function1ds(),Legendre);
+   GNDSTK_SHORTCUT(function1ds(),XYs1d);
+   GNDSTK_SHORTCUT(function1ds(),regions1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -98,6 +98,14 @@ public:
    Field<general::T_M>
       T_M{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(T_M(),XYs1d);
+   GNDSTK_SHORTCUT(T_M().XYs1d(),axes);
+   GNDSTK_SHORTCUT(T_M().XYs1d(),uncertainty);
+   GNDSTK_SHORTCUT(T_M().XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -310,6 +310,132 @@ void wrapReactionSuite(py::module &module)
       cppCLASS::component_t::documentation("incomplete_reactions").data()
    );
 
+   // shortcut: get/set aliases
+   object.def_property(
+      "aliases",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.aliases();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.aliases())> &value)
+      {
+         self.aliases() = value;
+      },
+      cppCLASS::component_t::documentation("aliases").data()
+   );
+
+   // shortcut: get/set baryons
+   object.def_property(
+      "baryons",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.baryons();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.baryons())> &value)
+      {
+         self.baryons() = value;
+      },
+      cppCLASS::component_t::documentation("baryons").data()
+   );
+
+   // shortcut: get/set chemicalElements
+   object.def_property(
+      "chemical_elements",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.chemicalElements();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.chemicalElements())> &value)
+      {
+         self.chemicalElements() = value;
+      },
+      cppCLASS::component_t::documentation("chemical_elements").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // shortcut: get/set gaugeBosons
+   object.def_property(
+      "gauge_bosons",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gaugeBosons();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.gaugeBosons())> &value)
+      {
+         self.gaugeBosons() = value;
+      },
+      cppCLASS::component_t::documentation("gauge_bosons").data()
+   );
+
+   // shortcut: get/set leptons
+   object.def_property(
+      "leptons",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.leptons();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.leptons())> &value)
+      {
+         self.leptons() = value;
+      },
+      cppCLASS::component_t::documentation("leptons").data()
+   );
+
+   // shortcut: get/set projectileEnergyDomain
+   object.def_property(
+      "projectile_energy_domain",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.projectileEnergyDomain();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.projectileEnergyDomain())> &value)
+      {
+         self.projectileEnergyDomain() = value;
+      },
+      cppCLASS::component_t::documentation("projectile_energy_domain").data()
+   );
+
+   // shortcut: get/set temperature
+   object.def_property(
+      "temperature",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.temperature();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.temperature())> &value)
+      {
+         self.temperature() = value;
+      },
+      cppCLASS::component_t::documentation("temperature").data()
+   );
+
+   // shortcut: get/set unorthodoxes
+   object.def_property(
+      "unorthodoxes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unorthodoxes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.unorthodoxes())> &value)
+      {
+         self.unorthodoxes() = value;
+      },
+      cppCLASS::component_t::documentation("unorthodoxes").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

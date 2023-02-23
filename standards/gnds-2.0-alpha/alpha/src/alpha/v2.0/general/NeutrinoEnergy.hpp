@@ -84,6 +84,15 @@ public:
    Field<general::Polynomial1d>
       polynomial1d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(polynomial1d(),axes);
+   GNDSTK_SHORTCUT(polynomial1d().axes(),axis);
+   GNDSTK_SHORTCUT(polynomial1d().axes(),grid);
+   GNDSTK_SHORTCUT(polynomial1d(),uncertainty);
+   GNDSTK_SHORTCUT(polynomial1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -118,6 +118,11 @@ public:
    Field<general::ScatteringAtoms>
       scatteringAtoms{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(scatteringAtoms(),scatteringAtom);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

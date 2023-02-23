@@ -182,6 +182,62 @@ void wrapScatteringAtom(py::module &module)
       cppCLASS::component_t::documentation("t_effective").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set SCTApproximation
+   object.def_property(
+      "sctapproximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.SCTApproximation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.SCTApproximation())> &value)
+      {
+         self.SCTApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("sctapproximation").data()
+   );
+
+   // shortcut: get/set freeGasApproximation
+   object.def_property(
+      "free_gas_approximation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.freeGasApproximation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.freeGasApproximation())> &value)
+      {
+         self.freeGasApproximation() = value;
+      },
+      cppCLASS::component_t::documentation("free_gas_approximation").data()
+   );
+
+   // shortcut: get/set gridded3d
+   object.def_property(
+      "gridded3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded3d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.gridded3d())> &value)
+      {
+         self.gridded3d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded3d").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

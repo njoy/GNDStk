@@ -129,6 +129,12 @@ public:
    Field<std::optional<general::DecayData>>
       decayData{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(spin(),fraction);
+   GNDSTK_SHORTCUT(halflife(),string);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

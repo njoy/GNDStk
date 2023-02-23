@@ -84,6 +84,16 @@ public:
    Field<general::XYs2d>
       XYs2d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(XYs2d().function1ds(),Legendre);
+   GNDSTK_SHORTCUT(XYs2d().function1ds(),XYs1d);
+   GNDSTK_SHORTCUT(XYs2d(),axes);
+   GNDSTK_SHORTCUT(XYs2d(),function1ds);
+   GNDSTK_SHORTCUT(XYs2d().function1ds(),regions1d);
+   GNDSTK_SHORTCUT(XYs2d(),uncertainty);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

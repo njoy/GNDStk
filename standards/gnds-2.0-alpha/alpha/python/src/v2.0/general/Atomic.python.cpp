@@ -54,6 +54,20 @@ void wrapAtomic(py::module &module)
       cppCLASS::component_t::documentation("configurations").data()
    );
 
+   // shortcut: get/set configuration
+   object.def_property(
+      "configuration",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.configuration();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.configuration())> &value)
+      {
+         self.configuration() = value;
+      },
+      cppCLASS::component_t::documentation("configuration").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -113,6 +113,14 @@ public:
    Field<general::DebyeWallerIntegral>
       DebyeWallerIntegral{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(DebyeWallerIntegral(),XYs1d);
+   GNDSTK_SHORTCUT(DebyeWallerIntegral().XYs1d(),axes);
+   GNDSTK_SHORTCUT(DebyeWallerIntegral().XYs1d(),uncertainty);
+   GNDSTK_SHORTCUT(DebyeWallerIntegral().XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

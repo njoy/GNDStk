@@ -70,6 +70,90 @@ void wrapWeighted(py::module &module)
       cppCLASS::component_t::documentation("evaporation").data()
    );
 
+   // shortcut: get/set U
+   object.def_property(
+      "u",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.U();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.U())> &value)
+      {
+         self.U() = value;
+      },
+      cppCLASS::component_t::documentation("u").data()
+   );
+
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set regions1d
+   object.def_property(
+      "regions1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.regions1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.regions1d())> &value)
+      {
+         self.regions1d() = value;
+      },
+      cppCLASS::component_t::documentation("regions1d").data()
+   );
+
+   // shortcut: get/set theta
+   object.def_property(
+      "theta",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.theta();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.theta())> &value)
+      {
+         self.theta() = value;
+      },
+      cppCLASS::component_t::documentation("theta").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

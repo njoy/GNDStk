@@ -91,6 +91,12 @@ public:
    Field<g2d::Array>
       array{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(axes(),axis);
+   GNDSTK_SHORTCUT(axes(),grid);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

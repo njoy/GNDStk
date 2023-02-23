@@ -106,6 +106,16 @@ public:
    Field<general::TabulatedWidths>
       tabulatedWidths{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(tabulatedWidths().Ls(),L);
+   GNDSTK_SHORTCUT(tabulatedWidths(),Ls);
+   GNDSTK_SHORTCUT(tabulatedWidths(),PoPs);
+   GNDSTK_SHORTCUT(tabulatedWidths().resonanceReactions(),resonanceReaction);
+   GNDSTK_SHORTCUT(tabulatedWidths(),resonanceReactions);
+   GNDSTK_SHORTCUT(tabulatedWidths(),scatteringRadius);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

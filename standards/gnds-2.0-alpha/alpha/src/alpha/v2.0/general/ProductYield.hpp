@@ -101,6 +101,11 @@ public:
    Field<general::ElapsedTimes>
       elapsedTimes{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(elapsedTimes(),elapsedTime);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

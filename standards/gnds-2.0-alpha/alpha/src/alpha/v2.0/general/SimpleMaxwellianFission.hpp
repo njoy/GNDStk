@@ -91,6 +91,12 @@ public:
    Field<general::Theta>
       theta{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(theta(),XYs1d);
+   GNDSTK_SHORTCUT(theta(),regions1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

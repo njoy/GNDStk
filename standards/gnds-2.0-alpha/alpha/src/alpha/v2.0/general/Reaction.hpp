@@ -120,6 +120,20 @@ public:
    Field<std::optional<general::DoubleDifferentialCrossSection>>
       doubleDifferentialCrossSection{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(outputChannel().Q(),Double);
+   GNDSTK_SHORTCUT(outputChannel(),Q);
+   GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   GNDSTK_SHORTCUT(outputChannel().Q(),constant1d);
+   GNDSTK_SHORTCUT(outputChannel(),fissionFragmentData);
+   GNDSTK_SHORTCUT(outputChannel(),products);
+   GNDSTK_SHORTCUT(crossSection(),reference);
+   GNDSTK_SHORTCUT(crossSection(),regions1d);
+   GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
+   GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

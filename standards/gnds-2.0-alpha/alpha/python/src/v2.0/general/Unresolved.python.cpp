@@ -102,6 +102,90 @@ void wrapUnresolved(py::module &module)
       cppCLASS::component_t::documentation("tabulated_widths").data()
    );
 
+   // shortcut: get/set L
+   object.def_property(
+      "l",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.L();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.L())> &value)
+      {
+         self.L() = value;
+      },
+      cppCLASS::component_t::documentation("l").data()
+   );
+
+   // shortcut: get/set Ls
+   object.def_property(
+      "ls",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Ls();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Ls())> &value)
+      {
+         self.Ls() = value;
+      },
+      cppCLASS::component_t::documentation("ls").data()
+   );
+
+   // shortcut: get/set PoPs
+   object.def_property(
+      "po_ps",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.PoPs();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.PoPs())> &value)
+      {
+         self.PoPs() = value;
+      },
+      cppCLASS::component_t::documentation("po_ps").data()
+   );
+
+   // shortcut: get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.resonanceReaction())> &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // shortcut: get/set resonanceReactions
+   object.def_property(
+      "resonance_reactions",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReactions();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.resonanceReactions())> &value)
+      {
+         self.resonanceReactions() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reactions").data()
+   );
+
+   // shortcut: get/set scatteringRadius
+   object.def_property(
+      "scattering_radius",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringRadius();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.scatteringRadius())> &value)
+      {
+         self.scatteringRadius() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_radius").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

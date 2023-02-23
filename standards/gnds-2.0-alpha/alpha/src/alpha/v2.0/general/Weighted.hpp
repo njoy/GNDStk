@@ -91,6 +91,16 @@ public:
    Field<general::Evaporation>
       evaporation{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(evaporation(),U);
+   GNDSTK_SHORTCUT(XYs1d(),axes);
+   GNDSTK_SHORTCUT(evaporation().theta(),regions1d);
+   GNDSTK_SHORTCUT(evaporation(),theta);
+   GNDSTK_SHORTCUT(XYs1d(),uncertainty);
+   GNDSTK_SHORTCUT(XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

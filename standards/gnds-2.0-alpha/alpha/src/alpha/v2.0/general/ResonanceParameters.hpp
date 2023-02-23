@@ -84,6 +84,13 @@ public:
    Field<general::Table>
       table{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(table().columnHeaders(),column);
+   GNDSTK_SHORTCUT(table(),columnHeaders);
+   GNDSTK_SHORTCUT(table(),data);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -98,6 +98,13 @@ public:
    Field<general::Uncertainty>
       uncertainty{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(uncertainty(),listOfCovariances);
+   GNDSTK_SHORTCUT(uncertainty(),polynomial1d);
+   GNDSTK_SHORTCUT(uncertainty(),standard);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -91,6 +91,18 @@ public:
    Field<std::optional<general::CrossSectionReconstructed>>
       crossSectionReconstructed{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(evaluated().documentation(),authors);
+   GNDSTK_SHORTCUT(evaluated().documentation(),body);
+   GNDSTK_SHORTCUT(evaluated().documentation(),dates);
+   GNDSTK_SHORTCUT(evaluated(),documentation);
+   GNDSTK_SHORTCUT(evaluated().documentation(),endfCompatible);
+   GNDSTK_SHORTCUT(evaluated(),projectileEnergyDomain);
+   GNDSTK_SHORTCUT(evaluated(),temperature);
+   GNDSTK_SHORTCUT(evaluated().documentation(),title);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -101,6 +101,18 @@ public:
    Field<reduced::Distribution>
       distribution{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   GNDSTK_SHORTCUT(distribution(),XYs2d);
+   GNDSTK_SHORTCUT(distribution(),branching3d);
+   GNDSTK_SHORTCUT(crossSection(),reference);
+   GNDSTK_SHORTCUT(crossSection(),regions1d);
+   GNDSTK_SHORTCUT(distribution(),thermalNeutronScatteringLaw);
+   GNDSTK_SHORTCUT(distribution(),uncorrelated);
+   GNDSTK_SHORTCUT(distribution(),unspecified);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------
