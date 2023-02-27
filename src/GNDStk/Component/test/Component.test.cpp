@@ -66,6 +66,24 @@ public:
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
    struct {
       int foo;
       double bar;
@@ -167,10 +185,10 @@ SCENARIO("Testing GNDStk Component") {
          colors = false; // avoid cluttering the checked output below
 
          const std::string expected =
-            "DerivedData {\n"
+            "{\n"
             "   foo : 12\n"
             "   bar : 34.56\n"
-            "} // DerivedData"
+            "}"
             ;
 
          // from XML

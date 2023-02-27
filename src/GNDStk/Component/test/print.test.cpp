@@ -48,37 +48,37 @@ SCENARIO("Component print()") {
 inline const std::string &CorrectPrintText()
 {
    static const std::string ret =
-R"***(proto::ReactionSuite {
+R"***({
   evaluation      : ENDF/B-8.0
   format          : 1.9
   projectile      : n
   projectileFrame : lab
   target          : H2
-  proto::Reactions {
+  reactions {
     reaction [
-      proto::Reaction {
+      [0] {
         ENDF_MT : 16
         label   : 2n + H1
-        proto::CrossSection {
-          XYs1d regions1d [
-            proto::XYs1d {
+        crossSection {
+          XYs1d_regions1d [
+            {
               interpolation : lin-lin // its default
               label         : eval
-              proto::Axes {
-                axis grid [
-                  proto::Axis {
+              axes {
+                axis_grid [
+                  {
                     index : 0
                     label : crossSection
                     unit  : b
-                  } // proto::Axis
-                  proto::Axis {
+                  }
+                  {
                     index : 1
                     label : energy_in
                     unit  : eV
-                  } // proto::Axis
-                ] // axis grid
-              } // proto::Axes
-              proto::Values {
+                  }
+                ] // axis_grid
+              } // axes
+              values {
                 start     : 0 // its default
                 valueType : double // its default
                 3.33900000e+06 0.00000000e+00 3.40000000e+06 1.20000000e-03
@@ -143,23 +143,23 @@ R"***(proto::ReactionSuite {
                 1.40000000e+08 6.72450800e-02 1.42000000e+08 6.67193600e-02
                 1.44000000e+08 6.62048500e-02 1.46000000e+08 6.57010700e-02
                 1.48000000e+08 6.52076000e-02 1.50000000e+08 6.47240200e-02
-              } // proto::Values
-            } // proto::XYs1d
-          ] // XYs1d regions1d
-        } // proto::CrossSection
-      } // proto::Reaction
-      proto::Reaction {
+              } // values
+            }
+          ] // XYs1d_regions1d
+        } // crossSection
+      } // [0]
+      [1] {
         ENDF_MT : 102
         label   : H3 + photon
-        proto::CrossSection {
-          XYs1d regions1d [
-            proto::Regions1d {
+        crossSection {
+          XYs1d_regions1d [
+            {
               label : eval
               XYs1d [
-                proto::XYs1d {
+                [0] {
                   index         : 0
                   interpolation : log-log // its default
-                  proto::Values {
+                  values {
                     start     : 0 // its default
                     valueType : double // its default
                     1.00000000e-05 2.53000000e-02 1.00000000e-04 8.00000000e-03
@@ -167,12 +167,12 @@ R"***(proto::ReactionSuite {
                     1.00000000e+03 2.50000000e-06 2.00000000e+03 1.76000000e-06
                     3.00000000e+03 1.47000000e-06 4.00000000e+03 1.30000000e-06
                     5.00000000e+03 1.19000000e-06 1.00000000e+04 1.00000000e-06
-                  } // proto::Values
-                } // proto::XYs1d
-                proto::XYs1d {
+                  } // values
+                } // [0]
+                [1] {
                   index         : 1
                   interpolation : lin-lin // its default
-                  proto::Values {
+                  values {
                     start     : 0 // its default
                     valueType : double // its default
                     1.00000000e+04 1.00000000e-06 2.00000000e+04 1.03000000e-06
@@ -246,50 +246,50 @@ R"***(proto::ReactionSuite {
                     9.40000000e+07 4.12563900e-06 9.60000000e+07 4.08258000e-06
                     9.80000000e+07 4.04071900e-06 1.00000000e+08 4.00000000e-06
                     1.50000000e+08 4.00000000e-06
-                  } // proto::Values
-                } // proto::XYs1d
+                  } // values
+                } // [1]
               ] // XYs1d
-              proto::Axes {
-                axis grid [
-                  proto::Axis {
+              axes {
+                axis_grid [
+                  {
                     index : 0
                     label : crossSection
                     unit  : b
-                  } // proto::Axis
-                  proto::Axis {
+                  }
+                  {
                     index : 1
                     label : energy_in
                     unit  : eV
-                  } // proto::Axis
-                ] // axis grid
-              } // proto::Axes
-            } // proto::Regions1d
-          ] // XYs1d regions1d
-        } // proto::CrossSection
-      } // proto::Reaction
-      proto::Reaction {
+                  }
+                ] // axis_grid
+              } // axes
+            }
+          ] // XYs1d_regions1d
+        } // crossSection
+      } // [1]
+      [2] {
         ENDF_MT : 2
         label   : n + H2
-        proto::CrossSection {
-          XYs1d regions1d [
-            proto::XYs1d {
+        crossSection {
+          XYs1d_regions1d [
+            {
               interpolation : lin-lin // its default
               label         : eval
-              proto::Axes {
-                axis grid [
-                  proto::Axis {
+              axes {
+                axis_grid [
+                  {
                     index : 0
                     label : crossSection
                     unit  : b
-                  } // proto::Axis
-                  proto::Axis {
+                  }
+                  {
                     index : 1
                     label : energy_in
                     unit  : eV
-                  } // proto::Axis
-                ] // axis grid
-              } // proto::Axes
-              proto::Values {
+                  }
+                ] // axis_grid
+              } // axes
+              values {
                 start     : 0 // its default
                 valueType : double // its default
                 1.00000000e-05 3.39500000e+00 1.00000000e-04 3.39500000e+00
@@ -381,14 +381,14 @@ R"***(proto::ReactionSuite {
                 1.40000000e+08 1.15329800e-02 1.42000000e+08 1.12179800e-02
                 1.44000000e+08 1.09274900e-02 1.46000000e+08 1.06636900e-02
                 1.48000000e+08 1.04269800e-02 1.50000000e+08 1.02176600e-02
-              } // proto::Values
-            } // proto::XYs1d
-          ] // XYs1d regions1d
-        } // proto::CrossSection
-      } // proto::Reaction
+              } // values
+            }
+          ] // XYs1d_regions1d
+        } // crossSection
+      } // [2]
     ] // reaction
-  } // proto::Reactions
-} // proto::ReactionSuite
+  } // reactions
+}
 )***";
 
    return ret;

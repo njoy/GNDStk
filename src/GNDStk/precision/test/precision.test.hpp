@@ -33,6 +33,26 @@ class Floats : public Component<Floats,true,float> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -237,6 +257,26 @@ class Doubles : public Component<Doubles,true,double> {
          std::optional<std::string>{}
             / Meta<>("valueType")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
    }
 
 public:
@@ -445,6 +485,26 @@ class Quads : public Component<Quads,true,long double> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -649,6 +709,26 @@ class Reals : public Component<Reals,true> {
          std::optional<std::string>{}
             / Meta<>("valueType")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
    }
 
 public:
@@ -876,6 +956,40 @@ class Numbers : public Component<Numbers> {
          std::optional<precision::Reals>{}
             / --Child<>("reals")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "adouble",
+         "afloat",
+         "aquad",
+         "bdouble",
+         "bfloat",
+         "bquad",
+         "doubles",
+         "floats",
+         "quads",
+         "reals"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "adouble",
+         "afloat",
+         "aquad",
+         "bdouble",
+         "bfloat",
+         "bquad",
+         "doubles",
+         "floats",
+         "quads",
+         "reals"
+      };
+      return names;
    }
 
 public:

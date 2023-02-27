@@ -32,6 +32,32 @@ class TestGetter : public Component<TestGetter>
       IndexLabel
    >;
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "vecIndex",
+         "vecLabel",
+         "vecIndexLabel",
+         "varA",
+         "varB",
+         "vecVariant"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "vec_index",
+         "vec_label",
+         "vec_index_label",
+         "var_a",
+         "var_b",
+         "vec_variant"
+      };
+      return names;
+   }
+
 public:
 
    // ------------------------
@@ -47,7 +73,7 @@ public:
    std::vector<Label> vecLabel;
    std::vector<IndexLabel> vecIndexLabel;
 
-   // a couple variant objects
+   // a couple of variant objects
    std::variant<int,double> varA, varB;
 
    // a vector of variants

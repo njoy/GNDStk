@@ -57,13 +57,16 @@ the enclosing class to do the right thing.
 
 std::ostream &print(
    std::ostream &os, const int level,
+   const std::string &label = "",
    const std::string &labelColor = color::component
 ) const {
-   const std::string label = detail::fullName(Namespace(), Class());
+   // Name of the class is as follows, in case we want to use it for anything...
+   // const std::string type = detail::fullName(Namespace(), Class());
 
    try {
       // Consistency check
-      // todo Eventually remove, or make a proper error. Shouldn't happen.
+      // todo Eventually remove this, or make it a proper error,
+      // as it really shouldn't happen at all.
       assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
       // ------------------------
@@ -71,8 +74,13 @@ std::ostream &print(
       // ------------------------
 
       detail::indentString(
-         os, level,
-         detail::colorize(label, labelColor) + ' ' + detail::colorize_brace("{")
+         os,
+         level,
+         (label == ""
+            ? ""
+            : detail::colorize(label,labelColor) + ' '
+         ) +
+         detail::colorize_brace("{")
       );
       os << std::endl;
 
@@ -128,9 +136,11 @@ std::ostream &print(
                   level+1,
                   // maxlen
                   pprintAlign{}(key,links[n-1]) ? maxlen : 0,
-                  // field label
-                  getName(key),
-                  // field value
+                  // label
+                  getName(key) == special::comment
+                    ? getName(key)
+                    : derived().FIELDNAMES()[n-1],
+                  // value
                   *(
                      typename queryResult<std::decay_t<decltype(key)>>::type
                   *)links[n-1]
@@ -199,8 +209,11 @@ std::ostream &print(
 
       detail::indentString(
          os, level,
-         detail::colorize_brace("}")
-          + (comments ? ' ' + detail::colorize_comment("// " + label) : "")
+         detail::colorize_brace("}") +
+         (label == "" || !comments
+            ? ""
+            : ' ' + detail::colorize_comment("// " + label)
+         )
       );
 
       return os;

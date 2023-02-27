@@ -90,6 +90,24 @@ public:
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
    int foo = 56;
    double bar = 7.8;
 
@@ -340,27 +358,32 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
          // The Component-derived nature of the class causes
          // value.print(stream,level) to be called instead.
          // So we get the same result from each call.
-         const std::string expected =
-            "    Derived {\n"
+         const std::string expected1 =
+            "    label {\n"
             "      foo : 56\n"
             "      bar : 7.8\n"
-            "    } // Derived";
+            "    } // label";
+         const std::string expected2 =
+            "    {\n"
+            "      foo : 56\n"
+            "      bar : 7.8\n"
+            "    }";
 
          oss.str("");
          printComponentPart(oss, level=2, maxlen= 0, "label", value);
-         CHECK(oss.str() == expected);
+         CHECK(oss.str() == expected1);
 
          oss.str("");
          printComponentPart(oss, level=2, maxlen=10, "label", value);
-         CHECK(oss.str() == expected);
+         CHECK(oss.str() == expected1);
 
          oss.str("");
          printComponentPart(oss, level=2, maxlen= 0, "", value);
-         CHECK(oss.str() == expected);
+         CHECK(oss.str() == expected2);
 
          oss.str("");
          printComponentPart(oss, level=2, maxlen=10, "", value);
-         CHECK(oss.str() == expected);
+         CHECK(oss.str() == expected2);
       }
 
       // For "NonDerived"

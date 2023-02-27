@@ -604,7 +604,8 @@ namespace custom {
    green  = makeColor(  20, 200, 120 ),
    blue   = makeColor(  40, 160, 240 ),
    purple = makeColor( 142, 110, 202 ),
-   brown  = makeColor( 190, 128, 120 );
+   brown  = makeColor( 136,  68,  32 ),
+   teal   = makeColor(   0, 128, 128 );
 
    // color::custom::faded::
    namespace faded {
@@ -614,7 +615,7 @@ namespace custom {
       green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
       blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
       purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
-      brown  = makeColor( (190+128)/2, (128+128)/2, (120+128)/2 );
+      brown  = makeColor( (136+128)/2, ( 68+128)/2, ( 32+128)/2 );
    }
 
    inline const std::string
@@ -648,7 +649,7 @@ inline std::string bracket = vector;
 inline std::string value = custom::red;
 
 // General comments that the prettyprinter creates
-inline std::string comment = custom::brown;
+inline std::string comment = custom::teal;
 
 // Re: data nodes
 namespace data {

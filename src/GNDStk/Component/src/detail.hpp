@@ -348,7 +348,7 @@ bool printComponentPart(
    // some sort of string representation of the value.
 
    if constexpr (isDerivedFromComponent<T>::value) {
-      value.baseComponent().print(os,level,labelColor);
+      value.baseComponent().print(os,level,label,labelColor);
    } else if constexpr (std::is_floating_point_v<T>) {
       // T is floating-point. Use our floating-point printing mechanism.
       printComponentPart(
@@ -389,14 +389,14 @@ bool printComponentPart(
    // Forward to some printComponentPart() for each element. Note that here,
    // in the vector context, maxlen isn't applicable. As for valueColor (the
    // last parameter), the forwarded-to printComponentPart() will use what's
-   // appropriate for the vector elements.
+   // appropriate for the vector's elements.
 
    // To avoid user confusion in prettyprinted output, we'll change our special
    // name "#comment" (which identifies comment nodes to be transformed into the
    // form <!--a comment--> when writing to XML), to the name "comment" instead.
    // Also, because our code generator creates the comment vector<string> field
    // automatically, in generated classes, we won't print it here at all if the
-   // vector is empty; that is, we won't write "comment [(nothing)]"). This way,
+   // vector is empty. That is, we won't write "comment [(nothing)]"). This way,
    // users won't wonder where it came from. (It was created automatically.)
    const bool isComment = label == special::comment;
    if (isComment && vec.size() == 0)
@@ -406,15 +406,23 @@ bool printComponentPart(
 
    indentString(
       os, level,
-      colorize(lab, labelColor) + ' ' + colorize_bracket("[")
+      colorize(lab,labelColor) + ' ' + colorize_bracket("[")
    );
    os << std::endl;
 
+   std::size_t index = 0;
    for (const auto &element : vec) {
       printComponentPart(
-         os, level+1, 0, "",
+         os,
+         level+1,
+         0,
+         isDerivedFromComponent<T>::value
+            ? '[' + std::to_string(index++) + ']'
+            : "",
          element,
-         isDerivedFromComponent<T>::value ? color::component : "",
+         isDerivedFromComponent<T>::value
+            ? color::component
+            : "",
          isComment ? color::data::comment : ""
       );
       os << std::endl; // between elements

@@ -128,6 +128,26 @@ class Values : public Component<Values,true> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -339,6 +359,22 @@ class Link : public Component<Link> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -497,6 +533,32 @@ class Grid : public Component<Grid> {
          LINK_VALUES{}
             / --(Child<>("link") || Child<>("values"))
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
    }
 
 public:
@@ -798,6 +860,26 @@ class Axis : public Component<Axis> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "label",
+         "unit"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "label",
+         "unit"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -984,6 +1066,24 @@ class Axes : public Component<Axes> {
          AXIS_GRID{}
             / ++(Child<>("axis") || Child<>("grid"))
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href",
+         "axis_grid"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href",
+         "axis_grid"
+      };
+      return names;
    }
 
 public:
@@ -1247,6 +1347,32 @@ class XYs1d : public Component<XYs1d> {
          proto::Values{}
             / --Child<>("values")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "outerDomainValue",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "values"
+      };
+      return names;
    }
 
 public:
@@ -1531,6 +1657,28 @@ class Regions1d : public Component<Regions1d> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "label",
+         "outerDomainValue",
+         "XYs1d",
+         "axes"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "label",
+         "outerDomainValue",
+         "XYs1d",
+         "axes"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -1762,6 +1910,22 @@ class CrossSection : public Component<CrossSection> {
          XYS1D_REGIONS1D{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "XYs1d_regions1d"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "XYs1d_regions1d"
+      };
+      return names;
    }
 
 public:
@@ -2003,6 +2167,28 @@ class Reaction : public Component<Reaction> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "ENDF_MT",
+         "fissionGenre",
+         "label",
+         "crossSection"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "ENDF_MT",
+         "fissionGenre",
+         "label",
+         "crossSection"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -2203,6 +2389,22 @@ class Reactions : public Component<Reactions> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "reaction"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "reaction"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -2386,6 +2588,34 @@ class ReactionSuite : public Component<ReactionSuite> {
          std::optional<proto::Reactions>{}
             / --Child<>("reactions")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "evaluation",
+         "format",
+         "interaction",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "reactions"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "evaluation",
+         "format",
+         "interaction",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "reactions"
+      };
+      return names;
    }
 
 public:
