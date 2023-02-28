@@ -604,8 +604,7 @@ namespace custom {
    green  = makeColor(  20, 200, 120 ),
    blue   = makeColor(  40, 160, 240 ),
    purple = makeColor( 142, 110, 202 ),
-   brown  = makeColor( 136,  68,  32 ),
-   teal   = makeColor(   0, 128, 128 );
+   brown  = makeColor( 136,  68,  32 );
 
    // color::custom::faded::
    namespace faded {
@@ -633,23 +632,21 @@ namespace custom {
 // you'll get the text color your terminal already uses.
 // -----------------------------------------------------------------------------
 
-// Component labels, and their begin and end curly braces
-inline std::string component = custom::purple;
-inline std::string brace = component;
-
 // General labels, and the colon separator between it and the value
 inline std::string label = custom::blue;
 inline std::string colon = label;
 
-// Vector labels, and their begin and end square brackets
+// Component labels
+inline std::string component = custom::purple;
+
+// Vector labels
 inline std::string vector = custom::green;
-inline std::string bracket = vector;
 
 // General values
 inline std::string value = custom::red;
 
 // General comments that the prettyprinter creates
-inline std::string comment = custom::teal;
+inline std::string comment = custom::brown;
 
 // Re: data nodes
 namespace data {
@@ -661,12 +658,11 @@ namespace data {
    inline std::string vector  = custom::white;
 }
 
-// If an object is optional or GNDStk::Defaulted, the color for its label (but
-// not for its braces, brackets, or colon separator, where applicable), or for
-// its value, can be modified by using the following.
+// If an object is optional or GNDStk::Defaulted, the color for its label,
+// or for its value, can be modified by using the following.
 namespace optional {
-   inline std::string component = custom::faded::purple;
    inline std::string label     = custom::faded::blue;
+   inline std::string component = custom::faded::purple;
    inline std::string vector    = custom::faded::green;
    inline std::string value     = custom::faded::red;
 }
@@ -693,12 +689,10 @@ inline void simple()
    // not just colored, but *underlined* as well. So, we avoided using bold
    // colors, as we found underlines to be more distracting than helpful.
 
-   component = plain::magenta;
-   brace     = component;
    label     = plain::blue;
    colon     = label;
+   component = plain::magenta;
    vector    = plain::green;
-   bracket   = vector;
    value     = plain::red;
    comment   = "";
 
@@ -706,8 +700,8 @@ inline void simple()
    data::string  = plain::white;
    data::vector  = plain::white;
 
-   optional::component = component;
    optional::label     = label;
+   optional::component = component;
    optional::vector    = vector;
    optional::value     = value;
 }

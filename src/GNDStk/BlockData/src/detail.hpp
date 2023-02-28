@@ -149,14 +149,8 @@ inline std::string colorize(const std::string &text, const std::string &color)
       : text;
 }
 
-inline std::string colorize_brace(const std::string &text)
-{ return colorize(text, color::brace); }
-
 inline std::string colorize_colon(const std::string &text)
 { return colorize(text, color::colon); }
-
-inline std::string colorize_bracket(const std::string &text)
-{ return colorize(text, color::bracket); }
 
 inline std::string colorize_comment(const std::string &text)
 { return colorize(text, color::comment); }

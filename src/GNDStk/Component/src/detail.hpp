@@ -404,35 +404,40 @@ bool printComponentPart(
 
    const std::string lab = isComment ? "comment" : label;
 
-   indentString(
-      os, level,
-      colorize(lab,labelColor) + ' ' + colorize_bracket("[")
-   );
-   os << std::endl;
+   if constexpr (isDerivedFromComponent<T>::value) {
+      std::size_t index = 0;
+      for (const auto &element : vec) {
+         if (index)
+            os << std::endl; // between elements
+         printComponentPart(
+            os, level, 0,
+            lab + '[' + std::to_string(index++) + ']',
+            element,
+            color::vector,
+            ""
+         );
+      }
+   } else {
+      indentString(os, level, colorize(lab + " [", labelColor));
+      os << std::endl;
 
-   std::size_t index = 0;
-   for (const auto &element : vec) {
-      printComponentPart(
-         os,
-         level+1,
-         0,
-         isDerivedFromComponent<T>::value
-            ? '[' + std::to_string(index++) + ']'
-            : "",
-         element,
-         isDerivedFromComponent<T>::value
-            ? color::component
-            : "",
-         isComment ? color::data::comment : ""
+      for (const auto &element : vec) {
+         printComponentPart(
+            os, level+1, 0,
+            "",
+            element,
+            "",
+            isComment ? color::data::comment : ""
+         );
+         os << std::endl; // between elements
+      }
+
+      indentString(
+         os, level,
+         colorize("]", labelColor)
+          + (comments ? ' ' + colorize_comment("// " + lab) : "")
       );
-      os << std::endl; // between elements
    }
-
-   indentString(
-      os, level,
-      colorize_bracket("]")
-       + (comments ? ' ' + colorize_comment("// " + lab) : "")
-   );
 
    return true;
 }

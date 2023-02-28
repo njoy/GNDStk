@@ -76,11 +76,7 @@ std::ostream &print(
       detail::indentString(
          os,
          level,
-         (label == ""
-            ? ""
-            : detail::colorize(label,labelColor) + ' '
-         ) +
-         detail::colorize_brace("{")
+         detail::colorize(label == "" ? "{" : label+" {", labelColor)
       );
       os << std::endl;
 
@@ -209,7 +205,7 @@ std::ostream &print(
 
       detail::indentString(
          os, level,
-         detail::colorize_brace("}") +
+         detail::colorize("}",labelColor) +
          (label == "" || !comments
             ? ""
             : ' ' + detail::colorize_comment("// " + label)
