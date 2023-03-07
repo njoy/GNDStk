@@ -9,6 +9,8 @@ int main(const int argc, const char *const *const argv)
    colors = true; // Use color markup.
    shades = true; // Colorize array values based on relative intensity.
    indent = 3;    // Indent by this number of spaces.
+   printMode = PrintMode::python;
+   elements = 10;
 
    for (int i = 1; i < argc; ++i) {
       // Assume here that it's a <reactionSuite>. Note that where an XML node

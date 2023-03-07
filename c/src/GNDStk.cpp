@@ -46,12 +46,9 @@ void columns(const long value)
    njoy::GNDStk::columns = value;
 }
 
-// A function name of truncate (for access to our C++ [inline long truncate]
-// variable) appears to conflict, here in our C language interface functions,
-// with a truncate function in unistd.h. So, we'll give it a different name.
-void truncation(const long value)
+void elements(const long value)
 {
-   njoy::GNDStk::truncate = value;
+   njoy::GNDStk::elements = value;
 }
 
 // ------------------------

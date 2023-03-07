@@ -48,6 +48,17 @@ those parts did their own thing in this respect, they'd stymie the ability of
 the enclosing class to do the right thing.
 */
 
+// Helper
+template<class KEY>
+const std::string getName(const KEY &key, const std::size_t n) const
+{
+   return detail::getName(key) == special::comment
+      ? special::comment
+      : printMode == PrintMode::cpp
+      ? derived(). FIELDNAMES()[n]
+      : derived().PYTHONNAMES()[n];
+}
+
 
 // -----------------------------------------------------------------------------
 // print(ostream,level)
@@ -102,9 +113,12 @@ std::ostream &print(
                using namespace detail;
                std::size_t n = 0;
                ((
+                  n++,
                   maxlen = std::max(
                      maxlen,
-                     pprintAlign{}(key,links[n++]) ? getName(key).size() : 0
+                     pprintAlign{}(key,links[n-1])
+                        ? this->getName(key,n-1).size()
+                        : 0
                   )
                ), ... );
             },
@@ -123,7 +137,7 @@ std::ostream &print(
             using namespace detail;
             std::size_t n = 0;
             (((
-               n++, // in neither [n-1] below, lest undefined evaluation order
+               n++, // not in any [n-1] below, lest undefined evaluation order
                // indent, value, newline
                printComponentPart(
                   // os
@@ -131,11 +145,11 @@ std::ostream &print(
                   // level
                   level+1,
                   // maxlen
-                  pprintAlign{}(key,links[n-1]) ? maxlen : 0,
+                  pprintAlign{}(key,links[n-1])
+                     ? maxlen
+                     : 0,
                   // label
-                  getName(key) == special::comment
-                    ? getName(key)
-                    : derived().FIELDNAMES()[n-1],
+                  this->getName(key,n-1),
                   // value
                   *(
                      typename queryResult<std::decay_t<decltype(key)>>::type
@@ -203,21 +217,20 @@ std::ostream &print(
       // NO trailing newline
       // ------------------------
 
-      detail::indentString(
+      using namespace detail;
+      indentString(
          os, level,
-         detail::colorize("}",labelColor) +
-         (label == "" || !comments
-            ? ""
-            : ' ' + detail::colorize_comment("// " + label)
-         )
+         comments && label != ""
+            ? colorize("} " + colorize_comment(label), labelColor)
+            : colorize("}", labelColor)
       );
-
-      return os;
 
    } catch (...) {
       log::member("Component.print() for {}", label);
       throw;
    }
+
+   return os;
 }
 
 

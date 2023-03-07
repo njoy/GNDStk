@@ -1,4 +1,11 @@
 
+// Printing style
+enum class PrintMode {
+   cpp,
+   python
+};
+inline PrintMode printMode = PrintMode::cpp;
+
 // Printing-related colors.
 // todo Eventually, this probably belongs in a more context-agnostic
 // location, such as GNDStk's utility.hpp file or something like it.

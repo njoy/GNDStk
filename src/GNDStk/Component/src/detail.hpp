@@ -184,7 +184,7 @@ inline bool printComponentPart(
       }
 
       // space, :, space
-      os << ' ' << colorize_colon(":");
+      os << ' ' << colorize(":",labelColor);
       // Assuming the string to be printed isn't empty - which we don't really
       // anticipate it would be - print a space after the ":", i.e. just before
       // the soon-to-be-printed string.
@@ -272,9 +272,9 @@ bool printComponentPart(
    const std::string indent(GNDStk::indent * level, ' ');
 
    // End, given the requested truncation
-   const std::size_t end = GNDStk::truncate < 0
+   const std::size_t end = GNDStk::elements < 0
       ? size
-      : std::min(size, std::size_t(GNDStk::truncate));
+      : std::min(size, std::size_t(GNDStk::elements));
 
    // Compute the minimum and maximum values in the data vector, if we'll need
    // them. Our use of std::conditional_t allows us to avoid constructing two
@@ -322,7 +322,9 @@ bool printComponentPart(
       if (end > 0)
          os << std::endl; // we printed *something*; go to the next line, then:
       os << indent << colorize_comment(
-         "// truncated; actual #elements == " + std::to_string(size));
+        "truncated; actual #elements == " + std::to_string(size),
+         valueColor
+      );
    }
 
    return true;
@@ -399,13 +401,15 @@ bool printComponentPart(
    // vector is empty. That is, we won't write "comment [(nothing)]"). This way,
    // users won't wonder where it came from. (It was created automatically.)
    const bool isComment = label == special::comment;
-   if (isComment && vec.size() == 0)
+   if ((isComment || isDerivedFromComponent<T>::value) && vec.size() == 0)
       return false; // <== so that the caller won't print a newline
 
    const std::string lab = isComment ? "comment" : label;
 
    if constexpr (isDerivedFromComponent<T>::value) {
       std::size_t index = 0;
+
+      // elements
       for (const auto &element : vec) {
          if (index)
             os << std::endl; // between elements
@@ -418,9 +422,11 @@ bool printComponentPart(
          );
       }
    } else {
+      // [
       indentString(os, level, colorize(lab + " [", labelColor));
       os << std::endl;
 
+      // elements
       for (const auto &element : vec) {
          printComponentPart(
             os, level+1, 0,
@@ -432,10 +438,12 @@ bool printComponentPart(
          os << std::endl; // between elements
       }
 
+      // ]
       indentString(
          os, level,
-         colorize("]", labelColor)
-          + (comments ? ' ' + colorize_comment("// " + lab) : "")
+         comments
+            ? colorize("] " + colorize_comment(lab), labelColor)
+            : colorize("]", labelColor)
       );
    }
 
@@ -447,7 +455,6 @@ bool printComponentPart(
 // 6. optional
 // ------------------------
 
-// todo Maybe don't need labelColor and valueColor?
 template<class OPT>
 bool printComponentPart_helper(
    std::ostream &os, const int level, const std::size_t maxlen,
@@ -483,6 +490,7 @@ bool printComponentPart_helper(
       value.value(),
       clabel
    );
+
    return true;
 }
 
@@ -517,7 +525,6 @@ bool printComponentPart(
 // 7. Defaulted
 // ------------------------
 
-// todo Maybe don't need labelColor and valueColor?
 template<class T>
 bool printComponentPart(
    std::ostream &os, const int level, const std::size_t maxlen,
@@ -551,7 +558,8 @@ bool printComponentPart(
 
    // comment
    if (comments)
-      os << ' ' << colorize_comment("// its default");
+      os << ' ' << colorize_comment("its default",cvalue);
+
    return true;
 }
 

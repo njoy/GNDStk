@@ -29,7 +29,7 @@ extern_C void color(const int);
 
 extern_C void comments(const int);
 extern_C void columns(const long);
-extern_C void truncation(const long);
+extern_C void elements(const long);
 
 extern_C void note(const int);
 extern_C void warning(const int);

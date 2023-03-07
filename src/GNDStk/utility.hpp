@@ -191,11 +191,11 @@ inline bool comments = true;
 // all data on one line.
 //
 // If the data array's size is large, a user may wish to limit the total number
-// of printed values. This can be done with the truncate variable. A value < 0
-// means unlimited. All other values, including 0, mean: print no more than that
-// number of values.
+// of printed values. This can be done with the "elements" variable. A value of
+// less than 0 means unlimited. All other values, including 0, mean to print no
+// more than that number of values.
 inline long columns = 4;
-inline long truncate = -1;
+inline long elements = -1;
 
 
 

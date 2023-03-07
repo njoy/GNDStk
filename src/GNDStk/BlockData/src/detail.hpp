@@ -17,7 +17,10 @@ template<class T>
 auto getBounds(const std::vector<T> &vec)
 {
    T zero;
-   if constexpr (std::is_same_v<T,std::string>) zero = ""; else zero = T(0);
+   if constexpr (std::is_same_v<T,std::string>)
+      zero = "";
+   else
+      zero = T(0);
    std::pair<std::size_t,std::size_t> bnd(0,vec.size());
    while (bnd.first < bnd.second && vec[bnd.first   ] == zero) ++bnd.first;
    while (bnd.first < bnd.second && vec[bnd.second-1] == zero) --bnd.second;
@@ -139,20 +142,23 @@ void element2element(const T &value, std::string &str)
 
 // -----------------------------------------------------------------------------
 // colorize
-// colorize_*
+// colorize_comment
 // -----------------------------------------------------------------------------
 
-inline std::string colorize(const std::string &text, const std::string &color)
-{
+inline std::string colorize(
+   const std::string &text,
+   const std::string &color
+) {
    return GNDStk::colors && color != ""
       ? color + text + GNDStk::color::reset
       : text;
 }
 
-inline std::string colorize_colon(const std::string &text)
-{ return colorize(text, color::colon); }
-
-inline std::string colorize_comment(const std::string &text)
-{ return colorize(text, color::comment); }
+inline std::string colorize_comment(
+   const std::string &text,
+   const std::string &color = ""
+) {
+   return colorize((printMode == PrintMode::cpp ? "// " : "# ") + text, color);
+}
 
 } // namespace detail

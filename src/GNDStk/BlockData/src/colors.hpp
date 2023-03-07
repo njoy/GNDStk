@@ -599,22 +599,20 @@ std::string blue2red(T min, T value, T max)
 // color::custom::
 namespace custom {
    inline const std::string
-   red    = makeColor( 240,  40,  80 ),
+   red    = makeColor( 200,  40,  80 ),
    yellow = makeColor( 220, 220,  40 ),
    green  = makeColor(  20, 200, 120 ),
-   blue   = makeColor(  40, 160, 240 ),
-   purple = makeColor( 142, 110, 202 ),
-   brown  = makeColor( 136,  68,  32 );
+   blue   = makeColor(  40, 160, 250 ),
+   purple = makeColor( 142, 110, 202 );
 
    // color::custom::faded::
    namespace faded {
       inline const std::string
-      red    = makeColor( (240+128)/2, ( 40+128)/2, ( 80+128)/2 ),
+      red    = makeColor( (200+128)/2, ( 40+128)/2, ( 80+128)/2 ),
       yellow = makeColor( (220+128)/2, (220+128)/2, ( 40+128)/2 ),
       green  = makeColor( ( 20+128)/2, (200+128)/2, (120+128)/2 ),
-      blue   = makeColor( ( 40+128)/2, (160+128)/2, (240+128)/2 ),
-      purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 ),
-      brown  = makeColor( (136+128)/2, ( 68+128)/2, ( 32+128)/2 );
+      blue   = makeColor( ( 40+128)/2, (160+128)/2, (250+128)/2 ),
+      purple = makeColor( (142+128)/2, (110+128)/2, (202+128)/2 );
    }
 
    inline const std::string
@@ -632,21 +630,17 @@ namespace custom {
 // you'll get the text color your terminal already uses.
 // -----------------------------------------------------------------------------
 
-// General labels, and the colon separator between it and the value
-inline std::string label = custom::blue;
-inline std::string colon = label;
-
 // Component labels
-inline std::string component = custom::purple;
+inline std::string component = custom::blue;
 
 // Vector labels
 inline std::string vector = custom::green;
 
-// General values
-inline std::string value = custom::red;
+// General labels
+inline std::string label = custom::red;
 
-// General comments that the prettyprinter creates
-inline std::string comment = custom::brown;
+// General values
+inline std::string value = custom::purple;
 
 // Re: data nodes
 namespace data {
@@ -661,10 +655,10 @@ namespace data {
 // If an object is optional or GNDStk::Defaulted, the color for its label,
 // or for its value, can be modified by using the following.
 namespace optional {
-   inline std::string label     = custom::faded::blue;
-   inline std::string component = custom::faded::purple;
+   inline std::string component = custom::faded::blue;
    inline std::string vector    = custom::faded::green;
-   inline std::string value     = custom::faded::red;
+   inline std::string label     = custom::faded::red;
+   inline std::string value     = custom::faded::purple;
 }
 
 
@@ -689,20 +683,18 @@ inline void simple()
    // not just colored, but *underlined* as well. So, we avoided using bold
    // colors, as we found underlines to be more distracting than helpful.
 
-   label     = plain::blue;
-   colon     = label;
-   component = plain::magenta;
+   component = plain::blue;
    vector    = plain::green;
-   value     = plain::red;
-   comment   = "";
+   label     = plain::red;
+   value     = plain::magenta;
 
    data::comment = plain::yellow;
    data::string  = plain::white;
    data::vector  = plain::white;
 
-   optional::label     = label;
    optional::component = component;
    optional::vector    = vector;
+   optional::label     = label;
    optional::value     = value;
 }
 

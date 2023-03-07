@@ -189,6 +189,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       "__repr__",
       [](const cppCLASS &self) -> decltype(auto)
       {
+         njoy::GNDStk::printMode = njoy::GNDStk::PrintMode::python;
          std::ostringstream oss;
          self.print(oss,0);
          return oss.str();
@@ -200,6 +201,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       "print",
       [](const cppCLASS &self) -> decltype(auto)
       {
+         njoy::GNDStk::printMode = njoy::GNDStk::PrintMode::python;
          std::ostringstream oss;
          self.print(oss,0);
          return oss.str();

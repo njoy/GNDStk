@@ -41,9 +41,9 @@ std::ostream &print(std::ostream &os, const int level) const
          {
             using T = std::decay_t<decltype(alt[0])>;
             const std::size_t size = alt.size();
-            const std::size_t end = (GNDStk::truncate < 0)
+            const std::size_t end = (GNDStk::elements < 0)
                ? size
-               : std::min(size,std::size_t(GNDStk::truncate));
+               : std::min(size,std::size_t(GNDStk::elements));
 
             // Print, using column formatting
             for (std::size_t i = 0; i < end; ++i) {
@@ -72,7 +72,9 @@ std::ostream &print(std::ostream &os, const int level) const
                if (end > 0)
                   os << '\n';
                os << indent << detail::colorize_comment(
-                  "// truncated; total #values == " + std::to_string(size));
+                 "truncated; actual #elements == " + std::to_string(size),
+                  color::data::vector
+               );
             }
          };
 

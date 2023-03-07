@@ -239,33 +239,33 @@ SCENARIO("BlockData<int> print(), when a vector is active")
 
 
 // -----------------------------------------------------------------------------
-// Scenario: vector is active; test GNDStk::truncate
+// Scenario: vector is active; test GNDStk::elements
 // -----------------------------------------------------------------------------
 
-// Helper: test_truncate
+// Helper: test_elements
 template<class DATATYPE>
-void test_truncate(
+void test_elements(
    const BlockData<true,DATATYPE> &b,
    const int indent,
    const std::size_t columns,
    const int level,
-   const long truncate,
+   const long elements,
    const std::string &want
 ) {
    njoy::GNDStk::indent   = indent;
    njoy::GNDStk::columns  = columns;
-   njoy::GNDStk::truncate = truncate;
+   njoy::GNDStk::elements = elements;
 
    std::ostringstream oss;
    b.print(oss,level);
 
-   std::cout << "test_truncate:" << std::endl;
+   std::cout << "test_elements:" << std::endl;
    std::cout << oss.str() << std::endl;
 
    CHECK(oss.str() == want);
 }
 
-SCENARIO("BlockData<double> print(), vector, trying GNDStk::truncate")
+SCENARIO("BlockData<double> print(), vector, trying GNDStk::elements")
 {
    // vector is active, but empty
    GIVEN("A BlockData with an empty vector") {
@@ -274,8 +274,8 @@ SCENARIO("BlockData<double> print(), vector, trying GNDStk::truncate")
             BlockData<true,double> b;
             b = std::vector<double>{};
 
-            using njoy::GNDStk::truncate;
-            for (truncate = -10; truncate <= 10; ++truncate) {
+            using njoy::GNDStk::elements;
+            for (elements = -10; elements <= 10; ++elements) {
                // with no indentation
                std::ostringstream oss;
                b.print(oss,0);
@@ -301,139 +301,139 @@ SCENARIO("BlockData<double> print(), vector, trying GNDStk::truncate")
             //    indent:    3 (number of spaces per indentation level)
             //    columns:   0, 2, 3 (0 means unlimited)
             //    level:     0, 1, 2 (indentation level)
-            //    truncate: -1, 0, 1, 2, 3 (-1 means none; so, print all values)
+            //    elements: -1, 0, 1, 2, 3 (-1 means none; so, print all values)
             // Lots of cases; we want prettyprinting to be perfect.
 
-            // Integral parameters below are: indent, columns, level, truncate
-            test_truncate(b, 3,  0,  0,  -1,
+            // Integral parameters below are: indent, columns, level, elements
+            test_elements(b, 3,  0,  0,  -1,
                           "2.3 5.7 11.13 17.19 21.23\n");
-            test_truncate(b, 3,  0,  0,  +0,
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  0,  +1,
+            test_elements(b, 3,  0,  0,  +0,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  0,  +1,
                           "2.3\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  0,  +2,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  0,  +2,
                           "2.3 5.7\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  0,  +3,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  0,  +3,
                           "2.3 5.7 11.13\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  1,  -1,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  1,  -1,
                           "   2.3 5.7 11.13 17.19 21.23\n");
-            test_truncate(b, 3,  0,  1,  +0,
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  1,  +1,
+            test_elements(b, 3,  0,  1,  +0,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  1,  +1,
                           "   2.3\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  1,  +2,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  1,  +2,
                           "   2.3 5.7\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  1,  +3,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  1,  +3,
                           "   2.3 5.7 11.13\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  2,  -1,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  2,  -1,
                           "      2.3 5.7 11.13 17.19 21.23\n");
-            test_truncate(b, 3,  0,  2,  +0,
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  2,  +1,
+            test_elements(b, 3,  0,  2,  +0,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  2,  +1,
                           "      2.3\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  2,  +2,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  2,  +2,
                           "      2.3 5.7\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  0,  2,  +3,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  0,  2,  +3,
                           "      2.3 5.7 11.13\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  0,  -1,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  0,  -1,
                           "2.3 5.7\n"
                           "11.13 17.19\n"
                           "21.23\n");
-            test_truncate(b, 3,  2,  0,  +0,
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  0,  +1,
+            test_elements(b, 3,  2,  0,  +0,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  0,  +1,
                           "2.3\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  0,  +2,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  0,  +2,
                           "2.3 5.7\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  0,  +3,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  0,  +3,
                           "2.3 5.7\n"
                           "11.13\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  1,  -1,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  1,  -1,
                           "   2.3 5.7\n"
                           "   11.13 17.19\n"
                           "   21.23\n");
-            test_truncate(b, 3,  2,  1,  +0,
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  1,  +1,
+            test_elements(b, 3,  2,  1,  +0,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  1,  +1,
                           "   2.3\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  1,  +2,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  1,  +2,
                           "   2.3 5.7\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  1,  +3,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  1,  +3,
                           "   2.3 5.7\n"
                           "   11.13\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  2,  -1,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  2,  -1,
                           "      2.3 5.7\n"
                           "      11.13 17.19\n"
                           "      21.23\n");
-            test_truncate(b, 3,  2,  2,  +0,
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  2,  +1,
+            test_elements(b, 3,  2,  2,  +0,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  2,  +1,
                           "      2.3\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  2,  +2,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  2,  +2,
                           "      2.3 5.7\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  2,  2,  +3,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  2,  2,  +3,
                           "      2.3 5.7\n"
                           "      11.13\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  0,  -1,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  0,  -1,
                           "2.3 5.7 11.13\n"
                           "17.19 21.23\n");
-            test_truncate(b, 3,  3,  0,  +0,
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  0,  +1,
+            test_elements(b, 3,  3,  0,  +0,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  0,  +1,
                           "2.3\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  0,  +2,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  0,  +2,
                           "2.3 5.7\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  0,  +3,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  0,  +3,
                           "2.3 5.7 11.13\n"
-                          "// truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  1,  -1,
+                          "// truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  1,  -1,
                           "   2.3 5.7 11.13\n"
                           "   17.19 21.23\n");
-            test_truncate(b, 3,  3,  1,  +0,
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  1,  +1,
+            test_elements(b, 3,  3,  1,  +0,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  1,  +1,
                           "   2.3\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  1,  +2,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  1,  +2,
                           "   2.3 5.7\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  1,  +3,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  1,  +3,
                           "   2.3 5.7 11.13\n"
-                          "   // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  2,  -1,
+                          "   // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  2,  -1,
                           "      2.3 5.7 11.13\n"
                           "      17.19 21.23\n");
-            test_truncate(b, 3,  3,  2,  +0,
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  2,  +1,
+            test_elements(b, 3,  3,  2,  +0,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  2,  +1,
                           "      2.3\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  2,  +2,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  2,  +2,
                           "      2.3 5.7\n"
-                          "      // truncated; total #values == 5\n");
-            test_truncate(b, 3,  3,  2,  +3,
+                          "      // truncated; actual #elements == 5\n");
+            test_elements(b, 3,  3,  2,  +3,
                           "      2.3 5.7 11.13\n"
-                          "      // truncated; total #values == 5\n");
+                          "      // truncated; actual #elements == 5\n");
          }
       }
    }
