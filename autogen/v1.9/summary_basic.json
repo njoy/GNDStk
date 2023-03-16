@@ -160,7 +160,7 @@
         "description": "This represents the allowed set and sequence of characters that represent the Boolean \\attrval{true} and \\attrval{false} values in general-purpose data containers.",
         "name": "Boolean",
         "allowedValueDescription": "The allowed strings are `true' and `false'. For a table cell, the allowed values are `\\texttt{<true/>}' and  `\\texttt{<false/>}'.",
-        "comment": "the standard XML attribute value representation for Boolean values true and false are `true' and `false' respectively.",
+        "remark": "the standard XML attribute value representation for Boolean values true and false are `true' and `false' respectively.",
         "C_equivalent": "bool"},
 
     "whiteSpace": {
@@ -210,7 +210,7 @@
         "description": "Floating point number that can be stored at reduced precision",
         "name": "Float32",
         "allowedValueDescription": "n/a",
-        "comment": "Since only ASCII representation of data types is being considered here, and since Float32 is a subset of Float64, this is probably not needed.",
+        "remark": "Since only ASCII representation of data types is being considered here, and since Float32 is a subset of Float64, this is probably not needed.",
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Integer64": {
@@ -227,7 +227,7 @@
                                     "\\noindent with the restriction that the value shall be in the range ",
                                     "[\\textbf{Integer64\\_Min}, \\textbf{Integer64\\_Max}]."],
         "C_equivalent": "int64\\_t",
-        "comment": "Currently not needed so not defined.",
+        "remark": "Currently not needed so not defined.",
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Hexadecimal": {
@@ -235,7 +235,7 @@
         "description": "Typical hexadecimal number",
         "name": "Hexadecimal",
         "allowedValueDescription": "n/a",
-        "comment": "Currently not needed so not defined.",
+        "remark": "Currently not needed so not defined.",
         "implementationStatus": "Not implemented as of GNDS-1.9"},
 
     "Octal": {
@@ -243,6 +243,6 @@
         "description": "Typical octal number",
         "name": "Octal",
         "allowedValueDescription": "n/a",
-        "comment": "Currently not needed so not defined.",
+        "remark": "Currently not needed so not defined.",
         "implementationStatus": "Not implemented as of GNDS-1.9"}
 }

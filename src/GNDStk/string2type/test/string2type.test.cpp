@@ -84,7 +84,7 @@ SCENARIO("Testing GNDStk convert(istream/string,type)") {
          CHECK(*iter++ == 300);
       }
 
-      THEN("It works for T == vector") {
+      THEN("It works for T == vector<int>") {
          std::istringstream iss("1000 2000 3000");
          std::vector<int> container;
          convert(iss,container);
@@ -92,6 +92,17 @@ SCENARIO("Testing GNDStk convert(istream/string,type)") {
          CHECK(container[0] == 1000);
          CHECK(container[1] == 2000);
          CHECK(container[2] == 3000);
+      }
+
+      THEN("It works for T == vector<std::string>") {
+         std::istringstream iss("a bc def ghij");
+         std::vector<std::string> container;
+         convert(iss,container);
+         CHECK(container.size() == 4);
+         CHECK(container[0] == "a");
+         CHECK(container[1] == "bc");
+         CHECK(container[2] == "def");
+         CHECK(container[3] == "ghij");
       }
    }
 
@@ -192,6 +203,27 @@ SCENARIO("Testing GNDStk convert(istream/string,type)") {
          long double val;
          convert(str,val);
          CHECK(val == 7.89L);
+      }
+
+      THEN("It works correctly for vector<int>") {
+         const std::string str("1000 2000 3000");
+         std::vector<int> container;
+         convert(str,container);
+         CHECK(container.size() == 3);
+         CHECK(container[0] == 1000);
+         CHECK(container[1] == 2000);
+         CHECK(container[2] == 3000);
+      }
+
+      THEN("It works correctly for vector<std::string>") {
+         const std::string str("a bc def ghij");
+         std::vector<std::string> container;
+         convert(str,container);
+         CHECK(container.size() == 4);
+         CHECK(container[0] == "a");
+         CHECK(container[1] == "bc");
+         CHECK(container[2] == "def");
+         CHECK(container[3] == "ghij");
       }
    } // WHEN
 } // SCENARIO

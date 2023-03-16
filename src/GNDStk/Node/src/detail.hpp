@@ -1,36 +1,30 @@
 
 namespace detail {
 
-// node2Node: forward declaration
-// This function is called by some of Node's assignment operators. We'd instead
-// put this forward declaration into the file in which *those* are defined, but
-// that file is #included inside class Node { ... }'s definition, where writing
-// the forward declaration wouldn't make sense.
-template<class NODE>
-void node2Node(const NODE &, NODE &);
-
-
-
 // -----------------------------------------------------------------------------
 // isOptional
 // -----------------------------------------------------------------------------
 
 // default
 template<class T>
-class is_optional {
-public:
+struct is_optional {
    static constexpr bool value = false;
 };
 
 // optional
 template<class T>
-class is_optional<std::optional<T>> {
-public:
+struct is_optional<std::optional<T>> {
+   static constexpr bool value = true;
+};
+
+// GNDStk::Optional
+template<class T>
+struct is_optional<GNDStk::Optional<T>> {
    static constexpr bool value = true;
 };
 
 template<class T>
-inline constexpr bool isOptional = is_optional<T>::value;
+inline constexpr bool isOptional = is_optional<std::decay_t<T>>::value;
 
 
 
@@ -40,22 +34,25 @@ inline constexpr bool isOptional = is_optional<T>::value;
 
 // default
 template<class T>
-class remove_opt_def {
-public:
+struct remove_opt_def {
    using type = T;
 };
 
-// optional
+// std::optional
 template<class T>
-class remove_opt_def<std::optional<T>> {
-public:
+struct remove_opt_def<std::optional<T>> {
    using type = T;
 };
 
-// Defaulted
+// GNDStk::Optional
 template<class T>
-class remove_opt_def<Defaulted<T>> {
-public:
+struct remove_opt_def<GNDStk::Optional<T>> {
+   using type = T;
+};
+
+// GNDStk::Defaulted
+template<class T>
+struct remove_opt_def<Defaulted<T>> {
    using type = T;
 };
 
@@ -77,10 +74,18 @@ std::string keyname(
    return "Meta(\"" + m.name + "\")";
 }
 
-// Meta<optional<TYPE>>
+// Meta<std::optional<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
    const Meta<std::optional<TYPE>,CONVERTER> &m
+) {
+   return "optional Meta(\"" + m.name + "\")";
+}
+
+// Meta<GNDStk::Optional<TYPE>>
+template<class TYPE, class CONVERTER>
+std::string keyname(
+   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &m
 ) {
    return "optional Meta(\"" + m.name + "\")";
 }
@@ -106,10 +111,18 @@ std::string keyname(
    return "Child(\"" + c.name + "\")";
 }
 
-// Child<optional<TYPE>>
+// Child<std::optional<TYPE>>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
+) {
+   return "optional Child(\"" + c.name + "\")";
+}
+
+// Child<GNDStk::Optional<TYPE>>
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+std::string keyname(
+   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
    return "optional Child(\"" + c.name + "\")";
 }
@@ -191,6 +204,38 @@ class CallOpChildAssertion {
 
 
 // -----------------------------------------------------------------------------
+// instrument
+// Sort of a hack, for some code instrumentation that can help someone with
+// evaluating specs that they might write for the GNDStk Code Generator.
+// -----------------------------------------------------------------------------
+
+struct instrument {
+#ifdef GNDSTK_INSTRUMENT
+   static inline bool on = true;
+
+   // for children
+   template<class NODE>
+   static void mark(const NODE &node)
+   {
+      if (on)
+         node.marked = true;
+   }
+
+   // for metadata
+   static void mark(const std::string &str)
+   {
+      if (on)
+         const_cast<std::string &>(str) = "marked-" + str;
+   }
+#else
+   static void mark(const Node &) { /* nothing */ }
+   static void mark(const std::string &) { /* nothing */ }
+#endif
+};
+
+
+
+// -----------------------------------------------------------------------------
 // apply_converter
 // -----------------------------------------------------------------------------
 
@@ -201,7 +246,26 @@ public:
    template<class KEYWORD>
    void operator()(const KEYWORD &kwd, const Node &node) const
    {
-      TYPE obj = kwd.object;
+      // fixme 2022-10-27. I visited this function while looking at other
+      // issues, but now wonder: what's the effect of this function supposed
+      // to be? We create obj, then convert node ==> obj, then do nothing
+      // with obj. Am I missing something, and/or not testing something that
+      // should be tested? -MFS
+      // Update, 2023-01-23. I again ran across this function, and the above
+      // note, while working on something else. I think that the action here
+      // is legit. We call here after tests like [if (kwd.name == "")]. That
+      // empty string (I should probably include "#self" too, right?) is the
+      // indicator that means, "stay at the current node." Where this is
+      // called, we have [KEYWORDS &&...keywords] after the current thing
+      // we're processing - the thing that had "" and sent us here. I think
+      // the idea was to allow someone to create a side effect (e.g., printing
+      // information like a "dictionary of the present node") by triggering
+      // a call to some custom converter here. The custom converter would
+      // be the function performing the side effect. So, this is all legit.
+      // But I really should document it carefully and understandably here.
+      // For #self, search for [kwd.name == ""] in general. Also // ""
+      static TYPE obj;
+      detail::instrument::mark(node);
       kwd.converter(node,obj);
    }
 };
@@ -406,7 +470,7 @@ public:
    // to TYPE
    operator TYPE() const
    {
-      TYPE obj{};
+      static TYPE obj{};
       kwd.converter(metaValueRef,obj);
       return obj;
    }
@@ -421,7 +485,7 @@ public:
    {
       return metaValueRef;
    }
-};
+}; // class MetaRef
 
 
 
@@ -510,7 +574,7 @@ public:
    // to TYPE
    operator TYPE() const
    {
-      TYPE obj{};
+      static TYPE obj{};
       kwd.converter(childNodeRef,obj);
       return obj;
    }
@@ -525,7 +589,7 @@ public:
    {
       return childNodeRef;
    }
-};
+}; // class ChildRef
 
 
 
@@ -582,7 +646,7 @@ public:
    }
 
    // ------------------------
-   // misc. functions
+   // miscellaneous functions
    // ------------------------
 
    // size
@@ -662,7 +726,7 @@ public:
       std::vector<TYPE> vec;
       vec.reserve(size());
       for (auto &elem : childNodePtr) {
-         TYPE obj{};
+         static TYPE obj{};
          kwd.converter(*elem,obj);
          vec.push_back(obj);
       }
@@ -684,12 +748,12 @@ public:
          vec.push_back(*elem);
       return vec;
    }
-};
+}; // class ChildRef
 
 
 
 // -----------------------------------------------------------------------------
-// Helpers for Node-reading code
+// Helpers for code related to Node I/O
 // -----------------------------------------------------------------------------
 
 // warning_io_name
@@ -700,8 +764,9 @@ inline void warning_io_name(
    const std::string &name
 ) {
    log::warning(
-      "Node.{}() called with format FileType::{} and filename \"{}\",\n"
-      "but the filename extension does not appear to be one for {}",
+      "Node.{}() called with format FileType::{}, but filename \"{}\".\n"
+      "The file extension does not appear to be one for {}. "
+      "Writing anyway.",
       op, fileformat, filename, name
    );
 }
@@ -714,17 +779,24 @@ inline void warning_io_data(
    log::warning(
       "Node.read() was called with {}, but the first character\n"
       "in the file suggests perhaps {}. Trying {} anyway...",
-      print_format(f), appears, print_format(f,true)
+      printFormat(f), appears, printFormat(f)
    );
 }
 
 // error_format_read
 inline const std::string error_format_read =
-   "FileType::text not allowed in Node.read(). "
-   "Our \"text\" file format is intended"
-   "mainly for debug writing, not for reading. "
-   "Consider xml, json, or hdf5"
+   "FileType::debug not allowed in Node.read(). "
+   "Our \"debug\" file format is intended "
+   "for debug writing, not for reading. "
+   "Consider FileType:: xml, json, or hdf5"
 ;
+
+// getDecl
+template<class NODE>
+bool getDecl(const NODE &node, const bool &decl)
+{
+   return sent(decl) ? decl : node.name == "/";
+}
 
 
 
@@ -759,5 +831,22 @@ auto name_split(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
    // done
    return names;
 }
+
+
+
+// -----------------------------------------------------------------------------
+// keys2outputs
+// -----------------------------------------------------------------------------
+
+template<class NODE, class T>
+struct keys2outputs;
+
+template<class NODE, class... Ks>
+struct keys2outputs<NODE,std::tuple<Ks...>>
+{
+   using type = std::tuple<
+      decltype(NODE{}.operator()(std::declval<Ks>()))...
+   >;
+};
 
 } // namespace detail

@@ -1,43 +1,100 @@
 
 // -----------------------------------------------------------------------------
-// Component
-// conversion to Node
+// Helpers
 // -----------------------------------------------------------------------------
 
-// Normally we'd need just a const version of a conversion operator, and, if
-// we needed a non-const version at all, it could build on the const version.
-// A glitch in the present circumstances is that BodyText::toNode(), which is
-// called from within these, splits const and non-const cases, and that needs
-// to be preserved here. So, then, why does BodyText::toNode() have a non-const
-// version? The issue is that in the non-const case, BodyText::toNode() may
-// need to deal with a vector (not just an original "body text" string as may
-// have been read into a const BodyText). And, dealing with a vector means
-// computing a proper length, start, and valueType while doing toNode() - and
-// pushing those up to the class derived from Component, as it's from that
-// class that those fields are written to the Node. The need to compute proper
-// values for those parameters is why we need the non-const case. (And we can't
-// just make length etc. mutable in BodyText, as the length etc. in the derived
-// class come into play too.) Maybe we'll work out a different way to handle
-// all this, but for now, we have the following.
+private:
 
-// const
-operator Node() const
+template<class KEY>
+void node_add(
+   Node &node, const KEY &key,
+   const std::size_t n
+) const {
+   using TYPE = typename detail::queryResult<KEY>::type;
+   node.add(key, *(TYPE *)links[n]);
+}
+
+// todo See if Child|"string" can be formulated without this std::pair
+// business; doing so may simplify some things here and there, and we'll
+// no longer need this...
+template<class KEY>
+void node_add(
+   Node &node, const std::pair<KEY,std::string> &pair,
+   const std::size_t n
+) const {
+   node_add(node,pair.first,n);
+}
+
+
+// -----------------------------------------------------------------------------
+// Component
+// Conversion to Node.
+// -----------------------------------------------------------------------------
+
+public:
+
+explicit operator Node() const
 {
+   // Initialize a Node, with the necessary name
+   Node node(DERIVED::NODENAME());
+
    try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
+      // Handle block data, if applicable
+      if constexpr (hasBlockData) {
+         // GNDStk uses a #text metadatum of a #data child node for this
+         std::string &text =
+            node.add(special::data).add(special::text,"").second;
+         BLOCKDATA::toNode(text);
+      }
+
+      // Write fields...
+
+      // consistency check
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
+
+      // apply links:
+      // derived-class data ==> Node
+      // Below, each apply'd "key" is one value from DERIVED::KEYS(), and
+      // is a Meta, Child, or pair<Child,string/regex>. The cast gives the
+      // underlying raw data type - int, say, or std::string - so that we
+      // can correctly use our generic void* link to a derived-class field.
+      std::apply(
+         [this,&node](const auto &... key) {
+            std::size_t n = 0;
+            (
+               /*
+               node.add(
+                  key,
+                  *(
+                     typename detail::queryResult<
+                        std::decay_t<decltype(key)>
+                     >::type
+                  *)links[n++]
+               ),
+               */
+               this->node_add(node,key,n++), ...
+            );
+         },
+         Keys().tup
+      );
    } catch (...) {
       log::member("Component.operator Node() const");
       throw;
    }
+
+   return node;
 }
 
-// non-const
-operator Node()
+
+// -----------------------------------------------------------------------------
+// Component
+// Conversion to Tree.
+// Like conversion to Node, but with a proper root Node.
+// -----------------------------------------------------------------------------
+
+explicit operator Tree() const
 {
-   try {
-      #include "GNDStk/Component/src/toNodeBody.hpp"
-   } catch (...) {
-      log::member("Component.operator Node()");
-      throw;
-   }
+   Tree tree;
+   tree.add(Node(*this));
+   return tree;
 }

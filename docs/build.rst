@@ -78,7 +78,7 @@ it depends -- automatically. The *bad* news is that the download may, for the
 same reason, take quite some time. Resist the temptation to terminate the
 command, perhaps believing that your computer has hung, and consider starting
 ``cmake ..`` before lunch hour if you have a slow Internet connection. The main
-culprit appears to be the "nlohmann json" library,
+culprit appears to be the `nlohmann/json` library,
 https://github.com/nlohmann/json. An excellent library, by all accounts, and
 invaluable as the workhorse for GNDStk's JSON capabilities; but responsible,
 at the time of the writing, for over 400MB -- about 95% -- of

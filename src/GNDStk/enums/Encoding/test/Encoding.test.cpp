@@ -79,7 +79,8 @@ SCENARIO( "Encoding" ) {
 
     WHEN( "isEncoding is used" ) {
 
-      THEN( "registered encoding values return true, unregistered encoding values return false" ) {
+      THEN( "registered encoding values return true, "
+            "unregistered encoding values return false" ) {
 
         CHECK( true == enums::isEncoding( "ascii" ) );
         CHECK( true == enums::isEncoding( "utf8" ) );
