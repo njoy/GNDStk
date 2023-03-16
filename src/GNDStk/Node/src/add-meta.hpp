@@ -25,8 +25,10 @@
 
 // -----------------------------------------------------------------------------
 // string, *
-// Guaranteed to add something
-// Returns: reference to the added metadatum pair
+// Returns: reference to the added metadatum pair, or to a local static
+// proxy for a metadatum pair if nothing was added. The latter situation
+// occurs if the converter returns a bool (whereas it's allowed to return
+// void, and most converters do), with a value of false.
 // -----------------------------------------------------------------------------
 
 // string, plain
@@ -42,9 +44,19 @@ metaPair &add(
 ) {
    try {
       std::string str;
-      converter(val,str);
-      metadata.push_back(metaPair(key,str));
-      return metadata.back();
+      if constexpr (std::is_convertible_v<decltype(converter(val,str)),bool>) {
+         if (bool(converter(val,str))) {
+            metadata.push_back(metaPair(key,str));
+            return metadata.back();
+         } else {
+            static metaPair empty;
+            return empty;
+         }
+      } else {
+         converter(val,str);
+         metadata.push_back(metaPair(key,str));
+         return metadata.back();
+      }
    } catch (...) {
       log::member("Node.add(\"{}\",value)", key);
       throw;
@@ -71,7 +83,6 @@ metaPair &add(
 
 // -----------------------------------------------------------------------------
 // Meta<void>, *
-// Guaranteed to add something
 // Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
@@ -104,7 +115,6 @@ metaPair &add(
 
 // -----------------------------------------------------------------------------
 // Meta<plain>, *
-// Guaranteed to add something
 // Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 

@@ -167,7 +167,7 @@ void child(
 ) const {
    try {
       if constexpr (!detail::isOptional<T>) {
-         if constexpr (detail::isVariant<T>::value) {
+         if constexpr (detail::isVariant_v<T>) {
             // T: variant
             variant_find_one<0,std::variant_size_v<T>>(
                kwd, detail::name_split(kwd), found = false, existing, 0);
@@ -352,7 +352,7 @@ void child(
 
    try {
 
-      if constexpr (detail::isVariant<TYPE>::value) {
+      if constexpr (detail::isVariant_v<TYPE>) {
          // ------------------------
          // TYPE: variant
          // ------------------------

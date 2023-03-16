@@ -48,6 +48,10 @@ struct IsMetaOrChild {
    static constexpr bool value = IsMeta<T>::value || IsChild<T>::value;
 };
 
+// IsMetaOrChild_v
+template<class T>
+inline constexpr bool IsMetaOrChild_v = IsMetaOrChild<T>::value;
+
 
 // ------------------------
 // IsStringOrRegex
@@ -112,6 +116,10 @@ struct IsPairChildStringOrRegex<std::pair<FIRST,SECOND>> {
       IsChild<FIRST>::value && IsStringOrRegex<SECOND>::value;
 };
 
+// IsPairChildStringOrRegex_v
+template<class T>
+inline constexpr bool IsPairChildStringOrRegex_v =
+   IsPairChildStringOrRegex<T>::value;
 
 
 // -----------------------------------------------------------------------------

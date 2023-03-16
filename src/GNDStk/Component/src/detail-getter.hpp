@@ -33,7 +33,7 @@ const T &getter(
          for (auto &elem : vec) {
             const T *ptr = nullptr;
 
-            if constexpr (isVariant<T>::value) {
+            if constexpr (isVariant_v<T>) {
                // T == variant
                std::visit(
                   [&elem,&index,&ptr](auto &&alternative)
@@ -124,7 +124,7 @@ const T &getter(
       for (auto &elem : vec) {
          const T *ptr = nullptr;
 
-         if constexpr (isVariant<T>::value) {
+         if constexpr (isVariant_v<T>) {
             // T == variant
             std::visit(
                [&elem,&label,&ptr](auto &&alternative)
@@ -187,7 +187,7 @@ bool getter(
 
    try {
       for (auto &elem : vec)
-         if constexpr (isVariant<T>::value) {
+         if constexpr (isVariant_v<T>) {
             // T == variant
             if (std::visit(
                [&look](auto &&alternative)
@@ -232,7 +232,7 @@ const T &getter(
       for (auto &elem : vec) {
          const T *ptr = nullptr;
 
-         if constexpr (isVariant<T>::value) {
+         if constexpr (isVariant_v<T>) {
             // T == variant
             std::visit(
                [&elem,&look,&ptr](auto &&alternative)
@@ -312,7 +312,7 @@ auto getter(
 
    try {
       for (auto &elem : vec) {
-         if constexpr (isVariant<T>::value) {
+         if constexpr (isVariant_v<T>) {
             // T == variant
             std::visit(
                [&look,&ret](auto &&alternative)
@@ -359,7 +359,7 @@ decltype(auto) getter_helper(
       return getter(*optvec, key, nname, cname, fname);
    } catch (...) {
       // context
-      if constexpr (isLookup<KEY>::value) {
+      if constexpr (isLookup_v<KEY>) {
          // nname::cname.fname(field(value))
          if constexpr (!KEY::Has && !KEY::Void)
             log::member("getter {}::{}.{}({}({})) on optional<vector>",

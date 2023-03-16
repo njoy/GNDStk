@@ -23,9 +23,10 @@ inline std::string makeColor(const int r, const int g, const int b)
 //    color::bold::*
 // Reset/clear:
 //    color::reset
-// All of these are ANSI color escape sequences. They'll work on many terminals,
-// perhaps most, but working isn't guaranteed. The GNDStk::colors flag is false,
-// by default, so that colors aren't used unless someone sets it to true.
+// These are ANSI color escape sequences. They'll work on many terminals,
+// perhaps most, but working isn't guaranteed. The GNDStk::colors flag
+// can be set to false (so that colors aren't used) if the escapes don't
+// work, or if someone simply doesn't want colors.
 
 // color::plain::
 namespace plain {

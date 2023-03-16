@@ -3,6 +3,9 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+// local includes
+#include "GNDStk.hpp"
+
 // namespace aliases
 namespace python = pybind11;
 
@@ -61,4 +64,39 @@ PYBIND11_MODULE( GNDStk, module ) {
 
    // v2.0 components (in the v2_0 module, created in this function)
    python_v2_0::wrapGNDS( module );
+
+   // ------------------------
+   // general settings
+   // ------------------------
+
+   struct settings { };
+   python::class_<settings> obj(module,"settings");
+
+   // get/set colors
+   obj.def_property_static(
+      "colors",
+      [](python::object)
+      {
+         return njoy::GNDStk::colors;
+      },
+      [](python::object, const bool &value)
+      {
+         njoy::GNDStk::colors = value;
+      }
+   );
+
+   // get/set shades
+   obj.def_property_static(
+      "shades",
+      [](python::object)
+      {
+         return njoy::GNDStk::shades;
+      },
+      [](python::object, const bool &value)
+      {
+         njoy::GNDStk::shades = value;
+      }
+   );
+
+   // zzz Martin: put lots more here, after figuring out what they should be
 }

@@ -75,7 +75,8 @@ inline std::string fullName(
 //    https://stackoverflow.com/questions/34672441
 // The issue is that Component is a class *template*.
 template<class T>
-class isDerivedFromComponent {
+struct isDerivedFromComponent {
+private:
    template<class A, bool B, class C>
    static constexpr std::true_type test(Component<A,B,C> *);
    static constexpr std::false_type test(...);
@@ -84,10 +85,14 @@ public:
    static constexpr bool value = type::value;
 };
 
-// isDerivedFromVector
-// Similar to isDerivedFromComponent
 template<class T>
-class isDerivedFromVector {
+inline constexpr bool isDerivedFromComponent_v =
+   isDerivedFromComponent<T>::value;
+
+// isDerivedFromVector
+template<class T>
+struct isDerivedFromVector {
+private:
    template<class X, class Allocator>
    static constexpr std::pair<std::vector<X,Allocator>,std::true_type>
       test(std::vector<X,Allocator> *);
@@ -98,6 +103,10 @@ public:
    static constexpr bool value = ret::second_type::value;
    using type = std::conditional_t<value, typename ret::first_type,void>;
 };
+
+template<class T>
+inline constexpr bool isDerivedFromVector_v =
+   isDerivedFromVector<T>::value;
 
 
 // ------------------------
@@ -340,7 +349,7 @@ bool printComponentPart(
    std::ostream &os, const int level, const std::size_t maxlen,
    const std::string &label,
    const T &value,
-   const std::string &labelColor = isDerivedFromComponent<T>::value
+   const std::string &labelColor = isDerivedFromComponent_v<T>
       ? color::component
       : color::label,
    const std::string &valueColor = color::value
@@ -349,7 +358,7 @@ bool printComponentPart(
    // Otherwise, we'll forward to printComponentPart(string), after creating
    // some sort of string representation of the value.
 
-   if constexpr (isDerivedFromComponent<T>::value) {
+   if constexpr (isDerivedFromComponent_v<T>) {
       value.baseComponent().print(os,level,label,labelColor);
    } else if constexpr (std::is_floating_point_v<T>) {
       // T is floating-point. Use our floating-point printing mechanism.
@@ -401,12 +410,12 @@ bool printComponentPart(
    // vector is empty. That is, we won't write "comment [(nothing)]"). This way,
    // users won't wonder where it came from. (It was created automatically.)
    const bool isComment = label == special::comment;
-   if ((isComment || isDerivedFromComponent<T>::value) && vec.size() == 0)
+   if ((isComment || isDerivedFromComponent_v<T>) && vec.size() == 0)
       return false; // <== so that the caller won't print a newline
 
    const std::string lab = isComment ? "comment" : label;
 
-   if constexpr (isDerivedFromComponent<T>::value) {
+   if constexpr (isDerivedFromComponent_v<T>) {
       std::size_t index = 0;
 
       // elements
@@ -471,9 +480,9 @@ bool printComponentPart_helper(
    // label color
    std::string clabel = labelColor;
    if (clabel == "") {
-      if constexpr (isDerivedFromComponent<T>::value)
+      if constexpr (isDerivedFromComponent_v<T>)
          clabel = color::optional::component;
-      else if constexpr (isVector<T>::value)
+      else if constexpr (isVector_v<T>)
          clabel = color::optional::vector;
       else
          clabel = color::optional::label;
@@ -536,9 +545,9 @@ bool printComponentPart(
    // label color
    std::string clabel = labelColor;
    if (clabel == "") {
-      if constexpr (isDerivedFromComponent<T>::value)
+      if constexpr (isDerivedFromComponent_v<T>)
          clabel = color::optional::component;
-      else if constexpr (isVector<T>::value)
+      else if constexpr (isVector_v<T>)
          clabel = color::optional::vector;
       else
          clabel = color::optional::label;
@@ -775,17 +784,17 @@ struct pprintAlign {
       // [optional] vectors, component-derived classes, and data nodes
       // print in their own special manner; so, no key:value alignment.
       if constexpr (
-         isVector              <RESULT>::value ||
-         isOptionalVector      <RESULT>::value ||
-         isDerivedFromComponent<RESULT>::value ||
-         isDataNode            <RESULT>::value)
+         isVector_v<RESULT> ||
+         isOptionalVector_v<RESULT> ||
+         isDerivedFromComponent_v<RESULT> ||
+         isDataNode<RESULT>::value)
          return false;
 
       // if optional (with a non-vector value, or already handled above),
       // align iff optional has value, and value isn't component-derived
       if constexpr (isOptional<RESULT>)
          return ((const RESULT *)link)->has_value() &&
-            !isDerivedFromComponent<typename RESULT::value_type>::value;
+            !isDerivedFromComponent_v<typename RESULT::value_type>;
 
       return true;
    }

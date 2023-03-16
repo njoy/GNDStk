@@ -43,7 +43,7 @@ void transferChild(
    //    Bar
    // Remarks, below, reflect various situations.
 
-   if constexpr (detail::isDerivedFromComponent<DEST>::value) {
+   if constexpr (detail::isDerivedFromComponent_v<DEST>) {
       // *** Foo
       // Derives from Component, so we know that it has, via Component,
       // a .read(node) function, which should be most efficient to use
@@ -55,7 +55,7 @@ void transferChild(
 
       if constexpr (detail::isVector_v<OPT>) {
          using ELEM = typename OPT::value_type; // vector element type
-         if constexpr (detail::isDerivedFromComponent<ELEM>::value) {
+         if constexpr (detail::isDerivedFromComponent_v<ELEM>) {
             // *** optional<vector<Foo>>
             if (!to.has_value())
                to = OPT{};
@@ -65,7 +65,7 @@ void transferChild(
             node.child(to, key);
          }
       } else {
-         if constexpr (detail::isDerivedFromComponent<OPT>::value) {
+         if constexpr (detail::isDerivedFromComponent_v<OPT>) {
             // *** optional<Foo>
             node.child(to, key/[](const Node &n, OPT &to) { to.read(n); });
          } else {
@@ -75,7 +75,7 @@ void transferChild(
       }
    } else if constexpr (detail::isVector_v<DEST>) {
       using ELEM = typename DEST::value_type; // vector element type
-      if constexpr (detail::isDerivedFromComponent<ELEM>::value) {
+      if constexpr (detail::isDerivedFromComponent_v<ELEM>) {
          // *** vector<Foo>
          node.child(to, key/[](const Node &n, ELEM &e) { e.read(n); });
       } else {

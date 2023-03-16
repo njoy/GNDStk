@@ -8,6 +8,29 @@ using helpMap = std::map<std::string,std::string>;
 
 
 // -----------------------------------------------------------------------------
+// Noop
+// noop
+// Class and object representing "no-op[eration]".
+// -----------------------------------------------------------------------------
+
+// At the moment, this is designed to provide a "do-nothing converter" that
+// might be used in Component-based classes. We might eventually extend its
+// contents in a way that supports other uses of the "no-op" concept.
+
+struct Noop {
+   template<class FROM, class TO>
+   bool operator()(const FROM &, TO &) const
+   {
+      // No action. And, in the context of Node's add() functions, a
+      // return value of false means nothing will be added after all.
+      return false;
+   }
+};
+
+inline const Noop noop;
+
+
+// -----------------------------------------------------------------------------
 // Component
 // -----------------------------------------------------------------------------
 
@@ -78,7 +101,7 @@ public:
    // Access to vector base of DERIVED, if applicable
    template<
       class D = DERIVED,
-      class = std::enable_if_t<detail::isDerivedFromVector<D>::value>
+      class = std::enable_if_t<detail::isDerivedFromVector_v<D>>
    >
    auto &vector()
    {

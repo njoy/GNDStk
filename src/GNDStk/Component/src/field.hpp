@@ -426,7 +426,7 @@ class FieldPart<Field<WHOLE>,PART> {
    Field<WHOLE> &whole;
 
    static_assert(
-      detail::isVariant<WHOLE>::value || detail::isVectorVariant<WHOLE>::value,
+      detail::isVariant_v<WHOLE> || detail::isVectorVariant<WHOLE>::value,
      "FieldPart<Field<WHOLE>,PART>: "
      "WHOLE must be variant or vector<variant>"
    );

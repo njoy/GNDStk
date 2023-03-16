@@ -50,7 +50,7 @@ struct has_index<
       // classes above, can lead to an ambiguity between this specialization
       // and the std::variant specialization below, arising from the fact that
       // std::variant has an index() function. Hence the std::conditional_t.
-      std::conditional_t<isVariant<T>::value,void,T>{}.index(),
+      std::conditional_t<isVariant_v<T>,void,T>{}.index(),
       0
    )
 >
@@ -77,7 +77,7 @@ struct has_label<
    // std::variant doesn't have a label(), like it has an index(), but we'll
    // do the same thing here, for has_label, as we do above for has_index.
    // It's harmless, and if std::variant is ever given a label() function...
-   decltype((void)std::conditional_t<isVariant<T>::value,void,T>{}.label(),0)
+   decltype((void)std::conditional_t<isVariant_v<T>,void,T>{}.label(),0)
 >
    : std::true_type { };
 

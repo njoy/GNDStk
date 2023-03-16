@@ -19,8 +19,8 @@
 template<
    class VEC, class KEY, class = detail::isSearchKey<KEY>,
    class = std::enable_if_t<
-      detail::isVector<VEC>::value ||
-      detail::isOptionalVector<VEC>::value>
+      detail::isVector_v<VEC> ||
+      detail::isOptionalVector_v<VEC>>
 >
 decltype(auto) getter(
    const VEC &vec, // vector, or optional vector
@@ -34,8 +34,8 @@ decltype(auto) getter(
 template<
    class VEC, class KEY, class = detail::isSearchKey<KEY>,
    class = std::enable_if_t<
-      detail::isVector<VEC>::value ||
-      detail::isOptionalVector<VEC>::value>
+      detail::isVector_v<VEC> ||
+      detail::isOptionalVector_v<VEC>>
 >
 decltype(auto) getter(
    VEC &vec,

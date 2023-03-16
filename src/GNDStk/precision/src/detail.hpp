@@ -348,9 +348,10 @@ private:
       loc.reserve(nthreads+1);
       for (int t = 0; t < nthreads; ++t)
          loc.push_back(&str[t*(size/nthreads)]);
-      loc.push_back(&str[size]); // simplifies some logic below
+      loc.push_back(&str[size]); // <== simplifies some logic below
 
-      // Refine the approximate splitting so that borders occur at whitespace.
+      // Refine the approximate splitting so that borders occur at whitespace;
+      // specifically, at the beginnings of runs of whitespace.
       for (int t = 1; t < nthreads; ++t) {
          while (loc[t-1] < loc[t] && !isspace(*(loc[t]  ))) loc[t]--;
          while (loc[t-1] < loc[t] &&  isspace(*(loc[t]-1))) loc[t]--;
@@ -380,8 +381,12 @@ private:
                }
             }
 
-            // Splice the per-thread vectors; then we're done
-            std::size_t total = vec.size(); // vec wasn't necessarily cleared
+            // Splice the per-thread vectors; then we're done. Note that we
+            // begin with total[size] = vec.size(), not 0, below, to compute
+            // the necessary reserve. The caller may or may not have been told,
+            // by *its* caller, to clear the vector. Either cleared, or not
+            // cleared, is perfectly allowable.
+            std::size_t total = vec.size();
             for (int t = 0; t < nthreads; ++t)
                total += subvec[t].size();
             vec.reserve(total);

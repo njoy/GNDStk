@@ -93,8 +93,7 @@ Node &add(
 
 // -----------------------------------------------------------------------------
 // Child<plain>, *
-// Guaranteed to add something
-// Returns: reference to the added Node
+// Returns: reference to the added Node, or to *this if nothing was added
 // -----------------------------------------------------------------------------
 
 // Child<plain>, plain
@@ -121,27 +120,35 @@ Node &add(
       // some things that would otherwise be more awkward to achieve.
       if (kwd.name == special::self) {
          kwd.converter(TYPE(val),*this);
-         return *this;
+         return *this; // nothing actually added
       }
 
-      // new node
-      Node &n = add(kwd.name);
-
       // name
-      if constexpr (detail::isVariant<TYPE>::value) {
+      std::string name = kwd.name;
+      if constexpr (detail::isVariant_v<TYPE>) {
          std::istringstream names(kwd.name);
          const std::size_t index = TYPE(val).index();
          for (std::size_t i = 0; i <= index; ++i)
-            names >> n.name;
+            names >> name;
          // todo Have a warning or error if we can't properly extract
          // the index()-th name. This might mean someone didn't formulate
          // the name properly when dealing with a variant.
       }
 
-      // convert value into node
-      kwd.converter(TYPE(val),n);
-
-      return n;
+      using return_t = decltype(kwd.converter(TYPE(val),*this));
+      if constexpr (std::is_convertible_v<return_t,bool>) {
+         // new node to be added, conditionally, if converter returns true
+         Node conditional(name);
+         return bool(kwd.converter(TYPE(val),conditional))
+            ? add(conditional)
+            : *this; // nothing actually added
+      } else {
+         // new node
+         Node &n = add(name); // references the added node
+         // convert value into node
+         kwd.converter(TYPE(val),n);
+         return n;
+      }
    } catch (...) {
       log::member("Node.add(" + detail::keyname(kwd) + ",value)");
       throw;

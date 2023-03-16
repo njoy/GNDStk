@@ -15,7 +15,7 @@ void wrapNode(python::module &module)
 {
    // type aliases
    using Component = njoy::GNDStk::Node;
-   using RefConstComponent = std::reference_wrapper<const Component >;
+   using RefConstComponent = std::reference_wrapper< const Component >;
 
    // create the core component
    python::class_< Component > component(

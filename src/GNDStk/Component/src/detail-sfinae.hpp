@@ -49,8 +49,13 @@ struct isOptionalVector<GNDStk::Optional<std::vector<T,Alloc>>>
    : public std::true_type
 { };
 
+// isOptionalVector_v
 template<class T>
-using isOptionalVector_t = std::enable_if_t<isOptionalVector<T>::value>;
+inline constexpr bool isOptionalVector_v = isOptionalVector<T>::value;
+
+// isOptionalVector_t
+template<class T>
+using isOptionalVector_t = std::enable_if_t<isOptionalVector_v<T>>;
 
 // ------------------------
 // isVectorOrOptionalVector
@@ -86,9 +91,15 @@ struct isVectorOrOptionalVector<GNDStk::Optional<std::vector<T,Alloc>>>
    using value_type = T;
 };
 
+// isVectorOrOptionalVector_v
+template<class T>
+inline constexpr bool isVectorOrOptionalVector_v =
+   isVectorOrOptionalVector<T>::value;
+
+// isVectorOrOptionalVector_t
 template<class T>
 using isVectorOrOptionalVector_t =
-   std::enable_if_t<isVectorOrOptionalVector<T>::value>;
+   std::enable_if_t<isVectorOrOptionalVector_v<T>>;
 
 // ------------------------
 // isVectorVariant
@@ -106,6 +117,7 @@ struct isVectorVariant<std::vector<std::variant<Ts...>,Alloc>>
    : public std::true_type
 { };
 
+// isVectorVariant_t
 template<class T>
 using isVectorVariant_t = std::enable_if_t<isVectorVariant<T>::value>;
 
@@ -130,6 +142,7 @@ struct isDefaulted<Defaulted<T>>
    : public std::true_type
 { };
 
+// isDefaulted_t
 template<class T>
 using isDefaulted_t = std::enable_if_t<isDefaulted<T>::value>;
 
@@ -154,6 +167,11 @@ struct isLookup<Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>>
    : public std::true_type
 { };
 
+// isLookup_v
+template<class T>
+inline constexpr bool isLookup_v = isLookup<T>::value;
+
+
 // ------------------------
 // isLookupRefReturn
 // ------------------------
@@ -177,7 +195,7 @@ struct isLookupRefReturn<Lookup<false,EXTRACTOR,TYPE,CONVERTER>>
 
 template<class KEY>
 inline constexpr bool isLookupBoolReturn =
-   detail::isLookup<KEY>::value &&
+   detail::isLookup_v<KEY> &&
   !detail::isLookupRefReturn<KEY>::value;
 
 
@@ -199,7 +217,7 @@ template<class T>
 using isSearchKey = std::enable_if_t<
    std::is_convertible_v<T,std::size_t> ||
    std::is_convertible_v<T,std::string> ||
-   isLookup<T>::value // any Lookup
+   isLookup_v<T> // any Lookup
 >;
 
 // isSearchKeyRefReturn
@@ -355,7 +373,7 @@ struct has_field<
    T,
    decltype(
       (void)std::declval<EXTRACTOR>()(
-         std::conditional_t<isVariant<T>::value,void,T>{}
+         std::conditional_t<isVariant_v<T>,void,T>{}
       ),
       0
    )

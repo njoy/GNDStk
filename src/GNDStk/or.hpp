@@ -51,8 +51,8 @@ public:
       >,
       // require RHS \in {Meta, Child, pair<Child,string|regex>}
       class = std::enable_if_t<
-          detail::IsMetaOrChild<RHS>::value ||
-          detail::IsPairChildStringOrRegex<RHS>::value
+          detail::IsMetaOrChild_v<RHS> ||
+          detail::IsPairChildStringOrRegex_v<RHS>
       >
    >
    KeyTuple(const KeyTuple<LHS...> &lhs, const RHS &rhs) :
@@ -127,8 +127,8 @@ constexpr auto makeKeyTuple(const KeyTuple<Args...> &keytup)
 template<
    class T,
    class = std::enable_if_t<
-       detail::IsMetaOrChild<T>::value ||
-       detail::IsPairChildStringOrRegex<T>::value
+       detail::IsMetaOrChild_v<T> ||
+       detail::IsPairChildStringOrRegex_v<T>
    >
 >
 constexpr auto makeKeyTuple(const T &obj)
@@ -189,8 +189,8 @@ Below, KeyTuple<...> doesn't include <>; at least one element must exist.
 // ==> KeyTuple<Meta/Child, Meta/Child>
 template<
    class LHS, class RHS,
-   class = std::enable_if_t<detail::IsMetaOrChild<LHS>::value>,
-   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
+   class = std::enable_if_t<detail::IsMetaOrChild_v<LHS>>,
+   class = std::enable_if_t<detail::IsMetaOrChild_v<RHS>>
 >
 auto operator|(
    const LHS &lhs, // via SFINAE: Meta or Child
@@ -225,7 +225,7 @@ auto operator|(
 // ==> KeyTuple<..., Meta/Child>
 template<
    class... LHS, class RHS,
-   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
+   class = std::enable_if_t<detail::IsMetaOrChild_v<RHS>>
 >
 auto operator|(
    const KeyTuple<LHS...> &lhs,

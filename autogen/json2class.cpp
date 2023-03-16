@@ -82,6 +82,7 @@ struct InfoMetadata {
    // and there shouldn't be (XML wouldn't allow it).
    std::string original; // without e.g. the "double" to "Double" change
    std::string name;
+   std::string converter;// converter: callable w/operator() string to/from type
    std::string type;     // underlying type
    std::string typeFull; // WITH any optional<> or Defaulted<>
    bool        isOptional;
@@ -605,6 +606,9 @@ void getClassMetadata(
       InfoMetadata m;
       m.original = nameGNDS(field);
       m.name = nameField(field,specs);
+
+      // Converter, if given
+      m.converter = metaRHS.contains("converter") ? metaRHS["converter"] : "";
 
       // Type
       m.type = getMetadatumType(metaRHS,specs);
@@ -1149,9 +1153,13 @@ void writeClassForComponent(writer &out, const PerClass &per)
    }
    for (const auto &m : per.metadata) {
       out(3,"@{@}", m.typeFull, initializer(m));
-      out(4,"/ Meta<>(\"@\")@", m.original,
+      out(4,"/ Meta<>(\"@\")@@",
+          m.original,
+          // direct-specified converter, if any
+          m.converter == "" ? "" : (" / " + m.converter),
+          // separator between next entry
           ++count < total ? " |" : ""
-         );
+      );
    }
 
    // children
