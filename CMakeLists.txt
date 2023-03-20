@@ -30,7 +30,7 @@ include( cmake/GNDStk_dependencies.cmake )
 ########################################################################
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# GNDStk : library
+# GNDStk: library
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 include_directories( src/ )
@@ -60,17 +60,18 @@ target_link_libraries(
 set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# GNDStk : python bindings
+# GNDStk: python bindings
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 include_directories(
     python/src/
     autogen/prototype/proto/src/
     standards/gnds-2.0-alpha/alpha/src
+    standards/gnds-2.0-alpha/alpha/python/src
     )
 
 pybind11_add_module(
-    GNDStk.python
+    GNDStk.python.old
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
     python/src/v2.0/GNDS.python.cpp
@@ -352,6 +353,18 @@ pybind11_add_module(
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/top.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/reduced.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/g2d.python.cpp
+    )
+
+target_link_libraries( GNDStk.python.old PRIVATE GNDStk )
+target_compile_options(GNDStk.python.old PRIVATE "-fvisibility=hidden" )
+set_target_properties( GNDStk.python.old PROPERTIES OUTPUT_NAME GNDStk )
+set_target_properties( GNDStk.python.old PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
+set_target_properties( GNDStk.python.old PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+pybind11_add_module(
+    GNDStk.python
+    EXCLUDE_FROM_ALL
+    python/src/all.python.cpp
     )
 
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
