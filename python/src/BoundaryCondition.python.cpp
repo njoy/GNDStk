@@ -1,3 +1,4 @@
+
 // system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -8,7 +9,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapBoundaryCondition( python::module& module ) {
 
@@ -34,4 +35,4 @@ void wrapBoundaryCondition( python::module& module ) {
   .value( "Given", Component::Given );
 }
 
-} // namespace core
+} // namespace python_core

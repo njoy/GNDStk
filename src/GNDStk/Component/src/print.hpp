@@ -69,7 +69,7 @@ const std::string getName(const KEY &key, const std::size_t n) const
 std::ostream &print(
    std::ostream &os, const int level,
    const std::string &label = "",
-   const std::string &labelColor = color::component
+   const std::string &labelColor = color::field
 ) const {
    // Name of the class is as follows, in case we want to use it for anything...
    // const std::string type = detail::fullName(Namespace(), Class());

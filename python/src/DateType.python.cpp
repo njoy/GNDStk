@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapDateType( python::module& module ) {
 
@@ -40,4 +40,4 @@ void wrapDateType( python::module& module ) {
   .value( "withdrawn", Component::withdrawn );
 }
 
-} // namespace core
+} // namespace python_core

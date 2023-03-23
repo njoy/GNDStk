@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapRelationType( python::module& module ) {
 
@@ -64,4 +64,4 @@ void wrapRelationType( python::module& module ) {
   .value( "IsObsoletedBy", Component::IsObsoletedBy );
 }
 
-} // namespace core
+} // namespace python_core

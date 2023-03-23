@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapHashAlgorithm( python::module& module ) {
 
@@ -32,4 +32,4 @@ void wrapHashAlgorithm( python::module& module ) {
   .value( "sha1", Component::sha1 );
 }
 
-} // namespace core
+} // namespace python_core

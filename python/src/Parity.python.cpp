@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapParity( python::module& module ) {
 
@@ -32,4 +32,4 @@ void wrapParity( python::module& module ) {
   .value( "plus", Component::plus );
 }
 
-} // namespace core
+} // namespace python_core

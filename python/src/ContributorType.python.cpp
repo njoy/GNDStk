@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapContributorType( python::module& module ) {
 
@@ -51,4 +51,4 @@ void wrapContributorType( python::module& module ) {
   .value( "Other", Component::Other );
 }
 
-} // namespace core
+} // namespace python_core

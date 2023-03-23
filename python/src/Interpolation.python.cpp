@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapInterpolation( python::module& module ) {
 
@@ -36,4 +36,4 @@ void wrapInterpolation( python::module& module ) {
   .value( "chargedparticle", Component::chargedparticle );
 }
 
-} // namespace core
+} // namespace python_core

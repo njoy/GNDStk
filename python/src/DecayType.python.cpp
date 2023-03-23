@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapDecayType( python::module& module ) {
 
@@ -42,4 +42,4 @@ void wrapDecayType( python::module& module ) {
   .value( "atomicRelaxation", Component::AtomicRelaxation );
 }
 
-} // namespace core
+} // namespace python_core

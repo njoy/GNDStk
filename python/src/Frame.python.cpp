@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapFrame( python::module& module ) {
 
@@ -32,4 +32,4 @@ void wrapFrame( python::module& module ) {
   .value( "centerOfMass", Component::centerOfMass );
 }
 
-} // namespace core
+} // namespace python_core

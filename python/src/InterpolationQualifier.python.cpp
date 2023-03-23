@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapInterpolationQualifier( python::module& module ) {
 
@@ -34,4 +34,4 @@ void wrapInterpolationQualifier( python::module& module ) {
   .value( "correspondingPoints", Component::correspondingPoints );
 }
 
-} // namespace core
+} // namespace python_core

@@ -350,7 +350,7 @@ bool printComponentPart(
    const std::string &label,
    const T &value,
    const std::string &labelColor = isDerivedFromComponent_v<T>
-      ? color::component
+      ? color::field
       : color::label,
    const std::string &valueColor = color::value
 ) {
@@ -442,7 +442,7 @@ bool printComponentPart(
             "",
             element,
             "",
-            isComment ? color::data::comment : ""
+            isComment ? color::comment : ""
          );
          os << std::endl; // between elements
       }
@@ -478,26 +478,24 @@ bool printComponentPart_helper(
       return false; // <== so that the caller won't print a newline
 
    // label color
-   std::string clabel = labelColor;
-   if (clabel == "") {
-      if constexpr (isDerivedFromComponent_v<T>)
-         clabel = color::optional::component;
-      else if constexpr (isVector_v<T>)
-         clabel = color::optional::vector;
-      else
-         clabel = color::optional::label;
-   }
+   const std::string clabel =
+      labelColor != ""
+    ? labelColor
+    : isDerivedFromComponent_v<T>
+    ? color::optional::field
+    : isVector_v<T>
+    ? color::optional::vector
+    : color::optional::label;
 
    // value color
-   std::string cvalue = valueColor;
-   if (cvalue == "")
-      cvalue = color::optional::value;
+   const std::string cvalue =
+      valueColor != "" ? valueColor : color::optional::value;
 
    // print
    printComponentPart(
       os, level, maxlen, label,
       value.value(),
-      clabel
+      clabel, cvalue
    );
 
    return true;
@@ -543,20 +541,18 @@ bool printComponentPart(
    const std::string &valueColor = ""
 ) {
    // label color
-   std::string clabel = labelColor;
-   if (clabel == "") {
-      if constexpr (isDerivedFromComponent_v<T>)
-         clabel = color::optional::component;
-      else if constexpr (isVector_v<T>)
-         clabel = color::optional::vector;
-      else
-         clabel = color::optional::label;
-   }
+   const std::string clabel =
+      labelColor != ""
+    ? labelColor
+    : isDerivedFromComponent_v<T>
+    ? color::optional::field
+    : isVector_v<T>
+    ? color::optional::vector
+    : color::optional::label;
 
    // value color
-   std::string cvalue = valueColor;
-   if (cvalue == "")
-      cvalue = color::optional::value;
+   const std::string cvalue =
+      valueColor != "" ? valueColor : color::optional::value;
 
    // print
    printComponentPart(

@@ -631,8 +631,8 @@ namespace custom {
 // you'll get the text color your terminal already uses.
 // -----------------------------------------------------------------------------
 
-// Component labels
-inline std::string component = custom::blue;
+// Component-derived class labels
+inline std::string field = custom::blue;
 
 // Vector labels
 inline std::string vector = custom::green;
@@ -643,10 +643,11 @@ inline std::string label = custom::red;
 // General values
 inline std::string value = custom::purple;
 
+// Comments that appear in a Component.comment vector<string>.
+inline std::string comment = custom::yellow;
+
 // Re: data nodes
 namespace data {
-   // Comments that appear in a Component.comment vector<string>.
-   inline std::string comment = custom::yellow;
    // Strings and vectors in data nodes. Emphasis: only strings and vectors
    // specifically in DATA NODES, not those appearing in other ways.
    inline std::string string  = custom::white;
@@ -656,10 +657,10 @@ namespace data {
 // If an object is optional or GNDStk::Defaulted, the color for its label,
 // or for its value, can be modified by using the following.
 namespace optional {
-   inline std::string component = custom::faded::blue;
-   inline std::string vector    = custom::faded::green;
-   inline std::string label     = custom::faded::red;
-   inline std::string value     = custom::faded::purple;
+   inline std::string field  = custom::faded::blue;
+   inline std::string vector = custom::faded::green;
+   inline std::string label  = custom::faded::red;
+   inline std::string value  = custom::faded::purple;
 }
 
 
@@ -684,19 +685,19 @@ inline void simple()
    // not just colored, but *underlined* as well. So, we avoided using bold
    // colors, as we found underlines to be more distracting than helpful.
 
-   component = plain::blue;
-   vector    = plain::green;
-   label     = plain::red;
-   value     = plain::magenta;
+   field   = plain::blue;
+   vector  = plain::green;
+   label   = plain::red;
+   value   = plain::magenta;
+   comment = plain::yellow;
 
-   data::comment = plain::yellow;
    data::string  = plain::white;
    data::vector  = plain::white;
 
-   optional::component = component;
-   optional::vector    = vector;
-   optional::label     = label;
-   optional::value     = value;
+   optional::field  = field;
+   optional::vector = vector;
+   optional::label  = label;
+   optional::value  = value;
 }
 
 } // namespace color

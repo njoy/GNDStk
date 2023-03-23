@@ -9,7 +9,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapNode(python::module &module)
 {
@@ -158,4 +158,4 @@ void wrapNode(python::module &module)
       );
 } // void wrapNode
 
-} // namespace core
+} // namespace python_core

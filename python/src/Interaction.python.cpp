@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapInteraction( python::module& module ) {
 
@@ -33,4 +33,4 @@ void wrapInteraction( python::module& module ) {
   .value( "thermalNeutronScatteringLaw", Component::thermalNeutronScatteringLaw );
 }
 
-} // namespace core
+} // namespace python_core
