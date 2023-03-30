@@ -108,6 +108,9 @@ template<class T>
 inline constexpr bool isDerivedFromVector_v =
    isDerivedFromVector<T>::value;
 
+template<class T>
+using isDerivedFromVector_t = typename isDerivedFromVector<T>::type;
+
 
 // ------------------------
 // hasPrint*

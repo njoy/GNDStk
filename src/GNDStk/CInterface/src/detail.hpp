@@ -597,16 +597,22 @@ T vectorGet(
    bool rangeErr = false;
 
    try {
-      const VECTOR &vec = tocpp<CPP>(ptr).template get<VECTOR>();
-      if (index < vec.size())
-         return vec[index];
+      const VECTOR *vec;
+      if constexpr (detail::isDerivedFromVector_v<CPP>)
+         vec = static_cast<const VECTOR *>(&tocpp<CPP>(ptr));
+      else
+         vec = &tocpp<CPP>(ptr).template get<VECTOR>();
 
-      rangeErr = true;
-      log::error(
-        "Vector index {} not in range 0..size-1 (0..{})",
-         index, vec.size()-1
-      );
-      throw std::exception{};
+      if (index < vec->size())
+         return (*vec)[index];
+      else {
+         rangeErr = true;
+         log::error(
+           "Vector index {} not in range 0..size-1 (0..{})",
+            index, vec->size()-1
+         );
+         throw std::exception{};
+      }
    } catch (...) {
       if (!rangeErr) // else error was already printed
          log::error("Exception thrown in detail::vectorGet");
@@ -631,14 +637,19 @@ void vectorSet(
    bool rangeErr = false;
 
    try {
-      VECTOR &vec = tocpp<CPP>(ptr).template get<VECTOR>();
-      if (index < vec.size())
-         vec[index] = value;
+      VECTOR *vec;
+      if constexpr (detail::isDerivedFromVector_v<CPP>)
+         vec = static_cast<VECTOR *>(&tocpp<CPP>(ptr));
+      else
+         vec = &tocpp<CPP>(ptr).template get<VECTOR>();
+
+      if (index < vec->size())
+         (*vec)[index] = value;
       else {
          rangeErr = true;
          log::error(
            "Vector index {} not in range 0..size-1 (0..{})",
-            index, vec.size()-1
+            index, vec->size()-1
          );
          throw std::exception{};
       }
@@ -665,15 +676,22 @@ auto *vectorGet(
    C *const ptr
 ) {
    using VECTOR = std::vector<T>;
-   using RETURN = decltype(&(tocpp<CPP>(ptr).template get<VECTOR>())[0]);
 
    try {
-      auto &vec = tocpp<CPP>(ptr).template get<VECTOR>();
-      return vec.size() ? &vec[0] : nullptr;
+      if constexpr (detail::isDerivedFromVector_v<CPP>) {
+         auto &vec = tocpp<CPP>(ptr).baseObject();
+         return vec.size() ? &vec[0] : nullptr;
+      } else {
+         auto &vec = tocpp<CPP>(ptr).template get<VECTOR>();
+         return vec.size() ? &vec[0] : nullptr;
+      }
    } catch (...) {
       log::error("Exception thrown in detail::vectorGet");
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
-      return RETURN(nullptr);
+      if constexpr (detail::isDerivedFromVector_v<CPP>)
+         return decltype(&(tocpp<CPP>(ptr).baseObject())[0])(nullptr);
+      else
+         return decltype(&(tocpp<CPP>(ptr).template get<VECTOR>())[0])(nullptr);
    }
 }
 
@@ -689,7 +707,10 @@ void vectorSet(
    using VECTOR = std::vector<T>;
 
    try {
-      tocpp<CPP>(ptr).template get<VECTOR>().assign(values,values+size);
+      if constexpr (detail::isDerivedFromVector_v<CPP>)
+         static_cast<VECTOR &>(tocpp<CPP>(ptr)).assign(values,values+size);
+      else
+         tocpp<CPP>(ptr).template get<VECTOR>().assign(values,values+size);
    } catch (...) {
       log::error("Exception thrown in detail::vectorSet");
       log::function(

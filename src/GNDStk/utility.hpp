@@ -731,4 +731,8 @@ struct DataNode : public T
    // assignment
    DataNode &operator=(const DataNode &from) = default;
    DataNode &operator=(DataNode &&from) = default;
+
+   // baseObject
+   const T &baseObject() const { return *this; }
+   T &baseObject() { return *this; }
 };

@@ -105,7 +105,7 @@ public:
    >
    auto &vector()
    {
-      using VECTOR = typename detail::isDerivedFromVector<D>::type;
+      using VECTOR = detail::isDerivedFromVector_t<D>;
       return static_cast<VECTOR &>(derived());
    }
 
