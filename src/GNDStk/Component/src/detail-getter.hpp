@@ -192,20 +192,20 @@ bool getter(
             if (std::visit(
                [&look](auto &&alternative)
                {
-                  return look.extractor(alternative) == look.placeholder;
+                  return look.extractor(alternative) == look.value;
                },
                elem
             ))
                return true;
          } else
             // T != variant
-            if (look.extractor(elem) == look.placeholder)
+            if (look.extractor(elem) == look.value)
                return true;
    } catch (...) {
       // context
       log::member(
         "getter {}::{}.{}(has({}({}))) on vector",
-         nname, cname, fname, look.name, look.placeholder);
+         nname, cname, fname, look.name, look.value);
       throw;
    }
 
@@ -237,14 +237,14 @@ const T &getter(
             std::visit(
                [&elem,&look,&ptr](auto &&alternative)
                {
-                  if (look.extractor(alternative) == look.placeholder)
+                  if (look.extractor(alternative) == look.value)
                      ptr = &elem;
                },
                elem
             );
          } else {
             // T != variant
-            if (look.extractor(elem) == look.placeholder)
+            if (look.extractor(elem) == look.value)
                ptr = &elem;
          }
 
@@ -253,10 +253,9 @@ const T &getter(
                log::warning(
                  "Element with {}({}) was already found in the vector.\n"
                  "Keeping the first element that was found.",
-                  look.name, look.placeholder
+                  look.name, look.value
                );
-               log::member(context, nname, cname, fname, look.name,
-                           look.placeholder);
+               log::member(context, nname, cname, fname, look.name, look.value);
             } else
                object = ptr;
          }
@@ -268,13 +267,13 @@ const T &getter(
       log::error(
         "Element with metadatum {} == {} was not found in the vector" +
          std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
-         look.name, look.placeholder
+         look.name, look.value
       );
       throw std::exception{};
 
    } catch (...) {
       // context
-      log::member(context, nname, cname, fname, look.name, look.placeholder);
+      log::member(context, nname, cname, fname, look.name, look.value);
       throw;
    }
 }
@@ -363,11 +362,11 @@ decltype(auto) getter_helper(
          // nname::cname.fname(field(value))
          if constexpr (!KEY::Has && !KEY::Void)
             log::member("getter {}::{}.{}({}({})) on optional<vector>",
-                        nname, cname, fname, key.name, key.placeholder);
+                        nname, cname, fname, key.name, key.value);
          // nname::cname.fname(has(field(value)))
          if constexpr ( KEY::Has && !KEY::Void)
             log::member("getter {}::{}.{}(has({}({}))) on optional<vector>",
-                        nname, cname, fname, key.name, key.placeholder);
+                        nname, cname, fname, key.name, key.value);
          // nname::cname.fname(field)
          if constexpr (!KEY::Has &&  KEY::Void)
             log::member("getter {}::{}.{}({}) on optional<vector>",

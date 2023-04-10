@@ -152,24 +152,72 @@ public:
    // has
    // ------------------------
 
-   // Usable in C++ "compile-time if" (a.k.a. "if constexpr") statements
+   // Note that some of these are usable in constexpr ifs.
+
+   // constexpr, static
+   // The extractor succeeds. DERIVED has a metadatum of that name.
+   // No value is given. We're checking for the presence of the metadatum.
+   template<
+      class EXTRACTOR, class THIS = DERIVED,
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
+   static constexpr bool has(const Lookup<false,EXTRACTOR,void,void> &)
+   {
+      return true;
+   }
+
+   // constexpr, static
+   // The extractor fails. DERIVED does not have a metadatum of that name.
+   // Any value to check against is meaningless here. If DERIVED doesn't
+   // even have, say, .foo, then we can't check if its .foo equals the
+   // one in the given Lookup.
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER, bool FALSE,
+      class = std::enable_if_t<FALSE == false>>
+   static constexpr bool has(const Lookup<FALSE,EXTRACTOR,TYPE,CONVERTER> &)
+   {
+      return false;
+   }
+
+   // non-constexpr, non-static
+   // The extractor succeeds. DERIVED has a metadatum of that name.
+   // But does the value match?
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER, class THIS = DERIVED,
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
+   bool has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &from) const
+   {
+      return from.extractor(derived()) == from.value;
+   }
+
+   // ------------------------
+   // operator()
+   // ------------------------
+
+   // These essentially provide an alternative to the has() member functions,
+   // using operator() combined with the has() free functions: obj(has(...)).
 
    template<
       class EXTRACTOR, class THIS = DERIVED,
-      class = decltype(std::declval<EXTRACTOR>()(THIS{}))
-   >
-   static constexpr bool has(const Lookup<false,EXTRACTOR> &)
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
+   constexpr bool operator()(const Lookup<true,EXTRACTOR,void,void> &) const
    {
       return true;
    }
 
    template<
-      class EXTRACTOR, bool F,
-      class = std::enable_if_t<F == false>
-   >
-   static constexpr bool has(const Lookup<F,EXTRACTOR> &)
+      class EXTRACTOR, class TYPE, class CONVERTER, bool TRUE,
+      class = std::enable_if_t<TRUE == true>>
+   constexpr bool operator()(const Lookup<TRUE,EXTRACTOR,TYPE,CONVERTER> &) const
    {
       return false;
+   }
+
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER, class THIS = DERIVED,
+      class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
+   bool operator()(const Lookup<true,EXTRACTOR,TYPE,CONVERTER> &from) const
+   {
+      return from.extractor(derived()) == from.value;
    }
 
    // ------------------------

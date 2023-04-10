@@ -8,8 +8,7 @@ namespace detail {
 // something else.
 // -----------------------------------------------------------------------------
 
-class convert_t {
-public:
+struct convert_t {
    template<class FROM, class TO>
    void operator()(const FROM &from, TO &to) const
    {
@@ -37,14 +36,12 @@ public:
 // -----------------------------------------------------------------------------
 
 template<class TYPE>
-class default_converter {
-public:
+struct default_converter {
    using type = convert_t;
 };
 
 template<>
-class default_converter<void> {
-public:
+struct default_converter<void> {
    using type = void;
 };
 

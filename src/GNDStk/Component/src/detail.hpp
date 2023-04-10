@@ -361,6 +361,8 @@ bool printComponentPart(
    // Otherwise, we'll forward to printComponentPart(string), after creating
    // some sort of string representation of the value.
 
+   (void)maxlen; // silence compiler warning if unused (per constexpr if)
+
    if constexpr (isDerivedFromComponent_v<T>) {
       value.baseComponent().print(os,level,label,labelColor);
    } else if constexpr (std::is_floating_point_v<T>) {
@@ -778,6 +780,7 @@ struct pprintAlign {
    template<class KEY>
    bool operator()(const KEY &, const void *const link) const
    {
+      (void)link; // silence compiler warning if unused (per constexpr if)
       using RESULT = typename queryResult<KEY>::type;
 
       // [optional] vectors, component-derived classes, and data nodes

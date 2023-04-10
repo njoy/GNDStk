@@ -77,22 +77,22 @@ public:
       wrappedValue(def,value)
    { }
 
-   /*
    // If T == Defaulted
    // parent, default value, current value (GNDStk::Optional)
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field(
       DERIVED *const parent,
       const typename TEE::value_type &def,
-      const GNDStk::Optional<typename TEE::value_type> &value = {}
+      const GNDStk::Optional<typename TEE::value_type> &value // no = {}
    ) :
       parent(*parent),
       wrappedValue(def,value)
    { }
-   */
 
    // ------------------------
-   // Assignment
+   // Assignment: copy, move
+   // Some other assignments
+   // are defined elsewhere
    // ------------------------
 
    // copy
@@ -111,14 +111,13 @@ public:
 
    // ------------------------
    // has
+   // With no arguments.
    // ------------------------
 
-   // has()
-   // With no arguments.
    // Relates to std::optional/GNDStk::Optional, not to the question of what
    // metadata or metadata values the present Field might contain. (See the
-   // below function for that.) Returns true iff either T is optional but has
-   // a value, or is not optional (so that of course it has a value).
+   // other has() functions for that.) Returns true iff either T is optional
+   // but has a value, or isn't optional (so that it necessarily has a value).
    bool has() const
    {
       if constexpr (detail::isOptional<T>)
@@ -126,13 +125,16 @@ public:
       return true;
    }
 
-   // has()
+   // ------------------------
+   // has
    // With one argument.
+   // ------------------------
+
    // Forwards to [operator()(const KEY &key) const], below, essentially to
    // provide an alternative form of a "has" query. Instead of, for example,
    //    H.isotope(has(mass_number(2)))
    // to inquire about whether element H's vector of isotopes has an isotope
-   // with a mass number of 2, one could instead write:
+   // with a mass number of 2, we can instead write:
    //    H.isotope.has(mass_number(2))
    // to make exactly the same query. (The example assumes that H is of a
    // class - say, Element - that contains a vector of isotopes, and that
@@ -141,6 +143,7 @@ public:
    // operator()(key) of the present class would be valid, and return bool.
    template<
       class KEY,
+      // todo Could perhaps be shorter if we used a trailing return type?
       class = std::enable_if_t<std::is_same_v<
          decltype(std::declval<Field>()(GNDStk::has(std::declval<KEY>()))),
          bool
@@ -178,7 +181,8 @@ public:
    }
 
    // ------------------------
-   // Getters
+   // operator()
+   // With no arguments.
    // ------------------------
 
    // ()
@@ -186,19 +190,54 @@ public:
    const T &operator()() const { return wrappedValue; } // const
    T &operator()() { return wrappedValue; } // non-const
 
+   // ------------------------
+   // operator()
+   // With one argument.
+   // ------------------------
+
+   /*
+   zzz
+   Regarding isSearchKey and such, I suspect that we should deal with
+   the issue mentioned in comp-detail-get.hh, regarding the interpretation
+   of an integral type: as an index, or for a lookup by "index" metadatum.
+   My strong thought right now is that it should strictly be the former,
+   as the latter would almost certainly have an unexpected meaning. (Yeah,
+   I originally wrote the latter, before coming up with the much better
+   concept and syntax of my "Lookup" objects. Speaking of which, I should
+   very soon do the todo at the beginning of look.hh. That will help here
+   and elsewhere.) In the present file, with Field and probably FieldPart,
+   I suspect that (#) just shouldn't fly. Maybe just allow:
+      [#] // normal vector index
+      [key(value)] // lookup by metadatum
+      (key(value)) // lookup by metadatum <== maybe or maybe not
+   If we change things around as just suggested, we'll have to look very
+   carefully at our use in this file of various SFINAE constructs, such
+   as isSearchKey and isLookup. Also do a careful accounting of what
+   operator()s we have in this file. Some quick grepping suggest 16 cases.
+   Some involve GNDStk::Optional, which I'm increasingly convinced should
+   simply be removed. GNDStk is complex already, and can do without it.
+   That, at least, would also give us a slight break in dealing with the
+   () and [] operators, though getting rid of GNDStk::Optional is really
+   its own issue, and probably should be done for its own reasons.
+   */
+
    // If T == [optional] vector
    // (index/label/Lookup), including Lookup<true> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) const // const
-      { return parent.getter(wrappedValue,key); }
+   {
+      return parent.getter(wrappedValue,key);
+   }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) // non-const
-      { return parent.getter(wrappedValue,key); }
+   {
+      return parent.getter(wrappedValue,key);
+   }
 
    // If T == [optional] vector
    // [index/label/Lookup]
@@ -206,18 +245,24 @@ public:
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator[](const KEY &key) const // const
-      { return (*this)(key); }
+   {
+      return (*this)(key);
+   }
 
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator[](const KEY &key) // non-const
-      { return (*this)(key); }
+   {
+      return (*this)(key);
+   }
+
+   // ------------------------
+   // size()
+   // ------------------------
 
    // If T == [optional] vector
-   // size()
-   template<
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    std::size_t size() const
    {
       if constexpr (detail::isOptional<T>)
@@ -384,10 +429,10 @@ public:
    // the operator()s that forwarded to replace() in earlier setters. Imagine
    // that this Field wrapped, say, a vector<int>. If someone used the above
    // add() function and wrote field.add(123), the meaning is clearly that 123
-   // is to be added (think push_back()) to the vector<int>. But if we allowed
-   // for an operator() that forwards to add(), and someone used it to write
-   // field(123), they *might* want 123 added to the vector - or they might
-   // be intending to retrieve vector[123]. In the *getter* functions defined
+   // is to be added (think push_back()) to the vector<int>. But if we provided
+   // an operator() that forwarded to add(), and someone used it to write
+   // field(123), they *might* want 123 added to the vector - OR, they might
+   // intend to retrieve vector[123]. In the *getter* functions defined
    // earlier, note that we do indeed allow both operator() and operator[] for
    // retrieving vector elements (by index, label, or Lookup object). I suppose
    // we could allow only the operator[] form for getting, and then be able to
