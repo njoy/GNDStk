@@ -86,6 +86,20 @@ void wrapProductYield(py::module &module)
       cppCLASS::component_t::documentation("elapsed_times").data()
    );
 
+   // shortcut: get/set elapsedTime
+   object.def_property(
+      "elapsed_time",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.elapsedTime();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.elapsedTime())> &value)
+      {
+         self.elapsedTime() = value;
+      },
+      cppCLASS::component_t::documentation("elapsed_time").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

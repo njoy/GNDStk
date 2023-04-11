@@ -100,6 +100,13 @@ public:
    Field<containers::XYs3d>
       XYs3d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(XYs3d(),axes);
+   GNDSTK_SHORTCUT(XYs3d(),function2ds);
+   GNDSTK_SHORTCUT(XYs3d(),uncertainty);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

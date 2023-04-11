@@ -107,6 +107,12 @@ public:
    Field<std::optional<pops::DecayData>>
       decayData{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(bindingEnergy(),Double);
+   GNDSTK_SHORTCUT(bindingEnergy(),documentation);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

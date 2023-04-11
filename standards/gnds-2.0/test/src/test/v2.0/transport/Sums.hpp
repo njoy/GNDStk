@@ -91,6 +91,11 @@ public:
    Field<std::optional<transport::MultiplicitySums>>
       multiplicitySums{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(crossSectionSums(),crossSectionSum);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

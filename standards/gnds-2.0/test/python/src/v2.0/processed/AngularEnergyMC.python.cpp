@@ -102,6 +102,76 @@ void wrapAngularEnergyMC(py::module &module)
       cppCLASS::component_t::documentation("angular_energy").data()
    );
 
+   // shortcut: get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs2d())> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // shortcut: get/set XYs3d
+   object.def_property(
+      "xys3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs3d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs3d())> &value)
+      {
+         self.XYs3d() = value;
+      },
+      cppCLASS::component_t::documentation("xys3d").data()
+   );
+
+   // shortcut: get/set forward
+   object.def_property(
+      "forward",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.forward();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.forward())> &value)
+      {
+         self.forward() = value;
+      },
+      cppCLASS::component_t::documentation("forward").data()
+   );
+
+   // shortcut: get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.function2ds())> &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
+   // shortcut: get/set isotropic2d
+   object.def_property(
+      "isotropic2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.isotropic2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.isotropic2d())> &value)
+      {
+         self.isotropic2d() = value;
+      },
+      cppCLASS::component_t::documentation("isotropic2d").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

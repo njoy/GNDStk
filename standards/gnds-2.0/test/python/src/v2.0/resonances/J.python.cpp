@@ -102,6 +102,20 @@ void wrapJ(py::module &module)
       cppCLASS::component_t::documentation("widths").data()
    );
 
+   // shortcut: get/set width
+   object.def_property(
+      "width",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.width();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.width())> &value)
+      {
+         self.width() = value;
+      },
+      cppCLASS::component_t::documentation("width").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -102,6 +102,20 @@ void wrapMultiplicitySum(py::module &module)
       cppCLASS::component_t::documentation("summands").data()
    );
 
+   // shortcut: get/set add
+   object.def_property(
+      "add",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.add();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.add())> &value)
+      {
+         self.add() = value;
+      },
+      cppCLASS::component_t::documentation("add").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

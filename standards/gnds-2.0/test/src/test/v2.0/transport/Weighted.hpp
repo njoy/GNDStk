@@ -126,6 +126,11 @@ public:
    Field<std::optional<fissionTransport::MadlandNix>>
       MadlandNix{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

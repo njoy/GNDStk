@@ -127,6 +127,16 @@ public:
    Field<std::optional<documentation::Documentation>>
       documentation{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(flux(),XYs2d);
+   GNDSTK_SHORTCUT(inverseSpeed().gridded1d(),array);
+   GNDSTK_SHORTCUT(flux().XYs2d(),function1ds);
+   GNDSTK_SHORTCUT(inverseSpeed(),gridded1d);
+   GNDSTK_SHORTCUT(transportables(),transportable);
+   GNDSTK_SHORTCUT(flux().XYs2d(),uncertainty);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

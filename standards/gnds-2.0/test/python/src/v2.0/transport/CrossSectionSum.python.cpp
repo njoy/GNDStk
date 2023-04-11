@@ -118,6 +118,48 @@ void wrapCrossSectionSum(py::module &module)
       cppCLASS::component_t::documentation("summands").data()
    );
 
+   // shortcut: get/set add
+   object.def_property(
+      "add",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.add();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.add())> &value)
+      {
+         self.add() = value;
+      },
+      cppCLASS::component_t::documentation("add").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

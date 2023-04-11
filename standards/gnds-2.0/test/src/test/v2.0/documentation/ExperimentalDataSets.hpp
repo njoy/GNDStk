@@ -84,6 +84,11 @@ public:
    Field<documentation::ExforDataSets>
       exforDataSets{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(exforDataSets(),exforDataSet);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

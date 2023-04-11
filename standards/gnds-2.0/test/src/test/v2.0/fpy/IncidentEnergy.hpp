@@ -101,6 +101,13 @@ public:
    Field<fpy::Yields>
       yields{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(energy(),Double);
+   GNDSTK_SHORTCUT(yields(),nuclides);
+   GNDSTK_SHORTCUT(yields(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -108,6 +108,12 @@ public:
    Field<containers::Cdf_in_xs_pdf_cdf1d>
       cdf_in_xs_pdf_cdf1d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(pdf(),XYs1d);
+   GNDSTK_SHORTCUT(pdf(),regions1d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

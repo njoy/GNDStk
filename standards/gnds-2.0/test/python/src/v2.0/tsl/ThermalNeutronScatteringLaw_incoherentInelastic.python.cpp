@@ -150,6 +150,20 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
       cppCLASS::component_t::documentation("scattering_atoms").data()
    );
 
+   // shortcut: get/set scatteringAtom
+   object.def_property(
+      "scattering_atom",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.scatteringAtom();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.scatteringAtom())> &value)
+      {
+         self.scatteringAtom() = value;
+      },
+      cppCLASS::component_t::documentation("scattering_atom").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -70,6 +70,20 @@ void wrapSums(py::module &module)
       cppCLASS::component_t::documentation("multiplicity_sums").data()
    );
 
+   // shortcut: get/set crossSectionSum
+   object.def_property(
+      "cross_section_sum",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.crossSectionSum();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.crossSectionSum())> &value)
+      {
+         self.crossSectionSum() = value;
+      },
+      cppCLASS::component_t::documentation("cross_section_sum").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

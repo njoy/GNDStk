@@ -107,6 +107,15 @@ public:
    Field<transport::AngularEnergy>
       angularEnergy{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(angular_uncorrelated(),XYs2d);
+   GNDSTK_SHORTCUT(angularEnergy(),XYs3d);
+   GNDSTK_SHORTCUT(angular_uncorrelated(),forward);
+   GNDSTK_SHORTCUT(angularEnergy().XYs3d(),function2ds);
+   GNDSTK_SHORTCUT(angular_uncorrelated(),isotropic2d);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

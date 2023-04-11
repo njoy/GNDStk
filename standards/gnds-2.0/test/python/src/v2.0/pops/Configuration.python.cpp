@@ -102,6 +102,34 @@ void wrapConfiguration(py::module &module)
       cppCLASS::component_t::documentation("decay_data").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

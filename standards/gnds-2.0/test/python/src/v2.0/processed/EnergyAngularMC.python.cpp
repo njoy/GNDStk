@@ -102,6 +102,76 @@ void wrapEnergyAngularMC(py::module &module)
       cppCLASS::component_t::documentation("energy_angular").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set XYs3d
+   object.def_property(
+      "xys3d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs3d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs3d())> &value)
+      {
+         self.XYs3d() = value;
+      },
+      cppCLASS::component_t::documentation("xys3d").data()
+   );
+
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // shortcut: get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.function2ds())> &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

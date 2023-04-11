@@ -86,6 +86,20 @@ void wrapL(py::module &module)
       cppCLASS::component_t::documentation("js").data()
    );
 
+   // shortcut: get/set J
+   object.def_property(
+      "j",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.J();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.J())> &value)
+      {
+         self.J() = value;
+      },
+      cppCLASS::component_t::documentation("j").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

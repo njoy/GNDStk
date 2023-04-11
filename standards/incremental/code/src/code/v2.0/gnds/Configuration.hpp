@@ -100,6 +100,11 @@ public:
    Field<gnds::BindingEnergy>
       bindingEnergy{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(bindingEnergy(),Double);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

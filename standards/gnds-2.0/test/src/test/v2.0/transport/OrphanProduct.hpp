@@ -107,6 +107,13 @@ public:
    Field<transport::OutputChannel>
       outputChannel{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(outputChannel(),Q);
+   GNDSTK_SHORTCUT(outputChannel(),fissionFragmentData);
+   GNDSTK_SHORTCUT(outputChannel(),products);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

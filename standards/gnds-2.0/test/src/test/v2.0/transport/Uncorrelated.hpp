@@ -107,6 +107,22 @@ public:
    Field<transport::Energy_uncorrelated>
       energy_uncorrelated{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(energy_uncorrelated(),MadlandNix);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),NBodyPhaseSpace);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),Watt);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),discreteGamma);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),evaporation);
+   GNDSTK_SHORTCUT(angular_uncorrelated(),forward);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),generalEvaporation);
+   GNDSTK_SHORTCUT(angular_uncorrelated(),isotropic2d);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),primaryGamma);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),regions2d);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),simpleMaxwellianFission);
+   GNDSTK_SHORTCUT(energy_uncorrelated(),weightedFunctionals);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

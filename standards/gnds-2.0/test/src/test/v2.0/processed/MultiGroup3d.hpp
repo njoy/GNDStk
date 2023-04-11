@@ -100,6 +100,14 @@ public:
    Field<containers::Gridded3d>
       gridded3d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(gridded3d(),axes);
+   GNDSTK_SHORTCUT(gridded3d().axes(),axis);
+   GNDSTK_SHORTCUT(gridded3d().axes(),grid);
+   GNDSTK_SHORTCUT(gridded3d().array(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -194,6 +194,16 @@ public:
    Field<std::optional<appData::ApplicationData>>
       applicationData{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(PoPs_database(),aliases);
+   GNDSTK_SHORTCUT(PoPs_database(),baryons);
+   GNDSTK_SHORTCUT(PoPs_database(),chemicalElements);
+   GNDSTK_SHORTCUT(PoPs_database(),gaugeBosons);
+   GNDSTK_SHORTCUT(PoPs_database(),leptons);
+   GNDSTK_SHORTCUT(PoPs_database(),unorthodoxes);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

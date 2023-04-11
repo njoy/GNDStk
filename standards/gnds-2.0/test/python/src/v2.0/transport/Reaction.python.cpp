@@ -134,6 +134,48 @@ void wrapReaction(py::module &module)
       cppCLASS::component_t::documentation("output_channel").data()
    );
 
+   // shortcut: get/set Q
+   object.def_property(
+      "q",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Q();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Q())> &value)
+      {
+         self.Q() = value;
+      },
+      cppCLASS::component_t::documentation("q").data()
+   );
+
+   // shortcut: get/set fissionFragmentData
+   object.def_property(
+      "fission_fragment_data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fissionFragmentData();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.fissionFragmentData())> &value)
+      {
+         self.fissionFragmentData() = value;
+      },
+      cppCLASS::component_t::documentation("fission_fragment_data").data()
+   );
+
+   // shortcut: get/set products
+   object.def_property(
+      "products",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.products();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.products())> &value)
+      {
+         self.products() = value;
+      },
+      cppCLASS::component_t::documentation("products").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

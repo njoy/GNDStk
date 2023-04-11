@@ -118,6 +118,62 @@ void wrapSpinGroup(py::module &module)
       cppCLASS::component_t::documentation("resonance_parameters").data()
    );
 
+   // shortcut: get/set channel
+   object.def_property(
+      "channel",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.channel();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.channel())> &value)
+      {
+         self.channel() = value;
+      },
+      cppCLASS::component_t::documentation("channel").data()
+   );
+
+   // shortcut: get/set columnHeaders
+   object.def_property(
+      "column_headers",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.columnHeaders();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.columnHeaders())> &value)
+      {
+         self.columnHeaders() = value;
+      },
+      cppCLASS::component_t::documentation("column_headers").data()
+   );
+
+   // shortcut: get/set data
+   object.def_property(
+      "data",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.data();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.data())> &value)
+      {
+         self.data() = value;
+      },
+      cppCLASS::component_t::documentation("data").data()
+   );
+
+   // shortcut: get/set table
+   object.def_property(
+      "table",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.table();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.table())> &value)
+      {
+         self.table() = value;
+      },
+      cppCLASS::component_t::documentation("table").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

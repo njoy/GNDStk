@@ -86,6 +86,20 @@ void wrapTransportable(py::module &module)
       cppCLASS::component_t::documentation("multi_group").data()
    );
 
+   // shortcut: get/set grid
+   object.def_property(
+      "grid",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.grid();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.grid())> &value)
+      {
+         self.grid() = value;
+      },
+      cppCLASS::component_t::documentation("grid").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

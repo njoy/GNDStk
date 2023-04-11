@@ -166,6 +166,34 @@ void wrapTabulatedWidths(py::module &module)
       cppCLASS::component_t::documentation("ls").data()
    );
 
+   // shortcut: get/set L
+   object.def_property(
+      "l",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.L();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.L())> &value)
+      {
+         self.L() = value;
+      },
+      cppCLASS::component_t::documentation("l").data()
+   );
+
+   // shortcut: get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.resonanceReaction())> &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

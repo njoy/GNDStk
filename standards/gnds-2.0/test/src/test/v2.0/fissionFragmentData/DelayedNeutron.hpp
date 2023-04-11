@@ -101,6 +101,14 @@ public:
    Field<common::Product>
       product{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(rate(),Double);
+   GNDSTK_SHORTCUT(product(),distribution);
+   GNDSTK_SHORTCUT(product(),multiplicity);
+   GNDSTK_SHORTCUT(rate().Double(),uncertainty);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -159,6 +159,12 @@ public:
    Field<resonances::SpinGroups>
       spinGroups{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(resonanceReactions(),resonanceReaction);
+   GNDSTK_SHORTCUT(spinGroups(),spinGroup);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

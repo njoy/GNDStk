@@ -13,20 +13,23 @@
 
 #ifdef __cplusplus
    // For C++
-   #include "proto/v1_9.hpp"
+   #include "proto/v1.9.hpp"
 #endif
 
-#include "v1.9/containers/Link.h"
-#include "v1.9/containers/XYs1d.h"
 #include "v1.9/containers/Axes.h"
 #include "v1.9/containers/Axis.h"
-#include "v1.9/containers/Grid.h"
-#include "v1.9/containers/Values.h"
-#include "v1.9/containers/Regions1d.h"
 
+#include "v1.9/transport/CrossSection.h"
+
+#include "v1.9/containers/Grid.h"
+#include "v1.9/containers/Link.h"
+
+#include "v1.9/transport/Reaction.h"
 #include "v1.9/transport/ReactionSuite.h"
 #include "v1.9/transport/Reactions.h"
-#include "v1.9/transport/Reaction.h"
-#include "v1.9/transport/CrossSection.h"
+
+#include "v1.9/containers/Regions1d.h"
+#include "v1.9/containers/Values.h"
+#include "v1.9/containers/XYs1d.h"
 
 #endif

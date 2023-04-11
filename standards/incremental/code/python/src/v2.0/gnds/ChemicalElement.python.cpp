@@ -102,6 +102,34 @@ void wrapChemicalElement(py::module &module)
       cppCLASS::component_t::documentation("atomic").data()
    );
 
+   // shortcut: get/set configuration
+   object.def_property(
+      "configuration",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.configuration();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.configuration())> &value)
+      {
+         self.configuration() = value;
+      },
+      cppCLASS::component_t::documentation("configuration").data()
+   );
+
+   // shortcut: get/set configurations
+   object.def_property(
+      "configurations",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.configurations();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.configurations())> &value)
+      {
+         self.configurations() = value;
+      },
+      cppCLASS::component_t::documentation("configurations").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

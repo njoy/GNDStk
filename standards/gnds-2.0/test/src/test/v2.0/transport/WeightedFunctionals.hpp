@@ -84,6 +84,18 @@ public:
    Field<transport::Weighted>
       weighted{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(weighted(),MadlandNix);
+   GNDSTK_SHORTCUT(weighted(),Watt);
+   GNDSTK_SHORTCUT(weighted(),XYs1d);
+   GNDSTK_SHORTCUT(weighted(),XYs2d);
+   GNDSTK_SHORTCUT(weighted(),evaporation);
+   GNDSTK_SHORTCUT(weighted(),generalEvaporation);
+   GNDSTK_SHORTCUT(weighted(),simpleMaxwellianFission);
+   GNDSTK_SHORTCUT(weighted().XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

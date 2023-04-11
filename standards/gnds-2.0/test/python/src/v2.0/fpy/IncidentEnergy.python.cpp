@@ -86,6 +86,48 @@ void wrapIncidentEnergy(py::module &module)
       cppCLASS::component_t::documentation("yields").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set nuclides
+   object.def_property(
+      "nuclides",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.nuclides();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.nuclides())> &value)
+      {
+         self.nuclides() = value;
+      },
+      cppCLASS::component_t::documentation("nuclides").data()
+   );
+
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

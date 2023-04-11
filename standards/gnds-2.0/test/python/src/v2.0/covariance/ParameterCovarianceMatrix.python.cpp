@@ -102,6 +102,20 @@ void wrapParameterCovarianceMatrix(py::module &module)
       cppCLASS::component_t::documentation("array").data()
    );
 
+   // shortcut: get/set parameterLink
+   object.def_property(
+      "parameter_link",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.parameterLink();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.parameterLink())> &value)
+      {
+         self.parameterLink() = value;
+      },
+      cppCLASS::component_t::documentation("parameter_link").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

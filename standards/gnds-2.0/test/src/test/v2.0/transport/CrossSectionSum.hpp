@@ -114,6 +114,13 @@ public:
    Field<transport::Summands>
       summands{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(summands(),add);
+   GNDSTK_SHORTCUT(Q(),documentation);
+   GNDSTK_SHORTCUT(Q(),uncertainty);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

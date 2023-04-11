@@ -5,10 +5,10 @@
 #ifndef MULTI_V1
 #define MULTI_V1
 
-#include "multi/v1/multigroup/Multigroup.hpp"
-#include "multi/v1/multigroup/Library.hpp"
 #include "multi/v1/multigroup/Element.hpp"
-#include "multi/v1/multigroup/Isotope.hpp"
 #include "multi/v1/multigroup/Foobar.hpp"
+#include "multi/v1/multigroup/Isotope.hpp"
+#include "multi/v1/multigroup/Library.hpp"
+#include "multi/v1/multigroup/Multigroup.hpp"
 
 #endif

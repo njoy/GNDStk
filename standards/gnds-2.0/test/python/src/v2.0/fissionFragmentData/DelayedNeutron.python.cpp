@@ -86,6 +86,62 @@ void wrapDelayedNeutron(py::module &module)
       cppCLASS::component_t::documentation("product").data()
    );
 
+   // shortcut: get/set Double
+   object.def_property(
+      "double",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Double();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Double())> &value)
+      {
+         self.Double() = value;
+      },
+      cppCLASS::component_t::documentation("double").data()
+   );
+
+   // shortcut: get/set distribution
+   object.def_property(
+      "distribution",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.distribution();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.distribution())> &value)
+      {
+         self.distribution() = value;
+      },
+      cppCLASS::component_t::documentation("distribution").data()
+   );
+
+   // shortcut: get/set multiplicity
+   object.def_property(
+      "multiplicity",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.multiplicity();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.multiplicity())> &value)
+      {
+         self.multiplicity() = value;
+      },
+      cppCLASS::component_t::documentation("multiplicity").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

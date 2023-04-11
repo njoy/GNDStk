@@ -101,6 +101,11 @@ public:
    Field<std::vector<covariance::ParameterCovarianceMatrix>>
       parameterCovarianceMatrix{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(rowData(),slices);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

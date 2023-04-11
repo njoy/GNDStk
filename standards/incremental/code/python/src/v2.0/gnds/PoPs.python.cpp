@@ -118,6 +118,48 @@ void wrapPoPs(py::module &module)
       cppCLASS::component_t::documentation("chemical_elements").data()
    );
 
+   // shortcut: get/set chemicalElement
+   object.def_property(
+      "chemical_element",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.chemicalElement();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.chemicalElement())> &value)
+      {
+         self.chemicalElement() = value;
+      },
+      cppCLASS::component_t::documentation("chemical_element").data()
+   );
+
+   // shortcut: get/set documentation
+   object.def_property(
+      "documentation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.documentation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.documentation())> &value)
+      {
+         self.documentation() = value;
+      },
+      cppCLASS::component_t::documentation("documentation").data()
+   );
+
+   // shortcut: get/set evaluated
+   object.def_property(
+      "evaluated",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaluated();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.evaluated())> &value)
+      {
+         self.evaluated() = value;
+      },
+      cppCLASS::component_t::documentation("evaluated").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

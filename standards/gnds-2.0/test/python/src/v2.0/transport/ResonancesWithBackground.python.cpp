@@ -102,6 +102,48 @@ void wrapResonancesWithBackground(py::module &module)
       cppCLASS::component_t::documentation("uncertainty").data()
    );
 
+   // shortcut: get/set fastRegion
+   object.def_property(
+      "fast_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.fastRegion();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.fastRegion())> &value)
+      {
+         self.fastRegion() = value;
+      },
+      cppCLASS::component_t::documentation("fast_region").data()
+   );
+
+   // shortcut: get/set resolvedRegion
+   object.def_property(
+      "resolved_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resolvedRegion();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.resolvedRegion())> &value)
+      {
+         self.resolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("resolved_region").data()
+   );
+
+   // shortcut: get/set unresolvedRegion
+   object.def_property(
+      "unresolved_region",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.unresolvedRegion();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.unresolvedRegion())> &value)
+      {
+         self.unresolvedRegion() = value;
+      },
+      cppCLASS::component_t::documentation("unresolved_region").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

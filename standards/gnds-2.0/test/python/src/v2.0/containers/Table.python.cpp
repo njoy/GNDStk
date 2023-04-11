@@ -118,6 +118,20 @@ void wrapTable(py::module &module)
       cppCLASS::component_t::documentation("data").data()
    );
 
+   // shortcut: get/set column
+   object.def_property(
+      "column",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.column();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.column())> &value)
+      {
+         self.column() = value;
+      },
+      cppCLASS::component_t::documentation("column").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

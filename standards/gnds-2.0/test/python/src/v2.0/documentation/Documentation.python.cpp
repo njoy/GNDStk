@@ -326,6 +326,20 @@ void wrapDocumentation(py::module &module)
       cppCLASS::component_t::documentation("endf_compatible").data()
    );
 
+   // shortcut: get/set date
+   object.def_property(
+      "date",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.date();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.date())> &value)
+      {
+         self.date() = value;
+      },
+      cppCLASS::component_t::documentation("date").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

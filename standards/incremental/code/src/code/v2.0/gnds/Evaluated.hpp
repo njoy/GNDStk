@@ -112,6 +112,16 @@ public:
    Field<gnds::Documentation>
       documentation{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(documentation().authors(),author);
+   GNDSTK_SHORTCUT(documentation(),authors);
+   GNDSTK_SHORTCUT(documentation(),body);
+   GNDSTK_SHORTCUT(documentation(),dates);
+   GNDSTK_SHORTCUT(documentation(),endfCompatible);
+   GNDSTK_SHORTCUT(documentation(),title);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

@@ -214,6 +214,34 @@ void wrapRMatrix(py::module &module)
       cppCLASS::component_t::documentation("spin_groups").data()
    );
 
+   // shortcut: get/set resonanceReaction
+   object.def_property(
+      "resonance_reaction",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.resonanceReaction();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.resonanceReaction())> &value)
+      {
+         self.resonanceReaction() = value;
+      },
+      cppCLASS::component_t::documentation("resonance_reaction").data()
+   );
+
+   // shortcut: get/set spinGroup
+   object.def_property(
+      "spin_group",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.spinGroup();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.spinGroup())> &value)
+      {
+         self.spinGroup() = value;
+      },
+      cppCLASS::component_t::documentation("spin_group").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

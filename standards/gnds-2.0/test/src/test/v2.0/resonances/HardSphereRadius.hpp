@@ -84,6 +84,13 @@ public:
    Field<containers::Constant1d>
       constant1d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(constant1d(),axes);
+   GNDSTK_SHORTCUT(constant1d().axes(),axis);
+   GNDSTK_SHORTCUT(constant1d().axes(),grid);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

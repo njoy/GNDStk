@@ -118,6 +118,20 @@ void wrapBondarenko(py::module &module)
       cppCLASS::component_t::documentation("documentation").data()
    );
 
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

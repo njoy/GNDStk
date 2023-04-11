@@ -54,6 +54,20 @@ void wrapExperimentalDataSets(py::module &module)
       cppCLASS::component_t::documentation("exfor_data_sets").data()
    );
 
+   // shortcut: get/set exforDataSet
+   object.def_property(
+      "exfor_data_set",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.exforDataSet();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.exforDataSet())> &value)
+      {
+         self.exforDataSet() = value;
+      },
+      cppCLASS::component_t::documentation("exfor_data_set").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

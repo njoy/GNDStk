@@ -118,6 +118,14 @@ public:
    Field<resonances::ResonanceParameters>
       resonanceParameters{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(channels(),channel);
+   GNDSTK_SHORTCUT(resonanceParameters().table(),columnHeaders);
+   GNDSTK_SHORTCUT(resonanceParameters().table(),data);
+   GNDSTK_SHORTCUT(resonanceParameters(),table);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

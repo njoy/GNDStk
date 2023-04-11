@@ -150,6 +150,90 @@ void wrapHeatedMultiGroup(py::module &module)
       cppCLASS::component_t::documentation("documentation").data()
    );
 
+   // shortcut: get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs2d())> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // shortcut: get/set array
+   object.def_property(
+      "array",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.array();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.array())> &value)
+      {
+         self.array() = value;
+      },
+      cppCLASS::component_t::documentation("array").data()
+   );
+
+   // shortcut: get/set function1ds
+   object.def_property(
+      "function1ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function1ds();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.function1ds())> &value)
+      {
+         self.function1ds() = value;
+      },
+      cppCLASS::component_t::documentation("function1ds").data()
+   );
+
+   // shortcut: get/set gridded1d
+   object.def_property(
+      "gridded1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.gridded1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.gridded1d())> &value)
+      {
+         self.gridded1d() = value;
+      },
+      cppCLASS::component_t::documentation("gridded1d").data()
+   );
+
+   // shortcut: get/set transportable
+   object.def_property(
+      "transportable",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.transportable();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.transportable())> &value)
+      {
+         self.transportable() = value;
+      },
+      cppCLASS::component_t::documentation("transportable").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

@@ -86,6 +86,20 @@ void wrapParameterCovariance(py::module &module)
       cppCLASS::component_t::documentation("parameter_covariance_matrix").data()
    );
 
+   // shortcut: get/set slices
+   object.def_property(
+      "slices",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.slices();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.slices())> &value)
+      {
+         self.slices() = value;
+      },
+      cppCLASS::component_t::documentation("slices").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

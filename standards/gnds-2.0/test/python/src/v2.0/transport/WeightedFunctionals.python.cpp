@@ -54,6 +54,118 @@ void wrapWeightedFunctionals(py::module &module)
       cppCLASS::component_t::documentation("weighted").data()
    );
 
+   // shortcut: get/set MadlandNix
+   object.def_property(
+      "madland_nix",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.MadlandNix();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.MadlandNix())> &value)
+      {
+         self.MadlandNix() = value;
+      },
+      cppCLASS::component_t::documentation("madland_nix").data()
+   );
+
+   // shortcut: get/set Watt
+   object.def_property(
+      "watt",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.Watt();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.Watt())> &value)
+      {
+         self.Watt() = value;
+      },
+      cppCLASS::component_t::documentation("watt").data()
+   );
+
+   // shortcut: get/set XYs1d
+   object.def_property(
+      "xys1d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs1d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs1d())> &value)
+      {
+         self.XYs1d() = value;
+      },
+      cppCLASS::component_t::documentation("xys1d").data()
+   );
+
+   // shortcut: get/set XYs2d
+   object.def_property(
+      "xys2d",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.XYs2d();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.XYs2d())> &value)
+      {
+         self.XYs2d() = value;
+      },
+      cppCLASS::component_t::documentation("xys2d").data()
+   );
+
+   // shortcut: get/set evaporation
+   object.def_property(
+      "evaporation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.evaporation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.evaporation())> &value)
+      {
+         self.evaporation() = value;
+      },
+      cppCLASS::component_t::documentation("evaporation").data()
+   );
+
+   // shortcut: get/set generalEvaporation
+   object.def_property(
+      "general_evaporation",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.generalEvaporation();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.generalEvaporation())> &value)
+      {
+         self.generalEvaporation() = value;
+      },
+      cppCLASS::component_t::documentation("general_evaporation").data()
+   );
+
+   // shortcut: get/set simpleMaxwellianFission
+   object.def_property(
+      "simple_maxwellian_fission",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.simpleMaxwellianFission();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.simpleMaxwellianFission())> &value)
+      {
+         self.simpleMaxwellianFission() = value;
+      },
+      cppCLASS::component_t::documentation("simple_maxwellian_fission").data()
+   );
+
+   // shortcut: get/set values
+   object.def_property(
+      "values",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.values();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.values())> &value)
+      {
+         self.values() = value;
+      },
+      cppCLASS::component_t::documentation("values").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

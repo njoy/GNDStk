@@ -112,6 +112,12 @@ public:
    Field<gnds::EndfCompatible>
       endfCompatible{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(authors(),author);
+   GNDSTK_SHORTCUT(dates(),date);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

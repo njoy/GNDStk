@@ -106,6 +106,12 @@ public:
    Field<gnds::Atomic>
       atomic{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(atomic().configurations(),configuration);
+   GNDSTK_SHORTCUT(atomic(),configurations);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

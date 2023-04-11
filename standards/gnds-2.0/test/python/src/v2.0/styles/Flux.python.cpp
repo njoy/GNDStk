@@ -70,6 +70,48 @@ void wrapFlux(py::module &module)
       cppCLASS::component_t::documentation("xys2d").data()
    );
 
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set function1ds
+   object.def_property(
+      "function1ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function1ds();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.function1ds())> &value)
+      {
+         self.function1ds() = value;
+      },
+      cppCLASS::component_t::documentation("function1ds").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

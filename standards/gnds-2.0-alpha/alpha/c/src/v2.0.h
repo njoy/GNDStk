@@ -13,7 +13,7 @@
 
 #ifdef __cplusplus
    // For C++
-   #include "alpha/v2_0.hpp"
+   #include "alpha/v2.0.hpp"
 #endif
 
 #include "v2.0/general/Add.h"

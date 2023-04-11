@@ -84,6 +84,13 @@ public:
    Field<containers::XYs1d>
       XYs1d{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(XYs1d(),axes);
+   GNDSTK_SHORTCUT(XYs1d(),uncertainty);
+   GNDSTK_SHORTCUT(XYs1d(),values);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

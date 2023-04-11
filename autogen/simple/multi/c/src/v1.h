@@ -16,10 +16,10 @@
    #include "multi/v1.hpp"
 #endif
 
-#include "v1/multigroup/Multigroup.h"
-#include "v1/multigroup/Library.h"
 #include "v1/multigroup/Element.h"
-#include "v1/multigroup/Isotope.h"
 #include "v1/multigroup/Foobar.h"
+#include "v1/multigroup/Isotope.h"
+#include "v1/multigroup/Library.h"
+#include "v1/multigroup/Multigroup.h"
 
 #endif

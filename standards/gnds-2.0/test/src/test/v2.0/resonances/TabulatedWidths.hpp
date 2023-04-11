@@ -139,6 +139,12 @@ public:
    Field<resonances::Ls>
       Ls{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(Ls(),L);
+   GNDSTK_SHORTCUT(resonanceReactions(),resonanceReaction);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------

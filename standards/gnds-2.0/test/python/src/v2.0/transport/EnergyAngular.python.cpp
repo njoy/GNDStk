@@ -86,6 +86,48 @@ void wrapEnergyAngular(py::module &module)
       cppCLASS::component_t::documentation("xys3d").data()
    );
 
+   // shortcut: get/set axes
+   object.def_property(
+      "axes",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.axes();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.axes())> &value)
+      {
+         self.axes() = value;
+      },
+      cppCLASS::component_t::documentation("axes").data()
+   );
+
+   // shortcut: get/set function2ds
+   object.def_property(
+      "function2ds",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.function2ds();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.function2ds())> &value)
+      {
+         self.function2ds() = value;
+      },
+      cppCLASS::component_t::documentation("function2ds").data()
+   );
+
+   // shortcut: get/set uncertainty
+   object.def_property(
+      "uncertainty",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.uncertainty();
+      },
+      [](cppCLASS &self, const std::decay_t<decltype(self.uncertainty())> &value)
+      {
+         self.uncertainty() = value;
+      },
+      cppCLASS::component_t::documentation("uncertainty").data()
+   );
+
    // add standard definitions
    addStandardComponentDefinitions<cppCLASS>(object);
 }

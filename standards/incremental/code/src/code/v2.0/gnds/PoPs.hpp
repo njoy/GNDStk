@@ -113,6 +113,13 @@ public:
    Field<gnds::ChemicalElements>
       chemicalElements{this};
 
+   // shortcuts
+   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   GNDSTK_SHORTCUT(chemicalElements(),chemicalElement);
+   GNDSTK_SHORTCUT(styles().evaluated(),documentation);
+   GNDSTK_SHORTCUT(styles(),evaluated);
+   #undef GNDSTK_SHORTCUT
+
    // ------------------------
    // Constructors
    // ------------------------
