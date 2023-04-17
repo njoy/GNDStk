@@ -203,7 +203,7 @@ public:
    My strong thought right now is that it should strictly be the former,
    as the latter would almost certainly have an unexpected meaning. (Yeah,
    I originally wrote the latter, before coming up with the much better
-   concept and syntax of my "Lookup" objects. Speaking of which, I should
+   concept and syntax of my Lookup objects. Speaking of which, I should
    very soon do the todo at the beginning of look.hh. That will help here
    and elsewhere.) In the present file, with Field and probably FieldPart,
    I suspect that (#) just shouldn't fly. Maybe just allow:
@@ -222,7 +222,7 @@ public:
    */
 
    // If T == [optional] vector
-   // (index/label/Lookup), including Lookup<true> (via the "has" function)
+   // (index/label/Lookup), including Lookup<LookupMode::exists> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
@@ -726,7 +726,7 @@ public:
       return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
    }
 
-   // (index/label/Lookup), including Lookup<true> (via the "has" function)
+   // (index/label/Lookup), including Lookup<LookupMode::exists> (via the "has" function)
    template<
       class KEY, class = detail::isSearchKey<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>

@@ -160,7 +160,7 @@ public:
    template<
       class EXTRACTOR, class THIS = DERIVED,
       class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
-   static constexpr bool has(const Lookup<false,EXTRACTOR,void,void> &)
+   static constexpr bool has(const Lookup<LookupMode::get,EXTRACTOR,void,void> &)
    {
       return true;
    }
@@ -171,9 +171,9 @@ public:
    // even have, say, .foo, then we can't check if its .foo equals the
    // one in the given Lookup.
    template<
-      class EXTRACTOR, class TYPE, class CONVERTER, bool FALSE,
-      class = std::enable_if_t<FALSE == false>>
-   static constexpr bool has(const Lookup<FALSE,EXTRACTOR,TYPE,CONVERTER> &)
+      class EXTRACTOR, class TYPE, class CONVERTER, LookupMode GET,
+      class = std::enable_if_t<GET == LookupMode::get>>
+   static constexpr bool has(const Lookup<GET,EXTRACTOR,TYPE,CONVERTER> &)
    {
       return false;
    }
@@ -184,7 +184,7 @@ public:
    template<
       class EXTRACTOR, class TYPE, class CONVERTER, class THIS = DERIVED,
       class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
-   bool has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &from) const
+   bool has(const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &from) const
    {
       return from.extractor(derived()) == from.value;
    }
@@ -199,15 +199,15 @@ public:
    template<
       class EXTRACTOR, class THIS = DERIVED,
       class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
-   constexpr bool operator()(const Lookup<true,EXTRACTOR,void,void> &) const
+   constexpr bool operator()(const Lookup<LookupMode::exists,EXTRACTOR,void,void> &) const
    {
       return true;
    }
 
    template<
-      class EXTRACTOR, class TYPE, class CONVERTER, bool TRUE,
-      class = std::enable_if_t<TRUE == true>>
-   constexpr bool operator()(const Lookup<TRUE,EXTRACTOR,TYPE,CONVERTER> &) const
+      class EXTRACTOR, class TYPE, class CONVERTER, LookupMode EXISTS,
+      class = std::enable_if_t<EXISTS == LookupMode::exists>>
+   constexpr bool operator()(const Lookup<EXISTS,EXTRACTOR,TYPE,CONVERTER> &) const
    {
       return false;
    }
@@ -215,7 +215,7 @@ public:
    template<
       class EXTRACTOR, class TYPE, class CONVERTER, class THIS = DERIVED,
       class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
-   bool operator()(const Lookup<true,EXTRACTOR,TYPE,CONVERTER> &from) const
+   bool operator()(const Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER> &from) const
    {
       return from.extractor(derived()) == from.value;
    }

@@ -291,6 +291,6 @@ void addStandardComponentDefinitions(pyCLASS &object)
       "    self    The object.\n"
       "    file    The name of the file."
    );
-}
+} // addStandardComponentDefinitions
 
 #endif

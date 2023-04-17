@@ -87,10 +87,10 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
       T val; \
       while ((convert(is,val),is)) { \
          value.push_back(val); \
-         /* The following of course means that any ',' after the container */ \
-         /* elements will be eaten, but we don't believe this will create  */ \
-         /* problems, given this function's usage. In fact the container's */ \
-         /* last element is *probably* at the end of the istream anyway.   */ \
+         /* The following of course means that any ',' after the container  */ \
+         /* elements will be eaten, but we don't believe this will create   */ \
+         /* problems, given this function's usage. In fact, the container's */ \
+         /* last element is *probably* at the end of the istream anyway.    */ \
          if (is.get() != ',') \
             is.unget(); \
       } \

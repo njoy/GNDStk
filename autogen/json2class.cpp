@@ -1768,7 +1768,7 @@ void writeClass(
       out(1,"static inline const struct Defaults {");
       for (const auto &m : per.metadata)
          if (m.isDefaulted)
-            out(2, "static inline const @ @ = @;",
+            out(2,"static inline const @ @ = @;",
                 m.type, m.name, initializer(m));
       out(1,"} defaults;");
    }
@@ -2502,12 +2502,15 @@ void fileGNDStkKey(const InfoSpecs &specs)
    if (metadata.size() > 0) {
       out();
       out(0,"#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \\");
-      out(1,   "inline const auto nameField = makeLookup( \\");
-      out(2,      "[](const auto &obj) -> decltype(obj.nameField()) \\");
-      out(2,      "{ return obj.nameField(); }, \\");
-      out(2,      "#nameGNDS \\");
-      out(1,   ")");
-      out(0, "// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS");
+      out(1,"inline const auto nameField = makeLookup( \\");
+      out(2,"#nameGNDS, \\");
+      out(2,"[](const auto &obj) -> decltype(obj.nameField()) \\");
+      out(2,"{ \\");
+      out(3,"return obj.nameField(); \\");
+      out(2,"} \\");
+      out(1,")");
+      out(0,"// nameField vs. nameGNDS: e.g. Double, vs. double in GNDS; "
+          "usually identical");
       out();
       for (const auto &meta : metadata)
          out("GNDSTK_MAKE_LOOKUP(@,@);", meta.first, meta.second);
@@ -3671,7 +3674,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       int count = 0;
       const int total = v.children.size();
       for (const auto &c : v.children)
-         out(2, "@@", c.type, sep(count,total));
+         out(2,"@@", c.type, sep(count,total));
       out(1,">;");
    }
 

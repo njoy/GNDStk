@@ -162,8 +162,8 @@ struct isLookup
 { };
 
 // for Lookup
-template<bool HAS, class EXTRACTOR, class TYPE, class CONVERTER>
-struct isLookup<Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>>
+template<LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER>
+struct isLookup<Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>>
    : public std::true_type
 { };
 
@@ -182,9 +182,10 @@ struct isLookupRefReturn
    : public std::false_type
 { };
 
-// for Lookup<false,EXTRACTOR,TYPE,CONVERTER>, with TYPE != void wanted
+// for Lookup<get,EXTRACTOR,TYPE,CONVERTER>,
+// with TYPE != void wanted
 template<class EXTRACTOR, class TYPE, class CONVERTER>
-struct isLookupRefReturn<Lookup<false,EXTRACTOR,TYPE,CONVERTER>>
+struct isLookupRefReturn<Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER>>
 {
    static inline constexpr bool value = !isVoid<TYPE>;
 };

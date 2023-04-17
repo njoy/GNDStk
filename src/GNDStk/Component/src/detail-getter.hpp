@@ -174,13 +174,13 @@ const T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<HAS==true,EXTRACTOR,TYPE,CONVERTER>, names...)
+// getter(vector, Lookup<exists,EXTRACTOR,TYPE,CONVERTER>, names...)
 // -----------------------------------------------------------------------------
 
 template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
 bool getter(
    const std::vector<T> &vec,
-   const Lookup<true,EXTRACTOR,TYPE,CONVERTER> &look,
+   const Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    const std::string fname = fn != "" ? fn : "<unknown name>";
@@ -214,13 +214,13 @@ bool getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<HAS==false,EXTRACTOR,TYPE,CONVERTER>, names...)
+// getter(vector, Lookup<get,EXTRACTOR,TYPE,CONVERTER>, names...)
 // -----------------------------------------------------------------------------
 
 template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
 const T &getter(
    const std::vector<T> &vec,
-   const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &look,
+   const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    static const std::string context = "getter {}::{}.{}({}({})) on vector";
@@ -280,13 +280,13 @@ const T &getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<HAS==true,EXTRACTOR,void,void>, names...)
+// getter(vector, Lookup<exists,EXTRACTOR,void,void>, names...)
 // -----------------------------------------------------------------------------
 
 template<class T, class EXTRACTOR>
 bool getter(
    const std::vector<T> &,
-   const Lookup<true,EXTRACTOR,void,void> &,
+   const Lookup<LookupMode::exists,EXTRACTOR,void,void> &,
    const std::string &, const std::string &, const std::string &
 ) {
    return has_field<EXTRACTOR,T>::value;
@@ -294,13 +294,13 @@ bool getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<HAS==false,EXTRACTOR,void,void>, names...)
+// getter(vector, Lookup<get,EXTRACTOR,void,void>, names...)
 // -----------------------------------------------------------------------------
 
 template<class T, class EXTRACTOR>
 auto getter(
    const std::vector<T> &vec,
-   const Lookup<false,EXTRACTOR,void,void> &look,
+   const Lookup<LookupMode::get,EXTRACTOR,void,void> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    const std::string fname = fn != "" ? fn : "<unknown name>";
@@ -360,19 +360,19 @@ decltype(auto) getter_helper(
       // context
       if constexpr (isLookup_v<KEY>) {
          // nname::cname.fname(field(value))
-         if constexpr (!KEY::Has && !KEY::Void)
+         if constexpr (KEY::Mode == LookupMode::get    && !KEY::Void)
             log::member("getter {}::{}.{}({}({})) on optional<vector>",
                         nname, cname, fname, key.name, key.value);
          // nname::cname.fname(has(field(value)))
-         if constexpr ( KEY::Has && !KEY::Void)
+         if constexpr (KEY::Mode == LookupMode::exists && !KEY::Void)
             log::member("getter {}::{}.{}(has({}({}))) on optional<vector>",
                         nname, cname, fname, key.name, key.value);
          // nname::cname.fname(field)
-         if constexpr (!KEY::Has &&  KEY::Void)
+         if constexpr (KEY::Mode == LookupMode::get    &&  KEY::Void)
             log::member("getter {}::{}.{}({}) on optional<vector>",
                         nname, cname, fname, key.name);
          // nname::cname.fname(has(field))
-         if constexpr ( KEY::Has &&  KEY::Void)
+         if constexpr (KEY::Mode == LookupMode::exists &&  KEY::Void)
             log::member("getter {}::{}.{}(has({})) on optional<vector>",
                         nname, cname, fname, key.name);
       } else {
