@@ -4,6 +4,16 @@ namespace proto {
 
 using namespace njoy::GNDStk;
 
+inline const auto index = makeLookup(
+   "index",
+   [](const auto &obj) -> decltype(obj.index()) { return obj.index(); }
+);
+
+inline const auto label = makeLookup(
+   "label",
+   [](const auto &obj) -> decltype(obj.label()) { return obj.label(); }
+);
+
 // -----------------------------------------------------------------------------
 // Sketch: prototype "ReactionSuite" hierarchy
 // -----------------------------------------------------------------------------
@@ -1129,39 +1139,39 @@ public:
 
    // axis_grid(index)
    const auto &axis_grid(const std::size_t &index) const
-    { return getter(axis_grid(), index, "axis_grid"); }
+    { return getter(axis_grid(), proto::index(index), "axis_grid"); }
    auto &axis_grid(const std::size_t &index)
-    { return getter(axis_grid(), index, "axis_grid"); }
+    { return getter(axis_grid(), proto::index(index), "axis_grid"); }
 
    // axis_grid(label)
    const auto &axis_grid(const std::string &label) const
-    { return getter(axis_grid(), label, "axis_grid"); }
+    { return getter(axis_grid(), proto::label(label), "axis_grid"); }
    auto &axis_grid(const std::string &label)
-    { return getter(axis_grid(), label, "axis_grid"); }
+    { return getter(axis_grid(), proto::label(label), "axis_grid"); }
 
    // axis(index)
    auto axis(const std::size_t &index) const
-    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::index(index), "axis"); }
    auto axis(const std::size_t &index)
-    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::index(index), "axis"); }
 
    // axis(label)
    auto axis(const std::string &label) const
-    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::label(label), "axis"); }
    auto axis(const std::string &label)
-    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::label(label), "axis"); }
 
    // grid(index)
    auto grid(const std::size_t &index) const
-    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::index(index), "grid"); }
    auto grid(const std::size_t &index)
-    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::index(index), "grid"); }
 
    // grid(label)
    auto grid(const std::string &label) const
-    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::label(label), "grid"); }
    auto grid(const std::string &label)
-    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::label(label), "grid"); }
 
    // ------------------------
    // Setters
@@ -1730,15 +1740,15 @@ public:
 
    // XYs1d(index)
    const auto &XYs1d(const std::size_t &index) const
-    { return getter(XYs1d(), index, "XYs1d"); }
+    { return getter(XYs1d(), proto::index(index), "XYs1d"); }
    auto &XYs1d(const std::size_t &index)
-    { return getter(XYs1d(), index, "XYs1d"); }
+    { return getter(XYs1d(), proto::index(index), "XYs1d"); }
 
    // XYs1d(label)
    const auto &XYs1d(const std::string &label) const
-    { return getter(XYs1d(), label, "XYs1d"); }
+    { return getter(XYs1d(), proto::label(label), "XYs1d"); }
    auto &XYs1d(const std::string &label)
-    { return getter(XYs1d(), label, "XYs1d"); }
+    { return getter(XYs1d(), proto::label(label), "XYs1d"); }
 
    // axes
    const auto &axes() const
@@ -1962,39 +1972,39 @@ public:
 
    // XYs1d_regions1d(index)
    const auto &XYs1d_regions1d(const std::size_t &index) const
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::index(index), "XYs1d_regions1d"); }
    auto &XYs1d_regions1d(const std::size_t &index)
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::index(index), "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
    const auto &XYs1d_regions1d(const std::string &label) const
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::label(label), "XYs1d_regions1d"); }
    auto &XYs1d_regions1d(const std::string &label)
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::label(label), "XYs1d_regions1d"); }
 
    // XYs1d(index)
    auto XYs1d(const std::size_t &index) const
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::index(index), "XYs1d"); }
    auto XYs1d(const std::size_t &index)
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::index(index), "XYs1d"); }
 
    // XYs1d(label)
    auto XYs1d(const std::string &label) const
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::label(label), "XYs1d"); }
    auto XYs1d(const std::string &label)
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::label(label), "XYs1d"); }
 
    // regions1d(index)
    auto regions1d(const std::size_t &index) const
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::index(index), "regions1d"); }
    auto regions1d(const std::size_t &index)
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::index(index), "regions1d"); }
 
    // regions1d(label)
    auto regions1d(const std::string &label) const
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::label(label), "regions1d"); }
    auto regions1d(const std::string &label)
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::label(label), "regions1d"); }
 
    // ------------------------
    // Setters
@@ -2439,15 +2449,15 @@ public:
 
    // reaction(index)
    const auto &reaction(const std::size_t &index) const
-    { return getter(reaction(), index, "reaction"); }
+    { return getter(reaction(), proto::index(index), "reaction"); }
    auto &reaction(const std::size_t &index)
-    { return getter(reaction(), index, "reaction"); }
+    { return getter(reaction(), proto::index(index), "reaction"); }
 
    // reaction(label)
    const auto &reaction(const std::string &label) const
-    { return getter(reaction(), label, "reaction"); }
+    { return getter(reaction(), proto::label(label), "reaction"); }
    auto &reaction(const std::string &label)
-    { return getter(reaction(), label, "reaction"); }
+    { return getter(reaction(), proto::label(label), "reaction"); }
 
    // ------------------------
    // Setters

@@ -1,13 +1,16 @@
 
-add_executable( GNDStk.Component.test
-                Component.test.cpp
-                ctor.test.cpp
-                detail.test.cpp
-                finish.test.cpp
-                fromNode.test.cpp
-                getter.test.cpp
-                toNode.test.cpp
-                print.test.cpp )
+add_executable(
+   GNDStk.Component.test
+   Component.test.cpp
+   ctor.test.cpp
+   detail.test.cpp
+   finish.test.cpp
+   fromNode.test.cpp
+   getter.test.cpp
+   toNode.test.cpp
+   print.test.cpp
+)
+
 target_compile_options( GNDStk.Component.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

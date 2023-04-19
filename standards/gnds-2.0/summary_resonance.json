@@ -170,7 +170,7 @@
                          "  \\item[singularityEnergyAbove:] Energy above the energy range of observed ",
                                 "resonances at which the Froehner and SAMMY R-external equations ",
                                 " produce infinite terms. Recommended unit: `eV', `MeV', etc.",
-                         "\\end{description}", 
+                         "\\end{description}",
                          "For the SAMMY formalism, a \\element{double} should be provided for",
                          "each of the following terms, with the \\attr{label} attribute specified below:",
                          "\\begin{description}[font=\\ttfamily,labelindent=1cm] ",

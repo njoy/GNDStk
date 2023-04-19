@@ -70,7 +70,7 @@ const T &getter(
 
          log::error(
            "Element with metadatum index == {} was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+            std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
             index
          );
          throw std::exception{};
@@ -160,7 +160,7 @@ const T &getter(
 
       log::error(
         "Element with metadatum label == \"{}\" was not found in the vector" +
-         std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+         std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
          label
       );
       throw std::exception{};
@@ -266,7 +266,7 @@ const T &getter(
 
       log::error(
         "Element with metadatum {} == {} was not found in the vector" +
-         std::string(vec.size() ? "." : ";\nin fact the vector is empty."),
+         std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
          look.name, look.value
       );
       throw std::exception{};

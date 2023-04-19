@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.HashAlgorithm.test HashAlgorithm.test.cpp )
+add_executable(
+   GNDStk.enums.HashAlgorithm.test
+   HashAlgorithm.test.cpp
+)
+
 target_compile_options( GNDStk.enums.HashAlgorithm.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -17,7 +17,7 @@
 
 // const
 template<
-   class VEC, class KEY, class = detail::isSearchKey<KEY>,
+   class VEC, class KEY, class = detail::isLookup_t<KEY>,
    class = std::enable_if_t<
       detail::isVector_v<VEC> ||
       detail::isOptionalVector_v<VEC>>
@@ -32,7 +32,7 @@ decltype(auto) getter(
 
 // non-const
 template<
-   class VEC, class KEY, class = detail::isSearchKey<KEY>,
+   class VEC, class KEY, class = detail::isLookup_t<KEY>,
    class = std::enable_if_t<
       detail::isVector_v<VEC> ||
       detail::isOptionalVector_v<VEC>>
@@ -93,7 +93,7 @@ RETURN *getter(
 // const
 template<
    class RETURN, class KEY, class... Ts,
-   class = detail::isSearchKey<KEY>,
+   class = detail::isLookup_t<KEY>,
    class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
 >
 const RETURN *getter(
@@ -107,7 +107,7 @@ const RETURN *getter(
 // non-const
 template<
    class RETURN, class KEY, class... Ts,
-   class = detail::isSearchKey<KEY>,
+   class = detail::isLookup_t<KEY>,
    class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
 >
 RETURN *getter(

@@ -1,17 +1,20 @@
 
-add_executable( GNDStk.BlockData.test
-                BlockData.test.cpp
-                assign.test.cpp
-                convert.test.cpp
-                detail.test.cpp
-                fromNode.test.cpp
-                get.test.cpp
-                params.test.cpp
-                string.test.cpp
-                sync.test.cpp
-                toNode.test.cpp
-                types.test.cpp
-                print.test.cpp )
+add_executable(
+   GNDStk.BlockData.test
+   BlockData.test.cpp
+   assign.test.cpp
+   convert.test.cpp
+   detail.test.cpp
+   fromNode.test.cpp
+   get.test.cpp
+   params.test.cpp
+   string.test.cpp
+   sync.test.cpp
+   toNode.test.cpp
+   types.test.cpp
+   print.test.cpp
+)
+
 target_compile_options( GNDStk.BlockData.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

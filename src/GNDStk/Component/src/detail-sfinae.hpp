@@ -171,6 +171,9 @@ struct isLookup<Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>>
 template<class T>
 inline constexpr bool isLookup_v = isLookup<T>::value;
 
+// isLookup_t
+template<class T>
+using isLookup_t = std::enable_if_t<isLookup_v<T>>;
 
 // ------------------------
 // isLookupRefReturn
@@ -182,53 +185,25 @@ struct isLookupRefReturn
    : public std::false_type
 { };
 
-// for Lookup<get,EXTRACTOR,TYPE,CONVERTER>,
-// with TYPE != void wanted
+// for Lookup<get,EXTRACTOR,non-void,CONVERTER>
 template<class EXTRACTOR, class TYPE, class CONVERTER>
 struct isLookupRefReturn<Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER>>
 {
    static inline constexpr bool value = !isVoid<TYPE>;
 };
 
-// ------------------------
-// isLookupBoolReturn
-// ------------------------
-
-template<class KEY>
-inline constexpr bool isLookupBoolReturn =
-   detail::isLookup_v<KEY> &&
-  !detail::isLookupRefReturn<KEY>::value;
-
-
-// -----------------------------------------------------------------------------
-// Re: SearchKey
-// -----------------------------------------------------------------------------
-
-// ------------------------
-// isSearchKey
-// isSearchKeyRefReturn
-// ------------------------
-
-// isSearchKey
-// Type is one of:
-//    - convertible to std::size_t, for use as an index
-//    - convertible to std::string, for use as a label
-//    - of type Lookup<...>
+// isLookupRefReturn_t
 template<class T>
-using isSearchKey = std::enable_if_t<
-   std::is_convertible_v<T,std::size_t> ||
-   std::is_convertible_v<T,std::string> ||
-   isLookup_v<T> // any Lookup
->;
+using isLookupRefReturn_t = std::enable_if_t<isLookupRefReturn<T>::value>;
 
-// isSearchKeyRefReturn
-// Like the above, but allowing only a Lookup that triggers a reference return
+// ------------------------
+// isLookupBoolReturn_v
+// ------------------------
+
 template<class T>
-using isSearchKeyRefReturn = std::enable_if_t<
-   std::is_convertible_v<T,std::size_t> ||
-   std::is_convertible_v<T,std::string> ||
-   isLookupRefReturn<T>::value // not any Lookup; must give a reference return
->;
+inline constexpr bool isLookupBoolReturn_v =
+   detail::isLookup_v<T> &&
+  !detail::isLookupRefReturn<T>::value;
 
 
 // -----------------------------------------------------------------------------

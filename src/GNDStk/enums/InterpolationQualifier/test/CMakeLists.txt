@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.InterpolationQualifier.test InterpolationQualifier.test.cpp )
+add_executable(
+   GNDStk.enums.InterpolationQualifier.test
+   InterpolationQualifier.test.cpp
+)
+
 target_compile_options( GNDStk.enums.InterpolationQualifier.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -154,7 +154,7 @@ DERIVED &operator+=(const FROM &elem) { return add(elem); }
 
 // replace
 template<
-   class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+   class KEY, class = detail::isLookupRefReturn_t<KEY>,
    class FROM, class = std::enable_if_t<Matches<FROM>>
 >
 DERIVED &replace(const KEY &key, const FROM &elem)
@@ -178,7 +178,7 @@ DERIVED &replace(const KEY &key, const FROM &elem)
 
 // ()
 template<
-   class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+   class KEY, class = detail::isLookupRefReturn_t<KEY>,
    class FROM, class = std::enable_if_t<Matches<FROM>>
 >
 DERIVED &operator()(const KEY &key, const FROM &elem)

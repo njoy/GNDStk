@@ -781,7 +781,7 @@
             "default": null,
             "description": [" If the href values is refering to a multi-dimensional ",
                             "object, (\\elemlink{array} or \\elemlink{regions2d} for example), ",
-			    "the dimension to which this row refers. The number should be the same index as the axis,", 
+			    "the dimension to which this row refers. The number should be the same index as the axis,",
                             "for which this dimension is indexed."],
             "name": "dimension",
             "required": false,

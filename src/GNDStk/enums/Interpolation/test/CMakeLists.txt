@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.Interpolation.test Interpolation.test.cpp )
+add_executable(
+   GNDStk.enums.Interpolation.test
+   Interpolation.test.cpp
+)
+
 target_compile_options( GNDStk.enums.Interpolation.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -222,9 +222,9 @@ public:
    */
 
    // If T == [optional] vector
-   // (index/label/Lookup), including Lookup<LookupMode::exists> (via the "has" function)
+   // (index/label/Lookup), including Lookup<exists> (via the "has" function)
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) const // const
    {
@@ -232,7 +232,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator()(const KEY &key) // non-const
    {
@@ -242,7 +242,7 @@ public:
    // If T == [optional] vector
    // [index/label/Lookup]
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator[](const KEY &key) const // const
    {
@@ -250,7 +250,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    decltype(auto) operator[](const KEY &key) // non-const
    {
@@ -458,7 +458,7 @@ public:
    // Find the vector's element that has the given index, label, or Lookup,
    // and replace it with the given replacement element.
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    DERIVED &replace(
       const KEY &key,
@@ -471,7 +471,7 @@ public:
    // operator()(index/label/Lookup, element)
    // Same as replace(index/label/Lookup, element)
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    DERIVED &operator()(
       const KEY &key,
@@ -668,7 +668,7 @@ public:
    // ptr(index/label/Lookup)
    // Get as PART *
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    const PART *ptr(const KEY &key) const
    {
@@ -676,7 +676,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    PART *ptr(const KEY &key)
    {
@@ -686,7 +686,7 @@ public:
    // ref(index/label/Lookup)
    // Get as PART &
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    const PART &ref(const KEY &key) const
    {
@@ -699,7 +699,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    PART &ref(const KEY &key)
    {
@@ -708,7 +708,7 @@ public:
 
    // opt(index/label/Lookup)
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    const std::optional<PART> opt(const KEY &key) const
    {
@@ -718,7 +718,7 @@ public:
 
    // Opt(index/label/Lookup)
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    const GNDStk::Optional<PART> Opt(const KEY &key) const
    {
@@ -726,13 +726,13 @@ public:
       return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
    }
 
-   // (index/label/Lookup), including Lookup<LookupMode::exists> (via the "has" function)
+   // (index/label/Lookup), including Lookup<exists> (via the "has" function)
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator()(const KEY &key) const
    {
-      if constexpr (detail::isLookupBoolReturn<KEY>) {
+      if constexpr (detail::isLookupBoolReturn_v<KEY>) {
          // a bool
          return whole(key);
       } else {
@@ -747,11 +747,11 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator()(const KEY &key)
    {
-      if constexpr (detail::isLookupBoolReturn<KEY>) {
+      if constexpr (detail::isLookupBoolReturn_v<KEY>) {
          // a bool
          return whole(key);
       } else {
@@ -762,13 +762,13 @@ public:
 
    // [index/label/Lookup]
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator[](const KEY &key) const
       { return (*this)(key); }
 
    template<
-      class KEY, class = detail::isSearchKey<KEY>,
+      class KEY, class = detail::isLookup_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    decltype(auto) operator[](const KEY &key)
       { return (*this)(key); }
@@ -829,7 +829,7 @@ public:
    // If WHOLE == vector
    // replace(index/label/Lookup, element)
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &replace(const KEY &key, const std::optional<PART> &opt)
    {
@@ -838,7 +838,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &operator()(const KEY &key, const std::optional<PART> &opt)
    {
@@ -892,7 +892,7 @@ public:
    // If WHOLE == vector
    // replace(index/label/Lookup, element)
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &replace(const KEY &key, const GNDStk::Optional<PART> &opt)
    {
@@ -901,7 +901,7 @@ public:
    }
 
    template<
-      class KEY, class = detail::isSearchKeyRefReturn<KEY>,
+      class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
    DERIVED &operator()(const KEY &key, const GNDStk::Optional<PART> &opt)
    {
