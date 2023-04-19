@@ -69,7 +69,7 @@ void toNode(std::string &text) const
          using T = std::decay_t<decltype(vec[0])>;
          std::size_t count = 0;
 
-         for (auto i = bounds.first; i < bounds.second; ++i) {
+         for (std::size_t i = bounds.first; i < bounds.second; ++i) {
             oss << (count++ ? " " : "");
             if constexpr (std::is_floating_point_v<T>) {
                oss << detail::Precision<

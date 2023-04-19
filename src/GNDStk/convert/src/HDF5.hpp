@@ -33,7 +33,7 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
       detail::warn_node_top_metadata(node,context);
       bool found_dec = false;
 
-      for (auto &cptr : node.children) {
+      for (const auto &cptr : node.children) {
          if (cptr->name == special::xml ) continue;
          if (cptr->name == special::json) continue;
 

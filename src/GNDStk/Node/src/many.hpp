@@ -31,7 +31,7 @@ CONTAINER<Node> many(
          found = true;
       } else {
          // search in the current node's children
-         for (auto &c : children) {
+         for (const childPtr &c : children) {
             if (std::regex_match(c->name, std::regex(key)) && filter(*c)) {
                container.push_back(*c); // can throw
                found = true;

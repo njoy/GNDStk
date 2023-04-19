@@ -93,7 +93,7 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
 {
    const std::string &parent = node.name;
 
-   for (auto &meta : node.metadata) {
+   for (const auto &meta : node.metadata) {
       const std::string &key = meta.first;
       const std::string &value = meta.second;
 
@@ -163,7 +163,7 @@ void meta2hdf5_typed(const NODE &node, OBJECT &hdf5)
 template<class NODE, class OBJECT>
 void meta2hdf5_plain(const NODE &node, OBJECT &hdf5)
 {
-   for (auto &meta : node.metadata)
+   for (const auto &meta : node.metadata)
       hdf5.createAttribute(meta.first, meta.second);
 }
 
@@ -349,7 +349,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    // children - preprocess
    // To understand this, see the remark in the JSON analog.
    std::map<std::string,std::size_t> childNames;
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       auto iter = childNames.find(c->name);
       if (iter == childNames.end())
          childNames.insert({c->name,0});
@@ -358,7 +358,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    }
 
    // children
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       const std::size_t counter = childNames.find(c->name)->second++;
       if (!node2hdf5(*c, group, counter ? std::to_string(counter-1) : ""))
          return false;

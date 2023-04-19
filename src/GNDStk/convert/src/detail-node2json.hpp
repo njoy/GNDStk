@@ -113,7 +113,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
    // Current node is the parent of its metadata
    const std::string &parent = node.name;
 
-   for (auto &meta : node.metadata) {
+   for (const auto &meta : node.metadata) {
       const std::string &key = meta.first;
       const std::string &value = meta.second;
 
@@ -203,7 +203,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
 template<class NODE>
 void meta2json_plain(const NODE &node, orderedJSON &json)
 {
-   for (auto &meta : node.metadata)
+   for (const auto &meta : node.metadata)
       json[meta.first] = meta.second;
 }
 
@@ -445,7 +445,7 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
    // then it serves as a counter to generate a 0-indexed numeric suffix that
    // makes the child names unique: name0, name1, etc.
    std::map<std::string,std::size_t> childNames;
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       auto iter = childNames.find(c->name);
       if (iter == childNames.end())
          childNames.insert({c->name,0}); // once (so far)
@@ -454,7 +454,7 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
    }
 
    // children
-   for (auto &c : node.children) {
+   for (const auto &c : node.children) {
       const std::size_t counter = childNames.find(c->name)->second++;
       if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
          return false;

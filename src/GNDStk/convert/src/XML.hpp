@@ -49,7 +49,7 @@ inline bool convert(const Node &node, XML &x)
       bool found_dec = false;
       bool found_top = false;
 
-      for (auto &cptr : node.children) {
+      for (const auto &cptr : node.children) {
          if (cptr->name == special::json) continue;
          if (cptr->name == special::hdf5) continue;
 
@@ -60,7 +60,7 @@ inline bool convert(const Node &node, XML &x)
                detail::info_node_multiple_dec(context);
             else
                xdecl = x.doc.append_child(pugi::node_declaration);
-            for (auto &meta : cptr->metadata)
+            for (const auto &meta : cptr->metadata)
                xdecl.append_attribute(meta.first.data()) = meta.second.data();
             found_dec = true;
          } else {

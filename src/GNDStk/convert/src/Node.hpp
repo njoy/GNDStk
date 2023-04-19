@@ -192,7 +192,7 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
       // into the Node's special::hdf5 child that would have been created above
 
       if (decl)
-         for (auto &attrName : rootGroup.listAttributeNames())
+         for (const auto &attrName : rootGroup.listAttributeNames())
             if (!detail::attr2node(rootGroup.getAttribute(attrName),*declnode))
                return false;
 

@@ -12,7 +12,7 @@ meta(
    bool &found = detail::default_bool
 ) const {
    // search
-   for (auto &m : metadata)
+   for (const auto &m : metadata)
       if (std::regex_match(m.first, std::regex(key)))
          return found = true, m.second;
 
@@ -92,7 +92,7 @@ void meta(
          // convert str, if any, to an object of the appropriate type
          if (found) {
             #ifdef GNDSTK_INSTRUMENT
-            for (auto &m : metadata)
+            for (const auto &m : metadata)
                if (std::regex_match(m.first, std::regex(kwd.name)))
                   detail::instrument::mark(m.first);
             #endif

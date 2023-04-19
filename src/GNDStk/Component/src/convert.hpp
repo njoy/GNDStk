@@ -13,7 +13,7 @@ struct CommentConverter {
 
       #ifdef GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
-      for (auto &m : node.metadata)
+      for (const auto &m : node.metadata)
          if (m.first == special::text)
             detail::instrument::mark(m.first);
       #endif
@@ -84,7 +84,7 @@ struct DataConverter {
 
       #ifdef GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
-      for (auto &m : data.metadata)
+      for (const auto &m : data.metadata)
          if (m.first == special::text)
             detail::instrument::mark(m.first);
       #endif
@@ -176,7 +176,7 @@ struct DataConverter {
 
       #ifdef GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
-      for (auto &m : data.metadata)
+      for (const auto &m : data.metadata)
          if (m.first == special::text)
             detail::instrument::mark(m.first);
       #endif

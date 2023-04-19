@@ -931,49 +931,49 @@ SCENARIO("Testing GNDStk::Node's operator()") {
 
       // numeric<> ==> vector<double>
       count = 0;
-      for (auto v : n(numeric<>))
+      for (const double v : n(numeric<>))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // numeric<double> ==> vector<double>
       count = 0;
-      for (auto v : n(numeric<double>))
+      for (const double v : n(numeric<double>))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // doubles: same as numeric<double>
       count = 0;
-      for (auto v : n(doubles))
+      for (const double v : n(doubles))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // numeric<float> ==> vector<float>
       count = 0;
-      for (auto v : n(numeric<float>))
+      for (const float v : n(numeric<float>))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // floats: same as numeric<float>
       count = 0;
-      for (auto v : n(floats))
+      for (const float v : n(floats))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // numeric<vector<double>> ==> vector<double>
       count = 0;
-      for (auto v : n(numeric<std::vector<double>>))
+      for (const double v : n(numeric<std::vector<double>>))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // numeric<vector<float>> ==> vector<float>
       count = 0;
-      for (auto v : n(numeric<std::vector<float>>))
+      for (const float v : n(numeric<std::vector<float>>))
          if (count++ % stride == 0) oss << v << std::endl;
       oss << std::endl;
 
       // numeric<vector<pair<double,double>>> ==> vector<pair<double,double>>
       count = 0;
-      for (auto v : n(numeric<std::vector<std::pair<double,double>>>))
+      for (const auto &v : n(numeric<std::vector<std::pair<double,double>>>))
          if (count++ % stride == 0)
             oss << v.first << ", " << v.second << std::endl;
 

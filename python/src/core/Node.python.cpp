@@ -76,7 +76,7 @@ void wrapNode(python::module &module)
          [] (const Component &self) -> std::vector<RefConstComponent>
          {
             std::vector<RefConstComponent> children;
-            for (auto &pointer : self.children)
+            for (const auto &pointer : self.children)
                children.push_back(std::cref(*pointer));
             return children;
          },

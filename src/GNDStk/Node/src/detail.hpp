@@ -635,7 +635,7 @@ public:
             childNodePtr.push_back(&parent);
          else {
             const std::regex regex(kwd.name);
-            for (auto &c : parent.children)
+            for (const auto &c : parent.children)
                if (std::regex_match(c->name, regex) && kwd.filter(*c))
                   childNodePtr.push_back(&(*c));
          }
@@ -725,7 +725,7 @@ public:
    {
       std::vector<TYPE> vec;
       vec.reserve(size());
-      for (auto &elem : childNodePtr) {
+      for (const auto &elem : childNodePtr) {
          static TYPE obj{};
          kwd.converter(*elem,obj);
          vec.push_back(obj);
@@ -744,7 +744,7 @@ public:
    {
       std::vector<NODE> vec;
       vec.reserve(size());
-      for (auto &elem : childNodePtr)
+      for (const auto &elem : childNodePtr)
          vec.push_back(*elem);
       return vec;
    }

@@ -87,11 +87,11 @@ bool node2xml(const NODE &node, pugi::xml_node &x)
    pugi::xml_node xnode = x.append_child(node.name.data());
 
    // metadata
-   for (auto &meta : node.metadata)
+   for (const auto &meta : node.metadata)
       xnode.append_attribute(meta.first.data()) = meta.second.data();
 
    // children
-   for (auto &child : node.children) {
+   for (const auto &child : node.children) {
       try {
          // special element
          if (child->name == special::cdata)

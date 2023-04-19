@@ -61,7 +61,7 @@ const std::string &documentation(bool &found = detail::default_bool) const
    // of the top-level nodes. In a properly formatted GNDS file, there will
    // be just one such top-level node, e.g. reactionSuite.
    if (name == "/")
-      for (auto &ptr : children)
+      for (const childPtr &ptr : children)
          if (look(*ptr,s))
             return found = true, *s;
 
@@ -157,7 +157,7 @@ const std::string &comment(
 ) const {
    std::size_t count = 0;
 
-   for (auto &c : children)
+   for (const childPtr &c : children)
       if (c->name == special::comment && count++ == i)
          return c->meta(special::text,found);
 
@@ -203,7 +203,7 @@ comments(bool &found = detail::default_bool) const
 {
    CONTAINER<std::string,Args...> container;
    const std::string *text;
-   for (auto &c : children)
+   for (const childPtr &c : children)
       if (c->name == special::comment &&
          (text = &c->meta(special::text,found), found))
          container.push_back(*text);

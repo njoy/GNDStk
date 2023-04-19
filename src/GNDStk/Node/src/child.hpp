@@ -358,7 +358,7 @@ void child(
          // ------------------------
 
          const auto names = detail::name_split(kwd);
-         for (auto &c : children) {
+         for (const childPtr &c : children) {
             bool f = false; // per-child "found", over variant alternatives
             if (variant_find_many<0,std::variant_size_v<TYPE>>
                   (*c, kwd, names, f, existing, 0)
@@ -384,7 +384,7 @@ void child(
             existing.reserve(count(kwd));
 
             // search in the current Node's children
-            for (auto &c : children) {
+            for (const childPtr &c : children) {
                if (std::regex_match(c->name, std::regex(kwd.name)) &&
                    kwd.filter(*c)
                ) {

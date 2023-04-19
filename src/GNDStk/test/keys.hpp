@@ -217,7 +217,7 @@ public:
          // The metadatum's string value is the content: "0.0 1.0 ..." in our
          // example. Goal here: extract that content into the container.
          container.clear();
-         for (auto &m : node.metadata)
+         for (const auto &m : node.metadata)
             if (m.first == special::text) {
                convert(m.second, container);
                return;

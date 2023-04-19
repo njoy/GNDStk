@@ -361,7 +361,7 @@ std::string capital(const std::string &str)
 std::string allcaps(const std::string &str)
 {
    std::string ret = str;
-   for (auto i = ret.size(); i--; )
+   for (std::size_t i = ret.size(); i--; )
       ret[i] = toupper(ret[i]);
    return ret;
 }
@@ -383,7 +383,7 @@ std::string UpperCamel(const std::string &str)
 std::string replace(const std::string &str, const char from, const char to)
 {
    std::string ret = str;
-   for (auto i = ret.size(); i--; )
+   for (std::size_t i = ret.size(); i--; )
       if (ret[i] == from)
          ret[i] = to;
    return ret;

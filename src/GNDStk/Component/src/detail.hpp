@@ -212,7 +212,7 @@ inline bool printComponentPart(
    const bool hascolor = GNDStk::colors && valueColor != "";
    bool start = true;
 
-   for (auto &ch : value) {
+   for (const char ch : value) {
       if (start && hascolor) os << valueColor;
       start = ch == '\n';
       if (start && hascolor) os << color::reset; // before os << \n...

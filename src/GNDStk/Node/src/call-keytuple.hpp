@@ -84,7 +84,7 @@ auto operator()(
       if (missing.size() > 0) {
          errorMessage +=
             "\nOne or more required metadata and/or children were not found:";
-         for (auto &m : missing)
+         for (const std::string &m : missing)
             errorMessage += m;
       }
       log::error(errorMessage);

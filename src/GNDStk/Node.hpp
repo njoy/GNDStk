@@ -161,14 +161,13 @@ public:
    {
       // Ensure that each child node has *this Node as its parent. This is just
       // a validity check, prior to destruction, but we might as well have it.
-      for (auto &c : children) {
+      for (const childPtr &c : children) {
          if (c->parentNode != this) {
             log::error("Internal error: child parentNode != parent");
             log::dtor("~Node()");
          }
       }
    }
-
 }; // class Node
 
 

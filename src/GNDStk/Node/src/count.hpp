@@ -83,7 +83,7 @@ std::size_t count(
    // regex label match. GNDS labels tend to contain special regex characters,
    // so we don't want a regex match to be the default with label.
    std::size_t size = 0;
-   for (auto &c : children)
+   for (const childPtr &c : children)
       if (std::regex_match(c->name, std::regex(key)) && filter(*c))
          size++;
 
