@@ -32,7 +32,7 @@ decltype(auto) tupleApplyHead(
 }
 
 // tupleApply
-template<class... Ks, std::size_t... Is>
+template<class... Ks, size_t... Is>
 decltype(auto) tupleApply(
    const std::tuple<Ks...> &tup,
    bool &found,
@@ -97,7 +97,7 @@ auto operator()(
          std::apply(
             [&names](const Ks &... key) {
                using detail::keyname;
-               std::size_t n = 0;
+               size_t n = 0;
              ((names += keyname(key) + (++n < sizeof...(Ks) ? "," : "")), ...);
             },
             keytup.tup

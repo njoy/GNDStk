@@ -137,7 +137,7 @@ inline std::string diagnostic(
    static const std::string under = "\033[4m";  // underline on
    static const std::string unoff = "\033[24m"; // underline off
    static const std::string reset = "\033[0m";  // all colors/decorations off
-   static const std::size_t warn = 7; // length of "warning", the longest label
+   static const size_t warn = 7; // length of "warning", the longest label
 
    // full text, including the (possibly underlined) prefix if one was provided
    const std::string text = prefix == ""

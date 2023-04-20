@@ -50,7 +50,7 @@ void toNode(std::string &text) const
     ? runtime
     ? std::visit([](auto &&vec) { return detail::getBounds(vec); }, variant)
     : detail::getBounds(vector)
-    : std::make_pair(std::size_t(0),size());
+    : std::make_pair(size_t(0),size());
 
    // Compute length, start, and valueType
    vars.length = size(); // independent of trim
@@ -67,9 +67,9 @@ void toNode(std::string &text) const
       [bounds,&oss](auto &&vec)
       {
          using T = std::decay_t<decltype(vec[0])>;
-         std::size_t count = 0;
+         size_t count = 0;
 
-         for (std::size_t i = bounds.first; i < bounds.second; ++i) {
+         for (size_t i = bounds.first; i < bounds.second; ++i) {
             oss << (count++ ? " " : "");
             if constexpr (std::is_floating_point_v<T>) {
                oss << detail::Precision<

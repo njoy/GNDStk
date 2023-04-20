@@ -245,13 +245,13 @@ struct isMatchExact<FROM,GNDStk::Optional<std::vector<FROM,Alloc>>>
 // general
 template<class, class>
 struct MatchesExact {
-   static constexpr std::size_t count = 0;
+   static constexpr size_t count = 0;
 };
 
 // FROM, tuple<...>
 template<class FROM, class... TOs>
 struct MatchesExact<FROM,std::tuple<TOs...>> {
-   static constexpr std::size_t count = (
+   static constexpr size_t count = (
       isMatchExact<
          FROM,
          std::decay_t<decltype(Node{}(std::declval<TOs>()))>
@@ -295,13 +295,13 @@ struct isMatchViable<FROM,GNDStk::Optional<std::vector<TO,Alloc>>>
 // general
 template<class, class>
 struct MatchesViable {
-   static constexpr std::size_t count = 0;
+   static constexpr size_t count = 0;
 };
 
 // FROM, tuple<...>
 template<class FROM, class... TOs>
 struct MatchesViable<FROM,std::tuple<TOs...>> {
-   static constexpr std::size_t count = (
+   static constexpr size_t count = (
       isMatchViable<
          FROM,
          std::decay_t<decltype(Node{}(std::declval<TOs>()))>

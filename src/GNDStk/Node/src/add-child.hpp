@@ -127,8 +127,8 @@ Node &add(
       std::string name = kwd.name;
       if constexpr (detail::isVariant_v<TYPE>) {
          std::istringstream names(kwd.name);
-         const std::size_t index = TYPE(val).index();
-         for (std::size_t i = 0; i <= index; ++i)
+         const size_t index = TYPE(val).index();
+         for (size_t i = 0; i <= index; ++i)
             names >> name;
          // todo Have a warning or error if we can't properly extract
          // the index()-th name. This might mean someone didn't formulate

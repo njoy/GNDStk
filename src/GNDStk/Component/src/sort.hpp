@@ -15,7 +15,7 @@ void sort()
       // Apply links
       std::apply(
          [this](const auto &... key) {
-            std::size_t n = 0;
+            size_t n = 0;
             (
                detail::sort(
                   *(

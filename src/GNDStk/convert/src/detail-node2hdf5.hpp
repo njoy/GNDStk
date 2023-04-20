@@ -348,7 +348,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
 
    // children - preprocess
    // To understand this, see the remark in the JSON analog.
-   std::map<std::string,std::size_t> childNames;
+   std::map<std::string,size_t> childNames;
    for (const auto &c : node.children) {
       auto iter = childNames.find(c->name);
       if (iter == childNames.end())
@@ -359,7 +359,7 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
 
    // children
    for (const auto &c : node.children) {
-      const std::size_t counter = childNames.find(c->name)->second++;
+      const size_t counter = childNames.find(c->name)->second++;
       if (!node2hdf5(*c, group, counter ? std::to_string(counter-1) : ""))
          return false;
    }

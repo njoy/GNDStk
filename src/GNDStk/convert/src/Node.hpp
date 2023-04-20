@@ -32,7 +32,7 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
 
       // Validation, itself, is independent of whether decl is true or false
 
-      std::size_t size = 0;
+      size_t size = 0;
       std::string one, two;
       for (const pugi::xml_node &xnode : x.doc) {
          size++;

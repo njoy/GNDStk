@@ -50,7 +50,7 @@ the enclosing class to do the right thing.
 
 // Helper
 template<class KEY>
-const std::string getName(const KEY &key, const std::size_t n) const
+const std::string getName(const KEY &key, const size_t n) const
 {
    return detail::getName(key) == special::comment
       ? special::comment
@@ -104,14 +104,14 @@ std::ostream &print(
       // to factor this in, on a case-by-case basis, all objects of this
       // particular Component<...> type will print with consistent spacing.
       // We prefer this behavior, and its code is also slightly simpler.
-      std::size_t maxlen = 0;
+      size_t maxlen = 0;
 
       if (GNDStk::align) {
          std::apply(
             [this,&maxlen](const auto &... key)
             {
                using namespace detail;
-               std::size_t n = 0;
+               size_t n = 0;
                ((
                   n++,
                   maxlen = std::max(
@@ -135,7 +135,7 @@ std::ostream &print(
          [this,&os,&level,maxlen](const auto &... key)
          {
             using namespace detail;
-            std::size_t n = 0;
+            size_t n = 0;
             (((
                n++, // not in any [n-1] below, lest undefined evaluation order
                // indent, value, newline
@@ -177,11 +177,11 @@ std::ostream &print(
          derived().print(tmp,level+1);
          const std::string &str = tmp.str();
 
-         std::size_t size = str.size();
+         size_t size = str.size();
          if (size) {
             // expect that customizations may have spurious newlines :-/
             if (str[size-1] == '\n') size--;
-            for (std::size_t i = 0; i < size; ++i)
+            for (size_t i = 0; i < size; ++i)
                os << str[i];
             os << std::endl;
          }
@@ -193,13 +193,13 @@ std::ostream &print(
          derived().print(tmp);
          const std::string &str = tmp.str();
 
-         std::size_t size = str.size();
+         size_t size = str.size();
          if (size) {
             // remark as above
             if (str[size-1] == '\n') size--;
             if (size)
                os << indentTo(level+1);
-            for (std::size_t i = 0; i < size; ++i)
+            for (size_t i = 0; i < size; ++i)
                os << str[i] << (str[i] == '\n' ? indentTo(level+1) : "");
             os << std::endl;
          }

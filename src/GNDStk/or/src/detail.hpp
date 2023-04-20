@@ -85,7 +85,7 @@ struct IsStringOrRegex<const char *> {
 };
 
 // char[N]
-template<std::size_t N>
+template<size_t N>
 struct IsStringOrRegex<char[N]> {
    static constexpr bool value = true;
    using type = std::string;
@@ -132,7 +132,7 @@ inline constexpr bool IsPairChildStringOrRegex_v =
 
 // Adapted from: https://stackoverflow.com/questions/51810702
 
-template<class... Args, std::size_t... Is>
+template<class... Args, size_t... Is>
 constexpr auto tupleAllButLastHelper(
    const std::tuple<Args...> &tup,
    std::index_sequence<Is...>

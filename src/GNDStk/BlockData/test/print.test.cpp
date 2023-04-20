@@ -247,7 +247,7 @@ template<class DATATYPE>
 void test_elements(
    const BlockData<true,DATATYPE> &b,
    const int indent,
-   const std::size_t columns,
+   const size_t columns,
    const int level,
    const long elements,
    const std::string &want

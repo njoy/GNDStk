@@ -94,7 +94,7 @@ void transferChild(
 // ------------------------
 
 template<class KEY>
-void transfer(const std::size_t n, const Node &node, const KEY &key)
+void transfer(const size_t n, const Node &node, const KEY &key)
 {
    using DEST = typename detail::queryResult<KEY>::type;
    DEST &to = *(DEST *)links[n];
@@ -152,7 +152,7 @@ void fromNode(const Node &node)
       // Node ==> derived-class data
       std::apply(
          [this,&node](const auto &... key) {
-            std::size_t n = 0; (this->transfer(n++, node, key), ...);
+            size_t n = 0; (this->transfer(n++, node, key), ...);
          },
          Keys().tup
       );

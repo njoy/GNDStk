@@ -45,7 +45,7 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 
       // transfer buffer, chucking last character iff it's a newline
       if (buffer) {
-         const std::size_t size = buffer.str().size();
+         const size_t size = buffer.str().size();
          if (size)
             os.write(buffer.str().data(), size-(buffer.str()[size-1] == '\n'));
       }

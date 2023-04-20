@@ -109,7 +109,7 @@ public:
       vec(vec)
    { }
 
-   template<std::size_t N>
+   template<size_t N>
    explicit IntegerTuple(const std::array<int,N> &arr) :
       vec(arr.begin(), arr.end())
    { }
@@ -123,9 +123,9 @@ public:
 
    // operator[]
    // we'll use at(), under-the-hood, so that out-of-range ==> exception
-   const int &operator[](const std::size_t i) const
+   const int &operator[](const size_t i) const
       { return vec.at(i); }
-   int &operator[](const std::size_t i)
+   int &operator[](const size_t i)
       { return vec.at(i); }
 
    // push
@@ -172,7 +172,7 @@ inline std::istream &operator>>(std::istream &is, IntegerTuple &obj)
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const IntegerTuple &obj)
 {
-   std::size_t n = 0;
+   size_t n = 0;
    while (n < obj.size())
       os << (n ? "," : "") << obj[n];
    return os;

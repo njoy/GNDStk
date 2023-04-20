@@ -263,7 +263,7 @@ public:
 
    // If T == [optional] vector
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   std::size_t size() const
+   size_t size() const
    {
       if constexpr (detail::isOptional<T>)
          return wrappedValue.has_value() ? wrappedValue->size() : 0;
@@ -777,7 +777,7 @@ public:
    // size()
    template<
       class T = WHOLE, class = detail::isVector_t<T>>
-   std::size_t size() const
+   size_t size() const
    {
       return whole.size();
    }

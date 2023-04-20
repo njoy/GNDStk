@@ -20,7 +20,7 @@ bool attr2node(const HighFive::Attribute &attr, NODE &node)
 {
    if (attr.getDataType() == HighFive::AtomicType<T>{}) {
       const std::string attrName = attr.getName();
-      const std::size_t attrSize = attr.getSpace().getElementCount();
+      const size_t attrSize = attr.getSpace().getElementCount();
 
       // Scalar case. Includes bool.
       // fixme. ...or doesn't include bool. 2022-06-16, the current HighFive
@@ -98,7 +98,7 @@ bool dset2node(const HighFive::DataSet &dset, NODE &node)
 {
    if (dset.getDataType() == HighFive::AtomicType<T>{}) {
       // Remarks as in the similar helper function attr2node()
-      const std::size_t dataSize = dset.getElementCount();
+      const size_t dataSize = dset.getElementCount();
 
       // See earlier fixme. bool support is removed for now, because it appears
       // to be broken in the latest HighFive.

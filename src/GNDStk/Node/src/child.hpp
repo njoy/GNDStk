@@ -66,17 +66,14 @@ child(
 
 private:
 
-template<
-   std::size_t n, std::size_t size,
-   class KWD, class... Ts
->
+template<size_t n, size_t size, class KWD, class... Ts>
 void variant_find_one(
    const KWD &kwd,
    const std::vector<std::string> &names,
    bool &found,
    std::variant<Ts...> &var,
    // variant alternative# that may have already been found...
-   std::size_t selectedAlternative
+   size_t selectedAlternative
 ) const {
    if constexpr (n < size) {
       bool f = false; // local "found"
@@ -257,7 +254,7 @@ void child(
 private:
 
 template<
-   std::size_t n, std::size_t size,
+   size_t n, size_t size,
    template<class...> class CONTAINER,
    class KWD, class... Ts
 >
@@ -267,7 +264,7 @@ bool variant_find_many(
    const std::vector<std::string> &names,
    bool &found,
    CONTAINER<std::variant<Ts...>> &containervar,
-   std::size_t selectedAlternative
+   size_t selectedAlternative
 ) const {
    if constexpr (n < size) {
       if (std::regex_match(c.name,std::regex(names[n])) && kwd.filter(c)) {

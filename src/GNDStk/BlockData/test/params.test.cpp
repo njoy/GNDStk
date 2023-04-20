@@ -31,13 +31,13 @@ void scenario_params()
       }
       THEN("It works for optional-with-value") {
          BlockData<true,DATATYPE> b;
-         b.length(std::optional<std::size_t>(34));
+         b.length(std::optional<size_t>(34));
          CHECK(b.length() == 34);
       }
       THEN("It works for optional-without-value (remains unchanged)") {
          BlockData<true,DATATYPE> b;
          b.length(56);
-         b.length(std::optional<std::size_t>(std::nullopt));
+         b.length(std::optional<size_t>(std::nullopt));
          CHECK(b.length() == 56);
       }
    }
@@ -51,13 +51,13 @@ void scenario_params()
       }
       THEN("It works for optional-with-value") {
          BlockData<true,DATATYPE> b;
-         b.start(std::optional<std::size_t>(13));
+         b.start(std::optional<size_t>(13));
          CHECK(b.start() == 13);
       }
       THEN("It works for optional-without-value (remains unchanged)") {
          BlockData<true,DATATYPE> b;
          b.start(17);
-         b.start(std::optional<std::size_t>(std::nullopt));
+         b.start(std::optional<size_t>(std::nullopt));
          CHECK(b.start() == 17);
       }
    }
@@ -95,8 +95,8 @@ void scenario_params()
       }
       THEN("It works for optional-with-value") {
          BlockData<true,DATATYPE> b;
-         b.length(std::optional<std::size_t>(3))
-          .start(std::optional<std::size_t>(4))
+         b.length(std::optional<size_t>(3))
+          .start(std::optional<size_t>(4))
           .valueType(std::optional<std::string>("b"));
          CHECK(b.length() == 3);
          CHECK(b.start() == 4);
@@ -105,8 +105,8 @@ void scenario_params()
       THEN("It works for optional-without-value (remains unchanged)") {
          BlockData<true,DATATYPE> b;
          b.length(100).start(200).valueType("c");
-         b.length(std::optional<std::size_t>(std::nullopt))
-          .start(std::optional<std::size_t>(std::nullopt))
+         b.length(std::optional<size_t>(std::nullopt))
+          .start(std::optional<size_t>(std::nullopt))
           .valueType(std::optional<std::string>(std::nullopt));
          CHECK(b.length() == 100);
          CHECK(b.start() == 200);

@@ -25,7 +25,7 @@ inline std::string guessType(std::istringstream &iss, const std::string &type)
    // EOF check is done first; it's no doubt faster, and we anticipate that
    // many times we're checking short strings with just one value in them,
    // so that the EOF is likely to be there.)
-   T value; std::size_t count = 0;
+   T value; size_t count = 0;
    for ( ; !iss.eof() ; ++count)
       if (!(iss >> value && (iss.peek() == EOF || isspace(iss.peek()))))
          return "";
@@ -36,7 +36,7 @@ inline std::string guessType(std::istringstream &iss, const std::string &type)
 inline std::string guessType(const std::string &str)
 {
    // the above helper assumes there are no trailing spaces
-   std::size_t end = str.size();
+   size_t end = str.size();
    while (end && isspace(str[end-1])) end--;
    std::istringstream iss(str.substr(0,end));
 

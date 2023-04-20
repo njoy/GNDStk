@@ -126,7 +126,7 @@ public:
    // the variant. Depending on what someone may or may not have done with the
    // current BlockData object, size() might or might not reflect the values of
    // length and/or start, or reflect the current contents of the raw string.
-   std::size_t size() const
+   size_t size() const
    {
       if constexpr (runtime)
          return std::visit([](auto &&alt) { return alt.size(); }, variant);

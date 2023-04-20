@@ -291,7 +291,7 @@ SCENARIO("Testing Component detail:: miscellaneous functions") {
 SCENARIO("Testing Component detail:: printComponentPart()") {
    // for clarity below
    int level;
-   std::size_t maxlen;
+   size_t maxlen;
    std::ostringstream oss;
    indent = 2;
    using detail::printComponentPart;

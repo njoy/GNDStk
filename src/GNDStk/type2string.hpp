@@ -56,7 +56,7 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
       std::ostream &os \
    ) { \
       const std::string sep = GNDStk::commas ? "," : " "; \
-      std::size_t count = 0; \
+      size_t count = 0; \
       for (const T &val : value) \
          if (!(os << (count++ ? sep : "") && (convert(val,os),os))) \
             break; /* might as well, because the stream is broken */ \

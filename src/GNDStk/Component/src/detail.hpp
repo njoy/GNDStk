@@ -177,7 +177,7 @@ inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 // ------------------------
 
 inline bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const std::string &value,
    const std::string &labelColor = color::label,
@@ -234,7 +234,7 @@ inline bool printComponentPart(
 
 template<bool preferCDATA>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t,
+   std::ostream &os, const int level, const size_t,
    const std::string &,
    const DataNode<std::string,preferCDATA> &value,
    const std::string & = "",
@@ -261,7 +261,7 @@ bool printComponentPart(
 
 template<class T, bool preferCDATA>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t,
+   std::ostream &os, const int level, const size_t,
    const std::string &,
    const DataNode<std::vector<T>,preferCDATA> &vec,
    const std::string & = "",
@@ -271,7 +271,7 @@ bool printComponentPart(
    // and labelColor aren't used.
 
    // If empty, don't even print a newline
-   const std::size_t size = vec.size();
+   const size_t size = vec.size();
    if (size == 0)
       return false;
 
@@ -284,9 +284,9 @@ bool printComponentPart(
    const std::string indent(GNDStk::indent * level, ' ');
 
    // End, given the requested truncation
-   const std::size_t end = GNDStk::elements < 0
+   const size_t end = GNDStk::elements < 0
       ? size
-      : std::min(size, std::size_t(GNDStk::elements));
+      : std::min(size, size_t(GNDStk::elements));
 
    // Compute the minimum and maximum values in the data vector, if we'll need
    // them. Our use of std::conditional_t allows us to avoid constructing two
@@ -296,19 +296,19 @@ bool printComponentPart(
    if constexpr (std::is_arithmetic_v<T>)
       if (shades) {
          min = max = vec[0]; // vec.size() == 0 was ruled out above
-         for (std::size_t i = 1; i < size; ++i) {
+         for (size_t i = 1; i < size; ++i) {
             min = std::min(min,vec[i]);
             max = std::max(max,vec[i]);
          }
       }
 
    // Print, using column formatting
-   for (std::size_t i = 0; i < end; ++i) {
+   for (size_t i = 0; i < end; ++i) {
       // element's whitespace prefix
       i == 0
          // at the very beginning
          ? os << indent
-         : GNDStk::columns <= 0 || i % std::size_t(GNDStk::columns) != 0
+         : GNDStk::columns <= 0 || i % size_t(GNDStk::columns) != 0
          // still on the current line
          ? os << ' '
          // starting the next line
@@ -349,7 +349,7 @@ bool printComponentPart(
 
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const T &value,
    const std::string &labelColor = isDerivedFromComponent_v<T>
@@ -396,7 +396,7 @@ bool printComponentPart(
 
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t,
+   std::ostream &os, const int level, const size_t,
    const std::string &label,
    const std::vector<T> &vec,
    const std::string &labelColor = color::vector,
@@ -421,7 +421,7 @@ bool printComponentPart(
    const std::string lab = isComment ? "comment" : label;
 
    if constexpr (isDerivedFromComponent_v<T>) {
-      std::size_t index = 0;
+      size_t index = 0;
 
       // elements
       for (const auto &element : vec) {
@@ -471,7 +471,7 @@ bool printComponentPart(
 
 template<class OPT>
 bool printComponentPart_helper(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const OPT &value,
    const std::string &labelColor = "",
@@ -509,7 +509,7 @@ bool printComponentPart_helper(
 // std::optional
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const std::optional<T> &value,
    const std::string &labelColor = "",
@@ -522,7 +522,7 @@ bool printComponentPart(
 // GNDStk::Optional
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const GNDStk::Optional<T> &value,
    const std::string &labelColor = "",
@@ -539,7 +539,7 @@ bool printComponentPart(
 
 template<class T>
 bool printComponentPart(
-   std::ostream &os, const int level, const std::size_t maxlen,
+   std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
    const Defaulted<T> &value,
    const std::string &labelColor = "",
@@ -594,7 +594,7 @@ bool compareRegular(const A &a, const B &b)
    // Intentional: some "if ((x = y))"s below; i.e. =, not ==
 
    // index?
-   std::size_t aindex = 0;  bool ahasindex = false;
+   size_t aindex = 0;  bool ahasindex = false;
    if constexpr (hasIndex<A>) {
       if constexpr (isOptional<decltype(A{}.index())>) {
          if ((ahasindex = a.index().has_value()))
@@ -605,7 +605,7 @@ bool compareRegular(const A &a, const B &b)
       }
    }
 
-   std::size_t bindex = 0;  bool bhasindex = false;
+   size_t bindex = 0;  bool bhasindex = false;
    if constexpr (hasIndex<B>) {
       if constexpr (isOptional<decltype(B{}.index())>) {
          if ((bhasindex = b.index().has_value()))

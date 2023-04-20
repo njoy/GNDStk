@@ -34,8 +34,8 @@ private:
 struct {
    // Any of these might or might not have appeared in a particular node that
    // had block data. For uniformity, we have them all here, and with defaults.
-   mutable std::size_t length = 0;
-   mutable std::size_t start = 0;
+   mutable size_t length = 0;
+   mutable size_t start = 0;
    mutable std::string valueType = "";
 } vars;
 
@@ -49,13 +49,13 @@ struct {
 public:
 
 // length
-std::size_t &length() const
+size_t &length() const
 {
    return vars.length;
 }
 
 // start
-std::size_t &start() const
+size_t &start() const
 {
    return vars.start;
 }
@@ -79,14 +79,14 @@ std::string &valueType() const
 // For std::optional
 // ------------------------
 
-BlockData &length(const std::optional<std::size_t> &opt)
+BlockData &length(const std::optional<size_t> &opt)
 {
    if (opt.has_value())
       vars.length = opt.value();
    return *this;
 }
 
-BlockData &start(const std::optional<std::size_t> &opt)
+BlockData &start(const std::optional<size_t> &opt)
 {
    if (opt.has_value())
       vars.start = opt.value();
@@ -104,14 +104,14 @@ BlockData &valueType(const std::optional<std::string> &opt)
 // For GNDStk::Optional
 // ------------------------
 
-BlockData &length(const GNDStk::Optional<std::size_t> &opt)
+BlockData &length(const GNDStk::Optional<size_t> &opt)
 {
    if (opt.has_value())
       vars.length = opt.value();
    return *this;
 }
 
-BlockData &start(const GNDStk::Optional<std::size_t> &opt)
+BlockData &start(const GNDStk::Optional<size_t> &opt)
 {
    if (opt.has_value())
       vars.start = opt.value();

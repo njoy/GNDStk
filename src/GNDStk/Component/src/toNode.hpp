@@ -8,7 +8,7 @@ private:
 template<class KEY>
 void node_add(
    Node &node, const KEY &key,
-   const std::size_t n
+   const size_t n
 ) const {
    using TYPE = typename detail::queryResult<KEY>::type;
    node.add(key, *(TYPE *)links[n]);
@@ -20,7 +20,7 @@ void node_add(
 template<class KEY>
 void node_add(
    Node &node, const std::pair<KEY,std::string> &pair,
-   const std::size_t n
+   const size_t n
 ) const {
    node_add(node,pair.first,n);
 }
@@ -60,20 +60,8 @@ explicit operator Node() const
       // can correctly use our generic void* link to a derived-class field.
       std::apply(
          [this,&node](const auto &... key) {
-            std::size_t n = 0;
-            (
-               /*
-               node.add(
-                  key,
-                  *(
-                     typename detail::queryResult<
-                        std::decay_t<decltype(key)>
-                     >::type
-                  *)links[n++]
-               ),
-               */
-               this->node_add(node,key,n++), ...
-            );
+            size_t n = 0;
+           (this->node_add(node,key,n++), ...);
          },
          Keys().tup
       );

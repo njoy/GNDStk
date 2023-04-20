@@ -444,7 +444,7 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
    // than once. Later, this 0/1 is used initially to make a boolean choice;
    // then it serves as a counter to generate a 0-indexed numeric suffix that
    // makes the child names unique: name0, name1, etc.
-   std::map<std::string,std::size_t> childNames;
+   std::map<std::string,size_t> childNames;
    for (const auto &c : node.children) {
       auto iter = childNames.find(c->name);
       if (iter == childNames.end())
@@ -455,7 +455,7 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
 
    // children
    for (const auto &c : node.children) {
-      const std::size_t counter = childNames.find(c->name)->second++;
+      const size_t counter = childNames.find(c->name)->second++;
       if (!node2json(*c, json, counter ? std::to_string(counter-1) : ""))
          return false;
    }

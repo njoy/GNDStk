@@ -40,20 +40,20 @@ std::ostream &print(std::ostream &os, const int level) const
          [&os,&indent,coloring](auto &&alt)
          {
             using T = std::decay_t<decltype(alt[0])>;
-            const std::size_t size = alt.size();
-            const std::size_t end = (GNDStk::elements < 0)
+            const size_t size = alt.size();
+            const size_t end = (GNDStk::elements < 0)
                ? size
-               : std::min(size,std::size_t(GNDStk::elements));
+               : std::min(size,size_t(GNDStk::elements));
 
             // Print, using column formatting
-            for (std::size_t i = 0; i < end; ++i) {
+            for (size_t i = 0; i < end; ++i) {
                const T &element = alt[i];
 
                // value's whitespace prefix
                i == 0
                   ? os << indent // at the very beginning, or...
                   : GNDStk::columns <= 0 ||
-                    i % std::size_t(GNDStk::columns) != 0
+                    i % size_t(GNDStk::columns) != 0
                   ? os << ' ' // still on the current line, or...
                   : os << '\n' << indent; // starting the next line
 

@@ -326,7 +326,7 @@ private:
          return false;
 
       // String size.
-      const std::size_t size = str.size();
+      const size_t size = str.size();
 
       // Assume, as a approximation that probably isn't too terrible, that the
       // printed floating-point numbers in the input string average around some
@@ -338,7 +338,7 @@ private:
       // this computation. It also might be worth considering the actual number
       // of threads, as computed above - and possibly, in borderline situations,
       // reducing the number of threads but still using more than just one.
-      static const std::size_t NCHARS = 10, MINFLOATS = 200;
+      static const size_t NCHARS = 10, MINFLOATS = 200;
       if (size/NCHARS < MINFLOATS)
          return false;
 
@@ -386,7 +386,7 @@ private:
             // the necessary reserve. The caller may or may not have been told,
             // by *its* caller, to clear the vector. Either cleared, or not
             // cleared, is perfectly allowable.
-            std::size_t total = vec.size();
+            size_t total = vec.size();
             for (int t = 0; t < nthreads; ++t)
                total += subvec[t].size();
             vec.reserve(total);

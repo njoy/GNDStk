@@ -75,7 +75,7 @@ static inline constexpr bool Matches =
 template<class FROM, class MC>
 bool added(
    const FROM &elem, const MC &mc,
-   const bool exact, const std::size_t n
+   const bool exact, const size_t n
 ) {
    // Silence warnings that seem to crop up with some compilers, when neither
    // of the below constexpr ifs passes.
@@ -101,7 +101,7 @@ bool added(
 template<class KEY, class FROM, class MC>
 bool replaced(
    const KEY &key, const FROM &elem, const MC &mc,
-   const bool exact, const std::size_t n
+   const bool exact, const size_t n
 ) {
    using T = std::decay_t<decltype(Node{}(mc))>;
    if ( exact) if constexpr (detail::isMatchExact <FROM,T>::count)
@@ -129,7 +129,7 @@ DERIVED &add(const FROM &elem)
    // scan until match
    std::apply(
       [this,&elem,exact](const auto &... mc) {
-         std::size_t n = 0; bool found = false;
+         size_t n = 0; bool found = false;
          ((found || (found = this->added(elem,mc,exact,n++))), ...);
       },
       Keys().tup
@@ -166,7 +166,7 @@ DERIVED &replace(const KEY &key, const FROM &elem)
    // scan until match
    std::apply(
       [this,&key,&elem,exact](const auto &... mc) {
-         std::size_t n = 0; bool found = false;
+         size_t n = 0; bool found = false;
          ((found || (found = this->replaced(key,elem,mc,exact,n++))), ...);
       },
       Keys().tup

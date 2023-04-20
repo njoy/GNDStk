@@ -16,12 +16,12 @@ namespace test {
 // Helper
 struct IndexStruct {
    struct {
-      std::size_t index;
+      size_t index;
    } Content;
-   const std::size_t &index() const { return Content.index; }
-   std::size_t &index() { return Content.index; }
+   const size_t &index() const { return Content.index; }
+   size_t &index() { return Content.index; }
 
-   IndexStruct(const std::size_t i = 0) { index() = i; }
+   IndexStruct(const size_t i = 0) { index() = i; }
    IndexStruct(const Node &) : IndexStruct(0) { }
 };
 

@@ -21,7 +21,7 @@ auto getBounds(const std::vector<T> &vec)
       zero = "";
    else
       zero = T(0);
-   std::pair<std::size_t,std::size_t> bnd(0,vec.size());
+   std::pair<size_t,size_t> bnd(0,vec.size());
    while (bnd.first < bnd.second && vec[bnd.first   ] == zero) ++bnd.first;
    while (bnd.first < bnd.second && vec[bnd.second-1] == zero) --bnd.second;
    return bnd;

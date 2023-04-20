@@ -54,8 +54,8 @@ struct IndexLabel {
    } Content;
    std::string value;
 
-   const std::size_t &index() const { return Content.index; };
-   std::size_t &index() { return Content.index; };
+   const size_t &index() const { return Content.index; };
+   size_t &index() { return Content.index; };
    const std::string &label() const { return Content.label; };
    std::string &label() { return Content.label; };
 

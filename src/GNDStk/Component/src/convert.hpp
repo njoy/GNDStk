@@ -137,7 +137,7 @@ struct DataConverter {
 
       std::ostringstream oss;
       {
-         std::size_t count = 0;
+         size_t count = 0;
          using namespace detail;
          for (const T &element : vec) {
             oss << (count++ ? " " : "");

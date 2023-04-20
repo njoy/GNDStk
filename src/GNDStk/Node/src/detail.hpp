@@ -650,13 +650,13 @@ public:
    // ------------------------
 
    // size
-   std::size_t size() const
+   size_t size() const
    {
       return childNodePtr.size();
    }
 
    // operator[]
-   decltype(auto) operator[](const std::size_t n) const
+   decltype(auto) operator[](const size_t n) const
    {
       if constexpr (std::is_same_v<TYPE,void>) {
          // For TYPE == void

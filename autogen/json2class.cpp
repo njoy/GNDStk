@@ -361,7 +361,7 @@ std::string capital(const std::string &str)
 std::string allcaps(const std::string &str)
 {
    std::string ret = str;
-   for (std::size_t i = ret.size(); i--; )
+   for (size_t i = ret.size(); i--; )
       ret[i] = toupper(ret[i]);
    return ret;
 }
@@ -383,14 +383,14 @@ std::string UpperCamel(const std::string &str)
 std::string replace(const std::string &str, const char from, const char to)
 {
    std::string ret = str;
-   for (std::size_t i = ret.size(); i--; )
+   for (size_t i = ret.size(); i--; )
       if (ret[i] == from)
          ret[i] = to;
    return ret;
 }
 
 // Stringify JSON
-// See: https://github.com/nlohmann/json/issues/642
+// See https://github.com/nlohmann/json/issues/642
 std::string stringify(const orderedJSON &j)
 {
    const auto tmp = j.dump();
@@ -884,9 +884,9 @@ class writer {
       if (recurse == 0) {
          using last = decltype(
             std::get<sizeof...(args)>(std::make_tuple(value,args...)));
-         const std::size_t nsub = std::count(str.begin(),str.end(),substitute);
+         const size_t nsub = std::count(str.begin(),str.end(),substitute);
          // a bool last argument is not interpreted as an argument to print...
-         const std::size_t narg =
+         const size_t narg =
             1 + sizeof...(args) - std::is_same_v<std::decay_t<last>,bool>;
          if (narg != nsub) {
             log::error(
@@ -1758,7 +1758,7 @@ void writeClass(
       out(1,"using DataNode::operator=;");
 
    // output: defaults (applicable only to metadata)
-   std::size_t ndefaults = 0;
+   size_t ndefaults = 0;
    for (const auto &m : per.metadata)
       if (m.isDefaulted)
          ++ndefaults;

@@ -204,7 +204,7 @@ std::enable_if_t<
          zero = T(0);
 
       // [*****----------]: leading 0s
-      for (std::size_t i = 0; i < start(); ++i)
+      for (size_t i = 0; i < start(); ++i)
          to->push_back(zero);
 
       // [-----*****-----]: values from the raw string
@@ -239,7 +239,7 @@ std::enable_if_t<
       }
 
       // [----------*****]: trailing 0s
-      for (std::size_t i = to->size(); i < length(); ++i)
+      for (size_t i = to->size(); i < length(); ++i)
          to->push_back(zero);
 
       act = Active::vector; // was string; now is vector
@@ -350,7 +350,7 @@ std::enable_if_t<
    supported<T> && (runtime || std::is_same_v<T,DATATYPE>),
    const T &
 >
-get(const std::size_t n) const
+get(const size_t n) const
 {
    try {
       return get<std::vector<T>>()[n];
@@ -366,7 +366,7 @@ std::enable_if_t<
    supported<T> && (runtime || std::is_same_v<T,DATATYPE>),
    T &
 >
-get(const std::size_t n)
+get(const size_t n)
 {
    return const_cast<T &>(std::as_const(*this).template get<T>(n));
 }
@@ -443,7 +443,7 @@ std::conditional_t<
    runtime,
    VariantOfScalars,
    const data_t &
-> get(const std::size_t n) const
+> get(const size_t n) const
 {
    try {
       get();
@@ -466,7 +466,7 @@ std::conditional_t<
    runtime,
    VariantOfScalars,
    const data_t &
-> operator[](const std::size_t n) const
+> operator[](const size_t n) const
 {
    return get(n);
 }
@@ -495,7 +495,7 @@ std::conditional_t<
 // get(n)
 template<class VOID = void, class D = DATATYPE>
 std::enable_if_t<std::is_same_v<VOID,void> && !detail::isVoid<D>, data_t &>
-get(const std::size_t n)
+get(const size_t n)
 {
    try {
       get();
@@ -509,7 +509,7 @@ get(const std::size_t n)
 // operator[](n)
 template<class D = DATATYPE>
 std::enable_if_t<!detail::isVoid<D>, data_t &>
-operator[](const std::size_t n)
+operator[](const size_t n)
 {
    return get(n);
 }
@@ -546,13 +546,13 @@ operator[](const std::size_t n)
    std::enable_if_t< \
       detail::isVoid<D> || std::is_same_v<TYPE,D>, \
       const TYPE & \
-   > name(const std::size_t n) const { return get<TYPE>(n); } \
+   > name(const size_t n) const { return get<TYPE>(n); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
       detail::isVoid<D> || std::is_same_v<TYPE,D>, \
       TYPE & \
-   > name(const std::size_t n) { return get<TYPE>(n); }
+   > name(const size_t n) { return get<TYPE>(n); }
 
 GNDSTK_MAKE_GETTER(strings,     std::string)
 GNDSTK_MAKE_GETTER(chars,       char)
