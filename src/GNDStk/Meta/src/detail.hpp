@@ -56,7 +56,7 @@ using default_converter_t = typename default_converter<TYPE>::type;
 // -----------------------------------------------------------------------------
 
 template<class T>
-inline T &make_once()
+T &make_once()
 {
    static T value;
    return value;

@@ -109,12 +109,12 @@ public:
       return static_cast<VECTOR &>(derived());
    }
 
+   // Wrapper for derived-class fields
+   #include "GNDStk/Component/src/field.hpp"
+
    // Forwards, where viable and unambiguous, to certain capabilities
    // in DERIVED's fields
    #include "GNDStk/Component/src/forward.hpp"
-
-   // Wrapper for derived-class fields
-   #include "GNDStk/Component/src/field.hpp"
 
    // Namespace, Class
    static std::string Namespace() { return DERIVED::NAMESPACE(); }

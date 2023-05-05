@@ -93,10 +93,10 @@ zzz Outline: code generator, Component base, Field, free has(), Field has().
 
 Lookup, like Meta, has a general definition followed by a specialization:
 
-   * Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>
+   * Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>
      Derives from Meta<TYPE,CONVERTER>
 
-   * Lookup<HAS,EXTRACTOR,void,void>
+   * Lookup<MODE,EXTRACTOR,void,void>
      Derived from Meta<void,void>
 
 zzz working here, documenting
@@ -107,12 +107,18 @@ zzz working here, documenting
 
 
 // -----------------------------------------------------------------------------
-// Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>
+// Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>
 // Based on Meta<TYPE,CONVERTER>
 // -----------------------------------------------------------------------------
 
+// LookupMode
+enum class LookupMode {
+   get,
+   exists
+};
+
 template<
-   bool HAS,
+   LookupMode MODE,
    class EXTRACTOR,
    // as with Meta<>...
    class TYPE = void,
@@ -120,18 +126,14 @@ template<
 >
 struct Lookup : public Meta<TYPE,CONVERTER>
 {
-   // constants
-   static inline constexpr bool Has = HAS;
-   static inline constexpr bool Void = false;
-
    // data
    EXTRACTOR extractor;
    TYPE value;
 
    // constructor
    Lookup(
-      const EXTRACTOR &extractor,
       const std::string &name,
+      const EXTRACTOR &extractor,
       const TYPE &value,
       const CONVERTER &converter = CONVERTER{}
    ) :
@@ -143,7 +145,7 @@ struct Lookup : public Meta<TYPE,CONVERTER>
 
 
 // -----------------------------------------------------------------------------
-// Lookup<HAS,EXTRACTOR,void,void>
+// Lookup<MODE,EXTRACTOR,void,void>
 // Based on Meta<void,void>
 // -----------------------------------------------------------------------------
 
@@ -159,7 +161,7 @@ message during compilation.
 
 If we instead wrote this Lookup partial specialization as:
 
-   Lookup<HAS,EXTRACTOR,void,void>
+   Lookup<MODE,EXTRACTOR,void,void>
 
 then the compiler would attempt to use the general class Lookup, defined above,
 and would emit what might be seen as somewhat confusing errors. One such error
@@ -186,27 +188,23 @@ so, we'd still like useful diagnostics to be emitted in the event that someone
 creates a Lookup object directly, not just in the simpler makeLookup() manner.
 */
 
-template<bool HAS, class EXTRACTOR, class CONVERTER>
-struct Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<void,void>
+template<LookupMode MODE, class EXTRACTOR, class CONVERTER>
+struct Lookup<MODE,EXTRACTOR,void,CONVERTER> : public Meta<void,void>
 {
    static_assert(
       // CONVERTER should be void too; give this requirement a good diagnostic
-      std::is_same_v<CONVERTER,void>,
-     "Can't create Lookup<HAS,EXTRACTOR,void,CONVERTER> unless CONVERTER "
+      detail::is_void_v<CONVERTER>,
+     "Can't create Lookup<MODE,EXTRACTOR,void,CONVERTER> unless CONVERTER "
      "is also void (or its default)"
    );
-
-   // constants
-   static inline constexpr bool Has = HAS;
-   static inline constexpr bool Void = true;
 
    // data
    EXTRACTOR extractor;
 
    // constructor
    Lookup(
-      const EXTRACTOR &extractor,
-      const std::string &name
+      const std::string &name,
+      const EXTRACTOR &extractor
    ) :
       Meta<void,void>(name),
       extractor(extractor)
@@ -217,13 +215,13 @@ struct Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<void,void>
    // ------------------------
 
    // The idea: we can apply operator() to *this generic Lookup:
-   //    Lookup<HAS,EXTRACTOR,void,void>
+   //    Lookup<MODE,EXTRACTOR,void,void>
    // to create a typed, specific-valued Lookup:
-   //    Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>
+   //    Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>
    template<class TYPE, class C = detail::default_converter_t<TYPE>>
    auto operator()(const TYPE &value, const C &converter = C{}) const
    {
-      return Lookup<HAS,EXTRACTOR,TYPE,C>(extractor, name, value, converter);
+      return Lookup<MODE,EXTRACTOR,TYPE,C>(name, extractor, value, converter);
    }
 
    // As above
@@ -232,7 +230,7 @@ struct Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<void,void>
    auto operator()(const char *const value, const C &converter = C{}) const
    {
       using TYPE = std::string;
-      return Lookup<HAS,EXTRACTOR,TYPE,C>(extractor, name, value, converter);
+      return Lookup<MODE,EXTRACTOR,TYPE,C>(name, extractor, value, converter);
    }
 };
 
@@ -243,19 +241,23 @@ struct Lookup<HAS,EXTRACTOR,void,CONVERTER> : public Meta<void,void>
 
 // For TYPE != void
 template<
-   bool HAS = false,
+   LookupMode MODE = LookupMode::get,
    class EXTRACTOR,
    class TYPE,
    class CONVERTER = detail::default_converter_t<TYPE>
 >
 auto makeLookup(
-   const EXTRACTOR &extractor,
    const std::string &name,
+   const EXTRACTOR &extractor,
    const TYPE &value,
    const CONVERTER &converter = CONVERTER{}
 ) {
-   return Lookup<HAS,EXTRACTOR,TYPE,CONVERTER>(
-      extractor, name, value, converter);
+   return Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>(
+      name,
+      extractor,
+      value,
+      converter
+   );
 }
 
 // For TYPE == void
@@ -263,29 +265,36 @@ auto makeLookup(
 // with this function, a Lookup can have its operator() called, with specific
 // values (and a converter if necessary) in order to create, as needed, Lookup
 // objects with specific values.
-template<bool HAS = false, class EXTRACTOR>
+template<
+   LookupMode MODE = LookupMode::get,
+   class EXTRACTOR
+>
 auto makeLookup(
-   const EXTRACTOR &extractor,
-   const std::string &name
+   const std::string &name,
+   const EXTRACTOR &extractor
 ) {
-   return Lookup<HAS,EXTRACTOR,void,void>(extractor,name);
+   return Lookup<MODE,EXTRACTOR,void,void>(
+      name,
+      extractor
+   );
 }
 
 
 // -----------------------------------------------------------------------------
 // has
+// 1-argument
 // -----------------------------------------------------------------------------
 
 // For TYPE != void
 template<
    class EXTRACTOR, class TYPE, class CONVERTER,
-   class = std::enable_if_t<!std::is_same_v<TYPE,void>>
+   class = std::enable_if_t<!detail::is_void_v<TYPE>>
 >
-auto has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &from)
+auto has(const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &from)
 {
-   return Lookup<true,EXTRACTOR,TYPE,CONVERTER>(
-      from.extractor,
+   return Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER>(
       from.name,
+      from.extractor,
       from.value,
       from.converter
    );
@@ -293,10 +302,37 @@ auto has(const Lookup<false,EXTRACTOR,TYPE,CONVERTER> &from)
 
 // For TYPE == void
 template<class EXTRACTOR>
-auto has(const Lookup<false,EXTRACTOR,void,void> &from)
+auto has(const Lookup<LookupMode::get,EXTRACTOR,void,void> &from)
 {
-   return Lookup<true,EXTRACTOR,void,void>(
-      from.extractor,
-      from.name
+   return Lookup<LookupMode::exists,EXTRACTOR,void,void>(
+      from.name,
+      from.extractor
    );
+}
+
+
+// -----------------------------------------------------------------------------
+// has
+// 0-argument
+// constexpr
+// Useful in some of our constexpr ifs
+// -----------------------------------------------------------------------------
+
+template<
+   class Class,
+   class EXTRACTOR,
+   class = decltype(std::declval<EXTRACTOR>()(Class{}))
+>
+constexpr bool has(const int)
+{
+   return true;
+}
+
+template<
+   class Class,
+   class EXTRACTOR
+>
+constexpr bool has(const double)
+{
+   return false;
 }

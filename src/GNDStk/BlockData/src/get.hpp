@@ -82,7 +82,6 @@ for type DATATYPE.
 */
 
 
-
 // -----------------------------------------------------------------------------
 // 1. get<std::vector<T>>()
 // -----------------------------------------------------------------------------
@@ -154,7 +153,7 @@ Of course we also have a non-const version, for a non-const *this.
 // const
 template<class VECTOR>
 std::enable_if_t<
-   ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   ( runtime && detail::is_in_v<VECTOR,VariantOfVectors>) ||
    (!runtime && std::is_same_v<VECTOR,std::vector<DATATYPE>>),
    const VECTOR &
 > get() const
@@ -312,14 +311,13 @@ std::enable_if_t<
 // non-const
 template<class VECTOR>
 std::enable_if_t<
-   ( runtime && detail::isAlternative<VECTOR,VariantOfVectors>) ||
+   ( runtime && detail::is_in_v<VECTOR,VariantOfVectors>) ||
    (!runtime && std::is_same_v<VECTOR,std::vector<DATATYPE>>),
    VECTOR &
 > get()
 {
    return const_cast<VECTOR &>(std::as_const(*this).template get<VECTOR>());
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -372,7 +370,6 @@ get(const size_t n)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // 3. get()
 // If DATATYPE == void, returns a variant<vector<>s>.
@@ -421,7 +418,6 @@ std::conditional_t<
       >
    >(std::as_const(*this).get());
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -494,7 +490,7 @@ std::conditional_t<
 
 // get(n)
 template<class VOID = void, class D = DATATYPE>
-std::enable_if_t<std::is_same_v<VOID,void> && !detail::isVoid<D>, data_t &>
+std::enable_if_t<detail::is_void_v<VOID> && !detail::is_void_v<D>, data_t &>
 get(const size_t n)
 {
    try {
@@ -508,12 +504,11 @@ get(const size_t n)
 
 // operator[](n)
 template<class D = DATATYPE>
-std::enable_if_t<!detail::isVoid<D>, data_t &>
+std::enable_if_t<!detail::is_void_v<D>, data_t &>
 operator[](const size_t n)
 {
    return get(n);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -532,25 +527,25 @@ operator[](const size_t n)
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      detail::is_void_v<D> || std::is_same_v<D,TYPE>, \
       const std::vector<TYPE> & \
    > name() const { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      detail::is_void_v<D> || std::is_same_v<D,TYPE>, \
       std::vector<TYPE> & \
    > name() { return get<std::vector<TYPE>>(); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      detail::is_void_v<D> || std::is_same_v<D,TYPE>, \
       const TYPE & \
    > name(const size_t n) const { return get<TYPE>(n); } \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
-      detail::isVoid<D> || std::is_same_v<TYPE,D>, \
+      detail::is_void_v<D> || std::is_same_v<D,TYPE>, \
       TYPE & \
    > name(const size_t n) { return get<TYPE>(n); }
 

@@ -1,7 +1,30 @@
 
 // Component::getter()
 // These retrieve names from the derived class (for use in printing diagnostics,
-// if applicable), then call detail::getter() functions to do most of the work.
+// if applicable), then call detail::compGetter() to do most of the work.
+
+// -----------------------------------------------------------------------------
+// getter<T>(variant)
+// The caller must specify T
+// -----------------------------------------------------------------------------
+
+// const
+template<
+   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>
+>
+const T *getter(const std::variant<Ts...> &var) const
+{
+   return detail::compGetter<T>(var);
+}
+
+// non-const
+template<
+   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>
+>
+T *getter(std::variant<Ts...> &var)
+{
+   return const_cast<T *>(std::as_const(*this).template getter<T>(var));
+}
 
 
 // -----------------------------------------------------------------------------
@@ -10,36 +33,30 @@
 // Remark: while two getter() functions that appear later in this file work
 // specifically on a vector<variant>, those require that the caller provide
 // a template argument. The following two can, in fact, also be called with
-// vector<variant>. Also, note that depending on which detail::getter() these
-// forward to, the return type might be a reference to something, or might be
-// a bool. Hence the decltype(auto) return type.
+// vector<variant>. Also, note that depending on which detail::compGetter()
+// these forward to, the return type might be a reference to something, or
+// might be a bool. Hence the decltype(auto) return type.
 // -----------------------------------------------------------------------------
 
 // const
 template<
-   class VEC, class KEY, class = detail::isLookup_t<KEY>,
-   class = std::enable_if_t<
-      detail::isVector_v<VEC> ||
-      detail::isOptionalVector_v<VEC>>
+   class VEC, class = std::enable_if_t<detail::isVectorOrOptionalVector_v<VEC>>,
+   LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER
 >
 decltype(auto) getter(
-   const VEC &vec, // vector, or optional vector
-   const KEY &key, // index, label, or Lookup
+   const VEC &vec, const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &key,
    const std::string &fieldName = ""
 ) const {
-   return detail::getter(vec, key, Namespace(), Class(), fieldName);
+   return detail::compGetter(vec, key, Namespace(), Class(), fieldName);
 }
 
 // non-const
 template<
-   class VEC, class KEY, class = detail::isLookup_t<KEY>,
-   class = std::enable_if_t<
-      detail::isVector_v<VEC> ||
-      detail::isOptionalVector_v<VEC>>
+   class VEC, class = std::enable_if_t<detail::isVectorOrOptionalVector_v<VEC>>,
+   LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER
 >
 decltype(auto) getter(
-   VEC &vec,
-   const KEY &key,
+   VEC &vec, const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &key,
    const std::string &fieldName = ""
 ) {
    using RET = decltype(
@@ -54,68 +71,34 @@ decltype(auto) getter(
 
 
 // -----------------------------------------------------------------------------
-// getter<RETURN>(variant)
-// The caller must specify RETURN
+// getter<T>(vector<variant>, key)
+// The caller must specify T
 // -----------------------------------------------------------------------------
 
 // const
 template<
-   class RETURN, class... Ts,
-   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>,
+   LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER
 >
-const RETURN *getter(
-   const std::variant<Ts...> &var,
-   const std::string &fieldName = ""
-) const {
-   return detail::getter<RETURN>(var, Namespace(), Class(), fieldName);
-}
-
-// non-const
-template<
-   class RETURN, class... Ts,
-   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
->
-RETURN *getter(
-   std::variant<Ts...> &var,
-   const std::string &fieldName = ""
-) {
-   return const_cast<RETURN *>(
-      std::as_const(*this).template getter<RETURN>(var, fieldName)
-   );
-}
-
-
-// -----------------------------------------------------------------------------
-// getter<RETURN>(vector<variant>, key)
-// The caller must specify RETURN
-// -----------------------------------------------------------------------------
-
-// const
-template<
-   class RETURN, class KEY, class... Ts,
-   class = detail::isLookup_t<KEY>,
-   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
->
-const RETURN *getter(
+const T *getter(
    const std::vector<std::variant<Ts...>> &vecvar,
-   const KEY &key,
+   const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &key,
    const std::string &fieldName = ""
 ) const {
-   return detail::getter<RETURN>(vecvar, key, Namespace(), Class(), fieldName);
+   return detail::compGetter<T>(vecvar, key, Namespace(), Class(), fieldName);
 }
 
 // non-const
 template<
-   class RETURN, class KEY, class... Ts,
-   class = detail::isLookup_t<KEY>,
-   class = std::enable_if_t<detail::isAlternative<RETURN,std::variant<Ts...>>>
+   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>,
+   LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER
 >
-RETURN *getter(
+T *getter(
    std::vector<std::variant<Ts...>> &vecvar,
-   const KEY &key,
+   const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &key,
    const std::string &fieldName = ""
 ) {
-   return const_cast<RETURN *>(
-      std::as_const(*this).template getter<RETURN>(vecvar, key, fieldName)
+   return const_cast<T *>(
+      std::as_const(*this).template getter<T>(vecvar, key, fieldName)
    );
 }

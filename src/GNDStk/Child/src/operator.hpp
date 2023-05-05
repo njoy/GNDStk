@@ -9,7 +9,7 @@
 
 // operator-
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator-(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+auto operator-(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.basic();
 }
@@ -23,7 +23,7 @@ inline auto operator-(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 
 // T/Child<TYPE,ALLOW,CONVERTER,FILTER>
 template<class T, class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator/(
+auto operator/(
    const T &,
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd
 ) {
@@ -36,7 +36,7 @@ inline auto operator/(
 
 // T/Child<void,ALLOW,void,FILTER>
 template<class T, Allow ALLOW, class FILTER>
-inline auto operator/(
+auto operator/(
    const T &,
    const Child<void,ALLOW,void,FILTER> &kwd
 ) {
@@ -61,7 +61,7 @@ inline auto operator/(
 
 // Child/string
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator/(
+auto operator/(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string &name
 ) {
@@ -70,7 +70,7 @@ inline auto operator/(
 }
 
 template<Allow ALLOW, class FILTER>
-inline auto operator/(
+auto operator/(
    const Child<void,ALLOW,void,FILTER> &kwd,
    const std::string &name
 ) {
@@ -81,7 +81,7 @@ inline auto operator/(
 // Child/char*
 // Forwards to Child/string
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator/(
+auto operator/(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const char *const name
 ) {
@@ -89,7 +89,7 @@ inline auto operator/(
 }
 
 template<Allow ALLOW, class FILTER>
-inline auto operator/(
+auto operator/(
    const Child<void,ALLOW,void,FILTER> &kwd,
    const char *const name
 ) {
@@ -103,7 +103,7 @@ inline auto operator/(
 // -----------------------------------------------------------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator*(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+auto operator*(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd/".*";
 }
@@ -116,13 +116,11 @@ inline auto operator*(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 // -----------------------------------------------------------------------------
 
 // Child<TYPE,ALLOW,CONVERTER,FILTER>/C
-template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class C>
-inline Child<
-   typename detail::isNotVoid<TYPE>::type, // for SFINAE
-   ALLOW,
-   C,
-   FILTER
-> operator/(
+template<
+   class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class C,
+   class = std::enable_if_t<!detail::is_void_v<TYPE>>
+>
+Child<TYPE,ALLOW,C,FILTER> operator/(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const C &converter
 ) {
@@ -134,18 +132,16 @@ inline Child<
 }
 
 // Child<void,ALLOW,void,FILTER>/C
-template<class TYPE, Allow ALLOW, class FILTER, class C>
-inline Child<
-   typename detail::is_void<TYPE>::type, // for SFINAE
-   ALLOW,
-   void,
-   FILTER
-> operator/(
+template<
+   class TYPE, Allow ALLOW, class FILTER, class C,
+   class = std::enable_if_t<detail::is_void_v<TYPE>>
+>
+Child<void,ALLOW,void,FILTER> operator/(
    const Child<TYPE,ALLOW,void,FILTER> &kwd,
    const C &
 ) {
    static_assert(
-      !std::is_same_v<TYPE,void>,
+      !detail::is_void_v<TYPE>,
       "Child<void>/CONVERTER not allowed; the Child must be non-void"
    );
    return kwd;
@@ -159,7 +155,7 @@ inline Child<
 
 // Child<TYPE>--
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator--(
+auto operator--(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const int
 ) {
@@ -173,7 +169,7 @@ inline auto operator--(
 
 // Child<void>--
 template<Allow ALLOW, class FILTER>
-inline auto operator--(
+auto operator--(
    const Child<void,ALLOW,void,FILTER> &kwd,
    const int
 ) {
@@ -188,14 +184,14 @@ inline auto operator--(
 
 // --Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator--(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+auto operator--(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.one();
 }
 
 // ++Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-inline auto operator++(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
+auto operator++(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 {
    return kwd.many();
 }
@@ -208,7 +204,7 @@ inline auto operator++(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd)
 
 // Child<TYPE,ALLOW,CONVERTER,FILTER> + F
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class F>
-inline auto operator+(
+auto operator+(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const F &filter
 ) {
@@ -221,7 +217,7 @@ inline auto operator+(
 
 // Child<void,ALLOW,void,FILTER> + F
 template<Allow ALLOW, class FILTER, class F>
-inline auto operator+(
+auto operator+(
    const Child<void,ALLOW,void,FILTER> &kwd,
    const F &filter
 ) {
@@ -242,7 +238,7 @@ inline auto operator+(
 template<
    Allow ALLOW, class CONVERTER, class FILTER
 >
-inline auto operator||(
+auto operator||(
    const Child<void,ALLOW,CONVERTER,FILTER> &a,
    const Child<void,ALLOW,CONVERTER,FILTER> &b
 ) {
@@ -260,11 +256,11 @@ template<
    class ATYPE, class BTYPE,
    Allow ALLOW, class CONVERTER, class FILTER,
    class = std::enable_if_t<
-      !detail::isVoid<ATYPE> &&
-      !detail::isVoid<BTYPE>
+      !detail::is_void_v<ATYPE> &&
+      !detail::is_void_v<BTYPE>
    >
 >
-inline auto operator||(
+auto operator||(
    const Child<ATYPE,ALLOW,CONVERTER,FILTER> &a,
    const Child<BTYPE,ALLOW,CONVERTER,FILTER> &b
 ) {

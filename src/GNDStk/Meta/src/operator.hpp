@@ -9,11 +9,10 @@
 
 // operator-
 template<class TYPE, class CONVERTER>
-inline auto operator-(const Meta<TYPE,CONVERTER> &kwd)
+auto operator-(const Meta<TYPE,CONVERTER> &kwd)
 {
    return kwd.basic();
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -23,7 +22,7 @@ inline auto operator-(const Meta<TYPE,CONVERTER> &kwd)
 
 // T/Meta<TYPE,CONVERTER>
 template<class T, class TYPE, class CONVERTER>
-inline auto operator/(const T &, const Meta<TYPE,CONVERTER> &kwd)
+auto operator/(const T &, const Meta<TYPE,CONVERTER> &kwd)
 {
    // Keep the old converter.
    // You must change that separately if it's necessary to do so,
@@ -33,13 +32,12 @@ inline auto operator/(const T &, const Meta<TYPE,CONVERTER> &kwd)
 
 // T/Meta<void>
 template<class T>
-inline auto operator/(const T &, const Meta<void> &kwd)
+auto operator/(const T &, const Meta<void> &kwd)
 {
    // Use our default converter. (The input, a Meta<void>, doesn't have one.)
    // You must change that separately if the default isn't wanted.
    return Meta<T>(kwd.name);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -51,7 +49,7 @@ inline auto operator/(const T &, const Meta<void> &kwd)
 
 // Meta/string
 template<class TYPE, class CONVERTER>
-inline auto operator/(
+auto operator/(
    const Meta<TYPE,CONVERTER> &kwd,
    const std::string &name
 ) {
@@ -64,13 +62,12 @@ inline auto operator/(
 // Forwards to Meta/string
 // Needed separately so that the generic Meta/C case below isn't used
 template<class TYPE, class CONVERTER>
-inline auto operator/(
+auto operator/(
    const Meta<TYPE,CONVERTER> &kwd,
    const char *const name
 ) {
    return kwd/std::string(name);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -79,11 +76,10 @@ inline auto operator/(
 // -----------------------------------------------------------------------------
 
 template<class TYPE, class CONVERTER>
-inline auto operator*(const Meta<TYPE,CONVERTER> &kwd)
+auto operator*(const Meta<TYPE,CONVERTER> &kwd)
 {
    return kwd/".*";
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -106,11 +102,11 @@ inline auto operator*(const Meta<TYPE,CONVERTER> &kwd)
 // the static assertion is the *only* thing that goes wrong in the <void> case.
 
 // Meta<TYPE,CONVERTER>/C
-template<class TYPE, class CONVERTER, class C>
-inline Meta<
-   typename detail::isNotVoid<TYPE>::type, // require non-void
-   C
-> operator/(
+template<
+   class TYPE, class CONVERTER, class C,
+   class = std::enable_if_t<!detail::is_void_v<TYPE>> // require non-void
+>
+Meta<TYPE,C> operator/(
    const Meta<TYPE,CONVERTER> &kwd,
    const C &converter
 ) {
@@ -119,20 +115,20 @@ inline Meta<
 }
 
 // Meta<void>/C
-template<class TYPE, class C>
-inline Meta<
-   typename detail::is_void<TYPE>::type // require void, but...
-> operator/(
+template<
+   class TYPE, class C,
+   class = std::enable_if_t<detail::is_void_v<TYPE>> // require void but...
+>
+Meta<void> operator/(
    const Meta<TYPE> &kwd,
    const C &
 ) {
    static_assert(
-      !std::is_same_v<TYPE,void>, // ...require non-void!
+      !detail::is_void_v<TYPE>, // ...require non-void!
       "Meta<void>/CONVERTER not allowed; the Meta type must be non-void"
    );
    return kwd; // need a return; but the static_assert will always fail
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -144,7 +140,7 @@ inline Meta<
 // Meta<void>--
 // Works for both
 template<class TYPE, class CONVERTER>
-inline auto operator--(
+auto operator--(
    const Meta<TYPE,CONVERTER> &kwd,
    const int
 ) {

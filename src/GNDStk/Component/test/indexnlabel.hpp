@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
-// Some classes we'll use in a couple of places, for testing either the
-// getter() functions in detail::, or the ones in the Component class.
+// Some classes we'll use in a couple of places, for testing the compGetter()
+// functions in detail::, or the getter() functions in class Component.
 // -----------------------------------------------------------------------------
 
 // Empty

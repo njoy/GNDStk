@@ -93,7 +93,6 @@ inline void failback(std::istream &is, const std::streampos pos)
 } // namespace detail
 
 
-
 // -----------------------------------------------------------------------------
 // Helper constructs for some simple Log-enhancing prettyprinting
 // -----------------------------------------------------------------------------
@@ -166,7 +165,6 @@ inline std::string context(const std::string &type, const std::string &name)
 } // namespace detail
 
 
-
 // -----------------------------------------------------------------------------
 // Miscellaneous flags
 // -----------------------------------------------------------------------------
@@ -198,7 +196,6 @@ inline long columns = 4;
 inline long elements = -1;
 
 
-
 // -----------------------------------------------------------------------------
 // Flags for fine-tuning diagnostic output
 // -----------------------------------------------------------------------------
@@ -225,7 +222,6 @@ inline bool debug = false;
 inline bool context = true;
 
 // We don't provide a way to suppress errors; too much could go wrong
-
 
 
 // -----------------------------------------------------------------------------
@@ -340,7 +336,6 @@ void assign(const std::string &str, Args &&...args)
 } // namespace log
 
 
-
 // -----------------------------------------------------------------------------
 // Forward declarations: some classes; convert
 // We're not fans of having lots of forward declarations, but these are here
@@ -382,7 +377,6 @@ bool convert(const HDF5 &, JSON &);
 bool convert(const HDF5 &, HDF5 &);
 
 
-
 // -----------------------------------------------------------------------------
 // Utility constructs
 // The functions here could possibly go into the detail namespace, but could
@@ -416,7 +410,6 @@ inline bool nocasecmp(const std::string &one, const std::string &two)
       [](const char a, const char b) { return tolower(a) == tolower(b); }
    );
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -466,7 +459,6 @@ inline bool endsin_hdf5(const std::string &str)
    // their file something.hdf or something.HDF. But if that happens, then we'll
    // also print a message about that extension not officially being for HDF5.
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -527,12 +519,22 @@ inline FileType string2filetype(const std::string &str, bool &matched)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // For SFINAE
 // -----------------------------------------------------------------------------
 
 namespace detail {
+
+// is_void_v
+template<class T>
+inline constexpr bool is_void_v = std::is_same_v<T,void>;
+
+// is_in_v
+// Does T appear in Ts? (gives false if the pack is empty, per fold's || rules)
+template<class T, class... Ts>
+inline constexpr bool is_in_v = (std::is_same_v<T,Ts> || ...);
+template<class T, class... Ts>
+inline constexpr bool is_in_v<T,std::variant<Ts...>> = is_in_v<T,Ts...>;
 
 // ------------------------
 // isVariant
@@ -553,67 +555,6 @@ inline constexpr bool isVariant_v = isVariant<T>::value;
 
 template<class T>
 using isVariant_t = std::enable_if_t<isVariant_v<T>>;
-
-// ------------------------
-// isAlternative
-// ------------------------
-
-// Is T one of the alternatives in variant<Ts...>?
-
-// no (general case)
-template<class T, class VARIANT>
-struct is_alternative {
-   static constexpr bool value = false;
-};
-
-// yes
-template<class T, class... Ts>
-struct is_alternative<T,std::variant<Ts...>> {
-   static constexpr bool value = (std::is_same_v<T,Ts> || ...);
-};
-
-template<class T, class VARIANT>
-inline constexpr bool isAlternative =
-   is_alternative<T,VARIANT>::value;
-
-// ------------------------
-// is_void
-// ------------------------
-
-// general
-template<class T>
-struct is_void {
-   static constexpr bool value = false;
-};
-
-// void
-template<>
-struct is_void<void> {
-   static constexpr bool value = true;
-   using type = void;
-};
-
-// isVoid
-template<class T>
-inline constexpr bool isVoid = is_void<T>::value;
-
-// ------------------------
-// isNotVoid
-// ------------------------
-
-// general
-template<class T>
-struct isNotVoid {
-   static constexpr bool value = true;
-   using type = T;
-};
-
-// void
-template<>
-struct isNotVoid<void> {
-   static constexpr bool value = false;
-};
-
 
 // ------------------------
 // isIterable
@@ -643,7 +584,6 @@ struct isIterable<
 } // namespace detail
 
 
-
 // -----------------------------------------------------------------------------
 // printFormat
 // -----------------------------------------------------------------------------
@@ -663,7 +603,6 @@ inline std::string printFormat(const FileType f)
 }
 
 } // namespace detail
-
 
 
 // -----------------------------------------------------------------------------

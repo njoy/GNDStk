@@ -23,7 +23,7 @@ inline bool commas = false;
 
 // default
 template<class T>
-inline void convert(const T &value, std::ostream &os)
+void convert(const T &value, std::ostream &os)
 {
    if constexpr (std::is_floating_point_v<T>) {
       os << detail::Precision<
@@ -42,7 +42,7 @@ inline void convert(const std::string &value, std::ostream &os)
 
 // pair
 template<class X, class Y>
-inline void convert(const std::pair<X,Y> &p, std::ostream &os)
+void convert(const std::pair<X,Y> &p, std::ostream &os)
 {
    if ((convert(p.first,os),os) && os << (GNDStk::commas ? ',' : ' '))
       convert(p.second,os);
@@ -76,7 +76,7 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
 
 // default
 template<class T>
-inline void convert(const T &value, std::string &str)
+void convert(const T &value, std::string &str)
 {
    // try block, in case someone overloads our convert()s
    try {

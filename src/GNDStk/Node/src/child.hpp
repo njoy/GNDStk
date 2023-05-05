@@ -54,7 +54,6 @@ child(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // child(Child<TYPE,one,...>[,found])
 // -----------------------------------------------------------------------------
@@ -153,7 +152,8 @@ public:
 
 
 // ------------------------
-// TYPE, optional<TYPE>
+// TYPE
+// optional<TYPE>
 // ------------------------
 
 template<class T, class CONVERTER, class FILTER>
@@ -230,7 +230,7 @@ void child(
 // With caller-specified type
 template<
    class TYPE, class... Ts, class CONVERTER, class FILTER,
-   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 void child(
    TYPE &existing,
@@ -239,7 +239,6 @@ void child(
 ) const {
    child(existing, existing/kwd, found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -435,7 +434,6 @@ void child(
 // return found == true, even for "0 size", which, as we've said, now means
 // that there's no value in the optional.
 
-// std::optional
 template<
    template<class...> class CONTAINER,
    class TYPE, class CONVERTER, class FILTER
@@ -443,31 +441,6 @@ template<
 void child(
    std::optional<CONTAINER<TYPE>> &existing,
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
-   bool &found = detail::default_bool
-) const {
-   try {
-      bool f;
-      CONTAINER<TYPE> obj;
-      child(obj, TYPE{}/kwd, f);
-      if (f)
-         existing = obj;
-      else
-         existing = std::nullopt;
-      found = true;
-   } catch (...) {
-      log::member("Node.child(" + detail::keyname(kwd) + " with Allow::many)");
-      throw;
-   }
-}
-
-// GNDStk::Optional
-template<
-   template<class...> class CONTAINER,
-   class TYPE, class CONVERTER, class FILTER
->
-void child(
-   GNDStk::Optional<CONTAINER<TYPE>> &existing,
-   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
@@ -525,7 +498,7 @@ template<
    class TYPE,
    template<class...> class CONTAINER,
    class... Ts, class CONVERTER, class FILTER,
-   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 void child(
    CONTAINER<TYPE> &existing,
@@ -534,7 +507,6 @@ void child(
 ) const {
    child<CONTAINER>(existing, TYPE{}/kwd, found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -559,7 +531,7 @@ TYPE child(
 // variant
 template<
    class TYPE, class... Ts, class CONVERTER, class FILTER,
-   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 TYPE child(
    const Child<std::variant<Ts...>,Allow::one,CONVERTER,FILTER> &kwd,
@@ -602,20 +574,6 @@ std::optional<CONTAINER<TYPE>> child(
    return ret;
 }
 
-// GNDStk::Optional
-template<
-   template<class...> class CONTAINER = std::vector,
-   class TYPE, class CONVERTER, class FILTER
->
-GNDStk::Optional<CONTAINER<TYPE>> child(
-   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
-   bool &found = detail::default_bool
-) const {
-   GNDStk::Optional<CONTAINER<TYPE>> ret;
-   child(ret, kwd, found);
-   return ret;
-}
-
 // Defaulted
 template<
    template<class...> class CONTAINER = std::vector,
@@ -635,9 +593,7 @@ template< // With caller-specified type
    class TYPE,
    template<class...> class CONTAINER = std::vector,
    class... Ts, class CONVERTER, class FILTER,
-   class = std::enable_if_t<
-      detail::isAlternative<TYPE,std::variant<Ts...>>
-   >
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 CONTAINER<TYPE> child(
    const Child<std::variant<Ts...>,Allow::many,CONVERTER,FILTER> &kwd,

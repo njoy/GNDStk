@@ -122,7 +122,7 @@ public:
 template<Allow ALLOW, class CONVERTER, class FILTER>
 class Child<void,ALLOW,CONVERTER,FILTER> {
    static_assert(
-      std::is_same_v<CONVERTER,void>,
+      detail::is_void_v<CONVERTER>,
      "Can't create Child<void,...> with non-default CONVERTER"
    );
 

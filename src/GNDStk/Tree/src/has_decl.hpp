@@ -3,7 +3,7 @@
 bool has_decl() const
 {
    // Does the tree have something that looks like a declaration node?
-   int count = 0;
+   size_t count = 0;
    for (const childPtr &c : children)
       if (c->name == special::xml ||
           c->name == special::json ||

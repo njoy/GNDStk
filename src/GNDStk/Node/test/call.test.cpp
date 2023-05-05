@@ -926,8 +926,8 @@ SCENARIO("Testing GNDStk::Node's operator()") {
       // with. There's nothing wrong with gigantic strings, except that I
       // don't want to hardcode, in this or any test file, a literal string
       // that's hundreds of pages long! :-)
-      const int stride = 200;
-      int count;
+      const size_t stride = 200;
+      size_t count;
 
       // numeric<> ==> vector<double>
       count = 0;

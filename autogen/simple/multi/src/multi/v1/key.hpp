@@ -25,9 +25,11 @@ namespace meta {
    inline const auto nameField = makeLookup( \
       #nameGNDS, \
       [](const auto &obj) -> decltype(obj.nameField()) \
-      { return obj.nameField(); } \
+      { \
+         return obj.nameField(); \
+      } \
    )
-// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS
+// nameField vs. nameGNDS: e.g. Double, vs. double in GNDS; usually identical
 
 GNDSTK_MAKE_LOOKUP(atomic_number,atomic_number);
 GNDSTK_MAKE_LOOKUP(mass_number,mass_number);

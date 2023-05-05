@@ -37,8 +37,7 @@ private:
 public:
 
   template < typename T,
-             typename = std::enable_if_t<
-                detail::isAlternative< T, VariantOfScalars > > >
+             typename = std::enable_if_t<detail::is_in_v<T,VariantOfScalars>>>
   Values( const std::optional< int >& length,
           const std::optional< int >& start,
           const std::optional< std::string >& valueType,

@@ -7,7 +7,7 @@
 // Terminology:
 //
 //    "plain"     : some type, but NOT optional or GNDStk::Defaulted
-//    "optional"  : std::optional or GNDStk::Optional
+//    "optional"  : std::optional
 //    "Defaulted" : GNDStk::Defaulted
 //
 // Note: in applicable add() functions throughout this file, we'll write:
@@ -203,58 +203,6 @@ bool add(
 
 
 // -----------------------------------------------------------------------------
-// Meta<GNDStk::Optional>, *
-// -----------------------------------------------------------------------------
-
-// Meta<GNDStk::Optional>, plain
-// Returns: metaPair &
-template<
-   class TYPE, class CONVERTER,
-   class T = TYPE,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-metaPair &add(
-   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &kwd,
-   const T &val = T{}
-) {
-   return add(kwd.name, TYPE(val), kwd.converter);
-}
-
-// Meta<GNDStk::Optional>, GNDStk::Optional
-// Returns: bool: was something added?
-template<
-   class TYPE, class CONVERTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &kwd,
-   const GNDStk::Optional<T> &opt
-) {
-   return opt.has_value()
-      ? (add(kwd.name, TYPE(opt.value()), kwd.converter), true)
-      :  false;
-}
-
-// Meta<GNDStk::Optional>, Defaulted
-// Returns: bool: was something added?
-template<
-   class TYPE, class CONVERTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &kwd,
-   const Defaulted<T> &def
-) {
-   return def.has_value()
-      ? (add(kwd.name, TYPE(def.value()), kwd.converter), true)
-      :  false;
-}
-
-
-
-// -----------------------------------------------------------------------------
 // Meta<Defaulted>, *
 // -----------------------------------------------------------------------------
 
@@ -282,22 +230,6 @@ template<
 bool add(
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    const std::optional<T> &opt
-) {
-   return opt.has_value()
-      ? (add(kwd.name, TYPE(opt.value()), kwd.converter), true)
-      :  false;
-}
-
-// Meta<Defaulted>, GNDStk::Optional
-// Returns: bool: was something added?
-template<
-   class TYPE, class CONVERTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
-   const GNDStk::Optional<T> &opt
 ) {
    return opt.has_value()
       ? (add(kwd.name, TYPE(opt.value()), kwd.converter), true)

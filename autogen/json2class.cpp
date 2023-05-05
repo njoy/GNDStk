@@ -17,10 +17,6 @@ const bool debugging = false;
 // Put print statements in constructor and assignment calls. For debugging.
 const bool printCtorCalls = false;
 
-// Optional type to use
-#define OPTIONAL "std::optional"
-//#define OPTIONAL "GNDStk::Optional"
-
 // Shortcut levels to utilize
 // 0 = all
 // 1 = none (child nodes are already there, by definition)
@@ -274,8 +270,17 @@ struct InfoSpecs {
 // Miscellaneous short functions
 // -----------------------------------------------------------------------------
 
-void action_helper(const std::string &str)
+void action_helper(std::string str)
 {
+   str.resize(80,' ');
+   // boldface + background color + foreground color + text
+   // std::cout << "\033[1m\033[48;2;80;80;80m\033[38;2;255;255;255m" << str;
+   // background color + foreground color + text
+   std::cout << "\033[48;2;80;80;80m\033[38;2;255;255;255m" << str;
+   std::cout << color::reset << std::endl;
+
+   /*
+   // loud colors; may or may not want
    static const int ncol = 80;
    static const int last = ncol-1;
 
@@ -288,6 +293,7 @@ void action_helper(const std::string &str)
                 << (col < str.size() ? str[col] : ' ');
    }
    std::cout << color::reset << std::endl;
+   */
 }
 
 // Print text describing an action the code is about to take
@@ -656,7 +662,7 @@ void getClassMetadata(
 
       // Optional? (not required, and has no default)
       m.isOptional = !metaRHS["required"] && m.defaultValue == "";
-      const std::string optPrefix = m.isOptional ? OPTIONAL "<" : "";
+      const std::string optPrefix = m.isOptional ? "std::optional<" : "";
       const std::string optSuffix = m.isOptional ? ">" : "";
 
       // Defaulted? (not required, but does have a default)
@@ -710,7 +716,7 @@ void getClassChildren(
 
       // Optional?
       c.isOptional = !elemRHS["required"];
-      const std::string optPrefix = c.isOptional ? OPTIONAL "<" : "";
+      const std::string optPrefix = c.isOptional ? "std::optional<" : "";
       const std::string optSuffix = c.isOptional ? ">" : "";
 
       // Vector?
@@ -1592,7 +1598,7 @@ void writeClassCtors(writer &out, const PerClass &per)
 
       for (const auto &m : per.metadata) {
          out(2,"const wrapper<@>",
-             m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull);
+             m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull);
          out(3,"&@@@",
              m.name, count ? " = {}" : "", count+1 < total ? "," : "");
          count++;
@@ -3702,7 +3708,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       // init<> arguments
       for (const auto &m : per.metadata)
          out(3,"const @ &@",
-             m.isDefaulted ? OPTIONAL "<" + m.type + ">" : m.typeFull,
+             m.isDefaulted ? "std::optional<" + m.type + ">" : m.typeFull,
              sep(count,total));
       for (const auto &c : per.children)
          out(3,"const @ &@", c.typeFull, sep(count,total));

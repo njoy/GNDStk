@@ -25,7 +25,6 @@ static void setter(std::vector<T> &vec, const FROM &value)
 // Create an empty vector in the optional<vector> if it has no value, then
 // push_back into the vector.
 
-// std::optional
 template<
    class T, class FROM,
    class = std::enable_if_t<
@@ -33,20 +32,6 @@ template<
    >
 >
 static void setter(std::optional<std::vector<T>> &opt, const FROM &value)
-{
-   if (!opt.has_value())
-      opt = std::vector<T>{};
-   opt->push_back(T(value));
-}
-
-// GNDStk::Optional
-template<
-   class T, class FROM,
-   class = std::enable_if_t<
-      std::is_constructible_v<T,FROM> || std::is_convertible_v<FROM,T>
-   >
->
-static void setter(GNDStk::Optional<std::vector<T>> &opt, const FROM &value)
 {
    if (!opt.has_value())
       opt = std::vector<T>{};

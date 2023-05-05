@@ -125,23 +125,26 @@ void assignHandle(
 
       // nullptr anywhere?
       if (lhs == nullptr && rhs == nullptr) {
-         good = false; log::error(bothNull,  classname);
+         good = false;
+         log::error(bothNull, classname);
       } else if (lhs == nullptr) {
-         good = false; log::error(leftNull,  classname);
+         good = false;
+         log::error(leftNull, classname);
       } else if (rhs == nullptr) {
-         good = false; log::error(rightNull, classname);
+         good = false;
+         log::error(rightNull,classname);
       }
 
       // check lhs
       if (lhs && findHandle<CPP>(lhs) == pointers.end()) {
-         log::error(leftUnk,  classname, reinterpret_cast<const void *>(lhs));
          good = false;
+         log::error(leftUnk,  classname, reinterpret_cast<const void *>(lhs));
       }
 
       // check rhs
       if (rhs && findHandle<CPP>(rhs) == pointers.end()) {
-         log::error(rightUnk, classname, reinterpret_cast<const void *>(rhs));
          good = false;
+         log::error(rightUnk, classname, reinterpret_cast<const void *>(rhs));
       }
 
       if (!good)
@@ -299,7 +302,7 @@ auto getField(
    try {
       const auto &field = *extract(tocpp<CPP>(ptr));
       const T &ret = field.value(); // .value() gets us into any optional
-      if constexpr (std::is_same_v<HANDLE,void>) {
+      if constexpr (is_void_v<HANDLE>) {
          // metadatum
          if constexpr (std::is_same_v<T,std::string>) {
             return ret.c_str();
@@ -312,7 +315,7 @@ auto getField(
       }
    } catch (...) {
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
-      if constexpr (std::is_same_v<HANDLE,void>) {
+      if constexpr (is_void_v<HANDLE>) {
          // metadatum
          if constexpr (std::is_same_v<T,std::string>) {
             return "";
@@ -337,12 +340,12 @@ void setField(
 ) {
    try {
       auto &field = *extract(tocpp<CPP>(ptr));
-      if constexpr (std::is_same_v<CLASS,void>) {
+      if constexpr (is_void_v<CLASS>) {
          // metadatum
-         field.replace(newvalue);
+         field = newvalue;
       } else {
          // child
-         field.replace(tocpp<CLASS>(newvalue));
+         field = tocpp<CLASS>(newvalue);
       }
    } catch (...) {
       log::function(
@@ -440,7 +443,7 @@ HANDLE getByIndex(
 ) {
    try {
       const auto &field = *extract(tocpp<CPP>(ptr));
-      return (HANDLE)&field(index);
+      return (HANDLE)&field[index];
    } catch (...) {
       log::function(
          "{}({} handle = {}, index = {})", funname, classname,
@@ -462,7 +465,7 @@ void setByIndex(
 ) {
    try {
       auto &field = *extract(tocpp<CPP>(ptr));
-      field.replace(index,tocpp<CLASS>(newvalue));
+      field[index] = tocpp<CLASS>(newvalue);
    } catch (...) {
       log::function(
          "{}({} handle = {}, value)", funname, classname, (void *)ptr);
@@ -508,7 +511,7 @@ HANDLE getByMetadatum(
 ) {
    try {
       const auto &field = *extract(tocpp<CPP>(ptr));
-      return (HANDLE)&field(meta(value));
+      return (HANDLE)&field[meta(value)];
    } catch (...) {
       log::function(
          "{}({} handle = {}, value)", funname, classname, (void *)ptr);
@@ -532,7 +535,7 @@ void setByMetadatum(
 ) {
    try {
       auto &field = *extract(tocpp<CPP>(ptr));
-      field.replace(meta(value),tocpp<CLASS>(newvalue));
+      field[meta(value)] = tocpp<CLASS>(newvalue);
    } catch (...) {
       log::function(
          "{}({} handle = {}, value)", funname, classname, (void *)ptr);
@@ -598,7 +601,7 @@ T vectorGet(
 
    try {
       const VECTOR *vec;
-      if constexpr (detail::isDerivedFromVector_v<CPP>)
+      if constexpr (isDerivedFromVector_v<CPP>)
          vec = static_cast<const VECTOR *>(&tocpp<CPP>(ptr));
       else
          vec = &tocpp<CPP>(ptr).template get<VECTOR>();
@@ -638,7 +641,7 @@ void vectorSet(
 
    try {
       VECTOR *vec;
-      if constexpr (detail::isDerivedFromVector_v<CPP>)
+      if constexpr (isDerivedFromVector_v<CPP>)
          vec = static_cast<VECTOR *>(&tocpp<CPP>(ptr));
       else
          vec = &tocpp<CPP>(ptr).template get<VECTOR>();
@@ -678,7 +681,7 @@ auto *vectorGet(
    using VECTOR = std::vector<T>;
 
    try {
-      if constexpr (detail::isDerivedFromVector_v<CPP>) {
+      if constexpr (isDerivedFromVector_v<CPP>) {
          auto &vec = tocpp<CPP>(ptr).baseObject();
          return vec.size() ? &vec[0] : nullptr;
       } else {
@@ -688,7 +691,7 @@ auto *vectorGet(
    } catch (...) {
       log::error("Exception thrown in detail::vectorGet");
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
-      if constexpr (detail::isDerivedFromVector_v<CPP>)
+      if constexpr (isDerivedFromVector_v<CPP>)
          return decltype(&(tocpp<CPP>(ptr).baseObject())[0])(nullptr);
       else
          return decltype(&(tocpp<CPP>(ptr).template get<VECTOR>())[0])(nullptr);
@@ -707,7 +710,7 @@ void vectorSet(
    using VECTOR = std::vector<T>;
 
    try {
-      if constexpr (detail::isDerivedFromVector_v<CPP>)
+      if constexpr (isDerivedFromVector_v<CPP>)
          static_cast<VECTOR &>(tocpp<CPP>(ptr)).assign(values,values+size);
       else
          tocpp<CPP>(ptr).template get<VECTOR>().assign(values,values+size);

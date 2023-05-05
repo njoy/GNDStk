@@ -47,7 +47,7 @@ public:
 template<class CONVERTER>
 class Meta<void,CONVERTER> {
    static_assert(
-      std::is_same_v<CONVERTER,void>,
+      detail::is_void_v<CONVERTER>,
      "Can't create Meta<void,CONVERTER> with non-default CONVERTER"
    );
 

@@ -4,7 +4,7 @@
 #include "prototype.hpp"
 
 using namespace njoy::GNDStk;
-using detail::getter;
+using detail::compGetter;
 
 
 
@@ -48,8 +48,8 @@ struct Both {
 
 
 // -----------------------------------------------------------------------------
-// Classes for testing hasIndex and hasLabel,
-// and for use in the getter() tests
+// Classes for testing has_index_v and has_label_v,
+// and for use in the compGetter() tests
 // -----------------------------------------------------------------------------
 
 #include "indexnlabel.hpp"
@@ -604,71 +604,71 @@ SCENARIO("Testing Component detail:: printComponentPart()") {
 
 SCENARIO("Testing Component detail:: classes for SFINAE") {
 
-   // hasIndex
-   CHECK((detail::hasIndex<Empty     > == false));
-   CHECK((detail::hasIndex<FooBar    > == false));
-   CHECK((detail::hasIndex<Index     > == true));
-   CHECK((detail::hasIndex<Label     > == false));
-   CHECK((detail::hasIndex<IndexLabel> == true));
+   // has_index_v
+   CHECK((detail::has_index_v<Empty     > == false));
+   CHECK((detail::has_index_v<FooBar    > == false));
+   CHECK((detail::has_index_v<Index     > == true));
+   CHECK((detail::has_index_v<Label     > == false));
+   CHECK((detail::has_index_v<IndexLabel> == true));
 
-   CHECK((detail::hasIndex<std::variant<Empty     ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Empty     ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Empty     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,FooBar    >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Label     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<Label     ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Label     ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Empty     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,FooBar    >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Label     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Empty     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,FooBar    >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Label     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Label     ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Label     ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Empty     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,FooBar    >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Label     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,IndexLabel>> == true));
 
-   // hasLabel
-   CHECK((detail::hasLabel<Empty     > == false));
-   CHECK((detail::hasLabel<FooBar    > == false));
-   CHECK((detail::hasLabel<Index     > == false));
-   CHECK((detail::hasLabel<Label     > == true));
-   CHECK((detail::hasLabel<IndexLabel> == true));
+   // has_label_v
+   CHECK((detail::has_label_v<Empty     > == false));
+   CHECK((detail::has_label_v<FooBar    > == false));
+   CHECK((detail::has_label_v<Index     > == false));
+   CHECK((detail::has_label_v<Label     > == true));
+   CHECK((detail::has_label_v<IndexLabel> == true));
 
-   CHECK((detail::hasLabel<std::variant<Empty     ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Empty     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<Index     ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Index     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Empty     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,FooBar    >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Index     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Empty     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,FooBar    >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Index     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Empty     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Index     ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Index     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Empty     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,FooBar    >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Index     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Empty     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,FooBar    >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Index     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,IndexLabel>> == true));
 }
 
 
@@ -677,7 +677,7 @@ SCENARIO("Testing Component detail:: classes for SFINAE") {
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing Component detail:: getter() functions") {
+SCENARIO("Testing Component detail:: compGetter() functions") {
    std::vector<IndexLabel> vec = {
       { 0, "a", "0a" },
       { 4, "e", "4e" },
@@ -695,14 +695,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
    GIVEN("A vector of objects that have both index and label") {
       // look for specific index
-      THEN("getter() based on index works properly") {
-         CHECK((getter(vec, index(0), "name", "class", "field").value() == "0a"));
-         CHECK((getter(vec, index(1), "name", "class", "field").value() == "1b"));
-         CHECK((getter(vec, index(2), "name", "class", "field").value() == "2c"));
-         CHECK((getter(vec, index(3), "name", "class", "field").value() == "3d"));
-         CHECK((getter(vec, index(4), "name", "class", "field").value() == "4e"));
+      THEN("compGetter() based on index works properly") {
+         CHECK((compGetter(vec, index(0), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(vec, index(1), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(vec, index(2), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(vec, index(3), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(vec, index(4), "name", "class", "field").value() == "4e"));
          try {
-            getter(vec, index(100), "name", "class", "field");
+            compGetter(vec, index(100), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -710,14 +710,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
-         CHECK((getter(vec, label("a"), "name", "class", "field").value() == "0a"));
-         CHECK((getter(vec, label("b"), "name", "class", "field").value() == "1b"));
-         CHECK((getter(vec, label("c"), "name", "class", "field").value() == "2c"));
-         CHECK((getter(vec, label("d"), "name", "class", "field").value() == "3d"));
-         CHECK((getter(vec, label("e"), "name", "class", "field").value() == "4e"));
+      THEN("compGetter() based on label works properly") {
+         CHECK((compGetter(vec, label("a"), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(vec, label("b"), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(vec, label("c"), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(vec, label("d"), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(vec, label("e"), "name", "class", "field").value() == "4e"));
          try {
-            getter(vec, label("z"), "name", "class", "field");
+            compGetter(vec, label("z"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -734,14 +734,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt = vec;
 
       // look for specific index
-      THEN("getter() based on index works properly") {
-         CHECK((getter(opt, index(0UL), "name", "class", "field").value() == "0a"));
-         CHECK((getter(opt, index(1UL), "name", "class", "field").value() == "1b"));
-         CHECK((getter(opt, index(2UL), "name", "class", "field").value() == "2c"));
-         CHECK((getter(opt, index(3UL), "name", "class", "field").value() == "3d"));
-         CHECK((getter(opt, index(4UL), "name", "class", "field").value() == "4e"));
+      THEN("compGetter() based on index works properly") {
+         CHECK((compGetter(opt, index(0UL), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(opt, index(1UL), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(opt, index(2UL), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(opt, index(3UL), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(opt, index(4UL), "name", "class", "field").value() == "4e"));
          try {
-            getter(opt, index(100UL), "name", "class", "field");
+            compGetter(opt, index(100UL), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -749,14 +749,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
-         CHECK((getter(opt, label("a"), "name", "class", "field").value() == "0a"));
-         CHECK((getter(opt, label("b"), "name", "class", "field").value() == "1b"));
-         CHECK((getter(opt, label("c"), "name", "class", "field").value() == "2c"));
-         CHECK((getter(opt, label("d"), "name", "class", "field").value() == "3d"));
-         CHECK((getter(opt, label("e"), "name", "class", "field").value() == "4e"));
+      THEN("compGetter() based on label works properly") {
+         CHECK((compGetter(opt, label("a"), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(opt, label("b"), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(opt, label("c"), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(opt, label("d"), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(opt, label("e"), "name", "class", "field").value() == "4e"));
          try {
-            getter(opt, label("z"), "name", "class", "field");
+            compGetter(opt, label("z"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -773,9 +773,9 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt;
 
       // look for specific index
-      THEN("getter() based on index works properly") {
+      THEN("compGetter() based on index works properly") {
          try {
-            getter(opt, index(0), "name", "class", "field");
+            compGetter(opt, index(0), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -783,9 +783,9 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
+      THEN("compGetter() based on label works properly") {
          try {
-            getter(opt, label("a"), "name", "class", "field");
+            compGetter(opt, label("a"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -803,13 +803,13 @@ SCENARIO("Testing Component detail:: getter() functions") {
       // Note that these don't involve index or label fields
 
       var = Index(0,"zero");
-      CHECK((getter<Index>(var,"name","class","field")->value() == "zero"));
+      CHECK((compGetter<Index>(var/*,"name","class","field"*/)->value() == "zero"));
 
       var = Label("hello","world");
-      CHECK((getter<Label>(var,"name","class","field")->value() == "world"));
+      CHECK((compGetter<Label>(var/*,"name","class","field"*/)->value() == "world"));
 
       var = IndexLabel(10,"ten","TEN");
-      CHECK((getter<IndexLabel>(var,"name","class","field")->value() == "TEN"));
+      CHECK((compGetter<IndexLabel>(var/*,"name","class","field"*/)->value() == "TEN"));
    } // GIVEN
 
    // ------------------------
@@ -831,17 +831,17 @@ SCENARIO("Testing Component detail:: getter() functions") {
          Empty{},
       }};
 
-      CHECK((getter<Index     >(vec,index(0),      "name","class","field")
+      CHECK((compGetter<Index     >(vec,index(0),      "name","class","field")
              ->value() == "zero"));
-      CHECK((getter<Label     >(vec,label("hello"),"name","class","field")
+      CHECK((compGetter<Label     >(vec,label("hello"),"name","class","field")
              ->value() == "world"));
-      CHECK((getter<IndexLabel>(vec,index(10),     "name","class","field")
+      CHECK((compGetter<IndexLabel>(vec,index(10),     "name","class","field")
              ->value() == "TEN"));
-      CHECK((getter<IndexLabel>(vec,index(11),     "name","class","field")
+      CHECK((compGetter<IndexLabel>(vec,index(11),     "name","class","field")
              ->value() == "ELEVEN"));
-      CHECK((getter<Label     >(vec,label("2"),    "name","class","field")
+      CHECK((compGetter<Label     >(vec,label("2"),    "name","class","field")
              ->value() == "two"));
-      CHECK((getter<Index     >(vec,index(1),      "name","class","field")
+      CHECK((compGetter<Index     >(vec,index(1),      "name","class","field")
              ->value() == "one"));
    } // GIVEN
 }

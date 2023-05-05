@@ -5,12 +5,8 @@ class Component;
 
 namespace detail {
 
-// Various helper constructs
+// Helper constructs
 #include "GNDStk/Component/src/detail-sfinae.hpp"
-
-// getter()
-// Various cases.
-// Intended for use in our Standard Interface classes.
 #include "GNDStk/Component/src/detail-getter.hpp"
 
 
@@ -169,7 +165,7 @@ inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 //    3. DataNode<vector<T>>
 //    4. T
 //    5. vector<T>
-//    6. std::optional<T>, GNDStk::Optional<T>
+//    6. std::optional<T>
 //    7. Defaulted<T>
 
 // ------------------------
@@ -469,16 +465,14 @@ bool printComponentPart(
 // 6. optional
 // ------------------------
 
-template<class OPT>
-bool printComponentPart_helper(
+template<class T>
+bool printComponentPart(
    std::ostream &os, const int level, const size_t maxlen,
    const std::string &label,
-   const OPT &value,
+   const std::optional<T> &value,
    const std::string &labelColor = "",
    const std::string &valueColor = ""
 ) {
-   using T = typename OPT::value_type;
-
    if (!value.has_value())
       return false; // <== so that the caller won't print a newline
 
@@ -504,32 +498,6 @@ bool printComponentPart_helper(
    );
 
    return true;
-}
-
-// std::optional
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const size_t maxlen,
-   const std::string &label,
-   const std::optional<T> &value,
-   const std::string &labelColor = "",
-   const std::string &valueColor = ""
-) {
-   return printComponentPart_helper(
-      os, level, maxlen, label, value, labelColor, valueColor);
-}
-
-// GNDStk::Optional
-template<class T>
-bool printComponentPart(
-   std::ostream &os, const int level, const size_t maxlen,
-   const std::string &label,
-   const GNDStk::Optional<T> &value,
-   const std::string &labelColor = "",
-   const std::string &valueColor = ""
-) {
-   return printComponentPart_helper(
-      os, level, maxlen, label, value, labelColor, valueColor);
 }
 
 
@@ -586,68 +554,68 @@ bool printComponentPart(
 // compareRegular
 // ------------------------
 
-// See compareVariant() below to understand
-// why we have A and B, not T for both
+// See compareVariant() below to understand why we have A and B,
+// not T for both
 template<class A, class B>
 bool compareRegular(const A &a, const B &b)
 {
    // Intentional: some "if ((x = y))"s below; i.e. =, not ==
 
    // index?
-   size_t aindex = 0;  bool ahasindex = false;
-   if constexpr (hasIndex<A>) {
+   size_t aindex = 0;  bool a_has_index = false;
+   if constexpr (has_index_v<A>) {
       if constexpr (isOptional<decltype(A{}.index())>) {
-         if ((ahasindex = a.index().has_value()))
+         if ((a_has_index = a.index().has_value()))
             aindex = a.index().value();
       } else {
-         ahasindex = true;
+         a_has_index = true;
          aindex = a.index();
       }
    }
 
-   size_t bindex = 0;  bool bhasindex = false;
-   if constexpr (hasIndex<B>) {
+   size_t bindex = 0;  bool b_has_index = false;
+   if constexpr (has_index_v<B>) {
       if constexpr (isOptional<decltype(B{}.index())>) {
-         if ((bhasindex = b.index().has_value()))
+         if ((b_has_index = b.index().has_value()))
             bindex = b.index().value();
       } else {
-         bhasindex = true;
+         b_has_index = true;
          bindex = b.index();
       }
    }
 
    // label?
-   std::string alabel = "";  bool ahaslabel = false;
-   if constexpr (hasLabel<A>) {
+   std::string alabel = "";  bool a_has_label = false;
+   if constexpr (has_label_v<A>) {
       if constexpr (isOptional<decltype(A{}.label())>) {
-         if ((ahaslabel = a.label().has_value()))
+         if ((a_has_label = a.label().has_value()))
             alabel = a.label().value();
       } else {
-         ahaslabel = true;
+         a_has_label = true;
          alabel = a.label();
       }
    }
 
-   std::string blabel = "";  bool bhaslabel = false;
-   if constexpr (hasLabel<B>) {
+   std::string blabel = "";  bool b_has_label = false;
+   if constexpr (has_label_v<B>) {
       if constexpr (isOptional<decltype(B{}.label())>) {
-         if ((bhaslabel = b.label().has_value()))
+         if ((b_has_label = b.label().has_value()))
             blabel = b.label().value();
       } else {
-         bhaslabel = true;
+         b_has_label = true;
          blabel = b.label();
       }
    }
 
    return
       // index: primary
-      ahasindex && bhasindex ? aindex < bindex
-    : ahasindex ? true
-    : bhasindex ? false
+      a_has_index && b_has_index ? aindex < bindex
+    : a_has_index ? true
+    : b_has_index ? false
       // label: secondary
-    : ahaslabel && bhaslabel ? alabel < blabel
-    : ahaslabel ? true
-    : bhaslabel ? false
+    : a_has_label && b_has_label ? alabel < blabel
+    : a_has_label ? true
+    : b_has_label ? false
       // equal (so, not <, for strict weak ordering purposes)
     : false;
 }
@@ -692,7 +660,7 @@ void sort(T &)
 template<class T>
 void sort(std::vector<T> &vec)
 {
-   if constexpr (hasIndex<T> || hasLabel<T>)
+   if constexpr (has_index_v<T> || has_label_v<T>)
       std::sort(vec.begin(), vec.end(), compareRegular<T,T>);
 }
 
@@ -701,21 +669,13 @@ template<class... Ts>
 void sort(std::vector<std::variant<Ts...>> &vec)
 {
    using T = std::variant<Ts...>;
-   if constexpr (hasIndex<T> || hasLabel<T>)
+   if constexpr (has_index_v<T> || has_label_v<T>)
       std::sort(vec.begin(), vec.end(), compareVariant<Ts...>);
 }
 
 // std::optional<vector>
 template<class T>
 void sort(std::optional<std::vector<T>> &opt)
-{
-   if (opt.has_value())
-      sort(opt.value());
-}
-
-// GNDStk::Optional<vector>
-template<class T>
-void sort(GNDStk::Optional<std::vector<T>> &opt)
 {
    if (opt.has_value())
       sort(opt.value());

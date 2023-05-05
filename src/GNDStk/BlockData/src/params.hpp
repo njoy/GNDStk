@@ -73,12 +73,6 @@ std::string &valueType() const
 // Arguments of optional type allow for more flexibility in derived classes.
 // -----------------------------------------------------------------------------
 
-// todo Consider using a macro to shorten the similar code below.
-
-// ------------------------
-// For std::optional
-// ------------------------
-
 BlockData &length(const std::optional<size_t> &opt)
 {
    if (opt.has_value())
@@ -94,31 +88,6 @@ BlockData &start(const std::optional<size_t> &opt)
 }
 
 BlockData &valueType(const std::optional<std::string> &opt)
-{
-   if (opt.has_value())
-      vars.valueType = opt.value();
-   return *this;
-}
-
-// ------------------------
-// For GNDStk::Optional
-// ------------------------
-
-BlockData &length(const GNDStk::Optional<size_t> &opt)
-{
-   if (opt.has_value())
-      vars.length = opt.value();
-   return *this;
-}
-
-BlockData &start(const GNDStk::Optional<size_t> &opt)
-{
-   if (opt.has_value())
-      vars.start = opt.value();
-   return *this;
-}
-
-BlockData &valueType(const GNDStk::Optional<std::string> &opt)
 {
    if (opt.has_value())
       vars.valueType = opt.value();

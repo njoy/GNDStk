@@ -22,7 +22,7 @@ inline std::string json_array(const orderedJSON &array)
    assert(array.is_array());
 
    std::ostringstream oss;
-   int count = 0;
+   size_t count = 0;
 
    for (const orderedJSON &element : array) {
       // separator

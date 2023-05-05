@@ -38,67 +38,55 @@ auto getBounds(const std::vector<T> &vec)
 // ------------------------
 
 template<class T, class = int>
-struct has_index
-   : std::false_type { };
+struct has_index {
+   static constexpr bool value = false;
+};
 
 template<class T>
 struct has_index<
-   T,
-   decltype(
-      (void)
-      // Just using T{}.index() on the next line, like we do with other has_*
-      // classes above, can lead to an ambiguity between this specialization
-      // and the std::variant specialization below, arising from the fact that
-      // std::variant has an index() function. Hence the std::conditional_t.
-      std::conditional_t<isVariant_v<T>,void,T>{}.index(),
-      0
-   )
->
-   : std::true_type { };
+   // Just using T{}.index() on the next line can lead to an ambiguity between
+   // this specialization and the one for std::variant below, arising from the
+   // fact that std::variant has an index function. Hence the conditional_t.
+   T, decltype((void)std::conditional_t<isVariant_v<T>,void,T>{}.index(),0)
+> {
+   static constexpr bool value = true;
+};
 
-// for variant
+// for variant: does any alternative have .index()?
 template<class... Ts>
 struct has_index<std::variant<Ts...>> {
-   // does any alternative have index?
    static constexpr bool value = (has_index<Ts>::value || ...);
 };
+
+template<class T>
+inline constexpr bool has_index_v = has_index<std::decay_t<T>>::value;
 
 // ------------------------
 // has_label
 // ------------------------
 
 template<class T, class = int>
-struct has_label
-   : std::false_type { };
+struct has_label {
+   static constexpr bool value = false;
+};
 
 template<class T>
 struct has_label<
-   T,
-   // std::variant doesn't have a label(), like it has an index(), but we'll
-   // do the same thing here, for has_label, as we do above for has_index.
-   // It's harmless, and if std::variant is ever given a label() function...
-   decltype((void)std::conditional_t<isVariant_v<T>,void,T>{}.label(),0)
->
-   : std::true_type { };
+   // std::variant doesn't have a label function, like it has an index function,
+   // but, for the sake of consistency, we'll do here as we did with has_index.
+   T, decltype((void)std::conditional_t<isVariant_v<T>,void,T>{}.label(),0)
+> {
+   static constexpr bool value = true;
+};
 
-// for variant
+// for variant: does any alternative have .label()?
 template<class... Ts>
 struct has_label<std::variant<Ts...>> {
-   // for variant: does any alternative have label?
    static constexpr bool value = (has_label<Ts>::value || ...);
 };
 
-// ------------------------
-// Prefer these.
-// They apply std::decay,
-// and don't need ::value
-// ------------------------
-
 template<class T>
-inline constexpr bool hasIndex = has_index<std::decay_t<T>>::value;
-
-template<class T>
-inline constexpr bool hasLabel = has_label<std::decay_t<T>>::value;
+inline constexpr bool has_label_v = has_label<std::decay_t<T>>::value;
 
 
 // -----------------------------------------------------------------------------

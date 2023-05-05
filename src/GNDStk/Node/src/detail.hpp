@@ -11,15 +11,9 @@ struct is_optional {
    static constexpr bool value = false;
 };
 
-// optional
+// std::optional
 template<class T>
 struct is_optional<std::optional<T>> {
-   static constexpr bool value = true;
-};
-
-// GNDStk::Optional
-template<class T>
-struct is_optional<GNDStk::Optional<T>> {
    static constexpr bool value = true;
 };
 
@@ -41,12 +35,6 @@ struct remove_opt_def {
 // std::optional
 template<class T>
 struct remove_opt_def<std::optional<T>> {
-   using type = T;
-};
-
-// GNDStk::Optional
-template<class T>
-struct remove_opt_def<GNDStk::Optional<T>> {
    using type = T;
 };
 
@@ -82,14 +70,6 @@ std::string keyname(
    return "optional Meta(\"" + m.name + "\")";
 }
 
-// Meta<GNDStk::Optional<TYPE>>
-template<class TYPE, class CONVERTER>
-std::string keyname(
-   const Meta<GNDStk::Optional<TYPE>,CONVERTER> &m
-) {
-   return "optional Meta(\"" + m.name + "\")";
-}
-
 // Meta<Defaulted<TYPE>>
 template<class TYPE, class CONVERTER>
 std::string keyname(
@@ -115,14 +95,6 @@ std::string keyname(
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 std::string keyname(
    const Child<std::optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
-) {
-   return "optional Child(\"" + c.name + "\")";
-}
-
-// Child<GNDStk::Optional<TYPE>>
-template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::string keyname(
-   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &c
 ) {
    return "optional Child(\"" + c.name + "\")";
 }
@@ -658,7 +630,7 @@ public:
    // operator[]
    decltype(auto) operator[](const size_t n) const
    {
-      if constexpr (std::is_same_v<TYPE,void>) {
+      if constexpr (is_void_v<TYPE>) {
          // For TYPE == void
          // Returns: [const] NODE &
          return *childNodePtr[n];
@@ -718,7 +690,7 @@ public:
    template<class T = TYPE>
    operator std::vector<
       std::enable_if_t<
-        !std::is_same_v<T,void>,
+        !is_void_v<T>,
          TYPE
       >
    >() const

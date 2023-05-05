@@ -31,8 +31,8 @@ public:
    // temporaryName()
    static std::string temporaryName(int &desc)
    {
-      static const int maxTry = 10;
-      int count = 0;
+      static const size_t maxTry = 10;
+      size_t count = 0;
 
       while (true) {
          std::string name = "GNDStk-tmp-XXXXXX.h5";

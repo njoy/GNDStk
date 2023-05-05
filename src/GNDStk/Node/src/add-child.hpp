@@ -15,7 +15,6 @@
 // Child, and receive containers of values.
 
 
-
 // -----------------------------------------------------------------------------
 // 0-argument
 // 1-argument:
@@ -63,7 +62,6 @@ Node &add(const Defaulted<T> &def)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<void>, *
 // Guaranteed to add something
@@ -88,7 +86,6 @@ Node &add(
    n.name = kwd.name;
    return n;
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -172,7 +169,6 @@ Node &add(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<std::optional>, *
 // -----------------------------------------------------------------------------
@@ -220,55 +216,6 @@ bool add(
 }
 
 
-
-// -----------------------------------------------------------------------------
-// Child<GNDStk::Optional>, *
-// -----------------------------------------------------------------------------
-
-// Child<GNDStk::Optional>, plain
-// Returns: Node &
-template<
-   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class T = TYPE,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-Node &add(
-   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const T &val = T{}
-) {
-   return add(TYPE{}/kwd, val);
-}
-
-// Child<GNDStk::Optional>, GNDStk::Optional
-// Returns: bool: was something added?
-template<
-   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const GNDStk::Optional<T> &opt
-) {
-   return opt.has_value() ? (add(kwd, opt.value()), true) : false;
-}
-
-// Child<GNDStk::Optional>, Defaulted
-// Returns: bool: was something added?
-template<
-   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Child<GNDStk::Optional<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const Defaulted<T> &def
-) {
-   return def.has_value() ? (add(kwd, def.value()), true) : false;
-}
-
-
-
 // -----------------------------------------------------------------------------
 // Child<Defaulted>, *
 // -----------------------------------------------------------------------------
@@ -301,20 +248,6 @@ bool add(
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
 
-// Child<Defaulted>, GNDStk::Optional
-// Returns: bool: was something added?
-template<
-   class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class T,
-   class = std::enable_if_t<std::is_constructible_v<TYPE,T>>
->
-bool add(
-   const Child<Defaulted<TYPE>,ALLOW,CONVERTER,FILTER> &kwd,
-   const GNDStk::Optional<T> &opt
-) {
-   return opt.has_value() ? (add(kwd, opt.value()), true) : false;
-}
-
 // Child<Defaulted>, Defaulted
 // Returns: bool: was something added?
 template<
@@ -328,7 +261,6 @@ bool add(
 ) {
    return def.has_value() ? (add(kwd, def.value()), true) : false;
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -352,7 +284,7 @@ template<
    // re: the container
    template<class...> class CONTAINER = std::vector,
    class T = // <== Node for Child<void>; else TYPE
-      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+      std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
@@ -360,7 +292,7 @@ template<
    // to Node if Child<void>, to TYPE if Child<TYPE>
    class = std::enable_if_t<
       std::is_constructible_v<
-         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+         std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
          // remove type, if inside optional<> or Defaulted<>
          typename detail::remove_opt_def<T>::type
       >
@@ -380,25 +312,22 @@ void add(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<*> with Allow::many, and an optional container
 // -----------------------------------------------------------------------------
 
-// std::optional
 // SFINAE as in (non-optional) container case
 template<
    class TYPE, class CONVERTER, class FILTER,
-
    template<class...> class CONTAINER = std::vector,
    class T =
-      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+      std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
    class = std::enable_if_t<
       std::is_constructible_v<
-         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+         std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
          typename detail::remove_opt_def<T>::type
       >
    >
@@ -406,31 +335,6 @@ template<
 void add(
    const Child<std::optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
    const std::optional<CONTAINER<T,Args...>> &opt
-) {
-   if (opt.has_value())
-      add(TYPE{}/kwd, opt.value());
-}
-
-// GNDStk::Optional
-template<
-   class TYPE, class CONVERTER, class FILTER,
-
-   template<class...> class CONTAINER = std::vector,
-   class T =
-      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
-   class... Args,
-   class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
-
-   class = std::enable_if_t<
-      std::is_constructible_v<
-         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
-         typename detail::remove_opt_def<T>::type
-      >
-   >
->
-void add(
-   const Child<GNDStk::Optional<TYPE>,Allow::many,CONVERTER,FILTER> &kwd,
-   const GNDStk::Optional<CONTAINER<T,Args...>> &opt
 ) {
    if (opt.has_value())
       add(TYPE{}/kwd, opt.value());

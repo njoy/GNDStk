@@ -51,11 +51,11 @@ public:
    #include "GNDStk/BlockData/src/types.hpp"
 
    // For convenience in various SFINAE and if-constexpr constructs
-   static inline constexpr bool runtime = detail::isVoid<DATATYPE>;
+   static inline constexpr bool runtime = detail::is_void_v<DATATYPE>;
    template<class T>
    struct is_supported {
       static inline constexpr bool value =
-         ( runtime && detail::isAlternative<T,VariantOfScalars>) ||
+         ( runtime && detail::is_in_v<T,VariantOfScalars>) ||
          (!runtime && (
             std::is_constructible_v<DATATYPE,T> ||
             std::is_convertible_v<T,DATATYPE>

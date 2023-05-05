@@ -645,15 +645,15 @@ public:
 
    // link
    auto link() const
-    { return getter<proto::Link>(link_values(), "link"); }
+    { return getter<proto::Link>(link_values()); }
    auto link()
-    { return getter<proto::Link>(link_values(), "link"); }
+    { return getter<proto::Link>(link_values()); }
 
    // values
    auto values() const
-    { return getter<proto::Values>(link_values(), "values"); }
+    { return getter<proto::Values>(link_values()); }
    auto values()
-    { return getter<proto::Values>(link_values(), "values"); }
+    { return getter<proto::Values>(link_values()); }
 
    // ------------------------
    // Setters
@@ -2447,12 +2447,6 @@ public:
    auto &reaction()
     { return Content.reaction; }
 
-   // reaction(index)
-   const auto &reaction(const size_t &index) const
-    { return getter(reaction(), proto::index(index), "reaction"); }
-   auto &reaction(const size_t &index)
-    { return getter(reaction(), proto::index(index), "reaction"); }
-
    // reaction(label)
    const auto &reaction(const std::string &label) const
     { return getter(reaction(), proto::label(label), "reaction"); }
@@ -2468,14 +2462,6 @@ public:
    // reaction(value)
    auto &reaction(const std::vector<proto::Reaction> &obj)
     { reaction() = obj; return *this; }
-
-   // reaction(index,value)
-   auto &reaction(
-      const size_t &index,
-      const proto::Reaction &obj
-   ) {
-      reaction(index) = obj; return *this;
-   }
 
    // reaction(label,value)
    auto &reaction(

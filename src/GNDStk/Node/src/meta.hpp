@@ -46,7 +46,6 @@ meta(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Node.meta(Meta<void>)
 // -----------------------------------------------------------------------------
@@ -68,7 +67,6 @@ meta(
 ) {
    return meta(kwd.name,found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -155,7 +153,7 @@ void meta(
 // With caller-specified type
 template<
    class TYPE, class... Ts, class CONVERTER,
-   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 void meta(
    TYPE &existing,
@@ -164,7 +162,6 @@ void meta(
 ) const {
    meta(existing, existing/kwd, found);
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -185,7 +182,7 @@ TYPE meta(
 // variant
 template<
    class TYPE, class... Ts, class CONVERTER,
-   class = std::enable_if_t<detail::isAlternative<TYPE,std::variant<Ts...>>>
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
 >
 TYPE meta(
    const Meta<std::variant<Ts...>,CONVERTER> &kwd,

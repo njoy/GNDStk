@@ -8,7 +8,7 @@ bool has_top() const
 
    // Does the tree have something that looks like a top-level GNDS node,
    // defined as something that *doesn't* look like a declaration node?
-   int count = 0;
+   size_t count = 0;
    for (const childPtr &c : children)
       if (c->name != special::xml &&
           c->name != special::json &&
