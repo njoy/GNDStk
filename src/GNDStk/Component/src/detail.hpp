@@ -1,14 +1,5 @@
 
-// A forward declaration of Component is needed by some constructs here
-template<class DERIVED, bool hasBlockData = false, class DATATYPE = void>
-class Component;
-
 namespace detail {
-
-// Helper constructs
-#include "GNDStk/Component/src/detail-sfinae.hpp"
-#include "GNDStk/Component/src/detail-getter.hpp"
-
 
 // -----------------------------------------------------------------------------
 // Functions: miscellaneous
@@ -21,12 +12,7 @@ inline void indentString(
    os << std::string(GNDStk::indent * level, ' ') << str;
 }
 
-
-// ------------------------
-// getName
-// ------------------------
-
-// Meta
+// getName(Meta)
 template<class TYPE, class CONVERTER>
 const std::string &
 getName(const Meta<TYPE,CONVERTER> &m)
@@ -34,7 +20,7 @@ getName(const Meta<TYPE,CONVERTER> &m)
    return m.name;
 }
 
-// Child
+// getName(Child)
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 const std::string &
 getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
@@ -42,7 +28,7 @@ getName(const Child<TYPE,ALLOW,CONVERTER,FILTER> &c)
    return c.name;
 }
 
-// pair<Child,string/regex>
+// getName(pair<Child,string/regex>)
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class T,
    class = std::enable_if_t<IsStringOrRegex<T>::value>
@@ -53,11 +39,6 @@ getName(const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,T> &p)
    return getName(p.first);
 }
 
-
-// ------------------------
-// Various
-// ------------------------
-
 // fullName
 inline std::string fullName(
    const std::string &nname, // name of namespace
@@ -65,94 +46,6 @@ inline std::string fullName(
 ) {
    return (nname == "" ? "" : nname + "::") + cname;
 }
-
-// isDerivedFromComponent
-// Adapted from an answer here:
-//    https://stackoverflow.com/questions/34672441
-// The issue is that Component is a class *template*.
-template<class T>
-struct isDerivedFromComponent {
-private:
-   template<class A, bool B, class C>
-   static constexpr std::true_type test(Component<A,B,C> *);
-   static constexpr std::false_type test(...);
-   using type = decltype(test(std::declval<T *>()));
-public:
-   static constexpr bool value = type::value;
-};
-
-template<class T>
-inline constexpr bool isDerivedFromComponent_v =
-   isDerivedFromComponent<T>::value;
-
-// isDerivedFromVector
-template<class T>
-struct isDerivedFromVector {
-private:
-   template<class X, class Allocator>
-   static constexpr std::pair<std::vector<X,Allocator>,std::true_type>
-      test(std::vector<X,Allocator> *);
-   static constexpr std::pair<int,std::false_type>
-      test(...);
-   using ret = decltype(test(std::declval<T *>()));
-public:
-   static constexpr bool value = ret::second_type::value;
-   using type = std::conditional_t<value, typename ret::first_type,void>;
-};
-
-template<class T>
-inline constexpr bool isDerivedFromVector_v =
-   isDerivedFromVector<T>::value;
-
-template<class T>
-using isDerivedFromVector_t = typename isDerivedFromVector<T>::type;
-
-
-// ------------------------
-// hasPrint*
-// ------------------------
-
-// These are adapted from an answer here:
-// https://stackoverflow.com/questions/87372
-
-// hasPrintOneArg
-template<class DERIVED>
-class HasPrintOneArg
-{
-   template<
-      class U,
-      std::ostream &(U::*)(std::ostream &) const
-   > struct SFINAE {};
-
-   template<class U> static char test(SFINAE<U, &U::print> *);
-   template<class U> static long test(...);
-
-public:
-   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
-};
-
-// HasPrintTwoArg
-template<class DERIVED>
-class HasPrintTwoArg
-{
-   template<
-      class U,
-      std::ostream &(U::*)(std::ostream &, const int) const
-   > struct SFINAE {};
-
-   template<class U> static char test(SFINAE<U, &U::print> *);
-   template<class U> static long test(...);
-
-public:
-   static constexpr bool has = sizeof(test<DERIVED>(0)) == sizeof(char);
-};
-
-// Variable templates for the above; prefer these
-template<class DERIVED>
-inline constexpr bool hasPrintOneArg = HasPrintOneArg<DERIVED>::has;
-
-template<class DERIVED>
-inline constexpr bool hasPrintTwoArg = HasPrintTwoArg<DERIVED>::has;
 
 
 // -----------------------------------------------------------------------------
@@ -683,12 +576,8 @@ void sort(std::optional<std::vector<T>> &opt)
 
 
 // -----------------------------------------------------------------------------
-// Miscellaneous helper constructs
-// -----------------------------------------------------------------------------
-
-// ------------------------
 // queryResult
-// ------------------------
+// -----------------------------------------------------------------------------
 
 // general
 template<class KEY>
@@ -710,25 +599,10 @@ struct queryResult<std::tuple<KEYS...>> {
    using type = std::tuple<typename queryResult<KEYS>::type...>;
 };
 
-// ------------------------
-// isDataNode
-// ------------------------
 
-// general
-template<class T>
-struct isDataNode {
-   static constexpr bool value = false;
-};
-
-// for DataNode
-template<class T, bool preferCDATA>
-struct isDataNode<DataNode<T,preferCDATA>> {
-   static constexpr bool value = true;
-};
-
-// ------------------------
+// -----------------------------------------------------------------------------
 // pprintAlign
-// ------------------------
+// -----------------------------------------------------------------------------
 
 // Component::print() - the prettyprinter - uses the following in order to
 // include certain constructs in Component-derived classes from its alignment

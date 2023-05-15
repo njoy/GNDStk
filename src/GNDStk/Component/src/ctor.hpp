@@ -1,4 +1,9 @@
 
+// Component can't have copy or move construction. Its constructor MUST
+// know about the fields in the specific instance that derives from it.
+Component(const Component &) = delete;
+Component(Component &&) = delete;
+
 // We give Component a *private* constructor + a friend declaration, so that
 // a derived class can't accidentally derive from Component<something else>.
 // But, please, don't let y'alls derived classes mess with Component's data

@@ -59,11 +59,11 @@ decltype(auto) getter(
    VEC &vec, const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &key,
    const std::string &fieldName = ""
 ) {
-   using RET = decltype(
+   using RETURN = decltype(
       std::as_const(*this).template getter(vec, key, fieldName));
 
-   if constexpr (std::is_reference_v<RET>)
-      return const_cast<std::decay_t<RET> &>(
+   if constexpr (std::is_reference_v<RETURN>)
+      return const_cast<std::decay_t<RETURN> &>(
          std::as_const(*this).template getter(vec, key, fieldName));
    else
       return std::as_const(*this).template getter(vec, key, fieldName);
