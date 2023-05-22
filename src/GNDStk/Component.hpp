@@ -47,7 +47,7 @@ class Component : public BlockData<hasBlockData,DATATYPE>
       const COMPONENT &, const FROM &, const MC &, const bool, const size_t
    );
 
-   template<class COMPONENT, class TUPLE, class LOOK>
+   template<class, class, class>
    friend class detail::bracket;
 
    // Links to fields in the object of the derived class. I can't find a way
@@ -97,8 +97,11 @@ public:
    #include "GNDStk/Component/src/call.hpp"
    #include "GNDStk/Component/src/io-string.hpp"
 
-   // Wrapper for derived-class fields
+   // For use in DERIVED
+   template<class, class> class FieldPart { /* nothing; see specialization */ };
    #include "GNDStk/Component/src/field.hpp"
+   #include "GNDStk/Component/src/fieldPart.hpp"
+   #include "GNDStk/Component/src/wrapper.hpp"
 
    // Forwards, where viable and unambiguous, to certain capabilities
    // in DERIVED's fields
@@ -147,6 +150,15 @@ public:
    const DERIVED &derived() const
       { return static_cast<const DERIVED &>(*this); }
 
+private:
+
+   // Helper: fieldAddress
+   template<class T> void *fieldAddress(      T  &value) { return &value  ; }
+   template<class T> void *fieldAddress(Field<T> &field) { return &field(); }
+
+   // Helper: stripField
+   template<class T> struct stripField           { using type = T; };
+   template<class T> struct stripField<Field<T>> { using type = T; };
 }; // class Component
 
 

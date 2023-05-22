@@ -50,12 +50,12 @@ template<
    class = std::enable_if_t<!detail::is_void_v<TYPE>>,
    class D = DERIVED, class TUP = decltype(D::Keys().tup),
    class LOOK = Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER>,
-   class = std::enable_if_t<detail::bracket<Component,TUP,LOOK>::count == 1>
+   class = std::enable_if_t<detail::bracket<Component,LOOK,TUP>::count == 1>
 >
 decltype(auto)
 operator[](const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look) const
 {
-   return detail::bracket<Component,TUP,LOOK>::value(*this,look);
+   return detail::bracket<Component,LOOK,TUP>::value(*this,look);
 }
 
 // non-const
@@ -64,11 +64,11 @@ template<
    class = std::enable_if_t<!detail::is_void_v<TYPE>>,
    class D = DERIVED, class TUP = decltype(D::Keys().tup),
    class LOOK = Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER>,
-   class = std::enable_if_t<detail::bracket<Component,TUP,LOOK>::count == 1>
+   class = std::enable_if_t<detail::bracket<Component,LOOK,TUP>::count == 1>
 >
 decltype(auto)
 operator[](const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look)
 {
-   using RETURN = typename detail::bracket<Component,TUP,LOOK>::type;
+   using RETURN = typename detail::bracket<Component,LOOK,TUP>::type;
    return const_cast<RETURN &>(std::as_const(*this)[look]);
 }

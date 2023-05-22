@@ -270,11 +270,11 @@ struct MatchesViable<FROM,std::tuple<TOs...>> {
 // added
 // ------------------------
 
-// MC = Meta or Child
-template<class COMPONENT, class FROM, class MC>
+// KEY = Meta or Child
+template<class COMPONENT, class FROM, class KEY>
 bool added(
-   const COMPONENT &comp,
-   const FROM &elem, const MC &mc,
+   const COMPONENT &component,
+   const FROM &elem, const KEY &key,
    const bool exact, const size_t n
 ) {
    // Silences unused-parameter warnings if neither "if constexpr" passes
@@ -288,41 +288,41 @@ bool added(
    // or not be something we'd necessarily want to call. (Specifically, if exact
    // and viable matches both == 1, and the viable match is found before the
    // exact one, we want to skip the [return setter] and wait for the exact.)
-   using T = std::decay_t<decltype(Node{}(mc))>;
+   using T = std::decay_t<decltype(Node{}(key))>;
    if ( exact) if constexpr (detail::isMatchExact <FROM,T>::count)
-      return comp.setter(*(T *)comp.links[n],elem), true;
+      return component.setter(*(T *)component.links[n],elem), true;
    if (!exact) if constexpr (detail::isMatchViable<FROM,T>::count)
-      return comp.setter(*(T *)comp.links[n],elem), true;
+      return component.setter(*(T *)component.links[n],elem), true;
    return false;
 }
 
 // ------------------------
 // bracketHas
-// ------------------------
-
-// bracketHas: default
-template<template<class> class Field, class LOOK, class T, class = int>
-struct bracketHas {
-   static constexpr bool works = false;
-   using type = void;
-};
-
-// bracketHas: if [LOOK{}] works
-template<template<class> class Field, class LOOK, class T>
-struct bracketHas<
-   Field, LOOK, T,
-   decltype((void)std::declval<Field<T>>()[std::declval<LOOK>()],0)
-> {
-   static constexpr bool works = true;
-   using type = decltype(std::declval<Field<T>>()[std::declval<LOOK>()]);
-};
-
-// ------------------------
 // bracketGetType
 // ------------------------
 
+// Helpers for class bracket, below. I'd scope these inside class bracket,
+// but for this issue: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85282
+
+// bracketHas: default
+template<template<class> class Field, class T, class LOOK, class = int>
+struct bracketHas {
+   static constexpr bool works = false;
+   using returns = void;
+};
+
+// bracketHas: if Field<T> supports [LOOK]
+template<template<class> class Field, class T, class LOOK>
+struct bracketHas<
+   Field, T, LOOK,
+   decltype((void)std::declval<Field<T>>()[std::declval<LOOK>()],0)
+> {
+   static constexpr bool works = true;
+   using returns = decltype(std::declval<Field<T>>()[std::declval<LOOK>()]);
+};
+
 // bracketGetType: default
-template<template<class> class Field, class LOOK, class X>
+template<template<class> class Field, class LOOK, class>
 struct bracketGetType {
 };
 
@@ -332,14 +332,15 @@ struct bracketGetType<Field,LOOK,std::tuple<>> {
    using type = void;
 };
 
-// bracketGetType: for tuple<something>
-template<template<class> class Field, class LOOK, class X, class... Xs>
-struct bracketGetType<Field,LOOK,std::tuple<X,Xs...>> {
-   using FIELD = std::decay_t<decltype(Node{}(std::declval<X>()))>;
+// bracketGetType: for tuple<non-empty>
+template<template<class> class Field, class LOOK, class T, class... Ts>
+struct bracketGetType<Field,LOOK,std::tuple<T,Ts...>> {
+   // back: what a "Node(T)" query would return
+   using back = std::decay_t<decltype(Node{}(std::declval<T>()))>;
    using type = std::conditional_t<
-      bracketHas<Field,LOOK,FIELD>::works,
-      typename bracketHas<Field,LOOK,FIELD>::type,
-      typename bracketGetType<Field,LOOK,std::tuple<Xs...>>::type
+               bracketHas<Field,back,LOOK>::works,
+      typename bracketHas<Field,back,LOOK>::returns,
+      typename bracketGetType<Field,LOOK,std::tuple<Ts...>>::type
    >;
 };
 
@@ -353,21 +354,23 @@ class bracket {
 };
 
 // tuple<...>
-template<class COMPONENT, class... Ts, class LOOK>
-class bracket<COMPONENT,std::tuple<Ts...>,LOOK>
+template<class COMPONENT, class LOOK, class... Ts>
+class bracket<COMPONENT,LOOK,std::tuple<Ts...>>
 {
    // Field
+   // Shorthand for Field<T> in COMPONENT (i.e. class Component<something>)
    template<class T>
    using Field = typename COMPONENT::template Field<T>;
 
    // value, returning pointer
-   template<class MC>
+   template<class KEY> // KEY = Meta or Child
    static const void *value(
-      const COMPONENT &comp, const LOOK &look, const MC &mc, const size_t n
+      const COMPONENT &component, const LOOK &look,
+      const KEY &key, const size_t n
    ) {
-      using FIELD = std::decay_t<decltype(Node{}(mc))>;
-      if constexpr (bracketHas<Field,LOOK,FIELD>::works)
-         return &comp.getter(*(FIELD *)comp.links[n],look);
+      using back = std::decay_t<decltype(Node{}(key))>;
+      if constexpr (bracketHas<Field,back,LOOK>::works)
+         return &component.getter(*(back *)component.links[n],look);
       return nullptr;
    }
 
@@ -379,25 +382,26 @@ public:
    // count
    static constexpr size_t count = (
       bracketHas<
-         Field,
-         LOOK,
-         std::decay_t<decltype(Node{}(std::declval<Ts>()))>
+         Field, std::decay_t<decltype(Node{}(std::declval<Ts>()))>, LOOK
       >::works +
       ...
    );
 
    // value
-   static type value(const COMPONENT &comp, const LOOK &look)
+   static type value(const COMPONENT &component, const LOOK &look)
    {
       const void *ptr = nullptr;
       std::apply(
-         [&comp,&look,&ptr](const auto &... mc)
+         [&component,&look,&ptr](const auto &... key)
          {
             size_t n = 0;
-            ((ptr || (ptr = value(comp,look,mc,n++))), ...);
+            ((ptr || (ptr = value(component,look,key,n++))), ...);
          },
-         comp.Keys().tup
+         component.Keys().tup
       );
+
+      // Note: our use of the current (detail::) class is such that
+      // we shouldn't ever have ptr == nullptr here...
       return *(std::remove_reference_t<type> *)ptr;
    }
 };

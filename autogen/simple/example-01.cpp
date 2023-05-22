@@ -4,6 +4,27 @@ using namespace multi::v1;
 
 int main()
 {
+   /*
+   using detail::is_in_v;
+   std::cout << std::endl;
+   std::cout << (is_in_v<int>) << std::endl; // f
+   std::cout << (is_in_v<int,float>) << std::endl; // f
+   std::cout << (is_in_v<int,float,double>) << std::endl; // f
+   std::cout << (is_in_v<int,float,double,int>) << std::endl; // t
+   std::cout << (is_in_v<int,float,int,double>) << std::endl; // t
+   std::cout << (is_in_v<int,int,float,double>) << std::endl; // t
+   std::cout << (is_in_v<int,int>) << std::endl; // t
+   std::cout << std::endl;
+   std::cout << (is_in_v<int>) << std::endl; // f
+   std::cout << (is_in_v<int,std::variant<float>>) << std::endl; // f
+   std::cout << (is_in_v<int,std::variant<float,double>>) << std::endl; // f
+   std::cout << (is_in_v<int,std::variant<float,double,int>>) << std::endl; // t
+   std::cout << (is_in_v<int,std::variant<float,int,double>>) << std::endl; // t
+   std::cout << (is_in_v<int,std::variant<int,float,double>>) << std::endl; // t
+   std::cout << (is_in_v<int,std::variant<int>>) << std::endl; // t
+   std::cout << std::endl;
+   */
+
    colors = true;
 
    // Make some elements. We can make elements ("outer
@@ -24,9 +45,18 @@ int main()
    He += Isotope(4);
    // ...
 
+   He.add(Isotope(5)).add(Isotope(6));
+   (He += Isotope(7)) += Isotope(8);
+
    // for fun...
-   He.isotope.replace(mass_number(4),Isotope(4));
-   He.        replace(mass_number(4),Isotope(4));
+   He.isotope[mass_number(4)] = Isotope(4);
+   He        [mass_number(4)] = Isotope(4);
+   (void)He[mass_number(3)];
+   const auto &HeConst = He;
+   (void)HeConst[mass_number(3)];
+
+   std::cout << HeConst[mass_number(3)] << std::endl;
+   std::cout << HeConst[mass_number(4)] << std::endl;
 
    He.foobar = Foobar{};
 
@@ -49,8 +79,8 @@ int main()
    assert(elems[1].symbol() == "Be");
 
    // Example: look stuff up by metadatum value.
-   Isotope deu = H.isotope(mass_number(2));
-   Isotope tri = H.isotope(mass_number(3));
+   Isotope deu = H.isotope[mass_number(2)];
+   Isotope tri = H.isotope[mass_number(3)];
 
    // If we instead write isotope() with no arguments
    // to the getter, we get a vector of Isotope objects.
@@ -59,9 +89,9 @@ int main()
    // Slightly fancier lookup, starting all the way up
    // at the Multigroup object.
    Isotope i =
-      multi.library(name("first library"))
-           .element(symbol("He"))
-           .isotope(mass_number(3));
+      multi.library[name("first library")]
+           .element[symbol("He")]
+           .isotope[mass_number(3)];
 
    // Write as XML, JSON, and HDF5.
    multi.write("file.xml");
