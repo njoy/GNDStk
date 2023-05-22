@@ -297,6 +297,53 @@ bool added(
 }
 
 // ------------------------
+// bracketHas
+// ------------------------
+
+// bracketHas: default
+template<template<class> class Field, class LOOK, class T, class = int>
+struct bracketHas {
+   static constexpr bool works = false;
+   using type = void;
+};
+
+// bracketHas: if [LOOK{}] works
+template<template<class> class Field, class LOOK, class T>
+struct bracketHas<
+   Field, LOOK, T,
+   decltype((void)std::declval<Field<T>>()[std::declval<LOOK>()],0)
+> {
+   static constexpr bool works = true;
+   using type = decltype(std::declval<Field<T>>()[std::declval<LOOK>()]);
+};
+
+// ------------------------
+// bracketGetType
+// ------------------------
+
+// bracketGetType: default
+template<template<class> class Field, class LOOK, class X>
+struct bracketGetType {
+};
+
+// bracketGetType: for tuple<>
+template<template<class> class Field, class LOOK>
+struct bracketGetType<Field,LOOK,std::tuple<>> {
+   using type = void;
+};
+
+// bracketGetType: for tuple<something>
+template<template<class> class Field, class LOOK, class X, class... Xs>
+struct bracketGetType<Field,LOOK,std::tuple<X,Xs...>> {
+   using FIELD = std::decay_t<decltype(Node{}(std::declval<X>()))>;
+   using type = std::conditional_t<
+      bracketHas<Field,LOOK,FIELD>::works,
+      typename bracketHas<Field,LOOK,FIELD>::type,
+      typename bracketGetType<Field,LOOK,std::tuple<Xs...>>::type
+   >;
+};
+
+// ------------------------
 // bracket
 // ------------------------
 
@@ -313,51 +360,13 @@ class bracket<COMPONENT,std::tuple<Ts...>,LOOK>
    template<class T>
    using Field = typename COMPONENT::template Field<T>;
 
-   // has: default
-   template<class T, class = int>
-   struct has {
-      static constexpr bool works = false;
-      using type = void;
-   };
-
-   // has: if [LOOK{}] works
-   template<class T>
-   struct has<
-      T, decltype((void)std::declval<Field<T>>()[std::declval<LOOK>()],0)
-   > {
-      static constexpr bool works = true;
-      using type = decltype(std::declval<Field<T>>()[std::declval<LOOK>()]);
-   };
-
-   // getType: default
-   template<class X>
-   struct getType {
-   };
-
-   // getType: for tuple<>
-   template<>
-   struct getType<std::tuple<>> {
-      using type = void;
-   };
-
-   // getType: for tuple<something>
-   template<class X, class... Xs>
-   struct getType<std::tuple<X,Xs...>> {
-      using FIELD = std::decay_t<decltype(Node{}(std::declval<X>()))>;
-      using type = std::conditional_t<
-         has<FIELD>::works,
-         typename has<FIELD>::type,
-         typename getType<std::tuple<Xs...>>::type
-      >;
-   };
-
    // value, returning pointer
    template<class MC>
    static const void *value(
       const COMPONENT &comp, const LOOK &look, const MC &mc, const size_t n
    ) {
       using FIELD = std::decay_t<decltype(Node{}(mc))>;
-      if constexpr (has<FIELD>::works)
+      if constexpr (bracketHas<Field,LOOK,FIELD>::works)
          return &comp.getter(*(FIELD *)comp.links[n],look);
       return nullptr;
    }
@@ -365,11 +374,16 @@ class bracket<COMPONENT,std::tuple<Ts...>,LOOK>
 public:
 
    // type
-   using type = typename getType<std::tuple<Ts...>>::type;
+   using type = typename bracketGetType<Field,LOOK,std::tuple<Ts...>>::type;
 
    // count
    static constexpr size_t count = (
-      has<std::decay_t<decltype(Node{}(std::declval<Ts>()))>>::works + ...
+      bracketHas<
+         Field,
+         LOOK,
+         std::decay_t<decltype(Node{}(std::declval<Ts>()))>
+      >::works +
+      ...
    );
 
    // value
