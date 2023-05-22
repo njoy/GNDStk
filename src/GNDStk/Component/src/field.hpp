@@ -77,18 +77,6 @@ public:
       wrappedValue(def,value)
    { }
 
-   // If T == Defaulted
-   // parent, default value, current value (GNDStk::Optional)
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   Field(
-      DERIVED *const parent,
-      const typename TEE::value_type &def,
-      const GNDStk::Optional<typename TEE::value_type> &value // no = {}
-   ) :
-      parent(*parent),
-      wrappedValue(def,value)
-   { }
-
    // ------------------------
    // Assignment: copy, move
    // Some other assignments
@@ -111,13 +99,13 @@ public:
 
    // ------------------------
    // has
-   // With no arguments.
    // ------------------------
 
-   // Relates to std::optional/GNDStk::Optional, not to the question of what
-   // metadata or metadata values the present Field might contain. (See the
-   // other has() functions for that.) Returns true iff either T is optional
-   // but has a value, or isn't optional (so that it necessarily has a value).
+   // With no arguments.
+   // Relates to std::optional, not to the question of what metadata or metadata
+   // values the present Field might contain. (See the other has() functions for
+   // that.) Returns true iff either T is optional but has a value, or isn't
+   // optional (so that it necessarily has a value).
    bool has() const
    {
       if constexpr (detail::isOptional<T>)
@@ -125,14 +113,10 @@ public:
       return true;
    }
 
-   // ------------------------
-   // has
    // With one argument.
-   // ------------------------
-
-   // Forwards to [operator()(const KEY &key) const], below, essentially to
+   // Forwards to operator[](const KEY &key) const, below, essentially to
    // provide an alternative form of a "has" query. Instead of, for example,
-   //    H.isotope(has(mass_number(2)))
+   //    H.isotope[has(mass_number(2))]
    // to inquire about whether element H's vector of isotopes has an isotope
    // with a mass number of 2, we can instead write:
    //    H.isotope.has(mass_number(2))
@@ -140,18 +124,12 @@ public:
    // class - say, Element - that contains a vector of isotopes, and that
    // the Isotope class contains an integer metadatum called mass_number.)
    // Note: the SFINAE is such that this function is enabled iff a call to
-   // operator()(key) of the present class would be valid, and return bool.
-   template<
-      class KEY,
-      // todo Could perhaps be shorter if we used a trailing return type?
-      class = std::enable_if_t<std::is_same_v<
-         decltype(std::declval<Field>()(GNDStk::has(std::declval<KEY>()))),
-         bool
-      >>
-   >
-   bool has(const KEY &key) const
-   {
-      return (*this)(GNDStk::has(key));
+   // operator[](Lookup) of the present class would be valid, and return bool.
+   template<class KEY>
+   auto has(const KEY &look) const -> std::enable_if_t<
+      std::is_same_v<decltype((*this)[GNDStk::has(look)]),bool>, bool
+   > {
+      return (*this)[GNDStk::has(look)];
    }
 
    // ------------------------
@@ -182,7 +160,6 @@ public:
 
    // ------------------------
    // operator()
-   // With no arguments.
    // ------------------------
 
    // ()
@@ -191,70 +168,82 @@ public:
    T &operator()() { return wrappedValue; } // non-const
 
    // ------------------------
-   // operator()
-   // With one argument.
+   // operator[](Lookup)
    // ------------------------
 
-   /*
-   zzz
-   Regarding isSearchKey and such, I suspect that we should deal with
-   the issue mentioned in comp-detail-get.hh, regarding the interpretation
-   of an integral type: as an index, or for a lookup by "index" metadatum.
-   My strong thought right now is that it should strictly be the former,
-   as the latter would almost certainly have an unexpected meaning. (Yeah,
-   I originally wrote the latter, before coming up with the much better
-   concept and syntax of my Lookup objects. Speaking of which, I should
-   very soon do the todo at the beginning of look.hh. That will help here
-   and elsewhere.) In the present file, with Field and probably FieldPart,
-   I suspect that (#) just shouldn't fly. Maybe just allow:
-      [#] // normal vector index
-      [key(value)] // lookup by metadatum
-      (key(value)) // lookup by metadatum <== maybe or maybe not
-   If we change things around as just suggested, we'll have to look very
-   carefully at our use in this file of various SFINAE constructs, such
-   as isSearchKey and isLookup. Also do a careful accounting of what
-   operator()s we have in this file. Some quick grepping suggest 16 cases.
-   Some involve GNDStk::Optional, which I'm increasingly convinced should
-   simply be removed. GNDStk is complex already, and can do without it.
-   That, at least, would also give us a slight break in dealing with the
-   () and [] operators, though getting rid of GNDStk::Optional is really
-   its own issue, and probably should be done for its own reasons.
-   */
+   // If T == [optional] vector
+
+   // [Lookup], including Lookup<exists>
+// zzz actually the following REQUIRE (don't just include) Lookup<exists>
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   bool
+   operator[](const Lookup<LookupMode::exists,EXTRACTOR> &look) const // const
+   {
+      return parent.getter(wrappedValue,look);
+   }
+
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   bool
+   operator[](const Lookup<LookupMode::exists,EXTRACTOR> &look) // non-const
+   {
+      return parent.getter(wrappedValue,look);
+   }
+
+   // zzz working here
+
+   // [Lookup], including Lookup<exists>
+   template<
+      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>,
+      class = std::enable_if_t<
+         detail::has_field<typename TEE::value_type,EXTRACTOR>::value
+      >
+   >
+   decltype(auto)
+   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) const // const
+   {
+      return parent.getter(wrappedValue,look);
+   }
+
+   template<
+      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>,
+      class = std::enable_if_t<
+         detail::has_field<typename TEE::value_type,EXTRACTOR>::value
+      >
+   >
+   decltype(auto)
+   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) // non-const
+   {
+      return parent.getter(wrappedValue,look);
+   }
+
+   // ------------------------
+   // operator[](size_t)
+   // ------------------------
 
    // If T == [optional] vector
-   // (index/label/Lookup), including Lookup<exists> (via the "has" function)
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator()(const KEY &key) const // const
+
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   decltype(auto) operator[](const size_t index) const // const
    {
-      return parent.getter(wrappedValue,key);
+      if constexpr (detail::isOptional<T>)
+         return (*wrappedValue)[index];
+      else
+         return wrappedValue[index];
    }
 
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator()(const KEY &key) // non-const
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   decltype(auto) operator[](const size_t index) // non-const
    {
-      return parent.getter(wrappedValue,key);
-   }
-
-   // If T == [optional] vector
-   // [index/label/Lookup]
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator[](const KEY &key) const // const
-   {
-      return (*this)(key);
-   }
-
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator[](const KEY &key) // non-const
-   {
-      return (*this)(key);
+      if constexpr (detail::isOptional<T>)
+         return (*wrappedValue)[index];
+      else
+         return wrappedValue[index];
    }
 
    // ------------------------
@@ -327,79 +316,22 @@ public:
    }
 
    // ------------------------
-   // Setters: general
+   // operator=
    // ------------------------
-
-   // replace(T)
-   // Replace the existing value with another value.
-   // Provides a "builder pattern" for DERIVED.
-   DERIVED &replace(const T &value)
-   {
-      return wrappedValue = value, parent;
-   }
-
-   // operator()(T)
-   // Same as replace(T)
-   // Note that no ambiguity should arise with Field<vector>'s operator() that
-   // accepts an index, a label, or a Lookup object, because the parameter here
-   // is also a T (and thus is a vector if we're in a Field<vector>).
-   DERIVED &operator()(const T &value)
-   {
-      return replace(value);
-   }
 
    // operator=(T)
-   // Returns the left-hand side, as one would expect. For assignment, a builder
-   // pattern (returning DERIVED) would just be goofy.
    Field &operator=(const T &value)
    {
-      return replace(value), *this;
+      return wrappedValue = value, *this;
    }
-
-   // ------------------------
-   // Setters: for Defaulted
-   // Remarks as above
-   // ------------------------
 
    // If T == Defaulted
-   // replace(optional)
-   // Replace the Defaulted's existing value with the given optional value.
-   // Provides a "builder pattern" for DERIVED.
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &replace(const std::optional<typename TEE::value_type> &opt)
-   {
-      return wrappedValue = opt, parent;
-   }
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &replace(const GNDStk::Optional<typename TEE::value_type> &opt)
-   {
-      return wrappedValue = opt, parent;
-   }
-
-   // operator()(optional)
-   // Same as replace(optional)
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &operator()(const std::optional<typename TEE::value_type> &opt)
-   {
-      return replace(opt);
-   }
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   DERIVED &operator()(const GNDStk::Optional<typename TEE::value_type> &opt)
-   {
-      return replace(opt);
-   }
-
    // operator=(optional)
    // As above, except returns *this, as expected for assignment.
    template<class TEE = T, class = detail::isDefaulted_t<TEE>>
    Field &operator=(const std::optional<typename TEE::value_type> &opt)
    {
-      return replace(opt), *this;
-   }
-   template<class TEE = T, class = detail::isDefaulted_t<TEE>>
-   Field &operator=(const GNDStk::Optional<typename TEE::value_type> &opt)
-   {
-      return replace(opt), *this;
+      return wrappedValue = opt, *this;
    }
 
    // ------------------------
@@ -424,61 +356,6 @@ public:
    ) {
       return add(element);
    }
-
-   // Here, we actually don't want an operator() that forwards to add(), like
-   // the operator()s that forwarded to replace() in earlier setters. Imagine
-   // that this Field wrapped, say, a vector<int>. If someone used the above
-   // add() function and wrote field.add(123), the meaning is clearly that 123
-   // is to be added (think push_back()) to the vector<int>. But if we provided
-   // an operator() that forwarded to add(), and someone used it to write
-   // field(123), they *might* want 123 added to the vector - OR, they might
-   // intend to retrieve vector[123]. In the *getter* functions defined
-   // earlier, note that we do indeed allow both operator() and operator[] for
-   // retrieving vector elements (by index, label, or Lookup object). I suppose
-   // we could allow only the operator[] form for getting, and then be able to
-   // have an operator() setter here, with the same meaning as add(). However,
-   // we believe that the getter's use of the operator() in question provides
-   // for the better and more-expected meaning.
-
-   // ------------------------
-   // Setters: for vector or
-   // optional vector, replace
-   // an element
-   // ------------------------
-
-   // The following may not see too much use. They mostly have the same effect
-   // as indexing into the vector and then doing an assignment. The difference
-   // is that these functions endow the operation with a "builder pattern" that
-   // returns DERIVED, and in that respect mimic replace(T) and operator()(T)
-   // as defined earlier. Indexing+assignment, in contrast, returns a reference
-   // to the assignment's left-hand side as one would expect from assignment.
-
-   // For [optional] vector
-   // replace(index/label/Lookup, element)
-   // Find the vector's element that has the given index, label, or Lookup,
-   // and replace it with the given replacement element.
-   template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &replace(
-      const KEY &key,
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &element
-   ) {
-      return (*this)(key) = element, parent;
-   }
-
-   // For [optional] vector
-   // operator()(index/label/Lookup, element)
-   // Same as replace(index/label/Lookup, element)
-   template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   DERIVED &operator()(
-      const KEY &key,
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &element
-   ) {
-      return replace(key,element);
-   }
 }; // class Field
 
 
@@ -492,7 +369,7 @@ class FieldPart<Field<WHOLE>,PART> {
    Field<WHOLE> &whole;
 
    static_assert(
-      detail::isVariant_v<WHOLE> || detail::isVectorVariant<WHOLE>::value,
+      detail::isVariant_v<WHOLE> || detail::isVectorOfVariant<WHOLE>::value,
      "FieldPart<Field<WHOLE>,PART>: "
      "WHOLE must be variant or vector<variant>"
    );
@@ -559,15 +436,6 @@ public:
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
-   // Opt()
-   // As above, except makes a GNDStk::Optional.
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
-   const GNDStk::Optional<PART> Opt() const
-   {
-      const PART *const p = ptr();
-      return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
-   }
-
    // operator()
    // Get as PART &
    template<class T = WHOLE, class = detail::isVariant_t<T>>
@@ -621,10 +489,6 @@ public:
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    operator std::optional<PART>() const { return opt(); }
 
-   // To GNDStk::Optional<PART>
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
-   operator GNDStk::Optional<PART>() const { return Opt(); }
-
    // ------------------------
    // has
    // Similar to Field's
@@ -635,7 +499,7 @@ public:
    // For Field, it means whether or not a value exists - either it's not
    // optional, or is optional but has a value. Here, that meaning could be
    // confused with the concept of whether or not the variant contains the
-   // "PART" represented by this FieldPart. Think about this.
+   // part represented by this FieldPart. Think about this.
 
    // has()
    bool has() const
@@ -648,16 +512,11 @@ public:
    */
 
    // has(key)
-   template<
-      class KEY,
-      class = std::enable_if_t<std::is_same_v<
-         decltype(std::declval<FieldPart>()(GNDStk::has(std::declval<KEY>()))),
-         bool
-      >>
-   >
-   bool has(const KEY &key) const
-   {
-      return (*this)(GNDStk::has(key));
+   template<class KEY>
+   auto has(const KEY &look) const -> std::enable_if_t<
+      std::is_same_v<decltype((*this)[GNDStk::has(look)]),bool>, bool
+   > {
+      return (*this)[GNDStk::has(look)];
    }
 
    // ------------------------
@@ -665,113 +524,96 @@ public:
    // If WHOLE == vector
    // ------------------------
 
-   // ptr(index/label/Lookup)
+   // ptr(Lookup)
    // Get as PART *
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   const PART *ptr(const KEY &key) const
+   const PART *ptr(const KEY &look) const
    {
-      return whole.parent.template getter<PART>(whole(),key);
+      return whole.parent.template getter<PART>(whole(),look);
    }
 
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   PART *ptr(const KEY &key)
+   PART *ptr(const KEY &look)
    {
-      return whole.parent.template getter<PART>(whole(),key);
+      return whole.parent.template getter<PART>(whole(),look);
    }
 
-   // ref(index/label/Lookup)
+   // ref(Lookup)
    // Get as PART &
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   const PART &ref(const KEY &key) const
+   const PART &ref(const KEY &look) const
    {
-      const PART *const p = ptr(key);
+      const PART *const p = ptr(look);
       if (p) return *p;
       log::error(
         "Cannot get reference; variant contains a different alternative");
-      log::member("FieldPart::ref(key)");
+      log::member("FieldPart::ref(Lookup)");
       throw std::exception{};
    }
 
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   PART &ref(const KEY &key)
+   PART &ref(const KEY &look)
    {
-      return const_cast<PART &>(std::as_const(*this).template ref(key));
+      return const_cast<PART &>(std::as_const(*this).template ref(look));
    }
 
-   // opt(index/label/Lookup)
+   // opt(Lookup)
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   const std::optional<PART> opt(const KEY &key) const
+   const std::optional<PART> opt(const KEY &look) const
    {
-      const PART *const p = ptr(key);
+      const PART *const p = ptr(look);
       return p ? std::optional<PART>{*p} : std::optional<PART>{};
    }
 
-   // Opt(index/label/Lookup)
+   // [Lookup]
    template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
+      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
       class T = WHOLE, class = detail::isVector_t<T>>
-   const GNDStk::Optional<PART> Opt(const KEY &key) const
+   decltype(auto)
+   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) const // const
    {
-      const PART *const p = ptr(key);
-      return p ? GNDStk::Optional<PART>{*p} : GNDStk::Optional<PART>{};
-   }
-
-   // (index/label/Lookup), including Lookup<exists> (via the "has" function)
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   decltype(auto) operator()(const KEY &key) const
-   {
-      if constexpr (detail::isLookupBoolReturn_v<KEY>) {
-         // a bool
-         return whole(key);
-      } else {
+      if constexpr (
+         detail::isLookupRefReturn_v<Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>>
+      ) {
          // a reference
          try {
-            return ref(key);
+            return ref(look);
          } catch (...) {
-            log::member("FieldPart::operator()(key)");
+            log::member("FieldPart::operator[](Lookup)");
             throw;
          }
-      }
-   }
-
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   decltype(auto) operator()(const KEY &key)
-   {
-      if constexpr (detail::isLookupBoolReturn_v<KEY>) {
-         // a bool
-         return whole(key);
       } else {
-         // a reference
-         return const_cast<PART &>(std::as_const(*this)(key));
+         // bool, or by-value vector
+         return whole[look];
       }
    }
 
-   // [index/label/Lookup]
    template<
-      class KEY, class = detail::isLookup_t<KEY>,
+      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
       class T = WHOLE, class = detail::isVector_t<T>>
-   decltype(auto) operator[](const KEY &key) const
-      { return (*this)(key); }
-
-   template<
-      class KEY, class = detail::isLookup_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   decltype(auto) operator[](const KEY &key)
-      { return (*this)(key); }
+   decltype(auto)
+   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) // non-const
+   {
+      if constexpr (
+         detail::isLookupRefReturn_v<Lookup<MODE,EXTRACTOR,TYPE,CONVERTER>>
+      ) {
+         // a reference
+         return const_cast<PART &>(std::as_const(*this)(look));
+      } else {
+         // bool, or by-value vector
+         return whole[look];
+      }
+   }
 
    // If T == vector
    // size()
@@ -792,22 +634,16 @@ public:
    template<class T = WHOLE, class = detail::isVariant_t<T>>
    DERIVED &replace(const std::optional<PART> &opt)
    {
-      if (opt) whole.replace(opt.value());
+      if (opt) whole = opt.value();
       return whole.parent;
-   }
-
-   // operator()(value)
-   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
-   DERIVED &operator()(const std::optional<PART> &opt)
-   {
-      return replace(opt);
    }
 
    // operator=(value)
    template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
    FieldPart &operator=(const std::optional<PART> &opt)
    {
-      return replace(opt), *this;
+      if (opt) whole = opt.value();
+      return *this;
    }
 
    // If WHOLE == vector
@@ -827,85 +663,14 @@ public:
    }
 
    // If WHOLE == vector
-   // replace(index/label/Lookup, element)
+   // replace(Lookup,element)
    template<
       class KEY, class = detail::isLookupRefReturn_t<KEY>,
       class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &replace(const KEY &key, const std::optional<PART> &opt)
+   DERIVED &replace(const KEY &look, const std::optional<PART> &opt)
    {
-      if (opt) whole(key,opt.value());
+      if (opt) whole[look] = opt.value();
       return whole.parent;
-   }
-
-   template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &operator()(const KEY &key, const std::optional<PART> &opt)
-   {
-      return replace(key,opt);
-   }
-
-   // ------------------------
-   // Setters
-   // Using GNDStk::Optional
-   // ------------------------
-
-   // If WHOLE == variant
-   // replace(value)
-   template<class T = WHOLE, class = detail::isVariant_t<T>>
-   DERIVED &replace(const GNDStk::Optional<PART> &opt)
-   {
-      if (opt) whole.replace(opt.value());
-      return whole.parent;
-   }
-
-   // operator()(value)
-   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
-   DERIVED &operator()(const GNDStk::Optional<PART> &opt)
-   {
-      return replace(opt);
-   }
-
-   // operator=(value)
-   template<class T = WHOLE, std::enable_if_t<detail::isVariant_v<T>, int> = 0>
-   FieldPart &operator=(const GNDStk::Optional<PART> &opt)
-   {
-      return replace(opt), *this;
-   }
-
-   // If WHOLE == vector
-   // add(value)
-   template<class T = WHOLE, class = detail::isVector_t<T>>
-   FieldPart &add(const GNDStk::Optional<PART> &opt)
-   {
-      if (opt) whole.add(opt.value());
-      return *this;
-   }
-
-   // operator+=(value)
-   template<class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &operator+=(const GNDStk::Optional<PART> &opt)
-   {
-      return add(opt);
-   }
-
-   // If WHOLE == vector
-   // replace(index/label/Lookup, element)
-   template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &replace(const KEY &key, const GNDStk::Optional<PART> &opt)
-   {
-      if (opt) whole(key,opt.value());
-      return whole.parent;
-   }
-
-   template<
-      class KEY, class = detail::isLookupRefReturn_t<KEY>,
-      class T = WHOLE, class = detail::isVector_t<T>>
-   DERIVED &operator()(const KEY &key, const GNDStk::Optional<PART> &opt)
-   {
-      return replace(key,opt);
    }
 
    // ------------------------

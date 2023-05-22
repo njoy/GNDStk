@@ -1,184 +1,134 @@
 
+namespace detail {
+
+/*
+Contents:
+   1. compGetter<T>(variant)
+   2. compGetter   (vector<T>, Lookup exists/void)
+   3. compGetter   (vector<T>, Lookup exists/TYPE)
+   4. compGetter   (vector<T>, Lookup get/void)
+   5. compGetter   (vector<T>, Lookup get/TYPE)
+   6. compGetter<T>(vector<variant>, Lookup)
+   7. compGetter   (optional<vector<T>>, Lookup)
+*/
+
 // -----------------------------------------------------------------------------
-// getter(vector, index, names...)
-// Element of the vector that has .index() == index.
-// Or, use C++ [index] if the element type doesn't have an .index() getter.
+// Helpers
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// quote
+// ------------------------
+
+// general
 template<class T>
-const T &getter(
-   const std::vector<T> &vec,
-   const std::size_t &index,
-   // for the Component-derived class: names of namespace, class, relevant field
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   static const std::string context = "getter {}::{}.{}({}) on vector";
-   const std::string fname = fn != "" ? fn : "<unknown name>";
+std::string quote(const T &value)
+{
+   std::ostringstream oss;
+   oss << value;
+   return oss.str();
+}
 
-   try {
+// for string
+inline std::string quote(const std::string &value)
+{
+   return '"' + value + '"';
+}
 
-      if constexpr (hasIndex<T>) {
-         // hasIndex<T>
-         // T (or at least one of its alternatives, if T is a variant) has
-         // a metadatum called "index". In this case, this function's index
-         // parameter is interpreted to mean: find the object with an "index"
-         // metadatum that matches the parameter. Importantly, then, index
-         // in this case is ***NOT*** a C++ [index] index!
+// for char *
+// Else the general T case, not the string case, would be called
+inline std::string quote(const char *const value)
+{
+   return quote(std::string(value));
+}
 
-         // fixme Make this more efficient, e.g. by assuming that the vector's
-         // elements are sorted by index, so that the wanted value is probably
-         // at [index], even though a vector [index] is not the interpretation.
-         const T *object = nullptr;
+// ------------------------
+// firstOrOnly
+// ------------------------
 
-         for (auto &elem : vec) {
-            const T *ptr = nullptr;
+// general
+template<class T>
+struct firstOrOnly {
+   using type = T;
+};
 
-            if constexpr (isVariant_v<T>) {
-               // T == variant
-               std::visit(
-                  [&elem,&index,&ptr](auto &&alternative)
-                  {
-                     if constexpr (hasIndex<decltype(alternative)>)
-                        if (alternative.index() == index)
-                           ptr = &elem;
-                  },
-                  elem
-               );
-            } else {
-               // T != variant
-               if constexpr (hasIndex<T>)
-                  if (elem.index() == index)
-                     ptr = &elem;
-            }
+// for variant
+template<class T, class... Ts>
+struct firstOrOnly<std::variant<T,Ts...>> {
+   using type = T;
+};
 
-            if (ptr) {
-               if (object) {
-                  log::warning(
-                    "Element with metadatum \"index\" {} was already found "
-                    "in the vector.\n"
-                    "Keeping the first element that was found.",
-                     index
-                  );
-                  log::member(context, nname, cname, fname, index);
-               } else
-                  object = ptr;
-            }
-         } // for
+// ------------------------
+// has_field
+// ------------------------
 
-         if (object)
-            return *object;
+template<class T, class EXTRACTOR, class = int>
+struct has_field {
+   static constexpr bool value = false;
+};
 
-         log::error(
-           "Element with metadatum index == {} was not found in the vector" +
-            std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
-            index
-         );
-         throw std::exception{};
+template<class T, class EXTRACTOR>
+struct has_field<
+   T,
+   EXTRACTOR,
+   decltype(
+      (void)std::declval<EXTRACTOR>()(
+         std::conditional_t<isVariant_v<T>,void,T>{}
+      ),
+      0
+   )
+> {
+   static constexpr bool value = true;
+};
 
-      } else {
-         // !hasIndex<T>
-         // No "index" is anywhere to be found in T. Here, then, we interpret
-         // this function's index parameter to be a C++ vector [index].
-         // zzz Really need to rethink "index" and "label" interpretations.
-         if (index < vec.size())
-            return vec[index];
+// for variant: does any alternative have the field?
+template<class... Ts, class EXTRACTOR>
+struct has_field<std::variant<Ts...>,EXTRACTOR>
+{
+   static constexpr bool value = (has_field<Ts,EXTRACTOR>::value || ...);
+};
 
-         if (vec.size() == 0)
-            log::error(
-              "Index {} is out of range; vector is empty.",
-               index);
-         else
-            log::error(
-              "Index {} is out of range; vector has [0..{}].",
-               index, vec.size()-1);
 
-         throw std::exception{};
-      }
+// -----------------------------------------------------------------------------
+// 1.
+// compGetter<T>(variant)
+// Returns: const T *
+// -----------------------------------------------------------------------------
 
-   } catch (...) {
-      // context
-      log::member(context, nname, cname, fname, index);
-      throw;
-   }
+template<class T, class... Ts, class = std::enable_if_t<is_in_v<T,Ts...>>>
+const T *compGetter(const std::variant<Ts...> &var)
+{
+   return std::get_if<T>(&var);
 }
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, label, names...)
-// Element of the vector that has .label() == label.
-// Assumes that the element type has a .label() getter.
+// 2.
+// compGetter(vector<T>, Lookup exists/void, names)
+// Returns: bool
 // -----------------------------------------------------------------------------
 
-template<class T>
-const T &getter(
-   const std::vector<T> &vec,
-   const std::string &label,
-   const std::string &nname, const std::string &cname, const std::string &fn
+template<class T, class EXTRACTOR>
+bool compGetter(
+   const std::vector<T> &,
+   const Lookup<LookupMode::exists,EXTRACTOR,void,void> &,
+   const std::string &, const std::string &, const std::string &
 ) {
-   static const std::string context = "getter {}::{}.{}(\"{}\") on vector";
-   const std::string fname = fn != "" ? fn : "<unknown name>";
-
-   try {
-      const T *object = nullptr;
-
-      for (auto &elem : vec) {
-         const T *ptr = nullptr;
-
-         if constexpr (isVariant_v<T>) {
-            // T == variant
-            std::visit(
-               [&elem,&label,&ptr](auto &&alternative)
-               {
-                  if constexpr (hasLabel<decltype(alternative)>)
-                     if (alternative.label() == label)
-                        ptr = &elem;
-               },
-               elem
-            );
-         } else {
-            // T != variant
-            if constexpr (hasLabel<T>)
-               if (elem.label() == label)
-                  ptr = &elem;
-         }
-
-         if (ptr) {
-            if (object) {
-               log::warning(
-                 "Element with label \"{}\" was already found in the vector.\n"
-                 "Keeping the first element that was found.",
-                  label
-               );
-               log::member(context, nname, cname, fname, label);
-            } else
-               object = ptr;
-         }
-      } // for
-
-      if (object)
-         return *object;
-
-      log::error(
-        "Element with metadatum label == \"{}\" was not found in the vector" +
-         std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
-         label
-      );
-      throw std::exception{};
-
-   } catch (...) {
-      // context
-      log::member(context, nname, cname, fname, label);
-      throw;
-   }
+   return has_field<T,EXTRACTOR>::value;
 }
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<exists,EXTRACTOR,TYPE,CONVERTER>, names...)
+// 3.
+// compGetter(vector<T>, Lookup exists/TYPE, names)
+// Returns: bool
 // -----------------------------------------------------------------------------
 
-template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
-bool getter(
+template<
+   class T, class EXTRACTOR, class TYPE, class CONVERTER,
+   class = std::enable_if_t<has_field<T,EXTRACTOR>::value>
+>
+bool compGetter(
    const std::vector<T> &vec,
    const Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
@@ -186,7 +136,7 @@ bool getter(
    const std::string fname = fn != "" ? fn : "<unknown name>";
 
    try {
-      for (auto &elem : vec)
+      for (const auto &elem : vec) {
          if constexpr (isVariant_v<T>) {
             // T == variant
             if (std::visit(
@@ -197,15 +147,17 @@ bool getter(
                elem
             ))
                return true;
-         } else
+         } else {
             // T != variant
             if (look.extractor(elem) == look.value)
                return true;
+         }
+      }
    } catch (...) {
       // context
       log::member(
-        "getter {}::{}.{}(has({}({}))) on vector",
-         nname, cname, fname, look.name, look.value);
+        "compGetter {}::{}.{}(has({}({}))) on vector",
+         nname, cname, fname, look.name, quote(look.value));
       throw;
    }
 
@@ -214,91 +166,18 @@ bool getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(vector, Lookup<get,EXTRACTOR,TYPE,CONVERTER>, names...)
+// 4.
+// compGetter(vector<T>, Lookup get/void, names)
+// Returns: vector
+// Meaning: create and return a vector with the extracted fields. Analogy: given
+// a vector<complex>, return a vector<double> with just, say, the .real parts.
 // -----------------------------------------------------------------------------
 
-template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
-const T &getter(
-   const std::vector<T> &vec,
-   const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look,
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   static const std::string context = "getter {}::{}.{}({}({})) on vector";
-   const std::string fname = fn != "" ? fn : "<unknown name>";
-
-   try {
-      const T *object = nullptr;
-
-      for (auto &elem : vec) {
-         const T *ptr = nullptr;
-
-         if constexpr (isVariant_v<T>) {
-            // T == variant
-            std::visit(
-               [&elem,&look,&ptr](auto &&alternative)
-               {
-                  if (look.extractor(alternative) == look.value)
-                     ptr = &elem;
-               },
-               elem
-            );
-         } else {
-            // T != variant
-            if (look.extractor(elem) == look.value)
-               ptr = &elem;
-         }
-
-         if (ptr) {
-            if (object) {
-               log::warning(
-                 "Element with {}({}) was already found in the vector.\n"
-                 "Keeping the first element that was found.",
-                  look.name, look.value
-               );
-               log::member(context, nname, cname, fname, look.name, look.value);
-            } else
-               object = ptr;
-         }
-      } // for
-
-      if (object)
-         return *object;
-
-      log::error(
-        "Element with metadatum {} == {} was not found in the vector" +
-         std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
-         look.name, look.value
-      );
-      throw std::exception{};
-
-   } catch (...) {
-      // context
-      log::member(context, nname, cname, fname, look.name, look.value);
-      throw;
-   }
-}
-
-
-// -----------------------------------------------------------------------------
-// getter(vector, Lookup<exists,EXTRACTOR,void,void>, names...)
-// -----------------------------------------------------------------------------
-
-template<class T, class EXTRACTOR>
-bool getter(
-   const std::vector<T> &,
-   const Lookup<LookupMode::exists,EXTRACTOR,void,void> &,
-   const std::string &, const std::string &, const std::string &
-) {
-   return has_field<EXTRACTOR,T>::value;
-}
-
-
-// -----------------------------------------------------------------------------
-// getter(vector, Lookup<get,EXTRACTOR,void,void>, names...)
-// -----------------------------------------------------------------------------
-
-template<class T, class EXTRACTOR>
-auto getter(
+template<
+   class T, class EXTRACTOR,
+   class = std::enable_if_t<has_field<T,EXTRACTOR>::value>
+>
+auto compGetter(
    const std::vector<T> &vec,
    const Lookup<LookupMode::get,EXTRACTOR,void,void> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
@@ -310,7 +189,7 @@ auto getter(
    >> ret;
 
    try {
-      for (auto &elem : vec) {
+      for (const auto &elem : vec) {
          if constexpr (isVariant_v<T>) {
             // T == variant
             std::visit(
@@ -328,7 +207,7 @@ auto getter(
    } catch (...) {
       // context
       log::member(
-        "getter {}::{}.{}({}) on vector",
+        "compGetter {}::{}.{}({}) on vector",
          nname, cname, fname, look.name);
       throw;
    }
@@ -338,13 +217,121 @@ auto getter(
 
 
 // -----------------------------------------------------------------------------
-// getter(optional<vector>, index/label/Lookup, names...)
-// As earlier, but for optional<vector> data member.
+// 5.
+// compGetter(vector<T>, Lookup get/TYPE, names)
+// Returns: const T &
+// Get-mode Lookup, with a value. Meaning: return the element, of the vector,
+// where extractor(element) == look.value. (Analogy: taking a vector<complex>,
+// and returning the (first) element that has .real() == some given value.)
 // -----------------------------------------------------------------------------
 
-template<class OPTVEC, class KEY>
-decltype(auto) getter_helper(
-   const OPTVEC &optvec, const KEY &key,
+template<
+   class T, class EXTRACTOR, class TYPE, class CONVERTER,
+   class = std::enable_if_t<has_field<T,EXTRACTOR>::value>
+>
+const T &compGetter(
+   const std::vector<T> &vec,
+   const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look,
+   const std::string &nname, const std::string &cname, const std::string &fn
+) {
+   static const std::string context = "compGetter {}::{}.{}({}({})) on vector";
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
+   try {
+      const T *object = nullptr;
+
+      for (const auto &elem : vec) {
+         const T *ptr = nullptr;
+
+         if constexpr (isVariant_v<T>) {
+            // T == variant
+            std::visit(
+               [&elem,&look,&ptr](auto &&alternative)
+               {
+                  using Class = std::decay_t<decltype(alternative)>;
+                  if constexpr (has<Class,EXTRACTOR>(0))
+                     if (look.extractor(alternative) == look.value)
+                        ptr = &elem;
+               },
+               elem
+            );
+         } else {
+            // T != variant
+            if (look.extractor(elem) == look.value)
+               ptr = &elem;
+         }
+
+         if (ptr) {
+            if (object) {
+               const std::string valuestr = quote(look.value);
+               log::warning(
+                 "Element with {}({}) was already found in the vector.\n"
+                 "Keeping the first element that was found.",
+                  look.name, valuestr
+               );
+               log::member(context, nname, cname, fname, look.name, valuestr);
+            } else
+               object = ptr;
+         }
+      } // for
+
+      if (object)
+         return *object;
+
+      log::error(
+        "Element with metadatum {} == {} was not found in the vector" +
+         std::string(vec.size() ? "." : ";\nin fact, the vector is empty."),
+         look.name, quote(look.value)
+      );
+      throw std::exception{};
+
+   } catch (...) {
+      // context
+      log::member(context, nname, cname, fname, look.name, quote(look.value));
+      throw;
+   }
+}
+
+
+// -----------------------------------------------------------------------------
+// 6.
+// compGetter<T>(vector<variant>, Lookup, names)
+// Returns: const T *
+// -----------------------------------------------------------------------------
+
+template<
+   class T, class... Ts,
+   LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
+   class = std::enable_if_t<is_in_v<T,Ts...>>
+>
+const T *compGetter(
+   const std::vector<std::variant<Ts...>> &vecvar,
+   const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look,
+   const std::string &nname, const std::string &cname, const std::string &fn
+) {
+   const std::string fname = fn != "" ? fn : "<unknown name>";
+
+   try {
+      return compGetter<T>(compGetter(vecvar, look, nname, cname, fname));
+   } catch (...) {
+      // context
+      log::member(
+        "compGetter {}::{}.{}({}) on vector<variant>",
+         nname, cname, fname, quote(look.value));
+      throw;
+   }
+}
+
+
+// -----------------------------------------------------------------------------
+// 7.
+// compGetter(optional<vector<T>>, Lookup, names)
+// -----------------------------------------------------------------------------
+
+template<class T, LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER>
+decltype(auto) compGetter(
+   const std::optional<std::vector<T>> &optvec,
+   const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    const std::string fname = fn != "" ? fn : "<unknown name>";
@@ -355,111 +342,27 @@ decltype(auto) getter_helper(
          log::error("optional vector {} does not have a value", fname);
          throw std::exception{};
       }
-      return getter(*optvec, key, nname, cname, fname);
+      return compGetter(*optvec, look, nname, cname, fname);
    } catch (...) {
-      // context
-      if constexpr (isLookup_v<KEY>) {
-         // nname::cname.fname(field(value))
-         if constexpr (KEY::Mode == LookupMode::get    && !KEY::Void)
-            log::member("getter {}::{}.{}({}({})) on optional<vector>",
-                        nname, cname, fname, key.name, key.value);
-         // nname::cname.fname(has(field(value)))
-         if constexpr (KEY::Mode == LookupMode::exists && !KEY::Void)
-            log::member("getter {}::{}.{}(has({}({}))) on optional<vector>",
-                        nname, cname, fname, key.name, key.value);
-         // nname::cname.fname(field)
-         if constexpr (KEY::Mode == LookupMode::get    &&  KEY::Void)
-            log::member("getter {}::{}.{}({}) on optional<vector>",
-                        nname, cname, fname, key.name);
-         // nname::cname.fname(has(field))
-         if constexpr (KEY::Mode == LookupMode::exists &&  KEY::Void)
-            log::member("getter {}::{}.{}(has({})) on optional<vector>",
-                        nname, cname, fname, key.name);
-      } else {
-         log::member(
-            std::is_convertible_v<KEY,std::size_t>
-               ? "getter {}::{}.{}({}) on optional<vector>"
-               : "getter {}::{}.{}(\"{}\") on optional<vector>",
-            nname, cname, fname, key);
-      }
+      // context...
+      // ...nname::cname.fname(field(value))
+      if constexpr (MODE == LookupMode::get    && !detail::is_void_v<TYPE>)
+         log::member("compGetter {}::{}.{}({}({})) on optional<vector>",
+                     nname, cname, fname, look.name, quote(look.value));
+      // ...nname::cname.fname(has(field(value)))
+      if constexpr (MODE == LookupMode::exists && !detail::is_void_v<TYPE>)
+         log::member("compGetter {}::{}.{}(has({}({}))) on optional<vector>",
+                     nname, cname, fname, look.name, quote(look.value));
+      // ...nname::cname.fname(field)
+      if constexpr (MODE == LookupMode::get    &&  detail::is_void_v<TYPE>)
+         log::member("compGetter {}::{}.{}({}) on optional<vector>",
+                     nname, cname, fname, look.name);
+      // ...nname::cname.fname(has(field))
+      if constexpr (MODE == LookupMode::exists &&  detail::is_void_v<TYPE>)
+         log::member("compGetter {}::{}.{}(has({})) on optional<vector>",
+                     nname, cname, fname, look.name);
       throw;
    }
 }
 
-// std::optional
-template<class T, class KEY, class = isSearchKey<KEY>>
-decltype(auto) getter(
-   const std::optional<std::vector<T>> &optvec, const KEY &key,
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   return getter_helper(optvec, key, nname, cname, fn);
-}
-
-// GNDStk::Optional
-template<class T, class KEY, class = isSearchKey<KEY>>
-decltype(auto) getter(
-   const GNDStk::Optional<std::vector<T>> &optvec, const KEY &key,
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   return getter_helper(optvec, key, nname, cname, fn);
-}
-
-
-// -----------------------------------------------------------------------------
-// getter<T>(variant, names...)
-// -----------------------------------------------------------------------------
-
-template<
-   class T, class... Ts,
-   class = std::enable_if_t<isAlternative<T,std::variant<Ts...>>>
->
-const T *getter(
-   const std::variant<Ts...> &var,
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   const std::string fname = fn != "" ? fn : "<unknown name>";
-
-   try {
-      return std::holds_alternative<T>(var)
-         ? &std::get<T>(var)
-         : nullptr;
-   } catch (...) {
-      // context
-      log::member("getter {}::{}.{}() on variant", nname, cname, fname);
-      throw;
-   }
-}
-
-
-// -----------------------------------------------------------------------------
-// getter<T>(vector<variant>, index/label/Lookup, names...)
-// -----------------------------------------------------------------------------
-
-template<
-   class T, class KEY, class... Ts,
-   class = isSearchKey<KEY>,
-   class = std::enable_if_t<isAlternative<T,std::variant<Ts...>>>
->
-const T *getter(
-   const std::vector<std::variant<Ts...>> &vecvar,
-   const KEY &key,
-   const std::string &nname, const std::string &cname, const std::string &fn
-) {
-   const std::string fname = fn != "" ? fn : "<unknown name>";
-
-   try {
-      return getter<T>(
-         // no <T>, so it calls getter(generic vector); it isn't recursive
-         getter(vecvar, key, nname, cname, fname), // scalar variant
-         nname, cname, fname
-      );
-   } catch (...) {
-      // context
-      log::member(
-         std::is_convertible_v<KEY,std::size_t>
-            ? "getter {}::{}.{}({}) on vector<variant>"
-            : "getter {}::{}.{}(\"{}\") on vector<variant>",
-         nname, cname, fname, key);
-      throw;
-   }
-}
+} // namespace detail
