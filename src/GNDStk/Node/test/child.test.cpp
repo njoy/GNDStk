@@ -499,7 +499,7 @@ SCENARIO("Testing GNDStk Node child()") {
          found = false;
          CHECK((c.child(reaction,found)[0].ENDF_MT == 2 && found));
          found = true;
-         c.child(nonsense,found)[0];
+         (void)c.child(nonsense,found)[0];
          CHECK(!found);
       }
 
@@ -554,7 +554,7 @@ SCENARIO("Testing GNDStk Node child()") {
          found = false;
          CHECK((c.child<R>(reaction,found)[0].ENDF_MT == 2 && found));
          found = true;
-         c.child<N>(nonsense,found)[0];
+         (void)c.child<N>(nonsense,found)[0];
          CHECK(!found);
       }
 

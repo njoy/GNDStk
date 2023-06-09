@@ -3,7 +3,10 @@
 // Miscellaneous variables, enums, etc.
 // -----------------------------------------------------------------------------
 
+#ifdef SIMPLE_JSON
+#else
 using orderedJSON = nlohmann::ordered_json;
+#endif
 
 // indent
 // Number of spaces of indentation you want, in the output of certain types
@@ -401,7 +404,7 @@ inline bool beginsin(const std::string &str, const std::string &begin)
 // Case-insensitive string comparison.
 // The old C language strcasecmp() is nonstandard. A modern, true caseless
 // string comparison is actually a tougher nut to crack than meets the eye,
-// but the following will suffice for our English-language purposes.
+// but the following should suffice for our purposes.
 inline bool nocasecmp(const std::string &one, const std::string &two)
 {
    return std::equal(

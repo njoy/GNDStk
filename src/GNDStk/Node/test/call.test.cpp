@@ -600,7 +600,7 @@ SCENARIO("Testing GNDStk::Node's operator()") {
          found = false;
          CHECK((c(reaction,found)[0].ENDF_MT == 2 && found));
          found = true;
-         c(nonsense,found)[0];
+         (void)c(nonsense,found)[0];
          CHECK(!found);
       }
 
@@ -877,7 +877,7 @@ SCENARIO("Testing GNDStk::Node's operator()") {
          CHECK((c(suite,reactions,reaction,found)[0].ENDF_MT == 2
                 && found));
          found = true;
-         c(suite,reactions,nonsense,found)[0];
+         (void)c(suite,reactions,nonsense,found)[0];
          CHECK(!found);
       }
 

@@ -1,4 +1,9 @@
 
+// For e.g. uint32_t, which is used in pybind11.h. A recent attempted build
+// with g++ reported that std::uint32_t wasn't a known type, which suggests
+// that pybind11.h doesn't #include everything it should.
+#include <cstdint>
+
 // system includes
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>

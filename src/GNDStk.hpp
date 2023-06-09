@@ -68,7 +68,7 @@
 // -----------------------------------------------------------------------------
 
 // See https://stackoverflow.com/questions/42797279
-using size_t = std::size_t;
+using std::size_t;
 
 namespace njoy {
 namespace GNDStk {
