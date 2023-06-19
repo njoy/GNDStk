@@ -8,7 +8,7 @@
 // namespace aliases
 namespace python = pybind11;
 
-namespace core {
+namespace python_core {
 
 void wrapGridStyle( python::module& module ) {
 
@@ -35,4 +35,4 @@ void wrapGridStyle( python::module& module ) {
   .value( "parameters", Component::parameters );
 }
 
-} // namespace core
+} // namespace python_core

@@ -26,8 +26,10 @@ SCENARIO( "StorageOrder" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( StorageOrder::rowMajor == enums::fromString< StorageOrder >( "rowMajor" ) );
-        CHECK( StorageOrder::columnMajor == enums::fromString< StorageOrder >( "columnMajor" ) );
+        CHECK( StorageOrder::rowMajor ==
+               enums::fromString< StorageOrder >( "rowMajor" ) );
+        CHECK( StorageOrder::columnMajor ==
+               enums::fromString< StorageOrder >( "columnMajor" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
@@ -79,7 +81,8 @@ SCENARIO( "StorageOrder" ) {
 
     WHEN( "isStorageOrder is used" ) {
 
-      THEN( "registered storage order values return true, unregistered storage order values return false" ) {
+      THEN( "registered storage order values return true, "
+            "unregistered storage order values return false" ) {
 
         CHECK( true == enums::isStorageOrder( "rowMajor" ) );
         CHECK( true == enums::isStorageOrder( "columnMajor" ) );

@@ -176,7 +176,7 @@
             },
             "affiliations": {
                 "__class__": "nodes.ChildNode",
-                "description": "Institutional affilation(s) of the author",
+                "description": "Institutional affiliation(s) of the author",
                 "name": "affiliations",
                 "occurrence": "1",
                 "required": false
@@ -240,7 +240,7 @@
             "affiliation": {
                 "__class__": "nodes.ChildNode",
                 "description": "Each affiliation is described in an \\element{affiliation} element.",
-                "name": "affilation",
+                "name": "affiliation",
                 "occurrence": "1+",
                 "required": true
             }

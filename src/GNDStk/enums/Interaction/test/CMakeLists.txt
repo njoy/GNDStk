@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.Interaction.test Interaction.test.cpp )
+add_executable(
+   GNDStk.enums.Interaction.test
+   Interaction.test.cpp
+)
+
 target_compile_options( GNDStk.enums.Interaction.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
