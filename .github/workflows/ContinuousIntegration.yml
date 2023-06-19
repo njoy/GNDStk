@@ -22,10 +22,10 @@ jobs:
 
     steps:
     - name: Install hdf5 libraries for Linux
-      if: matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-20.04'
       run: sudo apt-get install libhdf5-dev
     - name: Install hdf5 libraries for MacOS
-      if: matrix.os == 'macos-10.15'
+      if: matrix.os == 'macos-11'
       run: brew install hdf5
     - name: which CXX
       run: |
