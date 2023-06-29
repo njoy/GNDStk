@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.Frame.test Frame.test.cpp )
+add_executable(
+   GNDStk.enums.Frame.test
+   Frame.test.cpp
+)
+
 target_compile_options( GNDStk.enums.Frame.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

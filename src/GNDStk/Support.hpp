@@ -14,7 +14,6 @@ using UTF8Text   = std::string;
 using XMLName    = std::string;
 
 
-
 // -----------------------------------------------------------------------------
 // Fraction32
 // -----------------------------------------------------------------------------
@@ -73,7 +72,6 @@ inline std::ostream &operator<<(std::ostream &os, const Fraction32 &obj)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // IntegerTuple
 // -----------------------------------------------------------------------------
@@ -85,11 +83,6 @@ public:
    // ------------------------
    // constructors
    // ------------------------
-
-   // fixme
-   // The GNDS manual says that "any integer (0-9)" is allowed. If the 0-9
-   // part is really correct, then I should probably throw an error, or at
-   // least print a warning) if a provided value is outside of that range.
 
    IntegerTuple()
    { }
@@ -116,7 +109,7 @@ public:
       vec(vec)
    { }
 
-   template<std::size_t N>
+   template<size_t N>
    explicit IntegerTuple(const std::array<int,N> &arr) :
       vec(arr.begin(), arr.end())
    { }
@@ -130,9 +123,9 @@ public:
 
    // operator[]
    // we'll use at(), under-the-hood, so that out-of-range ==> exception
-   const int &operator[](const std::size_t i) const
+   const int &operator[](const size_t i) const
       { return vec.at(i); }
-   int &operator[](const std::size_t i)
+   int &operator[](const size_t i)
       { return vec.at(i); }
 
    // push
@@ -179,7 +172,7 @@ inline std::istream &operator>>(std::istream &is, IntegerTuple &obj)
 // operator<<
 inline std::ostream &operator<<(std::ostream &os, const IntegerTuple &obj)
 {
-   std::size_t n = 0;
+   size_t n = 0;
    while (n < obj.size())
       os << (n ? "," : "") << obj[n];
    return os;

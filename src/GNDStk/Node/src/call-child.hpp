@@ -23,8 +23,10 @@ decltype(auto) operator()(
 
 // ------------------------
 // ()(Child, string)
+// ()(Child, char *, ...)
 // ------------------------
 
+// ()(Child, string)
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -42,6 +44,19 @@ decltype(auto) operator()(
       log::member("Node(" + detail::keyname(kwd) + ",label=\"{}\")", label);
       throw;
    }
+}
+
+// ()(Child, char *, ...)
+// Without this, an ambiguity can arise with operator()() cases, in other
+// files, that have KEYWORDS &&...keywords. (Under "normal" circumstances,
+// a char * would simply convert to a std::string.)
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+decltype(auto) operator()(
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const char *const label,
+   bool &found = detail::default_bool
+) GNDSTK_CONST {
+   return (*this)(kwd, std::string(label), found);
 }
 
 

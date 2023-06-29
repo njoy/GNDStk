@@ -1,7 +1,10 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
+using namespace basic;
 
 
 // -----------------------------------------------------------------------------
@@ -330,7 +333,7 @@ SCENARIO("Testing GNDStk Node operator[]") {
             // which of course leads to this sort of thing...
             CHECK(n.one("REACTIONSUITE").name == "REACTIONSUITE");
             n[Child<>("REACTIONSUITE")].name = "reactionSuite";
-            // try assigning the whole Node...
+            // try assigning the Node itself...
             n[reactionSuite] = c[reactionSuite];
          }
       }

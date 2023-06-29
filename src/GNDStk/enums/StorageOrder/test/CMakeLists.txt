@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.StorageOrder.test StorageOrder.test.cpp )
+add_executable(
+   GNDStk.enums.StorageOrder.test
+   StorageOrder.test.cpp
+)
+
 target_compile_options( GNDStk.enums.StorageOrder.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

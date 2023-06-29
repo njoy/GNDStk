@@ -212,8 +212,8 @@ SCENARIO("Testing some GNDStk::convert(pair,ostream) functionality") {
    // ------------------------
 
    WHEN("We call convert(pair,ostream)") {
-      THEN("It works correctly when GNDStk::comma == false") {
-         njoy::GNDStk::comma = false; // we don't want a comma in the output...
+      THEN("It works correctly when GNDStk::commas == false") {
+         njoy::GNDStk::commas = false; // we don't want a comma in the output...
          const std::pair<int,long> p(12,34);
          std::ostringstream oss;
          njoy::GNDStk::convert(p,oss);
@@ -221,8 +221,8 @@ SCENARIO("Testing some GNDStk::convert(pair,ostream) functionality") {
          CHECK(str == "12 34"); // ...so, no comma
       }
 
-      THEN("It works correctly when GNDStk::comma == true") {
-         njoy::GNDStk::comma = true; // we do want a comma in the output...
+      THEN("It works correctly when GNDStk::commas == true") {
+         njoy::GNDStk::commas = true; // we want a comma in the output...
          const std::pair<int,long> p(56,78);
          std::ostringstream oss;
          njoy::GNDStk::convert(p,oss);

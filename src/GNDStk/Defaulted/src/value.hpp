@@ -32,7 +32,7 @@ const T &operator*() const
    return value();
 }
 
-// ->
+// ->, const
 // Helpful mainly if T is a nontrivial type. With a Defaulted<std::vector>
 // object, for example, you could write object->size().
 const T *operator->() const

@@ -42,7 +42,7 @@ convert(string,type) for some existing C++ container types.
 
 // default
 template<class T>
-inline void convert(std::istream &is, T &value)
+void convert(std::istream &is, T &value)
 {
    if constexpr (std::is_floating_point_v<T>) {
       std::string str;
@@ -55,9 +55,15 @@ inline void convert(std::istream &is, T &value)
    }
 }
 
+// string
+inline void convert(std::istream &is, std::string &value)
+{
+   is >> value;
+}
+
 // pair
 template<class X, class Y>
-inline void convert(std::istream &is, std::pair<X,Y> &p)
+void convert(std::istream &is, std::pair<X,Y> &p)
 {
    // we allow:
    //    x y
@@ -81,10 +87,10 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
       T val; \
       while ((convert(is,val),is)) { \
          value.push_back(val); \
-         /* The following of course means that any ',' after the container */ \
-         /* elements will be eaten, but we don't believe this will create  */ \
-         /* problems, given this function's usage. In fact the container's */ \
-         /* last element is *probably* at the end of the istream anyway.   */ \
+         /* The following of course means that any ',' after the container  */ \
+         /* elements will be eaten, but we don't believe this will create   */ \
+         /* problems, given this function's usage. In fact, the container's */ \
+         /* last element is *probably* at the end of the istream anyway.    */ \
          if (is.get() != ',') \
             is.unget(); \
       } \
@@ -104,7 +110,7 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
 
 // default
 template<class T>
-inline void convert(const std::string &str, T &value)
+void convert(const std::string &str, T &value)
 {
    // try block, in case someone overloads our convert()s
    try {

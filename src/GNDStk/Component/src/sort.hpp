@@ -5,31 +5,31 @@
 
 void sort()
 {
+   if (!njoy::GNDStk::sort)
+      return;
+
    try {
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
-         // Consistency check; then nothing further to do
-         assert(0 == links.size());
-      } else {
-         // Make tuple (of individual keys) from DERIVED::keys()
-         const auto tup = toKeywordTup(DERIVED::keys()).tup;
+      // Consistency check
+      assert(std::tuple_size_v<decltype(Keys().tup)> == links.size());
 
-         // Consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+      // Apply links
+      std::apply(
+         [this](const auto &... key) {
+            size_t n = 0;
+            (
+               detail::sort(
+                  *(
+                     typename detail::queryResult<
+                        std::decay_t<decltype(key)>
+                     >::type
+                  *)links[n++]
+               ),
+               ...
+            );
+         },
+         Keys().tup
+      );
 
-         // Apply links
-         std::apply(
-            [this](const auto &... key) {
-               std::size_t n = 0;
-               (
-                  detail::sort(
-                   *(std::decay_t<decltype(Node{}(key))> *)links[n++]
-                  ),
-                  ...
-               );
-            },
-            tup
-         );
-      }
    } catch (...) {
       log::member("Component.sort()");
       throw;

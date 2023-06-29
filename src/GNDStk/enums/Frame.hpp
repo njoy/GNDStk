@@ -6,9 +6,7 @@ namespace enums {
 
   /**
    *  @class
-   *  @brief Enumeration class giving acceptable frame values
-   *
-   *  See GNDS v1.9 specifications section 3.5.3
+   *  @brief Enumeration class for reference frame values
    */
   enum class Frame {
 

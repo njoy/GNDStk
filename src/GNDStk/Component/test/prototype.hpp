@@ -2,7 +2,17 @@
 namespace GNDStk {
 namespace proto {
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
+
+inline const auto index = makeLookup(
+   "index",
+   [](const auto &obj) -> decltype(obj.index()) { return obj.index(); }
+);
+
+inline const auto label = makeLookup(
+   "label",
+   [](const auto &obj) -> decltype(obj.label()) { return obj.label(); }
+);
 
 // -----------------------------------------------------------------------------
 // Sketch: prototype "ReactionSuite" hierarchy
@@ -110,12 +120,12 @@ class Values : public Component<Values,true> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Values"; }
-   static auto GNDSName() { return "values"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Values"; }
+   static auto NODENAME() { return "values"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -126,6 +136,26 @@ class Values : public Component<Values,true> {
          Defaulted<std::string>{"double"}
             / Meta<>("valueType")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "valueType"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "length",
+         "start",
+         "value_type"
+      };
+      return names;
    }
 
 public:
@@ -151,7 +181,7 @@ public:
       mutable std::optional<int> length;
       mutable Defaulted<int> start{0};
       mutable Defaulted<std::string> valueType{"double"};
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -160,21 +190,21 @@ public:
 
    // length
    const auto &length() const
-    { return content.length; }
+    { return Content.length; }
    auto &length()
-    { return content.length; }
+    { return Content.length; }
 
    // start
    const auto &start() const
-    { return content.start.value(); }
+    { return Content.start; }
    auto &start()
-    { return content.start.value(); }
+    { return Content.start; }
 
    // valueType
    const auto &valueType() const
-    { return content.valueType.value(); }
+    { return Content.valueType; }
    auto &valueType()
-    { return content.valueType.value(); }
+    { return Content.valueType; }
 
    // ------------------------
    // Setters
@@ -184,19 +214,19 @@ public:
 
    // length(value)
    auto &length(const std::optional<int> &obj)
-    { BodyText::length(length() = obj); return *this; }
+    { BlockData::length(length() = obj); return *this; }
 
    // start(value)
    auto &start(const Defaulted<int> &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
    auto &start(const int &obj)
-    { BodyText::start(content.start = obj); return *this; }
+    { BlockData::start(start() = obj); return *this; }
 
    // valueType(value)
    auto &valueType(const Defaulted<std::string> &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
    auto &valueType(const std::string &obj)
-    { BodyText::valueType(content.valueType = obj); return *this; }
+    { BlockData::valueType(valueType() = obj); return *this; }
 
    // ------------------------
    // Construction
@@ -205,10 +235,10 @@ public:
    // default
    Values() :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish();
@@ -218,11 +248,11 @@ public:
    Values(const Values &other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -231,11 +261,11 @@ public:
    Values(Values &&other) :
       Component{
          other,
-         content.length,
-         content.start,
-         content.valueType
+         this->length(),
+         this->start(),
+         this->valueType()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -243,10 +273,10 @@ public:
    // from node
    Values(const Node &node) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       }
    {
       Component::finish(node);
@@ -259,12 +289,12 @@ public:
       const Defaulted<std::string> &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
-      content{
+      Content{
          length,
          start,
          valueType
@@ -280,12 +310,12 @@ public:
       const std::string &valueType
    ) :
       Component{
-         BodyText{},
-         content.length,
-         content.start,
-         content.valueType
+         BlockData{},
+         this->length(),
+         this->start(),
+         this->valueType()
       },
-      content{
+      Content{
          length,
          start == 0
             ? Defaulted<int>{0}
@@ -325,18 +355,34 @@ class Link : public Component<Link> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Link"; }
-   static auto GNDSName() { return "link"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Link"; }
+   static auto NODENAME() { return "link"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
          std::string{}
             / Meta<>("href")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href"
+      };
+      return names;
    }
 
 public:
@@ -358,7 +404,7 @@ public:
    struct {
       // metadata
       std::string href;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -367,9 +413,9 @@ public:
 
    // href
    const auto &href() const
-    { return content.href; }
+    { return Content.href; }
    auto &href()
-    { return content.href; }
+    { return Content.href; }
 
    // ------------------------
    // Setters
@@ -388,8 +434,8 @@ public:
    // default
    Link() :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       }
    {
       Component::finish();
@@ -399,9 +445,9 @@ public:
    Link(const Link &other) :
       Component{
          other,
-         content.href
+         this->href()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -410,9 +456,9 @@ public:
    Link(Link &&other) :
       Component{
          other,
-         content.href
+         this->href()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -420,8 +466,8 @@ public:
    // from node
    Link(const Node &node) :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       }
    {
       Component::finish(node);
@@ -432,10 +478,10 @@ public:
       const std::string &href
    ) :
       Component{
-         BodyText{},
-         content.href
+         BlockData{},
+         this->href()
       },
-      content{
+      Content{
          href
       }
    {
@@ -474,12 +520,12 @@ class Grid : public Component<Grid> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Grid"; }
-   static auto GNDSName() { return "grid"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Grid"; }
+   static auto NODENAME() { return "grid"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -499,6 +545,32 @@ class Grid : public Component<Grid> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "style",
+         "unit",
+         "link_values"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -509,7 +581,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -519,14 +592,15 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<enums::GridStyle> style;
       std::optional<std::string> unit;
 
       // children
       LINK_VALUES link_values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -535,51 +609,51 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return Content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return Content.interpolation; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // style
    const auto &style() const
-    { return content.style; }
+    { return Content.style; }
    auto &style()
-    { return content.style; }
+    { return Content.style; }
 
    // unit
    const auto &unit() const
-    { return content.unit; }
+    { return Content.unit; }
    auto &unit()
-    { return content.unit; }
+    { return Content.unit; }
 
    // link_values
    const auto &link_values() const
-    { return content.link_values; }
+    { return Content.link_values; }
    auto &link_values()
-    { return content.link_values; }
+    { return Content.link_values; }
 
    // link
    auto link() const
-    { return getter<proto::Link>(link_values(), "link"); }
+    { return getter<proto::Link>(link_values()); }
    auto link()
-    { return getter<proto::Link>(link_values(), "link"); }
+    { return getter<proto::Link>(link_values()); }
 
    // values
    auto values() const
-    { return getter<proto::Values>(link_values(), "values"); }
+    { return getter<proto::Values>(link_values()); }
    auto values()
-    { return getter<proto::Values>(link_values(), "values"); }
+    { return getter<proto::Values>(link_values()); }
 
    // ------------------------
    // Setters
@@ -593,9 +667,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -615,11 +689,11 @@ public:
 
    // link(value)
    auto &link(const std::optional<proto::Link> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // values(value)
    auto &values(const std::optional<proto::Values> &obj)
-    { if (obj) link_values(obj.value()); return *this; }
+    { if (obj) link_values() = *obj; return *this; }
 
    // ------------------------
    // Construction
@@ -628,13 +702,13 @@ public:
    // default
    Grid() :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish();
@@ -644,14 +718,14 @@ public:
    Grid(const Grid &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -660,14 +734,14 @@ public:
    Grid(Grid &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -675,13 +749,13 @@ public:
    // from node
    Grid(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       }
    {
       Component::finish(node);
@@ -697,15 +771,15 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
-      content{
+      Content{
          index,
          interpolation,
          label,
@@ -727,19 +801,21 @@ public:
       const LINK_VALUES &link_values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.style,
-         content.unit,
-         content.link_values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->style(),
+         this->unit(),
+         this->link_values()
       },
-      content{
+      Content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          style,
          unit,
@@ -776,12 +852,12 @@ class Axis : public Component<Axis> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Axis"; }
-   static auto GNDSName() { return "axis"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Axis"; }
+   static auto NODENAME() { return "axis"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -792,6 +868,26 @@ class Axis : public Component<Axis> {
          std::optional<std::string>{}
             / Meta<>("unit")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "label",
+         "unit"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "label",
+         "unit"
+      };
+      return names;
    }
 
 public:
@@ -815,7 +911,7 @@ public:
       std::optional<int> index;
       std::optional<std::string> label;
       std::optional<std::string> unit;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -824,21 +920,21 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // unit
    const auto &unit() const
-    { return content.unit; }
+    { return Content.unit; }
    auto &unit()
-    { return content.unit; }
+    { return Content.unit; }
 
    // ------------------------
    // Setters
@@ -865,10 +961,10 @@ public:
    // default
    Axis() :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish();
@@ -878,11 +974,11 @@ public:
    Axis(const Axis &other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -891,11 +987,11 @@ public:
    Axis(Axis &&other) :
       Component{
          other,
-         content.index,
-         content.label,
-         content.unit
+         this->index(),
+         this->label(),
+         this->unit()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -903,10 +999,10 @@ public:
    // from node
    Axis(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       }
    {
       Component::finish(node);
@@ -919,12 +1015,12 @@ public:
       const std::optional<std::string> &unit
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.label,
-         content.unit
+         BlockData{},
+         this->index(),
+         this->label(),
+         this->unit()
       },
-      content{
+      Content{
          index,
          label,
          unit
@@ -965,12 +1061,12 @@ class Axes : public Component<Axes> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Axes"; }
-   static auto GNDSName() { return "axes"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Axes"; }
+   static auto NODENAME() { return "axes"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -980,6 +1076,24 @@ class Axes : public Component<Axes> {
          AXIS_GRID{}
             / ++(Child<>("axis") || Child<>("grid"))
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href",
+         "axis_grid"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "href",
+         "axis_grid"
+      };
+      return names;
    }
 
 public:
@@ -1004,7 +1118,7 @@ public:
 
       // children
       std::vector<AXIS_GRID> axis_grid;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1013,51 +1127,51 @@ public:
 
    // href
    const auto &href() const
-    { return content.href; }
+    { return Content.href; }
    auto &href()
-    { return content.href; }
+    { return Content.href; }
 
    // axis_grid
    const auto &axis_grid() const
-    { return content.axis_grid; }
+    { return Content.axis_grid; }
    auto &axis_grid()
-    { return content.axis_grid; }
+    { return Content.axis_grid; }
 
    // axis_grid(index)
-   const auto &axis_grid(const std::size_t index) const
-    { return getter(axis_grid(), index, "axis_grid"); }
-   auto &axis_grid(const std::size_t index)
-    { return getter(axis_grid(), index, "axis_grid"); }
+   const auto &axis_grid(const size_t &index) const
+    { return getter(axis_grid(), proto::index(index), "axis_grid"); }
+   auto &axis_grid(const size_t &index)
+    { return getter(axis_grid(), proto::index(index), "axis_grid"); }
 
    // axis_grid(label)
    const auto &axis_grid(const std::string &label) const
-    { return getter(axis_grid(), label, "axis_grid"); }
+    { return getter(axis_grid(), proto::label(label), "axis_grid"); }
    auto &axis_grid(const std::string &label)
-    { return getter(axis_grid(), label, "axis_grid"); }
+    { return getter(axis_grid(), proto::label(label), "axis_grid"); }
 
    // axis(index)
-   auto axis(const std::size_t index) const
-    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
-   auto axis(const std::size_t index)
-    { return getter<proto::Axis>(axis_grid(), index, "axis"); }
+   auto axis(const size_t &index) const
+    { return getter<proto::Axis>(axis_grid(), proto::index(index), "axis"); }
+   auto axis(const size_t &index)
+    { return getter<proto::Axis>(axis_grid(), proto::index(index), "axis"); }
 
    // axis(label)
    auto axis(const std::string &label) const
-    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::label(label), "axis"); }
    auto axis(const std::string &label)
-    { return getter<proto::Axis>(axis_grid(), label, "axis"); }
+    { return getter<proto::Axis>(axis_grid(), proto::label(label), "axis"); }
 
    // grid(index)
-   auto grid(const std::size_t index) const
-    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
-   auto grid(const std::size_t index)
-    { return getter<proto::Grid>(axis_grid(), index, "grid"); }
+   auto grid(const size_t &index) const
+    { return getter<proto::Grid>(axis_grid(), proto::index(index), "grid"); }
+   auto grid(const size_t &index)
+    { return getter<proto::Grid>(axis_grid(), proto::index(index), "grid"); }
 
    // grid(label)
    auto grid(const std::string &label) const
-    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::label(label), "grid"); }
    auto grid(const std::string &label)
-    { return getter<proto::Grid>(axis_grid(), label, "grid"); }
+    { return getter<proto::Grid>(axis_grid(), proto::label(label), "grid"); }
 
    // ------------------------
    // Setters
@@ -1075,7 +1189,7 @@ public:
 
    // axis_grid(index,value)
    auto &axis_grid(
-      const std::size_t index,
+      const size_t &index,
       const AXIS_GRID &obj
    ) {
       axis_grid(index) = obj; return *this;
@@ -1091,10 +1205,10 @@ public:
 
    // axis(index,value)
    auto &axis(
-      const std::size_t index,
+      const size_t &index,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1103,16 +1217,16 @@ public:
       const std::string &label,
       const std::optional<proto::Axis> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
    // grid(index,value)
    auto &grid(
-      const std::size_t index,
+      const size_t &index,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(index,obj.value());
+      if (obj) axis_grid(index,*obj);
       return *this;
    }
 
@@ -1121,7 +1235,7 @@ public:
       const std::string &label,
       const std::optional<proto::Grid> &obj
    ) {
-      if (obj) axis_grid(label,obj.value());
+      if (obj) axis_grid(label,*obj);
       return *this;
    }
 
@@ -1132,9 +1246,9 @@ public:
    // default
    Axes() :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish();
@@ -1144,10 +1258,10 @@ public:
    Axes(const Axes &other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1156,10 +1270,10 @@ public:
    Axes(Axes &&other) :
       Component{
          other,
-         content.href,
-         content.axis_grid
+         this->href(),
+         this->axis_grid()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1167,9 +1281,9 @@ public:
    // from node
    Axes(const Node &node) :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       }
    {
       Component::finish(node);
@@ -1181,11 +1295,11 @@ public:
       const std::vector<AXIS_GRID> &axis_grid
    ) :
       Component{
-         BodyText{},
-         content.href,
-         content.axis_grid
+         BlockData{},
+         this->href(),
+         this->axis_grid()
       },
-      content{
+      Content{
          href,
          axis_grid
       }
@@ -1220,12 +1334,12 @@ class XYs1d : public Component<XYs1d> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "XYs1d"; }
-   static auto GNDSName() { return "XYs1d"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "XYs1d"; }
+   static auto NODENAME() { return "XYs1d"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -1245,6 +1359,32 @@ class XYs1d : public Component<XYs1d> {
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "outerDomainValue",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "index",
+         "interpolation",
+         "label",
+         "outer_domain_value",
+         "axes",
+         "values"
+      };
+      return names;
+   }
+
 public:
 
    using Component::construct;
@@ -1255,7 +1395,8 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation{enums::Interpolation::linlin};
+      const enums::Interpolation interpolation
+         { enums::Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -1265,14 +1406,15 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation{enums::Interpolation::linlin};
+      Defaulted<enums::Interpolation> interpolation
+         { enums::Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<double> outerDomainValue;
 
       // children
       std::optional<proto::Axes> axes;
       proto::Values values;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1281,39 +1423,39 @@ public:
 
    // index
    const auto &index() const
-    { return content.index; }
+    { return Content.index; }
    auto &index()
-    { return content.index; }
+    { return Content.index; }
 
    // interpolation
    const auto &interpolation() const
-    { return content.interpolation.value(); }
+    { return Content.interpolation; }
    auto &interpolation()
-    { return content.interpolation.value(); }
+    { return Content.interpolation; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // outerDomainValue
    const auto &outerDomainValue() const
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
    auto &outerDomainValue()
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
 
    // axes
    const auto &axes() const
-    { return content.axes; }
+    { return Content.axes; }
    auto &axes()
-    { return content.axes; }
+    { return Content.axes; }
 
    // values
    const auto &values() const
-    { return content.values; }
+    { return Content.values; }
    auto &values()
-    { return content.values; }
+    { return Content.values; }
 
    // ------------------------
    // Setters
@@ -1327,9 +1469,9 @@ public:
 
    // interpolation(value)
    auto &interpolation(const Defaulted<enums::Interpolation> &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
    auto &interpolation(const enums::Interpolation &obj)
-    { content.interpolation = obj; return *this; }
+    { interpolation() = obj; return *this; }
 
    // label(value)
    auto &label(const std::optional<std::string> &obj)
@@ -1354,13 +1496,13 @@ public:
    // default
    XYs1d() :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish();
@@ -1370,14 +1512,14 @@ public:
    XYs1d(const XYs1d &other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1386,14 +1528,14 @@ public:
    XYs1d(XYs1d &&other) :
       Component{
          other,
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1401,13 +1543,13 @@ public:
    // from node
    XYs1d(const Node &node) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       }
    {
       Component::finish(node);
@@ -1423,15 +1565,15 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
-      content{
+      Content{
          index,
          interpolation,
          label,
@@ -1453,19 +1595,21 @@ public:
       const proto::Values &values
    ) :
       Component{
-         BodyText{},
-         content.index,
-         content.interpolation,
-         content.label,
-         content.outerDomainValue,
-         content.axes,
-         content.values
+         BlockData{},
+         this->index(),
+         this->interpolation(),
+         this->label(),
+         this->outerDomainValue(),
+         this->axes(),
+         this->values()
       },
-      content{
+      Content{
          index,
          interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
-            : Defaulted<enums::Interpolation>{enums::Interpolation::linlin,interpolation},
+            ? Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin }
+            : Defaulted<enums::Interpolation>
+                 { enums::Interpolation::linlin,interpolation },
          label,
          outerDomainValue,
          axes,
@@ -1502,12 +1646,12 @@ class Regions1d : public Component<Regions1d> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Regions1d"; }
-   static auto GNDSName() { return "regions1d"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Regions1d"; }
+   static auto NODENAME() { return "regions1d"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -1521,6 +1665,28 @@ class Regions1d : public Component<Regions1d> {
          std::optional<proto::Axes>{}
             / --Child<>("axes")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "label",
+         "outerDomainValue",
+         "XYs1d",
+         "axes"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "label",
+         "outerDomainValue",
+         "XYs1d",
+         "axes"
+      };
+      return names;
    }
 
 public:
@@ -1547,7 +1713,7 @@ public:
       // children
       std::vector<proto::XYs1d> XYs1d;
       std::optional<proto::Axes> axes;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1556,39 +1722,39 @@ public:
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // outerDomainValue
    const auto &outerDomainValue() const
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
    auto &outerDomainValue()
-    { return content.outerDomainValue; }
+    { return Content.outerDomainValue; }
 
    // XYs1d
    const auto &XYs1d() const
-    { return content.XYs1d; }
+    { return Content.XYs1d; }
    auto &XYs1d()
-    { return content.XYs1d; }
+    { return Content.XYs1d; }
 
    // XYs1d(index)
-   const auto &XYs1d(const std::size_t index) const
-    { return getter(XYs1d(), index, "XYs1d"); }
-   auto &XYs1d(const std::size_t index)
-    { return getter(XYs1d(), index, "XYs1d"); }
+   const auto &XYs1d(const size_t &index) const
+    { return getter(XYs1d(), proto::index(index), "XYs1d"); }
+   auto &XYs1d(const size_t &index)
+    { return getter(XYs1d(), proto::index(index), "XYs1d"); }
 
    // XYs1d(label)
    const auto &XYs1d(const std::string &label) const
-    { return getter(XYs1d(), label, "XYs1d"); }
+    { return getter(XYs1d(), proto::label(label), "XYs1d"); }
    auto &XYs1d(const std::string &label)
-    { return getter(XYs1d(), label, "XYs1d"); }
+    { return getter(XYs1d(), proto::label(label), "XYs1d"); }
 
    // axes
    const auto &axes() const
-    { return content.axes; }
+    { return Content.axes; }
    auto &axes()
-    { return content.axes; }
+    { return Content.axes; }
 
    // ------------------------
    // Setters
@@ -1610,7 +1776,7 @@ public:
 
    // XYs1d(index,value)
    auto &XYs1d(
-      const std::size_t index,
+      const size_t &index,
       const proto::XYs1d &obj
    ) {
       XYs1d(index) = obj; return *this;
@@ -1635,11 +1801,11 @@ public:
    // default
    Regions1d() :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish();
@@ -1649,12 +1815,12 @@ public:
    Regions1d(const Regions1d &other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1663,12 +1829,12 @@ public:
    Regions1d(Regions1d &&other) :
       Component{
          other,
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1676,11 +1842,11 @@ public:
    // from node
    Regions1d(const Node &node) :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       }
    {
       Component::finish(node);
@@ -1694,13 +1860,13 @@ public:
       const std::optional<proto::Axes> &axes
    ) :
       Component{
-         BodyText{},
-         content.label,
-         content.outerDomainValue,
-         content.XYs1d,
-         content.axes
+         BlockData{},
+         this->label(),
+         this->outerDomainValue(),
+         this->XYs1d(),
+         this->axes()
       },
-      content{
+      Content{
          label,
          outerDomainValue,
          XYs1d,
@@ -1742,18 +1908,34 @@ class CrossSection : public Component<CrossSection> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "CrossSection"; }
-   static auto GNDSName() { return "crossSection"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "CrossSection"; }
+   static auto NODENAME() { return "crossSection"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // children
          XYS1D_REGIONS1D{}
             / ++(Child<>("XYs1d") || Child<>("regions1d"))
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "XYs1d_regions1d"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "XYs1d_regions1d"
+      };
+      return names;
    }
 
 public:
@@ -1775,7 +1957,7 @@ public:
    struct {
       // children
       std::vector<XYS1D_REGIONS1D> XYs1d_regions1d;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -1784,45 +1966,45 @@ public:
 
    // XYs1d_regions1d
    const auto &XYs1d_regions1d() const
-    { return content.XYs1d_regions1d; }
+    { return Content.XYs1d_regions1d; }
    auto &XYs1d_regions1d()
-    { return content.XYs1d_regions1d; }
+    { return Content.XYs1d_regions1d; }
 
    // XYs1d_regions1d(index)
-   const auto &XYs1d_regions1d(const std::size_t index) const
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
-   auto &XYs1d_regions1d(const std::size_t index)
-    { return getter(XYs1d_regions1d(), index, "XYs1d_regions1d"); }
+   const auto &XYs1d_regions1d(const size_t &index) const
+    { return getter(XYs1d_regions1d(), proto::index(index), "XYs1d_regions1d"); }
+   auto &XYs1d_regions1d(const size_t &index)
+    { return getter(XYs1d_regions1d(), proto::index(index), "XYs1d_regions1d"); }
 
    // XYs1d_regions1d(label)
    const auto &XYs1d_regions1d(const std::string &label) const
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::label(label), "XYs1d_regions1d"); }
    auto &XYs1d_regions1d(const std::string &label)
-    { return getter(XYs1d_regions1d(), label, "XYs1d_regions1d"); }
+    { return getter(XYs1d_regions1d(), proto::label(label), "XYs1d_regions1d"); }
 
    // XYs1d(index)
-   auto XYs1d(const std::size_t index) const
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
-   auto XYs1d(const std::size_t index)
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), index, "XYs1d"); }
+   auto XYs1d(const size_t &index) const
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::index(index), "XYs1d"); }
+   auto XYs1d(const size_t &index)
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::index(index), "XYs1d"); }
 
    // XYs1d(label)
    auto XYs1d(const std::string &label) const
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::label(label), "XYs1d"); }
    auto XYs1d(const std::string &label)
-    { return getter<proto::XYs1d>(XYs1d_regions1d(), label, "XYs1d"); }
+    { return getter<proto::XYs1d>(XYs1d_regions1d(), proto::label(label), "XYs1d"); }
 
    // regions1d(index)
-   auto regions1d(const std::size_t index) const
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
-   auto regions1d(const std::size_t index)
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), index, "regions1d"); }
+   auto regions1d(const size_t &index) const
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::index(index), "regions1d"); }
+   auto regions1d(const size_t &index)
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::index(index), "regions1d"); }
 
    // regions1d(label)
    auto regions1d(const std::string &label) const
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::label(label), "regions1d"); }
    auto regions1d(const std::string &label)
-    { return getter<proto::Regions1d>(XYs1d_regions1d(), label, "regions1d"); }
+    { return getter<proto::Regions1d>(XYs1d_regions1d(), proto::label(label), "regions1d"); }
 
    // ------------------------
    // Setters
@@ -1836,7 +2018,7 @@ public:
 
    // XYs1d_regions1d(index,value)
    auto &XYs1d_regions1d(
-      const std::size_t index,
+      const size_t &index,
       const XYS1D_REGIONS1D &obj
    ) {
       XYs1d_regions1d(index) = obj; return *this;
@@ -1852,10 +2034,10 @@ public:
 
    // XYs1d(index,value)
    auto &XYs1d(
-      const std::size_t index,
+      const size_t &index,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1864,16 +2046,16 @@ public:
       const std::string &label,
       const std::optional<proto::XYs1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
    // regions1d(index,value)
    auto &regions1d(
-      const std::size_t index,
+      const size_t &index,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(index,obj.value());
+      if (obj) XYs1d_regions1d(index,*obj);
       return *this;
    }
 
@@ -1882,7 +2064,7 @@ public:
       const std::string &label,
       const std::optional<proto::Regions1d> &obj
    ) {
-      if (obj) XYs1d_regions1d(label,obj.value());
+      if (obj) XYs1d_regions1d(label,*obj);
       return *this;
    }
 
@@ -1893,8 +2075,8 @@ public:
    // default
    CrossSection() :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       }
    {
       Component::finish();
@@ -1904,9 +2086,9 @@ public:
    CrossSection(const CrossSection &other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -1915,9 +2097,9 @@ public:
    CrossSection(CrossSection &&other) :
       Component{
          other,
-         content.XYs1d_regions1d
+         this->XYs1d_regions1d()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -1925,8 +2107,8 @@ public:
    // from node
    CrossSection(const Node &node) :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       }
    {
       Component::finish(node);
@@ -1937,10 +2119,10 @@ public:
       const std::vector<XYS1D_REGIONS1D> &XYs1d_regions1d
    ) :
       Component{
-         BodyText{},
-         content.XYs1d_regions1d
+         BlockData{},
+         this->XYs1d_regions1d()
       },
-      content{
+      Content{
          XYs1d_regions1d
       }
    {
@@ -1974,12 +2156,12 @@ class Reaction : public Component<Reaction> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Reaction"; }
-   static auto GNDSName() { return "reaction"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Reaction"; }
+   static auto NODENAME() { return "reaction"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -1993,6 +2175,28 @@ class Reaction : public Component<Reaction> {
          proto::CrossSection{}
             / --Child<>("crossSection")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "ENDF_MT",
+         "fissionGenre",
+         "label",
+         "crossSection"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "ENDF_MT",
+         "fissionGenre",
+         "label",
+         "crossSection"
+      };
+      return names;
    }
 
 public:
@@ -2019,7 +2223,7 @@ public:
 
       // children
       proto::CrossSection crossSection;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2028,27 +2232,27 @@ public:
 
    // ENDF_MT
    const auto &ENDF_MT() const
-    { return content.ENDF_MT; }
+    { return Content.ENDF_MT; }
    auto &ENDF_MT()
-    { return content.ENDF_MT; }
+    { return Content.ENDF_MT; }
 
    // fissionGenre
    const auto &fissionGenre() const
-    { return content.fissionGenre; }
+    { return Content.fissionGenre; }
    auto &fissionGenre()
-    { return content.fissionGenre; }
+    { return Content.fissionGenre; }
 
    // label
    const auto &label() const
-    { return content.label; }
+    { return Content.label; }
    auto &label()
-    { return content.label; }
+    { return Content.label; }
 
    // crossSection
    const auto &crossSection() const
-    { return content.crossSection; }
+    { return Content.crossSection; }
    auto &crossSection()
-    { return content.crossSection; }
+    { return Content.crossSection; }
 
    // ------------------------
    // Setters
@@ -2079,11 +2283,11 @@ public:
    // default
    Reaction() :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish();
@@ -2093,12 +2297,12 @@ public:
    Reaction(const Reaction &other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2107,12 +2311,12 @@ public:
    Reaction(Reaction &&other) :
       Component{
          other,
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2120,11 +2324,11 @@ public:
    // from node
    Reaction(const Node &node) :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       }
    {
       Component::finish(node);
@@ -2138,13 +2342,13 @@ public:
       const proto::CrossSection &crossSection
    ) :
       Component{
-         BodyText{},
-         content.ENDF_MT,
-         content.fissionGenre,
-         content.label,
-         content.crossSection
+         BlockData{},
+         this->ENDF_MT(),
+         this->fissionGenre(),
+         this->label(),
+         this->crossSection()
       },
-      content{
+      Content{
          ENDF_MT,
          fissionGenre,
          label,
@@ -2181,18 +2385,34 @@ class Reactions : public Component<Reactions> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "Reactions"; }
-   static auto GNDSName() { return "reactions"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "Reactions"; }
+   static auto NODENAME() { return "reactions"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // children
          proto::Reaction{}
             / ++Child<>("reaction")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "reaction"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "reaction"
+      };
+      return names;
    }
 
 public:
@@ -2214,7 +2434,7 @@ public:
    struct {
       // children
       std::vector<proto::Reaction> reaction;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2223,21 +2443,15 @@ public:
 
    // reaction
    const auto &reaction() const
-    { return content.reaction; }
+    { return Content.reaction; }
    auto &reaction()
-    { return content.reaction; }
-
-   // reaction(index)
-   const auto &reaction(const std::size_t index) const
-    { return getter(reaction(), index, "reaction"); }
-   auto &reaction(const std::size_t index)
-    { return getter(reaction(), index, "reaction"); }
+    { return Content.reaction; }
 
    // reaction(label)
    const auto &reaction(const std::string &label) const
-    { return getter(reaction(), label, "reaction"); }
+    { return getter(reaction(), proto::label(label), "reaction"); }
    auto &reaction(const std::string &label)
-    { return getter(reaction(), label, "reaction"); }
+    { return getter(reaction(), proto::label(label), "reaction"); }
 
    // ------------------------
    // Setters
@@ -2248,14 +2462,6 @@ public:
    // reaction(value)
    auto &reaction(const std::vector<proto::Reaction> &obj)
     { reaction() = obj; return *this; }
-
-   // reaction(index,value)
-   auto &reaction(
-      const std::size_t index,
-      const proto::Reaction &obj
-   ) {
-      reaction(index) = obj; return *this;
-   }
 
    // reaction(label,value)
    auto &reaction(
@@ -2272,8 +2478,8 @@ public:
    // default
    Reactions() :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       }
    {
       Component::finish();
@@ -2283,9 +2489,9 @@ public:
    Reactions(const Reactions &other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2294,9 +2500,9 @@ public:
    Reactions(Reactions &&other) :
       Component{
          other,
-         content.reaction
+         this->reaction()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2304,8 +2510,8 @@ public:
    // from node
    Reactions(const Node &node) :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       }
    {
       Component::finish(node);
@@ -2316,10 +2522,10 @@ public:
       const std::vector<proto::Reaction> &reaction
    ) :
       Component{
-         BodyText{},
-         content.reaction
+         BlockData{},
+         this->reaction()
       },
-      content{
+      Content{
          reaction
       }
    {
@@ -2353,12 +2559,12 @@ class ReactionSuite : public Component<ReactionSuite> {
    friend class Component;
 
    // Current namespace, current class, and GNDS node name
-   static auto namespaceName() { return "proto"; }
-   static auto className() { return "ReactionSuite"; }
-   static auto GNDSName() { return "reactionSuite"; }
+   static auto NAMESPACE() { return "proto"; }
+   static auto CLASS() { return "ReactionSuite"; }
+   static auto NODENAME() { return "reactionSuite"; }
 
    // Core Interface object to extract metadata and child nodes
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -2378,6 +2584,34 @@ class ReactionSuite : public Component<ReactionSuite> {
          std::optional<proto::Reactions>{}
             / --Child<>("reactions")
       ;
+   }
+
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "evaluation",
+         "format",
+         "interaction",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "reactions"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "evaluation",
+         "format",
+         "interaction",
+         "projectile",
+         "projectileFrame",
+         "target",
+         "reactions"
+      };
+      return names;
    }
 
 public:
@@ -2407,7 +2641,7 @@ public:
 
       // children
       std::optional<proto::Reactions> reactions;
-   } content;
+   } Content;
 
    // ------------------------
    // Getters
@@ -2416,45 +2650,45 @@ public:
 
    // evaluation
    const auto &evaluation() const
-    { return content.evaluation; }
+    { return Content.evaluation; }
    auto &evaluation()
-    { return content.evaluation; }
+    { return Content.evaluation; }
 
    // format
    const auto &format() const
-    { return content.format; }
+    { return Content.format; }
    auto &format()
-    { return content.format; }
+    { return Content.format; }
 
    // interaction
    const auto &interaction() const
-    { return content.interaction; }
+    { return Content.interaction; }
    auto &interaction()
-    { return content.interaction; }
+    { return Content.interaction; }
 
    // projectile
    const auto &projectile() const
-    { return content.projectile; }
+    { return Content.projectile; }
    auto &projectile()
-    { return content.projectile; }
+    { return Content.projectile; }
 
    // projectileFrame
    const auto &projectileFrame() const
-    { return content.projectileFrame; }
+    { return Content.projectileFrame; }
    auto &projectileFrame()
-    { return content.projectileFrame; }
+    { return Content.projectileFrame; }
 
    // target
    const auto &target() const
-    { return content.target; }
+    { return Content.target; }
    auto &target()
-    { return content.target; }
+    { return Content.target; }
 
    // reactions
    const auto &reactions() const
-    { return content.reactions; }
+    { return Content.reactions; }
    auto &reactions()
-    { return content.reactions; }
+    { return Content.reactions; }
 
    // ------------------------
    // Setters
@@ -2497,14 +2731,14 @@ public:
    // default
    ReactionSuite() :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish();
@@ -2514,15 +2748,15 @@ public:
    ReactionSuite(const ReactionSuite &other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
-      content{other.content}
+      Content{other.Content}
    {
       Component::finish(other);
    }
@@ -2531,15 +2765,15 @@ public:
    ReactionSuite(ReactionSuite &&other) :
       Component{
          other,
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
-      content{std::move(other.content)}
+      Content{std::move(other.Content)}
    {
       Component::finish(other);
    }
@@ -2547,14 +2781,14 @@ public:
    // from node
    ReactionSuite(const Node &node) :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       }
    {
       Component::finish(node);
@@ -2571,16 +2805,16 @@ public:
       const std::optional<proto::Reactions> &reactions
    ) :
       Component{
-         BodyText{},
-         content.evaluation,
-         content.format,
-         content.interaction,
-         content.projectile,
-         content.projectileFrame,
-         content.target,
-         content.reactions
+         BlockData{},
+         this->evaluation(),
+         this->format(),
+         this->interaction(),
+         this->projectile(),
+         this->projectileFrame(),
+         this->target(),
+         this->reactions()
       },
-      content{
+      Content{
          evaluation,
          format,
          interaction,

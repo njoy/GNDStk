@@ -3,7 +3,7 @@
 #include "GNDStk.hpp"
 #include "prototype.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 using namespace GNDStk::proto;
 
 
@@ -82,8 +82,7 @@ R"***(<?xml version="1.0"?>
       </crossSection>
     </reaction>
   </reactions>
-</reactionSuite>
-)***";
+</reactionSuite>)***";
 
    return ret;
 }
