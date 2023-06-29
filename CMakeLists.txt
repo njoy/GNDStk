@@ -42,7 +42,6 @@ target_link_libraries(
     INTERFACE Log
     INTERFACE catch-adapter
     INTERFACE pugixml-adapter
-    INTERFACE nlohmann_json::nlohmann_json
     INTERFACE HighFive
     )
 
@@ -54,7 +53,6 @@ add_executable(
 target_link_libraries(
     json2class.exe
     PRIVATE GNDStk
-    PRIVATE nlohmann_json::nlohmann_json
     )
 
 set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)

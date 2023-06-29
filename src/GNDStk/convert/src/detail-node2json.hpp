@@ -34,6 +34,8 @@ void scalar2Value(
       // but write the "number" exactly as it appears in parameter "value",
       // which the caller guessed contains a number: "1", "2.34", etc.
       //
+      // todo Now that we've switched to our own JSON library, not the one
+      // mentioned just below, we should be able to handle formatting.
       // fixme Unfortunately, the nlohmann/json library does not, at the
       // present time, allow us to write our string as a number - without
       // quotes. It'll format the number as it wants to. Given that GNDStk

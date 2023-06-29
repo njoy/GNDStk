@@ -8,11 +8,10 @@
 COMPILE="
    clang++ -std=c++17
   -IGNDStk/src
+  -IGNDStk/simple-json/src
   -Ialpha/src
   -Ideps/pugixml-adapter-src/src/src
   -Ideps/hdf5-src/include
-  -Ideps/json-src/include
-  -Ideps/json-src/include/nlohmann
   -Ideps/log-src/src
   -Ideps/spdlog-src/include
   -I/usr/include/hdf5/serial

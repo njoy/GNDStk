@@ -4,13 +4,12 @@
 COMPILE="
    clang++ -std=c++17
   -I../../../GNDStk/src
+  -I../../../GNDStk/simple-json/src
   -I../../../GNDStk/c/src
   -Imulti/src
   -Imulti/c/src
   -I../../../GNDStk/build/_deps/pugixml-adapter-src/src/src
   -I../../../GNDStk/build/_deps/hdf5-src/include
-  -I../../../GNDStk/build/_deps/json-src/include
-  -I../../../GNDStk/build/_deps/json-src/include/nlohmann
   -I../../../GNDStk/build/_deps/log-src/src
   -I../../../GNDStk/build/_deps/spdlog-src/include
   -I/usr/include/hdf5/serial
