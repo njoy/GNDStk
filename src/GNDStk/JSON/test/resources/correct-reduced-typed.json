@@ -15,7 +15,7 @@
          "string": "ab",
          "strings": "cd ef gh ij"
       },
-      "bar": null,
+      "bar": {},
       "double": [
          1.2
       ],
@@ -113,7 +113,7 @@
             "f",
             "g"
          ],
-         "regularElement": null
+         "regularElement": {}
       }
    }
 }

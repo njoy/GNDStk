@@ -36,7 +36,7 @@ include( cmake/GNDStk_dependencies.cmake )
 include_directories( src/ )
 
 add_library( GNDStk INTERFACE )
-target_include_directories( GNDStk INTERFACE src/ )
+target_include_directories( GNDStk INTERFACE src/ simple-json/src/ )
 target_link_libraries(
     GNDStk
     INTERFACE Log

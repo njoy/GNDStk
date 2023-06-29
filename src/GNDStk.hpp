@@ -12,7 +12,7 @@
 #undef CHAR_WIDTH
 
 #include "pugixml.hpp"
-#include "nlohmann/json.hpp"
+#include "json.hpp"
 #include "Log.hpp"
 #include <highfive/H5File.hpp>
 #include <highfive/H5Easy.hpp>

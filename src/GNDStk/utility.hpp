@@ -3,11 +3,6 @@
 // Miscellaneous variables, enums, etc.
 // -----------------------------------------------------------------------------
 
-#ifdef SIMPLE_JSON
-#else
-using orderedJSON = nlohmann::ordered_json;
-#endif
-
 // indent
 // Number of spaces of indentation you want, in the output of certain types
 inline int indent = 3;

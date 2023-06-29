@@ -10,29 +10,29 @@ inline void json2node_error(const std::string &message)
 
 // Forward declaration
 template<class NODE>
-void json2node(const orderedJSON &, NODE &, const bool inferNodeName = false);
+void json2node(const json::object &, NODE &, const bool inferNodeName = false);
 
 
 // -----------------------------------------------------------------------------
 // json_array
 // -----------------------------------------------------------------------------
 
-inline std::string json_array(const orderedJSON &array)
+inline std::string json_array(const json::array &array)
 {
-   assert(array.is_array());
-
    std::ostringstream oss;
    size_t count = 0;
 
-   for (const orderedJSON &element : array) {
+   for (const json::value &element : array) {
       // separator
       oss << (count++ ? " " : "");
       // array element types we use
-      element.is_number_integer () ? (oss << element.get<std::int64_t >())
-    : element.is_number_unsigned() ? (oss << element.get<std::uint64_t>())
-    : element.is_number_float   () ? (oss << element.get<double       >())
-    : element.is_string         () ? (oss << element.get<std::string  >())
-    : // unexpected
+      // Remark. std::string(...) is indeed needed in the following line,
+      // because json::string has its own operator<< that prints the string
+      // in the JSON manner - with delimiting quotes. For our purposes here,
+      // we need the string printed as std::string does - without quotes.
+      element.is_number() ? (oss << element.get<json::number>())
+    : element.is_string() ? (oss << std::string(element.get<json::string>()))
+    : // unexpected element type
      (json2node_error("JSON array element is of unexpected type"), oss);
    }
 
@@ -46,45 +46,47 @@ inline std::string json_array(const orderedJSON &array)
 
 template<class NODE>
 void json_pair(
-   const std::string &key, const orderedJSON &val,
-   const orderedJSON &peers, NODE &node
+   const std::string &key, const json::value &val,
+   const json::object &peers, NODE &node
 ) {
    if (val.is_null()) {
       // null; nothing to do
    } else if (val.is_boolean()) {
       // boolean
-      node.add(key, val.get<bool>() ? "true" : "false");
-   } else if (val.is_number_integer()) {
-      // number: integer
-      node.add(key, val.get<std::int64_t>());
-   } else if (val.is_number_unsigned()) {
-      // number: unsigned
-      node.add(key, val.get<std::uint64_t>());
-   } else if (val.is_number_float()) {
-      // number: double
-      node.add(key, val.get<double>());
+      node.add(key, val.get<json::boolean>() ? "true" : "false");
+   } else if (val.is_number()) {
+      // number
+      std::visit(
+         [&node,&key](auto &&alt)
+         {
+            node.add(key,alt);
+         },
+         json::number::variant(val.get<json::number>())
+      );
    } else if (val.is_string()) {
       // string
-      node.add(key, val.get<std::string>());
+      node.add(key, val.get<json::string>());
    } else if (val.is_array()) {
       // array
-      if (peers.size() == 0)
-         node.add(key, json_array(val)); // context is such that it's metadata
-      else {
-         node.add(special::data).add(special::text, json_array(val));
+      if (peers.size() == 0) {
+         // context is such that it's metadata
+         node.add(key, json_array(val.get<json::array>()));
+      } else {
+         node.add(special::data)
+             .add(special::text, json_array(val.get<json::array>()));
          for (const auto &peer : peers.items()) {
-            if (peer.key() == key + special::nodename)
-               node.name = peer.value().get<std::string>();
-            if (peer.key() == key + special::metadata) {
-               for (const auto &m : peer.value().items())
-                  json_pair(m.key(), m.value(), orderedJSON{}, node);
+            if (peer.first == key + special::nodename)
+               node.name = peer.second.get<json::string>();
+            if (peer.first == key + special::metadata) {
+               for (const auto &m : peer.second.items())
+                  json_pair(m.first, m.second, json::object{}, node);
             }
          }
       }
    } else if (val.is_object()) {
       // object
       try {
-         json2node(val,node);
+         json2node(val.get<json::object>(),node);
       } catch (...) {
          log::function("json2node()");
          throw;
@@ -103,7 +105,7 @@ void json_pair(
 // NODE is GNDStk::Node, an incomplete type to the compiler here.
 // Note: the object parameter is a JSON "object", i.e. {...}.
 template<class NODE>
-void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
+void json2node(const json::object &object, NODE &node, bool inferNodeName)
 {
    // The node sent here shouldn't already have metadata or children
    if (node.metadata.size() != 0 || node.children.size() != 0)
@@ -116,8 +118,8 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
 
    // For each key/value pair
    for (const auto &pair : object.items()) {
-      const std::string &key = pair.key();
-      const orderedJSON &val = pair.value();
+      const std::string &key = pair.first;
+      const json::value &val = pair.second;
 
       if (inferNodeName && key.find(special::prefix) == std::string::npos) {
          // Infer the node name from this (non-special) key
@@ -126,12 +128,12 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
          json_pair(key, val, object, node);
       } else if (key == special::nodename) {
          // Special key: nodename
-         node.name = val.get<std::string>();
+         node.name = val.get<json::string>();
          inferNodeName = false;
       } else if (key == special::metadata) {
          // Special key: metadata
          for (const auto &m : val.items())
-            json_pair(m.key(), m.value(), orderedJSON{}, node);
+            json_pair(m.first, m.second, json::object{}, node);
       } else if (
          beginsin(key,special::cdata) ||
          beginsin(key,special::comment) ||
@@ -140,7 +142,7 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
          // Special key: cdata, comment, or data, with optional suffix
          if (val.is_object()) {
             try {
-               json2node(val, node.add(key));
+               json2node(val.get<json::object>(), node.add(key));
             } catch (...) {
                log::function("json2node()");
                throw;
@@ -148,12 +150,12 @@ void json2node(const orderedJSON &object, NODE &node, bool inferNodeName)
          } else {
             beginsin(key,special::data)
           ? node.add(special::data   )
-               .add(special::text, json_array(val))
+                .add(special::text, json_array(val.get<json::array>()))
           : beginsin(key,special::cdata)
           ? node.add(special::cdata  )
-               .add(special::text, val.get<std::string>())
+                .add(special::text, val.get<json::string>())
           : node.add(special::comment)
-               .add(special::text, val.get<std::string>());
+                .add(special::text, val.get<json::string>());
          }
       } else if (endsin(key,special::nodename) ||
                  endsin(key,special::metadata)) {

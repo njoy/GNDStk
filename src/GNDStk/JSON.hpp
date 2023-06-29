@@ -15,7 +15,7 @@ public:
    static inline bool typed = true;
 
    // data
-   orderedJSON doc;
+   json::object doc;
 
    // clear
    JSON &clear()

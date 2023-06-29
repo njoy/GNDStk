@@ -12,7 +12,7 @@
 template<class T>
 void scalar2Value(
    const std::string &key, const std::string &value,
-   orderedJSON &json
+   json::object &json
 ) {
    // Parameter "value" is a string - for example "1", "2.34", or "foo". The
    // caller will have guessed T == int, T == double, or T == std::string in
@@ -50,7 +50,7 @@ void scalar2Value(
 template<class T>
 void vector2Value(
    const std::string &key, const std::string &value,
-   orderedJSON &json
+   json::object &json
 ) {
    // Like the scalar case, but value is, for example, "1 2", "3.4 5.6 7.8",
    // or "foo bar baz" - a vector of T == int, T = double, or T == std::string.
@@ -76,7 +76,7 @@ void vector2Value(
 
 inline void data2Value(
    const std::string &key, const std::string &value,
-   orderedJSON &json
+   json::object &json
 ) {
    if (JSON::typed) {
       const std::string type = guessType(value);
@@ -108,7 +108,7 @@ inline void data2Value(
 // metadatum's string value actually contains (a single int, say, or
 // a vector of doubles). Use the inferred types in the JSON file.
 template<class NODE>
-void meta2json_typed(const NODE &node, orderedJSON &json)
+void meta2json_typed(const NODE &node, json::object &json)
 {
    // Current node is the parent of its metadata
    const std::string &parent = node.name;
@@ -201,7 +201,7 @@ void meta2json_typed(const NODE &node, orderedJSON &json)
 // of #cdata and #data nodes) end up being strings. Not even vectors
 // of strings, as from <values>H He Li ...</values>, but single strings.
 template<class NODE>
-void meta2json_plain(const NODE &node, orderedJSON &json)
+void meta2json_plain(const NODE &node, json::object &json)
 {
    for (const auto &meta : node.metadata)
       json[meta.first] = meta.second;
@@ -214,7 +214,7 @@ void meta2json_plain(const NODE &node, orderedJSON &json)
 
 template<class NODE>
 void meta2json(
-   const NODE &node, orderedJSON &json,
+   const NODE &node, json::object &json,
    const std::string &base,
    const std::string &digits,
    const std::string &prefix
@@ -241,8 +241,8 @@ void meta2json(
    // anything, in this case metadata, added to them.
    if (node.metadata.size())
       JSON::typed
-         ? meta2json_typed(node, json[prefix + special::metadata])
-         : meta2json_plain(node, json[prefix + special::metadata]);
+         ? meta2json_typed(node, json[prefix + special::metadata].get<json::object>())
+         : meta2json_plain(node, json[prefix + special::metadata].get<json::object>());
 }
 
 
@@ -257,7 +257,7 @@ void meta2json(
 // Simplify certain #cdata and #comment cases.
 template<class NODE>
 bool json_reduce_cdata_comment(
-   const NODE &node, orderedJSON &json, const std::string &digits
+   const NODE &node, json::object &json, const std::string &digits
 ) {
    // Original node name, and suffixed name. The latter is for handling child
    // nodes of the same name under the same parent node, and includes a numeric
@@ -299,7 +299,7 @@ bool json_reduce_cdata_comment(
 // Simplify #data case.
 template<class NODE>
 bool json_reduce_data(
-   const NODE &node, orderedJSON &json, const std::string &digits
+   const NODE &node, json::object &json, const std::string &digits
 ) {
    const std::string nameOriginal = node.name;
    const std::string nameSuffixed = node.name + digits;
@@ -350,7 +350,7 @@ bool json_reduce_data(
 // Simplify case of node with data AND metadata
 template<class NODE>
 bool json_reduce_data_metadata(
-   const NODE &node, orderedJSON &json, const std::string &digits
+   const NODE &node, json::object &json, const std::string &digits
 ) {
    const std::string nameSuffixed = node.name + digits;
 
@@ -412,7 +412,7 @@ bool json_reduce_data_metadata(
 // NODE is just GNDStk::Node. The latter isn't used directly, because
 // it's an "incomplete type", to the compiler, at this point.
 template<class NODE>
-bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
+bool node2json(const NODE &node, json::object &j, const std::string &digits = "")
 {
    const std::string nameSuffixed = node.name + digits;
 
@@ -431,8 +431,8 @@ bool node2json(const NODE &node, orderedJSON &j, const std::string &digits = "")
    // General case
    // ------------------------
 
-   // Create a new orderedJSON, in parameter j, for metadata and children
-   orderedJSON &json = j[nameSuffixed];
+   // Create a new json::object, in parameter j, for metadata and children
+   json::object &json = j[nameSuffixed].get<json::object>();
 
    // metadata
    meta2json(node, json, node.name, digits, "");

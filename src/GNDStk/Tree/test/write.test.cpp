@@ -19,7 +19,7 @@ R"***(<?xml version="1.0"?>)***";
 
 // json
 static const std::string string_empty_json =
-R"***(null)***";
+R"***({})***";
 
 
 
