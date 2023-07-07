@@ -3,29 +3,6 @@
 // These retrieve names from the derived class (for use in printing diagnostics,
 // if applicable), then call detail::compGetter() to do most of the work.
 
-// -----------------------------------------------------------------------------
-// getter<T>(variant)
-// The caller must specify T
-// -----------------------------------------------------------------------------
-
-// const
-template<
-   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>
->
-const T *getter(const std::variant<Ts...> &var) const
-{
-   return detail::compGetter<T>(var);
-}
-
-// non-const
-template<
-   class T, class... Ts, class = std::enable_if_t<detail::is_in_v<T,Ts...>>
->
-T *getter(std::variant<Ts...> &var)
-{
-   return const_cast<T *>(std::as_const(*this).template getter<T>(var));
-}
-
 
 // -----------------------------------------------------------------------------
 // getter(vector, key)

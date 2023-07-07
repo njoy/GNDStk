@@ -181,6 +181,9 @@ void verifyChunk( const Axes& component ) {
   CHECK( std::nullopt == component.href() );
 
   CHECK( 2 == component.axis_grid().size() );
+  CHECK( 2 == component.axis_grid.size() );
+  CHECK( 2 == component.axis.size() );
+  CHECK( 2 == component.grid.size() );
   CHECK( 2 == component.size() );
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -264,7 +267,7 @@ void verifyChunk( const Axes& component ) {
   // using the index based axis getter
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  CHECK(component.axis[has(index(0))]);
+  CHECK(component.axis(has(index(0))));
   CHECK(component.axis.has(index(0)));
   CHECK(component.axis_grid.has(index));
   CHECK(component.axis_grid.has(index(0)));
@@ -278,7 +281,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_iv0.label().value() );
   CHECK( "fm" == axis_iv0.unit().value() );
 
-  CHECK(component.axis[has(index(1))]);
+  CHECK(component.axis(has(index(1))));
   CHECK(component.axis.has(index(1)) );
   CHECK(component.axis_grid.has(index));
   CHECK(component.axis_grid.has(index(1)));
@@ -296,7 +299,7 @@ void verifyChunk( const Axes& component ) {
   // using the label based axis getter
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  CHECK(component.axis[has(label("radius"))]);
+  CHECK(component.axis(has(label("radius"))));
   CHECK(component.axis.has(label("radius")));
   CHECK(component.axis_grid.has(label));
   CHECK(component.axis_grid.has(label("radius")));
@@ -310,7 +313,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_v0.label().value() );
   CHECK( "fm" == axis_v0.unit().value() );
 
-  CHECK(component.axis[has(label("energy_in"))]);
+  CHECK(component.axis(has(label("energy_in"))));
   CHECK(component.axis.has(label("energy_in")));
   CHECK(component.axis_grid.has(label));
   CHECK(component.axis_grid.has(label("energy_in")));

@@ -6,7 +6,7 @@ template<
    class EXTRACTOR, class THIS = DERIVED,
    class = decltype(std::declval<EXTRACTOR>()(THIS{}))>
 constexpr bool operator()(
-   const Lookup<LookupMode::exists,EXTRACTOR,void,void> &
+   const Lookup<LookupMode::exists,EXTRACTOR> &
 ) const {
    return true;
 }

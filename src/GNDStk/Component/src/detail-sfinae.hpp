@@ -68,7 +68,7 @@ template<class T, class Alloc>
 struct isVectorOrOptionalVector<std::vector<T,Alloc>>
    : public std::true_type
 {
-   using value_type = T;
+   using element = T;
 };
 
 // for std::optional<std::vector>
@@ -76,7 +76,7 @@ template<class T, class Alloc>
 struct isVectorOrOptionalVector<std::optional<std::vector<T,Alloc>>>
    : public std::true_type
 {
-   using value_type = T;
+   using element = T;
 };
 
 // isVectorOrOptionalVector_v

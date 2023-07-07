@@ -794,25 +794,6 @@ SCENARIO("Testing Component detail:: compGetter() functions") {
    } // GIVEN
 
    // ------------------------
-   // variant
-   // ------------------------
-
-   GIVEN("A variant of objects that may or may not have index and/or label") {
-      std::variant<Index,Label,IndexLabel> var;
-
-      // Note that these don't involve index or label fields
-
-      var = Index(0,"zero");
-      CHECK((compGetter<Index>(var/*,"name","class","field"*/)->value() == "zero"));
-
-      var = Label("hello","world");
-      CHECK((compGetter<Label>(var/*,"name","class","field"*/)->value() == "world"));
-
-      var = IndexLabel(10,"ten","TEN");
-      CHECK((compGetter<IndexLabel>(var/*,"name","class","field"*/)->value() == "TEN"));
-   } // GIVEN
-
-   // ------------------------
    // vector<variant>
    // ------------------------
 

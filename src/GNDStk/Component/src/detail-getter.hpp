@@ -1,16 +1,12 @@
 
 namespace detail {
 
-/*
-Contents:
-   1. compGetter<T>(variant)
-   2. compGetter   (vector<T>, Lookup exists/void)
-   3. compGetter   (vector<T>, Lookup exists/TYPE)
-   4. compGetter   (vector<T>, Lookup get/void)
-   5. compGetter   (vector<T>, Lookup get/TYPE)
-   6. compGetter<T>(vector<variant>, Lookup)
-   7. compGetter   (optional<vector<T>>, Lookup)
-*/
+// Contents:
+//    1. bool           compGetter   (vector<T>, Lookup exists)
+//    2. auto           compGetter   (vector<T>, Lookup get/unvalued)
+//    3. const T       &compGetter   (vector<T>, Lookup get/valued)
+//    4. const T       *compGetter<T>(vector<variant>, Lookup)
+//    5. decltype(auto) compGetter   (optional<vector<T>>, Lookup)
 
 // -----------------------------------------------------------------------------
 // Helpers
@@ -47,12 +43,14 @@ inline std::string quote(const char *const value)
 // ------------------------
 
 // general
+// the type
 template<class T>
 struct firstOrOnly {
    using type = T;
 };
 
 // for variant
+// the variant's first type
 template<class T, class... Ts>
 struct firstOrOnly<std::variant<T,Ts...>> {
    using type = T;
@@ -91,83 +89,57 @@ struct has_field<std::variant<Ts...>,EXTRACTOR>
 
 // -----------------------------------------------------------------------------
 // 1.
-// compGetter<T>(variant)
-// Returns: const T *
-// -----------------------------------------------------------------------------
-
-template<class T, class... Ts, class = std::enable_if_t<is_in_v<T,Ts...>>>
-const T *compGetter(const std::variant<Ts...> &var)
-{
-   return std::get_if<T>(&var);
-}
-
-
-// -----------------------------------------------------------------------------
-// 2.
-// compGetter(vector<T>, Lookup exists/void, names)
+// compGetter(vector<T>, Lookup exists/valued or unvalued, names)
 // Returns: bool
 // -----------------------------------------------------------------------------
 
-template<class T, class EXTRACTOR>
-bool compGetter(
-   const std::vector<T> &,
-   const Lookup<LookupMode::exists,EXTRACTOR,void,void> &,
-   const std::string &, const std::string &, const std::string &
-) {
-   return has_field<T,EXTRACTOR>::value;
-}
-
-
-// -----------------------------------------------------------------------------
-// 3.
-// compGetter(vector<T>, Lookup exists/TYPE, names)
-// Returns: bool
-// -----------------------------------------------------------------------------
-
-template<
-   class T, class EXTRACTOR, class TYPE, class CONVERTER,
-   class = std::enable_if_t<has_field<T,EXTRACTOR>::value>
->
+template<class T, class EXTRACTOR, class TYPE, class CONVERTER>
 bool compGetter(
    const std::vector<T> &vec,
    const Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
-   const std::string fname = fn != "" ? fn : "<unknown name>";
+   if constexpr (!has_field<T,EXTRACTOR>::value)
+      return false;
+   else if constexpr (std::is_same_v<TYPE,void>)
+      return true;
+   else {
+      const std::string fname = fn != "" ? fn : "<unknown name>";
 
-   try {
-      for (const auto &elem : vec) {
-         if constexpr (isVariant_v<T>) {
-            // T == variant
-            if (std::visit(
-               [&look](auto &&alternative)
-               {
-                  return look.extractor(alternative) == look.value;
-               },
-               elem
-            ))
-               return true;
-         } else {
-            // T != variant
-            if (look.extractor(elem) == look.value)
-               return true;
+      try {
+         for (const auto &elem : vec) {
+            if constexpr (isVariant_v<T>) {
+               // T == variant
+               if (std::visit(
+                  [&look](auto &&alternative)
+                  {
+                     return look.extractor(alternative) == look.value;
+                  },
+                  elem
+               ))
+                  return true;
+            } else {
+               // T != variant
+               if (look.extractor(elem) == look.value)
+                  return true;
+            }
          }
+      } catch (...) {
+         // context
+         log::member(
+           "compGetter {}::{}.{}(has({}({}))) on vector",
+            nname, cname, fname, look.name, quote(look.value));
+         throw;
       }
-   } catch (...) {
-      // context
-      log::member(
-        "compGetter {}::{}.{}(has({}({}))) on vector",
-         nname, cname, fname, look.name, quote(look.value));
-      throw;
-   }
 
-   return false;
+      return false;
+   }
 }
 
 
 // -----------------------------------------------------------------------------
-// 4.
-// compGetter(vector<T>, Lookup get/void, names)
+// 2.
+// compGetter(vector<T>, Lookup get/unvalued, names)
 // Returns: vector
 // Meaning: create and return a vector with the extracted fields. Analogy: given
 // a vector<complex>, return a vector<double> with just, say, the .real parts.
@@ -179,7 +151,7 @@ template<
 >
 auto compGetter(
    const std::vector<T> &vec,
-   const Lookup<LookupMode::get,EXTRACTOR,void,void> &look,
+   const Lookup<LookupMode::get,EXTRACTOR> &look,
    const std::string &nname, const std::string &cname, const std::string &fn
 ) {
    const std::string fname = fn != "" ? fn : "<unknown name>";
@@ -217,8 +189,8 @@ auto compGetter(
 
 
 // -----------------------------------------------------------------------------
-// 5.
-// compGetter(vector<T>, Lookup get/TYPE, names)
+// 3.
+// compGetter(vector<T>, Lookup get/valued, names)
 // Returns: const T &
 // Get-mode Lookup, with a value. Meaning: return the element, of the vector,
 // where extractor(element) == look.value. (Analogy: taking a vector<complex>,
@@ -249,7 +221,7 @@ const T &compGetter(
                [&elem,&look,&ptr](auto &&alternative)
                {
                   using Class = std::decay_t<decltype(alternative)>;
-                  if constexpr (has<Class,EXTRACTOR>(0))
+                  if constexpr (has_field<Class,EXTRACTOR>::value)
                      if (look.extractor(alternative) == look.value)
                         ptr = &elem;
                },
@@ -294,7 +266,7 @@ const T &compGetter(
 
 
 // -----------------------------------------------------------------------------
-// 6.
+// 4.
 // compGetter<T>(vector<variant>, Lookup, names)
 // Returns: const T *
 // -----------------------------------------------------------------------------
@@ -312,7 +284,7 @@ const T *compGetter(
    const std::string fname = fn != "" ? fn : "<unknown name>";
 
    try {
-      return compGetter<T>(compGetter(vecvar, look, nname, cname, fname));
+      return std::get_if<T>(&compGetter(vecvar, look, nname, cname, fname));
    } catch (...) {
       // context
       log::member(
@@ -324,7 +296,7 @@ const T *compGetter(
 
 
 // -----------------------------------------------------------------------------
-// 7.
+// 5.
 // compGetter(optional<vector<T>>, Lookup, names)
 // -----------------------------------------------------------------------------
 

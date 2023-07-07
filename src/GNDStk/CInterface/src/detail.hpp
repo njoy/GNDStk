@@ -282,7 +282,7 @@ bool hasField(
 ) {
    try {
       const auto &field = *extract(tocpp<CPP>(ptr));
-      return field.has();
+      return field.has_value();
    } catch (...) {
       log::function("{}({} handle = {})", funname, classname, (void *)ptr);
       return false;

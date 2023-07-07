@@ -3,7 +3,7 @@
 // Field
 // Note that this class is defined inside of class Component. We do this because
 // it uses type Component itself (the particular Component<...> that it's in) as
-// well as type DERIVED (the class that derives from this Component via CRTP).
+// well as type DERIVED (the class that derives from this Component, via CRTP).
 // -----------------------------------------------------------------------------
 
 template<class T>
@@ -92,38 +92,62 @@ public:
    }
 
    // ------------------------
-   // has
+   // has_value
    // ------------------------
 
-   // With no arguments.
    // Relates to std::optional, not to the question of what metadata or metadata
-   // values the present Field might contain. (See the other has() functions for
-   // that.) Returns true iff either T is optional but has a value, or isn't
-   // optional (so that it necessarily has a value).
-   bool has() const
+   // values the present Field might contain. (See the has() functions for those
+   // capabilities.) Returns true iff either T is optional but has a value, or T
+   // isn't optional (so that it necessarily has a value).
+   bool has_value() const
    {
       if constexpr (detail::isOptional<T>)
          return wrappedValue.has_value();
       return true;
    }
 
-   // With one argument.
-   // Forwards to operator[](const KEY &key) const, below, essentially to
-   // provide an alternative form of a "has" query. Instead of, for example,
-   //    H.isotope[has(mass_number(2))]
-   // to inquire about whether element H's vector of isotopes has an isotope
-   // with a mass number of 2, we can instead write:
-   //    H.isotope.has(mass_number(2))
-   // to make exactly the same query. (The example assumes that H is of a
-   // class - say, Element - that contains a vector of isotopes, and that
-   // the Isotope class contains an integer metadatum called mass_number.)
-   // Note: the SFINAE is such that this function is enabled iff a call to
-   // operator[](Lookup) of the present class would be valid, and return bool.
-   template<class KEY>
-   auto has(const KEY &look) const -> std::enable_if_t<
-      std::is_same_v<decltype((*this)[GNDStk::has(look)]),bool>, bool
-   > {
-      return (*this)[GNDStk::has(look)];
+   // ------------------------
+   // operator()(has(...))
+   // has
+   // ------------------------
+
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   bool operator()(
+      const Lookup<LookupMode::exists,EXTRACTOR,TYPE,CONVERTER> &look
+   ) const {
+      return parent.getter(wrappedValue,look);
+   }
+
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER,
+      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>
+   >
+   bool has(
+      const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look
+   ) const {
+      return (*this)(GNDStk::has(look)); // just above
+   }
+
+   // ------------------------
+   // operator()
+   // ------------------------
+
+   // ()
+   // Get exactly the Field-wrapped value, whatever it is (including optional)
+
+   // const
+   const T &operator()() const
+   {
+      return wrappedValue;
+   }
+
+   // non-const
+   T &operator()()
+   {
+      return wrappedValue;
    }
 
    // ------------------------
@@ -153,94 +177,6 @@ public:
    }
 
    // ------------------------
-   // operator()
-   // ------------------------
-
-   // ()
-   // Get exactly the Field-wrapped value, whatever it is (including optional)
-   const T &operator()() const { return wrappedValue; } // const
-   T &operator()() { return wrappedValue; } // non-const
-
-   // ------------------------
-   // operator[](Lookup)
-   // ------------------------
-
-   // If T == [optional] vector
-
-   // [Lookup], including Lookup<exists>
-// zzz actually the following REQUIRE (don't just include) Lookup<exists>
-   template<
-      class EXTRACTOR, class TYPE, class CONVERTER,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   bool
-   operator[](const Lookup<LookupMode::exists,EXTRACTOR> &look) const // const
-   {
-      return parent.getter(wrappedValue,look);
-   }
-
-   template<
-      class EXTRACTOR, class TYPE, class CONVERTER,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   bool
-   operator[](const Lookup<LookupMode::exists,EXTRACTOR> &look) // non-const
-   {
-      return parent.getter(wrappedValue,look);
-   }
-
-   // zzz working here
-
-   // [Lookup], including Lookup<exists>
-   template<
-      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>,
-      class = std::enable_if_t<
-         detail::has_field<typename TEE::value_type,EXTRACTOR>::value
-      >
-   >
-   decltype(auto)
-   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) const // const
-   {
-      return parent.getter(wrappedValue,look);
-   }
-
-   template<
-      LookupMode MODE, class EXTRACTOR, class TYPE, class CONVERTER,
-      class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>,
-      class = std::enable_if_t<
-         detail::has_field<typename TEE::value_type,EXTRACTOR>::value
-      >
-   >
-   decltype(auto)
-   operator[](const Lookup<MODE,EXTRACTOR,TYPE,CONVERTER> &look) // non-const
-   {
-      return parent.getter(wrappedValue,look);
-   }
-
-   // ------------------------
-   // operator[](size_t)
-   // ------------------------
-
-   // If T == [optional] vector
-
-   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator[](const size_t index) const // const
-   {
-      if constexpr (detail::isOptional<T>)
-         return (*wrappedValue)[index];
-      else
-         return wrappedValue[index];
-   }
-
-   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
-   decltype(auto) operator[](const size_t index) // non-const
-   {
-      if constexpr (detail::isOptional<T>)
-         return (*wrappedValue)[index];
-      else
-         return wrappedValue[index];
-   }
-
-   // ------------------------
    // size()
    // ------------------------
 
@@ -255,8 +191,72 @@ public:
    }
 
    // ------------------------
+   // operator[](size_t)
+   // ------------------------
+
+   // If T == [optional] vector
+
+   // const
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   decltype(auto) operator[](const size_t index) const
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.value()[index];
+      else
+         return wrappedValue[index];
+   }
+
+   // non-const
+   template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
+   decltype(auto) operator[](const size_t index)
+   {
+      if constexpr (detail::isOptional<T>)
+         return wrappedValue.value()[index];
+      else
+         return wrappedValue[index];
+   }
+
+   // ------------------------
+   // operator[](Lookup)
+   // ------------------------
+
+   // If T == [optional] vector
+
+   // const
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER, class TEE = T,
+      class = std::enable_if_t<
+         detail::has_field<
+            typename detail::isVectorOrOptionalVector<TEE>::element, EXTRACTOR
+         >::value
+      >
+   >
+   decltype(auto) operator[](
+      const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look
+   ) const {
+      return parent.getter(wrappedValue,look);
+   }
+
+   // non-const
+   template<
+      class EXTRACTOR, class TYPE, class CONVERTER, class TEE = T,
+      class = std::enable_if_t<
+         detail::has_field<
+            typename detail::isVectorOrOptionalVector<TEE>::element, EXTRACTOR
+         >::value
+      >
+   >
+   decltype(auto) operator[](
+      const Lookup<LookupMode::get,EXTRACTOR,TYPE,CONVERTER> &look
+   ) {
+      return parent.getter(wrappedValue,look);
+   }
+
+   // ------------------------
    // Conversions
    // ------------------------
+
+   // zzz working here
 
    // To T
    // Same as ()
@@ -337,7 +337,7 @@ public:
    // Add (via push_back()) to wrappedValue.
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    Field &add(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &element
+      const typename detail::isVectorOrOptionalVector<TEE>::element &element
    ) {
       return Component::setter(wrappedValue,element), *this;
    }
@@ -346,7 +346,7 @@ public:
    // Same as add(element)
    template<class TEE = T, class = detail::isVectorOrOptionalVector_t<TEE>>
    Field &operator+=(
-      const typename detail::isVectorOrOptionalVector<TEE>::value_type &element
+      const typename detail::isVectorOrOptionalVector<TEE>::element &element
    ) {
       return add(element);
    }

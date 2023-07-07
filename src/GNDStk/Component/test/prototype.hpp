@@ -645,15 +645,15 @@ public:
 
    // link
    auto link() const
-    { return getter<proto::Link>(link_values()); }
+    { return std::get_if<proto::Link>(&link_values()); }
    auto link()
-    { return getter<proto::Link>(link_values()); }
+    { return std::get_if<proto::Link>(&link_values()); }
 
    // values
    auto values() const
-    { return getter<proto::Values>(link_values()); }
+    { return std::get_if<proto::Values>(&link_values()); }
    auto values()
-    { return getter<proto::Values>(link_values()); }
+    { return std::get_if<proto::Values>(&link_values()); }
 
    // ------------------------
    // Setters

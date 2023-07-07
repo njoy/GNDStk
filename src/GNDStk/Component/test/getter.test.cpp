@@ -232,32 +232,6 @@ public:
    }
 
    // ------------------------
-   // test_variant
-   // ------------------------
-
-   // Tests Component::getter(variant)
-
-   // const
-   void test_variant() const
-   {
-      CHECK( *getter<int   >(varA) == 12 );
-      CHECK( *getter<double>(varB) == 34.56 );
-   }
-
-   // non-const
-   void test_variant()
-   {
-      CHECK( *getter<int   >(varA) == 12 );
-      CHECK( *getter<double>(varB) == 34.56 );
-
-      *getter<int   >(varA) = 314;
-      *getter<double>(varB) = 2.72;
-
-      CHECK( *getter<int   >(varA) == 314);
-      CHECK( *getter<double>(varB) == 2.72);
-   }
-
-   // ------------------------
    // test_vector_of_variant
    // ------------------------
 
@@ -433,15 +407,6 @@ SCENARIO("Component getter()") {
          }
          THEN("It works on a non-const object") {
             t.test_vector();
-         }
-      } // WHEN
-
-      WHEN("We test Component::getter() for variant") {
-         THEN("It works on a const object") {
-            c.test_variant();
-         }
-         THEN("It works on a non-const object") {
-            t.test_variant();
          }
       } // WHEN
 
