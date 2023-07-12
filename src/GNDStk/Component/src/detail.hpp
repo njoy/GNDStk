@@ -180,11 +180,11 @@ bool printComponentPart(
    // Compute the minimum and maximum values in the data vector, if we'll need
    // them. Our use of std::conditional_t allows us to avoid constructing two
    // possibly large and complex T values (given that T could be, for example,
-   // a large Component-based object) if T isn't of arithmetic type.
-   std::conditional_t<std::is_arithmetic_v<T>,T,int> min, max;
+   // a large Component-based object) if T isn't of arithmetic type. Note that
+   // vec.size() == 0 was ruled out above, so that vec[0] initialization works.
+   std::conditional_t<std::is_arithmetic_v<T>,T,int> min = vec[0], max = vec[0];
    if constexpr (std::is_arithmetic_v<T>)
       if (shades) {
-         min = max = vec[0]; // vec.size() == 0 was ruled out above
          for (size_t i = 1; i < size; ++i) {
             min = std::min(min,vec[i]);
             max = std::max(max,vec[i]);

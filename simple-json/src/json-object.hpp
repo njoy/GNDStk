@@ -10,6 +10,10 @@ public:
    using vector::operator=;
    object(const vector &from) : vector(from) { }
    object(vector &&from) : vector(std::move(from)) { }
+   object &operator=(const vector &from)
+   { static_cast<vector &>(*this) = from; return *this; }
+   object &operator=(vector &&from)
+   { static_cast<vector &>(*this) = std::move(from); return *this; }
 
    // read, write
    template<class T = void, class U = void>
