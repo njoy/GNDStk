@@ -11,6 +11,10 @@ public:
    using STRING::operator=;
    string(const STRING &from) : STRING(from) { }
    string(STRING &&from) : STRING(std::move(from)) { }
+   string &operator=(const STRING &from)
+   { static_cast<STRING &>(*this) = from; return *this; }
+   string &operator=(STRING &&from)
+   { static_cast<STRING &>(*this) = std::move(from); return *this; }
 
    // constructor: default
    string() { }

@@ -10,6 +10,10 @@ public:
    using vector::operator=;
    array(const vector &from) : vector(from) { }
    array(vector &&from) : vector(std::move(from)) { }
+   array &operator=(const vector &from)
+   { static_cast<vector &>(*this) = from; return *this; }
+   array &operator=(vector &&from)
+   { static_cast<vector &>(*this) = std::move(from); return *this; }
 
    // constructor: from std::vector<T convertible to value>
    template<class T, class = std::enable_if_t<std::is_convertible_v<T,value>>>

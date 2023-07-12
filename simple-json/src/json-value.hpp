@@ -20,6 +20,10 @@ public:
    using variant::operator=;
    value(const variant &from) : variant(from) { }
    value(variant &&from) : variant(std::move(from)) { }
+   value &operator=(const variant &from)
+   { static_cast<variant &>(*this) = from; return *this; }
+   value &operator=(variant &&from)
+   { static_cast<variant &>(*this) = std::move(from); return *this; }
 
    // ------------------------
    // Constructors

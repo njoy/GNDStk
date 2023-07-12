@@ -30,6 +30,10 @@ public:
    using variant::operator=;
    number(const variant &from) : variant(from) { }
    number(variant &&from) : variant(std::move(from)) { }
+   number &operator=(const variant &from)
+   { static_cast<variant &>(*this) = from; return *this; }
+   number &operator=(variant &&from)
+   { static_cast<variant &>(*this) = std::move(from); return *this; }
 
    // constructor: default
    number() : variant(0) { }
