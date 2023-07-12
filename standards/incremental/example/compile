@@ -1,0 +1,31 @@
+#!/bin/bash
+
+COMPILE="
+   clang++ -std=c++17
+  -I../../../../GNDStk/src
+  -I../../../../GNDStk/simple-json/src
+  -I../../../../GNDStk/standards/incremental/code/src
+  -I../../../../GNDStk/build/_deps/pugixml-adapter-src/src/src
+  -I../../../../GNDStk/build/_deps/hdf5-src/include
+  -I../../../../GNDStk/build/_deps/log-src/src
+  -I../../../../GNDStk/build/_deps/spdlog-src/include
+  -I/usr/include/hdf5/serial
+  -DHIGHFIVE_USE_BOOST=OFF
+  -L/usr/lib/x86_64-linux-gnu/hdf5/serial
+  -lhdf5
+  -fno-show-column
+  -Wno-unused-command-line-argument
+  -Wall -Wextra -Wpedantic "
+
+if [ ! -f "pugixml.o" ]; then
+echo 'Compiling pugixml.cpp...'
+$COMPILE \
+   ../../../../GNDStk/build/_deps/pugixml-adapter-src/src/src/pugixml.cpp \
+  -c -o pugixml.o
+fi
+
+# Compile examples
+echo 'Compiling...'
+$COMPILE 0.cpp pugixml.o -o 0
+
+# wait $(jobs -p)

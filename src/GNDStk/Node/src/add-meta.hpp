@@ -6,7 +6,7 @@
 
 // Terminology:
 //
-//    "plain"     : some type, but NOT std::optional or GNDStk::Defaulted
+//    "plain"     : some type, but NOT optional or GNDStk::Defaulted
 //    "optional"  : std::optional
 //    "Defaulted" : GNDStk::Defaulted
 //
@@ -25,14 +25,16 @@
 
 // -----------------------------------------------------------------------------
 // string, *
-// Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair, or to a local static
+// proxy for a metadatum pair if nothing was added. The latter situation
+// occurs if the converter returns a bool (whereas it's allowed to return
+// void, and most converters do), with a value of false.
 // -----------------------------------------------------------------------------
 
 // string, plain
 template<
    class T,
-   class CONVERTER = typename detail::default_converter<T>::type,
+   class CONVERTER = detail::default_converter_t<T>,
    class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(
@@ -42,9 +44,19 @@ metaPair &add(
 ) {
    try {
       std::string str;
-      converter(val,str);
-      metadata.push_back(metaPair(key,str));
-      return metadata.back();
+      if constexpr (std::is_convertible_v<decltype(converter(val,str)),bool>) {
+         if (bool(converter(val,str))) {
+            metadata.push_back(metaPair(key,str));
+            return metadata.back();
+         } else {
+            static metaPair empty;
+            return empty;
+         }
+      } else {
+         converter(val,str);
+         metadata.push_back(metaPair(key,str));
+         return metadata.back();
+      }
    } catch (...) {
       log::member("Node.add(\"{}\",value)", key);
       throw;
@@ -57,7 +69,7 @@ metaPair &add(
 // string, Defaulted
 template<
    class T,
-   class CONVERTER = typename detail::default_converter<T>::type
+   class CONVERTER = detail::default_converter_t<T>
 >
 metaPair &add(
    const std::string &key,
@@ -71,8 +83,7 @@ metaPair &add(
 
 // -----------------------------------------------------------------------------
 // Meta<void>, *
-// Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
 // A Meta<void> means that the Meta imposes no particular type, and thus
@@ -86,7 +97,7 @@ metaPair &add(
 // Meta<void>, Defaulted
 template<
    class T = std::string,
-   class CONVERTER = typename detail::default_converter<T>::type,
+   class CONVERTER = detail::default_converter_t<T>,
    class = std::enable_if_t<!detail::isOptional<T>>
 >
 metaPair &add(
@@ -104,8 +115,7 @@ metaPair &add(
 
 // -----------------------------------------------------------------------------
 // Meta<plain>, *
-// Guaranteed to add something
-// Returns: reference to added metadatum pair
+// Returns: reference to the added metadatum pair
 // -----------------------------------------------------------------------------
 
 // Meta<plain>, plain
@@ -141,10 +151,10 @@ metaPair &add(
 
 
 // -----------------------------------------------------------------------------
-// Meta<optional>, *
+// Meta<std::optional>, *
 // -----------------------------------------------------------------------------
 
-// Meta<optional>, plain
+// Meta<std::optional>, plain
 // Returns: metaPair &
 template<
    class TYPE, class CONVERTER,
@@ -158,7 +168,7 @@ metaPair &add(
    return add(kwd.name, TYPE(val), kwd.converter);
 }
 
-// Meta<optional>, optional
+// Meta<std::optional>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -174,7 +184,7 @@ bool add(
       :  false;
 }
 
-// Meta<optional>, Defaulted
+// Meta<std::optional>, Defaulted
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,
@@ -210,7 +220,7 @@ metaPair &add(
    return add(kwd.name, TYPE(val), kwd.converter);
 }
 
-// Meta<Defaulted>, optional
+// Meta<Defaulted>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, class CONVERTER,

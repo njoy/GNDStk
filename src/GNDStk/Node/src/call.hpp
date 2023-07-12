@@ -16,7 +16,7 @@
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -53,7 +53,7 @@ decltype(auto) operator()(
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -79,7 +79,7 @@ decltype(auto) operator()(
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
@@ -97,7 +97,7 @@ decltype(auto) operator()(
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
