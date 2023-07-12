@@ -182,14 +182,17 @@ bool printComponentPart(
    // possibly large and complex T values (given that T could be, for example,
    // a large Component-based object) if T isn't of arithmetic type. Note that
    // vec.size() == 0 was ruled out above, so that vec[0] initialization works.
-   std::conditional_t<std::is_arithmetic_v<T>,T,int> min = vec[0], max = vec[0];
-   if constexpr (std::is_arithmetic_v<T>)
+   std::conditional_t<std::is_arithmetic_v<T>,T,int> min, max;
+   if constexpr (std::is_arithmetic_v<T>) {
+      min = max = vec[0];
       if (shades) {
          for (size_t i = 1; i < size; ++i) {
             min = std::min(min,vec[i]);
             max = std::max(max,vec[i]);
          }
       }
+   } else
+      min = max = 0;
 
    // Print, using column formatting
    for (size_t i = 0; i < end; ++i) {
