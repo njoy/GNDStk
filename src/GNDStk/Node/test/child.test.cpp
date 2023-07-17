@@ -1,8 +1,8 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 #include <cstring>
-
 using namespace njoy::GNDStk;
 
 
@@ -75,19 +75,19 @@ inline void convert(const Node &n, isotope_t &iso)
 
 // Child objects with Allow::one
 auto temperature =
-   keyword.child<temperature_t,Allow::one>("temperature");
+   Child<temperature_t,Allow::one>("temperature");
 auto styles =
-   keyword.child<void,Allow::one>("styles");
+   Child<void,Allow::one>("styles");
 auto documentations =
-   keyword.child<std::variant<foo_t,bar_t>,Allow::one>("documentations");
+   Child<std::variant<foo_t,bar_t>,Allow::one>("documentations");
 
 // Child objects with Allow::many
 auto isotope =
-   keyword.child<isotope_t,Allow::many>("isotope");
+   Child<isotope_t,Allow::many>("isotope");
 auto isotope_node =
-   keyword.child<void,Allow::many>("isotope");
+   Child<void,Allow::many>("isotope");
 auto nuclide_foo_or_bar_node =
-   keyword.child<std::variant<foo_t,bar_t>,Allow::many>("nuclide");
+   Child<std::variant<foo_t,bar_t>,Allow::many>("nuclide");
 
 
 // -----------------------------------------------------------------------------
@@ -195,7 +195,7 @@ SCENARIO("Testing GNDStk Node child()") {
             basic::child::reactionSuite,
             basic::child::documentations,
             basic::child::documentation,
-            misc::child::cdata
+            misc::child::CDATA
          );
          CHECK(0 == strncmp(descr.data(), "\n  8-O - 16 LANL", 16));
       }
@@ -499,7 +499,7 @@ SCENARIO("Testing GNDStk Node child()") {
          found = false;
          CHECK((c.child(reaction,found)[0].ENDF_MT == 2 && found));
          found = true;
-         c.child(nonsense,found)[0];
+         (void)c.child(nonsense,found)[0];
          CHECK(!found);
       }
 
@@ -554,7 +554,7 @@ SCENARIO("Testing GNDStk Node child()") {
          found = false;
          CHECK((c.child<R>(reaction,found)[0].ENDF_MT == 2 && found));
          found = true;
-         c.child<N>(nonsense,found)[0];
+         (void)c.child<N>(nonsense,found)[0];
          CHECK(!found);
       }
 

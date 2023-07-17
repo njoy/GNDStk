@@ -22,10 +22,11 @@ to an istream prior to operator>>.
 // convert(Node,Node)
 // -----------------------------------------------------------------------------
 
-inline void convert(const Node &from, Node &to)
+inline bool convert(const Node &from, Node &to)
 {
    try {
       to = from;
+      return true;
    } catch (...) {
       log::function("convert(Node,Node)");
       throw;

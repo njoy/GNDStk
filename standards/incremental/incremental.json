@@ -1,0 +1,12 @@
+{
+    "Path": ".",
+    "Project": "code",
+    "Version": "v2.0",
+
+    "JSONDir": ".",
+    "JSONFiles": [
+        "incremental-classes.json"
+    ],
+
+    "Changes": "changes.json"
+}

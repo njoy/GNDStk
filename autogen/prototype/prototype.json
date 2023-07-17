@@ -1,0 +1,36 @@
+{
+    "remark" : [
+        "Path",
+        "   Path to the Project directory.",
+        "   Optional (defaults to .).",
+        "",
+        "Project",
+        "   Base project directory into which the code generator should",
+        "   place files. IMPORTANT: this should be a **plain** name only,",
+        "   without any directory path. Use Path for that, if it's needed.",
+        "   Optional (defaults to GNDStk).",
+        "",
+        "Version",
+        "   Version number for this project.",
+        "",
+        "JSONDir",
+        "   Directory in which the .json input files are located.",
+        "",
+        "JSONFiles",
+        "   The .json input files.",
+        "",
+        "Do NOT end directories with a /"
+    ],
+
+    "Path": ".",
+    "Project": "proto",
+    "Version": "v1.9",
+
+    "JSONDir": ".",
+    "JSONFiles": [
+        "generalPurpose.json",
+        "reactionSuite.json"
+    ],
+
+    "Changes": "../changes.json"
+}
