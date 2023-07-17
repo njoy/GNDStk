@@ -9,8 +9,20 @@
 
 std::istream &read(std::istream &is)
 {
-   static const std::string context =
-      "HDF5.read(istream) (uses a temporary file)";
+   static const std::string context = "HDF5.read(istream)";
+
+#ifdef GNDSTK_DISABLE_HDF5
+
+   (void)is;
+   log::error(
+      "We can't perform the action " + context + ", because the code\n"
+      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
+   static const std::string context_tmp = context + " (uses a temporary file)";
 
    // Clear present contents.
    clear();
@@ -23,7 +35,7 @@ std::istream &read(std::istream &is)
    std::ofstream ofs(name, std::ios::binary);
    if (!ofs) {
       log::error("Could not open temporary file \"{}\"", name);
-      log::member(context);
+      log::member(context_tmp);
       return is;
    }
 
@@ -43,7 +55,7 @@ std::istream &read(std::istream &is)
    if (!(is.fail() && is.eof() && !is.bad() && ofs.good())) {
       log::error(
          "Error writing istream's contents to temporary file \"{}\"", name);
-      log::member(context);
+      log::member(context_tmp);
       detail::failback(is,pos);
       return is;
    }
@@ -59,10 +71,12 @@ std::istream &read(std::istream &is)
                  "threw an exception", name);
    }
 
-   log::member(context);
+   log::member(context_tmp);
    delete filePtr;
    detail::failback(is,pos);
    return is;
+
+#endif
 }
 
 
@@ -70,6 +84,7 @@ std::istream &read(std::istream &is)
 // read(file)
 // -----------------------------------------------------------------------------
 
+#ifndef GNDSTK_DISABLE_HDF5
 bool read(const std::string &filename)
 {
    clear();
@@ -95,3 +110,4 @@ bool read(const std::string &filename)
    delete filePtr;
    return false;
 }
+#endif

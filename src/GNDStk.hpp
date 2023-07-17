@@ -14,8 +14,10 @@
 #include "pugixml.hpp"
 #include "json.hpp"
 #include "Log.hpp"
+#ifndef GNDSTK_DISABLE_HDF5
 #include <highfive/H5File.hpp>
 #include <highfive/H5Easy.hpp>
+#endif
 
 // OpenMP
 #ifdef _OPENMP

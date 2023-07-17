@@ -378,7 +378,7 @@ bool json_reduce_data_metadata(
    // That's doable, because JSON arrays are polymorphic, but we believe it
    // would clutter the [...] with elements that would need to be interpreted,
    // by whatever tool someone might use to process the JSON file, separately
-   // from how the rest of the [...] is interpreted. With HDF5 that probably
+   // from how the rest of the [...] is interpreted. With HDF5, that probably
    // isn't an issue, because a data set's *attributes*, while residing in the
    // data set, would presumably be seen by HDF5 tools as logically distinct
    // from its *data* proper. With JSON, we don't see how that would happen.

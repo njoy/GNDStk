@@ -29,7 +29,7 @@ Tree(const Tree &other) : Node("/")
 // From XML, JSON, and HDF5 objects
 // -----------------------------------------------------------------------------
 
-// XML
+// From XML
 explicit Tree(const XML &x) : Node("/")
 {
    try {
@@ -41,7 +41,7 @@ explicit Tree(const XML &x) : Node("/")
    }
 }
 
-// JSON
+// From JSON
 explicit Tree(const JSON &j) : Node("/")
 {
    try {
@@ -53,7 +53,8 @@ explicit Tree(const JSON &j) : Node("/")
    }
 }
 
-// HDF5
+// From HDF5
+#ifndef GNDSTK_DISABLE_HDF5
 explicit Tree(const HDF5 &h) : Node("/")
 {
    try {
@@ -64,6 +65,7 @@ explicit Tree(const HDF5 &h) : Node("/")
       throw;
    }
 }
+#endif
 
 
 

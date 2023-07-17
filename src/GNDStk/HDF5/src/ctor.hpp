@@ -11,6 +11,9 @@
 HDF5() { }
 
 // move
+#ifdef GNDSTK_DISABLE_HDF5
+HDF5(HDF5 &&) = default;
+#else
 HDF5(HDF5 &&other) :
    filePtr (std::move(other.filePtr )),
    fileDesc(std::move(other.fileDesc))
@@ -18,8 +21,12 @@ HDF5(HDF5 &&other) :
    other.filePtr = nullptr;
    other.fileDesc = 0;
 }
+#endif
 
 // copy
+#ifdef GNDSTK_DISABLE_HDF5
+HDF5(const HDF5 &) = default;
+#else
 HDF5(const HDF5 &other)
 {
    try {
@@ -30,6 +37,7 @@ HDF5(const HDF5 &other)
       throw;
    }
 }
+#endif
 
 
 // ------------------------
@@ -37,6 +45,7 @@ HDF5(const HDF5 &other)
 // ------------------------
 
 // From XML
+#ifndef GNDSTK_DISABLE_HDF5
 explicit HDF5(const XML &x)
 {
    try {
@@ -47,8 +56,10 @@ explicit HDF5(const XML &x)
       throw;
    }
 }
+#endif
 
 // From JSON
+#ifndef GNDSTK_DISABLE_HDF5
 explicit HDF5(const JSON &j)
 {
    try {
@@ -59,6 +70,7 @@ explicit HDF5(const JSON &j)
       throw;
    }
 }
+#endif
 
 // From Node
 explicit HDF5(const Node &n)
@@ -90,6 +102,7 @@ explicit HDF5(std::istream &is)
 }
 
 // From file
+#ifndef GNDSTK_DISABLE_HDF5
 explicit HDF5(const std::string &filename)
 {
    try {
@@ -100,3 +113,4 @@ explicit HDF5(const std::string &filename)
       throw;
    }
 }
+#endif

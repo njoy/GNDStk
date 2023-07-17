@@ -7,7 +7,18 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 {
    static const std::string context = "convert(Node,HDF5)";
 
-   // clear
+#ifdef GNDSTK_DISABLE_HDF5
+
+   (void)node; (void)h; (void)name;
+   log::error(
+      "We can't make the conversion " + context + ", because the code\n"
+      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
+   // clear the receiving HDF5
    h.clear();
 
    try {
@@ -59,6 +70,8 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 
    // done
    return true;
+
+#endif
 }
 
 
@@ -67,13 +80,14 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
 // For completeness
 // -----------------------------------------------------------------------------
 
+#ifndef GNDSTK_DISABLE_HDF5
 inline bool convert(const HDF5 &from, HDF5 &to)
 {
    // same object?
    if (&to == &from)
       return true;
 
-   // clear
+   // clear the receiving HDF5
    to.clear();
 
    // empty?
@@ -110,6 +124,7 @@ inline bool convert(const HDF5 &from, HDF5 &to)
    // done
    return true;
 }
+#endif
 
 
 // -----------------------------------------------------------------------------
@@ -118,6 +133,7 @@ inline bool convert(const HDF5 &from, HDF5 &to)
 // As with our convert()s to XML, these go through temporaries.
 // -----------------------------------------------------------------------------
 
+#ifndef GNDSTK_DISABLE_HDF5
 inline bool convert(const XML &x, HDF5 &h)
 {
    try {
@@ -128,7 +144,9 @@ inline bool convert(const XML &x, HDF5 &h)
       throw;
    }
 }
+#endif
 
+#ifndef GNDSTK_DISABLE_HDF5
 inline bool convert(const JSON &j, HDF5 &h)
 {
    try {
@@ -139,3 +157,4 @@ inline bool convert(const JSON &j, HDF5 &h)
       throw;
    }
 }
+#endif

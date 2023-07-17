@@ -292,10 +292,12 @@ std::ostream &json(std::ostream &os = std::cout, const bool decl = false) const
 }
 
 // hdf5
+#ifndef GNDSTK_DISABLE_HDF5
 std::ostream &hdf5(std::ostream &os = std::cout, const bool decl = false) const
 {
    return write(os,"hdf5",decl) << std::endl, os;
 }
+#endif
 
 // debug
 std::ostream &debug(std::ostream &os = std::cout, const bool decl = false) const
@@ -320,10 +322,12 @@ std::ostream &json(const bool decl, std::ostream &os = std::cout) const
 }
 
 // hdf5
+#ifndef GNDSTK_DISABLE_HDF5
 std::ostream &hdf5(const bool decl, std::ostream &os = std::cout) const
 {
    return hdf5(os,decl);
 }
+#endif
 
 // debug
 std::ostream &debug(const bool decl, std::ostream &os = std::cout) const

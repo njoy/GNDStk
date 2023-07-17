@@ -150,6 +150,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // re: HDF5
    // ------------------------
 
+#ifndef GNDSTK_DISABLE_HDF5
    // to_hdf5_string
    object.def(
       "to_hdf5_string",
@@ -177,6 +178,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       "    self    The object.\n"
       "    file    The name of the HDF5 file."
    );
+#endif
 
    // ------------------------
    // for printing
@@ -236,6 +238,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       }
    );
 
+#ifndef GNDSTK_DISABLE_HDF5
    // write into string, as HDF5
    object.def(
       "hdf5",
@@ -246,6 +249,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
          return oss.str();
       }
    );
+#endif
 
    // write into string, in our internal debug format
    object.def(

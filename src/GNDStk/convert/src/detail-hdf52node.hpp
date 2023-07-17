@@ -1,4 +1,6 @@
 
+#ifndef GNDSTK_DISABLE_HDF5
+
 // Helper: hdf52node_error
 inline void hdf52node_error(const std::string &message)
 {
@@ -344,3 +346,5 @@ bool hdf52node(
    // done
    return true;
 }
+
+#endif

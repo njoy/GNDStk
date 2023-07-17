@@ -1,4 +1,6 @@
 
+#ifndef GNDSTK_DISABLE_HDF5
+
 // -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
@@ -367,3 +369,5 @@ bool node2hdf5(const NODE &node, OBJECT &h, const std::string &suffix = "")
    // done
    return true;
 }
+
+#endif

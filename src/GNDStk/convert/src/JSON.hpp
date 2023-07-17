@@ -7,7 +7,7 @@ inline bool convert(const Node &node, JSON &j)
 {
    static const std::string context = "convert(Node,JSON)";
 
-   // clear
+   // clear the receiving JSON
    j.clear();
 
    try {
@@ -63,7 +63,7 @@ inline bool convert(const JSON &from, JSON &to)
    if (&to == &from)
       return true;
 
-   // clear
+   // clear the receiving JSON
    to.clear();
 
    // empty?
@@ -100,6 +100,7 @@ inline bool convert(const XML &x, JSON &j)
    }
 }
 
+#ifndef GNDSTK_DISABLE_HDF5
 inline bool convert(const HDF5 &h, JSON &j)
 {
    try {
@@ -110,3 +111,4 @@ inline bool convert(const HDF5 &h, JSON &j)
       throw;
    }
 }
+#endif

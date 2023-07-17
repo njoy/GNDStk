@@ -7,7 +7,7 @@ inline bool convert(const Node &node, XML &x)
 {
    static const std::string context = "convert(Node,XML)";
 
-   // clear
+   // clear the receiving XML
    x.clear();
 
    // We recognize below that the Node could in fact be the base of a Tree,
@@ -98,7 +98,7 @@ inline bool convert(const XML &from, XML &to)
    if (&to == &from)
       return true;
 
-   // clear
+   // clear the receiving XML
    to.clear();
 
    // empty?
@@ -153,6 +153,7 @@ inline bool convert(const JSON &j, XML &x)
    }
 }
 
+#ifndef GNDSTK_DISABLE_HDF5
 inline bool convert(const HDF5 &h, XML &x)
 {
    try {
@@ -163,3 +164,4 @@ inline bool convert(const HDF5 &h, XML &x)
       throw;
    }
 }
+#endif

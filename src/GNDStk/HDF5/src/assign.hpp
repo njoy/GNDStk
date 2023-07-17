@@ -4,6 +4,9 @@
 // -----------------------------------------------------------------------------
 
 // move
+#ifdef GNDSTK_DISABLE_HDF5
+HDF5 &operator=(HDF5 &&) = default;
+#else
 HDF5 &operator=(HDF5 &&other)
 {
    clear();
@@ -16,8 +19,12 @@ HDF5 &operator=(HDF5 &&other)
 
    return *this;
 }
+#endif
 
 // copy
+#ifdef GNDSTK_DISABLE_HDF5
+HDF5 &operator=(const HDF5 &) = default;
+#else
 HDF5 &operator=(const HDF5 &other)
 {
    try {
@@ -29,3 +36,4 @@ HDF5 &operator=(const HDF5 &other)
    }
    return *this;
 }
+#endif

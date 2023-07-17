@@ -160,6 +160,19 @@ wouldn't be a string on its own, like a "snippet" of XML or JSON.
 
 inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 {
+   static const std::string context = "convert(HDF5,Node)";
+
+#ifdef GNDSTK_DISABLE_HDF5
+
+   (void)h; (void)node; (void)DECL;
+   log::error(
+      "We can't make the conversion " + context + ", because the code\n"
+      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
    const bool decl = detail::getDecl(node,DECL);
 
    // ------------------------
@@ -199,7 +212,9 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
       // visit the rest of the root HDF5 group
       return detail::hdf52node(rootGroup, "/", node, decl);
    } catch (...) {
-      log::function("convert(HDF5,Node)");
+      log::function(context);
       throw;
    }
+
+#endif
 }
