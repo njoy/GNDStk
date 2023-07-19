@@ -112,6 +112,7 @@ SCENARIO("Testing GNDStk XML") {
       CHECK(oss1.str() == oss2.str());
    }
 
+#ifndef GNDSTK_DISABLE_JSON
    // from JSON
    WHEN("We construct an XML from a JSON") {
       const JSON j("n-069_Tm_170-covar.json");
@@ -131,6 +132,7 @@ SCENARIO("Testing GNDStk XML") {
          CHECK(t == Tree(x)); // == ignores declaration node
       }
    }
+#endif
 
    // from file
    // Note: Things like this are of course tested indirectly

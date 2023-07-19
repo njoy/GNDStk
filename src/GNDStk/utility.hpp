@@ -359,24 +359,30 @@ bool convert(const Node &, HDF5 &, const std::string & = "");
 // XML  ==> {Node,XML,JSON,HDF5}
 bool convert(const XML  &, Node &, const bool & = detail::default_bool);
 bool convert(const XML  &, XML  &);
+#ifndef GNDSTK_DISABLE_JSON
 bool convert(const XML  &, JSON &);
+#endif
 #ifndef GNDSTK_DISABLE_HDF5
 bool convert(const XML  &, HDF5 &);
 #endif
 
 // JSON ==> {Node,XML,JSON,HDF5}
 bool convert(const JSON &, Node &, const bool & = detail::default_bool);
+#ifndef GNDSTK_DISABLE_JSON
 bool convert(const JSON &, XML  &);
 bool convert(const JSON &, JSON &);
 #ifndef GNDSTK_DISABLE_HDF5
 bool convert(const JSON &, HDF5 &);
+#endif
 #endif
 
 // HDF5 ==> {Node,XML,JSON,HDF5}
 bool convert(const HDF5 &, Node &, const bool & = detail::default_bool);
 #ifndef GNDSTK_DISABLE_HDF5
 bool convert(const HDF5 &, XML  &);
+#ifndef GNDSTK_DISABLE_JSON
 bool convert(const HDF5 &, JSON &);
+#endif
 bool convert(const HDF5 &, HDF5 &);
 #endif
 

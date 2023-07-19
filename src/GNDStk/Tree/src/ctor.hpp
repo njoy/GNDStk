@@ -42,6 +42,7 @@ explicit Tree(const XML &x) : Node("/")
 }
 
 // From JSON
+#ifndef GNDSTK_DISABLE_JSON
 explicit Tree(const JSON &j) : Node("/")
 {
    try {
@@ -52,6 +53,7 @@ explicit Tree(const JSON &j) : Node("/")
       throw;
    }
 }
+#endif
 
 // From HDF5
 #ifndef GNDSTK_DISABLE_HDF5

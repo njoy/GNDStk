@@ -65,6 +65,7 @@ SCENARIO("Testing GNDStk tree constructors") {
    }
 
    // 4. Tree(JSON)
+#ifndef GNDSTK_DISABLE_JSON
    GIVEN("A JSON object, read from a JSON file") {
       const JSON j("n-069_Tm_170-covar.json");
 
@@ -76,6 +77,7 @@ SCENARIO("Testing GNDStk tree constructors") {
          CHECK(oss1.str() == oss2.str());
       }
    }
+#endif
 
    // 5. Tree(string)
    // 6. Tree(istream)

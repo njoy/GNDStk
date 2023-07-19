@@ -99,10 +99,10 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
       os.setstate(std::ios::failbit);
    }
 
+#endif
+
    // done
    return os;
-
-#endif
 }
 
 

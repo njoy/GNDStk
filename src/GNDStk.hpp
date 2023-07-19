@@ -12,12 +12,14 @@
 #undef CHAR_WIDTH
 
 #include "pugixml.hpp"
+#ifndef GNDSTK_DISABLE_JSON
 #include "json.hpp"
-#include "Log.hpp"
+#endif
 #ifndef GNDSTK_DISABLE_HDF5
 #include <highfive/H5File.hpp>
 #include <highfive/H5Easy.hpp>
 #endif
+#include "Log.hpp"
 
 // OpenMP
 #ifdef _OPENMP

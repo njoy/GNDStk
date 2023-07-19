@@ -9,22 +9,37 @@
 
 std::istream &read(std::istream &is)
 {
+   static const std::string context = "JSON.read(istream)";
+
+#ifdef GNDSTK_DISABLE_JSON
+
+   (void)is;
+   log::error(
+      "We can't perform the action " + context + ", because the code\n"
+      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
    // call orderedJSON's read capability
    const std::streampos pos = is.tellg();
    try {
       if (!(is >> doc)) {
          log::error("istream >> orderedJSON returned with !istream");
-         log::member("JSON.read(istream)");
+         log::member(context);
          detail::failback(is,pos);
       }
    } catch (...) {
       log::error("istream >> orderedJSON threw an exception");
-      log::member("JSON.read(istream)");
+      log::member(context);
       detail::failback(is,pos);
    }
 
    // done
    return is;
+
+#endif
 }
 
 
@@ -32,6 +47,7 @@ std::istream &read(std::istream &is)
 // read(file)
 // ------------------------
 
+#ifndef GNDSTK_DISABLE_JSON
 bool read(const std::string &filename)
 {
    // open file
@@ -51,3 +67,4 @@ bool read(const std::string &filename)
    // done
    return true;
 }
+#endif

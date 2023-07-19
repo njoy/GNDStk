@@ -1,4 +1,6 @@
 
+#ifndef GNDSTK_DISABLE_JSON
+
 // -----------------------------------------------------------------------------
 // Helpers
 // -----------------------------------------------------------------------------
@@ -465,3 +467,5 @@ bool node2json(const NODE &node, json::object &j, const std::string &digits = ""
    // done
    return true;
 }
+
+#endif

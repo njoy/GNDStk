@@ -14,6 +14,9 @@ JSON() = default;
 JSON(JSON &&) = default;
 
 // copy
+#ifdef GNDSTK_DISABLE_JSON
+JSON(const JSON &) = default;
+#else
 JSON(const JSON &other)
 try: doc(other.doc)
 {
@@ -22,6 +25,7 @@ catch (...) {
    log::ctor("JSON(JSON)");
    throw;
 }
+#endif
 
 
 // ------------------------
@@ -29,6 +33,7 @@ catch (...) {
 // ------------------------
 
 // From XML
+#ifndef GNDSTK_DISABLE_JSON
 explicit JSON(const XML &x)
 {
    try {
@@ -39,8 +44,10 @@ explicit JSON(const XML &x)
       throw;
    }
 }
+#endif
 
 // From HDF5
+#ifndef GNDSTK_DISABLE_JSON
 #ifndef GNDSTK_DISABLE_HDF5
 explicit JSON(const HDF5 &h)
 {
@@ -52,6 +59,7 @@ explicit JSON(const HDF5 &h)
       throw;
    }
 }
+#endif
 #endif
 
 // From Node
@@ -84,6 +92,7 @@ explicit JSON(std::istream &is)
 }
 
 // From file
+#ifndef GNDSTK_DISABLE_JSON
 explicit JSON(const std::string &filename)
 {
    try {
@@ -94,3 +103,4 @@ explicit JSON(const std::string &filename)
       throw;
    }
 }
+#endif

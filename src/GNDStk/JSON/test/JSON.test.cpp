@@ -11,6 +11,7 @@ using namespace njoy::GNDStk;
 // JSON literal
 // -----------------------------------------------------------------------------
 
+#ifndef GNDSTK_DISABLE_JSON
 static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
@@ -93,6 +94,7 @@ R"***({
       }
    }
 })***";
+#endif
 
 
 // -----------------------------------------------------------------------------
@@ -100,6 +102,7 @@ R"***({
 // Helper function
 // -----------------------------------------------------------------------------
 
+#ifndef GNDSTK_DISABLE_JSON
 void writeAndReadJSON(
    const Tree &oldTree,
    const bool reduced, const bool typed,
@@ -140,6 +143,7 @@ void writeAndReadJSON(
 
    CHECK(bufWant.str() == bufHave.str());
 }
+#endif
 
 
 // -----------------------------------------------------------------------------
@@ -147,6 +151,7 @@ void writeAndReadJSON(
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk JSON, Part I") {
+#ifndef GNDSTK_DISABLE_JSON
    WHEN("We create a Tree from an XML with various constructs in it") {
       // Read Tree
       Tree tree("various.xml");
@@ -163,6 +168,7 @@ SCENARIO("Testing GNDStk JSON, Part I") {
       writeAndReadJSON(tree, true,  false, correct, "reduced-string");
       writeAndReadJSON(tree, true,  true,  correct, "reduced-typed");
    }
+#endif
 }
 
 
@@ -171,6 +177,7 @@ SCENARIO("Testing GNDStk JSON, Part I") {
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk JSON, Part II") {
+#ifndef GNDSTK_DISABLE_JSON
    JSON::reduced = false;
    JSON::typed   = false;
 
@@ -383,4 +390,5 @@ SCENARIO("Testing GNDStk JSON, Part II") {
          CHECK(oss.str() == string_real_json);
       }
    }
+#endif
 }

@@ -204,6 +204,7 @@ SCENARIO("Testing GNDStk Component") {
          }
 
          // from JSON
+#ifndef GNDSTK_DISABLE_JSON
          WHEN("We read a Component-derived object << JSON text") {
             der <<
                "{"
@@ -222,6 +223,7 @@ SCENARIO("Testing GNDStk Component") {
                CHECK(oss.str() == expected);
             }
          }
+#endif
       }
    }
 }

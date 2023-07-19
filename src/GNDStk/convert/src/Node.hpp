@@ -104,6 +104,19 @@ inline bool convert(const XML &x, Node &node, const bool &DECL)
 
 inline bool convert(const JSON &j, Node &node, const bool &DECL)
 {
+   static const std::string context = "convert(JSON,Node)";
+
+#ifdef GNDSTK_DISABLE_JSON
+
+   (void)j; (void)node; (void)DECL;
+   log::error(
+      "We can't make the conversion " + context + ", because the code\n"
+      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
    const bool decl = detail::getDecl(node,DECL);
 
    // clear the receiving node
@@ -129,9 +142,11 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
       detail::json2node(j.doc, decl ? node.add() : node, true);
       return true;
    } catch (...) {
-      log::function("convert(JSON,Node)");
+      log::function(context);
       throw;
    }
+
+#endif
 }
 
 
@@ -174,10 +189,6 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 #else
 
    const bool decl = detail::getDecl(node,DECL);
-
-   // ------------------------
-   // bookkeeping
-   // ------------------------
 
    // clear the receiving node
    node.clear();

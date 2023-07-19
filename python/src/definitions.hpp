@@ -118,6 +118,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
    // re: JSON
    // ------------------------
 
+#ifndef GNDSTK_DISABLE_JSON
    // to_json_string
    object.def(
       "to_json_string",
@@ -145,6 +146,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       "    self    The object.\n"
       "    file    The name of the JSON file."
    );
+#endif
 
    // ------------------------
    // re: HDF5
@@ -227,6 +229,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       }
    );
 
+#ifndef GNDSTK_DISABLE_JSON
    // write into string, as JSON
    object.def(
       "json",
@@ -237,6 +240,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
          return oss.str();
       }
    );
+#endif
 
 #ifndef GNDSTK_DISABLE_HDF5
    // write into string, as HDF5

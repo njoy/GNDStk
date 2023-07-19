@@ -14,6 +14,22 @@ public:
    static inline bool reduced = true;
    static inline bool typed = true;
 
+#ifdef GNDSTK_DISABLE_JSON
+
+   // clear
+   JSON &clear()
+   {
+      return *this;
+   }
+
+   // empty
+   bool empty() const
+   {
+      return true;
+   }
+
+#else
+
    // data
    json::object doc;
 
@@ -29,6 +45,8 @@ public:
    {
       return doc.size() == 0;
    }
+
+#endif
 
    // constructors, assignment
    #include "GNDStk/JSON/src/ctor.hpp"

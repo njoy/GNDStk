@@ -1,4 +1,6 @@
 
+#ifndef GNDSTK_DISABLE_JSON
+
 // Helper: json2node_error
 inline void json2node_error(const std::string &message)
 {
@@ -170,3 +172,5 @@ void json2node(const json::object &object, NODE &node, bool inferNodeName)
       }
    } // key/value pairs
 }
+
+#endif

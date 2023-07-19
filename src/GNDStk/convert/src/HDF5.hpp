@@ -68,10 +68,10 @@ inline bool convert(const Node &node, HDF5 &h, const std::string &name)
       throw;
    }
 
+#endif
+
    // done
    return true;
-
-#endif
 }
 
 
@@ -144,9 +144,8 @@ inline bool convert(const XML &x, HDF5 &h)
       throw;
    }
 }
-#endif
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef GNDSTK_DISABLE_JSON
 inline bool convert(const JSON &j, HDF5 &h)
 {
    try {
@@ -157,4 +156,5 @@ inline bool convert(const JSON &j, HDF5 &h)
       throw;
    }
 }
+#endif
 #endif
