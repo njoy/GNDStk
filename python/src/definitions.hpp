@@ -1,3 +1,4 @@
+
 #ifndef NJOY_GNDSTK_PYTHON_DEFINITIONS
 #define NJOY_GNDSTK_PYTHON_DEFINITIONS
 
@@ -9,79 +10,295 @@
 #include "GNDStk.hpp"
 
 // namespace aliases
-namespace python = pybind11;
+namespace py = pybind11;
 
 /**
- *  @brief Add standard component definitions
+ *  @brief Add standard definitions for classes derived from GNDStk::Component.
  *
- *  This adds the following standard properties/functions:
- *    init (copy), from_string
+ *  This adds standard properties and functions for generated classes.
  *
- *  @param[in] component   the component to which the definitions have to be added
+ *  @param[in] object   The Python object to which definitions should be added.
  */
-template < typename Component, typename PythonClass >
-void addStandardComponentDefinitions( PythonClass& component ) {
+template<class cppCLASS, class pyCLASS>
+void addStandardComponentDefinitions(pyCLASS &object)
+{
+   // ------------------------
+   // Constructors
+   // ------------------------
 
-  component
-  .def(
+   // constructor: default
+   object.def(
+      py::init<>(),
+      "Initialise the object with its default contents.\n\n"
+      "Arguments:\n"
+      "    self    The object."
+   );
 
-    python::init< const Component& >(),
-    python::arg( "component" ),
-    "Initialise the component with another instance\n\n"
-    "Arguments:\n"
-    "    self    the component\n"
-    "    file    the component to be copied"
-  )
-  .def_static(
+   // constructor: copy
+   object.def(
+      py::init<const cppCLASS &>(),
+      py::arg("from"),
+      "Initialise the object with another instance.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    from    The object to be copied from."
+   );
 
-    "from_string",
-    [] ( const std::string& string ) -> Component {
+   // ------------------------
+   // Get/set comment
+   // ------------------------
 
-      using namespace njoy::GNDStk::core;
+   // get/set comment
+   object.def_property(
+      "comment",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         return self.comment();
+      },
+      [](cppCLASS &self, const std::vector<std::string> &value)
+      {
+         self.comment() = value;
+      },
+      "Array of comments to appear at the beginning of the node."
+   );
 
-      Node node;
-      node << string;
+   // ------------------------
+   // Re: input from string;
+   // the type (XML, JSON, or
+   // HDF5) is auto-determined
+   // ------------------------
 
-      return Component( node );
-    },
-    python::arg( "string" ),
-    "Read the component from an XML or json string\n\n"
-    "An exception is raised if something goes wrong while reading the\n"
-    "component\n\n"
-    "Arguments:\n"
-    "    string    the string representing the component"
-  )
-  .def(
+   // from_string
+   object.def(
+      "from_string",
+      [](cppCLASS &self, const std::string &string)
+      {
+         self << string;
+      },
+      py::arg("string"),
+      "Read the object from an XML, JSON, or HDF5 string.\n"
+      "An exception is raised if something fails during the read.\n\n"
+      "Arguments:\n"
+      "    string    The string representing the object."
+   );
 
-    "to_xml_string",
-    [] ( const Component& self ) -> std::string {
+   // ------------------------
+   // re: XML
+   // ------------------------
 
-      using namespace njoy::GNDStk::core;
+   // to_xml_string
+   object.def(
+      "to_xml_string",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"xml");
+         return oss.str();
+      },
+      "Write the object to an XML formatted string.\n\n"
+      "Arguments:\n"
+      "    self    The object."
+   );
 
-      std::ostringstream out;
-      XML( Node( self ) ).write( out, false );
+   // to_xml_file
+   object.def(
+      "to_xml_file",
+      [](const cppCLASS &self, const std::string &filename)
+      {
+         self.write(filename,"xml");
+      },
+      py::arg("file"),
+      "Write the object to an XML file.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the XML file."
+   );
 
-      return out.str();
-    },
-    "Write the component to an XML formatted string\n\n"
-    "Arguments:\n"
-    "    self    the component"
-  )
-  .def(
+   // ------------------------
+   // re: JSON
+   // ------------------------
 
-    "to_xml_file",
-    [] ( const Component& self, const std::string& fileName ) {
+#ifndef GNDSTK_DISABLE_JSON
+   // to_json_string
+   object.def(
+      "to_json_string",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"json");
+         return oss.str();
+      },
+      "Write the object to a JSON formatted string.\n\n"
+      "Arguments:\n"
+      "    self    The object."
+   );
 
-      using namespace njoy::GNDStk::core;
+   // to_json_file
+   object.def(
+      "to_json_file",
+      [](const cppCLASS &self, const std::string &filename)
+      {
+         self.write(filename,"json");
+      },
+      py::arg("file"),
+      "Write the object to a JSON file.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the JSON file."
+   );
+#endif
 
-      XML( Node( self ) ).write( fileName );
-    },
-    python::arg( "file_name" ),
-    "Write the component to an XML file\n\n"
-    "Arguments:\n"
-    "    self         the component\n"
-    "    file_name    the name of the XML file"
-  );
-}
+   // ------------------------
+   // re: HDF5
+   // ------------------------
+
+#ifndef GNDSTK_DISABLE_HDF5
+   // to_hdf5_string
+   object.def(
+      "to_hdf5_string",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"hdf5");
+         return oss.str();
+      },
+      "Write the object to an HDF5 formatted string.\n\n"
+      "Arguments:\n"
+      "    self    The object."
+   );
+
+   // to_hdf5_file
+   object.def(
+      "to_hdf5_file",
+      [](const cppCLASS &self, const std::string &filename)
+      {
+         self.write(filename,"hdf5");
+      },
+      py::arg("file"),
+      "Write the object to an HDF5 file.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the HDF5 file."
+   );
+#endif
+
+   // ------------------------
+   // for printing
+   // ------------------------
+
+   // These use GNDStk::Component's prettyprinter
+
+   // prettyprint: for Python's __repr__
+   object.def(
+      "__repr__",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         njoy::GNDStk::printMode = njoy::GNDStk::PrintMode::python;
+         std::ostringstream oss;
+         self.print(oss,0);
+         return oss.str();
+      }
+   );
+
+   // prettyprint: into string
+   object.def(
+      "print",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         njoy::GNDStk::printMode = njoy::GNDStk::PrintMode::python;
+         std::ostringstream oss;
+         self.print(oss,0);
+         return oss.str();
+      }
+   );
+
+   // ------------------------
+   // write into string, as
+   // XML, JSON, HDF5, or our
+   // internal debug format
+   // ------------------------
+
+   // write into string, as XML
+   object.def(
+      "xml",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"xml");
+         return oss.str();
+      }
+   );
+
+#ifndef GNDSTK_DISABLE_JSON
+   // write into string, as JSON
+   object.def(
+      "json",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"json");
+         return oss.str();
+      }
+   );
+#endif
+
+#ifndef GNDSTK_DISABLE_HDF5
+   // write into string, as HDF5
+   object.def(
+      "hdf5",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"hdf5");
+         return oss.str();
+      }
+   );
+#endif
+
+   // write into string, in our internal debug format
+   object.def(
+      "debug",
+      [](const cppCLASS &self) -> decltype(auto)
+      {
+         std::ostringstream oss;
+         self.write(oss,"debug");
+         return oss.str();
+      }
+   );
+
+   // ------------------------
+   // read/write from/to file
+   // ------------------------
+
+   // read
+   object.def(
+      "read",
+      [](cppCLASS &self, const std::string &filename)
+      {
+         self.read(filename);
+      },
+      py::arg("file"),
+      "Read the object from a file. "
+      "The file's type will be determined from its contents.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the file."
+   );
+
+   // write
+   object.def(
+      "write",
+      [](const cppCLASS &self, const std::string &filename)
+      {
+         self.write(filename);
+      },
+      py::arg("file"),
+      "Write the object to a file. "
+      "The file's type will be determined from its extension.\n\n"
+      "Arguments:\n"
+      "    self    The object.\n"
+      "    file    The name of the file."
+   );
+} // addStandardComponentDefinitions
 
 #endif

@@ -3,6 +3,10 @@
 // XML Constructors
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// Basics
+// ------------------------
+
 // default
 XML() = default;
 
@@ -10,11 +14,12 @@ XML() = default;
 XML(XML &&) = default;
 
 // copy
-// Note: pugi::xml_document's is inaccessible
-XML(const XML &x)
+// Note: pugi::xml_document's copy constructor is inaccessible;
+// otherwise, we'd use it here.
+XML(const XML &other)
 {
    try {
-      if (!convert(x,*this))
+      if (!convert(other,*this))
          throw std::exception{};
    } catch (...) {
       log::ctor("XML(XML)");
@@ -22,7 +27,13 @@ XML(const XML &x)
    }
 }
 
-// JSON
+
+// ------------------------
+// From other classes
+// ------------------------
+
+// From JSON
+#ifndef GNDSTK_DISABLE_JSON
 explicit XML(const JSON &j)
 {
    try {
@@ -33,8 +44,23 @@ explicit XML(const JSON &j)
       throw;
    }
 }
+#endif
 
-// Node
+// From HDF5
+#ifndef GNDSTK_DISABLE_HDF5
+explicit XML(const HDF5 &h)
+{
+   try {
+      if (!convert(h,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(HDF5)");
+      throw;
+   }
+}
+#endif
+
+// From Node
 explicit XML(const Node &n)
 {
    try {
@@ -46,31 +72,12 @@ explicit XML(const Node &n)
    }
 }
 
-// Tree
-explicit XML(const Tree &t)
-{
-   try {
-      if (!convert(t,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("XML(Tree)");
-      throw;
-   }
-}
 
-// file name
-explicit XML(const std::string &filename)
-{
-   try {
-      if (!read(filename))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("XML(\"{}\")", filename);
-      throw;
-   }
-}
+// ------------------------
+// From istream and file
+// ------------------------
 
-// istream
+// From istream
 explicit XML(std::istream &is)
 {
    try {
@@ -78,6 +85,18 @@ explicit XML(std::istream &is)
          throw std::exception{};
    } catch (...) {
       log::ctor("XML(istream)");
+      throw;
+   }
+}
+
+// From file
+explicit XML(const std::string &filename)
+{
+   try {
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("XML(\"{}\")", filename);
       throw;
    }
 }

@@ -1,5 +1,9 @@
 
-add_executable( GNDStk.enums.GridStyle.test GridStyle.test.cpp )
+add_executable(
+   GNDStk.enums.GridStyle.test
+   GridStyle.test.cpp
+)
+
 target_compile_options( GNDStk.enums.GridStyle.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}

@@ -1,24 +1,27 @@
 
-add_executable( GNDStk.Node.test
-                add.test.cpp
-                clear.test.cpp
-                child.test.cpp
-                sort.test.cpp
-                compare.test.cpp
-                count.test.cpp
-                has.test.cpp
-                shuffle.test.cpp
-                special.test.cpp
-                subscript.test.cpp
-                meta.test.cpp
-                assign.test.cpp
-                many.test.cpp
-                empty.test.cpp
-                one.test.cpp
-                call.test.cpp
-                ctor.test.cpp
-                Node.test.cpp
-                write.test.cpp )
+add_executable(
+   GNDStk.Node.test
+   add.test.cpp
+   clear.test.cpp
+   child.test.cpp
+   sort.test.cpp
+   compare.test.cpp
+   count.test.cpp
+   has.test.cpp
+   shuffle.test.cpp
+   special.test.cpp
+   subscript.test.cpp
+   meta.test.cpp
+   assign.test.cpp
+   many.test.cpp
+   empty.test.cpp
+   one.test.cpp
+   call.test.cpp
+   ctor.test.cpp
+   Node.test.cpp
+   write.test.cpp
+)
+
 target_compile_options( GNDStk.Node.test PRIVATE ${${PREFIX}_common_flags}
 $<$<BOOL:${strict}>:${${PREFIX}_strict_flags}>$<$<CONFIG:DEBUG>:
 ${${PREFIX}_DEBUG_flags}
@@ -29,7 +32,7 @@ $<$<BOOL:${link_time_optimization}>:${${PREFIX}_link_time_optimization_flags}>
 $<$<BOOL:${nonportable_optimization}>:${${PREFIX}_nonportable_optimization_flags}>>
 
 ${CXX_appended_flags} ${GNDStk_appended_flags} )
-target_link_libraries( GNDStk.Node.test PUBLIC GNDStk ) 
+target_link_libraries( GNDStk.Node.test PUBLIC GNDStk )
 file( GLOB resources "resources/*" )
 foreach( resource ${resources})
     file( COPY "${resource}" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" )

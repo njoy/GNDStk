@@ -7,7 +7,7 @@
 Node &shuffle()
 {
    // recurse to children
-   for (auto &c : children)
+   for (const childPtr &c : children)
       c->shuffle();
 
    // random number seed

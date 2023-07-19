@@ -15,7 +15,6 @@
 // Child, and receive containers of values.
 
 
-
 // -----------------------------------------------------------------------------
 // 0-argument
 // 1-argument:
@@ -23,12 +22,12 @@
 //    plain
 //    Defaulted
 // Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node
 // -----------------------------------------------------------------------------
 
 // 0-argument
 // 1-argument: string (the name)
-Node &add(const std::string &name = "")
+Node &add(const std::string &name = emptyNodeName)
 {
    children.push_back(std::make_unique<Node>());
    Node &newChild = *children.back();
@@ -63,15 +62,14 @@ Node &add(const Defaulted<T> &def)
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<void>, *
 // Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node
 // -----------------------------------------------------------------------------
 
 // Similar in principle to its Meta counterpart. Bounces to one of the above
-// add() functions; and, like those, doesn't allow std::optional.
+// add() functions, and, like those, doesn't allow optional.
 
 // Child<void>, plain
 // Child<void>, Defaulted
@@ -90,11 +88,9 @@ Node &add(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<plain>, *
-// Guaranteed to add something
-// Returns: reference to added Node
+// Returns: reference to the added Node, or to *this if nothing was added
 // -----------------------------------------------------------------------------
 
 // Child<plain>, plain
@@ -109,21 +105,47 @@ Node &add(
    const T &val = T{} // <== via SFINAE, T != optional
 ) {
    try {
-      Node &n = add();
-      kwd.converter(TYPE(val),n);
+      // Special case. The following is a mechanism by which someone can have
+      // add() *not* actually add a new child node to the current node, but
+      // instead have it assume that the converter will modify the current node
+      // in some fashion (perhaps by adding a child node itself; but, really,
+      // any modification would be possible). This case can be seen as basically
+      // the complement of how the query system returns *this when given the
+      // special::self string, instead of interpreting the string as the name
+      // of a child node that it should find and return. It turns out that
+      // this "identity function," in a manner of speaking, will help us achieve
+      // some things that would otherwise be more awkward to achieve.
+      if (kwd.name == special::self) {
+         kwd.converter(TYPE(val),*this);
+         return *this; // nothing actually added
+      }
 
-      if constexpr (detail::isVariant<TYPE>::value) {
+      // name
+      std::string name = kwd.name;
+      if constexpr (detail::isVariant_v<TYPE>) {
          std::istringstream names(kwd.name);
-         for (std::size_t i = 0; i <= TYPE(val).index(); ++i)
-            names >> n.name;
+         const size_t index = TYPE(val).index();
+         for (size_t i = 0; i <= index; ++i)
+            names >> name;
          // todo Have a warning or error if we can't properly extract
          // the index()-th name. This might mean someone didn't formulate
          // the name properly when dealing with a variant.
-      } else {
-         n.name = kwd.name;
       }
 
-      return n;
+      using return_t = decltype(kwd.converter(TYPE(val),*this));
+      if constexpr (std::is_convertible_v<return_t,bool>) {
+         // new node to be added, conditionally, if converter returns true
+         Node conditional(name);
+         return bool(kwd.converter(TYPE(val),conditional))
+            ? add(conditional)
+            : *this; // nothing actually added
+      } else {
+         // new node
+         Node &n = add(name); // references the added node
+         // convert value into node
+         kwd.converter(TYPE(val),n);
+         return n;
+      }
    } catch (...) {
       log::member("Node.add(" + detail::keyname(kwd) + ",value)");
       throw;
@@ -147,12 +169,11 @@ Node &add(
 }
 
 
-
 // -----------------------------------------------------------------------------
-// Child<optional>, *
+// Child<std::optional>, *
 // -----------------------------------------------------------------------------
 
-// Child<optional>, plain
+// Child<std::optional>, plain
 // Returns: Node &
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -166,7 +187,7 @@ Node &add(
    return add(TYPE{}/kwd, val);
 }
 
-// Child<optional>, optional
+// Child<std::optional>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -180,7 +201,7 @@ bool add(
    return opt.has_value() ? (add(kwd, opt.value()), true) : false;
 }
 
-// Child<optional>, Defaulted
+// Child<std::optional>, Defaulted
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -193,7 +214,6 @@ bool add(
 ) {
    return def.has_value() ? (add(kwd, def.value()), true) : false;
 }
-
 
 
 // -----------------------------------------------------------------------------
@@ -214,7 +234,7 @@ Node &add(
    return add(TYPE{}/kwd, val);
 }
 
-// Child<Defaulted>, optional
+// Child<Defaulted>, std::optional
 // Returns: bool: was something added?
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
@@ -243,7 +263,6 @@ bool add(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<*> with Allow::many, and a container
 // -----------------------------------------------------------------------------
@@ -256,7 +275,7 @@ bool add(
 
 // The relatively complicated template specification is designed to handle both
 // Child<void> and Child<TYPE>, and T (for the container elements) being a plain
-// type, a std::optional<something>, or a Defaulted<something>.
+// type, an optional<something>, or a Defaulted<something>.
 
 template<
    // re: the Child
@@ -265,7 +284,7 @@ template<
    // re: the container
    template<class...> class CONTAINER = std::vector,
    class T = // <== Node for Child<void>; else TYPE
-      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+      std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
@@ -273,7 +292,7 @@ template<
    // to Node if Child<void>, to TYPE if Child<TYPE>
    class = std::enable_if_t<
       std::is_constructible_v<
-         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+         std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
          // remove type, if inside optional<> or Defaulted<>
          typename detail::remove_opt_def<T>::type
       >
@@ -293,7 +312,6 @@ void add(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Child<*> with Allow::many, and an optional container
 // -----------------------------------------------------------------------------
@@ -301,16 +319,15 @@ void add(
 // SFINAE as in (non-optional) container case
 template<
    class TYPE, class CONVERTER, class FILTER,
-
    template<class...> class CONTAINER = std::vector,
    class T =
-      std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+      std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
    class... Args,
    class = std::enable_if_t<detail::isIterable<CONTAINER<T,Args...>>::value>,
 
    class = std::enable_if_t<
       std::is_constructible_v<
-         std::conditional_t<detail::isVoid<TYPE>,Node,TYPE>,
+         std::conditional_t<detail::is_void_v<TYPE>,Node,TYPE>,
          typename detail::remove_opt_def<T>::type
       >
    >

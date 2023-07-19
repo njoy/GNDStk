@@ -13,7 +13,7 @@ key/value pair.
 */
 
 // User-settable flag
-inline bool comma = false;
+inline bool commas = false;
 
 
 // -----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ inline bool comma = false;
 
 // default
 template<class T>
-inline void convert(const T &value, std::ostream &os)
+void convert(const T &value, std::ostream &os)
 {
    if constexpr (std::is_floating_point_v<T>) {
       os << detail::Precision<
@@ -34,11 +34,17 @@ inline void convert(const T &value, std::ostream &os)
    }
 }
 
+// string
+inline void convert(const std::string &value, std::ostream &os)
+{
+   os << value;
+}
+
 // pair
 template<class X, class Y>
-inline void convert(const std::pair<X,Y> &p, std::ostream &os)
+void convert(const std::pair<X,Y> &p, std::ostream &os)
 {
-   if ((convert(p.first,os),os) && os << (GNDStk::comma ? ',' : ' '))
+   if ((convert(p.first,os),os) && os << (GNDStk::commas ? ',' : ' '))
       convert(p.second,os);
 }
 
@@ -49,8 +55,8 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      const std::string sep = GNDStk::comma ? "," : " "; \
-      std::size_t count = 0; \
+      const std::string sep = GNDStk::commas ? "," : " "; \
+      size_t count = 0; \
       for (const T &val : value) \
          if (!(os << (count++ ? sep : "") && (convert(val,os),os))) \
             break; /* might as well, because the stream is broken */ \
@@ -70,7 +76,7 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
 
 // default
 template<class T>
-inline void convert(const T &value, std::string &str)
+void convert(const T &value, std::string &str)
 {
    // try block, in case someone overloads our convert()s
    try {

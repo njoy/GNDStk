@@ -25,7 +25,7 @@ SCENARIO("Testing GNDStk Meta<TYPE,CONVERTER>") {
       }
 
       WHEN("Constructed with (name,converter)") {
-         Meta<double,converter> bar("bar",double{},converter{});
+         Meta<double,converter> bar("bar",converter{});
          CHECK(bar.name == "bar");
       }
    }

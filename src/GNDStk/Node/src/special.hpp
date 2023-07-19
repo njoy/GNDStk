@@ -3,7 +3,7 @@
 // documentation
 // doc (short version, for user ease)
 //
-// Look around for the CDATA content that appears in places like this:
+// Look around for CDATA content that may appear in places like this:
 //
 //    <documentations>
 //       <documentation>
@@ -15,7 +15,7 @@
 // so we can find this content whether we're in the outer Tree/Node (above the
 // top-level GNDS node), or inside the top-level node, or in fact inside *any*
 // node from which we can drill down as above, beginning with a documentations,
-// documentation, or CDATA node, or even directly to a text metadatum.
+// documentation, or CDATA node, or even directly to a special::text metadatum.
 //
 // Note: CDATA nodes that we've seen in available GNDS files always begin with
 // a newline. It's tempting, perhaps, to chuck the newline, except that (1) we
@@ -29,18 +29,19 @@ const std::string &documentation(bool &found = detail::default_bool) const
 {
    auto look = [](const Node &n, const std::string *&s)
    {
-      auto docs  = basic::child::documentations;
-      auto doc   = basic::child::documentation;
-      auto cdata = basic::child::cdata;
-      auto text  = basic::meta ::text;
+      static const Child<void,Allow::one>
+         docs ("documentations"),
+         doc  ("documentation"),
+         cdata(special::cdata);
+      static const Meta<void> text(special::text);
 
-      // In the node parameter, tries to find CDATA text at any layer of:
+      // In Node n, we try to find CDATA text at any level of:
       //    <documentations>
       //       <documentation name="endfDoc">
       //          <![CDATA[...]]>
       //       </documentation>
       //    </documentations>
-      // or rather in the GNDS tree equivalent (XML is for illustration).
+      // in our internal structure. (XML for illustration only).
       bool found = false;
       return
             (s = &n(               text,found), found)
@@ -56,15 +57,13 @@ const std::string &documentation(bool &found = detail::default_bool) const
       return found = true, *s;
 
    // top-level?
-   // I.e., assume we're perhaps in the root tree node, a.k.a. "over the top"
-   // node, look for any of our allowable top-level nodes, e.g. reactionSuite,
-   // and, if found, perform the above lookup (in the lambda) in that node.
-   for (auto &top : detail::AllowedTop) {
-      bool found_top = false; // found this particular top-level node?
-      const Node &n = one(top,found_top);
-      if (found_top && look(n,s))
-         return found = true, *s;
-   }
+   // If we're in what looks like the root node of a tree, then look in all
+   // of the top-level nodes. In a properly formatted GNDS file, there will
+   // be just one such top-level node, e.g. reactionSuite.
+   if (name == "/")
+      for (const childPtr &ptr : children)
+         if (look(*ptr,s))
+            return found = true, *s;
 
    // not found
    // Static, for reference return. Set to "" each time, just in case someone
@@ -106,30 +105,38 @@ std::string &doc(bool &found = detail::default_bool)
 // const
 const std::string &cdata(bool &found = detail::default_bool) const
 {
-   return (*this)(basic::child::cdata, basic::meta::text, found);
+   static const Child<void,Allow::one> cdata(special::cdata);
+   static const Meta<void> text(special::text);
+   return (*this)(cdata, text, found);
 }
 
 // non-const
 std::string &cdata(bool &found = detail::default_bool)
 {
-   return (*this)(basic::child::cdata, basic::meta::text, found);
+   static const Child<void,Allow::one> cdata(special::cdata);
+   static const Meta<void> text(special::text);
+   return (*this)(cdata, text, found);
 }
 
 
 // ------------------------
-// pcdata
+// data
 // ------------------------
 
 // const
-const std::string &pcdata(bool &found = detail::default_bool) const
+const std::string &data(bool &found = detail::default_bool) const
 {
-   return (*this)(basic::child::pcdata, basic::meta::text, found);
+   static const Child<void,Allow::one> data(special::data);
+   static const Meta<void> text(special::text);
+   return (*this)(data, text, found);
 }
 
 // non-const
-std::string &pcdata(bool &found = detail::default_bool)
+std::string &data(bool &found = detail::default_bool)
 {
-   return (*this)(basic::child::pcdata, basic::meta::text, found);
+   static const Child<void,Allow::one> data(special::data);
+   static const Meta<void> text(special::text);
+   return (*this)(data, text, found);
 }
 
 
@@ -140,19 +147,19 @@ std::string &pcdata(bool &found = detail::default_bool)
 
 // ------------------------
 // comment()
-// comment(std::size_t)
+// comment(size_t)
 // ------------------------
 
 // const
 const std::string &comment(
-   const std::size_t i = 0,
+   const size_t i = 0,
    bool &found = detail::default_bool
 ) const {
-   std::size_t count = 0;
+   size_t count = 0;
 
-   for (auto &c : children)
-      if (c->name == "comment" && count++ == i)
-         return c->meta("text",found);
+   for (const childPtr &c : children)
+      if (c->name == special::comment && count++ == i)
+         return c->meta(special::text,found);
 
    // not found
    static std::string empty;
@@ -161,7 +168,7 @@ const std::string &comment(
 
 // non-const
 std::string &comment(
-   const std::size_t i = 0,
+   const size_t i = 0,
    bool &found = detail::default_bool
 ) {
    return const_cast<std::string &>(std::as_const(*this).comment(i,found));
@@ -177,11 +184,11 @@ std::string &comment(
 
 // We provide this because comments occasionally appear *multiple* times
 // within a given GNDS parent node. Example:
-//    <data>
+//    <foo>
 //       <!--  energy | capture | elastic  -->
 //       <!--         |  width  |  width   -->
-//       ... numeric data ...
-//    </data>
+//       ...
+//    </foo>
 // One could argue that the second comment here really isn't important.
 // However, GNDStk is careful to maintain ALL information that's present
 // in a GNDS file it reads; it does not make decisions about importance.
@@ -196,8 +203,9 @@ comments(bool &found = detail::default_bool) const
 {
    CONTAINER<std::string,Args...> container;
    const std::string *text;
-   for (auto &c : children)
-      if (c->name == "comment" && (text = &c->meta("text",found),found))
+   for (const childPtr &c : children)
+      if (c->name == special::comment &&
+         (text = &c->meta(special::text,found), found))
          container.push_back(*text);
    return container;
 }

@@ -1,100 +1,77 @@
 
 // -----------------------------------------------------------------------------
-// convert(*,XML)
-// That is, convert to XML objects
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
 // Node ==> XML
 // -----------------------------------------------------------------------------
 
 inline bool convert(const Node &node, XML &x)
 {
-   // clear
+   static const std::string context = "convert(Node,XML)";
+
+   // clear the receiving XML
    x.clear();
 
-   // We recognize here that the Node could in fact be the base of a Tree,
+   // We recognize below that the Node could in fact be the base of a Tree,
    // which might have a declaration node. If it does, then we'll preserve
    // the declaration node's information in the output XML object.
    //
    // The way we're storing things in Tree, a declaration node might contain,
    // for example, the following, if the Tree was built from an XML:
    //
-   //    name: "xml"
+   //    name: #xml
    //    metadata:
    //       "version",  "1.0"
    //       "encoding", "UTF-8"
    //    children:
-   //       N/A
+   //       (none)
    //
-   // or this if the Tree was built from a JSON:
-   //
-   //    name: "json"
-   //    metadata:
-   //       (nothing; empty vector)
-   //    children:
-   //       N/A
-   //
-   // or something else if the Tree was built in another manner. In an XML
-   // file, the declaration node is the thing like: <?xml version="1.0"...?>.
+   // In an XML file, the declaration node is the construct that optionally
+   // can appear at the beginning, and looks like: <?xml version="1.0"...?>.
 
-   static const std::string context = "convert(Node,XML)";
    try {
+      // ------------------------
+      // Node
+      // ------------------------
 
-      if (node.name != "") {
-         // A Tree should have name == "" at the root level, so we don't
-         // consider this to be a Tree. Just do a straight Node conversion.
-         return detail::node2xml(node, x.doc);
+      if (node.name != "/") {
+         // A Tree should have name "/" at the root level, so this looks
+         // like it's garden-variety Node. Do a straight Node conversion.
+         return detail::node2xml(node,x.doc);
       }
 
-      // Henceforth it's presumably a Tree, unless someone gave the name ""
-      // to a regular node, which they really shouldn't have done...
+      // Henceforth it's presumably a Tree, unless someone gave the root Tree-
+      // node name to a regular node, which they really shouldn't have done.
 
-      if (node.metadata.size() != 0) {
-         log::warning(
-            "Encountered Node with empty name \"\",\n"
-            "but the Node also contains metadata.\n"
-            "Not expected in this context. We'll ignore the metadata."
-         );
-         log::function(context);
-      }
+      // ------------------------
+      // Tree
+      // ------------------------
 
-      pugi::xml_node xdecl;
-      bool found_decl = false;
-      bool found_top  = false;
+      detail::warn_node_top_metadata(node,context);
+      bool found_dec = false;
+      bool found_top = false;
 
-      for (auto &c : node.children) {
-         if (c->name == "xml" || c->name == "json" || c->name == "hdf5") {
+      for (const auto &cptr : node.children) {
+         if (cptr->name == special::json) continue;
+         if (cptr->name == special::hdf5) continue;
+
+         if (cptr->name == special::xml || cptr->name == special::decl) {
             // looks like a declaration node
-            if (found_decl) {
-               // already seen
-               log::warning(
-                  "Encountered Node with empty name \"\",\n"
-                  "and > 1 child nodes that look like "
-                  "declaration nodes.\n"
-                  "Not expected in this context. "
-                  "We'll combine the metadata."
-               );
-               log::function(context);
-            } else
+            pugi::xml_node xdecl;
+            if (found_dec) // already seen
+               detail::info_node_multiple_dec(context);
+            else
                xdecl = x.doc.append_child(pugi::node_declaration);
-            for (auto &meta : c->metadata)
+            for (const auto &meta : cptr->metadata)
                xdecl.append_attribute(meta.first.data()) = meta.second.data();
-            found_decl = true;
+            found_dec = true;
          } else {
             // looks like a regular node
-            if (found_top) {
-               // already seen
-               log::warning(
-                  "Encountered Node with empty name \"\",\n"
-                  "and > 1 child nodes that look like "
-                  "regular (non-declaration) nodes.\n"
-                  "Not expected in this context. "
-                  "We'll convert all the child nodes."
-               );
+            if (found_top) { // already seen
+               log::info(
+                  "Node has name \"/\" and multiple \"document nodes\".\n"
+                  "This is nonstandard in XML, but we'll write them all.");
                log::function(context);
             }
-            if (!detail::node2xml(*c, x.doc))
+            if (!detail::node2xml(*cptr,x.doc))
                return false;
             found_top = true;
          }
@@ -110,25 +87,6 @@ inline bool convert(const Node &node, XML &x)
 }
 
 
-
-// -----------------------------------------------------------------------------
-// Tree ==> XML
-// -----------------------------------------------------------------------------
-
-inline bool convert(const Tree &tree, XML &x)
-{
-   try {
-      if (tree.has_top())
-         detail::check_top(tree.top().name, "Tree", "convert(Tree,XML)");
-      return convert(*(const Node *)&tree, x);
-   } catch (...) {
-      log::function("convert(Tree,XML)");
-      throw;
-   }
-}
-
-
-
 // -----------------------------------------------------------------------------
 // XML ==> XML
 // For completeness
@@ -136,63 +94,76 @@ inline bool convert(const Tree &tree, XML &x)
 
 inline bool convert(const XML &from, XML &to)
 {
+   // same object?
    if (&to == &from)
       return true;
 
-   // clear
+   // clear the receiving XML
    to.clear();
 
-   // Unfortunately, we can't use pugi::xml_document's assignment, or for
-   // that matter its copy constructor, because, for whatever reason, the
-   // pugi library makes those private. (And, perhaps, those have shallow-
-   // copy semantics, too. I haven't checked into that, because we can't
-   // use those anyway.)
+   // empty?
+   if (from.empty())
+      return true;
 
-   // For now, I'll write something simple that works, although not very
-   // efficiently: write "from" to a stringstream, then read "to" out of
-   // the stringstream. The GNDS files that I've seen so far aren't large
-   // enough to make this untenable. We can revisit this issue if and when
-   // it becomes necessary to be more efficient.
+   // It seems that pugi::xml_document's assignment operator, and for that
+   // matter its copy constructor, are private. So, we can't use either of
+   // those here. For now, then, we'll do something simple that works, but
+   // not very efficiently: write "from" to a stringstream, then read "to"
+   // from the stringstream. (Note that it's XML that's written and read.)
+   // The GNDS files that I've seen so far aren't large enough to make this
+   // problematic. We'll revisit this if and when more efficiency is needed.
 
-   // back up indentation
+   // back up indentation; is restored later
    const int indent = GNDStk::indent;
-   GNDStk::indent = 0; // saves memory in the stringstream
+   GNDStk::indent = 0; // to save memory in the intermediary stringstream
 
-   // from ==> stringstream ==> to
+   // from ==> temporary stringstream ==> to
    try {
-      std::stringstream ss;
-      from.write(ss);
-      to.read(ss);
+      std::stringstream tmp;
+      from.write(tmp,true); // true: include declaration node
+      if (!to.read(tmp))
+         throw std::exception{};
    } catch (...) {
+      GNDStk::indent = indent;
       log::function("convert(XML,XML)");
       throw;
    }
 
-   // restore indentation
-   GNDStk::indent = indent;
-
    // done
+   GNDStk::indent = indent;
    return true;
 }
 
 
-
 // -----------------------------------------------------------------------------
 // JSON ==> XML
+// HDF5 ==> XML
+// These go through temporaries, for compactness. They could likely be made
+// more efficient if written directly. We'll revisit this issue if necessary.
 // -----------------------------------------------------------------------------
 
-// Goes through a tree. Could be made more efficient if written directly.
-// We'll revisit this if it becomes more of an issue.
+#ifndef GNDSTK_DISABLE_JSON
 inline bool convert(const JSON &j, XML &x)
 {
-   // temporary
-   Tree t;
-
-   // convert
    try {
-      return convert(j,t) && convert(t,x);
+      Tree tmp;
+      return convert(j,tmp) && convert(tmp,x);
    } catch (...) {
       log::function("convert(JSON,XML)");
       throw;
    }
 }
+#endif
+
+#ifndef GNDSTK_DISABLE_HDF5
+inline bool convert(const HDF5 &h, XML &x)
+{
+   try {
+      Tree tmp;
+      return convert(h,tmp) && convert(tmp,x);
+   } catch (...) {
+      log::function("convert(HDF5,XML)");
+      throw;
+   }
+}
+#endif
