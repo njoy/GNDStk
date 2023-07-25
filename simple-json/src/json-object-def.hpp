@@ -7,7 +7,7 @@ inline value &object::operator[](const string &key)
    for (pair &elem : *this)
       if (elem.first == key)
          return elem.second;
-   return push_back({key,value()}), back().second;
+   return push_back(pair(key,value())), back().second;
 }
 
 // operator[]: const
