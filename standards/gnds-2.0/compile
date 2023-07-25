@@ -9,7 +9,7 @@ COMPILE="
    clang++ -std=c++17
   -IGNDStk/src
   -IGNDStk/simple-json/src
-  -Ialpha/src
+  -Ignds/src
   -Ideps/pugixml-adapter-src/src/src
   -Ideps/hdf5-src/include
   -Ideps/log-src/src

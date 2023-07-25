@@ -1,6 +1,6 @@
 
-#include "alpha/v2.0.hpp"
-using namespace alpha;
+#include "gnds/v2.0.hpp"
+using namespace gnds;
 using namespace v2_0;
 
 int main(const int argc, const char *const *const argv)

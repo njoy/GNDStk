@@ -1,7 +1,7 @@
 {
-    "//": "For now, our alpha version of GNDS v2.0",
+    "//": "Initial cut at GNDS v2.0",
 
-    "Project": "alpha",
+    "Project": "gnds",
     "Version": "v2.0",
 
     "JSONFiles": [
