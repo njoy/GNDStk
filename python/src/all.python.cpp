@@ -6,23 +6,24 @@
 #include "core/Node.python.cpp"
 
 // enumerations
-#include "Parity.python.cpp"
-#include "RelationType.python.cpp"
-#include "Interpolation.python.cpp"
 #include "BoundaryCondition.python.cpp"
 #include "ContributorType.python.cpp"
 #include "DateType.python.cpp"
-#include "Interaction.python.cpp"
-#include "GridStyle.python.cpp"
-#include "HashAlgorithm.python.cpp"
 #include "DecayType.python.cpp"
 #include "Frame.python.cpp"
+#include "GridStyle.python.cpp"
+#include "HashAlgorithm.python.cpp"
+#include "Interaction.python.cpp"
+#include "Interpolation.python.cpp"
 #include "InterpolationQualifier.python.cpp"
+#include "Parity.python.cpp"
+#include "RelationType.python.cpp"
 
 // v2.0
 #include "v2.0/GNDS.python.cpp"
 
 // v2.0 constituent parts
+// Note: different v2.0/ than above
 #include "v2.0/g3d/Starts.python.cpp"
 #include "v2.0/g3d/Lengths.python.cpp"
 #include "v2.0/g3d/Array.python.cpp"
