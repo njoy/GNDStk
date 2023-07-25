@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ENERGY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ENERGY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ENERGY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ENERGY
 
 #include "GNDStk.h"
 #include "v2.0/general/Double.h"

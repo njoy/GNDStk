@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_CHARGE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_CHARGE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_CHARGE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_CHARGE
 
 #include "GNDStk.h"
 #include "v2.0/general/Integer.h"

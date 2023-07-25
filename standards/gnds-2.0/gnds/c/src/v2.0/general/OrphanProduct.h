@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ORPHANPRODUCT
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ORPHANPRODUCT
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ORPHANPRODUCT
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ORPHANPRODUCT
 
 #include "GNDStk.h"
 #include "v2.0/general/CrossSection.h"

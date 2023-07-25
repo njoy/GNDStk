@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_NUCLEARAMPLITUDEEXPANSION
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_NUCLEARAMPLITUDEEXPANSION
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_NUCLEARAMPLITUDEEXPANSION
+#define C_INTERFACE_GNDS_V2_0_GENERAL_NUCLEARAMPLITUDEEXPANSION
 
 #include "GNDStk.h"
 #include "v2.0/general/NuclearTerm.h"

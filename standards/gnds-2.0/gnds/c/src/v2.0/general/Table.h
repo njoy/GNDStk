@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_TABLE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_TABLE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_TABLE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_TABLE
 
 #include "GNDStk.h"
 #include "v2.0/general/ColumnHeaders.h"

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ANGULARENERGY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ANGULARENERGY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ANGULARENERGY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ANGULARENERGY
 
 #include "GNDStk.h"
 #include "v2.0/general/XYs3d.h"

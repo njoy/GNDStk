@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_TOP_COVARIANCESUITE
-#define C_INTERFACE_ALPHA_V2_0_TOP_COVARIANCESUITE
+#ifndef C_INTERFACE_GNDS_V2_0_TOP_COVARIANCESUITE
+#define C_INTERFACE_GNDS_V2_0_TOP_COVARIANCESUITE
 
 #include "GNDStk.h"
 #include "v2.0/general/ExternalFiles.h"

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_POLYNOMIAL1D
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_POLYNOMIAL1D
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_POLYNOMIAL1D
+#define C_INTERFACE_GNDS_V2_0_GENERAL_POLYNOMIAL1D
 
 #include "GNDStk.h"
 #include "v2.0/general/Axes.h"

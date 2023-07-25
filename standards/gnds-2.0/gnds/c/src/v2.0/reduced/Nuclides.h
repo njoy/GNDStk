@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_REDUCED_NUCLIDES
-#define C_INTERFACE_ALPHA_V2_0_REDUCED_NUCLIDES
+#ifndef C_INTERFACE_GNDS_V2_0_REDUCED_NUCLIDES
+#define C_INTERFACE_GNDS_V2_0_REDUCED_NUCLIDES
 
 #include "GNDStk.h"
 

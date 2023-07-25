@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_E_CRITICAL
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_E_CRITICAL
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_E_CRITICAL
+#define C_INTERFACE_GNDS_V2_0_GENERAL_E_CRITICAL
 
 #include "GNDStk.h"
 

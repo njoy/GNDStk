@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_J
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_J
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_J
+#define C_INTERFACE_GNDS_V2_0_GENERAL_J
 
 #include "GNDStk.h"
 #include "v2.0/general/LevelSpacing.h"

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERCOVARIANCES
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERCOVARIANCES
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERCOVARIANCES
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERCOVARIANCES
 
 #include "GNDStk.h"
 #include "v2.0/general/ParameterCovariance.h"

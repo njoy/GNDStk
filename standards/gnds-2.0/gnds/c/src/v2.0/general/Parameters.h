@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERS
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERS
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERS
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERS
 
 #include "GNDStk.h"
 #include "v2.0/general/ParameterLink.h"

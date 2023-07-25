@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_COULOMBPLUSNUCLEARELASTIC
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_COULOMBPLUSNUCLEARELASTIC
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_COULOMBPLUSNUCLEARELASTIC
+#define C_INTERFACE_GNDS_V2_0_GENERAL_COULOMBPLUSNUCLEARELASTIC
 
 #include "GNDStk.h"
 #include "v2.0/general/RutherfordScattering.h"

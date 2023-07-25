@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PROMPTGAMMAENERGY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PROMPTGAMMAENERGY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PROMPTGAMMAENERGY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PROMPTGAMMAENERGY
 
 #include "GNDStk.h"
 #include "v2.0/general/Polynomial1d.h"

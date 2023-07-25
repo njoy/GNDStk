@@ -263,7 +263,7 @@ void wrapGeneral(py::module &module)
    // create the general submodule
    py::module submodule = module.def_submodule(
       "general",
-      "alpha v2.0 general"
+      "gnds v2.0 general"
    );
 
    // wrap general components

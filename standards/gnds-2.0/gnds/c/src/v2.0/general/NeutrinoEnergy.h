@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_NEUTRINOENERGY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_NEUTRINOENERGY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_NEUTRINOENERGY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_NEUTRINOENERGY
 
 #include "GNDStk.h"
 #include "v2.0/general/Polynomial1d.h"

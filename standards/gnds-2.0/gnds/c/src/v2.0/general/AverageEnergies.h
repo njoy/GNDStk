@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_AVERAGEENERGIES
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_AVERAGEENERGIES
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_AVERAGEENERGIES
+#define C_INTERFACE_GNDS_V2_0_GENERAL_AVERAGEENERGIES
 
 #include "GNDStk.h"
 #include "v2.0/general/AverageEnergy.h"

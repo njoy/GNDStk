@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_CONFIGURATION
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_CONFIGURATION
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_CONFIGURATION
+#define C_INTERFACE_GNDS_V2_0_GENERAL_CONFIGURATION
 
 #include "GNDStk.h"
 #include "v2.0/general/BindingEnergy.h"

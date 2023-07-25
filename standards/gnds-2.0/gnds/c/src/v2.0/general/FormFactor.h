@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_FORMFACTOR
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_FORMFACTOR
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_FORMFACTOR
+#define C_INTERFACE_GNDS_V2_0_GENERAL_FORMFACTOR
 
 #include "GNDStk.h"
 #include "v2.0/general/XYs1d.h"

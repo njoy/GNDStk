@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_NUCLEARTERM
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_NUCLEARTERM
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_NUCLEARTERM
+#define C_INTERFACE_GNDS_V2_0_GENERAL_NUCLEARTERM
 
 #include "GNDStk.h"
 #include "v2.0/general/Regions2d.h"

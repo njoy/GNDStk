@@ -29,7 +29,7 @@ void wrapReduced(py::module &module)
    // create the reduced submodule
    py::module submodule = module.def_submodule(
       "reduced",
-      "alpha v2.0 reduced"
+      "gnds v2.0 reduced"
    );
 
    // wrap reduced components

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_COLUMNDATA
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_COLUMNDATA
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_COLUMNDATA
+#define C_INTERFACE_GNDS_V2_0_GENERAL_COLUMNDATA
 
 #include "GNDStk.h"
 #include "v2.0/general/Slices.h"

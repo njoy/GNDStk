@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PRODUCTION
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PRODUCTION
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PRODUCTION
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PRODUCTION
 
 #include "GNDStk.h"
 #include "v2.0/general/CrossSection.h"

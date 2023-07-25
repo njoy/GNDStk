@@ -23,7 +23,7 @@ void wrapG3d(py::module &module)
    // create the g3d submodule
    py::module submodule = module.def_submodule(
       "g3d",
-      "alpha v2.0 g3d"
+      "gnds v2.0 g3d"
    );
 
    // wrap g3d components

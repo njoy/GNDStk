@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ARRAY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ARRAY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ARRAY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ARRAY
 
 #include "GNDStk.h"
 #include "v2.0/general/Values.h"

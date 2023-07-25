@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_MULTIPLICITY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_MULTIPLICITY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_MULTIPLICITY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_MULTIPLICITY
 
 #include "GNDStk.h"
 #include "v2.0/general/Constant1d.h"

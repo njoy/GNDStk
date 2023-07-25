@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_DELAYEDNEUTRONKE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_DELAYEDNEUTRONKE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_DELAYEDNEUTRONKE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_DELAYEDNEUTRONKE
 
 #include "GNDStk.h"
 #include "v2.0/general/Polynomial1d.h"

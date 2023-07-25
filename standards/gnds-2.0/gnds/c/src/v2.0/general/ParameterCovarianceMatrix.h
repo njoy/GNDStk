@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERCOVARIANCEMATRIX
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PARAMETERCOVARIANCEMATRIX
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERCOVARIANCEMATRIX
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PARAMETERCOVARIANCEMATRIX
 
 #include "GNDStk.h"
 #include "v2.0/g3d/Array.h"

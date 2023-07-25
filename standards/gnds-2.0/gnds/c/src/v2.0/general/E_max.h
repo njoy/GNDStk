@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_E_MAX
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_E_MAX
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_E_MAX
+#define C_INTERFACE_GNDS_V2_0_GENERAL_E_MAX
 
 #include "GNDStk.h"
 

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_RESONANCEREACTION
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_RESONANCEREACTION
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_RESONANCEREACTION
+#define C_INTERFACE_GNDS_V2_0_GENERAL_RESONANCEREACTION
 
 #include "GNDStk.h"
 #include "v2.0/general/Link.h"

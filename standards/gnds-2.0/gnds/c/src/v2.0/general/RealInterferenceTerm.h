@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_REALINTERFERENCETERM
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_REALINTERFERENCETERM
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_REALINTERFERENCETERM
+#define C_INTERFACE_GNDS_V2_0_GENERAL_REALINTERFERENCETERM
 
 #include "GNDStk.h"
 #include "v2.0/general/Regions2d.h"

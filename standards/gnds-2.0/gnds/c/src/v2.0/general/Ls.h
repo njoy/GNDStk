@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_LS
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_LS
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_LS
+#define C_INTERFACE_GNDS_V2_0_GENERAL_LS
 
 #include "GNDStk.h"
 #include "v2.0/general/L.h"

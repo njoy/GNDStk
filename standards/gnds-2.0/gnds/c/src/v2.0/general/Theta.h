@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_THETA
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_THETA
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_THETA
+#define C_INTERFACE_GNDS_V2_0_GENERAL_THETA
 
 #include "GNDStk.h"
 #include "v2.0/general/XYs1d.h"

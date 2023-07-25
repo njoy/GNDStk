@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_BRANCHING1D
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_BRANCHING1D
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_BRANCHING1D
+#define C_INTERFACE_GNDS_V2_0_GENERAL_BRANCHING1D
 
 #include "GNDStk.h"
 

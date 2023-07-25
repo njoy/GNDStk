@@ -7,7 +7,7 @@
 #include <pybind11/stl.h>
 
 // local includes
-#include "alpha/v2.0/general/Q.hpp"
+#include "gnds/v2.0/general/Q.hpp"
 #include "definitions.hpp"
 
 // namespace aliases
@@ -19,8 +19,8 @@ namespace python_general {
 // wrapper for general::Q
 void wrapQ(py::module &module)
 {
-   using namespace alpha;
-   using namespace alpha::v2_0;
+   using namespace gnds;
+   using namespace gnds::v2_0;
 
    // type aliases
    using cppCLASS = general::Q;

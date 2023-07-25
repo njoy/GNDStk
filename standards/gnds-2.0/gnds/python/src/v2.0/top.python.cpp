@@ -24,7 +24,7 @@ void wrapTop(py::module &module)
    // create the top submodule
    py::module submodule = module.def_submodule(
       "top",
-      "alpha v2.0 top"
+      "gnds v2.0 top"
    );
 
    // wrap top components

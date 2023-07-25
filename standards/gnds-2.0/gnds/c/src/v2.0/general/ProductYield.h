@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_PRODUCTYIELD
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_PRODUCTYIELD
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_PRODUCTYIELD
+#define C_INTERFACE_GNDS_V2_0_GENERAL_PRODUCTYIELD
 
 #include "GNDStk.h"
 #include "v2.0/reduced/Nuclides.h"

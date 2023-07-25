@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_INCIDENTENERGY
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_INCIDENTENERGY
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_INCIDENTENERGY
+#define C_INTERFACE_GNDS_V2_0_GENERAL_INCIDENTENERGY
 
 #include "GNDStk.h"
 #include "v2.0/general/Energy.h"

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_DATE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_DATE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_DATE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_DATE
 
 #include "GNDStk.h"
 

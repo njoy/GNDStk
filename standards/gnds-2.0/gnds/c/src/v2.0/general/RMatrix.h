@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_RMATRIX
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_RMATRIX
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_RMATRIX
+#define C_INTERFACE_GNDS_V2_0_GENERAL_RMATRIX
 
 #include "GNDStk.h"
 #include "v2.0/top/PoPs.h"

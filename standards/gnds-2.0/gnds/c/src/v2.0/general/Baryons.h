@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_BARYONS
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_BARYONS
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_BARYONS
+#define C_INTERFACE_GNDS_V2_0_GENERAL_BARYONS
 
 #include "GNDStk.h"
 #include "v2.0/general/Baryon.h"

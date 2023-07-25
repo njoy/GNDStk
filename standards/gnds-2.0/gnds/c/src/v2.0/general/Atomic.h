@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ATOMIC
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ATOMIC
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ATOMIC
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ATOMIC
 
 #include "GNDStk.h"
 #include "v2.0/general/Configurations.h"

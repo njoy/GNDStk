@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_G3D_ARRAY
-#define C_INTERFACE_ALPHA_V2_0_G3D_ARRAY
+#ifndef C_INTERFACE_GNDS_V2_0_G3D_ARRAY
+#define C_INTERFACE_GNDS_V2_0_G3D_ARRAY
 
 #include "GNDStk.h"
 #include "v2.0/g3d/Starts.h"

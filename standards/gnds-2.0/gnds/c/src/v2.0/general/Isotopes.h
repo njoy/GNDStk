@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_ISOTOPES
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_ISOTOPES
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_ISOTOPES
+#define C_INTERFACE_GNDS_V2_0_GENERAL_ISOTOPES
 
 #include "GNDStk.h"
 #include "v2.0/general/Isotope.h"

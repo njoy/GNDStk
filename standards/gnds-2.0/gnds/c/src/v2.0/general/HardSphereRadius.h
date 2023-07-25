@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_HARDSPHERERADIUS
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_HARDSPHERERADIUS
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_HARDSPHERERADIUS
+#define C_INTERFACE_GNDS_V2_0_GENERAL_HARDSPHERERADIUS
 
 #include "GNDStk.h"
 #include "v2.0/general/Constant1d.h"

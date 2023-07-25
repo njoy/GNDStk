@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_SUMS
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_SUMS
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_SUMS
+#define C_INTERFACE_GNDS_V2_0_GENERAL_SUMS
 
 #include "GNDStk.h"
 #include "v2.0/general/CrossSectionSums.h"

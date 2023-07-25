@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_SHELL
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_SHELL
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_SHELL
+#define C_INTERFACE_GNDS_V2_0_GENERAL_SHELL
 
 #include "GNDStk.h"
 #include "v2.0/general/Uncertainty.h"

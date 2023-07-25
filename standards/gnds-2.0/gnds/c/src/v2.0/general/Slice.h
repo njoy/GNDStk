@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_SLICE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_SLICE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_SLICE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_SLICE
 
 #include "GNDStk.h"
 

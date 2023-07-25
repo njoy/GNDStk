@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_RECOIL
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_RECOIL
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_RECOIL
+#define C_INTERFACE_GNDS_V2_0_GENERAL_RECOIL
 
 #include "GNDStk.h"
 

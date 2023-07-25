@@ -21,7 +21,7 @@ void wrapG2d(py::module &module)
    // create the g2d submodule
    py::module submodule = module.def_submodule(
       "g2d",
-      "alpha v2.0 g2d"
+      "gnds v2.0 g2d"
    );
 
    // wrap g2d components

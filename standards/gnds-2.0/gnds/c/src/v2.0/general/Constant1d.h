@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_CONSTANT1D
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_CONSTANT1D
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_CONSTANT1D
+#define C_INTERFACE_GNDS_V2_0_GENERAL_CONSTANT1D
 
 #include "GNDStk.h"
 #include "v2.0/general/Axes.h"

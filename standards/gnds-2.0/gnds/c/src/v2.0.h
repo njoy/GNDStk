@@ -6,14 +6,14 @@
 // This header file is designed to work with both C and C++
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0
-#define C_INTERFACE_ALPHA_V2_0
+#ifndef C_INTERFACE_GNDS_V2_0
+#define C_INTERFACE_GNDS_V2_0
 
 #include "GNDStk.h"
 
 #ifdef __cplusplus
    // For C++
-   #include "alpha/v2.0.hpp"
+   #include "gnds/v2.0.hpp"
 #endif
 
 #include "v2.0/general/Add.h"

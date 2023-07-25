@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_EXTERNALFILE
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_EXTERNALFILE
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_EXTERNALFILE
+#define C_INTERFACE_GNDS_V2_0_GENERAL_EXTERNALFILE
 
 #include "GNDStk.h"
 

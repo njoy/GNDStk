@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_REDUCED_DISTRIBUTION
-#define C_INTERFACE_ALPHA_V2_0_REDUCED_DISTRIBUTION
+#ifndef C_INTERFACE_GNDS_V2_0_REDUCED_DISTRIBUTION
+#define C_INTERFACE_GNDS_V2_0_REDUCED_DISTRIBUTION
 
 #include "GNDStk.h"
 #include "v2.0/general/ThermalNeutronScatteringLaw.h"

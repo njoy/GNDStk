@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_FISSIONENERGYRELEASES
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_FISSIONENERGYRELEASES
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_FISSIONENERGYRELEASES
+#define C_INTERFACE_GNDS_V2_0_GENERAL_FISSIONENERGYRELEASES
 
 #include "GNDStk.h"
 #include "v2.0/general/FissionEnergyRelease.h"

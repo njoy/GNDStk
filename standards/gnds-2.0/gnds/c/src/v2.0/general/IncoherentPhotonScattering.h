@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_GENERAL_INCOHERENTPHOTONSCATTERING
-#define C_INTERFACE_ALPHA_V2_0_GENERAL_INCOHERENTPHOTONSCATTERING
+#ifndef C_INTERFACE_GNDS_V2_0_GENERAL_INCOHERENTPHOTONSCATTERING
+#define C_INTERFACE_GNDS_V2_0_GENERAL_INCOHERENTPHOTONSCATTERING
 
 #include "GNDStk.h"
 #include "v2.0/general/ScatteringFactor.h"

@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_TOP_REACTIONSUITE
-#define C_INTERFACE_ALPHA_V2_0_TOP_REACTIONSUITE
+#ifndef C_INTERFACE_GNDS_V2_0_TOP_REACTIONSUITE
+#define C_INTERFACE_GNDS_V2_0_TOP_REACTIONSUITE
 
 #include "GNDStk.h"
 #include "v2.0/general/Styles.h"

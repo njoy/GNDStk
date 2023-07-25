@@ -28,8 +28,8 @@
 // Preliminaries
 // -----------------------------------------------------------------------------
 
-#ifndef C_INTERFACE_ALPHA_V2_0_G3D_STARTS
-#define C_INTERFACE_ALPHA_V2_0_G3D_STARTS
+#ifndef C_INTERFACE_GNDS_V2_0_G3D_STARTS
+#define C_INTERFACE_GNDS_V2_0_G3D_STARTS
 
 #include "GNDStk.h"
 
