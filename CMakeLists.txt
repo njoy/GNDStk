@@ -72,20 +72,20 @@ pybind11_add_module(
     GNDStk.python.old
     EXCLUDE_FROM_ALL
     python/src/GNDStk.python.cpp
-    python/src/v2.0/GNDS.python.cpp
     python/src/core/Node.python.cpp
-    python/src/BoundaryCondition.python.cpp
-    python/src/ContributorType.python.cpp
-    python/src/DateType.python.cpp
-    python/src/DecayType.python.cpp
-    python/src/Frame.python.cpp
-    python/src/GridStyle.python.cpp
-    python/src/HashAlgorithm.python.cpp
-    python/src/Interaction.python.cpp
-    python/src/Interpolation.python.cpp
-    python/src/InterpolationQualifier.python.cpp
-    python/src/Parity.python.cpp
-    python/src/RelationType.python.cpp
+    python/src/enums/BoundaryCondition.python.cpp
+    python/src/enums/ContributorType.python.cpp
+    python/src/enums/DateType.python.cpp
+    python/src/enums/DecayType.python.cpp
+    python/src/enums/Frame.python.cpp
+    python/src/enums/GridStyle.python.cpp
+    python/src/enums/HashAlgorithm.python.cpp
+    python/src/enums/Interaction.python.cpp
+    python/src/enums/Interpolation.python.cpp
+    python/src/enums/InterpolationQualifier.python.cpp
+    python/src/enums/Parity.python.cpp
+    python/src/enums/RelationType.python.cpp
+    python/src/v2.0/GNDS.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/g3d/Starts.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/g3d/Lengths.python.cpp
     standards/gnds-2.0-alpha/alpha/python/src/v2.0/g3d/Array.python.cpp
