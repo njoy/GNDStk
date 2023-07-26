@@ -135,7 +135,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -149,7 +149,7 @@ public:
 
    // default
    Grid() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -170,7 +170,7 @@ public:
       const wrapper<link_values_t>
          &link_values = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
       interpolation(this,defaults.interpolation,interpolation),
       label(this,label),
@@ -183,14 +183,14 @@ public:
 
    // from node
    explicit Grid(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Grid(const Grid &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       index(this,other.index),
       interpolation(this,other.interpolation),
@@ -204,7 +204,7 @@ public:
 
    // move
    Grid(Grid &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       interpolation(this,std::move(other.interpolation)),
@@ -257,7 +257,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/containers/Grid/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Grid
 
 } // namespace containers

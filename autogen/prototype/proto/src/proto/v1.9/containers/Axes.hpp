@@ -106,7 +106,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -116,7 +116,7 @@ public:
 
    // default
    Axes() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -128,7 +128,7 @@ public:
       const wrapper<std::vector<axis_grid_t>>
          &axis_grid = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
       axis_grid(this,axis_grid)
    {
@@ -137,14 +137,14 @@ public:
 
    // from node
    explicit Axes(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Axes(const Axes &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       href(this,other.href),
       axis_grid(this,other.axis_grid)
@@ -154,7 +154,7 @@ public:
 
    // move
    Axes(Axes &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       axis_grid(this,std::move(other.axis_grid))
@@ -195,7 +195,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/containers/Axes/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Axes
 
 } // namespace containers

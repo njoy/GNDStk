@@ -111,7 +111,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -123,7 +123,7 @@ public:
 
    // default
    Element() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -139,7 +139,7 @@ public:
       const wrapper<std::optional<multigroup::Foobar>>
          &foobar = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
       atomic_number(this,atomic_number),
       isotope(this,isotope),
@@ -150,14 +150,14 @@ public:
 
    // from node
    explicit Element(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Element(const Element &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       symbol(this,other.symbol),
       atomic_number(this,other.atomic_number),
@@ -169,7 +169,7 @@ public:
 
    // move
    Element(Element &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       atomic_number(this,std::move(other.atomic_number)),
@@ -216,7 +216,7 @@ public:
    // ------------------------
 
    #include "multi/v1/multigroup/Element/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Element
 
 } // namespace multigroup

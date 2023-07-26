@@ -98,7 +98,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -108,7 +108,7 @@ public:
 
    // default
    Foobar() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -118,7 +118,7 @@ public:
       const wrapper<std::string>
          &value
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value)
    {
       Component::finish();
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit Foobar(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // from vector<double>
    explicit Foobar(const std::vector<double> &vector) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {
       Component::finish(vector);
@@ -141,7 +141,7 @@ public:
 
    // copy
    Foobar(const Foobar &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(other),
       comment(this,other.comment),
       value(this,other.value)
@@ -151,7 +151,7 @@ public:
 
    // move
    Foobar(Foobar &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(std::move(other)),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value))
@@ -192,7 +192,7 @@ public:
    // ------------------------
 
    #include "multi/v1/multigroup/Foobar/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Foobar
 
 } // namespace multigroup

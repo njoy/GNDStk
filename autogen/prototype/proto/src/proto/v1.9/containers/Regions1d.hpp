@@ -111,7 +111,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -123,7 +123,7 @@ public:
 
    // default
    Regions1d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -139,7 +139,7 @@ public:
       const wrapper<std::vector<containers::XYs1d>>
          &XYs1d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       outerDomainValue(this,outerDomainValue),
       axes(this,axes),
@@ -150,14 +150,14 @@ public:
 
    // from node
    explicit Regions1d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Regions1d(const Regions1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       outerDomainValue(this,other.outerDomainValue),
@@ -169,7 +169,7 @@ public:
 
    // move
    Regions1d(Regions1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
@@ -216,7 +216,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/containers/Regions1d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Regions1d
 
 } // namespace containers

@@ -19,8 +19,8 @@ namespace python = pybind11;
 // macros
 // -----------------------------------------------------------------------------
 
-// GNDSTK_PROPERTY
-#define GNDSTK_PROPERTY(class,pyname,cppvar) \
+// NJOY_GNDSTK_PROPERTY
+#define NJOY_GNDSTK_PROPERTY(class,pyname,cppvar) \
 class.def_property_static( \
    #pyname, \
    [](python::object) \
@@ -33,8 +33,8 @@ class.def_property_static( \
    } \
 )
 
-// GNDSTK_COLOR
-#define GNDSTK_COLOR(class,pyname,cppvar) \
+// NJOY_GNDSTK_COLOR
+#define NJOY_GNDSTK_COLOR(class,pyname,cppvar) \
 class.def_property_static( \
    #pyname, \
    [](python::object) \
@@ -98,7 +98,7 @@ void submodule_settings(python::module &gnds)
    struct Read { };
    python::class_<Read> read(settings,"read");
 
-   GNDSTK_PROPERTY(read, threads, njoy::GNDStk::threads);
+   NJOY_GNDSTK_PROPERTY(read, threads, njoy::GNDStk::threads);
 
    // ------------------------
    // Module: settings
@@ -108,13 +108,13 @@ void submodule_settings(python::module &gnds)
    struct Write { };
    python::class_<Write> write(settings,"write");
 
-   GNDSTK_PROPERTY(write, comments, njoy::GNDStk::comments);
-   GNDSTK_PROPERTY(write, indent,   njoy::GNDStk::indent  );
-   GNDSTK_PROPERTY(write, align,    njoy::GNDStk::align   );
-   GNDSTK_PROPERTY(write, columns,  njoy::GNDStk::columns );
-   GNDSTK_PROPERTY(write, elements, njoy::GNDStk::elements);
-   GNDSTK_PROPERTY(write, colors,   njoy::GNDStk::colors  );
-   GNDSTK_PROPERTY(write, shades,   njoy::GNDStk::shades  );
+   NJOY_GNDSTK_PROPERTY(write, comments, njoy::GNDStk::comments);
+   NJOY_GNDSTK_PROPERTY(write, indent,   njoy::GNDStk::indent  );
+   NJOY_GNDSTK_PROPERTY(write, align,    njoy::GNDStk::align   );
+   NJOY_GNDSTK_PROPERTY(write, columns,  njoy::GNDStk::columns );
+   NJOY_GNDSTK_PROPERTY(write, elements, njoy::GNDStk::elements);
+   NJOY_GNDSTK_PROPERTY(write, colors,   njoy::GNDStk::colors  );
+   NJOY_GNDSTK_PROPERTY(write, shades,   njoy::GNDStk::shades  );
 
    // ------------------------
    // Module: settings
@@ -124,10 +124,10 @@ void submodule_settings(python::module &gnds)
    struct Report { };
    python::class_<Report> report(settings,"report");
 
-   GNDSTK_PROPERTY(report, notes,    njoy::GNDStk::notes);
-   GNDSTK_PROPERTY(report, warnings, njoy::GNDStk::warnings);
-   GNDSTK_PROPERTY(report, context,  njoy::GNDStk::context);
-   GNDSTK_PROPERTY(report, debug,    njoy::GNDStk::debug);
+   NJOY_GNDSTK_PROPERTY(report, notes,    njoy::GNDStk::notes);
+   NJOY_GNDSTK_PROPERTY(report, warnings, njoy::GNDStk::warnings);
+   NJOY_GNDSTK_PROPERTY(report, context,  njoy::GNDStk::context);
+   NJOY_GNDSTK_PROPERTY(report, debug,    njoy::GNDStk::debug);
 
    // ------------------------
    // Module: settings
@@ -137,7 +137,7 @@ void submodule_settings(python::module &gnds)
    struct Sort { };
    python::class_<Sort> sort(settings,"sort");
 
-   GNDSTK_PROPERTY(sort, fields, njoy::GNDStk::sort);
+   NJOY_GNDSTK_PROPERTY(sort, fields, njoy::GNDStk::sort);
 }
 
 
@@ -160,11 +160,11 @@ void submodule_colors(python::module &gnds)
    struct Required { };
    python::class_<Required> required(colors,"required");
 
-   GNDSTK_COLOR(required, field,   njoy::GNDStk::color::field);
-   GNDSTK_COLOR(required, vector,  njoy::GNDStk::color::vector);
-   GNDSTK_COLOR(required, label,   njoy::GNDStk::color::label);
-   GNDSTK_COLOR(required, value,   njoy::GNDStk::color::value);
-   GNDSTK_COLOR(required, comment, njoy::GNDStk::color::comment);
+   NJOY_GNDSTK_COLOR(required, field,   njoy::GNDStk::color::field);
+   NJOY_GNDSTK_COLOR(required, vector,  njoy::GNDStk::color::vector);
+   NJOY_GNDSTK_COLOR(required, label,   njoy::GNDStk::color::label);
+   NJOY_GNDSTK_COLOR(required, value,   njoy::GNDStk::color::value);
+   NJOY_GNDSTK_COLOR(required, comment, njoy::GNDStk::color::comment);
 
    // ------------------------
    // Module: colors
@@ -174,10 +174,10 @@ void submodule_colors(python::module &gnds)
    struct Optional { };
    python::class_<Optional> optional(colors,"optional");
 
-   GNDSTK_COLOR(optional, field,  njoy::GNDStk::color::optional::field);
-   GNDSTK_COLOR(optional, vector, njoy::GNDStk::color::optional::vector);
-   GNDSTK_COLOR(optional, label,  njoy::GNDStk::color::optional::label);
-   GNDSTK_COLOR(optional, value,  njoy::GNDStk::color::optional::value);
+   NJOY_GNDSTK_COLOR(optional, field,  njoy::GNDStk::color::optional::field);
+   NJOY_GNDSTK_COLOR(optional, vector, njoy::GNDStk::color::optional::vector);
+   NJOY_GNDSTK_COLOR(optional, label,  njoy::GNDStk::color::optional::label);
+   NJOY_GNDSTK_COLOR(optional, value,  njoy::GNDStk::color::optional::value);
 
    // ------------------------
    // Module: colors
@@ -187,8 +187,8 @@ void submodule_colors(python::module &gnds)
    struct Data { };
    python::class_<Data> data(colors,"data");
 
-   GNDSTK_COLOR(data, string, njoy::GNDStk::color::data::string);
-   GNDSTK_COLOR(data, vector, njoy::GNDStk::color::data::vector);
+   NJOY_GNDSTK_COLOR(data, string, njoy::GNDStk::color::data::string);
+   NJOY_GNDSTK_COLOR(data, vector, njoy::GNDStk::color::data::vector);
 }
 
 
@@ -214,11 +214,11 @@ void submodule_format(python::module &gnds)
    struct Todo { };
    python::class_<Todo> todo(format,"todo");
 
-   GNDSTK_COLOR(todo, field,   njoy::GNDStk::color::field);
-   GNDSTK_COLOR(todo, vector,  njoy::GNDStk::color::vector);
-   GNDSTK_COLOR(todo, label,   njoy::GNDStk::color::label);
-   GNDSTK_COLOR(todo, value,   njoy::GNDStk::color::value);
-   GNDSTK_COLOR(todo, comment, njoy::GNDStk::color::comment);
+   NJOY_GNDSTK_COLOR(todo, field,   njoy::GNDStk::color::field);
+   NJOY_GNDSTK_COLOR(todo, vector,  njoy::GNDStk::color::vector);
+   NJOY_GNDSTK_COLOR(todo, label,   njoy::GNDStk::color::label);
+   NJOY_GNDSTK_COLOR(todo, value,   njoy::GNDStk::color::value);
+   NJOY_GNDSTK_COLOR(todo, comment, njoy::GNDStk::color::comment);
    */
 }
 
@@ -271,5 +271,5 @@ PYBIND11_MODULE(GNDStk,module)
    submodule_format(module);
 }
 
-#undef GNDSTK_PROPERTY
-#undef GNDSTK_COLOR
+#undef NJOY_GNDSTK_PROPERTY
+#undef NJOY_GNDSTK_COLOR

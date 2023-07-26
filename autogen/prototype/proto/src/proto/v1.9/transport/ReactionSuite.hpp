@@ -128,7 +128,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -143,7 +143,7 @@ public:
 
    // default
    ReactionSuite() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -165,7 +165,7 @@ public:
       const wrapper<std::optional<transport::Reactions>>
          &reactions = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       evaluation(this,evaluation),
       format(this,format),
       projectile(this,projectile),
@@ -179,14 +179,14 @@ public:
 
    // from node
    explicit ReactionSuite(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       evaluation(this,other.evaluation),
       format(this,other.format),
@@ -201,7 +201,7 @@ public:
 
    // move
    ReactionSuite(ReactionSuite &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       evaluation(this,std::move(other.evaluation)),
       format(this,std::move(other.format)),
@@ -257,7 +257,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/transport/ReactionSuite/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ReactionSuite
 
 } // namespace transport

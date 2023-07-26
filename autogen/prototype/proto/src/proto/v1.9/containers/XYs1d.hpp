@@ -128,7 +128,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -142,7 +142,7 @@ public:
 
    // default
    XYs1d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -163,7 +163,7 @@ public:
       const wrapper<containers::Values>
          &values = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
       interpolation(this,defaults.interpolation,interpolation),
       label(this,label),
@@ -176,14 +176,14 @@ public:
 
    // from node
    explicit XYs1d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    XYs1d(const XYs1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       index(this,other.index),
       interpolation(this,other.interpolation),
@@ -197,7 +197,7 @@ public:
 
    // move
    XYs1d(XYs1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       interpolation(this,std::move(other.interpolation)),
@@ -250,7 +250,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/containers/XYs1d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class XYs1d
 
 } // namespace containers

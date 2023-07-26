@@ -98,7 +98,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -108,7 +108,7 @@ public:
 
    // default
    Library() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -120,7 +120,7 @@ public:
       const wrapper<std::vector<multigroup::Element>>
          &element = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
       element(this,element)
    {
@@ -129,14 +129,14 @@ public:
 
    // from node
    explicit Library(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Library(const Library &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       name(this,other.name),
       element(this,other.element)
@@ -146,7 +146,7 @@ public:
 
    // move
    Library(Library &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       element(this,std::move(other.element))
@@ -187,7 +187,7 @@ public:
    // ------------------------
 
    #include "multi/v1/multigroup/Library/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Library
 
 } // namespace multigroup

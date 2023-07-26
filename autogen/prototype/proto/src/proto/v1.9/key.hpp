@@ -21,34 +21,36 @@ using namespace GNDStk;
 
 namespace meta {
 
-#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
+#define NJOY_GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
    inline const auto nameField = makeLookup( \
       #nameGNDS, \
       [](const auto &obj) -> decltype(obj.nameField()) \
-      { return obj.nameField(); } \
+      { \
+         return obj.nameField(); \
+      } \
    )
-// nameField vs. nameGNDS: for, e.g., Double vs. double in GNDS
+// nameField vs. nameGNDS: e.g. Double, vs. double in GNDS; usually identical
 
-GNDSTK_MAKE_LOOKUP(ENDF_MT,ENDF_MT);
-GNDSTK_MAKE_LOOKUP(evaluation,evaluation);
-GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
-GNDSTK_MAKE_LOOKUP(format,format);
-GNDSTK_MAKE_LOOKUP(href,href);
-GNDSTK_MAKE_LOOKUP(index,index);
-GNDSTK_MAKE_LOOKUP(interaction,interaction);
-GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
-GNDSTK_MAKE_LOOKUP(label,label);
-GNDSTK_MAKE_LOOKUP(length,length);
-GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
-GNDSTK_MAKE_LOOKUP(projectile,projectile);
-GNDSTK_MAKE_LOOKUP(projectileFrame,projectileFrame);
-GNDSTK_MAKE_LOOKUP(start,start);
-GNDSTK_MAKE_LOOKUP(style,style);
-GNDSTK_MAKE_LOOKUP(target,target);
-GNDSTK_MAKE_LOOKUP(unit,unit);
-GNDSTK_MAKE_LOOKUP(valueType,valueType);
+NJOY_GNDSTK_MAKE_LOOKUP(ENDF_MT,ENDF_MT);
+NJOY_GNDSTK_MAKE_LOOKUP(evaluation,evaluation);
+NJOY_GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
+NJOY_GNDSTK_MAKE_LOOKUP(format,format);
+NJOY_GNDSTK_MAKE_LOOKUP(href,href);
+NJOY_GNDSTK_MAKE_LOOKUP(index,index);
+NJOY_GNDSTK_MAKE_LOOKUP(interaction,interaction);
+NJOY_GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
+NJOY_GNDSTK_MAKE_LOOKUP(label,label);
+NJOY_GNDSTK_MAKE_LOOKUP(length,length);
+NJOY_GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
+NJOY_GNDSTK_MAKE_LOOKUP(projectile,projectile);
+NJOY_GNDSTK_MAKE_LOOKUP(projectileFrame,projectileFrame);
+NJOY_GNDSTK_MAKE_LOOKUP(start,start);
+NJOY_GNDSTK_MAKE_LOOKUP(style,style);
+NJOY_GNDSTK_MAKE_LOOKUP(target,target);
+NJOY_GNDSTK_MAKE_LOOKUP(unit,unit);
+NJOY_GNDSTK_MAKE_LOOKUP(valueType,valueType);
 
-#undef GNDSTK_MAKE_LOOKUP
+#undef NJOY_GNDSTK_MAKE_LOOKUP
 
 } // namespace meta
 

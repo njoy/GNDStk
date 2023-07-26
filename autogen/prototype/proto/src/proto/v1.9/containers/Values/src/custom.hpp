@@ -42,7 +42,7 @@ public:
           const std::optional< int >& start,
           const std::optional< std::string >& valueType,
           const std::vector< T >& values ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       valueType(this,defaults.valueType,valueType),
       start(this,defaults.start,start),
       length(this,length)

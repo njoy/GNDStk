@@ -110,7 +110,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -122,7 +122,7 @@ public:
 
    // default
    Reaction() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -138,7 +138,7 @@ public:
       const wrapper<transport::CrossSection>
          &crossSection = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       ENDF_MT(this,ENDF_MT),
       fissionGenre(this,fissionGenre),
       label(this,label),
@@ -149,14 +149,14 @@ public:
 
    // from node
    explicit Reaction(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Reaction(const Reaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       ENDF_MT(this,other.ENDF_MT),
       fissionGenre(this,other.fissionGenre),
@@ -168,7 +168,7 @@ public:
 
    // move
    Reaction(Reaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
       fissionGenre(this,std::move(other.fissionGenre)),
@@ -215,7 +215,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/transport/Reaction/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Reaction
 
 } // namespace transport

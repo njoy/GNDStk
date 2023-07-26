@@ -96,7 +96,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    CrossSection() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -115,7 +115,7 @@ public:
       const wrapper<std::vector<XYs1d_regions1d_t>>
          &XYs1d_regions1d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d_regions1d(this,XYs1d_regions1d)
    {
       Component::finish();
@@ -123,14 +123,14 @@ public:
 
    // from node
    explicit CrossSection(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    CrossSection(const CrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d_regions1d(this,other.XYs1d_regions1d)
    {
@@ -139,7 +139,7 @@ public:
 
    // move
    CrossSection(CrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d_regions1d(this,std::move(other.XYs1d_regions1d))
    {
@@ -177,7 +177,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/transport/CrossSection/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class CrossSection
 
 } // namespace transport

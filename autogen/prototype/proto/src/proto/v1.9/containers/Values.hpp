@@ -107,7 +107,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -118,7 +118,7 @@ public:
 
    // default
    Values() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -133,7 +133,7 @@ public:
       const wrapper<std::optional<int>>
          &length = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       valueType(this,defaults.valueType,valueType),
       start(this,defaults.start,start),
       length(this,length)
@@ -143,7 +143,7 @@ public:
 
    // from node
    explicit Values(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
@@ -151,14 +151,14 @@ public:
    // from vector
    template<class T, class = std::enable_if_t<BLOCKDATA::template supported<T>>>
    explicit Values(const std::vector<T> &vector) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(vector);
    }
 
    // copy
    Values(const Values &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       valueType(this,other.valueType),
       start(this,other.start),
@@ -169,7 +169,7 @@ public:
 
    // move
    Values(Values &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       valueType(this,std::move(other.valueType)),
       start(this,std::move(other.start)),
@@ -213,7 +213,7 @@ public:
    // ------------------------
 
    #include "proto/v1.9/containers/Values/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Values
 
 } // namespace containers

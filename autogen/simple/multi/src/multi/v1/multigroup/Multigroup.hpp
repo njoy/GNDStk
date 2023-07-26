@@ -98,7 +98,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -108,7 +108,7 @@ public:
 
    // default
    Multigroup() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -120,7 +120,7 @@ public:
       const wrapper<std::vector<multigroup::Library>>
          &library = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
       library(this,library)
    {
@@ -129,14 +129,14 @@ public:
 
    // from node
    explicit Multigroup(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Multigroup(const Multigroup &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       projectile(this,other.projectile),
       library(this,other.library)
@@ -146,7 +146,7 @@ public:
 
    // move
    Multigroup(Multigroup &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       projectile(this,std::move(other.projectile)),
       library(this,std::move(other.library))
@@ -187,7 +187,7 @@ public:
    // ------------------------
 
    #include "multi/v1/multigroup/Multigroup/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Multigroup
 
 } // namespace multigroup

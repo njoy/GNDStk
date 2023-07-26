@@ -21,7 +21,7 @@ using namespace GNDStk;
 
 namespace meta {
 
-#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
+#define NJOY_GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
    inline const auto nameField = makeLookup( \
       #nameGNDS, \
       [](const auto &obj) -> decltype(obj.nameField()) \
@@ -31,14 +31,14 @@ namespace meta {
    )
 // nameField vs. nameGNDS: e.g. Double, vs. double in GNDS; usually identical
 
-GNDSTK_MAKE_LOOKUP(atomic_number,atomic_number);
-GNDSTK_MAKE_LOOKUP(mass_number,mass_number);
-GNDSTK_MAKE_LOOKUP(name,name);
-GNDSTK_MAKE_LOOKUP(projectile,projectile);
-GNDSTK_MAKE_LOOKUP(symbol,symbol);
-GNDSTK_MAKE_LOOKUP(value,value);
+NJOY_GNDSTK_MAKE_LOOKUP(atomic_number,atomic_number);
+NJOY_GNDSTK_MAKE_LOOKUP(mass_number,mass_number);
+NJOY_GNDSTK_MAKE_LOOKUP(name,name);
+NJOY_GNDSTK_MAKE_LOOKUP(projectile,projectile);
+NJOY_GNDSTK_MAKE_LOOKUP(symbol,symbol);
+NJOY_GNDSTK_MAKE_LOOKUP(value,value);
 
-#undef GNDSTK_MAKE_LOOKUP
+#undef NJOY_GNDSTK_MAKE_LOOKUP
 
 } // namespace meta
 
